@@ -88,11 +88,11 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
       disabled={disabled}
     >
       <Label>{t('stops.stopArea.label')}</Label>
-      <div className="flex h-[--input-height]">
+      <div className="flex h-(--input-height)">
         <ComboboxInput<StopModalStopAreaFormSchema>
           ref={ref}
           className={comboboxStyles.input(
-            'grow border-r-0 outline-0 ui-not-open:rounded-br-none ui-not-open:rounded-tr-none',
+            'grow border-r-0 outline-0 ui-not-open:rounded-tr-none ui-not-open:rounded-br-none',
             'ui-open:rounded-bl-none',
           )}
           onChange={(e) => onQueryChange(e.target.value)}
@@ -103,7 +103,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
         <ComboboxButton
           disabled={!query}
           className={comboboxStyles.button(
-            'static flex h-[--input-height] w-[--input-height] justify-center rounded-br-[5px] rounded-tr-[5px] bg-tweaked-brand text-xl',
+            'static flex h-(--input-height) w-(--input-height) justify-center rounded-tr-[5px] rounded-br-[5px] bg-tweaked-brand text-xl',
             'ui-open:rounded-br-none',
           )}
           title={t('stops.stopArea.search')}
@@ -138,10 +138,10 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
             value={area}
             data-testid={testIds.result(area.privateCode)}
           >
-            <span className="flex-shrink-0 self-start font-bold">
+            <span className="shrink-0 self-start font-bold">
               {area.privateCode}
             </span>
-            <div className="mx-2 flex flex-grow flex-col">
+            <div className="mx-2 flex grow flex-col">
               <span>{area.nameFin ?? area.nameSwe}</span>
               <span className="font-bold">
                 {`${formatIsoDateString(area.validityStart)} - ${formatIsoDateString(area.validityEnd)}`}
@@ -152,7 +152,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
 
         {!query && !loading && (
           <ComboboxOption
-            className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-none ui-active:bg-dark-grey ui-active:text-white"
+            className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-hidden ui-active:bg-dark-grey ui-active:text-white"
             value={null}
             disabled
           >

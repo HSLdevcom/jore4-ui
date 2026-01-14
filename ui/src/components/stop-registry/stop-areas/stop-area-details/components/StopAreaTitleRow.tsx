@@ -46,15 +46,15 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
         {area.name ?? null}
       </div>
 
-      <div className="flex-grow" />
+      <div className="grow" />
       <LocatorButton
         onClick={onClickAreaMap}
         tooltipText={t('stopRegistrySearch.showStopAreaOnMap')}
         testId={testIds.locatorButton}
-        className="mr-2 mt-5"
+        className="mt-5 mr-2"
       />
       <TitleRowActions
-        className="mr-4 mt-5"
+        className="mt-5 mr-4"
         area={area}
         showOnMap={onClickAreaMap}
       />

@@ -73,7 +73,7 @@ export const StopsByLineCountAndSortingRow: FC<
         resultSelection={resultSelection}
       />
 
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <SortResultsBy
         groupOnlyFields={groupOnlyFields}

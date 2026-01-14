@@ -59,7 +59,7 @@ export const CopyStopAreaForm: FC<CopyStopAreaFormProps> = ({
           <ValidityPeriodForm />
         </FormRow>
 
-        <Row className="-mx-12 !-mb-8 justify-end space-x-4 border border-light-grey bg-background px-12 py-2">
+        <Row className="-mx-12 -mb-8 justify-end space-x-4 border border-light-grey bg-background px-12 py-2">
           <SimpleButton
             inverted
             onClick={onCancel}

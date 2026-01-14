@@ -45,7 +45,7 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
           <span className="mx-1">-</span>
           {mapToShortDate(stop.validityEnd)}
         </span>
-        <div className="flex-grow" />
+        <div className="grow" />
 
         {!isDisabled && (
           <MdOutlineAddCircle className="text-hsl mx-1 text-2xl text-brand" />

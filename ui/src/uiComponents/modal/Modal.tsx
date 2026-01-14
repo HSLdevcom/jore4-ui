@@ -25,7 +25,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = ({
       onClose={onClose}
       className={twMerge('relative z-40', dialogClassName)}
     >
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-black/50">
         <div
           className={twMerge(
             'overflow-y-auto bg-white drop-shadow-md',

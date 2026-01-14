@@ -35,7 +35,7 @@ export const StopArea: FC<StopAreaProps> = ({
 
   return (
     <Marker
-      className="z-[1]"
+      className="z-1"
       longitude={point.longitude}
       latitude={point.latitude}
     >

@@ -9,7 +9,7 @@ import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
-import { IconButton, getHoverStyles } from '../../../uiComponents';
+import { IconButton } from '../../../uiComponents';
 
 const testIds = {
   container: 'VehicleJourneyGroupInfo',
@@ -78,9 +78,9 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
           dayType: getLocalizedTextFromDbBlob(dayTypeNameI18n),
         })}
         className={twMerge(
-          'mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base disabled:text-light-grey',
-          getHoverStyles(false, isDisabled),
-          'hover:bg-light-grey',
+          'mr-2 h-8 w-16 rounded-xs border border-light-grey bg-white text-base',
+          'disabled:text-light-grey',
+          'enabled:hover:border-tweaked-brand enabled:hover:bg-light-grey enabled:hover:outline-tweaked-brand',
         )}
         disabled={isDisabled}
         onClick={changeVehicleScheduleFrameValidity}

@@ -84,12 +84,12 @@ export const StopTableRow: FC<StopTableRowProps> = ({
       />
 
       <IconsTd
-        className={`w-auto px-2 ${yBorderClassNames} whitespace-nowrap border-l border-l-background`}
+        className={`w-auto px-2 ${yBorderClassNames} border-l border-l-background whitespace-nowrap`}
         stop={stop}
       />
 
       <ValidityPeriodTd
-        className={`w-auto px-8 py-3 ${yBorderClassNames} whitespace-nowrap border-l border-l-background`}
+        className={`w-auto px-8 py-3 ${yBorderClassNames} border-l border-l-background whitespace-nowrap`}
         stop={stop}
       />
 

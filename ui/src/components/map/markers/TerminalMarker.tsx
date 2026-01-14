@@ -25,7 +25,7 @@ export const TerminalMarker: FC<TerminalMarkerProps> = ({
       data-placeholder={isPlaceholder}
       data-selected={selected}
       data-testid={testId}
-      className="flex cursor-pointer items-center justify-center rounded bg-tweaked-brand text-white hover:bg-tweaked-brand-darker30 data-[placeholder=true]:border data-[placeholder=true]:border-dashed data-[placeholder=true]:border-grey data-[placeholder=true]:!bg-white data-[selected=true]:bg-background-hsl-button-selected"
+      className="flex cursor-pointer items-center justify-center rounded-sm bg-tweaked-brand text-white hover:bg-tweaked-brand-darker30 data-[placeholder=true]:border data-[placeholder=true]:border-dashed data-[placeholder=true]:border-grey data-[placeholder=true]:bg-white data-[selected=true]:bg-background-hsl-button-selected"
       style={{ width, height: width, fontSize }}
       aria-hidden
       onClick={onClick}

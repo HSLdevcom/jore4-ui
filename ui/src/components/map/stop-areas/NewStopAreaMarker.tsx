@@ -23,7 +23,7 @@ export const NewStopAreaMarker: FC<NewStopAreaMarker> = ({ editedArea }) => {
 
   return (
     <Marker
-      className="z-[1]"
+      className="z-1"
       longitude={point.longitude}
       latitude={point.latitude}
     >

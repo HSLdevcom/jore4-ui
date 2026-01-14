@@ -72,7 +72,7 @@ const StopPlaceHeaderContent: FC<StopPlaceHeaderContentProps> = ({
         </h3>
       </Link>
 
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <LocatorButton
         onClick={implementationProps.onShowOnMap}
@@ -124,7 +124,7 @@ const SelectAllStopPlaceStops: FC<SelectAllStopPlaceStopsProps> = ({
 
   return (
     <SelectAllCheckbox
-      className="ml-[1px]"
+      className="ml-px"
       allSelected={allSelected}
       onToggleSelectAll={onToggleSelectAll}
       testId={testIds.selectAllStopPlaceStops(
@@ -160,7 +160,7 @@ export const StopPlaceHeader: FC<StopPlaceHeaderProps> = ({
         stopPlace={stopPlace}
       />
       <StopPlaceHeaderContent
-        className="flex-grow"
+        className="grow"
         implementationProps={implementationProps}
         isRounded={isRounded}
         observationDate={observationDate}

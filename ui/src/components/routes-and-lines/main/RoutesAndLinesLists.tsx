@@ -56,7 +56,7 @@ export const RoutesAndLinesLists: FC = () => {
 
   return (
     <div>
-      <h2 className="mb-14 mt-12">{t('lines.routes')}</h2>
+      <h2 className="mt-12 mb-14">{t('lines.routes')}</h2>
       <ListHeader
         showOwnLines={showOwnChangingRoutes}
         limit={changingRoutesLimit}
@@ -68,7 +68,7 @@ export const RoutesAndLinesLists: FC = () => {
         rowVariant={RouteLineTableRowVariant.RoutesAndLines}
         routes={changingRoutes}
       />
-      <h2 className="mb-14 mt-12">{t('lines.lines')}</h2>
+      <h2 className="mt-12 mb-14">{t('lines.lines')}</h2>
       <LinesList
         rowVariant={RouteLineTableRowVariant.RoutesAndLines}
         lines={ownLines}

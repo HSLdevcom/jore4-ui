@@ -25,7 +25,7 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
   return (
     <div
       className={twMerge(
-        'relative flex h-[225px] w-2/6 items-center justify-center rounded border bg-contain',
+        'relative flex h-[225px] w-2/6 items-center justify-center rounded-sm border bg-contain',
         className,
       )}
       style={{
@@ -46,7 +46,7 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
 
       <SimpleButton
         shape="slim"
-        className="absolute right-2 top-2"
+        className="absolute top-2 right-2"
         inverted
         onClick={() => showOnMap(area.id ?? undefined, point)}
         testId={testIds.openMapButton}

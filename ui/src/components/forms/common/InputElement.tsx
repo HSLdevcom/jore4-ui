@@ -32,8 +32,7 @@ type InputElementProps<FormState extends FieldValues> =
   | (BaseProps<FormState> & HTMLInputProps)
   | (BaseProps<FormState> & HTMLTextAreaProps);
 
-export const inputErrorStyles =
-  'border-hsl-red bg-hsl-red bg-opacity-5 border-2';
+export const inputErrorStyles = 'border-hsl-red bg-hsl-red/5 border-2';
 
 export const InputElement = <FormState extends FieldValues>({
   className,

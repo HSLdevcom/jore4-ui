@@ -25,7 +25,7 @@ export const NewTerminalMarker: FC<NewTerminalMarkerProps> = ({
 
   return (
     <Marker
-      className="z-[2]"
+      className="z-2"
       longitude={point.longitude}
       latitude={point.latitude}
     >

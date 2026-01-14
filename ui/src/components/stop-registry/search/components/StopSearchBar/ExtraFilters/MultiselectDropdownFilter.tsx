@@ -44,7 +44,7 @@ const MultiselectDropdownOptions = <OptionT,>({
       value={option}
       data-testid={`${testIdBase}::Option::${keyOption(option)}`}
     >
-      <MdCheck className="mr-2 rounded border border-grey text-2xl" />
+      <MdCheck className="mr-2 rounded-sm border border-grey text-2xl" />
       <span>{formatOption(option)}</span>
     </ListboxOption>
   ));

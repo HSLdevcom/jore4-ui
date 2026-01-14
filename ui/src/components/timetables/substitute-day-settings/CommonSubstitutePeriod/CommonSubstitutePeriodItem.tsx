@@ -44,7 +44,7 @@ const PeriodNameAndDateLabel = ({
   supersededDate: string;
 }) => {
   return (
-    <div className="flex-shrink-1 flex flex-grow-0 basis-11/12 flex-col">
+    <div className="flex shrink grow-0 basis-11/12 flex-col">
       <span className="font-semibold" data-testid={testIds.periodName}>
         {periodName}
       </span>

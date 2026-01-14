@@ -107,7 +107,7 @@ export const LoadingOverlay: FC<LoadingOverlayProps> = ({
   return (
     <Portal>
       <div
-        className="fixed left-1/2 top-1/2 z-20 flex h-32 -translate-x-1/2 -translate-y-1/2 cursor-wait rounded border border-light-grey bg-background px-20 shadow-lg"
+        className="fixed top-1/2 left-1/2 z-20 flex h-32 -translate-x-1/2 -translate-y-1/2 cursor-wait rounded-sm border border-light-grey bg-background px-20 shadow-lg"
         data-testid={testId}
       >
         <PulseLoader

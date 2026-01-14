@@ -22,7 +22,7 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
   const { t } = useTranslation();
   return (
     <td className={className}>
-      <Row className="items-center font-bold leading-none">
+      <Row className="items-center leading-none font-bold">
         <Link
           to={routeDetails[Path.stopDetails].getLink(stop.publicCode, {
             observationDate,

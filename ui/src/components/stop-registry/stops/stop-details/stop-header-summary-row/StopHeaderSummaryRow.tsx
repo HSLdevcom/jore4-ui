@@ -88,7 +88,7 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
         </div>
         {showStopState && (
           <div
-            className="rounded-md bg-dark-grey px-4 py-1 text-center text-sm uppercase leading-normal text-white"
+            className="rounded-md bg-dark-grey px-4 py-1 text-center text-sm leading-normal text-white uppercase"
             data-testid={testIds.stopState}
           >
             {mapStopPlaceStateToUiName(t, stopState)}

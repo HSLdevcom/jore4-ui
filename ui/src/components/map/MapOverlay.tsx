@@ -11,7 +11,7 @@ export const MapOverlay: FC<PropsWithChildren<MapOverlayProps>> = ({
   children,
 }) => {
   return (
-    <Column className={twJoin('w-72 rounded bg-white shadow-md', className)}>
+    <Column className={twJoin('w-72 rounded-sm bg-white shadow-md', className)}>
       {children}
     </Column>
   );

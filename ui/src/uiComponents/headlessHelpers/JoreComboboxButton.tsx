@@ -21,7 +21,7 @@ export const JoreComboboxButton = forwardRef<
       ref={ref}
       data-testid={testId}
       className={twMerge(
-        'absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none',
+        'absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden',
         className,
       )}
       // eslint-disable-next-line react/jsx-props-no-spreading

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { MdModeEdit } from 'react-icons/md';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
-import { getHoverStyles } from './SimpleButton';
 
 type LinkProps = {
   readonly href: string;
@@ -31,7 +30,7 @@ export const EditButton: FC<EditButtonProps> = (props) => {
 
   const classNames = twMerge(
     'ml-5 rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white',
-    getHoverStyles(false, false),
+    'hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand',
     className,
   );
 

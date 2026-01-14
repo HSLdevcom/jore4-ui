@@ -21,7 +21,7 @@ export const Switch: FC<SwitchProps> = ({
       checked={checked}
       onChange={onChange}
       className={twMerge(
-        'relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring',
+        'relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3',
         checked ? 'border-brand bg-brand' : 'border-grey',
         className,
       )}

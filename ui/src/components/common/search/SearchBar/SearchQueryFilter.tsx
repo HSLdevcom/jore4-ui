@@ -38,7 +38,7 @@ export const SearchQueryFilter = <FormState extends FieldValues>({
 
       <Row>
         <InputElement<FormState>
-          className="flex-grow rounded-r-none border-r-0"
+          className="grow rounded-r-none border-r-0"
           fieldPath={fieldPath}
           id={`${translationPrefix}.query`}
           testId={testIds.searchInput(testIdPrefix)}
@@ -46,7 +46,7 @@ export const SearchQueryFilter = <FormState extends FieldValues>({
         />
 
         <button
-          className="icon-search w-[--input-height] rounded-r bg-tweaked-brand text-2xl text-white"
+          className="icon-search w-(--input-height) rounded-r bg-tweaked-brand text-2xl text-white"
           type="submit"
           aria-label={t('search.search')}
           title={t('search.search')}

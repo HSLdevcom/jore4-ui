@@ -3,8 +3,7 @@ import { ReactNode, forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { listboxStyles } from './headlessStyles';
 
-const buttonErrorStyles =
-  'border-hsl-red bg-hsl-red bg-opacity-5 border-2 text-hsl-red';
+const buttonErrorStyles = 'border-hsl-red bg-hsl-red/5 border-2 text-hsl-red';
 
 const arrowErrorStyles = 'text-hsl-red';
 

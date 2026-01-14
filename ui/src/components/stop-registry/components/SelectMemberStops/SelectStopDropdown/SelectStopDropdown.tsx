@@ -144,7 +144,7 @@ export const SelectStopDropdown: FC<SelectStopDropdown> = ({
 
       <ComboboxOptions
         anchor="bottom start"
-        className={comboboxStyles.options('w-[--input-width]')}
+        className={comboboxStyles.options('w-(--input-width)')}
         transition
       >
         <MemberStopOptions options={unselectedOptions} />

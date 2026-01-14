@@ -1,6 +1,7 @@
 import uniq from 'lodash/uniq';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
@@ -75,9 +76,10 @@ export const PassingTimesByStopSection: FC<PassingTimesByStopSectionProps> = ({
                 value={dayType}
                 onChange={(e) => setDayType(e.target.value)}
                 uiNameMapper={dayTypeUiNameMapper}
-                buttonClassNames={`text-black !bg-opacity-50 ${getTimetableHeadingBgColor(
-                  vehicleJourneyGroup.priority,
-                )}`}
+                buttonClassNames={twJoin(
+                  'text-black',
+                  getTimetableHeadingBgColor(vehicleJourneyGroup.priority),
+                )}
               />
             </div>
             <VehicleJourneyGroupInfo

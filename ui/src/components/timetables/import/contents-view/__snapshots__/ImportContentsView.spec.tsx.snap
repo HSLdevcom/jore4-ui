@@ -6,10 +6,9 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
   data-testid="BlockVehicleJourneysTable::table"
   id="SUMMER_SCHEDULES Week day service"
 >
-  <thead
-    class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-  >
+  <thead>
     <tr
+      class="[&>th]:border [&>th]:border-light-grey"
       data-testid="BlockVehicleJourneysTable::titleRow"
     >
       <th
@@ -313,10 +312,9 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           data-testid="BlockVehicleJourneysTable::table"
           id="SUMMER_SCHEDULES Week day service"
         >
-          <thead
-            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-          >
+          <thead>
             <tr
+              class="[&>th]:border [&>th]:border-light-grey"
               data-testid="BlockVehicleJourneysTable::titleRow"
             >
               <th
@@ -376,10 +374,9 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           data-testid="BlockVehicleJourneysTable::table"
           id="SUMMER_SCHEDULES Saturday service"
         >
-          <thead
-            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-          >
+          <thead>
             <tr
+              class="[&>th]:border [&>th]:border-light-grey"
               data-testid="BlockVehicleJourneysTable::titleRow"
             >
               <th
@@ -503,10 +500,9 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           data-testid="BlockVehicleJourneysTable::table"
           id="AUTUMN_SCHEDULES Sunday service"
         >
-          <thead
-            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-          >
+          <thead>
             <tr
+              class="[&>th]:border [&>th]:border-light-grey"
               data-testid="BlockVehicleJourneysTable::titleRow"
             >
               <th

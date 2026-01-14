@@ -41,7 +41,7 @@ export const MissingRouteDeviationsSection: FC<
             ))}
           </div>
           <IconButton
-            className="absolute right-4 top-4 text-xl"
+            className="absolute top-4 right-4 text-xl"
             icon={<MdClose aria-hidden />}
             onClick={handleClose}
             tooltip={`${t(

@@ -129,7 +129,7 @@ export const BaseSelectMemberStopsDropdown: FC<
 
       <ComboboxOptions
         anchor="bottom start"
-        className={comboboxStyles.options('w-[--button-width]')}
+        className={comboboxStyles.options('w-(--button-width)')}
         transition
       >
         <SelectedMemberStops

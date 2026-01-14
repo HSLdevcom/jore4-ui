@@ -35,7 +35,7 @@ export const SlimDropDownMenu: FC<SlimDropDownMenuProps> = ({
         disabled={disabled}
       >
         <div>{buttonText}</div>
-        <div className="mx-2 w-[1px] self-stretch bg-grey" />
+        <div className="mx-2 w-px self-stretch bg-grey" />
         <FaChevronDown />
       </MenuButton>
       <SimpleDropdownMenuItems>{children}</SimpleDropdownMenuItems>

@@ -22,7 +22,7 @@ export const FloatingFooter: FC<FloatingFooterProps> = ({
           // Floating on bottom center
           'absolute bottom-8 left-1/2 z-10 min-w-80 -translate-x-1/2',
           // Rounded blue border with dropdown shadow
-          'rounded border-2 border-tweaked-brand shadow-md',
+          'rounded-sm border-2 border-tweaked-brand shadow-md',
           // Blue text on white background
           'bg-white font-bold text-tweaked-brand',
           'flex items-center justify-center pl-16',
@@ -31,9 +31,9 @@ export const FloatingFooter: FC<FloatingFooterProps> = ({
       )}
       data-testid={testId}
     >
-      <div className="flex-grow" />
+      <div className="grow" />
       {children}
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <CloseIconButton
         className="flex h-14 w-16 items-center justify-center"

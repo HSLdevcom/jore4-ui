@@ -28,7 +28,7 @@ export const ExtraFiltersToggle: FC<ExtraFiltersToggleProps> = ({
     <ExpandButton
       ariaControls={extraFiltersId}
       className={twMerge(
-        'flex h-[--input-height] w-[--input-height] items-center justify-center rounded bg-tweaked-brand',
+        'flex h-(--input-height) w-(--input-height) items-center justify-center rounded-sm bg-tweaked-brand',
         className,
       )}
       iconClassName="text-white"

@@ -24,7 +24,7 @@ export const StopDetailsVersion: FC<StopDetailsVersionProps> = ({ label }) => {
   return (
     <Row className="items-end justify-end gap-4">
       {priority ? (
-        <Row className="mx-auto items-center rounded bg-city-bicycle-yellow px-4 py-2">
+        <Row className="mx-auto items-center rounded-sm bg-city-bicycle-yellow px-4 py-2">
           <span className="mr-4 font-bold">
             {t('stopDetails.selectedVersion.showingSelected')}
           </span>

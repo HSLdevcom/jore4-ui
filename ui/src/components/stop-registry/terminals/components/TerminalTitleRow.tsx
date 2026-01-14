@@ -53,7 +53,7 @@ export const TerminalTitleRow: FC<TerminalTitleRowProps> = ({
           {terminal.name ?? ''}
         </div>
 
-        <div className="flex-grow" />
+        <div className="grow" />
         <LocatorButton
           onClick={onClickTerminalMap}
           tooltipText={t('stopRegistrySearch.terminalRowActions.showOnMap')}

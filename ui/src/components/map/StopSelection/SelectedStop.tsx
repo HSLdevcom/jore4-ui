@@ -48,7 +48,7 @@ export const SelectedStop: FC<SelectedStop> = ({
     data-testid={testIds.stop(stop.public_code, stop.priority)}
   >
     <div className={getPriorityIconClasses(stop.priority)} />
-    <div className="ml-2 flex flex-grow flex-col">
+    <div className="ml-2 flex grow flex-col">
       <a
         className="font-bold"
         href={linkToDetailsPage}

@@ -58,7 +58,7 @@ export const MapPage: FC = () => {
       >
         <MapHeader onClose={onCloseMap} />
 
-        <Map ref={mapRef} className="flex-grow" />
+        <Map ref={mapRef} className="grow" />
 
         <MapFooter
           onDrawRoute={() => mapRef.current?.onDrawRoute()}

@@ -111,10 +111,10 @@ export const RouteInfoRow: FC<RouteInfoRowProps> = ({
           </Row>
         </div>
 
-        <div className="flex-grow" />
+        <div className="grow" />
 
         <div
-          className="whitespace-nowrap px-8 py-3 text-right font-bold"
+          className="px-8 py-3 text-right font-bold whitespace-nowrap"
           data-testid={testIds.validity}
         >
           {t('validity.validDuring', {

@@ -2,16 +2,13 @@ import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 import {
   PassingTimeByStopFragment,
   RouteWithJourneyPatternStopsFragment,
   VehicleJourneyByStopFragment,
 } from '../../../generated/graphql';
-import {
-  PassingTimesByStopTableRow,
-  cellClassNames,
-} from './PassingTimesByStopTableRow';
+import { PassingTimesByStopTableRow } from './PassingTimesByStopTableRow';
 
 const testIds = {
   table: 'PassingTimesByStopTable::table',
@@ -68,10 +65,12 @@ export const PassingTimesByStopTable: FC<PassingTimesByStopTableProps> = ({
     >
       <thead className="text-left">
         <tr>
-          <th className={twJoin('w-1 whitespace-nowrap', cellClassNames)}>
+          <th className="w-1 border border-brand p-1 px-3 whitespace-nowrap">
             {t('stops.stop')}
           </th>
-          <th className={cellClassNames}>{t('timetables.departures')}</th>
+          <th className="border border-brand p-1 px-3">
+            {t('timetables.departures')}
+          </th>
         </tr>
       </thead>
       <tbody>

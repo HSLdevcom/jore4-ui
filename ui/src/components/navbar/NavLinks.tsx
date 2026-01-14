@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 import { isNavigationRoute, routeDetails } from '../../router/routeDetails';
 
 const testIds = {
@@ -18,9 +19,10 @@ export const NavLinks: FC = () => {
             <NavLink
               to={getLink()}
               className={({ isActive }) =>
-                `mx-5 border-b-4 border-transparent py-5 text-white hover:border-white ${
-                  isActive ? '!border-white' : ''
-                }`
+                twMerge(
+                  'mx-5 border-b-4 border-transparent py-5 text-white hover:border-white',
+                  isActive && 'border-white',
+                )
               }
               data-testid={testIds.navLink(translationKey)}
               end

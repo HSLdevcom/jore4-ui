@@ -32,7 +32,7 @@ export const SummarySection: FC<SummarySectionProps> = ({
       <h2>{t('timetablesPreview.summary')}</h2>
 
       <Visible visible={totalDeviations > 0}>
-        <div className="my-4 items-center space-y-4 rounded border px-16 py-6">
+        <div className="my-4 items-center space-y-4 rounded-sm border px-16 py-6">
           <h3>
             <MdWarning
               className="mr-2 inline h-6 w-6 text-hsl-red"

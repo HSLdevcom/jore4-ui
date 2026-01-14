@@ -34,7 +34,7 @@ export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
 
   return (
     <>
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <SimpleButton
         shape="slim"

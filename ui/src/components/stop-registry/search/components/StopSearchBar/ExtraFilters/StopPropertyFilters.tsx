@@ -55,7 +55,7 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
         testIdPrefix={stopSearchBarTestIds.prefix}
         translationPrefix="stopRegistrySearch.fieldLabels"
         fieldPath="transportationMode"
-        className={twJoin('sm:-order-2 md:order-none', genericFilterSizing)}
+        className={twJoin('sm:-order-2 md:order-0', genericFilterSizing)}
       />
       <PriorityFilter<StopSearchFilters>
         testIdPrefix={stopSearchBarTestIds.prefix}
@@ -66,7 +66,7 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
       />
       <MunicipalityFilter
         className={twJoin(
-          'min-w-30 sm:-order-1 md:order-none xl:flex-grow xl:basis-auto',
+          'min-w-30 sm:-order-1 md:order-0 xl:grow xl:basis-auto',
           smBasis,
           mdBasis,
           lgBasis,

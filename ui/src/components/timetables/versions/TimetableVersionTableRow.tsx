@@ -53,12 +53,12 @@ const getStatusClassName = ({
 
 const getDayTypeClassName = (priority: TimetablePriority) => {
   const dayTypeClassNames: Record<TimetablePriority, string> = {
-    [TimetablePriority.Standard]: 'bg-hsl-dark-green',
-    [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-    [TimetablePriority.Special]: 'bg-border-hsl-commuter-train-purple',
-    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
-    [TimetablePriority.Draft]: 'bg-background',
-    [TimetablePriority.Staging]: 'bg-hsl-red',
+    [TimetablePriority.Standard]: 'bg-hsl-dark-green/25',
+    [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow/25',
+    [TimetablePriority.Special]: 'bg-border-hsl-commuter-train-purple/25',
+    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange/25',
+    [TimetablePriority.Draft]: 'bg-background/25',
+    [TimetablePriority.Staging]: 'bg-hsl-red/25',
   };
   return dayTypeClassNames[priority];
 };
@@ -109,10 +109,6 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
       })
     : t('timetables.noService');
 
-  const dayTypeClassName = `${getDayTypeClassName(
-    data.vehicleScheduleFrame.priority,
-  )} bg-opacity-25`;
-
   const dayType = getLocalizedTextFromDbBlob(data.dayType.nameI18n);
   const vehicleScheduleFrameName = getLocalizedTextFromDbBlob(
     data.vehicleScheduleFrame.nameI18n,
@@ -124,7 +120,10 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
       data-testid={testIds.row}
     >
       <td className={statusClassName}>{statusText}</td>
-      <td className={dayTypeClassName} data-testid={testIds.dayType}>
+      <td
+        className={getDayTypeClassName(data.vehicleScheduleFrame.priority)}
+        data-testid={testIds.dayType}
+      >
         {dayType}
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <IconButton
@@ -134,7 +133,7 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
           />
         </Visible>
         {data.substituteDay?.supersededDate && (
-          <span className="flex justify-center whitespace-nowrap text-xs">
+          <span className="flex justify-center text-xs whitespace-nowrap">
             {substituteDayOperatingText}
           </span>
         )}

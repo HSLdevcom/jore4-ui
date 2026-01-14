@@ -15,7 +15,7 @@ type MapHeaderProps = {
 export const MapHeader: FC<MapHeaderProps> = ({ onClose }) => {
   const { t } = useTranslation();
   return (
-    <Row className="absolute right-0 top-0 z-30 p-2.5">
+    <Row className="absolute top-0 right-0 z-30 p-2.5">
       <PageTitle.H2 className="sr-only" titleText={t('map.pageTitle')}>
         {t('map.joreMap')}
       </PageTitle.H2>

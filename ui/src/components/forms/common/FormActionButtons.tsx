@@ -7,7 +7,7 @@ const baseStyles = 'flex items-center gap-2 px-4 py-2';
 
 const variantStyles = {
   infoContainer:
-    '-mx-5 -mb-5 mt-5 border-t border-[--borderColor] bg-[--backgroundColor]',
+    '-mx-5 -mb-5 mt-5 border-t border-(--borderColor) bg-(--backgroundColor)',
   modal: 'mx-0 my-0 border border-light-grey bg-background',
 } as const;
 
@@ -45,7 +45,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
       )}
     >
       {addNewButton}
-      <div className="flex-grow" />
+      <div className="grow" />
       {onDelete && (
         <SimpleButton
           inverted

@@ -62,7 +62,7 @@ export const InfoSpotPosters: FC<InfoSpotPostersProps> = ({ infoSpot }) => {
             />
           </DetailRow>
           <Visible visible={index < actualPosters.length - 1}>
-            <HorizontalSeparator className="m-0 border-[--borderColor]" />
+            <HorizontalSeparator className="m-0 border-(--borderColor)" />
           </Visible>
         </div>
       ))}

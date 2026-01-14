@@ -49,7 +49,7 @@ export const TimetableVersionDetailsPanel = () => {
     <Visible visible={isOpen}>
       <div
         role="dialog"
-        className="fixed right-0 top-0 mr-4 mt-20 h-[90%] w-1/3 overflow-auto rounded-md bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-500"
+        className="fixed top-0 right-0 mt-20 mr-4 h-[90%] w-1/3 overflow-auto rounded-md bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-500"
       >
         <TimetableVersionPanelHeading
           validityStart={validityStart}

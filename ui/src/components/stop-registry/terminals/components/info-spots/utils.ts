@@ -13,7 +13,7 @@ import { SortConfig, SortField, TerminalInfoSpotFormState } from './types';
 export const CSS_CLASSES = {
   evenRow: 'bg-background',
   oddRow: '',
-  openRow: '!bg-background-hsl-commuter-train-purple bg-opacity-25',
+  openRow: 'bg-background-hsl-commuter-train-purple/25',
   tableCell: 'w-0 text-nowrap px-3 xl:px-5 py-3 text-sm',
   descriptionCell: 'w-full px-3 xl:px-5 py-3 text-sm',
   actionCell: 'w-0 py-3 pr-3 text-sm',

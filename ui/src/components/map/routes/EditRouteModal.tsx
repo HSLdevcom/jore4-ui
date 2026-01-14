@@ -33,7 +33,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="*:text-xl px-4 py-4 items-center"
-        bodyClassName="mx-0 my-0 flex"
+        bodyClassName="mx-0 my-0"
         testId={testIds.modal}
         onClose={onClose}
         heading={t('routes.enterRouteData')}

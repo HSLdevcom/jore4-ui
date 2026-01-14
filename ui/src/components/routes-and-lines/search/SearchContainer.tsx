@@ -76,7 +76,7 @@ export const SearchContainer: FC<SearchContainerProps> = ({
         <Row className="justify-center gap-x-4 bg-background py-4">
           <DateInputField<RoutesAndLinesSearchFilters>
             className="min-w-40"
-            inputClassName="flex-grow"
+            inputClassName="grow"
             fieldPath="observationDate"
             testId={routesAndLinesTestIds.observationDateInput}
             translationPrefix="filters"
@@ -109,7 +109,7 @@ export const SearchContainer: FC<SearchContainerProps> = ({
                 testIdPrefix={routesAndLinesTestIds.prefix}
                 translationPrefix="lines"
                 fieldPath="transportMode"
-                className="sm:-order-2 md:order-none"
+                className="sm:-order-2 md:order-0"
               />
 
               <PriorityFilter<RoutesAndLinesSearchFilters>

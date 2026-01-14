@@ -1,8 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable @typescript-eslint/no-var-requires */
 const headlessUiPlugin = require('@headlessui/tailwindcss');
 const defaultTheme = require('tailwindcss/defaultTheme');
-const plugin = require('tailwindcss/plugin');
 const theme = require('./theme.js');
 
 const { colors } = theme;
@@ -90,24 +87,7 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    // add support for 'important' variant which can be used by prefixing class with "!"
-    // e.g. "!border-white" turns "border-white" class into !important one.
-    // see: https://github.com/tailwindlabs/tailwindcss/issues/493#issuecomment-610907147
-    // !! NOTE: important variants have to be explicitly enabled for rule. List of
-    // rules: https://tailwindcss.com/docs/configuring-variants#default-variants-reference
-    plugin(({ addVariant }) => {
-      addVariant('important', ({ container }) => {
-        container.walkRules((rule) => {
-          rule.selector = `.\\!${rule.selector.slice(1)}`;
-          rule.walkDecls((decl) => {
-            decl.important = true;
-          });
-        });
-      });
-    }),
-    headlessUiPlugin,
-  ],
+  plugins: [headlessUiPlugin],
   safelist: [
     {
       // these classes are referenced dynamically by a template string, so have to remove them from tree-shaking

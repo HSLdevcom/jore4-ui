@@ -2,7 +2,7 @@ import { MenuItem } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 
 const className =
-  'group w-full items-center px-4 py-2 text-center focus:outline-none ui-active:bg-brand-darker';
+  'group w-full items-center px-4 py-2 text-center focus:outline-hidden ui-active:bg-brand-darker';
 
 type NavigationDropdownMenuButtonProps = {
   readonly children: ReactNode;

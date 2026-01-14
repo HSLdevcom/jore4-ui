@@ -14,7 +14,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-autocomplete="list"
       aria-controls="headlessui-combobox-options-:ri:"
       aria-expanded="true"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-none ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
       data-focus=""
       data-headlessui-state="open focus"
       data-open=""
@@ -28,7 +28,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-controls="headlessui-combobox-options-:ri:"
       aria-expanded="true"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden w-full"
       data-active=""
       data-headlessui-state="open active"
       data-open=""
@@ -80,7 +80,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-none ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
@@ -91,7 +91,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden w-full"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r3:"
@@ -141,7 +141,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-none ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
@@ -152,7 +152,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden w-full"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:r3:"
@@ -202,7 +202,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-none ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r9:"
@@ -213,7 +213,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden w-full"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:ra:"
@@ -263,7 +263,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-none ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r9:"
@@ -274,7 +274,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden w-full"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::button"
       id="headlessui-combobox-button-:ra:"

@@ -37,7 +37,7 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
 
         <Row className="flex flex-wrap xl:flex-nowrap">
           <StopPropertyFilters
-            className="border-b border-background pb-5 xl:w-2/3 xl:border-b-0 xl:border-r xl:pb-0 xl:pr-5"
+            className="border-b border-background pb-5 xl:w-2/3 xl:border-r xl:border-b-0 xl:pr-5 xl:pb-0"
             notForStops={notForStops}
           />
 

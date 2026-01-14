@@ -36,7 +36,7 @@ export const RouteDeviationLink: FC<RouteDeviationLinkProps> = ({
       <div className="flex items-center">
         <DirectionBadge
           direction={direction}
-          className="mx-1 !h-4 !w-4 text-sm"
+          className="mx-1 h-4 w-4 text-sm"
         />
         <span
           className="mr-1 font-bold text-black underline"
