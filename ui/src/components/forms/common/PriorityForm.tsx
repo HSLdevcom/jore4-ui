@@ -80,7 +80,7 @@ export const PriorityForm: FC<PriorityFormProps> = ({ hiddenPriorities }) => {
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (
               <LabeledRadioButton
-                className="flex-grow"
+                className="grow"
                 id={`priority.${testIdPrefix}`}
                 fieldPath="priority"
                 value={priority}

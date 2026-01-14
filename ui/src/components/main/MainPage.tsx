@@ -15,10 +15,7 @@ export const MainPage: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div
-      data-testid={testIds.main}
-      className="min-h-screen bg-brand bg-opacity-50 p-20"
-    >
+    <div data-testid={testIds.main} className="min-h-screen bg-brand/50 p-20">
       <div className="mx-auto w-4/5 rounded-lg bg-white p-10 leading-8 shadow-2xl">
         <PageTitle.H1 className="mb-10 text-center text-4xl">
           {t('welcomePage.heading')}

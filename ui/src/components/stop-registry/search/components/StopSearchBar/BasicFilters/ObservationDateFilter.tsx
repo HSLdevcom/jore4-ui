@@ -7,7 +7,7 @@ import { ClassNameProps } from '../Types/ClassNameProps';
 export const ObservationDateFilter: FC<ClassNameProps> = ({ className }) => (
   <DateInputField<StopSearchFilters>
     className={className}
-    inputClassName="flex-grow"
+    inputClassName="grow"
     fieldPath="observationDate"
     testId={stopSearchBarTestIds.observationDateInput}
     translationPrefix="filters"

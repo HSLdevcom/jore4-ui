@@ -77,7 +77,7 @@ export const FloatingStopResultsFooter = () => {
         <>
           <span>{t('map.searchResults')}</span>
           <PulseLoader color={theme.colors.brand} size={14} />
-          <div className="flex-grow" />
+          <div className="grow" />
         </>
       ) : (
         <span>{t('map.searchResultCount', { count })}</span>

@@ -225,7 +225,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
         />
       </Row>
 
-      <ModalBody className="!mx-0 !my-0">
+      <ModalBody className="mx-0 my-0">
         <div className="mx-8 my-8">
           <div className="mb-2 text-sm font-bold">
             {t('stopAreaDetails.memberStops.getStop')}
@@ -281,7 +281,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
         )}
 
         {moveError && (
-          <div className="mx-8 mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
+          <div className="mx-8 mb-4 rounded-sm border border-red-400 bg-red-100 p-3 text-red-700">
             {t('stopAreaDetails.memberStops.moveError', {
               reason: moveError.message,
             })}

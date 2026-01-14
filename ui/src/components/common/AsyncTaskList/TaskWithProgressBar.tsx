@@ -37,7 +37,7 @@ export const TaskWithProgressBar: FC<TaskWithProgressBarProps> = ({
       aria-live="assertive"
       data-testid={testId}
     >
-      <div className="flex flex-grow flex-col items-center">
+      <div className="flex grow flex-col items-center">
         <div
           role="progressbar"
           aria-valuemin={0}

@@ -52,8 +52,11 @@ export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
       data-testid={testIds.table}
       id={identifier}
     >
-      <thead className="[&>tr>th]:border [&>tr>th]:border-light-grey">
-        <tr data-testid={testIds.titleRow}>
+      <thead>
+        <tr
+          className="[&>th]:border [&>th]:border-light-grey"
+          data-testid={testIds.titleRow}
+        >
           <th
             data-testid={testIds.blockLabel}
             className="w-1/6 bg-brand px-6 py-2 text-left text-white"

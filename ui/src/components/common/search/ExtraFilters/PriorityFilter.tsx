@@ -54,7 +54,7 @@ export const PriorityFilter = <FormState extends FieldValues>({
         {knownPriorityValues.map((priority) => (
           <LabeledCheckbox
             key={priority}
-            className="h-[--input-height]"
+            className="h-(--input-height)"
             label={mapPriorityToUiName(t, priority)}
             onBlur={onBlur}
             onClick={togglePriority(priority)}

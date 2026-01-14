@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { MdHistory } from 'react-icons/md';
-import { twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Column, Row } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
@@ -25,8 +25,8 @@ export const TimetableHeading: FC<TimetableHeadingProps> = ({
 
   return (
     <Row
-      className={twMerge(
-        'justify-between rounded-md border-2 border-transparent bg-opacity-50 px-4 py-1',
+      className={twJoin(
+        'justify-between rounded-md border-2 border-transparent px-4 py-1',
         getTimetableHeadingBgColor(priority),
         className,
       )}

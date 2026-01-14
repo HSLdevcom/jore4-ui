@@ -218,7 +218,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
 
   return (
     <Dialog
-      className="fixed inset-0 z-50 flex h-full items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-50 flex h-full items-center justify-center bg-black/50"
       initialFocus={initialFocusRef}
       open={isOpen}
       onClose={onReset}

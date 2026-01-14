@@ -83,7 +83,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   return (
     <div
       className={twMerge(
-        'rounded-t-lg border border-[--borderColor]',
+        'rounded-t-lg border border-(--borderColor)',
         isExpanded ? '' : 'rounded-b-lg',
         className,
       )}
@@ -95,8 +95,8 @@ export const InfoContainer: FC<InfoContainerProps> = ({
     >
       <div
         className={twJoin(
-          'flex h-14 items-center justify-between rounded-lg bg-[--backgroundColor] px-4 py-2',
-          isExpanded ? 'rounded-b-none border-b border-[--borderColor]' : '',
+          'flex h-14 items-center justify-between rounded-lg bg-(--backgroundColor) px-4 py-2',
+          isExpanded ? 'rounded-b-none border-b border-(--borderColor)' : '',
         )}
       >
         <span data-testid={testIds.title(testIdPrefix)}>

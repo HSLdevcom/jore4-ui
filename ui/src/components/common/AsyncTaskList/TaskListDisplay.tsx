@@ -11,7 +11,7 @@ export const TaskListDisplay: FC = () => {
   }
 
   return (
-    <div className="fixed bottom-5 left-1/2 mt-1 flex w-80 -translate-x-1/2 flex-col rounded border border-border-hsl-city-bike-yellow bg-background-hsl-city-bike-yellow p-3 shadow-lg">
+    <div className="fixed bottom-5 left-1/2 mt-1 flex w-80 -translate-x-1/2 flex-col rounded-sm border border-border-hsl-city-bike-yellow bg-background-hsl-city-bike-yellow p-3 shadow-lg">
       {tasks.map((task, i) => (
         <Fragment key={task.id}>
           <TaskWithProgressBar

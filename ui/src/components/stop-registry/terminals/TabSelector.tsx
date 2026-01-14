@@ -56,7 +56,7 @@ export const TabSelector: FC<TabSelectorProps> = ({
         tabPanelId={tabs.basic.panelId}
         testId={testIds.basicDetailsTabButton}
         title={t('terminalDetails.tabs.basic')}
-        className="rounded-br-none rounded-tr-none"
+        className="rounded-tr-none rounded-br-none"
         onClick={() => {
           selectTab(TabType.BasicTab);
         }}
@@ -67,7 +67,7 @@ export const TabSelector: FC<TabSelectorProps> = ({
         tabPanelId={tabs.stops.panelId}
         testId={testIds.stopsTabButton}
         title={stopsTitle}
-        className="rounded-bl-none rounded-tl-none"
+        className="rounded-tl-none rounded-bl-none"
         onClick={() => {
           selectTab(TabType.StopsTab);
         }}

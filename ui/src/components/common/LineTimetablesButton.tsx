@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../router/routeDetails';
-import { IconButton, getHoverStyles } from '../../uiComponents';
+import { IconButton } from '../../uiComponents';
 
 const testIds = {
   button: 'LocatorButton::button',
 };
-
-const disabledStyle = '!bg-background opacity-70 pointer-events-none';
 
 type LineTimetablesButtonProps = {
   readonly testId?: string;
@@ -43,8 +41,8 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
       tooltip={t('accessibility:lines.showTimetables', { label })}
       className={twMerge(
         'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
-        getHoverStyles(false, disabled),
-        disabled ? disabledStyle : '',
+        'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
+        'hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand',
         className,
       )}
       onClick={onClick}

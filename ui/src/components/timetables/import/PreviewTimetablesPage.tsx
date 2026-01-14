@@ -111,8 +111,8 @@ export const PreviewTimetablesPage: FC = () => {
   return (
     <Container>
       <PageTitle.H1>{t('timetablesPreview.preview')}</PageTitle.H1>
-      <div className="overflow-none mt-9 rounded border border-grey">
-        <Row className="justify-between rounded-t-sm border-brand bg-brand pl-16 pr-8 text-white">
+      <div className="overflow-none mt-9 rounded-sm border border-grey">
+        <Row className="justify-between rounded-t-sm border-brand bg-brand pr-8 pl-16 text-white">
           <h2 className="py-2" data-testid={testIds.previewTitle}>
             {t('timetablesPreview.departures', {
               count: vehicleJourneyCount,

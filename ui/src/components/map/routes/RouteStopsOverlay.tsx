@@ -96,7 +96,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
           </Visible>
         </MapOverlayHeader>
         <div className="flex items-start border-b px-3 py-2">
-          <div className="ml-1 mt-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
+          <div className="mt-1 ml-1 flex h-6 w-6 items-center justify-center rounded-xs bg-brand font-bold text-white">
             {mapDirectionToSymbol(t, routeMetadata.direction)}
           </div>
           <div

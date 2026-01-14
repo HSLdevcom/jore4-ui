@@ -21,16 +21,16 @@ type SimpleButtonShape = 'normal' | 'slim' | 'square' | 'compact' | 'round';
 function getShapeClassNames(shape: SimpleButtonShape) {
   switch (shape) {
     case 'square':
-      return 'rounded border text-sm font-light py-1 px-4';
+      return 'rounded-sm border text-sm font-light py-1 px-4';
 
     case 'compact':
-      return 'rounded border text-sm font-light py-0 px-4';
+      return 'rounded-sm border text-sm font-light py-0 px-4';
 
     case 'slim':
       return 'px-4 py-1 font-bold border rounded-full';
 
     case 'round':
-      return 'font-bold border rounded-full aspect-square  p-0';
+      return 'font-bold border rounded-full aspect-square p-0';
 
     case 'normal':
     default:
@@ -41,29 +41,25 @@ function getShapeClassNames(shape: SimpleButtonShape) {
 function getColorClassNames(inverted: boolean, shape: SimpleButtonShape) {
   if (inverted) {
     if (shape === 'compact' || shape === 'square') {
-      return 'text-gray-900 bg-white border-grey active:border-brand';
+      return `text-gray-900 bg-white border-grey active:border-brand`;
     }
 
-    return 'text-brand bg-white border-grey active:border-brand';
+    return `text-brand bg-white border-grey active:border-brand`;
   }
 
-  return 'text-white bg-brand border-brand active:bg-opacity-50';
+  return `text-white bg-brand border-brand active:bg-brand/50`;
 }
 
-export function getHoverStyles(
-  inverted: boolean = false,
-  disabled: boolean = false,
-) {
+export function getHoverStyles(inverted: boolean, disabled: boolean) {
   if (disabled) {
     return '';
   }
 
-  return twJoin(
-    'hover:outline hover:outline-1',
-    inverted
-      ? 'hover:outline-brand hover:border-brand'
-      : 'hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50',
-  );
+  if (inverted) {
+    return 'hover:outline-brand hover:border-brand';
+  }
+
+  return 'hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-brand/50';
 }
 
 function getCommonClassNames(
@@ -71,15 +67,15 @@ function getCommonClassNames(
   disabled: boolean,
   shape: SimpleButtonShape,
 ) {
-  const disabledClassNames = disabled
-    ? 'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey'
-    : '';
-
   return twJoin(
     'flex justify-center items-center',
     getShapeClassNames(shape),
     getColorClassNames(inverted, shape),
-    disabledClassNames,
+    // We cannot use 'disabled:' specifier, because the underlying implementation could be
+    // a HTMLAnchorElement link instead of an button, and thus does not have the
+    // disabled attribute.
+    disabled &&
+      'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey',
     getHoverStyles(inverted, disabled),
   );
 }

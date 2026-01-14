@@ -65,14 +65,14 @@ export const AccessibilityLevelDescriptionsDialog: FC<
       open={isOpen}
       onClose={onClose}
       /* The dialog should be positioned so that it doesn't block the stop details. Placing it on the top right of screen works in most cases. */
-      className="absolute right-16 top-28 max-h-[calc(100vh-12rem)] overflow-y-auto border border-grey drop-shadow-lg"
+      className="absolute top-28 right-16 max-h-[calc(100vh-12rem)] overflow-y-auto border border-grey drop-shadow-lg"
     >
       <NewModalHeader
         heading={t('stopDetails.accessibilityLevelDescriptions.modalTitle')}
         onClose={onClose}
         className="border-0 bg-white pb-0"
       />
-      <NewModalBody className="max-w-md !p-0">
+      <NewModalBody className="max-w-md p-0">
         <div className={`${infoSectionClassName}`}>
           <h3 className="text-lg">
             4: {t('stopAccessibilityLevelEnum.fullyAccessible')}

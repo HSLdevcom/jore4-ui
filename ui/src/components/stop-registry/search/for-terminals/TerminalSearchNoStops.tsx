@@ -26,7 +26,7 @@ export const TerminalSearchNoStops: FC<TerminalSearchNoStopsProps> = ({
 
   return (
     <div
-      className="ml-2 mt-4 flex w-full flex-row items-center gap-1"
+      className="mt-4 ml-2 flex w-full flex-row items-center gap-1"
       data-testid={testIds.noStopsInTerminal}
     >
       <i className="icon-info text-2xl text-brand" />

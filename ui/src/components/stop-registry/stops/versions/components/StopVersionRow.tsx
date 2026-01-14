@@ -59,15 +59,12 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
 
   return (
     <tr
-      className={twMerge(
-        'text-nowrap border-b *:border-x *:px-4 *:py-2',
-        className,
-      )}
+      className={twMerge('border-b text-nowrap *:border-x', className)}
       data-test-element-type="StopVersionRow"
     >
       <td
         className={twJoin(
-          'text-center',
+          'px-4 py-2 text-center',
           statusToCellClasses(stopVersion.status),
         )}
         data-testid={testIds.status}
@@ -76,36 +73,42 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
       </td>
 
       <td
-        className="!border-r-0 text-right"
+        className="border-r-0 px-4 py-2 text-right"
         data-testid={testIds.validityStart}
       >
         {mapToShortDate(stopVersion.validity_start)}
       </td>
 
-      <td className="!border-x-0 !p-0">-</td>
+      <td className="border-x-0 p-0">-</td>
 
-      <td className="!border-l-0 text-right" data-testid={testIds.validityEnd}>
+      <td
+        className="border-l-0 px-4 py-2 text-right"
+        data-testid={testIds.validityEnd}
+      >
         {mapToShortDate(stopVersion.validity_end)}
       </td>
 
-      <td className="text-pretty" data-testid={testIds.versionComment}>
+      <td
+        className="px-4 py-2 text-pretty"
+        data-testid={testIds.versionComment}
+      >
         {stopVersion.version_comment}
       </td>
 
-      <td className="text-right" data-testid={testIds.changed}>
+      <td className="px-4 py-2 text-right" data-testid={testIds.changed}>
         {mapToShortDateTime(stopVersion.changed)}
       </td>
 
       <td data-testid={testIds.changedBy}>{stopVersion.changed_by}</td>
 
-      <td className="!px-2">
+      <td className="p-2">
         <LocatorActionButton
           observationDate={stopVersion.validity_start}
           stop={stopForActions}
         />
       </td>
 
-      <td className="!p-0">
+      <td>
         <StopVersionActionMenu className="p-2" stop={stopForActions} />
       </td>
     </tr>

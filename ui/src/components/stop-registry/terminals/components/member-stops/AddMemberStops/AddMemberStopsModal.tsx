@@ -71,7 +71,7 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
         />
       </Row>
 
-      <ModalBody className="!mx-0 !my-0">
+      <ModalBody className="mx-0 my-0">
         <AddMemberStopsForm
           terminal={terminal}
           onSuccess={onSuccess}

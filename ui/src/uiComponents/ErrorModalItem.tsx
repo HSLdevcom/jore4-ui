@@ -25,7 +25,7 @@ export const ErrorModalItem: FC<ErrorModalItemProps> = ({
 }) => {
   return (
     <div
-      className={twMerge('rounded-sm px-4 py-3', className)}
+      className={twMerge('rounded-xs px-4 py-3', className)}
       data-testid={testIds.modalItem}
     >
       <Visible visible={!!title}>

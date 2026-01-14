@@ -18,15 +18,15 @@ type LabeledContainerProps = {
 const buttonErrorStyles =
   'has-error border-hsl-red text-hsl-red bg-white enabled:hover:border-hsl-red';
 const inputErrorStyles =
-  '[.has-error>&]:border-hsl-red [.has-error>&]:text-hsl-red [.has-error:hover>&]:enabled:border-hsl-red';
+  '[.has-error>&]:border-hsl-red [.has-error>&]:text-hsl-red enabled:[.has-error:hover>&]:border-hsl-red';
 
 // Classes that should be set to the child input element according to the `selected` value.
 // These _could_ be done with just CSS inside this container component,
 // but that would bloat the class names a bit with prefixes.
 const commonInputStyles = `flex h-6 w-6 items-center justify-center border p-0 disabled:cursor-not-allowed ${inputErrorStyles}`;
 export const labeledContainerInputStyles = {
-  selected: `${commonInputStyles} text-tweaked-brand bg-white border-tweaked-brand enabled:group-hover:border-tweaked-brand-darker30`,
-  unselected: `${commonInputStyles} text-white border-grey before:opacity-0 enabled:group-hover:bg-background enabled:group-hover:border-grey`,
+  selected: `${commonInputStyles} text-tweaked-brand bg-white border-tweaked-brand group-hover:enabled:border-tweaked-brand-darker30`,
+  unselected: `${commonInputStyles} text-white border-grey before:opacity-0 group-hover:enabled:bg-background group-hover:enabled:border-grey`,
 };
 
 export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
@@ -70,7 +70,7 @@ export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
     <button
       type="button"
       className={twMerge(
-        'group inline-flex cursor-default select-none items-center gap-2 rounded-[5px] border-solid text-sm font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-70',
+        'group inline-flex cursor-default items-center gap-2 rounded-[5px] border-solid text-sm font-bold select-none focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-solid disabled:cursor-not-allowed disabled:opacity-70',
         containerStyleSelectedStatus,
         containerStyleErrorStatus,
         containerBorderSizeStyles,

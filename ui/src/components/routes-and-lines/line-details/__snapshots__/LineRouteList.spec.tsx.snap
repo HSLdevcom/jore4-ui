@@ -18,7 +18,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-:r1:"
-        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring border-grey"
+        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-grey"
         data-headlessui-state=""
         data-testid="LineRouteList::showUnusedStopsSwitch"
         id="headlessui-control-:r0:"
@@ -76,7 +76,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             Reitti A - B FI
           </span>
           <a
-            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 ml-0"
+            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
@@ -140,7 +140,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -219,7 +219,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-:r1:"
-        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring border-grey"
+        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-grey"
         data-headlessui-state=""
         data-testid="LineRouteList::showUnusedStopsSwitch"
         id="headlessui-control-:r0:"
@@ -277,7 +277,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             Reitti A - B FI
           </span>
           <a
-            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 ml-0"
+            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
@@ -341,7 +341,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -636,7 +636,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
       <button
         aria-checked="true"
         aria-labelledby="headlessui-label-:r1:"
-        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring border-brand bg-brand"
+        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-brand bg-brand"
         data-changing=""
         data-checked=""
         data-headlessui-state="checked changing"
@@ -696,7 +696,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             Reitti A - B FI
           </span>
           <a
-            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 ml-0"
+            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
@@ -760,7 +760,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"

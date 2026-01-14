@@ -10,7 +10,7 @@ export const ElyFilter: FC<DisableableFilterProps> = ({
 }) => (
   <InputField<StopSearchFilters>
     className={className}
-    inputClassName="flex-grow"
+    inputClassName="grow"
     disabled={disabled}
     fieldPath="elyNumber"
     translationPrefix="stopRegistrySearch.fieldLabels"

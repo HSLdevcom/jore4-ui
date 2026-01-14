@@ -30,7 +30,7 @@ function getDeleteBlockedContent(
     body: (
       <div>
         <p>{t('confirmStopAreaDeletionDialog.bodyCanNotBeDeleted')}</p>
-        <p className="mb-2 mt-4">
+        <p className="mt-4 mb-2">
           {t('confirmStopAreaDeletionDialog.memberStops')}
         </p>
         <ul>

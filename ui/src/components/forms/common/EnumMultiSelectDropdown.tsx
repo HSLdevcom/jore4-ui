@@ -30,7 +30,7 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
     value: item as TEnum,
     content: (
       <>
-        <MdCheck className="mr-2 rounded border border-grey text-2xl" />
+        <MdCheck className="mr-2 rounded-sm border border-grey text-2xl" />
         <span>{uiNameMapper(item as unknown as TEnum)}</span>
       </>
     ),

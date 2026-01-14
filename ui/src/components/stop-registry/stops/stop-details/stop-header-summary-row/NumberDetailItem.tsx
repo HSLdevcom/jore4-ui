@@ -34,7 +34,7 @@ export const NumberDetailItem: FC<NumberDetailItemProps> = ({
       )}
     >
       <p
-        className="text-lg font-bold leading-none"
+        className="text-lg leading-none font-bold"
         data-testid={testIds.count(testIdPrefix)}
       >
         {count ?? '-'}

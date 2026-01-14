@@ -46,7 +46,7 @@ const TransportationModeButton: FC<TransportationModeButtonProps> = ({
       aria-checked={isSelected(mode)}
       aria-label={mapStopRegistryTransportModeTypeToUiName(t, mode)}
       className={twJoin(
-        'm-[-1px] cursor-pointer rounded border border-transparent text-[44px] leading-none text-tweaked-brand',
+        '-m-px cursor-pointer rounded-sm border border-transparent text-[44px] leading-none text-tweaked-brand',
         'hover:border-tweaked-brand',
         'aria-checked:border-tweaked-brand aria-checked:bg-tweaked-brand aria-checked:text-white',
         modeIconMap[mode],

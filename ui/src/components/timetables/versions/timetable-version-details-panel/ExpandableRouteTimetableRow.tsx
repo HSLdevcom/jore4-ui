@@ -35,7 +35,7 @@ export const ExpandableRouteTimetableRow: FC<
       <Row>
         <div className="flex flex-1 items-center bg-background">
           <DirectionBadge direction={direction} className="my-5 ml-12" />
-          <div className="ml-3.5 mt-1">
+          <div className="mt-1 ml-3.5">
             <h3 className="text-base">{routeLabel}</h3>
             {routeName}
           </div>

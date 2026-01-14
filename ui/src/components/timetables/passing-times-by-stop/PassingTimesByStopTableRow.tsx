@@ -47,8 +47,6 @@ const GQL_PASSING_TIME = gql`
   }
 `;
 
-export const cellClassNames = 'border border-brand p-1 px-3';
-
 const testIds = {
   tableRow: (stopLabel: string) => `PassingTimesByStopTableRow::${stopLabel}`,
 };
@@ -97,7 +95,7 @@ export const PassingTimesByStopTableRow: FC<
       className="odd:bg-hsl-neutral-blue"
       data-testid={testIds.tableRow(label)}
     >
-      <td className={`py-3 ${cellClassNames}`}>
+      <td className="border border-brand p-3">
         <Column>
           <h5>{label}</h5>
           <p className="text-sm">!Pysäkin nimi</p>
@@ -108,7 +106,7 @@ export const PassingTimesByStopTableRow: FC<
           </p>
         </Column>
       </td>
-      <td className={`break-words py-3 align-top ${cellClassNames}`}>
+      <td className="border border-brand p-3 align-top wrap-break-word">
         {Object.entries(passingTimesByHour).map(([hour, hourPassingTimes]) => (
           <PassingTimesByStopTableRowPassingTime
             key={hour}

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { IconButton } from '../../uiComponents/IconButton';
-import { getHoverStyles } from '../../uiComponents/SimpleButton';
 
 const testIds = {
   button: 'LocatorButton::button',
@@ -40,7 +39,7 @@ export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
       tooltip={t('accessibility:lines.details', { label })}
       className={twMerge(
         'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
-        getHoverStyles(false, false),
+        'hover:border-tweaked-brand hover:outline-tweaked-brand',
         className,
       )}
       onClick={onClick}

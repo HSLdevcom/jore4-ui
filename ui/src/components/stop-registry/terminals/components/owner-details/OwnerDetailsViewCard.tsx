@@ -24,7 +24,7 @@ export const OwnerDetailsViewCard: FC<TerminalComponentProps> = ({
   return (
     <DetailRow className="text-sm" testId={testIds.container}>
       <Column>
-        <div className="text-nowrap font-bold">
+        <div className="font-bold text-nowrap">
           {t('terminalDetails.owner.owner')}
         </div>
         {owner ? (
@@ -41,7 +41,7 @@ export const OwnerDetailsViewCard: FC<TerminalComponentProps> = ({
       </Column>
 
       <Column>
-        <div className="text-nowrap font-bold">
+        <div className="font-bold text-nowrap">
           {t('terminalDetails.owner.contractId')}
         </div>
         <div className="text-nowrap" data-testid={testIds.contractId}>
@@ -50,7 +50,7 @@ export const OwnerDetailsViewCard: FC<TerminalComponentProps> = ({
       </Column>
 
       <Column>
-        <div className="text-nowrap font-bold">
+        <div className="font-bold text-nowrap">
           {t('terminalDetails.owner.note')}
         </div>
         <div data-testid={testIds.note}>{owner?.note ?? '-'}</div>

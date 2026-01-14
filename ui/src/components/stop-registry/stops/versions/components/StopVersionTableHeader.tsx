@@ -24,32 +24,32 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
 }) => {
   return (
     <thead className={className}>
-      <tr className="text-nowrap *:px-4 *:py-2">
+      <tr className="text-nowrap">
         <StopVersionTableHeaderSortableCell
-          className="mr-auto"
+          className="mr-auto px-4 py-2"
           columnType="STATUS"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
         />
 
         <StopVersionTableHeaderSortableCell
-          className="ml-auto"
+          className="ml-auto px-4 py-2"
           columnType="VALIDITY_START"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
         />
 
-        <EmptyColumnHeader className="w-fit !p-0" />
+        <EmptyColumnHeader className="w-fit" />
 
         <StopVersionTableHeaderSortableCell
-          className="ml-auto"
+          className="ml-auto px-4 py-2"
           columnType="VALIDITY_END"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
         />
 
         <StopVersionTableHeaderSortableCell
-          className="mx-auto"
+          className="mx-auto px-4 py-2"
           tdClassName="w-full"
           columnType="VERSION_COMMENT"
           sortingInfo={sortingInfo}
@@ -57,14 +57,14 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
         />
 
         <StopVersionTableHeaderSortableCell
-          className="mx-auto"
+          className="mx-auto px-4 py-2"
           columnType="CHANGED"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
         />
 
         <StopVersionTableHeaderSortableCell
-          className="mx-auto"
+          className="mx-auto px-4 py-2"
           columnType="CHANGED_BY"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}

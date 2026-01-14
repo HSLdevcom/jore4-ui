@@ -26,7 +26,7 @@ type LineMissingBoxProps = {
 
 export const LineMissingBox: FC<LineMissingBoxProps> = ({ error }) => {
   return (
-    <div className="flex h-72 w-full flex-shrink-0 items-center justify-center border-light-grey bg-background">
+    <div className="flex h-72 w-full shrink-0 items-center justify-center border-light-grey bg-background">
       <span className="icon-alert p-2 text-hsl-red" />
       <p data-testid={testIds.notValidText} className="self-center">
         {useLineMissingTranslation(error)}

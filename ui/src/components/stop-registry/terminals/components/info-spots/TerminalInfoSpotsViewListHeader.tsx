@@ -27,7 +27,7 @@ const SortableHeader: FC<{
     <button
       type="button"
       onClick={() => onSort(field)}
-      className="flex items-center gap-2 font-bold hover:text-brand focus:text-brand focus:outline-none"
+      className="flex items-center gap-2 font-bold hover:text-brand focus:text-brand focus:outline-hidden"
       data-testid={testIds.sortButton(field)}
     >
       {children}
@@ -51,7 +51,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
   const { t } = useTranslation();
 
   return (
-    <thead className="bg-background-hsl-commuter-train-purple bg-opacity-25 font-bold">
+    <thead className="bg-background-hsl-commuter-train-purple/25 font-bold">
       <tr>
         <SortableHeader
           field="label"

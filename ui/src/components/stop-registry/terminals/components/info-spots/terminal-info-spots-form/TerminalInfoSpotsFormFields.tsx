@@ -63,7 +63,7 @@ export const TerminalInfoSpotFormFields: FC<
 
   return (
     <Column>
-      <div className="bg-background-hsl-commuter-train-purple bg-opacity-25 p-5">
+      <div className="bg-background-hsl-commuter-train-purple/25 p-5">
         <Row className="flex-wrap items-end gap-4 py-2.5">
           <InputField<TerminalInfoSpotFormState>
             type="text"

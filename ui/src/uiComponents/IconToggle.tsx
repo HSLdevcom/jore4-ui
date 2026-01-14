@@ -33,7 +33,7 @@ export const IconToggle: FC<IconToggleProps> = ({
       type="button"
       disabled={disabled}
       className={twMerge(
-        'rounded border border-gray-300',
+        'rounded-sm border border-gray-300',
         colorClassNames,
         disabledClassNames,
         className,

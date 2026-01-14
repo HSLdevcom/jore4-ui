@@ -22,29 +22,27 @@ const testIds = {
   vehicleServiceTable: (dayType: string) => `VehicleServiceTable::${dayType}`,
 };
 
-export const getTimetableHeadingBgColor = (key: TimetablePriority) => {
-  const bgColors: Record<TimetablePriority, string> = {
-    [TimetablePriority.Standard]: 'bg-hsl-dark-green',
-    [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
-    [TimetablePriority.Special]: 'bg-hsl-light-purple',
-    [TimetablePriority.Draft]: 'bg-background',
-    [TimetablePriority.Staging]: 'bg-hsl-red',
-  };
-  return bgColors[key];
+const headingBgColors: Readonly<Record<TimetablePriority, string>> = {
+  [TimetablePriority.Standard]: 'bg-hsl-dark-green/50',
+  [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow/50',
+  [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange/50',
+  [TimetablePriority.Special]: 'bg-hsl-light-purple/50',
+  [TimetablePriority.Draft]: 'bg-background/50',
+  [TimetablePriority.Staging]: 'bg-hsl-red/50',
 };
 
-const getOddRowColor = (key: TimetablePriority) => {
-  const bgColors: Record<TimetablePriority, string> = {
-    [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
-    [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
-    [TimetablePriority.SubstituteByLineType]: 'bg-hsl-neutral-blue',
-    [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
-    [TimetablePriority.Draft]: 'bg-background',
-    [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',
-  };
-  return bgColors[key];
+export const getTimetableHeadingBgColor = (key: TimetablePriority) =>
+  headingBgColors[key];
+
+const oddRowBgColors: Readonly<Record<TimetablePriority, string>> = {
+  [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
+  [TimetablePriority.Temporary]: 'bg-hsl-neutral-blue',
+  [TimetablePriority.SubstituteByLineType]: 'bg-hsl-neutral-blue',
+  [TimetablePriority.Special]: 'bg-hsl-neutral-blue',
+  [TimetablePriority.Draft]: 'bg-background',
+  [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',
 };
+const getOddRowColor = (key: TimetablePriority) => oddRowBgColors[key];
 
 export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
   vehicleJourneyGroup,
@@ -89,10 +87,11 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
     >
       <div
         className={twMerge(
-          'flex flex-row rounded-md border-2 border-transparent bg-opacity-50 px-4 py-1 hover:border-gray-500',
+          'flex flex-row rounded-md border-2 border-transparent px-4 py-1 hover:border-gray-500',
           getTimetableHeadingBgColor(priority),
         )}
         onClick={onClick}
+        // TODO: Replace with key down or up, or should this just be replaced with button component?
         onKeyPress={onKeyPress}
         role="button"
         tabIndex={0}

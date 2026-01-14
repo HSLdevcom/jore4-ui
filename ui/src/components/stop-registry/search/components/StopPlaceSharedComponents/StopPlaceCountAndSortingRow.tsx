@@ -68,7 +68,7 @@ const StopPlaceCountAndSortingRowImpl: FC<CountAndSortingRowImplProps> = ({
         resultSelection={resultSelection}
       />
 
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <SortResultsBy
         groupOnlyFields={[groupingField]}

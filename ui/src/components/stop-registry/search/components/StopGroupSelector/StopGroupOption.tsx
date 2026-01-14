@@ -9,7 +9,7 @@ const testIds = {
 const NO_BREAK_SPACE = '\xa0';
 
 const baseClasses = twJoin(
-  'cursor-pointer rounded border px-2 py-1 text-center font-bold text-dark-grey',
+  'cursor-pointer rounded-sm border px-2 py-1 text-center font-bold text-dark-grey',
   'aria-selected:border-brand aria-selected:bg-brand aria-selected:text-white',
   'hover:border-black hover:bg-background-hsl-blue hover:text-black',
   'focus:outline-2 focus:outline-offset-4 focus:outline-black',

@@ -1,14 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-button:focus {
-  outline-offset: 0.2em;
-}
-
-a:focus {
-  outline-offset: 0.2em;
-}
+@config '../../tailwind.config.js';
 
 :root {
   --input-height: 44px;
@@ -18,66 +10,94 @@ a:focus {
   --anchor-padding: 10px;
 }
 
-input,
-textarea {
-  padding: 12px 10px 12px 10px;
-  border: 1px solid #888888;
-  border-radius: 5px;
-  background-color: white;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  button:focus {
+    outline-offset: 0.2em;
+  }
+
+  a:focus {
+    outline-offset: 0.2em;
+  }
+
+  input,
+  textarea {
+    padding: 12px 10px 12px 10px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+  input {
+    height: var(--input-height);
+  }
+  textarea {
+    min-height: var(--input-height);
+  }
+
+  input:disabled,
+  textarea:disabled {
+    background-color: #f2f5f7;
+    color: #666666;
+  }
+
+  .input-disabled {
+    background-color: #f2f5f7;
+    color: #666666;
+  }
+
+  label,
+  legend {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
 }
 
-input {
-  height: var(--input-height);
-}
-textarea {
-  min-height: var(--input-height);
-}
-
-input:disabled,
-textarea:disabled {
-  background-color: #f2f5f7;
-  color: #666666;
-}
-
-.input-disabled {
-  background-color: #f2f5f7;
-  color: #666666;
-}
-
-label,
-legend {
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-weight: 700;
-}
-
-h1 {
-  font-size: 32px;
-}
-
-h2 {
-  font-size: 26px;
-}
-
-h3 {
-  font-size: 22px;
-}
-
-h4 {
-  font-size: 20px;
-}
-
-/* tailwindcss doesn't support setting border style for one side only */
-.border-l-dashed {
-  border-left-style: dashed;
+@layer utilities {
+  /* tailwindcss doesn't support setting border style for one side only */
+  .border-l-dashed {
+    border-left-style: dashed;
+  }
 }
 
 .maplibregl-ctrl-bottom-right {

@@ -65,7 +65,7 @@ export const StopSelection: FC<StopSelectionProps> = ({ align, className }) => {
         <>
           <PopoverButton
             as={IconButton}
-            className="relative flex-grow"
+            className="relative grow"
             tooltip={
               open
                 ? t('map.stopSelection.hideSelection')
@@ -80,7 +80,7 @@ export const StopSelection: FC<StopSelectionProps> = ({ align, className }) => {
                 {hasSelections ? (
                   <div
                     aria-hidden
-                    className="absolute bottom-2 right-1 h-2 w-2 rounded-full bg-accent-secondary"
+                    className="absolute right-1 bottom-2 h-2 w-2 rounded-full bg-accent-secondary"
                   />
                 ) : null}
               </>

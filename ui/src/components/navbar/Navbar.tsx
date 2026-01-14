@@ -5,7 +5,7 @@ import { LanguageDropdown } from './LanguageDropdown';
 import { NavLinks } from './NavLinks';
 import { UserNavMenu } from './UserNavMenu';
 
-const navMenuStyles = 'border-l border-black border-opacity-20';
+const navMenuStyles = 'border-l border-black/20';
 
 export const Navbar: FC = () => {
   return (
@@ -14,7 +14,7 @@ export const Navbar: FC = () => {
       <LoggedIn>
         <NavLinks />
       </LoggedIn>
-      <div className="flex-grow" />
+      <div className="grow" />
       <UserNavMenu className={navMenuStyles} />
       <LanguageDropdown className={navMenuStyles} />
     </nav>

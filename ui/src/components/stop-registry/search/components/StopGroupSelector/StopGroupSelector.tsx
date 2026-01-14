@@ -634,7 +634,7 @@ export const StopGroupSelector = ({
       <label
         id={id}
         // Align the bottom of the labels text with the bottom of the options text.
-        className="mb-0 mt-[calc(0.5rem+2px)] text-nowrap"
+        className="mt-[calc(0.5rem+2px)] mb-0 text-nowrap"
         role="none"
       >
         {typeof radioGroupLabel === 'function'
@@ -673,7 +673,7 @@ export const StopGroupSelector = ({
         {/* Hide button is nested in here to render the button as a last element in the list. */}
         <Visible visible={!showAllByDefault && showAll}>
           <button
-            className="text-nowrap text-base font-bold text-brand"
+            className="text-base font-bold text-nowrap text-brand"
             data-testid={testIds.showLess}
             onClick={() => {
               setShowAll(false);
@@ -694,7 +694,7 @@ export const StopGroupSelector = ({
       {/* Show more button is outside the list as to exclude from the overflow calculations.  */}
       <Visible visible={!showAll && someGroupIsHidden}>
         <button
-          className="text-nowrap text-base font-bold text-brand"
+          className="text-base font-bold text-nowrap text-brand"
           data-testid={testIds.showAll}
           onClick={() => setShowAll(true)}
           type="button"

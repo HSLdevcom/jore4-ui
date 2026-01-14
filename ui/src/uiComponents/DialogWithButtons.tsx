@@ -54,7 +54,7 @@ export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
       open={isOpen}
       onClose={onCancel}
       className={twMerge(
-        'fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50',
+        'fixed inset-0 z-10 overflow-y-auto bg-black/50',
         className,
       )}
     >

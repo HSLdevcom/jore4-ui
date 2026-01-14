@@ -59,7 +59,7 @@ export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
         results={stops}
       />
 
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <SortResultsBy
         mapDefaultTo={SortStopsBy.LABEL}

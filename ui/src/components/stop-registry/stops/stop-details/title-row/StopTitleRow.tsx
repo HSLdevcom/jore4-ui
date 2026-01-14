@@ -43,7 +43,7 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
         </span>
       </div>
 
-      <div className="flex-grow" />
+      <div className="grow" />
 
       <StopTimetablesButton />
       <OpenOnMapButton className="ml-2" label={label} stop={stopDetails} />

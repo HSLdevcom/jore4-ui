@@ -100,7 +100,7 @@ export const StopPopup: FC<StopPopupProps> = ({
 
   return (
     <Popup
-      className="z-[3] mt-5 min-w-96 p-2"
+      className="z-3 mt-5 min-w-96 p-2"
       anchor="top"
       longitude={longitude}
       latitude={latitude}

@@ -28,7 +28,7 @@ export const UserNavMenu: FC<UserNavMenuProps> = ({ className }) => {
       <div className={twMerge('flex items-stretch self-stretch', className)}>
         <a
           href={LOGIN_URL}
-          className="mx-4 flex items-center border-b-4 border-transparent text-white hover:border-white focus:outline-none"
+          className="mx-4 flex items-center border-b-4 border-transparent text-white hover:border-white focus:outline-hidden"
           data-testid={testIds.loginButton}
         >
           {userIcon}
