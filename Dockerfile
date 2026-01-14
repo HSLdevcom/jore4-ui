@@ -10,8 +10,8 @@ COPY ./ui/public ./ui/public
 COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/tailwind.config.js ./ui/postcss.config.js ./ui/convert-theme-to-ts.js ./ui/theme.js ./ui/graphql.schema.json ./ui/
 COPY ./test-db-manager/rollup.config.mjs ./test-db-manager/tsconfig.json ./test-db-manager/
 
-ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn ws:db run build
+ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn ws:ui run build
 
 FROM nginx:1.24.0-alpine
