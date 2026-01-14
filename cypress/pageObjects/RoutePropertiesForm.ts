@@ -91,13 +91,13 @@ export class RoutePropertiesForm {
     };
 
     if (values.finnishName) {
-      this.getFinnishNameInput().clear().type(values.finnishName);
+      this.getFinnishNameInput().clearAndType(values.finnishName);
     }
     if (values.label) {
-      this.getLabelInput().clear().type(values.label);
+      this.getLabelInput().clearAndType(values.label);
     }
     if (values.variant) {
-      this.getVariantInput().clear().type(values.variant);
+      this.getVariantInput().clearAndType(values.variant);
     }
     if (values.direction) {
       this.selectDirection(values.direction);
@@ -116,7 +116,7 @@ export class RoutePropertiesForm {
     }
 
     if (values.templateRoute) {
-      this.getUseTemplateRouteButton().click();
+      this.getUseTemplateRouteButton().scrollIntoViewAndClick();
       this.templateRouteSelector.fillForm(
         values.templateRoute.templateRouteSelectorInfo,
       );

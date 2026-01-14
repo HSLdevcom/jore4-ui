@@ -46,31 +46,27 @@ export class TerminusNameInputs {
     origin: TerminusValues,
     destination: TerminusValues,
   ) {
-    this.getTerminusOriginFinnishNameInput()
-      .clear({ force: true })
-      .type(origin.finnishName, { force: true });
-    this.getTerminusOriginFinnishShortNameInput()
-      .clear({ force: true })
-      .type(origin.finnishShortName, { force: true });
-    this.getTerminusOriginSwedishNameInput()
-      .clear({ force: true })
-      .type(origin.swedishName, { force: true });
-    this.getTerminusOriginSwedishShortNameInput()
-      .clear({ force: true })
-      .type(origin.swedishShortName, { force: true });
+    this.getTerminusOriginFinnishNameInput().clearAndType(origin.finnishName);
+    this.getTerminusOriginFinnishShortNameInput().clearAndType(
+      origin.finnishShortName,
+    );
+    this.getTerminusOriginSwedishNameInput().clearAndType(origin.swedishName);
+    this.getTerminusOriginSwedishShortNameInput().clearAndType(
+      origin.swedishShortName,
+    );
 
-    this.getTerminusDestinationFinnishNameInput()
-      .clear({ force: true })
-      .type(destination.finnishName, { force: true });
-    this.getTerminusDestinationFinnishShortNameInput()
-      .clear({ force: true })
-      .type(destination.finnishShortName, { force: true });
-    this.getTerminusDestinationSwedishNameInput()
-      .clear({ force: true })
-      .type(destination.swedishName, { force: true });
-    this.getTerminusDestinationSwedishShortNameInput()
-      .clear({ force: true })
-      .type(destination.swedishShortName, { force: true });
+    this.getTerminusDestinationFinnishNameInput().clearAndType(
+      destination.finnishName,
+    );
+    this.getTerminusDestinationFinnishShortNameInput().clearAndType(
+      destination.finnishShortName,
+    );
+    this.getTerminusDestinationSwedishNameInput().clearAndType(
+      destination.swedishName,
+    );
+    this.getTerminusDestinationSwedishShortNameInput().clearAndType(
+      destination.swedishShortName,
+    );
   }
 
   verifyOriginValues(originValues: TerminusValues) {

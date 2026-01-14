@@ -10,12 +10,6 @@ export class TemplateRouteSelector {
   private priorityForm = new PriorityForm();
 
   setPriority = (priority: Priority) => {
-    // With some screen sizes the element is just outside view and tests will fail...
-    cy.getByTestId('TemplateRouteSelector::container').scrollIntoView({
-      offset: { top: 500, left: 0 },
-    });
-    // scrollIntoView is unsafe so can't chain further.
-
     cy.getByTestId('TemplateRouteSelector::container').within(() => {
       switch (priority) {
         case Priority.Draft:
@@ -46,7 +40,7 @@ export class TemplateRouteSelector {
       this.setPriority(values.priority);
     }
     if (values.label) {
-      this.getChooseRouteDropdownButton().click();
+      this.getChooseRouteDropdownButton().scrollIntoViewAndClick();
       cy.get('[role="option"]').contains(values.label).click();
     }
   }

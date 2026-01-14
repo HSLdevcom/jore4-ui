@@ -41,7 +41,7 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
 
 Cypress.Commands.add(
   'findByTestId',
-  { prevSubject: true },
+  { prevSubject: 'element' },
   (subject, selector) => {
     // NOTE: `find` is "child" command and thus has to be defined differently than
     // "parent" commands. See cypress docs for more info: https://docs.cypress.io/api/cypress-api/custom-commands#Child-Commands
@@ -49,19 +49,34 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add('clearAndType', { prevSubject: true }, (subject, text) => {
-  cy.wrap(subject).clear();
-  cy.wrap(subject).type(text);
-  return cy.wrap(subject);
-});
+Cypress.Commands.add(
+  'clearAndType',
+  { prevSubject: 'element' },
+  (subject, text) => {
+    cy.wrap(subject).scrollIntoView();
+    cy.wrap(subject).clear();
+    cy.wrap(subject).type(text);
+    return cy.wrap(subject);
+  },
+);
 
 Cypress.Commands.add(
   'inputDateValue',
-  { prevSubject: true },
+  { prevSubject: 'element' },
   (subject, date: DateTime<true>) => {
+    cy.wrap(subject).scrollIntoView();
     cy.wrap(subject).clear();
     cy.wrap(subject).type(date.toISODate());
     return cy.wrap(subject);
+  },
+);
+
+Cypress.Commands.add(
+  'scrollIntoViewAndClick',
+  { prevSubject: 'element' },
+  (subject) => {
+    cy.wrap(subject).scrollIntoView();
+    cy.wrap(subject).click();
   },
 );
 
@@ -73,13 +88,21 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject) => {
-  cy.wrap(subject).should('be.visible');
-});
+Cypress.Commands.add(
+  'shouldBeVisible',
+  { prevSubject: 'element' },
+  (subject) => {
+    cy.wrap(subject).should('be.visible');
+  },
+);
 
-Cypress.Commands.add('shouldBeDisabled', { prevSubject: true }, (subject) => {
-  cy.wrap(subject).should('be.disabled');
-});
+Cypress.Commands.add(
+  'shouldBeDisabled',
+  { prevSubject: 'element' },
+  (subject) => {
+    cy.wrap(subject).should('be.disabled');
+  },
+);
 
 Cypress.Commands.add('closeDropdown', () => {
   cy.press('Escape');

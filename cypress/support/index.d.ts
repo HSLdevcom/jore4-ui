@@ -38,6 +38,11 @@ declare namespace Cypress {
     inputDateValue(value: DateTime): Chainable<JQuery<HtmlElement>>;
 
     /**
+     * Custom command to scroll the element into view and then click it.
+     */
+    scrollIntoViewAndClick(): Chainable<void>;
+
+    /**
      * Custom command to check if element has text
      */
     shouldHaveText(value: string): Chainable<JQuery<HtmlElement>>;

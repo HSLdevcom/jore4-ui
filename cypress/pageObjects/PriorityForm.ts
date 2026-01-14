@@ -11,15 +11,21 @@ function getPriorityButton(testId: string) {
 
 export class PriorityForm {
   setAsStandard() {
-    return getPriorityButton('PriorityForm::standardPriorityButton').click();
+    return getPriorityButton(
+      'PriorityForm::standardPriorityButton',
+    ).scrollIntoViewAndClick();
   }
 
   setAsDraft() {
-    return getPriorityButton('PriorityForm::draftPriorityButton').click();
+    return getPriorityButton(
+      'PriorityForm::draftPriorityButton',
+    ).scrollIntoViewAndClick();
   }
 
   setAsTemporary() {
-    return getPriorityButton('PriorityForm::temporaryPriorityButton').click();
+    return getPriorityButton(
+      'PriorityForm::temporaryPriorityButton',
+    ).scrollIntoViewAndClick();
   }
 
   setPriority = (priority: Priority) => {

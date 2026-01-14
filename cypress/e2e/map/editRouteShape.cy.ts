@@ -169,7 +169,9 @@ describe('Edit route geometry', () => {
         },
       });
 
-      mapPage.routePropertiesForm.getUseTemplateRouteButton().click();
+      mapPage.routePropertiesForm
+        .getUseTemplateRouteButton()
+        .scrollIntoViewAndClick();
       mapPage.routePropertiesForm.templateRouteSelector.fillForm({
         label: '901',
       });
