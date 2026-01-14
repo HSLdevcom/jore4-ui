@@ -211,7 +211,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
       isOpen={isOpen}
       onClose={handleClose}
       testId={testIds.modal}
-      contentClassName="rounded-lg max-w-2xl w-full mx-4 drop-shadow-none"
+      contentClassName="mx-4 w-full max-w-2xl rounded-lg drop-shadow-none"
     >
       <Row className="flex flex-row items-center border border-light-grey bg-background px-10 py-7">
         <h2>{t('stopAreaDetails.memberStops.moveStopToArea')}</h2>

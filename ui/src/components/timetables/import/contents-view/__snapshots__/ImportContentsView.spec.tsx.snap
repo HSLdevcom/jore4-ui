@@ -40,7 +40,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           >
             <svg
               aria-hidden="true"
-              class="pointer-events-none text-brand text-[50px] inline text-center"
+              class="pointer-events-none text-[50px] text-brand inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -282,7 +282,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="pointer-events-none text-white text-[50px] inline text-center"
+                class="pointer-events-none text-[50px] text-white inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -346,7 +346,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="pointer-events-none text-brand text-[50px] inline text-center"
+                      class="pointer-events-none text-[50px] text-brand inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -408,7 +408,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="pointer-events-none text-brand text-[50px] inline text-center"
+                      class="pointer-events-none text-[50px] text-brand inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -470,7 +470,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="pointer-events-none text-white text-[50px] inline text-center"
+                class="pointer-events-none text-[50px] text-white inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -534,7 +534,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="pointer-events-none text-brand text-[50px] inline text-center"
+                      class="pointer-events-none text-[50px] text-brand inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"

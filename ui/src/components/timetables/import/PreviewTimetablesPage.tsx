@@ -132,7 +132,7 @@ export const PreviewTimetablesPage: FC = () => {
                 testId={testIds.toggleShowStagingTimetables}
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
-                iconClassName="text-white text-[50px]"
+                iconClassName="text-[50px] text-white"
                 openTooltip={t('accessibility:timetables.showPreview')}
                 closeTooltip={t('accessibility:timetables.closePreview')}
                 controls="fileContent"

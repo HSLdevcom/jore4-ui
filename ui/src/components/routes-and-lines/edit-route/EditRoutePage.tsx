@@ -164,7 +164,7 @@ export const EditRoutePage: FC = () => {
                 testIdPrefix="EditRoutePage"
                 onDelete={() => setIsDeleting(true)}
                 deleteButtonText={t('map.deleteRoute')}
-                actionButtonsClassName="border-none mb-0"
+                actionButtonsClassName="mb-0 border-none"
               />
             )}
           </FormContainer>

@@ -80,7 +80,7 @@ export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
                 testId={testIds.toggleShowTable}
                 isOpen={isOpen}
                 onToggle={toggleIsOpen}
-                iconClassName="text-brand text-[50px]"
+                iconClassName="text-[50px] text-brand"
                 openTooltip={t(
                   'accessibility:timetables.expandScheduleBlocksPreview',
                   { scheduleBlock: identifier },
