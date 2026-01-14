@@ -113,11 +113,12 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
         validityEnd={vehicleJourneyGroup.validity.validityEnd}
         vehicleScheduleFrameId={vehicleJourneyGroup.vehicleScheduleFrameId}
         dayTypeNameI18n={vehicleJourneyGroup.dayType.name_i18n}
-        className="space-x-2"
+        className="gap-2"
       />
       <Visible visible={hasVehicleJourneys}>
         <div
           onClick={onClick}
+          // TODO: onKeyPress is deprecated replace with onKeyDown, onKeyUp or with a <button>
           onKeyPress={onKeyPress}
           role="button"
           title="Click to view passing times by stop"

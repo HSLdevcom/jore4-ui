@@ -89,7 +89,7 @@ export const ChangeTimetablesValidityForm: FC<
             text={t('changeTimetablesValidityModal.noticeChangesInRoutes')}
           />
         </Visible>
-        <Row className="mt-6 justify-end space-x-4">
+        <Row className="mt-6 justify-end gap-4">
           <SimpleButton onClick={onCancel} inverted>
             {t('cancel')}
           </SimpleButton>

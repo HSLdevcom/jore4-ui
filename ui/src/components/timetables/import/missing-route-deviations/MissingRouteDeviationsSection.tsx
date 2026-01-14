@@ -24,7 +24,7 @@ export const MissingRouteDeviationsSection: FC<
 
   return (
     <div className={className}>
-      <div className="relative mt-8 flex flex-row space-x-4 rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-6">
+      <div className="relative mt-8 flex flex-row gap-4 rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-6">
         <div>
           <p>
             {t('timetablesPreview.missingRouteDeviations.deviationsWarning')}

@@ -13,7 +13,7 @@ export const FormColumn: FC<PropsWithChildren<FormColumnProps>> = ({
   children,
 }) => {
   return (
-    <Column className={twJoin('w-full space-y-5', className)} id={id}>
+    <Column className={twJoin('w-full gap-5', className)} id={id}>
       {children}
     </Column>
   );

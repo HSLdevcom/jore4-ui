@@ -19,7 +19,7 @@ export const TimeRangeControl: FC<TimeRangeControlProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Row className="space-x-8">
+      <Row className="gap-8">
         <DateControl
           label={t('validityPeriod.validityStart')}
           dateInputId="startDate"

@@ -69,7 +69,7 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
     <Row
       testId={testIds.container}
       className={twMerge(
-        'items-center space-x-4 text-center text-sm text-hsl-dark-80',
+        'items-center gap-4 text-center text-sm text-hsl-dark-80',
         className,
       )}
     >

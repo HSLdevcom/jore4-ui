@@ -18,7 +18,7 @@ export const NewModalFooter: FC<PropsWithChildren<NewModalFooterProps>> = ({
     <Row
       testId={testIds.modalFooter}
       className={twMerge(
-        'justify-end space-x-1 border border-light-grey bg-background px-5 py-4',
+        'justify-end gap-1 border border-light-grey bg-background px-5 py-4',
         className,
       )}
     >

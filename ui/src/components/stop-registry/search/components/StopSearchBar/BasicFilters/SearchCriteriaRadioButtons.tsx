@@ -39,7 +39,7 @@ export const SearchCriteriaRadioButtons: FC<
   const searchByOptions = useOptions();
 
   return (
-    <div className={twMerge('flex space-x-4', className)}>
+    <div className={twMerge('flex gap-4', className)}>
       {searchByOptions.map((option) => (
         <label
           htmlFor={option.name}

@@ -239,7 +239,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
       <DialogPanel className="basis-[100px] rounded-md bg-white p-5 shadow-md">
         <DialogTitle
           as="h3"
-          className="flex flex-nowrap justify-between space-x-5 text-nowrap"
+          className="flex flex-nowrap justify-between gap-5 text-nowrap"
           data-testid={testIds.title}
         >
           {t('navigationBlock.title')}

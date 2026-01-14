@@ -115,13 +115,13 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
             </Visible>
           </div>
         ))}
-        <Row className="mt-4 flex justify-between space-x-2">
+        <Row className="mt-4 justify-between gap-2">
           <AddNewButton
             onClick={addNewExternalLink}
             label={t('stopDetails.externalLinks.addExternalLink')}
             testId={testIds.addExternalLink}
           />
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <SimpleButton
               testId={testIds.cancelButton}
               onClick={handleCancel}

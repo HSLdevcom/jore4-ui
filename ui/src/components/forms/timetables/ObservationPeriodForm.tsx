@@ -134,7 +134,7 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
       <form onSubmit={onSubmit}>
         <div className="grid grid-flow-row">
           <div className="row grid w-full grid-flow-col grid-cols-3 self-center">
-            <div className="col col-span-3 flex items-start space-x-8">
+            <div className="col col-span-3 flex items-start gap-8">
               <InputField<ObservationPeriodSchema>
                 type="date"
                 translationPrefix="timetables.observationPeriodForm"

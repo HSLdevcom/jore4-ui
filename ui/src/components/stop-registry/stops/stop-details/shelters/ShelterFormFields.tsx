@@ -69,7 +69,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
   }, [allShelters, index, currentShelterNumber, setValue]);
 
   return (
-    <Column className="space-y-4">
+    <Column className="gap-4">
       <Row className="flex-wrap items-end gap-4">
         <InputField<SheltersFormState>
           type="number"

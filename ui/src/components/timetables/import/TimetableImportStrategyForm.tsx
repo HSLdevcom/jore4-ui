@@ -27,8 +27,8 @@ export const TimetableImportStrategyForm: FC<
   TimetableImportStrategyFormProps
 > = ({ testIdPrefix }) => {
   return (
-    <Row className="items-center space-x-4">
-      <Row className="items-center space-x-2">
+    <Row className="items-center gap-4">
+      <Row className="items-center gap-2">
         <label
           htmlFor="timetableImportStrategy.replace"
           className="text-base font-normal"
@@ -42,7 +42,7 @@ export const TimetableImportStrategyForm: FC<
           value="replace"
         />
       </Row>
-      <Row className="items-center space-x-2">
+      <Row className="items-center gap-2">
         <label
           htmlFor="timetableImportStrategy.combine"
           className="text-base font-normal"

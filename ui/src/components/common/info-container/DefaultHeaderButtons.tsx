@@ -23,7 +23,7 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="flex space-x-2">
+    <div className="flex gap-2">
       <Visible visible={isEditable && !isInEditMode}>
         <SimpleButton
           shape="slim"

@@ -16,7 +16,7 @@ export const CombineSameContractWarning: FC<
   return (
     <div
       className={twMerge(
-        'relative mt-8 flex flex-row space-x-4 rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-6',
+        'relative mt-8 flex flex-row gap-4 rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-6',
         className,
       )}
     >

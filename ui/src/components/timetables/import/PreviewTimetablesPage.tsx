@@ -141,7 +141,7 @@ export const PreviewTimetablesPage: FC = () => {
           </div>
         </Row>
         <div className="px-16 py-9">
-          <Row className="items-center space-x-14">
+          <Row className="items-center gap-14">
             <h3>{t('timetablesPreview.contentUsage')}</h3>
             <Visible visible={formReadyForRender}>
               <ConfirmPreviewedTimetablesImportForm
@@ -169,7 +169,7 @@ export const PreviewTimetablesPage: FC = () => {
         <Visible visible={showStagingTimetables}>
           <div
             id="fileContent"
-            className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue px-16 py-9"
+            className="flex items-center gap-14 rounded-b-sm bg-hsl-neutral-blue px-16 py-9"
           >
             <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
           </div>
@@ -181,7 +181,7 @@ export const PreviewTimetablesPage: FC = () => {
         duplicateJourneys={duplicateJourneys}
       />
       <div className="pt-10">
-        <Row className="justify-end space-x-4">
+        <Row className="justify-end gap-4">
           <SimpleButton
             inverted
             testId={testIds.closePreviewButton}

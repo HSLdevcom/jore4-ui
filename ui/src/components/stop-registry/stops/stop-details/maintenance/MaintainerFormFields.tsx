@@ -71,7 +71,7 @@ export const MaintainerFormFields: FC<MaintainerFormFieldsProps> = ({
   };
 
   return (
-    <div data-testid={testId} className="grid space-y-4">
+    <div data-testid={testId} className="grid gap-4">
       <div className="lg:row-span-1 lg:row-start-1">
         <InputField<MaintenanceDetailsFormState>
           translationPrefix="stopDetails.maintenance"

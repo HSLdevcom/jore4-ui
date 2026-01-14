@@ -30,7 +30,7 @@ export const MapOverlayHeader: FC<PropsWithChildren<MapOverlayHeaderProps>> = ({
   return (
     <Row
       className={twJoin(
-        'flex items-center justify-between space-x-1 border-b border-gray-200 bg-background p-3',
+        'flex items-center justify-between gap-1 border-b border-gray-200 bg-background p-3',
         className,
       )}
       testId={testId}

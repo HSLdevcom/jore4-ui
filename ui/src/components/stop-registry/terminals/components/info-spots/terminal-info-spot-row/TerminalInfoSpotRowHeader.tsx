@@ -88,7 +88,7 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
             </span>
 
             {isInEditMode ? (
-              <div className="float-right flex h-8 w-8 items-center justify-center space-x-2 text-right align-middle">
+              <div className="float-right flex h-8 w-8 items-center justify-center gap-2 text-right align-middle">
                 <CloseIconButton
                   onClick={() => {
                     setIsInEditMode(false);
@@ -98,7 +98,7 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
                 />
               </div>
             ) : (
-              <div className="float-right flex space-x-2 text-right align-middle">
+              <div className="float-right flex gap-2 text-right align-middle">
                 <SimpleButton
                   shape="slim"
                   onClick={() => setIsInEditMode(true)}

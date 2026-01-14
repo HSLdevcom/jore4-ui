@@ -16,7 +16,7 @@ export const VehicleJourneyPopover: FC<VehicleJourneyPopoverProps> = ({
 }) => {
   return (
     <Popover className="ml-10" onClose={onClose}>
-      <div className="mb-1 space-x-3">
+      <div className="mb-1">
         <h5 className="inline text-lg">
           {mapDurationToShortTime(passingTime)}
         </h5>

@@ -191,7 +191,7 @@ export const OccasionalSubstitutePeriodForm: FC<
               update={update}
             />
           ))}
-          <Row className="my-8 items-center space-x-4">
+          <Row className="my-8 items-center gap-4">
             <Visible visible={!loading}>
               <span className="text-brand-darker">
                 {t('timetables.settings.addRow')}
@@ -206,7 +206,7 @@ export const OccasionalSubstitutePeriodForm: FC<
               </SimpleButton>
             </Visible>
           </Row>
-          <Row className="my-8 justify-end space-x-4">
+          <Row className="my-8 justify-end gap-4">
             <SimpleButton
               onClick={() => setIsResetting(true)}
               disabled={!isDirty}

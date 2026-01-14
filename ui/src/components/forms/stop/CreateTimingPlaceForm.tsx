@@ -135,7 +135,7 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
             testId={testIds.finnishDescription}
           />
         </FormRow>
-        <Row className="justify-end space-x-4">
+        <Row className="justify-end gap-4">
           <SimpleButton
             inverted
             onClick={onCancel}

@@ -130,7 +130,7 @@ export const ImportTimetablesPage: FC = () => {
         >
           {t('import.uploadFiles')}
         </SimpleButton>
-        <div className="flex justify-end space-x-4">
+        <div className="flex justify-end gap-4">
           <SimpleButton
             testId={testIds.abortButton}
             onClick={openAbortImportModal}

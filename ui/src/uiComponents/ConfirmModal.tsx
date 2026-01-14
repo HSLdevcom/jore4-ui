@@ -43,7 +43,7 @@ export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
         <DialogTitle as="h4">{heading}</DialogTitle>
       </Row>
       <NewModalBody>{children}</NewModalBody>
-      <Row className="justify-end space-x-1 px-5 py-4">
+      <Row className="justify-end gap-1 px-5 py-4">
         <SimpleButton testId={testIds.cancelButton} onClick={onCancel} inverted>
           {cancelButtonText}
         </SimpleButton>

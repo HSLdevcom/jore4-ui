@@ -102,7 +102,7 @@ export const ConfirmTimetablesImportForm: FC<
             <SpecialDayMixedPrioritiesWarning />
           </Visible>
 
-          <Row className="mt-10 justify-end space-x-4">
+          <Row className="mt-10 justify-end gap-4">
             <SimpleButton
               testId={testIds.cancelButton}
               onClick={onCancel}

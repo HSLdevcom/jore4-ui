@@ -73,7 +73,7 @@ export const ViaForm: FC<ViaFormProps> = ({
         ref={formRef}
         className={className}
       >
-        <Row className="mb-5 space-x-10">
+        <Row className="mb-5 gap-10">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -82,7 +82,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             testId={testIds.finnishName}
           />
         </Row>
-        <Row className="mb-5 space-x-10">
+        <Row className="mb-5 gap-10">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -91,7 +91,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             testId={testIds.swedishName}
           />
         </Row>
-        <Row className="mb-5 space-x-10">
+        <Row className="mb-5 gap-10">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -100,7 +100,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             testId={testIds.finnishShortName}
           />
         </Row>
-        <Row className="mb-5 space-x-10">
+        <Row className="mb-5 gap-10">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -109,7 +109,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             testId={testIds.swedishShortName}
           />
         </Row>
-        <Row className="space-x-4">
+        <Row className="gap-4">
           <SimpleButton onClick={onCancel} inverted>
             {t('cancel')}
           </SimpleButton>

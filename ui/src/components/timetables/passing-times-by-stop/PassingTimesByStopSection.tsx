@@ -69,7 +69,7 @@ export const PassingTimesByStopSection: FC<PassingTimesByStopSectionProps> = ({
             vehicleJourneyGroup.priority,
           )}
         >
-          <Row className="items-center space-x-4">
+          <Row className="items-center gap-4">
             <div className="min-w-[240px]">
               <DayTypeDropdown
                 values={dayTypes.map((type) => type.label)}

@@ -26,7 +26,7 @@ export const PassingTimesByStopTableRowPassingTime: FC<
 
   return (
     <span
-      className="my-2 mr-5 inline-flex h-8 space-x-2 border-b border-dashed border-grey whitespace-nowrap"
+      className="my-2 mr-5 inline-flex h-8 gap-2 border-b border-dashed border-grey whitespace-nowrap"
       data-testid={testIds.timeContainer}
     >
       <span

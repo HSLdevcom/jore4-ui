@@ -80,7 +80,7 @@ export const ConfirmPreviewedTimetablesImportFormComponent: ForwardRefRenderFunc
         onSubmit={handleSubmit(onSubmit)}
         ref={externalRef}
       >
-        <Row className="space-x-6">
+        <Row className="gap-6">
           <TimetablesImportPriorityForm showLabel={false} />
           <div className="px-4">
             <div className="h-full border-l border-black" />

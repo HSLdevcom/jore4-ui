@@ -217,7 +217,7 @@ export const CommonSubstitutePeriodForm: FC<
               />
             ))}
           </div>
-          <Row className="my-8 justify-end space-x-4">
+          <Row className="my-8 justify-end gap-4">
             <SimpleButton
               onClick={() => setIsResetting(true)}
               disabled={!isDirty}

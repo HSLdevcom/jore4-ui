@@ -98,7 +98,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
             </p>
           </Visible>
         </div>
-        <Row className="mt-8 justify-end space-x-5">
+        <Row className="mt-8 justify-end gap-5">
           <SimpleButton
             onClick={onCancel}
             inverted

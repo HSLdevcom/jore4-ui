@@ -85,7 +85,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
-        <Column className="space-y-4">
+        <Column className="gap-4">
           <Row className="flex-wrap items-end gap-4">
             <InputField<MeasurementsFormState>
               translationPrefix="stopDetails.measurements"

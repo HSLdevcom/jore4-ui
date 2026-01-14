@@ -41,14 +41,14 @@ export const ErrorModal: FC<ErrorModalProps> = ({
       contentClassName={twJoin('w-1/4', className)}
     >
       <Row className="flex items-start justify-between px-5 pt-4 pb-2">
-        <div className="flex space-x-1">
+        <div className="flex gap-1">
           <i className="icon-alert text-lg text-hsl-red" />
           <DialogTitle as="h4">{heading}</DialogTitle>
         </div>
         <CloseIconButton onClick={onClose} testId={testIds.closeIconButton} />
       </Row>
       <NewModalBody className={bodyClassName}>{children}</NewModalBody>
-      <Row className="justify-end space-x-1 px-5 pt-2 pb-4">
+      <Row className="justify-end gap-1 px-5 pt-2 pb-4">
         <SimpleButton testId={testIds.closeButton} onClick={onClose}>
           {t('close')}
         </SimpleButton>

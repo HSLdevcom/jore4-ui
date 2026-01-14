@@ -26,7 +26,7 @@ export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
   const { register } = useFormContext<ExternalLinksFormState>();
 
   return (
-    <Column className="w-full space-y-4">
+    <Column className="w-full gap-4">
       <Row className="flex w-full items-end gap-4">
         <InputField<ExternalLinksFormState>
           type="string"

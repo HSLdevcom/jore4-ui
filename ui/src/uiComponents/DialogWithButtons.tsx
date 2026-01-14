@@ -79,7 +79,7 @@ export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
           >
             {description}
           </Description>
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-end gap-2">
             {buttons.map((button, i) => (
               <SimpleButton
                 key={getDialogButtonKey(button, i)}

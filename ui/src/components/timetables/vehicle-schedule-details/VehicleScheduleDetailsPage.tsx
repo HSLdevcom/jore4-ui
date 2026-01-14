@@ -98,7 +98,7 @@ export const VehicleScheduleDetailsPage: FC = () => {
         <FormRow mdColumns={6} className="mb-8">
           <ObservationDateControl className="max-w-max" />
           <Visible visible={activeView === TimetablesView.DEFAULT}>
-            <Field className="col-span-2 mb-1 flex items-center justify-normal space-x-4 self-end">
+            <Field className="col-span-2 mb-1 flex items-center justify-normal gap-4 self-end">
               <SwitchLabel>{t('timetables.showAllValid')}</SwitchLabel>
               <Switch
                 checked={showAllValid}
@@ -111,7 +111,7 @@ export const VehicleScheduleDetailsPage: FC = () => {
           <Visible
             visible={activeView === TimetablesView.PASSING_TIMES_BY_STOP}
           >
-            <Field className="col-span-2 flex items-center justify-normal space-x-4 self-end">
+            <Field className="col-span-2 flex items-center justify-normal gap-4 self-end">
               <SwitchLabel>{t('timetables.showArrivalTimes')}</SwitchLabel>
               <Switch
                 checked={showArrivalTimes}

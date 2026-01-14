@@ -104,7 +104,7 @@ export const SearchContainer: FC<SearchContainerProps> = ({
             className="space-y-5 border-2 border-background p-10"
           >
             <h2>{t('search.advancedSearchTitle')}</h2>
-            <Row className="space-x-4">
+            <Row className="gap-4">
               <TransportationModeFilter<RoutesAndLinesSearchFilters>
                 testIdPrefix={routesAndLinesTestIds.prefix}
                 translationPrefix="lines"

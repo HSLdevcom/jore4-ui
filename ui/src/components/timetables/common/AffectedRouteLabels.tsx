@@ -10,7 +10,7 @@ export const AffectedRouteLabels: FC<AffectedRouteLabelsProps> = ({
   text,
 }) => {
   return (
-    <div className="my-6 flex flex-row items-center space-x-6">
+    <div className="my-6 flex flex-row items-center gap-6">
       <i className="icon-alert text-hsl-red" />
       <div className="space-y-1 text-sm">
         <p className="font-bold">{text}</p>
