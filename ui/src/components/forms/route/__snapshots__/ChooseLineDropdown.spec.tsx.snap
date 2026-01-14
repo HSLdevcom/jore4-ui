@@ -14,7 +14,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
       aria-autocomplete="list"
       aria-controls="headlessui-combobox-options-:ri:"
       aria-expanded="true"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md"
       data-focus=""
       data-headlessui-state="open focus"
       data-open=""
@@ -80,7 +80,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
@@ -141,7 +141,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r2:"
@@ -202,7 +202,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r9:"
@@ -263,7 +263,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none"
+      class="h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md"
       data-headlessui-state=""
       data-testid="ChooseLineDropdown1::input"
       id="headlessui-combobox-input-:r9:"

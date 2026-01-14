@@ -29,7 +29,7 @@ export const EditButton: FC<EditButtonProps> = (props) => {
   const onClick = (props as ButtonProps)?.onClick;
 
   const classNames = twMerge(
-    'ml-5 rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white',
+    'ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white',
     'hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand',
     className,
   );

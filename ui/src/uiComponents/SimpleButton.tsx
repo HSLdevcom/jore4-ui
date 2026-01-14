@@ -68,14 +68,14 @@ function getCommonClassNames(
   shape: SimpleButtonShape,
 ) {
   return twJoin(
-    'flex justify-center items-center',
+    'flex items-center justify-center',
     getShapeClassNames(shape),
     getColorClassNames(inverted, shape),
     // We cannot use 'disabled:' specifier, because the underlying implementation could be
     // a HTMLAnchorElement link instead of an button, and thus does not have the
     // disabled attribute.
     disabled &&
-      'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey',
+      'cursor-not-allowed border-light-grey bg-light-grey text-white opacity-70',
     getHoverStyles(inverted, disabled),
   );
 }

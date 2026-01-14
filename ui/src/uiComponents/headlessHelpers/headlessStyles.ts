@@ -4,7 +4,7 @@ type ClassLists = ReadonlyArray<ClassNameValue>;
 
 function dropdownSelectionOptionStyles(...classLists: ClassLists) {
   return twMerge(
-    'flex items-center border-b last:border-b-0 p-2 text-left focus:outline-hidden cursor-default',
+    'flex cursor-default items-center border-b p-2 text-left last:border-b-0 focus:outline-hidden',
     'ui-active:bg-dark-grey ui-active:text-white',
     'ui-selected:bg-dark-grey ui-selected:text-white',
     'ui-disabled:cursor-not-allowed ui-disabled:bg-light-grey',
@@ -17,9 +17,9 @@ function dropdownSelectionOptionsStyles(...classLists: ClassLists) {
     'min-w-(--button-width)',
     'z-100 overflow-hidden border border-black/20 bg-white focus:outline-hidden',
     'flex flex-col items-stretch',
-    'data-[anchor~="bottom"]:rounded-b-md data-[anchor~="bottom"]:-mt-px data-[anchor~="bottom"]:shadow-md',
-    'data-[anchor~="top"]:rounded-t-md data-[anchor~="top"]:mt-px data-[anchor~="top"]:shadow-t-md',
-    'transition-opacity ease-in-out duration-100 data-closed:opacity-0',
+    'data-[anchor~="bottom"]:-mt-px data-[anchor~="bottom"]:rounded-b-md data-[anchor~="bottom"]:shadow-md',
+    'data-[anchor~="top"]:mt-px data-[anchor~="top"]:rounded-t-md data-[anchor~="top"]:shadow-t-md',
+    'transition-opacity duration-100 ease-in-out data-closed:opacity-0',
     ...classLists,
   );
 }
@@ -27,7 +27,7 @@ function dropdownSelectionOptionsStyles(...classLists: ClassLists) {
 function comboboxInputStyles(...classLists: ClassLists) {
   return twMerge(
     'h-full w-full border border-grey bg-white px-2 py-3 focus:outline-hidden',
-    'ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none',
+    'transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md',
     ...classLists,
   );
 }
@@ -49,9 +49,9 @@ export const comboboxStyles = {
 
 function listboxButtonStyles(...classLists: ClassLists) {
   return twMerge(
-    'flex h-(--input-height) w-full items-center border border-grey bg-white gap-2 px-2 py-3 text-left',
+    'flex h-(--input-height) w-full items-center gap-2 border border-grey bg-white px-2 py-3 text-left',
     'ui-disabled:bg-background ui-disabled:text-dark-grey',
-    'ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none',
+    'transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md',
     ...classLists,
   );
 }
