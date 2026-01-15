@@ -11,6 +11,7 @@ COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/tailwind.config.js ./ui/postcss
 COPY ./test-db-manager/rollup.config.mjs ./test-db-manager/tsconfig.json ./test-db-manager/
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
+ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY="DIGITRANSIT_API_KEY_PLACEHOLDER"
 RUN yarn ws:db run build
 RUN yarn ws:ui run build
 
