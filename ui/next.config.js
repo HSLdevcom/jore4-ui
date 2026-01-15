@@ -1,3 +1,4 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
   compress: false, // We have server rendering disabled so can't use compression.
   async rewrites() {
