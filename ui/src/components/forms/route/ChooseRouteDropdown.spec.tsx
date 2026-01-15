@@ -98,7 +98,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
 
   test('Opens dropdown when clicked and shows all routes', async () => {
     const { asFragment } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <ChooseRouteDropdown
           testId={testId}
           value={value}
@@ -153,7 +153,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
 
   test('Filters shown routes when query is set', async () => {
     const { asFragment } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <ChooseRouteDropdown
           testId={testId}
           value={value}

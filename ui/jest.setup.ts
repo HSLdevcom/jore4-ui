@@ -20,3 +20,10 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
   disconnect() {}
 };
+
+// Latest version of Apollo 3 introduced some warning messages about deprecated
+// features. We are no longer relying on any of those features, but the implementation
+// of the warnings is not the best, and we still get spam in console logs when
+// running the unit tests.
+// @ts-ignore
+global[Symbol.for('apollo.deprecations')] = true;

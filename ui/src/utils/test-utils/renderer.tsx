@@ -11,7 +11,7 @@ import '../../i18n';
 const AllTheProviders: FC<PropsWithChildren> = ({ children }) => {
   // Add "providers" or "wrappers" that are needed in all DOM render tests here
   return (
-    <MockedProvider addTypename={false}>
+    <MockedProvider>
       <ReduxProvider>
         <BrowserRouter>{children}</BrowserRouter>
       </ReduxProvider>
