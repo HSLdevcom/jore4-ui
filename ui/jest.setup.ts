@@ -1,6 +1,12 @@
 // This needs to be registered trough proper import.
 // jest.config.js setupFilesAfterEnv is no longer enough.
 import '@testing-library/jest-dom';
+import { act } from '@testing-library/react';
+import {
+  configMocks,
+  mockAnimationsApi,
+  mockResizeObserver,
+} from 'jsdom-testing-mocks';
 import 'cross-fetch/polyfill';
 
 import { TextEncoder, TextDecoder } from 'node:util';
@@ -14,12 +20,10 @@ if (!global.TextDecoder) {
   global.TextDecoder = TextDecoder;
 }
 
-// Will be needed for Headless UI V2
-global.ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
+configMocks({ act });
+
+mockAnimationsApi();
+mockResizeObserver();
 
 // Latest version of Apollo 3 introduced some warning messages about deprecated
 // features. We are no longer relying on any of those features, but the implementation

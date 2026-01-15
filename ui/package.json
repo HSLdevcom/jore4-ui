@@ -71,6 +71,7 @@
     "csstype": "^3.2.3",
     "express": "^5.2.1",
     "http-proxy-middleware": "^3.0.5",
+    "jsdom-testing-mocks": "^1.16.0",
     "postcss": "^8.5.3"
   }
 }
