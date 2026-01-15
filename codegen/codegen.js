@@ -59,6 +59,7 @@ module.exports = {
         ...defaultConfig,
         withHooks: true,
         immutableTypes: true,
+        documentMode: 'documentNode',
         scalars,
       },
     },
