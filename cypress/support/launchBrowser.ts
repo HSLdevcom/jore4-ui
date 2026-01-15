@@ -6,6 +6,32 @@
 // this will produce higher resolution images and videos
 // https://on.cypress.io/browser-launch-api
 
+const disableGPULaunchOption = '--disable-gpu';
+
+/**
+ * Cypress might want to disable HW acceleration, but we need that for WebGL
+ * support which is mandatory for the Map to work in Jore. Remove the disabling
+ * launch option arg.
+ *
+ * @param launchOptions
+ */
+function dontDisableGPU(
+  launchOptions: Cypress.BeforeBrowserLaunchOptions,
+): Cypress.BeforeBrowserLaunchOptions {
+  if (launchOptions.args.includes(disableGPULaunchOption)) {
+    console.log(
+      "Cypress has disabled GPU acceleration in the browser's launch optiopns. But we need GPU for the map. Re-enable and hope fot the best 🤞",
+    );
+
+    return {
+      ...launchOptions,
+      args: launchOptions.args.filter((arg) => arg !== disableGPULaunchOption),
+    };
+  }
+
+  return launchOptions;
+}
+
 /**
  * The browser width and height we want to get our screenshots and videos
  * will be of that resolution. + Normal launch options
@@ -128,7 +154,8 @@ export function onLaunchBrowser(
   browser: Cypress.Browser,
   launchOptions: Cypress.BeforeBrowserLaunchOptions,
 ): Cypress.BeforeBrowserLaunchOptions {
-  const withScreenSize = applyScreenSizeOptions(browser, launchOptions);
+  const withGPUAcceleration = dontDisableGPU(launchOptions);
+  const withScreenSize = applyScreenSizeOptions(browser, withGPUAcceleration);
   const withReducedMotion = applyReducedMotionOptions(browser, withScreenSize);
 
   return withReducedMotion;
