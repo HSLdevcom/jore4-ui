@@ -533,7 +533,7 @@ describe(`<${LineRouteList.name} />`, () => {
 
   test('Renders the route with stops along its geometry', async () => {
     const { container, asFragment } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <LineRouteList routes={routes} />
       </MockedProvider>,
     );
@@ -564,7 +564,7 @@ describe(`<${LineRouteList.name} />`, () => {
 
   test('Generates links for stop details', async () => {
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <LineRouteList routes={routes} />
       </MockedProvider>,
     );
