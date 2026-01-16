@@ -11,9 +11,19 @@ COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/tailwind.config.js ./ui/postcss
 COPY ./test-db-manager/rollup.config.mjs ./test-db-manager/tsconfig.json ./test-db-manager/
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
-ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY="DIGITRANSIT_API_KEY_PLACEHOLDER"
+ARG NEXT_PUBLIC_BUILD_TIME
 RUN yarn ws:db run build
 RUN yarn ws:ui run build
+
+# This is a silly thing to do, but nginx-unprivileged base image
+# makes it difficult to RUN commans in it's Dockerfile section.
+# Prepare a symbolic link for an config file, pointint to a /tmp
+# into which the nginx user is allowed to write, and into where
+# we can generate the config file from ENV variables at container
+# startup time.
+# Remove the plaholder file and replace with the link.
+RUN rm /app/ui/out/config.json && \
+    ln -s /tmp/config.json /app/ui/out/config.json
 
 FROM nginxinc/nginx-unprivileged:1.29.3-alpine
 
@@ -22,7 +32,9 @@ EXPOSE 8080
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build --chown=10001:0 /app/ui/out /usr/share/nginx/html
 
-COPY --chmod=755 scripts/docker/replace-environment-variables.sh /tmp
+COPY --chmod=755 scripts/docker/generateConfigJSON.sh /tmp
 ADD --chmod=755 https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh /tmp/read-secrets.sh
 
-CMD ["/bin/sh", "-c", "source /tmp/read-secrets.sh && /tmp/replace-environment-variables.sh && nginx -g \"daemon off;\""]
+ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY="PLACEHOLDER"
+ENV NEXT_PUBLIC_HASURA_URL=""
+CMD ["/bin/sh", "-c", "source /tmp/read-secrets.sh && /tmp/generateConfigJSON.sh && nginx -g \"daemon off;\""]

@@ -1,13 +1,33 @@
-export const mapHttpToWs = (origin: string) => {
-  if (origin.startsWith('http://')) {
-    return origin.replace('http://', 'ws://');
+function toStringWithoutTrailingSlash(url: URL): string {
+  return url.toString().replace(/\/$/, '');
+}
+
+export function mapHttpUrlToWs(url: URL): string {
+  const copy = new URL(url);
+
+  if (copy.protocol === 'http:') {
+    copy.protocol = 'ws:';
+    return toStringWithoutTrailingSlash(copy);
   }
-  if (origin.startsWith('https://')) {
-    return origin.replace('https://', 'wss://');
+
+  if (copy.protocol === 'https:') {
+    copy.protocol = 'wss:';
+    return toStringWithoutTrailingSlash(copy);
   }
-  // eslint-disable-next-line no-console
-  console.error(
-    `Expected string to start with "http://" or "https://" but got ${origin}`,
+
+  throw new Error(
+    `Expected url to have protocol of http: or https: but was ${url.protocol}`,
   );
-  return origin;
-};
+}
+
+function mapHttpStringToWs(url: string): string {
+  return mapHttpUrlToWs(new URL(url));
+}
+
+export function mapHttpToWs(url: URL | string): string {
+  if (typeof url === 'string') {
+    return mapHttpStringToWs(url);
+  }
+
+  return mapHttpUrlToWs(url);
+}
