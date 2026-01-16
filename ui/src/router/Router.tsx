@@ -45,8 +45,10 @@ import {
 import { ImportTimetablesPage } from '../components/timetables/import/ImportTimetablesPage';
 import { PreviewTimetablesPage } from '../components/timetables/import/PreviewTimetablesPage';
 import { TimetableVersionsPage } from '../components/timetables/versions';
+import { joreConfig } from '../config';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
+import { mapToShortDateTime } from '../time';
 import { Spinner } from '../uiComponents';
 import { JoreErrorModal } from '../uiComponents/JoreErrorModal';
 import { showDangerToast } from '../utils';
@@ -129,11 +131,25 @@ const WithNavigation: FC<PropsWithChildren> = ({ children }) => (
 const WithFooter: FC<PropsWithChildren> = ({ children }) => {
   const { t } = useTranslation();
 
+  if (!joreConfig.gitHash && !joreConfig.buildTime) {
+    return (
+      <>
+        {children}
+        <footer className="hidden" />
+      </>
+    );
+  }
+
   return (
     <>
       {children}
       <footer className="mt-6 flex justify-center">
-        <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
+        <p>
+          {t('version', {
+            gitHash: joreConfig.gitHash,
+            buildTime: mapToShortDateTime(joreConfig.buildTime),
+          })}
+        </p>
       </footer>
     </>
   );

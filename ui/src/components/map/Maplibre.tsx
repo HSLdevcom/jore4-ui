@@ -16,6 +16,7 @@ import MapGL, {
   MapRef,
   NavigationControl,
 } from 'react-map-gl/maplibre';
+import { joreConfig } from '../../config';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   LoadingState,
@@ -53,12 +54,12 @@ const style = generateStyle({
     {
       url: 'https://api.digitransit.fi/',
       name: 'digitransit-subscription-key',
-      value: process.env.NEXT_PUBLIC_DIGITRANSIT_API_KEY,
+      value: joreConfig.digitransitApiKey,
     },
     {
       url: 'https://cdn.digitransit.fi/',
       name: 'digitransit-subscription-key',
-      value: process.env.NEXT_PUBLIC_DIGITRANSIT_API_KEY,
+      value: joreConfig.digitransitApiKey,
     },
   ],
 });

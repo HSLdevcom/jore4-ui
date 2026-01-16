@@ -11,7 +11,7 @@ COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/tailwind.config.js ./ui/postcss
 COPY ./test-db-manager/rollup.config.mjs ./test-db-manager/tsconfig.json ./test-db-manager/
 
 ARG NEXT_PUBLIC_GIT_HASH=unknown
-ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY="DIGITRANSIT_API_KEY_PLACEHOLDER"
+ARG NEXT_PUBLIC_BUILD_TIME
 RUN yarn ws:db run build
 RUN yarn ws:ui run build
 
@@ -19,6 +19,8 @@ FROM nginx:1.24.0-alpine
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/ui/out /usr/share/nginx/html
-COPY scripts/docker/replace-environment-variables.sh /tmp
+COPY scripts/docker/generateConfigJSON.sh /tmp
+ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY=""
+ENV NEXT_PUBLIC_HASURA_URL=""
 RUN curl -o /tmp/read-secrets.sh "https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh"
-CMD /bin/sh -c 'source /tmp/read-secrets.sh && /tmp/replace-environment-variables.sh && nginx -g "daemon off;"'
+CMD /bin/sh -c 'source /tmp/read-secrets.sh && /tmp/generateConfigJSON.sh && nginx -g "daemon off;"'

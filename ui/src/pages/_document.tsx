@@ -10,6 +10,8 @@ export default function Document() {
         <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon-512.png" />
         <link rel="manifest" href="/manifest.json" />
+
+        <script src="/initConfig.js" type="module" defer />
       </Head>
       <body>
         <Main />
