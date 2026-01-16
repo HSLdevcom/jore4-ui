@@ -31,3 +31,7 @@ mockResizeObserver();
 // running the unit tests.
 // @ts-ignore
 global[Symbol.for('apollo.deprecations')] = true;
+
+window.joreConfig = {
+  digitransitApiKey: 'not needed, not real',
+};

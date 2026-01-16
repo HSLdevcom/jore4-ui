@@ -58,4 +58,6 @@ interface Window {
     longitude: number,
     latitude: number,
   ) => { x: number; y: number };
+
+  joreConfig: unknown;
 }

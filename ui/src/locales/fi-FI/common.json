@@ -1396,7 +1396,7 @@
   "cancel": "Peruuta",
   "close": "Sulje",
   "cut": "Leikkaa",
-  "version": "Versio: {{ version }}",
+  "version": "Versio: {{ gitHash }}, käännetty: {{buildTime}}",
   "hide": "Piilota",
   "all": "Kaikki",
   "unknown": "Ei tiedossa",

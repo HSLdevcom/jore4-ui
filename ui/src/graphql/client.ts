@@ -16,6 +16,7 @@ import { createClient as createWsClient } from 'graphql-ws';
 import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
+import { joreConfig } from '../config';
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
 import { authRoleMiddleware, roleHeaderMap, userHasuraRole } from './auth';
@@ -84,34 +85,26 @@ const buildScalarMappingLink = () => {
   return withScalars({ schema, typesMap });
 };
 
-function getGraphqlUrl(
-  isTesting: boolean,
-  isWebsocket: false,
-): string | UriFunction;
-function getGraphqlUrl(isTesting: boolean, isWebsocket: true): string;
-function getGraphqlUrl(
-  isTesting: boolean,
-  isWebsocket: boolean,
-): string | UriFunction {
-  const path = '/api/graphql/v1/graphql';
-
-  if (isTesting) {
-    // In CI or when HASURA_URL is set, use it directly
-    // Otherwise default to UI proxy for local development
-    return process.env.HASURA_URL ?? `http://127.0.0.1:3300${path}`;
-  }
-
+function getGraphqlUrl(isWebsocket: false): UriFunction;
+function getGraphqlUrl(isWebsocket: true): string;
+function getGraphqlUrl(isWebsocket: boolean): string | UriFunction {
   if (isWebsocket) {
-    return mapHttpToWs(`${window.location.origin}${path}`);
+    // If hostless path only url
+    if (joreConfig.hasuraUrl.startsWith('/')) {
+      return mapHttpToWs(new URL(joreConfig.hasuraUrl, window.location.href));
+    }
+
+    // Assume valid absolute url
+    return mapHttpToWs(joreConfig.hasuraUrl);
   }
 
-  return (operation) => `${path}?q=${operation.operationName}`;
+  return (operation) => `${joreConfig.hasuraUrl}?q=${operation.operationName}`;
 }
 
 const buildWebSocketLink = () => {
   return new GraphQLWsLink(
     createWsClient({
-      url: getGraphqlUrl(false, true),
+      url: getGraphqlUrl(true),
       connectionParams: {
         headers: roleHeaderMap(userHasuraRole),
       },
@@ -136,7 +129,7 @@ const errorLink = onError(({ graphQLErrors }) => {
 
 const buildHttpLink = (isTesting: boolean) => {
   const defaultConfig = {
-    uri: getGraphqlUrl(isTesting, false),
+    uri: getGraphqlUrl(false),
   };
 
   const httpLinkConfig = isTesting
@@ -316,7 +309,10 @@ export const createGraphqlClient = () => {
   const isTesting = process.env.NODE_ENV === 'test';
 
   const scalarMappingLink = buildScalarMappingLink();
-  const connectionLink = buildConnectionLink(!!process.browser, isTesting);
+  const connectionLink = buildConnectionLink(
+    typeof window === 'object' && window !== null,
+    isTesting,
+  );
 
   const link = from([
     errorLink,

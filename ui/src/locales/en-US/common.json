@@ -1396,7 +1396,7 @@
   "cancel": "Cancel",
   "close": "Close",
   "cut": "Cut",
-  "version": "Version: {{ version }}",
+  "version": "Version: {{ gitHash }}, build: {{buildTime}}",
   "hide": "Hide",
   "all": "All",
   "unknown": "Unknown",
