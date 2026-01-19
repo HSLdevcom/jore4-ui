@@ -15,13 +15,13 @@ ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY="DIGITRANSIT_API_KEY_PLACEHOLDER"
 RUN yarn ws:db run build
 RUN yarn ws:ui run build
 
-FROM nginx:1.24.0-alpine
+FROM nginxinc/nginx-unprivileged:1.29.3-alpine
+
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/ui/out /usr/share/nginx/html
 
-RUN chown -R 10001:10001 /usr/share/nginx/html
-
-COPY scripts/docker/replace-environment-variables.sh /tmp
+COPY --chmod=755 scripts/docker/replace-environment-variables.sh /tmp
 ADD --chmod=755 https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh /tmp/read-secrets.sh
+
 CMD ["/bin/sh", "-c", "source /tmp/read-secrets.sh && /tmp/replace-environment-variables.sh && nginx -g \"daemon off;\""]
