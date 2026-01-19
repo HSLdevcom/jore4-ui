@@ -73,7 +73,7 @@ describe('<ChooseLineDropdown />', () => {
 
   test('Shows correct texts when loading with preselected line', async () => {
     const { asFragment } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <ChooseLineDropdown
           testId={testId}
           value={value}
@@ -99,7 +99,7 @@ describe('<ChooseLineDropdown />', () => {
 
   test('Shows correct texts when loading without pre-selected line', async () => {
     const { asFragment } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <ChooseLineDropdown
           testId={testId}
           value={undefined}
@@ -125,7 +125,7 @@ describe('<ChooseLineDropdown />', () => {
 
   test('Opens dropdown when clicked and shows all lines', async () => {
     const { asFragment } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <ChooseLineDropdown
           testId={testId}
           value={value}
