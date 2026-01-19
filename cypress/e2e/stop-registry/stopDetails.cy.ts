@@ -805,7 +805,14 @@ describe('Stop details', () => {
 
           toast.expectSuccessToast('Hastus-paikka luotu');
 
-          stopDetailsPage.basicDetails.getSaveButton().click();
+          bdForm.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Creating new timing place for e2e test');
+
+          stopDetailsPage.basicDetails
+            .getSaveButton()
+            .should('be.enabled')
+            .click();
 
           toast.expectSuccessToast('Pysäkki muokattu');
 
