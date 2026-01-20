@@ -17,7 +17,8 @@ RUN yarn ws:ui run build
 
 FROM nginxinc/nginx-unprivileged:1.29.3-alpine
 
-EXPOSE 80
+EXPOSE 8080
+
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build --chown=10001:0 /app/ui/out /usr/share/nginx/html
 
