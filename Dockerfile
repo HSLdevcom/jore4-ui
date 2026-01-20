@@ -19,7 +19,7 @@ FROM nginxinc/nginx-unprivileged:1.29.3-alpine
 
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/ui/out /usr/share/nginx/html
+COPY --from=build --chown=10001:0 /app/ui/out /usr/share/nginx/html
 
 COPY --chmod=755 scripts/docker/replace-environment-variables.sh /tmp
 ADD --chmod=755 https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh /tmp/read-secrets.sh
