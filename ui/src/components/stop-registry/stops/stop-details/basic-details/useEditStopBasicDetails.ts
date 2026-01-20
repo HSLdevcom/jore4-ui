@@ -242,11 +242,11 @@ export const useEditStopBasicDetails = () => {
               values: state.stopState ? [state.stopState] : [],
             },
           ]),
+          versionComment:
+            state.reasonForChange !== '' ? state.reasonForChange : null,
         },
       ],
       transportMode: state.transportMode,
-      versionComment:
-        state.reasonForChange !== '' ? state.reasonForChange : null,
     };
   };
 

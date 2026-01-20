@@ -38,8 +38,6 @@ export const useEditStopLocationDetails = () => {
 
     return {
       id: stop.stop_place?.id,
-      versionComment:
-        state.reasonForChange !== '' ? state.reasonForChange : null,
       quays: [
         ...otherQuays,
         {
@@ -81,6 +79,8 @@ export const useEditStopLocationDetails = () => {
               },
             ]),
           ),
+          versionComment:
+            state.reasonForChange !== '' ? state.reasonForChange : null,
         },
       ],
     };
