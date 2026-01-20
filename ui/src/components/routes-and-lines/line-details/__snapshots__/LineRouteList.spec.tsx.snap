@@ -420,7 +420,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               data-testid="RouteStopListItem::name"
             >
               <span>
-                -
+                Pysäkkialue 0
               </span>
             </div>
             <span
@@ -526,7 +526,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               data-testid="RouteStopListItem::name"
             >
               <span>
-                -
+                Pysäkkialue 2
               </span>
             </div>
             <span
@@ -839,7 +839,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               data-testid="RouteStopListItem::name"
             >
               <span>
-                -
+                Pysäkkialue 0
               </span>
             </div>
             <span
@@ -945,7 +945,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               data-testid="RouteStopListItem::name"
             >
               <span>
-                -
+                Pysäkkialue 1
               </span>
             </div>
             <span
@@ -1051,7 +1051,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               data-testid="RouteStopListItem::name"
             >
               <span>
-                -
+                Pysäkkialue 2
               </span>
             </div>
             <span
