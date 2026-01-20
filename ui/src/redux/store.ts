@@ -4,7 +4,14 @@ import { rootReducer } from './rootReducer';
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => {
+    if (process.env.NODE_ENV === 'test') {
+      // Don't enable logger in unit tests
+      return getDefaultMiddleware();
+    }
+
+    return getDefaultMiddleware().concat(logger);
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
