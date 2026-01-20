@@ -42,7 +42,7 @@ services:
       # when running e2e tests locally
       HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
 
-  jore4-tiamat:
+  #jore4-tiamat:
     # Pin tiamat to a compatible version.
     # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
     #image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-11-19-75e2b9396dad8c114433d4fc0025b5116a04709a"
