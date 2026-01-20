@@ -76,6 +76,7 @@ describe(`<${LineRouteList.name} />`, () => {
                 fi_FI: 'Rautatientori - Veräjälaakso short FI',
                 sv_FI: 'Rautatientori - Veräjälaakso short SV',
               },
+              description: 'Description kenttä',
               validity_start: DateTime.fromISO('2000-01-01'),
               validity_end: DateTime.fromISO('2050-12-13'),
               priority: 10,
@@ -112,6 +113,17 @@ describe(`<${LineRouteList.name} />`, () => {
                         InfrastructureNetworkDirectionEnum.Bidirectional,
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                      stop_place_ref: 'HSL:StopPlace:0',
+                      stop_place: [
+                        {
+                          __typename: 'stop_registry_StopPlace',
+                          id: 'HSL:StopPlace:0',
+                          name: {
+                            lang: 'fi-FI',
+                            value: 'Pysäkkialue 0',
+                          },
+                        },
+                      ],
                       label: 'H1234',
                       timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                       timing_place: {
@@ -188,6 +200,7 @@ describe(`<${LineRouteList.name} />`, () => {
                             InfrastructureNetworkDirectionEnum.Bidirectional,
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                          stop_place_ref: 'HSL:StopPlace:0',
                           label: 'H1234',
                           timing_place_id:
                             'd094b604-3860-4e2f-a601-9dad6f9827b9',
@@ -235,6 +248,17 @@ describe(`<${LineRouteList.name} />`, () => {
                         InfrastructureNetworkDirectionEnum.Bidirectional,
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
+                      stop_place_ref: 'HSL:StopPlace:1',
+                      stop_place: [
+                        {
+                          __typename: 'stop_registry_StopPlace',
+                          id: 'HSL:StopPlace:1',
+                          name: {
+                            lang: 'fi-FI',
+                            value: 'Pysäkkialue 1',
+                          },
+                        },
+                      ],
                       label: 'H1235',
                       timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                       timing_place: {
@@ -299,6 +323,7 @@ describe(`<${LineRouteList.name} />`, () => {
                             InfrastructureNetworkDirectionEnum.Bidirectional,
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
+                          stop_place_ref: 'HSL:StopPlace:0',
                           label: 'H1235',
                           timing_place_id:
                             '651a693b-b18b-4daa-a6da-c3677bfd2113',
@@ -346,6 +371,17 @@ describe(`<${LineRouteList.name} />`, () => {
                         InfrastructureNetworkDirectionEnum.Bidirectional,
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                      stop_place_ref: 'HSL:StopPlace:2',
+                      stop_place: [
+                        {
+                          __typename: 'stop_registry_StopPlace',
+                          id: 'HSL:StopPlace:2',
+                          name: {
+                            lang: 'fi-FI',
+                            value: 'Pysäkkialue 2',
+                          },
+                        },
+                      ],
                       label: 'H1236',
                       timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                       timing_place: {
@@ -402,6 +438,7 @@ describe(`<${LineRouteList.name} />`, () => {
                             InfrastructureNetworkDirectionEnum.Bidirectional,
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                          stop_place_ref: 'HSL:StopPlace:2',
                           label: 'H1236',
                           timing_place_id:
                             '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
@@ -454,6 +491,7 @@ describe(`<${LineRouteList.name} />`, () => {
                           InfrastructureNetworkDirectionEnum.Bidirectional,
                         scheduled_stop_point_id:
                           'e3528755-711f-4e4f-9461-7931a2c4bc6d',
+                        stop_place_ref: 'HSL:StopPlace:0',
                         label: 'H1234',
                         timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                         timing_place: {
@@ -494,6 +532,7 @@ describe(`<${LineRouteList.name} />`, () => {
                           InfrastructureNetworkDirectionEnum.Bidirectional,
                         scheduled_stop_point_id:
                           'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
+                        stop_place_ref: 'HSL:StopPlace:2',
                         label: 'H1236',
                         timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                         timing_place: {
