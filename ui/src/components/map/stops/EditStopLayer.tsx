@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
@@ -19,6 +20,7 @@ import {
   toggleStopSelectionAction,
 } from '../../../redux';
 import { EnrichedStopPlace, Point } from '../../../types';
+import { showSuccessToast } from '../../../utils';
 import { useMapDataLayerLoader } from '../../common/hooks';
 import {
   StopFormState,
@@ -120,6 +122,8 @@ type EditStopLayerProps = {
 
 export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
   ({ draftLocation, onEditingFinished, onPopupClose, selectedStopId }, ref) => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
 
     const copyStopId = useAppSelector(selectCopyStopId);
@@ -216,8 +220,13 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     };
 
     const onToggleSelection = () => {
-      if (selectedStopId) {
+      if (selectedStopId && mapStopSelection.byResultSelection === false) {
         dispatch(toggleStopSelectionAction(selectedStopId));
+        if (mapStopSelection.selected.includes(selectedStopId)) {
+          showSuccessToast(t('map.stopSelection.stopUnselected'));
+        } else {
+          showSuccessToast(t('map.stopSelection.stopSelected'));
+        }
       }
     };
 

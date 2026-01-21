@@ -871,7 +871,9 @@
       "showAll": "Show all (1)",
       "showAll_other": "Show all ({{count}})",
       "removeSelection": "Remove stop from selection",
-      "retry": "Retry"
+      "retry": "Retry",
+      "stopSelected": "Stop added to the list",
+      "stopUnselected": "Stop removed from the list"
     }
   },
   "saveChangesModal": {

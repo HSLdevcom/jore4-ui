@@ -2281,6 +2281,8 @@ describe('Stop search', () => {
       stopPopUp.getIsSelected().click();
       stopPopUp.getIsSelected().should('be.checked');
 
+      mapPage.toast.dismissAllToasts();
+
       // Ensure it is also back in selection
       mapStopSelection.getOpenButton().shouldBeVisible().click();
       mapStopSelection.getSelectedStops().should('have.length', 9);

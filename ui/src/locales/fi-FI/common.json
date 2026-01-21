@@ -871,7 +871,9 @@
       "showAll": "Näytä kaikki (1)",
       "showAll_other": "Näytä kaikki ({{count}})",
       "removeSelection": "Poista pysäkki valinnoista",
-      "retry": "Yritä uudelleen"
+      "retry": "Yritä uudelleen",
+      "stopSelected": "Pysäkki lisätty listalle",
+      "stopUnselected": "Pysäkki poistettu listalta"
     }
   },
   "saveChangesModal": {

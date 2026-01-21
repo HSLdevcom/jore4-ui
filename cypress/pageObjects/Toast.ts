@@ -65,4 +65,11 @@ export class Toast {
   expectWarningToast(message?: string, dismiss?: boolean) {
     this.expectToast(ToastType.WARNING, message, dismiss);
   }
+
+  dismissAllToasts() {
+    cy.getByTestId('Toast::closeButton').each((button) => {
+      cy.wrap(button).click();
+    });
+    cy.getByTestId('Toast::closeButton').should('not.exist');
+  }
 }
