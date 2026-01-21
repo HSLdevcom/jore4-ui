@@ -72,18 +72,6 @@ export enum DayType {
   SU = 9, // Sunday
 }
 
-export enum StopRegistryMunicipality {
-  Helsinki = 3,
-  Vantaa = 4,
-  Espoo = 5,
-  Kauniainen = 6,
-  Siuntio = 7,
-  Kirkkonummi = 8,
-  Sipoo = 9,
-  Kerava = 10,
-  Tuusula = 11,
-}
-
 export const knownMunicipalityPrefixes = {
   Helsinki: 'H',
   Vantaa: 'V',

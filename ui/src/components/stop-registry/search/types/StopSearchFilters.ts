@@ -15,15 +15,13 @@ import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
 import { instanceOfDateTime, requiredString } from '../../../forms/common';
 import { SearchBy } from './SearchBy';
 import { SearchFor } from './SearchFor';
-import { StringMunicipality, knownMunicipalities } from './StringMunicipality';
+import { knownMunicipalities } from './StringMunicipality';
 
 const allEnum = z.nativeEnum(AllOptionEnum);
 const nullEnum = z.nativeEnum(NullOptionEnum);
 
 function zMunicipalityEnumArray() {
-  const municipalityEnum = z.enum(
-    knownMunicipalities as [StringMunicipality, ...StringMunicipality[]],
-  );
+  const municipalityEnum = z.enum(knownMunicipalities);
   return z.array(z.union([municipalityEnum, allEnum]));
 }
 

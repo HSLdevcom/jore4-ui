@@ -1,8 +1,13 @@
-import { StopRegistryMunicipality } from '../../../../types/enums';
-import { numberEnumKeys } from '../../../../utils';
+export const knownMunicipalities = [
+  'Helsinki',
+  'Vantaa',
+  'Espoo',
+  'Kauniainen',
+  'Siuntio',
+  'Kirkkonummi',
+  'Sipoo',
+  'Kerava',
+  'Tuusula',
+] as const;
 
-export const knownMunicipalities = Object.freeze(
-  numberEnumKeys(StopRegistryMunicipality),
-);
-
-export type StringMunicipality = keyof typeof StopRegistryMunicipality;
+export type StringMunicipality = (typeof knownMunicipalities)[number];

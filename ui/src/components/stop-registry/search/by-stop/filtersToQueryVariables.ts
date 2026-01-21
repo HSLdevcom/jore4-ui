@@ -1,9 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import { StopsDatabaseQuayNewestVersionBoolExp } from '../../../../generated/graphql';
-import {
-  StopRegistryMunicipality,
-  knownPriorityValues,
-} from '../../../../types/enums';
+import { knownPriorityValues } from '../../../../types/enums';
 import {
   AllOptionEnum,
   NullOptionEnum,
@@ -16,7 +13,6 @@ import {
   ResultSelection,
   SearchBy,
   StopSearchFilters,
-  StringMunicipality,
 } from '../types';
 
 function toTiamatDBEnumCase(str: string) {
@@ -63,15 +59,8 @@ function buildSearchStopsMunicipalityFilter({
 
   return {
     stop_place: {
-      topographic_place_id: {
-        _in: municipalities.map(
-          (name) =>
-            (
-              StopRegistryMunicipality as unknown as Readonly<
-                Record<StringMunicipality, number>
-              >
-            )[name as StringMunicipality],
-        ),
+      topographic_place: {
+        name_value: { _in: municipalities },
       },
     },
   };
