@@ -73,6 +73,16 @@ export const mapToShortTime = (date?: DateLike | null) =>
 export const mapToShortDateTime = (date?: DateLike | null) =>
   formatDateWithoutLocale('d.L.yyyy H.mm', date);
 
+// Convert UTC timestamp to Helsinki timezone and format as date time
+export const mapUTCToDateTime = (date?: string | null) => {
+  if (!date) {
+    return undefined;
+  }
+  return DateTime.fromISO(date, { zone: 'utc' })
+    .setZone('Europe/Helsinki')
+    .toFormat('dd.MM.yyyy HH:mm');
+};
+
 export function mapToISODate(date: DateLike): string;
 export function mapToISODate(date: null | undefined): undefined;
 export function mapToISODate(

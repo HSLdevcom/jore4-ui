@@ -15,6 +15,7 @@ import {
   useObservationDateQueryParam,
   useUrlQuery,
 } from '../../../../hooks/urlQuery';
+import { useGetUserNames } from '../../../../hooks/useGetUserNames';
 import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
   EnrichedStopPlace,
@@ -31,6 +32,7 @@ import {
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
 import { mapToEnrichedQuay } from '../../utils';
+import { useGetLatestQuayChange } from '../queries/useGetQuayChangeHistory';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
@@ -367,6 +369,11 @@ const getStopDetails = (
   observationDateTs: number,
   priority: number,
   label: string,
+  getUserNameById: (userId: string | null | undefined) => string | null,
+  quayChangeData?: {
+    changed: string | null;
+    changedBy: string | null;
+  },
 ): StopWithDetails | null => {
   const stopPlaceResults = data?.stopsDb?.newestVersion ?? [];
 
@@ -397,6 +404,9 @@ const getStopDetails = (
     return null;
   }
 
+  const changeData = quayChangeData;
+  const changedByUserName = getUserNameById(changeData?.changedBy);
+
   return {
     ...result.stopPoint,
     location: getGeometryPoint(result.stopPoint.measured_location),
@@ -404,6 +414,8 @@ const getStopDetails = (
     quay: mapToEnrichedQuay(
       result.selectedQuay,
       result.stopPlace?.accessibilityAssessment,
+      changeData?.changed,
+      changedByUserName,
     ),
   };
 };
@@ -426,14 +438,34 @@ export const useGetStopDetails = () => {
   const { observationDate } = useObservationDateQueryParam();
   const { queryParams } = useUrlQuery();
   const priority = Number(queryParams.priority);
+  const { getUserNameById } = useGetUserNames();
 
   const where = getWhereCondition(label);
   const { data, ...rest } = useGetStopDetailsQuery({ variables: { where } });
 
+  const { latestQuayChangeData } = useGetLatestQuayChange({
+    public_code: { _eq: label },
+  });
+
   const observationDateTs = observationDate.valueOf();
   const stopDetails = useMemo(
-    () => getStopDetails(data, observationDateTs, priority, label),
-    [data, observationDateTs, priority, label],
+    () =>
+      getStopDetails(
+        data,
+        observationDateTs,
+        priority,
+        label,
+        getUserNameById,
+        latestQuayChangeData,
+      ),
+    [
+      data,
+      observationDateTs,
+      priority,
+      label,
+      getUserNameById,
+      latestQuayChangeData,
+    ],
   );
 
   return { ...rest, stopDetails };
@@ -441,9 +473,18 @@ export const useGetStopDetails = () => {
 
 export const useGetStopDetailsLazy = () => {
   const [getStopDetailsLazy] = useGetStopDetailsLazyQuery();
+  const { getUserNameById } = useGetUserNames();
 
   return useCallback(
-    async (label: string, observationDate: DateTime, priority: number) => {
+    async (
+      label: string,
+      observationDate: DateTime,
+      priority: number,
+      quayChangeData?: {
+        changed: string | null;
+        changedBy: string | null;
+      },
+    ) => {
       const where = getWhereCondition(label);
       const { data, ...rest } = await getStopDetailsLazy({
         variables: { where },
@@ -455,11 +496,13 @@ export const useGetStopDetailsLazy = () => {
         observationDateTs,
         priority,
         label,
+        getUserNameById,
+        quayChangeData,
       );
 
       return { ...rest, stopDetails };
     },
-    [getStopDetailsLazy],
+    [getStopDetailsLazy, getUserNameById],
   );
 };
 

@@ -526,6 +526,12 @@ describe('Stop details', () => {
         .shouldHaveText('Pohjoisesplanadi|Norraesplanaden');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
 
+      stopDetailsPage
+        .changeHistoryLink()
+        .shouldBeVisible()
+        .invoke('text')
+        .should('match', /\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2}/); // Matches format: DD.MM.YYYY HH:mm
+
       stopDetailsPage.headerSummaryRow.lineCount().should('have.text', 0);
 
       stopDetailsPage.basicDetailsTabPanel().should('be.visible');
