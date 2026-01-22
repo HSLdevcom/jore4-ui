@@ -900,7 +900,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-1.1.2052');
+
       stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+
       stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',

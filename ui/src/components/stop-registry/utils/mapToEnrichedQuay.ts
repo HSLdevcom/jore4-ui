@@ -29,6 +29,8 @@ export function mapToEnrichedQuay(
     | AccessibilityAssessmentDetailsFragment
     | null
     | undefined,
+  changed?: string | null,
+  changedByUserName?: string | null,
 ): EnrichedQuay | null {
   if (!quay) {
     return null;
@@ -37,6 +39,8 @@ export function mapToEnrichedQuay(
   return {
     ...quay,
     ...getQuayDetailsForEnrichment(quay, accessibilityAssessment),
+    changed,
+    changedByUserName,
     infoSpots: sortInfoSpots(quay.infoSpots).map((infoSpot) => ({
       ...infoSpot,
       poster: sortPosters(infoSpot.poster),
