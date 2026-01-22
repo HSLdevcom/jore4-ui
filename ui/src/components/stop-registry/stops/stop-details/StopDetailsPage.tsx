@@ -1,9 +1,11 @@
 import { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
+import { Link } from 'react-router';
 import { useRequiredParams } from '../../../../hooks';
 import { Container, Visible } from '../../../../layoutComponents';
-import { mapToShortDate } from '../../../../time';
+import { Path, routeDetails } from '../../../../router/routeDetails';
+import { mapToShortDate, mapUTCToDateTime } from '../../../../time';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
 import { BasicDetailsSection } from './basic-details';
@@ -33,6 +35,7 @@ const testIds = {
   technicalFeaturesTabPanel: 'StopDetailsPage::technicalFeaturesTabPanel',
   infoSpotsTabPanel: 'StopDetailsPage::infoSpotsTabPanel',
   loadingStopDetails: 'StopDetailsPage::loadingStopDetails',
+  changeHistoryLink: 'StopDetailsPage::changeHistoryLink',
 };
 
 export const StopDetailsPage: FC = () => {
@@ -54,17 +57,28 @@ export const StopDetailsPage: FC = () => {
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
       <StopDetailsVersion label={label} />
       <hr className="my-4" />
-      <div className="my-4 flex items-center gap-2">
-        <h2>{t('stopDetails.stopDetails')}</h2>
-        <div
-          title={t('accessibility:stops.validityPeriod')}
-          data-testid={testIds.validityPeriod}
-        >
-          {mapToShortDate(stopDetails?.validity_start)}
-          <span className="mx-1">-</span>
-          {mapToShortDate(stopDetails?.validity_end)}
+      <div className="my-4 flex">
+        <div className="flex items-center gap-2">
+          <h2>{t('stopDetails.stopDetails')}</h2>
+          <div
+            title={t('accessibility:stops.validityPeriod')}
+            data-testid={testIds.validityPeriod}
+          >
+            {mapToShortDate(stopDetails?.validity_start)}
+            <span className="mx-1">-</span>
+            {mapToShortDate(stopDetails?.validity_end)}
+          </div>
+          <EditStopValidityButton stop={stopDetails} />
         </div>
-        <EditStopValidityButton stop={stopDetails} />
+        <Link
+          to={routeDetails[Path.stopDetails].getLink(label)}
+          className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
+          data-testid={testIds.changeHistoryLink}
+        >
+          {mapUTCToDateTime(stopDetails?.quay?.changed)} |{' '}
+          {stopDetails?.quay?.changedByUserName ?? 'HSL'}{' '}
+          <i className="icon-history text-xl" aria-hidden />
+        </Link>
       </div>
       <DetailTabSelector
         className="mb-3"
