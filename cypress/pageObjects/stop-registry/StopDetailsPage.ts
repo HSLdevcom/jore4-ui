@@ -58,6 +58,10 @@ export class StopDetailsPage {
     return cy.getByTestId('StopDetailsPage::editStopValidityButton');
   }
 
+  changeHistoryLink() {
+    return cy.getByTestId('StopDetailsPage::changeHistoryLink');
+  }
+
   basicDetailsTabButton() {
     return cy.getByTestId('StopDetailsPage::basicDetailsTabButton');
   }
