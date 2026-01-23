@@ -239,6 +239,12 @@ describe('Terminal details', () => {
         .validityPeriod()
         .should('contain', '1.1.2020-1.1.2050');
 
+      terminalDetailsPage.versioningRow
+        .getChangeHistoryLink()
+        .shouldBeVisible()
+        .invoke('text')
+        .should('match', /\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2}/); // Matches format: DD.MM.YYYY HH:mm
+
       verifyInitialBasicDetails();
     });
 
