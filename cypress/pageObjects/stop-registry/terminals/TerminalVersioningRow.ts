@@ -4,4 +4,7 @@ export class TerminalVersioningRow {
 
   getEditValidityButton = () =>
     cy.getByTestId('TerminalVersioningRow::editTerminalValidityButton');
+
+  getChangeHistoryLink = () =>
+    cy.getByTestId('TerminalVersioningRow::changeHistoryLink');
 }

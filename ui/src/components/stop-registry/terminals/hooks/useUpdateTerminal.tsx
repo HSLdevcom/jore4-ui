@@ -27,7 +27,11 @@ export const useUpdateTerminal = () => {
   const tryHandleApolloError = useTerminalApolloErrorHandler();
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
-    refetchQueries: ['getParentStopPlaceDetails', 'GetStopTerminalsByLocation'],
+    refetchQueries: [
+      'getParentStopPlaceDetails',
+      'GetStopTerminalsByLocation',
+      'GetLatestStopPlaceChange',
+    ],
   });
 
   const updateTerminal = useCallback(
