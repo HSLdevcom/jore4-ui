@@ -217,6 +217,12 @@ describe('Stop area details', () => {
       .getValidityPeriod()
       .shouldHaveText(validity);
 
+    stopAreaDetailsPage.versioningRow
+      .getChangeHistoryLink()
+      .shouldBeVisible()
+      .invoke('text')
+      .should('match', /\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2}/); // Matches format: DD.MM.YYYY HH:mm
+
     const { details } = stopAreaDetailsPage;
     details.getName().shouldHaveText(expected.name);
     details.getNameSwe().shouldHaveText(expected.nameSwe);

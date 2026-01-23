@@ -130,7 +130,7 @@ export const useUpsertStopArea = () => {
   const tryHandleApolloError = useStopAreaDetailsApolloErrorHandler();
   const [upsertStopAreaMutation] = useUpsertStopAreaMutation({
     awaitRefetchQueries: true,
-    refetchQueries: ['GetStopAreasByLocation'],
+    refetchQueries: ['GetStopAreasByLocation', 'GetLatestStopPlaceChange'],
   });
 
   /**

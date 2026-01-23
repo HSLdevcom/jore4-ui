@@ -46,6 +46,8 @@ export type SharedEnrichmentProperties = {
   readonly locationLong?: number | undefined;
   readonly validityStart?: string | undefined;
   readonly validityEnd?: string | undefined;
+  readonly changed?: string | null;
+  readonly changedByUserName?: string | null;
 };
 
 export type QuayEnrichmentProperties = {

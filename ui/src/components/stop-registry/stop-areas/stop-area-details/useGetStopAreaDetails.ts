@@ -7,6 +7,7 @@ import {
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
+  useGetUserNames,
   useObservationDateQueryParam,
   useRequiredParams,
 } from '../../../../hooks';
@@ -15,6 +16,7 @@ import {
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
+import { useGetLatestStopPlaceChange } from './hooks/useGetStopPlaceChangeHistory';
 
 const GQL_GET_STOP_AREA_DETAILS = gql`
   query getStopPlaceDetails(
@@ -111,10 +113,18 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
 
 export function getEnrichedStopPlace(
   stopPlace: StopPlaceDetailsFragment | null | undefined,
+  getUserNameById?: (userId: string | null | undefined) => string | null,
+  stopPlaceChangeData?: {
+    changed: string | null;
+    changedBy: string | null;
+  },
 ): EnrichedStopPlace | null {
   if (!stopPlace) {
     return null;
   }
+
+  const changeData = stopPlaceChangeData;
+  const changedByUserName = getUserNameById?.(changeData?.changedBy);
 
   const transformedStopPlace = {
     ...stopPlace,
@@ -126,11 +136,18 @@ export function getEnrichedStopPlace(
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(transformedStopPlace),
+    changed: changeData?.changed,
+    changedByUserName,
   };
 }
 
 function useGetStopPlaceDetailsByWhere(
   where: StopsDatabaseStopPlaceNewestVersionBoolExp | null,
+  getUserNameById?: (userId: string | null | undefined) => string | null,
+  stopPlaceChangeData?: {
+    changed: string | null;
+    changedBy: string | null;
+  },
 ) {
   const { data, ...rest } = useGetStopPlaceDetailsQuery(
     where ? { variables: { where } } : { skip: true },
@@ -140,8 +157,9 @@ function useGetStopPlaceDetailsByWhere(
     data?.stopsDb?.newestVersion.at(0)?.TiamatStopPlace,
   ).at(0);
   const stopPlaceDetails = useMemo(
-    () => getEnrichedStopPlace(rawStopPlace),
-    [rawStopPlace],
+    () =>
+      getEnrichedStopPlace(rawStopPlace, getUserNameById, stopPlaceChangeData),
+    [rawStopPlace, getUserNameById, stopPlaceChangeData],
   );
 
   return { ...rest, stopPlaceDetails };
@@ -198,12 +216,22 @@ function useGetStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseStopPlace
 }
 
 export function useGetStopPlaceDetails() {
+  const { getUserNameById } = useGetUserNames();
+
+  const { latestStopPlaceChangeData } = useGetLatestStopPlaceChange(
+    useGetStopPlaceDetailsWhereConditions(),
+  );
+
   const validResult = useGetStopPlaceDetailsByWhere(
     useGetStopPlaceDetailsWhereConditionsWithDate(),
+    getUserNameById,
+    latestStopPlaceChangeData,
   );
 
   const fallbackResult = useGetStopPlaceDetailsByWhere(
     useGetStopPlaceDetailsWhereConditions(),
+    getUserNameById,
+    latestStopPlaceChangeData,
   );
 
   const hasValidData = !!validResult.stopPlaceDetails;
