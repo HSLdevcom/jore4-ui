@@ -1,12 +1,15 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate } from '../../../../../time';
+import { Path, routeDetails } from '../../../../../router/routeDetails';
+import { mapToShortDate, mapUTCToDateTime } from '../../../../../time';
 import { TerminalComponentProps } from '../../types';
 import { EditTerminalValidityButton } from './EditTerminalValidityButton';
 
 const testIds = {
   validityPeriod: 'TerminalVersioningRow::validityPeriod',
+  changeHistoryLink: 'TerminalVersioningRow::changeHistoryLink',
 };
 
 export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
@@ -16,7 +19,7 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={twMerge('flex items-center gap-2', className)}>
+    <div className={twMerge('my-4 flex items-center gap-2', className)}>
       <h2>{t('terminalDetails.title')}</h2>
 
       <div
@@ -29,6 +32,18 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
       </div>
 
       <EditTerminalValidityButton terminal={terminal} />
+
+      <Link
+        to={routeDetails[Path.terminalDetails].getLink(
+          terminal.privateCode?.value,
+        )}
+        className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
+        data-testid={testIds.changeHistoryLink}
+      >
+        {mapUTCToDateTime(terminal.changed)} |{' '}
+        {terminal.changedByUserName ?? 'HSL'}{' '}
+        <i className="icon-history text-xl" aria-hidden />
+      </Link>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {
   useGetParentStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
+  useGetUserNames,
   useObservationDateQueryParam,
   useRequiredParams,
 } from '../../../../hooks';
@@ -15,6 +16,7 @@ import {
   getParentStopPlaceDetailsForEnrichment,
   getParentStopPlacesFromQueryResult,
 } from '../../../../utils';
+import { useGetLatestStopPlaceChange } from '../../stop-areas/stop-area-details/hooks/useGetStopPlaceChangeHistory';
 
 const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
   query getParentStopPlaceDetails(
@@ -169,21 +171,36 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
 
 export function getEnrichedParentStopPlace(
   parentStopPlace: ParentStopPlaceDetailsFragment | null | undefined,
+  getUserNameById?: (userId: string | null | undefined) => string | null,
+  parentStopPlaceChangeData?: {
+    changed: string | null;
+    changedBy: string | null;
+  },
 ): EnrichedParentStopPlace | null {
   if (!parentStopPlace) {
     return null;
   }
+
+  const changeData = parentStopPlaceChangeData;
+  const changedByUserName = getUserNameById?.(changeData?.changedBy);
 
   return {
     ...parentStopPlace,
     ...getParentStopPlaceDetailsForEnrichment(
       parentStopPlace as StopRegistryParentStopPlace,
     ),
+    changed: changeData?.changed,
+    changedByUserName,
   } as EnrichedParentStopPlace;
 }
 
 function useGetParentStopPlaceDetailsByWhere(
   where: StopsDatabaseStopPlaceNewestVersionBoolExp | null,
+  getUserNameById: (userId: string | null | undefined) => string | null,
+  parentStopPlaceChangeData?: {
+    changed: string | null;
+    changedBy: string | null;
+  },
 ) {
   const { data, ...rest } = useGetParentStopPlaceDetailsQuery(
     where ? { variables: { where } } : { skip: true },
@@ -194,8 +211,13 @@ function useGetParentStopPlaceDetailsByWhere(
       data?.stopsDb?.newestVersion.at(0)?.TiamatStopPlace,
     ).at(0);
   const parentStopPlaceDetails = useMemo(
-    () => getEnrichedParentStopPlace(rawParentStopPlace),
-    [rawParentStopPlace],
+    () =>
+      getEnrichedParentStopPlace(
+        rawParentStopPlace,
+        getUserNameById,
+        parentStopPlaceChangeData,
+      ),
+    [rawParentStopPlace, getUserNameById, parentStopPlaceChangeData],
   );
 
   return { ...rest, parentStopPlaceDetails };
@@ -229,12 +251,22 @@ function useGetParentStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseSto
 }
 
 export function useGetParentStopPlaceDetails() {
+  const { getUserNameById } = useGetUserNames();
+
+  const { latestStopPlaceChangeData } = useGetLatestStopPlaceChange(
+    useGetParentStopPlaceDetailsWhereConditions(),
+  );
+
   const validResult = useGetParentStopPlaceDetailsByWhere(
     useGetParentStopPlaceDetailsWhereConditionsWithDate(),
+    getUserNameById,
+    latestStopPlaceChangeData,
   );
 
   const fallbackResult = useGetParentStopPlaceDetailsByWhere(
     useGetParentStopPlaceDetailsWhereConditions(),
+    getUserNameById,
+    latestStopPlaceChangeData,
   );
 
   const hasValidData = !!validResult.parentStopPlaceDetails;
