@@ -1,9 +1,13 @@
 import { ApolloClient, gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
+import uniq from 'lodash/uniq';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  GetStopSelectionInfoQueryVariables,
+  RouteRouteBoolExp,
   StopSelectionInfoFragment as StopSelectionInfo,
   StopSelectionInfoFragmentDoc,
+  StopsDatabaseQuayNewestVersionBoolExp,
   useGetStopSelectionInfoQuery,
 } from '../../../generated/graphql';
 import { useAppAction, useAppSelector } from '../../../hooks';
@@ -12,7 +16,9 @@ import {
   selectMapStopSelection,
   setStopSelectionAction,
 } from '../../../redux';
+import { ResultSelection, StopSearchFilters } from '../../stop-registry';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
+import { DisplayedRouteParams } from '../types';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
 
 const GQL_STOP_SELECTION_INFO_FRAGMENT = gql`
@@ -30,15 +36,90 @@ const GQL_STOP_SELECTION_INFO_FRAGMENT = gql`
 
 const GQL_GET_STOP_SELECTION_INFO_ROWS_BY_IDS = gql`
   query GetStopSelectionInfo(
-    $where: stops_database_quay_newest_version_bool_exp!
+    $whereQuay: stops_database_quay_newest_version_bool_exp!
+    $whereRoute: route_route_bool_exp!
   ) {
     stopsDb: stops_database {
-      stops: stops_database_quay_newest_version(where: $where) {
+      stops: stops_database_quay_newest_version(where: $whereQuay) {
         ...StopSelectionInfo
+      }
+    }
+
+    routes: route_route(
+      distinct_on: [label]
+      where: $whereRoute
+      order_by: [{ label: asc }, { priority: desc }]
+    ) {
+      route_id
+
+      journeyPatterns: route_journey_patterns {
+        journey_pattern_id
+
+        stopPointsInPattern: scheduled_stop_point_in_journey_patterns {
+          journey_pattern_id
+          scheduled_stop_point_sequence
+
+          stopPoint: scheduled_stop_points {
+            scheduled_stop_point_id
+
+            stop: newest_quay {
+              ...StopSelectionInfo
+            }
+          }
+        }
       }
     }
   }
 `;
+
+function whereStopOnRoute(
+  { routeId, routeLabels, routePriorities }: DisplayedRouteParams,
+  { observationDate }: StopSearchFilters,
+): RouteRouteBoolExp | null {
+  if (routeId) {
+    return { route_id: { _eq: routeId } };
+  }
+
+  if (routeLabels.length) {
+    return {
+      label: { _in: routeLabels },
+      priority: { _in: routePriorities },
+      validity_start: { _lte: observationDate },
+      _or: [
+        { validity_end: { _is_null: true } },
+        { validity_end: { _gte: observationDate } },
+      ],
+    };
+  }
+
+  return null;
+}
+
+const whereNoQuay: StopsDatabaseQuayNewestVersionBoolExp = {
+  id: { _is_null: true },
+};
+const whereNoRoute: RouteRouteBoolExp = {
+  route_id: { _is_null: true },
+};
+
+function getResolveStopSelectionWhereConditions(
+  displayedRoute: DisplayedRouteParams,
+  filters: StopSearchFilters,
+  resultSelection: ResultSelection,
+): GetStopSelectionInfoQueryVariables {
+  const whereRoute = whereStopOnRoute(displayedRoute, filters);
+  if (whereRoute) {
+    return { whereQuay: whereNoQuay, whereRoute };
+  }
+
+  return {
+    whereQuay: filtersAndResultSelectionToQueryVariables(
+      filters,
+      resultSelection,
+    ),
+    whereRoute: whereNoRoute,
+  };
+}
 
 /**
  * By default, we should always know the NetexIds of all selected stops.
@@ -55,7 +136,7 @@ function useEnsureStopsHaveBeenResolved(byResultSelection: boolean) {
   const setSelectedStops = useAppAction(setStopSelectionAction);
 
   const {
-    state: { filters, resultSelection },
+    state: { displayedRoute, filters, resultSelection },
   } = useMapUrlStateContext();
 
   // Trigger resolving of actual result selection if not known
@@ -64,12 +145,11 @@ function useEnsureStopsHaveBeenResolved(byResultSelection: boolean) {
     // No need to resolve the ids if they are already known, or we can copy the
     // list directly from the search-result-selection-inclusion-list.
     skip: !byResultSelection || selectionByInclusion,
-    variables: {
-      where: filtersAndResultSelectionToQueryVariables(
-        filters,
-        resultSelection,
-      ),
-    },
+    variables: getResolveStopSelectionWhereConditions(
+      displayedRoute,
+      filters,
+      resultSelection,
+    ),
   });
 
   // Register the results as the selection
@@ -92,10 +172,17 @@ function useEnsureStopsHaveBeenResolved(byResultSelection: boolean) {
       return;
     }
 
+    const idsBySearch = data.stopsDb?.stops.map((stop) => stop.netex_id);
+    const idsByRoute = data.routes
+      .flatMap((route) => route.journeyPatterns)
+      .flatMap((pattern) => pattern.stopPointsInPattern)
+      .flatMap((pointInPattern) => pointInPattern.stopPoint)
+      .map((it) => it.stop?.netex_id);
+
     // Set the query result as selection.
     setSelectedStops({
       byResultSelection: false,
-      selected: compact(data.stopsDb?.stops.map((stop) => stop.netex_id)),
+      selected: uniq([...compact(idsBySearch), ...compact(idsByRoute)]),
     });
   }, [byResultSelection, resultSelection, data, setSelectedStops]);
 
@@ -202,7 +289,8 @@ function useEnsureAllStopsAreLoaded(
   const { data, error, refetch } = useGetStopSelectionInfoQuery({
     skip: missingDataFor.length === 0,
     variables: {
-      where: { netex_id: { _in: missingDataFor } },
+      whereQuay: { netex_id: { _in: missingDataFor } },
+      whereRoute: whereNoRoute,
     },
   });
 
