@@ -44,7 +44,7 @@ export const SelectedStop: FC<SelectedStop> = ({
   removeButtonTitle,
 }) => (
   <div
-    className="flex border-b border-light-grey p-2"
+    className="flex p-2"
     data-testid={testIds.stop(stop.public_code, stop.priority)}
   >
     <div className={getPriorityIconClasses(stop.priority)} />

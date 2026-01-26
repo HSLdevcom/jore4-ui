@@ -137,46 +137,53 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
   const removeButtonTitle = t('map.stopSelection.removeSelection');
 
   return (
-    <div
-      className={twMerge('max-h-[min(50vh,500px)] overflow-y-auto', className)}
-      data-testid={testIds.listing}
-    >
-      {!allAreKnown && !loadError ? (
-        <div
-          className="flex flex-col items-center justify-center gap-2 border-b border-light-grey p-2"
-          data-testid={testIds.loadingMissingDetails}
-        >
-          <p>{t('map.stopSelection.loadingMissingDetails')}</p>
-          <PulseLoader color={theme.colors.brand} size={14} />
-        </div>
-      ) : null}
-
-      {!allAreKnown && loadError ? (
-        <div
-          className="flex flex-col items-center justify-center gap-2 border-b border-light-grey p-2"
-          data-testid={testIds.loadingMissingDetailsFailed}
-        >
-          <p>{t('map.stopSelection.loadingMissingDetailsFailed')}</p>
-          <SimpleButton
-            className="py-1"
-            onClick={() => loadRefetch().then(noop, noop)}
-            testId={testIds.retryButton}
+    <>
+      <div
+        className={twMerge(
+          'max-h-[min(50vh,500px)] divide-y overflow-y-auto border-b border-light-grey',
+          className,
+        )}
+        data-testid={testIds.listing}
+      >
+        {!allAreKnown && !loadError ? (
+          <div
+            className="flex flex-col items-center justify-center gap-2 p-2"
+            data-testid={testIds.loadingMissingDetails}
           >
-            {t('map.stopSelection.retry')}
-          </SimpleButton>
-        </div>
-      ) : null}
+            <p>{t('map.stopSelection.loadingMissingDetails')}</p>
+            <PulseLoader color={theme.colors.brand} size={14} />
+          </div>
+        ) : null}
 
-      {stopsToShow.map((stop) => (
-        <SelectedStop
-          key={stop.netex_id}
-          linkToDetailsPage={getLinkToDetailsPage(stop)}
-          onRemoveFromSelection={() => toggleStopSelection(stop.netex_id ?? '')}
-          stop={stop}
-          // Avoid calling functions (useTranslate and t-function) in a loop.
-          removeButtonTitle={removeButtonTitle}
-        />
-      ))}
+        {!allAreKnown && loadError ? (
+          <div
+            className="flex flex-col items-center justify-center gap-2 p-2"
+            data-testid={testIds.loadingMissingDetailsFailed}
+          >
+            <p>{t('map.stopSelection.loadingMissingDetailsFailed')}</p>
+            <SimpleButton
+              className="py-1"
+              onClick={() => loadRefetch().then(noop, noop)}
+              testId={testIds.retryButton}
+            >
+              {t('map.stopSelection.retry')}
+            </SimpleButton>
+          </div>
+        ) : null}
+
+        {stopsToShow.map((stop) => (
+          <SelectedStop
+            key={stop.netex_id}
+            linkToDetailsPage={getLinkToDetailsPage(stop)}
+            onRemoveFromSelection={() =>
+              toggleStopSelection(stop.netex_id ?? '')
+            }
+            stop={stop}
+            // Avoid calling functions (useTranslate and t-function) in a loop.
+            removeButtonTitle={removeButtonTitle}
+          />
+        ))}
+      </div>
 
       {stops !== stopsToShow && (
         <SimpleButton
@@ -188,6 +195,6 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
           {t('map.stopSelection.showAll', { count: stops.length })}
         </SimpleButton>
       )}
-    </div>
+    </>
   );
 };
