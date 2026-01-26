@@ -1,4 +1,4 @@
-import { AnyAction, combineReducers } from '@reduxjs/toolkit';
+import { UnknownAction, combineReducers } from '@reduxjs/toolkit';
 import { errorModalReducer } from './slices/errorModal';
 import { exportReducer } from './slices/export';
 import { loaderReducer } from './slices/loader';
@@ -29,9 +29,9 @@ const appReducer = combineReducers({
   timetableVersionPanel: timetableVersionPanelReducer,
 });
 
-export const rootReducer = (state: ExplicitAny, action: AnyAction) => {
+export const rootReducer = (state: ExplicitAny, action: UnknownAction) => {
   if (action.type === loginFailedAction.type) {
-    // Setting state to undefined is correct way for resetting state:
+    // Setting state to undefined is the correct way for resetting state:
     // https://stackoverflow.com/a/35641992
     state = undefined; // eslint-disable-line no-param-reassign
   }
