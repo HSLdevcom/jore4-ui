@@ -29,7 +29,10 @@ export const SlimDropDownMenu: FC<SlimDropDownMenuProps> = ({
           true,
           disabled,
           'slim',
-          twJoin('px-3 py-0 ui-open:rounded-bl-none', buttonClassName),
+          twJoin(
+            'px-3 py-0 transition-[border-radius] ui-open:rounded-r-none ui-not-open:rounded-r-full',
+            buttonClassName,
+          ),
         )}
         data-testid={testId}
         disabled={disabled}
