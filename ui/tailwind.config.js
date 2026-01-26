@@ -88,11 +88,4 @@ module.exports = {
     },
   },
   plugins: [headlessUiPlugin],
-  safelist: [
-    {
-      // these classes are referenced dynamically by a template string, so have to remove them from tree-shaking
-      pattern: /^grid/,
-      variants: ['sm', 'md', 'lg', 'xl', '2xl'],
-    },
-  ],
 };

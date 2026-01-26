@@ -6,7 +6,6 @@ import { Column, Row } from '../../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
-  FormRow,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
@@ -144,10 +143,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
         </Row>
-        <FormRow
-          mdColumns={1}
-          className="flex-wrap items-end gap-4 bg-background py-2.5 lg:flex-nowrap"
-        >
+        <Column className="items-stretch gap-4 bg-background py-2.5">
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
@@ -158,6 +154,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
           />
 
           <SimpleButton
+            className="self-start"
             shape="slim"
             testId={testIds.deleteInfoSpot}
             onClick={() => onRemove(infoSpotIndex)}
@@ -167,7 +164,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
               ? t('stopDetails.infoSpots.cancelDeleteInfoSpot')
               : t('stopDetails.infoSpots.deleteInfoSpot')}
           </SimpleButton>
-        </FormRow>
+        </Column>
       </div>
       {posters?.length ? (
         posters.map((poster, posterIndex) => (

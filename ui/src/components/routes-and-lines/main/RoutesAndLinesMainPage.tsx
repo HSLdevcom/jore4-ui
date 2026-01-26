@@ -18,7 +18,7 @@ export const RoutesAndLinesMainPage: FC = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className="items-end">
         <PageTitle.H1>{t('routes.routes')}</PageTitle.H1>
         <OpenDefaultMapButton className="ml-auto" />
         <SimpleButton

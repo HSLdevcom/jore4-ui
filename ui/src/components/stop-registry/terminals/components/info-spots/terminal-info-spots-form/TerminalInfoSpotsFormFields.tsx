@@ -7,7 +7,6 @@ import { EnrichedParentStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
-  FormRow,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
@@ -150,10 +149,7 @@ export const TerminalInfoSpotFormFields: FC<
           />
         </Row>
 
-        <FormRow
-          mdColumns={1}
-          className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap"
-        >
+        <Column className="items-stretch gap-4 bg-background py-2.5">
           <InputField<TerminalInfoSpotFormState>
             type="text"
             translationPrefix="stopDetails"
@@ -164,6 +160,7 @@ export const TerminalInfoSpotFormFields: FC<
           />
 
           <SimpleButton
+            className="self-start"
             shape="slim"
             testId={testIds.deleteInfoSpot}
             onClick={onRemove}
@@ -173,7 +170,7 @@ export const TerminalInfoSpotFormFields: FC<
               ? t('stopDetails.infoSpots.cancelDeleteInfoSpot')
               : t('stopDetails.infoSpots.deleteInfoSpot')}
           </SimpleButton>
-        </FormRow>
+        </Column>
       </div>
 
       {posters?.length ? (

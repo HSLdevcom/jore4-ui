@@ -251,7 +251,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
           {t('navigationBlock.body')}
         </Description>
 
-        <div className="flex flex-nowrap space-x-5">
+        <div className="flex flex-nowrap gap-5">
           <SimpleButtonButton
             className="text-nowrap"
             onClick={onProceed}

@@ -34,7 +34,7 @@ const NoFiltersHeader: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Row className="justify-between">
+    <Row className="items-end justify-between">
       <PageTitle.H1>{t('stops.stops')}</PageTitle.H1>
       <OpenDefaultMapButton />
     </Row>
@@ -53,7 +53,7 @@ const ActiveFiltersHeader: FC<ActiveFiltersHeaderProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Row className="justify-between">
+    <Row className="items-end justify-between">
       <PageTitle.H1>
         {t('search.searchResultsTitleFor', {
           for: trSearchFor(t, searchFor),

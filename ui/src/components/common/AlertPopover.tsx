@@ -27,9 +27,7 @@ export const AlertPopover: FC<AlertPopoverProps> = ({
         </PopoverButton>
         <PopoverPanel className="absolute z-20 ml-10 inline-flex flex-row items-start rounded-lg border border-black bg-white p-3 drop-shadow-md">
           <div className="mr-6">
-            <div className="mb-1 space-x-3">
-              <h5 className="inline text-lg">{title}</h5>
-            </div>
+            <h5 className="mb-1 text-lg">{title}</h5>
             <p className="text-sm">{description}</p>
           </div>
           <PopoverButton>

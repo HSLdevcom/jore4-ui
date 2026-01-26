@@ -123,13 +123,18 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
           />
           <div className="flex gap-2">
             <SimpleButton
-              testId={testIds.cancelButton}
-              onClick={handleCancel}
               inverted
+              onClick={handleCancel}
+              shape="slim"
+              testId={testIds.cancelButton}
             >
               {t('cancel')}
             </SimpleButton>
-            <SimpleButton testId={testIds.saveButton} type="submit">
+            <SimpleButton
+              shape="slim"
+              testId={testIds.saveButton}
+              type="submit"
+            >
               {t('save')}
             </SimpleButton>
           </div>

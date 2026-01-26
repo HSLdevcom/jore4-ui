@@ -34,7 +34,7 @@ export const ResultSelector: FC = () => {
   };
 
   return (
-    <div className="space-x-2">
+    <div className="flex gap-2">
       <SimpleButton
         shape="compact"
         inverted={displayedType !== DisplayedSearchResultType.Lines}

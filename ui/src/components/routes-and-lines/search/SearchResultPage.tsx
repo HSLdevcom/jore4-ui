@@ -62,7 +62,7 @@ export const SearchResultPage: FC = () => {
 
   return (
     <Container testId={testIds.container}>
-      <Row>
+      <Row className="items-end">
         <PageTitle.H1>
           {`${t('search.searchResultsTitle')} | ${displayInformation.title}`}
         </PageTitle.H1>

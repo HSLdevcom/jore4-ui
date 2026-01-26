@@ -6,7 +6,6 @@ import {
 } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
-import { MdCheck } from 'react-icons/md';
 import { JoreComboboxButton, comboboxStyles } from './headlessHelpers';
 import { ListboxOptionItem } from './JoreListboxOptions';
 
@@ -81,11 +80,8 @@ export const JoreCombobox: FC<JoreComboboxProps> = ({
             }
           >
             {(optionProps) => (
-              <>
-                <MdCheck className="mx-1 text-2xl ui-selected:text-black ui-not-selected:invisible" />
-
-                {'content' in item ? item.content : item.render(optionProps)}
-              </>
+              // eslint-disable-next-line react/jsx-no-useless-fragment
+              <>{'content' in item ? item.content : item.render(optionProps)}</>
             )}
           </ComboboxOption>
         ))}
