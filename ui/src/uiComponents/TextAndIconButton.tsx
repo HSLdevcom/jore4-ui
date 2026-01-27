@@ -26,7 +26,10 @@ export const TextAndIconButton: FC<TextAndIconButtonProps> = ({
   return (
     <button
       data-testid={testId}
-      className={twMerge('flex items-center gap-2', className)}
+      className={twMerge(
+        'flex cursor-pointer items-center gap-2 disabled:cursor-default',
+        className,
+      )}
       // eslint-disable-next-line react/button-has-type
       type={type}
       // eslint-disable-next-line react/jsx-props-no-spreading

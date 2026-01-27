@@ -28,7 +28,7 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
     <Menu as="div" className={dropdownMenuStyles.root(className)}>
       <MenuButton
         className={twMerge(
-          'mx-auto flex items-center rounded-full',
+          'mx-auto flex cursor-pointer items-center rounded-full disabled:cursor-default',
           buttonClassName,
         )}
         data-testid={testId}

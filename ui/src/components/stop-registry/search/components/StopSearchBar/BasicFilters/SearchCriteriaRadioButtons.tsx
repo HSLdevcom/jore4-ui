@@ -43,7 +43,7 @@ export const SearchCriteriaRadioButtons: FC<
       {searchByOptions.map((option) => (
         <label
           htmlFor={option.name}
-          className="inline-flex text-nowrap"
+          className="inline-flex cursor-pointer text-nowrap"
           key={option.name}
         >
           <input

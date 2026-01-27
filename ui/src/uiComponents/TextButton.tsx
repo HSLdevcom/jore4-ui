@@ -17,7 +17,7 @@ export const TextButton: FC<PropsWithChildren<TextButtonProps>> = ({
     onClick={onClick}
     type="button"
     className={twMerge(
-      'active:underline',
+      'cursor-pointer active:underline',
       active ? 'font-bold underline' : '',
       className,
     )}

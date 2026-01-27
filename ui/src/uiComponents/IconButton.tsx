@@ -46,7 +46,10 @@ export const IconButtonImpl: ForwardRefRenderFunction<
       id={identifier}
       data-testid={testId}
       title={tooltip}
-      className={twMerge('text-center', className)}
+      className={twMerge(
+        'cursor-pointer text-center disabled:cursor-default',
+        className,
+      )}
       type="button"
       onClick={onClick}
       disabled={disabled}

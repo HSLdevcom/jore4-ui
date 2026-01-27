@@ -1,7 +1,7 @@
 import { ComboboxButton, ComboboxButtonProps } from '@headlessui/react';
 import { ReactNode, forwardRef } from 'react';
 import { MdSearch } from 'react-icons/md';
-import { twMerge } from 'tailwind-merge';
+import { comboboxStyles } from './headlessStyles';
 
 type JoreComboboxButtonProps = Omit<
   ComboboxButtonProps,
@@ -20,10 +20,7 @@ export const JoreComboboxButton = forwardRef<
     <ComboboxButton
       ref={ref}
       data-testid={testId}
-      className={twMerge(
-        'absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-hidden',
-        className,
-      )}
+      className={comboboxStyles.button(className)}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...internalProps}
     >

@@ -18,7 +18,7 @@ export const NavigationDropdownMenu: FC<NavigationDropdownMenuProps> = ({
   return (
     <Menu as="div" className={dropdownMenuStyles.root(className)}>
       <MenuButton
-        className="mx-4 flex h-full items-center border-b-4 border-transparent px-3 hover:border-white"
+        className="mx-4 flex h-full cursor-pointer items-center border-b-4 border-transparent px-3 hover:border-white"
         data-testid={testId}
       >
         {buttonContent}

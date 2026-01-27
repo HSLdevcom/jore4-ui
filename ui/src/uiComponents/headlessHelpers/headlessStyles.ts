@@ -4,7 +4,7 @@ type ClassLists = ReadonlyArray<ClassNameValue>;
 
 function dropdownSelectionOptionStyles(...classLists: ClassLists) {
   return twMerge(
-    'flex cursor-default items-center border-b p-2 text-left last:border-b-0 focus:outline-hidden',
+    'flex cursor-pointer items-center border-b p-2 text-left last:border-b-0 focus:outline-hidden',
     'ui-active:bg-dark-grey ui-active:text-white',
     'ui-selected:bg-dark-grey ui-selected:text-white',
     'ui-disabled:cursor-not-allowed ui-disabled:bg-light-grey',
@@ -34,7 +34,9 @@ function comboboxInputStyles(...classLists: ClassLists) {
 
 function comboboxButtonStyles(...classLists: ClassLists) {
   return twMerge(
-    'absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-hidden',
+    'absolute inset-y-0 right-0 h-full',
+    'flex items-center justify-end px-3 text-left',
+    'cursor-pointer focus:outline-hidden disabled:cursor-default',
     ...classLists,
   );
 }
@@ -49,8 +51,8 @@ export const comboboxStyles = {
 
 function listboxButtonStyles(...classLists: ClassLists) {
   return twMerge(
-    'flex h-(--input-height) w-full items-center gap-2 border border-grey bg-white px-2 py-3 text-left',
-    'ui-disabled:bg-background ui-disabled:text-dark-grey',
+    'flex h-(--input-height) w-full cursor-pointer items-center gap-2 border border-grey bg-white px-2 py-3 text-left',
+    'disabled:cursor-default ui-disabled:bg-background ui-disabled:text-dark-grey',
     'transition-[border-radius] duration-100 ease-in-out ui-open:rounded-none ui-not-open:rounded-md',
     ...classLists,
   );

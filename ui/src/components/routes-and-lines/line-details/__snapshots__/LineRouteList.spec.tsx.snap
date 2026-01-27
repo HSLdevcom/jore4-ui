@@ -76,7 +76,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             Reitti A - B FI
           </span>
           <a
-            class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
+            class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
@@ -140,7 +140,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+              class="cursor-pointer text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -169,7 +169,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
           <button
             aria-controls="route-stop-list"
             aria-expanded="false"
-            class="text-center h-full border-l-4 border-white"
+            class="cursor-pointer text-center disabled:cursor-default h-full border-l-4 border-white"
             data-testid="RouteRow::toggleAccordion"
             title="Näytä pysäkit reitille 65x, suunta 1"
             type="button"
@@ -277,7 +277,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             Reitti A - B FI
           </span>
           <a
-            class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
+            class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
@@ -341,7 +341,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+              class="cursor-pointer text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -370,7 +370,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           <button
             aria-controls="route-stop-list"
             aria-expanded="true"
-            class="text-center h-full border-l-4 border-white"
+            class="cursor-pointer text-center disabled:cursor-default h-full border-l-4 border-white"
             data-testid="RouteRow::toggleAccordion"
             title="Piilota pysäkit reitiltä 65x, suunta 1"
             type="button"
@@ -476,7 +476,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full"
+                class="mx-auto flex cursor-pointer items-center rounded-full disabled:cursor-default"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
@@ -582,7 +582,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full"
+                class="mx-auto flex cursor-pointer items-center rounded-full disabled:cursor-default"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:rb:"
@@ -696,7 +696,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             Reitti A - B FI
           </span>
           <a
-            class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
+            class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
@@ -760,7 +760,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+              class="cursor-pointer text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -789,7 +789,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           <button
             aria-controls="route-stop-list"
             aria-expanded="true"
-            class="text-center h-full border-l-4 border-white"
+            class="cursor-pointer text-center disabled:cursor-default h-full border-l-4 border-white"
             data-testid="RouteRow::toggleAccordion"
             title="Piilota pysäkit reitiltä 65x, suunta 1"
             type="button"
@@ -895,7 +895,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full"
+                class="mx-auto flex cursor-pointer items-center rounded-full disabled:cursor-default"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
@@ -1001,7 +1001,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full"
+                class="mx-auto flex cursor-pointer items-center rounded-full disabled:cursor-default"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:rh:"
@@ -1107,7 +1107,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full"
+                class="mx-auto flex cursor-pointer items-center rounded-full disabled:cursor-default"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:rb:"

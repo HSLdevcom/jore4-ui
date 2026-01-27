@@ -70,7 +70,7 @@ export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
     <button
       type="button"
       className={twMerge(
-        'group inline-flex cursor-default items-center gap-2 rounded-[5px] border-solid text-sm font-bold select-none focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-solid disabled:cursor-not-allowed disabled:opacity-70',
+        'group inline-flex cursor-pointer items-center gap-2 rounded-[5px] border-solid text-sm font-bold select-none focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-solid disabled:cursor-not-allowed disabled:opacity-70',
         containerStyleSelectedStatus,
         containerStyleErrorStatus,
         containerBorderSizeStyles,

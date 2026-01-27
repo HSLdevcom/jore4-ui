@@ -61,6 +61,11 @@
     color: #666666;
   }
 
+  input[type='checkbox']:not(:disabled),
+  label:has(input[type='checkbox']:not(:disabled)) {
+    cursor: pointer;
+  }
+
   label,
   legend {
     font-weight: 700;

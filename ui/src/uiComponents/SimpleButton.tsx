@@ -68,7 +68,7 @@ function getCommonClassNames(
   shape: SimpleButtonShape,
 ) {
   return twJoin(
-    'flex items-center justify-center',
+    'flex cursor-pointer items-center justify-center',
     getShapeClassNames(shape),
     getColorClassNames(inverted, shape),
     // We cannot use 'disabled:' specifier, because the underlying implementation could be
