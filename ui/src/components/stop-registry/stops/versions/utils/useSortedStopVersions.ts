@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { parseDate } from '../../../../../time';
 import { SortOrder } from '../../../../../types';
 import {
   StopVersion,
@@ -54,10 +55,11 @@ function useComparator(orderBy: StopVersionTableColumn): Comparator {
       return (a, b) => collator.compare(a.version_comment, b.version_comment);
 
     case 'CHANGED':
-      return (a, b) => compareDates(a.changed, b.changed);
+      return (a, b) => compareDates(parseDate(a.changed), parseDate(b.changed));
 
     case 'CHANGED_BY':
-      return (a, b) => collator.compare(a.changed_by, b.changed_by);
+      return (a, b) =>
+        collator.compare(a.changedByUserName ?? '', b.changedByUserName ?? '');
 
     default:
       return () => 0;
