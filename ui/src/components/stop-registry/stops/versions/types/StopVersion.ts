@@ -14,7 +14,7 @@ export type StopVersion = {
   readonly priority: Priority;
   readonly status: StopVersionStatus;
   readonly location: Point;
-  readonly changed: DateTime;
-  readonly changed_by: string;
+  readonly changed: string;
+  readonly changedByUserName: string | null;
   readonly version_comment: string;
 };

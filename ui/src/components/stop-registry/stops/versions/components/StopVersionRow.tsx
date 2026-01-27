@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { mapToShortDate, mapToShortDateTime } from '../../../../../time';
+import { mapToShortDate, mapUTCToDateTime } from '../../../../../time';
 import { LocatorActionButton } from '../../../components';
 import { StopVersion, StopVersionStatus } from '../types';
 import { ActionMenuStop } from '../types/ActionMenuStop';
@@ -73,16 +73,16 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
       </td>
 
       <td
-        className="border-r-0 px-4 py-2 text-right"
+        className="border-r-0! px-4 py-2 text-right"
         data-testid={testIds.validityStart}
       >
         {mapToShortDate(stopVersion.validity_start)}
       </td>
 
-      <td className="border-x-0 p-0">-</td>
+      <td className="border-x-0! p-0">-</td>
 
       <td
-        className="border-l-0 px-4 py-2 text-right"
+        className="border-l-0! px-4 py-2 text-right"
         data-testid={testIds.validityEnd}
       >
         {mapToShortDate(stopVersion.validity_end)}
@@ -95,11 +95,13 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
         {stopVersion.version_comment}
       </td>
 
-      <td className="px-4 py-2 text-right" data-testid={testIds.changed}>
-        {mapToShortDateTime(stopVersion.changed)}
+      <td className="px-4 py-2 text-center" data-testid={testIds.changed}>
+        {mapUTCToDateTime(stopVersion.changed)}
       </td>
 
-      <td data-testid={testIds.changedBy}>{stopVersion.changed_by}</td>
+      <td className="px-4 py-2 text-center" data-testid={testIds.changedBy}>
+        {stopVersion.changedByUserName ?? 'HSL'}
+      </td>
 
       <td className="p-2">
         <LocatorActionButton
