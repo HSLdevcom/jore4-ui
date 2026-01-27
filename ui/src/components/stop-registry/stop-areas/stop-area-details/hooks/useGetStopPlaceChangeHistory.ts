@@ -28,7 +28,7 @@ const GQL_GET_LATEST_STOP_PLACE_CHANGE = gql`
     stopsDb: stops_database {
       stopPlace: stops_database_stop_place(
         where: $where
-        order_by: { version: desc }
+        order_by: { changed: desc }
         limit: 1
       ) {
         changed

@@ -24,7 +24,7 @@ const GQL_GET_LATEST_QUAY_CHANGE = gql`
     stopsDb: stops_database {
       quay: stops_database_quay(
         where: $where
-        order_by: { version: desc }
+        order_by: { changed: desc }
         limit: 1
       ) {
         changed
