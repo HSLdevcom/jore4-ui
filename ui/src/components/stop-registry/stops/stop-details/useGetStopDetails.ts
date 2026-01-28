@@ -79,6 +79,8 @@ const GQL_GET_STOP_DETAILS = gql`
 const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
   fragment shelter_equipment_details on stop_registry_ShelterEquipment {
     id
+    version
+
     enclosed
     stepFree
     shelterNumber
@@ -100,12 +102,15 @@ const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
 const GQL_HSL_ACCESSIBILITY_ASSESSMENT_DETAILS = gql`
   fragment accessibility_assessment_details on stop_registry_AccessibilityAssessment {
     id
+    version
+
     hslAccessibilityProperties {
       ...hsl_accessibility_properties_details
     }
     limitations {
       id
       version
+
       audibleSignalsAvailable
       escalatorFreeAccess
       liftFreeAccess
@@ -118,6 +123,8 @@ const GQL_HSL_ACCESSIBILITY_ASSESSMENT_DETAILS = gql`
 const GQL_QUAY_DETAILS = gql`
   fragment quay_details on stop_registry_Quay {
     id
+    version
+
     publicCode
     privateCode {
       type
@@ -154,9 +161,15 @@ const GQL_QUAY_DETAILS = gql`
         ...shelter_equipment_details
       }
       cycleStorageEquipment {
+        id
+        version
+
         cycleStorageType
       }
       generalSign {
+        id
+        version
+
         privateCode {
           value
           type
@@ -201,6 +214,8 @@ const GQL_EXTERNAL_LINKS_DETAILS = gql`
 const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
   fragment topographic_place_details on stop_registry_TopographicPlace {
     id
+    version
+
     topographicPlaceType
     name {
       value
@@ -212,6 +227,8 @@ const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
 const GQL_FARE_ZONE_DETAILS = gql`
   fragment fare_zone_details on stop_registry_FareZone {
     id
+    version
+
     name {
       value
       lang
@@ -222,6 +239,8 @@ const GQL_FARE_ZONE_DETAILS = gql`
 const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
   fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
     id
+    version
+
     stopAreaSideSlope
     stopAreaLengthwiseSlope
     endRampSlope
@@ -253,9 +272,13 @@ const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
 const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
   fragment stop_place_organisation_fields on stop_registry_Organisation {
     id
+    version
+
     name
     privateContactDetails {
       id
+      version
+
       email
       phone
     }
@@ -265,6 +288,8 @@ const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
 const GQL_INFO_SPOT_DETAILS = gql`
   fragment info_spot_details on stop_registry_infoSpot {
     id
+    version
+
     backlight
     description {
       lang
@@ -283,6 +308,8 @@ const GQL_INFO_SPOT_DETAILS = gql`
     zoneLabel
     poster {
       id
+      version
+
       label
       width
       height

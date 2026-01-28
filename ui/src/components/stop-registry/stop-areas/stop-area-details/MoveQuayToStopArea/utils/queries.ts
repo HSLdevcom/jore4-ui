@@ -22,6 +22,7 @@ const GQL_MOVE_QUAY_TO_STOP_PLACE = gql`
           versionComment
           quays {
             id
+            version
             publicCode
             keyValues {
               key
@@ -78,8 +79,13 @@ const GQL_GET_ORIGINAL_QUAYS = gql`
     stop_registry {
       stopPlace(query: $quayId, onlyMonomodalStopPlaces: true) {
         ... on stop_registry_StopPlace {
+          id
+          version
+
           quays {
             id
+            version
+
             publicCode
           }
         }

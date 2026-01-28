@@ -5,7 +5,7 @@ import {
 import {
   mapCompactOrNull,
   mapGeoJsonToInput,
-  omitIdAndTypeName,
+  omitIdVersionAndTypeName,
   omitTypeName,
 } from './copyEntityUtilities';
 
@@ -13,10 +13,10 @@ export function mapInfoSpotToInput(
   infoSpot: InfoSpotDetailsFragment,
 ): StopRegistryInfoSpotInput {
   return {
-    ...omitIdAndTypeName(infoSpot),
+    ...omitIdVersionAndTypeName(infoSpot),
     geometry: mapGeoJsonToInput(infoSpot.geometry),
     infoSpotLocations: null,
     description: omitTypeName(infoSpot.description),
-    poster: mapCompactOrNull(infoSpot.poster, omitIdAndTypeName),
+    poster: mapCompactOrNull(infoSpot.poster, omitIdVersionAndTypeName),
   };
 }

@@ -11,6 +11,7 @@ const GQL_UPSERT_ORGANISATION = gql`
     stop_registry {
       mutateOrganisation(Organisation: $objects) {
         id
+        version
       }
     }
   }

@@ -34,6 +34,7 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
 
   fragment parent_stop_place_details on stop_registry_ParentStopPlace {
     id
+    version
 
     alternativeNames {
       name {
@@ -64,12 +65,18 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     }
 
     topographicPlace {
+      id
+      version
+
       name {
         value
       }
     }
 
     fareZones {
+      id
+      version
+
       name {
         value
       }
@@ -103,6 +110,8 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
 
   fragment member_stop_stop_place_details on stop_registry_StopPlace {
     id
+    version
+
     name {
       value
     }
@@ -119,6 +128,8 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
 
   fragment member_stop_quay_details on stop_registry_Quay {
     id
+    version
+
     publicCode
     description {
       lang
@@ -142,12 +153,16 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       id
       generalSign {
         id
+        version
+
         content {
           value
         }
       }
       shelterEquipment {
         id
+        version
+
         shelterNumber
       }
     }

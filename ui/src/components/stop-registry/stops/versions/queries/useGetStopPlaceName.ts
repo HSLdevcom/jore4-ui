@@ -12,6 +12,7 @@ const GQL_GET_STOP_PLACE_NAME = gql`
     stop_registry {
       stopPlace(id: $stopPlaceNetexId, onlyMonomodalStopPlaces: true) {
         id
+        version
 
         name {
           lang

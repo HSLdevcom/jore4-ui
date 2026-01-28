@@ -17,6 +17,7 @@ import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import { joreConfig } from '../config';
+import versionedTiamatEntities from '../generated/versionedTiamatEntities.json' with { type: 'json' };
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
 import { authRoleMiddleware, roleHeaderMap, userHasuraRole } from './auth';
@@ -119,6 +120,7 @@ const buildWebSocketLink = () => {
 // user to log in. This can and probably should be removed after we get different user accessess.
 const errorLink = onError((response) => {
   if (joreConfig.logAllApolloErrors) {
+    // eslint-disable-next-line no-console
     console.error('Apollo Error:', response);
   }
 
@@ -304,6 +306,12 @@ const buildCacheDefinition = () => {
       stops_database_quay_newest_version: {
         keyFields: ['netex_id'],
       },
+      ...Object.fromEntries(
+        versionedTiamatEntities.map((name) => [
+          name,
+          { keyFields: ['id', 'version'] },
+        ]),
+      ),
     },
   });
 

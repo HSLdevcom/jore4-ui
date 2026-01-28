@@ -33,14 +33,17 @@ export function omitTypeName<T extends object>(
   return omit(value, ['__typename']) as Omit<T, '__typename'>;
 }
 
-export function omitIdAndTypeName<T extends object>(
+export function omitIdVersionAndTypeName<T extends object>(
   value: T | null | undefined,
-): Omit<T, 'id' | '__typename'> | null {
+): Omit<T, 'id' | 'version' | '__typename'> | null {
   if (!value) {
     return null;
   }
 
-  return omit(value, ['id', '__typename']) as Omit<T, 'id' | '__typename'>;
+  return omit(value, ['id', 'version', '__typename']) as Omit<
+    T,
+    'id' | 'version' | '__typename'
+  >;
 }
 
 export function mapGeoJsonToInput(
@@ -174,7 +177,7 @@ export function mapPlaceEquipmentsToInput(
   return {
     cycleStorageEquipment: mapCompactOrNull(
       equipments.cycleStorageEquipment,
-      omitIdAndTypeName,
+      omitIdVersionAndTypeName,
     ),
     generalSign: mapCompactOrNull(
       equipments.generalSign,
@@ -182,19 +185,19 @@ export function mapPlaceEquipmentsToInput(
     ),
     sanitaryEquipment: mapCompactOrNull(
       equipments.sanitaryEquipment,
-      omitIdAndTypeName,
+      omitIdVersionAndTypeName,
     ),
     shelterEquipment: mapCompactOrNull(
       equipments.shelterEquipment,
-      omitIdAndTypeName,
+      omitIdVersionAndTypeName,
     ),
     ticketingEquipment: mapCompactOrNull(
       equipments.ticketingEquipment,
-      omitIdAndTypeName,
+      omitIdVersionAndTypeName,
     ),
     waitingRoomEquipment: mapCompactOrNull(
       equipments.waitingRoomEquipment,
-      omitIdAndTypeName,
+      omitIdVersionAndTypeName,
     ),
   };
 }

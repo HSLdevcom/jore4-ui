@@ -20,6 +20,7 @@ const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
         stopPlaceId: $stopPlaceId
       ) {
         id
+        version
       }
     }
   }
@@ -32,6 +33,7 @@ const GQL_ADD_TO_MULTIMODAL_STOP_PLACE = gql`
     stop_registry {
       addToMultiModalStopPlace(input: $input) {
         id
+        version
       }
     }
   }
