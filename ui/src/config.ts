@@ -7,6 +7,8 @@ type JoreConfig = {
   // code by the bundler when it sees static false condition.
   readonly nodeEnv: string;
 
+  readonly logAllApolloErrors: boolean;
+
   readonly digitransitApiKey: string;
   readonly hasuraUrl: string;
 
@@ -116,7 +118,6 @@ function readStringConfig(
 const trueLikeString = ['true', 'yes', 'on'];
 const falseLikeStrings = ['false', 'no', 'off'];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function readBoolean(
   name: string,
   ...fallBackValues: ReadonlyArray<unknown>
@@ -229,6 +230,12 @@ function ssrPlaceholder(value: unknown): unknown {
 
 export const joreConfig: JoreConfig = {
   nodeEnv: readNotEmptyStringConfig('nodeEnv', process.env.NODE_ENV),
+
+  logAllApolloErrors: readBoolean(
+    'logAllApolloErrors',
+    process.env.LOG_ALL_APOLLO_ERRORS,
+    process.env.NODE_ENV === 'development',
+  ),
 
   digitransitApiKey: readNotEmptyStringConfig(
     'digitransitApiKey',
