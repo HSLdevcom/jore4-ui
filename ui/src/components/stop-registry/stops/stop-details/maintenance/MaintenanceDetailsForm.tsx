@@ -40,15 +40,26 @@ const testIds = {
 type MaintenanceDetailsFormComponentProps = {
   readonly className?: string;
   readonly defaultValues: Partial<MaintenanceDetailsFormState>;
-  readonly onSubmit: (state: MaintenanceDetailsFormState) => void;
   readonly onCancel: () => void;
+  readonly onOrganizationUpdated: (netexId: string) => void;
+  readonly onSubmit: (state: MaintenanceDetailsFormState) => void;
   readonly testIdPrefix: string;
 };
 
 const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   MaintenanceDetailsFormComponentProps
-> = ({ className, defaultValues, onSubmit, onCancel, testIdPrefix }, ref) => {
+> = (
+  {
+    className,
+    defaultValues,
+    onCancel,
+    onOrganizationUpdated,
+    onSubmit,
+    testIdPrefix,
+  },
+  ref,
+) => {
   const organisationsResult = useGetOrganisationsQuery();
   const organisations = (organisationsResult.data?.stop_registry
     ?.organisation ?? []) as ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
@@ -90,6 +101,7 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
       setValue(`maintainers.${editedMaintainerType}`, organisationId, {
         shouldDirty: true,
       });
+      onOrganizationUpdated(organisationId);
     }
     organisationsResult.refetch();
   };

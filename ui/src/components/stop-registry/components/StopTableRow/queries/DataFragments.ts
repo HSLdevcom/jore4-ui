@@ -23,7 +23,6 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
 
     stop_place {
       id
-
       name_value
 
       stop_place_alternative_names {
@@ -40,10 +39,21 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
 
       TiamatStopPlace {
         ... on stop_registry_StopPlace {
+          id
+          version
+
           quays {
             id
+            version
+
             accessibilityAssessment {
+              id
+              version
+
               hslAccessibilityProperties {
+                id
+                version
+
                 accessibilityLevel
               }
             }
@@ -51,10 +61,15 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
               id
               shelterEquipment {
                 id
+                version
+
                 shelterType
                 shelterElectricity
               }
               generalSign {
+                id
+                version
+
                 replacesRailSign
                 content {
                   lang
@@ -94,6 +109,7 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
   fragment StopTableRow_StopArea_Quay_Details on stop_registry_Quay {
     id
     version
+
     publicCode
     keyValues {
       key
@@ -110,7 +126,11 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
 
     placeEquipments {
       id
+
       generalSign {
+        id
+        version
+
         replacesRailSign
         content {
           lang
@@ -119,12 +139,20 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
       }
       shelterEquipment {
         id
+        version
+
         shelterType
         shelterElectricity
       }
     }
     accessibilityAssessment {
+      id
+      version
+
       hslAccessibilityProperties {
+        id
+        version
+
         accessibilityLevel
       }
     }

@@ -34,6 +34,7 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
 
   fragment stop_place_details on stop_registry_StopPlace {
     id
+    version
 
     alternativeNames {
       name {
@@ -97,6 +98,8 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
 
   fragment terminal_details on stop_registry_ParentStopPlace {
     id
+    version
+
     name {
       lang
       value

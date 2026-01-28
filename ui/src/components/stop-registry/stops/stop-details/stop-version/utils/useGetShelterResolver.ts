@@ -13,10 +13,12 @@ const GQL_RESOLVE_STOP_SHELTERS = gql`
     stop_registry {
       stopPlace(query: $netexId, onlyMonomodalStopPlaces: true) {
         id
+        version
 
         ... on stop_registry_StopPlace {
           quays {
             id
+            version
 
             placeEquipments {
               id

@@ -5,7 +5,7 @@
   "description": "Graphql code generator for Jore4",
   "private": true,
   "scripts": {
-    "generate": "graphql-codegen --config ./codegen.js",
+    "generate": "graphql-codegen --config ./codegen.ts",
     "ts:check": "yarn tsc --noEmit"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "@graphql-tools/schema": "^10.0.31",
     "@parcel/watcher": "^2.5.4",
     "graphql": "^16.12.0",
-    "graphql-tag": "^2.12.6"
+    "graphql-tag": "^2.12.6",
+    "ts-node": "^10.9.2"
   }
 }

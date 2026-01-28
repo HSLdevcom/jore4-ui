@@ -18,7 +18,13 @@ const GQL_EDIT_KEY_VALUES_OF_QUAY = gql`
           }
         }
       ) {
+        id
+        version
+
         quays {
+          id
+          version
+
           publicCode
           keyValues {
             key

@@ -6,8 +6,12 @@ const GQL_GET_QUAY = gql`
       stopPlace(query: $quayId, onlyMonomodalStopPlaces: true) {
         ... on stop_registry_StopPlace {
           id
+          version
+
           quays {
             id
+            version
+
             publicCode
             keyValues {
               key

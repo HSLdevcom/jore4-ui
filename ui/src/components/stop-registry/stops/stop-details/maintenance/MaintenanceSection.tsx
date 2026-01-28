@@ -1,5 +1,6 @@
+import { useApolloClient } from '@apollo/client';
 import mapValues from 'lodash/mapValues';
-import { FC, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
@@ -36,6 +37,14 @@ const mapMaintenanceDetailsToFormState = (
 export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
+  // If an organization's details are updated, it will also trigger an update
+  // of the Quay even tough, the save button is not pressed for a CHANGE of
+  // an org. Record the changed orgs, and trigged a refech of the Quay if needed.
+  const [updatedOrganizations, setUpdatedOrganizations] = useState<
+    ReadonlyArray<string>
+  >([]);
+  const apolloClient = useApolloClient();
+
   const { saveStopMaintenanceDetails, defaultErrorHandler } =
     useEditStopMaintenanceDetails();
 
@@ -59,6 +68,20 @@ export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
 
   const maintenanceFormDefaults = mapMaintenanceDetailsToFormState(stop);
 
+  const onCancel = () => {
+    infoContainerControls.setIsInEditMode(false);
+    const activeOrgs = Object.values(maintenanceFormDefaults.maintainers);
+    if (updatedOrganizations.some((updated) => activeOrgs.includes(updated))) {
+      apolloClient.refetchQueries({
+        include: ['GetStopDetails', 'GetLatestQuayChange'],
+      });
+      setUpdatedOrganizations([]);
+    }
+  };
+
+  const onOrganizationUpdated = (netexId: string) =>
+    setUpdatedOrganizations((p) => p.concat(netexId));
+
   return (
     <InfoContainer
       colors={stopInfoContainerColors}
@@ -70,8 +93,9 @@ export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
         <MaintenanceDetailsForm
           defaultValues={maintenanceFormDefaults}
           ref={formRef}
+          onCancel={onCancel}
+          onOrganizationUpdated={onOrganizationUpdated}
           onSubmit={onSubmit}
-          onCancel={() => infoContainerControls.setIsInEditMode(false)}
           testIdPrefix={testIds.prefix}
         />
       ) : (

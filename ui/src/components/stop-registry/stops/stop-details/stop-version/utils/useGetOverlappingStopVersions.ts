@@ -58,6 +58,7 @@ const GQL_GET_OVERLAPPING_STOP_VERSIONS_QUERY = gql`
     validity_end
     stop_place {
       id
+      version
     }
   }
 `;
