@@ -117,13 +117,19 @@ const buildWebSocketLink = () => {
 // dependencies while developing, we can catch the access-denied error and reload the page which
 // triggers userinfo check, and if user is not logged -> redirect to front page and inform
 // user to log in. This can and probably should be removed after we get different user accessess.
-const errorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ extensions }) => {
-      if (extensions?.code === 'access-denied') {
-        window.location.reload();
-      }
-    });
+const errorLink = onError((response) => {
+  if (joreConfig.logAllApolloErrors) {
+    console.error('Apollo Error:', response);
+  }
+
+  if (response.graphQLErrors) {
+    const accessDenied = response.graphQLErrors.some(
+      ({ extensions }) => extensions?.code === 'access-denied',
+    );
+
+    if (accessDenied) {
+      window.location.reload();
+    }
   }
 });
 

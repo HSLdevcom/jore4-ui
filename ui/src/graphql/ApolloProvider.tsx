@@ -1,6 +1,12 @@
 import { ApolloProvider as Provider } from '@apollo/client';
+import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 import { FC, PropsWithChildren } from 'react';
 import { createGraphqlClient } from './client';
+
+if (process.env.NODE_ENV !== 'production') {
+  loadDevMessages();
+  loadErrorMessages();
+}
 
 let graphqlClient: ReturnType<typeof createGraphqlClient> | null = null;
 
