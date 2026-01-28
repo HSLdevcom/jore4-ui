@@ -36,7 +36,7 @@ export const OverlappingVersionCutConfirmationModal: FC<
       cancelButtonText={t('cancel')}
       testId={testIds.modal}
     >
-      <Description className="text-sm">
+      <Description as="div" className="text-sm">
         <p data-testid={testIds.currentVersion}>
           <span className="font-bold">
             {t('stopDetails.version.cutModal.currentVersion')}:
