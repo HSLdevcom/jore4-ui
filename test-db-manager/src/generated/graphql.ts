@@ -41434,6 +41434,7 @@ export type StopsDatabaseSpatialRefSysVarianceFields = {
 /** columns and relationships of "stop_place" */
 export type StopsDatabaseStopPlace = {
   __typename?: 'stops_database_stop_place';
+  TiamatStopPlace?: Maybe<Array<Maybe<StopRegistryStopPlaceInterface>>>;
   /** An object relationship */
   accessibility_assessment?: Maybe<StopsDatabaseAccessibilityAssessment>;
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
@@ -41514,6 +41515,33 @@ export type StopsDatabaseStopPlace = {
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
   weighting?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** columns and relationships of "stop_place" */
+export type StopsDatabaseStopPlaceTiamatStopPlaceArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']['input']>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  countryReference?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  countyReference?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  hasParking?: InputMaybe<Scalars['Boolean']['input']>;
+  importedId?: InputMaybe<Scalars['String']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+  municipalityReference?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  onlyMonomodalStopPlaces?: InputMaybe<Scalars['Boolean']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pointInTime?: InputMaybe<Scalars['stop_registry_DateTime']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  stopPlaceType?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceType>>>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  values?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  versionValidity?: InputMaybe<StopRegistryVersionValidity>;
+  withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
+  withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withTags?: InputMaybe<Scalars['Boolean']['input']>;
+  withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -43708,7 +43736,6 @@ export type StopsDatabaseStopPlaceNewestVersionTiamatStopPlaceArgs = {
   stopPlaceType?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceType>>>;
   tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   values?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  version?: InputMaybe<Scalars['Int']['input']>;
   versionValidity?: InputMaybe<StopRegistryVersionValidity>;
   withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
   withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
