@@ -74,6 +74,7 @@ export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
             />
           </DialogTitle>
           <Description
+            as={typeof description === 'string' ? 'p' : 'div'}
             className="my-5 whitespace-pre-line"
             data-testid={testIds.textContent}
           >

@@ -62,7 +62,7 @@ export const CopyStopAreaCutConfirmationModal: FC<
       cancelButtonText={t('cancel')}
       testId={testIds.modal}
     >
-      <Description className="text-sm">
+      <Description as="div" className="text-sm">
         <p>
           <span className="font-bold">
             {t('stopAreaDetails.version.cutModal.currentVersion')}:
