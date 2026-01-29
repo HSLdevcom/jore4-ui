@@ -11,6 +11,7 @@ type JoreConfig = {
 
   readonly digitransitApiKey: string;
   readonly hasuraUrl: string;
+  readonly applicationInsightsConnectionString: string;
 
   readonly buildTime: DateTime | null;
   readonly gitHash: string | null;
@@ -248,6 +249,12 @@ export const joreConfig: JoreConfig = {
     'hasuraUrl',
     process.env.HASURA_URL,
     '/api/graphql/v1/graphql',
+  ),
+
+  applicationInsightsConnectionString: readNotEmptyStringConfig(
+    'applicationInsightsConnectionString',
+    process.env.NEXT_PUBLIC_APPLICATION_INSIGHTS_CONNECTION_STRING,
+    '', // Empty string will disable tracking
   ),
 
   buildTime: optional(readDateTime, 'buildTime'),
