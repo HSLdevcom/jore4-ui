@@ -25,7 +25,6 @@ export const NavLinks: FC = () => {
                 )
               }
               data-testid={testIds.navLink(translationKey)}
-              end
             >
               {t(translationKey)}
             </NavLink>
