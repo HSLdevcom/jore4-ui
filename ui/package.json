@@ -21,6 +21,8 @@
     "@headlessui/tailwindcss": "^0.2.2",
     "@hookform/resolvers": "^3.10.0",
     "@mapbox/mapbox-gl-draw": "^1.5.1",
+    "@microsoft/applicationinsights-react-js": "^19.3.8",
+    "@microsoft/applicationinsights-web": "^3.3.11",
     "@nebula.gl/edit-modes": "^1.0.4",
     "@reduxjs/toolkit": "^2.11.2",
     "@seznam/compose-react-refs": "^1.0.6",
