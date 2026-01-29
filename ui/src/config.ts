@@ -254,7 +254,7 @@ export const joreConfig: JoreConfig = {
   applicationInsightsConnectionString: optional(
     readStringConfig,
     'applicationInsightsConnectionString',
-    process.env.NEXT_PUBLIC_APPLICATION_INSIGHTS_CONNECTION_STRING,
+    process.env.NEXT_PUBLIC_APPLICATIONINSIGHTS_CONNECTION_STRING,
     '',
   ),
 
