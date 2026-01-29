@@ -5,6 +5,6 @@ cat > /tmp/config.json << EOF
 {
   "digitransitApiKey": "$(echo "${NEXT_PUBLIC_DIGITRANSIT_API_KEY}" | tr '"' '\"')",
   "hasuraUrl": "$(echo "${NEXT_PUBLIC_HASURA_URL}" | tr '"' '\"')",
-  "applicationInsightsConnectionString": "$(echo "${NEXT_PUBLIC_APPLICATION_INSIGHTS_CONNECTION_STRING}" | tr '"' '\"')"
+  "applicationInsightsConnectionString": "$(echo "${NEXT_PUBLIC_APPLICATIONINSIGHTS_CONNECTION_STRING}" | tr '"' '\"')"
 }
 EOF
