@@ -2,15 +2,15 @@ import { SignageDetailsForm } from './SignageDetailsForm';
 import { SignageDetailsViewCard } from './SignageDetailsViewCard';
 
 export class SignageDetailsSection {
-  form = new SignageDetailsForm();
+  static form = SignageDetailsForm;
 
-  viewCard = new SignageDetailsViewCard();
+  static viewCard = SignageDetailsViewCard;
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('SignageDetailsSection::editButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('SignageDetailsSection::saveButton');
   }
 }

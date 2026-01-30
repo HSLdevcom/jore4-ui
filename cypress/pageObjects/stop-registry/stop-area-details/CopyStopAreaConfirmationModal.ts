@@ -1,21 +1,21 @@
-import { ConfirmModal } from '../../ConfirmModal';
+import { ConfirmModal } from '../../shared-components/ConfirmModal';
 
 export class CopyStopAreaConfirmationModal {
-  buttons = new ConfirmModal();
+  static buttons = ConfirmModal;
 
-  modal() {
+  static modal() {
     return cy.getByTestId('CopyStopAreaCutConfirmationModal::modal');
   }
 
-  getCurrentVersion() {
+  static getCurrentVersion() {
     return cy.getByTestId('CopyStopAreaCutConfirmationModal::currentVersion');
   }
 
-  getNewVersion() {
+  static getNewVersion() {
     return cy.getByTestId('CopyStopAreaCutConfirmationModal::newVersion');
   }
 
-  getCutDate() {
+  static getCutDate() {
     return cy.getByTestId('CopyStopAreaCutConfirmationModal::cutDate');
   }
 }

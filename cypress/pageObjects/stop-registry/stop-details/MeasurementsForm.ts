@@ -1,100 +1,101 @@
 export class MeasurementsForm {
-  getStopTypeDropdownButton = () =>
+  static getStopTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::stopType::ListboxButton');
 
-  getStopTypeDropdownOptions = () =>
+  static getStopTypeDropdownOptions = () =>
     cy.getByTestId('MeasurementsForm::stopType::ListboxOptions');
 
-  getCurvedStopDropdownButton = () =>
+  static getCurvedStopDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::curvedStop::ListboxButton');
 
-  getCurvedStopDropdownOptions = () =>
+  static getCurvedStopDropdownOptions = () =>
     cy.getByTestId('MeasurementsForm::curvedStop::ListboxOptions');
 
-  getShelterTypeDropdownButton = () =>
+  static getShelterTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::shelterType::ListboxButton');
 
-  getShelterTypeDropdownOptions = () =>
+  static getShelterTypeDropdownOptions = () =>
     cy.getByTestId('MeasurementsForm::shelterType::ListboxOptions');
 
-  getShelterLaneDistanceInput = () =>
+  static getShelterLaneDistanceInput = () =>
     cy.getByTestId('MeasurementsForm::shelterLaneDistance');
 
-  getCurbBackOfRailDistanceInput = () =>
+  static getCurbBackOfRailDistanceInput = () =>
     cy.getByTestId('MeasurementsForm::curbBackOfRailDistance');
 
-  getStopAreaSideSlopeInput = () =>
+  static getStopAreaSideSlopeInput = () =>
     cy.getByTestId('MeasurementsForm::stopAreaSideSlope');
 
-  getStopAreaLengthwiseSlopeInput = () =>
+  static getStopAreaLengthwiseSlopeInput = () =>
     cy.getByTestId('MeasurementsForm::stopAreaLengthwiseSlope');
 
-  getStructureLaneDistanceInput = () =>
+  static getStructureLaneDistanceInput = () =>
     cy.getByTestId('MeasurementsForm::structureLaneDistance');
 
-  getStopElevationFromRailTopInput = () =>
+  static getStopElevationFromRailTopInput = () =>
     cy.getByTestId('MeasurementsForm::stopElevationFromRailTop');
 
-  getStopElevationFromSidewalkInput = () =>
+  static getStopElevationFromSidewalkInput = () =>
     cy.getByTestId('MeasurementsForm::stopElevationFromSidewalk');
 
-  getLowerCleatHeightInput = () =>
+  static getLowerCleatHeightInput = () =>
     cy.getByTestId('MeasurementsForm::lowerCleatHeight');
 
-  getPlatformEdgeWarningAreaCheckbox = () =>
+  static getPlatformEdgeWarningAreaCheckbox = () =>
     cy.getByTestId('MeasurementsForm::platformEdgeWarningArea');
 
-  getSidewalkAccessibleConnectionCheckbox = () =>
+  static getSidewalkAccessibleConnectionCheckbox = () =>
     cy.getByTestId('MeasurementsForm::sidewalkAccessibleConnection');
 
-  getGuidanceStripeCheckbox = () =>
+  static getGuidanceStripeCheckbox = () =>
     cy.getByTestId('MeasurementsForm::guidanceStripe');
 
-  getServiceAreaStripesCheckbox = () =>
+  static getServiceAreaStripesCheckbox = () =>
     cy.getByTestId('MeasurementsForm::serviceAreaStripes');
 
-  getGuidanceTypeDropdownButton = () =>
+  static getGuidanceTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::guidanceType::ListboxButton');
 
-  getGuidanceTypeDropdownOptions = () =>
+  static getGuidanceTypeDropdownOptions = () =>
     cy.getByTestId('MeasurementsForm::guidanceType::ListboxOptions');
 
-  getGuidanceTilesCheckbox = () =>
+  static getGuidanceTilesCheckbox = () =>
     cy.getByTestId('MeasurementsForm::guidanceTiles');
 
-  getMapTypeDropdownButton = () =>
+  static getMapTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::mapType::ListboxButton');
 
-  getMapTypeDropdownOptions = () =>
+  static getMapTypeDropdownOptions = () =>
     cy.getByTestId('MeasurementsForm::mapType::ListboxOptions');
 
-  getCurbDriveSideOfRailDistanceInput = () =>
+  static getCurbDriveSideOfRailDistanceInput = () =>
     cy.getByTestId('MeasurementsForm::curbDriveSideOfRailDistance');
 
-  getEndRampSlopeInput = () => cy.getByTestId('MeasurementsForm::endRampSlope');
+  static getEndRampSlopeInput = () =>
+    cy.getByTestId('MeasurementsForm::endRampSlope');
 
-  getServiceAreaWidthInput = () =>
+  static getServiceAreaWidthInput = () =>
     cy.getByTestId('MeasurementsForm::serviceAreaWidth');
 
-  getServiceAreaLengthInput = () =>
+  static getServiceAreaLengthInput = () =>
     cy.getByTestId('MeasurementsForm::serviceAreaLength');
 
-  getPedestrianCrossingRampTypeDropdownButton = () =>
+  static getPedestrianCrossingRampTypeDropdownButton = () =>
     cy.getByTestId(
       'MeasurementsForm::pedestrianCrossingRampType::ListboxButton',
     );
 
-  getPedestrianCrossingRampTypeDropdownOptions = () =>
+  static getPedestrianCrossingRampTypeDropdownOptions = () =>
     cy.getByTestId(
       'MeasurementsForm::pedestrianCrossingRampType::ListboxOptions',
     );
 
-  getStopAreaSurroundingsAccessibleDropdownButton = () =>
+  static getStopAreaSurroundingsAccessibleDropdownButton = () =>
     cy.getByTestId(
       'MeasurementsForm::stopAreaSurroundingsAccessible::ListboxButton',
     );
 
-  getStopAreaSurroundingsAccessibleDropdownOptions = () =>
+  static getStopAreaSurroundingsAccessibleDropdownOptions = () =>
     cy.getByTestId(
       'MeasurementsForm::stopAreaSurroundingsAccessible::ListboxOptions',
     );

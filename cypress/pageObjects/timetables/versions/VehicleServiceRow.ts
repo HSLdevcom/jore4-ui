@@ -1,9 +1,9 @@
 export class VehicleServiceRow {
-  getHour = () => {
+  static getHour = () => {
     return cy.getByTestId('VehicleServiceRow::hour');
   };
 
-  getMinute = () => {
+  static getMinute = () => {
     return cy.getByTestId('VehicleServiceRow::minute');
   };
 }

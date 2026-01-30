@@ -2,11 +2,13 @@ import { BasicDetailsForm } from './BasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
 
 export class BasicDetailsSection {
-  form = new BasicDetailsForm();
+  static form = BasicDetailsForm;
 
-  viewCard = new BasicDetailsViewCard();
+  static viewCard = BasicDetailsViewCard;
 
-  getEditButton = () => cy.getByTestId('BasicDetailsSection::editButton');
+  static getEditButton = () =>
+    cy.getByTestId('BasicDetailsSection::editButton');
 
-  getSaveButton = () => cy.getByTestId('BasicDetailsSection::saveButton');
+  static getSaveButton = () =>
+    cy.getByTestId('BasicDetailsSection::saveButton');
 }

@@ -1,17 +1,17 @@
 import { StopVersionForm } from './StopVersionForm';
 
 export class CreateCopyModal {
-  form = new StopVersionForm();
+  static form = StopVersionForm;
 
-  modal() {
+  static modal() {
     return cy.getByTestId('CopyStopModal::modal');
   }
 
-  names() {
+  static names() {
     return cy.getByTestId('CopyStopModal::names');
   }
 
-  validity() {
+  static validity() {
     return cy.getByTestId('CopyStopModal::validity');
   }
 }

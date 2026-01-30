@@ -45,7 +45,7 @@ import {
   StopSearchResultsPage,
   TerminalDetailsPage,
 } from '../../pageObjects';
-import { StopPopUp } from '../../pageObjects/StopPopUp';
+import { StopPopUp } from '../../pageObjects/stop-registry/StopPopUp';
 import { InsertQuayInput, InsertQuaysResult } from '../../support/types';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
@@ -53,20 +53,6 @@ import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 const baseDbResources = getClonedBaseDbResources();
-
-const stopSearchBar = new StopSearchBar();
-const stopSearchResultsPage = new StopSearchResultsPage();
-const stopSearchByLine = new StopSearchByLine();
-const stopGroupSelector = new StopGroupSelector();
-const searchForStopAreas = new SearchForStopAreas();
-const searchForTerminals = new SearchForTerminals();
-const sortByButton = new SortByButton();
-const pagination = new Pagination();
-const map = new Map();
-const mapPage = new MapPage();
-const mapFooter = new MapFooter();
-const mapStopSelection = new MapStopSelection();
-const stopPopUp = new StopPopUp();
 
 function getUuid(index: number) {
   if (!Number.isInteger(index)) {
@@ -170,11 +156,12 @@ function shouldHaveResultOf(
   ...expectedStops: ReadonlyArray<string | ReadonlyArray<string>>
 ) {
   const flattened = expectedStops.flat();
-  stopSearchResultsPage
-    .getResultCount()
-    .should('contain.text', `${flattened.length} hakutulos`);
+  StopSearchResultsPage.getResultCount().should(
+    'contain.text',
+    `${flattened.length} hakutulos`,
+  );
   flattened.forEach((stop) => {
-    stopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
+    StopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
   });
 }
 
@@ -224,7 +211,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     cy.visit({ url: '/stop-registry/search', qs });
 
-    stopSearchBar.getSearchInput().clear();
+    StopSearchBar.getSearchInput().clear();
   }
 
   function initWithHardcodedData() {
@@ -236,46 +223,46 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('should be able to search with an exact stop label', () => {
-      stopSearchBar.searchCriteriaRadioButtons
+      StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      stopSearchBar.getSearchInput().type(`E2E001{enter}`);
+      StopSearchBar.getSearchInput().type(`E2E001{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E001');
     });
 
     it(
       'should be able to search with an asterisk',
       { tags: [Tag.StopRegistry, Tag.Smoke] },
       () => {
-        stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+        StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 9);
+        StopSearchResultsPage.getContainer().should('be.visible');
+        StopSearchResultsPage.getResultRows().should('have.length', 9);
 
         // Ordered by label.
-        stopSearchResultsPage.getResultRows().eq(0).should('contain', 'E2E001');
-        stopSearchResultsPage.getResultRows().eq(1).should('contain', 'E2E002');
-        stopSearchResultsPage.getResultRows().eq(2).should('contain', 'E2E003');
-        stopSearchResultsPage.getResultRows().eq(3).should('contain', 'E2E004');
-        stopSearchResultsPage.getResultRows().eq(4).should('contain', 'E2E005');
-        stopSearchResultsPage.getResultRows().eq(5).should('contain', 'E2E006');
-        stopSearchResultsPage.getResultRows().eq(6).should('contain', 'E2E007');
-        stopSearchResultsPage.getResultRows().eq(7).should('contain', 'E2E008');
-        stopSearchResultsPage.getResultRows().eq(8).should('contain', 'E2E009');
+        StopSearchResultsPage.getResultRows().eq(0).should('contain', 'E2E001');
+        StopSearchResultsPage.getResultRows().eq(1).should('contain', 'E2E002');
+        StopSearchResultsPage.getResultRows().eq(2).should('contain', 'E2E003');
+        StopSearchResultsPage.getResultRows().eq(3).should('contain', 'E2E004');
+        StopSearchResultsPage.getResultRows().eq(4).should('contain', 'E2E005');
+        StopSearchResultsPage.getResultRows().eq(5).should('contain', 'E2E006');
+        StopSearchResultsPage.getResultRows().eq(6).should('contain', 'E2E007');
+        StopSearchResultsPage.getResultRows().eq(7).should('contain', 'E2E008');
+        StopSearchResultsPage.getResultRows().eq(8).should('contain', 'E2E009');
       },
     );
 
     it('should show no results when search does not match any stops', () => {
-      stopSearchBar.getSearchInput().type(`*404*{enter}`);
+      StopSearchBar.getSearchInput().type(`*404*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('not.exist');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('not.exist');
     });
   });
 
@@ -285,46 +272,46 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     // not ok
 
     it('should be able to search with an exact ELY number', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getElyInput().type(`E2E001`);
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getElyInput().type(`E2E001`);
+      StopSearchBar.getSearchButton().click();
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E001');
     });
 
     it('should be able to search with an asterix', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getElyInput().type('E2E00*');
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getElyInput().type('E2E00*');
+      StopSearchBar.getSearchButton().click();
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 9);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E003');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E005');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E006');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E007');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E008');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 9);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E002');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E003');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E005');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E006');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E007');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E008');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E009');
     });
 
     it('should show no results when search does not match any stops', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getElyInput().type(`not-an-ELY-number`);
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getElyInput().type(`not-an-ELY-number`);
+      StopSearchBar.getSearchButton().click();
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('not.exist');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('not.exist');
     });
   });
 
@@ -332,38 +319,38 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('should be able to search with an exact address', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
-      stopSearchBar.getSearchInput().type(`Annankatu 15{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      StopSearchBar.getSearchInput().type(`Annankatu 15{enter}`);
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 2);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 2);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E009');
     });
 
     it('should be able to search with an asterix', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
-      stopSearchBar.getSearchInput().type(`Annankatu*{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      StopSearchBar.getSearchInput().type(`Annankatu*{enter}`);
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 3);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 3);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E002');
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E009');
     });
 
     it('should show no results when search does not match any stops', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
-      stopSearchBar.getSearchInput().type(`no address 22{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      StopSearchBar.getSearchInput().type(`no address 22{enter}`);
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('not.exist');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('not.exist');
     });
   });
 
@@ -371,28 +358,28 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('Should trigger search when the search criteria is changed and the search input field contains text', () => {
-      stopSearchBar.getSearchInput().type(`Albertinkatu 38`);
-      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      StopSearchBar.getSearchInput().type(`Albertinkatu 38`);
+      StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
     });
 
     it('Should not trigger a search when the search criteria is changed if the search input field is empty', () => {
-      stopSearchBar.getSearchInput().type(`E2E004{enter}`);
+      StopSearchBar.getSearchInput().type(`E2E004{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
 
-      stopSearchBar.getSearchInput().clear();
-      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      StopSearchBar.getSearchInput().clear();
+      StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
     });
   });
 
@@ -400,29 +387,29 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('Should search by all municipalities by default', () => {
-      stopSearchBar.getSearchInput().type(`*`);
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.municipality.openDropdown();
-      stopSearchBar.municipality.isSelected('Kaikki');
+      StopSearchBar.getSearchInput().type(`*`);
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.municipality.openDropdown();
+      StopSearchBar.municipality.isSelected('Kaikki');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 10);
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 10);
     });
 
     it('should be able to search with one municipality', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.municipality.openDropdown();
-      stopSearchBar.municipality.isSelected('Kaikki');
-      stopSearchBar.municipality.toggleOption('Espoo');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.municipality.openDropdown();
+      StopSearchBar.municipality.isSelected('Kaikki');
+      StopSearchBar.municipality.toggleOption('Espoo');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E010');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E010');
     });
   });
 
@@ -430,51 +417,51 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('should be able to search with an exact name', () => {
-      stopSearchBar.searchCriteriaRadioButtons
+      StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      stopSearchBar.getSearchInput().type(`Albertinkatu 38{enter}`);
+      StopSearchBar.getSearchInput().type(`Albertinkatu 38{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
     });
 
     it('should be able to search with an exact translation name', () => {
-      stopSearchBar.searchCriteriaRadioButtons
+      StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      stopSearchBar.getSearchInput().type(`Albertsgatan 38{enter}`);
+      StopSearchBar.getSearchInput().type(`Albertsgatan 38{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
     });
 
     it('should be able to search with an exact finnish name alias (long name)', () => {
-      stopSearchBar.searchCriteriaRadioButtons
+      StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      stopSearchBar.getSearchInput().type(`Albertinkatu 38 (pitkä){enter}`);
+      StopSearchBar.getSearchInput().type(`Albertinkatu 38 (pitkä){enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
     });
 
     it('should be able to search with an exact swedish name alias (long name)', () => {
-      stopSearchBar.searchCriteriaRadioButtons
+      StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      stopSearchBar.getSearchInput().type(`Albertsgatan 38 (lång){enter}`);
+      StopSearchBar.getSearchInput().type(`Albertsgatan 38 (lång){enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 1);
-      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 1);
+      StopSearchResultsPage.getResultRows().should('contain', 'E2E004');
     });
   });
 
@@ -541,48 +528,47 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     }
 
     function assertShowsAllResultsByDefault() {
-      stopSearchBar.getSearchInput().clearAndType(`LE*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`LE*{enter}`);
       expectGraphQLCallToSucceed('@gqlfindLinesByStopSearch');
 
       // Should contain and show all LE -lines
-      stopGroupSelector.shouldHaveGroups(
+      StopGroupSelector.shouldHaveGroups(
         range(SHOW_ALL_BY_DEFAULT_MAX).map((i) => `LE${i}`),
       );
-      stopGroupSelector.getShowAllGroupsButton().should('not.exist');
-      stopGroupSelector.getShowLessGroupsButton().should('not.exist');
+      StopGroupSelector.getShowAllGroupsButton().should('not.exist');
+      StopGroupSelector.getShowLessGroupsButton().should('not.exist');
     }
 
     function assertShowAllAndShowLessWork(
       allExtraLines: ReadonlyArray<string>,
     ) {
-      stopSearchBar.getSearchInput().clearAndType(`L*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`L*{enter}`);
       expectGraphQLCallToSucceed('@gqlfindLinesByStopSearch');
 
       // Changes in CSS styles, viewport size, and the line labels can influence
       // the list of shown labels.
       cy.viewport(1000, 1080);
       // prettier-ignore
-      stopGroupSelector
+      StopGroupSelector
         .shouldHaveGroups(['L20', 'L21', 'L22', 'L23', 'L24', 'L25', 'L26', 'L27', 'L28', 'L29']);
 
       cy.viewport(500, 1080);
       // prettier-ignore
       const minimalResult = ['L20', 'L21', 'L22', 'L23', 'L24'];
-      stopGroupSelector.shouldHaveGroups(minimalResult);
+      StopGroupSelector.shouldHaveGroups(minimalResult);
 
-      stopGroupSelector.getShowLessGroupsButton().should('not.exist');
-      stopGroupSelector
-        .getShowAllGroupsButton()
+      StopGroupSelector.getShowLessGroupsButton().should('not.exist');
+      StopGroupSelector.getShowAllGroupsButton()
         .should('contain', `Näytä kaikki (${SHOW_ALL_BY_DEFAULT_MAX * 2})`)
         .click();
-      stopGroupSelector.getShowLessGroupsButton().shouldBeVisible();
-      stopGroupSelector.getShowAllGroupsButton().should('not.exist');
-      stopGroupSelector.shouldHaveGroups(allExtraLines);
+      StopGroupSelector.getShowLessGroupsButton().shouldBeVisible();
+      StopGroupSelector.getShowAllGroupsButton().should('not.exist');
+      StopGroupSelector.shouldHaveGroups(allExtraLines);
 
-      stopGroupSelector.getShowLessGroupsButton().click();
+      StopGroupSelector.getShowLessGroupsButton().click();
 
-      stopGroupSelector.shouldHaveGroups(minimalResult);
-      stopGroupSelector.getShowAllGroupsButton().shouldBeVisible();
+      StopGroupSelector.shouldHaveGroups(minimalResult);
+      StopGroupSelector.getShowAllGroupsButton().shouldBeVisible();
     }
 
     let allExtraLines: ReadonlyArray<string> = [];
@@ -598,7 +584,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     it('should have a working asterisk search and line selector', () => {
       injectKnownMonospaceFont();
 
-      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
 
       assertShowsAllResultsByDefault();
       assertShowAllAndShowLessWork(allExtraLines);
@@ -616,19 +602,18 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     >;
 
     function assertRouteInfo(id: string, info: RouteInfoForAssert) {
-      stopSearchByLine.getRouteInfoContainer(id).within(() => {
-        stopSearchByLine.getRouteLabel().shouldHaveText(info.label);
+      StopSearchByLine.getRouteInfoContainer(id).within(() => {
+        StopSearchByLine.getRouteLabel().shouldHaveText(info.label);
 
-        stopSearchByLine
-          .getRouteDirection()
+        StopSearchByLine.getRouteDirection()
           .shouldHaveText(info.directionSymbol)
           .and('have.attr', 'title', info.directionTitle);
 
-        stopSearchByLine.getRouteName().shouldHaveText(info.name);
+        StopSearchByLine.getRouteName().shouldHaveText(info.name);
 
-        stopSearchByLine.getRouteValidity().shouldHaveText(info.validity);
+        StopSearchByLine.getRouteValidity().shouldHaveText(info.validity);
 
-        stopSearchByLine.getRouteLocatorButton().shouldBeVisible();
+        StopSearchByLine.getRouteLocatorButton().shouldBeVisible();
       });
     }
 
@@ -645,18 +630,17 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         validity: 'Voimassa 11.8.2022 - 11.8.2032',
       });
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E001')
+      StopSearchResultsPage.getRowByLabel('E2E001')
         .shouldBeVisible()
         .and('contain', 'E2E001')
         .and('contain', '1AACKT')
         .and('contain', 'Annankatu 15')
         .and('contain', '20.3.2020-');
 
-      stopSearchResultsPage.getRowByLabel('E2E002').shouldBeVisible();
-      stopSearchResultsPage.getRowByLabel('E2E003').shouldBeVisible();
-      stopSearchResultsPage.getRowByLabel('E2E004').shouldBeVisible();
-      stopSearchResultsPage.getRowByLabel('E2E005').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E002').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E003').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E004').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E005').shouldBeVisible();
     }
 
     function assertInboundRouteIsValid() {
@@ -672,112 +656,115 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         validity: 'Voimassa 11.8.2022 - 11.8.2032',
       });
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E005')
+      StopSearchResultsPage.getRowByLabel('E2E005')
         .shouldBeVisible()
         .and('contain', 'E2E005')
         .and('contain', '1EIRA')
         .and('contain', 'Lönnrotinkatu 32')
         .and('contain', '20.3.2020-');
 
-      stopSearchResultsPage.getRowByLabel('E2E006').shouldBeVisible();
-      stopSearchResultsPage.getRowByLabel('E2E007').shouldBeVisible();
-      stopSearchResultsPage.getRowByLabel('E2E008').shouldBeVisible();
-      stopSearchResultsPage.getRowByLabel('E2E009').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E006').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E007').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E008').shouldBeVisible();
+      StopSearchResultsPage.getRowByLabel('E2E009').shouldBeVisible();
     }
 
     it('should find and display line 901 routes', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      stopSearchBar.getSearchInput().clearAndType(`901{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      StopSearchBar.getSearchInput().clearAndType(`901{enter}`);
 
-      stopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
-      stopSearchByLine
-        .getActiveLineValidity()
-        .should('contain', 'Voimassa 1.1.2022 -');
+      StopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
+      StopSearchByLine.getActiveLineValidity().should(
+        'contain',
+        'Voimassa 1.1.2022 -',
+      );
 
-      stopSearchByLine
-        .getActiveLineAllStopsCount()
-        .shouldHaveText('9 pysäkkiä');
-      stopSearchByLine
-        .getActiveLineInboundStopsCount()
-        .shouldHaveText('5 pys.');
-      stopSearchByLine
-        .getActiveLineOutboundStopsCount()
-        .shouldHaveText('5 pys.');
+      StopSearchByLine.getActiveLineAllStopsCount().shouldHaveText(
+        '9 pysäkkiä',
+      );
+      StopSearchByLine.getActiveLineInboundStopsCount().shouldHaveText(
+        '5 pys.',
+      );
+      StopSearchByLine.getActiveLineOutboundStopsCount().shouldHaveText(
+        '5 pys.',
+      );
 
       assertOutboundRouteIsValid();
       assertInboundRouteIsValid();
     });
 
     it('should be able to select multiple lines', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      stopSearchBar.getSearchInput().clearAndType(`9*{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      StopSearchBar.getSearchInput().clearAndType(`9*{enter}`);
 
-      stopGroupSelector.getGroupSelectors().contains('901').click();
-      stopGroupSelector.getGroupSelectors().contains('9999').click();
+      StopGroupSelector.getGroupSelectors().contains('901').click();
+      StopGroupSelector.getGroupSelectors().contains('9999').click();
 
-      stopGroupSelector.getGroupSelectors().should('have.length', 3);
-      stopGroupSelector.getGroupSelectors().eq(0).should('contain', '901');
-      stopGroupSelector.getGroupSelectors().eq(2).should('contain', '9999');
+      StopGroupSelector.getGroupSelectors().should('have.length', 3);
+      StopGroupSelector.getGroupSelectors().eq(0).should('contain', '901');
+      StopGroupSelector.getGroupSelectors().eq(2).should('contain', '9999');
 
       // Assert that both lines are shown
-      stopSearchByLine.getActiveLineName().should('have.length', 2);
-      stopSearchByLine.getActiveLineName().eq(0).should('contain', '901');
-      stopSearchByLine.getActiveLineName().eq(1).should('contain', '9999');
+      StopSearchByLine.getActiveLineName().should('have.length', 2);
+      StopSearchByLine.getActiveLineName().eq(0).should('contain', '901');
+      StopSearchByLine.getActiveLineName().eq(1).should('contain', '9999');
     });
 
     it('should be able to select and deselect stops on line', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      stopSearchBar.getSearchInput().clearAndType(`901{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      StopSearchBar.getSearchInput().clearAndType(`901{enter}`);
 
-      stopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
-      stopSearchByLine
-        .getActiveLineValidity()
-        .should('contain', 'Voimassa 1.1.2022 -');
+      StopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
+      StopSearchByLine.getActiveLineValidity().should(
+        'contain',
+        'Voimassa 1.1.2022 -',
+      );
 
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('be.checked');
-      stopSearchResultsPage
-        .getSelectAllStopsOfLineButton('08d1fa6b-440c-421e-ad4d-0778d65afe60')
+      StopSearchResultsPage.getSelectAllStopsOfLineButton(
+        '08d1fa6b-440c-421e-ad4d-0778d65afe60',
+      )
         .shouldBeVisible()
         .and('be.checked');
-      stopSearchResultsPage
-        .getSelectAllStopsOfRouteButton('994a7d79-4991-423b-9c1a-0ca621a6d9ed')
+      StopSearchResultsPage.getSelectAllStopsOfRouteButton(
+        '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
+      )
         .shouldBeVisible()
         .and('be.checked');
-      stopSearchResultsPage
-        .getSelectAllStopsOfRouteButton('5f1fff1a-2449-4a8f-8107-15edc6f46fce')
+      StopSearchResultsPage.getSelectAllStopsOfRouteButton(
+        '5f1fff1a-2449-4a8f-8107-15edc6f46fce',
+      )
         .shouldBeVisible()
         .and('be.checked');
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E004')
+      StopSearchResultsPage.getRowByLabel('E2E004')
         .shouldBeVisible()
         .within(() =>
-          stopSearchResultsPage
-            .getSelectInput()
+          StopSearchResultsPage.getSelectInput()
             .shouldBeVisible()
             .and('be.checked')
             .click()
             .and('not.be.checked'),
         );
 
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('not.be.checked');
-      stopSearchResultsPage
-        .getSelectAllStopsOfLineButton('08d1fa6b-440c-421e-ad4d-0778d65afe60')
+      StopSearchResultsPage.getSelectAllStopsOfLineButton(
+        '08d1fa6b-440c-421e-ad4d-0778d65afe60',
+      )
         .shouldBeVisible()
         .and('not.be.checked');
-      stopSearchResultsPage
-        .getSelectAllStopsOfRouteButton('994a7d79-4991-423b-9c1a-0ca621a6d9ed')
+      StopSearchResultsPage.getSelectAllStopsOfRouteButton(
+        '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
+      )
         .shouldBeVisible()
         .and('not.be.checked');
-      stopSearchResultsPage
-        .getSelectAllStopsOfRouteButton('5f1fff1a-2449-4a8f-8107-15edc6f46fce')
+      StopSearchResultsPage.getSelectAllStopsOfRouteButton(
+        '5f1fff1a-2449-4a8f-8107-15edc6f46fce',
+      )
         .shouldBeVisible()
         .and('be.checked');
     });
@@ -787,13 +774,13 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('should find all by *', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
-      stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`*{enter}`);
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
-      stopGroupSelector.shouldHaveGroups([
+      StopGroupSelector.shouldHaveGroups([
         'X0003',
         'X0004',
         'E2E002',
@@ -808,73 +795,68 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     });
 
     it('should find and navigate to X0004', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
-      stopSearchBar.getSearchInput().clearAndType(`X0004{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`X0004{enter}`);
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
-      stopGroupSelector.shouldHaveGroups(['X0004']);
+      StopGroupSelector.shouldHaveGroups(['X0004']);
 
-      searchForStopAreas
-        .getStopAreaLabel()
-        .shouldHaveText('Pysäkkialue X0004 | Kalevankatu 32');
+      SearchForStopAreas.getStopAreaLabel().shouldHaveText(
+        'Pysäkkialue X0004 | Kalevankatu 32',
+      );
 
-      searchForStopAreas.getLocatorButton().shouldBeVisible();
+      SearchForStopAreas.getLocatorButton().shouldBeVisible();
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E003')
+      StopSearchResultsPage.getRowByLabel('E2E003')
         .shouldBeVisible()
         .and('contain', 'E2E003')
         .and('contain', '1AURLA')
         .and('contain', 'Kalevankatu 32')
         .and('contain', '20.3.2020-');
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E006')
+      StopSearchResultsPage.getRowByLabel('E2E006')
         .shouldBeVisible()
         .and('contain', 'E2E006')
         .and('contain', '1AURLA')
         .and('contain', 'Kalevankatu 32')
         .and('contain', '20.3.2020-');
 
-      searchForStopAreas.getStopAreaLink().click();
+      SearchForStopAreas.getStopAreaLink().click();
 
-      const stopAreaDetailsPage = new StopAreaDetailsPage();
       // TODO: Refactor to check privateCode after area details tests are ready
-      stopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
+      StopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
 
       cy.go('back');
 
-      searchForStopAreas.getActionMenu().click();
+      SearchForStopAreas.getActionMenu().click();
 
-      searchForStopAreas.getActionMenuShowOnMap().shouldBeVisible();
+      SearchForStopAreas.getActionMenuShowOnMap().shouldBeVisible();
 
-      searchForStopAreas.getActionMenuShowDetails().click();
+      SearchForStopAreas.getActionMenuShowDetails().click();
 
-      stopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
+      StopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
     });
 
     it('should find E2ENQ and display no stops', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
-      stopSearchBar.getSearchInput().clearAndType(`E2ENQ{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`E2ENQ{enter}`);
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
-      stopGroupSelector.shouldHaveGroups(['E2ENQ']);
+      StopGroupSelector.shouldHaveGroups(['E2ENQ']);
 
-      searchForStopAreas
-        .getStopAreaLabel()
-        .shouldHaveText('Pysäkkialue E2ENQ | No quays');
+      SearchForStopAreas.getStopAreaLabel().shouldHaveText(
+        'Pysäkkialue E2ENQ | No quays',
+      );
 
-      searchForStopAreas
-        .getNoStopsInStopAreaText()
-        .shouldHaveText('Ei pysäkkejä.Siirry pysäkkialueen tietoihin.');
-      searchForStopAreas.getNoStopsInStopAreaLink().click();
-
-      const stopAreaDetailsPage = new StopAreaDetailsPage();
-      stopAreaDetailsPage.details.getName().should('contain', 'No quays');
+      SearchForStopAreas.getNoStopsInStopAreaText().shouldHaveText(
+        'Ei pysäkkejä.Siirry pysäkkialueen tietoihin.',
+      );
+      SearchForStopAreas.getNoStopsInStopAreaLink().click();
+      StopAreaDetailsPage.details.getName().should('contain', 'No quays');
     });
   });
 
@@ -882,59 +864,56 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('should find all by *', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
 
-      stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`*{enter}`);
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
-      stopGroupSelector.shouldHaveGroups(['T2']);
+      StopGroupSelector.shouldHaveGroups(['T2']);
     });
 
     it('should find and navigate to T2', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
 
-      stopSearchBar.getSearchInput().clearAndType(`T2{enter}`);
+      StopSearchBar.getSearchInput().clearAndType(`T2{enter}`);
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
-      stopGroupSelector.shouldHaveGroups(['T2']);
+      StopGroupSelector.shouldHaveGroups(['T2']);
 
-      searchForTerminals
-        .getTerminalLabel()
-        .shouldHaveText('Terminaali T2 | E2ET001');
+      SearchForTerminals.getTerminalLabel().shouldHaveText(
+        'Terminaali T2 | E2ET001',
+      );
 
-      searchForTerminals.getLocatorButton().shouldBeVisible();
+      SearchForTerminals.getLocatorButton().shouldBeVisible();
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E008')
+      StopSearchResultsPage.getRowByLabel('E2E008')
         .shouldBeVisible()
         .and('contain', 'E2E008')
         .and('contain', 'Kuttulammentie')
         .and('contain', '20.3.2020-');
 
-      stopSearchResultsPage
-        .getRowByLabel('E2E010')
+      StopSearchResultsPage.getRowByLabel('E2E010')
         .shouldBeVisible()
         .and('contain', 'E2E010')
         .and('contain', '1AACKT')
         .and('contain', 'Finnoonkartano')
         .and('contain', '20.3.2020-');
 
-      searchForTerminals.getTerminalLink().click();
+      SearchForTerminals.getTerminalLink().click();
 
-      const terminalDetailsPage = new TerminalDetailsPage();
-      terminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
+      TerminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
 
       cy.go('back');
 
-      searchForTerminals.getActionMenu().click();
+      SearchForTerminals.getActionMenu().click();
 
-      searchForTerminals.getActionMenuShowOnMap().shouldBeVisible();
+      SearchForTerminals.getActionMenuShowOnMap().shouldBeVisible();
 
-      searchForTerminals.getActionMenuShowDetails().click();
+      SearchForTerminals.getActionMenuShowDetails().click();
 
-      terminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
+      TerminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
     });
   });
 
@@ -946,148 +925,147 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     function assertResultOrder(expectedOrder: ReadonlyArray<string>) {
       expectedOrder.forEach((label, index) => {
-        stopSearchResultsPage
-          .getResultRows()
+        StopSearchResultsPage.getResultRows()
           .eq(index)
           .should('contain', label);
       });
     }
 
     it('should sort on basic stop search', () => {
-      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       // Label ascending
-      sortByButton.assertSorting('label', 'asc');
+      SortByButton.assertSorting('label', 'asc');
       assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
 
       // Label descending
-      sortByButton.getButton('label').click();
+      SortByButton.getButton('label').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('label', 'desc');
+      SortByButton.assertSorting('label', 'desc');
       assertResultOrder(['E2E009', 'E2E008', 'E2E007', 'E2E006', 'E2E005']);
 
       // Name descending
-      sortByButton.getButton('name').click();
+      SortByButton.getButton('name').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('name', 'desc');
+      SortByButton.assertSorting('name', 'desc');
       assertResultOrder(['E2E005', 'E2E008', 'E2E006', 'E2E003', 'E2E007']);
 
       // Name ascending
-      sortByButton.getButton('name').click();
+      SortByButton.getButton('name').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('name', 'asc');
+      SortByButton.assertSorting('name', 'asc');
       assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E007']);
 
       // Address ascending
-      sortByButton.getButton('address').click();
+      SortByButton.getButton('address').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('address', 'asc');
+      SortByButton.assertSorting('address', 'asc');
       assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E007']);
 
       // Address descending
-      sortByButton.getButton('address').click();
+      SortByButton.getButton('address').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('address', 'desc');
+      SortByButton.assertSorting('address', 'desc');
       assertResultOrder(['E2E005', 'E2E008', 'E2E006', 'E2E003', 'E2E007']);
     });
 
     it('should page on basic stop search', () => {
-      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       // Label ascending
-      sortByButton.assertSorting('label', 'asc');
+      SortByButton.assertSorting('label', 'asc');
       assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
 
-      pagination.getNextPageButton().click();
+      Pagination.getNextPageButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('label', 'asc');
+      SortByButton.assertSorting('label', 'asc');
       assertResultOrder(['E2E006', 'E2E007', 'E2E008', 'E2E009']);
     });
 
     it('should sort on stop search by line', () => {
-      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      stopSearchBar.getSearchInput().type(`*{enter}`);
+      StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      StopSearchBar.getSearchInput().type(`*{enter}`);
 
-      sortByButton.assertSorting('sequenceNumber', 'groupOnly');
-      stopSearchByLine
-        .getRouteContainer('994a7d79-4991-423b-9c1a-0ca621a6d9ed')
-        .within(() => {
-          assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
-        });
+      SortByButton.assertSorting('sequenceNumber', 'groupOnly');
+      StopSearchByLine.getRouteContainer(
+        '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
+      ).within(() => {
+        assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
+      });
 
       // Label ascending
-      sortByButton.getButton('label').click();
-      sortByButton.assertSorting('label', 'asc');
+      SortByButton.getButton('label').click();
+      SortByButton.assertSorting('label', 'asc');
       assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
 
       // Label descending
-      sortByButton.getButton('label').click();
+      SortByButton.getButton('label').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('label', 'desc');
+      SortByButton.assertSorting('label', 'desc');
       assertResultOrder(['E2E009', 'E2E008', 'E2E007', 'E2E006', 'E2E005']);
     });
 
     it('should sort on search for stop areas', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
-      stopSearchBar.getSearchInput().type(`X*{enter}`);
-      stopGroupSelector.getGroupSelectors().contains('X0003').click();
-      searchForStopAreas.getStopAreaLabel();
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      StopSearchBar.getSearchInput().type(`X*{enter}`);
+      StopGroupSelector.getGroupSelectors().contains('X0003').click();
+      SearchForStopAreas.getStopAreaLabel();
 
-      sortByButton.assertSorting('byStopArea', 'groupOnly');
+      SortByButton.assertSorting('byStopArea', 'groupOnly');
       assertResultOrder(['E2E001', 'E2E009']);
 
       // Label ascending
-      sortByButton.getButton('label').click();
-      sortByButton.assertSorting('label', 'asc');
+      SortByButton.getButton('label').click();
+      SortByButton.assertSorting('label', 'asc');
       assertResultOrder(['E2E001', 'E2E003', 'E2E006', 'E2E009']);
 
       // Label descending
-      sortByButton.getButton('label').click();
+      SortByButton.getButton('label').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('label', 'desc');
+      SortByButton.assertSorting('label', 'desc');
       assertResultOrder(['E2E009', 'E2E006', 'E2E003', 'E2E001']);
     });
 
     it('should be able to select multiple stop areas', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
-      stopSearchBar.getSearchInput().clearAndType(`X*{enter}`);
-      stopGroupSelector.getGroupSelectors().contains('X0003').click();
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      StopSearchBar.getSearchInput().clearAndType(`X*{enter}`);
+      StopGroupSelector.getGroupSelectors().contains('X0003').click();
 
-      searchForStopAreas.getStopAreaLabel().should('contain', 'X0003');
+      SearchForStopAreas.getStopAreaLabel().should('contain', 'X0003');
 
-      stopGroupSelector.getGroupSelectors().contains('X0004').click();
-      searchForStopAreas.getStopAreaLabel().should('have.length', 2);
-      searchForStopAreas.getStopAreaLabel().eq(0).should('contain', 'X0003');
-      searchForStopAreas.getStopAreaLabel().eq(1).should('contain', 'X0004');
+      StopGroupSelector.getGroupSelectors().contains('X0004').click();
+      SearchForStopAreas.getStopAreaLabel().should('have.length', 2);
+      SearchForStopAreas.getStopAreaLabel().eq(0).should('contain', 'X0003');
+      SearchForStopAreas.getStopAreaLabel().eq(1).should('contain', 'X0004');
 
-      stopGroupSelector.getGroupSelectors().contains('X0003').click();
-      searchForStopAreas.getStopAreaLabel().should('have.length', 1);
-      searchForStopAreas.getStopAreaLabel().should('contain', 'X0004');
+      StopGroupSelector.getGroupSelectors().contains('X0003').click();
+      SearchForStopAreas.getStopAreaLabel().should('have.length', 1);
+      SearchForStopAreas.getStopAreaLabel().should('contain', 'X0004');
     });
 
     it('should sort on search for terminals', () => {
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
-      stopSearchBar.getSearchInput().type(`T*{enter}`);
-      stopGroupSelector.getGroupSelectors().contains('T2').click();
-      searchForTerminals.getTerminalLabel();
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+      StopSearchBar.getSearchInput().type(`T*{enter}`);
+      StopGroupSelector.getGroupSelectors().contains('T2').click();
+      SearchForTerminals.getTerminalLabel();
 
-      sortByButton.assertSorting('byTerminal', 'groupOnly');
+      SortByButton.assertSorting('byTerminal', 'groupOnly');
       assertResultOrder(['E2E008', 'E2E010']);
 
       // Label ascending
-      sortByButton.getButton('label').click();
-      sortByButton.assertSorting('label', 'asc');
+      SortByButton.getButton('label').click();
+      SortByButton.assertSorting('label', 'asc');
       assertResultOrder(['E2E008', 'E2E010']);
 
       // Label descending
-      sortByButton.getButton('label').click();
+      SortByButton.getButton('label').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
-      sortByButton.assertSorting('label', 'desc');
+      SortByButton.assertSorting('label', 'desc');
       assertResultOrder(['E2E010', 'E2E008']);
     });
   });
@@ -1320,31 +1298,34 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         [Priority.Draft],
       ];
 
-      stopSearchBar.getExpandToggle().click();
+      StopSearchBar.getExpandToggle().click();
 
       prioritySets.forEach((prioritySet) => {
         allPriorities.forEach((priority) => {
-          stopSearchBar.priority.set(priority, prioritySet.includes(priority));
+          StopSearchBar.priority.set(priority, prioritySet.includes(priority));
         });
 
-        stopSearchBar.getSearchInput().clearAndType('P*{enter}');
+        StopSearchBar.getSearchInput().clearAndType('P*{enter}');
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         results.forEach(
           ([scheduledStopPointId, label, priorityText, priority]) => {
             if (prioritySet.includes(priority)) {
-              stopSearchResultsPage
-                .getRowByScheduledStopPointId(scheduledStopPointId)
+              StopSearchResultsPage.getRowByScheduledStopPointId(
+                scheduledStopPointId,
+              )
                 .should('contain.text', label)
                 .within(() =>
-                  stopSearchResultsPage
-                    .getRowPriority()
-                    .should('have.attr', 'title', priorityText),
+                  StopSearchResultsPage.getRowPriority().should(
+                    'have.attr',
+                    'title',
+                    priorityText,
+                  ),
                 );
             } else {
-              stopSearchResultsPage
-                .getRowByScheduledStopPointId(scheduledStopPointId)
-                .should('not.exist');
+              StopSearchResultsPage.getRowByScheduledStopPointId(
+                scheduledStopPointId,
+              ).should('not.exist');
             }
           },
         );
@@ -1477,69 +1458,71 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       const allStops = Object.values(testStops.tagToPublicCode);
       const expectedStops = without(allStops, ...flattened);
 
-      stopSearchResultsPage
-        .getResultCount()
-        .should('contain.text', `${expectedStops.length} hakutulos`);
+      StopSearchResultsPage.getResultCount().should(
+        'contain.text',
+        `${expectedStops.length} hakutulos`,
+      );
       expectedStops.forEach((stop) => {
-        stopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
+        StopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
       });
       flattened.forEach((stop) => {
-        stopSearchResultsPage.getRowByLabel(stop).should('not.exist');
+        StopSearchResultsPage.getRowByLabel(stop).should('not.exist');
       });
     }
 
     it('Should filter by transport mode', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
       // Search for non bus stops (0)
-      stopSearchBar.transportationMode.toggle(
+      StopSearchBar.transportationMode.toggle(
         StopRegistryTransportModeType.Bus,
       );
-      stopSearchBar.transportationMode.isNotSelected(
+      StopSearchBar.transportationMode.isNotSelected(
         StopRegistryTransportModeType.Bus,
       );
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getResultCount().shouldHaveText('0 hakutulosta');
+      StopSearchResultsPage.getResultCount().shouldHaveText('0 hakutulosta');
 
       // Search for bus stops
-      stopSearchBar.transportationMode.toggle(
+      StopSearchBar.transportationMode.toggle(
         StopRegistryTransportModeType.Bus,
       );
-      stopSearchBar.transportationMode.isSelected(
+      StopSearchBar.transportationMode.isSelected(
         StopRegistryTransportModeType.Bus,
       );
 
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       const testStopTotalCount = Object.values(testStops.inputs).length;
-      stopSearchResultsPage
-        .getResultCount()
-        .should('contain.text', `${testStopTotalCount} hakutulos`);
+      StopSearchResultsPage.getResultCount().should(
+        'contain.text',
+        `${testStopTotalCount} hakutulos`,
+      );
     });
 
     it('Should filter by stop state', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
       // Search for out of use stops
-      stopSearchBar.stopState.openDropdown();
-      stopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
+      StopSearchBar.stopState.openDropdown();
+      StopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultOf(testStops.tagToPublicCode.outOfUse);
 
       // Search for in use stops
-      stopSearchBar.stopState.openDropdown();
-      stopSearchBar.stopState.toggleOption(StopPlaceState.InOperation);
-      stopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
+      StopSearchBar.stopState.openDropdown();
+      StopSearchBar.stopState.toggleOption(StopPlaceState.InOperation);
+      StopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultWithout(testStops.tagToPublicCode.outOfUse);
@@ -1552,23 +1535,23 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         testStops.tagToPublicCode.shelterPostLightElectricity,
       ];
 
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
       // Search for stops with shelter post
-      stopSearchBar.shelters.openDropdown();
-      stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+      StopSearchBar.shelters.openDropdown();
+      StopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultOf(stopWithPostShelter);
 
       // Search for stops without shelter
-      stopSearchBar.shelters.openDropdown();
-      stopSearchBar.shelters.toggleOption('Ei katosta');
+      StopSearchBar.shelters.openDropdown();
+      StopSearchBar.shelters.toggleOption('Ei katosta');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultWithout(
@@ -1585,28 +1568,28 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         testStops.tagToPublicCode.shelterPostLightElectricity,
       ];
 
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
       // Search for stops with shelter with defined electricity propert
-      stopSearchBar.electricity.openDropdown();
-      stopSearchBar.electricity.toggleOption(
+      StopSearchBar.electricity.openDropdown();
+      StopSearchBar.electricity.toggleOption(
         StopRegistryShelterElectricity.Light,
       );
-      stopSearchBar.electricity.toggleOption(
+      StopSearchBar.electricity.toggleOption(
         StopRegistryShelterElectricity.None,
       );
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultOf(stopsWithDefinedElectricityStatus);
 
       // Search for stops with undefined electricity status
-      stopSearchBar.electricity.openDropdown();
-      stopSearchBar.electricity.toggleOption('Ei tiedossa');
+      StopSearchBar.electricity.openDropdown();
+      StopSearchBar.electricity.toggleOption('Ei tiedossa');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultWithout(stopsWithDefinedElectricityStatus);
@@ -1618,37 +1601,37 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         testStops.tagToPublicCode.infoSpotA5,
       ];
 
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
       // Search for stops with A4 or A5 sized InfoSpots
-      stopSearchBar.infoSpots.openDropdown();
-      stopSearchBar.infoSpots.toggleOption('A4');
-      stopSearchBar.infoSpots.toggleOption('A5');
+      StopSearchBar.infoSpots.openDropdown();
+      StopSearchBar.infoSpots.toggleOption('A4');
+      StopSearchBar.infoSpots.toggleOption('A5');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultOf(stopsWithInfoSpots);
 
       // Search for stops without InfoSpots
-      stopSearchBar.infoSpots.openDropdown();
-      stopSearchBar.infoSpots.toggleOption('Ei infopaikkaa');
+      StopSearchBar.infoSpots.openDropdown();
+      StopSearchBar.infoSpots.toggleOption('Ei infopaikkaa');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultWithout(stopsWithInfoSpots);
     });
 
     it('Should filter by stop owner', () => {
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
-      stopSearchBar.stopOwner.openDropdown();
-      stopSearchBar.stopOwner.toggleOption('hkl');
+      StopSearchBar.stopOwner.openDropdown();
+      StopSearchBar.stopOwner.toggleOption('hkl');
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultOf(testStops.tagToPublicCode.stopOwner);
@@ -1750,39 +1733,39 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     ) {
       const flattenedResults = expectedStops.flat();
 
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.getSearchInput().clearAndType('*');
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.getSearchInput().clearAndType('*');
 
       // Search for stops with the given shelter type
-      stopSearchBar.shelters.openDropdown();
-      stopSearchBar.shelters.toggleOption(type);
+      StopSearchBar.shelters.openDropdown();
+      StopSearchBar.shelters.toggleOption(type);
       cy.closeDropdown();
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       // Assert results
       assertResults(flattenedResults);
 
-      stopSearchResultsPage
-        .getShowOnMapButton()
+      StopSearchResultsPage.getShowOnMapButton()
         .shouldBeVisible()
         .and('be.enabled');
-      stopSearchResultsPage.getShowOnMapButton().click();
-      stopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
+      StopSearchResultsPage.getShowOnMapButton().click();
+      StopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
 
-      map.getLoader().shouldBeVisible();
-      map.waitForLoadToComplete();
+      Map.getLoader().shouldBeVisible();
+      Map.waitForLoadToComplete();
 
       flattenedResults.forEach((stop) => {
-        map
-          .getStopByStopLabelAndPriority(stop, Priority.Standard)
-          .shouldBeVisible();
+        Map.getStopByStopLabelAndPriority(
+          stop,
+          Priority.Standard,
+        ).shouldBeVisible();
       });
 
-      mapFooter
-        .getStopResultsFooter()
-        .shouldHaveText(`Hakutuloksia: ${flattenedResults.length}.`);
-      mapPage.getCloseButton().click();
+      MapFooter.getStopResultsFooter().shouldHaveText(
+        `Hakutuloksia: ${flattenedResults.length}.`,
+      );
+      MapPage.getCloseButton().click();
 
       // Assert we are back on the search page
       assertResults(flattenedResults);
@@ -1807,9 +1790,10 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         StopRegistryShelterType.Post,
         // Only assert result count, as some stops are paged out.
         (results) => {
-          stopSearchResultsPage
-            .getResultCount()
-            .should('contain.text', `${results.length} hakutulos`);
+          StopSearchResultsPage.getResultCount().should(
+            'contain.text',
+            `${results.length} hakutulos`,
+          );
         },
         testStops.tagToPublicCode.postEspoo,
         testStops.tagToPublicCode.postHelsinki,
@@ -1819,26 +1803,22 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     });
 
     function stopShouldBeSelected() {
-      stopSearchResultsPage
-        .getSelectInput()
+      StopSearchResultsPage.getSelectInput()
         .shouldBeVisible()
         .and('be.checked');
     }
 
     function stopShouldNotBeSelected() {
-      stopSearchResultsPage
-        .getSelectInput()
+      StopSearchResultsPage.getSelectInput()
         .shouldBeVisible()
         .and('not.be.checked');
     }
 
     function selectUnselectedRow(label: string) {
-      stopSearchResultsPage
-        .getRowByLabel(label)
+      StopSearchResultsPage.getRowByLabel(label)
         .shouldBeVisible()
         .within(() =>
-          stopSearchResultsPage
-            .getSelectInput()
+          StopSearchResultsPage.getSelectInput()
             .shouldBeVisible()
             .and('not.be.checked')
             .click()
@@ -1847,12 +1827,10 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     }
 
     function unselectedSelectedRow(label: string) {
-      stopSearchResultsPage
-        .getRowByLabel(label)
+      StopSearchResultsPage.getRowByLabel(label)
         .shouldBeVisible()
         .within(() =>
-          stopSearchResultsPage
-            .getSelectInput()
+          StopSearchResultsPage.getSelectInput()
             .shouldBeVisible()
             .and('be.checked')
             .click()
@@ -1861,15 +1839,16 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     }
 
     function stopShouldBeOnMap(label: string) {
-      map
-        .getStopByStopLabelAndPriority(label, Priority.Standard)
-        .shouldBeVisible();
+      Map.getStopByStopLabelAndPriority(
+        label,
+        Priority.Standard,
+      ).shouldBeVisible();
     }
 
     function stopShouldNotBeOnMap(label: string) {
-      map
-        .getStopByStopLabelAndPriority(label, Priority.Standard)
-        .should('not.exist');
+      Map.getStopByStopLabelAndPriority(label, Priority.Standard).should(
+        'not.exist',
+      );
     }
 
     it('Should show partial selection', () => {
@@ -1887,83 +1866,79 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       );
 
       // Find some stops
-      stopSearchBar.getExpandToggle().click();
-      stopSearchBar.shelters.openDropdown();
-      stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Urban);
-      stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.shelters.openDropdown();
+      StopSearchBar.shelters.toggleOption(StopRegistryShelterType.Urban);
+      StopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
       cy.closeDropdown();
 
-      stopSearchBar.getSearchButton().click();
+      StopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       // By default, all should be selected.
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('be.checked');
 
-      stopSearchResultsPage
-        .getResultRows()
-        .each((row) => cy.wrap(row).within(stopShouldBeSelected));
+      StopSearchResultsPage.getResultRows().each((row) =>
+        cy.wrap(row).within(stopShouldBeSelected),
+      );
 
       // Unselect all
-      stopSearchResultsPage.getSelectAllButton().click().and('not.be.checked');
+      StopSearchResultsPage.getSelectAllButton().click().and('not.be.checked');
 
-      stopSearchResultsPage
-        .getResultRows()
-        .each((row) => cy.wrap(row).within(stopShouldNotBeSelected));
+      StopSearchResultsPage.getResultRows().each((row) =>
+        cy.wrap(row).within(stopShouldNotBeSelected),
+      );
 
       // Select the urban shelter results
       selectedStops.forEach(selectUnselectedRow);
 
       // Open the map
-      stopSearchResultsPage
-        .getShowOnMapButton()
+      StopSearchResultsPage.getShowOnMapButton()
         .shouldBeVisible()
         .and('be.enabled');
-      stopSearchResultsPage.getShowOnMapButton().click();
-      stopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
+      StopSearchResultsPage.getShowOnMapButton().click();
+      StopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
 
-      map.getLoader().shouldBeVisible();
-      map.waitForLoadToComplete();
+      Map.getLoader().shouldBeVisible();
+      Map.waitForLoadToComplete();
 
       // Urban shelters should be visible and posts should not be shown.
       selectedStops.forEach(stopShouldBeOnMap);
       notSelectedStops.forEach(stopShouldNotBeOnMap);
 
       // Close the selection.
-      mapFooter.getStopResultsFooterCloseButton().click();
+      MapFooter.getStopResultsFooterCloseButton().click();
       notSelectedStops.forEach(stopShouldBeOnMap);
 
       // Navigate back to search results.
-      mapPage.getCloseButton().click();
+      MapPage.getCloseButton().click();
 
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('not.be.checked');
       selectedStops
-        .map(stopSearchResultsPage.getRowByLabel)
+        .map(StopSearchResultsPage.getRowByLabel)
         .forEach((row) => row.within(stopShouldBeSelected));
       notSelectedStops
-        .map(stopSearchResultsPage.getRowByLabel)
+        .map(StopSearchResultsPage.getRowByLabel)
         .forEach((row) => row.within(stopShouldNotBeSelected));
     });
 
     it('Should handle partial selections of Stop Areas', () => {
       setupTestsAndNavigateToPage({});
 
-      stopSearchBar.searchForDropdown.openSearchForDropdown();
-      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
-      stopSearchBar.getSearchInput().clearAndType('*{enter}');
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      StopSearchBar.getSearchInput().clearAndType('*{enter}');
 
       // Select both Stop Areas
-      stopGroupSelector.shouldHaveGroups(['PS002', 'US001']);
-      stopGroupSelector.getGroupSelectors().contains('US001').click();
+      StopGroupSelector.shouldHaveGroups(['PS002', 'US001']);
+      StopGroupSelector.getGroupSelectors().contains('US001').click();
 
       // By default, all should be selected
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('be.checked');
 
@@ -1971,40 +1946,37 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       unselectedSelectedRow(testStops.tagToPublicCode.urban1);
 
       // And ALL should not be selected anymore
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('not.be.checked');
 
       // Unselect the group that contained the unselected stop
-      stopGroupSelector.getGroupSelectors().contains('US001').click();
+      StopGroupSelector.getGroupSelectors().contains('US001').click();
       // And ALL should be selected again.
-      stopSearchResultsPage
-        .getSelectAllButton()
+      StopSearchResultsPage.getSelectAllButton()
         .shouldBeVisible()
         .and('be.checked');
 
       // Unselect one from the list.
       unselectedSelectedRow(testStops.tagToPublicCode.postHelsinki);
       // Add in back the unselected Area
-      stopGroupSelector.getGroupSelectors().contains('US001').click();
+      StopGroupSelector.getGroupSelectors().contains('US001').click();
       // And then they should not get auto selected as ALL has not been selected.
-      stopSearchResultsPage
-        .getRowByLabel(testStops.tagToPublicCode.urban1)
-        .within(stopShouldNotBeSelected);
-      stopSearchResultsPage
-        .getRowByLabel(testStops.tagToPublicCode.urban2)
-        .within(stopShouldNotBeSelected);
+      StopSearchResultsPage.getRowByLabel(
+        testStops.tagToPublicCode.urban1,
+      ).within(stopShouldNotBeSelected);
+      StopSearchResultsPage.getRowByLabel(
+        testStops.tagToPublicCode.urban2,
+      ).within(stopShouldNotBeSelected);
 
-      stopSearchResultsPage
-        .getShowOnMapButton()
+      StopSearchResultsPage.getShowOnMapButton()
         .shouldBeVisible()
         .and('be.enabled')
         .click();
-      stopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
+      StopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
 
-      map.getLoader().shouldBeVisible();
-      map.waitForLoadToComplete();
+      Map.getLoader().shouldBeVisible();
+      Map.waitForLoadToComplete();
 
       stopShouldBeOnMap(testStops.tagToPublicCode.postEspoo);
       stopShouldNotBeOnMap(testStops.tagToPublicCode.postHelsinki);
@@ -2109,31 +2081,30 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       });
 
       const observationDate = '2025-01-01';
-      stopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      StopSearchBar.getObservationDateInput().clearAndType(observationDate);
+      StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 9);
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultRows().should('have.length', 9);
 
-      stopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
-      stopSearchResultsPage
-        .getDownloadEquipmentDetailsReportButton()
+      StopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
+      StopSearchResultsPage.getDownloadEquipmentDetailsReportButton()
         .shouldBeVisible()
         .click();
 
       cy.getByTestId('TaskWithProgressBar').shouldBeVisible();
 
-      stopSearchResultsPage
-        .getDownloadedEquipmentDetailsCSVReport()
-        .then((generatedData) => {
+      StopSearchResultsPage.getDownloadedEquipmentDetailsCSVReport().then(
+        (generatedData) => {
           cy.fixture<string>(
             'csvReports/equipmentDetailsHardCodedData.csv',
             'utf-8',
           ).then((referenceData) => {
             expect(generatedData).to.eql(referenceData);
           });
-        });
+        },
+      );
 
       cy.getByTestId('TaskWithProgressBar').should('not.exist');
     });
@@ -2144,31 +2115,29 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       });
 
       const observationDate = '2025-01-01';
-      stopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      stopSearchBar.getSearchInput().type(`*{enter}`);
+      StopSearchBar.getObservationDateInput().clearAndType(observationDate);
+      StopSearchBar.getSearchInput().type(`*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultCount().shouldHaveText('13 hakutulosta');
-
-      stopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
-      stopSearchResultsPage
-        .getDownloadInfoSpotDetailsReportButton()
+      StopSearchResultsPage.getContainer().should('be.visible');
+      StopSearchResultsPage.getResultCount().shouldHaveText('13 hakutulosta');
+      StopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
+      StopSearchResultsPage.getDownloadInfoSpotDetailsReportButton()
         .shouldBeVisible()
         .click();
 
       cy.getByTestId('TaskWithProgressBar').shouldBeVisible();
 
-      stopSearchResultsPage
-        .getDownloadedInfoSpotDetailsCSVReport()
-        .then((generatedData) => {
+      StopSearchResultsPage.getDownloadedInfoSpotDetailsCSVReport().then(
+        (generatedData) => {
           cy.fixture<string>(
             'csvReports/InfoSpotDetailsHardCodedData.csv',
             'utf-8',
           ).then((referenceData) => {
             expect(generatedData).to.eql(referenceData);
           });
-        });
+        },
+      );
 
       cy.getByTestId('TaskWithProgressBar').should('not.exist');
     });
@@ -2183,54 +2152,54 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
         // Search for stops
         const observationDate = '2025-01-01';
-        stopSearchBar.getObservationDateInput().clearAndType(observationDate);
-        stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+        StopSearchBar.getObservationDateInput().clearAndType(observationDate);
+        StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 9);
+        StopSearchResultsPage.getContainer().should('be.visible');
+        StopSearchResultsPage.getResultRows().should('have.length', 9);
 
         // Open them on the Map
-        stopSearchResultsPage.getShowOnMapButton().click();
-        map.getLoader().shouldBeVisible();
-        map.waitForLoadToComplete();
+        StopSearchResultsPage.getShowOnMapButton().click();
+        Map.getLoader().shouldBeVisible();
+        Map.waitForLoadToComplete();
 
         // Check initial selection and remove E2E0001 from it
-        mapStopSelection.getOpenButton().shouldBeVisible().click();
-        mapStopSelection.getSelectedStops().should('have.length', 9);
-        mapStopSelection.getSelectedStop('E2E001').within(() => {
-          mapStopSelection.getRemoveSelectionButton().click();
+        MapStopSelection.getOpenButton().shouldBeVisible().click();
+        MapStopSelection.getSelectedStops().should('have.length', 9);
+        MapStopSelection.getSelectedStop('E2E001').within(() => {
+          MapStopSelection.getRemoveSelectionButton().click();
         });
-        mapStopSelection.getSelectedStops().should('have.length', 8);
-        mapStopSelection.getSelectedStop('E2E001').should('not.exist');
+        MapStopSelection.getSelectedStops().should('have.length', 8);
+        MapStopSelection.getSelectedStop('E2E001').should('not.exist');
 
         // Reselect E2E0001 From the map
-        map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).click();
-        stopPopUp.getIsSelected().should('not.be.checked');
-        stopPopUp.getIsSelected().click();
-        stopPopUp.getIsSelected().should('be.checked');
+        Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).click();
+        StopPopUp.getIsSelected().should('not.be.checked');
+        StopPopUp.getIsSelected().click();
+        StopPopUp.getIsSelected().should('be.checked');
 
-        mapPage.toast.dismissAllToasts();
+        MapPage.toast.dismissAllToasts();
 
         // Ensure it is also back in selection
-        mapStopSelection.getOpenButton().shouldBeVisible().click();
-        mapStopSelection.getSelectedStops().should('have.length', 9);
-        mapStopSelection.getSelectedStop('E2E001');
+        MapStopSelection.getOpenButton().shouldBeVisible().click();
+        MapStopSelection.getSelectedStops().should('have.length', 9);
+        MapStopSelection.getSelectedStop('E2E001');
 
         // Trigger generation
-        mapStopSelection.getActionMenu().click();
-        mapStopSelection.getEquipmentReportMenuItem().click();
+        MapStopSelection.getActionMenu().click();
+        MapStopSelection.getEquipmentReportMenuItem().click();
 
-        stopSearchResultsPage
-          .getDownloadedEquipmentDetailsCSVReport()
-          .then((generatedData) => {
+        StopSearchResultsPage.getDownloadedEquipmentDetailsCSVReport().then(
+          (generatedData) => {
             cy.fixture<string>(
               'csvReports/equipmentDetailsHardCodedData.csv',
               'utf-8',
             ).then((referenceData) => {
               expect(generatedData).to.eql(referenceData);
             });
-          });
+          },
+        );
       },
     );
   });

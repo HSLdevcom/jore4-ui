@@ -1,17 +1,17 @@
 import { ShelterFormFields } from './ShelterFormFields';
 
 export class SheltersForm {
-  shelters = new ShelterFormFields();
+  static shelters = ShelterFormFields;
 
-  getShelters() {
+  static getShelters() {
     return cy.getByTestId('SheltersForm::shelter');
   }
 
-  getNthShelter(index: number) {
-    return this.getShelters().eq(index);
+  static getNthShelter(index: number) {
+    return SheltersForm.getShelters().eq(index);
   }
 
-  getCopyNewShelterButton() {
+  static getCopyNewShelterButton() {
     return cy.getByTestId('SheltersFormFields::copyShelter');
   }
 }

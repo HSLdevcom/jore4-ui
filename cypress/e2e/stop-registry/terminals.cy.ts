@@ -23,8 +23,8 @@ import {
   TerminalInfoSpotsViewList,
   Toast,
 } from '../../pageObjects';
-import { SelectTerminalMemberStopsDropdown } from '../../pageObjects/SelectTerminalMemberStopsDropdown';
-import { TerminalPopup } from '../../pageObjects/TerminalPopup';
+import { SelectTerminalMemberStopsDropdown } from '../../pageObjects/forms/SelectTerminalMemberStopsDropdown';
+import { TerminalPopup } from '../../pageObjects/stop-registry/TerminalPopup';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -62,16 +62,6 @@ type ExpectedLocationDetails = {
 };
 
 describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
-  const terminalDetailsPage = new TerminalDetailsPage();
-  const alternativeNames = new AlternativeNames();
-  const toast = new Toast();
-  const selectTerminalMemberStopsDropdown =
-    new SelectTerminalMemberStopsDropdown();
-  const externalLinks = new ExternalLinksSection();
-
-  const map = new Map();
-  const terminalPopUp = new TerminalPopup();
-
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -121,63 +111,63 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      terminalDetailsPage.visit('T2');
+      TerminalDetailsPage.visit('T2');
     });
   });
 
   function waitForSaveToBeFinished() {
     expectGraphQLCallToSucceed('@gqlUpdateTerminal');
-    toast.expectSuccessToast('Terminaali muokattu');
+    Toast.expectSuccessToast('Terminaali muokattu');
   }
 
   function waitForValidityEditToBeFinished() {
     expectGraphQLCallToSucceed('@gqlUpdateTerminal');
-    toast.expectSuccessToast('Voimassaoloaika muokattu');
+    Toast.expectSuccessToast('Voimassaoloaika muokattu');
   }
 
   function waitForTerminalInfoSpotSaveToBeFinished() {
     expectGraphQLCallToSucceed('@gqlUpdateInfoSpot');
-    toast.expectSuccessToast('Terminaali muokattu');
+    Toast.expectSuccessToast('Terminaali muokattu');
   }
 
   function assertBasicDetails(expected: ExpectedBasicDetails) {
-    terminalDetailsPage.titleRow.getName().shouldHaveText(expected.name);
+    TerminalDetailsPage.titleRow.getName().shouldHaveText(expected.name);
 
-    const { terminalDetails } = terminalDetailsPage;
+    const { terminalDetails } = TerminalDetailsPage;
     const { viewCard } = terminalDetails;
     viewCard.getNameFin().shouldHaveText(expected.name);
     viewCard.getNameSwe().shouldHaveText(expected.nameSwe);
     viewCard.getDescription().shouldHaveText(expected.description);
-    alternativeNames.getNameEng().shouldHaveText(expected.nameEng);
-    alternativeNames.getNameLongFin().shouldHaveText(expected.nameLongFin);
-    alternativeNames.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
-    alternativeNames.getNameLongEng().shouldHaveText(expected.nameLongEng);
-    alternativeNames
-      .getAbbreviationFin()
-      .shouldHaveText(expected.abbreviationFin);
-    alternativeNames
-      .getAbbreviationSwe()
-      .shouldHaveText(expected.abbreviationSwe);
-    alternativeNames
-      .getAbbreviationEng()
-      .shouldHaveText(expected.abbreviationEng);
+    AlternativeNames.getNameEng().shouldHaveText(expected.nameEng);
+    AlternativeNames.getNameLongFin().shouldHaveText(expected.nameLongFin);
+    AlternativeNames.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
+    AlternativeNames.getNameLongEng().shouldHaveText(expected.nameLongEng);
+    AlternativeNames.getAbbreviationFin().shouldHaveText(
+      expected.abbreviationFin,
+    );
+    AlternativeNames.getAbbreviationSwe().shouldHaveText(
+      expected.abbreviationSwe,
+    );
+    AlternativeNames.getAbbreviationEng().shouldHaveText(
+      expected.abbreviationEng,
+    );
   }
 
   const verifyInitialBasicDetails = () => {
-    const bdView = terminalDetailsPage.terminalDetails.viewCard;
+    const bdView = TerminalDetailsPage.terminalDetails.viewCard;
 
     bdView.getContent().shouldBeVisible();
     bdView.getPrivateCode().shouldHaveText('T2');
     bdView.getDescription().shouldHaveText('E2E testiterminaali');
     bdView.getNameFin().shouldHaveText('E2ET001');
     bdView.getNameSwe().shouldHaveText('Terminalen');
-    alternativeNames.getNameEng().shouldHaveText('Terminal');
-    alternativeNames.getNameLongFin().shouldHaveText('Terminaali pitkänimi');
-    alternativeNames.getNameLongSwe().shouldHaveText('Terminalen långnamn');
-    alternativeNames.getNameLongEng().shouldHaveText('Terminal long name');
-    alternativeNames.getAbbreviationFin().shouldHaveText('Terminaali');
-    alternativeNames.getAbbreviationSwe().shouldHaveText('Terminalen');
-    alternativeNames.getAbbreviationEng().shouldHaveText('Terminal');
+    AlternativeNames.getNameEng().shouldHaveText('Terminal');
+    AlternativeNames.getNameLongFin().shouldHaveText('Terminaali pitkänimi');
+    AlternativeNames.getNameLongSwe().shouldHaveText('Terminalen långnamn');
+    AlternativeNames.getNameLongEng().shouldHaveText('Terminal long name');
+    AlternativeNames.getAbbreviationFin().shouldHaveText('Terminaali');
+    AlternativeNames.getAbbreviationSwe().shouldHaveText('Terminalen');
+    AlternativeNames.getAbbreviationEng().shouldHaveText('Terminal');
     bdView.getTerminalType().shouldHaveText('Bussiterminaali');
     bdView.getDeparturePlatforms().shouldHaveText('7');
     bdView.getArrivalPlatforms().shouldHaveText('6');
@@ -186,7 +176,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   };
 
   function assertLocationDetails(expected: ExpectedLocationDetails) {
-    const { locationDetails } = terminalDetailsPage;
+    const { locationDetails } = TerminalDetailsPage;
     const { viewCard } = locationDetails;
     viewCard.getStreetAddress().shouldHaveText(expected.streetAddress);
     viewCard.getPostalCode().shouldHaveText(expected.postalCode);
@@ -196,7 +186,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   }
 
   const verifyInitialLocationDetails = () => {
-    const locationView = terminalDetailsPage.locationDetails.viewCard;
+    const locationView = TerminalDetailsPage.locationDetails.viewCard;
 
     locationView.getContainer().shouldBeVisible();
     locationView.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
@@ -210,16 +200,16 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   };
 
   const verifyInitialExternalLinks = () => {
-    const externalLinksView = externalLinks;
-
-    externalLinksView.getName().shouldHaveText('Terminaalin Testilinkki');
-    externalLinksView
-      .getLocation()
-      .should('have.attr', 'href', 'https://terminaltest.fi');
+    ExternalLinksSection.getName().shouldHaveText('Terminaalin Testilinkki');
+    ExternalLinksSection.getLocation().should(
+      'have.attr',
+      'href',
+      'https://terminaltest.fi',
+    );
   };
 
   function assertOwnerDetails() {
-    const { view } = terminalDetailsPage.owner;
+    const { view } = TerminalDetailsPage.owner;
 
     view.getName().shouldHaveText('Omistaja');
     view.getPhone().shouldHaveText('+3585645638');
@@ -231,15 +221,16 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
 
   describe('basic details', () => {
     it('should view basic details', { tags: [Tag.Smoke] }, () => {
-      terminalDetailsPage.page().shouldBeVisible();
+      TerminalDetailsPage.page().shouldBeVisible();
 
-      terminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
-      terminalDetailsPage.titleRow.getName().shouldHaveText('E2ET001');
-      terminalDetailsPage
-        .validityPeriod()
-        .should('contain', '1.1.2020-1.1.2050');
+      TerminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
+      TerminalDetailsPage.titleRow.getName().shouldHaveText('E2ET001');
+      TerminalDetailsPage.validityPeriod().should(
+        'contain',
+        '1.1.2020-1.1.2050',
+      );
 
-      terminalDetailsPage.versioningRow
+      TerminalDetailsPage.versioningRow
         .getChangeHistoryLink()
         .shouldBeVisible()
         .invoke('text')
@@ -249,19 +240,24 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
     });
 
     function inputBasicDetails(inputs: ExpectedBasicDetails) {
-      const { edit } = terminalDetailsPage.terminalDetails;
-      const altEdit = new AlternativeNamesEdit();
+      const { edit } = TerminalDetailsPage.terminalDetails;
 
       edit.getDescription().clearAndType(inputs.description);
       edit.getName().clearAndType(inputs.name);
       edit.getNameSwe().clearAndType(inputs.nameSwe);
-      altEdit.getNameEng().clearAndType(inputs.nameEng);
-      altEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
-      altEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
-      altEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
-      altEdit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
-      altEdit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
-      altEdit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
+      AlternativeNamesEdit.getNameEng().clearAndType(inputs.nameEng);
+      AlternativeNamesEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
+      AlternativeNamesEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
+      AlternativeNamesEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
+      AlternativeNamesEdit.getAbbreviationFin().clearAndType(
+        inputs.abbreviationFin,
+      );
+      AlternativeNamesEdit.getAbbreviationSwe().clearAndType(
+        inputs.abbreviationSwe,
+      );
+      AlternativeNamesEdit.getAbbreviationEng().clearAndType(
+        inputs.abbreviationEng,
+      );
       edit.selectTerminalType(inputs.terminalType);
       edit.getDeparturePlatforms().clearAndType(inputs.departurePlatforms);
       edit.getArrivalPlatforms().clearAndType(inputs.arrivalPlatforms);
@@ -291,9 +287,9 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       };
 
       // Edit basic details
-      terminalDetailsPage.terminalDetails.getEditButton().click();
+      TerminalDetailsPage.terminalDetails.getEditButton().click();
       inputBasicDetails(newBasicDetails);
-      terminalDetailsPage.terminalDetails.getSaveButton().click();
+      TerminalDetailsPage.terminalDetails.getSaveButton().click();
       waitForSaveToBeFinished();
 
       // Should have saved the changes and be back at view mode with new details
@@ -304,25 +300,25 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
     });
 
     it('should have working locator button', () => {
-      terminalDetailsPage.titleRow.getLocatorButton().click();
+      TerminalDetailsPage.titleRow.getLocatorButton().click();
 
-      map.waitForLoadToComplete();
+      Map.waitForLoadToComplete();
 
-      terminalPopUp.getLabel().shouldHaveText('T2 E2ET001');
+      TerminalPopup.getLabel().shouldHaveText('T2 E2ET001');
     });
   });
 
   describe('location details', () => {
     it('should view location details', () => {
-      terminalDetailsPage.page().shouldBeVisible();
+      TerminalDetailsPage.page().shouldBeVisible();
 
-      terminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
+      TerminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
 
       verifyInitialLocationDetails();
     });
 
     function inputLocationDetails(inputs: LocationDetailUpdates) {
-      const { edit } = terminalDetailsPage.locationDetails;
+      const { edit } = TerminalDetailsPage.locationDetails;
 
       edit.getStreetAddress().clearAndType(inputs.streetAddress);
       edit.getPostalCode().clearAndType(inputs.postalCode);
@@ -344,9 +340,9 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       };
 
       // Edit location details
-      terminalDetailsPage.locationDetails.getEditButton().click();
+      TerminalDetailsPage.locationDetails.getEditButton().click();
       inputLocationDetails(updates);
-      terminalDetailsPage.locationDetails.getSaveButton().click();
+      TerminalDetailsPage.locationDetails.getSaveButton().click();
       waitForSaveToBeFinished();
 
       // Should have saved the changes and be back at view mode with new details
@@ -358,76 +354,74 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
 
     it('should add member stops', () => {
       verifyInitialLocationDetails();
-      const { edit } = terminalDetailsPage.locationDetails;
+      const { edit } = TerminalDetailsPage.locationDetails;
 
       // Add member stop
-      terminalDetailsPage.locationDetails.getEditButton().click();
+      TerminalDetailsPage.locationDetails.getEditButton().click();
       edit.getSelectMemberStops().within(() => {
-        selectTerminalMemberStopsDropdown.dropdownButton().click();
-        selectTerminalMemberStopsDropdown.getInput().clearAndType('E2E009');
+        SelectTerminalMemberStopsDropdown.dropdownButton().click();
+        SelectTerminalMemberStopsDropdown.getInput().clearAndType('E2E009');
       });
-      selectTerminalMemberStopsDropdown.common
+      SelectTerminalMemberStopsDropdown.common
         .getMemberOptions()
         .should('have.length', 1);
-      selectTerminalMemberStopsDropdown.common
+      SelectTerminalMemberStopsDropdown.common
         .getMemberOptions()
         .eq(0)
         .should('contain.text', 'E2E009')
         .click();
       cy.closeDropdown();
 
-      terminalDetailsPage.locationDetails.getSaveButton().click();
+      TerminalDetailsPage.locationDetails.getSaveButton().click();
       waitForSaveToBeFinished();
 
-      terminalDetailsPage.locationDetails.viewCard
+      TerminalDetailsPage.locationDetails.viewCard
         .getMemberStops()
         .shouldHaveText('E2E001, E2E008, E2E009, E2E010');
     });
 
     it('should delete member stops', () => {
       verifyInitialLocationDetails();
-      const { edit } = terminalDetailsPage.locationDetails;
+      const { edit } = TerminalDetailsPage.locationDetails;
 
       // Delete member stop
-      terminalDetailsPage.locationDetails.getEditButton().click();
+      TerminalDetailsPage.locationDetails.getEditButton().click();
       edit
         .getSelectMemberStops()
         .within(() =>
-          selectTerminalMemberStopsDropdown.dropdownButton().click(),
+          SelectTerminalMemberStopsDropdown.dropdownButton().click(),
         );
-      selectTerminalMemberStopsDropdown.common
+      SelectTerminalMemberStopsDropdown.common
         .getSelectedMembers()
         .contains('E2E010')
         .click();
       cy.closeDropdown();
 
-      terminalDetailsPage.locationDetails.getSaveButton().click();
+      TerminalDetailsPage.locationDetails.getSaveButton().click();
       waitForSaveToBeFinished();
 
-      terminalDetailsPage.locationDetails.viewCard
+      TerminalDetailsPage.locationDetails.viewCard
         .getMemberStops()
         .shouldHaveText('E2E008');
 
-      terminalDetailsPage.locationDetails.getEditButton().click();
+      TerminalDetailsPage.locationDetails.getEditButton().click();
       edit
         .getSelectMemberStops()
         .within(() =>
-          selectTerminalMemberStopsDropdown.dropdownButton().click(),
+          SelectTerminalMemberStopsDropdown.dropdownButton().click(),
         );
-      selectTerminalMemberStopsDropdown.common
+      SelectTerminalMemberStopsDropdown.common
         .getSelectedMembers()
         .contains('E2E008')
         .click();
       cy.closeDropdown();
 
-      selectTerminalMemberStopsDropdown
-        .getWarningText()
-        .shouldHaveText(
-          'Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
-        );
+      SelectTerminalMemberStopsDropdown.getWarningText().shouldHaveText(
+        'Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
+      );
 
-      terminalDetailsPage.locationDetails.getSaveButton().click();
-      toast.expectDangerToast(
+      TerminalDetailsPage.locationDetails.getSaveButton().click();
+      Toast.expectDangerToast(
         'Tallennus epäonnistui: Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
       );
     });
@@ -435,7 +429,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
 
   describe('Owner details', () => {
     it('should view owner details', () => {
-      terminalDetailsPage.page().shouldBeVisible();
+      TerminalDetailsPage.page().shouldBeVisible();
       assertOwnerDetails();
     });
 
@@ -447,9 +441,9 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
           edit,
           edit: { ownerModal },
         },
-      } = terminalDetailsPage;
+      } = TerminalDetailsPage;
 
-      terminalDetailsPage.page().shouldBeVisible();
+      TerminalDetailsPage.page().shouldBeVisible();
 
       // Start editing owner
       owner.getEditButton().click();
@@ -468,7 +462,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
 
       // Save
       owner.getSaveButton().click();
-      toast.expectSuccessToast('Terminaali muokattu');
+      Toast.expectSuccessToast('Terminaali muokattu');
 
       // Assert info has been saved
       view.getName().shouldHaveText('Uusi nimi');
@@ -488,7 +482,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       edit.getOwnerDropdownButton().click();
       edit.getOwnerDropdownOptions().contains('Omistaja').click();
       owner.getSaveButton().click();
-      toast.expectSuccessToast('Terminaali muokattu');
+      Toast.expectSuccessToast('Terminaali muokattu');
 
       view.getName().shouldHaveText('Omistaja');
       view.getPhone().shouldHaveText('+3585645638');
@@ -497,35 +491,36 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   });
 
   describe('external links', () => {
-    const externalLinksView = externalLinks;
-    const externalLinksForm = new ExternalLinksForm();
+    const externalLinksForm = ExternalLinksForm;
 
     it(
       'should view and edit external links',
       { tags: [Tag.StopRegistry] },
       () => {
-        externalLinksView.getTitle().shouldHaveText('Linkit');
-        externalLinksView.getExternalLinks().shouldBeVisible();
-        externalLinksView.getNthExternalLink(0).within(() => {
+        ExternalLinksSection.getTitle().shouldHaveText('Linkit');
+        ExternalLinksSection.getExternalLinks().shouldBeVisible();
+        ExternalLinksSection.getNthExternalLink(0).within(() => {
           verifyInitialExternalLinks();
         });
 
-        externalLinksView.getEditButton().click();
-        externalLinksForm.externalLinks
+        ExternalLinksSection.getEditButton().click();
+        ExternalLinksForm.externalLinks
           .getNameInput()
           .clearAndType('Linkin nimi');
-        externalLinksForm.externalLinks
+        ExternalLinksForm.externalLinks
           .getLocationInput()
           .clearAndType('http://www.example.com');
-        externalLinksForm.getSaveButton().click();
-        externalLinksView.getNoExternalLinks().should('not.exist');
-        externalLinksView.getExternalLinks().should('have.length', 1);
+        ExternalLinksForm.getSaveButton().click();
+        ExternalLinksSection.getNoExternalLinks().should('not.exist');
+        ExternalLinksSection.getExternalLinks().should('have.length', 1);
 
-        externalLinksView.getNthExternalLink(0).within(() => {
-          externalLinksView.getName().shouldHaveText('Linkin nimi');
-          externalLinksView
-            .getLocation()
-            .should('have.attr', 'href', 'http://www.example.com');
+        ExternalLinksSection.getNthExternalLink(0).within(() => {
+          ExternalLinksSection.getName().shouldHaveText('Linkin nimi');
+          ExternalLinksSection.getLocation().should(
+            'have.attr',
+            'href',
+            'http://www.example.com',
+          );
         });
       },
     );
@@ -534,122 +529,127 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should add and delete external links',
       { tags: [Tag.StopRegistry] },
       () => {
-        externalLinksView.getTitle().shouldHaveText('Linkit');
-        externalLinksView.getExternalLinks().shouldBeVisible();
-        externalLinksView.getNthExternalLink(0).within(() => {
+        ExternalLinksSection.getTitle().shouldHaveText('Linkit');
+        ExternalLinksSection.getExternalLinks().shouldBeVisible();
+        ExternalLinksSection.getNthExternalLink(0).within(() => {
           verifyInitialExternalLinks();
         });
 
-        externalLinksView.getEditButton().click();
-        externalLinksForm.getAddNewButton().click();
-        externalLinksForm.getNthExternalLink(1).within(() => {
-          externalLinksForm.externalLinks
+        ExternalLinksSection.getEditButton().click();
+        ExternalLinksForm.getAddNewButton().click();
+        ExternalLinksForm.getNthExternalLink(1).within(() => {
+          ExternalLinksForm.externalLinks
             .getNameInput()
             .clearAndType('Linkin nimi 2');
-          externalLinksForm.externalLinks
+          ExternalLinksForm.externalLinks
             .getLocationInput()
             .clearAndType('http://www.example2.com');
         });
-        externalLinksForm.getSaveButton().click();
+        ExternalLinksForm.getSaveButton().click();
         waitForSaveToBeFinished();
 
-        externalLinksView.getNoExternalLinks().should('not.exist');
-        externalLinksView.getExternalLinks().should('have.length', 2);
+        ExternalLinksSection.getNoExternalLinks().should('not.exist');
+        ExternalLinksSection.getExternalLinks().should('have.length', 2);
 
-        externalLinksView.getNthExternalLink(0).within(() => {
-          externalLinksView.getName().shouldHaveText('Terminaalin Testilinkki');
+        ExternalLinksSection.getNthExternalLink(0).within(() => {
+          ExternalLinksSection.getName().shouldHaveText(
+            'Terminaalin Testilinkki',
+          );
         });
-        externalLinksView.getNthExternalLink(1).within(() => {
-          externalLinksView.getName().shouldHaveText('Linkin nimi 2');
+        ExternalLinksSection.getNthExternalLink(1).within(() => {
+          ExternalLinksSection.getName().shouldHaveText('Linkin nimi 2');
         });
 
-        externalLinksView.getEditButton().click();
+        ExternalLinksSection.getEditButton().click();
         externalLinksForm.getNthExternalLink(0).within(() => {
           externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
         });
         externalLinksForm.getSaveButton().click();
         waitForSaveToBeFinished();
 
-        externalLinksView.getExternalLinks().should('have.length', 1);
-        externalLinksView.getNthExternalLink(0).within(() => {
-          externalLinksView.getName().shouldHaveText('Linkin nimi 2');
+        ExternalLinksSection.getExternalLinks().should('have.length', 1);
+        ExternalLinksSection.getNthExternalLink(0).within(() => {
+          ExternalLinksSection.getName().shouldHaveText('Linkin nimi 2');
         });
 
-        externalLinksView.getEditButton().click();
-        externalLinksForm.getNthExternalLink(0).within(() => {
-          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+        ExternalLinksSection.getEditButton().click();
+        ExternalLinksForm.getNthExternalLink(0).within(() => {
+          ExternalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
         });
-        externalLinksForm.getSaveButton().click();
+        ExternalLinksForm.getSaveButton().click();
         waitForSaveToBeFinished();
 
-        externalLinksView.getExternalLinks().should('have.length', 0);
-        externalLinksView.getNoExternalLinks().shouldBeVisible();
-        externalLinksView.getNoExternalLinks().shouldHaveText('Ei linkkejä');
+        ExternalLinksSection.getExternalLinks().should('have.length', 0);
+        ExternalLinksSection.getNoExternalLinks().shouldBeVisible();
+        ExternalLinksSection.getNoExternalLinks().shouldHaveText('Ei linkkejä');
       },
     );
   });
 
   describe('terminal validity', () => {
     it('should edit terminal validity', () => {
-      terminalDetailsPage
-        .validityPeriod()
-        .should('contain', '1.1.2020-1.1.2050');
+      TerminalDetailsPage.validityPeriod().should(
+        'contain',
+        '1.1.2020-1.1.2050',
+      );
 
-      terminalDetailsPage.versioningRow
+      TerminalDetailsPage.versioningRow
         .getEditValidityButton()
         .shouldBeVisible()
         .click();
 
-      terminalDetailsPage.editTerminalValidityModal
+      TerminalDetailsPage.editTerminalValidityModal
         .getModal()
         .shouldBeVisible();
 
-      terminalDetailsPage.editTerminalValidityModal.form.reasonForChange
+      TerminalDetailsPage.editTerminalValidityModal.form.reasonForChange
         .getReasonForChangeInput()
         .clearAndType('Edit #1');
-      terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
+      TerminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
         validityStartISODate: '2023-01-01',
         validityEndISODate: '2040-01-01',
       });
-      terminalDetailsPage.editTerminalValidityModal.form.submitButton().click();
+      TerminalDetailsPage.editTerminalValidityModal.form.submitButton().click();
 
       waitForValidityEditToBeFinished();
 
-      terminalDetailsPage
-        .validityPeriod()
-        .should('contain', '1.1.2023-1.1.2040');
+      TerminalDetailsPage.validityPeriod().should(
+        'contain',
+        '1.1.2023-1.1.2040',
+      );
     });
 
     it(
       'should edit terminal validity to be indefinite',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage
-          .validityPeriod()
-          .should('contain', '1.1.2020-1.1.2050');
+        TerminalDetailsPage.validityPeriod().should(
+          'contain',
+          '1.1.2020-1.1.2050',
+        );
 
-        terminalDetailsPage.versioningRow
+        TerminalDetailsPage.versioningRow
           .getEditValidityButton()
           .shouldBeVisible()
           .click();
 
-        terminalDetailsPage.editTerminalValidityModal
+        TerminalDetailsPage.editTerminalValidityModal
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.editTerminalValidityModal.form.reasonForChange
+        TerminalDetailsPage.editTerminalValidityModal.form.reasonForChange
           .getReasonForChangeInput()
           .clearAndType('Edit #1');
-        terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
+        TerminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
           validityStartISODate: '2023-01-01',
         });
-        terminalDetailsPage.editTerminalValidityModal.form
+        TerminalDetailsPage.editTerminalValidityModal.form
           .submitButton()
           .click();
 
         waitForValidityEditToBeFinished();
 
-        terminalDetailsPage.validityPeriod().should('contain', '1.1.2023-');
+        TerminalDetailsPage.validityPeriod().should('contain', '1.1.2023-');
       },
     );
 
@@ -657,41 +657,43 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should set observation date after edit',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.visit('T2', '2025-01-01');
+        TerminalDetailsPage.visit('T2', '2025-01-01');
 
-        terminalDetailsPage
-          .validityPeriod()
-          .should('contain', '1.1.2020-1.1.2050');
+        TerminalDetailsPage.validityPeriod().should(
+          'contain',
+          '1.1.2020-1.1.2050',
+        );
 
-        terminalDetailsPage.versioningRow
+        TerminalDetailsPage.versioningRow
           .getEditValidityButton()
           .shouldBeVisible()
           .click();
 
-        terminalDetailsPage.editTerminalValidityModal
+        TerminalDetailsPage.editTerminalValidityModal
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.editTerminalValidityModal.form.reasonForChange
+        TerminalDetailsPage.editTerminalValidityModal.form.reasonForChange
           .getReasonForChangeInput()
           .clearAndType('Edit #1');
-        terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
+        TerminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
           validityStartISODate: '2030-01-01',
           validityEndISODate: '2040-01-01',
         });
-        terminalDetailsPage.editTerminalValidityModal.form
+        TerminalDetailsPage.editTerminalValidityModal.form
           .submitButton()
           .click();
 
         waitForValidityEditToBeFinished();
 
-        terminalDetailsPage.observationDateControl
+        TerminalDetailsPage.observationDateControl
           .getObservationDateInput()
           .should('have.value', '2030-01-01');
 
-        terminalDetailsPage
-          .validityPeriod()
-          .should('contain', '1.1.2030-1.1.2040');
+        TerminalDetailsPage.validityPeriod().should(
+          'contain',
+          '1.1.2030-1.1.2040',
+        );
       },
     );
   });
@@ -701,10 +703,9 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should display stops tab with correct count',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage
-          .getTabSelector()
+        TerminalDetailsPage.getTabSelector()
           .getStopsTab()
           .shouldHaveText('Pysäkit (2)');
       },
@@ -714,37 +715,36 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should open stops tab and display member stops',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getStopsTab().click();
+        TerminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage.stopsPage.getTitle().shouldHaveText('Pysäkit');
+        TerminalDetailsPage.stopsPage.getTitle().shouldHaveText('Pysäkit');
+        TerminalDetailsPage.stopsPage.getStopAreas().should('have.length', 2);
 
-        terminalDetailsPage.stopsPage.getStopAreas().should('have.length', 2);
-
-        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
-          terminalDetailsPage.stopsPage
+        TerminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          TerminalDetailsPage.stopsPage
             .getStopAreaHeader()
             .should('contain.text', 'Finnoonkartano');
 
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .shouldBeVisible();
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .find('tbody tr')
             .should('have.length', 1);
         });
 
-        terminalDetailsPage.stopsPage.getNthStopArea(1).within(() => {
-          terminalDetailsPage.stopsPage
+        TerminalDetailsPage.stopsPage.getNthStopArea(1).within(() => {
+          TerminalDetailsPage.stopsPage
             .getStopAreaHeader()
             .should('contain.text', 'Kuttulammentie');
 
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .shouldBeVisible();
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .find('tbody tr')
             .should('have.length', 1);
@@ -756,12 +756,12 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should navigate to stop area details when clicking stop area link',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getStopsTab().click();
+        TerminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
-          terminalDetailsPage.stopsPage.getStopAreaHeader().click();
+        TerminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          TerminalDetailsPage.stopsPage.getStopAreaHeader().click();
         });
 
         cy.url().should('include', '/stop-registry/stop-areas/');
@@ -772,46 +772,46 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should be able to add stops to terminal on stops tab',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
-        terminalDetailsPage.getTabSelector().getStopsTab().click();
+        TerminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
-        terminalDetailsPage.stopsPage.addStopsModal
+        TerminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
+        TerminalDetailsPage.stopsPage.addStopsModal
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .dropdownButton()
           .click();
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .getInput()
           .type('E2E009', { force: true });
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown.common
           .getMemberOptions()
           .should('have.length', 1);
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown.common
           .getMemberOptions()
           .eq(0)
           .should('contain.text', 'E2E009')
           .click();
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .dropdownButton()
           .click();
 
-        terminalDetailsPage.stopsPage.addStopsModal.getSaveButton().click();
+        TerminalDetailsPage.stopsPage.addStopsModal.getSaveButton().click();
 
-        terminalDetailsPage.stopsPage.getStopAreas().should('have.length', 3);
+        TerminalDetailsPage.stopsPage.getStopAreas().should('have.length', 3);
 
-        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
-          terminalDetailsPage.stopsPage
+        TerminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          TerminalDetailsPage.stopsPage
             .getStopAreaHeader()
             .should('contain.text', 'Annankatu 15');
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .shouldBeVisible();
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .find('tbody tr')
             .should('have.length', 2);
@@ -823,42 +823,42 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should be able to remove stops from terminal on stops tab',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
-        terminalDetailsPage.getTabSelector().getStopsTab().click();
+        TerminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
-        terminalDetailsPage.stopsPage.addStopsModal
+        TerminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
+        TerminalDetailsPage.stopsPage.addStopsModal
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .dropdownButton()
           .click();
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown.common
           .getSelectedMembers()
           .should('have.length', 2);
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown.common
           .getSelectedMembers()
           .contains('E2E008')
           .click();
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .dropdownButton()
           .click();
 
-        terminalDetailsPage.stopsPage.addStopsModal.getSaveButton().click();
+        TerminalDetailsPage.stopsPage.addStopsModal.getSaveButton().click();
 
-        terminalDetailsPage.stopsPage.getStopAreas().should('have.length', 1);
+        TerminalDetailsPage.stopsPage.getStopAreas().should('have.length', 1);
 
-        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
-          terminalDetailsPage.stopsPage
+        TerminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          TerminalDetailsPage.stopsPage
             .getStopAreaHeader()
             .should('contain.text', 'Finnoonkartano');
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .shouldBeVisible();
-          terminalDetailsPage.stopsPage
+          TerminalDetailsPage.stopsPage
             .getStopAreaStopsTable()
             .find('tbody tr')
             .should('have.length', 1);
@@ -870,25 +870,25 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should not be able to add stops that belong to a different terminal',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
-        terminalDetailsPage.getTabSelector().getStopsTab().click();
+        TerminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
-        terminalDetailsPage.stopsPage.addStopsModal
+        TerminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
+        TerminalDetailsPage.stopsPage.addStopsModal
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .dropdownButton()
           .click();
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown
           .getInput()
           .type('E2E007', { force: true });
 
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown.common
           .getMemberOptions()
           .should('have.length', 1);
-        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+        TerminalDetailsPage.stopsPage.addStopsModal.dropdown.common
           .getMemberOptions()
           .eq(0)
           .should('contain.text', 'E2E007')
@@ -898,36 +898,29 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   });
 
   describe('info spots', () => {
-    const infoSpotsViewCard = new TerminalInfoSpotsViewCard();
-    const infoSpotsViewList = new TerminalInfoSpotsViewList();
-    const infoSpotsRow = new TerminalInfoSpotRow();
-    const infoSpotSection = new TerminalInfoSpotsSection();
-    const terminalInfoSpotsViewList = new TerminalInfoSpotsViewList();
-
     it(
       'should display info spots tab and view info spots',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage
-          .getTabSelector()
+        TerminalDetailsPage.getTabSelector()
           .getInfoSpotsTab()
           .shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
 
-        terminalDetailsPage.infoSpots.getContainer().shouldBeVisible();
-        terminalDetailsPage.infoSpots.getTitle().shouldBeVisible();
+        TerminalDetailsPage.infoSpots.getContainer().shouldBeVisible();
+        TerminalDetailsPage.infoSpots.getTitle().shouldBeVisible();
 
-        infoSpotsViewList.getTable().shouldBeVisible();
+        TerminalInfoSpotsViewList.getTable().shouldBeVisible();
 
-        infoSpotsViewList.getLabelSortButton().shouldBeVisible();
-        infoSpotsViewList.getStopSortButton().shouldBeVisible();
-        infoSpotsViewList.getShelterSortButton().shouldBeVisible();
-        infoSpotsViewList.getPurposeSortButton().shouldBeVisible();
-        infoSpotsViewList.getSizeSortButton().shouldBeVisible();
-        infoSpotsViewList.getDescriptionSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getLabelSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getStopSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getShelterSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getPurposeSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getSizeSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getDescriptionSortButton().shouldBeVisible();
       },
     );
 
@@ -935,42 +928,46 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should expand info spot details when clicking toggle button',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
 
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-        infoSpotsRow.getNthDetailsRow(0).within(() => {
-          infoSpotsRow.getLabelCell().shouldHaveText('E2E_INFO_001');
-          infoSpotsRow.getQuayPublicCodeCell().shouldHaveText('E2E008');
-          infoSpotsRow.getShelterNumberCell().shouldHaveText('1');
-          infoSpotsRow.getPurposeCell().shouldHaveText('Tiedotteet');
-          infoSpotsRow.getSizeCell().shouldHaveText('80 × 120 cm');
-          infoSpotsRow
-            .getDescriptionCell()
-            .shouldHaveText('Terminaalin infopiste');
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+          TerminalInfoSpotRow.getLabelCell().shouldHaveText('E2E_INFO_001');
+          TerminalInfoSpotRow.getQuayPublicCodeCell().shouldHaveText('E2E008');
+          TerminalInfoSpotRow.getShelterNumberCell().shouldHaveText('1');
+          TerminalInfoSpotRow.getPurposeCell().shouldHaveText('Tiedotteet');
+          TerminalInfoSpotRow.getSizeCell().shouldHaveText('80 × 120 cm');
+          TerminalInfoSpotRow.getDescriptionCell().shouldHaveText(
+            'Terminaalin infopiste',
+          );
         });
 
-        infoSpotsRow.getNthToggleButton(0).click();
-        infoSpotsRow.getNthDetailsRow(0).within(() => {
-          infoSpotsRow
-            .getIdAndQuayCell()
-            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        TerminalInfoSpotRow.getNthToggleButton(0).click();
+        TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+          TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+            'Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie',
+          );
         });
-        infoSpotsViewCard.getContainer().shouldBeVisible();
-        infoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_001');
-        infoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
-        infoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
-        infoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
-        infoSpotsViewCard.getFloor().shouldHaveText('1');
-        infoSpotsViewCard.getRailInformation().shouldHaveText('1');
-        infoSpotsViewCard.getZoneLabel().shouldHaveText('A');
-        infoSpotsViewCard
-          .getDescription()
-          .shouldHaveText('Terminaalin infopiste');
-        infoSpotsViewCard.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
-        infoSpotsViewCard.getPosterLabel().shouldHaveText('E2E_POSTER_001');
-        infoSpotsViewCard.getPosterLines().shouldHaveText('1, 2, 3');
+        TerminalInfoSpotsViewCard.getContainer().shouldBeVisible();
+        TerminalInfoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_001');
+        TerminalInfoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
+        TerminalInfoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
+        TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
+        TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
+        TerminalInfoSpotsViewCard.getRailInformation().shouldHaveText('1');
+        TerminalInfoSpotsViewCard.getZoneLabel().shouldHaveText('A');
+        TerminalInfoSpotsViewCard.getDescription().shouldHaveText(
+          'Terminaalin infopiste',
+        );
+        TerminalInfoSpotsViewCard.getPosterSize().shouldHaveText(
+          'A4 (21.0 × 29.7 cm)',
+        );
+        TerminalInfoSpotsViewCard.getPosterLabel().shouldHaveText(
+          'E2E_POSTER_001',
+        );
+        TerminalInfoSpotsViewCard.getPosterLines().shouldHaveText('1, 2, 3');
       },
     );
 
@@ -980,17 +977,17 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         tags: [Tag.StopRegistry],
       },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
 
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-        infoSpotSection.getToggleButton().click();
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotsSection.getToggleButton().click();
 
-        infoSpotsRow.getNthDetailsRow(0).should('not.be.visible');
+        TerminalInfoSpotRow.getNthDetailsRow(0).should('not.be.visible');
 
-        infoSpotSection.getToggleButton().click();
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotsSection.getToggleButton().click();
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
       },
     );
 
@@ -998,36 +995,38 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should edit existing quay info spot',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-        infoSpotsRow.getNthToggleButton(0).click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotRow.getNthToggleButton(0).click();
 
-        infoSpotsRow.getNthDetailsRow(0).within(() => {
-          infoSpotsRow
-            .getIdAndQuayCell()
-            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+          TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+            'Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie',
+          );
         });
 
-        infoSpotsRow.getEditButton().click();
-        infoSpotSection.form.formFields
+        TerminalInfoSpotRow.getEditButton().click();
+        TerminalInfoSpotsSection.form.formFields
           .getLabel()
           .clearAndType('E2E_INFO_001_EDIT');
 
         // Location should be disabled for quay info spot
-        infoSpotSection.form.formFields.getLatitude().shouldBeDisabled();
-        infoSpotSection.form.formFields.getLongitude().shouldBeDisabled();
+        TerminalInfoSpotsSection.form.formFields
+          .getLatitude()
+          .shouldBeDisabled();
+        TerminalInfoSpotsSection.form.formFields
+          .getLongitude()
+          .shouldBeDisabled();
 
-        infoSpotsRow.getSaveButton().click();
+        TerminalInfoSpotRow.getSaveButton().click();
         waitForTerminalInfoSpotSaveToBeFinished();
 
-        infoSpotsRow.getNthDetailsRow(0).within(() => {
-          infoSpotsRow
-            .getIdAndQuayCell()
-            .shouldHaveText(
-              'Infopaikka E2E_INFO_001_EDIT | E2E008 Kuttulammentie',
-            );
+        TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+          TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+            'Infopaikka E2E_INFO_001_EDIT | E2E008 Kuttulammentie',
+          );
         });
       },
     );
@@ -1036,145 +1035,163 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should add new terminal info spot',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
-        infoSpotSection.getAddNewButton().click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalInfoSpotsSection.getAddNewButton().click();
 
-        infoSpotSection.form.formFields.getLabel().clearAndType('E2E_INFO_002');
-        infoSpotSection.form.formFields.getPurposeButton().click();
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields
+          .getLabel()
+          .clearAndType('E2E_INFO_002');
+        TerminalInfoSpotsSection.form.formFields.getPurposeButton().click();
+        TerminalInfoSpotsSection.form.formFields
           .getPurposeOptions()
           .contains('Tiedotteet')
           .click();
-        infoSpotSection.form.formFields.getSizeSelectorButton().click();
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields
+          .getSizeSelectorButton()
+          .click();
+        TerminalInfoSpotsSection.form.formFields
           .getSizeSelectorOptions()
           .contains('80 × 120 cm')
           .click();
 
-        infoSpotSection.form.formFields.getBacklightButton().click();
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields.getBacklightButton().click();
+        TerminalInfoSpotsSection.form.formFields
           .getBacklightOptions()
           .contains('Kyllä')
           .click();
 
         // Confirm that default location is set correctly
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields
           .getLatitude()
           .should('have.value', '60.16993495');
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields
           .getLongitude()
           .should('have.value', '24.92596546');
 
         // Set custom location
-        infoSpotSection.form.formFields.getLatitude().clearAndType('60.170000');
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields
+          .getLatitude()
+          .clearAndType('60.170000');
+        TerminalInfoSpotsSection.form.formFields
           .getLongitude()
           .clearAndType('24.926000');
 
-        infoSpotSection.form.formFields.getZoneLabel().clearAndType('A');
-        infoSpotSection.form.formFields.getFloor().clearAndType('1');
-        infoSpotSection.form.formFields
+        TerminalInfoSpotsSection.form.formFields
+          .getZoneLabel()
+          .clearAndType('A');
+        TerminalInfoSpotsSection.form.formFields.getFloor().clearAndType('1');
+        TerminalInfoSpotsSection.form.formFields
           .getDescription()
           .clearAndType('Toinen terminaalin infopiste');
 
-        infoSpotSection.form.formFields.getAddPosterButton().click();
-        infoSpotSection.form.formFields.getNthPosterContainer(0).within(() => {
-          infoSpotSection.form.formFields.getSizeSelectorButton().click();
-          cy.withinHeadlessPortal(() =>
-            infoSpotSection.form.formFields
-              .getSizeSelectorOptions()
-              .contains('80 × 120 cm')
-              .click(),
-          );
+        TerminalInfoSpotsSection.form.formFields.getAddPosterButton().click();
+        TerminalInfoSpotsSection.form.formFields
+          .getNthPosterContainer(0)
+          .within(() => {
+            TerminalInfoSpotsSection.form.formFields
+              .getSizeSelectorButton()
+              .click();
+            cy.withinHeadlessPortal(() =>
+              TerminalInfoSpotsSection.form.formFields
+                .getSizeSelectorOptions()
+                .contains('80 × 120 cm')
+                .click(),
+            );
 
-          infoSpotSection.form.formFields
-            .getPosterLabel()
-            .clearAndType('E2E_002_POSTER_001');
-          infoSpotSection.form.formFields
-            .getPosterDetails()
-            .clearAndType('Kartta');
-        });
+            TerminalInfoSpotsSection.form.formFields
+              .getPosterLabel()
+              .clearAndType('E2E_002_POSTER_001');
+            TerminalInfoSpotsSection.form.formFields
+              .getPosterDetails()
+              .clearAndType('Kartta');
+          });
 
-        infoSpotSection.getSaveButton().click();
+        TerminalInfoSpotsSection.getSaveButton().click();
         waitForTerminalInfoSpotSaveToBeFinished();
 
-        infoSpotsViewList.getSortButton('label').click();
+        TerminalInfoSpotsViewList.getSortButton('label').click();
 
-        infoSpotsRow.getNthDetailsRow(1).shouldBeVisible();
-        infoSpotsRow.getNthDetailsRow(1).within(() => {
-          infoSpotsRow
-            .getIdAndQuayCell()
-            .shouldHaveText('Infopaikka E2E_INFO_002');
+        TerminalInfoSpotRow.getNthDetailsRow(1).shouldBeVisible();
+        TerminalInfoSpotRow.getNthDetailsRow(1).within(() => {
+          TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+            'Infopaikka E2E_INFO_002',
+          );
         });
 
-        infoSpotsViewCard.getContainer().shouldBeVisible();
-        infoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_002');
-        infoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
-        infoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
-        infoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
-        infoSpotsViewCard.getFloor().shouldHaveText('1');
-        infoSpotsViewCard.getRailInformation().shouldHaveText('-');
-        infoSpotsViewCard.getZoneLabel().shouldHaveText('A');
-        infoSpotsViewCard
-          .getDescription()
-          .shouldHaveText('Toinen terminaalin infopiste');
-        infoSpotsViewCard.getPosterSize().shouldHaveText('80 × 120 cm');
-        infoSpotsViewCard.getPosterLabel().shouldHaveText('E2E_002_POSTER_001');
-        infoSpotsViewCard.getPosterLines().shouldHaveText('Kartta');
+        TerminalInfoSpotsViewCard.getContainer().shouldBeVisible();
+        TerminalInfoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_002');
+        TerminalInfoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
+        TerminalInfoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
+        TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
+        TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
+        TerminalInfoSpotsViewCard.getRailInformation().shouldHaveText('-');
+        TerminalInfoSpotsViewCard.getZoneLabel().shouldHaveText('A');
+        TerminalInfoSpotsViewCard.getDescription().shouldHaveText(
+          'Toinen terminaalin infopiste',
+        );
+        TerminalInfoSpotsViewCard.getPosterSize().shouldHaveText('80 × 120 cm');
+        TerminalInfoSpotsViewCard.getPosterLabel().shouldHaveText(
+          'E2E_002_POSTER_001',
+        );
+        TerminalInfoSpotsViewCard.getPosterLines().shouldHaveText('Kartta');
       },
     );
 
     it('should delete terminal info spot', () => {
-      terminalDetailsPage.page().shouldBeVisible();
+      TerminalDetailsPage.page().shouldBeVisible();
 
-      terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
-      infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-      infoSpotsRow.getNthToggleButton(0).click();
-
-      infoSpotsRow.getNthDetailsRow(0).within(() => {
-        infoSpotsRow
-          .getIdAndQuayCell()
-          .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+      TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+      TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+      TerminalInfoSpotRow.getNthToggleButton(0).click();
+      TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+        TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+          'Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie',
+        );
       });
 
-      infoSpotsRow.getEditButton().click();
-      infoSpotSection.form.formFields.getDeleteInfoSpotButton().click();
+      TerminalInfoSpotRow.getEditButton().click();
+      TerminalInfoSpotsSection.form.formFields
+        .getDeleteInfoSpotButton()
+        .click();
 
-      infoSpotsRow.getSaveButton().click();
+      TerminalInfoSpotRow.getSaveButton().click();
       waitForTerminalInfoSpotSaveToBeFinished();
 
-      terminalInfoSpotsViewList.getTableContent().should('be.empty');
+      TerminalInfoSpotsViewList.getTableContent().should('be.empty');
     });
 
     it(
       'should delete terminal info spot poster',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-        infoSpotsRow.getNthToggleButton(0).click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotRow.getNthToggleButton(0).click();
 
-        infoSpotsRow.getNthDetailsRow(0).within(() => {
-          infoSpotsRow
-            .getIdAndQuayCell()
-            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+          TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+            'Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie',
+          );
         });
 
-        infoSpotsRow.getEditButton().click();
+        TerminalInfoSpotRow.getEditButton().click();
+        TerminalInfoSpotsSection.form.formFields
+          .getNthPosterContainer(0)
+          .within(() => {
+            TerminalInfoSpotsSection.form.formFields
+              .getDeletePosterButton()
+              .click();
+          });
 
-        infoSpotSection.form.formFields.getNthPosterContainer(0).within(() => {
-          infoSpotSection.form.formFields.getDeletePosterButton().click();
-        });
-
-        infoSpotsRow.getSaveButton().click();
+        TerminalInfoSpotRow.getSaveButton().click();
         waitForTerminalInfoSpotSaveToBeFinished();
 
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-        infoSpotsViewCard.getNoPosters().shouldBeVisible();
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotsViewCard.getNoPosters().shouldBeVisible();
       },
     );
 
@@ -1182,39 +1199,43 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       'should add new terminal info spot poster',
       { tags: [Tag.StopRegistry] },
       () => {
-        terminalDetailsPage.page().shouldBeVisible();
+        TerminalDetailsPage.page().shouldBeVisible();
 
-        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
-        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
-        infoSpotsRow.getNthToggleButton(0).click();
+        TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
+        TerminalInfoSpotRow.getNthToggleButton(0).click();
 
-        infoSpotsRow.getNthDetailsRow(0).within(() => {
-          infoSpotsRow
-            .getIdAndQuayCell()
-            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
-        });
-
-        infoSpotsRow.getEditButton().click();
-
-        infoSpotSection.form.formFields.getAddPosterButton().click();
-        infoSpotSection.form.formFields.getNthPosterContainer(1).within(() => {
-          infoSpotSection.form.formFields.getSizeSelectorButton().click();
-          cy.withinHeadlessPortal(() =>
-            infoSpotSection.form.formFields
-              .getSizeSelectorOptions()
-              .contains('80 × 120 cm')
-              .click(),
+        TerminalInfoSpotRow.getNthDetailsRow(0).within(() => {
+          TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
+            'Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie',
           );
-
-          infoSpotSection.form.formFields
-            .getPosterLabel()
-            .clearAndType('E2E_POSTER_002');
-          infoSpotSection.form.formFields
-            .getPosterDetails()
-            .clearAndType('Kartta');
         });
 
-        infoSpotsRow.getSaveButton().click();
+        TerminalInfoSpotRow.getEditButton().click();
+
+        TerminalInfoSpotsSection.form.formFields.getAddPosterButton().click();
+        TerminalInfoSpotsSection.form.formFields
+          .getNthPosterContainer(1)
+          .within(() => {
+            TerminalInfoSpotsSection.form.formFields
+              .getSizeSelectorButton()
+              .click();
+            cy.withinHeadlessPortal(() =>
+              TerminalInfoSpotsSection.form.formFields
+                .getSizeSelectorOptions()
+                .contains('80 × 120 cm')
+                .click(),
+            );
+
+            TerminalInfoSpotsSection.form.formFields
+              .getPosterLabel()
+              .clearAndType('E2E_POSTER_002');
+            TerminalInfoSpotsSection.form.formFields
+              .getPosterDetails()
+              .clearAndType('Kartta');
+          });
+
+        TerminalInfoSpotRow.getSaveButton().click();
         waitForTerminalInfoSpotSaveToBeFinished();
 
         // Check both poster containers, match by label, and assert other properties accordingly
@@ -1231,13 +1252,11 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
           },
         ];
 
-        infoSpotsViewCard.getPosterContainer().should('have.length', 2);
-        infoSpotsViewCard
-          .getPosterContainer()
-          .each((posterContainer: JQuery<HTMLElement>) => {
+        TerminalInfoSpotsViewCard.getPosterContainer().should('have.length', 2);
+        TerminalInfoSpotsViewCard.getPosterContainer().each(
+          (posterContainer: JQuery<HTMLElement>) => {
             cy.wrap(posterContainer).within(() => {
-              infoSpotsViewCard
-                .getPosterLabel()
+              TerminalInfoSpotsViewCard.getPosterLabel()
                 .invoke('text')
                 .then((labelText: string) => {
                   const poster = expectedPosters.find(
@@ -1250,13 +1269,16 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
                     );
                   }
 
-                  infoSpotsViewCard
-                    .getPosterLines()
-                    .shouldHaveText(poster.lines);
-                  infoSpotsViewCard.getPosterSize().shouldHaveText(poster.size);
+                  TerminalInfoSpotsViewCard.getPosterLines().shouldHaveText(
+                    poster.lines,
+                  );
+                  TerminalInfoSpotsViewCard.getPosterSize().shouldHaveText(
+                    poster.size,
+                  );
                 });
             });
-          });
+          },
+        );
       },
     );
   });

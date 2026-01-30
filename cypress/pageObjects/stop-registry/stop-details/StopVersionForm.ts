@@ -1,29 +1,29 @@
-import { PriorityForm } from '../../PriorityForm';
-import { ReasonForChangeForm } from '../../ReasonForChangeForm';
-import { ValidityPeriodForm } from '../../ValidityPeriodForm';
+import { PriorityForm } from '../../forms/PriorityForm';
+import { ReasonForChangeForm } from '../../forms/ReasonForChangeForm';
+import { ValidityPeriodForm } from '../../forms/ValidityPeriodForm';
 
 export class StopVersionForm {
-  priority = new PriorityForm();
+  static priority = PriorityForm;
 
-  validity = new ValidityPeriodForm();
+  static validity = ValidityPeriodForm;
 
-  reasonForChange = new ReasonForChangeForm();
+  static reasonForChange = ReasonForChangeForm;
 
-  form() {
+  static form() {
     return cy.getByTestId('StopVersionForm::form');
   }
 
-  validityError() {
+  static validityError() {
     return cy.getByTestId(
       'ValidationError::message::validityRangeIsValidVirtualField',
     );
   }
 
-  submitButton() {
+  static submitButton() {
     return cy.getByTestId('StopVersionForm::submitButton');
   }
 
-  cancelButton() {
+  static cancelButton() {
     return cy.getByTestId('StopVersionForm::cancelButton');
   }
 }

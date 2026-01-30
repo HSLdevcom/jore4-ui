@@ -1,49 +1,49 @@
 export class StopSearchByLine {
-  getActiveLineName() {
+  static getActiveLineName() {
     return cy.getByTestId('StopSearchByLine::line::name');
   }
 
-  getActiveLineValidity() {
+  static getActiveLineValidity() {
     return cy.getByTestId('StopSearchByLine::line::validity');
   }
 
-  getActiveLineAllStopsCount() {
+  static getActiveLineAllStopsCount() {
     return cy.getByTestId('StopSearchByLine::line::countAll');
   }
 
-  getActiveLineInboundStopsCount() {
+  static getActiveLineInboundStopsCount() {
     return cy.getByTestId('StopSearchByLine::line::countInbound::count');
   }
 
-  getActiveLineOutboundStopsCount() {
+  static getActiveLineOutboundStopsCount() {
     return cy.getByTestId('StopSearchByLine::line::countOutbound::count');
   }
 
-  getRouteContainer(id: string) {
+  static getRouteContainer(id: string) {
     return cy.getByTestId(`StopSearchByLine::route::${id}`);
   }
 
-  getRouteInfoContainer(id: string) {
+  static getRouteInfoContainer(id: string) {
     return cy.getByTestId(`StopSearchByLine::route::infoContainer::${id}`);
   }
 
-  getRouteLabel() {
+  static getRouteLabel() {
     return cy.getByTestId('StopSearchByLine::route::label');
   }
 
-  getRouteDirection() {
+  static getRouteDirection() {
     return cy.getByTestId('StopSearchByLine::route::direction');
   }
 
-  getRouteName() {
+  static getRouteName() {
     return cy.getByTestId('StopSearchByLine::route::name');
   }
 
-  getRouteValidity() {
+  static getRouteValidity() {
     return cy.getByTestId('StopSearchByLine::route::validity');
   }
 
-  getRouteLocatorButton() {
+  static getRouteLocatorButton() {
     return cy.getByTestId('StopSearchByLine::route::locatorButton');
   }
 }

@@ -1,28 +1,30 @@
 export class TerminalDetailsViewCard {
-  getToggle = () => cy.getByTestId('TerminalDetailsSection::toggle');
+  static getToggle = () => cy.getByTestId('TerminalDetailsSection::toggle');
 
-  getContent = () => cy.getByTestId('TerminalDetailsSection::content');
+  static getContent = () => cy.getByTestId('TerminalDetailsSection::content');
 
-  getPrivateCode = () => cy.getByTestId('TerminalDetailsViewCard::privateCode');
+  static getPrivateCode = () =>
+    cy.getByTestId('TerminalDetailsViewCard::privateCode');
 
-  getDescription = () => cy.getByTestId('TerminalDetailsViewCard::description');
+  static getDescription = () =>
+    cy.getByTestId('TerminalDetailsViewCard::description');
 
-  getNameFin = () => cy.getByTestId('TerminalDetailsViewCard::name');
+  static getNameFin = () => cy.getByTestId('TerminalDetailsViewCard::name');
 
-  getNameSwe = () => cy.getByTestId('TerminalDetailsViewCard::nameSwe');
+  static getNameSwe = () => cy.getByTestId('TerminalDetailsViewCard::nameSwe');
 
-  getTerminalType = () =>
+  static getTerminalType = () =>
     cy.getByTestId('TerminalDetailsViewCard::terminalType');
 
-  getDeparturePlatforms = () =>
+  static getDeparturePlatforms = () =>
     cy.getByTestId('TerminalDetailsViewCard::departurePlatforms');
 
-  getArrivalPlatforms = () =>
+  static getArrivalPlatforms = () =>
     cy.getByTestId('TerminalDetailsViewCard::arrivalPlatforms');
 
-  getLoadingPlatforms = () =>
+  static getLoadingPlatforms = () =>
     cy.getByTestId('TerminalDetailsViewCard::loadingPlatforms');
 
-  getElectricCharging = () =>
+  static getElectricCharging = () =>
     cy.getByTestId('TerminalDetailsViewCard::electricCharging');
 }

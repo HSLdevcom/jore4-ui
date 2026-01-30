@@ -1,13 +1,13 @@
 export class TerminalTitleRow {
-  getPrivateCode() {
+  static getPrivateCode() {
     return cy.getByTestId('TerminalTitleRow::privateCode');
   }
 
-  getName() {
+  static getName() {
     return cy.getByTestId('TerminalTitleRow::name');
   }
 
-  getLocatorButton() {
+  static getLocatorButton() {
     return cy.getByTestId('TerminalTitleRow::locatorButton');
   }
 }

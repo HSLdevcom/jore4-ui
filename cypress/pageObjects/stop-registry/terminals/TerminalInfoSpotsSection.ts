@@ -1,25 +1,26 @@
 import { TerminalInfoSpotsForm } from './TerminalInfoSpotsForm';
 
 export class TerminalInfoSpotsSection {
-  form = new TerminalInfoSpotsForm();
+  static form = TerminalInfoSpotsForm;
 
-  getContainer = () => cy.getByTestId('TerminalInfoSpotsSection::container');
+  static getContainer = () =>
+    cy.getByTestId('TerminalInfoSpotsSection::container');
 
-  getTitle = () => cy.getByTestId('TerminalInfoSpotsSection::title');
+  static getTitle = () => cy.getByTestId('TerminalInfoSpotsSection::title');
 
-  getAddNewButton() {
+  static getAddNewButton() {
     return cy.getByTestId('TerminalInfoSpotsSection::addNewInfoSpotButton');
   }
 
-  getCancelButton() {
+  static getCancelButton() {
     return cy.getByTestId('TerminalInfoSpotsSection::cancelButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('TerminalInfoSpotsSection::saveButton');
   }
 
-  getToggleButton() {
+  static getToggleButton() {
     return cy.getByTestId('TerminalInfoSpotsSection::toggle');
   }
 }

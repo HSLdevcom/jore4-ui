@@ -16,16 +16,15 @@ import {
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
+import { Map, MapObservationDateFiltersOverlay } from '../../pageObjects/map';
 import {
-  Map,
-  MapObservationDateFiltersOverlay,
   StopDetailsPage,
+  StopPopUp,
   StopVersionPage,
   StopVersionRow,
   StopVersionTableColumn,
   StopVersionsTableHeader,
-} from '../../pageObjects';
-import { StopPopUp } from '../../pageObjects/StopPopUp';
+} from '../../pageObjects/stop-registry';
 import { UUID } from '../../types';
 import { insertToDbHelper } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
@@ -517,12 +516,6 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
   });
 
   describe('Actions', { tags: [Tag.Map] }, () => {
-    const map = new Map();
-    const mapObservationDateFiltersOverlay =
-      new MapObservationDateFiltersOverlay();
-    const stopPopUp = new StopPopUp();
-    const stopDetailsPage = new StopDetailsPage();
-
     before(() => {
       cy.task<UUID[]>(
         'getInfrastructureLinkIdsByExternalIds',
@@ -562,13 +555,13 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
           .within(() => row.locatorButton().click());
       });
 
-      map.waitForLoadToComplete();
+      Map.waitForLoadToComplete();
 
-      mapObservationDateFiltersOverlay.observationDateControl
+      MapObservationDateFiltersOverlay.observationDateControl
         .getObservationDateInput()
         .should('have.attr', 'value', '2020-03-20');
 
-      stopPopUp.getLabel().shouldHaveText('E2E001 Annankatu 15');
+      StopPopUp.getLabel().shouldHaveText('E2E001 Annankatu 15');
     });
 
     it('should have working map link in action menu', () => {
@@ -580,13 +573,13 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       });
       row.actionMenuShowOnMap().click();
 
-      map.waitForLoadToComplete();
+      Map.waitForLoadToComplete();
 
-      mapObservationDateFiltersOverlay.observationDateControl
+      MapObservationDateFiltersOverlay.observationDateControl
         .getObservationDateInput()
         .should('have.attr', 'value', '2020-03-20');
 
-      stopPopUp.getLabel().shouldHaveText('E2E001 Annankatu 15');
+      StopPopUp.getLabel().shouldHaveText('E2E001 Annankatu 15');
     });
 
     it('should have working show details action menu', () => {
@@ -598,14 +591,13 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       });
       row.actionMenuShowStopDetails().click();
 
-      stopDetailsPage.loadingStopDetails().should('not.exist');
+      StopDetailsPage.loadingStopDetails().should('not.exist');
 
-      stopDetailsPage.titleRow.label().shouldHaveText('E2E001');
-      stopDetailsPage
-        .returnToDateBasedVersionSelection()
+      StopDetailsPage.titleRow.label().shouldHaveText('E2E001');
+      StopDetailsPage.returnToDateBasedVersionSelection()
         .shouldBeVisible()
         .click();
-      stopDetailsPage.observationDateControl
+      StopDetailsPage.observationDateControl
         .getObservationDateInput()
         .should('have.attr', 'value', '2020-03-20');
     });

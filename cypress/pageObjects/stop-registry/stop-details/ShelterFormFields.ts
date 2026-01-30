@@ -1,54 +1,55 @@
 export class ShelterFormFields {
-  getShelterNumberInput = () =>
+  static getShelterNumberInput = () =>
     cy.getByTestId('ShelterFormFields::shelterNumber');
 
-  getShelterTypeDropdownButton = () =>
+  static getShelterTypeDropdownButton = () =>
     cy.getByTestId('ShelterFormFields::shelterType::ListboxButton');
 
-  getShelterTypeDropdownOptions = () =>
+  static getShelterTypeDropdownOptions = () =>
     cy.getByTestId('ShelterFormFields::shelterType::ListboxOptions');
 
-  getShelterElectricityDropdownButton = () =>
+  static getShelterElectricityDropdownButton = () =>
     cy.getByTestId('ShelterFormFields::shelterElectricity::ListboxButton');
 
-  getShelterElectricityDropdownOptions = () =>
+  static getShelterElectricityDropdownOptions = () =>
     cy.getByTestId('ShelterFormFields::shelterElectricity::ListboxOptions');
 
-  getShelterLightingDropdownButton = () =>
+  static getShelterLightingDropdownButton = () =>
     cy.getByTestId('ShelterFormFields::shelterLighting::ListboxButton');
 
-  getShelterLightingDropdownOptions = () =>
+  static getShelterLightingDropdownOptions = () =>
     cy.getByTestId('ShelterFormFields::shelterLighting::ListboxOptions');
 
-  getShelterConditionDropdownButton = () =>
+  static getShelterConditionDropdownButton = () =>
     cy.getByTestId('ShelterFormFields::shelterCondition::ListboxButton');
 
-  getShelterConditionDropdownOptions = () =>
+  static getShelterConditionDropdownOptions = () =>
     cy.getByTestId('ShelterFormFields::shelterCondition::ListboxOptions');
 
-  getTimetableCabinetsInput = () =>
+  static getTimetableCabinetsInput = () =>
     cy.getByTestId('ShelterFormFields::timetableCabinets');
 
-  getTrashCanCheckbox = () => cy.getByTestId('ShelterFormFields::trashCan');
+  static getTrashCanCheckbox = () =>
+    cy.getByTestId('ShelterFormFields::trashCan');
 
-  getShelterHasDisplayCheckbox = () =>
+  static getShelterHasDisplayCheckbox = () =>
     cy.getByTestId('ShelterFormFields::shelterHasDisplay');
 
-  getBicycleParkingCheckbox = () =>
+  static getBicycleParkingCheckbox = () =>
     cy.getByTestId('ShelterFormFields::bicycleParking');
 
-  getLeaningRailCheckbox = () =>
+  static getLeaningRailCheckbox = () =>
     cy.getByTestId('ShelterFormFields::leaningRail');
 
-  getOutsideBenchCheckbox = () =>
+  static getOutsideBenchCheckbox = () =>
     cy.getByTestId('ShelterFormFields::outsideBench');
 
-  getShelterFasciaBoardTapingCheckbox = () =>
+  static getShelterFasciaBoardTapingCheckbox = () =>
     cy.getByTestId('ShelterFormFields::shelterFasciaBoardTaping');
 
-  getShelterExternalIdInput = () =>
+  static getShelterExternalIdInput = () =>
     cy.getByTestId('ShelterFormFields::shelterExternalId');
 
-  getDeleteShelterButton = () =>
+  static getDeleteShelterButton = () =>
     cy.getByTestId('ShelterFormFields::deleteShelter');
 }

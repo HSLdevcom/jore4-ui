@@ -1,22 +1,28 @@
 export class TerminalLocationDetailsViewCard {
-  getContainer = () => cy.getByTestId('LocationDetailsViewCard::container');
+  static getContainer = () =>
+    cy.getByTestId('LocationDetailsViewCard::container');
 
-  getStreetAddress = () =>
+  static getStreetAddress = () =>
     cy.getByTestId('LocationDetailsViewCard::streetAddress');
 
-  getPostalCode = () => cy.getByTestId('LocationDetailsViewCard::postalCode');
+  static getPostalCode = () =>
+    cy.getByTestId('LocationDetailsViewCard::postalCode');
 
-  getMunicipality = () =>
+  static getMunicipality = () =>
     cy.getByTestId('LocationDetailsViewCard::municipality');
 
-  getFareZone = () => cy.getByTestId('LocationDetailsViewCard::fareZone');
+  static getFareZone = () =>
+    cy.getByTestId('LocationDetailsViewCard::fareZone');
 
-  getLatitude = () => cy.getByTestId('LocationDetailsViewCard::latitude');
+  static getLatitude = () =>
+    cy.getByTestId('LocationDetailsViewCard::latitude');
 
-  getLongitude = () => cy.getByTestId('LocationDetailsViewCard::longitude');
+  static getLongitude = () =>
+    cy.getByTestId('LocationDetailsViewCard::longitude');
 
-  getMemberStops = () => cy.getByTestId('LocationDetailsViewCard::memberStops');
+  static getMemberStops = () =>
+    cy.getByTestId('LocationDetailsViewCard::memberStops');
 
-  getMemberPlatforms = () =>
+  static getMemberPlatforms = () =>
     cy.getByTestId('LocationDetailsViewCard::memberPlatforms');
 }

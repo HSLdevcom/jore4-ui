@@ -1,25 +1,25 @@
 export class MemberStopsModal {
-  modal() {
+  static modal() {
     return cy.getByTestId('MemberStops::modal');
   }
 
-  getTransferDateInput() {
+  static getTransferDateInput() {
     return cy.getByTestId('MemberStops::transferDateInput');
   }
 
-  setTransferDate(isoDate: string) {
-    this.getTransferDateInput().type(isoDate);
+  static setTransferDate(isoDate: string) {
+    MemberStopsModal.getTransferDateInput().type(isoDate);
   }
 
-  getStopVersionsButton() {
+  static getStopVersionsButton() {
     return cy.getByTestId('MemberStops::getStopVersionsButton');
   }
 
-  getStopVersionsList() {
+  static getStopVersionsList() {
     return cy.getByTestId('MemberStops::stopVersionsList');
   }
 
-  saveButton() {
+  static saveButton() {
     return cy.getByTestId('MemberStops::saveButton');
   }
 }

@@ -1,13 +1,13 @@
 import { TerminalInfoSpotsFormFields } from './TerminalInfoSpotsFormFields';
 
 export class TerminalInfoSpotsForm {
-  formFields = new TerminalInfoSpotsFormFields();
+  static formFields = TerminalInfoSpotsFormFields;
 
-  getInfoSpots() {
+  static getInfoSpots() {
     return cy.getByTestId('TerminalInfoSpotsForm::infoSpot');
   }
 
-  getNthInfoSpot(index: number) {
-    return this.getInfoSpots().eq(index);
+  static getNthInfoSpot(index: number) {
+    return TerminalInfoSpotsForm.getInfoSpots().eq(index);
   }
 }

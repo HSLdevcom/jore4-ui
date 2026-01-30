@@ -1,18 +1,21 @@
 export class AlternativeNamesEdit {
-  getNameEng = () => cy.getByTestId('AlternativeNamesEdit::nameEng');
+  static getNameEng = () => cy.getByTestId('AlternativeNamesEdit::nameEng');
 
-  getNameLongFin = () => cy.getByTestId('AlternativeNamesEdit::nameLongFin');
+  static getNameLongFin = () =>
+    cy.getByTestId('AlternativeNamesEdit::nameLongFin');
 
-  getNameLongSwe = () => cy.getByTestId('AlternativeNamesEdit::nameLongSwe');
+  static getNameLongSwe = () =>
+    cy.getByTestId('AlternativeNamesEdit::nameLongSwe');
 
-  getNameLongEng = () => cy.getByTestId('AlternativeNamesEdit::nameLongEng');
+  static getNameLongEng = () =>
+    cy.getByTestId('AlternativeNamesEdit::nameLongEng');
 
-  getAbbreviationFin = () =>
+  static getAbbreviationFin = () =>
     cy.getByTestId('AlternativeNamesEdit::abbreviationFin');
 
-  getAbbreviationSwe = () =>
+  static getAbbreviationSwe = () =>
     cy.getByTestId('AlternativeNamesEdit::abbreviationSwe');
 
-  getAbbreviationEng = () =>
+  static getAbbreviationEng = () =>
     cy.getByTestId('AlternativeNamesEdit::abbreviationEng');
 }
