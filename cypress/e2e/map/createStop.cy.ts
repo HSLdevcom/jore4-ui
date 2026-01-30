@@ -7,14 +7,16 @@ import {
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../../enums';
 import {
-  ChangeValidityForm,
   FilterPanel,
+  MapFooter,
+  MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
   Navbar,
   StopDetailsPage,
   StopSearchBar,
   StopSearchResultsPage,
+  ValidityPeriodForm,
 } from '../../pageObjects';
 import { insertToDbHelper } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
@@ -47,15 +49,6 @@ const stopAreaInput: Array<StopAreaInput> = [
   },
 ];
 
-const mapPage = new MapPage();
-const mapFilterPanel = new FilterPanel();
-const observationDateFilters = new MapObservationDateFiltersOverlay();
-const changeValidityForm = new ChangeValidityForm();
-const navbar = new Navbar();
-const stopSearchBar = new StopSearchBar();
-const stopSearchResultsPage = new StopSearchResultsPage();
-const stopDetailsPage = new StopDetailsPage();
-
 const rootOpts: Cypress.SuiteConfigOverrides = {
   tags: [Tag.Stops, Tag.Map],
   scrollBehavior: 'bottom',
@@ -73,7 +66,7 @@ describe('Stop creation tests', rootOpts, () => {
     cy.setupTests();
     cy.mockLogin();
 
-    mapPage.map.visit({
+    MapPage.map.visit({
       zoom: 16,
       lat: 60.164074274478054,
       lng: 24.93021804533524,
@@ -81,7 +74,7 @@ describe('Stop creation tests', rootOpts, () => {
   });
 
   it('Should create stop on map', { tags: [Tag.Smoke] }, () => {
-    mapPage.createStopAtLocation({
+    MapPage.createStopAtLocation({
       stopFormInfo: {
         publicCode: testStopLabels.testLabel1,
         stopPlace: testStopLabels.stopAreaPrivateCode,
@@ -95,128 +88,140 @@ describe('Stop creation tests', rootOpts, () => {
       },
     });
 
-    mapPage.gqlStopShouldBeCreatedSuccessfully();
+    MapPage.gqlStopShouldBeCreatedSuccessfully();
 
-    mapPage.checkStopSubmitSuccessToast();
+    MapPage.checkStopSubmitSuccessToast();
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-
-    cy.getByTestId(
-      `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
-    ).should('exist');
-  });
-
-  it('Should create stop and change observation date', () => {
-    observationDateFilters.observationDateControl.setObservationDate(
-      '2025-01-01',
-    );
-
-    mapPage.createStopAtLocation({
-      stopFormInfo: {
-        publicCode: testStopLabels.testLabel1,
-        stopPlace: testStopLabels.stopAreaPrivateCode,
-        validityStartISODate: '2030-01-01',
-        priority: Priority.Standard,
-        reasonForChange: 'Initial creation',
-      },
-      clickRelativePoint: {
-        xPercentage: 40,
-        yPercentage: 55,
-      },
-    });
-
-    mapPage.gqlStopShouldBeCreatedSuccessfully();
-
-    observationDateFilters.observationDateControl
-      .getObservationDateInput()
-      .should('have.value', '2030-01-01');
-
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     cy.getByTestId(
       `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
     ).should('exist');
   });
 
-  it('should cancel creating a new stop', () => {
-    mapPage.map.waitForLoadToComplete();
+  it(
+    'Should create stop and change observation date',
+    { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
+    () => {
+      MapObservationDateControl.setObservationDate('2030-01-01');
 
-    mapPage.mapFooter.addStop();
-    mapPage.mapFooter.getMapFooter().should('not.exist');
+      MapPage.createStopAtLocation({
+        stopFormInfo: {
+          publicCode: testStopLabels.testLabel1,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
+          validityStartISODate: '2030-01-01',
+          priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
 
-    mapPage.mapFooter.cancelAddMode();
-    mapPage.mapFooter.getMapFooter().shouldBeVisible();
-  });
+      MapPage.gqlStopShouldBeCreatedSuccessfully();
 
-  it('Should place stop correctly by using manually typed latitude and longitude', () => {
-    // Create stop
-    mapPage.createStopAtLocation({
-      stopFormInfo: {
-        publicCode: testStopLabels.manualCoordinatesLabel,
-        stopPlace: testStopLabels.stopAreaPrivateCode,
-        // Actual coordinates will be on Topeliuksenkatu
-        latitude: '60.18072918584129',
-        longitude: '24.92131574451069',
-        validityStartISODate: '2022-01-01',
-        priority: Priority.Standard,
-        reasonForChange: 'Initial creation',
-      },
-      clickRelativePoint: {
-        xPercentage: 40,
-        yPercentage: 55,
-      },
-    });
+      MapObservationDateFiltersOverlay.observationDateControl
+        .getObservationDateInput()
+        .should('have.value', '2030-01-01');
 
-    mapPage.gqlStopShouldBeCreatedSuccessfully();
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    mapPage.checkStopSubmitSuccessToast();
+      cy.getByTestId(
+        `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
+      ).should('exist');
+    },
+  );
 
-    // Change map position to created stop location
-    mapPage.map.visit({
-      zoom: 16,
-      lat: 60.1805636468358,
-      lng: 24.918451016960763,
-    });
+  it(
+    'should cancel creating a new stop',
+    { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      MapPage.map.waitForLoadToComplete();
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapFooter.addStop();
+      MapFooter.getMapFooter().should('not.exist');
 
-    cy.getByTestId(
-      `Map::Stops::stopMarker::${testStopLabels.manualCoordinatesLabel}_Standard`,
-    ).should('exist');
-  });
+      MapFooter.cancelAddMode();
+      MapFooter.getMapFooter().shouldBeVisible();
+    },
+  );
 
-  it('Should create stop with end time on map', () => {
-    mapPage.createStopAtLocation({
-      stopFormInfo: {
-        publicCode: testStopLabels.endDateLabel,
-        stopPlace: testStopLabels.stopAreaPrivateCode,
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2040-12-31',
-        priority: Priority.Standard,
-        reasonForChange: 'Initial creation',
-      },
-      clickRelativePoint: {
-        xPercentage: 40,
-        yPercentage: 55,
-      },
-    });
+  it(
+    'Should place stop correctly by using manually typed latitude and longitude',
+    { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      // Create stop
+      MapPage.createStopAtLocation({
+        stopFormInfo: {
+          publicCode: testStopLabels.manualCoordinatesLabel,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
+          // Actual coordinates will be on Topeliuksenkatu
+          latitude: '60.18072918584129',
+          longitude: '24.92131574451069',
+          validityStartISODate: '2022-01-01',
+          priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
 
-    mapPage.gqlStopShouldBeCreatedSuccessfully();
-    mapPage.checkStopSubmitSuccessToast();
-    mapPage.map.stopPopUp.getCloseButton().click();
+      MapPage.gqlStopShouldBeCreatedSuccessfully();
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.checkStopSubmitSuccessToast();
 
-    cy.getByTestId(
-      `Map::Stops::stopMarker::${testStopLabels.endDateLabel}_Standard`,
-    ).click();
+      // Change map position to created stop location
+      MapPage.map.visit({
+        zoom: 16,
+        lat: 60.1805636468358,
+        lng: 24.918451016960763,
+      });
 
-    mapPage.map.stopPopUp.getEditButton().click();
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    changeValidityForm.validityPeriodForm
-      .getEndDateInput()
-      .should('have.value', '2040-12-31');
-  });
+      cy.getByTestId(
+        `Map::Stops::stopMarker::${testStopLabels.manualCoordinatesLabel}_Standard`,
+      ).should('exist');
+    },
+  );
+
+  it(
+    'Should create stop with end time on map',
+    { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      MapPage.createStopAtLocation({
+        stopFormInfo: {
+          publicCode: testStopLabels.endDateLabel,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
+          validityStartISODate: '2022-01-01',
+          validityEndISODate: '2040-12-31',
+          priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
+
+      MapPage.gqlStopShouldBeCreatedSuccessfully();
+      MapPage.checkStopSubmitSuccessToast();
+      MapPage.map.stopPopUp.getCloseButton().click();
+
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      cy.getByTestId(
+        `Map::Stops::stopMarker::${testStopLabels.endDateLabel}_Standard`,
+      ).click();
+
+      MapPage.map.stopPopUp.getEditButton().click();
+
+      ValidityPeriodForm.getEndDateInput().should('have.value', '2040-12-31');
+    },
+  );
 
   it(
     'Should create a stop with a hastus place on map',
@@ -225,7 +230,7 @@ describe('Stop creation tests', rootOpts, () => {
       defaultCommandTimeout: 10000,
     },
     () => {
-      mapPage.createStopAtLocation({
+      MapPage.createStopAtLocation({
         stopFormInfo: {
           publicCode: testStopLabels.timingPlaceLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
@@ -243,19 +248,19 @@ describe('Stop creation tests', rootOpts, () => {
         },
       });
 
-      mapPage.gqlStopShouldBeCreatedSuccessfully();
-      mapPage.checkStopSubmitSuccessToast();
-      mapPage.map.stopPopUp.getCloseButton().click();
+      MapPage.gqlStopShouldBeCreatedSuccessfully();
+      MapPage.checkStopSubmitSuccessToast();
+      MapPage.map.stopPopUp.getCloseButton().click();
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       cy.getByTestId(
         `Map::Stops::stopMarker::${testStopLabels.timingPlaceLabel}_Standard`,
       ).click();
 
-      mapPage.map.stopPopUp.getEditButton().click();
+      MapPage.map.stopPopUp.getEditButton().click();
 
-      mapPage.stopForm
+      MapPage.stopForm
         .getTimingPlaceDropdown()
         .should('contain', timingPlaces[0].label);
     },
@@ -265,10 +270,10 @@ describe('Stop creation tests', rootOpts, () => {
     'Should create stop and have its stop registry details correctly',
     { tags: [Tag.StopRegistry] },
     () => {
-      mapPage.mapFooter.addStop();
-      mapPage.map.clickRelativePoint(40, 55);
+      MapFooter.addStop();
+      MapPage.map.clickRelativePoint(40, 55);
 
-      mapPage.stopForm.fillFormForNewStop({
+      MapPage.stopForm.fillFormForNewStop({
         publicCode: 'T0001',
         stopPlace: testStopLabels.stopAreaPrivateCode,
         validityStartISODate: '2022-01-01',
@@ -276,73 +281,76 @@ describe('Stop creation tests', rootOpts, () => {
         reasonForChange: 'Initial creation',
       });
 
-      mapPage.stopForm.save();
+      MapPage.stopForm.save();
 
-      mapPage.checkStopSubmitSuccessToast();
-      mapPage.getCloseButton().click();
+      MapPage.checkStopSubmitSuccessToast();
+      MapPage.getCloseButton().click();
 
-      navbar.getStopsLink().click();
+      Navbar.getStopsLink().click();
 
-      stopSearchBar.getSearchInput().type('T0001{enter}');
-      stopSearchResultsPage.getRowLinkByLabel('T0001').click();
+      StopSearchBar.getSearchInput().type('T0001{enter}');
+      StopSearchResultsPage.getRowLinkByLabel('T0001').click();
 
       // NOTE: After adding the name inputs to stop creation flow, this will fail and
       // needs to be updated to the correct names
-      stopDetailsPage.titleRow
+      StopDetailsPage.titleRow
         .names()
         .shouldHaveText(`${testStopLabels.stopAreaName}|-`);
-      stopDetailsPage.basicDetails.viewCard
+      StopDetailsPage.basicDetails.viewCard
         .getPrivateCode()
         .should(($field) => expect($field.get(0).innerText).to.match(/7\d{6}/));
     },
   );
 
-  it('Should create stop for preselected StopArea', () => {
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-    mapPage.map.waitForLoadToComplete();
+  it(
+    'Should create stop for preselected StopArea',
+    { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
+    () => {
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete();
 
-    mapPage.map.getStopAreaById(testStopLabels.stopAreaPrivateCode).click();
-    mapPage.stopAreaPopup
-      .getLabel()
-      .shouldBeVisible()
-      .shouldHaveText(
-        `${testStopLabels.stopAreaPrivateCode} ${testStopLabels.stopAreaName}`,
-      );
+      MapPage.map.getStopAreaById(testStopLabels.stopAreaPrivateCode).click();
+      MapPage.stopAreaPopup
+        .getLabel()
+        .shouldBeVisible()
+        .shouldHaveText(
+          `${testStopLabels.stopAreaPrivateCode} ${testStopLabels.stopAreaName}`,
+        );
 
-    mapPage.stopAreaPopup.getAddStopButton().click();
-    mapPage.stopAreaPopup.getLabel().should('not.exist');
+      MapPage.stopAreaPopup.getAddStopButton().click();
+      MapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapPage.map.clickRelativePoint(40, 55);
+      MapPage.map.clickRelativePoint(40, 55);
 
-    mapPage.stopForm
-      .getStopAreaInput()
-      .shouldBeDisabled()
-      .and('have.value', testStopLabels.stopAreaName);
+      MapPage.stopForm
+        .getStopAreaInput()
+        .shouldBeDisabled()
+        .and('have.value', testStopLabels.stopAreaName);
 
-    mapPage.stopForm.fillFormForNewStop({
-      publicCode: 'H12345',
-      validityStartISODate: '2022-01-01',
-      priority: Priority.Standard,
-      reasonForChange: 'Initial creation',
-    });
+      MapPage.stopForm.fillFormForNewStop({
+        publicCode: 'H12345',
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+        reasonForChange: 'Initial creation',
+      });
 
-    mapPage.stopForm.save();
-    mapPage.gqlStopShouldBeCreatedSuccessfully();
-    mapPage.checkStopSubmitSuccessToast();
-
-    mapPage.map.stopPopUp.getLabel().shouldBeVisible();
-  });
+      MapPage.stopForm.save();
+      MapPage.gqlStopShouldBeCreatedSuccessfully();
+      MapPage.checkStopSubmitSuccessToast();
+      MapPage.map.stopPopUp.getLabel().shouldBeVisible();
+    },
+  );
 
   it(
     'should automatically recommend proper Public Code',
     { tags: [Tag.StopRegistry] },
     () => {
-      const { stopForm: form } = mapPage;
+      const { stopForm: form } = MapPage;
 
       // Add 1st stop
-      mapPage.mapFooter.addStop();
-      mapPage.map.waitForLoadToComplete();
-      mapPage.map.clickAtCoordinates(24.9333, 60.1643);
+      MapFooter.addStop();
+      MapPage.map.waitForLoadToComplete();
+      MapPage.map.clickAtCoordinates(24.9333, 60.1643);
 
       form.getPublicCodePrefixMissmatchWarning().should('not.exist');
 
@@ -354,13 +362,13 @@ describe('Stop creation tests', rootOpts, () => {
         reasonForChange: 'Initial creation',
       });
       form.save();
-      mapPage.checkStopSubmitSuccessToast();
-      mapPage.map.stopPopUp.getCloseButton().click();
+      MapPage.checkStopSubmitSuccessToast();
+      MapPage.map.stopPopUp.getCloseButton().click();
 
       // Add another stop close to the 1st one
-      mapPage.mapFooter.addStop();
-      mapPage.map.waitForLoadToComplete();
-      mapPage.map.clickAtCoordinates(24.9331, 60.1643);
+      MapFooter.addStop();
+      MapPage.map.waitForLoadToComplete();
+      MapPage.map.clickAtCoordinates(24.9331, 60.1643);
 
       form.getPublicCodeCandidate('H1235').should('exist');
       form.getPublicCodeCandidate('H0001').should('exist');
@@ -378,7 +386,7 @@ describe('Stop creation tests', rootOpts, () => {
       form.getPublicCodeInput().clearAndType('H1235');
       form.getPublicCodePrefixMissmatchWarning().should('not.exist');
       form.save();
-      mapPage.checkStopSubmitSuccessToast();
+      MapPage.checkStopSubmitSuccessToast();
     },
   );
 });

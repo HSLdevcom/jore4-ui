@@ -2,16 +2,16 @@ import { OwnerDetailsEdit } from './OwnerDetailsEdit';
 import { TerminalOwnerDetailsView } from './TerminalOwnerDetailsView';
 
 export class TerminalOwnerDetailsSection {
-  view = new TerminalOwnerDetailsView();
+  static view = TerminalOwnerDetailsView;
 
-  edit = new OwnerDetailsEdit();
+  static edit = OwnerDetailsEdit;
 
-  getEditButton = () =>
+  static getEditButton = () =>
     cy.getByTestId('TerminalOwnerDetailsSection::editButton');
 
-  getSaveButton = () =>
+  static getSaveButton = () =>
     cy.getByTestId('TerminalOwnerDetailsSection::saveButton');
 
-  getCancelButton = () =>
+  static getCancelButton = () =>
     cy.getByTestId('TerminalOwnerDetailsSection::editButton');
 }

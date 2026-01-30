@@ -1,29 +1,29 @@
 import { TerminalAddStopsModal } from './terminals';
 
 export class TerminalDetailsStopsPage {
-  addStopsModal = new TerminalAddStopsModal();
+  static addStopsModal = TerminalAddStopsModal;
 
-  getTitle() {
+  static getTitle() {
     return cy.getByTestId('TerminalDetailsPage::stopsTitle');
   }
 
-  getStopAreas() {
+  static getStopAreas() {
     return cy.getByTestId('TerminalDetailsPage::stopAreaSection');
   }
 
-  getNthStopArea(index: number) {
-    return this.getStopAreas().eq(index);
+  static getNthStopArea(index: number) {
+    return TerminalDetailsStopsPage.getStopAreas().eq(index);
   }
 
-  getStopAreaHeader() {
+  static getStopAreaHeader() {
     return cy.getByTestId('TerminalDetailsPage::stopAreaHeader');
   }
 
-  getStopAreaStopsTable() {
+  static getStopAreaStopsTable() {
     return cy.getByTestId('TerminalDetailsPage::stopAreaStopsTable');
   }
 
-  getAddStopToTerminalButton() {
+  static getAddStopToTerminalButton() {
     return cy.getByTestId('TerminalDetailsPage::addStopToTerminalButton');
   }
 }

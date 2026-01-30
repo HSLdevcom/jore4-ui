@@ -1,86 +1,86 @@
-import { Toast } from '../../Toast';
+import { Toast } from '../../shared-components/Toast';
 
 export class StopSearchResultsPage {
-  toast = new Toast();
-
-  getContainer() {
+  static getContainer() {
     return cy.getByTestId('StopSearchResultsPage::Container');
   }
 
-  getCloseResultsButton() {
+  static getCloseResultsButton() {
     return cy.getByTestId('StopSearchResultsPage::closeButton');
   }
 
-  getResultCount() {
+  static getResultCount() {
     return cy.getByTestId('StopSearchResultsPage::resultCount');
   }
 
-  getShowOnMapButton() {
+  static getShowOnMapButton() {
     return cy.getByTestId('StopSearchResultsPage::showOnMapButton');
   }
 
-  getShowOnMapButtonLoading() {
+  static getShowOnMapButtonLoading() {
     return cy.getByTestId('StopSearchResultsPage::showOnMapButton::loading');
   }
 
-  getResultsTable() {
+  static getResultsTable() {
     return cy.getByTestId('StopSearchByStopResultList::table');
   }
 
-  getResultRows() {
-    return this.getResultsTable().first().find('tbody tr');
+  static getResultRows() {
+    return StopSearchResultsPage.getResultsTable().first().find('tbody tr');
   }
 
-  getRowByLabel(label: string) {
+  static getRowByLabel(label: string) {
     return cy.getByTestId(`StopTableRow::row::${label}`);
   }
 
-  getRowByNetexId(netexId: string) {
+  static getRowByNetexId(netexId: string) {
     return cy.get(`[data-netex-id='${netexId}']`);
   }
 
-  getRowByScheduledStopPointId(scheduledStopPointId: string) {
+  static getRowByScheduledStopPointId(scheduledStopPointId: string) {
     return cy.get(`[data-scheduled-stop-point-id='${scheduledStopPointId}']`);
   }
 
-  getRowLinkByLabel(label: string) {
-    return this.getRowByLabel(label).findByTestId('StopTableRow::link');
+  static getRowLinkByLabel(label: string) {
+    return StopSearchResultsPage.getRowByLabel(label).findByTestId(
+      'StopTableRow::link',
+    );
   }
 
-  getRowPriority() {
+  static getRowPriority() {
     return cy.getByTestId('StopTableRow::priority');
   }
 
-  getSelectInput() {
+  static getSelectInput() {
     return cy.getByTestId('StopTableRow::selectInput');
   }
 
-  getSelectAllStopsOfLineButton(line: string) {
+  static getSelectAllStopsOfLineButton(line: string) {
     return cy.getByTestId(`StopSearchByLine::line::selectAll::${line}`);
   }
 
-  getSelectAllStopsOfRouteButton(route: string) {
+  static getSelectAllStopsOfRouteButton(route: string) {
     return cy.getByTestId(`StopSearchByLine::route::selectAll::${route}`);
   }
 
-  getSelectAllButton() {
+  static getSelectAllButton() {
     return cy.getByTestId('StopSearchResultsPage::selectAllButton');
   }
 
-  getResultsActionMenu() {
+  static getResultsActionMenu() {
     return cy.getByTestId('StopSearchResultsPage::results::actionMenu');
   }
 
-  getDownloadEquipmentDetailsReportButton() {
+  static getDownloadEquipmentDetailsReportButton() {
     return cy.getByTestId('EquipmentReport::button');
   }
 
-  getDownloadInfoSpotDetailsReportButton() {
+  static getDownloadInfoSpotDetailsReportButton() {
     return cy.getByTestId('InfoSpotReport::button');
   }
 
-  getDownloadedCSVReport(type: string) {
-    this.toast.expectSuccessToast('CSV raportti ladattu nimellä: ');
+  static getDownloadedCSVReport(type: string) {
+    Toast.expectSuccessToast('CSV raportti ladattu nimellä: ');
     return cy
       .getByTestId(`${type}::filename`)
       .then((filenameSpan) => filenameSpan.text())
@@ -96,11 +96,11 @@ export class StopSearchResultsPage {
       );
   }
 
-  getDownloadedEquipmentDetailsCSVReport() {
-    return this.getDownloadedCSVReport('EquipmentReport');
+  static getDownloadedEquipmentDetailsCSVReport() {
+    return StopSearchResultsPage.getDownloadedCSVReport('EquipmentReport');
   }
 
-  getDownloadedInfoSpotDetailsCSVReport() {
-    return this.getDownloadedCSVReport('InfoSpotReport');
+  static getDownloadedInfoSpotDetailsCSVReport() {
+    return StopSearchResultsPage.getDownloadedCSVReport('InfoSpotReport');
   }
 }

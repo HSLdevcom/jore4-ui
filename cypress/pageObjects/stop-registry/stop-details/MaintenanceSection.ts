@@ -2,19 +2,19 @@ import { MaintenanceDetailsForm } from './MaintenanceDetailsForm';
 import { MaintenanceViewCard } from './MaintenanceViewCard';
 
 export class MaintenanceSection {
-  form = new MaintenanceDetailsForm();
+  static form = MaintenanceDetailsForm;
 
-  viewCard = new MaintenanceViewCard();
+  static viewCard = MaintenanceViewCard;
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('MaintenanceSection::editButton');
   }
 
-  getCancelButton() {
+  static getCancelButton() {
     return cy.getByTestId('MaintenanceSection::cancelButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('MaintenanceSection::saveButton');
   }
 }

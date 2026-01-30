@@ -1,69 +1,73 @@
 export class MeasurementsViewCard {
-  getContainer = () => cy.getByTestId('MeasurementsViewCard::container');
+  static getContainer = () => cy.getByTestId('MeasurementsViewCard::container');
 
-  getStopType = () => cy.getByTestId('MeasurementsViewCard::stopType');
+  static getStopType = () => cy.getByTestId('MeasurementsViewCard::stopType');
 
-  getCurvedStop = () => cy.getByTestId('MeasurementsViewCard::curvedStop');
+  static getCurvedStop = () =>
+    cy.getByTestId('MeasurementsViewCard::curvedStop');
 
-  getShelterType = () => cy.getByTestId('MeasurementsViewCard::shelterType');
+  static getShelterType = () =>
+    cy.getByTestId('MeasurementsViewCard::shelterType');
 
-  getShelterLaneDistance = () =>
+  static getShelterLaneDistance = () =>
     cy.getByTestId('MeasurementsViewCard::shelterLaneDistance');
 
-  getCurbBackOfRailDistance = () =>
+  static getCurbBackOfRailDistance = () =>
     cy.getByTestId('MeasurementsViewCard::curbBackOfRailDistance');
 
-  getStopAreaSideSlope = () =>
+  static getStopAreaSideSlope = () =>
     cy.getByTestId('MeasurementsViewCard::stopAreaSideSlope');
 
-  getStopAreaLengthwiseSlope = () =>
+  static getStopAreaLengthwiseSlope = () =>
     cy.getByTestId('MeasurementsViewCard::stopAreaLengthwiseSlope');
 
-  getStructureLaneDistance = () =>
+  static getStructureLaneDistance = () =>
     cy.getByTestId('MeasurementsViewCard::structureLaneDistance');
 
-  getStopElevationFromRailTop = () =>
+  static getStopElevationFromRailTop = () =>
     cy.getByTestId('MeasurementsViewCard::stopElevationFromRailTop');
 
-  getStopElevationFromSidewalk = () =>
+  static getStopElevationFromSidewalk = () =>
     cy.getByTestId('MeasurementsViewCard::stopElevationFromSidewalk');
 
-  getLowerCleatHeight = () =>
+  static getLowerCleatHeight = () =>
     cy.getByTestId('MeasurementsViewCard::lowerCleatHeight');
 
-  getPlatformEdgeWarningArea = () =>
+  static getPlatformEdgeWarningArea = () =>
     cy.getByTestId('MeasurementsViewCard::platformEdgeWarningArea');
 
-  getSidewalkAccessibleConnection = () =>
+  static getSidewalkAccessibleConnection = () =>
     cy.getByTestId('MeasurementsViewCard::sidewalkAccessibleConnection');
 
-  getGuidanceStripe = () =>
+  static getGuidanceStripe = () =>
     cy.getByTestId('MeasurementsViewCard::guidanceStripe');
 
-  getServiceAreaStripes = () =>
+  static getServiceAreaStripes = () =>
     cy.getByTestId('MeasurementsViewCard::serviceAreaStripes');
 
-  getGuidanceType = () => cy.getByTestId('MeasurementsViewCard::guidanceType');
+  static getGuidanceType = () =>
+    cy.getByTestId('MeasurementsViewCard::guidanceType');
 
-  getGuidanceTiles = () =>
+  static getGuidanceTiles = () =>
     cy.getByTestId('MeasurementsViewCard::guidanceTiles');
 
-  getMapType = () => cy.getByTestId('MeasurementsViewCard::mapType');
+  static getMapType = () => cy.getByTestId('MeasurementsViewCard::mapType');
 
-  getCurbDriveSideOfRailDistance = () =>
+  static getCurbDriveSideOfRailDistance = () =>
     cy.getByTestId('MeasurementsViewCard::curbDriveSideOfRailDistance');
 
-  getEndRampSlope = () => cy.getByTestId('MeasurementsViewCard::endRampSlope');
+  static getEndRampSlope = () =>
+    cy.getByTestId('MeasurementsViewCard::endRampSlope');
 
-  getServiceAreaWidth = () =>
+  static getServiceAreaWidth = () =>
     cy.getByTestId('MeasurementsViewCard::serviceAreaWidth');
 
-  getServiceAreaLength = () =>
+  static getServiceAreaLength = () =>
     cy.getByTestId('MeasurementsViewCard::serviceAreaLength');
 
-  getPedestrianCrossingRampType = () =>
+  static getPedestrianCrossingRampType = () =>
     cy.getByTestId('MeasurementsViewCard::pedestrianCrossingRampType');
 
-  getStopAreaSurroundingsAccessible = () =>
+  static getStopAreaSurroundingsAccessible = () =>
     cy.getByTestId('MeasurementsViewCard::stopAreaSurroundingsAccessible');
 }

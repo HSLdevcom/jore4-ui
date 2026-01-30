@@ -1,21 +1,21 @@
 export class OrganisationDetailsForm {
-  getCancelButton() {
+  static getCancelButton() {
     return cy.getByTestId('OrganisationDetailsForm::cancelButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('OrganisationDetailsForm::saveButton');
   }
 
-  getName() {
+  static getName() {
     return cy.getByTestId('OrganisationDetailsForm::name');
   }
 
-  getPhone() {
+  static getPhone() {
     return cy.getByTestId('OrganisationDetailsForm::phone');
   }
 
-  getEmail() {
+  static getEmail() {
     return cy.getByTestId('OrganisationDetailsForm::email');
   }
 }

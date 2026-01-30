@@ -2,19 +2,19 @@ import { MeasurementsForm } from './MeasurementsForm';
 import { MeasurementsViewCard } from './MeasurementsViewCard';
 
 export class MeasurementsSection {
-  form = new MeasurementsForm();
+  static form = MeasurementsForm;
 
-  viewCard = new MeasurementsViewCard();
+  static viewCard = MeasurementsViewCard;
 
-  getAccessibilityLevel() {
+  static getAccessibilityLevel() {
     return cy.getByTestId('AccessibilityLevelInfo::accessibilityLevel');
   }
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('MeasurementsSection::editButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('MeasurementsSection::saveButton');
   }
 }

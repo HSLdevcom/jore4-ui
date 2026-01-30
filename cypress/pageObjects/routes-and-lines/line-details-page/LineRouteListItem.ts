@@ -1,16 +1,16 @@
-import { RouteRow } from '../../RouteRow';
-import { RouteStopListItem } from '../../RouteStopListItem';
+import { RouteRow } from '../RouteRow';
+import { RouteStopListItem } from '../RouteStopListItem';
 
 export class LineRouteListItem {
-  routeRow = new RouteRow();
+  static routeRow = RouteRow;
 
-  routeStopListItem = new RouteStopListItem();
+  static routeStopListItem = RouteStopListItem;
 
-  getRouteStopListItems() {
+  static getRouteStopListItems() {
     return cy.getByTestId('RouteStopListItem::container');
   }
 
-  getNthRouteStopListItem(nth: number) {
-    return this.getRouteStopListItems().eq(nth);
+  static getNthRouteStopListItem(nth: number) {
+    return LineRouteListItem.getRouteStopListItems().eq(nth);
   }
 }

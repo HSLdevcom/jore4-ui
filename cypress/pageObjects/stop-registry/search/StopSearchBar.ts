@@ -5,43 +5,47 @@ import { SearchForDropdown } from './SearchForDropdown';
 import { TransportationModeFilter } from './TransportationModeFilter';
 
 export class StopSearchBar {
-  municipality = new MultiselectDropDown('StopSearchBar::municipalitiesFilter');
+  static municipality = new MultiselectDropDown(
+    'StopSearchBar::municipalitiesFilter',
+  );
 
-  electricity = new MultiselectDropDown('StopSearchBar::electricityFilter');
+  static electricity = new MultiselectDropDown(
+    'StopSearchBar::electricityFilter',
+  );
 
-  infoSpots = new MultiselectDropDown('StopSearchBar::infoSpotsFilter');
+  static infoSpots = new MultiselectDropDown('StopSearchBar::infoSpotsFilter');
 
-  priority = new PriorityFilter();
+  static priority = new PriorityFilter();
 
-  searchCriteriaRadioButtons = new SearchCriteriaRadioButtons();
+  static searchCriteriaRadioButtons = new SearchCriteriaRadioButtons();
 
-  searchForDropdown = new SearchForDropdown();
+  static searchForDropdown = new SearchForDropdown();
 
-  shelters = new MultiselectDropDown('StopSearchBar::shelterFilter');
+  static shelters = new MultiselectDropDown('StopSearchBar::shelterFilter');
 
-  stopState = new MultiselectDropDown('StopSearchBar::stopStateFilter');
+  static stopState = new MultiselectDropDown('StopSearchBar::stopStateFilter');
 
-  stopOwner = new MultiselectDropDown('StopSearchBar::stopOwnerFilter');
+  static stopOwner = new MultiselectDropDown('StopSearchBar::stopOwnerFilter');
 
-  transportationMode = new TransportationModeFilter();
+  static transportationMode = new TransportationModeFilter();
 
-  getObservationDateInput() {
+  static getObservationDateInput() {
     return cy.getByTestId('StopSearchBar::observationDateInput');
   }
 
-  getSearchInput() {
+  static getSearchInput() {
     return cy.getByTestId('StopSearchBar::searchInput');
   }
 
-  getElyInput() {
+  static getElyInput() {
     return cy.getByTestId('StopSearchBar::elyInput');
   }
 
-  getExpandToggle() {
+  static getExpandToggle() {
     return cy.getByTestId('StopSearchBar::chevronToggle');
   }
 
-  getSearchButton() {
+  static getSearchButton() {
     return cy.getByTestId('StopSearchBar::searchButton');
   }
 }

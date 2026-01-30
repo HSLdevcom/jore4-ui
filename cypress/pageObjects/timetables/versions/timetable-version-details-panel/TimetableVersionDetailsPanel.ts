@@ -1,24 +1,24 @@
-import { VehicleJourneyGroupInfo } from '../../../VehicleJourneyGroupInfo';
+import { VehicleJourneyGroupInfo } from '../../VehicleJourneyGroupInfo';
 
 export class TimetableVersionDetailsPanel {
-  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
+  static vehicleJourneyGroupInfo = VehicleJourneyGroupInfo;
 
-  getHeading = () => {
+  static getHeading = () => {
     return cy.getByTestId('TimetableVersionPanelHeading::heading');
   };
 
-  getRows = () => {
+  static getRows = () => {
     return cy.getByTestId('ExpandableRouteTimetableRow::row');
   };
 
-  toggleExpandNthRow = (rowNumber: number) => {
-    this.getRows()
+  static toggleExpandNthRow = (rowNumber: number) => {
+    TimetableVersionDetailsPanel.getRows()
       .eq(rowNumber)
       .findByTestId('ExpandableRouteTimetableRow::AccordionButton')
       .click();
   };
 
-  close = () => {
+  static close = () => {
     cy.getByTestId('TimetableVersionPanelHeading::closeButton').click();
   };
 }

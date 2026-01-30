@@ -1,20 +1,20 @@
-import { ReasonForChangeForm } from '../../ReasonForChangeForm';
-import { ValidityPeriodForm } from '../../ValidityPeriodForm';
+import { ReasonForChangeForm } from '../../forms/ReasonForChangeForm';
+import { ValidityPeriodForm } from '../../forms/ValidityPeriodForm';
 
 export class TerminalValidityForm {
-  validity = new ValidityPeriodForm();
+  static validity = ValidityPeriodForm;
 
-  reasonForChange = new ReasonForChangeForm();
+  static reasonForChange = ReasonForChangeForm;
 
-  form() {
+  static form() {
     return cy.getByTestId('TerminalValidityForm::form');
   }
 
-  submitButton() {
+  static submitButton() {
     return cy.getByTestId('TerminalValidityForm::submitButton');
   }
 
-  cancelButton() {
+  static cancelButton() {
     return cy.getByTestId('TerminalValidityForm::cancelButton');
   }
 }

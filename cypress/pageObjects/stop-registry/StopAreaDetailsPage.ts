@@ -1,4 +1,4 @@
-import { ObservationDateControl } from '../ObservationDateControl';
+import { ObservationDateControl } from '../timetables/ObservationDateControl';
 import {
   CopyStopAreaModal,
   StopAreaDetails,
@@ -9,21 +9,21 @@ import {
 } from './stop-area-details';
 
 export class StopAreaDetailsPage {
-  details = new StopAreaDetails();
+  static details = StopAreaDetails;
 
-  memberStops = new StopAreaMemberStops();
+  static memberStops = StopAreaMemberStops;
 
-  minimap = new StopAreaMinimap();
+  static minimap = StopAreaMinimap;
 
-  titleRow = new StopAreaTitleRow();
+  static titleRow = StopAreaTitleRow;
 
-  versioningRow = new StopAreaVersioningRow();
+  static versioningRow = StopAreaVersioningRow;
 
-  copyModal = new CopyStopAreaModal();
+  static copyModal = CopyStopAreaModal;
 
-  observationDateControl = new ObservationDateControl();
+  static observationDateControl = ObservationDateControl;
 
-  visit(netexId: string, observationDate?: string) {
+  static visit(netexId: string, observationDate?: string) {
     cy.visit(
       `/stop-registry/stop-areas/${netexId}${observationDate ? `?observationDate=${observationDate}` : ''}`,
     );

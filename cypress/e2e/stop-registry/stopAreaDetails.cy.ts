@@ -25,7 +25,7 @@ import {
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
-import { DialogWithButtons } from '../../pageObjects/DialogWithButtons';
+import { DialogWithButtons } from '../../pageObjects/shared-components/DialogWithButtons';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -59,11 +59,6 @@ type ExpectedBasicDetails = {
 };
 
 describe('Stop area details', { tags: Tag.StopRegistry }, () => {
-  const stopAreaDetailsPage = new StopAreaDetailsPage();
-  const alternativeNames = new AlternativeNames();
-  const toast = new Toast();
-  const selectStopDropdown = new SelectStopDropdown();
-
   let dbResources: SupportedResources;
   let dbIds: InsertedStopRegistryIds;
 
@@ -202,50 +197,50 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      stopAreaDetailsPage.visit(id);
+      StopAreaDetailsPage.visit(id);
     });
   });
 
   function assertBasicDetails(expected: ExpectedBasicDetails) {
-    stopAreaDetailsPage.titleRow
+    StopAreaDetailsPage.titleRow
       .getPrivateCode()
       .shouldHaveText(expected.privateCode);
-    stopAreaDetailsPage.titleRow.getName().shouldHaveText(expected.name);
+    StopAreaDetailsPage.titleRow.getName().shouldHaveText(expected.name);
 
     const validity = `${mapToShortDate(expected.validFrom)}-${mapToShortDate(expected.validTo)}`;
 
-    stopAreaDetailsPage.versioningRow
+    StopAreaDetailsPage.versioningRow
       .getValidityPeriod()
       .shouldHaveText(validity);
 
-    stopAreaDetailsPage.versioningRow
+    StopAreaDetailsPage.versioningRow
       .getChangeHistoryLink()
       .shouldBeVisible()
       .invoke('text')
       .should('match', /\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2}/); // Matches format: DD.MM.YYYY HH:mm
 
-    const { details } = stopAreaDetailsPage;
+    const { details } = StopAreaDetailsPage;
     details.getName().shouldHaveText(expected.name);
     details.getNameSwe().shouldHaveText(expected.nameSwe);
-    alternativeNames.getNameEng().shouldHaveText(expected.nameEng);
-    alternativeNames.getNameLongFin().shouldHaveText(expected.nameLongFin);
-    alternativeNames.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
-    alternativeNames.getNameLongEng().shouldHaveText(expected.nameLongEng);
-    alternativeNames
-      .getAbbreviationFin()
-      .shouldHaveText(expected.abbreviationFin);
-    alternativeNames
-      .getAbbreviationSwe()
-      .shouldHaveText(expected.abbreviationSwe);
-    alternativeNames
-      .getAbbreviationEng()
-      .shouldHaveText(expected.abbreviationEng);
+    AlternativeNames.getNameEng().shouldHaveText(expected.nameEng);
+    AlternativeNames.getNameLongFin().shouldHaveText(expected.nameLongFin);
+    AlternativeNames.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
+    AlternativeNames.getNameLongEng().shouldHaveText(expected.nameLongEng);
+    AlternativeNames.getAbbreviationFin().shouldHaveText(
+      expected.abbreviationFin,
+    );
+    AlternativeNames.getAbbreviationSwe().shouldHaveText(
+      expected.abbreviationSwe,
+    );
+    AlternativeNames.getAbbreviationEng().shouldHaveText(
+      expected.abbreviationEng,
+    );
     details.getPrivateCode().shouldHaveText(expected.privateCode);
     details.getAreaSize().shouldHaveText(expected.areaSize);
     details.getParentTerminal().shouldHaveText(expected.parentTerminal);
     details.getValidityPeriod().shouldHaveText(validity);
 
-    stopAreaDetailsPage.minimap
+    StopAreaDetailsPage.minimap
       .getMarker()
       .should('have.attr', 'data-longitude', expected.longitude)
       .should('have.attr', 'data-latitude', expected.latitude);
@@ -253,7 +248,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
   describe('View basic details', { tags: [Tag.Map, Tag.Smoke] }, () => {
     function testMemberStopRow(label: string) {
-      const { memberStops } = stopAreaDetailsPage;
+      const { memberStops } = StopAreaDetailsPage;
 
       memberStops.getStopRow(label).shouldBeVisible();
 
@@ -293,37 +288,42 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
   describe('Editing', () => {
     function setValidity(from: DateTime, to: DateTime | null) {
-      stopAreaDetailsPage.details.edit.validity.setStartDate(
+      StopAreaDetailsPage.details.edit.validity.setStartDate(
         from.toISODate() ?? '',
       );
       if (to) {
-        stopAreaDetailsPage.details.edit.validity.setAsIndefinite(false);
-        stopAreaDetailsPage.details.edit.validity.setEndDate(
+        StopAreaDetailsPage.details.edit.validity.setAsIndefinite(false);
+        StopAreaDetailsPage.details.edit.validity.setEndDate(
           to.toISODate() ?? '',
         );
       } else {
-        stopAreaDetailsPage.details.edit.validity.setAsIndefinite(true);
+        StopAreaDetailsPage.details.edit.validity.setAsIndefinite(true);
       }
     }
 
     function waitForSaveToBeFinished() {
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-      toast.expectSuccessToast('Pysäkkialue muokattu');
+      Toast.expectSuccessToast('Pysäkkialue muokattu');
     }
 
     function inputBasicDetails(inputs: ExpectedBasicDetails) {
-      const { edit } = stopAreaDetailsPage.details;
-      const altEdit = new AlternativeNamesEdit();
+      const { edit } = StopAreaDetailsPage.details;
 
       edit.getName().clearAndType(inputs.name);
       edit.getNameSwe().clearAndType(inputs.nameSwe);
-      altEdit.getNameEng().clearAndType(inputs.nameEng);
-      altEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
-      altEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
-      altEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
-      altEdit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
-      altEdit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
-      altEdit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
+      AlternativeNamesEdit.getNameEng().clearAndType(inputs.nameEng);
+      AlternativeNamesEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
+      AlternativeNamesEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
+      AlternativeNamesEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
+      AlternativeNamesEdit.getAbbreviationFin().clearAndType(
+        inputs.abbreviationFin,
+      );
+      AlternativeNamesEdit.getAbbreviationSwe().clearAndType(
+        inputs.abbreviationSwe,
+      );
+      AlternativeNamesEdit.getAbbreviationEng().clearAndType(
+        inputs.abbreviationEng,
+      );
 
       setValidity(inputs.validFrom, inputs.validTo);
     }
@@ -347,9 +347,9 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       };
 
       // Edit basic details
-      stopAreaDetailsPage.details.getEditButton().click();
+      StopAreaDetailsPage.details.getEditButton().click();
       inputBasicDetails(newBasicDetails);
-      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      StopAreaDetailsPage.details.edit.getSaveButton().click();
       waitForSaveToBeFinished();
 
       // Should have saved the changes and be back at view mode with new details
@@ -360,149 +360,141 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should set observation date after edit', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003, '2025-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003, '2025-01-01');
 
       assertBasicDetails(testAreaExpectedBasicDetails);
 
       // Edit basic details
-      stopAreaDetailsPage.details.getEditButton().click();
+      StopAreaDetailsPage.details.getEditButton().click();
       setValidity(DateTime.fromISO('2030-01-01'), null);
-      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      StopAreaDetailsPage.details.edit.getSaveButton().click();
       waitForSaveToBeFinished();
 
       // Check that the observation date has been set
-      stopAreaDetailsPage.observationDateControl
+      StopAreaDetailsPage.observationDateControl
         .getObservationDateInput()
         .should('have.value', '2030-01-01');
 
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-');
     });
 
     it('should allow moving member stop to the stop area', () => {
-      stopAreaDetailsPage.memberStops.getAddStopButton().click();
-      stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
-      selectStopDropdown.dropdownButton().click();
-      selectStopDropdown.getInput().click();
-      selectStopDropdown.getInput().clearAndType('E2E003');
-      selectStopDropdown.common.getMemberOptions().should('have.length', 1);
-      selectStopDropdown.common
+      StopAreaDetailsPage.memberStops.getAddStopButton().click();
+      StopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
+      SelectStopDropdown.dropdownButton().click();
+      SelectStopDropdown.getInput().click();
+      SelectStopDropdown.getInput().clearAndType('E2E003');
+      SelectStopDropdown.common.getMemberOptions().should('have.length', 1);
+      SelectStopDropdown.common
         .getMemberOptions()
         .eq(0)
         .should('contain.text', 'E2E003')
         .click();
 
-      stopAreaDetailsPage.memberStops.modal
+      StopAreaDetailsPage.memberStops.modal
         .getTransferDateInput()
         .shouldBeVisible();
-      stopAreaDetailsPage.memberStops.modal.setTransferDate(
+      StopAreaDetailsPage.memberStops.modal.setTransferDate(
         DateTime.now().toISODate() ?? '',
       );
-      stopAreaDetailsPage.memberStops.modal.getStopVersionsButton().click();
+      StopAreaDetailsPage.memberStops.modal.getStopVersionsButton().click();
 
-      stopAreaDetailsPage.memberStops.modal
+      StopAreaDetailsPage.memberStops.modal
         .getStopVersionsList()
         .shouldBeVisible();
 
-      stopAreaDetailsPage.memberStops.modal.saveButton().click();
+      StopAreaDetailsPage.memberStops.modal.saveButton().click();
 
       // All stops should be present in the end
-      stopAreaDetailsPage.memberStops.getStopRow('E2E001').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E009').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E001').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E009').shouldBeVisible();
     });
 
     it('should not find member stop to move to the stop area if it already is in the stop area', () => {
-      stopAreaDetailsPage.memberStops.getAddStopButton().click();
-      stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
-      selectStopDropdown.dropdownButton().click();
-      selectStopDropdown.getInput().click();
-      selectStopDropdown.getInput().clearAndType('E2E001');
-      selectStopDropdown.common.getMemberOptions().should('have.length', 0);
-      stopAreaDetailsPage.memberStops.modal.saveButton().should('be.disabled');
+      StopAreaDetailsPage.memberStops.getAddStopButton().click();
+      StopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
+      SelectStopDropdown.dropdownButton().click();
+      SelectStopDropdown.getInput().click();
+      SelectStopDropdown.getInput().clearAndType('E2E001');
+      SelectStopDropdown.common.getMemberOptions().should('have.length', 0);
+      StopAreaDetailsPage.memberStops.modal.saveButton().should('be.disabled');
     });
 
     it('should change name in all stop pages when editing stop area name', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
 
-      stopAreaDetailsPage.details.getEditButton().click();
-      stopAreaDetailsPage.details.edit.getName().clearAndType('uusinimi');
-      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      StopAreaDetailsPage.details.getEditButton().click();
+      StopAreaDetailsPage.details.edit.getName().clearAndType('uusinimi');
+      StopAreaDetailsPage.details.edit.getSaveButton().click();
 
-      const stopDetailsPage = new StopDetailsPage();
-      const bdViewCard = new BasicDetailsViewCard();
+      StopDetailsPage.visit('E2E001');
+      StopDetailsPage.page().shouldBeVisible();
+      BasicDetailsViewCard.getAreaName().shouldHaveText('uusinimi');
 
-      stopDetailsPage.visit('E2E001');
-      stopDetailsPage.page().shouldBeVisible();
-      bdViewCard.getAreaName().shouldHaveText('uusinimi');
-
-      stopDetailsPage.visit('E2E009');
-      stopDetailsPage.page().shouldBeVisible();
-      bdViewCard.getAreaName().should('contain.text', 'uusinimi');
+      StopDetailsPage.visit('E2E009');
+      StopDetailsPage.page().shouldBeVisible();
+      BasicDetailsViewCard.getAreaName().should('contain.text', 'uusinimi');
     });
 
     it('should handle deletion', () => {
       // Do not allow deletion when there are stops
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getDeleteButton().click();
-      const dialog = new DialogWithButtons();
-      dialog
-        .getTextContent()
-        .contains(
-          'Pysäkkialueeseen liittyy vielä pysäkkejä, eikä sitä voi siksi poistaa. Poista ensin alueeseen liittyvät pysäkit kokonaan tai siirrä ne johonkin toiseen pysäkkialueeseen.',
-        );
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getDeleteButton().click();
+      DialogWithButtons.getTextContent().contains(
+        'Pysäkkialueeseen liittyy vielä pysäkkejä, eikä sitä voi siksi poistaa. Poista ensin alueeseen liittyvät pysäkit kokonaan tai siirrä ne johonkin toiseen pysäkkialueeseen.',
+      );
 
       // Allow deletion when there are no stops
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getDeleteButton().click();
-      const confirmationDialog = new ConfirmationDialog();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getDeleteButton().click();
 
-      confirmationDialog.getConfirmButton().click();
+      ConfirmationDialog.getConfirmButton().click();
       cy.url().should('include', '/stop-registry');
     });
 
     it('should show no stops text on stop area without stops', () => {
       // Check that the text is shown on the stop area without stops
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
 
-      stopAreaDetailsPage.details
+      StopAreaDetailsPage.details
         .getNoStopsText()
         .shouldHaveText('Ei pysäkkejä.');
     });
 
     it('should show error when name exceeds 21 characters', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
-      stopAreaDetailsPage.details.getEditButton().click();
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      StopAreaDetailsPage.details.getEditButton().click();
       const longName = 'A'.repeat(22);
 
       // Finnish name
-      stopAreaDetailsPage.details.edit.getName().clearAndType(longName);
+      StopAreaDetailsPage.details.edit.getName().clearAndType(longName);
       cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
-      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+      StopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
       // Set a valid name to proceed to testing other name fields
-      stopAreaDetailsPage.details.edit.getName().clearAndType('Annankatu 15');
+      StopAreaDetailsPage.details.edit.getName().clearAndType('Annankatu 15');
 
       // Swedish name
-      stopAreaDetailsPage.details.edit.getNameSwe().clearAndType(longName);
+      StopAreaDetailsPage.details.edit.getNameSwe().clearAndType(longName);
       cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
-      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
-      stopAreaDetailsPage.details.edit
+      StopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+      StopAreaDetailsPage.details.edit
         .getNameSwe()
         .clearAndType('Annankatu 15');
 
       // English name
-      const altEdit = new AlternativeNamesEdit();
-      altEdit.getNameEng().clearAndType(longName);
+      AlternativeNamesEdit.getNameEng().clearAndType(longName);
       cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
-      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+      StopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
 
-      altEdit.getNameEng().clearAndType('Annankatu 15');
-      stopAreaDetailsPage.details.edit.getSaveButton().should('be.enabled');
+      AlternativeNamesEdit.getNameEng().clearAndType('Annankatu 15');
+      StopAreaDetailsPage.details.edit.getSaveButton().should('be.enabled');
     });
   });
 
@@ -512,24 +504,24 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       expectGraphQLCallToSucceed('@gqlEditMultipleStopPoints');
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
       expectGraphQLCallToSucceed('@gqlInsertMultipleStopPoints');
-      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      Toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
       expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
     }
 
     function waitForCopyWithNoStopsToBeFinished() {
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      Toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
       expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
     }
 
     it('should copy and cut current version from end', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -550,40 +542,40 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-1.1.2052');
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '1.1.2030-1.1.2052',
         );
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '1.1.2030-1.1.2052',
         );
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-31.12.2029');
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
         );
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
@@ -592,13 +584,13 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should copy and cut current version from end as indefinite', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -618,34 +610,34 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-');
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-31.12.2029');
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
         );
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
@@ -654,13 +646,12 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should copy and cut current version from start', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011);
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
-
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -681,26 +672,26 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-31.12.2029');
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
         );
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2030-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2030-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-1.1.2052');
-      stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '1.1.2030-1.1.2052',
@@ -709,13 +700,12 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should copy and cut current indefinite version from start', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
-
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -736,49 +726,48 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-31.12.2029');
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
         );
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-31.12.2029',
         );
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2030-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2030-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-1.1.2052');
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
       });
     });
 
     it('should show error when copying version over current version', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
-
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -788,19 +777,19 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       form.validity.setEndDate('2059-12-31');
       form.getSubmitButton().click();
 
-      toast.expectDangerToast(
+      Toast.expectDangerToast(
         'Pysäkkialueen kopiointi epäonnistui:\nUudelle versiolle annettu päivämääräväli on virheellinen.',
       );
     });
 
     it('should show error when copying version over period with multiple versions', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -820,13 +809,13 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
       waitForCopyToBeFinished();
 
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-1.1.2052');
 
       // Try to create a copy over the original version
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -836,24 +825,24 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       form.validity.setEndDate('2040-01-01');
       form.getSubmitButton().click();
 
-      toast.expectDangerToast(
+      Toast.expectDangerToast(
         'Pysäkkialueen kopiointi epäonnistui:\nValituille päivämäärille on olemassa muita pysäkkialueen versioita mikä estää kopioinnin.\nMuokkaa päällekkäisiä versioita ennen jatkamista.',
       );
     });
 
     it('should include stops with validity after stop area when copying version', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-1.1.2052');
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -866,40 +855,40 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('2.1.2052-1.1.2060');
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '2.1.2052-1.1.2060',
         );
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '2.1.2052-1.1.2060',
         );
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-1.1.2052');
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-1.1.2052',
         );
       });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-1.1.2052',
@@ -908,13 +897,13 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should not include stops after their validity has ended when copying version', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -926,21 +915,21 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyWithNoStopsToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('2.1.2052-');
-      stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
+      StopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2025-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2025-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-1.1.2052');
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
 
-      stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
         cy.get('[title="Voimassaolo"]').should(
           'have.text',
           '20.3.2020-1.1.2052',
@@ -949,13 +938,12 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should be able to copy stop area without stops', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
-
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -976,28 +964,27 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyWithNoStopsToBeFinished();
 
       // Confirm that the dates of the new version are correct
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2030-1.1.2060');
-      stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
+      StopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ, '2025-01-01');
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ, '2025-01-01');
 
       // Confirm that the old version was cut correctly
-      stopAreaDetailsPage.versioningRow
+      StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
         .shouldHaveText('1.1.2000-31.12.2029');
-      stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
+      StopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
     });
 
     it('should not allow copying of stop area if it makes a route validity shorter', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
-
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()
@@ -1007,7 +994,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       form.validity.setEndDate('2030-01-01');
       form.getSubmitButton().click();
 
-      toast.expectDangerToast(
+      Toast.expectDangerToast(
         'Pysäkkialueen kopiointi tekisi ainakin yhden pysäkkialueen pysäkin kautta kulkevan reitin voimassaolon virheelliseksi.\nEnnen jatkamista muokkaa reittejä, joihin tämän pysäkkialueen pysäkit kuuluvat.',
       );
 
@@ -1019,19 +1006,19 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       form.validity.setEndDate('2022-01-01');
       form.getSubmitButton().click();
 
-      toast.expectDangerToast(
+      Toast.expectDangerToast(
         'Pysäkkialueen kopiointi tekisi ainakin yhden pysäkkialueen pysäkin kautta kulkevan reitin voimassaolon virheelliseksi.\nEnnen jatkamista muokkaa reittejä, joihin tämän pysäkkialueen pysäkit kuuluvat.',
       );
     });
 
     it('should not allow copy if the end date is before the start date', () => {
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
-      stopAreaDetailsPage.titleRow.getActionMenu().click();
-      stopAreaDetailsPage.titleRow.getCopyButton().click();
+      StopAreaDetailsPage.titleRow.getActionMenu().click();
+      StopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
-      const { form } = stopAreaDetailsPage.copyModal;
+      StopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = StopAreaDetailsPage.copyModal;
 
       form.reasonForChange
         .getReasonForChangeInput()

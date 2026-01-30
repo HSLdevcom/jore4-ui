@@ -1,34 +1,43 @@
 export class TerminalInfoSpotRow {
-  getIdAndQuayCell = () => cy.getByTestId('TerminalInfoSpotRow::idAndQuayCell');
+  static getIdAndQuayCell = () =>
+    cy.getByTestId('TerminalInfoSpotRow::idAndQuayCell');
 
-  getLabelCell = () => cy.getByTestId('TerminalInfoSpotRow::labelCell');
+  static getLabelCell = () => cy.getByTestId('TerminalInfoSpotRow::labelCell');
 
-  getEditButton = () => cy.getByTestId('TerminalInfoSpotRow::editButton');
+  static getEditButton = () =>
+    cy.getByTestId('TerminalInfoSpotRow::editButton');
 
-  getQuayPublicCodeCell = () =>
+  static getQuayPublicCodeCell = () =>
     cy.getByTestId('TerminalInfoSpotRow::quayPublicCodeCell');
 
-  getShelterNumberCell = () =>
+  static getShelterNumberCell = () =>
     cy.getByTestId('TerminalInfoSpotRow::shelterNumberCell');
 
-  getPurposeCell = () => cy.getByTestId('TerminalInfoSpotRow::purposeCell');
+  static getPurposeCell = () =>
+    cy.getByTestId('TerminalInfoSpotRow::purposeCell');
 
-  getSizeCell = () => cy.getByTestId('TerminalInfoSpotRow::sizeCell');
+  static getSizeCell = () => cy.getByTestId('TerminalInfoSpotRow::sizeCell');
 
-  getDescriptionCell = () =>
+  static getDescriptionCell = () =>
     cy.getByTestId('TerminalInfoSpotRow::descriptionCell');
 
-  getActionCell = () => cy.getByTestId('TerminalInfoSpotRow::actionCell');
+  static getActionCell = () =>
+    cy.getByTestId('TerminalInfoSpotRow::actionCell');
 
-  getToggleButton = () => cy.getByTestId('TerminalInfoSpotRow::toggle');
+  static getToggleButton = () => cy.getByTestId('TerminalInfoSpotRow::toggle');
 
-  getNthToggleButton = (index: number) => this.getToggleButton().eq(index);
+  static getNthToggleButton = (index: number) =>
+    TerminalInfoSpotRow.getToggleButton().eq(index);
 
-  getDetailsRow = () => cy.getByTestId('TerminalInfoSpotRow::detailsRow');
+  static getDetailsRow = () =>
+    cy.getByTestId('TerminalInfoSpotRow::detailsRow');
 
-  getNthDetailsRow = (index: number) => this.getDetailsRow().eq(index);
+  static getNthDetailsRow = (index: number) =>
+    TerminalInfoSpotRow.getDetailsRow().eq(index);
 
-  getSaveButton = () => cy.getByTestId('TerminalInfoSpotRow::saveButton');
+  static getSaveButton = () =>
+    cy.getByTestId('TerminalInfoSpotRow::saveButton');
 
-  getCancelButton = () => cy.getByTestId('TerminalInfoSpotRow::cancelButton');
+  static getCancelButton = () =>
+    cy.getByTestId('TerminalInfoSpotRow::cancelButton');
 }

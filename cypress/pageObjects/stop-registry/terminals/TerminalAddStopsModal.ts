@@ -1,17 +1,17 @@
-import { SelectTerminalMemberStopsDropdown } from '../../SelectTerminalMemberStopsDropdown';
+import { SelectTerminalMemberStopsDropdown } from '../../forms/SelectTerminalMemberStopsDropdown';
 
 export class TerminalAddStopsModal {
-  dropdown = new SelectTerminalMemberStopsDropdown();
+  static dropdown = SelectTerminalMemberStopsDropdown;
 
-  getModal() {
+  static getModal() {
     return cy.getByTestId('AddMemberStopsModal::modal');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('AddMemberStopsModal::saveButton');
   }
 
-  getCloseButton() {
+  static getCloseButton() {
     return cy.getByTestId('AddMemberStopsModal::closeButton');
   }
 }

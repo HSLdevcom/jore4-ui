@@ -1,17 +1,17 @@
 export class MaintainerViewCard {
-  getName() {
+  static getName() {
     return cy.getByTestId(`MaintainerViewCard::name`);
   }
 
-  getPhone() {
+  static getPhone() {
     return cy.getByTestId(`MaintainerViewCard::phone`);
   }
 
-  getEmail() {
+  static getEmail() {
     return cy.getByTestId(`MaintainerViewCard::email`);
   }
 
-  getNotSelectedPlaceholder() {
+  static getNotSelectedPlaceholder() {
     return cy.getByTestId(`MaintainerViewCard::notSelectedPlaceholder`);
   }
 }

@@ -1,26 +1,26 @@
-import { VehicleJourneyGroupInfo } from '../VehicleJourneyGroupInfo';
 import { PassingTimesByStopTableRow } from './PassingTimesByStopTableRow';
+import { VehicleJourneyGroupInfo } from './VehicleJourneyGroupInfo';
 
 export class PassingTimesByStopTable {
-  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
+  static vehicleJourneyGroupInfo = VehicleJourneyGroupInfo;
 
-  row = new PassingTimesByStopTableRow();
+  static row = PassingTimesByStopTableRow;
 
-  getTable() {
+  static getTable() {
     return cy.getByTestId('PassingTimesByStopTable::table');
   }
 
-  getStopRow(stopLabel: string) {
-    return this.getTable().findByTestId(
+  static getStopRow(stopLabel: string) {
+    return PassingTimesByStopTable.getTable().findByTestId(
       `PassingTimesByStopTableRow::${stopLabel}`,
     );
   }
 
-  getAllHighlightedElements() {
-    return this.getTable().find('[data-highlighted="true"]');
+  static getAllHighlightedElements() {
+    return PassingTimesByStopTable.getTable().find('[data-highlighted="true"]');
   }
 
-  getAllPassingTimeArrivalTimes() {
+  static getAllPassingTimeArrivalTimes() {
     return cy.getByTestId(
       'PassingTimesByStopTableRowPassingMinute::arrivalTime',
     );

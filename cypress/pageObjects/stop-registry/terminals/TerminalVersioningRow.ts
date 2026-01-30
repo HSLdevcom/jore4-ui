@@ -1,10 +1,10 @@
 export class TerminalVersioningRow {
-  getValidityPeriod = () =>
+  static getValidityPeriod = () =>
     cy.getByTestId('TerminalVersioningRow::validityPeriod');
 
-  getEditValidityButton = () =>
+  static getEditValidityButton = () =>
     cy.getByTestId('TerminalVersioningRow::editTerminalValidityButton');
 
-  getChangeHistoryLink = () =>
+  static getChangeHistoryLink = () =>
     cy.getByTestId('TerminalVersioningRow::changeHistoryLink');
 }

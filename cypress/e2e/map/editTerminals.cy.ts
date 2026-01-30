@@ -12,18 +12,15 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   ConfirmationDialog,
+  MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
   Toast,
+  ValidityPeriodForm,
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
-
-const mapPage = new MapPage();
-const observationDateFilters = new MapObservationDateFiltersOverlay();
-const confirmationDialog = new ConfirmationDialog();
-const toast = new Toast();
 
 describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
   let dbResources: SupportedResources;
@@ -80,25 +77,25 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
   });
 
   beforeEach(() => {
-    mapPage.map.visit({
+    MapPage.map.visit({
       zoom: 17,
       lat: 60.16993,
       lng: 24.92596,
     });
 
     expectGraphQLCallToSucceed('@gqlGetStopTerminalsByLocation');
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
   });
 
   it(
     'should edit terminal details',
     { tags: [Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
-      mapPage.map.getTerminalById('T2').click();
+      MapPage.map.getTerminalById('T2').click();
 
-      mapPage.map.waitForLoadToComplete();
+      MapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapPage;
+      const { terminalPopup, terminalForm } = MapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
 
@@ -110,14 +107,14 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
         .shouldBeDisabled()
         .should('have.value', 'T2');
       terminalForm.getNameInput().clearAndType('New Name');
-      terminalForm.validityPeriodForm.setAsIndefinite();
+      ValidityPeriodForm.setAsIndefinite();
 
       terminalForm.save();
 
-      confirmationDialog.getConfirmButton().click();
+      ConfirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
       terminalForm.getForm().should('not.exist');
-      toast.expectSuccessToast('Terminaali muokattu');
+      Toast.expectSuccessToast('Terminaali muokattu');
 
       // Check that edited info was persisted.
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 New Name');
@@ -133,31 +130,29 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
     'should set correct observation date after editing',
     { scrollBehavior: 'bottom' },
     () => {
-      observationDateFilters.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
+      MapObservationDateControl.setObservationDate('2025-01-01');
 
-      mapPage.map.getTerminalById('T2').click();
-      mapPage.map.waitForLoadToComplete();
+      MapPage.map.getTerminalById('T2').click();
+      MapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapPage;
+      const { terminalPopup, terminalForm } = MapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
 
       terminalPopup.getEditButton().click();
       terminalForm.getForm().shouldBeVisible();
-      terminalForm.validityPeriodForm.setStartDate('2030-01-01');
-      terminalForm.validityPeriodForm.setAsIndefinite();
+      ValidityPeriodForm.setStartDate('2030-01-01');
+      ValidityPeriodForm.setAsIndefinite();
 
       terminalForm.save();
 
-      confirmationDialog.getConfirmButton().click();
+      ConfirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
       terminalForm.getForm().should('not.exist');
-      toast.expectWarningToast('Tarkasteluhetkeä muutettu');
+      Toast.expectWarningToast('Tarkasteluhetkeä muutettu');
 
       // Check that observation date was correctly set
-      observationDateFilters.observationDateControl
+      MapObservationDateFiltersOverlay.observationDateControl
         .getObservationDateInput()
         .should('have.value', '2030-01-01');
 
@@ -170,11 +165,11 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
     'should move a terminal with form inputs',
     { scrollBehavior: 'bottom' },
     () => {
-      mapPage.map.getTerminalById('T2').click();
+      MapPage.map.getTerminalById('T2').click();
 
-      mapPage.map.waitForLoadToComplete();
+      MapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapPage;
+      const { terminalPopup, terminalForm } = MapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
 
@@ -191,10 +186,10 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
 
       terminalForm.save();
 
-      confirmationDialog.getConfirmButton().click();
+      ConfirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
       terminalForm.getForm().should('not.exist');
-      toast.expectSuccessToast('Terminaali muokattu');
+      Toast.expectSuccessToast('Terminaali muokattu');
 
       expectGraphQLCallToSucceed('@gqlGetStopTerminalsByLocation');
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
@@ -202,27 +197,27 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
   );
 
   it('should move terminal on map', { scrollBehavior: 'bottom' }, () => {
-    mapPage.map.visit({
+    MapPage.map.visit({
       zoom: 14,
       lat: 60.16993,
       lng: 24.92596,
     });
 
-    mapPage.map.getTerminalById('T3').click();
+    MapPage.map.getTerminalById('T3').click();
 
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
-    const { terminalPopup, terminalForm } = mapPage;
+    const { terminalPopup, terminalForm } = MapPage;
 
     terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
     terminalPopup.getMoveButton().click();
 
     // Move the terminal to around Rautatientori
-    mapPage.map.clickRelativePoint(70, 45);
+    MapPage.map.clickRelativePoint(70, 45);
 
-    confirmationDialog.getConfirmButton().click();
+    ConfirmationDialog.getConfirmButton().click();
     expectGraphQLCallToSucceed('@gqlUpdateTerminal');
-    toast.expectSuccessToast('Terminaali muokattu');
+    Toast.expectSuccessToast('Terminaali muokattu');
 
     terminalPopup.getLabel().shouldBeVisible();
     terminalPopup.getEditButton().click();
@@ -238,25 +233,25 @@ describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
   });
 
   it('should delete terminal on map', { scrollBehavior: 'bottom' }, () => {
-    mapPage.map.getTerminalById('T3').click();
+    MapPage.map.getTerminalById('T3').click();
 
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
-    const { terminalPopup } = mapPage;
+    const { terminalPopup } = MapPage;
 
     terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
     terminalPopup.getDeleteButton().click();
 
     // Should list member stops on the confirmation dialog
-    confirmationDialog.dialogWithButtons
+    ConfirmationDialog.dialogWithButtons
       .getTextContent()
       .should('contain', 'E2E007');
 
-    confirmationDialog.getConfirmButton().click();
+    ConfirmationDialog.getConfirmButton().click();
     expectGraphQLCallToSucceed('@gqlDeleteTerminal');
-    toast.expectSuccessToast('Terminaali poistettu');
+    Toast.expectSuccessToast('Terminaali poistettu');
 
     // Make sure that the terminal is not visible on the map
-    mapPage.map.getTerminalById('T3').should('not.exist');
+    MapPage.map.getTerminalById('T3').should('not.exist');
   });
 });
