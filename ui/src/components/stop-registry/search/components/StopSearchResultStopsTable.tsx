@@ -13,6 +13,7 @@ import {
 } from '../../components';
 import { LocatableStop } from '../../types';
 import { ResultSelection } from '../types';
+import { createCompositeKey } from '../utils';
 
 const testIds = {
   table: 'StopSearchByStopResultList::table',
@@ -95,12 +96,31 @@ export const StopSearchResultStopsTable: FC<
 type SelectableStopSearchResultStopsTableProps =
   StopSearchResultStopsTableProps & {
     readonly onToggleSelection: (rowId: string) => void;
+    readonly routeId?: UUID;
     readonly selection: ResultSelection;
   };
 
 export const SelectableStopSearchResultStopsTable: FC<
   SelectableStopSearchResultStopsTableProps
-> = ({ className, observationDate, onToggleSelection, selection, stops }) => {
+> = ({
+  className,
+  observationDate,
+  onToggleSelection,
+  routeId,
+  selection,
+  stops,
+}) => {
+  const isInSelection = (list: readonly string[], stopNetexId: string) => {
+    if (list.includes(stopNetexId)) {
+      return true;
+    }
+    if (routeId) {
+      const compositeKey = createCompositeKey(routeId, stopNetexId);
+      return list.includes(compositeKey);
+    }
+    return false;
+  };
+
   const isSelected = (stop: StopSearchRow) => {
     if (selection.selectionState === 'ALL_SELECTED') {
       return true;
@@ -111,11 +131,11 @@ export const SelectableStopSearchResultStopsTable: FC<
     }
 
     if (selection.included.length) {
-      return selection.included.includes(stop.netexId);
+      return isInSelection(selection.included, stop.netexId);
     }
 
     if (selection.excluded.length) {
-      return !selection.excluded.includes(stop.netexId);
+      return !isInSelection(selection.excluded, stop.netexId);
     }
 
     return false;

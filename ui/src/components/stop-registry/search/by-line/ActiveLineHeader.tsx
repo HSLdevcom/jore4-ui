@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { twMerge } from 'tailwind-merge';
@@ -7,7 +7,12 @@ import { mapDirectionToSymbol } from '../../../../i18n/uiNameMappings';
 import { mapToShortDate } from '../../../../time';
 import { SelectAllCheckbox } from '../components/SelectAllCheckbox';
 import { ResultSelection } from '../types';
-import { BatchUpdateSelection, areAllStopsSelected } from '../utils';
+import {
+  BatchUpdateSelection,
+  areAllStopsSelected,
+  createCompositeKey,
+  useGroupedResultSelection,
+} from '../utils';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 import { useGetLineRouteStopCounts } from './useGetLineRouteStopCounts';
 import { useGetLineRouteStopIds } from './useGetLineRouteStopIds';
@@ -64,25 +69,47 @@ type SelectAllLineStopsProps = {
   readonly onBatchUpdateSelection: BatchUpdateSelection;
   readonly selection: ResultSelection;
   readonly line: FindStopByLineInfo;
-  readonly stopIds: ReadonlyArray<UUID>;
 };
 
 const SelectAllLineStops: FC<SelectAllLineStopsProps> = ({
   onBatchUpdateSelection,
   selection,
   line,
-  stopIds,
 }) => {
-  const allSelected = areAllStopsSelected(selection, stopIds);
+  const { onRegisterNewGroup } = useGroupedResultSelection();
+  const routeIds = line.line_routes.map((route) => route.route_id);
+  const { stopIds, loading: stopIdsLoading } = useGetLineRouteStopIds(routeIds);
+
+  // If there are no stops, use the line ID directly so the line itself can be selected
+  const allCompositeKeys = useMemo(() => {
+    if (stopIds.length === 0) {
+      return [line.line_id];
+    }
+    return line.line_routes.flatMap((route) =>
+      stopIds.map((stopId) => createCompositeKey(route.route_id, stopId)),
+    );
+  }, [line.line_routes, line.line_id, stopIds]);
+
+  useEffect(() => {
+    if (stopIds.length === 0) {
+      onRegisterNewGroup(line.line_id, allCompositeKeys);
+    }
+  }, [onRegisterNewGroup, line.line_id, stopIds.length, allCompositeKeys]);
+
+  const allSelected = areAllStopsSelected(selection, allCompositeKeys);
 
   const onToggleSelectAll = () =>
     onBatchUpdateSelection((actualSelection) => {
-      if (areAllStopsSelected(actualSelection, stopIds)) {
-        return { exclude: stopIds };
+      if (areAllStopsSelected(actualSelection, allCompositeKeys)) {
+        return { exclude: allCompositeKeys };
       }
 
-      return { include: stopIds };
+      return { include: allCompositeKeys };
     });
+
+  if (stopIdsLoading) {
+    return null;
+  }
 
   return (
     <SelectAllCheckbox
@@ -119,11 +146,7 @@ export const ActiveLineHeader: FC<ActiveLineHeaderProps> = ({
     outboundRouteId,
   );
 
-  const routeIds = line.line_routes.map((route) => route.route_id);
-
-  const { stopIds, loading: stopIdsLoading } = useGetLineRouteStopIds(routeIds);
-
-  const showLoadingState = (!counts && loading) || stopIdsLoading;
+  const showLoadingState = !counts && loading;
 
   return (
     <div className={twMerge('flex items-center gap-5', className)}>
@@ -131,7 +154,6 @@ export const ActiveLineHeader: FC<ActiveLineHeaderProps> = ({
         onBatchUpdateSelection={onBatchUpdateSelection}
         selection={selection}
         line={line}
-        stopIds={stopIds}
       />
 
       <div className="flex w-full items-center gap-4 bg-brand p-4 text-white">

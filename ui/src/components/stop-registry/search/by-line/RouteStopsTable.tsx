@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
@@ -8,7 +8,7 @@ import {
   SelectableStopSearchResultStopsTable,
 } from '../components';
 import { ResultSelection, SortingInfo } from '../types';
-import { useGroupedResultSelection } from '../utils';
+import { createCompositeKey, useGroupedResultSelection } from '../utils';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
@@ -48,11 +48,18 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
     useGroupedResultSelection();
 
   useEffect(() => {
-    onRegisterNewGroup(
-      route.route_id,
-      stops.map((stop) => stop.netexId),
+    const compositeKeys = stops.map((stop) =>
+      createCompositeKey(route.route_id, stop.netexId),
     );
+    onRegisterNewGroup(route.route_id, compositeKeys);
   }, [onRegisterNewGroup, route.route_id, stops]);
+
+  const onToggleSelectionForRoute = useMemo(
+    () => (stopId: string) => {
+      onToggleSelection(createCompositeKey(route.route_id, stopId));
+    },
+    [onToggleSelection, route.route_id],
+  );
 
   return (
     <div className={className} data-testid={testIds.container(route.route_id)}>
@@ -81,7 +88,8 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
           <SelectableStopSearchResultStopsTable
             observationDate={observationDate}
             stops={stops}
-            onToggleSelection={onToggleSelection}
+            onToggleSelection={onToggleSelectionForRoute}
+            routeId={route.route_id}
             selection={selection}
           />
         </Visible>

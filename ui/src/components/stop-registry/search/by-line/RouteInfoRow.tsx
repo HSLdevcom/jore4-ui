@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -12,7 +12,11 @@ import { useShowRoutesOnMap } from '../../../common/hooks';
 import { StopSearchRow } from '../../components';
 import { SelectAllCheckbox } from '../components/SelectAllCheckbox';
 import { ResultSelection } from '../types';
-import { BatchUpdateSelection, areAllStopsSelected } from '../utils';
+import {
+  BatchUpdateSelection,
+  areAllStopsSelected,
+  createCompositeKey,
+} from '../utils';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 
 const testIds = {
@@ -40,16 +44,20 @@ const SelectAllRouteStops: FC<SelectAllRouteStopsProps> = ({
   stops,
   route,
 }) => {
-  const stopIds = stops.map((stop) => stop.netexId);
-  const allSelected = areAllStopsSelected(selection, stopIds);
+  const compositeKeys = useMemo(
+    () => stops.map((stop) => createCompositeKey(route.route_id, stop.netexId)),
+    [route.route_id, stops],
+  );
+
+  const allSelected = areAllStopsSelected(selection, compositeKeys);
 
   const onToggleSelectAll = () =>
     onBatchUpdateSelection((actualSelection) => {
-      if (areAllStopsSelected(actualSelection, stopIds)) {
-        return { exclude: stopIds };
+      if (areAllStopsSelected(actualSelection, compositeKeys)) {
+        return { exclude: compositeKeys };
       }
 
-      return { include: stopIds };
+      return { include: compositeKeys };
     });
 
   return (
