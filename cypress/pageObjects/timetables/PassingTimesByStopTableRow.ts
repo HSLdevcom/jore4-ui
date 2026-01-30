@@ -1,9 +1,9 @@
-import { PassingTimesByStopTableRowPassingTime } from '../PassingTimesByStopTableRowPassingTime';
+import { PassingTimesByStopTableRowPassingTime } from './PassingTimesByStopTableRowPassingTime';
 
 export class PassingTimesByStopTableRow {
-  passingTime = new PassingTimesByStopTableRowPassingTime();
+  static passingTime = PassingTimesByStopTableRowPassingTime;
 
-  getTimeContainerByHour(hour: string) {
+  static getTimeContainerByHour(hour: string) {
     return cy
       .getByTestId('PassingTimesByStopTableRowPassingTime::hour')
       .contains(hour)

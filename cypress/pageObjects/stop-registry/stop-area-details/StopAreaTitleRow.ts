@@ -1,11 +1,11 @@
 export class StopAreaTitleRow {
-  getPrivateCode = () => cy.getByTestId('StopAreaTitleRow::privateCode');
+  static getPrivateCode = () => cy.getByTestId('StopAreaTitleRow::privateCode');
 
-  getName = () => cy.getByTestId('StopAreaTitleRow::name');
+  static getName = () => cy.getByTestId('StopAreaTitleRow::name');
 
-  getActionMenu = () => cy.getByTestId('StopAreaTitleRow::actionMenu');
+  static getActionMenu = () => cy.getByTestId('StopAreaTitleRow::actionMenu');
 
-  getDeleteButton = () => cy.getByTestId('StopAreaTitleRow::delete');
+  static getDeleteButton = () => cy.getByTestId('StopAreaTitleRow::delete');
 
-  getCopyButton = () => cy.getByTestId('StopAreaTitleRow::copy');
+  static getCopyButton = () => cy.getByTestId('StopAreaTitleRow::copy');
 }

@@ -2,31 +2,31 @@ import { InfoSpotsForm } from './InfoSpotsForm';
 import { InfoSpotViewCard } from './InfoSpotViewCard';
 
 export class InfoSpotsSection {
-  viewCard = new InfoSpotViewCard();
+  static viewCard = InfoSpotViewCard;
 
-  form = new InfoSpotsForm();
+  static form = InfoSpotsForm;
 
-  getTitle() {
+  static getTitle() {
     return cy.getByTestId('InfoSpotsSection::title');
   }
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('InfoSpotsSection::editButton');
   }
 
-  getAddNewButton() {
+  static getAddNewButton() {
     return cy.getByTestId('InfoSpotsSection::addNewItemButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('InfoSpotsSection::saveButton');
   }
 
-  getAddNewInfoSpotButton() {
+  static getAddNewInfoSpotButton() {
     return cy.getByTestId('InfoSpotsSection::addInfoSpot');
   }
 
-  getNoSheltersInfoText() {
+  static getNoSheltersInfoText() {
     return cy.getByTestId('InfoSpotsSection::noSheltersText');
   }
 }

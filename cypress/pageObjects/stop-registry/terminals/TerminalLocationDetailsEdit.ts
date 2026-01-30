@@ -1,19 +1,22 @@
 export class TerminalLocationDetailsEdit {
-  getStreetAddress = () =>
+  static getStreetAddress = () =>
     cy.getByTestId('TerminalLocationDetailsEdit::streetAddress');
 
-  getPostalCode = () =>
+  static getPostalCode = () =>
     cy.getByTestId('TerminalLocationDetailsEdit::postalCode');
 
-  getMunicipality = () =>
+  static getMunicipality = () =>
     cy.getByTestId('TerminalLocationDetailsEdit::municipality');
 
-  getFareZone = () => cy.getByTestId('TerminalLocationDetailsEdit::fareZone');
+  static getFareZone = () =>
+    cy.getByTestId('TerminalLocationDetailsEdit::fareZone');
 
-  getLatitude = () => cy.getByTestId('TerminalLocationDetailsEdit::latitude');
+  static getLatitude = () =>
+    cy.getByTestId('TerminalLocationDetailsEdit::latitude');
 
-  getLongitude = () => cy.getByTestId('TerminalLocationDetailsEdit::longitude');
+  static getLongitude = () =>
+    cy.getByTestId('TerminalLocationDetailsEdit::longitude');
 
-  getSelectMemberStops = () =>
+  static getSelectMemberStops = () =>
     cy.getByTestId('TerminalLocationDetailsEdit::memberStops');
 }

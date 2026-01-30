@@ -1,9 +1,10 @@
 export class ExternalLinksFormFields {
-  getNameInput = () => cy.getByTestId('ExternalLinksFormFields::name');
+  static getNameInput = () => cy.getByTestId('ExternalLinksFormFields::name');
 
-  getLocationInput = () => cy.getByTestId('ExternalLinksFormFields::location');
+  static getLocationInput = () =>
+    cy.getByTestId('ExternalLinksFormFields::location');
 
-  getDeleteExternalLinkButton() {
+  static getDeleteExternalLinkButton() {
     return cy.getByTestId('ExternalLinksFormFields::deleteExternalLink');
   }
 }

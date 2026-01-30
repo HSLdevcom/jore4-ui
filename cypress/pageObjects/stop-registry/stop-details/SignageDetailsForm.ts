@@ -1,21 +1,21 @@
 export class SignageDetailsForm {
-  getSignTypeDropdownButton() {
+  static getSignTypeDropdownButton() {
     return cy.getByTestId('SignageDetailsForm::signType::ListboxButton');
   }
 
-  getSignTypeDropdownOptions() {
+  static getSignTypeDropdownOptions() {
     return cy.getByTestId('SignageDetailsForm::signType::ListboxOptions');
   }
 
-  getNumberOfFramesInput() {
+  static getNumberOfFramesInput() {
     return cy.getByTestId('SignageDetailsForm::numberOfFrames');
   }
 
-  getSignageInstructionExceptionsInput() {
+  static getSignageInstructionExceptionsInput() {
     return cy.getByTestId('SignageDetailsForm::signageInstructionExceptions');
   }
 
-  getReplacesRailSignCheckbox() {
+  static getReplacesRailSignCheckbox() {
     return cy.getByTestId('SignageDetailsForm::replacesRailSign');
   }
 }

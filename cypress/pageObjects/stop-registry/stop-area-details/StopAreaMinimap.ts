@@ -1,5 +1,6 @@
 export class StopAreaMinimap {
-  getOpenMapButton = () => cy.getByTestId('StopAreaMinimap::openMapButton');
+  static getOpenMapButton = () =>
+    cy.getByTestId('StopAreaMinimap::openMapButton');
 
-  getMarker = () => cy.getByTestId('StopAreaMinimap::marker');
+  static getMarker = () => cy.getByTestId('StopAreaMinimap::marker');
 }

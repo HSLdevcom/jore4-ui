@@ -1,41 +1,52 @@
 export class TerminalInfoSpotsViewCard {
-  getContainer = () => cy.getByTestId('TerminalInfoSpotsViewCard::container');
+  static getContainer = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::container');
 
-  getDescription = () =>
+  static getDescription = () =>
     cy.getByTestId('TerminalInfoSpotsViewCard::description');
 
-  getLabel = () => cy.getByTestId('TerminalInfoSpotsViewCard::label');
+  static getLabel = () => cy.getByTestId('TerminalInfoSpotsViewCard::label');
 
-  getInfoSpotType = () =>
+  static getInfoSpotType = () =>
     cy.getByTestId('TerminalInfoSpotsViewCard::infoSpotType');
 
-  getPurpose = () => cy.getByTestId('TerminalInfoSpotsViewCard::purpose');
+  static getPurpose = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::purpose');
 
-  getLatitude = () => cy.getByTestId('TerminalInfoSpotsViewCard::latitude');
+  static getLatitude = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::latitude');
 
-  getLongitude = () => cy.getByTestId('TerminalInfoSpotsViewCard::longitude');
+  static getLongitude = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::longitude');
 
-  getBacklight = () => cy.getByTestId('TerminalInfoSpotsViewCard::backlight');
+  static getBacklight = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::backlight');
 
-  getSize = () => cy.getByTestId('TerminalInfoSpotsViewCard::size');
+  static getSize = () => cy.getByTestId('TerminalInfoSpotsViewCard::size');
 
-  getFloor = () => cy.getByTestId('TerminalInfoSpotsViewCard::floor');
+  static getFloor = () => cy.getByTestId('TerminalInfoSpotsViewCard::floor');
 
-  getRailInformation = () =>
+  static getRailInformation = () =>
     cy.getByTestId('TerminalInfoSpotsViewCard::railInformation');
 
-  getZoneLabel = () => cy.getByTestId('TerminalInfoSpotsViewCard::zoneLabel');
+  static getZoneLabel = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::zoneLabel');
 
-  getPosterContainer = () => cy.getByTestId('InfoSpotPosterDetails::container');
+  static getPosterContainer = () =>
+    cy.getByTestId('InfoSpotPosterDetails::container');
 
-  getPosterSize = () => cy.getByTestId('InfoSpotPosterDetails::posterSize');
+  static getPosterSize = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterSize');
 
-  getPosterLabel = () => cy.getByTestId('InfoSpotPosterDetails::posterLabel');
+  static getPosterLabel = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterLabel');
 
-  getPosterLines = () => cy.getByTestId('InfoSpotPosterDetails::posterLines');
+  static getPosterLines = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterLines');
 
-  getNoPosters = () => cy.getByTestId('InfoSpotPosterDetails::noPosters');
+  static getNoPosters = () =>
+    cy.getByTestId('InfoSpotPosterDetails::noPosters');
 
-  getNthPosterContainer = (index: number) =>
-    this.getPosterContainer().eq(index);
+  static getNthPosterContainer = (index: number) =>
+    TerminalInfoSpotsViewCard.getPosterContainer().eq(index);
 }

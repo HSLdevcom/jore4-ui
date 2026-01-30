@@ -2,11 +2,13 @@ import { TerminalDetailsEdit } from './TerminalDetailsEdit';
 import { TerminalDetailsViewCard } from './TerminalDetailsViewCard';
 
 export class TerminalDetailsSection {
-  viewCard = new TerminalDetailsViewCard();
+  static viewCard = TerminalDetailsViewCard;
 
-  edit = new TerminalDetailsEdit();
+  static edit = TerminalDetailsEdit;
 
-  getEditButton = () => cy.getByTestId('TerminalDetailsSection::editButton');
+  static getEditButton = () =>
+    cy.getByTestId('TerminalDetailsSection::editButton');
 
-  getSaveButton = () => cy.getByTestId('TerminalDetailsSection::saveButton');
+  static getSaveButton = () =>
+    cy.getByTestId('TerminalDetailsSection::saveButton');
 }

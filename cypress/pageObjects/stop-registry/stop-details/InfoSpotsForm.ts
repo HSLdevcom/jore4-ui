@@ -1,13 +1,13 @@
 import { InfoSpotFormFields } from './InfoSpotFormFields';
 
 export class InfoSpotsForm {
-  infoSpots = new InfoSpotFormFields();
+  static infoSpots = InfoSpotFormFields;
 
-  getInfoSpots() {
+  static getInfoSpots() {
     return cy.getByTestId('InfoSpotsForm::infoSpot');
   }
 
-  getNthInfoSpot(index: number) {
-    return this.getInfoSpots().eq(index);
+  static getNthInfoSpot(index: number) {
+    return InfoSpotsForm.getInfoSpots().eq(index);
   }
 }

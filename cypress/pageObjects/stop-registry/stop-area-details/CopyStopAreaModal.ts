@@ -2,19 +2,19 @@ import { CopyStopAreaConfirmationModal } from './CopyStopAreaConfirmationModal';
 import { CopyStopAreaForm } from './CopyStopAreaForm';
 
 export class CopyStopAreaModal {
-  form = new CopyStopAreaForm();
+  static form = CopyStopAreaForm;
 
-  confirmationModal = new CopyStopAreaConfirmationModal();
+  static confirmationModal = CopyStopAreaConfirmationModal;
 
-  modal() {
+  static modal() {
     return cy.getByTestId('CopyStopAreaModal::modal');
   }
 
-  getBoilerplateNames() {
+  static getBoilerplateNames() {
     return cy.getByTestId('CopyStopAreaModal::names');
   }
 
-  getBoilerplateValidity() {
+  static getBoilerplateValidity() {
     return cy.getByTestId('CopyStopAreaModal::validity');
   }
 }

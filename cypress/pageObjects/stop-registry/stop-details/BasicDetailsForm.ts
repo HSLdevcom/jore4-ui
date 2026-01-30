@@ -1,44 +1,46 @@
-import { CreateTimingPlaceForm } from '../../CreateTimingPlaceForm';
-import { ReasonForChangeForm } from '../../ReasonForChangeForm';
+import { CreateTimingPlaceForm } from '../../forms/CreateTimingPlaceForm';
+import { ReasonForChangeForm } from '../../forms/ReasonForChangeForm';
 
 export class BasicDetailsForm {
-  createTimingPlaceForm = new CreateTimingPlaceForm();
+  static createTimingPlaceForm = CreateTimingPlaceForm;
 
-  reasonForChange = new ReasonForChangeForm();
+  static reasonForChange = ReasonForChangeForm;
 
-  getLabelInput = () => cy.getByTestId('StopBasicDetailsForm::label');
+  static getLabelInput = () => cy.getByTestId('StopBasicDetailsForm::label');
 
-  getPrivateCodeInput = () =>
+  static getPrivateCodeInput = () =>
     cy.getByTestId('StopBasicDetailsForm::privateCode');
 
-  getLocationFinInput = () =>
+  static getLocationFinInput = () =>
     cy.getByTestId('StopBasicDetailsForm::locationFin');
 
-  getLocationSweInput = () =>
+  static getLocationSweInput = () =>
     cy.getByTestId('StopBasicDetailsForm::locationSwe');
 
-  getRailReplacementCheckbox = () =>
+  static getRailReplacementCheckbox = () =>
     cy.getByTestId('StopBasicDetailsForm::railReplacement');
 
-  getVirtualCheckbox = () => cy.getByTestId('StopBasicDetailsForm::virtual');
+  static getVirtualCheckbox = () =>
+    cy.getByTestId('StopBasicDetailsForm::virtual');
 
-  getTransportModeDropdownButton = () =>
+  static getTransportModeDropdownButton = () =>
     cy.getByTestId('StopBasicDetailsForm::transportMode::ListboxButton');
 
-  getTransportModeDropdownOptions = () =>
+  static getTransportModeDropdownOptions = () =>
     cy.getByTestId('StopBasicDetailsForm::transportMode::ListboxOptions');
 
-  getTimingPlaceDropdown = () =>
+  static getTimingPlaceDropdown = () =>
     cy.getByTestId('StopBasicDetailsForm::timingPlaceDropdown');
 
-  getAddTimingPlaceButton = () =>
+  static getAddTimingPlaceButton = () =>
     cy.getByTestId('StopBasicDetailsForm::addTimingPlaceButton');
 
-  getStopPlaceStateDropdownButton = () =>
+  static getStopPlaceStateDropdownButton = () =>
     cy.getByTestId('StopBasicDetailsForm::stopPlaceState::ListboxButton');
 
-  getStopPlaceStateDropdownOptions = () =>
+  static getStopPlaceStateDropdownOptions = () =>
     cy.getByTestId('StopBasicDetailsForm::stopPlaceState::ListboxOptions');
 
-  getElyNumberInput = () => cy.getByTestId('StopBasicDetailsForm::elyNumber');
+  static getElyNumberInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::elyNumber');
 }

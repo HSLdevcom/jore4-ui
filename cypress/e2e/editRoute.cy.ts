@@ -11,21 +11,19 @@ import {
 } from '../datasets/base';
 import { Tag } from '../enums';
 import {
+  ConfirmationDialog,
   EditRoutePage,
   LineDetailsPage,
-  LineRouteListItem,
+  RouteRow,
+  TerminusNameInputs,
   Toast,
+  ValidityPeriodForm,
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';
 
 describe('Route editing', { tags: [Tag.Routes] }, () => {
-  let editRoutePage: EditRoutePage;
-  let lineDetailsPage: LineDetailsPage;
-  let lineRouteListItem: LineRouteListItem;
-  let toast: Toast;
-
   let dbResources: SupportedResources;
   const baseDbResources = getClonedBaseDbResources();
 
@@ -49,23 +47,16 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
     beforeEach(() => {
       cy.task('resetDbs');
       insertToDbHelper(dbResources);
-
-      editRoutePage = new EditRoutePage();
-      lineDetailsPage = new LineDetailsPage();
-      lineRouteListItem = new LineRouteListItem();
-      toast = new Toast();
-
       cy.setupTests();
       cy.mockLogin();
     });
 
     it("Should edit a routes's information", { tags: [Tag.Smoke] }, () => {
-      const { routeRow } = lineRouteListItem;
-      lineDetailsPage.visit(baseDbResources.lines[0].line_id);
-      routeRow.getEditRouteButton('901', RouteDirectionEnum.Inbound).click();
+      LineDetailsPage.visit(baseDbResources.lines[0].line_id);
+      RouteRow.getEditRouteButton('901', RouteDirectionEnum.Inbound).click();
 
       // Edit the route's information
-      editRoutePage.routePropertiesForm.fillRouteProperties({
+      EditRoutePage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Edited route name',
         label: '901E',
         variant: '8',
@@ -83,47 +74,42 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
           swedishShortName: 'Edited destination SWE shortName',
         },
       });
-      editRoutePage.priorityForm.setAsTemporary();
-      editRoutePage.changeValidityForm.validityPeriodForm
-        .getIndefiniteCheckbox()
-        .click();
-      editRoutePage.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-01-01',
-      );
-      editRoutePage.changeValidityForm.validityPeriodForm.setEndDate(
-        '2030-12-31',
-      );
+      EditRoutePage.priorityForm.setAsTemporary();
+      ValidityPeriodForm.getIndefiniteCheckbox().click();
+      ValidityPeriodForm.setStartDate('2022-01-01');
+      ValidityPeriodForm.setEndDate('2030-12-31');
 
-      editRoutePage.getSaveRouteButton().click();
+      EditRoutePage.getSaveRouteButton().click();
 
       // Verify information after transitioning to the line details page
-      routeRow.getRouteName().should('contain', 'Edited route name');
-      routeRow
-        .getRouteHeaderRow('901E', RouteDirectionEnum.Outbound)
-        .should('be.visible');
-      lineDetailsPage.lineRouteList.assertRouteDirection(
+      RouteRow.getRouteName().should('contain', 'Edited route name');
+      RouteRow.getRouteHeaderRow('901E', RouteDirectionEnum.Outbound).should(
+        'be.visible',
+      );
+      LineDetailsPage.lineRouteList.assertRouteDirection(
         '901E',
         RouteDirectionEnum.Outbound,
       );
-      routeRow
-        .getRouteValidityPeriod('901E', RouteDirectionEnum.Outbound)
-        .should('contain', '1.1.2022 - 31.12.2030');
+      RouteRow.getRouteValidityPeriod(
+        '901E',
+        RouteDirectionEnum.Outbound,
+      ).should('contain', '1.1.2022 - 31.12.2030');
 
       // Verify rest of the information from the edit route page
-      routeRow.getEditRouteButton('901E', RouteDirectionEnum.Outbound).click();
+      RouteRow.getEditRouteButton('901E', RouteDirectionEnum.Outbound).click();
 
-      editRoutePage.routePropertiesForm
+      EditRoutePage.routePropertiesForm
         .getVariantInput()
         .should('have.value', '8');
 
-      editRoutePage.terminusNamesInputs.verifyOriginValues({
+      TerminusNameInputs.verifyOriginValues({
         finnishName: 'Edited origin FIN',
         finnishShortName: 'Edited origin FIN shortName',
         swedishName: 'Edited origin SWE',
         swedishShortName: 'Edited origin SWE shortName',
       });
 
-      editRoutePage.terminusNamesInputs.verifyDestinationValues({
+      TerminusNameInputs.verifyDestinationValues({
         finnishName: 'Edited destination FIN',
         finnishShortName: 'Edited destination FIN shortName',
         swedishName: 'Edited destination SWE',
@@ -132,25 +118,24 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
     });
 
     it('Should delete a route', () => {
-      const { routeRow } = lineRouteListItem;
-      lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+      LineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-      routeRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
+      RouteRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
 
-      editRoutePage.routePropertiesForm.getForm().should('be.visible');
-      editRoutePage.getDeleteRouteButton().click();
+      EditRoutePage.routePropertiesForm.getForm().should('be.visible');
+      EditRoutePage.getDeleteRouteButton().click();
 
-      editRoutePage.confirmationDialog.getConfirmButton().click();
+      ConfirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlDeleteRoute');
-      toast.expectSuccessToast('Reitti poistettu');
+      Toast.expectSuccessToast('Reitti poistettu');
 
-      routeRow
-        .getRouteHeaderRow('901', RouteDirectionEnum.Outbound)
-        .should('not.exist');
+      RouteRow.getRouteHeaderRow('901', RouteDirectionEnum.Outbound).should(
+        'not.exist',
+      );
 
-      routeRow
-        .getRouteHeaderRow('901', RouteDirectionEnum.Inbound)
-        .should('exist');
+      RouteRow.getRouteHeaderRow('901', RouteDirectionEnum.Inbound).should(
+        'exist',
+      );
     });
   });
 
@@ -181,19 +166,13 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
     beforeEach(() => {
       cy.task('resetDbs');
       insertToDbHelper(dbResources);
-
-      editRoutePage = new EditRoutePage();
-      lineDetailsPage = new LineDetailsPage();
-      lineRouteListItem = new LineRouteListItem();
-      toast = new Toast();
-
       cy.setupTests();
       cy.mockLogin();
     });
 
     function fillTestValuesToForm() {
       // Edit the route's information
-      editRoutePage.routePropertiesForm.fillRouteProperties({
+      EditRoutePage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Edited route name',
         label: '901E',
         variant: '8',
@@ -214,7 +193,6 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
     }
 
     function visitPage() {
-      const { routeRow } = lineRouteListItem;
       const line = baseDbResources.lines.find(
         (l) => l.line_id === '08d1fa6b-440c-421e-ad4d-0778d65afe60',
       );
@@ -226,10 +204,11 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
           'Test configuration error. Line id or route label missing',
         );
       }
-      lineDetailsPage.visit(line?.line_id);
-      routeRow
-        .getEditRouteButton(row?.label, RouteDirectionEnum.Outbound)
-        .click();
+      LineDetailsPage.visit(line?.line_id);
+      RouteRow.getEditRouteButton(
+        row?.label,
+        RouteDirectionEnum.Outbound,
+      ).click();
       return { line, row };
     }
 
@@ -237,13 +216,9 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
       routeValidityStart: string,
       routeValidityEnd: string | undefined,
     ) {
-      editRoutePage.changeValidityForm.validityPeriodForm.setStartDate(
-        routeValidityStart,
-      );
+      ValidityPeriodForm.setStartDate(routeValidityStart);
       if (routeValidityEnd) {
-        editRoutePage.changeValidityForm.validityPeriodForm.setEndDate(
-          routeValidityEnd,
-        );
+        ValidityPeriodForm.setEndDate(routeValidityEnd);
       }
     }
 
@@ -268,10 +243,9 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
 
       setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
 
-      editRoutePage.getSaveRouteButton().click();
+      EditRoutePage.getSaveRouteButton().click();
 
-      editRoutePage.changeValidityForm.validityPeriodForm
-        .getEndDateValidityError()
+      ValidityPeriodForm.getEndDateValidityError()
         .shouldBeVisible()
         .should(
           'have.text',
@@ -297,9 +271,9 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
       }
       setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
 
-      editRoutePage.getSaveRouteButton().click();
+      EditRoutePage.getSaveRouteButton().click();
 
-      toast.expectDangerToast(
+      Toast.expectDangerToast(
         'Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.',
       );
     });
@@ -332,24 +306,19 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
       cy.task('resetDbs');
       insertToDbHelper(dbResources);
 
-      editRoutePage = new EditRoutePage();
-      lineDetailsPage = new LineDetailsPage();
-      toast = new Toast();
-
       cy.setupTests();
       cy.mockLogin();
     });
 
     it('Should show a warning when trying to change the priority of a draft route that has draft stops', () => {
-      const { routeRow } = lineRouteListItem;
-      lineDetailsPage.visit(baseDbResources.lines[0].line_id);
-      lineDetailsPage.getShowDraftsButton().click();
+      LineDetailsPage.visit(baseDbResources.lines[0].line_id);
+      LineDetailsPage.getShowDraftsButton().click();
 
-      routeRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
+      RouteRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
 
-      editRoutePage.priorityForm.setAsStandard();
-      editRoutePage.getSaveRouteButton().click();
-      editRoutePage.routeDraftStopsConfirmationDialog
+      EditRoutePage.priorityForm.setAsStandard();
+      EditRoutePage.getSaveRouteButton().click();
+      EditRoutePage.routeDraftStopsConfirmationDialog
         .getTextContent()
         .should(
           'contain',

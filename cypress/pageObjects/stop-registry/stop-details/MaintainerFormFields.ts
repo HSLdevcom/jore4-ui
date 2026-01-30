@@ -1,21 +1,21 @@
 export class MaintainerFormFields {
-  getMaintainerDropdown() {
+  static getMaintainerDropdown() {
     return cy.getByTestId('MaintainerFormFields::maintainerDropdown');
   }
 
-  getMaintainerDropdownButton() {
+  static getMaintainerDropdownButton() {
     return cy.getByTestId('MaintainerFormFields::maintainerDropdown::button');
   }
 
-  getEditOrganisationButton() {
+  static getEditOrganisationButton() {
     return cy.getByTestId('MaintainerFormFields::editOrganisationButton');
   }
 
-  getPhone() {
+  static getPhone() {
     return cy.getByTestId('MaintainerFormFields::phone');
   }
 
-  getEmail() {
+  static getEmail() {
     return cy.getByTestId('MaintainerFormFields::email');
   }
 }

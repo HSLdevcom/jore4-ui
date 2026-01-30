@@ -1,21 +1,23 @@
 import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
 
 export class StopAreaDetails {
-  edit = new StopAreaDetailsEdit();
+  static edit = StopAreaDetailsEdit;
 
-  getEditButton = () => cy.getByTestId('StopAreaDetails::editButton');
+  static getEditButton = () => cy.getByTestId('StopAreaDetails::editButton');
 
-  getName = () => cy.getByTestId('StopAreaDetails::name');
+  static getName = () => cy.getByTestId('StopAreaDetails::name');
 
-  getNameSwe = () => cy.getByTestId('StopAreaDetails::nameSwe');
+  static getNameSwe = () => cy.getByTestId('StopAreaDetails::nameSwe');
 
-  getPrivateCode = () => cy.getByTestId('StopAreaDetails::privateCode');
+  static getPrivateCode = () => cy.getByTestId('StopAreaDetails::privateCode');
 
-  getParentTerminal = () => cy.getByTestId('StopAreaDetails::parentTerminal');
+  static getParentTerminal = () =>
+    cy.getByTestId('StopAreaDetails::parentTerminal');
 
-  getAreaSize = () => cy.getByTestId('StopAreaDetails::areaSize');
+  static getAreaSize = () => cy.getByTestId('StopAreaDetails::areaSize');
 
-  getValidityPeriod = () => cy.getByTestId('StopAreaDetails::validityPeriod');
+  static getValidityPeriod = () =>
+    cy.getByTestId('StopAreaDetails::validityPeriod');
 
-  getNoStopsText = () => cy.getByTestId('StopAreaDetails::noStopsText');
+  static getNoStopsText = () => cy.getByTestId('StopAreaDetails::noStopsText');
 }
