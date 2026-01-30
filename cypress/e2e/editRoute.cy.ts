@@ -20,7 +20,7 @@ import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';
 
-describe('Route editing', () => {
+describe('Route editing', { tags: [Tag.Routes] }, () => {
   let editRoutePage: EditRoutePage;
   let lineDetailsPage: LineDetailsPage;
   let lineRouteListItem: LineRouteListItem;
@@ -59,7 +59,7 @@ describe('Route editing', () => {
       cy.mockLogin();
     });
 
-    it("Should edit a routes's information", { tags: Tag.Routes }, () => {
+    it("Should edit a routes's information", { tags: [Tag.Smoke] }, () => {
       const { routeRow } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
       routeRow.getEditRouteButton('901', RouteDirectionEnum.Inbound).click();
@@ -131,7 +131,7 @@ describe('Route editing', () => {
       });
     });
 
-    it('Should delete a route', { tags: Tag.Routes }, () => {
+    it('Should delete a route', () => {
       const { routeRow } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
@@ -247,7 +247,7 @@ describe('Route editing', () => {
       }
     }
 
-    it('should validate start after end', { tags: Tag.Routes }, () => {
+    it('should validate start after end', () => {
       const { line } = visitPage();
       fillTestValuesToForm();
 
@@ -279,34 +279,30 @@ describe('Route editing', () => {
         );
     });
 
-    it(
-      'should validate route validity outside line validity',
-      { tags: Tag.Routes },
-      () => {
-        const { line } = visitPage();
+    it('should validate route validity outside line validity', () => {
+      const { line } = visitPage();
 
-        fillTestValuesToForm();
+      fillTestValuesToForm();
 
-        const routeValidityStart = line.validity_start
-          ?.minus({ days: 1 })
-          ?.toISODate();
+      const routeValidityStart = line.validity_start
+        ?.minus({ days: 1 })
+        ?.toISODate();
 
-        const routeValidityEnd = line.validity_end?.toISODate();
+      const routeValidityEnd = line.validity_end?.toISODate();
 
-        if (!routeValidityStart || !routeValidityEnd) {
-          throw new Error(
-            'Test configuration error. No validity period for line',
-          );
-        }
-        setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
-
-        editRoutePage.getSaveRouteButton().click();
-
-        toast.expectDangerToast(
-          'Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.',
+      if (!routeValidityStart || !routeValidityEnd) {
+        throw new Error(
+          'Test configuration error. No validity period for line',
         );
-      },
-    );
+      }
+      setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
+
+      editRoutePage.getSaveRouteButton().click();
+
+      toast.expectDangerToast(
+        'Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.',
+      );
+    });
   });
 
   describe('draft route', () => {
@@ -344,25 +340,21 @@ describe('Route editing', () => {
       cy.mockLogin();
     });
 
-    it(
-      'Should show a warning when trying to change the priority of a draft route that has draft stops',
-      { tags: Tag.Routes },
-      () => {
-        const { routeRow } = lineRouteListItem;
-        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
-        lineDetailsPage.getShowDraftsButton().click();
+    it('Should show a warning when trying to change the priority of a draft route that has draft stops', () => {
+      const { routeRow } = lineRouteListItem;
+      lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+      lineDetailsPage.getShowDraftsButton().click();
 
-        routeRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
+      routeRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
 
-        editRoutePage.priorityForm.setAsStandard();
-        editRoutePage.getSaveRouteButton().click();
-        editRoutePage.routeDraftStopsConfirmationDialog
-          .getTextContent()
-          .should(
-            'contain',
-            'Jos haluat pysäkit mukaan reitille, säädä ensin niiden prioriteetti vastaamaan reittiä.',
-          );
-      },
-    );
+      editRoutePage.priorityForm.setAsStandard();
+      editRoutePage.getSaveRouteButton().click();
+      editRoutePage.routeDraftStopsConfirmationDialog
+        .getTextContent()
+        .should(
+          'contain',
+          'Jos haluat pysäkit mukaan reitille, säädä ensin niiden prioriteetti vastaamaan reittiä.',
+        );
+    });
   });
 });

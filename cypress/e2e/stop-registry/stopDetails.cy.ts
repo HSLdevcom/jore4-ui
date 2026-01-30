@@ -225,7 +225,7 @@ const buildScheduledStopPoints = (
   },
 ];
 
-describe('Stop details', () => {
+describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
   let stopDetailsPage: StopDetailsPage;
   let toast: Toast;
 
@@ -549,122 +549,114 @@ describe('Stop details', () => {
       bdForm = stopDetailsPage.basicDetails.form;
     });
 
-    it(
-      'should view stop area basic details text fields',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        const stopAreaDetailsPage = new StopAreaDetailsPage();
-        const alternativeNames = new AlternativeNames();
+    it('should view stop area basic details text fields', {}, () => {
+      const stopAreaDetailsPage = new StopAreaDetailsPage();
+      const alternativeNames = new AlternativeNames();
 
-        stopDetailsPage.visit('H2003');
-        stopDetailsPage.page().shouldBeVisible();
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
 
-        bdView.getContent().shouldBeVisible();
+      bdView.getContent().shouldBeVisible();
 
-        bdView.getAreaLink().click();
-        stopAreaDetailsPage.details.getPrivateCode().shouldHaveText('H2003');
-        cy.go('back');
+      bdView.getAreaLink().click();
+      stopAreaDetailsPage.details.getPrivateCode().shouldHaveText('H2003');
+      cy.go('back');
 
-        bdView.getAreaPrivateCode().shouldHaveText('H2003');
-        bdView.getAreaQuays().shouldHaveText('H2003');
-        bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
-        bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
-        alternativeNames.getNameEng().shouldHaveText('North esplanade');
-        alternativeNames
-          .getNameLongFin()
-          .shouldHaveText('Pohjoisesplanadi (pitkä)');
-        alternativeNames
-          .getNameLongSwe()
-          .shouldHaveText('Norraesplanaden (lång)');
-        alternativeNames
-          .getNameLongEng()
-          .shouldHaveText('North esplanade (long)');
-        alternativeNames.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
-        alternativeNames.getAbbreviationSwe().shouldHaveText('N.esplanaden');
-        alternativeNames.getAbbreviationEng().shouldHaveText('N.esplanade');
+      bdView.getAreaPrivateCode().shouldHaveText('H2003');
+      bdView.getAreaQuays().shouldHaveText('H2003');
+      bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
+      bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
+      alternativeNames.getNameEng().shouldHaveText('North esplanade');
+      alternativeNames
+        .getNameLongFin()
+        .shouldHaveText('Pohjoisesplanadi (pitkä)');
+      alternativeNames
+        .getNameLongSwe()
+        .shouldHaveText('Norraesplanaden (lång)');
+      alternativeNames
+        .getNameLongEng()
+        .shouldHaveText('North esplanade (long)');
+      alternativeNames.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+      alternativeNames.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+      alternativeNames.getAbbreviationEng().shouldHaveText('N.esplanade');
 
-        stopDetailsPage.basicDetails.getEditButton().click();
+      stopDetailsPage.basicDetails.getEditButton().click();
 
-        // Verify correct values in readonly fields.
-        bdView.getAreaLink().click();
-        stopAreaDetailsPage.details.getPrivateCode().shouldHaveText('H2003');
-        cy.go('back');
-        stopDetailsPage.basicDetails.getEditButton().click();
-        bdView.getAreaPrivateCode().shouldHaveText('H2003');
-        bdView.getAreaQuays().shouldHaveText('H2003');
-        bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
-        bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
-        alternativeNames.getNameEng().shouldHaveText('North esplanade');
-        alternativeNames
-          .getNameLongFin()
-          .shouldHaveText('Pohjoisesplanadi (pitkä)');
-        alternativeNames
-          .getNameLongSwe()
-          .shouldHaveText('Norraesplanaden (lång)');
-        alternativeNames
-          .getNameLongEng()
-          .shouldHaveText('North esplanade (long)');
-        alternativeNames.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
-        alternativeNames.getAbbreviationSwe().shouldHaveText('N.esplanaden');
-        alternativeNames.getAbbreviationEng().shouldHaveText('N.esplanade');
-      },
-    );
+      // Verify correct values in readonly fields.
+      bdView.getAreaLink().click();
+      stopAreaDetailsPage.details.getPrivateCode().shouldHaveText('H2003');
+      cy.go('back');
+      stopDetailsPage.basicDetails.getEditButton().click();
+      bdView.getAreaPrivateCode().shouldHaveText('H2003');
+      bdView.getAreaQuays().shouldHaveText('H2003');
+      bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
+      bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
+      alternativeNames.getNameEng().shouldHaveText('North esplanade');
+      alternativeNames
+        .getNameLongFin()
+        .shouldHaveText('Pohjoisesplanadi (pitkä)');
+      alternativeNames
+        .getNameLongSwe()
+        .shouldHaveText('Norraesplanaden (lång)');
+      alternativeNames
+        .getNameLongEng()
+        .shouldHaveText('North esplanade (long)');
+      alternativeNames.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+      alternativeNames.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+      alternativeNames.getAbbreviationEng().shouldHaveText('N.esplanade');
+    });
 
-    it(
-      'should view and edit basic details text fields',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        stopDetailsPage.visit('H2003');
-        stopDetailsPage.page().shouldBeVisible();
+    it('should view and edit basic details text fields', {}, () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
 
-        bdView.getContent().shouldBeVisible();
-        bdView.getLabel().shouldHaveText('H2003');
-        bdView.getPrivateCode().shouldHaveText('10003');
-        bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
-        bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
-        bdView.getElyNumber().shouldHaveText('1234567');
+      bdView.getContent().shouldBeVisible();
+      bdView.getLabel().shouldHaveText('H2003');
+      bdView.getPrivateCode().shouldHaveText('10003');
+      bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+      bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+      bdView.getElyNumber().shouldHaveText('1234567');
 
-        stopDetailsPage.basicDetails.getEditButton().click();
+      stopDetailsPage.basicDetails.getEditButton().click();
 
-        // TODO: when this assert fails, remove this line and implement tests for label change
-        bdForm.getLabelInput().shouldBeDisabled();
+      // TODO: when this assert fails, remove this line and implement tests for label change
+      bdForm.getLabelInput().shouldBeDisabled();
 
-        // Verify correct initial values.
-        bdForm.getLabelInput().should('have.value', 'H2003');
-        bdForm.getPrivateCodeInput().should('have.value', '10003');
-        bdForm
-          .getLocationFinInput()
-          .should('have.value', 'Pohjoisesplanadi (sij.)');
-        bdForm
-          .getLocationSweInput()
-          .should('have.value', 'Norraesplanaden (plats)');
-        bdForm.getElyNumberInput().should('have.value', '1234567');
+      // Verify correct initial values.
+      bdForm.getLabelInput().should('have.value', 'H2003');
+      bdForm.getPrivateCodeInput().should('have.value', '10003');
+      bdForm
+        .getLocationFinInput()
+        .should('have.value', 'Pohjoisesplanadi (sij.)');
+      bdForm
+        .getLocationSweInput()
+        .should('have.value', 'Norraesplanaden (plats)');
+      bdForm.getElyNumberInput().should('have.value', '1234567');
 
-        bdForm.getPrivateCodeInput().clearAndType('10004');
-        bdForm.getLocationFinInput().clearAndType('NewPohjoisesplanadi (sij.)');
-        bdForm.getLocationSweInput().clearAndType('NewNorraesplanaden (plats)');
+      bdForm.getPrivateCodeInput().clearAndType('10004');
+      bdForm.getLocationFinInput().clearAndType('NewPohjoisesplanadi (sij.)');
+      bdForm.getLocationSweInput().clearAndType('NewNorraesplanaden (plats)');
 
-        bdForm.getElyNumberInput().clearAndType('1234568');
+      bdForm.getElyNumberInput().clearAndType('1234568');
 
-        bdForm.reasonForChange
-          .getReasonForChangeInput()
-          .clearAndType('E2E Testing');
+      bdForm.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E Testing');
 
-        stopDetailsPage.basicDetails.getSaveButton().click();
+      stopDetailsPage.basicDetails.getSaveButton().click();
 
-        toast.expectSuccessToast('Pysäkki muokattu');
+      toast.expectSuccessToast('Pysäkki muokattu');
 
-        bdView.getLabel().shouldHaveText('H2003');
-        bdView.getPrivateCode().shouldHaveText('10004');
-        bdView.getLocationFin().shouldHaveText('NewPohjoisesplanadi (sij.)');
-        bdView.getLocationSwe().shouldHaveText('NewNorraesplanaden (plats)');
-        bdView.getElyNumber().shouldHaveText('1234568');
-      },
-    );
+      bdView.getLabel().shouldHaveText('H2003');
+      bdView.getPrivateCode().shouldHaveText('10004');
+      bdView.getLocationFin().shouldHaveText('NewPohjoisesplanadi (sij.)');
+      bdView.getLocationSwe().shouldHaveText('NewNorraesplanaden (plats)');
+      bdView.getElyNumber().shouldHaveText('1234568');
+    });
 
     it(
       'should view and edit basic details dropdowns and checkboxes',
-      { tags: [Tag.StopRegistry] },
+      {},
       () => {
         stopDetailsPage.visit('H2003');
         stopDetailsPage.page().shouldBeVisible();
@@ -787,45 +779,41 @@ describe('Stop details', () => {
     });
 
     describe('creating new timing place', () => {
-      it(
-        'should create new timing place correctly',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          const { createTimingPlaceForm } = bdForm;
-          stopDetailsPage.visit('H2003');
-          stopDetailsPage.page().shouldBeVisible();
+      it('should create new timing place correctly', {}, () => {
+        const { createTimingPlaceForm } = bdForm;
+        stopDetailsPage.visit('H2003');
+        stopDetailsPage.page().shouldBeVisible();
 
-          bdView.getContent().shouldBeVisible();
+        bdView.getContent().shouldBeVisible();
 
-          bdView.getLabel().shouldHaveText('H2003');
-          bdView.getTimingPlaceId().shouldHaveText('1AURLA');
+        bdView.getLabel().shouldHaveText('H2003');
+        bdView.getTimingPlaceId().shouldHaveText('1AURLA');
 
-          stopDetailsPage.basicDetails.getEditButton().click();
+        stopDetailsPage.basicDetails.getEditButton().click();
 
-          bdForm.getAddTimingPlaceButton().click();
+        bdForm.getAddTimingPlaceButton().click();
 
-          createTimingPlaceForm.fillTimingPlaceFormAndSave({
-            label: '1TEST',
-            description: 'Test description',
-          });
+        createTimingPlaceForm.fillTimingPlaceFormAndSave({
+          label: '1TEST',
+          description: 'Test description',
+        });
 
-          toast.expectSuccessToast('Hastus-paikka luotu');
+        toast.expectSuccessToast('Hastus-paikka luotu');
 
-          bdForm.reasonForChange
-            .getReasonForChangeInput()
-            .clearAndType('Creating new timing place for e2e test');
+        bdForm.reasonForChange
+          .getReasonForChangeInput()
+          .clearAndType('Creating new timing place for e2e test');
 
-          stopDetailsPage.basicDetails
-            .getSaveButton()
-            .should('be.enabled')
-            .click();
+        stopDetailsPage.basicDetails
+          .getSaveButton()
+          .should('be.enabled')
+          .click();
 
-          toast.expectSuccessToast('Pysäkki muokattu');
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          bdView.getLabel().shouldHaveText('H2003');
-          bdView.getTimingPlaceId().shouldHaveText('1TEST');
-        },
-      );
+        bdView.getLabel().shouldHaveText('H2003');
+        bdView.getTimingPlaceId().shouldHaveText('1TEST');
+      });
     });
 
     // TODO: test for removing timing place from stop that is used
@@ -842,7 +830,7 @@ describe('Stop details', () => {
       locationView = stopDetailsPage.locationDetails.viewCard;
     });
 
-    it('should view location details', { tags: [Tag.StopRegistry] }, () => {
+    it('should view location details', {}, () => {
       stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
 
@@ -919,46 +907,40 @@ describe('Stop details', () => {
       signView = stopDetailsPage.signageDetails.viewCard;
     });
 
-    it(
-      'should view and edit signage details',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        stopDetailsPage.visit('H2003');
-        stopDetailsPage.page().shouldBeVisible();
+    it('should view and edit signage details', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
 
-        verifyInitialSignageDetails();
+      verifyInitialSignageDetails();
 
-        stopDetailsPage.signageDetails.getEditButton().click();
-        signView.getContainer().should('not.exist');
+      stopDetailsPage.signageDetails.getEditButton().click();
+      signView.getContainer().should('not.exist');
 
-        signForm
-          .getSignTypeDropdownButton()
-          .shouldHaveText('Tolppamerkki')
-          .click();
-        signForm.getSignTypeDropdownOptions().contains('Katoskehikko').click();
-        signForm
-          .getNumberOfFramesInput()
-          .should('have.value', 12)
-          .clearAndType('7');
-        signForm.getReplacesRailSignCheckbox().should('not.be.checked').click();
-        signForm
-          .getSignageInstructionExceptionsInput()
-          .should('have.value', 'Ohjetekstiä...')
-          .clearAndType('Uusi teksti');
+      signForm
+        .getSignTypeDropdownButton()
+        .shouldHaveText('Tolppamerkki')
+        .click();
+      signForm.getSignTypeDropdownOptions().contains('Katoskehikko').click();
+      signForm
+        .getNumberOfFramesInput()
+        .should('have.value', 12)
+        .clearAndType('7');
+      signForm.getReplacesRailSignCheckbox().should('not.be.checked').click();
+      signForm
+        .getSignageInstructionExceptionsInput()
+        .should('have.value', 'Ohjetekstiä...')
+        .clearAndType('Uusi teksti');
 
-        stopDetailsPage.signageDetails.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-        signView.getContainer().shouldBeVisible();
+      stopDetailsPage.signageDetails.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+      signView.getContainer().shouldBeVisible();
 
-        signView.getContainer().shouldBeVisible();
-        signView.getSignType().shouldHaveText('Katoskehikko');
-        signView.getNumberOfFrames().shouldHaveText('7');
-        signView.getReplacesRailSign().shouldHaveText('Kyllä');
-        signView
-          .getSignageInstructionExceptions()
-          .shouldHaveText('Uusi teksti');
-      },
-    );
+      signView.getContainer().shouldBeVisible();
+      signView.getSignType().shouldHaveText('Katoskehikko');
+      signView.getNumberOfFrames().shouldHaveText('7');
+      signView.getReplacesRailSign().shouldHaveText('Kyllä');
+      signView.getSignageInstructionExceptions().shouldHaveText('Uusi teksti');
+    });
   });
 
   describe('external links', () => {
@@ -970,93 +952,85 @@ describe('Stop details', () => {
       externalLinksSection = externalLinks;
     });
 
-    it(
-      'should view and edit external links',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        stopDetailsPage.visit('H2003');
-        stopDetailsPage.page().shouldBeVisible();
+    it('should view and edit external links', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
 
-        externalLinksSection.getTitle().shouldHaveText('Linkit');
-        externalLinksSection.getExternalLinks().shouldBeVisible();
-        externalLinksSection.getNthExternalLink(0).within(() => {
-          verifyInitialExternalLinks();
-        });
+      externalLinksSection.getTitle().shouldHaveText('Linkit');
+      externalLinksSection.getExternalLinks().shouldBeVisible();
+      externalLinksSection.getNthExternalLink(0).within(() => {
+        verifyInitialExternalLinks();
+      });
 
-        externalLinksSection.getEditButton().click();
+      externalLinksSection.getEditButton().click();
+      externalLinksForm.externalLinks
+        .getNameInput()
+        .clearAndType('Linkin nimi');
+      externalLinksForm.externalLinks
+        .getLocationInput()
+        .clearAndType('http://www.example.com');
+      externalLinksForm.getSaveButton().click();
+      externalLinksSection.getNoExternalLinks().should('not.exist');
+      externalLinksSection.getExternalLinks().should('have.length', 1);
+
+      externalLinksSection.getNthExternalLink(0).within(() => {
+        externalLinksSection.getName().shouldHaveText('Linkin nimi');
+        externalLinksSection
+          .getLocation()
+          .should('have.attr', 'href', 'http://www.example.com');
+      });
+    });
+
+    it('should add and delete external links', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
+
+      externalLinksSection.getTitle().shouldHaveText('Linkit');
+      externalLinksSection.getExternalLinks().shouldBeVisible();
+      externalLinksSection.getNthExternalLink(0).within(() => {
+        verifyInitialExternalLinks();
+      });
+
+      externalLinksSection.getEditButton().click();
+      externalLinksForm.getAddNewButton().click();
+      externalLinksForm.getNthExternalLink(1).within(() => {
         externalLinksForm.externalLinks
           .getNameInput()
-          .clearAndType('Linkin nimi');
+          .clearAndType('Linkin nimi 2');
         externalLinksForm.externalLinks
           .getLocationInput()
-          .clearAndType('http://www.example.com');
-        externalLinksForm.getSaveButton().click();
-        externalLinksSection.getNoExternalLinks().should('not.exist');
-        externalLinksSection.getExternalLinks().should('have.length', 1);
+          .clearAndType('http://www.example2.com');
+      });
+      externalLinksForm.getSaveButton().click();
+      externalLinksSection.getNoExternalLinks().should('not.exist');
+      externalLinksSection.getExternalLinks().should('have.length', 2);
 
-        externalLinksSection.getNthExternalLink(0).within(() => {
-          externalLinksSection.getName().shouldHaveText('Linkin nimi');
-          externalLinksSection
-            .getLocation()
-            .should('have.attr', 'href', 'http://www.example.com');
-        });
-      },
-    );
+      externalLinksSection.getNthExternalLink(0).within(() => {
+        externalLinksSection.getName().shouldHaveText('Testilinkki');
+      });
+      externalLinksSection.getNthExternalLink(1).within(() => {
+        externalLinksSection.getName().shouldHaveText('Linkin nimi 2');
+      });
 
-    it(
-      'should add and delete external links',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        stopDetailsPage.visit('H2003');
-        stopDetailsPage.page().shouldBeVisible();
+      externalLinksSection.getEditButton().click();
+      externalLinksForm.getNthExternalLink(0).within(() => {
+        externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+      });
+      externalLinksForm.getSaveButton().click();
+      externalLinksSection.getExternalLinks().should('have.length', 1);
+      externalLinksSection.getNthExternalLink(0).within(() => {
+        externalLinksSection.getName().shouldHaveText('Linkin nimi 2');
+      });
 
-        externalLinksSection.getTitle().shouldHaveText('Linkit');
-        externalLinksSection.getExternalLinks().shouldBeVisible();
-        externalLinksSection.getNthExternalLink(0).within(() => {
-          verifyInitialExternalLinks();
-        });
-
-        externalLinksSection.getEditButton().click();
-        externalLinksForm.getAddNewButton().click();
-        externalLinksForm.getNthExternalLink(1).within(() => {
-          externalLinksForm.externalLinks
-            .getNameInput()
-            .clearAndType('Linkin nimi 2');
-          externalLinksForm.externalLinks
-            .getLocationInput()
-            .clearAndType('http://www.example2.com');
-        });
-        externalLinksForm.getSaveButton().click();
-        externalLinksSection.getNoExternalLinks().should('not.exist');
-        externalLinksSection.getExternalLinks().should('have.length', 2);
-
-        externalLinksSection.getNthExternalLink(0).within(() => {
-          externalLinksSection.getName().shouldHaveText('Testilinkki');
-        });
-        externalLinksSection.getNthExternalLink(1).within(() => {
-          externalLinksSection.getName().shouldHaveText('Linkin nimi 2');
-        });
-
-        externalLinksSection.getEditButton().click();
-        externalLinksForm.getNthExternalLink(0).within(() => {
-          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
-        });
-        externalLinksForm.getSaveButton().click();
-        externalLinksSection.getExternalLinks().should('have.length', 1);
-        externalLinksSection.getNthExternalLink(0).within(() => {
-          externalLinksSection.getName().shouldHaveText('Linkin nimi 2');
-        });
-
-        externalLinksSection.getEditButton().click();
-        externalLinksForm.getNthExternalLink(0).within(() => {
-          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
-        });
-        externalLinksForm.getSaveButton().click();
-        externalLinksSection.getExternalLinks().should('have.length', 0);
-        externalLinksSection.getNoExternalLinks().shouldBeVisible();
-        externalLinksSection.getNoExternalLinks().shouldHaveText('Ei linkkejä');
-      },
-    );
+      externalLinksSection.getEditButton().click();
+      externalLinksForm.getNthExternalLink(0).within(() => {
+        externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+      });
+      externalLinksForm.getSaveButton().click();
+      externalLinksSection.getExternalLinks().should('have.length', 0);
+      externalLinksSection.getNoExternalLinks().shouldBeVisible();
+      externalLinksSection.getNoExternalLinks().shouldHaveText('Ei linkkejä');
+    });
   });
 
   describe('technical features', () => {
@@ -1068,7 +1042,7 @@ describe('Stop details', () => {
       stopDetailsPage.technicalFeaturesTabButton().click();
     });
 
-    it('should view technical features', { tags: [Tag.StopRegistry] }, () => {
+    it('should view technical features', () => {
       stopDetailsPage.technicalFeaturesTabPanel().should('be.visible');
       stopDetailsPage.basicDetailsTabPanel().should('not.exist');
       stopDetailsPage.infoSpotsTabPanel().should('not.exist');
@@ -1083,292 +1057,253 @@ describe('Stop details', () => {
         view = stopDetailsPage.shelters.viewCard;
       });
 
-      it(
-        'should view and edit shelter details',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          verifyInitialShelters();
+      it('should view and edit shelter details', () => {
+        verifyInitialShelters();
 
-          stopDetailsPage.shelters.getEditButton().click();
-          view.getContainers().should('not.exist');
+        stopDetailsPage.shelters.getEditButton().click();
+        view.getContainers().should('not.exist');
 
-          form.getShelters().should('have.length', 1);
+        form.getShelters().should('have.length', 1);
 
-          form.getNthShelter(0).within(() => {
-            const shelter = form.shelters;
-            // Verify correct initial values:
-            shelter.getShelterExternalIdInput().should('have.value', '12345');
-            shelter.getShelterNumberInput().should('have.value', '1');
+        form.getNthShelter(0).within(() => {
+          const shelter = form.shelters;
+          // Verify correct initial values:
+          shelter.getShelterExternalIdInput().should('have.value', '12345');
+          shelter.getShelterNumberInput().should('have.value', '1');
+          shelter
+            .getShelterTypeDropdownButton()
+            .should('have.text', 'Teräskatos');
+          shelter
+            .getShelterElectricityDropdownButton()
+            .should('have.text', 'Jatkuva sähkö');
+          shelter
+            .getShelterLightingDropdownButton()
+            .should('have.text', 'Kyllä');
+          shelter
+            .getShelterConditionDropdownButton()
+            .should('have.text', 'Välttävä');
+          shelter.getTimetableCabinetsInput().should('have.value', '1');
+          shelter.getTrashCanCheckbox().should('be.checked');
+          shelter.getShelterHasDisplayCheckbox().should('be.checked');
+          shelter.getBicycleParkingCheckbox().should('be.checked');
+          shelter.getLeaningRailCheckbox().should('be.checked');
+          shelter.getOutsideBenchCheckbox().should('be.checked');
+          shelter.getShelterFasciaBoardTapingCheckbox().should('be.checked');
+
+          // Change everything:
+          shelter.getShelterExternalIdInput().clearAndType('98765');
+          shelter.getShelterNumberInput().clearAndType('2');
+          shelter.getShelterTypeDropdownButton().click();
+          cy.withinHeadlessPortal(() =>
             shelter
-              .getShelterTypeDropdownButton()
-              .should('have.text', 'Teräskatos');
+              .getShelterTypeDropdownOptions()
+              .contains('Puukatos')
+              .click(),
+          );
+          shelter.getShelterElectricityDropdownButton().click();
+          cy.withinHeadlessPortal(() =>
             shelter
-              .getShelterElectricityDropdownButton()
-              .should('have.text', 'Jatkuva sähkö');
+              .getShelterElectricityDropdownOptions()
+              .contains('Valosähkö')
+              .click(),
+          );
+          shelter.getShelterLightingDropdownButton().click();
+          cy.withinHeadlessPortal(() =>
+            shelter.getShelterLightingDropdownOptions().contains('Ei').click(),
+          );
+          shelter.getShelterConditionDropdownButton().click();
+          cy.withinHeadlessPortal(() =>
             shelter
-              .getShelterLightingDropdownButton()
-              .should('have.text', 'Kyllä');
-            shelter
-              .getShelterConditionDropdownButton()
-              .should('have.text', 'Välttävä');
-            shelter.getTimetableCabinetsInput().should('have.value', '1');
-            shelter.getTrashCanCheckbox().should('be.checked');
-            shelter.getShelterHasDisplayCheckbox().should('be.checked');
-            shelter.getBicycleParkingCheckbox().should('be.checked');
-            shelter.getLeaningRailCheckbox().should('be.checked');
-            shelter.getOutsideBenchCheckbox().should('be.checked');
-            shelter.getShelterFasciaBoardTapingCheckbox().should('be.checked');
+              .getShelterConditionDropdownOptions()
+              .contains('Hyvä')
+              .click(),
+          );
+          shelter.getTimetableCabinetsInput().clearAndType('42');
+          shelter.getTrashCanCheckbox().click();
+          shelter.getShelterHasDisplayCheckbox().click();
+          shelter.getBicycleParkingCheckbox().click();
+          shelter.getLeaningRailCheckbox().click();
+          shelter.getOutsideBenchCheckbox().click();
+          shelter.getShelterFasciaBoardTapingCheckbox().click();
+        });
 
-            // Change everything:
-            shelter.getShelterExternalIdInput().clearAndType('98765');
-            shelter.getShelterNumberInput().clearAndType('2');
-            shelter.getShelterTypeDropdownButton().click();
-            cy.withinHeadlessPortal(() =>
-              shelter
-                .getShelterTypeDropdownOptions()
-                .contains('Puukatos')
-                .click(),
-            );
-            shelter.getShelterElectricityDropdownButton().click();
-            cy.withinHeadlessPortal(() =>
-              shelter
-                .getShelterElectricityDropdownOptions()
-                .contains('Valosähkö')
-                .click(),
-            );
-            shelter.getShelterLightingDropdownButton().click();
-            cy.withinHeadlessPortal(() =>
-              shelter
-                .getShelterLightingDropdownOptions()
-                .contains('Ei')
-                .click(),
-            );
-            shelter.getShelterConditionDropdownButton().click();
-            cy.withinHeadlessPortal(() =>
-              shelter
-                .getShelterConditionDropdownOptions()
-                .contains('Hyvä')
-                .click(),
-            );
-            shelter.getTimetableCabinetsInput().clearAndType('42');
-            shelter.getTrashCanCheckbox().click();
-            shelter.getShelterHasDisplayCheckbox().click();
-            shelter.getBicycleParkingCheckbox().click();
-            shelter.getLeaningRailCheckbox().click();
-            shelter.getOutsideBenchCheckbox().click();
-            shelter.getShelterFasciaBoardTapingCheckbox().click();
-          });
+        // Submit.
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainers().shouldBeVisible();
 
-          // Submit.
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
-          view.getContainers().shouldBeVisible();
+        // Verify changes visible in view card:
+        view.getShelterExternalId().should('have.text', '98765');
+        view.getContainers().should('have.length', 1);
+        view.getShelterNumber().should('have.text', '2');
+        view.getShelterType().should('have.text', 'Puukatos');
+        view.getElectricity().should('have.text', 'Valosähkö');
+        view.getLighting().should('have.text', 'Ei');
+        view.getCondition().should('have.text', 'Hyvä');
+        view.getTimetableCabinets().should('have.text', '42');
+        view.getTrashCan().should('have.text', 'Ei');
+        view.getHasDisplay().should('have.text', 'Ei');
+        view.getBicycleParking().should('have.text', 'Ei');
+        view.getLeaningRail().should('have.text', 'Ei');
+        view.getOutsideBench().should('have.text', 'Ei');
+        view.getFasciaBoardTaping().should('have.text', 'Ei');
 
-          // Verify changes visible in view card:
-          view.getShelterExternalId().should('have.text', '98765');
-          view.getContainers().should('have.length', 1);
-          view.getShelterNumber().should('have.text', '2');
-          view.getShelterType().should('have.text', 'Puukatos');
-          view.getElectricity().should('have.text', 'Valosähkö');
-          view.getLighting().should('have.text', 'Ei');
-          view.getCondition().should('have.text', 'Hyvä');
-          view.getTimetableCabinets().should('have.text', '42');
-          view.getTrashCan().should('have.text', 'Ei');
-          view.getHasDisplay().should('have.text', 'Ei');
-          view.getBicycleParking().should('have.text', 'Ei');
-          view.getLeaningRail().should('have.text', 'Ei');
-          view.getOutsideBench().should('have.text', 'Ei');
-          view.getFasciaBoardTaping().should('have.text', 'Ei');
+        // "enclosed" is not visible anywhere in UI, check from request that it got sent.
+        expectGraphQLCallToSucceed('@gqlUpdateStopPlace')
+          .its(
+            'request.body.variables.input.quays.0.placeEquipments.shelterEquipment.0.enclosed',
+          )
+          .should('equal', false);
+      });
 
-          // "enclosed" is not visible anywhere in UI, check from request that it got sent.
-          expectGraphQLCallToSucceed('@gqlUpdateStopPlace')
-            .its(
-              'request.body.variables.input.quays.0.placeEquipments.shelterEquipment.0.enclosed',
-            )
-            .should('equal', false);
-        },
-      );
+      it('should be able to keep shelter numbers in order', () => {
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (1)');
 
-      it(
-        'should be able to keep shelter numbers in order',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (1)');
+        stopDetailsPage.shelters.getEditButton().click();
+        view.getContainers().should('not.exist');
 
-          stopDetailsPage.shelters.getEditButton().click();
-          view.getContainers().should('not.exist');
+        // Add more shelters.
+        form.getShelters().should('have.length', 1);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (1)');
+        stopDetailsPage.shelters.getAddNewShelterButton().click();
+        stopDetailsPage.shelters.getAddNewShelterButton().click();
+        form.getShelters().should('have.length', 3);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (3)');
 
-          // Add more shelters.
-          form.getShelters().should('have.length', 1);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (1)');
-          stopDetailsPage.shelters.getAddNewShelterButton().click();
-          stopDetailsPage.shelters.getAddNewShelterButton().click();
-          form.getShelters().should('have.length', 3);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (3)');
+        // Submit.
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          // Submit.
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainers().shouldBeVisible();
+        view.getContainers().should('have.length', 3);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (3)');
 
-          view.getContainers().shouldBeVisible();
-          view.getContainers().should('have.length', 3);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (3)');
+        // Delete the 2nd.
+        stopDetailsPage.shelters.getEditButton().click();
+        form.getShelters().should('have.length', 3);
+        form.getNthShelter(1).within(() => {
+          const shelter = form.shelters;
+          shelter.getDeleteShelterButton().click();
+        });
 
-          // Delete the 2nd.
-          stopDetailsPage.shelters.getEditButton().click();
-          form.getShelters().should('have.length', 3);
-          form.getNthShelter(1).within(() => {
-            const shelter = form.shelters;
-            shelter.getDeleteShelterButton().click();
-          });
+        form.getShelters().should('have.length', 3);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (2)'); // 2 instead of 3 since one of those will be deleted.
 
-          form.getShelters().should('have.length', 3);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (2)'); // 2 instead of 3 since one of those will be deleted.
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        stopDetailsPage.shelters.getEditButton().click();
+        view.getContainers().should('not.exist');
 
-          stopDetailsPage.shelters.getEditButton().click();
-          view.getContainers().should('not.exist');
+        // Add more shelters.
+        form.getShelters().should('have.length', 2);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (2)');
+        stopDetailsPage.shelters.getAddNewShelterButton().click();
+        stopDetailsPage.shelters.getAddNewShelterButton().click();
+        form.getShelters().should('have.length', 4);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (4)');
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          // Add more shelters.
-          form.getShelters().should('have.length', 2);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (2)');
-          stopDetailsPage.shelters.getAddNewShelterButton().click();
-          stopDetailsPage.shelters.getAddNewShelterButton().click();
-          form.getShelters().should('have.length', 4);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (4)');
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainers().shouldBeVisible();
+        view.getContainers().should('have.length', 4);
+        view.getNthContainer(0).within(() => {
+          view.getShelterNumber().should('have.text', '1');
+        });
+        view.getNthContainer(1).within(() => {
+          view.getShelterNumber().should('have.text', '3');
+        });
+        view.getNthContainer(2).within(() => {
+          view.getShelterNumber().should('have.text', '4');
+        });
+        view.getNthContainer(3).within(() => {
+          view.getShelterNumber().should('have.text', '5');
+        });
+      });
 
-          view.getContainers().shouldBeVisible();
-          view.getContainers().should('have.length', 4);
-          view.getNthContainer(0).within(() => {
-            view.getShelterNumber().should('have.text', '1');
-          });
-          view.getNthContainer(1).within(() => {
-            view.getShelterNumber().should('have.text', '3');
-          });
-          view.getNthContainer(2).within(() => {
-            view.getShelterNumber().should('have.text', '4');
-          });
-          view.getNthContainer(3).within(() => {
-            view.getShelterNumber().should('have.text', '5');
-          });
-        },
-      );
+      it('should be able to add and delete shelters', () => {
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (1)');
 
-      it(
-        'should be able to add and delete shelters',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (1)');
+        stopDetailsPage.shelters.getEditButton().click();
+        view.getContainers().should('not.exist');
 
-          stopDetailsPage.shelters.getEditButton().click();
-          view.getContainers().should('not.exist');
+        // Add more shelters.
+        form.getShelters().should('have.length', 1);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (1)');
+        stopDetailsPage.shelters.getAddNewShelterButton().click();
+        stopDetailsPage.shelters.getAddNewShelterButton().click();
+        form.getShelters().should('have.length', 3);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (3)');
 
-          // Add more shelters.
-          form.getShelters().should('have.length', 1);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (1)');
-          stopDetailsPage.shelters.getAddNewShelterButton().click();
-          stopDetailsPage.shelters.getAddNewShelterButton().click();
-          form.getShelters().should('have.length', 3);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (3)');
+        form.getNthShelter(1).within(() => {
+          form.shelters.getTimetableCabinetsInput().clearAndType('22');
+        });
 
-          form.getNthShelter(1).within(() => {
-            form.shelters.getTimetableCabinetsInput().clearAndType('22');
-          });
+        form.getNthShelter(2).within(() => {
+          form.shelters.getTimetableCabinetsInput().clearAndType('33');
+        });
 
-          form.getNthShelter(2).within(() => {
-            form.shelters.getTimetableCabinetsInput().clearAndType('33');
-          });
+        // Submit.
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          // Submit.
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainers().shouldBeVisible();
+        view.getContainers().should('have.length', 3);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (3)');
 
-          view.getContainers().shouldBeVisible();
-          view.getContainers().should('have.length', 3);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (3)');
+        // Delete the 2nd.
+        stopDetailsPage.shelters.getEditButton().click();
+        form.getShelters().should('have.length', 3);
+        form.getNthShelter(1).within(() => {
+          const shelter = form.shelters;
+          shelter.getDeleteShelterButton().click();
+          // Not actually deleted yet, just marked as to be deleted.
+          shelter.getShelterExternalIdInput().shouldBeDisabled();
+          shelter.getShelterNumberInput().shouldBeDisabled();
+          shelter.getShelterTypeDropdownButton().shouldBeDisabled();
+          shelter.getShelterElectricityDropdownButton().shouldBeDisabled();
+          shelter.getShelterLightingDropdownButton().shouldBeDisabled();
+          shelter.getShelterConditionDropdownButton().shouldBeDisabled();
+          shelter.getTimetableCabinetsInput().shouldBeDisabled();
+          shelter.getTrashCanCheckbox().shouldBeDisabled();
+          shelter.getShelterHasDisplayCheckbox().shouldBeDisabled();
+          shelter.getBicycleParkingCheckbox().shouldBeDisabled();
+          shelter.getLeaningRailCheckbox().shouldBeDisabled();
+          shelter.getOutsideBenchCheckbox().shouldBeDisabled();
+          shelter.getShelterFasciaBoardTapingCheckbox().shouldBeDisabled();
+        });
 
-          // Delete the 2nd.
-          stopDetailsPage.shelters.getEditButton().click();
-          form.getShelters().should('have.length', 3);
-          form.getNthShelter(1).within(() => {
-            const shelter = form.shelters;
-            shelter.getDeleteShelterButton().click();
-            // Not actually deleted yet, just marked as to be deleted.
-            shelter.getShelterExternalIdInput().shouldBeDisabled();
-            shelter.getShelterNumberInput().shouldBeDisabled();
-            shelter.getShelterTypeDropdownButton().shouldBeDisabled();
-            shelter.getShelterElectricityDropdownButton().shouldBeDisabled();
-            shelter.getShelterLightingDropdownButton().shouldBeDisabled();
-            shelter.getShelterConditionDropdownButton().shouldBeDisabled();
-            shelter.getTimetableCabinetsInput().shouldBeDisabled();
-            shelter.getTrashCanCheckbox().shouldBeDisabled();
-            shelter.getShelterHasDisplayCheckbox().shouldBeDisabled();
-            shelter.getBicycleParkingCheckbox().shouldBeDisabled();
-            shelter.getLeaningRailCheckbox().shouldBeDisabled();
-            shelter.getOutsideBenchCheckbox().shouldBeDisabled();
-            shelter.getShelterFasciaBoardTapingCheckbox().shouldBeDisabled();
-          });
+        // Delete and cancel the deletion of another shelter,
+        // to verify that the cancel actually works.
+        form.getNthShelter(0).within(() => {
+          const shelter = form.shelters;
+          shelter.getDeleteShelterButton().shouldHaveText('Poista katos');
+          shelter.getDeleteShelterButton().click();
+          shelter.getDeleteShelterButton().shouldHaveText('Peruuta poisto');
+          shelter.getShelterTypeDropdownButton().shouldBeDisabled();
 
-          // Delete and cancel the deletion of another shelter,
-          // to verify that the cancel actually works.
-          form.getNthShelter(0).within(() => {
-            const shelter = form.shelters;
-            shelter.getDeleteShelterButton().shouldHaveText('Poista katos');
-            shelter.getDeleteShelterButton().click();
-            shelter.getDeleteShelterButton().shouldHaveText('Peruuta poisto');
-            shelter.getShelterTypeDropdownButton().shouldBeDisabled();
+          shelter.getDeleteShelterButton().click();
+          shelter.getDeleteShelterButton().shouldHaveText('Poista katos');
+          shelter.getShelterTypeDropdownButton().should('not.be.disabled');
+        });
 
-            shelter.getDeleteShelterButton().click();
-            shelter.getDeleteShelterButton().shouldHaveText('Poista katos');
-            shelter.getShelterTypeDropdownButton().should('not.be.disabled');
-          });
+        form.getShelters().should('have.length', 3);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (2)'); // 2 instead of 3 since one of those will be deleted.
 
-          form.getShelters().should('have.length', 3);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (2)'); // 2 instead of 3 since one of those will be deleted.
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainers().shouldBeVisible();
+        view.getContainers().should('have.length', 2);
+        view.getNthContainer(0).within(() => {
+          view.getTimetableCabinets().should('have.text', '1');
+        });
+        view.getNthContainer(1).within(() => {
+          view.getTimetableCabinets().should('have.text', '33');
+        });
+      });
 
-          view.getContainers().shouldBeVisible();
-          view.getContainers().should('have.length', 2);
-          view.getNthContainer(0).within(() => {
-            view.getTimetableCabinets().should('have.text', '1');
-          });
-          view.getNthContainer(1).within(() => {
-            view.getTimetableCabinets().should('have.text', '33');
-          });
-        },
-      );
-
-      it('should be able to copy shelter', { tags: [Tag.StopRegistry] }, () => {
+      it('should be able to copy shelter', () => {
         // Ensure view
         stopDetailsPage.shelters.getEditButton().click();
         view.getContainers().should('not.exist');
@@ -1393,54 +1328,48 @@ describe('Stop details', () => {
         });
       });
 
-      it(
-        'should be able to delete all shelters',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          stopDetailsPage.shelters.getAddShelterButton().should('not.exist');
-          stopDetailsPage.shelters.getEditButton().click();
-          view.getContainers().should('not.exist');
+      it('should be able to delete all shelters', () => {
+        stopDetailsPage.shelters.getAddShelterButton().should('not.exist');
+        stopDetailsPage.shelters.getEditButton().click();
+        view.getContainers().should('not.exist');
 
-          form.getShelters().should('have.length', 1);
-          form.getNthShelter(0).within(() => {
-            form.shelters.getDeleteShelterButton().click();
-            form.shelters.getShelterTypeDropdownButton().shouldBeDisabled();
-          });
+        form.getShelters().should('have.length', 1);
+        form.getNthShelter(0).within(() => {
+          form.shelters.getDeleteShelterButton().click();
+          form.shelters.getShelterTypeDropdownButton().shouldBeDisabled();
+        });
 
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          view.getContainers().should('not.exist');
-          stopDetailsPage.shelters
-            .getTitle()
-            .should('have.text', 'Ei pysäkkikatosta');
+        view.getContainers().should('not.exist');
+        stopDetailsPage.shelters
+          .getTitle()
+          .should('have.text', 'Ei pysäkkikatosta');
 
-          // No shelters left: edit mode will be started with one new shelter.
-          stopDetailsPage.shelters.getAddShelterButton().should('be.visible');
-          stopDetailsPage.shelters.getAddShelterButton().click();
-          view.getContainers().should('not.exist');
-          form.getShelters().should('have.length', 1);
-          stopDetailsPage.shelters
-            .getTitle()
-            .shouldHaveText('Pysäkkikatos (1)');
+        // No shelters left: edit mode will be started with one new shelter.
+        stopDetailsPage.shelters.getAddShelterButton().should('be.visible');
+        stopDetailsPage.shelters.getAddShelterButton().click();
+        view.getContainers().should('not.exist');
+        form.getShelters().should('have.length', 1);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (1)');
 
-          // A newly added, non persisted shelter is deleted immediately.
-          form.getNthShelter(0).within(() => {
-            form.shelters.getDeleteShelterButton().click();
-          });
-          form.getShelters().should('not.exist');
-          stopDetailsPage.shelters
-            .getTitle()
-            .should('have.text', 'Ei pysäkkikatosta');
-          stopDetailsPage.shelters.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
+        // A newly added, non persisted shelter is deleted immediately.
+        form.getNthShelter(0).within(() => {
+          form.shelters.getDeleteShelterButton().click();
+        });
+        form.getShelters().should('not.exist');
+        stopDetailsPage.shelters
+          .getTitle()
+          .should('have.text', 'Ei pysäkkikatosta');
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
 
-          view.getContainers().should('not.exist');
-          stopDetailsPage.shelters
-            .getTitle()
-            .should('have.text', 'Ei pysäkkikatosta');
-        },
-      );
+        view.getContainers().should('not.exist');
+        stopDetailsPage.shelters
+          .getTitle()
+          .should('have.text', 'Ei pysäkkikatosta');
+      });
     });
 
     describe('measurements', () => {
@@ -1452,229 +1381,218 @@ describe('Stop details', () => {
         view = stopDetailsPage.measurements.viewCard;
       });
 
-      it(
-        'should view and edit measurement details',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          verifyInitialMeasurements();
+      it('should view and edit measurement details', () => {
+        verifyInitialMeasurements();
 
-          stopDetailsPage.measurements.getEditButton().click();
-          view.getContainer().should('not.exist');
+        stopDetailsPage.measurements.getEditButton().click();
+        view.getContainer().should('not.exist');
 
-          stopDetailsPage.measurements
-            .getAccessibilityLevel()
-            .shouldHaveText('Esteellinen');
+        stopDetailsPage.measurements
+          .getAccessibilityLevel()
+          .shouldHaveText('Esteellinen');
 
-          // Verify correct initial values:
-          form.getStopTypeDropdownButton().shouldHaveText('Syvennys');
-          form.getCurvedStopDropdownButton().shouldHaveText('Ei');
-          form.getShelterTypeDropdownButton().shouldHaveText('Leveä');
-          form.getShelterLaneDistanceInput().should('have.value', '123');
-          form.getCurbBackOfRailDistanceInput().should('have.value', '45.6');
-          form.getStopAreaSideSlopeInput().should('have.value', '5.3');
-          form.getStopAreaLengthwiseSlopeInput().should('have.value', '1.8');
+        // Verify correct initial values:
+        form.getStopTypeDropdownButton().shouldHaveText('Syvennys');
+        form.getCurvedStopDropdownButton().shouldHaveText('Ei');
+        form.getShelterTypeDropdownButton().shouldHaveText('Leveä');
+        form.getShelterLaneDistanceInput().should('have.value', '123');
+        form.getCurbBackOfRailDistanceInput().should('have.value', '45.6');
+        form.getStopAreaSideSlopeInput().should('have.value', '5.3');
+        form.getStopAreaLengthwiseSlopeInput().should('have.value', '1.8');
 
-          form.getStructureLaneDistanceInput().should('have.value', '6');
-          form.getStopElevationFromRailTopInput().should('have.value', '10');
-          form.getStopElevationFromSidewalkInput().should('have.value', '7');
-          form.getLowerCleatHeightInput().should('have.value', '8');
+        form.getStructureLaneDistanceInput().should('have.value', '6');
+        form.getStopElevationFromRailTopInput().should('have.value', '10');
+        form.getStopElevationFromSidewalkInput().should('have.value', '7');
+        form.getLowerCleatHeightInput().should('have.value', '8');
 
-          form.getPlatformEdgeWarningAreaCheckbox().should('be.checked');
-          form.getSidewalkAccessibleConnectionCheckbox().should('be.checked');
-          form.getGuidanceStripeCheckbox().should('be.checked');
-          form.getServiceAreaStripesCheckbox().should('be.checked');
-          form.getGuidanceTypeDropdownButton().shouldHaveText('Pisteopaste');
-          form.getGuidanceTilesCheckbox().should('be.checked');
-          form.getMapTypeDropdownButton().shouldHaveText('Kohokartta');
+        form.getPlatformEdgeWarningAreaCheckbox().should('be.checked');
+        form.getSidewalkAccessibleConnectionCheckbox().should('be.checked');
+        form.getGuidanceStripeCheckbox().should('be.checked');
+        form.getServiceAreaStripesCheckbox().should('be.checked');
+        form.getGuidanceTypeDropdownButton().shouldHaveText('Pisteopaste');
+        form.getGuidanceTilesCheckbox().should('be.checked');
+        form.getMapTypeDropdownButton().shouldHaveText('Kohokartta');
 
-          form.getCurbDriveSideOfRailDistanceInput().should('have.value', '5');
-          form.getEndRampSlopeInput().should('have.value', '3.5');
-          form.getServiceAreaWidthInput().should('have.value', '4.6');
-          form.getServiceAreaLengthInput().should('have.value', '55.2');
-          form
-            .getPedestrianCrossingRampTypeDropdownButton()
-            .shouldHaveText('LR - Luiskattu reunatukiosuus');
-          form
-            .getStopAreaSurroundingsAccessibleDropdownButton()
-            .shouldHaveText('Esteellinen');
+        form.getCurbDriveSideOfRailDistanceInput().should('have.value', '5');
+        form.getEndRampSlopeInput().should('have.value', '3.5');
+        form.getServiceAreaWidthInput().should('have.value', '4.6');
+        form.getServiceAreaLengthInput().should('have.value', '55.2');
+        form
+          .getPedestrianCrossingRampTypeDropdownButton()
+          .shouldHaveText('LR - Luiskattu reunatukiosuus');
+        form
+          .getStopAreaSurroundingsAccessibleDropdownButton()
+          .shouldHaveText('Esteellinen');
 
-          // Change nearly everything and make the stop accessible:
-          form.getStopTypeDropdownButton().click();
-          form.getStopTypeDropdownOptions().contains('Uloke').click();
-          form.getCurvedStopDropdownButton().click();
-          form.getCurvedStopDropdownOptions().contains('Kyllä').click();
-          form.getShelterTypeDropdownButton().click();
-          form.getShelterTypeDropdownOptions().contains('Kapea').click();
-          form.getShelterLaneDistanceInput().clearAndType('231');
-          form.getCurbBackOfRailDistanceInput().clearAndType('111');
-          form.getStopAreaSideSlopeInput().clearAndType('1.1');
-          form.getStopAreaLengthwiseSlopeInput().clearAndType('2.2');
+        // Change nearly everything and make the stop accessible:
+        form.getStopTypeDropdownButton().click();
+        form.getStopTypeDropdownOptions().contains('Uloke').click();
+        form.getCurvedStopDropdownButton().click();
+        form.getCurvedStopDropdownOptions().contains('Kyllä').click();
+        form.getShelterTypeDropdownButton().click();
+        form.getShelterTypeDropdownOptions().contains('Kapea').click();
+        form.getShelterLaneDistanceInput().clearAndType('231');
+        form.getCurbBackOfRailDistanceInput().clearAndType('111');
+        form.getStopAreaSideSlopeInput().clearAndType('1.1');
+        form.getStopAreaLengthwiseSlopeInput().clearAndType('2.2');
 
-          form.getStructureLaneDistanceInput().clearAndType('4');
-          form.getStopElevationFromRailTopInput().clearAndType('25');
-          form.getStopElevationFromSidewalkInput().clearAndType('16');
-          form.getLowerCleatHeightInput().clearAndType('7');
+        form.getStructureLaneDistanceInput().clearAndType('4');
+        form.getStopElevationFromRailTopInput().clearAndType('25');
+        form.getStopElevationFromSidewalkInput().clearAndType('16');
+        form.getLowerCleatHeightInput().clearAndType('7');
 
-          form.getSidewalkAccessibleConnectionCheckbox().click();
-          form.getGuidanceStripeCheckbox().click();
-          form.getServiceAreaStripesCheckbox().click();
-          form.getGuidanceTypeDropdownButton().click();
-          form
-            .getGuidanceTypeDropdownOptions()
-            .contains('Ei opastetta')
-            .click();
-          form.getGuidanceTilesCheckbox().click();
-          form.getMapTypeDropdownButton().click();
-          form.getMapTypeDropdownOptions().contains('Muu kartta').click();
+        form.getSidewalkAccessibleConnectionCheckbox().click();
+        form.getGuidanceStripeCheckbox().click();
+        form.getServiceAreaStripesCheckbox().click();
+        form.getGuidanceTypeDropdownButton().click();
+        form.getGuidanceTypeDropdownOptions().contains('Ei opastetta').click();
+        form.getGuidanceTilesCheckbox().click();
+        form.getMapTypeDropdownButton().click();
+        form.getMapTypeDropdownOptions().contains('Muu kartta').click();
 
-          form.getCurbDriveSideOfRailDistanceInput().clearAndType('8');
-          form.getEndRampSlopeInput().clearAndType('9.9');
-          form.getServiceAreaWidthInput().clearAndType('1.6');
-          form.getServiceAreaLengthInput().clearAndType('12.23');
-          form.getPedestrianCrossingRampTypeDropdownButton().click();
-          form
-            .getPedestrianCrossingRampTypeDropdownOptions()
-            .contains('RK4 - Pystysuora reunatukiosuus')
-            .click();
-          form.getStopAreaSurroundingsAccessibleDropdownButton().click();
-          form
-            .getStopAreaSurroundingsAccessibleDropdownOptions()
-            .contains('Esteetön')
-            .click();
+        form.getCurbDriveSideOfRailDistanceInput().clearAndType('8');
+        form.getEndRampSlopeInput().clearAndType('9.9');
+        form.getServiceAreaWidthInput().clearAndType('1.6');
+        form.getServiceAreaLengthInput().clearAndType('12.23');
+        form.getPedestrianCrossingRampTypeDropdownButton().click();
+        form
+          .getPedestrianCrossingRampTypeDropdownOptions()
+          .contains('RK4 - Pystysuora reunatukiosuus')
+          .click();
+        form.getStopAreaSurroundingsAccessibleDropdownButton().click();
+        form
+          .getStopAreaSurroundingsAccessibleDropdownOptions()
+          .contains('Esteetön')
+          .click();
 
-          // Submit.
-          stopDetailsPage.measurements.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
-          view.getContainer().shouldBeVisible();
+        // Submit.
+        stopDetailsPage.measurements.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainer().shouldBeVisible();
 
-          // Verify changes visible in view card:
-          view.getStopType().shouldHaveText('Uloke');
-          view.getCurvedStop().shouldHaveText('Kyllä');
-          view.getShelterType().shouldHaveText('Kapea');
-          view.getShelterLaneDistance().shouldHaveText('231');
-          view.getCurbBackOfRailDistance().shouldHaveText('111');
-          view.getStopAreaSideSlope().shouldHaveText('1.1');
-          view.getStopAreaLengthwiseSlope().shouldHaveText('2.2');
+        // Verify changes visible in view card:
+        view.getStopType().shouldHaveText('Uloke');
+        view.getCurvedStop().shouldHaveText('Kyllä');
+        view.getShelterType().shouldHaveText('Kapea');
+        view.getShelterLaneDistance().shouldHaveText('231');
+        view.getCurbBackOfRailDistance().shouldHaveText('111');
+        view.getStopAreaSideSlope().shouldHaveText('1.1');
+        view.getStopAreaLengthwiseSlope().shouldHaveText('2.2');
 
-          view.getStructureLaneDistance().shouldHaveText('4');
-          view.getStopElevationFromRailTop().shouldHaveText('25');
-          view.getStopElevationFromSidewalk().shouldHaveText('16');
-          view.getLowerCleatHeight().shouldHaveText('7');
+        view.getStructureLaneDistance().shouldHaveText('4');
+        view.getStopElevationFromRailTop().shouldHaveText('25');
+        view.getStopElevationFromSidewalk().shouldHaveText('16');
+        view.getLowerCleatHeight().shouldHaveText('7');
 
-          view.getPlatformEdgeWarningArea().shouldHaveText('Kyllä');
-          view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
-          view.getGuidanceStripe().shouldHaveText('Ei');
-          view.getServiceAreaStripes().shouldHaveText('Ei');
-          view.getGuidanceType().shouldHaveText('Ei opastetta');
-          view.getGuidanceTiles().shouldHaveText('Ei');
-          view.getMapType().shouldHaveText('Muu kartta');
+        view.getPlatformEdgeWarningArea().shouldHaveText('Kyllä');
+        view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
+        view.getGuidanceStripe().shouldHaveText('Ei');
+        view.getServiceAreaStripes().shouldHaveText('Ei');
+        view.getGuidanceType().shouldHaveText('Ei opastetta');
+        view.getGuidanceTiles().shouldHaveText('Ei');
+        view.getMapType().shouldHaveText('Muu kartta');
 
-          view.getCurbDriveSideOfRailDistance().shouldHaveText('8');
-          view.getEndRampSlope().shouldHaveText('9.9');
-          view.getServiceAreaWidth().shouldHaveText('1.6');
-          view.getServiceAreaLength().shouldHaveText('12.23');
-          view
-            .getPedestrianCrossingRampType()
-            .shouldHaveText('RK4 - Pystysuora reunatukiosuus');
-          view.getStopAreaSurroundingsAccessible().shouldHaveText('Esteetön');
+        view.getCurbDriveSideOfRailDistance().shouldHaveText('8');
+        view.getEndRampSlope().shouldHaveText('9.9');
+        view.getServiceAreaWidth().shouldHaveText('1.6');
+        view.getServiceAreaLength().shouldHaveText('12.23');
+        view
+          .getPedestrianCrossingRampType()
+          .shouldHaveText('RK4 - Pystysuora reunatukiosuus');
+        view.getStopAreaSurroundingsAccessible().shouldHaveText('Esteetön');
 
-          stopDetailsPage.measurements
-            .getAccessibilityLevel()
-            .shouldHaveText('Täysin esteetön');
+        stopDetailsPage.measurements
+          .getAccessibilityLevel()
+          .shouldHaveText('Täysin esteetön');
 
-          stopDetailsPage.headerSummaryRow.accessibleIcon().shouldBeVisible();
-        },
-      );
+        stopDetailsPage.headerSummaryRow.accessibleIcon().shouldBeVisible();
+      });
 
-      it(
-        'should be able to clear measurement fields',
-        { tags: [Tag.StopRegistry] },
-        () => {
-          stopDetailsPage.measurements.getEditButton().click();
-          view.getContainer().should('not.exist');
+      it('should be able to clear measurement fields', () => {
+        stopDetailsPage.measurements.getEditButton().click();
+        view.getContainer().should('not.exist');
 
-          // Clear all the fields.
-          form.getStopTypeDropdownButton().click();
-          form.getStopTypeDropdownOptions().contains('Ei tiedossa').click();
-          form.getCurvedStopDropdownButton().click();
-          form.getCurvedStopDropdownOptions().contains('Ei tiedossa').click();
-          form.getShelterTypeDropdownButton().click();
-          form.getShelterTypeDropdownOptions().contains('Ei tiedossa').click();
-          form.getShelterLaneDistanceInput().clear();
-          form.getCurbBackOfRailDistanceInput().clear();
-          form.getStopAreaSideSlopeInput().clear();
-          form.getStopAreaLengthwiseSlopeInput().clear();
+        // Clear all the fields.
+        form.getStopTypeDropdownButton().click();
+        form.getStopTypeDropdownOptions().contains('Ei tiedossa').click();
+        form.getCurvedStopDropdownButton().click();
+        form.getCurvedStopDropdownOptions().contains('Ei tiedossa').click();
+        form.getShelterTypeDropdownButton().click();
+        form.getShelterTypeDropdownOptions().contains('Ei tiedossa').click();
+        form.getShelterLaneDistanceInput().clear();
+        form.getCurbBackOfRailDistanceInput().clear();
+        form.getStopAreaSideSlopeInput().clear();
+        form.getStopAreaLengthwiseSlopeInput().clear();
 
-          form.getStructureLaneDistanceInput().clear();
-          form.getStopElevationFromRailTopInput().clear();
-          form.getStopElevationFromSidewalkInput().clear();
-          form.getLowerCleatHeightInput().clear();
+        form.getStructureLaneDistanceInput().clear();
+        form.getStopElevationFromRailTopInput().clear();
+        form.getStopElevationFromSidewalkInput().clear();
+        form.getLowerCleatHeightInput().clear();
 
-          form.getPlatformEdgeWarningAreaCheckbox().click();
-          form.getSidewalkAccessibleConnectionCheckbox().click();
-          form.getGuidanceStripeCheckbox().click();
-          form.getServiceAreaStripesCheckbox().click();
-          form.getGuidanceTypeDropdownButton().click();
-          form.getGuidanceTypeDropdownOptions().contains('Ei tiedossa').click();
-          form.getGuidanceTilesCheckbox().click();
-          form.getMapTypeDropdownButton().click();
-          form.getMapTypeDropdownOptions().contains('Ei tiedossa').click();
+        form.getPlatformEdgeWarningAreaCheckbox().click();
+        form.getSidewalkAccessibleConnectionCheckbox().click();
+        form.getGuidanceStripeCheckbox().click();
+        form.getServiceAreaStripesCheckbox().click();
+        form.getGuidanceTypeDropdownButton().click();
+        form.getGuidanceTypeDropdownOptions().contains('Ei tiedossa').click();
+        form.getGuidanceTilesCheckbox().click();
+        form.getMapTypeDropdownButton().click();
+        form.getMapTypeDropdownOptions().contains('Ei tiedossa').click();
 
-          form.getCurbDriveSideOfRailDistanceInput().clear();
-          form.getEndRampSlopeInput().clear();
-          form.getServiceAreaWidthInput().clear();
-          form.getServiceAreaLengthInput().clear();
-          form.getPedestrianCrossingRampTypeDropdownButton().click();
-          form
-            .getPedestrianCrossingRampTypeDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
-          form.getStopAreaSurroundingsAccessibleDropdownButton().click();
-          form
-            .getStopAreaSurroundingsAccessibleDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
+        form.getCurbDriveSideOfRailDistanceInput().clear();
+        form.getEndRampSlopeInput().clear();
+        form.getServiceAreaWidthInput().clear();
+        form.getServiceAreaLengthInput().clear();
+        form.getPedestrianCrossingRampTypeDropdownButton().click();
+        form
+          .getPedestrianCrossingRampTypeDropdownOptions()
+          .contains('Ei tiedossa')
+          .click();
+        form.getStopAreaSurroundingsAccessibleDropdownButton().click();
+        form
+          .getStopAreaSurroundingsAccessibleDropdownOptions()
+          .contains('Ei tiedossa')
+          .click();
 
-          // Submit.
-          stopDetailsPage.measurements.getSaveButton().click();
-          toast.expectSuccessToast('Pysäkki muokattu');
-          view.getContainer().shouldBeVisible();
+        // Submit.
+        stopDetailsPage.measurements.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainer().shouldBeVisible();
 
-          // Verify changes visible in view card:
-          view.getStopType().shouldHaveText('-');
-          view.getCurvedStop().shouldHaveText('-');
-          view.getShelterType().shouldHaveText('-');
-          view.getShelterLaneDistance().shouldHaveText('-');
-          view.getCurbBackOfRailDistance().shouldHaveText('-');
-          view.getStopAreaSideSlope().shouldHaveText('-');
-          view.getStopAreaLengthwiseSlope().shouldHaveText('-');
+        // Verify changes visible in view card:
+        view.getStopType().shouldHaveText('-');
+        view.getCurvedStop().shouldHaveText('-');
+        view.getShelterType().shouldHaveText('-');
+        view.getShelterLaneDistance().shouldHaveText('-');
+        view.getCurbBackOfRailDistance().shouldHaveText('-');
+        view.getStopAreaSideSlope().shouldHaveText('-');
+        view.getStopAreaLengthwiseSlope().shouldHaveText('-');
 
-          view.getStructureLaneDistance().shouldHaveText('-');
-          view.getStopElevationFromRailTop().shouldHaveText('-');
-          view.getStopElevationFromSidewalk().shouldHaveText('-');
-          view.getLowerCleatHeight().shouldHaveText('-');
+        view.getStructureLaneDistance().shouldHaveText('-');
+        view.getStopElevationFromRailTop().shouldHaveText('-');
+        view.getStopElevationFromSidewalk().shouldHaveText('-');
+        view.getLowerCleatHeight().shouldHaveText('-');
 
-          view.getPlatformEdgeWarningArea().shouldHaveText('Ei');
-          view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
-          view.getGuidanceStripe().shouldHaveText('Ei');
-          view.getServiceAreaStripes().shouldHaveText('Ei');
-          view.getGuidanceType().shouldHaveText('-');
-          view.getGuidanceTiles().shouldHaveText('Ei');
-          view.getMapType().shouldHaveText('-');
+        view.getPlatformEdgeWarningArea().shouldHaveText('Ei');
+        view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
+        view.getGuidanceStripe().shouldHaveText('Ei');
+        view.getServiceAreaStripes().shouldHaveText('Ei');
+        view.getGuidanceType().shouldHaveText('-');
+        view.getGuidanceTiles().shouldHaveText('Ei');
+        view.getMapType().shouldHaveText('-');
 
-          view.getCurbDriveSideOfRailDistance().shouldHaveText('-');
-          view.getEndRampSlope().shouldHaveText('-');
-          view.getServiceAreaWidth().shouldHaveText('-');
-          view.getServiceAreaLength().shouldHaveText('-');
-          view.getPedestrianCrossingRampType().shouldHaveText('-');
-          view.getStopAreaSurroundingsAccessible().shouldHaveText('-');
+        view.getCurbDriveSideOfRailDistance().shouldHaveText('-');
+        view.getEndRampSlope().shouldHaveText('-');
+        view.getServiceAreaWidth().shouldHaveText('-');
+        view.getServiceAreaLength().shouldHaveText('-');
+        view.getPedestrianCrossingRampType().shouldHaveText('-');
+        view.getStopAreaSurroundingsAccessible().shouldHaveText('-');
 
-          // Required data missing so can't calculate accessibility level
-          stopDetailsPage.measurements
-            .getAccessibilityLevel()
-            .shouldHaveText('Esteettömyystietoja puuttuu');
-        },
-      );
+        // Required data missing so can't calculate accessibility level
+        stopDetailsPage.measurements
+          .getAccessibilityLevel()
+          .shouldHaveText('Esteettömyystietoja puuttuu');
+      });
     });
 
     describe('maintenance details', () => {
@@ -2020,66 +1938,229 @@ describe('Stop details', () => {
       infoSpotView.getSectionContainers().shouldBeVisible();
     });
 
-    it(
-      'should view and edit info spot details',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        verifyInitialInfoSpots();
+    it('should view and edit info spot details', {}, () => {
+      verifyInitialInfoSpots();
 
-        const infoSpot = infoSpotForm.infoSpots;
+      const infoSpot = infoSpotForm.infoSpots;
 
-        // Edit info spot
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getSectionContainers().should('not.exist');
+      // Edit info spot
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getEditButton().click();
+        infoSpotView.getSectionContainers().should('not.exist');
 
+        infoSpot
+          .getDescription()
+          .should('have.value', 'Ensimmäinen kerros, portaiden vieressä');
+        infoSpot.getLabel().should('have.value', 'JP1234568');
+        infoSpot.getPurposeButton().should('have.text', 'Tiedotteet');
+        infoSpot.getBacklightButton().should('have.text', 'Kyllä');
+        infoSpot.getSizeSelectorButton().should('have.text', '80 × 120 cm');
+        infoSpot.getFloor().should('have.value', '1');
+        infoSpot.getRailInformation().should('have.value', '7');
+        infoSpot.getZoneLabel().should('have.value', 'A');
+        infoSpot.getNthPosterContainer(0).within(() => {
           infoSpot
-            .getDescription()
-            .should('have.value', 'Ensimmäinen kerros, portaiden vieressä');
-          infoSpot.getLabel().should('have.value', 'JP1234568');
-          infoSpot.getPurposeButton().should('have.text', 'Tiedotteet');
-          infoSpot.getBacklightButton().should('have.text', 'Kyllä');
-          infoSpot.getSizeSelectorButton().should('have.text', '80 × 120 cm');
-          infoSpot.getFloor().should('have.value', '1');
-          infoSpot.getRailInformation().should('have.value', '7');
-          infoSpot.getZoneLabel().should('have.value', 'A');
-          infoSpot.getNthPosterContainer(0).within(() => {
-            infoSpot
-              .getSizeSelectorButton()
-              .should('have.text', 'A4 (21.0 × 29.7 cm)');
-            infoSpot.getPosterLabel().should('have.value', 'PT1234');
-            infoSpot.getPosterLines().should('have.value', '1, 6, 17');
-          });
-          infoSpot.getNoPostersLabel().should('not.exist');
+            .getSizeSelectorButton()
+            .should('have.text', 'A4 (21.0 × 29.7 cm)');
+          infoSpot.getPosterLabel().should('have.value', 'PT1234');
+          infoSpot.getPosterLines().should('have.value', '1, 6, 17');
+        });
+        infoSpot.getNoPostersLabel().should('not.exist');
 
-          // Change everything
-          infoSpot.getLabel().clearAndType('IP98765432');
-          infoSpot.getPurposeButton().click();
-          cy.withinHeadlessPortal(() =>
-            infoSpot
-              .getPurposeOptions()
-              .contains('Muu käyttötarkoitus')
-              .click(),
-          );
-          infoSpot.getPurposeCustom().shouldBeVisible();
-          infoSpot.getPurposeCustom().clearAndType('Custom käyttötarkoitus');
+        // Change everything
+        infoSpot.getLabel().clearAndType('IP98765432');
+        infoSpot.getPurposeButton().click();
+        cy.withinHeadlessPortal(() =>
+          infoSpot.getPurposeOptions().contains('Muu käyttötarkoitus').click(),
+        );
+        infoSpot.getPurposeCustom().shouldBeVisible();
+        infoSpot.getPurposeCustom().clearAndType('Custom käyttötarkoitus');
+        infoSpot.getSizeSelectorButton().click();
+        cy.withinHeadlessPortal(() =>
+          infoSpot
+            .getSizeSelectorOptions()
+            .contains('A4 (21.0 × 29.7 cm)')
+            .click(),
+        );
+        infoSpot.getBacklightButton().click();
+        cy.withinHeadlessPortal(() =>
+          infoSpot.getBacklightOptions().contains('Ei').click(),
+        );
+        infoSpot.getDescription().clearAndType('Infopaikan uusi kuvaus');
+        infoSpot.getZoneLabel().clearAndType('B');
+        infoSpot.getRailInformation().clearAndType('8');
+        infoSpot.getFloor().clearAndType('2');
+        infoSpot.getNthPosterContainer(0).within(() => {
+          infoSpot.getPosterLabel().clearAndType('PT1235');
           infoSpot.getSizeSelectorButton().click();
           cy.withinHeadlessPortal(() =>
             infoSpot
               .getSizeSelectorOptions()
-              .contains('A4 (21.0 × 29.7 cm)')
+              .contains('A3 (29.7 × 42.0 cm)')
+              .click(),
+          );
+          infoSpot.getPosterLines().clearAndType('2, 7, 18');
+        });
+      });
+
+      // Submit.
+      stopDetailsPage.infoSpots.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+      infoSpotView.getSectionContainers().shouldBeVisible();
+
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        infoSpotView.getDescription().shouldHaveText('Infopaikan uusi kuvaus');
+        infoSpotView.getLabel().shouldHaveText('IP98765432');
+        infoSpotView.getPurpose().shouldHaveText('Custom käyttötarkoitus');
+        infoSpotView.getBacklight().shouldHaveText('Ei');
+        infoSpotView.getSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
+        infoSpotView.getFloor().shouldHaveText('2');
+        infoSpotView.getRailInformation().shouldHaveText('8');
+        infoSpotView.getZoneLabel().shouldHaveText('B');
+        infoSpotView.getNthPosterContainer(0).within(() => {
+          infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
+          infoSpotView.getPosterLabel().shouldHaveText('PT1235');
+          infoSpotView.getPosterLines().shouldHaveText('2, 7, 18');
+        });
+        infoSpotView.getNoPosters().should('not.exist');
+      });
+
+      // Edit second info spot
+      infoSpotView.getNthSectionContainer(1).within(() => {
+        stopDetailsPage.infoSpots.getEditButton().click();
+        infoSpotView.getSectionContainers().should('not.exist');
+
+        infoSpot
+          .getDescription()
+          .should('have.value', 'Ensimmäinen kerros, portaiden takana');
+        infoSpot.getLabel().should('have.value', 'JP1234567');
+        infoSpot.getPurposeButton().should('have.text', 'Dynaaminen näyttö');
+        infoSpot.getFloor().should('have.value', '1');
+        infoSpot.getRailInformation().should('have.value', '8');
+        infoSpot.getZoneLabel().should('have.value', 'B');
+        infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
+
+        // Change everything
+        infoSpot.getLabel().clearAndType('IP2345678');
+        infoSpot.getPurposeButton().click();
+        cy.withinHeadlessPortal(() =>
+          infoSpot.getPurposeOptions().contains('Pysäkkijuliste').click(),
+        );
+        infoSpot.getPurposeCustom().should('not.exist');
+        infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
+        infoSpot.getZoneLabel().clearAndType('C');
+        infoSpot.getRailInformation().clearAndType('9');
+        infoSpot.getFloor().clearAndType('2');
+      });
+
+      // Submit.
+      stopDetailsPage.infoSpots.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+      infoSpotView.getSectionContainers().shouldBeVisible();
+
+      infoSpotView.getNthSectionContainer(1).within(() => {
+        infoSpotView.getDescription().shouldHaveText('Dynaaminen kuvaus');
+        infoSpotView.getLabel().shouldHaveText('IP2345678');
+        infoSpotView.getPurpose().shouldHaveText('Pysäkkijuliste');
+        infoSpotView.getBacklight().shouldHaveText('-');
+        infoSpotView.getSize().shouldHaveText('-');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198');
+        infoSpotView.getFloor().shouldHaveText('2');
+        infoSpotView.getRailInformation().shouldHaveText('9');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('C');
+        infoSpotView.getNoPosters().shouldHaveText('Ei infotuotetta');
+      });
+    });
+
+    it('should be able to add and delete info spots and posters', () => {
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getEditButton().click();
+        infoSpotView.getSectionContainers().should('not.exist');
+
+        // Add more infoSpots.
+        infoSpotForm.getInfoSpots().should('have.length', 1);
+        stopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
+        infoSpotForm.getInfoSpots().should('have.length', 2);
+
+        const infoSpot = infoSpotForm.infoSpots;
+        infoSpotForm.getNthInfoSpot(0).within(() => {
+          infoSpot
+            .getDeleteInfoSpotButton()
+            .shouldHaveText('Poista infopaikka');
+          infoSpot.getDeleteInfoSpotButton().click();
+          infoSpot.getDeleteInfoSpotButton().shouldHaveText('Peruuta poisto');
+          infoSpot.getDeleteInfoSpotButton().click();
+          infoSpot
+            .getDeleteInfoSpotButton()
+            .shouldHaveText('Poista infopaikka');
+          infoSpot.getDeleteInfoSpotButton().click();
+          infoSpot.getDeleteInfoSpotButton().shouldHaveText('Peruuta poisto');
+        });
+
+        infoSpotForm.getNthInfoSpot(1).within(() => {
+          infoSpot
+            .getDeleteInfoSpotButton()
+            .shouldHaveText('Poista infopaikka');
+          infoSpot.getDeleteInfoSpotButton().click();
+        });
+      });
+
+      // Submit.
+      stopDetailsPage.infoSpots.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+      infoSpotView.getSectionContainers().shouldBeVisible();
+
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getTitle().contains('Ei infopaikkoja');
+      });
+
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getAddNewButton().click();
+        infoSpotView.getSectionContainers().should('not.exist');
+
+        infoSpotForm.getInfoSpots().should('have.length', 1);
+
+        const infoSpot = infoSpotForm.infoSpots;
+        infoSpotForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getLabel().clearAndType('IP123');
+          infoSpot.getPurposeButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getPurposeOptions().contains('Kartta').click(),
+          );
+          infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
+          infoSpot.getZoneLabel().clearAndType('A');
+          infoSpot.getRailInformation().clearAndType('1');
+          infoSpot.getFloor().clearAndType('3');
+          infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
+        });
+
+        stopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
+        infoSpotForm.getInfoSpots().should('have.length', 2);
+
+        infoSpotForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getLabel().clearAndType('IP125');
+          infoSpot.getPurposeButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getPurposeOptions().contains('Lähialuekartta').click(),
+          );
+          infoSpot.getSizeSelectorButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot
+              .getSizeSelectorOptions()
+              .contains('A3 (29.7 × 42.0 cm)')
               .click(),
           );
           infoSpot.getBacklightButton().click();
           cy.withinHeadlessPortal(() =>
-            infoSpot.getBacklightOptions().contains('Ei').click(),
+            infoSpot.getBacklightOptions().contains('Kyllä').click(),
           );
-          infoSpot.getDescription().clearAndType('Infopaikan uusi kuvaus');
-          infoSpot.getZoneLabel().clearAndType('B');
-          infoSpot.getRailInformation().clearAndType('8');
-          infoSpot.getFloor().clearAndType('2');
+          infoSpot.getDescription().clearAndType('Staattisen kuvaus');
+          infoSpot.getAddPosterButton().click();
           infoSpot.getNthPosterContainer(0).within(() => {
-            infoSpot.getPosterLabel().clearAndType('PT1235');
+            infoSpot.getPosterLabel().clearAndType('PT1236');
             infoSpot.getSizeSelectorButton().click();
             cy.withinHeadlessPortal(() =>
               infoSpot
@@ -2087,411 +2168,223 @@ describe('Stop details', () => {
                 .contains('A3 (29.7 × 42.0 cm)')
                 .click(),
             );
-            infoSpot.getPosterLines().clearAndType('2, 7, 18');
+            infoSpot.getPosterLines().clearAndType('2, 7, 1');
           });
-        });
-
-        // Submit.
-        stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-        infoSpotView.getSectionContainers().shouldBeVisible();
-
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          infoSpotView
-            .getDescription()
-            .shouldHaveText('Infopaikan uusi kuvaus');
-          infoSpotView.getLabel().shouldHaveText('IP98765432');
-          infoSpotView.getPurpose().shouldHaveText('Custom käyttötarkoitus');
-          infoSpotView.getBacklight().shouldHaveText('Ei');
-          infoSpotView.getSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
-          infoSpotView.getFloor().shouldHaveText('2');
-          infoSpotView.getRailInformation().shouldHaveText('8');
-          infoSpotView.getZoneLabel().shouldHaveText('B');
-          infoSpotView.getNthPosterContainer(0).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
-            infoSpotView.getPosterLabel().shouldHaveText('PT1235');
-            infoSpotView.getPosterLines().shouldHaveText('2, 7, 18');
+          infoSpot.getAddPosterButton().click();
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getPosterLabel().clearAndType('PT1237');
+            infoSpot.getSizeSelectorButton().click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot
+                .getSizeSelectorOptions()
+                .contains('A4 (21.0 × 29.7 cm)')
+                .click(),
+            );
+            infoSpot.getPosterLines().clearAndType('2');
           });
-          infoSpotView.getNoPosters().should('not.exist');
-        });
-
-        // Edit second info spot
-        infoSpotView.getNthSectionContainer(1).within(() => {
-          stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getSectionContainers().should('not.exist');
-
-          infoSpot
-            .getDescription()
-            .should('have.value', 'Ensimmäinen kerros, portaiden takana');
-          infoSpot.getLabel().should('have.value', 'JP1234567');
-          infoSpot.getPurposeButton().should('have.text', 'Dynaaminen näyttö');
-          infoSpot.getFloor().should('have.value', '1');
-          infoSpot.getRailInformation().should('have.value', '8');
-          infoSpot.getZoneLabel().should('have.value', 'B');
-          infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
-
-          // Change everything
-          infoSpot.getLabel().clearAndType('IP2345678');
-          infoSpot.getPurposeButton().click();
-          cy.withinHeadlessPortal(() =>
-            infoSpot.getPurposeOptions().contains('Pysäkkijuliste').click(),
-          );
-          infoSpot.getPurposeCustom().should('not.exist');
-          infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
-          infoSpot.getZoneLabel().clearAndType('C');
-          infoSpot.getRailInformation().clearAndType('9');
+          infoSpot.getZoneLabel().clearAndType('A');
+          infoSpot.getRailInformation().clearAndType('7');
           infoSpot.getFloor().clearAndType('2');
+          infoSpot.getNoPostersLabel().should('not.exist');
         });
+      });
 
-        // Submit.
-        stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-        infoSpotView.getSectionContainers().shouldBeVisible();
+      // Submit.
+      stopDetailsPage.infoSpots.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+      infoSpotView.getSectionContainers().shouldBeVisible();
+      stopDetailsPage.infoSpots.getTitle().contains('Infopaikat');
 
-        infoSpotView.getNthSectionContainer(1).within(() => {
-          infoSpotView.getDescription().shouldHaveText('Dynaaminen kuvaus');
-          infoSpotView.getLabel().shouldHaveText('IP2345678');
-          infoSpotView.getPurpose().shouldHaveText('Pysäkkijuliste');
-          infoSpotView.getBacklight().shouldHaveText('-');
-          infoSpotView.getSize().shouldHaveText('-');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198');
-          infoSpotView.getFloor().shouldHaveText('2');
-          infoSpotView.getRailInformation().shouldHaveText('9');
-          infoSpotView.getStops().shouldHaveText('V1562');
-          infoSpotView.getTerminals().shouldHaveText('-');
-          infoSpotView.getZoneLabel().shouldHaveText('C');
-          infoSpotView.getNoPosters().shouldHaveText('Ei infotuotetta');
+      infoSpotView.getNthViewCardContainer(0).within(() => {
+        infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
+        infoSpotView.getLabel().shouldHaveText('IP123');
+        infoSpotView.getPurpose().shouldHaveText('Kartta');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198');
+        infoSpotView.getFloor().shouldHaveText('3');
+        infoSpotView.getRailInformation().shouldHaveText('1');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('A');
+        infoSpotView.getNoPosters().shouldHaveText('Ei infotuotetta');
+      });
+
+      infoSpotView.getNthViewCardContainer(1).within(() => {
+        infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
+        infoSpotView.getLabel().shouldHaveText('IP125');
+        infoSpotView.getBacklight().shouldHaveText('Kyllä');
+        infoSpotView.getSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
+        infoSpotView.getNthPosterContainer(1).within(() => {
+          infoSpotView.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
+          infoSpotView.getPosterLabel().shouldHaveText('PT1237');
+          infoSpotView.getPosterLines().shouldHaveText('2');
         });
-      },
-    );
-
-    it(
-      'should be able to add and delete info spots and posters',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getSectionContainers().should('not.exist');
-
-          // Add more infoSpots.
-          infoSpotForm.getInfoSpots().should('have.length', 1);
-          stopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
-          infoSpotForm.getInfoSpots().should('have.length', 2);
-
-          const infoSpot = infoSpotForm.infoSpots;
-          infoSpotForm.getNthInfoSpot(0).within(() => {
-            infoSpot
-              .getDeleteInfoSpotButton()
-              .shouldHaveText('Poista infopaikka');
-            infoSpot.getDeleteInfoSpotButton().click();
-            infoSpot.getDeleteInfoSpotButton().shouldHaveText('Peruuta poisto');
-            infoSpot.getDeleteInfoSpotButton().click();
-            infoSpot
-              .getDeleteInfoSpotButton()
-              .shouldHaveText('Poista infopaikka');
-            infoSpot.getDeleteInfoSpotButton().click();
-            infoSpot.getDeleteInfoSpotButton().shouldHaveText('Peruuta poisto');
-          });
-
-          infoSpotForm.getNthInfoSpot(1).within(() => {
-            infoSpot
-              .getDeleteInfoSpotButton()
-              .shouldHaveText('Poista infopaikka');
-            infoSpot.getDeleteInfoSpotButton().click();
-          });
+        infoSpotView.getNthPosterContainer(0).within(() => {
+          infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
+          infoSpotView.getPosterLabel().shouldHaveText('PT1236');
+          infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
         });
+        infoSpotView.getPurpose().shouldHaveText('Lähialuekartta');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198');
+        infoSpotView.getFloor().shouldHaveText('2');
+        infoSpotView.getRailInformation().shouldHaveText('7');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('A');
+        infoSpotView.getNoPosters().should('not.exist');
+      });
 
-        // Submit.
-        stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-        infoSpotView.getSectionContainers().shouldBeVisible();
+      // Delete poster
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getEditButton().click();
+        infoSpotView.getSectionContainers().should('not.exist');
 
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getTitle().contains('Ei infopaikkoja');
-        });
-
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getAddNewButton().click();
-          infoSpotView.getSectionContainers().should('not.exist');
-
-          infoSpotForm.getInfoSpots().should('have.length', 1);
-
-          const infoSpot = infoSpotForm.infoSpots;
-          infoSpotForm.getNthInfoSpot(0).within(() => {
-            infoSpot.getLabel().clearAndType('IP123');
-            infoSpot.getPurposeButton().click();
-            cy.withinHeadlessPortal(() =>
-              infoSpot.getPurposeOptions().contains('Kartta').click(),
-            );
-            infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
-            infoSpot.getZoneLabel().clearAndType('A');
-            infoSpot.getRailInformation().clearAndType('1');
-            infoSpot.getFloor().clearAndType('3');
-            infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
-          });
-
-          stopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
-          infoSpotForm.getInfoSpots().should('have.length', 2);
-
-          infoSpotForm.getNthInfoSpot(1).within(() => {
-            infoSpot.getLabel().clearAndType('IP125');
-            infoSpot.getPurposeButton().click();
-            cy.withinHeadlessPortal(() =>
-              infoSpot.getPurposeOptions().contains('Lähialuekartta').click(),
-            );
-            infoSpot.getSizeSelectorButton().click();
-            cy.withinHeadlessPortal(() =>
-              infoSpot
-                .getSizeSelectorOptions()
-                .contains('A3 (29.7 × 42.0 cm)')
-                .click(),
-            );
-            infoSpot.getBacklightButton().click();
-            cy.withinHeadlessPortal(() =>
-              infoSpot.getBacklightOptions().contains('Kyllä').click(),
-            );
-            infoSpot.getDescription().clearAndType('Staattisen kuvaus');
-            infoSpot.getAddPosterButton().click();
-            infoSpot.getNthPosterContainer(0).within(() => {
-              infoSpot.getPosterLabel().clearAndType('PT1236');
-              infoSpot.getSizeSelectorButton().click();
-              cy.withinHeadlessPortal(() =>
-                infoSpot
-                  .getSizeSelectorOptions()
-                  .contains('A3 (29.7 × 42.0 cm)')
-                  .click(),
-              );
-              infoSpot.getPosterLines().clearAndType('2, 7, 1');
-            });
-            infoSpot.getAddPosterButton().click();
-            infoSpot.getNthPosterContainer(1).within(() => {
-              infoSpot.getPosterLabel().clearAndType('PT1237');
-              infoSpot.getSizeSelectorButton().click();
-              cy.withinHeadlessPortal(() =>
-                infoSpot
-                  .getSizeSelectorOptions()
-                  .contains('A4 (21.0 × 29.7 cm)')
-                  .click(),
-              );
-              infoSpot.getPosterLines().clearAndType('2');
-            });
-            infoSpot.getZoneLabel().clearAndType('A');
-            infoSpot.getRailInformation().clearAndType('7');
-            infoSpot.getFloor().clearAndType('2');
-            infoSpot.getNoPostersLabel().should('not.exist');
-          });
-        });
-
-        // Submit.
-        stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-        infoSpotView.getSectionContainers().shouldBeVisible();
-        stopDetailsPage.infoSpots.getTitle().contains('Infopaikat');
-
-        infoSpotView.getNthViewCardContainer(0).within(() => {
-          infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
-          infoSpotView.getLabel().shouldHaveText('IP123');
-          infoSpotView.getPurpose().shouldHaveText('Kartta');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198');
-          infoSpotView.getFloor().shouldHaveText('3');
-          infoSpotView.getRailInformation().shouldHaveText('1');
-          infoSpotView.getStops().shouldHaveText('V1562');
-          infoSpotView.getTerminals().shouldHaveText('-');
-          infoSpotView.getZoneLabel().shouldHaveText('A');
-          infoSpotView.getNoPosters().shouldHaveText('Ei infotuotetta');
-        });
-
-        infoSpotView.getNthViewCardContainer(1).within(() => {
-          infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
-          infoSpotView.getLabel().shouldHaveText('IP125');
-          infoSpotView.getBacklight().shouldHaveText('Kyllä');
-          infoSpotView.getSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
-          infoSpotView.getNthPosterContainer(1).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
-            infoSpotView.getPosterLabel().shouldHaveText('PT1237');
-            infoSpotView.getPosterLines().shouldHaveText('2');
-          });
-          infoSpotView.getNthPosterContainer(0).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
-            infoSpotView.getPosterLabel().shouldHaveText('PT1236');
-            infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
-          });
-          infoSpotView.getPurpose().shouldHaveText('Lähialuekartta');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198');
-          infoSpotView.getFloor().shouldHaveText('2');
-          infoSpotView.getRailInformation().shouldHaveText('7');
-          infoSpotView.getStops().shouldHaveText('V1562');
-          infoSpotView.getTerminals().shouldHaveText('-');
-          infoSpotView.getZoneLabel().shouldHaveText('A');
-          infoSpotView.getNoPosters().should('not.exist');
-        });
-
-        // Delete poster
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getSectionContainers().should('not.exist');
-
-          const infoSpot = infoSpotForm.infoSpots;
-          infoSpotForm.getNthInfoSpot(1).within(() => {
-            infoSpot.getLabel().should('have.value', 'IP125');
-            infoSpot.getPurposeButton().should('have.text', 'Lähialuekartta');
+        const infoSpot = infoSpotForm.infoSpots;
+        infoSpotForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getLabel().should('have.value', 'IP125');
+          infoSpot.getPurposeButton().should('have.text', 'Lähialuekartta');
+          infoSpot
+            .getSizeSelectorButton()
+            .should('have.text', 'A3 (29.7 × 42.0 cm)');
+          infoSpot.getBacklightButton().should('have.text', 'Kyllä');
+          infoSpot.getDescription().should('have.value', 'Staattisen kuvaus');
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getPosterLabel().should('have.value', 'PT1236');
             infoSpot
               .getSizeSelectorButton()
               .should('have.text', 'A3 (29.7 × 42.0 cm)');
-            infoSpot.getBacklightButton().should('have.text', 'Kyllä');
-            infoSpot.getDescription().should('have.value', 'Staattisen kuvaus');
-            infoSpot.getNthPosterContainer(0).within(() => {
-              infoSpot.getPosterLabel().should('have.value', 'PT1236');
-              infoSpot
-                .getSizeSelectorButton()
-                .should('have.text', 'A3 (29.7 × 42.0 cm)');
-              infoSpot.getPosterLines().should('have.value', '2, 7, 1');
-            });
-            infoSpot.getNthPosterContainer(1).within(() => {
-              infoSpot.getPosterLabel().should('have.value', 'PT1237');
-              infoSpot
-                .getSizeSelectorButton()
-                .should('have.text', 'A4 (21.0 × 29.7 cm)');
-              infoSpot.getPosterLines().should('have.value', '2');
-            });
-            infoSpot.getZoneLabel().should('have.value', 'A');
-            infoSpot.getRailInformation().should('have.value', '7');
-            infoSpot.getFloor().should('have.value', '2');
+            infoSpot.getPosterLines().should('have.value', '2, 7, 1');
+          });
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getPosterLabel().should('have.value', 'PT1237');
+            infoSpot
+              .getSizeSelectorButton()
+              .should('have.text', 'A4 (21.0 × 29.7 cm)');
+            infoSpot.getPosterLines().should('have.value', '2');
+          });
+          infoSpot.getZoneLabel().should('have.value', 'A');
+          infoSpot.getRailInformation().should('have.value', '7');
+          infoSpot.getFloor().should('have.value', '2');
 
-            // Delete poster
-            infoSpot.getNthPosterContainer(1).within(() => {
-              infoSpot
-                .getDeletePosterButton()
-                .shouldHaveText('Poista infotuote');
-              infoSpot.getDeletePosterButton().click();
-              infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
-              infoSpot.getDeletePosterButton().click();
-              infoSpot
-                .getDeletePosterButton()
-                .shouldHaveText('Poista infotuote');
-              infoSpot.getDeletePosterButton().click();
-              infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
-            });
+          // Delete poster
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getDeletePosterButton().shouldHaveText('Poista infotuote');
+            infoSpot.getDeletePosterButton().click();
+            infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
+            infoSpot.getDeletePosterButton().click();
+            infoSpot.getDeletePosterButton().shouldHaveText('Poista infotuote');
+            infoSpot.getDeletePosterButton().click();
+            infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
           });
         });
+      });
 
-        // Submit.
-        stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-        infoSpotView.getSectionContainers().shouldBeVisible();
+      // Submit.
+      stopDetailsPage.infoSpots.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+      infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthViewCardContainer(1).within(() => {
-          infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
-          infoSpotView.getLabel().shouldHaveText('IP125');
-          infoSpotView.getBacklight().shouldHaveText('Kyllä');
-          infoSpotView.getSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
-          infoSpotView.getNthPosterContainer(0).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
-            infoSpotView.getPosterLabel().shouldHaveText('PT1236');
-            infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
-          });
-          infoSpotView.getPurpose().shouldHaveText('Lähialuekartta');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198');
-          infoSpotView.getFloor().shouldHaveText('2');
-          infoSpotView.getRailInformation().shouldHaveText('7');
-          infoSpotView.getStops().shouldHaveText('V1562');
-          infoSpotView.getTerminals().shouldHaveText('-');
-          infoSpotView.getZoneLabel().shouldHaveText('A');
+      infoSpotView.getNthViewCardContainer(1).within(() => {
+        infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
+        infoSpotView.getLabel().shouldHaveText('IP125');
+        infoSpotView.getBacklight().shouldHaveText('Kyllä');
+        infoSpotView.getSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
+        infoSpotView.getNthPosterContainer(0).within(() => {
+          infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
+          infoSpotView.getPosterLabel().shouldHaveText('PT1236');
+          infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
         });
-      },
-    );
+        infoSpotView.getPurpose().shouldHaveText('Lähialuekartta');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198');
+        infoSpotView.getFloor().shouldHaveText('2');
+        infoSpotView.getRailInformation().shouldHaveText('7');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('A');
+      });
+    });
 
-    it(
-      'should allow entering manual spot & poster sizes',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotForm.getNthInfoSpot(0).within(() => {
-            infoSpotForm.infoSpots.getSizeSelectorButton().click();
-            cy.withinHeadlessPortal(() =>
-              infoSpotForm.infoSpots
-                .getSizeSelectorOptions()
-                .contains('Syötä mitat')
-                .click(),
-            );
-            infoSpotForm.infoSpots.getSizeWidth().clearAndType('176');
-            infoSpotForm.infoSpots.getSizeHeight().clearAndType('250');
-          });
-        });
-
-        stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-
-        infoSpotView.getNthSectionContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotForm.getNthInfoSpot(0).within(() => {
-            infoSpotForm.infoSpots.getAddPosterButton().click();
-            infoSpotForm.infoSpots.getNthPosterContainer(0).within(() => {
-              infoSpotForm.infoSpots.getSizeSelectorButton().click();
-              cy.withinHeadlessPortal(() => {
-                const getOption = (index: number) =>
-                  infoSpotForm.infoSpots
-                    .getSizeSelectorOptions()
-                    .get('[role="option"]')
-                    .eq(index);
-
-                getOption(0).contains('80 × 120 cm');
-                getOption(1).contains('A3 (29.7 × 42.0 cm)');
-                getOption(2).contains('A4 (21.0 × 29.7 cm)');
-                getOption(3).contains('Ei tiedossa');
-                getOption(4).contains('Syötä mitat');
-                getOption(5).contains('B5 (17.6 × 25.0 cm)');
-              });
-            });
-          });
-        });
-      },
-    );
-
-    it(
-      'should show info text when there are no shelters',
-      { tags: [Tag.StopRegistry] },
-      () => {
-        // First, delete all existing shelters
-        stopDetailsPage.technicalFeaturesTabButton().click();
-        stopDetailsPage.shelters.getEditButton().click();
-        stopDetailsPage.shelters.viewCard.getContainers().should('not.exist');
-
-        stopDetailsPage.shelters.form.getShelters().each(($shelter, index) => {
-          stopDetailsPage.shelters.form.getNthShelter(index).within(() => {
-            stopDetailsPage.shelters.form.shelters
-              .getDeleteShelterButton()
-              .click();
-            stopDetailsPage.shelters.form.shelters
-              .getShelterTypeDropdownButton()
-              .shouldBeDisabled();
-          });
-        });
-
-        stopDetailsPage.shelters.getSaveButton().click();
-        toast.expectSuccessToast('Pysäkki muokattu');
-
-        stopDetailsPage.shelters.viewCard.getContainers().should('not.exist');
-        stopDetailsPage.shelters
-          .getTitle()
-          .should('have.text', 'Ei pysäkkikatosta');
-
-        stopDetailsPage.infoSpotsTabButton().click();
-
-        stopDetailsPage.infoSpots.getNoSheltersInfoText().should('be.visible');
-        stopDetailsPage.infoSpots
-          .getNoSheltersInfoText()
-          .should(
-            'contain.text',
-            'Ei infopaikkoja. Mene Tekniset ominaisuudet -välilehdelle ja lisää ensin katostyyppi.',
+    it('should allow entering manual spot & poster sizes', () => {
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getEditButton().click();
+        infoSpotForm.getNthInfoSpot(0).within(() => {
+          infoSpotForm.infoSpots.getSizeSelectorButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpotForm.infoSpots
+              .getSizeSelectorOptions()
+              .contains('Syötä mitat')
+              .click(),
           );
-      },
-    );
+          infoSpotForm.infoSpots.getSizeWidth().clearAndType('176');
+          infoSpotForm.infoSpots.getSizeHeight().clearAndType('250');
+        });
+      });
+
+      stopDetailsPage.infoSpots.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+
+      infoSpotView.getNthSectionContainer(0).within(() => {
+        stopDetailsPage.infoSpots.getEditButton().click();
+        infoSpotForm.getNthInfoSpot(0).within(() => {
+          infoSpotForm.infoSpots.getAddPosterButton().click();
+          infoSpotForm.infoSpots.getNthPosterContainer(0).within(() => {
+            infoSpotForm.infoSpots.getSizeSelectorButton().click();
+            cy.withinHeadlessPortal(() => {
+              const getOption = (index: number) =>
+                infoSpotForm.infoSpots
+                  .getSizeSelectorOptions()
+                  .get('[role="option"]')
+                  .eq(index);
+
+              getOption(0).contains('80 × 120 cm');
+              getOption(1).contains('A3 (29.7 × 42.0 cm)');
+              getOption(2).contains('A4 (21.0 × 29.7 cm)');
+              getOption(3).contains('Ei tiedossa');
+              getOption(4).contains('Syötä mitat');
+              getOption(5).contains('B5 (17.6 × 25.0 cm)');
+            });
+          });
+        });
+      });
+    });
+
+    it('should show info text when there are no shelters', () => {
+      // First, delete all existing shelters
+      stopDetailsPage.technicalFeaturesTabButton().click();
+      stopDetailsPage.shelters.getEditButton().click();
+      stopDetailsPage.shelters.viewCard.getContainers().should('not.exist');
+
+      stopDetailsPage.shelters.form.getShelters().each(($shelter, index) => {
+        stopDetailsPage.shelters.form.getNthShelter(index).within(() => {
+          stopDetailsPage.shelters.form.shelters
+            .getDeleteShelterButton()
+            .click();
+          stopDetailsPage.shelters.form.shelters
+            .getShelterTypeDropdownButton()
+            .shouldBeDisabled();
+        });
+      });
+
+      stopDetailsPage.shelters.getSaveButton().click();
+      toast.expectSuccessToast('Pysäkki muokattu');
+
+      stopDetailsPage.shelters.viewCard.getContainers().should('not.exist');
+      stopDetailsPage.shelters
+        .getTitle()
+        .should('have.text', 'Ei pysäkkikatosta');
+
+      stopDetailsPage.infoSpotsTabButton().click();
+
+      stopDetailsPage.infoSpots.getNoSheltersInfoText().should('be.visible');
+      stopDetailsPage.infoSpots
+        .getNoSheltersInfoText()
+        .should(
+          'contain.text',
+          'Ei infopaikkoja. Mene Tekniset ominaisuudet -välilehdelle ja lisää ensin katostyyppi.',
+        );
+    });
   });
 
   describe('version and copies', () => {

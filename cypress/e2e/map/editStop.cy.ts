@@ -39,7 +39,7 @@ const testCoordinates1 = {
   el: 0,
 };
 
-describe('Stop editing tests', () => {
+describe('Stop editing tests', { tags: [Tag.Stops] }, () => {
   const mapFilterPanel = new FilterPanel();
   const map = new Map();
   const confirmationDialog = new ConfirmationDialog();
@@ -92,7 +92,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should move a stop on the map',
-    { tags: Tag.Stops, scrollBehavior: 'bottom', ...mapViewport },
+    { tags: [Tag.Smoke], scrollBehavior: 'bottom', ...mapViewport },
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = {
@@ -135,218 +135,197 @@ describe('Stop editing tests', () => {
     },
   );
 
-  it(
-    'Should delete a stop',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
-    () => {
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+  it('Should delete a stop', { scrollBehavior: 'bottom' }, () => {
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForLoadToComplete();
+    map.waitForLoadToComplete();
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click({ force: true });
+    map
+      .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+      .click({ force: true });
 
-      map.stopPopUp.getDeleteButton().click();
+    map.stopPopUp.getDeleteButton().click();
 
-      confirmationDialog.getConfirmButton().click();
+    confirmationDialog.getConfirmButton().click();
 
-      expectGraphQLCallToSucceed('@gqlRemoveStop');
-      expectGraphQLCallToSucceed('@gqlDeleteQuay');
+    expectGraphQLCallToSucceed('@gqlRemoveStop');
+    expectGraphQLCallToSucceed('@gqlDeleteQuay');
 
-      toast.expectSuccessToast('Pysäkki poistettu');
+    toast.expectSuccessToast('Pysäkki poistettu');
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .should('not.exist');
-    },
-  );
+    map
+      .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+      .should('not.exist');
+  });
 
-  it(
-    'Should copy a stop',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
-    () => {
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+  it('Should copy a stop', { scrollBehavior: 'bottom' }, () => {
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForLoadToComplete();
+    map.waitForLoadToComplete();
 
-      map
-        .getStopByStopLabelAndPriority(stops[7].label, stops[0].priority)
-        .click({ force: true });
+    map
+      .getStopByStopLabelAndPriority(stops[7].label, stops[0].priority)
+      .click({ force: true });
 
-      map.stopPopUp.getCopyButton().click();
-      confirmationDialog.getConfirmButton().click();
-      map.clickRelativePoint(63, 22);
+    map.stopPopUp.getCopyButton().click();
+    confirmationDialog.getConfirmButton().click();
+    map.clickRelativePoint(63, 22);
 
-      // Check that public code is disabled and set
-      cy.getByTestId('CopyStopModal').shouldBeVisible();
-      stopForm.getPublicCodeInput().shouldBeDisabled();
-      stopForm.getPublicCodeInput().should('have.value', stops[7].label);
-      stopForm.getLatitudeInput().clearAndType('60.16654513');
-      stopForm.getLongitudeInput().clearAndType('24.93727036');
-      stopForm.getLocationFinInput().clearAndType('Kopioitu');
-      stopForm.getLocationSweInput().clearAndType('Kopierad');
-      stopForm.reasonForChange
-        .getReasonForChangeInput()
-        .clearAndType('Kopioitu versio');
-      stopForm.priorityForm.setAsTemporary();
-      cy.getByTestId('CopyStopModal::saveButton').click();
+    // Check that public code is disabled and set
+    cy.getByTestId('CopyStopModal').shouldBeVisible();
+    stopForm.getPublicCodeInput().shouldBeDisabled();
+    stopForm.getPublicCodeInput().should('have.value', stops[7].label);
+    stopForm.getLatitudeInput().clearAndType('60.16654513');
+    stopForm.getLongitudeInput().clearAndType('24.93727036');
+    stopForm.getLocationFinInput().clearAndType('Kopioitu');
+    stopForm.getLocationSweInput().clearAndType('Kopierad');
+    stopForm.reasonForChange
+      .getReasonForChangeInput()
+      .clearAndType('Kopioitu versio');
+    stopForm.priorityForm.setAsTemporary();
+    cy.getByTestId('CopyStopModal::saveButton').click();
 
-      expectGraphQLCallToSucceed('@gqlInsertQuayIntoStopPlace');
-      expectGraphQLCallToSucceed('@gqlInsertStopPoint');
-      expectGraphQLCallToSucceed('@gqlUpdateInfoSpot');
-      map.waitForLoadToComplete();
-      map.stopPopUp.getLabel().shouldBeVisible();
+    expectGraphQLCallToSucceed('@gqlInsertQuayIntoStopPlace');
+    expectGraphQLCallToSucceed('@gqlInsertStopPoint');
+    expectGraphQLCallToSucceed('@gqlUpdateInfoSpot');
+    map.waitForLoadToComplete();
+    map.stopPopUp.getLabel().shouldBeVisible();
 
-      // Open copied version
-      cy.visit(
-        `/stop-registry/stops/E2E008?observationDate=2020-03-20&priority=20`,
-      );
+    // Open copied version
+    cy.visit(
+      `/stop-registry/stops/E2E008?observationDate=2020-03-20&priority=20`,
+    );
 
-      // Check that info spots were correctly copied
-      stopDetailsPage.page().shouldBeVisible();
-      stopDetailsPage.infoSpotsTabButton().click();
+    // Check that info spots were correctly copied
+    stopDetailsPage.page().shouldBeVisible();
+    stopDetailsPage.infoSpotsTabButton().click();
+    stopDetailsPage.infoSpots.viewCard.getSectionContainers().shouldBeVisible();
+    stopDetailsPage.infoSpots.viewCard
+      .getLabel()
+      .shouldHaveText('E2E_INFO_001');
+    stopDetailsPage.infoSpots.viewCard.getNthPosterContainer(0).within(() => {
       stopDetailsPage.infoSpots.viewCard
-        .getSectionContainers()
-        .shouldBeVisible();
-      stopDetailsPage.infoSpots.viewCard
-        .getLabel()
-        .shouldHaveText('E2E_INFO_001');
-      stopDetailsPage.infoSpots.viewCard.getNthPosterContainer(0).within(() => {
-        stopDetailsPage.infoSpots.viewCard
-          .getPosterLabel()
-          .shouldHaveText('E2E_POSTER_001');
-      });
-    },
-  );
+        .getPosterLabel()
+        .shouldHaveText('E2E_POSTER_001');
+    });
+  });
 
-  it(
-    'Should edit stop info',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
-    () => {
-      const testCoordinates2 = {
-        lng: 24.9389226,
-        lat: 60.16557905,
-      };
+  it('Should edit stop info', { scrollBehavior: 'bottom' }, () => {
+    const testCoordinates2 = {
+      lng: 24.9389226,
+      lat: 60.16557905,
+    };
 
-      const updatedStopInfo: BaseStopFormInfo = {
-        timingPlace: '1ALKU',
-        locationFin: 'Toinen sijainti',
-        locationSwe: 'En annan plats',
-        latitude: String(testCoordinates2.lat),
-        longitude: String(testCoordinates2.lng),
-        validityStartISODate: '2024-01-01',
-        validityEndISODate: '2029-12-31',
-        priority: Priority.Draft,
-        reasonForChange: 'Updated stop info',
-      };
+    const updatedStopInfo: BaseStopFormInfo = {
+      timingPlace: '1ALKU',
+      locationFin: 'Toinen sijainti',
+      locationSwe: 'En annan plats',
+      latitude: String(testCoordinates2.lat),
+      longitude: String(testCoordinates2.lng),
+      validityStartISODate: '2024-01-01',
+      validityEndISODate: '2029-12-31',
+      priority: Priority.Draft,
+      reasonForChange: 'Updated stop info',
+    };
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForLoadToComplete();
+    map.waitForLoadToComplete();
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click({ force: true });
+    map
+      .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+      .click({ force: true });
 
-      map.stopPopUp.getEditButton().click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm.fillBaseForm(updatedStopInfo);
-      stopForm.save();
+    stopForm.fillBaseForm(updatedStopInfo);
+    stopForm.save();
 
-      confirmationDialog.getConfirmButton().click();
+    confirmationDialog.getConfirmButton().click();
 
-      expectGraphQLCallToSucceed('@gqlEditStop');
-      expectGraphQLCallToSucceed('@gqlEditStopPlace');
+    expectGraphQLCallToSucceed('@gqlEditStop');
+    expectGraphQLCallToSucceed('@gqlEditStopPlace');
 
-      toast.expectMultipleToasts([
-        { type: ToastType.SUCCESS, message: 'Pysäkki muokattu' },
-        { type: ToastType.WARNING, message: 'Pysäkkien suodattimia muutettu' },
-      ]);
-      map.stopPopUp.getCloseButton().click();
+    toast.expectMultipleToasts([
+      { type: ToastType.SUCCESS, message: 'Pysäkki muokattu' },
+      { type: ToastType.WARNING, message: 'Pysäkkien suodattimia muutettu' },
+    ]);
+    map.stopPopUp.getCloseButton().click();
 
-      map
-        .getStopByStopLabelAndPriority(
-          stops[0].label,
-          // Assert non-null since priority is defined in the updatedStopInfo
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          updatedStopInfo.priority!,
-        )
-        .click();
+    map
+      .getStopByStopLabelAndPriority(
+        stops[0].label,
+        // Assert non-null since priority is defined in the updatedStopInfo
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        updatedStopInfo.priority!,
+      )
+      .click();
 
-      map.stopPopUp.getEditButton().click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm.getPublicCodeInput().should('have.value', stops[0].label);
-      stopForm
-        .getTimingPlaceDropdown()
-        .should('contain', updatedStopInfo.timingPlace);
-      stopForm.priorityForm.assertSelectedPriority(updatedStopInfo.priority);
-      stopForm.changeValidityForm.validityPeriodForm
-        .getStartDateInput()
-        .should('have.value', updatedStopInfo.validityStartISODate);
-      stopForm.changeValidityForm.validityPeriodForm
-        .getEndDateInput()
-        .should('have.value', updatedStopInfo.validityEndISODate);
-      stopForm
-        .getLocationFinInput()
-        .should('have.value', updatedStopInfo.locationFin);
-      stopForm
-        .getLocationSweInput()
-        .should('have.value', updatedStopInfo.locationSwe);
-      stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
-      stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
-    },
-  );
+    stopForm.getPublicCodeInput().should('have.value', stops[0].label);
+    stopForm
+      .getTimingPlaceDropdown()
+      .should('contain', updatedStopInfo.timingPlace);
+    stopForm.priorityForm.assertSelectedPriority(updatedStopInfo.priority);
+    stopForm.changeValidityForm.validityPeriodForm
+      .getStartDateInput()
+      .should('have.value', updatedStopInfo.validityStartISODate);
+    stopForm.changeValidityForm.validityPeriodForm
+      .getEndDateInput()
+      .should('have.value', updatedStopInfo.validityEndISODate);
+    stopForm
+      .getLocationFinInput()
+      .should('have.value', updatedStopInfo.locationFin);
+    stopForm
+      .getLocationSweInput()
+      .should('have.value', updatedStopInfo.locationSwe);
+    stopForm.getLatitudeInput().should('have.value', testCoordinates2.lat);
+    stopForm.getLongitudeInput().should('have.value', testCoordinates2.lng);
+  });
 
-  it(
-    'Should create a new timing place',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
-    () => {
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+  it('Should create a new timing place', { scrollBehavior: 'bottom' }, () => {
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForLoadToComplete();
+    map.waitForLoadToComplete();
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click({ force: true });
+    map
+      .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+      .click({ force: true });
 
-      map.stopPopUp.getEditButton().click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm.getAddTimingPlaceButton().click();
+    stopForm.getAddTimingPlaceButton().click();
 
-      stopForm.createTimingPlaceForm.fillTimingPlaceFormAndSave({
-        label: testTimingPlaceLabels.label1,
-        description: 'New timing place description',
-      });
+    stopForm.createTimingPlaceForm.fillTimingPlaceFormAndSave({
+      label: testTimingPlaceLabels.label1,
+      description: 'New timing place description',
+    });
 
-      toast.expectSuccessToast('Hastus-paikka luotu');
+    toast.expectSuccessToast('Hastus-paikka luotu');
 
-      stopForm.save();
+    stopForm.save();
 
-      confirmationDialog.getConfirmButton().click();
+    confirmationDialog.getConfirmButton().click();
 
-      expectGraphQLCallToSucceed('@gqlEditStop');
-      stopForm.getModal().should('not.exist');
-      expectGraphQLCallToSucceed('@gqlGetMapStops');
+    expectGraphQLCallToSucceed('@gqlEditStop');
+    stopForm.getModal().should('not.exist');
+    expectGraphQLCallToSucceed('@gqlGetMapStops');
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click({ force: true });
-      expectGraphQLCallToSucceed('@gqlGetStopInfoForEditingOnMap');
+    map
+      .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+      .click({ force: true });
+    expectGraphQLCallToSucceed('@gqlGetStopInfoForEditingOnMap');
 
-      map.stopPopUp.getEditButton().click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm.getTimingPlaceDropdown().type(testTimingPlaceLabels.label1);
+    stopForm.getTimingPlaceDropdown().type(testTimingPlaceLabels.label1);
 
-      // Wait for the search results before trying to find the result list item
-      expectGraphQLCallToSucceed('@gqlGetTimingPlacesForCombobox');
+    // Wait for the search results before trying to find the result list item
+    expectGraphQLCallToSucceed('@gqlGetTimingPlacesForCombobox');
 
-      cy.get('[role="listbox"]').should(
-        'contain',
-        testTimingPlaceLabels.label1,
-      );
-    },
-  );
+    cy.get('[role="listbox"]').should('contain', testTimingPlaceLabels.label1);
+  });
 
   it('should not update StopPoint if StopPlace save fails', () => {
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -406,7 +385,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should prevent copy creating an overlapping stop',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    { scrollBehavior: 'bottom' },
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -440,59 +419,55 @@ describe('Stop editing tests', () => {
     },
   );
 
-  it(
-    'Should warn about unsaved forms',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
-    () => {
-      const mapPage = new MapPage();
-      const navBlock = new NavigationBlockedDialog();
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+  it('Should warn about unsaved forms', { scrollBehavior: 'bottom' }, () => {
+    const mapPage = new MapPage();
+    const navBlock = new NavigationBlockedDialog();
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-      map.waitForLoadToComplete();
+    map.waitForLoadToComplete();
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click({ force: true });
+    map
+      .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+      .click({ force: true });
 
-      map.stopPopUp.getEditButton().click();
+    map.stopPopUp.getEditButton().click();
 
-      stopForm.getLatitudeInput().clearAndType('1.0');
+    stopForm.getLatitudeInput().clearAndType('1.0');
 
-      stopForm.getAddTimingPlaceButton().click();
-      stopForm.createTimingPlaceForm.fillTimingPlaceForm({
-        label: testTimingPlaceLabels.label1,
-        description: 'New timing place description',
-      });
+    stopForm.getAddTimingPlaceButton().click();
+    stopForm.createTimingPlaceForm.fillTimingPlaceForm({
+      label: testTimingPlaceLabels.label1,
+      description: 'New timing place description',
+    });
 
-      stopForm.createTimingPlaceForm.getCloseButton().click();
-      navBlock
-        .getTitle()
-        .shouldBeVisible()
-        .shouldHaveText('Hylätäänkö muutokset?');
-      navBlock.getResetButton().click();
-      navBlock.getTitle().should('not.exist');
+    stopForm.createTimingPlaceForm.getCloseButton().click();
+    navBlock
+      .getTitle()
+      .shouldBeVisible()
+      .shouldHaveText('Hylätäänkö muutokset?');
+    navBlock.getResetButton().click();
+    navBlock.getTitle().should('not.exist');
 
-      stopForm.createTimingPlaceForm.getAddTimingPlaceSubmitButton().click();
-      toast.expectSuccessToast('Hastus-paikka luotu');
+    stopForm.createTimingPlaceForm.getAddTimingPlaceSubmitButton().click();
+    toast.expectSuccessToast('Hastus-paikka luotu');
 
-      stopForm.getModal().within(() => {
-        cy.getByTestId('ModalHeader::closeButton').click();
-      });
-      navBlock
-        .getTitle()
-        .shouldBeVisible()
-        .shouldHaveText('Hylätäänkö muutokset?');
-      navBlock.getResetButton().click();
-      navBlock.getTitle().should('not.exist');
+    stopForm.getModal().within(() => {
+      cy.getByTestId('ModalHeader::closeButton').click();
+    });
+    navBlock
+      .getTitle()
+      .shouldBeVisible()
+      .shouldHaveText('Hylätäänkö muutokset?');
+    navBlock.getResetButton().click();
+    navBlock.getTitle().should('not.exist');
 
-      mapPage.getCloseButton().click();
-      navBlock
-        .getTitle()
-        .shouldBeVisible()
-        .shouldHaveText('Hylätäänkö muutokset?');
-      navBlock.getProceedButton().click();
-      navBlock.getTitle().should('not.exist');
-      mapPage.getCloseButton().should('not.exist');
-    },
-  );
+    mapPage.getCloseButton().click();
+    navBlock
+      .getTitle()
+      .shouldBeVisible()
+      .shouldHaveText('Hylätäänkö muutokset?');
+    navBlock.getProceedButton().click();
+    navBlock.getTitle().should('not.exist');
+    mapPage.getCloseButton().should('not.exist');
+  });
 });

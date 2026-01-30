@@ -51,7 +51,7 @@ describe('Timetable validity period', () => {
     });
   });
 
-  describe('Basic validity changes', () => {
+  describe('Basic validity changes', { tags: [Tag.Timetables] }, () => {
     beforeEach(() => {
       cy.task('resetDbs');
       insertToDbHelper(dbResources);
@@ -70,7 +70,7 @@ describe('Timetable validity period', () => {
 
     it(
       "Should change a timetable's validity period",
-      { tags: [Tag.Timetables] },
+      { tags: [Tag.Smoke] },
       () => {
         cy.visit('timetables');
 
@@ -182,88 +182,75 @@ describe('Timetable validity period', () => {
       },
     );
 
-    it(
-      "Should change a timetable's validity period in the passing times view",
-      { tags: [Tag.Timetables] },
-      () => {
-        cy.visit(
-          'timetables/lines/08d1fa6b-440c-421e-ad4d-0778d65afe60?observationDate=2023-04-29&routeLabels=901',
-        );
+    it("Should change a timetable's validity period in the passing times view", () => {
+      cy.visit(
+        'timetables/lines/08d1fa6b-440c-421e-ad4d-0778d65afe60?observationDate=2023-04-29&routeLabels=901',
+      );
 
-        // Open passing times view
-        vehicleScheduleDetailsPage
-          .getRouteSectionByLabelAndDirection(
-            '901',
-            RouteDirectionEnum.Outbound,
-          )
-          .within(() => {
-            routeTimetablesSection
-              .getVehicleServiceTableByDayType('LA')
-              .within(() => vehicleServiceTable.getHeadingButton().click());
+      // Open passing times view
+      vehicleScheduleDetailsPage
+        .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Outbound)
+        .within(() => {
+          routeTimetablesSection
+            .getVehicleServiceTableByDayType('LA')
+            .within(() => vehicleServiceTable.getHeadingButton().click());
 
-            passingTimesByStopTable.vehicleJourneyGroupInfo
-              .getChangeValidityButton()
-              .click();
-          });
+          passingTimesByStopTable.vehicleJourneyGroupInfo
+            .getChangeValidityButton()
+            .click();
+        });
 
-        vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityStartDate(
-          '2024-01-01',
-        );
-        vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityEndDate(
-          '2024-12-31',
-        );
+      vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityStartDate(
+        '2024-01-01',
+      );
+      vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityEndDate(
+        '2024-12-31',
+      );
 
-        vehicleScheduleDetailsPage.changeTimetablesValidityForm
-          .getSaveButton()
-          .click();
+      vehicleScheduleDetailsPage.changeTimetablesValidityForm
+        .getSaveButton()
+        .click();
 
-        routeTimetablesSection.getLoader().shouldBeVisible();
-        routeTimetablesSection.getLoader().should('not.exist');
+      routeTimetablesSection.getLoader().shouldBeVisible();
+      routeTimetablesSection.getLoader().should('not.exist');
 
-        vehicleScheduleDetailsPage.toast.expectSuccessToast(
-          'Aikataulun voimassaolo tallennettu',
-        );
+      vehicleScheduleDetailsPage.toast.expectSuccessToast(
+        'Aikataulun voimassaolo tallennettu',
+      );
 
-        // Check that there is no schedules, since they are no longer valid on observationDate
-        vehicleScheduleDetailsPage
-          .getRouteSectionByLabelAndDirection(
-            '901',
-            RouteDirectionEnum.Outbound,
-          )
-          .should('contain', 'Ei vuoroja');
+      // Check that there is no schedules, since they are no longer valid on observationDate
+      vehicleScheduleDetailsPage
+        .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Outbound)
+        .should('contain', 'Ei vuoroja');
 
-        vehicleScheduleDetailsPage
-          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
-          .should('contain', 'Ei vuoroja');
+      vehicleScheduleDetailsPage
+        .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+        .should('contain', 'Ei vuoroja');
 
-        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
-          '2024-01-06',
-        );
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2024-01-06',
+      );
 
-        vehicleScheduleDetailsPage
-          .getRouteSectionByLabelAndDirection(
-            '901',
-            RouteDirectionEnum.Outbound,
-          )
-          .within(() => {
-            passingTimesByStopTable.vehicleJourneyGroupInfo
-              .get()
-              .should('contain', '1.1.2024 - 31.12.2024')
-              .and('contain', '6 lähtöä')
-              .and('contain', '07:05 ... 09:40');
-          });
+      vehicleScheduleDetailsPage
+        .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Outbound)
+        .within(() => {
+          passingTimesByStopTable.vehicleJourneyGroupInfo
+            .get()
+            .should('contain', '1.1.2024 - 31.12.2024')
+            .and('contain', '6 lähtöä')
+            .and('contain', '07:05 ... 09:40');
+        });
 
-        vehicleScheduleDetailsPage
-          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
-          .within(() => {
-            passingTimesByStopTable.vehicleJourneyGroupInfo
-              .get()
-              .should('contain', '1.1.2024 - 31.12.2024')
-              .and('contain', '6 lähtöä')
-              .and('contain', '07:30 ... 10:05');
-          });
-      },
-    );
+      vehicleScheduleDetailsPage
+        .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+        .within(() => {
+          passingTimesByStopTable.vehicleJourneyGroupInfo
+            .get()
+            .should('contain', '1.1.2024 - 31.12.2024')
+            .and('contain', '6 lähtöä')
+            .and('contain', '07:30 ... 10:05');
+        });
+    });
   });
 
   describe('Overlapping validity periods', () => {
@@ -297,42 +284,35 @@ describe('Timetable validity period', () => {
       cy.mockLogin();
     });
 
-    it(
-      'Should not let the user extend the validity period so that it overlaps the validity period of another timetable with the same priority',
-      { tags: [Tag.Timetables] },
-      () => {
-        cy.visit(
-          'timetables/lines/08d1fa6b-440c-421e-ad4d-0778d65afe60?observationDate=2023-04-29&routeLabels=901',
-        );
+    it('Should not let the user extend the validity period so that it overlaps the validity period of another timetable with the same priority', () => {
+      cy.visit(
+        'timetables/lines/08d1fa6b-440c-421e-ad4d-0778d65afe60?observationDate=2023-04-29&routeLabels=901',
+      );
 
-        vehicleScheduleDetailsPage
-          .getRouteSectionByLabelAndDirection(
-            '901',
-            RouteDirectionEnum.Outbound,
-          )
-          .within(() => {
-            routeTimetablesSection
-              .getVehicleServiceTableByDayType('LA')
-              .within(() => {
-                vehicleServiceTable.vehicleJourneyGroupInfo
-                  .getChangeValidityButton()
-                  .click();
-              });
-          });
+      vehicleScheduleDetailsPage
+        .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Outbound)
+        .within(() => {
+          routeTimetablesSection
+            .getVehicleServiceTableByDayType('LA')
+            .within(() => {
+              vehicleServiceTable.vehicleJourneyGroupInfo
+                .getChangeValidityButton()
+                .click();
+            });
+        });
 
-        // Try to extend the 2023 timetables validity into 2024
-        vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityEndDate(
-          '2024-03-03',
-        );
+      // Try to extend the 2023 timetables validity into 2024
+      vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityEndDate(
+        '2024-03-03',
+      );
 
-        vehicleScheduleDetailsPage.changeTimetablesValidityForm
-          .getSaveButton()
-          .click();
+      vehicleScheduleDetailsPage.changeTimetablesValidityForm
+        .getSaveButton()
+        .click();
 
-        vehicleScheduleDetailsPage.toast.expectDangerToast(
-          'Tallennus epäonnistui: GraphQL errors: conflicting schedules detected',
-        );
-      },
-    );
+      vehicleScheduleDetailsPage.toast.expectDangerToast(
+        'Tallennus epäonnistui: GraphQL errors: conflicting schedules detected',
+      );
+    });
   });
 });

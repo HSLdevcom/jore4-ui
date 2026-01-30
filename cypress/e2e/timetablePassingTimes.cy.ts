@@ -17,7 +17,7 @@ import { RouteTimetablesSection } from '../pageObjects/timetables/RouteTimetable
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
-describe('Timetable passing times', () => {
+describe('Timetable passing times', { tags: [Tag.Timetables] }, () => {
   let timetablesMainPage: TimetablesMainPage;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
   let searchResultsPage: SearchResultsPage;
@@ -63,7 +63,7 @@ describe('Timetable passing times', () => {
 
   it(
     'Should highlight vehicle journey passing times',
-    { tags: [Tag.Timetables, Tag.HastusImport] },
+    { tags: [Tag.Smoke, Tag.HastusImport] },
     () => {
       cy.visit('/timetables');
       timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
@@ -134,87 +134,83 @@ describe('Timetable passing times', () => {
     },
   );
 
-  it(
-    'Should show arrival times',
-    { tags: [Tag.Timetables, Tag.HastusImport] },
-    () => {
-      cy.visit('/timetables');
-      timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+  it('Should show arrival times', { tags: [Tag.HastusImport] }, () => {
+    cy.visit('/timetables');
+    timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
 
-      searchResultsPage.getRouteLineTableRowByLabel('901').click();
+    searchResultsPage.getRouteLineTableRowByLabel('901').click();
 
-      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
-        '2023-04-29',
-      );
+    vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+      '2023-04-29',
+    );
 
-      routeTimetablesSection
-        .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
-        .click();
+    routeTimetablesSection
+      .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
+      .click();
 
-      passingTimesByStopTable
-        .getAllPassingTimeArrivalTimes()
-        .should('have.length', 60);
+    passingTimesByStopTable
+      .getAllPassingTimeArrivalTimes()
+      .should('have.length', 60);
 
-      vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
+    vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
 
-      routeTimetablesSection
-        .getRouteSection('901', RouteDirectionEnum.Outbound)
-        .within(() => {
-          const { row } = passingTimesByStopTable;
-          const { passingTime } = row;
-          // E2E003
-          passingTimesByStopTable.getStopRow('E2E003').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '19');
-              passingTime.assertNthArrivalTime(1, '29');
-            });
-
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '00');
-              passingTime.assertNthArrivalTime(1, '10');
-            });
-
-            // Hour 09
-            row.getTimeContainerByHour('9').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '42');
-              passingTime.assertNthArrivalTime(1, '52');
-            });
+    routeTimetablesSection
+      .getRouteSection('901', RouteDirectionEnum.Outbound)
+      .within(() => {
+        const { row } = passingTimesByStopTable;
+        const { passingTime } = row;
+        // E2E003
+        passingTimesByStopTable.getStopRow('E2E003').within(() => {
+          // Hour 07
+          row.getTimeContainerByHour('7').within(() => {
+            passingTime.assertTotalMinuteCount(2);
+            passingTime.assertNthArrivalTime(0, '19');
+            passingTime.assertNthArrivalTime(1, '29');
           });
 
-          // E2E004
-          passingTimesByStopTable.getStopRow('E2E004').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '24');
-              passingTime.assertNthArrivalTime(1, '34');
-            });
+          // Hour 08
+          row.getTimeContainerByHour('8').within(() => {
+            passingTime.assertTotalMinuteCount(2);
+            passingTime.assertNthArrivalTime(0, '00');
+            passingTime.assertNthArrivalTime(1, '10');
+          });
 
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '05');
-              passingTime.assertNthArrivalTime(1, '15');
-            });
-
-            // Hour 09
-            row.getTimeContainerByHour('9').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthArrivalTime(0, '50');
-            });
-
-            // Hour 10
-            row.getTimeContainerByHour('10').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthArrivalTime(0, '00');
-            });
+          // Hour 09
+          row.getTimeContainerByHour('9').within(() => {
+            passingTime.assertTotalMinuteCount(2);
+            passingTime.assertNthArrivalTime(0, '42');
+            passingTime.assertNthArrivalTime(1, '52');
           });
         });
-    },
-  );
+
+        // E2E004
+        passingTimesByStopTable.getStopRow('E2E004').within(() => {
+          // Hour 07
+          row.getTimeContainerByHour('7').within(() => {
+            passingTime.assertTotalMinuteCount(2);
+            passingTime.assertNthArrivalTime(0, '24');
+            passingTime.assertNthArrivalTime(1, '34');
+          });
+
+          // Hour 08
+          row.getTimeContainerByHour('8').within(() => {
+            passingTime.assertTotalMinuteCount(2);
+            passingTime.assertNthArrivalTime(0, '05');
+            passingTime.assertNthArrivalTime(1, '15');
+          });
+
+          // Hour 09
+          row.getTimeContainerByHour('9').within(() => {
+            passingTime.assertTotalMinuteCount(1);
+            passingTime.assertNthArrivalTime(0, '50');
+          });
+
+          // Hour 10
+          row.getTimeContainerByHour('10').within(() => {
+            passingTime.assertTotalMinuteCount(1);
+            passingTime.assertNthArrivalTime(0, '00');
+          });
+        });
+      });
+  });
 });

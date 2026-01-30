@@ -25,7 +25,7 @@ const comparisonRouteExportFilePath = `${Cypress.config(
   'fixturesFolder',
 )}/hastusExport/comparison-export-901-route.csv`;
 
-describe('Hastus export', () => {
+describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
   let dbResources: SupportedResources;
 
   let routesAndLinesPage: RoutesAndLinesPage;
@@ -72,52 +72,40 @@ describe('Hastus export', () => {
     // TODO: Add another route to the line. Currently this practically tests the same thing as
     // 'should export route', since there is only one route within this line. So should skip until
     // we have more data.
-    it(
-      'Should export a line',
-      { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
-      () => {
-        cy.visit('/routes');
+    it('Should export a line', { tags: [Tag.Lines, Tag.Smoke] }, () => {
+      cy.visit('/routes');
 
-        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('901')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        cy.wait('@hastusExport')
-          .its('response.statusCode')
-          .should('equal', 200);
-        cy.readFile(exportFilePath).then((exportedFile) => {
-          cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
-        });
-      },
-    );
+      routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+      routesAndLinesPage.routeLineTableRow
+        .getRouteLineTableRowCheckbox('901')
+        .check();
+      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+      cy.readFile(exportFilePath).then((exportedFile) => {
+        cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
+      });
+    });
 
-    it(
-      'Should export a route',
-      { tags: [Tag.Routes, Tag.HastusExport] },
-      () => {
-        // Skip searching via UI
-        cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('901')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        cy.wait('@hastusExport')
-          .its('response.statusCode')
-          .should('equal', 200);
-        cy.readFile(exportFilePath).then((exportedFile) => {
-          cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
-        });
-      },
-    );
+    it('Should export a route', { tags: [Tag.Routes] }, () => {
+      // Skip searching via UI
+      cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
+      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+      routesAndLinesPage.routeLineTableRow
+        .getRouteLineTableRowCheckbox('901')
+        .check();
+      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
+      cy.readFile(exportFilePath).then((exportedFile) => {
+        cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
+      });
+    });
   });
 
   describe('Fail cases, first and/or last stop are not used as timing points', () => {
     it(
       'should show an error, when the first stop is not a timing point',
-      { tags: [Tag.Routes, Tag.HastusExport] },
+      { tags: [Tag.Routes] },
       () => {
         const { lineRouteListItem } = lineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
@@ -158,7 +146,7 @@ describe('Hastus export', () => {
 
     it(
       'should show an error, when the last stop is not a timing point',
-      { tags: [Tag.Routes, Tag.HastusExport] },
+      { tags: [Tag.Routes] },
       () => {
         const { lineRouteListItem } = lineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
@@ -198,7 +186,7 @@ describe('Hastus export', () => {
 
     it(
       'should show an error, when neither the last stop nor the first stop is a timing point',
-      { tags: [Tag.Routes, Tag.HastusExport] },
+      { tags: [Tag.Routes] },
       () => {
         const { lineRouteListItem } = lineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;

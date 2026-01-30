@@ -10,6 +10,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
+import { Tag } from '../../enums';
 import {
   FilterPanel,
   KnownMapItemTypeFilters,
@@ -21,7 +22,7 @@ import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
 
-describe('Stop area details', () => {
+describe('Stop area details', { tags: [Tag.StopAreas] }, () => {
   const map = new Map();
   const mapFilterPanel = new FilterPanel();
   const observationDateFilters = new MapObservationDateFiltersOverlay();
@@ -80,7 +81,7 @@ describe('Stop area details', () => {
     });
   });
 
-  describe('Filter map entities', () => {
+  describe('Filter map entities', { tags: [Tag.Map] }, () => {
     function assertStopsAreVisible() {
       map
         .getStopByStopLabelAndPriority('E2E001', Priority.Standard)
@@ -99,7 +100,7 @@ describe('Stop area details', () => {
         .should('not.exist');
     }
 
-    it('should filter stops', () => {
+    it('should filter stops', { tags: [Tag.Smoke] }, () => {
       // Wait for map to load
       map.waitForLoadToComplete();
 

@@ -10,6 +10,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
+import { Tag } from '../../enums';
 import {
   ConfirmationDialog,
   MapObservationDateFiltersOverlay,
@@ -23,7 +24,7 @@ import {
   expectGraphQLCallToSucceed,
 } from '../../utils/assertions';
 
-describe('Stop areas on map', () => {
+describe('Stop areas on map', { tags: [Tag.StopAreas] }, () => {
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -96,7 +97,7 @@ describe('Stop areas on map', () => {
     mapPage.map.waitForLoadToComplete();
   });
 
-  it('should create new stop area', () => {
+  it('should create new stop area', { tags: [Tag.Smoke] }, () => {
     mapPage.mapFooter.addStopArea();
 
     mapPage.map.clickAtCoordinates(24.9375, 60.1655);

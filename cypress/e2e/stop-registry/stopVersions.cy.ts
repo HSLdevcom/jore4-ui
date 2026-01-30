@@ -15,6 +15,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
+import { Tag } from '../../enums';
 import {
   Map,
   MapObservationDateFiltersOverlay,
@@ -383,7 +384,7 @@ function testDraftVersionsSorting(
   );
 }
 
-describe('Stop Versions Page', () => {
+describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
   before(() => cy.task('resetDbs'));
 
   describe('Full set of versions', () => {
@@ -420,7 +421,7 @@ describe('Stop Versions Page', () => {
       checkDraftRow(0, draft, draftThreeVersion);
     }
 
-    it('should have name info', () => {
+    it('should have name info', { tags: [Tag.Smoke] }, () => {
       const { index, publicCode } = stopArea.stopArea;
       const titleBase = `Versiot | Pysäkki ${publicCode}`;
 
