@@ -51,7 +51,7 @@ const testCoordinates2 = {
   el: 0,
 };
 
-describe('Terminal creation tests', () => {
+describe('Terminal creation tests', { tags: [Tag.Terminals, Tag.Map] }, () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
@@ -97,7 +97,7 @@ describe('Terminal creation tests', () => {
 
   it(
     'Should create terminal on map and verify details',
-    { tags: [Tag.Map, Tag.Terminals, Tag.Smoke], scrollBehavior: 'bottom' },
+    { tags: [Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
       const privateCode = mapPage.createTerminalAtLocation({
         terminalFormInfo: {
@@ -140,7 +140,7 @@ describe('Terminal creation tests', () => {
 
   it(
     'Should create terminal and change observation date',
-    { tags: [Tag.Map, Tag.Terminals, Tag.Smoke], scrollBehavior: 'bottom' },
+    { scrollBehavior: 'bottom' },
     () => {
       observationDateFilters.observationDateControl.setObservationDate(
         '2025-01-01',
@@ -178,7 +178,7 @@ describe('Terminal creation tests', () => {
 
   it(
     'should cancel creating a new terminal',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    { scrollBehavior: 'bottom' },
     () => {
       mapPage.map.waitForLoadToComplete();
 
@@ -192,7 +192,7 @@ describe('Terminal creation tests', () => {
 
   it(
     'Should place terminal correctly by using manually typed latitude and longitude',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    { scrollBehavior: 'bottom' },
     () => {
       const privateCode = mapPage.createTerminalAtLocation({
         terminalFormInfo: {
@@ -234,10 +234,7 @@ describe('Terminal creation tests', () => {
 
   it(
     'should handle unique private code exception',
-    {
-      tags: [Tag.Terminals, Tag.Map],
-      scrollBehavior: 'bottom',
-    },
+    { scrollBehavior: 'bottom' },
     () => {
       mapPage.mapFooter.addTerminal();
 

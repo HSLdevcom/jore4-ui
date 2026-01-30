@@ -17,7 +17,7 @@ import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 
-describe('Route creation', () => {
+describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
   let mapPage: MapPage;
   let routeStopsOverlay: RouteStopsOverlay;
   let mapFooter: MapFooter;
@@ -68,7 +68,7 @@ describe('Route creation', () => {
   it(
     'Should create a new route',
     {
-      tags: [Tag.Smoke, Tag.Routes, Tag.Network],
+      tags: [Tag.Smoke, Tag.Network],
       scrollBehavior: 'bottom',
     },
     () => {
@@ -158,48 +158,44 @@ describe('Route creation', () => {
     },
   );
 
-  it(
-    'should cancel creating a new route',
-    { tags: [Tag.Routes, Tag.Map], scrollBehavior: 'bottom' },
-    () => {
-      mapPage.map.visit(mapLocation);
-      mapPage.map.waitForLoadToComplete();
+  it('should cancel creating a new route', { scrollBehavior: 'bottom' }, () => {
+    mapPage.map.visit(mapLocation);
+    mapPage.map.waitForLoadToComplete();
 
-      mapPage.mapFooter.createRoute();
-      mapPage.routePropertiesForm.fillRouteProperties({
-        finnishName: 'Test route',
-        label: '901Y',
-        variant: '56',
-        line: '901',
-        direction: RouteDirectionEnum.Outbound,
-        origin: {
-          finnishName: 'Test origin FIN',
-          finnishShortName: 'Test origin FIN shortName',
-          swedishName: 'Test origin SWE',
-          swedishShortName: 'Test origin SWE shortName',
-        },
-        destination: {
-          finnishName: 'Test destination FIN',
-          finnishShortName: 'Test destination FIN shortName',
-          swedishName: 'Test destination SWE',
-          swedishShortName: 'Test destination SWE shortName',
-        },
-        priority: Priority.Standard,
-        validityStartISODate: '2025-01-01',
-        validityEndISODate: '2030-12-01',
-      });
+    mapPage.mapFooter.createRoute();
+    mapPage.routePropertiesForm.fillRouteProperties({
+      finnishName: 'Test route',
+      label: '901Y',
+      variant: '56',
+      line: '901',
+      direction: RouteDirectionEnum.Outbound,
+      origin: {
+        finnishName: 'Test origin FIN',
+        finnishShortName: 'Test origin FIN shortName',
+        swedishName: 'Test origin SWE',
+        swedishShortName: 'Test origin SWE shortName',
+      },
+      destination: {
+        finnishName: 'Test destination FIN',
+        finnishShortName: 'Test destination FIN shortName',
+        swedishName: 'Test destination SWE',
+        swedishShortName: 'Test destination SWE shortName',
+      },
+      priority: Priority.Standard,
+      validityStartISODate: '2025-01-01',
+      validityEndISODate: '2030-12-01',
+    });
 
-      mapPage.editRouteModal.save();
-      mapPage.mapFooter.getMapFooter().should('not.exist');
+    mapPage.editRouteModal.save();
+    mapPage.mapFooter.getMapFooter().should('not.exist');
 
-      mapPage.mapFooter.cancelAddMode();
-      mapPage.mapFooter.getMapFooter().shouldBeVisible();
-    },
-  );
+    mapPage.mapFooter.cancelAddMode();
+    mapPage.mapFooter.getMapFooter().shouldBeVisible();
+  });
 
   it(
     'Should create a new route and leave out one stop',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network], scrollBehavior: 'bottom' },
     () => {
       const { routeStopsOverlayRow } = routeStopsOverlay;
       mapPage.map.visit(mapLocation);
@@ -296,7 +292,7 @@ describe('Route creation', () => {
 
   it(
     'Should not let the user create a route with only one stop',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network], scrollBehavior: 'bottom' },
     () => {
       const { routeStopsOverlayRow } = routeStopsOverlay;
       mapPage.map.visit(mapLocation);
@@ -370,7 +366,7 @@ describe('Route creation', () => {
 
   it(
     'Should create new route with an indefinite validity end date',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network], scrollBehavior: 'bottom' },
     () => {
       mapPage.map.visit(mapLocation);
 
@@ -428,7 +424,7 @@ describe('Route creation', () => {
 
   it(
     'Should create a new route using an existing route as a template',
-    { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network], scrollBehavior: 'bottom' },
     () => {
       mapPage.map.visit(mapLocation);
 

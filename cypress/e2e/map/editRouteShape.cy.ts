@@ -21,7 +21,7 @@ import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 
-describe('Edit route geometry', () => {
+describe('Edit route geometry', { tags: [Tag.Routes] }, () => {
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
@@ -69,7 +69,7 @@ describe('Edit route geometry', () => {
 
   it(
     "Should edit a route's shape",
-    { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Smoke, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       cy.visit('/routes');
       routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
@@ -138,7 +138,7 @@ describe('Edit route geometry', () => {
 
   it(
     'Should edit route shape correctly when creating new route with template',
-    { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
+    { tags: Tag.Network, scrollBehavior: 'bottom' },
     () => {
       // Location where all test stops and routes are visible.
       const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };

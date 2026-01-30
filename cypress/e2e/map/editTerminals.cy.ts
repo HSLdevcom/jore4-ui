@@ -25,7 +25,7 @@ const observationDateFilters = new MapObservationDateFiltersOverlay();
 const confirmationDialog = new ConfirmationDialog();
 const toast = new Toast();
 
-describe('Terminals on map', () => {
+describe('Terminals on map', { tags: [Tag.Terminals, Tag.Map] }, () => {
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -92,7 +92,7 @@ describe('Terminals on map', () => {
 
   it(
     'should edit terminal details',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    { tags: [Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
       mapPage.map.getTerminalById('T2').click();
 
@@ -131,7 +131,7 @@ describe('Terminals on map', () => {
 
   it(
     'should set correct observation date after editing',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    { scrollBehavior: 'bottom' },
     () => {
       observationDateFilters.observationDateControl.setObservationDate(
         '2025-01-01',
@@ -168,7 +168,7 @@ describe('Terminals on map', () => {
 
   it(
     'should move a terminal with form inputs',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    { scrollBehavior: 'bottom' },
     () => {
       mapPage.map.getTerminalById('T2').click();
 
@@ -201,70 +201,62 @@ describe('Terminals on map', () => {
     },
   );
 
-  it(
-    'should move terminal on map',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
-    () => {
-      mapPage.map.visit({
-        zoom: 14,
-        lat: 60.16993,
-        lng: 24.92596,
-      });
+  it('should move terminal on map', { scrollBehavior: 'bottom' }, () => {
+    mapPage.map.visit({
+      zoom: 14,
+      lat: 60.16993,
+      lng: 24.92596,
+    });
 
-      mapPage.map.getTerminalById('T3').click();
+    mapPage.map.getTerminalById('T3').click();
 
-      mapPage.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapPage;
+    const { terminalPopup, terminalForm } = mapPage;
 
-      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
-      terminalPopup.getMoveButton().click();
+    terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
+    terminalPopup.getMoveButton().click();
 
-      // Move the terminal to around Rautatientori
-      mapPage.map.clickRelativePoint(70, 45);
+    // Move the terminal to around Rautatientori
+    mapPage.map.clickRelativePoint(70, 45);
 
-      confirmationDialog.getConfirmButton().click();
-      expectGraphQLCallToSucceed('@gqlUpdateTerminal');
-      toast.expectSuccessToast('Terminaali muokattu');
+    confirmationDialog.getConfirmButton().click();
+    expectGraphQLCallToSucceed('@gqlUpdateTerminal');
+    toast.expectSuccessToast('Terminaali muokattu');
 
-      terminalPopup.getLabel().shouldBeVisible();
-      terminalPopup.getEditButton().click();
+    terminalPopup.getLabel().shouldBeVisible();
+    terminalPopup.getEditButton().click();
 
-      // Confirm that the coordinates have changed
-      terminalForm.getForm().shouldBeVisible();
-      terminalForm
-        .getLatitudeInput()
-        .should('not.have.value', '60.169740177140625');
-      terminalForm
-        .getLongitudeInput()
-        .should('not.have.value', '24.927445210156606');
-    },
-  );
+    // Confirm that the coordinates have changed
+    terminalForm.getForm().shouldBeVisible();
+    terminalForm
+      .getLatitudeInput()
+      .should('not.have.value', '60.169740177140625');
+    terminalForm
+      .getLongitudeInput()
+      .should('not.have.value', '24.927445210156606');
+  });
 
-  it(
-    'should delete terminal on map',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
-    () => {
-      mapPage.map.getTerminalById('T3').click();
+  it('should delete terminal on map', { scrollBehavior: 'bottom' }, () => {
+    mapPage.map.getTerminalById('T3').click();
 
-      mapPage.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup } = mapPage;
+    const { terminalPopup } = mapPage;
 
-      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
-      terminalPopup.getDeleteButton().click();
+    terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
+    terminalPopup.getDeleteButton().click();
 
-      // Should list member stops on the confirmation dialog
-      confirmationDialog.dialogWithButtons
-        .getTextContent()
-        .should('contain', 'E2E007');
+    // Should list member stops on the confirmation dialog
+    confirmationDialog.dialogWithButtons
+      .getTextContent()
+      .should('contain', 'E2E007');
 
-      confirmationDialog.getConfirmButton().click();
-      expectGraphQLCallToSucceed('@gqlDeleteTerminal');
-      toast.expectSuccessToast('Terminaali poistettu');
+    confirmationDialog.getConfirmButton().click();
+    expectGraphQLCallToSucceed('@gqlDeleteTerminal');
+    toast.expectSuccessToast('Terminaali poistettu');
 
-      // Make sure that the terminal is not visible on the map
-      mapPage.map.getTerminalById('T3').should('not.exist');
-    },
-  );
+    // Make sure that the terminal is not visible on the map
+    mapPage.map.getTerminalById('T3').should('not.exist');
+  });
 });

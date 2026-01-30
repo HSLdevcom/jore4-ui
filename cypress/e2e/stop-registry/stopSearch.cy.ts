@@ -178,7 +178,7 @@ function shouldHaveResultOf(
   });
 }
 
-describe('Stop search', () => {
+describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
   let dbResources: SupportedResources;
   let testInfraLinkIds: ReadonlyArray<UUID>;
 
@@ -235,21 +235,17 @@ describe('Stop search', () => {
   describe('by label', () => {
     beforeEach(initWithHardcodedData);
 
-    it(
-      'should be able to search with an exact stop label',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getLabelRadioButton()
-          .should('be.checked');
-        stopSearchBar.getSearchInput().type(`E2E001{enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should be able to search with an exact stop label', () => {
+      stopSearchBar.searchCriteriaRadioButtons
+        .getLabelRadioButton()
+        .should('be.checked');
+      stopSearchBar.getSearchInput().type(`E2E001{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+    });
 
     it(
       'should be able to search with an asterisk',
@@ -274,17 +270,13 @@ describe('Stop search', () => {
       },
     );
 
-    it(
-      'should show no results when search does not match any stops',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getSearchInput().type(`*404*{enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should show no results when search does not match any stops', () => {
+      stopSearchBar.getSearchInput().type(`*404*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('not.exist');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('not.exist');
+    });
   });
 
   describe('by ELY number', () => {
@@ -292,264 +284,198 @@ describe('Stop search', () => {
 
     // not ok
 
-    it(
-      'should be able to search with an exact ELY number',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getExpandToggle().click();
-        stopSearchBar.getElyInput().type(`E2E001`);
-        stopSearchBar.getSearchButton().click();
+    it('should be able to search with an exact ELY number', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getElyInput().type(`E2E001`);
+      stopSearchBar.getSearchButton().click();
 
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+    });
 
-    it(
-      'should be able to search with an asterix',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getExpandToggle().click();
-        stopSearchBar.getElyInput().type('E2E00*');
-        stopSearchBar.getSearchButton().click();
+    it('should be able to search with an asterix', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getElyInput().type('E2E00*');
+      stopSearchBar.getSearchButton().click();
 
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 9);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E003');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E005');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E006');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E007');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E008');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 9);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E003');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E005');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E006');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E007');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E008');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
+    });
 
-    it(
-      'should show no results when search does not match any stops',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getExpandToggle().click();
-        stopSearchBar.getElyInput().type(`not-an-ELY-number`);
-        stopSearchBar.getSearchButton().click();
+    it('should show no results when search does not match any stops', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getElyInput().type(`not-an-ELY-number`);
+      stopSearchBar.getSearchButton().click();
 
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('not.exist');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('not.exist');
+    });
   });
 
   describe('by address', () => {
     beforeEach(initWithHardcodedData);
 
-    it(
-      'should be able to search with an exact address',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getAddressRadioButton()
-          .click();
-        stopSearchBar.getSearchInput().type(`Annankatu 15{enter}`);
+    it('should be able to search with an exact address', () => {
+      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      stopSearchBar.getSearchInput().type(`Annankatu 15{enter}`);
 
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 2);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 2);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
+    });
 
-    it(
-      'should be able to search with an asterix',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getAddressRadioButton()
-          .click();
-        stopSearchBar.getSearchInput().type(`Annankatu*{enter}`);
+    it('should be able to search with an asterix', () => {
+      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      stopSearchBar.getSearchInput().type(`Annankatu*{enter}`);
 
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 3);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 3);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
+    });
 
-    it(
-      'should show no results when search does not match any stops',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getAddressRadioButton()
-          .click();
-        stopSearchBar.getSearchInput().type(`no address 22{enter}`);
+    it('should show no results when search does not match any stops', () => {
+      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      stopSearchBar.getSearchInput().type(`no address 22{enter}`);
 
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('not.exist');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('not.exist');
+    });
   });
 
   describe('Search criteria', () => {
     beforeEach(initWithHardcodedData);
 
-    it(
-      'Should trigger search when the search criteria is changed and the search input field contains text',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getSearchInput().type(`Albertinkatu 38`);
-        stopSearchBar.searchCriteriaRadioButtons
-          .getAddressRadioButton()
-          .click();
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('Should trigger search when the search criteria is changed and the search input field contains text', () => {
+      stopSearchBar.getSearchInput().type(`Albertinkatu 38`);
+      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    });
 
-    it(
-      'Should not trigger a search when the search criteria is changed if the search input field is empty',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getSearchInput().type(`E2E004{enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    it('Should not trigger a search when the search criteria is changed if the search input field is empty', () => {
+      stopSearchBar.getSearchInput().type(`E2E004{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
 
-        stopSearchBar.getSearchInput().clear();
-        stopSearchBar.searchCriteriaRadioButtons
-          .getAddressRadioButton()
-          .click();
+      stopSearchBar.getSearchInput().clear();
+      stopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    });
   });
 
   describe('by municipality', () => {
     beforeEach(initWithHardcodedData);
 
-    it(
-      'Should search by all municipalities by default',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getSearchInput().type(`*`);
-        stopSearchBar.getExpandToggle().click();
-        stopSearchBar.municipality.openDropdown();
-        stopSearchBar.municipality.isSelected('Kaikki');
-        cy.closeDropdown();
-        stopSearchBar.getSearchButton().click();
-        expectGraphQLCallToSucceed('@gqlSearchStops');
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 10);
-      },
-    );
+    it('Should search by all municipalities by default', () => {
+      stopSearchBar.getSearchInput().type(`*`);
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.municipality.openDropdown();
+      stopSearchBar.municipality.isSelected('Kaikki');
+      cy.closeDropdown();
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 10);
+    });
 
-    it(
-      'should be able to search with one municipality',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.getExpandToggle().click();
-        stopSearchBar.municipality.openDropdown();
-        stopSearchBar.municipality.isSelected('Kaikki');
-        stopSearchBar.municipality.toggleOption('Espoo');
-        cy.closeDropdown();
-        stopSearchBar.getSearchButton().click();
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should be able to search with one municipality', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.municipality.openDropdown();
+      stopSearchBar.municipality.isSelected('Kaikki');
+      stopSearchBar.municipality.toggleOption('Espoo');
+      cy.closeDropdown();
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E010');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E010');
+    });
   });
 
   describe('by name variants', () => {
     beforeEach(initWithHardcodedData);
 
-    it(
-      'should be able to search with an exact name',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getLabelRadioButton()
-          .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Albertinkatu 38{enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should be able to search with an exact name', () => {
+      stopSearchBar.searchCriteriaRadioButtons
+        .getLabelRadioButton()
+        .should('be.checked');
+      stopSearchBar.getSearchInput().type(`Albertinkatu 38{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    });
 
-    it(
-      'should be able to search with an exact translation name',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getLabelRadioButton()
-          .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Albertsgatan 38{enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should be able to search with an exact translation name', () => {
+      stopSearchBar.searchCriteriaRadioButtons
+        .getLabelRadioButton()
+        .should('be.checked');
+      stopSearchBar.getSearchInput().type(`Albertsgatan 38{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    });
 
-    it(
-      'should be able to search with an exact finnish name alias (long name)',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getLabelRadioButton()
-          .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Albertinkatu 38 (pitkä){enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should be able to search with an exact finnish name alias (long name)', () => {
+      stopSearchBar.searchCriteriaRadioButtons
+        .getLabelRadioButton()
+        .should('be.checked');
+      stopSearchBar.getSearchInput().type(`Albertinkatu 38 (pitkä){enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    });
 
-    it(
-      'should be able to search with an exact swedish name alias (long name)',
-      { tags: Tag.StopRegistry },
-      () => {
-        stopSearchBar.searchCriteriaRadioButtons
-          .getLabelRadioButton()
-          .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Albertsgatan 38 (lång){enter}`);
-        expectGraphQLCallToSucceed('@gqlSearchStops');
+    it('should be able to search with an exact swedish name alias (long name)', () => {
+      stopSearchBar.searchCriteriaRadioButtons
+        .getLabelRadioButton()
+        .should('be.checked');
+      stopSearchBar.getSearchInput().type(`Albertsgatan 38 (lång){enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
 
-        stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
-      },
-    );
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 1);
+      stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+    });
   });
 
   describe('by line label', () => {
@@ -1729,7 +1655,7 @@ describe('Stop search', () => {
     });
   });
 
-  describe('Show results on map', () => {
+  describe('Show results on map', { tags: Tag.Map }, () => {
     type TestStops = InsertQuaysResult<
       keyof ReturnType<typeof generateTestData>
     >;
@@ -2247,61 +2173,65 @@ describe('Stop search', () => {
       cy.getByTestId('TaskWithProgressBar').should('not.exist');
     });
 
-    it('Should generate and download Equipment Details CSV report on Map', () => {
-      cy.window().then((win) => {
-        cy.stub(win, 'prompt').returns('EquipmentReportMapTest.csv');
-      });
-
-      // Search for stops
-      const observationDate = '2025-01-01';
-      stopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
-      expectGraphQLCallToSucceed('@gqlSearchStops');
-
-      stopSearchResultsPage.getContainer().should('be.visible');
-      stopSearchResultsPage.getResultRows().should('have.length', 9);
-
-      // Open them on the Map
-      stopSearchResultsPage.getShowOnMapButton().click();
-      map.getLoader().shouldBeVisible();
-      map.waitForLoadToComplete();
-
-      // Check initial selection and remove E2E0001 from it
-      mapStopSelection.getOpenButton().shouldBeVisible().click();
-      mapStopSelection.getSelectedStops().should('have.length', 9);
-      mapStopSelection.getSelectedStop('E2E001').within(() => {
-        mapStopSelection.getRemoveSelectionButton().click();
-      });
-      mapStopSelection.getSelectedStops().should('have.length', 8);
-      mapStopSelection.getSelectedStop('E2E001').should('not.exist');
-
-      // Reselect E2E0001 From the map
-      map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).click();
-      stopPopUp.getIsSelected().should('not.be.checked');
-      stopPopUp.getIsSelected().click();
-      stopPopUp.getIsSelected().should('be.checked');
-
-      mapPage.toast.dismissAllToasts();
-
-      // Ensure it is also back in selection
-      mapStopSelection.getOpenButton().shouldBeVisible().click();
-      mapStopSelection.getSelectedStops().should('have.length', 9);
-      mapStopSelection.getSelectedStop('E2E001');
-
-      // Trigger generation
-      mapStopSelection.getActionMenu().click();
-      mapStopSelection.getEquipmentReportMenuItem().click();
-
-      stopSearchResultsPage
-        .getDownloadedEquipmentDetailsCSVReport()
-        .then((generatedData) => {
-          cy.fixture<string>(
-            'csvReports/equipmentDetailsHardCodedData.csv',
-            'utf-8',
-          ).then((referenceData) => {
-            expect(generatedData).to.eql(referenceData);
-          });
+    it(
+      'Should generate and download Equipment Details CSV report on Map',
+      { tags: [Tag.Map] },
+      () => {
+        cy.window().then((win) => {
+          cy.stub(win, 'prompt').returns('EquipmentReportMapTest.csv');
         });
-    });
+
+        // Search for stops
+        const observationDate = '2025-01-01';
+        stopSearchBar.getObservationDateInput().clearAndType(observationDate);
+        stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+        expectGraphQLCallToSucceed('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 9);
+
+        // Open them on the Map
+        stopSearchResultsPage.getShowOnMapButton().click();
+        map.getLoader().shouldBeVisible();
+        map.waitForLoadToComplete();
+
+        // Check initial selection and remove E2E0001 from it
+        mapStopSelection.getOpenButton().shouldBeVisible().click();
+        mapStopSelection.getSelectedStops().should('have.length', 9);
+        mapStopSelection.getSelectedStop('E2E001').within(() => {
+          mapStopSelection.getRemoveSelectionButton().click();
+        });
+        mapStopSelection.getSelectedStops().should('have.length', 8);
+        mapStopSelection.getSelectedStop('E2E001').should('not.exist');
+
+        // Reselect E2E0001 From the map
+        map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).click();
+        stopPopUp.getIsSelected().should('not.be.checked');
+        stopPopUp.getIsSelected().click();
+        stopPopUp.getIsSelected().should('be.checked');
+
+        mapPage.toast.dismissAllToasts();
+
+        // Ensure it is also back in selection
+        mapStopSelection.getOpenButton().shouldBeVisible().click();
+        mapStopSelection.getSelectedStops().should('have.length', 9);
+        mapStopSelection.getSelectedStop('E2E001');
+
+        // Trigger generation
+        mapStopSelection.getActionMenu().click();
+        mapStopSelection.getEquipmentReportMenuItem().click();
+
+        stopSearchResultsPage
+          .getDownloadedEquipmentDetailsCSVReport()
+          .then((generatedData) => {
+            cy.fixture<string>(
+              'csvReports/equipmentDetailsHardCodedData.csv',
+              'utf-8',
+            ).then((referenceData) => {
+              expect(generatedData).to.eql(referenceData);
+            });
+          });
+      },
+    );
   });
 });

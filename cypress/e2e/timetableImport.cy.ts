@@ -24,403 +24,421 @@ import { ConfirmTimetablesImportModal } from '../pageObjects/timetables/import/C
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
-describe('Timetable import', () => {
-  let timetablesMainPage: TimetablesMainPage;
-  let importTimetablesPage: ImportTimetablesPage;
-  let previewTimetablesPage: PreviewTimetablesPage;
-  let navbar: Navbar;
-  let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
-  let timetableVersionsPage: TimetableVersionsPage;
-  let routeTimetablesSection: RouteTimetablesSection;
-  let passingTimesByStopTable: PassingTimesByStopTable;
-  let searchResultsPage: SearchResultsPage;
-  let dbResources: SupportedResources;
+describe(
+  'Timetable import',
+  { tags: [Tag.Timetables, Tag.HastusImport] },
+  () => {
+    let timetablesMainPage: TimetablesMainPage;
+    let importTimetablesPage: ImportTimetablesPage;
+    let previewTimetablesPage: PreviewTimetablesPage;
+    let navbar: Navbar;
+    let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
+    let timetableVersionsPage: TimetableVersionsPage;
+    let routeTimetablesSection: RouteTimetablesSection;
+    let passingTimesByStopTable: PassingTimesByStopTable;
+    let searchResultsPage: SearchResultsPage;
+    let dbResources: SupportedResources;
 
-  const baseDbResources = getClonedBaseDbResources();
-  const baseTimetableDataInput = getClonedBaseTimetableDataInput();
+    const baseDbResources = getClonedBaseDbResources();
+    const baseTimetableDataInput = getClonedBaseTimetableDataInput();
 
-  before(() => {
-    cy.task<UUID[]>(
-      'getInfrastructureLinkIdsByExternalIds',
-      testInfraLinkExternalIds,
-    ).then((infraLinkIds) => {
-      const stops = buildStopsOnInfraLinks(infraLinkIds);
+    before(() => {
+      cy.task<UUID[]>(
+        'getInfrastructureLinkIdsByExternalIds',
+        testInfraLinkExternalIds,
+      ).then((infraLinkIds) => {
+        const stops = buildStopsOnInfraLinks(infraLinkIds);
 
-      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
 
-      dbResources = {
-        ...baseDbResources,
-        stops,
-        infraLinksAlongRoute,
-      };
+        dbResources = {
+          ...baseDbResources,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
     });
-  });
 
-  beforeEach(() => {
-    cy.task('resetDbs');
-    cy.task('emptyDownloadsFolder');
-    insertToDbHelper(dbResources);
-
-    timetablesMainPage = new TimetablesMainPage();
-    importTimetablesPage = new ImportTimetablesPage();
-    previewTimetablesPage = new PreviewTimetablesPage();
-    navbar = new Navbar();
-    vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
-    routeTimetablesSection = new RouteTimetablesSection();
-    passingTimesByStopTable = new PassingTimesByStopTable();
-    searchResultsPage = new SearchResultsPage();
-
-    cy.setupTests();
-    cy.mockLogin();
-  });
-
-  it(
-    'Should export a route and import a Hastus timetable file using preview',
-    { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
-    () => {
-      const routesAndLinesPage = new RoutesAndLinesPage();
-      const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
-      const { blockVehicleJourneysTable } = vehicleScheduleFrameBlocksView;
-      const { vehicleJourneyRow } = blockVehicleJourneysTable;
-
-      const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
-
-      cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
-      // Export the route
-      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-      routesAndLinesPage.routeLineTableRow
-        .getRouteLineTableRowCheckbox('901')
-        .check();
-      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-      cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
-
-      // Import a timetable for the exported route
-      navbar.getTimetablesLink().click();
-      timetablesMainPage.getImportButton().click();
-      importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
-      importTimetablesPage.getUploadButton().click();
-      importTimetablesPage.toast.expectSuccessToast(
-        `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
-      );
-      // Files uploaded -> nothing left to upload.
-      importTimetablesPage.getUploadButton().should('be.disabled');
-
-      importTimetablesPage.clickPreviewButton();
-
-      // Not a single day timetable -> can't select special day.
-      previewTimetablesPage.priorityForm
-        .getSpecialDayPriorityButton()
-        .should('not.be.visible');
-      previewTimetablesPage.getTitle().shouldHaveText('Lähtöjä: 8');
-
-      previewTimetablesPage.priorityForm.setAsStandard();
-      previewTimetablesPage
-        .getVehicleScheduleFrameBlockByLabel('0901')
-        .within(() => {
-          vehicleScheduleFrameBlocksView
-            .getFrameTitleRow()
-            .should('contain', '0901')
-            .and('contain', '1.4.2023 - 30.6.2023')
-            .and('contain', '2 autokiertoa');
-          vehicleScheduleFrameBlocksView.getTables().should('have.length', 2);
-          vehicleScheduleFrameBlocksView.getNthTable(0).within(() => {
-            blockVehicleJourneysTable
-              .getTitleRow()
-              .should('contain', '901 - 1')
-              .and('contain', 'Matala A2 -bussi');
-            blockVehicleJourneysTable.getToggleShowTableButton().click();
-            blockVehicleJourneysTable.getTableRows().should('have.length', 4);
-
-            blockVehicleJourneysTable.getNthTableRow(0).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('07:15');
-              vehicleJourneyRow.getEndTime().shouldHaveText('07:39');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-
-            blockVehicleJourneysTable.getNthTableRow(1).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('07:40');
-              vehicleJourneyRow.getEndTime().shouldHaveText('07:58');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-
-            blockVehicleJourneysTable.getNthTableRow(2).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('08:00');
-              vehicleJourneyRow.getEndTime().shouldHaveText('08:24');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-
-            blockVehicleJourneysTable.getNthTableRow(3).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('08:25');
-              vehicleJourneyRow.getEndTime().shouldHaveText('08:43');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-          });
-
-          vehicleScheduleFrameBlocksView.getNthTable(1).within(() => {
-            blockVehicleJourneysTable
-              .getTitleRow()
-              .should('contain', '901 - 2')
-              .and('contain', 'A1 sähköbussi');
-            blockVehicleJourneysTable.getToggleShowTableButton().click();
-            blockVehicleJourneysTable.getTableRows().should('have.length', 4);
-
-            blockVehicleJourneysTable.getNthTableRow(0).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('07:35');
-              vehicleJourneyRow.getEndTime().shouldHaveText('07:59');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-
-            blockVehicleJourneysTable.getNthTableRow(1).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('08:00');
-              vehicleJourneyRow.getEndTime().shouldHaveText('08:18');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-
-            blockVehicleJourneysTable.getNthTableRow(2).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('08:20');
-              vehicleJourneyRow.getEndTime().shouldHaveText('08:44');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-
-            blockVehicleJourneysTable.getNthTableRow(3).within(() => {
-              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
-              vehicleJourneyRow.getLabel().shouldHaveText('901');
-              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
-              vehicleJourneyRow.getStartTime().shouldHaveText('08:45');
-              vehicleJourneyRow.getEndTime().shouldHaveText('09:03');
-              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
-            });
-          });
-        });
-
-      previewTimetablesPage.getSaveButton().click();
-      importTimetablesPage.toast.expectSuccessToast(
-        'Aikataulujen tuonti onnistui!',
-      );
-
-      // Navigate to timetables page
-      navbar.getTimetablesLink().click();
-      timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
-      searchResultsPage.getRouteLineTableRowByLabel('901').click();
-
-      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
-        '2023-04-29',
-      );
-
-      // Check the imported timetable
-      routeTimetablesSection
-        .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
-        .click();
-      vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
-
-      routeTimetablesSection
-        .getRouteSection('901', RouteDirectionEnum.Outbound)
-        .within(() => {
-          const { row } = passingTimesByStopTable;
-          const { passingTime } = row;
-          // E2E001
-          passingTimesByStopTable.getStopRow('E2E001').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '15');
-              passingTime.assertNthDepartureTime(1, '35');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '00');
-              passingTime.assertNthDepartureTime(1, '20');
-            });
-          });
-          // E2E002
-          passingTimesByStopTable.getStopRow('E2E002').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '22');
-              passingTime.assertNthDepartureTime(1, '42');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '07');
-              passingTime.assertNthDepartureTime(1, '27');
-            });
-          });
-          // E2E003
-          passingTimesByStopTable.getStopRow('E2E003').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '29');
-              passingTime.assertNthDepartureTime(0, '30');
-              passingTime.assertNthArrivalTime(1, '49');
-              passingTime.assertNthDepartureTime(1, '50');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthArrivalTime(0, '14');
-              passingTime.assertNthDepartureTime(0, '15');
-              passingTime.assertNthArrivalTime(1, '34');
-              passingTime.assertNthDepartureTime(1, '35');
-            });
-          });
-          // E2E004
-          passingTimesByStopTable.getStopRow('E2E004').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '34');
-              passingTime.assertNthDepartureTime(1, '54');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '19');
-              passingTime.assertNthDepartureTime(1, '39');
-            });
-          });
-          // E2E005
-          passingTimesByStopTable.getStopRow('E2E005').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '39');
-              passingTime.assertNthDepartureTime(1, '59');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '24');
-              passingTime.assertNthDepartureTime(1, '44');
-            });
-          });
-        });
-
-      routeTimetablesSection
-        .getRouteSection('901', RouteDirectionEnum.Inbound)
-        .within(() => {
-          const { row } = passingTimesByStopTable;
-          const { passingTime } = row;
-          // E2E005
-          passingTimesByStopTable.getStopRow('E2E005').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthDepartureTime(0, '40');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(3);
-              passingTime.assertNthDepartureTime(0, '00');
-              passingTime.assertNthDepartureTime(1, '25');
-              passingTime.assertNthDepartureTime(2, '45');
-            });
-          });
-          // E2E006
-          passingTimesByStopTable.getStopRow('E2E006').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthDepartureTime(0, '47');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(3);
-              passingTime.assertNthDepartureTime(0, '07');
-              passingTime.assertNthDepartureTime(1, '32');
-              passingTime.assertNthDepartureTime(2, '52');
-            });
-          });
-          // E2E007
-          passingTimesByStopTable.getStopRow('E2E007').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthArrivalTime(0, '50');
-              passingTime.assertNthDepartureTime(0, '51');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(3);
-              passingTime.assertNthArrivalTime(0, '10');
-              passingTime.assertNthDepartureTime(0, '11');
-              passingTime.assertNthArrivalTime(1, '35');
-              passingTime.assertNthDepartureTime(1, '36');
-              passingTime.assertNthArrivalTime(2, '55');
-              passingTime.assertNthDepartureTime(2, '56');
-            });
-          });
-          // E2E008
-          passingTimesByStopTable.getStopRow('E2E008').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthDepartureTime(0, '54');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(3);
-              passingTime.assertNthDepartureTime(0, '14');
-              passingTime.assertNthDepartureTime(1, '39');
-              passingTime.assertNthDepartureTime(2, '59');
-            });
-          });
-          // E2E009
-          passingTimesByStopTable.getStopRow('E2E009').within(() => {
-            // Hour 07
-            row.getTimeContainerByHour('7').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthDepartureTime(0, '58');
-            });
-            // Hour 08
-            row.getTimeContainerByHour('8').within(() => {
-              passingTime.assertTotalMinuteCount(2);
-              passingTime.assertNthDepartureTime(0, '18');
-              passingTime.assertNthDepartureTime(1, '43');
-            });
-            // Hour 09
-            row.getTimeContainerByHour('9').within(() => {
-              passingTime.assertTotalMinuteCount(1);
-              passingTime.assertNthDepartureTime(0, '03');
-            });
-          });
-        });
-    },
-  );
-
-  describe('Multiple import files', () => {
     beforeEach(() => {
-      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      cy.task('resetDbs');
+      cy.task('emptyDownloadsFolder');
+      insertToDbHelper(dbResources);
+
+      timetablesMainPage = new TimetablesMainPage();
+      importTimetablesPage = new ImportTimetablesPage();
+      previewTimetablesPage = new PreviewTimetablesPage();
+      navbar = new Navbar();
+      vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
+      routeTimetablesSection = new RouteTimetablesSection();
+      passingTimesByStopTable = new PassingTimesByStopTable();
+      searchResultsPage = new SearchResultsPage();
+
+      cy.setupTests();
+      cy.mockLogin();
     });
 
     it(
-      'Should import two timetables at the same time',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
+      'Should export a route and import a Hastus timetable file using preview',
+      { tags: [Tag.Smoke] },
       () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+        const { blockVehicleJourneysTable } = vehicleScheduleFrameBlocksView;
+        const { vehicleJourneyRow } = blockVehicleJourneysTable;
+
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
+
+        cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
+        // Export the route
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('901')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        cy.wait('@hastusExport')
+          .its('response.statusCode')
+          .should('equal', 200);
+
+        // Import a timetable for the exported route
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+        importTimetablesPage.getUploadButton().click();
+        importTimetablesPage.toast.expectSuccessToast(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
+        );
+        // Files uploaded -> nothing left to upload.
+        importTimetablesPage.getUploadButton().should('be.disabled');
+
+        importTimetablesPage.clickPreviewButton();
+
+        // Not a single day timetable -> can't select special day.
+        previewTimetablesPage.priorityForm
+          .getSpecialDayPriorityButton()
+          .should('not.be.visible');
+        previewTimetablesPage.getTitle().shouldHaveText('Lähtöjä: 8');
+
+        previewTimetablesPage.priorityForm.setAsStandard();
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0901')
+          .within(() => {
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0901')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '2 autokiertoa');
+            vehicleScheduleFrameBlocksView.getTables().should('have.length', 2);
+            vehicleScheduleFrameBlocksView.getNthTable(0).within(() => {
+              blockVehicleJourneysTable
+                .getTitleRow()
+                .should('contain', '901 - 1')
+                .and('contain', 'Matala A2 -bussi');
+              blockVehicleJourneysTable.getToggleShowTableButton().click();
+              blockVehicleJourneysTable.getTableRows().should('have.length', 4);
+
+              blockVehicleJourneysTable.getNthTableRow(0).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('07:15');
+                vehicleJourneyRow.getEndTime().shouldHaveText('07:39');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+
+              blockVehicleJourneysTable.getNthTableRow(1).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('07:40');
+                vehicleJourneyRow.getEndTime().shouldHaveText('07:58');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+
+              blockVehicleJourneysTable.getNthTableRow(2).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('08:00');
+                vehicleJourneyRow.getEndTime().shouldHaveText('08:24');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+
+              blockVehicleJourneysTable.getNthTableRow(3).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('08:25');
+                vehicleJourneyRow.getEndTime().shouldHaveText('08:43');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+            });
+
+            vehicleScheduleFrameBlocksView.getNthTable(1).within(() => {
+              blockVehicleJourneysTable
+                .getTitleRow()
+                .should('contain', '901 - 2')
+                .and('contain', 'A1 sähköbussi');
+              blockVehicleJourneysTable.getToggleShowTableButton().click();
+              blockVehicleJourneysTable.getTableRows().should('have.length', 4);
+
+              blockVehicleJourneysTable.getNthTableRow(0).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('07:35');
+                vehicleJourneyRow.getEndTime().shouldHaveText('07:59');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+
+              blockVehicleJourneysTable.getNthTableRow(1).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('08:00');
+                vehicleJourneyRow.getEndTime().shouldHaveText('08:18');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+
+              blockVehicleJourneysTable.getNthTableRow(2).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('08:20');
+                vehicleJourneyRow.getEndTime().shouldHaveText('08:44');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+
+              blockVehicleJourneysTable.getNthTableRow(3).within(() => {
+                vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+                vehicleJourneyRow.getLabel().shouldHaveText('901');
+                vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+                vehicleJourneyRow.getStartTime().shouldHaveText('08:45');
+                vehicleJourneyRow.getEndTime().shouldHaveText('09:03');
+                vehicleJourneyRow
+                  .getContractNumber()
+                  .shouldHaveText('CONTRACT');
+              });
+            });
+          });
+
+        previewTimetablesPage.getSaveButton().click();
+        importTimetablesPage.toast.expectSuccessToast(
+          'Aikataulujen tuonti onnistui!',
+        );
+
+        // Navigate to timetables page
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+        searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-04-29',
+        );
+
+        // Check the imported timetable
+        routeTimetablesSection
+          .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
+          .click();
+        vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
+
+        routeTimetablesSection
+          .getRouteSection('901', RouteDirectionEnum.Outbound)
+          .within(() => {
+            const { row } = passingTimesByStopTable;
+            const { passingTime } = row;
+            // E2E001
+            passingTimesByStopTable.getStopRow('E2E001').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '15');
+                passingTime.assertNthDepartureTime(1, '35');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '00');
+                passingTime.assertNthDepartureTime(1, '20');
+              });
+            });
+            // E2E002
+            passingTimesByStopTable.getStopRow('E2E002').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '22');
+                passingTime.assertNthDepartureTime(1, '42');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '07');
+                passingTime.assertNthDepartureTime(1, '27');
+              });
+            });
+            // E2E003
+            passingTimesByStopTable.getStopRow('E2E003').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthArrivalTime(0, '29');
+                passingTime.assertNthDepartureTime(0, '30');
+                passingTime.assertNthArrivalTime(1, '49');
+                passingTime.assertNthDepartureTime(1, '50');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthArrivalTime(0, '14');
+                passingTime.assertNthDepartureTime(0, '15');
+                passingTime.assertNthArrivalTime(1, '34');
+                passingTime.assertNthDepartureTime(1, '35');
+              });
+            });
+            // E2E004
+            passingTimesByStopTable.getStopRow('E2E004').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '34');
+                passingTime.assertNthDepartureTime(1, '54');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '19');
+                passingTime.assertNthDepartureTime(1, '39');
+              });
+            });
+            // E2E005
+            passingTimesByStopTable.getStopRow('E2E005').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '39');
+                passingTime.assertNthDepartureTime(1, '59');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '24');
+                passingTime.assertNthDepartureTime(1, '44');
+              });
+            });
+          });
+
+        routeTimetablesSection
+          .getRouteSection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            const { row } = passingTimesByStopTable;
+            const { passingTime } = row;
+            // E2E005
+            passingTimesByStopTable.getStopRow('E2E005').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(1);
+                passingTime.assertNthDepartureTime(0, '40');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(3);
+                passingTime.assertNthDepartureTime(0, '00');
+                passingTime.assertNthDepartureTime(1, '25');
+                passingTime.assertNthDepartureTime(2, '45');
+              });
+            });
+            // E2E006
+            passingTimesByStopTable.getStopRow('E2E006').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(1);
+                passingTime.assertNthDepartureTime(0, '47');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(3);
+                passingTime.assertNthDepartureTime(0, '07');
+                passingTime.assertNthDepartureTime(1, '32');
+                passingTime.assertNthDepartureTime(2, '52');
+              });
+            });
+            // E2E007
+            passingTimesByStopTable.getStopRow('E2E007').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(1);
+                passingTime.assertNthArrivalTime(0, '50');
+                passingTime.assertNthDepartureTime(0, '51');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(3);
+                passingTime.assertNthArrivalTime(0, '10');
+                passingTime.assertNthDepartureTime(0, '11');
+                passingTime.assertNthArrivalTime(1, '35');
+                passingTime.assertNthDepartureTime(1, '36');
+                passingTime.assertNthArrivalTime(2, '55');
+                passingTime.assertNthDepartureTime(2, '56');
+              });
+            });
+            // E2E008
+            passingTimesByStopTable.getStopRow('E2E008').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(1);
+                passingTime.assertNthDepartureTime(0, '54');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(3);
+                passingTime.assertNthDepartureTime(0, '14');
+                passingTime.assertNthDepartureTime(1, '39');
+                passingTime.assertNthDepartureTime(2, '59');
+              });
+            });
+            // E2E009
+            passingTimesByStopTable.getStopRow('E2E009').within(() => {
+              // Hour 07
+              row.getTimeContainerByHour('7').within(() => {
+                passingTime.assertTotalMinuteCount(1);
+                passingTime.assertNthDepartureTime(0, '58');
+              });
+              // Hour 08
+              row.getTimeContainerByHour('8').within(() => {
+                passingTime.assertTotalMinuteCount(2);
+                passingTime.assertNthDepartureTime(0, '18');
+                passingTime.assertNthDepartureTime(1, '43');
+              });
+              // Hour 09
+              row.getTimeContainerByHour('9').within(() => {
+                passingTime.assertTotalMinuteCount(1);
+                passingTime.assertNthDepartureTime(0, '03');
+              });
+            });
+          });
+      },
+    );
+
+    describe('Multiple import files', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('Should import two timetables at the same time', () => {
         const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
         const { blockVehicleJourneysTable } = vehicleScheduleFrameBlocksView;
 
@@ -493,19 +511,15 @@ describe('Timetable import', () => {
         importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
-      },
-    );
-  });
-
-  describe('Temporary timetables', () => {
-    beforeEach(() => {
-      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
     });
 
-    it(
-      'Should import a Hastus timetable as temporary',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
-      () => {
+    describe('Temporary timetables', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('Should import a Hastus timetable as temporary', () => {
         const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
 
         const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
@@ -602,19 +616,15 @@ describe('Timetable import', () => {
               .and('contain', '4 lähtöä')
               .and('contain', '07:40 ... 08:45');
           });
-      },
-    );
-  });
-
-  describe('Draft timetables', () => {
-    beforeEach(() => {
-      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
     });
 
-    it(
-      'Should import a Hastus timetable as a draft',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
-      () => {
+    describe('Draft timetables', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('Should import a Hastus timetable as a draft', () => {
         timetableVersionsPage = new TimetableVersionsPage();
         const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
         const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
@@ -715,19 +725,15 @@ describe('Timetable import', () => {
           .and('contain', '1.4.2023')
           .and('contain', '30.6.2023')
           .and('contain', '901');
-      },
-    );
-  });
-
-  describe('Special days', () => {
-    beforeEach(() => {
-      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
     });
 
-    it(
-      'Should import a special day timetable for a route',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
-      () => {
+    describe('Special days', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('Should import a special day timetable for a route', () => {
         const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
         const confirmTimetablesImportModal = new ConfirmTimetablesImportModal();
 
@@ -855,13 +861,9 @@ describe('Timetable import', () => {
               .and('contain', '2 lähtöä')
               .and('contain', '07:40 ... 08:25');
           });
-      },
-    );
+      });
 
-    it(
-      'Should show an error message when trying to import a normal timetable and a special day timetable at the same time',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
-      () => {
+      it('Should show an error message when trying to import a normal timetable and a special day timetable at the same time', () => {
         const IMPORT_FILENAME = 'hastusImportSaturday901specialDay2023.exp';
         const IMPORT_FILENAME_2 = 'hastusImportSaturday901Apr-Jun2023.exp';
 
@@ -884,19 +886,15 @@ describe('Timetable import', () => {
         cy.contains(
           'Tallennus ei ole mahdollista. Keskeytä aikataulujen tuonti ja tuo yhden päivän pituiset aikataulut erikseen.',
         );
-      },
-    );
-  });
-
-  describe('Cancel timetable import', () => {
-    beforeEach(() => {
-      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
     });
 
-    it(
-      'Should successfully cancel a timetable import',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
-      () => {
+    describe('Cancel timetable import', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('Should successfully cancel a timetable import', () => {
         timetableVersionsPage = new TimetableVersionsPage();
 
         const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
@@ -965,19 +963,15 @@ describe('Timetable import', () => {
               .and('contain', '6 lähtöä')
               .and('contain', '07:30 ... 10:05');
           });
-      },
-    );
-  });
-
-  describe('Failing hastus import', () => {
-    beforeEach(() => {
-      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
     });
 
-    it(
-      'should display an error dialog when Hastus import fails',
-      { tags: [Tag.Timetables, Tag.HastusImport] },
-      () => {
+    describe('Failing hastus import', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('should display an error dialog when Hastus import fails', () => {
         const errorModal = new ErrorModal();
 
         // In the file there is one error on line 9, E2E004 should be E2E003, which
@@ -1024,7 +1018,7 @@ describe('Timetable import', () => {
 
         errorModal.getCloseButton().click();
         errorModal.getModal().should('not.exist');
-      },
-    );
-  });
-});
+      });
+    });
+  },
+);

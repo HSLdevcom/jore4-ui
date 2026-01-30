@@ -14,6 +14,7 @@ import {
   Annankatu15AltNames,
   getClonedBaseStopRegistryData,
 } from '../../datasets/stopRegistry';
+import { Tag } from '../../enums';
 import {
   AlternativeNames,
   AlternativeNamesEdit,
@@ -57,7 +58,7 @@ type ExpectedBasicDetails = {
   readonly latitude: number;
 };
 
-describe('Stop area details', () => {
+describe('Stop area details', { tags: Tag.StopRegistry }, () => {
   const stopAreaDetailsPage = new StopAreaDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
@@ -250,7 +251,7 @@ describe('Stop area details', () => {
       .should('have.attr', 'data-latitude', expected.latitude);
   }
 
-  describe('View basic details', () => {
+  describe('View basic details', { tags: [Tag.Map, Tag.Smoke] }, () => {
     function testMemberStopRow(label: string) {
       const { memberStops } = stopAreaDetailsPage;
 

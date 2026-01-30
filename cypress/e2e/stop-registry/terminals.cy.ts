@@ -61,7 +61,7 @@ type ExpectedLocationDetails = {
   readonly memberPlatforms: string;
 };
 
-describe('Terminal details', () => {
+describe('Terminal details', { tags: [Tag.StopRegistry] }, () => {
   const terminalDetailsPage = new TerminalDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
@@ -230,7 +230,7 @@ describe('Terminal details', () => {
   }
 
   describe('basic details', () => {
-    it('should view basic details', { tags: [Tag.StopRegistry] }, () => {
+    it('should view basic details', { tags: [Tag.Smoke] }, () => {
       terminalDetailsPage.page().shouldBeVisible();
 
       terminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
@@ -269,7 +269,7 @@ describe('Terminal details', () => {
       edit.getElectricCharging().clearAndType(inputs.electricCharging);
     }
 
-    it('should edit basic details', { tags: [Tag.StopRegistry] }, () => {
+    it('should edit basic details', () => {
       verifyInitialBasicDetails();
 
       const newBasicDetails: ExpectedBasicDetails = {
@@ -313,7 +313,7 @@ describe('Terminal details', () => {
   });
 
   describe('location details', () => {
-    it('should view location details', { tags: [Tag.StopRegistry] }, () => {
+    it('should view location details', () => {
       terminalDetailsPage.page().shouldBeVisible();
 
       terminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
@@ -328,7 +328,7 @@ describe('Terminal details', () => {
       edit.getPostalCode().clearAndType(inputs.postalCode);
     }
 
-    it('should edit location details', { tags: [Tag.StopRegistry] }, () => {
+    it('should edit location details', () => {
       verifyInitialLocationDetails();
 
       const updates: LocationDetailUpdates = {
@@ -356,7 +356,7 @@ describe('Terminal details', () => {
       assertLocationDetails(newLocationDetails);
     });
 
-    it('should add member stops', { tags: [Tag.StopRegistry] }, () => {
+    it('should add member stops', () => {
       verifyInitialLocationDetails();
       const { edit } = terminalDetailsPage.locationDetails;
 
@@ -384,7 +384,7 @@ describe('Terminal details', () => {
         .shouldHaveText('E2E001, E2E008, E2E009, E2E010');
     });
 
-    it('should delete member stops', { tags: [Tag.StopRegistry] }, () => {
+    it('should delete member stops', () => {
       verifyInitialLocationDetails();
       const { edit } = terminalDetailsPage.locationDetails;
 
@@ -434,12 +434,12 @@ describe('Terminal details', () => {
   });
 
   describe('Owner details', () => {
-    it('should view owner details', { tags: [Tag.StopRegistry] }, () => {
+    it('should view owner details', () => {
       terminalDetailsPage.page().shouldBeVisible();
       assertOwnerDetails();
     });
 
-    it('should edit owner details', { tags: [Tag.StopRegistry] }, () => {
+    it('should edit owner details', () => {
       const {
         owner,
         owner: {
@@ -590,7 +590,7 @@ describe('Terminal details', () => {
   });
 
   describe('terminal validity', () => {
-    it('should edit terminal validity', { tags: [Tag.StopRegistry] }, () => {
+    it('should edit terminal validity', () => {
       terminalDetailsPage
         .validityPeriod()
         .should('contain', '1.1.2020-1.1.2050');
@@ -1126,7 +1126,7 @@ describe('Terminal details', () => {
       },
     );
 
-    it('should delete terminal info spot', { tags: [Tag.StopRegistry] }, () => {
+    it('should delete terminal info spot', () => {
       terminalDetailsPage.page().shouldBeVisible();
 
       terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();

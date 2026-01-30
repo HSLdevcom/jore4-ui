@@ -14,127 +14,127 @@ import { ViaForm } from '../pageObjects/ViaForm';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
-describe('Line details page: stops on route', () => {
-  let lineDetailsPage: LineDetailsPage;
-  let toast: Toast;
-  let lineRouteList: LineRouteList;
-  let timingSettingsForm: TimingSettingsForm;
+describe(
+  'Line details page: stops on route',
+  { tags: [Tag.Stops, Tag.Routes] },
+  () => {
+    let lineDetailsPage: LineDetailsPage;
+    let toast: Toast;
+    let lineRouteList: LineRouteList;
+    let timingSettingsForm: TimingSettingsForm;
 
-  let dbResources: SupportedResources;
+    let dbResources: SupportedResources;
 
-  const baseDbResources = getClonedBaseDbResources();
+    const baseDbResources = getClonedBaseDbResources();
 
-  before(() => {
-    cy.task<UUID[]>(
-      'getInfrastructureLinkIdsByExternalIds',
-      testInfraLinkExternalIds,
-    ).then((infraLinkIds) => {
-      const stops = buildStopsOnInfraLinks(infraLinkIds);
+    before(() => {
+      cy.task<UUID[]>(
+        'getInfrastructureLinkIdsByExternalIds',
+        testInfraLinkExternalIds,
+      ).then((infraLinkIds) => {
+        const stops = buildStopsOnInfraLinks(infraLinkIds);
 
-      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
 
-      // Modify the 901 Outbound journey pattern so that E2E003 is not included
-      dbResources = {
-        ...baseDbResources,
-        stopsInJourneyPattern: [
-          ...stopsInJourneyPattern901Inbound,
-          buildStopInJourneyPattern({
-            journeyPatternId: journeyPatterns[0].journey_pattern_id,
-            stopLabel: 'E2E001',
-            scheduledStopPointSequence: 0,
-            isUsedAsTimingPoint: true,
-          }),
-          buildStopInJourneyPattern({
-            journeyPatternId: journeyPatterns[0].journey_pattern_id,
-            stopLabel: 'E2E002',
-            scheduledStopPointSequence: 1,
-            isUsedAsTimingPoint: false,
-          }),
-          buildStopInJourneyPattern({
-            journeyPatternId: journeyPatterns[0].journey_pattern_id,
-            stopLabel: 'E2E004',
-            scheduledStopPointSequence: 2,
-            isUsedAsTimingPoint: false,
-          }),
-          buildStopInJourneyPattern({
-            journeyPatternId: journeyPatterns[0].journey_pattern_id,
-            stopLabel: 'E2E005',
-            scheduledStopPointSequence: 3,
-            isUsedAsTimingPoint: true,
-          }),
-        ],
-        stops,
-        infraLinksAlongRoute,
-      };
+        // Modify the 901 Outbound journey pattern so that E2E003 is not included
+        dbResources = {
+          ...baseDbResources,
+          stopsInJourneyPattern: [
+            ...stopsInJourneyPattern901Inbound,
+            buildStopInJourneyPattern({
+              journeyPatternId: journeyPatterns[0].journey_pattern_id,
+              stopLabel: 'E2E001',
+              scheduledStopPointSequence: 0,
+              isUsedAsTimingPoint: true,
+            }),
+            buildStopInJourneyPattern({
+              journeyPatternId: journeyPatterns[0].journey_pattern_id,
+              stopLabel: 'E2E002',
+              scheduledStopPointSequence: 1,
+              isUsedAsTimingPoint: false,
+            }),
+            buildStopInJourneyPattern({
+              journeyPatternId: journeyPatterns[0].journey_pattern_id,
+              stopLabel: 'E2E004',
+              scheduledStopPointSequence: 2,
+              isUsedAsTimingPoint: false,
+            }),
+            buildStopInJourneyPattern({
+              journeyPatternId: journeyPatterns[0].journey_pattern_id,
+              stopLabel: 'E2E005',
+              scheduledStopPointSequence: 3,
+              isUsedAsTimingPoint: true,
+            }),
+          ],
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
     });
-  });
 
-  beforeEach(() => {
-    cy.task('resetDbs');
-    insertToDbHelper(dbResources);
+    beforeEach(() => {
+      cy.task('resetDbs');
+      insertToDbHelper(dbResources);
 
-    lineDetailsPage = new LineDetailsPage();
-    toast = new Toast();
-    lineRouteList = new LineRouteList();
-    timingSettingsForm = new TimingSettingsForm();
+      lineDetailsPage = new LineDetailsPage();
+      toast = new Toast();
+      lineRouteList = new LineRouteList();
+      timingSettingsForm = new TimingSettingsForm();
 
-    cy.setupTests();
-    cy.mockLogin();
-  });
+      cy.setupTests();
+      cy.mockLogin();
+    });
 
-  it(
-    'Verify that stops of route are shown on its list view',
-    { tags: [Tag.Stops, Tag.Routes, Tag.Smoke] },
-    () => {
-      const { lineRouteListItem } = lineRouteList;
-      const { routeRow } = lineRouteListItem;
-      lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+    it(
+      'Verify that stops of route are shown on its list view',
+      { tags: [Tag.Smoke] },
+      () => {
+        const { lineRouteListItem } = lineRouteList;
+        const { routeRow } = lineRouteListItem;
+        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-      lineRouteList.getLineRouteListItems().should('have.length', 2);
-      lineRouteList.getNthLineRouteListItem(0).within(() => {
-        routeRow.directionBadge.getOutboundDirectionBadge().shouldBeVisible();
-        routeRow.getToggleAccordionButton().click();
+        lineRouteList.getLineRouteListItems().should('have.length', 2);
+        lineRouteList.getNthLineRouteListItem(0).within(() => {
+          routeRow.directionBadge.getOutboundDirectionBadge().shouldBeVisible();
+          routeRow.getToggleAccordionButton().click();
 
-        // Verify that stops E2E001, E2E002, E2E004 and E2E005 are included on route,
-        // but stop E2E003 is not included thus should not be shown by default
-        lineRouteListItem.getRouteStopListItems().should('have.length', 4);
-        lineRouteListItem
-          .getNthRouteStopListItem(0)
-          .should('contain', 'E2E001')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          // Verify that stops E2E001, E2E002, E2E004 and E2E005 are included on route,
+          // but stop E2E003 is not included thus should not be shown by default
+          lineRouteListItem.getRouteStopListItems().should('have.length', 4);
+          lineRouteListItem
+            .getNthRouteStopListItem(0)
+            .should('contain', 'E2E001')
+            .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
 
-        lineRouteListItem
-          .getNthRouteStopListItem(1)
-          .should('contain', 'E2E002')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          lineRouteListItem
+            .getNthRouteStopListItem(1)
+            .should('contain', 'E2E002')
+            .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
 
-        lineRouteListItem
-          .getNthRouteStopListItem(2)
-          .should('contain', 'E2E004')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          lineRouteListItem
+            .getNthRouteStopListItem(2)
+            .should('contain', 'E2E004')
+            .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
 
-        lineRouteListItem
-          .getNthRouteStopListItem(3)
-          .should('contain', 'E2E005')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
-      });
+          lineRouteListItem
+            .getNthRouteStopListItem(3)
+            .should('contain', 'E2E005')
+            .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+        });
 
-      // Toggle show unused stops to see also the stop E2E003
-      lineRouteList.getShowUnusedStopsSwitch().click();
-      lineRouteList.getNthLineRouteListItem(0).within(() => {
-        lineRouteListItem.getRouteStopListItems().should('have.length', 5);
-        lineRouteListItem
-          .getNthRouteStopListItem(2)
-          .should('contain', 'E2E003')
-          .and('contain', 'Ei reitin käytössä');
-      });
-    },
-  );
+        // Toggle show unused stops to see also the stop E2E003
+        lineRouteList.getShowUnusedStopsSwitch().click();
+        lineRouteList.getNthLineRouteListItem(0).within(() => {
+          lineRouteListItem.getRouteStopListItems().should('have.length', 5);
+          lineRouteListItem
+            .getNthRouteStopListItem(2)
+            .should('contain', 'E2E003')
+            .and('contain', 'Ei reitin käytössä');
+        });
+      },
+    );
 
-  it(
-    'User can add stops to the route and remove them from the route',
-    { tags: Tag.Stops },
-    () => {
+    it('User can add stops to the route and remove them from the route', () => {
       const { lineRouteListItem } = lineRouteList;
       const { routeRow, routeStopListItem } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
@@ -192,13 +192,9 @@ describe('Line details page: stops on route', () => {
           .should('contain', 'E2E004')
           .and('contain', 'Ei reitin käytössä');
       });
-    },
-  );
+    });
 
-  it(
-    'User cannot delete too many stops from route',
-    { tags: Tag.Stops },
-    () => {
+    it('User cannot delete too many stops from route', () => {
       const { lineRouteListItem } = lineRouteList;
       const { routeRow, routeStopListItem } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
@@ -249,13 +245,9 @@ describe('Line details page: stops on route', () => {
       });
 
       toast.expectDangerToast('Reitillä on oltava ainakin kaksi pysäkkiä.');
-    },
-  );
+    });
 
-  it(
-    'Should add Via info to a stop and then remove it',
-    { tags: Tag.Stops },
-    () => {
+    it('Should add Via info to a stop and then remove it', () => {
       const { lineRouteListItem } = lineRouteList;
       const { routeRow, routeStopListItem } = lineRouteListItem;
       const viaForm = new ViaForm();
@@ -309,13 +301,9 @@ describe('Line details page: stops on route', () => {
       routeStopListItem.stopActionsDropdown
         .getCreateViaPointButton()
         .shouldBeVisible();
-    },
-  );
+    });
 
-  it(
-    'Should add timing point to a stop and have correct options enabled/disabled',
-    { tags: Tag.Stops },
-    () => {
+    it('Should add timing point to a stop and have correct options enabled/disabled', () => {
       const { lineRouteListItem } = lineRouteList;
       const { routeRow, routeStopListItem } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
@@ -378,6 +366,6 @@ describe('Line details page: stops on route', () => {
         .getIsRegulatedTimingPointCheckbox()
         .should('be.checked');
       timingSettingsForm.getIsLoadingTimeAllowedCheckbox().should('be.checked');
-    },
-  );
-});
+    });
+  },
+);
