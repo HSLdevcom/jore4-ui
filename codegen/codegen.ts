@@ -66,7 +66,11 @@ const config: CodegenConfig = {
   overwrite: true,
   generates: {
     '../ui/src/generated/graphql.tsx': {
-      documents: ['../ui/src/**/*.tsx', '../ui/src/**/*.ts'],
+      documents: [
+        '../ui/src/**/*.tsx',
+        '../ui/src/**/*.ts',
+        '../ui/src/**/*.graphql',
+      ],
       plugins: [
         luxonImportPlugin,
         'typescript',
@@ -82,7 +86,7 @@ const config: CodegenConfig = {
       },
     },
     '../test-db-manager/src/generated/graphql.ts': {
-      documents: ['../test-db-manager/src/**/*.ts'],
+      documents: ['../test-db-manager/src/**/*.ts', '../ui/src/**/*.graphql'],
       plugins: [luxonImportPlugin, 'typescript', 'typescript-operations'],
       config: {
         ...defaultConfig,

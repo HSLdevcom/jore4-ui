@@ -95,6 +95,40 @@ export type IntComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
+export type QuayChangeHistoryItem = {
+  __typename?: 'QuayChangeHistoryItem';
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changedBy?: Maybe<Scalars['String']['output']>;
+  netexId: Scalars['String']['output'];
+  stopPlaceNetexId: Scalars['String']['output'];
+  stopPlaceVersion: Scalars['String']['output'];
+  validityEnd?: Maybe<Scalars['String']['output']>;
+  validityStart?: Maybe<Scalars['String']['output']>;
+  version: Scalars['String']['output'];
+  versionComment?: Maybe<Scalars['String']['output']>;
+};
+
+export enum QuayChangeHistoryItemEnumName {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changedBy',
+  /** column name */
+  NetexId = 'netexId',
+  /** column name */
+  StopPlaceNetexId = 'stopPlaceNetexId',
+  /** column name */
+  StopPlaceVersion = 'stopPlaceVersion',
+  /** column name */
+  ValidityEnd = 'validityEnd',
+  /** column name */
+  ValidityStart = 'validityStart',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'versionComment'
+}
+
 export type ReplaceTimetablesInput = {
   stagingVehicleScheduleFrameIds: Array<InputMaybe<Scalars['uuid']['input']>>;
   targetPriority: Scalars['Int']['input'];
@@ -455,6 +489,11 @@ export type GeometryComparisonExp = {
   _st_touches?: InputMaybe<Scalars['geometry']['input']>;
   /** is the column contained in the given geometry value */
   _st_within?: InputMaybe<Scalars['geometry']['input']>;
+};
+
+/** getQuayChangeHistoryNative Query Arguments */
+export type GetQuayChangeHistoryArguments = {
+  publicCode: Scalars['String']['input'];
 };
 
 export type GroupOfStopPlacesAlternativeNamesAggregateBoolExp = {
@@ -11306,6 +11345,35 @@ export enum StopRegistryStopType {
   Other = 'other',
   PullOut = 'pullOut'
 }
+
+/** Boolean expression to filter rows from the logical model for "QuayChangeHistoryItem". All fields are combined with a logical 'AND'. */
+export type StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>>;
+  _not?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>>;
+  changed?: InputMaybe<TimestampComparisonExp>;
+  changedBy?: InputMaybe<StringComparisonExp>;
+  netexId?: InputMaybe<StringComparisonExp>;
+  stopPlaceNetexId?: InputMaybe<StringComparisonExp>;
+  stopPlaceVersion?: InputMaybe<StringComparisonExp>;
+  validityEnd?: InputMaybe<StringComparisonExp>;
+  validityStart?: InputMaybe<StringComparisonExp>;
+  version?: InputMaybe<StringComparisonExp>;
+  versionComment?: InputMaybe<StringComparisonExp>;
+};
+
+/** Ordering options when selecting data from "QuayChangeHistoryItem". */
+export type StopsDatabaseQuayChangeHistoryItemOrderBy = {
+  changed?: InputMaybe<OrderBy>;
+  changedBy?: InputMaybe<OrderBy>;
+  netexId?: InputMaybe<OrderBy>;
+  stopPlaceNetexId?: InputMaybe<OrderBy>;
+  stopPlaceVersion?: InputMaybe<OrderBy>;
+  validityEnd?: InputMaybe<OrderBy>;
+  validityStart?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
+  versionComment?: InputMaybe<OrderBy>;
+};
 
 /** Boolean expression to filter rows from the logical model for "TerminalStopSearchResult". All fields are combined with a logical 'AND'. */
 export type StopsDatabaseTerminalStopSearchResultBoolExpBoolExp = {
@@ -38153,6 +38221,7 @@ export type StopsDatabaseQuay = {
   all_areas_wheelchair_accessible?: Maybe<Scalars['Boolean']['output']>;
   centroid?: Maybe<Scalars['geometry']['output']>;
   changed?: Maybe<Scalars['timestamp']['output']>;
+  changedByUserInfo?: Maybe<LoginAudit>;
   changed_by?: Maybe<Scalars['String']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
@@ -38197,6 +38266,8 @@ export type StopsDatabaseQuay = {
   short_name_value?: Maybe<Scalars['String']['output']>;
   site_ref?: Maybe<Scalars['String']['output']>;
   site_ref_version?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  stop_place_quay?: Maybe<StopsDatabaseStopPlaceQuays>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   version: Scalars['bigint']['output'];
   version_comment?: Maybe<Scalars['String']['output']>;
@@ -38944,6 +39015,7 @@ export type StopsDatabaseQuayBoolExp = {
   short_name_value?: InputMaybe<StringComparisonExp>;
   site_ref?: InputMaybe<StringComparisonExp>;
   site_ref_version?: InputMaybe<StringComparisonExp>;
+  stop_place_quay?: InputMaybe<StopsDatabaseStopPlaceQuaysBoolExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
@@ -39494,6 +39566,7 @@ export type StopsDatabaseQuayInsertInput = {
   short_name_value?: InputMaybe<Scalars['String']['input']>;
   site_ref?: InputMaybe<Scalars['String']['input']>;
   site_ref_version?: InputMaybe<Scalars['String']['input']>;
+  stop_place_quay?: InputMaybe<StopsDatabaseStopPlaceQuaysObjRelInsertInput>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
@@ -40567,6 +40640,7 @@ export type StopsDatabaseQuayOrderBy = {
   short_name_value?: InputMaybe<OrderBy>;
   site_ref?: InputMaybe<OrderBy>;
   site_ref_version?: InputMaybe<OrderBy>;
+  stop_place_quay?: InputMaybe<StopsDatabaseStopPlaceQuaysOrderBy>;
   to_date?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
   version_comment?: InputMaybe<OrderBy>;
@@ -44777,6 +44851,8 @@ export type StopsDatabaseStopPlaceQuays = {
   /** An object relationship */
   quay: StopsDatabaseQuay;
   quays_id: Scalars['bigint']['output'];
+  /** An object relationship */
+  stop_place: StopsDatabaseStopPlace;
   stop_place_id: Scalars['bigint']['output'];
 };
 
@@ -44852,6 +44928,7 @@ export type StopsDatabaseStopPlaceQuaysBoolExp = {
   _or?: InputMaybe<Array<StopsDatabaseStopPlaceQuaysBoolExp>>;
   quay?: InputMaybe<StopsDatabaseQuayBoolExp>;
   quays_id?: InputMaybe<BigintComparisonExp>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   stop_place_id?: InputMaybe<BigintComparisonExp>;
 };
 
@@ -44873,6 +44950,7 @@ export type StopsDatabaseStopPlaceQuaysIncInput = {
 export type StopsDatabaseStopPlaceQuaysInsertInput = {
   quay?: InputMaybe<StopsDatabaseQuayObjRelInsertInput>;
   quays_id?: InputMaybe<Scalars['bigint']['input']>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceObjRelInsertInput>;
   stop_place_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
@@ -44911,6 +44989,13 @@ export type StopsDatabaseStopPlaceQuaysMutationResponse = {
   returning: Array<StopsDatabaseStopPlaceQuays>;
 };
 
+/** input type for inserting object relation for remote table "stop_place_quays" */
+export type StopsDatabaseStopPlaceQuaysObjRelInsertInput = {
+  data: StopsDatabaseStopPlaceQuaysInsertInput;
+  /** upsert condition */
+  on_conflict?: InputMaybe<StopsDatabaseStopPlaceQuaysOnConflict>;
+};
+
 /** on_conflict condition type for table "stop_place_quays" */
 export type StopsDatabaseStopPlaceQuaysOnConflict = {
   constraint: StopsDatabaseStopPlaceQuaysConstraint;
@@ -44922,6 +45007,7 @@ export type StopsDatabaseStopPlaceQuaysOnConflict = {
 export type StopsDatabaseStopPlaceQuaysOrderBy = {
   quay?: InputMaybe<StopsDatabaseQuayOrderBy>;
   quays_id?: InputMaybe<OrderBy>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   stop_place_id?: InputMaybe<OrderBy>;
 };
 
@@ -50608,6 +50694,7 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateValueMa
 export type StopsDatabaseStopsDatabaseQuery = {
   __typename?: 'stops_database_stops_database_query';
   findStopsForTerminal: Array<TerminalStopSearchResult>;
+  getQuayChangeHistory: Array<QuayChangeHistoryItem>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -51160,6 +51247,16 @@ export type StopsDatabaseStopsDatabaseQueryFindStopsForTerminalArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultOrderBy>>;
   where?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
+};
+
+
+export type StopsDatabaseStopsDatabaseQueryGetQuayChangeHistoryArgs = {
+  args: GetQuayChangeHistoryArguments;
+  distinct_on?: InputMaybe<Array<QuayChangeHistoryItemEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
 };
 
 
@@ -53385,6 +53482,7 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseValueItemsAggregateArgs 
 export type StopsDatabaseStopsDatabaseSubscription = {
   __typename?: 'stops_database_stops_database_subscription';
   findStopsForTerminal: Array<TerminalStopSearchResult>;
+  getQuayChangeHistory: Array<QuayChangeHistoryItem>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -54147,6 +54245,16 @@ export type StopsDatabaseStopsDatabaseSubscriptionFindStopsForTerminalArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultOrderBy>>;
   where?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
+};
+
+
+export type StopsDatabaseStopsDatabaseSubscriptionGetQuayChangeHistoryArgs = {
+  args: GetQuayChangeHistoryArguments;
+  distinct_on?: InputMaybe<Array<QuayChangeHistoryItemEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
 };
 
 

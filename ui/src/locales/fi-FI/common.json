@@ -1467,6 +1467,20 @@
       "draft": "$t(priority.draft)"
     }
   },
+  "stopChangeHistory": {
+    "title": "Muutoshistoria | Pysäkki {{publicCode}}",
+    "titleWithName": "Muutoshistoria | Pysäkki {{publicCode}} {{name}}",
+    "goBack": "Palaa",
+    "loading": "Ladataan muutoshistoriaa",
+    "firstVersion": "Uusi pysäkki",
+    "invalidVersion": "Tuntematon versionumero {{version}}",
+    "tableHeaders": {
+      "validityStart": "Alkaa",
+      "validityEnd": "Päättyy",
+      "changedBy": "Päivittäjä",
+      "changed": "Päivitetty"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   },

@@ -24,7 +24,7 @@ export const Path = {
   stopSearch: '/stop-registry/search',
   stopDetails: '/stop-registry/stops/:label',
   stopVersions: '/stop-registry/stops/:label/versions',
-  // stopChangeHistory : '/stop-registry/stops/:label/history',
+  stopChangeHistory: '/stop-registry/stops/:label/history',
   terminalDetails: '/stop-registry/terminals/:privateCode',
   stopAreaDetails: '/stop-registry/stop-areas/:id',
 
@@ -158,6 +158,10 @@ export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   },
   [Path.stopVersions]: {
     getLink: genVariableLinkGenerator(Path.stopVersions, ':label'),
+    includeInNav: false,
+  },
+  [Path.stopChangeHistory]: {
+    getLink: genVariableLinkGenerator(Path.stopChangeHistory, ':label'),
     includeInNav: false,
   },
   [Path.stopAreaDetails]: {

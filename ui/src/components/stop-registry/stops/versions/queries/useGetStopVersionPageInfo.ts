@@ -1,5 +1,5 @@
+import { useGetStopPlaceName } from '../../../queries/useGetStopPlaceName';
 import { StopPlaceName, StopVersion, StopVersionStatus } from '../types';
-import { useGetStopPlaceName } from './useGetStopPlaceName';
 import { useGetStopVersions } from './useGetStopVersions';
 
 function active(stopVersion: StopVersion) {
