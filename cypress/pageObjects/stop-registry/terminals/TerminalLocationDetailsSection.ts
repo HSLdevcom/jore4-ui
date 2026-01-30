@@ -2,15 +2,15 @@ import { TerminalLocationDetailsEdit } from './TerminalLocationDetailsEdit';
 import { TerminalLocationDetailsViewCard } from './TerminalLocationDetailsViewCard';
 
 export class TerminalLocationDetailsSection {
-  viewCard = new TerminalLocationDetailsViewCard();
+  static viewCard = TerminalLocationDetailsViewCard;
 
-  edit = new TerminalLocationDetailsEdit();
+  static edit = TerminalLocationDetailsEdit;
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('TerminalLocationDetailsSection::editButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('TerminalLocationDetailsSection::saveButton');
   }
 }

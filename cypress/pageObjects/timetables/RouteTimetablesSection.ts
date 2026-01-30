@@ -1,23 +1,27 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 
 export class RouteTimetablesSection {
-  getLoader() {
+  static getLoader() {
     return cy.getByTestId('LoadingWrapper::loadingRouteTimetables');
   }
 
-  getRouteSection(label: string, direction: RouteDirectionEnum) {
+  static getRouteSection(label: string, direction: RouteDirectionEnum) {
     return cy.getByTestId(
       `RouteTimetablesSection::section::${label}::${direction}`,
     );
   }
 
-  getRouteSectionHeadingButton(label: string, direction: RouteDirectionEnum) {
-    return this.getRouteSection(label, direction).findByTestId(
-      'VehicleServiceTable::headingButton',
-    );
+  static getRouteSectionHeadingButton(
+    label: string,
+    direction: RouteDirectionEnum,
+  ) {
+    return RouteTimetablesSection.getRouteSection(
+      label,
+      direction,
+    ).findByTestId('VehicleServiceTable::headingButton');
   }
 
-  getVehicleServiceTableByDayType(dayTypeLabel: string) {
+  static getVehicleServiceTableByDayType(dayTypeLabel: string) {
     return cy.getByTestId(`VehicleServiceTable::${dayTypeLabel}`);
   }
 }

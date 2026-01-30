@@ -1,20 +1,20 @@
-import { ReasonForChangeForm } from '../../ReasonForChangeForm';
-import { ValidityPeriodForm } from '../../ValidityPeriodForm';
+import { ReasonForChangeForm } from '../../forms/ReasonForChangeForm';
+import { ValidityPeriodForm } from '../../forms/ValidityPeriodForm';
 
 export class CopyStopAreaForm {
-  validity = new ValidityPeriodForm();
+  static validity = ValidityPeriodForm;
 
-  reasonForChange = new ReasonForChangeForm();
+  static reasonForChange = ReasonForChangeForm;
 
-  getForm() {
+  static getForm() {
     return cy.getByTestId('CopyStopAreaForm::form');
   }
 
-  getSubmitButton() {
+  static getSubmitButton() {
     return cy.getByTestId('CopyStopAreaForm::submitButton');
   }
 
-  getCancelButton() {
+  static getCancelButton() {
     return cy.getByTestId('CopyStopAreaForm::cancelButton');
   }
 }

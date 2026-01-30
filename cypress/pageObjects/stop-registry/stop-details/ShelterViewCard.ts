@@ -1,34 +1,41 @@
 export class ShelterViewCard {
-  getContainers = () => cy.getByTestId('ShelterViewCard::container');
+  static getContainers = () => cy.getByTestId('ShelterViewCard::container');
 
-  getNthContainer = (index: number) => this.getContainers().eq(index);
+  static getNthContainer = (index: number) =>
+    ShelterViewCard.getContainers().eq(index);
 
-  getShelterNumber = () => cy.getByTestId('ShelterViewCard::shelterNumber');
+  static getShelterNumber = () =>
+    cy.getByTestId('ShelterViewCard::shelterNumber');
 
-  getShelterType = () => cy.getByTestId('ShelterViewCard::shelterType');
+  static getShelterType = () => cy.getByTestId('ShelterViewCard::shelterType');
 
-  getElectricity = () => cy.getByTestId('ShelterViewCard::shelterElectricity');
+  static getElectricity = () =>
+    cy.getByTestId('ShelterViewCard::shelterElectricity');
 
-  getLighting = () => cy.getByTestId('ShelterViewCard::shelterLighting');
+  static getLighting = () => cy.getByTestId('ShelterViewCard::shelterLighting');
 
-  getCondition = () => cy.getByTestId('ShelterViewCard::shelterCondition');
+  static getCondition = () =>
+    cy.getByTestId('ShelterViewCard::shelterCondition');
 
-  getTimetableCabinets = () =>
+  static getTimetableCabinets = () =>
     cy.getByTestId('ShelterViewCard::timetableCabinets');
 
-  getTrashCan = () => cy.getByTestId('ShelterViewCard::trashCan');
+  static getTrashCan = () => cy.getByTestId('ShelterViewCard::trashCan');
 
-  getHasDisplay = () => cy.getByTestId('ShelterViewCard::shelterHasDisplay');
+  static getHasDisplay = () =>
+    cy.getByTestId('ShelterViewCard::shelterHasDisplay');
 
-  getBicycleParking = () => cy.getByTestId('ShelterViewCard::bicycleParking');
+  static getBicycleParking = () =>
+    cy.getByTestId('ShelterViewCard::bicycleParking');
 
-  getLeaningRail = () => cy.getByTestId('ShelterViewCard::leaningRail');
+  static getLeaningRail = () => cy.getByTestId('ShelterViewCard::leaningRail');
 
-  getOutsideBench = () => cy.getByTestId('ShelterViewCard::outsideBench');
+  static getOutsideBench = () =>
+    cy.getByTestId('ShelterViewCard::outsideBench');
 
-  getFasciaBoardTaping = () =>
+  static getFasciaBoardTaping = () =>
     cy.getByTestId('ShelterViewCard::shelterFasciaBoardTaping');
 
-  getShelterExternalId = () =>
+  static getShelterExternalId = () =>
     cy.getByTestId('ShelterViewCard::shelterExternalId');
 }

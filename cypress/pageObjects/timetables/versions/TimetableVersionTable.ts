@@ -1,13 +1,13 @@
-import { TimetableVersionTableRow } from '../../TimetableVersionTableRow';
+import { TimetableVersionTableRow } from '../TimetableVersionTableRow';
 
 export class TimetableVersionTable {
-  timetableVersionTableRow = new TimetableVersionTableRow();
+  static timetableVersionTableRow = TimetableVersionTableRow;
 
-  getRows() {
+  static getRows() {
     return cy.getByTestId('TimetableVersionTableRow::row');
   }
 
-  getNthRow(nth: number) {
+  static getNthRow(nth: number) {
     return cy.getByTestId('TimetableVersionTableRow::row').eq(nth);
   }
 }

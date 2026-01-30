@@ -1,33 +1,38 @@
-import { ReasonForChangeForm } from '../../ReasonForChangeForm';
+import { ReasonForChangeForm } from '../../forms/ReasonForChangeForm';
 
 export class LocationDetailsForm {
-  reasonForChange = new ReasonForChangeForm();
+  static reasonForChange = ReasonForChangeForm;
 
-  getStreetAddressInput = () =>
+  static getStreetAddressInput = () =>
     cy.getByTestId('LocationDetailsForm::streetAddress');
 
-  getPostalCodeInput = () => cy.getByTestId('LocationDetailsForm::postalCode');
+  static getPostalCodeInput = () =>
+    cy.getByTestId('LocationDetailsForm::postalCode');
 
-  getMunicipalityReadOnly = () =>
+  static getMunicipalityReadOnly = () =>
     cy.getByTestId('LocationDetailsForm::municipality');
 
-  getFareZoneReadOnly = () => cy.getByTestId('LocationDetailsForm::fareZone');
+  static getFareZoneReadOnly = () =>
+    cy.getByTestId('LocationDetailsForm::fareZone');
 
-  getLatitudeInput = () => cy.getByTestId('LocationDetailsForm::latitude');
+  static getLatitudeInput = () =>
+    cy.getByTestId('LocationDetailsForm::latitude');
 
-  getLongitudeInput = () => cy.getByTestId('LocationDetailsForm::longitude');
+  static getLongitudeInput = () =>
+    cy.getByTestId('LocationDetailsForm::longitude');
 
-  getAltitudeInput = () => cy.getByTestId('LocationDetailsForm::altitude');
+  static getAltitudeInput = () =>
+    cy.getByTestId('LocationDetailsForm::altitude');
 
-  getFunctionalAreaInput = () =>
+  static getFunctionalAreaInput = () =>
     cy.getByTestId('LocationDetailsForm::functionalArea');
 
-  getPlatformNumber = () =>
+  static getPlatformNumber = () =>
     cy.getByTestId('LocationDetailsForm::platformNumber');
 
-  getSignContentTypeDropdownButton = () =>
+  static getSignContentTypeDropdownButton = () =>
     cy.getByTestId('LocationDetailsForm::signContentType::ListboxButton');
 
-  getSignContentTypeDropdownOptions = () =>
+  static getSignContentTypeDropdownOptions = () =>
     cy.getByTestId('LocationDetailsForm::signContentType::ListboxOptions');
 }

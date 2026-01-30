@@ -14,22 +14,15 @@ import {
   MapFooter,
   MapPage,
   RouteEditor,
+  RouteStopsOverlay,
   RoutesAndLinesPage,
   SearchResultsPage,
+  ValidityPeriodForm,
 } from '../../pageObjects';
-import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 
 describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
-  let map: Map;
-  let routeStopsOverlay: RouteStopsOverlay;
-  let routeEditor: RouteEditor;
-  let searchResultsPage: SearchResultsPage;
-  let routesAndLinesPage: RoutesAndLinesPage;
-  let mapPage: MapPage;
-  let mapFooter: MapFooter;
-
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -55,14 +48,6 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
-    map = new Map();
-    routeStopsOverlay = new RouteStopsOverlay();
-    routeEditor = new RouteEditor();
-    searchResultsPage = new SearchResultsPage();
-    routesAndLinesPage = new RoutesAndLinesPage();
-    mapPage = new MapPage();
-    mapFooter = new MapFooter();
-
     cy.setupTests();
     cy.mockLogin();
   });
@@ -72,19 +57,20 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
     { tags: [Tag.Smoke, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       cy.visit('/routes');
-      routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+      RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
 
-      searchResultsPage.getRoutesResultsButton().click();
+      SearchResultsPage.getRoutesResultsButton().click();
 
-      searchResultsPage.getShowRouteOnMapButton().click();
+      SearchResultsPage.getShowRouteOnMapButton().click();
 
-      map.zoomIn(3);
+      Map.zoomIn(3);
 
-      routeStopsOverlay
-        .getRouteStopListHeader('901', RouteDirectionEnum.Outbound)
-        .shouldBeVisible();
+      RouteStopsOverlay.getRouteStopListHeader(
+        '901',
+        RouteDirectionEnum.Outbound,
+      ).shouldBeVisible();
 
-      routeStopsOverlay.stopsShouldBeIncludedInRoute([
+      RouteStopsOverlay.stopsShouldBeIncludedInRoute([
         'E2E001',
         'E2E002',
         'E2E003',
@@ -92,11 +78,11 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         'E2E005',
       ]);
 
-      mapFooter.editRoute();
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapFooter.editRoute();
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
-      mapPage.map.moveRouteEditorHandleByCoordinates({
+      MapPage.map.moveRouteEditorHandleByCoordinates({
         start: { longitude: 24.93737988831691, latitude: 60.16655610103186 },
         destination: {
           longitude: 24.935474587220085,
@@ -104,10 +90,10 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         },
       });
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
-      mapPage.map.moveRouteEditorHandleByCoordinates({
+      MapPage.map.moveRouteEditorHandleByCoordinates({
         start: { longitude: 24.935684070587428, latitude: 60.16653128828523 },
         destination: {
           longitude: 24.93470648154286,
@@ -115,24 +101,25 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         },
       });
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
-      mapFooter.save();
+      MapFooter.save();
 
-      routeEditor.checkRouteSubmitSuccessToast();
+      RouteEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay
-        .getRouteStopListHeader('901', RouteDirectionEnum.Outbound)
-        .shouldBeVisible();
+      RouteStopsOverlay.getRouteStopListHeader(
+        '901',
+        RouteDirectionEnum.Outbound,
+      ).shouldBeVisible();
 
-      routeStopsOverlay.stopsShouldBeIncludedInRoute([
+      RouteStopsOverlay.stopsShouldBeIncludedInRoute([
         'E2E001',
         'E2E003',
         'E2E004',
         'E2E005',
       ]);
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002']);
+      RouteStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002']);
     },
   );
 
@@ -143,14 +130,14 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
       // Location where all test stops and routes are visible.
       const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };
 
-      map.visit({
+      Map.visit({
         zoom: 16,
         lat: mapLocation.lat,
         lng: mapLocation.lng,
       });
 
-      mapFooter.getCreateRouteButton().click();
-      mapPage.routePropertiesForm.fillRouteProperties({
+      MapFooter.getCreateRouteButton().click();
+      MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Template route',
         label: '902',
         line: '901',
@@ -169,29 +156,25 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         },
       });
 
-      mapPage.routePropertiesForm
+      MapPage.routePropertiesForm
         .getUseTemplateRouteButton()
         .scrollIntoViewAndClick();
-      mapPage.routePropertiesForm.templateRouteSelector.fillForm({
+      MapPage.routePropertiesForm.templateRouteSelector.fillForm({
         label: '901',
       });
 
-      mapPage.routePropertiesForm.changeValidityForm.setPriority(
+      MapPage.routePropertiesForm.changeValidityForm.setPriority(
         Priority.Standard,
       );
 
-      mapPage.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-08-11',
-      );
-      mapPage.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
-        '2032-08-11',
-      );
-      mapPage.editRouteModal.save();
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      ValidityPeriodForm.setStartDate('2022-08-11');
+      ValidityPeriodForm.setEndDate('2032-08-11');
+      MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
       // Move the two handles so that E2E002 should not be included in the route.
-      mapPage.map.moveRouteEditorHandleByCoordinates({
+      MapPage.map.moveRouteEditorHandleByCoordinates({
         start: { longitude: 24.93737988831691, latitude: 60.16655610103186 },
         destination: {
           longitude: 24.935474587220085,
@@ -199,10 +182,10 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         },
       });
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
-      mapPage.map.moveRouteEditorHandleByCoordinates({
+      MapPage.map.moveRouteEditorHandleByCoordinates({
         start: { longitude: 24.935684070587428, latitude: 60.16653128828523 },
         destination: {
           longitude: 24.93470648154286,
@@ -210,31 +193,32 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         },
       });
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
       // Wait until the unwanted stops have actually disapeared from the listing.
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002', 'E2E007']);
-      mapFooter.save();
+      RouteStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002', 'E2E007']);
+      MapFooter.save();
 
-      routeEditor.gqlRouteShouldBeCreatedSuccessfully();
+      RouteEditor.gqlRouteShouldBeCreatedSuccessfully();
 
-      routeEditor.checkRouteSubmitSuccessToast();
+      RouteEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay
-        .getRouteStopListHeader('902', RouteDirectionEnum.Outbound)
-        .shouldBeVisible();
+      RouteStopsOverlay.getRouteStopListHeader(
+        '902',
+        RouteDirectionEnum.Outbound,
+      ).shouldBeVisible();
 
       // Verify that the edited route shape excludes the second stop
       // and that the stop count is correct
-      routeStopsOverlay.assertRouteStopCount(4);
-      routeStopsOverlay.stopsShouldBeIncludedInRoute([
+      RouteStopsOverlay.assertRouteStopCount(4);
+      RouteStopsOverlay.stopsShouldBeIncludedInRoute([
         'E2E001',
         'E2E003',
         'E2E004',
         'E2E005',
       ]);
-      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002']);
+      RouteStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002']);
     },
   );
 });

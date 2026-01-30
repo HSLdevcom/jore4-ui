@@ -1,25 +1,25 @@
 import { ExternalLinksFormFields } from './ExternalLinksFormFields';
 
 export class ExternalLinksForm {
-  externalLinks = new ExternalLinksFormFields();
+  static externalLinks = ExternalLinksFormFields;
 
-  getExternalLinks() {
+  static getExternalLinks() {
     return cy.getByTestId('ExternalLinksForm::externalLink');
   }
 
-  getNthExternalLink(index: number) {
-    return this.getExternalLinks().eq(index);
+  static getNthExternalLink(index: number) {
+    return ExternalLinksForm.getExternalLinks().eq(index);
   }
 
-  getAddNewButton() {
+  static getAddNewButton() {
     return cy.getByTestId('ExternalLinksForm::addExternalLink');
   }
 
-  getCancelButton() {
+  static getCancelButton() {
     return cy.getByTestId('ExternalLinks::cancelButton');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('ExternalLinks::saveButton');
   }
 }

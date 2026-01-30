@@ -1,24 +1,24 @@
 import { OrganisationDetailsModal } from '../stop-details/OrganisationDetailsModal';
 
 export class OwnerDetailsEdit {
-  ownerModal = new OrganisationDetailsModal();
+  static ownerModal = OrganisationDetailsModal;
 
-  getOwnerRef = () => cy.getByTestId('OwnerDetailsEdit::ownerRef');
+  static getOwnerRef = () => cy.getByTestId('OwnerDetailsEdit::ownerRef');
 
-  getContractId = () => cy.getByTestId('OwnerDetailsEdit::contractId');
+  static getContractId = () => cy.getByTestId('OwnerDetailsEdit::contractId');
 
-  getNote = () => cy.getByTestId('OwnerDetailsEdit::note');
+  static getNote = () => cy.getByTestId('OwnerDetailsEdit::note');
 
-  getOwnerDropdownOptions = () =>
+  static getOwnerDropdownOptions = () =>
     cy.get('[data-testid^="OwnerOrganizationFields::ownerDropdown::option::"]');
 
-  getOwnerDropdownButton = () =>
+  static getOwnerDropdownButton = () =>
     cy.get('[data-testid^="OwnerOrganizationFields::ownerDropdown::button"]');
 
-  getEditOrganisationButton = () =>
+  static getEditOrganisationButton = () =>
     cy.getByTestId('OwnerOrganizationFields::editOrganisationButton');
 
-  getPhone = () => cy.getByTestId('OwnerOrganizationFields::phone');
+  static getPhone = () => cy.getByTestId('OwnerOrganizationFields::phone');
 
-  getEmail = () => cy.getByTestId('OwnerOrganizationFields::email');
+  static getEmail = () => cy.getByTestId('OwnerOrganizationFields::email');
 }

@@ -11,9 +11,14 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { Tag } from '../../enums';
-import { MapFooter, MapPage, Toast } from '../../pageObjects';
-import { FilterPanel } from '../../pageObjects/FilterPanel';
-import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
+import {
+  FilterPanel,
+  MapFooter,
+  MapPage,
+  RouteStopsOverlay,
+  RouteStopsOverlayRow,
+  Toast,
+} from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 
@@ -22,11 +27,6 @@ const rootOpts: Cypress.SuiteConfigOverrides = {
   scrollBehavior: 'bottom',
 };
 describe('Route creation', rootOpts, () => {
-  let mapPage: MapPage;
-  let routeStopsOverlay: RouteStopsOverlay;
-  let mapFooter: MapFooter;
-  let filterPanel: FilterPanel;
-  let toast: Toast;
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -57,14 +57,7 @@ describe('Route creation', rootOpts, () => {
   beforeEach(() => {
     cy.task('resetDbs');
 
-    mapPage = new MapPage();
-
     insertToDbHelper(dbResources);
-
-    routeStopsOverlay = new RouteStopsOverlay();
-    mapFooter = new MapFooter();
-    filterPanel = new FilterPanel();
-    toast = new Toast();
     cy.setupTests();
     cy.mockLogin();
   });
@@ -75,13 +68,13 @@ describe('Route creation', rootOpts, () => {
       tags: [Tag.Smoke, Tag.Network],
     },
     () => {
-      mapPage.map.visit(mapLocation);
+      MapPage.map.visit(mapLocation);
 
-      filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapPage.map.waitForLoadToComplete();
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete();
 
-      mapFooter.getCreateRouteButton().click();
-      mapPage.routePropertiesForm.fillRouteProperties({
+      MapFooter.getCreateRouteButton().click();
+      MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901Y',
         variant: '56',
@@ -104,69 +97,69 @@ describe('Route creation', rootOpts, () => {
         validityEndISODate: '2030-12-01',
       });
 
-      mapPage.editRouteModal.save();
+      MapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001,
       // (exclude E2E002) E2E003, E2E004 and E2E005
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
       );
-      mapPage.map.clickAtCoordinates(24.93559846081388, 60.16562893059165);
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(24.93559846081388, 60.16562893059165);
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E003[0],
         stopCoordinatesByLabel.E2E003[1],
       );
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E004[0],
         stopCoordinatesByLabel.E2E004[1],
       );
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E005[0],
         stopCoordinatesByLabel.E2E005[1],
       );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E005[0],
         stopCoordinatesByLabel.E2E005[1],
       );
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
-      mapFooter.save();
-      toast.expectSuccessToast('Reitti tallennettu');
+      MapFooter.save();
+      Toast.expectSuccessToast('Reitti tallennettu');
 
       // Check from routeStopsOverlay that everything is correct
-      routeStopsOverlay
-        .getHeader()
+      RouteStopsOverlay.getHeader()
         .should('contain', '901Y 56')
         .and('contain', 'Test route');
-      routeStopsOverlay
-        .getRouteStopListHeader('901Y', RouteDirectionEnum.Outbound)
-        .shouldBeVisible();
-      routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(0)
-        .shouldHaveText('E2E001 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(1)
-        .shouldHaveText('E2E003 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(2)
-        .shouldHaveText('E2E004 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(3)
-        .shouldHaveText('E2E005 -');
+      RouteStopsOverlay.getRouteStopListHeader(
+        '901Y',
+        RouteDirectionEnum.Outbound,
+      ).shouldBeVisible();
+      RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
+        'E2E001 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
+        'E2E003 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
+        'E2E004 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
+        'E2E005 -',
+      );
     },
   );
 
   it('should cancel creating a new route', () => {
-    mapPage.map.visit(mapLocation);
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.visit(mapLocation);
+    MapPage.map.waitForLoadToComplete();
 
-    mapPage.mapFooter.createRoute();
-    mapPage.routePropertiesForm.fillRouteProperties({
+    MapFooter.createRoute();
+    MapPage.routePropertiesForm.fillRouteProperties({
       finnishName: 'Test route',
       label: '901Y',
       variant: '56',
@@ -189,25 +182,23 @@ describe('Route creation', rootOpts, () => {
       validityEndISODate: '2030-12-01',
     });
 
-    mapPage.editRouteModal.save();
-    mapPage.mapFooter.getMapFooter().should('not.exist');
+    MapPage.editRouteModal.save();
+    MapFooter.getMapFooter().should('not.exist');
 
-    mapPage.mapFooter.cancelAddMode();
-    mapPage.mapFooter.getMapFooter().shouldBeVisible();
+    MapFooter.cancelAddMode();
+    MapFooter.getMapFooter().shouldBeVisible();
   });
 
   it(
     'Should create a new route and leave out one stop',
     { tags: [Tag.Network] },
     () => {
-      const { routeStopsOverlayRow } = routeStopsOverlay;
-      mapPage.map.visit(mapLocation);
+      MapPage.map.visit(mapLocation);
 
-      filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapPage.map.waitForLoadToComplete();
-
-      mapFooter.getCreateRouteButton().click();
-      mapPage.routePropertiesForm.fillRouteProperties({
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete();
+      MapFooter.getCreateRouteButton().click();
+      MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901X',
         line: '901',
@@ -229,67 +220,65 @@ describe('Route creation', rootOpts, () => {
         validityEndISODate: '2030-12-01',
       });
 
-      mapPage.editRouteModal.save();
+      MapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 - E2E004
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
       );
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E002[0],
         stopCoordinatesByLabel.E2E002[1],
       );
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E004[0],
         stopCoordinatesByLabel.E2E004[1],
       );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E004[0],
         stopCoordinatesByLabel.E2E004[1],
       );
 
-      routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(0)
-        .shouldHaveText('E2E001 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(1)
-        .shouldHaveText('E2E002 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(2)
-        .shouldHaveText('E2E003 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(3)
-        .shouldHaveText('E2E004 -');
+      RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
+        'E2E001 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
+        'E2E002 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
+        'E2E003 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
+        'E2E004 -',
+      );
 
       // Remove one stop from the journey pattern
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(2)
-        .within(() => routeStopsOverlayRow.getMenuButton().click());
-      routeStopsOverlayRow
-        .getToggleStopInJourneyPatternButton()
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(2).within(() =>
+        RouteStopsOverlayRow.getMenuButton().click(),
+      );
+      RouteStopsOverlayRow.getToggleStopInJourneyPatternButton()
         .contains('Poista reitin käytöstä')
         .click();
 
-      mapFooter.save();
-      toast.expectSuccessToast('Reitti tallennettu');
+      MapFooter.save();
+      Toast.expectSuccessToast('Reitti tallennettu');
 
-      routeStopsOverlay
-        .getHeader()
+      RouteStopsOverlay.getHeader()
         .should('contain', '901X')
         .and('contain', 'Test route');
-      routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 3);
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(0)
-        .shouldHaveText('E2E001 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(1)
-        .shouldHaveText('E2E002 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(2)
-        .shouldHaveText('E2E004 -');
+      RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 3);
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
+        'E2E001 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
+        'E2E002 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
+        'E2E004 -',
+      );
     },
   );
 
@@ -297,14 +286,13 @@ describe('Route creation', rootOpts, () => {
     'Should not let the user create a route with only one stop',
     { tags: [Tag.Network] },
     () => {
-      const { routeStopsOverlayRow } = routeStopsOverlay;
-      mapPage.map.visit(mapLocation);
+      MapPage.map.visit(mapLocation);
 
-      filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapPage.map.waitForLoadToComplete();
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete();
 
-      mapFooter.getCreateRouteButton().click();
-      mapPage.routePropertiesForm.fillRouteProperties({
+      MapFooter.getCreateRouteButton().click();
+      MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Erronous route',
         label: '901F',
         line: '901',
@@ -326,42 +314,41 @@ describe('Route creation', rootOpts, () => {
         validityEndISODate: '2025-12-01',
       });
 
-      mapPage.editRouteModal.save();
+      MapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 and E2E002
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
       );
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E002[0],
         stopCoordinatesByLabel.E2E002[1],
       );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E002[0],
         stopCoordinatesByLabel.E2E002[1],
       );
 
-      routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(0)
-        .shouldHaveText('E2E001 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(1)
-        .shouldHaveText('E2E002 -');
+      RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
+        'E2E001 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
+        'E2E002 -',
+      );
 
       // Remove the other stop from the journey pattern
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(1)
-        .within(() => routeStopsOverlayRow.getMenuButton().click());
-      routeStopsOverlayRow
-        .getToggleStopInJourneyPatternButton()
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(1).within(() =>
+        RouteStopsOverlayRow.getMenuButton().click(),
+      );
+      RouteStopsOverlayRow.getToggleStopInJourneyPatternButton()
         .contains('Poista reitin käytöstä')
         .click();
 
-      mapFooter.save();
-      toast.expectDangerToast(
+      MapFooter.save();
+      Toast.expectDangerToast(
         'Tallennus epäonnistui: Reitillä on oltava ainakin kaksi pysäkkiä.',
       );
     },
@@ -371,13 +358,13 @@ describe('Route creation', rootOpts, () => {
     'Should create new route with an indefinite validity end date',
     { tags: [Tag.Network] },
     () => {
-      mapPage.map.visit(mapLocation);
+      MapPage.map.visit(mapLocation);
 
-      filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapPage.map.waitForLoadToComplete();
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete();
 
-      mapFooter.getCreateRouteButton().click();
-      mapPage.routePropertiesForm.fillRouteProperties({
+      MapFooter.getCreateRouteButton().click();
+      MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Indefinite end time route',
         label: '901I',
         line: '901',
@@ -399,29 +386,29 @@ describe('Route creation', rootOpts, () => {
         validityEndISODate: undefined, // == indefinite
       });
 
-      mapPage.editRouteModal.save();
+      MapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001
       // and E2E002
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
       );
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E002[0],
         stopCoordinatesByLabel.E2E002[1],
       );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtCoordinates(
+      MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E002[0],
         stopCoordinatesByLabel.E2E002[1],
       );
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
 
-      mapFooter.save();
-      toast.expectSuccessToast('Reitti tallennettu');
+      MapFooter.save();
+      Toast.expectSuccessToast('Reitti tallennettu');
     },
   );
 
@@ -429,13 +416,13 @@ describe('Route creation', rootOpts, () => {
     'Should create a new route using an existing route as a template',
     { tags: [Tag.Network] },
     () => {
-      mapPage.map.visit(mapLocation);
+      MapPage.map.visit(mapLocation);
 
-      filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapPage.map.waitForLoadToComplete();
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete();
 
-      mapFooter.getCreateRouteButton().click();
-      mapPage.routePropertiesForm.fillRouteProperties({
+      MapFooter.getCreateRouteButton().click();
+      MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Based on template test route',
         label: '901T',
         line: '901',
@@ -458,39 +445,37 @@ describe('Route creation', rootOpts, () => {
       });
 
       // Use standard route 901 from dataset as template
-      mapPage.routePropertiesForm.getUseTemplateRouteButton().click();
-      mapPage.routePropertiesForm.templateRouteSelector.fillForm({
+      MapPage.routePropertiesForm.getUseTemplateRouteButton().click();
+      MapPage.routePropertiesForm.templateRouteSelector.fillForm({
         priority: Priority.Standard,
         label: '901',
       });
 
-      mapPage.editRouteModal.save();
+      MapPage.editRouteModal.save();
 
-      mapPage.map.getLoader().should('exist');
-      mapPage.map.getLoader().should('not.exist');
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
+      MapFooter.save();
 
-      mapFooter.save();
-
-      routeStopsOverlay
-        .getHeader()
+      RouteStopsOverlay.getHeader()
         .should('contain', '901T')
         .and('contain', 'Based on template test route');
-      routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 5);
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(0)
-        .shouldHaveText('E2E001 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(1)
-        .shouldHaveText('E2E002 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(2)
-        .shouldHaveText('E2E003 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(3)
-        .shouldHaveText('E2E004 -');
-      routeStopsOverlay
-        .getNthRouteStopsOverlayRow(4)
-        .shouldHaveText('E2E005 -');
+      RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 5);
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
+        'E2E001 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
+        'E2E002 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
+        'E2E003 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
+        'E2E004 -',
+      );
+      RouteStopsOverlay.getNthRouteStopsOverlayRow(4).shouldHaveText(
+        'E2E005 -',
+      );
     },
   );
 });

@@ -1,21 +1,21 @@
 export class StopTitleRow {
-  label() {
+  static label() {
     return cy.getByTestId('StopTitleRow::label');
   }
 
-  names() {
+  static names() {
     return cy.getByTestId('StopTitleRow::names');
   }
 
-  openOnMapButton() {
+  static openOnMapButton() {
     return cy.getByTestId('StopTitleRow::StopTitleRow::openOnMapButton');
   }
 
-  actionsMenuButton() {
+  static actionsMenuButton() {
     return cy.getByTestId('StopTitleRow::extraActions::menu');
   }
 
-  actionsMenuCopyButton() {
+  static actionsMenuCopyButton() {
     return cy.getByTestId('StopTitleRow::extraActions::copy');
   }
 }

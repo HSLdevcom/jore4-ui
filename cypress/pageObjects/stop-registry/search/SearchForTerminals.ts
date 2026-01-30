@@ -1,25 +1,27 @@
 export class SearchForTerminals {
-  getTerminalLabel() {
+  static getTerminalLabel() {
     return cy.getByTestId('StopPlaceSearch::label');
   }
 
-  getTerminalLink() {
+  static getTerminalLink() {
     return cy.getByTestId('StopPlaceSearch::link');
   }
 
-  getLocatorButton() {
+  static getLocatorButton() {
     return cy.getByTestId('StopPlaceSearch::locatorButton');
   }
 
-  getActionMenu = () => cy.getByTestId('SearchHeader::actionMenu');
+  static getActionMenu = () => cy.getByTestId('SearchHeader::actionMenu');
 
-  getActionMenuShowDetails = () =>
+  static getActionMenuShowDetails = () =>
     cy.getByTestId('StopPlaceSearch::showStopPlaceDetails');
 
-  getActionMenuShowOnMap = () => cy.getByTestId('StopPlaceSearch::showOnMap');
+  static getActionMenuShowOnMap = () =>
+    cy.getByTestId('StopPlaceSearch::showOnMap');
 
-  getNoStopsInTerminalText = () => cy.getByTestId('TerminalSearch:noStopsText');
+  static getNoStopsInTerminalText = () =>
+    cy.getByTestId('TerminalSearch:noStopsText');
 
-  getNoStopsInTerminalLink = () =>
+  static getNoStopsInTerminalLink = () =>
     cy.getByTestId('StopPlaceSearch::noStopsLink');
 }

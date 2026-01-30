@@ -1,57 +1,66 @@
 export class InfoSpotViewCard {
-  getSectionContainers = () => cy.getByTestId('InfoSpotsSection::container');
+  static getSectionContainers = () =>
+    cy.getByTestId('InfoSpotsSection::container');
 
-  getNthSectionContainer = (index: number) =>
-    this.getSectionContainers().eq(index);
+  static getNthSectionContainer = (index: number) =>
+    InfoSpotViewCard.getSectionContainers().eq(index);
 
-  getViewCardContainers = () => cy.getByTestId('InfoSpotsViewCard::container');
+  static getViewCardContainers = () =>
+    cy.getByTestId('InfoSpotsViewCard::container');
 
-  getNthViewCardContainer = (index: number) =>
-    this.getViewCardContainers().eq(index);
+  static getNthViewCardContainer = (index: number) =>
+    InfoSpotViewCard.getViewCardContainers().eq(index);
 
-  getDescription = () => cy.getByTestId('InfoSpotsViewCard::description');
+  static getDescription = () =>
+    cy.getByTestId('InfoSpotsViewCard::description');
 
-  getLabel = () => cy.getByTestId('InfoSpotsViewCard::label');
+  static getLabel = () => cy.getByTestId('InfoSpotsViewCard::label');
 
-  getInfoSpotType = () => cy.getByTestId('InfoSpotsViewCard::infoSpotType');
+  static getInfoSpotType = () =>
+    cy.getByTestId('InfoSpotsViewCard::infoSpotType');
 
-  getPurpose = () => cy.getByTestId('InfoSpotsViewCard::purpose');
+  static getPurpose = () => cy.getByTestId('InfoSpotsViewCard::purpose');
 
-  getLatitude = () => cy.getByTestId('InfoSpotsViewCard::latitude');
+  static getLatitude = () => cy.getByTestId('InfoSpotsViewCard::latitude');
 
-  getLongitude = () => cy.getByTestId('InfoSpotsViewCard::longitude');
+  static getLongitude = () => cy.getByTestId('InfoSpotsViewCard::longitude');
 
-  getDisplayType = () => cy.getByTestId('InfoSpotDetailsDynamic::displayType');
+  static getDisplayType = () =>
+    cy.getByTestId('InfoSpotDetailsDynamic::displayType');
 
-  getSpeechProperty = () =>
+  static getSpeechProperty = () =>
     cy.getByTestId('InfoSpotDetailsDynamic::speechProperty');
 
-  getBacklight = () => cy.getByTestId('InfoSpotDetails::backlight');
+  static getBacklight = () => cy.getByTestId('InfoSpotDetails::backlight');
 
-  getSize = () => cy.getByTestId('InfoSpotDetails::size');
+  static getSize = () => cy.getByTestId('InfoSpotDetails::size');
 
-  getPosterContainers = () =>
+  static getPosterContainers = () =>
     cy.getByTestId('InfoSpotPosterDetails::container');
 
-  getNthPosterContainer = (index: number) =>
-    this.getPosterContainers().eq(index);
+  static getNthPosterContainer = (index: number) =>
+    InfoSpotViewCard.getPosterContainers().eq(index);
 
-  getPosterSize = () => cy.getByTestId('InfoSpotPosterDetails::posterSize');
+  static getPosterSize = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterSize');
 
-  getPosterLabel = () => cy.getByTestId('InfoSpotPosterDetails::posterLabel');
+  static getPosterLabel = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterLabel');
 
-  getPosterLines = () => cy.getByTestId('InfoSpotPosterDetails::posterLines');
+  static getPosterLines = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterLines');
 
-  getNoPosters = () => cy.getByTestId('InfoSpotPosterDetails::noPosters');
+  static getNoPosters = () =>
+    cy.getByTestId('InfoSpotPosterDetails::noPosters');
 
-  getFloor = () => cy.getByTestId('InfoSpotZoneDetails::floor');
+  static getFloor = () => cy.getByTestId('InfoSpotZoneDetails::floor');
 
-  getRailInformation = () =>
+  static getRailInformation = () =>
     cy.getByTestId('InfoSpotZoneDetails::railInformation');
 
-  getStops = () => cy.getByTestId('InfoSpotZoneDetails::stops');
+  static getStops = () => cy.getByTestId('InfoSpotZoneDetails::stops');
 
-  getTerminals = () => cy.getByTestId('InfoSpotZoneDetails::terminals');
+  static getTerminals = () => cy.getByTestId('InfoSpotZoneDetails::terminals');
 
-  getZoneLabel = () => cy.getByTestId('InfoSpotZoneDetails::zoneLabel');
+  static getZoneLabel = () => cy.getByTestId('InfoSpotZoneDetails::zoneLabel');
 }

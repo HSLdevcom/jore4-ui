@@ -13,6 +13,8 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   ConfirmationDialog,
+  MapFooter,
+  MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
   Toast,
@@ -81,160 +83,153 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
     cy.mockLogin();
   });
 
-  const mapPage = new MapPage();
-  const observationDateFilters = new MapObservationDateFiltersOverlay();
-  const confirmationDialog = new ConfirmationDialog();
-  const toast = new Toast();
-
   beforeEach(() => {
-    mapPage.map.visit({
+    MapPage.map.visit({
       zoom: 17,
       lat: 60.16596,
       lng: 24.93858,
     });
 
     expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
   });
 
   it('should create new stop area', { tags: [Tag.Smoke] }, () => {
-    mapPage.mapFooter.addStopArea();
+    MapFooter.addStopArea();
 
-    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
-    mapPage.stopAreaForm.getForm().shouldBeVisible();
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm
       .getPrivateCode()
       .shouldBeVisible()
       .shouldBeDisabled()
       .should('have.value', '700001');
-    mapPage.stopAreaForm.getName().type('Annankatu 2');
-    mapPage.stopAreaForm.getShowHideButton().click();
-    mapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
-    mapPage.stopAreaForm.getNameLongFin().type('Pitkä fin');
-    mapPage.stopAreaForm.getNameLongSwe().type('Pitkä swe');
-    mapPage.stopAreaForm.getAbbreviationFin().type('Lyhyt fin');
-    mapPage.stopAreaForm.getAbbreviationSwe().type('Lyhyt swe');
-    mapPage.stopAreaForm.getShowHideEngButton().click();
-    mapPage.stopAreaForm.getNameEng().type('Annas street 2');
-    mapPage.stopAreaForm.getNameLongEng().type('Pitkä eng');
-    mapPage.stopAreaForm.getAbbreviationEng().type('Lyhyt eng');
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm.getName().type('Annankatu 2');
+    MapPage.stopAreaForm.getShowHideButton().click();
+    MapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
+    MapPage.stopAreaForm.getNameLongFin().type('Pitkä fin');
+    MapPage.stopAreaForm.getNameLongSwe().type('Pitkä swe');
+    MapPage.stopAreaForm.getAbbreviationFin().type('Lyhyt fin');
+    MapPage.stopAreaForm.getAbbreviationSwe().type('Lyhyt swe');
+    MapPage.stopAreaForm.getShowHideEngButton().click();
+    MapPage.stopAreaForm.getNameEng().type('Annas street 2');
+    MapPage.stopAreaForm.getNameLongEng().type('Pitkä eng');
+    MapPage.stopAreaForm.getAbbreviationEng().type('Lyhyt eng');
+    MapPage.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm
       .getLongitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
-    mapPage.stopAreaForm.validityPeriodForm
+    MapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    MapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
-    mapPage.stopAreaForm.save();
+    MapPage.stopAreaForm.save();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    toast.expectSuccessToast('Pysäkkialue luotu');
-    mapPage.stopAreaForm.getForm().should('not.exist');
+    Toast.expectSuccessToast('Pysäkkialue luotu');
+    MapPage.stopAreaForm.getForm().should('not.exist');
 
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
     // Check that the stop area got created.
-    mapPage.map.getStopAreaById('700001').click();
-    mapPage.stopAreaPopup
+    MapPage.map.getStopAreaById('700001').click();
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('700001 Annankatu 2');
-    mapPage.stopAreaPopup
+    MapPage.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('23.1.2020 -  Voimassa toistaiseksi');
 
     // Check that the stop area label has a correct link
-    mapPage.map.getStopAreaById('700001').click();
-    mapPage.stopAreaPopup
+    MapPage.map.getStopAreaById('700001').click();
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('700001 Annankatu 2');
-    mapPage.stopAreaPopup
+    MapPage.stopAreaPopup
       .getLabel()
       .should('have.attr', 'href')
       .and('include', '/stop-registry/stop-areas/700001');
   });
 
   it('Should create stop area and change observation date', () => {
-    observationDateFilters.observationDateControl.setObservationDate(
-      '2025-01-01',
-    );
+    MapObservationDateControl.setObservationDate('2025-01-01');
 
-    mapPage.mapFooter.addStopArea();
+    MapFooter.addStopArea();
 
-    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
-    mapPage.stopAreaForm.getForm().shouldBeVisible();
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm
       .getPrivateCode()
       .shouldBeVisible()
       .shouldBeDisabled()
       .should('have.value', '700001');
-    mapPage.stopAreaForm.getName().type('Annankatu 2');
-    mapPage.stopAreaForm.getShowHideButton().click();
-    mapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm.getName().type('Annankatu 2');
+    MapPage.stopAreaForm.getShowHideButton().click();
+    MapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
+    MapPage.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm
       .getLongitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2030-01-01');
-    mapPage.stopAreaForm.validityPeriodForm
+    MapPage.stopAreaForm.validityPeriodForm.setStartDate('2030-01-01');
+    MapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
-    mapPage.stopAreaForm.save();
+    MapPage.stopAreaForm.save();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
 
-    observationDateFilters.observationDateControl
+    MapObservationDateFiltersOverlay.observationDateControl
       .getObservationDateInput()
       .should('have.value', '2030-01-01');
 
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
     // Check that the stop area got created.
-    mapPage.map.getStopAreaById('700001').click();
-    mapPage.stopAreaPopup
+    MapPage.map.getStopAreaById('700001').click();
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('700001 Annankatu 2');
   });
 
   it('should cancel creating a new stop area', () => {
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
-    mapPage.mapFooter.addStopArea();
-    mapPage.mapFooter.getMapFooter().should('not.exist');
+    MapFooter.addStopArea();
+    MapFooter.getMapFooter().should('not.exist');
 
-    mapPage.mapFooter.cancelAddMode();
-    mapPage.mapFooter.getMapFooter().shouldBeVisible();
+    MapFooter.cancelAddMode();
+    MapFooter.getMapFooter().shouldBeVisible();
   });
 
   it('should handle unique private code exception', () => {
-    mapPage.mapFooter.addStopArea();
+    MapFooter.addStopArea();
 
-    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
-    mapPage.stopAreaForm.getForm().shouldBeVisible();
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm
       .getPrivateCode()
       .shouldBeVisible()
       .shouldBeDisabled()
       .should('have.value', '700001');
-    mapPage.stopAreaForm.getName().type('Name does not matter');
-    mapPage.stopAreaForm.getShowHideButton().click();
-    mapPage.stopAreaForm.getNameSwe().type('Name does not matter');
-    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
-    mapPage.stopAreaForm.validityPeriodForm
+    MapPage.stopAreaForm.getName().type('Name does not matter');
+    MapPage.stopAreaForm.getShowHideButton().click();
+    MapPage.stopAreaForm.getNameSwe().type('Name does not matter');
+    MapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    MapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
@@ -253,105 +248,103 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       stopPointsRequired: false,
     });
 
-    mapPage.stopAreaForm.save();
+    MapPage.stopAreaForm.save();
 
-    toast.expectDangerToast(
+    Toast.expectDangerToast(
       'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus 700001 on jo jonkin toisen alueen käytössä!',
     );
     expectGraphQLCallToReturnError('@gqlUpsertStopArea');
   });
 
   it('should edit stop area details', () => {
-    mapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.getStopAreaById('X0003').click();
 
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
-    mapPage.stopAreaPopup
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
 
-    mapPage.stopAreaPopup.getEditButton().click();
-    mapPage.stopAreaForm.getForm().shouldBeVisible();
-    mapPage.stopAreaForm.getPrivateCode().shouldBeVisible().shouldBeDisabled();
-    mapPage.stopAreaForm.validityPeriodForm.setAsIndefinite();
+    MapPage.stopAreaPopup.getEditButton().click();
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm.getPrivateCode().shouldBeVisible().shouldBeDisabled();
+    MapPage.stopAreaForm.validityPeriodForm.setAsIndefinite();
 
-    mapPage.stopAreaForm.save();
+    MapPage.stopAreaForm.save();
 
-    confirmationDialog.getConfirmButton().click();
+    ConfirmationDialog.getConfirmButton().click();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    toast.expectSuccessToast('Pysäkkialue muokattu');
-    mapPage.stopAreaForm.getForm().should('not.exist');
+    Toast.expectSuccessToast('Pysäkkialue muokattu');
+    MapPage.stopAreaForm.getForm().should('not.exist');
 
     // Check that edited info was persisted.
-    mapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.getStopAreaById('X0003').click();
 
-    mapPage.stopAreaPopup
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
-    mapPage.stopAreaPopup
+    MapPage.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('1.1.2000 -  Voimassa toistaiseksi');
-    mapPage.stopAreaPopup.getEditButton().click();
+    MapPage.stopAreaPopup.getEditButton().click();
   });
 
   it('should set correct observation date after editing ', () => {
-    observationDateFilters.observationDateControl.setObservationDate(
-      '2025-01-01',
-    );
+    MapObservationDateControl.setObservationDate('2025-01-01');
 
-    mapPage.map.getStopAreaById('X0003').click();
-    mapPage.map.waitForLoadToComplete();
-    mapPage.stopAreaPopup
+    MapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.waitForLoadToComplete();
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
 
-    mapPage.stopAreaPopup.getEditButton().click();
-    mapPage.stopAreaForm.getForm().shouldBeVisible();
-    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2030-01-01');
-    mapPage.stopAreaForm.validityPeriodForm.setAsIndefinite();
+    MapPage.stopAreaPopup.getEditButton().click();
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm.validityPeriodForm.setStartDate('2030-01-01');
+    MapPage.stopAreaForm.validityPeriodForm.setAsIndefinite();
 
-    mapPage.stopAreaForm.save();
+    MapPage.stopAreaForm.save();
 
-    confirmationDialog.getConfirmButton().click();
+    ConfirmationDialog.getConfirmButton().click();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    toast.expectWarningToast('Tarkasteluhetkeä muutettu');
-    mapPage.stopAreaForm.getForm().should('not.exist');
+    Toast.expectWarningToast('Tarkasteluhetkeä muutettu');
+    MapPage.stopAreaForm.getForm().should('not.exist');
 
     // Check that observation date was correctly set
-    observationDateFilters.observationDateControl
+    MapObservationDateFiltersOverlay.observationDateControl
       .getObservationDateInput()
       .should('have.value', '2030-01-01');
 
     // Check that edited info was persisted.
-    mapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.getStopAreaById('X0003').click();
   });
 
   it('should relocate stop area on map', () => {
-    mapPage.map.getStopAreaById('X0003').click();
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.waitForLoadToComplete();
 
-    mapPage.stopAreaPopup.getMoveButton().click();
-    mapPage.stopAreaPopup.getLabel().should('not.exist');
+    MapPage.stopAreaPopup.getMoveButton().click();
+    MapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapPage.map.clickAtCoordinates(24.937, 60.166);
+    MapPage.map.clickAtCoordinates(24.937, 60.166);
 
-    confirmationDialog.getConfirmButton().click();
-    mapPage.map.waitForLoadToComplete();
+    ConfirmationDialog.getConfirmButton().click();
+    MapPage.map.waitForLoadToComplete();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    toast.expectSuccessToast('Pysäkkialue muokattu');
-    mapPage.stopAreaPopup.getLabel().shouldBeVisible();
-    mapPage.stopAreaPopup.getCloseButton().click();
-    mapPage.stopAreaPopup.getLabel().should('not.exist');
+    Toast.expectSuccessToast('Pysäkkialue muokattu');
+    MapPage.stopAreaPopup.getLabel().shouldBeVisible();
+    MapPage.stopAreaPopup.getCloseButton().click();
+    MapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.
-    mapPage.map.clickAtCoordinates(24.938927, 60.165433);
-    mapPage.stopAreaPopup.getLabel().should('not.exist');
+    MapPage.map.clickAtCoordinates(24.938927, 60.165433);
+    MapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapPage.map.clickAtCoordinates(24.937, 60.166);
-    mapPage.stopAreaPopup
+    MapPage.map.clickAtCoordinates(24.937, 60.166);
+    MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
@@ -359,51 +352,51 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
 
   it('should delete a stop area', () => {
     // Create a stop area without stops
-    mapPage.mapFooter.addStopArea();
+    MapFooter.addStopArea();
 
-    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
-    mapPage.stopAreaForm.getForm().shouldBeVisible();
-    mapPage.stopAreaForm.getName().type('Annankatu 2');
-    mapPage.stopAreaForm.getShowHideButton().click();
-    mapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm.getName().type('Annankatu 2');
+    MapPage.stopAreaForm.getShowHideButton().click();
+    MapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
+    MapPage.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapPage.stopAreaForm
+    MapPage.stopAreaForm
       .getLongitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
-    mapPage.stopAreaForm.validityPeriodForm
+    MapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    MapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
-    mapPage.stopAreaForm.save();
+    MapPage.stopAreaForm.save();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    mapPage.stopAreaForm.getForm().should('not.exist');
-    mapPage.map.waitForLoadToComplete();
+    MapPage.stopAreaForm.getForm().should('not.exist');
+    MapPage.map.waitForLoadToComplete();
 
     // Delete it
-    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
-    mapPage.stopAreaPopup.getDeleteButton().click();
-    confirmationDialog.getConfirmButton().click();
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
+    MapPage.stopAreaPopup.getDeleteButton().click();
+    ConfirmationDialog.getConfirmButton().click();
+    MapPage.map.waitForLoadToComplete();
     expectGraphQLCallToSucceed('@gqlDeleteStopArea');
-    toast.expectSuccessToast('Pysäkkialue poistettu');
-    mapPage.stopAreaPopup.getLabel().should('not.exist');
+    Toast.expectSuccessToast('Pysäkkialue poistettu');
+    MapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.
-    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
-    mapPage.stopAreaPopup.getLabel().should('not.exist');
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
+    MapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // should only have cancel-button because it has stops in it
-    mapPage.map.getStopAreaById('X0003').click();
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.waitForLoadToComplete();
 
-    mapPage.stopAreaPopup.getDeleteButton().click();
-    confirmationDialog.getConfirmButton().should('not.exist');
-    confirmationDialog.getCancelButton().click();
+    MapPage.stopAreaPopup.getDeleteButton().click();
+    ConfirmationDialog.getConfirmButton().should('not.exist');
+    ConfirmationDialog.getCancelButton().click();
   });
 });

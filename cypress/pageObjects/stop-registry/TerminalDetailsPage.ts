@@ -1,4 +1,4 @@
-import { ObservationDateControl } from '../ObservationDateControl';
+import { ObservationDateControl } from '../timetables/ObservationDateControl';
 import { TerminalDetailsStopsPage } from './TerminalDetailsStopsPage';
 import {
   EditTerminalValidityModal,
@@ -11,39 +11,39 @@ import {
 } from './terminals';
 
 export class TerminalDetailsPage {
-  terminalDetails = new TerminalDetailsSection();
+  static terminalDetails = TerminalDetailsSection;
 
-  locationDetails = new TerminalLocationDetailsSection();
+  static locationDetails = TerminalLocationDetailsSection;
 
-  infoSpots = new TerminalInfoSpotsSection();
+  static infoSpots = TerminalInfoSpotsSection;
 
-  titleRow = new TerminalTitleRow();
+  static titleRow = TerminalTitleRow;
 
-  versioningRow = new TerminalVersioningRow();
+  static versioningRow = TerminalVersioningRow;
 
-  observationDateControl = new ObservationDateControl();
+  static observationDateControl = ObservationDateControl;
 
-  editTerminalValidityModal = new EditTerminalValidityModal();
+  static editTerminalValidityModal = EditTerminalValidityModal;
 
-  stopsPage = new TerminalDetailsStopsPage();
+  static stopsPage = TerminalDetailsStopsPage;
 
-  owner = new TerminalOwnerDetailsSection();
+  static owner = TerminalOwnerDetailsSection;
 
-  visit(privateCode: string, observationDate?: string) {
+  static visit(privateCode: string, observationDate?: string) {
     cy.visit(
       `/stop-registry/terminals/${privateCode}${observationDate ? `?observationDate=${observationDate}` : ''}`,
     );
   }
 
-  page() {
+  static page() {
     return cy.getByTestId('TerminalDetailsPage::page');
   }
 
-  validityPeriod() {
+  static validityPeriod() {
     return cy.getByTestId('TerminalVersioningRow::validityPeriod');
   }
 
-  getTabSelector() {
+  static getTabSelector() {
     return {
       getStopsTab: () => cy.getByTestId('TerminalDetailsPage::stopsTabButton'),
       getBasicDetailsTab: () =>
