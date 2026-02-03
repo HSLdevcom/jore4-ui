@@ -330,8 +330,9 @@ setup_environment() {
   if [[ $1 = "test" ]]; then
     cd ./test-db-manager
     yarn build
-    # Stop registry dumps do not include any terminal data, use the seed data to insert them
+    # Stop registry dumps do not include any terminal data or trams, use the seed data to insert them
     yarn seed:terminals
+    yarn seed:trams
     cd ..
   fi
 

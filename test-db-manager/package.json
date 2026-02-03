@@ -20,6 +20,7 @@
     "seed:timetables": "node -e 'require(`./dist/index.js`).seedTimetables()'",
     "seed:stops": "node -e 'require(`./dist/index.js`).seedStopRegistry()'",
     "seed:terminals": "node -e 'require(`./dist/index.js`).seedStopRegistryTerminals()'",
+    "seed:trams": "node -e 'require(`./dist/index.js`).seedStopRegistryTrams()'",
     "clean": "rm -rf ts-dist && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .rollup.cache",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build"
