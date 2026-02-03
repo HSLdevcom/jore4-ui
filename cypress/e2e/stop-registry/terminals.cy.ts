@@ -61,7 +61,7 @@ type ExpectedLocationDetails = {
   readonly memberPlatforms: string;
 };
 
-describe('Terminal details', { tags: [Tag.StopRegistry] }, () => {
+describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   const terminalDetailsPage = new TerminalDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();

@@ -39,7 +39,7 @@ const testCoordinates1 = {
   el: 0,
 };
 
-describe('Stop editing tests', { tags: [Tag.Stops] }, () => {
+describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
   const mapFilterPanel = new FilterPanel();
   const map = new Map();
   const confirmationDialog = new ConfirmationDialog();
