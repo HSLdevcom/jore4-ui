@@ -156,7 +156,7 @@ const northEsplanadi = {
   arrivalPlatforms: '6  ',
   loadingPlatforms: '3',
   electricCharging: '2',
-  terminalType: 'Bussiterminaali',
+  terminalType: 'BusTerminal',
   accessibilityLimitations: {
     audibleSignalsAvailable: StopRegistryLimitationStatusType.True,
   },
@@ -188,7 +188,7 @@ const pasila = {
   arrivalPlatforms: '6  ',
   loadingPlatforms: '3',
   electricCharging: '2',
-  terminalType: 'Bussiterminaali',
+  terminalType: 'BusTerminal',
   accessibilityLimitations: {
     audibleSignalsAvailable: StopRegistryLimitationStatusType.True,
   },

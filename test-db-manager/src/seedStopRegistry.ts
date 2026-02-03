@@ -49,6 +49,14 @@ export const seedStopRegistry = async () => {
     };
   });
 
+  // Find stop areas that don't have any quays
+  const stopAreasWithQuays = new Set(Object.keys(quaysByDeclaredStopArea));
+  const stopPlaceInputsWithoutQuays: Array<
+    Partial<StopRegistryStopPlaceInput>
+  > = stopPlacesWithOrganisations
+    .filter((sp) => !stopAreasWithQuays.has(sp.privateCode?.value ?? ''))
+    .map((sp) => ({ ...sp, quays: [] }));
+
   const quaysByName = groupBy(
     seedQuays.filter((quay) => !quay.stopArea),
     (quay) => stopNames[quay.quay.publicCode ?? '']?.name ?? '',
@@ -77,7 +85,11 @@ export const seedStopRegistry = async () => {
     });
 
   const { collectedStopIds, collectedQuayDetails } = await insertStopPlaces(
-    [...stopPlaceInputs, ...stopPlaceInputsWithStopAreas],
+    [
+      ...stopPlaceInputs,
+      ...stopPlaceInputsWithStopAreas,
+      ...stopPlaceInputsWithoutQuays,
+    ],
     true,
   );
 

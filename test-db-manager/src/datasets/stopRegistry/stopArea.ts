@@ -24,6 +24,7 @@ export type StopAreaSeedData = {
   locationLong: number;
   validityStart: string; // Really a datetime, but keyValues can only take strings.
   validityEnd?: string; // Really a datetime, but keyValues can only take strings.
+  transportMode?: StopRegistryTransportModeType;
 };
 
 export type StopAreaInput = {
@@ -34,7 +35,8 @@ export type StopAreaInput = {
 const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
   return {
     StopArea: {
-      transportMode: StopRegistryTransportModeType.Bus,
+      transportMode:
+        seedStopArea.transportMode ?? StopRegistryTransportModeType.Bus,
       alternativeNames: mapToAlternativeNames(seedStopArea),
       privateCode: { type: 'HSL/TEST', value: seedStopArea.label },
       name: {
@@ -112,7 +114,35 @@ const finnooSeedData: StopAreaSeedData = {
   },
 };
 
+const tramAreaSeedData: StopAreaSeedData = {
+  nameSwe: 'Tram',
+  nameFinLong: 'Tram',
+  nameSweLong: 'Tram',
+  abbreviationFin: 'Tram',
+  abbreviationSwe: 'Tram',
+  label: 'Y1238',
+  name: 'Tram',
+  validityStart: basicStart,
+  validityEnd: basicEnd,
+  locationLong: 24.93648964,
+  locationLat: 60.15551145,
+  organisations: {
+    cleaning: 'Clear Channel',
+    infoUpkeep: null,
+    maintenance: 'ELY-keskus',
+    owner: 'JCD',
+    winterMaintenance: 'ELY-keskus',
+    shelterMaintenance: 'JCD',
+  },
+  transportMode: StopRegistryTransportModeType.Tram,
+};
+
 const seedData: Array<StopAreaSeedData> = [...route35StopAreas, finnooSeedData];
+
+const tramSeedData: Array<StopAreaSeedData> = [tramAreaSeedData];
 
 export const seedStopAreas: Array<StopAreaInput> =
   seedData.map(mapToStopAreaInput);
+
+export const seedTramStopAreas: Array<StopAreaInput> =
+  tramSeedData.map(mapToStopAreaInput);

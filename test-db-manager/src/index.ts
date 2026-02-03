@@ -12,4 +12,5 @@ export * from './types';
 // CLI commands
 export * from './seedStopRegistry';
 export * from './seedStopRegistryTerminals';
+export * from './seedStopRegistryTrams';
 export * from './seedTimetables';
