@@ -22,7 +22,7 @@ import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
 
-describe('Stop area details', { tags: [Tag.StopAreas] }, () => {
+describe('Stop area details', { tags: [Tag.StopAreas, Tag.Map] }, () => {
   const map = new Map();
   const mapFilterPanel = new FilterPanel();
   const observationDateFilters = new MapObservationDateFiltersOverlay();

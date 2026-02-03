@@ -24,7 +24,7 @@ import {
   expectGraphQLCallToSucceed,
 } from '../../utils/assertions';
 
-describe('Stop areas on map', { tags: [Tag.StopAreas] }, () => {
+describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();

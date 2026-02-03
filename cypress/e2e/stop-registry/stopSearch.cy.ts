@@ -1655,7 +1655,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     });
   });
 
-  describe('Show results on map', { tags: Tag.Map }, () => {
+  describe('Show results on map', { tags: [Tag.Map] }, () => {
     type TestStops = InsertQuaysResult<
       keyof ReturnType<typeof generateTestData>
     >;

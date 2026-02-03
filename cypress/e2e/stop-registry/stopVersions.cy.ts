@@ -516,7 +516,7 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
     });
   });
 
-  describe('Actions', () => {
+  describe('Actions', { tags: [Tag.Map] }, () => {
     const map = new Map();
     const mapObservationDateFiltersOverlay =
       new MapObservationDateFiltersOverlay();
