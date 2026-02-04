@@ -44,6 +44,22 @@ type ErrorListProps<FormState extends FieldValues> = {
 
 const INVALID_EMAIL_MESSAGE = 'Invalid email';
 
+const isDefaultZodErrorMessage = (message: string) => {
+  return (
+    message.startsWith('String must contain at least') ||
+    message.startsWith('String must contain at most')
+  );
+};
+
+// Try and see of the `message` is a translation key.
+// Else assume it is a pre translated string and return it as is.
+const translateErrorMessage = (
+  message: string | undefined,
+  t: (key: string, opts?: Record<string, unknown>) => string,
+) => {
+  return t(`formValidation.${message}`, { defaultValue: message });
+};
+
 export const ValidationErrorList = <FormState extends FieldValues>({
   className,
   fieldPath,
@@ -67,19 +83,21 @@ export const ValidationErrorList = <FormState extends FieldValues>({
 
     switch (type) {
       case 'too_small':
-        return t('formValidation.tooSmall');
+        return message && !isDefaultZodErrorMessage(message)
+          ? translateErrorMessage(message, t)
+          : t('formValidation.tooSmall');
       case 'too_big':
-        return t('formValidation.tooBig');
+        return message && !isDefaultZodErrorMessage(message)
+          ? translateErrorMessage(message, t)
+          : t('formValidation.tooBig');
       case 'custom':
-        // Try and see of the `message` is a translation key.
-        // Else assume it is a pre translated string and return it as is.
-        return t(`formValidation.${message}`, { defaultValue: message });
+        return translateErrorMessage(message, t);
       case 'invalid_string':
         if (message === INVALID_EMAIL_MESSAGE) {
           return t(`formValidation.invalidEmail`);
         }
 
-        return t(`formValidation.${message}`);
+        return translateErrorMessage(message, t);
       default:
         return `${type}: ${message}`;
     }
