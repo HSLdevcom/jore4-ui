@@ -95,6 +95,52 @@ export type IntComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
+export type QuayChangeHistoryItem = {
+  __typename?: 'QuayChangeHistoryItem';
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changedBy?: Maybe<Scalars['String']['output']>;
+  netexId: Scalars['String']['output'];
+  priority?: Maybe<Scalars['Int']['output']>;
+  privateCodeType?: Maybe<Scalars['String']['output']>;
+  privateCodeValue: Scalars['String']['output'];
+  publicCode: Scalars['String']['output'];
+  stopPlaceNetexId: Scalars['String']['output'];
+  stopPlaceVersion: Scalars['String']['output'];
+  validityEnd?: Maybe<Scalars['String']['output']>;
+  validityStart?: Maybe<Scalars['String']['output']>;
+  version: Scalars['String']['output'];
+  versionComment?: Maybe<Scalars['String']['output']>;
+};
+
+export enum QuayChangeHistoryItemEnumName {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changedBy',
+  /** column name */
+  NetexId = 'netexId',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  PrivateCodeType = 'privateCodeType',
+  /** column name */
+  PrivateCodeValue = 'privateCodeValue',
+  /** column name */
+  PublicCode = 'publicCode',
+  /** column name */
+  StopPlaceNetexId = 'stopPlaceNetexId',
+  /** column name */
+  StopPlaceVersion = 'stopPlaceVersion',
+  /** column name */
+  ValidityEnd = 'validityEnd',
+  /** column name */
+  ValidityStart = 'validityStart',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'versionComment'
+}
+
 export type ReplaceTimetablesInput = {
   stagingVehicleScheduleFrameIds: Array<InputMaybe<Scalars['uuid']['input']>>;
   targetPriority: Scalars['Int']['input'];
@@ -11306,6 +11352,43 @@ export enum StopRegistryStopType {
   Other = 'other',
   PullOut = 'pullOut'
 }
+
+/** Boolean expression to filter rows from the logical model for "QuayChangeHistoryItem". All fields are combined with a logical 'AND'. */
+export type StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>>;
+  _not?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>>;
+  changed?: InputMaybe<TimestampComparisonExp>;
+  changedBy?: InputMaybe<StringComparisonExp>;
+  netexId?: InputMaybe<StringComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
+  privateCodeType?: InputMaybe<StringComparisonExp>;
+  privateCodeValue?: InputMaybe<StringComparisonExp>;
+  publicCode?: InputMaybe<StringComparisonExp>;
+  stopPlaceNetexId?: InputMaybe<StringComparisonExp>;
+  stopPlaceVersion?: InputMaybe<StringComparisonExp>;
+  validityEnd?: InputMaybe<StringComparisonExp>;
+  validityStart?: InputMaybe<StringComparisonExp>;
+  version?: InputMaybe<StringComparisonExp>;
+  versionComment?: InputMaybe<StringComparisonExp>;
+};
+
+/** Ordering options when selecting data from "QuayChangeHistoryItem". */
+export type StopsDatabaseQuayChangeHistoryItemOrderBy = {
+  changed?: InputMaybe<OrderBy>;
+  changedBy?: InputMaybe<OrderBy>;
+  netexId?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  privateCodeType?: InputMaybe<OrderBy>;
+  privateCodeValue?: InputMaybe<OrderBy>;
+  publicCode?: InputMaybe<OrderBy>;
+  stopPlaceNetexId?: InputMaybe<OrderBy>;
+  stopPlaceVersion?: InputMaybe<OrderBy>;
+  validityEnd?: InputMaybe<OrderBy>;
+  validityStart?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
+  versionComment?: InputMaybe<OrderBy>;
+};
 
 /** Boolean expression to filter rows from the logical model for "TerminalStopSearchResult". All fields are combined with a logical 'AND'. */
 export type StopsDatabaseTerminalStopSearchResultBoolExpBoolExp = {
@@ -50608,6 +50691,7 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateValueMa
 export type StopsDatabaseStopsDatabaseQuery = {
   __typename?: 'stops_database_stops_database_query';
   findStopsForTerminal: Array<TerminalStopSearchResult>;
+  getQuayChangeHistory: Array<QuayChangeHistoryItem>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -51160,6 +51244,15 @@ export type StopsDatabaseStopsDatabaseQueryFindStopsForTerminalArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultOrderBy>>;
   where?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
+};
+
+
+export type StopsDatabaseStopsDatabaseQueryGetQuayChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<QuayChangeHistoryItemEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
 };
 
 
@@ -53385,6 +53478,7 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseValueItemsAggregateArgs 
 export type StopsDatabaseStopsDatabaseSubscription = {
   __typename?: 'stops_database_stops_database_subscription';
   findStopsForTerminal: Array<TerminalStopSearchResult>;
+  getQuayChangeHistory: Array<QuayChangeHistoryItem>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -54147,6 +54241,15 @@ export type StopsDatabaseStopsDatabaseSubscriptionFindStopsForTerminalArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultOrderBy>>;
   where?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
+};
+
+
+export type StopsDatabaseStopsDatabaseSubscriptionGetQuayChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<QuayChangeHistoryItemEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
 };
 
 
