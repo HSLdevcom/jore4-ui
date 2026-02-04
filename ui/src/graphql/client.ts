@@ -303,6 +303,9 @@ const buildCacheDefinition = () => {
       stops_database_stop_place_children: {
         keyFields: ['stop_place_id', 'children_id'],
       },
+      stops_database_stop_place_quays: {
+        keyFields: ['stop_place_id', 'quays_id'],
+      },
       stops_database_quay_newest_version: {
         keyFields: ['netex_id'],
       },
