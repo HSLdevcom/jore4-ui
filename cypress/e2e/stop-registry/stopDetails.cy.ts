@@ -1860,7 +1860,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         form.organisationDetailsModal.getModal().should('exist');
         form.organisationDetailsModal
           .getTitle()
-          .shouldHaveText('Uusi ylläpitäjä');
+          .shouldHaveText('Lisää uusi toimija');
 
         // Fill organisation details and save.
         const organisationForm = form.organisationDetailsModal.form;

@@ -1,9 +1,7 @@
-import { DialogTitle } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
-import { Row } from '../../../../../layoutComponents';
-import { Modal, NewModalBody } from '../../../../../uiComponents';
+import { Modal, ModalBody, ModalHeader } from '../../../../../uiComponents';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import {
   OrganisationDetailsForm,
@@ -68,20 +66,23 @@ export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
       onClose={wrapInContextNavigation(onClose)}
       testId={testIds.modal}
     >
-      <Row className="flex justify-between px-5 py-4">
-        <DialogTitle as="h4" data-testid={testIds.title}>
-          {organisation?.id
+      <ModalHeader
+        onClose={onClose}
+        heading={
+          organisation?.id
             ? t('stopDetails.maintenance.organisation.modalTitleEdit')
-            : t('stopDetails.maintenance.organisation.modalTitleCreate')}
-        </DialogTitle>
-      </Row>
-      <NewModalBody>
+            : t('stopDetails.maintenance.organisation.modalTitleCreate')
+        }
+        titleTestId={testIds.title}
+      />
+
+      <ModalBody className="w-[500px]">
         <OrganisationDetailsForm
           defaultValues={mapOrganisationToFormState(organisation)}
           onSubmit={onConfirm}
           onCancel={onClose}
         />
-      </NewModalBody>
+      </ModalBody>
     </Modal>
   );
 };

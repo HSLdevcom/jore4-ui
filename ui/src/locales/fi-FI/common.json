@@ -373,7 +373,7 @@
       },
       "organisation": {
         "modalTitleEdit": "Muokkaa toimijan tietoja",
-        "modalTitleCreate": "Uusi ylläpitäjä",
+        "modalTitleCreate": "Lisää uusi toimija",
         "createNewOrganisation": "Lisää uusi toimija",
         "noContractor": "Ei toimijaa",
         "modalEditDisclaimer": "Muokkaamasi toimijan yhteystiedot päivitetään kaikille samoja yhteystietoja käyttäviin kohteisiin.",

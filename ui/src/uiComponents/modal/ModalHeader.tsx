@@ -9,12 +9,17 @@ const testIds = {
 type ModalHeaderProps = {
   readonly onClose: () => void;
   readonly heading: string;
+  readonly titleTestId?: string;
 };
 
-export const ModalHeader: FC<ModalHeaderProps> = ({ onClose, heading }) => {
+export const ModalHeader: FC<ModalHeaderProps> = ({
+  onClose,
+  heading,
+  titleTestId,
+}) => {
   return (
     <Row className="border border-light-grey bg-background px-10 py-7">
-      <h2>{heading}</h2>
+      <h2 data-testid={titleTestId}>{heading}</h2>
       <CloseIconButton
         className="ml-auto"
         onClick={onClose}
