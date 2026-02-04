@@ -67,7 +67,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
         }}
         ref={formRef}
       >
-        <div className="max-w-[400px] space-y-2">
+        <div className="space-y-2">
           <FormRow>
             <InputField<OrganisationDetailsFormState>
               type="text"
@@ -98,7 +98,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
             </p>
           </Visible>
         </div>
-        <Row className="mt-8 justify-end gap-5">
+        <Row className="-mx-12 mt-8 -mb-8 justify-end gap-2 border border-light-grey bg-background px-12 py-2">
           <SimpleButton
             onClick={onCancel}
             inverted
@@ -110,6 +110,9 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
             onClick={onSave}
             id="save-button"
             testId={testIds.saveButton}
+            disabled={
+              !methods.formState.isDirty || methods.formState.isSubmitting
+            }
           >
             {t('save')}
           </SimpleButton>
