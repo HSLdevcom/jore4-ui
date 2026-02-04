@@ -1,7 +1,8 @@
 {
   "languages": {
     "fi-FI": "Finnish",
-    "en-US": "English"
+    "en-US": "English",
+    "intlLangCode": "en-US"
   },
   "validity": {
     "validDuring": "Valid {{ startDate }} - {{ endDate }}"

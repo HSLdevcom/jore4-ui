@@ -1,7 +1,8 @@
 {
   "languages": {
     "fi-FI": "Suomi",
-    "en-US": "Englanti"
+    "en-US": "Englanti",
+    "intlLangCode": "fi-FI"
   },
   "validity": {
     "validDuring": "Voimassa {{ startDate }} - {{ endDate }}"

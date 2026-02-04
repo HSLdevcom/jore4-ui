@@ -21,11 +21,12 @@ const GQL_GET_INFO_SPOT_PURPOSES = gql`
 
 export function useGetInfoSpotPurposes() {
   const { data, loading } = useGetInfoSpotPurposesQuery();
-  const {
-    i18n: { language },
-  } = useTranslation();
+  const { t } = useTranslation();
 
-  const collator = useMemo(() => new Intl.Collator(language), [language]);
+  const collator = useMemo(
+    () => new Intl.Collator(t('languages.intlLangCode')),
+    [t],
+  );
 
   const customPurposes = useMemo(() => {
     if (!data || loading) {

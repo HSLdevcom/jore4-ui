@@ -33,12 +33,12 @@ function compareDates(
 }
 
 function useComparator(orderBy: StopVersionTableColumn): Comparator {
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation();
+  const { t } = useTranslation();
 
-  const collator = useMemo(() => new Intl.Collator(language), [language]);
+  const collator = useMemo(
+    () => new Intl.Collator(t('languages.intlLangCode')),
+    [t],
+  );
 
   switch (orderBy) {
     case 'STATUS':

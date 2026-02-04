@@ -8,10 +8,10 @@ import { useTranslation } from 'react-i18next';
  * 200 → Line 200 > 3 & 30
  */
 export function useNumericSortingCollator() {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return useMemo(
-    () => new Intl.Collator(i18n.language, { numeric: true }),
-    [i18n.language],
+    () => new Intl.Collator(t('languages.intlLangCode'), { numeric: true }),
+    [t],
   );
 }
