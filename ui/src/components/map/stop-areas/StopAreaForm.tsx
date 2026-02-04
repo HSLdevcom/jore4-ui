@@ -72,6 +72,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
   const methods = useForm<StopAreaFormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
+    mode: 'onChange',
   });
   useDirtyFormBlockNavigation(methods.formState, 'StopAreaForm', {
     allowSearchChange: true, // Allow search change so that moving the map does not show the navigation blocked dialog
@@ -141,7 +142,9 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
           isDisabled={
-            !methods.formState.isDirty || methods.formState.isSubmitting
+            !methods.formState.isDirty ||
+            methods.formState.isSubmitting ||
+            !methods.formState.isValid
           }
           isSubmitting={methods.formState.isSubmitting}
           variant="modal"

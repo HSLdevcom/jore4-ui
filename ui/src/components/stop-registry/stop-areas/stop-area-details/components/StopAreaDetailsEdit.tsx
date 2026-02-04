@@ -124,6 +124,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
+    mode: 'onChange',
   });
   useDirtyFormBlockNavigation(methods.formState, 'StopAreaDetailsEdit');
   const { handleSubmit } = methods;
@@ -191,7 +192,9 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
           isDisabled={
-            !methods.formState.isDirty || methods.formState.isSubmitting
+            !methods.formState.isDirty ||
+            methods.formState.isSubmitting ||
+            !methods.formState.isValid
           }
           isSubmitting={methods.formState.isSubmitting}
           variant="infoContainer"
