@@ -18,7 +18,7 @@ export const stopAreaFormSchema = z
     nameEng: z.string().optional(),
     nameSwe: requiredString,
     privateCode: requiredString,
-    name: requiredString,
+    name: requiredString.max(21, 'nameValueTooLong'),
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
   })
