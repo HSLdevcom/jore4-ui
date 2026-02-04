@@ -17,7 +17,11 @@ import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 
-describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
+const rootOpts: Cypress.SuiteConfigOverrides = {
+  tags: [Tag.Routes, Tag.Map],
+  scrollBehavior: 'bottom',
+};
+describe('Route creation', rootOpts, () => {
   let mapPage: MapPage;
   let routeStopsOverlay: RouteStopsOverlay;
   let mapFooter: MapFooter;
@@ -69,7 +73,6 @@ describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
     'Should create a new route',
     {
       tags: [Tag.Smoke, Tag.Network],
-      scrollBehavior: 'bottom',
     },
     () => {
       mapPage.map.visit(mapLocation);
@@ -158,7 +161,7 @@ describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
     },
   );
 
-  it('should cancel creating a new route', { scrollBehavior: 'bottom' }, () => {
+  it('should cancel creating a new route', () => {
     mapPage.map.visit(mapLocation);
     mapPage.map.waitForLoadToComplete();
 
@@ -195,7 +198,7 @@ describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
 
   it(
     'Should create a new route and leave out one stop',
-    { tags: [Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network] },
     () => {
       const { routeStopsOverlayRow } = routeStopsOverlay;
       mapPage.map.visit(mapLocation);
@@ -292,7 +295,7 @@ describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
 
   it(
     'Should not let the user create a route with only one stop',
-    { tags: [Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network] },
     () => {
       const { routeStopsOverlayRow } = routeStopsOverlay;
       mapPage.map.visit(mapLocation);
@@ -366,7 +369,7 @@ describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
 
   it(
     'Should create new route with an indefinite validity end date',
-    { tags: [Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network] },
     () => {
       mapPage.map.visit(mapLocation);
 
@@ -424,7 +427,7 @@ describe('Route creation', { tags: [Tag.Routes, Tag.Map] }, () => {
 
   it(
     'Should create a new route using an existing route as a template',
-    { tags: [Tag.Network], scrollBehavior: 'bottom' },
+    { tags: [Tag.Network] },
     () => {
       mapPage.map.visit(mapLocation);
 
