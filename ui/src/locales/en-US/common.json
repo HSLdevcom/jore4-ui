@@ -1129,7 +1129,8 @@
     "Invalid url": "Invalid url",
     "validityEndNotDefined": "End date must be given or set as indefinite",
     "invalidValidityEndDate": "Invalid validity end date",
-    "validityEndDateBeforeStartDate": "Validity end date cannot be before start date"
+    "validityEndDateBeforeStartDate": "Validity end date cannot be before start date",
+    "nameValueTooLong": "Name has over 21 characters."
   },
   "errors": {
     "deleteFailed": "Deletion failed",
