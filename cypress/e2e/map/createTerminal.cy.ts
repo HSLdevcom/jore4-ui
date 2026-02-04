@@ -51,7 +51,11 @@ const testCoordinates2 = {
   el: 0,
 };
 
-describe('Terminal creation tests', { tags: [Tag.Terminals, Tag.Map] }, () => {
+const rootOpts: Cypress.SuiteConfigOverrides = {
+  tags: [Tag.Terminals, Tag.Map],
+  scrollBehavior: 'bottom',
+};
+describe('Terminal creation tests', rootOpts, () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
@@ -97,7 +101,7 @@ describe('Terminal creation tests', { tags: [Tag.Terminals, Tag.Map] }, () => {
 
   it(
     'Should create terminal on map and verify details',
-    { tags: [Tag.Smoke], scrollBehavior: 'bottom' },
+    { tags: [Tag.Smoke] },
     () => {
       const privateCode = mapPage.createTerminalAtLocation({
         terminalFormInfo: {
@@ -138,170 +142,150 @@ describe('Terminal creation tests', { tags: [Tag.Terminals, Tag.Map] }, () => {
     },
   );
 
-  it(
-    'Should create terminal and change observation date',
-    { scrollBehavior: 'bottom' },
-    () => {
-      observationDateFilters.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
+  it('Should create terminal and change observation date', () => {
+    observationDateFilters.observationDateControl.setObservationDate(
+      '2025-01-01',
+    );
 
-      const privateCode = mapPage.createTerminalAtLocation({
-        terminalFormInfo: {
-          name: testTerminalLabels.terminalName,
-          nameSwe: testTerminalLabels.terminalName,
-          validityStartISODate: '2030-01-01',
-          stops: testTerminalLabels.stops,
-        },
-        clickRelativePoint: {
-          xPercentage: 40,
-          yPercentage: 55,
-        },
+    const privateCode = mapPage.createTerminalAtLocation({
+      terminalFormInfo: {
+        name: testTerminalLabels.terminalName,
+        nameSwe: testTerminalLabels.terminalName,
+        validityStartISODate: '2030-01-01',
+        stops: testTerminalLabels.stops,
+      },
+      clickRelativePoint: {
+        xPercentage: 40,
+        yPercentage: 55,
+      },
+    });
+
+    mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+
+    observationDateFilters.observationDateControl
+      .getObservationDateInput()
+      .should('have.value', '2030-01-01');
+
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    map.waitForLoadToComplete().then(() => {
+      privateCode.then((value) => {
+        cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should('exist');
       });
+    });
+  });
 
-      mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+  it('should cancel creating a new terminal', () => {
+    mapPage.map.waitForLoadToComplete();
 
-      observationDateFilters.observationDateControl
-        .getObservationDateInput()
-        .should('have.value', '2030-01-01');
+    mapPage.mapFooter.addTerminal();
+    mapPage.mapFooter.getMapFooter().should('not.exist');
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      map.waitForLoadToComplete().then(() => {
-        privateCode.then((value) => {
-          cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should(
-            'exist',
-          );
-        });
-      });
-    },
-  );
+    mapPage.mapFooter.cancelAddMode();
+    mapPage.mapFooter.getMapFooter().shouldBeVisible();
+  });
 
-  it(
-    'should cancel creating a new terminal',
-    { scrollBehavior: 'bottom' },
-    () => {
-      mapPage.map.waitForLoadToComplete();
-
-      mapPage.mapFooter.addTerminal();
-      mapPage.mapFooter.getMapFooter().should('not.exist');
-
-      mapPage.mapFooter.cancelAddMode();
-      mapPage.mapFooter.getMapFooter().shouldBeVisible();
-    },
-  );
-
-  it(
-    'Should place terminal correctly by using manually typed latitude and longitude',
-    { scrollBehavior: 'bottom' },
-    () => {
-      const privateCode = mapPage.createTerminalAtLocation({
-        terminalFormInfo: {
-          name: testTerminalLabels.terminalName,
-          nameSwe: testTerminalLabels.terminalName,
-          validityStartISODate: '2022-01-01',
-          stops: testTerminalLabels.stops,
-          // Actual coordinates will be on Topeliuksenkatu
-          latitude: testCoordinates2.lat.toString(),
-          longitude: testCoordinates2.lng.toString(),
-        },
-        clickRelativePoint: {
-          xPercentage: 40,
-          yPercentage: 55,
-        },
-      });
-
-      mapPage.gqlTerminalShouldBeCreatedSuccessfully();
-
-      mapPage.checkTerminalSubmitSuccessToast();
-
-      // Change map position to created terminal location
-      mapPage.map.visit({
-        zoom: 16,
-        lat: testCoordinates2.lat,
-        lng: testCoordinates2.lng,
-      });
-
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      map.waitForLoadToComplete().then(() => {
-        privateCode.then((value) => {
-          cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should(
-            'exist',
-          );
-        });
-      });
-    },
-  );
-
-  it(
-    'should handle unique private code exception',
-    { scrollBehavior: 'bottom' },
-    () => {
-      mapPage.mapFooter.addTerminal();
-
-      mapPage.map.clickRelativePoint(50, 50);
-
-      mapPage.terminalForm.fillFormForNewTerminal({
+  it('Should place terminal correctly by using manually typed latitude and longitude', () => {
+    const privateCode = mapPage.createTerminalAtLocation({
+      terminalFormInfo: {
         name: testTerminalLabels.terminalName,
         nameSwe: testTerminalLabels.terminalName,
         validityStartISODate: '2022-01-01',
         stops: testTerminalLabels.stops,
+        // Actual coordinates will be on Topeliuksenkatu
+        latitude: testCoordinates2.lat.toString(),
+        longitude: testCoordinates2.lng.toString(),
+      },
+      clickRelativePoint: {
+        xPercentage: 40,
+        yPercentage: 55,
+      },
+    });
+
+    mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+
+    mapPage.checkTerminalSubmitSuccessToast();
+
+    // Change map position to created terminal location
+    mapPage.map.visit({
+      zoom: 16,
+      lat: testCoordinates2.lat,
+      lng: testCoordinates2.lng,
+    });
+
+    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    map.waitForLoadToComplete().then(() => {
+      privateCode.then((value) => {
+        cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should('exist');
       });
+    });
+  });
 
-      mapPage.terminalForm
-        .getPrivateCodeInput()
-        .shouldBeVisible()
-        .shouldBeDisabled()
-        .invoke('val')
-        .then((privateCode) => {
-          cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
-            stopPlaces: [
-              {
-                StopArea: {
-                  privateCode: { type: 'HSL/TEST', value: 'ExistingStopArea' },
-                  name: { lang: 'fin', value: 'Testikatu 18' },
-                  quays: [
-                    {
-                      publicCode: 'E2E999',
-                      geometry: {
-                        coordinates: [24.92596546020357, 60.16993494912799],
-                        type: StopRegistryGeoJsonType.Point,
-                      },
-                      keyValues: [
-                        {
-                          key: KnownValueKey.ValidityStart,
-                          values: ['2020-03-20'],
-                        },
-                      ],
+  it('should handle unique private code exception', () => {
+    mapPage.mapFooter.addTerminal();
+
+    mapPage.map.clickRelativePoint(50, 50);
+
+    mapPage.terminalForm.fillFormForNewTerminal({
+      name: testTerminalLabels.terminalName,
+      nameSwe: testTerminalLabels.terminalName,
+      validityStartISODate: '2022-01-01',
+      stops: testTerminalLabels.stops,
+    });
+
+    mapPage.terminalForm
+      .getPrivateCodeInput()
+      .shouldBeVisible()
+      .shouldBeDisabled()
+      .invoke('val')
+      .then((privateCode) => {
+        cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+          stopPlaces: [
+            {
+              StopArea: {
+                privateCode: { type: 'HSL/TEST', value: 'ExistingStopArea' },
+                name: { lang: 'fin', value: 'Testikatu 18' },
+                quays: [
+                  {
+                    publicCode: 'E2E999',
+                    geometry: {
+                      coordinates: [24.92596546020357, 60.16993494912799],
+                      type: StopRegistryGeoJsonType.Point,
                     },
-                  ],
-                  geometry: {
-                    coordinates: [24.92596546020357, 60.16993494912799],
-                    type: StopRegistryGeoJsonType.Point,
+                    keyValues: [
+                      {
+                        key: KnownValueKey.ValidityStart,
+                        values: ['2020-03-20'],
+                      },
+                    ],
                   },
+                ],
+                geometry: {
+                  coordinates: [24.92596546020357, 60.16993494912799],
+                  type: StopRegistryGeoJsonType.Point,
                 },
-                organisations: null,
               },
-            ],
-            terminals: [
-              {
-                terminal: {
-                  ...baseStopRegistryData.terminals[0].terminal,
-                  name: { lang: 'fi-fi', value: privateCode },
-                  privateCode: { type: 'HSL/JORE-4', value: privateCode },
-                },
-                memberLabels: ['ExistingStopArea'],
+              organisations: null,
+            },
+          ],
+          terminals: [
+            {
+              terminal: {
+                ...baseStopRegistryData.terminals[0].terminal,
+                name: { lang: 'fi-fi', value: privateCode },
+                privateCode: { type: 'HSL/JORE-4', value: privateCode },
               },
-            ],
-            stopPointsRequired: false,
-          });
-
-          mapPage.terminalForm.save();
-
-          toast.expectDangerToast(
-            `Terminaalilla tulee olla uniikki tunnus, mutta tunnus ${privateCode} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
-          );
-          expectGraphQLCallToReturnError('@gqlCreateTerminal');
+              memberLabels: ['ExistingStopArea'],
+            },
+          ],
+          stopPointsRequired: false,
         });
-    },
-  );
+
+        mapPage.terminalForm.save();
+
+        toast.expectDangerToast(
+          `Terminaalilla tulee olla uniikki tunnus, mutta tunnus ${privateCode} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
+        );
+        expectGraphQLCallToReturnError('@gqlCreateTerminal');
+      });
+  });
 });
