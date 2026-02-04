@@ -1469,6 +1469,20 @@
       "draft": "$t(priority.draft)"
     }
   },
+  "changeHistory": {
+    "loading": "Loading change history",
+    "failedToLoad": "Failed to load change history",
+    "tryAgainButton": "Try again",
+    "tableHeaders": {
+      "name": "Name",
+      "oldValue": "Old value",
+      "newValue": "New value",
+      "validityStart": "Valid from",
+      "validityEnd": "Valid to",
+      "changedBy": "Changed by",
+      "changed": "Changed"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
   },

@@ -1469,6 +1469,20 @@
       "draft": "$t(priority.draft)"
     }
   },
+  "changeHistory": {
+    "loading": "Ladataan muutoshistoriaa",
+    "failedToLoad": "Muutoshistorian lataus epäonnistui",
+    "tryAgainButton": "Yritä uudelleen",
+    "tableHeaders": {
+      "name": "Nimi",
+      "oldValue": "Vanha arvo",
+      "newValue": "Uusi arvo",
+      "validityStart": "Alkaa",
+      "validityEnd": "Päättyy",
+      "changedBy": "Päivittäjä",
+      "changed": "Päivitetty"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   },
