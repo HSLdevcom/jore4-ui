@@ -41,7 +41,10 @@ const SelectAllRouteStops: FC<SelectAllRouteStopsProps> = ({
   route,
 }) => {
   const stopIds = stops.map((stop) => stop.netexId);
-  const allSelected = areAllStopsSelected(selection, stopIds);
+  const hasNoStops = stops.length === 0;
+  const allSelected = hasNoStops
+    ? false
+    : areAllStopsSelected(selection, stopIds);
 
   const onToggleSelectAll = () =>
     onBatchUpdateSelection((actualSelection) => {
@@ -56,6 +59,7 @@ const SelectAllRouteStops: FC<SelectAllRouteStopsProps> = ({
     <SelectAllCheckbox
       className="ml-[2px]"
       allSelected={allSelected}
+      disabled={hasNoStops}
       onToggleSelectAll={onToggleSelectAll}
       testId={testIds.selectAllRouteStops(route.route_id)}
     />
