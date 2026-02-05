@@ -50,7 +50,7 @@ const StopPlaceCountAndSortingRowImpl: FC<CountAndSortingRowImplProps> = ({
   );
 
   return (
-    <div className={twMerge('a flex items-center gap-5', className)}>
+    <div className={twMerge('flex items-center gap-5', className)}>
       {hasResults && (
         <SelectAllCheckbox
           allSelected={allSelected}

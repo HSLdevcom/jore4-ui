@@ -53,7 +53,7 @@ export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
       />
 
       <StopPlaceSelector
-        className="mb-6"
+        className="my-3"
         stopPlaces={stopPlaces}
         translationLabel={translationLabel}
       />
@@ -62,9 +62,9 @@ export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
         .filter((stopPlace) =>
           selectedGroups.includes(stopPlace.id.toString(10)),
         )
-        .map((stopPlace) => (
+        .map((stopPlace, i) => (
           <StopsTable
-            className="mb-6 last:mb-0"
+            className={i > 0 ? 'mt-6' : ''}
             key={stopPlace.id}
             observationDate={observationDate}
             onBatchUpdateSelection={onBatchUpdateSelection}

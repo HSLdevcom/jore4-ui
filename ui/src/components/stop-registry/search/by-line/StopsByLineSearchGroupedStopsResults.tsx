@@ -47,15 +47,15 @@ export const StopsByLineSearchGroupedStopsResults: FC<
         resultSelection={resultSelection}
       />
 
-      <LineSelector className="mb-6" lines={lines} />
+      <LineSelector className="my-3" lines={lines} />
 
       {lines
         .filter((line) => selectedGroups.includes(line.line_id))
-        .map((line) => (
+        .map((line, i) => (
           <>
             <ActiveLineHeader
               line={line}
-              className="mt-6"
+              className={i > 0 ? 'mt-6' : ''}
               onBatchUpdateSelection={onBatchUpdateSelection}
               selection={resultSelection}
             />

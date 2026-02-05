@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import { SimpleDropdownMenu } from '../../../../uiComponents';
 import { ResultSelection, StopSearchFilters } from '../types';
 import {
@@ -30,7 +31,7 @@ export const ResultsActionMenu: FC<ResultsActionMenuProps> = ({
 
   return (
     <SimpleDropdownMenu
-      className={className}
+      className={twJoin('pr-4', className)}
       tooltip={t('accessibility:common.actionMenu')}
       testId={testIds.actionMenu}
     >
