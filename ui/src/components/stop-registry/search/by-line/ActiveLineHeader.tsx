@@ -73,7 +73,10 @@ const SelectAllLineStops: FC<SelectAllLineStopsProps> = ({
   line,
   stopIds,
 }) => {
-  const allSelected = areAllStopsSelected(selection, stopIds);
+  const hasNoStops = stopIds.length === 0;
+  const allSelected = hasNoStops
+    ? false
+    : areAllStopsSelected(selection, stopIds);
 
   const onToggleSelectAll = () =>
     onBatchUpdateSelection((actualSelection) => {
@@ -88,6 +91,7 @@ const SelectAllLineStops: FC<SelectAllLineStopsProps> = ({
     <SelectAllCheckbox
       className="ml-[2px]"
       allSelected={allSelected}
+      disabled={hasNoStops}
       onToggleSelectAll={onToggleSelectAll}
       testId={testIds.selectAllLineStops(line.line_id)}
     />
