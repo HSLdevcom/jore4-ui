@@ -111,7 +111,10 @@ const SelectAllStopPlaceStops: FC<SelectAllStopPlaceStopsProps> = ({
   stopIds,
   stopPlace,
 }) => {
-  const allSelected = areAllStopsSelected(selection, stopIds);
+  const hasNoStops = stopIds.length === 0;
+  const allSelected = hasNoStops
+    ? false
+    : areAllStopsSelected(selection, stopIds);
 
   const onToggleSelectAll = () =>
     onBatchUpdateSelection((actualSelection) => {
@@ -126,6 +129,7 @@ const SelectAllStopPlaceStops: FC<SelectAllStopPlaceStopsProps> = ({
     <SelectAllCheckbox
       className="ml-px"
       allSelected={allSelected}
+      disabled={hasNoStops}
       onToggleSelectAll={onToggleSelectAll}
       testId={testIds.selectAllStopPlaceStops(
         stopPlace.private_code ?? stopPlace.id,
