@@ -11,7 +11,6 @@ import {
 import { StopWithDetails } from '../../../../../types';
 import { showDangerToast } from '../../../../../utils';
 import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
-import { extractRelevantAccessibilityAssessment } from '../utils';
 import { MeasurementsFormState } from './schema';
 import { useCalculateStopAccessibilityLevel } from './useCalculateStopAccessibilityLevel';
 
@@ -33,8 +32,7 @@ export const useEditStopMeasurementDetails = () => {
     const stopPlaceId = stop.stop_place?.id;
     const stopPlaceQuayId = stop.stop_place_ref;
 
-    const accessibilityAssessment =
-      extractRelevantAccessibilityAssessment(stop);
+    const accessibilityAssessment = stop.quay?.accessibilityAssessment;
     const limitations = accessibilityAssessment?.limitations;
     const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
 
