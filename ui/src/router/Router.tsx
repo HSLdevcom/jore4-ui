@@ -35,6 +35,7 @@ import {
   StopSearchResultPage,
 } from '../components/stop-registry';
 import { StopAreaDetailsPage } from '../components/stop-registry/stop-areas/stop-area-details/StopAreaDetailsPage';
+import { StopChangeHistoryPage } from '../components/stop-registry/stops/change-history';
 import { StopVersionsPage } from '../components/stop-registry/stops/versions';
 import { TerminalDetailsPage } from '../components/stop-registry/terminals/TerminalDetailsPage';
 import {
@@ -251,6 +252,11 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.stopVersions,
     protected: true,
     element: <StopVersionsPage />,
+  },
+  {
+    path: Path.stopChangeHistory,
+    protected: true,
+    element: <StopChangeHistoryPage />,
   },
   {
     path: Path.stopAreaDetails,

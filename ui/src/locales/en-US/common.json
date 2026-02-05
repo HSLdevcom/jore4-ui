@@ -1483,6 +1483,36 @@
       "changed": "Changed"
     }
   },
+  "stopChangeHistory": {
+    "title": "Change history | Stop {{publicCode}}",
+    "titleWithName": "Change history | Stop  {{publicCode}} {{name}}",
+    "goBack": "Back",
+    "firstVersion": "New stop created",
+    "importedVersion": "Stop imported from Jore 3",
+    "invalidVersion": "Invalid version {{version}}",
+    "failedToLoad": "Failed to load change details",
+    "versionLoading": "Resolving changed fields",
+    "ownerDetails": "Owner details",
+    "shelters": {
+      "title": "Shelters",
+      "added": "New shelter",
+      "updated": "Updated shelter",
+      "removed": "Removed shelter"
+    },
+    "infoSpots": {
+      "title": "Info Spots",
+      "posters": "Posters",
+      "added": "New Info Spot",
+      "updated": "Updated Info Spot",
+      "removed": "Removed Info Spot"
+    },
+    "stopPlace": {
+      "title": "Stop Area and Terminal",
+      "stopAreaNameFin": "Stop Area name",
+      "stopAreaNameSwe": "Stop Area name (Swedish)",
+      "terminalNameFin": "Terminal name"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
   },

@@ -1483,6 +1483,36 @@
       "changed": "Päivitetty"
     }
   },
+  "stopChangeHistory": {
+    "title": "Muutoshistoria | Pysäkki {{publicCode}}",
+    "titleWithName": "Muutoshistoria | Pysäkki {{publicCode}} {{name}}",
+    "goBack": "Palaa",
+    "firstVersion": "Uusi pysäkki luotu",
+    "importedVersion": "Pysäkki tuotu Jore 3:sta",
+    "invalidVersion": "Tuntematon versionumero {{version}}",
+    "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
+    "versionLoading": "Selvitetään muuttuneita kenttiä",
+    "ownerDetails": "Omistajan tiedot",
+    "shelters": {
+      "title": "Pysäkkikatokset",
+      "added": "Uusi katos",
+      "updated": "Päivitetty katos",
+      "removed": "Poistettu katos"
+    },
+    "infoSpots": {
+      "title": "Infopaikat",
+      "posters": "Infotuotteet",
+      "added": "Uusi infopaikka",
+      "updated": "Päivitetty infopaikka",
+      "removed": "Poistettu infopaikka"
+    },
+    "stopPlace": {
+      "title": "Pysäkkialue ja terminaali",
+      "stopAreaNameFin": "Pysäkkialueen nimi",
+      "stopAreaNameSwe": "Pysäkkialueen nimi (ruotsi)",
+      "terminalNameFin": "Terminaalin nimi"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   },

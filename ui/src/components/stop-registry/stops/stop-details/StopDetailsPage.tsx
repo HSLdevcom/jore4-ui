@@ -2,7 +2,10 @@ import { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Link } from 'react-router';
-import { useRequiredParams } from '../../../../hooks';
+import {
+  makeBackNavigationIsSafeState,
+  useRequiredParams,
+} from '../../../../hooks';
 import { Container, Visible } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { mapToShortDate, mapUTCToDateTime } from '../../../../time';
@@ -71,7 +74,8 @@ export const StopDetailsPage: FC = () => {
           <EditStopValidityButton stop={stopDetails} />
         </div>
         <Link
-          to={routeDetails[Path.stopDetails].getLink(label)}
+          to={routeDetails[Path.stopChangeHistory].getLink(label)}
+          state={makeBackNavigationIsSafeState()}
           className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
           data-testid={testIds.changeHistoryLink}
         >
