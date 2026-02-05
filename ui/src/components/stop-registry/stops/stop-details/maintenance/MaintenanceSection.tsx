@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { getMaintainers } from '../../utils';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { MaintenanceDetailsForm } from './MaintenanceDetailsForm';
 import { MaintenanceViewCard } from './MaintenanceViewCard';
 import { MaintenanceDetailsFormState } from './schema';
 import { useEditStopMaintenanceDetails } from './useEditStopMaintenanceDetails';
-import { getMaintainers } from './utils';
 
 const testIds = {
   prefix: 'MaintenanceSection',
@@ -23,7 +23,7 @@ type MaintenanceSectionProps = {
 const mapMaintenanceDetailsToFormState = (
   stop: StopWithDetails,
 ): MaintenanceDetailsFormState => {
-  const maintainers = getMaintainers(stop);
+  const maintainers = getMaintainers(stop.quay);
 
   const maintainerIdsByType = mapValues(maintainers, (maintainer) => {
     return maintainer?.id ?? null;

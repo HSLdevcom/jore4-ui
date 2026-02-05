@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
+import { getMaintainers } from '../../utils';
 import { MaintainerViewCard } from './MaintainerViewCard';
 import { StopOwnerViewCard } from './StopOwnerViewCard';
-import { getMaintainers } from './utils';
 
 const testIds = {
   container: 'MaintenanceViewCard::container',
@@ -22,7 +22,7 @@ type MaintenanceViewCardProps = {
 export const MaintenanceViewCard: FC<MaintenanceViewCardProps> = ({ stop }) => {
   const { t } = useTranslation();
 
-  const maintainers = getMaintainers(stop);
+  const maintainers = getMaintainers(stop.quay);
   const stopOwner = stop.quay?.stopOwner ?? null;
 
   return (

@@ -1,29 +1,25 @@
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as StopOrganisationType,
   StopPlaceOrganisationFieldsFragment,
-} from '../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../types';
+  StopRegistryQuay,
+} from '../../../../generated/graphql';
 
-export type StopOrganisations = NonNullable<
-  StopWithDetails['stop_place']
->['organisations'];
+type QuayOrganisations = StopRegistryQuay['organisations'];
 
-const findOrganisationForRelationshipType = (
-  organisations: StopOrganisations,
+function findOrganisationForRelationshipType(
+  organisations: QuayOrganisations,
   type: StopOrganisationType,
-): StopPlaceOrganisationFieldsFragment | null => {
-  const match = organisations?.find((o) => o?.relationshipType === type);
-  return match?.organisation ?? null;
-};
-
-export const getMaintainers = (
-  stop: StopWithDetails,
-): Record<StopOrganisationType, StopPlaceOrganisationFieldsFragment | null> => {
-  const selectedQuay = stop.stop_place?.quays?.find(
-    (quay) => quay?.id === stop.stop_place_ref,
+): StopPlaceOrganisationFieldsFragment | null {
+  return (
+    organisations?.find((o) => o?.relationshipType === type)?.organisation ??
+    null
   );
+}
 
-  const organisations: StopOrganisations = selectedQuay?.organisations;
+export function getMaintainers(
+  quay: Pick<StopRegistryQuay, 'organisations'> | null,
+): Record<StopOrganisationType, StopPlaceOrganisationFieldsFragment | null> {
+  const organisations: QuayOrganisations = quay?.organisations ?? [];
 
   const cleaning = findOrganisationForRelationshipType(
     organisations,
@@ -58,4 +54,4 @@ export const getMaintainers = (
     winterMaintenance,
     shelterMaintenance,
   };
-};
+}
