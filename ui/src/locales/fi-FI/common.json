@@ -1481,6 +1481,23 @@
       "changed": "Päivitetty"
     }
   },
+  "stopChangeHistory": {
+    "title": "Muutoshistoria | Pysäkki {{publicCode}}",
+    "titleWithName": "Muutoshistoria | Pysäkki {{publicCode}} {{name}}",
+    "goBack": "Palaa",
+    "firstVersion": "Uusi pysäkki luotu",
+    "importedVersion": "Pysäkki tuotu Jore 3:sta",
+    "invalidVersion": "Tuntematon versionumero {{version}}",
+    "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
+    "versionLoading": "Selvitetään muuttuneita kenttiä",
+    "tryAgainButton": "Yritä uudelleen",
+    "ownerDetails": "Omistajan tiedot",
+    "shelters": {
+      "added": "Uusi katos nro {{shelterNumber}}",
+      "updated": "Päivitetty katosta nro {{shelterNumber}}",
+      "removed": "Katos nro {{shelterNumber}} poistettu"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   },

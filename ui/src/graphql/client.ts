@@ -309,6 +309,9 @@ const buildCacheDefinition = () => {
       },
       // "Nested ROOT QUERY" of Tiamat
       stop_registryStopPlaceRegister: { merge: true },
+      QuayChangeHistoryItem: {
+        keyFields: ['netexId', 'version'],
+      },
       ...Object.fromEntries(
         versionedTiamatEntities.map((name) => [
           name,

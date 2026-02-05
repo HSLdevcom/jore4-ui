@@ -1481,6 +1481,16 @@
       "changed": "Changed"
     }
   },
+  "stopChangeHistory": {
+    "title": "Change history | Stop {{publicCode}}",
+    "titleWithName": "Change history | Stop  {{publicCode}} {{name}}",
+    "goBack": "Back",
+    "firstVersion": "New stop created",
+    "importedVersion": "Stop imported from Jore 3",
+    "invalidVersion": "Invalid version {{version}}",
+    "failedToLoad": "Failed to load change details: <RetryButton>try again</RetryButton>",
+    "ownerDetails": "Owner details"
+  },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
   },

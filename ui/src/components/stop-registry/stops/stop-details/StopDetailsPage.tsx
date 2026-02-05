@@ -71,7 +71,7 @@ export const StopDetailsPage: FC = () => {
           <EditStopValidityButton stop={stopDetails} />
         </div>
         <Link
-          to={routeDetails[Path.stopDetails].getLink(label)}
+          to={routeDetails[Path.stopChangeHistory].getLink(label)}
           className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
           data-testid={testIds.changeHistoryLink}
         >
