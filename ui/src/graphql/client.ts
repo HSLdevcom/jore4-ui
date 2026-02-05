@@ -290,9 +290,7 @@ const buildCacheDefinition = () => {
         },
       },
       // "Nested ROOT QUERY" of stops_database
-      stops_database_stops_database_query: {
-        merge: true,
-      },
+      stops_database_stops_database_query: { merge: true },
       group_of_stop_places_alternative_names: {
         keyFields: ['group_of_stop_places_id', 'alternative_names_id'],
       },
@@ -309,6 +307,8 @@ const buildCacheDefinition = () => {
       stops_database_quay_newest_version: {
         keyFields: ['netex_id'],
       },
+      // "Nested ROOT QUERY" of Tiamat
+      stop_registryStopPlaceRegister: { merge: true },
       ...Object.fromEntries(
         versionedTiamatEntities.map((name) => [
           name,
