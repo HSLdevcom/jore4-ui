@@ -2,39 +2,39 @@ import { MaintainerFormFields } from './MaintainerFormFields';
 import { OrganisationDetailsModal } from './OrganisationDetailsModal';
 
 export class MaintenanceDetailsForm {
-  fields = new MaintainerFormFields();
+  static fields = MaintainerFormFields;
 
-  organisationDetailsModal = new OrganisationDetailsModal();
+  static organisationDetailsModal = OrganisationDetailsModal;
 
-  getStopOwnerDropdownButton() {
+  static getStopOwnerDropdownButton() {
     return cy.getByTestId('MaintenanceDetailsForm::stopOwner::ListboxButton');
   }
 
-  getStopOwnerDropdownOptions() {
+  static getStopOwnerDropdownOptions() {
     return cy.getByTestId('MaintenanceDetailsForm::stopOwner::ListboxOptions');
   }
 
-  getOwner() {
+  static getOwner() {
     return cy.getByTestId('MaintenanceDetailsForm::owner');
   }
 
-  getShelterMaintenance() {
+  static getShelterMaintenance() {
     return cy.getByTestId('MaintenanceDetailsForm::shelterMaintenance');
   }
 
-  getMaintenance() {
+  static getMaintenance() {
     return cy.getByTestId('MaintenanceDetailsForm::maintenance');
   }
 
-  getWinterMaintenance() {
+  static getWinterMaintenance() {
     return cy.getByTestId('MaintenanceDetailsForm::winterMaintenance');
   }
 
-  getInfoUpkeep() {
+  static getInfoUpkeep() {
     return cy.getByTestId('MaintenanceDetailsForm::infoUpkeep');
   }
 
-  getCleaning() {
+  static getCleaning() {
     return cy.getByTestId('MaintenanceDetailsForm::cleaning');
   }
 }

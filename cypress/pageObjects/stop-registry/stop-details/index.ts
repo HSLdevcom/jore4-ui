@@ -2,6 +2,7 @@ export * from './BasicDetailsForm';
 export * from './BasicDetailsSection';
 export * from './BasicDetailsViewCard';
 export * from './CreateCopyModal';
+export * from './EditStopModal';
 export * from './InfoSpotSection';
 export * from './InfoSpotsForm';
 export * from './InfoSpotViewCard';

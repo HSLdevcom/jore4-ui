@@ -1,23 +1,23 @@
-import { ConfirmModal } from '../../ConfirmModal';
+import { ConfirmModal } from '../../shared-components/ConfirmModal';
 
 export class OverlappingVersionCutConfirmationModal {
-  confirmationModal = new ConfirmModal();
+  static confirmationModal = ConfirmModal;
 
-  modal() {
+  static modal() {
     return cy.getByTestId('OverlappingVersionCutConfirmationModal::modal');
   }
 
-  currentVersion() {
+  static currentVersion() {
     return cy.getByTestId(
       'OverlappingVersionCutConfirmationModal::currentVersion',
     );
   }
 
-  newVersion() {
+  static newVersion() {
     return cy.getByTestId('OverlappingVersionCutConfirmationModal::newVersion');
   }
 
-  cutDate() {
+  static cutDate() {
     return cy.getByTestId('OverlappingVersionCutConfirmationModal::cutDate');
   }
 }

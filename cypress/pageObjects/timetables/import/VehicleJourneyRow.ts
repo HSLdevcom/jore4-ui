@@ -1,25 +1,25 @@
 export class VehicleJourneyRow {
-  getDirectionBadge() {
+  static getDirectionBadge() {
     return cy.getByTestId('DirectionBadge');
   }
 
-  getLabel() {
+  static getLabel() {
     return cy.getByTestId('VehicleJourneyRow::label');
   }
 
-  getDayType() {
+  static getDayType() {
     return cy.getByTestId('VehicleJourneyRow::dayTypeName');
   }
 
-  getStartTime() {
+  static getStartTime() {
     return cy.getByTestId('VehicleJourneyRow::startTime');
   }
 
-  getEndTime() {
+  static getEndTime() {
     return cy.getByTestId('VehicleJourneyRow::endTime');
   }
 
-  getContractNumber() {
+  static getContractNumber() {
     return cy.getByTestId('VehicleJourneyRow::contractNumber');
   }
 }

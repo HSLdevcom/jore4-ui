@@ -1,18 +1,18 @@
 export class StopGroupSelector {
-  getGroupSelectors() {
+  static getGroupSelectors() {
     return cy.get('[data-group-id][data-visible="true"]');
   }
 
-  getShowAllGroupsButton() {
+  static getShowAllGroupsButton() {
     return cy.getByTestId('StopGroupSelector::showAllButton');
   }
 
-  getShowLessGroupsButton() {
+  static getShowLessGroupsButton() {
     return cy.getByTestId('StopGroupSelector::showLessButton');
   }
 
-  shouldHaveGroups(groups: ReadonlyArray<string>) {
-    const shouldHaveLength = this.getGroupSelectors().should(
+  static shouldHaveGroups(groups: ReadonlyArray<string>) {
+    const shouldHaveLength = StopGroupSelector.getGroupSelectors().should(
       'have.length',
       groups.length,
     );

@@ -1,13 +1,13 @@
 import { OrganisationDetailsForm } from './OrganisationDetailsForm';
 
 export class OrganisationDetailsModal {
-  form = new OrganisationDetailsForm();
+  static form = OrganisationDetailsForm;
 
-  getModal() {
+  static getModal() {
     return cy.getByTestId('OrganisationDetailsModal');
   }
 
-  getTitle() {
+  static getTitle() {
     return cy.getByTestId('OrganisationDetailsModal::title');
   }
 }

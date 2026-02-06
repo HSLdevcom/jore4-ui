@@ -1,32 +1,32 @@
 type SortingDirections = 'asc' | 'desc' | 'groupOnly';
 
 export class SortByButton {
-  getButton(sortBy: string) {
+  static getButton(sortBy: string) {
     return cy.getByTestId(`SortByButton::${sortBy}`);
   }
 
-  getActive() {
+  static getActive() {
     return cy.get("[data-element-type='SortByButton'][data-is-active='true']");
   }
 
-  assertSortBy(sortBy: string) {
-    return this.getActive().should(
+  static assertSortBy(sortBy: string) {
+    return SortByButton.getActive().should(
       'have.attr',
       'data-testid',
       `SortByButton::${sortBy}`,
     );
   }
 
-  assertSortDirection(direction: SortingDirections) {
-    return this.getActive().should(
+  static assertSortDirection(direction: SortingDirections) {
+    return SortByButton.getActive().should(
       'have.attr',
       'data-sort-direction',
       direction,
     );
   }
 
-  assertSorting(sortBy: string, direction: SortingDirections) {
-    this.assertSortBy(sortBy);
-    this.assertSortDirection(direction);
+  static assertSorting(sortBy: string, direction: SortingDirections) {
+    SortByButton.assertSortBy(sortBy);
+    SortByButton.assertSortDirection(direction);
   }
 }

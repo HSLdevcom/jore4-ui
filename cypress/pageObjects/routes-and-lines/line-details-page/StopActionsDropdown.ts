@@ -1,21 +1,21 @@
 export class StopActionsDropdown {
-  getAddStopToRouteButton() {
+  static getAddStopToRouteButton() {
     return cy.getByTestId('StopActionsDropdown::addStopToRouteButton');
   }
 
-  getRemoveStopFromRouteButton() {
+  static getRemoveStopFromRouteButton() {
     return cy.getByTestId('StopActionsDropdown::removeStopFromRouteButton');
   }
 
-  getCreateViaPointButton() {
+  static getCreateViaPointButton() {
     return cy.getByTestId('StopActionsDropdown::createViaPoint');
   }
 
-  getEditViaPointButton() {
+  static getEditViaPointButton() {
     return cy.getByTestId('StopActionsDropdown::editViaPoint');
   }
 
-  getOpenTimingSettingsButton() {
+  static getOpenTimingSettingsButton() {
     return cy.getByTestId('StopActionsDropdown::openTimingSettings');
   }
 }

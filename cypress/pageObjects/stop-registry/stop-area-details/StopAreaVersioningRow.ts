@@ -1,7 +1,7 @@
 export class StopAreaVersioningRow {
-  getValidityPeriod = () =>
+  static getValidityPeriod = () =>
     cy.getByTestId('StopAreaVersioningRow::validityPeriod');
 
-  getChangeHistoryLink = () =>
+  static getChangeHistoryLink = () =>
     cy.getByTestId('StopAreaVersioningRow::changeHistoryLink');
 }

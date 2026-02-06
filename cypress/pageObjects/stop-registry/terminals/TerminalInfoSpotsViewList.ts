@@ -1,21 +1,27 @@
 export class TerminalInfoSpotsViewList {
-  getTable = () => cy.getByTestId('TerminalInfoSpotsViewList::table');
+  static getTable = () => cy.getByTestId('TerminalInfoSpotsViewList::table');
 
-  getTableContent = () =>
+  static getTableContent = () =>
     cy.getByTestId('TerminalInfoSpotsViewList::tableContent');
 
-  getSortButton = (column: string) =>
+  static getSortButton = (column: string) =>
     cy.getByTestId(`TerminalInfoSpotsViewList::sortButton::${column}`);
 
-  getLabelSortButton = () => this.getSortButton('label');
+  static getLabelSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('label');
 
-  getStopSortButton = () => this.getSortButton('stop');
+  static getStopSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('stop');
 
-  getShelterSortButton = () => this.getSortButton('shelter');
+  static getShelterSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('shelter');
 
-  getPurposeSortButton = () => this.getSortButton('purpose');
+  static getPurposeSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('purpose');
 
-  getSizeSortButton = () => this.getSortButton('size');
+  static getSizeSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('size');
 
-  getDescriptionSortButton = () => this.getSortButton('description');
+  static getDescriptionSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('description');
 }

@@ -7,12 +7,15 @@ import {
 } from '../datasets/base';
 import { Tag } from '../enums';
 import {
+  ExportToolBar,
   LineDetailsPage,
   LineRouteList,
   Navbar,
+  RouteLineTableRow,
   RoutesAndLinesPage,
+  TimingSettingsForm,
+  Toast,
 } from '../pageObjects';
-import { TimingSettingsForm } from '../pageObjects/TimingSettingsForm';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
@@ -27,13 +30,6 @@ const comparisonRouteExportFilePath = `${Cypress.config(
 
 describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
   let dbResources: SupportedResources;
-
-  let routesAndLinesPage: RoutesAndLinesPage;
-  let lineDetailsPage: LineDetailsPage;
-  let lineRouteList: LineRouteList;
-  let timingSettingsForm: TimingSettingsForm;
-  let navBar: Navbar;
-
   const baseDbResources = getClonedBaseDbResources();
 
   before(() => {
@@ -57,13 +53,6 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
     cy.task('resetDbs');
     cy.task('emptyDownloadsFolder');
     insertToDbHelper(dbResources);
-
-    routesAndLinesPage = new RoutesAndLinesPage();
-    lineDetailsPage = new LineDetailsPage();
-    lineRouteList = new LineRouteList();
-    timingSettingsForm = new TimingSettingsForm();
-    navBar = new Navbar();
-
     cy.setupTests();
     cy.mockLogin();
   });
@@ -75,12 +64,12 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
     it('Should export a line', { tags: [Tag.Lines, Tag.Smoke] }, () => {
       cy.visit('/routes');
 
-      routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
-      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-      routesAndLinesPage.routeLineTableRow
+      RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+      RoutesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+      RoutesAndLinesPage.routeLineTableRow
         .getRouteLineTableRowCheckbox('901')
         .check();
-      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+      RoutesAndLinesPage.exportToolBar.getExportSelectedButton().click();
       cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
       cy.readFile(exportFilePath).then((exportedFile) => {
         cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
@@ -90,11 +79,11 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
     it('Should export a route', { tags: [Tag.Routes] }, () => {
       // Skip searching via UI
       cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
-      routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-      routesAndLinesPage.routeLineTableRow
+      RoutesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+      RoutesAndLinesPage.routeLineTableRow
         .getRouteLineTableRowCheckbox('901')
         .check();
-      routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+      RoutesAndLinesPage.exportToolBar.getExportSelectedButton().click();
       cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
       cy.readFile(exportFilePath).then((exportedFile) => {
         cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
@@ -107,11 +96,11 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
       'should show an error, when the first stop is not a timing point',
       { tags: [Tag.Routes] },
       () => {
-        const { lineRouteListItem } = lineRouteList;
+        const { lineRouteListItem } = LineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
-        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+        LineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineRouteList.getNthLineRouteListItem(0).within(() => {
+        LineRouteList.getNthLineRouteListItem(0).within(() => {
           routeRow.getToggleAccordionButton().click();
 
           // Open E2E001 timing settings
@@ -124,21 +113,19 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
           .click();
 
         // Set route 901 (outbound) first stop to not be used as timing point
-        timingSettingsForm
-          .getIsUsedAsTimingPointCheckbox()
-          .should('be.checked');
-        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
-        timingSettingsForm.getSavebutton().click();
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().should(
+          'be.checked',
+        );
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        TimingSettingsForm.getSavebutton().click();
 
-        navBar.getRoutesAndLinesLink().click();
-        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+        Navbar.getRoutesAndLinesLink().click();
+        RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
 
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('901')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.expectDangerToast(
+        ExportToolBar.getToggleSelectingButton().click();
+        RouteLineTableRow.getRouteLineTableRowCheckbox('901').check();
+        ExportToolBar.getExportSelectedButton().click();
+        Toast.expectDangerToast(
           'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
         );
       },
@@ -148,11 +135,11 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
       'should show an error, when the last stop is not a timing point',
       { tags: [Tag.Routes] },
       () => {
-        const { lineRouteListItem } = lineRouteList;
+        const { lineRouteListItem } = LineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
-        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+        LineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineRouteList.getNthLineRouteListItem(0).within(() => {
+        LineRouteList.getNthLineRouteListItem(0).within(() => {
           routeRow.getToggleAccordionButton().click();
 
           // Open E2E005 timing settings
@@ -164,21 +151,18 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
           .getOpenTimingSettingsButton()
           .click();
 
-        timingSettingsForm
-          .getIsUsedAsTimingPointCheckbox()
-          .should('be.checked');
-        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
-        timingSettingsForm.getSavebutton().click();
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().should(
+          'be.checked',
+        );
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        TimingSettingsForm.getSavebutton().click();
+        Navbar.getRoutesAndLinesLink().click();
+        RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
 
-        navBar.getRoutesAndLinesLink().click();
-        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
-
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('901')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.expectDangerToast(
+        ExportToolBar.getToggleSelectingButton().click();
+        RouteLineTableRow.getRouteLineTableRowCheckbox('901').check();
+        ExportToolBar.getExportSelectedButton().click();
+        Toast.expectDangerToast(
           'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
         );
       },
@@ -188,11 +172,11 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
       'should show an error, when neither the last stop nor the first stop is a timing point',
       { tags: [Tag.Routes] },
       () => {
-        const { lineRouteListItem } = lineRouteList;
+        const { lineRouteListItem } = LineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
-        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+        LineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineRouteList.getNthLineRouteListItem(0).within(() => {
+        LineRouteList.getNthLineRouteListItem(0).within(() => {
           routeRow.getToggleAccordionButton().click();
 
           // Open E2E001 timing settings
@@ -204,13 +188,13 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
           .getOpenTimingSettingsButton()
           .click();
 
-        timingSettingsForm
-          .getIsUsedAsTimingPointCheckbox()
-          .should('be.checked');
-        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
-        timingSettingsForm.getSavebutton().click();
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().should(
+          'be.checked',
+        );
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        TimingSettingsForm.getSavebutton().click();
 
-        lineRouteList.getNthLineRouteListItem(0).within(() => {
+        LineRouteList.getNthLineRouteListItem(0).within(() => {
           // Open E2E005 timing settings
           lineRouteListItem
             .getNthRouteStopListItem(4)
@@ -221,21 +205,18 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
           .click();
 
         // Set route 901 (outbound) last stop to not be used as timing point
-        timingSettingsForm
-          .getIsUsedAsTimingPointCheckbox()
-          .should('be.checked');
-        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
-        timingSettingsForm.getSavebutton().click();
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().should(
+          'be.checked',
+        );
+        TimingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        TimingSettingsForm.getSavebutton().click();
+        Navbar.getRoutesAndLinesLink().click();
+        RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
 
-        navBar.getRoutesAndLinesLink().click();
-        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
-
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('901')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.expectDangerToast(
+        ExportToolBar.getToggleSelectingButton().click();
+        RouteLineTableRow.getRouteLineTableRowCheckbox('901').check();
+        ExportToolBar.getExportSelectedButton().click();
+        Toast.expectDangerToast(
           'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
         );
       },

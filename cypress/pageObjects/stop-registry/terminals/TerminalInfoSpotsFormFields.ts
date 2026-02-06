@@ -1,88 +1,91 @@
 export class TerminalInfoSpotsFormFields {
-  getDescription = () =>
+  static getDescription = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::description');
 
-  getLabel = () => cy.getByTestId('TerminalInfoSpotFormFields::label');
+  static getLabel = () => cy.getByTestId('TerminalInfoSpotFormFields::label');
 
-  getPurposeButton = () =>
+  static getPurposeButton = () =>
     cy.getByTestId('InfoSpotFormFields::purpose::ListboxButton');
 
-  getPurposeOptions = () =>
+  static getPurposeOptions = () =>
     cy.getByTestId('InfoSpotFormFields::purpose::ListboxOptions');
 
-  getPurposeCustom = () =>
+  static getPurposeCustom = () =>
     cy.getByTestId('InfoSpotFormFields::purpose::customInput');
 
-  getBacklightButton = () =>
+  static getBacklightButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::backlight::ListboxButton');
 
-  getBacklightOptions = () =>
+  static getBacklightOptions = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::backlight::ListboxOptions');
 
-  getSizeSelectorButton = () =>
+  static getSizeSelectorButton = () =>
     // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
     // nest this call in proper getNthPosterContainer().within block
     cy.getByTestId('InfoSpotFormFields::size::selector::ListboxButton').first();
 
-  getSizeSelectorOptions = () =>
+  static getSizeSelectorOptions = () =>
     cy.getByTestId('InfoSpotFormFields::size::selector::ListboxOptions');
 
-  getSizeWidth = () =>
+  static getSizeWidth = () =>
     // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
     // nest this call in proper getNthPosterContainer().within block
     cy.getByTestId('TerminalInfoSpotFormFields::size::width').first();
 
-  getSizeHeight = () =>
+  static getSizeHeight = () =>
     // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
     // nest this call in proper getNthPosterContainer().within block
     cy.getByTestId('TerminalInfoSpotFormFields::size::height').first();
 
-  getDisplayTypeButton = () =>
+  static getDisplayTypeButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::displayType::ListboxButton');
 
-  getDisplayTypeOptions = () =>
+  static getDisplayTypeOptions = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::displayType::ListboxOptions');
 
-  getSpeechPropertyButton = () =>
+  static getSpeechPropertyButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::speechProperty::ListboxButton');
 
-  getSpeechPropertyOptions = () =>
+  static getSpeechPropertyOptions = () =>
     cy.getByTestId(
       'TerminalInfoSpotFormFields::speechProperty::ListboxOptions',
     );
 
-  getFloor = () => cy.getByTestId('TerminalInfoSpotFormFields::floor');
+  static getFloor = () => cy.getByTestId('TerminalInfoSpotFormFields::floor');
 
-  getRailInformation = () =>
+  static getRailInformation = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::railInformation');
 
-  getZoneLabel = () => cy.getByTestId('TerminalInfoSpotFormFields::zoneLabel');
+  static getZoneLabel = () =>
+    cy.getByTestId('TerminalInfoSpotFormFields::zoneLabel');
 
-  getPosterContainers = () =>
+  static getPosterContainers = () =>
     cy.getByTestId('TerminalInfoSpotPosterFormFields::container');
 
-  getNthPosterContainer = (index: number) =>
-    this.getPosterContainers().eq(index);
+  static getNthPosterContainer = (index: number) =>
+    TerminalInfoSpotsFormFields.getPosterContainers().eq(index);
 
-  getPosterLabel = () =>
+  static getPosterLabel = () =>
     cy.getByTestId('TerminalInfoSpotPosterFormFields::posterLabel');
 
-  getPosterDetails = () =>
+  static getPosterDetails = () =>
     cy.getByTestId('TerminalInfoSpotPosterFormFields::posterDetails');
 
-  getAddPosterButton = () =>
+  static getAddPosterButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::addInfoSpotPoster');
 
-  getDeletePosterButton = () =>
+  static getDeletePosterButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::deleteInfoSpotPoster');
 
-  getDeleteInfoSpotButton = () =>
+  static getDeleteInfoSpotButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::deleteInfoSpot');
 
-  getNoPostersLabel = () =>
+  static getNoPostersLabel = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::noPosters');
 
-  getLatitude = () => cy.getByTestId('TerminalInfoSpotFormFields::latitude');
+  static getLatitude = () =>
+    cy.getByTestId('TerminalInfoSpotFormFields::latitude');
 
-  getLongitude = () => cy.getByTestId('TerminalInfoSpotFormFields::longitude');
+  static getLongitude = () =>
+    cy.getByTestId('TerminalInfoSpotFormFields::longitude');
 }

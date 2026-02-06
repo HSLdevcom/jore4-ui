@@ -5,8 +5,14 @@ import {
   buildLine,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../enums';
-import { LineDetailsPage, LineForm } from '../pageObjects';
-import { ObservationDateControl } from '../pageObjects/ObservationDateControl';
+import {
+  LineDetailsPage,
+  LineForm,
+  LineValidityPeriod,
+  ObservationDateControl,
+  PriorityForm,
+  ValidityPeriodForm,
+} from '../pageObjects';
 import { insertToDbHelper } from '../utils';
 
 const testInputs = {
@@ -29,16 +35,8 @@ const dbResources = {
 };
 
 describe('Lines', { tags: [Tag.Lines] }, () => {
-  let lineForm: LineForm;
-  let lineDetailsPage: LineDetailsPage;
-  let observationDateControl: ObservationDateControl;
-
   beforeEach(() => {
     cy.task('resetDbs');
-    lineForm = new LineForm();
-    lineDetailsPage = new LineDetailsPage();
-    observationDateControl = new ObservationDateControl();
-
     cy.setupTests();
     cy.mockLogin();
   });
@@ -49,88 +47,91 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
     });
 
     it('Creates new line as expected', { tags: [Tag.Smoke] }, () => {
-      lineForm.getLabelInput().type('7327');
-      lineForm.getFinnishNameInput().type('Testilinja FI');
-      lineForm.getSwedishNameInput().type('Testilinja SV');
-      lineForm.getFinnishShortNameInput().type('Testilinja lyhyt FI');
-      lineForm.getSwedishShortNameInput().type('Testilinja lyhyt SV');
-      lineForm.selectTransportTarget('Helsingin sisäinen liikenne');
-      lineForm.selectVehicleType('Bussi');
-      lineForm.selectLineType('Peruslinja');
-      lineForm.getLineTextInput().type('Linjateksti');
+      LineForm.getLabelInput().type('7327');
+      LineForm.getFinnishNameInput().type('Testilinja FI');
+      LineForm.getSwedishNameInput().type('Testilinja SV');
+      LineForm.getFinnishShortNameInput().type('Testilinja lyhyt FI');
+      LineForm.getSwedishShortNameInput().type('Testilinja lyhyt SV');
+      LineForm.selectTransportTarget('Helsingin sisäinen liikenne');
+      LineForm.selectVehicleType('Bussi');
+      LineForm.selectLineType('Peruslinja');
+      LineForm.getLineTextInput().type('Linjateksti');
 
-      lineForm.priorityForm.setPriority(Priority.Standard);
-      lineForm.changeValidityForm.validityPeriodForm.setStartDate('2022-01-01');
-      lineForm.changeValidityForm.validityPeriodForm.setEndDate('2050-01-01');
+      LineForm.priorityForm.setPriority(Priority.Standard);
+      ValidityPeriodForm.setStartDate('2022-01-01');
+      ValidityPeriodForm.setEndDate('2050-01-01');
 
-      lineForm.save();
-      lineForm.checkLineSubmitSuccess();
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
 
-      lineDetailsPage.lineValidityPeriod
-        .getLineValidityPeriod()
-        .should('contain', '1.1.2022 - 1.1.2050');
-      lineDetailsPage.getLineName().should('contain', 'Testilinja FI');
-      lineDetailsPage.getLineLabel().should('contain', '7327');
-      lineDetailsPage
-        .getTransportTarget()
-        .should('contain', 'Helsingin sisäinen liikenne');
-      lineDetailsPage.getPrimaryVehicleMode().should('contain', 'Bussi');
-      lineDetailsPage.getTypeOfLine().should('contain', 'Peruslinja');
+      LineValidityPeriod.getLineValidityPeriod().should(
+        'contain',
+        '1.1.2022 - 1.1.2050',
+      );
+      LineDetailsPage.getLineName().should('contain', 'Testilinja FI');
+      LineDetailsPage.getLineLabel().should('contain', '7327');
+      LineDetailsPage.getTransportTarget().should(
+        'contain',
+        'Helsingin sisäinen liikenne',
+      );
+      LineDetailsPage.getPrimaryVehicleMode().should('contain', 'Bussi');
+      LineDetailsPage.getTypeOfLine().should('contain', 'Peruslinja');
 
       // Check line text from edit page
-      lineDetailsPage.getEditLineButton().click();
-      lineForm.getLineTextInput().should('have.text', 'Linjateksti');
-      lineForm.cancel();
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getLineTextInput().should('have.text', 'Linjateksti');
+      LineForm.cancel();
     });
   });
 
   describe('Line editing', () => {
     beforeEach(() => {
       insertToDbHelper(dbResources);
-      lineDetailsPage.visit(lines[0].line_id);
+      LineDetailsPage.visit(lines[0].line_id);
     });
 
     it("Edits a line's name, label, priority and line text", () => {
-      lineDetailsPage.getEditLineButton().click();
-      lineForm.getLabelInput().clearAndType(testInputs.newLabel);
-      lineForm.getFinnishNameInput().clearAndType(testInputs.newName);
-      lineForm.selectTransportTarget('Helsingin sisäinen liikenne');
-      lineForm.selectVehicleType('Bussi');
-      lineForm.selectLineType('Peruslinja');
-      lineForm.getLineTextInput().clearAndType('Muokattu linjateksti');
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getLabelInput().clearAndType(testInputs.newLabel);
+      LineForm.getFinnishNameInput().clearAndType(testInputs.newName);
+      LineForm.selectTransportTarget('Helsingin sisäinen liikenne');
+      LineForm.selectVehicleType('Bussi');
+      LineForm.selectLineType('Peruslinja');
+      LineForm.getLineTextInput().clearAndType('Muokattu linjateksti');
 
-      lineForm.priorityForm.setAsDraft();
-      lineForm.changeValidityForm.validityPeriodForm.setStartDate('2022-01-01');
+      PriorityForm.setAsDraft();
+      ValidityPeriodForm.setStartDate('2022-01-01');
 
-      lineForm.save();
-      lineForm.checkLineSubmitSuccess();
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
 
-      lineDetailsPage.getLineName().should('have.text', testInputs.newName);
-      lineDetailsPage.getLineLabel().should('have.text', testInputs.newLabel);
-      lineDetailsPage.lineValidityPeriod
-        .getLinePriority()
-        .should('have.text', testInputs.newPriority);
-      lineDetailsPage.lineValidityPeriod
-        .getLineValidityPeriod()
-        .should('have.text', '1.1.2022 - ');
+      LineDetailsPage.getLineName().should('have.text', testInputs.newName);
+      LineDetailsPage.getLineLabel().should('have.text', testInputs.newLabel);
+      LineValidityPeriod.getLinePriority().should(
+        'have.text',
+        testInputs.newPriority,
+      );
+      LineValidityPeriod.getLineValidityPeriod().should(
+        'have.text',
+        '1.1.2022 - ',
+      );
 
       // Check line text from edit page
-      lineDetailsPage.getEditLineButton().click();
-      lineForm.getLineTextInput().should('have.text', 'Muokattu linjateksti');
-      lineForm.cancel();
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getLineTextInput().should('have.text', 'Muokattu linjateksti');
+      LineForm.cancel();
     });
 
     it('should show not valid for selected day text', () => {
-      lineDetailsPage.getEditLineButton().click();
-      lineForm.changeValidityForm.validityPeriodForm.setStartDate('2022-01-01');
-      lineForm.save();
-
+      LineDetailsPage.getEditLineButton().click();
+      ValidityPeriodForm.setStartDate('2022-01-01');
+      LineForm.save();
       const beforeValidityPeriod = '2021-01-31';
-      observationDateControl.setObservationDate(beforeValidityPeriod);
+      ObservationDateControl.setObservationDate(beforeValidityPeriod);
       cy.getByTestId('LineMissingBox::notValidText').should('be.visible');
 
       const withinValidityPeriod = '2022-01-01';
-      observationDateControl.setObservationDate(withinValidityPeriod);
+      ObservationDateControl.setObservationDate(withinValidityPeriod);
       cy.getByTestId('LineMissingBox::notValidText').should('not.exist');
     });
   });

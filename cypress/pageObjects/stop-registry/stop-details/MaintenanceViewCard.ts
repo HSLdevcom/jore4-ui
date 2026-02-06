@@ -1,41 +1,41 @@
 import { MaintainerViewCard } from './MaintainerViewCard';
 
 export class MaintenanceViewCard {
-  maintainerViewCard = new MaintainerViewCard();
+  static maintainerViewCard = MaintainerViewCard;
 
-  getContainer() {
+  static getContainer() {
     return cy.getByTestId('MaintenanceViewCard::container');
   }
 
-  getStopOwner() {
+  static getStopOwner() {
     return cy.getByTestId('MaintenanceViewCard::stopOwner');
   }
 
-  getStopOwnerName() {
+  static getStopOwnerName() {
     return cy.getByTestId('MaintenanceViewCard::stopOwnerName');
   }
 
-  getOwner() {
+  static getOwner() {
     return cy.getByTestId('MaintenanceViewCard::owner');
   }
 
-  getShelterMaintenance() {
+  static getShelterMaintenance() {
     return cy.getByTestId('MaintenanceViewCard::shelterMaintenance');
   }
 
-  getMaintenance() {
+  static getMaintenance() {
     return cy.getByTestId('MaintenanceViewCard::maintenance');
   }
 
-  getWinterMaintenance() {
+  static getWinterMaintenance() {
     return cy.getByTestId('MaintenanceViewCard::winterMaintenance');
   }
 
-  getInfoUpkeep() {
+  static getInfoUpkeep() {
     return cy.getByTestId('MaintenanceViewCard::infoUpkeep');
   }
 
-  getCleaning() {
+  static getCleaning() {
     return cy.getByTestId('MaintenanceViewCard::cleaning');
   }
 }

@@ -15,6 +15,8 @@ import { Tag } from '../../enums';
 import {
   FilterPanel,
   Map,
+  MapFooter,
+  MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
   TerminalDetailsPage,
@@ -31,13 +33,6 @@ const testTerminalLabels = {
   stops: ['E2E001', 'E2E002'],
   expectedMemberStops: 'E2E001, E2E002, E2E009',
 };
-
-const map = new Map();
-const mapPage = new MapPage();
-const observationDateFilters = new MapObservationDateFiltersOverlay();
-const mapFilterPanel = new FilterPanel();
-const terminalDetailsPage = new TerminalDetailsPage();
-const toast = new Toast();
 
 const testCoordinates1 = {
   lng: 24.93458814980886,
@@ -90,12 +85,12 @@ describe('Terminal creation tests', rootOpts, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      mapPage.map.visit({
+      MapPage.map.visit({
         zoom: 16,
         lat: testCoordinates1.lat,
         lng: testCoordinates1.lng,
       });
-      map.waitForLoadToComplete();
+      MapPage.map.waitForLoadToComplete();
     });
   });
 
@@ -103,7 +98,7 @@ describe('Terminal creation tests', rootOpts, () => {
     'Should create terminal on map and verify details',
     { tags: [Tag.Smoke] },
     () => {
-      const privateCode = mapPage.createTerminalAtLocation({
+      const privateCode = MapPage.createTerminalAtLocation({
         terminalFormInfo: {
           name: testTerminalLabels.terminalName,
           nameSwe: testTerminalLabels.terminalName,
@@ -116,20 +111,20 @@ describe('Terminal creation tests', rootOpts, () => {
         },
       });
 
-      mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+      MapPage.gqlTerminalShouldBeCreatedSuccessfully();
 
-      mapPage.checkTerminalSubmitSuccessToast();
+      MapPage.checkTerminalSubmitSuccessToast();
 
-      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      map.waitForLoadToComplete().then(() => {
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      MapPage.map.waitForLoadToComplete().then(() => {
         privateCode.then((value) => {
           cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should(
             'exist',
           );
 
-          terminalDetailsPage.visit(String(value));
+          TerminalDetailsPage.visit(String(value));
 
-          const { terminalDetails, locationDetails } = terminalDetailsPage;
+          const { terminalDetails, locationDetails } = TerminalDetailsPage;
           const { viewCard } = terminalDetails;
           const { viewCard: locationView } = locationDetails;
           viewCard.getNameFin().shouldHaveText(testTerminalLabels.terminalName);
@@ -143,11 +138,9 @@ describe('Terminal creation tests', rootOpts, () => {
   );
 
   it('Should create terminal and change observation date', () => {
-    observationDateFilters.observationDateControl.setObservationDate(
-      '2025-01-01',
-    );
+    MapObservationDateControl.setObservationDate('2025-01-01');
 
-    const privateCode = mapPage.createTerminalAtLocation({
+    const privateCode = MapPage.createTerminalAtLocation({
       terminalFormInfo: {
         name: testTerminalLabels.terminalName,
         nameSwe: testTerminalLabels.terminalName,
@@ -160,14 +153,14 @@ describe('Terminal creation tests', rootOpts, () => {
       },
     });
 
-    mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+    MapPage.gqlTerminalShouldBeCreatedSuccessfully();
 
-    observationDateFilters.observationDateControl
+    MapObservationDateFiltersOverlay.observationDateControl
       .getObservationDateInput()
       .should('have.value', '2030-01-01');
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-    map.waitForLoadToComplete().then(() => {
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    MapPage.map.waitForLoadToComplete().then(() => {
       privateCode.then((value) => {
         cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should('exist');
       });
@@ -175,17 +168,17 @@ describe('Terminal creation tests', rootOpts, () => {
   });
 
   it('should cancel creating a new terminal', () => {
-    mapPage.map.waitForLoadToComplete();
+    MapPage.map.waitForLoadToComplete();
 
-    mapPage.mapFooter.addTerminal();
-    mapPage.mapFooter.getMapFooter().should('not.exist');
+    MapFooter.addTerminal();
+    MapFooter.getMapFooter().should('not.exist');
 
-    mapPage.mapFooter.cancelAddMode();
-    mapPage.mapFooter.getMapFooter().shouldBeVisible();
+    MapFooter.cancelAddMode();
+    MapFooter.getMapFooter().shouldBeVisible();
   });
 
   it('Should place terminal correctly by using manually typed latitude and longitude', () => {
-    const privateCode = mapPage.createTerminalAtLocation({
+    const privateCode = MapPage.createTerminalAtLocation({
       terminalFormInfo: {
         name: testTerminalLabels.terminalName,
         nameSwe: testTerminalLabels.terminalName,
@@ -201,19 +194,19 @@ describe('Terminal creation tests', rootOpts, () => {
       },
     });
 
-    mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+    MapPage.gqlTerminalShouldBeCreatedSuccessfully();
 
-    mapPage.checkTerminalSubmitSuccessToast();
+    MapPage.checkTerminalSubmitSuccessToast();
 
     // Change map position to created terminal location
-    mapPage.map.visit({
+    MapPage.map.visit({
       zoom: 16,
       lat: testCoordinates2.lat,
       lng: testCoordinates2.lng,
     });
 
-    mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-    map.waitForLoadToComplete().then(() => {
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    Map.waitForLoadToComplete().then(() => {
       privateCode.then((value) => {
         cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should('exist');
       });
@@ -221,18 +214,18 @@ describe('Terminal creation tests', rootOpts, () => {
   });
 
   it('should handle unique private code exception', () => {
-    mapPage.mapFooter.addTerminal();
+    MapFooter.addTerminal();
 
-    mapPage.map.clickRelativePoint(50, 50);
+    MapPage.map.clickRelativePoint(50, 50);
 
-    mapPage.terminalForm.fillFormForNewTerminal({
+    MapPage.terminalForm.fillFormForNewTerminal({
       name: testTerminalLabels.terminalName,
       nameSwe: testTerminalLabels.terminalName,
       validityStartISODate: '2022-01-01',
       stops: testTerminalLabels.stops,
     });
 
-    mapPage.terminalForm
+    MapPage.terminalForm
       .getPrivateCodeInput()
       .shouldBeVisible()
       .shouldBeDisabled()
@@ -280,9 +273,9 @@ describe('Terminal creation tests', rootOpts, () => {
           stopPointsRequired: false,
         });
 
-        mapPage.terminalForm.save();
+        MapPage.terminalForm.save();
 
-        toast.expectDangerToast(
+        Toast.expectDangerToast(
           `Terminaalilla tulee olla uniikki tunnus, mutta tunnus ${privateCode} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
         );
         expectGraphQLCallToReturnError('@gqlCreateTerminal');

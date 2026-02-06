@@ -2,27 +2,27 @@ import { SheltersForm } from './SheltersForm';
 import { ShelterViewCard } from './ShelterViewCard';
 
 export class SheltersSection {
-  form = new SheltersForm();
+  static form = SheltersForm;
 
-  viewCard = new ShelterViewCard();
+  static viewCard = ShelterViewCard;
 
-  getTitle() {
+  static getTitle() {
     return cy.getByTestId('SheltersSection::title');
   }
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('SheltersSection::editButton');
   }
 
-  getAddShelterButton() {
+  static getAddShelterButton() {
     return cy.getByTestId('SheltersSection::addNewItemButton');
   }
 
-  getAddNewShelterButton() {
+  static getAddNewShelterButton() {
     return cy.getByTestId('SheltersSection::addShelter');
   }
 
-  getSaveButton() {
+  static getSaveButton() {
     return cy.getByTestId('SheltersSection::saveButton');
   }
 }

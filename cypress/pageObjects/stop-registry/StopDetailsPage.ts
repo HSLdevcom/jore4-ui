@@ -1,4 +1,4 @@
-import { ObservationDateControl } from '../ObservationDateControl';
+import { ObservationDateControl } from '../timetables/ObservationDateControl';
 import {
   BasicDetailsSection,
   CreateCopyModal,
@@ -15,82 +15,82 @@ import { OverlappingVersionCutConfirmationModal } from './stop-details/CutValidi
 import { EditStopModal } from './stop-details/EditStopModal';
 
 export class StopDetailsPage {
-  basicDetails = new BasicDetailsSection();
+  static basicDetails = BasicDetailsSection;
 
-  infoSpots = new InfoSpotsSection();
+  static infoSpots = InfoSpotsSection;
 
-  locationDetails = new LocationDetailsSection();
+  static locationDetails = LocationDetailsSection;
 
-  signageDetails = new SignageDetailsSection();
+  static signageDetails = SignageDetailsSection;
 
-  shelters = new SheltersSection();
+  static shelters = SheltersSection;
 
-  measurements = new MeasurementsSection();
+  static measurements = MeasurementsSection;
 
-  maintenance = new MaintenanceSection();
+  static maintenance = MaintenanceSection;
 
-  titleRow = new StopTitleRow();
+  static titleRow = StopTitleRow;
 
-  copyModal = new CreateCopyModal();
+  static copyModal = CreateCopyModal;
 
-  editStopModal = new EditStopModal();
+  static editStopModal = EditStopModal;
 
-  observationDateControl = new ObservationDateControl();
+  static observationDateControl = ObservationDateControl;
 
-  overlappingCutConfirmationModal =
-    new OverlappingVersionCutConfirmationModal();
+  static overlappingCutConfirmationModal =
+    OverlappingVersionCutConfirmationModal;
 
-  headerSummaryRow = new StopHeaderSummaryRow();
+  static headerSummaryRow = StopHeaderSummaryRow;
 
-  visit(label: string) {
+  static visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);
   }
 
-  page() {
+  static page() {
     return cy.getByTestId('StopDetailsPage::page');
   }
 
-  validityPeriod() {
+  static validityPeriod() {
     return cy.getByTestId('StopDetailsPage::validityPeriod');
   }
 
-  editStopValidityButton() {
+  static editStopValidityButton() {
     return cy.getByTestId('StopDetailsPage::editStopValidityButton');
   }
 
-  changeHistoryLink() {
+  static changeHistoryLink() {
     return cy.getByTestId('StopDetailsPage::changeHistoryLink');
   }
 
-  basicDetailsTabButton() {
+  static basicDetailsTabButton() {
     return cy.getByTestId('StopDetailsPage::basicDetailsTabButton');
   }
 
-  basicDetailsTabPanel() {
+  static basicDetailsTabPanel() {
     return cy.getByTestId('StopDetailsPage::basicDetailsTabPanel');
   }
 
-  technicalFeaturesTabButton() {
+  static technicalFeaturesTabButton() {
     return cy.getByTestId('StopDetailsPage::technicalFeaturesTabButton');
   }
 
-  technicalFeaturesTabPanel() {
+  static technicalFeaturesTabPanel() {
     return cy.getByTestId('StopDetailsPage::technicalFeaturesTabPanel');
   }
 
-  infoSpotsTabButton() {
+  static infoSpotsTabButton() {
     return cy.getByTestId('StopDetailsPage::infoSpotsTabButton');
   }
 
-  infoSpotsTabPanel() {
+  static infoSpotsTabPanel() {
     return cy.getByTestId('StopDetailsPage::infoSpotsTabPanel');
   }
 
-  loadingStopDetails() {
+  static loadingStopDetails() {
     return cy.getByTestId('StopDetailsPage::loadingStopDetails');
   }
 
-  returnToDateBasedVersionSelection() {
+  static returnToDateBasedVersionSelection() {
     return cy.getByTestId(
       'StopDetailsVersion::returnToDateBasedVersionSelection',
     );

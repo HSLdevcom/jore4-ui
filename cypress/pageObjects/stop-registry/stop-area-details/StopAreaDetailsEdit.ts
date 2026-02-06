@@ -1,19 +1,22 @@
-import { ValidityPeriodForm } from '../../ValidityPeriodForm';
+import { ValidityPeriodForm } from '../../forms/ValidityPeriodForm';
 
 export class StopAreaDetailsEdit {
-  validity = new ValidityPeriodForm();
+  static validity = ValidityPeriodForm;
 
-  getPrivateCode = () => cy.getByTestId('StopAreaDetailsEdit::privateCode');
+  static getPrivateCode = () =>
+    cy.getByTestId('StopAreaDetailsEdit::privateCode');
 
-  getName = () => cy.getByTestId('StopAreaDetailsEdit::name');
+  static getName = () => cy.getByTestId('StopAreaDetailsEdit::name');
 
-  getNameSwe = () => cy.getByTestId('StopAreaDetailsEdit::nameSwe');
+  static getNameSwe = () => cy.getByTestId('StopAreaDetailsEdit::nameSwe');
 
-  getLatitude = () => cy.getByTestId('StopAreaDetailsEdit::latitude');
+  static getLatitude = () => cy.getByTestId('StopAreaDetailsEdit::latitude');
 
-  getLongitude = () => cy.getByTestId('StopAreaDetailsEdit::longitude');
+  static getLongitude = () => cy.getByTestId('StopAreaDetailsEdit::longitude');
 
-  getCancelButton = () => cy.getByTestId('StopAreaDetailsEdit::cancelButton');
+  static getCancelButton = () =>
+    cy.getByTestId('StopAreaDetailsEdit::cancelButton');
 
-  getSaveButton = () => cy.getByTestId('StopAreaDetailsEdit::saveButton');
+  static getSaveButton = () =>
+    cy.getByTestId('StopAreaDetailsEdit::saveButton');
 }

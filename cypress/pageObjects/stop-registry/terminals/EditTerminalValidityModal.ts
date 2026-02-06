@@ -1,9 +1,10 @@
 import { TerminalValidityForm } from './TerminalValidityForm';
 
 export class EditTerminalValidityModal {
-  form = new TerminalValidityForm();
+  static form = TerminalValidityForm;
 
-  getModal = () => cy.getByTestId('EditTerminalValidityModal::modal');
+  static getModal = () => cy.getByTestId('EditTerminalValidityModal::modal');
 
-  getLoading = () => cy.getByTestId('EditTerminalValidityModal::loading');
+  static getLoading = () =>
+    cy.getByTestId('EditTerminalValidityModal::loading');
 }

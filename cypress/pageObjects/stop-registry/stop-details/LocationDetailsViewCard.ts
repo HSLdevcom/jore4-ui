@@ -1,51 +1,58 @@
 export class LocationDetailsViewCard {
-  getContainer = () => cy.getByTestId('LocationDetailsViewCard::container');
+  static getContainer = () =>
+    cy.getByTestId('LocationDetailsViewCard::container');
 
-  getStreetAddress = () =>
+  static getStreetAddress = () =>
     cy.getByTestId('LocationDetailsViewCard::streetAddress');
 
-  getPostalCode = () => cy.getByTestId('LocationDetailsViewCard::postalCode');
+  static getPostalCode = () =>
+    cy.getByTestId('LocationDetailsViewCard::postalCode');
 
-  getMunicipality = () =>
+  static getMunicipality = () =>
     cy.getByTestId('LocationDetailsViewCard::municipality');
 
-  getFareZone = () => cy.getByTestId('LocationDetailsViewCard::fareZone');
+  static getFareZone = () =>
+    cy.getByTestId('LocationDetailsViewCard::fareZone');
 
-  getLatitude = () => cy.getByTestId('LocationDetailsViewCard::latitude');
+  static getLatitude = () =>
+    cy.getByTestId('LocationDetailsViewCard::latitude');
 
-  getLongitude = () => cy.getByTestId('LocationDetailsViewCard::longitude');
+  static getLongitude = () =>
+    cy.getByTestId('LocationDetailsViewCard::longitude');
 
-  getAltitude = () => cy.getByTestId('LocationDetailsViewCard::altitude');
+  static getAltitude = () =>
+    cy.getByTestId('LocationDetailsViewCard::altitude');
 
-  getFunctionalArea = () =>
+  static getFunctionalArea = () =>
     cy.getByTestId('LocationDetailsViewCard::functionalArea');
 
-  getStopArea = () => cy.getByTestId('LocationDetailsViewCard::stopArea');
+  static getStopArea = () =>
+    cy.getByTestId('LocationDetailsViewCard::stopArea');
 
-  getStopAreaName = () =>
+  static getStopAreaName = () =>
     cy.getByTestId('LocationDetailsViewCard::stopAreaName');
 
-  getStopAreaStops = () =>
+  static getStopAreaStops = () =>
     cy.getByTestId('LocationDetailsViewCard::stopAreaStops');
 
-  getPlatformNumber = () =>
+  static getPlatformNumber = () =>
     cy.getByTestId('LocationDetailsViewCard::platformNumber');
 
-  getSignContentType = () =>
+  static getSignContentType = () =>
     cy.getByTestId('LocationDetailsViewCard::signContentType');
 
-  getMemberPlatforms = () =>
+  static getMemberPlatforms = () =>
     cy.getByTestId('LocationDetailsViewCard::memberPlatforms');
 
-  getTerminalPrivateCode = () =>
+  static getTerminalPrivateCode = () =>
     cy.getByTestId('LocationDetailsViewCard::terminalPrivateCode');
 
-  getTerminalLink = () =>
+  static getTerminalLink = () =>
     cy.getByTestId('LocationDetailsViewCard::terminalLink');
 
-  getTerminalName = () =>
+  static getTerminalName = () =>
     cy.getByTestId('LocationDetailsViewCard::terminalName');
 
-  getTerminalStops = () =>
+  static getTerminalStops = () =>
     cy.getByTestId('LocationDetailsViewCard::terminalStops');
 }

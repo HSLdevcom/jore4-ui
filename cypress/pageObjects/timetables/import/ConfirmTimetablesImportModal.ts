@@ -1,5 +1,5 @@
-import { ConfirmTimetablesImportForm } from '../../ConfirmTimetableImportForm';
+import { ConfirmTimetablesImportForm } from '../../forms/ConfirmTimetableImportForm';
 
 export class ConfirmTimetablesImportModal {
-  confirmTimetablesImportForm = new ConfirmTimetablesImportForm();
+  static confirmTimetablesImportForm = ConfirmTimetablesImportForm;
 }

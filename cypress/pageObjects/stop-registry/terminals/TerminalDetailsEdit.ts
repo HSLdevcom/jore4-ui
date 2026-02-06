@@ -1,31 +1,33 @@
 export class TerminalDetailsEdit {
-  getPrivateCode = () => cy.getByTestId('TerminalDetailsEdit::privateCode');
+  static getPrivateCode = () =>
+    cy.getByTestId('TerminalDetailsEdit::privateCode');
 
-  getDescription = () => cy.getByTestId('TerminalDetailsEdit::description');
+  static getDescription = () =>
+    cy.getByTestId('TerminalDetailsEdit::description');
 
-  getName = () => cy.getByTestId('TerminalDetailsEdit::name');
+  static getName = () => cy.getByTestId('TerminalDetailsEdit::name');
 
-  getNameSwe = () => cy.getByTestId('TerminalDetailsEdit::nameSwe');
+  static getNameSwe = () => cy.getByTestId('TerminalDetailsEdit::nameSwe');
 
-  getTerminalType = () =>
+  static getTerminalType = () =>
     cy.getByTestId('TerminalDetailsEdit::terminalType::ListboxButton');
 
-  selectTerminalType(type: string) {
+  static selectTerminalType(type: string) {
     cy.getByTestId('TerminalDetailsEdit::terminalType::ListboxButton').click();
     cy.getByTestId(
       `TerminalDetailsEdit::terminalType::ListboxOptions::${type}`,
     ).click();
   }
 
-  getDeparturePlatforms = () =>
+  static getDeparturePlatforms = () =>
     cy.getByTestId('TerminalDetailsEdit::departurePlatforms');
 
-  getArrivalPlatforms = () =>
+  static getArrivalPlatforms = () =>
     cy.getByTestId('TerminalDetailsEdit::arrivalPlatforms');
 
-  getLoadingPlatforms = () =>
+  static getLoadingPlatforms = () =>
     cy.getByTestId('TerminalDetailsEdit::loadingPlatforms');
 
-  getElectricCharging = () =>
+  static getElectricCharging = () =>
     cy.getByTestId('TerminalDetailsEdit::electricCharging');
 }

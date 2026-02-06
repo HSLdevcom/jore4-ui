@@ -1,9 +1,9 @@
-import { VehicleJourneyGroupInfo } from '../VehicleJourneyGroupInfo';
+import { VehicleJourneyGroupInfo } from './VehicleJourneyGroupInfo';
 
 export class VehicleServiceTable {
-  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
+  static vehicleJourneyGroupInfo = VehicleJourneyGroupInfo;
 
-  getHeadingButton() {
+  static getHeadingButton() {
     return cy.getByTestId('VehicleServiceTable::headingButton');
   }
 }

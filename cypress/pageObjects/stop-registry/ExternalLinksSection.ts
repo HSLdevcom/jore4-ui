@@ -1,29 +1,29 @@
 import { ExternalLinksForm } from './ExternalLinksForm';
 
 export class ExternalLinksSection {
-  form = new ExternalLinksForm();
+  static form = ExternalLinksForm;
 
-  getTitle() {
+  static getTitle() {
     return cy.getByTestId('ExternalLinks::title');
   }
 
-  getExternalLinks() {
+  static getExternalLinks() {
     return cy.getByTestId('ExternalLinks::externalLink');
   }
 
-  getNthExternalLink(index: number) {
-    return this.getExternalLinks().eq(index);
+  static getNthExternalLink(index: number) {
+    return ExternalLinksSection.getExternalLinks().eq(index);
   }
 
-  getName = () => cy.getByTestId('ExternalLinks::name');
+  static getName = () => cy.getByTestId('ExternalLinks::name');
 
-  getLocation = () => cy.getByTestId('ExternalLinks::openExternalLink');
+  static getLocation = () => cy.getByTestId('ExternalLinks::openExternalLink');
 
-  getNoExternalLinks() {
+  static getNoExternalLinks() {
     return cy.getByTestId('ExternalLinks::noExternalLinks');
   }
 
-  getEditButton() {
+  static getEditButton() {
     return cy.getByTestId('ExternalLinks::editButton');
   }
 }

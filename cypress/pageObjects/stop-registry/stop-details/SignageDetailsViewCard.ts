@@ -1,23 +1,23 @@
 export class SignageDetailsViewCard {
-  getContainer() {
+  static getContainer() {
     return cy.getByTestId('SignageDetailsViewCard::container');
   }
 
-  getSignType() {
+  static getSignType() {
     return cy.getByTestId('SignageDetailsViewCard::signType');
   }
 
-  getNumberOfFrames() {
+  static getNumberOfFrames() {
     return cy.getByTestId('SignageDetailsViewCard::numberOfFrames');
   }
 
-  getSignageInstructionExceptions() {
+  static getSignageInstructionExceptions() {
     return cy.getByTestId(
       'SignageDetailsViewCard::signageInstructionExceptions',
     );
   }
 
-  getReplacesRailSign() {
+  static getReplacesRailSign() {
     return cy.getByTestId('SignageDetailsViewCard::replacesRailSign');
   }
 }
