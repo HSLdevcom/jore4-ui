@@ -232,7 +232,7 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       .should('have.value', '700001');
     mapPage.stopAreaForm.getName().type('Name does not matter');
     mapPage.stopAreaForm.getShowHideButton().click();
-    mapPage.stopAreaForm.getNameSwe().type('This must not be empty');
+    mapPage.stopAreaForm.getNameSwe().type('Name does not matter');
     mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
     mapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
