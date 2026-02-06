@@ -474,6 +474,36 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         .getNoStopsText()
         .shouldHaveText('Ei pysäkkejä.');
     });
+
+    it('should show error when name exceeds 21 characters', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      stopAreaDetailsPage.details.getEditButton().click();
+      const longName = 'A'.repeat(22);
+
+      // Finnish name
+      stopAreaDetailsPage.details.edit.getName().clearAndType(longName);
+      cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
+      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+      // Set a valid name to proceed to testing other name fields
+      stopAreaDetailsPage.details.edit.getName().clearAndType('Annankatu 15');
+
+      // Swedish name
+      stopAreaDetailsPage.details.edit.getNameSwe().clearAndType(longName);
+      cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
+      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+      stopAreaDetailsPage.details.edit
+        .getNameSwe()
+        .clearAndType('Annankatu 15');
+
+      // English name
+      const altEdit = new AlternativeNamesEdit();
+      altEdit.getNameEng().clearAndType(longName);
+      cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
+      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+
+      altEdit.getNameEng().clearAndType('Annankatu 15');
+      stopAreaDetailsPage.details.edit.getSaveButton().should('be.enabled');
+    });
   });
 
   describe('Copying', () => {
