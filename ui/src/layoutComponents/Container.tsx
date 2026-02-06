@@ -13,7 +13,10 @@ export const Container: FC<PropsWithChildren<ContainerProps>> = ({
 }) => {
   return (
     <div
-      className={twMerge('container mx-auto py-10', className)}
+      className={twMerge(
+        'mx-auto px-5 py-10 2xl:max-w-[96rem] 2xl:px-0',
+        className,
+      )}
       data-testid={testId}
     >
       {children}
