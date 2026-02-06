@@ -22,7 +22,7 @@ export const terminalFormSchema = z
     abbreviationEng: z.string().optional(),
     nameLongEng: z.string().optional(),
     nameEng: z.string().optional(),
-    nameSwe: requiredString,
+    nameSwe: z.string().optional(),
     privateCode: requiredString,
     name: requiredString,
     terminalType: z.nativeEnum(TerminalType).optional(),
