@@ -474,6 +474,22 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         .getNoStopsText()
         .shouldHaveText('Ei pysäkkejä.');
     });
+
+    it('should show error when name exceeds 21 characters', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      stopAreaDetailsPage.details.getEditButton().click();
+      const longName = 'A'.repeat(22);
+      stopAreaDetailsPage.details.edit.getName().clearAndType(longName);
+      cy.contains('Nimessä on yli 21 merkkiä.').should('be.visible');
+    });
+
+    it('should disable save button when form has errors', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      stopAreaDetailsPage.details.getEditButton().click();
+      const longName = 'A'.repeat(22);
+      stopAreaDetailsPage.details.edit.getName().clearAndType(longName);
+      stopAreaDetailsPage.details.edit.getSaveButton().should('be.disabled');
+    });
   });
 
   describe('Copying', () => {
