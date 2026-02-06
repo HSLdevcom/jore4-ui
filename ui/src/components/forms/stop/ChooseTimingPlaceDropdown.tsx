@@ -11,6 +11,9 @@ import { useChooseTimingPlaceDropdown } from './utils/useChooseTimingPlaceDropdo
 type ChooseTimingPlaceDropdownProps = ListboxInputProps & {
   readonly testId?: string;
   readonly optionAmount?: number;
+  readonly onTimingPlaceChange?: (
+    timingPlace: TimingPlaceForComboboxFragment | null,
+  ) => void;
 };
 
 const mapToOption = (
@@ -26,6 +29,7 @@ export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
   onChange,
   onBlur,
   optionAmount,
+  onTimingPlaceChange,
 }) => {
   const { t } = useTranslation();
 
@@ -41,6 +45,20 @@ export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
     : timingPlaces;
 
   const options = timingPlacesToMap.map(mapToOption) ?? [];
+
+  const handleChange = (newValue: string | null) => {
+    onChange(newValue);
+    if (onTimingPlaceChange) {
+      if (newValue) {
+        const selected = timingPlaces.find(
+          (tp) => tp.timing_place_id === newValue,
+        );
+        onTimingPlaceChange(selected ?? null);
+      } else {
+        onTimingPlaceChange(null);
+      }
+    }
+  };
 
   const mapToButtonContent = (
     displayedTimingPlace?: TimingPlaceForComboboxFragment,
@@ -64,7 +82,7 @@ export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
       nullOptionContent={t('stops.noTimingPlace')}
       options={options}
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       onBlur={onBlur}
       onQueryChange={setQuery}
       selectedItem={selectedTimingPlace}

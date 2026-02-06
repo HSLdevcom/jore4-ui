@@ -37,7 +37,7 @@ const schema = z.object({
 type CreateTimingPlaceFormProps = {
   readonly className?: string;
   readonly onCancel: () => void;
-  readonly onTimingPlaceCreated: (timingPlaceId: UUID) => void;
+  readonly onTimingPlaceCreated: (timingPlaceId: UUID, label: string) => void;
 };
 
 export type FormState = z.infer<typeof schema>;
@@ -99,7 +99,7 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
         createResponse.data!.insert_timing_pattern_timing_place_one!
           .timing_place_id;
 
-      onTimingPlaceCreated(createdTimingPlaceId);
+      onTimingPlaceCreated(createdTimingPlaceId, state.label);
     } catch (err) {
       defaultErrorHandler(err as Error);
     } finally {

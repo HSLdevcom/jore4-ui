@@ -51,8 +51,9 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   useDirtyFormBlockNavigation(methods.formState, 'StopBasicDetailsForm');
   const { handleSubmit } = methods;
 
-  const onTimingPlaceCreated = (timingPlaceId: UUID) => {
+  const onTimingPlaceCreated = (timingPlaceId: UUID, label: string) => {
     methods.setValue('timingPlaceId', timingPlaceId, { shouldDirty: true });
+    methods.setValue('timingPlaceLabel', label);
   };
 
   const openTimingPlaceModal = () => {

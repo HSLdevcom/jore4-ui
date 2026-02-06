@@ -22,4 +22,6 @@ export enum KnownValueKey {
   StopOwner = 'stopOwner',
   OwnerContractId = 'owner-contractId',
   OwnerNote = 'owner-note',
+  TimingPlaceId = 'timingPlaceId',
+  TimingPlaceLabel = 'timingPlaceLabel',
 }

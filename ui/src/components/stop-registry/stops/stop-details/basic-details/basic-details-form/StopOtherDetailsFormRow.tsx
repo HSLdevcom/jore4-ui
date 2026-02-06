@@ -23,7 +23,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
   onClickOpenTimingSettingsModal,
 }) => {
   const { t } = useTranslation();
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext<StopBasicDetailsFormState>();
   const isRailReplacement = watch('stopTypes.railReplacement');
 
   return (
@@ -69,6 +69,9 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
               <ChooseTimingPlaceDropdown
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
+                onTimingPlaceChange={(timingPlace) => {
+                  setValue('timingPlaceLabel', timingPlace?.label ?? null);
+                }}
               />
             )}
             className="flex-1"

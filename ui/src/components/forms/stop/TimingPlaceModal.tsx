@@ -9,7 +9,7 @@ import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 const testIds = { modal: 'TimingPlaceModal' };
 
 type TimingPlaceModalProps = {
-  readonly onTimingPlaceCreated: (timingPlaceId: UUID) => void;
+  readonly onTimingPlaceCreated: (timingPlaceId: UUID, label: string) => void;
 };
 
 export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
@@ -24,8 +24,8 @@ export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
   const onCloseModal = () => dispatch(closeTimingPlaceModalAction());
   const onClose = wrapInContextNavigation(onCloseModal);
 
-  const timingPlaceCreated = (timingPlaceId: UUID) => {
-    onTimingPlaceCreated(timingPlaceId);
+  const timingPlaceCreated = (timingPlaceId: UUID, label: string) => {
+    onTimingPlaceCreated(timingPlaceId, label);
     onCloseModal();
   };
 

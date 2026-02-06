@@ -28,6 +28,7 @@ export const schema = z
       .nullable(),
     elyNumber: z.string(),
     timingPlaceId: z.string().uuid().nullable(),
+    timingPlaceLabel: z.string().nullable(),
     stopState: z.nativeEnum(StopPlaceState),
   })
   .merge(reasonForChangeFormSchema);
