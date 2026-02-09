@@ -20,6 +20,7 @@ DUMP_ROUTES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-jore4e2e.pgdu
 DUMP_TIMETABLES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-timetablesdb-nodata.pgdump"
 DUMP_STOPS_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-stopdb.pgdump"
 INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/2025-09-24-infraLinks.sql"
+TRAM_INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/tram_infraLinks_2026-01-28.sql"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
@@ -75,10 +76,17 @@ wait_for_database() {
 download_infralinks() {
   if [ -f "infraLinks.sql" ]; then
     echo "infraLinks.sql already exists, skipping download."
-    return
+  else
+    echo "Downloading infraLinks.sql..."
+    curl "$INFRALINKS_URL" -o "infraLinks.sql"
   fi
-  echo "Downloading infraLinks.sql..."
-  curl "$INFRALINKS_URL" -o "infraLinks.sql"
+
+  if [ -f "tram_infraLinks.sql" ]; then
+    echo "tram_infraLinks.sql already exists, skipping download."
+  else
+    echo "Downloading tram_infraLinks.sql..."
+    curl "$TRAM_INFRALINKS_URL" -o "tram_infraLinks.sql"
+  fi
 }
 
 seed_infra_links() {
@@ -87,7 +95,14 @@ seed_infra_links() {
   echo "$1: Seeding infrastructure links..."
 
   wait_for_database "$1" infrastructure_network infrastructure_link
+
+  echo "$1: infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
+
+  echo "$1: tram_infraLinks.sql..."
+  docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "tram_infraLinks.sql";
+
+  echo "$1: Done seeding infrastructure links."
 }
 
 check_pinned_image() {
