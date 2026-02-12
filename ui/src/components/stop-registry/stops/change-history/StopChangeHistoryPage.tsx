@@ -1,5 +1,4 @@
-import { DateTime } from 'luxon';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy } from '../../../../generated/graphql';
 import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
@@ -8,10 +7,12 @@ import { Path, routeDetails } from '../../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../../common';
+import { DateRangeFilter } from './components/DateRangeFilter';
 import { HistoricalStopDataProvider } from './components/HistoricalStopDataProvider';
 import { StopChangeHistoryTable } from './components/StopChangeHistoryTable';
 import { useGetStopChangeHistoryItems } from './queries/useGetStopChangeHistoryItems';
 import { useGetTodaysNameForQuay } from './queries/useGetTodaysNameForQuay';
+import { useStopChangeHistoryPageRouterState } from './utils/useStopChangeHistoryPageRouterState';
 
 const testIds = {
   container: 'StopChangeHistoryPage::Container',
@@ -23,28 +24,22 @@ const testIds = {
   names: 'StopChangeHistoryPage::names',
 };
 
-type StopChangeHistoryFilters = {
-  readonly from: DateTime;
-  readonly to: DateTime;
-};
-
 export const StopChangeHistoryPage: FC = () => {
   const { t } = useTranslation();
 
-  const [{ from, to }] = useState<StopChangeHistoryFilters>(() => ({
-    from: DateTime.now().minus({ month: 6 }).startOf('month'),
-    to: DateTime.now(),
-  }));
+  const { filters, setFilters } = useStopChangeHistoryPageRouterState();
 
   const goBack = useNavigateBackSafely();
 
   const { label: publicCode } = useRequiredParams<{ label: string }>();
-  const { todaysNameForQuay } = useGetTodaysNameForQuay(publicCode);
+  const { todaysNameForQuay } = useGetTodaysNameForQuay(
+    publicCode,
+    filters.priority,
+  );
   const { historyItems, loading, error, refetch } =
     useGetStopChangeHistoryItems({
+      ...filters,
       publicCode,
-      from,
-      to,
       orderBy: [{ changed: OrderBy.Desc }, { version: OrderBy.Desc }],
     });
 
@@ -83,6 +78,12 @@ export const StopChangeHistoryPage: FC = () => {
         )}
       </Row>
 
+      <DateRangeFilter
+        className="mt-5"
+        filters={filters}
+        setFilters={setFilters}
+      />
+
       <HistoricalStopDataProvider>
         <LoadingWrapper
           className="flex justify-center"
@@ -107,6 +108,7 @@ export const StopChangeHistoryPage: FC = () => {
           ) : (
             <StopChangeHistoryTable
               className="mt-5 w-full"
+              filters={filters}
               historyItems={historyItems}
             />
           )}

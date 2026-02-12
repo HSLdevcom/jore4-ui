@@ -2,20 +2,25 @@ import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useGetTodaysNameForQuayQuery } from '../../../../../generated/graphql';
+import { Priority } from '../../../../../types/enums';
 
 const GQL_GET_TODAYS_NAME_FOR_QUAY = gql`
-  query GetTodaysNameForQuay($publicCode: String!, $today: String!) {
+  query GetTodaysNameForQuay(
+    $publicCode: String!
+    $priority: String!
+    $today: String!
+  ) {
     stopsDb: stops_database {
       stop: stops_database_quay_newest_version(
         where: {
           public_code: { _eq: $publicCode }
+          priority: { _eq: $priority }
           validity_start: { _lte: $today }
           _or: [
             { validity_end: { _gte: $today } }
             { validity_end: { _is_null: true } }
           ]
         }
-        order_by: [{ priority: desc }]
         limit: 1
       ) {
         netex_id
@@ -45,10 +50,13 @@ type TodaysNameForQuay = {
   readonly nameSwe: string | null;
 };
 
-export function useGetTodaysNameForQuay(publicCode: string) {
+export function useGetTodaysNameForQuay(
+  publicCode: string,
+  priority: Priority,
+) {
   const today = DateTime.now().toISODate();
   const { data, ...rest } = useGetTodaysNameForQuayQuery({
-    variables: { publicCode, today },
+    variables: { publicCode, today, priority: priority.toString() },
   });
 
   const rawStopPlace = data?.stopsDb?.stop?.at(0)?.stopPlace;

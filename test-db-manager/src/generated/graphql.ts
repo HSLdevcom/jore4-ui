@@ -99,6 +99,7 @@ export type QuayChangeHistoryItem = {
   __typename?: 'QuayChangeHistoryItem';
   changed?: Maybe<Scalars['timestamp']['output']>;
   changedBy?: Maybe<Scalars['String']['output']>;
+  importedId?: Maybe<Scalars['String']['output']>;
   netexId: Scalars['String']['output'];
   priority?: Maybe<Scalars['Int']['output']>;
   privateCodeType?: Maybe<Scalars['String']['output']>;
@@ -117,6 +118,8 @@ export enum QuayChangeHistoryItemEnumName {
   Changed = 'changed',
   /** column name */
   ChangedBy = 'changedBy',
+  /** column name */
+  ImportedId = 'importedId',
   /** column name */
   NetexId = 'netexId',
   /** column name */
@@ -11360,6 +11363,7 @@ export type StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp = {
   _or?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>>;
   changed?: InputMaybe<TimestampComparisonExp>;
   changedBy?: InputMaybe<StringComparisonExp>;
+  importedId?: InputMaybe<StringComparisonExp>;
   netexId?: InputMaybe<StringComparisonExp>;
   priority?: InputMaybe<IntComparisonExp>;
   privateCodeType?: InputMaybe<StringComparisonExp>;
@@ -11377,6 +11381,7 @@ export type StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp = {
 export type StopsDatabaseQuayChangeHistoryItemOrderBy = {
   changed?: InputMaybe<OrderBy>;
   changedBy?: InputMaybe<OrderBy>;
+  importedId?: InputMaybe<OrderBy>;
   netexId?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   privateCodeType?: InputMaybe<OrderBy>;

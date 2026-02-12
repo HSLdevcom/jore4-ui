@@ -2,6 +2,7 @@ import { FC, useMemo } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { useGetUserNames } from '../../../../../hooks';
 import { ChangeHistoryTable } from '../../../../common/ChangeHistory';
+import { StopChangeHistoryFilters } from '../types';
 import { StopChangeHistoryItem } from './StopChangeHistoryItem';
 
 /**
@@ -29,11 +30,13 @@ function findPreviousVersion(
 
 type StopChangeHistoryTableProps = {
   readonly className?: string;
+  readonly filters: StopChangeHistoryFilters;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
 };
 
 export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   className,
+  filters: { from, to },
   historyItems,
 }) => {
   const { getUserNameById } = useGetUserNames();
@@ -52,9 +55,21 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
     [historyItems],
   );
 
+  // historyItems can contain extra versions needed to ćonstruct the diffs,
+  // even tough the version itself, should not be shown based on the time
+  // filters.
+  const itemsToShow = useMemo(() => {
+    const fromStr = from.toISO();
+    const toStr = to.toISO();
+
+    return historyItems.filter(({ changed }) => {
+      return fromStr <= changed && changed <= toStr;
+    });
+  }, [historyItems, from, to]);
+
   return (
     <ChangeHistoryTable className={className}>
-      {historyItems.map((historyItem) => (
+      {itemsToShow.map((historyItem) => (
         <StopChangeHistoryItem
           key={`${historyItem.netexId}-${historyItem.version}`}
           getUserNameById={getUserNameById}

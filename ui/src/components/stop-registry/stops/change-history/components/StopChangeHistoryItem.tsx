@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
 import { DataDiffSections } from './DataDiffSections';
+import { NoPreviousChangeVersionSection } from './NoPreviousChangeVersionSection';
 
 const testIds = {
   // These will expand to: ChangeHistory::SectionHeader::${testId}
@@ -47,21 +48,9 @@ export const StopChangeHistoryItem: FC<StopChangeHistoryItemProps> = ({
 
   if (!previousHistoryItem) {
     return (
-      <ChangeHistoryItemSectionHeaderRow
+      <NoPreviousChangeVersionSection
         getUserNameById={getUserNameById}
         historyItem={historyItem}
-        sectionTitle={
-          <h5>
-            {historyItem.privateCodeType === 'HSL/JORE-3'
-              ? t('stopChangeHistory.importedVersion')
-              : t('stopChangeHistory.firstVersion')}
-          </h5>
-        }
-        testId={
-          historyItem.privateCodeType === 'HSL/JORE-3'
-            ? testIds.importedVersion
-            : testIds.createdVersion
-        }
       />
     );
   }
