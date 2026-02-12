@@ -1,5 +1,9 @@
 // Inspired by https://github.com/alexreardon/memoize-one
 
+import pick from 'lodash/pick';
+import { Dispatch, SetStateAction } from 'react';
+import { areEqual } from './areEqual';
+
 type ComparatorFn<T> = (a: T, b: T) => boolean;
 
 function paramsAreEqual(
@@ -63,4 +67,56 @@ export function memoizeOne<
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return cache.result!;
   }) as TFunc;
+}
+
+export function memoizePicker<T extends object, U extends keyof T>(
+  props: ReadonlyArray<U>,
+): (object: T) => Pick<T, U> {
+  let cachedResult: Pick<T, U> | null = null;
+
+  return (object) => {
+    const newResult = pick(object, props);
+
+    if (!areEqual(cachedResult, newResult)) {
+      cachedResult = newResult;
+    }
+
+    return cachedResult as Pick<T, U>;
+  };
+}
+
+export function memoizeStatePicker<T extends object, U extends keyof T>(
+  props: ReadonlyArray<U>,
+  setState: Dispatch<SetStateAction<T>>,
+): {
+  readonly getPickedState: (object: T) => Pick<T, U>;
+  readonly setPickedState: Dispatch<SetStateAction<Pick<T, U>>>;
+} {
+  let cachedResult: Pick<T, U> | null = null;
+
+  const getPickedState = (object: T): Pick<T, U> => {
+    const newResult = pick(object, props);
+
+    if (!areEqual(cachedResult, newResult)) {
+      cachedResult = newResult;
+    }
+
+    return cachedResult as Pick<T, U>;
+  };
+
+  const setPickedState: Dispatch<SetStateAction<Pick<T, U>>> = (newState) => {
+    setState((prevState) => {
+      if (typeof newState === 'function') {
+        const pickedPrevState: Pick<T, U> = pick(prevState, props);
+        const changedState = newState(pickedPrevState);
+        if (changedState !== pickedPrevState) {
+          return { ...prevState, ...changedState };
+        }
+      }
+
+      return { ...prevState, ...newState };
+    });
+  };
+
+  return { getPickedState, setPickedState };
 }

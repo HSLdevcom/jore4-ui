@@ -7,34 +7,65 @@ import {
   StopsDatabaseQuayChangeHistoryItemOrderBy,
   useGetStopChangeHistoryQuery,
 } from '../../../../../generated/graphql';
+import { Priority } from '../../../../../types/enums';
 
 const GQL_GET_STOP_CHANGE_HISTORY = gql`
   query GetStopChangeHistory(
-    $where: stops_database_QuayChangeHistoryItem_bool_exp_bool_exp
+    $publicCode: String!
+    $from: timestamp!
+    $to: timestamp!
+    $priority: Int!
     $orderBy: [stops_database_QuayChangeHistoryItem_order_by!]!
   ) {
     stopsDb: stops_database {
-      historyItems: getQuayChangeHistory(where: $where, order_by: $orderBy) {
-        netexId
-        version
+      historyItems: getQuayChangeHistory(
+        where: {
+          _and: [
+            { publicCode: { _eq: $publicCode } }
+            { priority: { _eq: $priority } }
+            { changed: { _gte: $from } }
+            { changed: { _lte: $to } }
+          ]
+        }
+        order_by: $orderBy
+      ) {
+        ...QuayChangeHistoryItemDetails
+      }
 
-        changed
-        changedBy
-        versionComment
-
-        # Used to determine whether the stop was imported from JORE3 or created in JORE4.
-        privateCodeType
-        privateCodeValue
-        publicCode
-
-        validityStart
-        validityEnd
-        priority
-
-        stopPlaceNetexId
-        stopPlaceVersion
+      extraDiffItem: getQuayChangeHistory(
+        where: {
+          publicCode: { _eq: $publicCode }
+          priority: { _eq: $priority }
+          changed: { _lt: $from }
+        }
+        order_by: [{ changed: desc }]
+        limit: 1
+      ) {
+        ...QuayChangeHistoryItemDetails
       }
     }
+  }
+
+  fragment QuayChangeHistoryItemDetails on QuayChangeHistoryItem {
+    netexId
+    version
+
+    changed
+    changedBy
+    versionComment
+
+    # Used to determine whether the stop was imported from JORE3 or created in JORE4.
+    privateCodeType
+    privateCodeValue
+    publicCode
+    importedId
+
+    validityStart
+    validityEnd
+    priority
+
+    stopPlaceNetexId
+    stopPlaceVersion
   }
 `;
 
@@ -42,6 +73,7 @@ type GetStopChangeHistoryOptions = {
   readonly from: DateTime;
   readonly to: DateTime;
   readonly publicCode: string;
+  readonly priority: Priority;
   readonly orderBy: ReadonlyArray<StopsDatabaseQuayChangeHistoryItemOrderBy>;
 };
 
@@ -49,32 +81,30 @@ export function useGetStopChangeHistoryItems({
   from,
   to,
   publicCode,
+  priority,
   orderBy,
 }: GetStopChangeHistoryOptions) {
-  const fromStartOfDay = from.startOf('day').toISO();
-  const toEndOfDay = to.endOf('day').toISO();
-
   const { data, ...rest } = useGetStopChangeHistoryQuery({
     variables: {
-      where: {
-        _and: [
-          { publicCode: { _eq: publicCode } },
-          { changed: { _gte: fromStartOfDay } },
-          { changed: { _lte: toEndOfDay } },
-        ],
-      },
+      publicCode,
+      priority,
+      from: from.startOf('day').toISO(),
+      to: to.endOf('day').toISO(),
       orderBy,
     },
   });
 
-  const rawHistoryItems = data?.stopsDb?.historyItems;
+  const { historyItems: rawHistoryItems, extraDiffItem: rawExtraItem } =
+    data?.stopsDb ?? {};
   const historyItems: ReadonlyArray<QuayChangeHistoryItem> = useMemo(
     () =>
-      compact(rawHistoryItems).map((item) => ({
-        ...item,
-        versionComment: item.versionComment?.trim(),
-      })),
-    [rawHistoryItems],
+      compact(rawHistoryItems)
+        .concat(rawExtraItem ?? [])
+        .map((item) => ({
+          ...item,
+          versionComment: item.versionComment?.trim(),
+        })),
+    [rawHistoryItems, rawExtraItem],
   );
 
   return { ...rest, historyItems };

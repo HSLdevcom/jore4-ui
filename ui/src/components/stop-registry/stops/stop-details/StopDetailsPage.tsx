@@ -9,6 +9,7 @@ import {
 import { Container, Visible } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { mapToShortDate, mapUTCToDateTime } from '../../../../time';
+import { Priority } from '../../../../types/enums';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
 import { BasicDetailsSection } from './basic-details';
@@ -74,7 +75,12 @@ export const StopDetailsPage: FC = () => {
           <EditStopValidityButton stop={stopDetails} />
         </div>
         <Link
-          to={routeDetails[Path.stopChangeHistory].getLink(label)}
+          to={routeDetails[Path.stopChangeHistory].getLink(label, {
+            priority:
+              stopDetails?.priority === Priority.Standard
+                ? undefined
+                : stopDetails?.priority,
+          })}
           state={makeBackNavigationIsSafeState()}
           className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
           data-testid={testIds.changeHistoryLink}
