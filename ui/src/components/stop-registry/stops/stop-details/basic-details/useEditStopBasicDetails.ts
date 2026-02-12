@@ -242,8 +242,7 @@ export const useEditStopBasicDetails = () => {
               values: state.stopState ? [state.stopState] : [],
             },
           ]),
-          versionComment:
-            state.reasonForChange !== '' ? state.reasonForChange : null,
+          versionComment: state.reasonForChange,
         },
       ],
       transportMode: state.transportMode,
