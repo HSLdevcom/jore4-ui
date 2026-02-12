@@ -42,6 +42,8 @@ import {
   SignageDetailsViewCard,
   StopAreaDetailsPage,
   StopDetailsPage,
+  StopVersionPage,
+  StopVersionRow,
   Toast,
 } from '../../pageObjects';
 import { StopVersionForm } from '../../pageObjects/stop-registry/stop-details/StopVersionForm';
@@ -786,6 +788,51 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       BasicDetailsForm.reasonForChange
         .characterLimitReached()
         .should('not.exist');
+    });
+
+    it.only('shoud display reason for change in versions', () => {
+      const stopVersionPage = new StopVersionPage();
+      const stopVersionRow = new StopVersionRow();
+
+      StopDetailsPage.visit('H2003');
+      StopDetailsPage.page().shouldBeVisible();
+
+      BasicDetailsViewCard.getContent().shouldBeVisible();
+      StopDetailsPage.basicDetails.getEditButton().click();
+      BasicDetailsForm.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('Initial reason');
+      StopDetailsPage.basicDetails.getSaveButton().click();
+      Toast.expectSuccessToast('Pysäkki muokattu');
+      cy.get('[data-testid="StopDetailsPage::goToVersions"]').click();
+
+      stopVersionPage.scheduledVersions().within(() => {
+        stopVersionRow
+          .rows()
+          .eq(0)
+          .within(() => {
+            stopVersionRow.versionComment().shouldHaveText('Initial reason');
+          });
+      });
+      cy.get('[data-testid="StopVersionsPage::returnButton"]').click();
+
+      // Reason for change should default to empty value if the field is left empty
+      StopDetailsPage.basicDetails.getEditButton().click();
+      BasicDetailsForm.reasonForChange.getReasonForChangeInput().clear();
+      // Change Ely number to ensure form is dirty and save is enabled
+      BasicDetailsForm.getElyNumberInput().clearAndType('1234569');
+      StopDetailsPage.basicDetails.getSaveButton().click();
+      Toast.expectSuccessToast('Pysäkki muokattu');
+
+      cy.get('[data-testid="StopDetailsPage::goToVersions"]').click();
+      stopVersionPage.scheduledVersions().within(() => {
+        stopVersionRow
+          .rows()
+          .eq(0)
+          .within(() => {
+            stopVersionRow.versionComment().should('be.empty');
+          });
+      });
     });
 
     describe('creating new timing place', () => {

@@ -9,6 +9,7 @@ import { ObservationDateControl } from '../../../common/ObservationDateControl';
 const testIds = {
   returnToDateBasedVersionSelection:
     'StopDetailsVersion::returnToDateBasedVersionSelection',
+  goToVersions: 'StopDetailsPage::goToVersions',
 };
 
 type StopDetailsVersionProps = { readonly label: string };
@@ -44,6 +45,7 @@ export const StopDetailsVersion: FC<StopDetailsVersionProps> = ({ label }) => {
         inverted
         href={{ pathname: routeDetails[Path.stopVersions].getLink(label) }}
         state={makeBackNavigationIsSafeState()}
+        testId={testIds.goToVersions}
       >
         {t('stopDetails.actions.showVersions')}
       </SimpleButton>
