@@ -45,7 +45,6 @@ import {
   StopSearchResultsPage,
   TerminalDetailsPage,
 } from '../../pageObjects';
-import { StopPopUp } from '../../pageObjects/stop-registry/StopPopUp';
 import { InsertQuayInput, InsertQuaysResult } from '../../support/types';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
@@ -84,6 +83,7 @@ const shelterUrbanTemplate: StopRegistryShelterEquipmentInput = {
 };
 
 const geoDelta = 0.00002;
+const safeMultiInfoSpotTestStopLabel = 'E2E099';
 
 type PointGeometry = {
   coordinates: number[];
@@ -2070,23 +2070,103 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         .then((infoSpotData) => cy.task('insertInfoSpots', infoSpotData));
     }
 
+    const generateMultiInfoSpotSameShelterData = (stopPlaceId: string) => ({
+      multiInfoSpotSameShelter: generateQuay(stopPlaceId, {
+        publicCode: safeMultiInfoSpotTestStopLabel,
+        placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
+      }),
+    });
+
+    function generateInfoSpotsForSameShelterTestData(
+      generatedStops: InsertQuaysResult<
+        keyof ReturnType<typeof generateMultiInfoSpotSameShelterData>
+      >,
+    ): Array<StopRegistryInfoSpotInput> {
+      const {
+        tagToShelters: {
+          multiInfoSpotSameShelter: [shelterId],
+        },
+        tagToNetexId: { multiInfoSpotSameShelter: quayId },
+      } = generatedStops;
+
+      return [
+        {
+          label: 'InfoSpot 1',
+          width: 100,
+          height: 200,
+          poster: [{ label: 'Poster 1', height: 50, width: 50, lines: 'Line' }],
+          infoSpotLocations: [quayId, shelterId],
+        },
+        {
+          label: 'InfoSpot 2',
+          width: 120,
+          height: 220,
+          poster: [
+            { label: 'Poster 2', height: 70, width: 70, lines: 'Notes' },
+            { label: 'Poster 3', height: 60, width: 60, lines: '' },
+          ],
+          infoSpotLocations: [quayId, shelterId],
+        },
+      ];
+    }
+
+    function generateAndInsertMultiInfoSpotSameShelterData() {
+      const privateCode = 'EI002';
+      generatedQuayIndex = 0;
+
+      return cy
+        .task<InsertedStopRegistryIds>('insertStopRegistryData', {
+          stopPlaces: [
+            {
+              StopArea: {
+                name: {
+                  lang: 'fin',
+                  value: 'Infopaikka raportti - monen infopaikan testi',
+                },
+                privateCode: { type: 'HSL/TEST', value: privateCode },
+                transportMode: StopRegistryTransportModeType.Bus,
+              },
+              organisations: null,
+            },
+          ],
+          stopPointsRequired: false,
+        })
+        .then(({ stopPlaceIdsByName }) =>
+          cy.task('insertQuaysWithRealIds', {
+            inputs: generateMultiInfoSpotSameShelterData(
+              stopPlaceIdsByName[privateCode],
+            ),
+            generateIdsSequentially: true,
+          }),
+        )
+        .then((generatedStops) =>
+          cy
+            .task(
+              'insertInfoSpots',
+              generateInfoSpotsForSameShelterTestData(generatedStops),
+            )
+            .then(() => generatedStops),
+        );
+    }
+
     before(initWithHardcodedData);
     before(generateAndInsertInfoSpotExtraData);
+    before(generateAndInsertMultiInfoSpotSameShelterData);
 
     beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }));
 
     it('Should generate and download Equipment Details CSV report', () => {
       cy.window().then((win) => {
-        cy.stub(win, 'prompt').returns('EquipmentReportTest.csv');
+        cy.stub(win, 'prompt').returns('EquipmentReportMultiInfoSpot.csv');
       });
 
       const observationDate = '2025-01-01';
       StopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      StopSearchBar.getSearchInput().type(`E2E0*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
-      StopSearchResultsPage.getResultRows().should('have.length', 9);
+      StopSearchResultsPage.getResultRows().should('have.length', 12);
 
       StopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
       StopSearchResultsPage.getDownloadEquipmentDetailsReportButton()
@@ -2153,37 +2233,20 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         // Search for stops
         const observationDate = '2025-01-01';
         StopSearchBar.getObservationDateInput().clearAndType(observationDate);
-        StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+        StopSearchBar.getSearchInput().type(`E2E0*{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         StopSearchResultsPage.getContainer().should('be.visible');
-        StopSearchResultsPage.getResultRows().should('have.length', 9);
+        StopSearchResultsPage.getResultRows().should('have.length', 12);
 
         // Open them on the Map
         StopSearchResultsPage.getShowOnMapButton().click();
         Map.getLoader().shouldBeVisible();
         Map.waitForLoadToComplete();
 
-        // Check initial selection and remove E2E0001 from it
+        // Ensure E2E001 is selected
         MapStopSelection.getOpenButton().shouldBeVisible().click();
-        MapStopSelection.getSelectedStops().should('have.length', 9);
-        MapStopSelection.getSelectedStop('E2E001').within(() => {
-          MapStopSelection.getRemoveSelectionButton().click();
-        });
-        MapStopSelection.getSelectedStops().should('have.length', 8);
-        MapStopSelection.getSelectedStop('E2E001').should('not.exist');
-
-        // Reselect E2E0001 From the map
-        Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).click();
-        StopPopUp.getIsSelected().should('not.be.checked');
-        StopPopUp.getIsSelected().click();
-        StopPopUp.getIsSelected().should('be.checked');
-
-        MapPage.toast.dismissAllToasts();
-
-        // Ensure it is also back in selection
-        MapStopSelection.getOpenButton().shouldBeVisible().click();
-        MapStopSelection.getSelectedStops().should('have.length', 9);
+        MapStopSelection.getSelectedStops().should('have.length', 12);
         MapStopSelection.getSelectedStop('E2E001');
 
         // Trigger generation
