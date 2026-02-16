@@ -1,25 +1,67 @@
 export class StopVersionRow {
-  rows = () => cy.get("[data-test-element-type='StopVersionRow'");
+  static rows() {
+    return cy.get("[data-test-element-type='StopVersionRow'");
+  }
 
-  changed = () => cy.getByTestId('StopVersionRow::changed');
+  rows = () => StopVersionRow.rows();
 
-  changedBy = () => cy.getByTestId('StopVersionRow::changedBy');
+  static changed() {
+    return cy.getByTestId('StopVersionRow::changed');
+  }
 
-  status = () => cy.getByTestId('StopVersionRow::status');
+  changed = () => StopVersionRow.changed();
 
-  validityEnd = () => cy.getByTestId('StopVersionRow::validityEnd');
+  static changedBy() {
+    return cy.getByTestId('StopVersionRow::changedBy');
+  }
 
-  validityStart = () => cy.getByTestId('StopVersionRow::validityStart');
+  changedBy = () => StopVersionRow.changedBy();
 
-  versionComment = () => cy.getByTestId('StopVersionRow::versionComment');
+  static status() {
+    return cy.getByTestId('StopVersionRow::status');
+  }
 
-  locatorButton = () => cy.getByTestId('LocatorButton::button');
+  status = () => StopVersionRow.status();
 
-  actionMenu = () => cy.getByTestId('StopVersionRow::actionMenu');
+  static validityEnd() {
+    return cy.getByTestId('StopVersionRow::validityEnd');
+  }
 
-  actionMenuShowOnMap = () =>
-    cy.getByTestId('StopTableRow::ActionMenu::ShowOnMap');
+  validityEnd = () => StopVersionRow.validityEnd();
 
-  actionMenuShowStopDetails = () =>
-    cy.getByTestId('StopTableRow::ActionMenu::ShowStopDetails');
+  static validityStart() {
+    return cy.getByTestId('StopVersionRow::validityStart');
+  }
+
+  validityStart = () => StopVersionRow.validityStart();
+
+  static versionComment() {
+    return cy.getByTestId('StopVersionRow::versionComment');
+  }
+
+  versionComment = () => StopVersionRow.versionComment();
+
+  static locatorButton() {
+    return cy.getByTestId('LocatorButton::button');
+  }
+
+  locatorButton = () => StopVersionRow.locatorButton();
+
+  static actionMenu() {
+    return cy.getByTestId('StopVersionRow::actionMenu');
+  }
+
+  actionMenu = () => StopVersionRow.actionMenu();
+
+  static actionMenuShowOnMap() {
+    return cy.getByTestId('StopTableRow::ActionMenu::ShowOnMap');
+  }
+
+  actionMenuShowOnMap = () => StopVersionRow.actionMenuShowOnMap();
+
+  static actionMenuShowStopDetails() {
+    return cy.getByTestId('StopTableRow::ActionMenu::ShowStopDetails');
+  }
+
+  actionMenuShowStopDetails = () => StopVersionRow.actionMenuShowStopDetails();
 }

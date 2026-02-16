@@ -13,29 +13,58 @@ export type StopVersionTableColumn =
 type AriaSortOrder = 'ascending' | 'descending';
 
 export class StopVersionsTableHeader {
-  changed = () => cy.getByTestId('StopVersionTableHeaderSortableCell::changed');
+  static changed() {
+    return cy.getByTestId('StopVersionTableHeaderSortableCell::changed');
+  }
 
-  changedBy = () =>
-    cy.getByTestId('StopVersionTableHeaderSortableCell::changed_by');
+  changed = () => StopVersionsTableHeader.changed();
 
-  status = () => cy.getByTestId('StopVersionTableHeaderSortableCell::status');
+  static changedBy() {
+    return cy.getByTestId('StopVersionTableHeaderSortableCell::changed_by');
+  }
 
-  validityEnd = () =>
-    cy.getByTestId('StopVersionTableHeaderSortableCell::validity_end');
+  changedBy = () => StopVersionsTableHeader.changedBy();
 
-  validityStart = () =>
-    cy.getByTestId('StopVersionTableHeaderSortableCell::validity_start');
+  static status() {
+    return cy.getByTestId('StopVersionTableHeaderSortableCell::status');
+  }
 
-  versionComment = () =>
-    cy.getByTestId('StopVersionTableHeaderSortableCell::version_comment');
+  status = () => StopVersionsTableHeader.status();
 
-  sortButton = () =>
-    cy.getByTestId('StopVersionTableHeaderSortableCell::sortButton');
+  static validityEnd() {
+    return cy.getByTestId('StopVersionTableHeaderSortableCell::validity_end');
+  }
+
+  validityEnd = () => StopVersionsTableHeader.validityEnd();
+
+  static validityStart() {
+    return cy.getByTestId('StopVersionTableHeaderSortableCell::validity_start');
+  }
+
+  validityStart = () => StopVersionsTableHeader.validityStart();
+
+  static versionComment() {
+    return cy.getByTestId(
+      'StopVersionTableHeaderSortableCell::version_comment',
+    );
+  }
+
+  versionComment = () => StopVersionsTableHeader.versionComment();
+
+  static sortButton() {
+    return cy.getByTestId('StopVersionTableHeaderSortableCell::sortButton');
+  }
+
+  sortButton = () => StopVersionsTableHeader.sortButton();
+
+  static setSorting(sortBy: StopVersionTableColumn, sortOrder: AriaSortOrder) {
+    return this.toggleSortOnTh(this.getThByTableColumn(sortBy), sortOrder);
+  }
 
   setSorting = (sortBy: StopVersionTableColumn, sortOrder: AriaSortOrder) =>
-    this.toggleSortOnTh(this.getThByTableColumn(sortBy), sortOrder);
+    StopVersionsTableHeader.setSorting(sortBy, sortOrder);
 
-  private getThByTableColumn = (column: StopVersionTableColumn) => {
+  private static getThByTableColumn(column: StopVersionTableColumn) {
     switch (column) {
       case 'STATUS':
         return this.status();
@@ -58,9 +87,12 @@ export class StopVersionsTableHeader {
       default:
         throw new Error(`Unknown Sort column: ${column}`);
     }
-  };
+  }
 
-  private toggleSortOnTh(column: Chainable<JQuery>, sortOrder: AriaSortOrder) {
+  private static toggleSortOnTh(
+    column: Chainable<JQuery>,
+    sortOrder: AriaSortOrder,
+  ) {
     column.then(($th) => {
       let attributeOnTh = $th.attr('aria-sort');
 

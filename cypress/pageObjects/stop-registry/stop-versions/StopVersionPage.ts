@@ -1,28 +1,71 @@
 export class StopVersionPage {
-  visit = (label: string) => cy.visit(`/stop-registry/stops/${label}/versions`);
+  static visit(label: string) {
+    return cy.visit(`/stop-registry/stops/${label}/versions`);
+  }
 
-  pageLoader = () => cy.getByTestId('StopVersionsPage::LoadingWrapper');
+  visit = (label: string) => StopVersionPage.visit(label);
 
-  title = () => cy.getByTestId('StopVersionsPage::title');
+  static pageLoader() {
+    return cy.getByTestId('StopVersionsPage::LoadingWrapper');
+  }
 
-  returnButton = () => cy.getByTestId('StopVersionsPage::returnButton');
+  pageLoader = () => StopVersionPage.pageLoader();
 
-  names = () => cy.getByTestId('StopVersionsPage::names');
+  static title() {
+    return cy.getByTestId('StopVersionsPage::title');
+  }
 
-  startDate = () =>
-    cy.getByTestId('ScheduledVersionsContainer::DateRangeInputs::startDate');
+  title = () => StopVersionPage.title();
 
-  endDate = () =>
-    cy.getByTestId('ScheduledVersionsContainer::DateRangeInputs::endDate');
+  static returnButton() {
+    return cy.getByTestId('StopVersionsPage::returnButton');
+  }
 
-  showHideScheduled = () =>
-    cy.getByTestId('ScheduledVersionsContainer::showHideButton');
+  returnButton = () => StopVersionPage.returnButton();
 
-  scheduledVersions = () =>
-    cy.getByTestId('ScheduledVersionsContainer::versionTable');
+  static names() {
+    return cy.getByTestId('StopVersionsPage::names');
+  }
 
-  showHideDrafts = () =>
-    cy.getByTestId('DraftVersionsContainer::showHideButton');
+  names = () => StopVersionPage.names();
 
-  draftVersions = () => cy.getByTestId('DraftVersionsContainer::versionTable');
+  static startDate() {
+    return cy.getByTestId(
+      'ScheduledVersionsContainer::DateRangeInputs::startDate',
+    );
+  }
+
+  startDate = () => StopVersionPage.startDate();
+
+  static endDate() {
+    return cy.getByTestId(
+      'ScheduledVersionsContainer::DateRangeInputs::endDate',
+    );
+  }
+
+  endDate = () => StopVersionPage.endDate();
+
+  static showHideScheduled() {
+    return cy.getByTestId('ScheduledVersionsContainer::showHideButton');
+  }
+
+  showHideScheduled = () => StopVersionPage.showHideScheduled();
+
+  static scheduledVersions() {
+    return cy.getByTestId('ScheduledVersionsContainer::versionTable');
+  }
+
+  scheduledVersions = () => StopVersionPage.scheduledVersions();
+
+  static showHideDrafts() {
+    return cy.getByTestId('DraftVersionsContainer::showHideButton');
+  }
+
+  showHideDrafts = () => StopVersionPage.showHideDrafts();
+
+  static draftVersions() {
+    return cy.getByTestId('DraftVersionsContainer::versionTable');
+  }
+
+  draftVersions = () => StopVersionPage.draftVersions();
 }
