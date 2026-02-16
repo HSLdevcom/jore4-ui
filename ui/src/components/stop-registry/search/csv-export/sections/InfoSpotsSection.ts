@@ -163,7 +163,7 @@ function getFlatFieldCount(counts: Counts): number {
         0,
       );
 
-      fields += infoSpotHeaders.length;
+      fields += infoSpotCount * infoSpotHeaders.length;
       fields += posterCounts * posterHeaders.length;
     }
   }
