@@ -206,12 +206,6 @@ function insertStopArea(stopArea: StopAreaOutput) {
     });
 }
 
-// ## Test utilities
-// DOM node getters
-const page = new StopVersionPage();
-const header = new StopVersionsTableHeader();
-const row = new StopVersionRow();
-
 type TranslatedStatus = 'Voimassa' | 'Perusversio' | 'Väliaikainen' | 'Luonnos';
 
 type StopVersionRowValues = {
@@ -250,12 +244,12 @@ function checkColumn(
 
 // Check all defined columns for expected values.
 function checkRowColumns(version: Partial<StopVersionRowValues>) {
-  checkColumn(row.status(), version.status);
-  checkColumn(row.validityStart(), version.validityStart);
-  checkColumn(row.validityEnd(), version.validityEnd);
-  checkColumn(row.versionComment(), version.versionComment);
-  checkColumn(row.changed(), version.changed);
-  checkColumn(row.changedBy(), version.changedBy);
+  checkColumn(StopVersionRow.status(), version.status);
+  checkColumn(StopVersionRow.validityStart(), version.validityStart);
+  checkColumn(StopVersionRow.validityEnd(), version.validityEnd);
+  checkColumn(StopVersionRow.versionComment(), version.versionComment);
+  checkColumn(StopVersionRow.changed(), version.changed);
+  checkColumn(StopVersionRow.changedBy(), version.changedBy);
 }
 
 // Get row by index and check it has the given version info.
@@ -272,9 +266,8 @@ function checkRow(
     {},
   );
 
-  row.rows().should('have.length.at.least', index + 1);
-  row
-    .rows()
+  StopVersionRow.rows().should('have.length.at.least', index + 1);
+  StopVersionRow.rows()
     .eq(index)
     .within(() => checkRowColumns(versionInfo));
 }
@@ -285,9 +278,9 @@ function checkScheduledRow(
     Partial<StopVersionRowValues & StopVersionOutput>
   >
 ) {
-  page
-    .scheduledVersions()
-    .within(() => checkRow(index, ...versionInfoFragments));
+  StopVersionPage.scheduledVersions().within(() =>
+    checkRow(index, ...versionInfoFragments),
+  );
 }
 
 function checkDraftRow(
@@ -296,7 +289,9 @@ function checkDraftRow(
     Partial<StopVersionRowValues & StopVersionOutput>
   >
 ) {
-  page.draftVersions().within(() => checkRow(index, ...versionInfoFragments));
+  StopVersionPage.draftVersions().within(() =>
+    checkRow(index, ...versionInfoFragments),
+  );
 }
 
 function getTdsByTableColumn(
@@ -304,22 +299,22 @@ function getTdsByTableColumn(
 ): Chainable<JQuery> {
   switch (column) {
     case 'STATUS':
-      return row.status();
+      return StopVersionRow.status();
 
     case 'VALIDITY_START':
-      return row.validityStart();
+      return StopVersionRow.validityStart();
 
     case 'VALIDITY_END':
-      return row.validityEnd();
+      return StopVersionRow.validityEnd();
 
     case 'VERSION_COMMENT':
-      return row.versionComment();
+      return StopVersionRow.versionComment();
 
     case 'CHANGED':
-      return row.changed();
+      return StopVersionRow.changed();
 
     case 'CHANGED_BY':
-      return row.changedBy();
+      return StopVersionRow.changedBy();
 
     default:
       throw new Error(`Unknown Table column: ${column}`);
@@ -331,14 +326,13 @@ function checkSortedOnColumn(
   column: StopVersionTableColumn,
   expectedValues: ReadonlyArray<string | DateTime | null>,
 ) {
-  const rows = row.rows();
+  const rows = StopVersionRow.rows();
 
   rows.should('have.length', expectedValues.length);
 
   for (let i = 0; i < expectedValues.length; i += 1) {
     const expectedValue = expectedValues[i];
-    row
-      .rows()
+    StopVersionRow.rows()
       .eq(i)
       .within(() => checkColumn(getTdsByTableColumn(column), expectedValue));
   }
@@ -350,13 +344,13 @@ function checkSortingWorksOnColumnInBothDirections(
   expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
 ) {
   (table === 'scheduled'
-    ? page.scheduledVersions()
-    : page.draftVersions()
+    ? StopVersionPage.scheduledVersions()
+    : StopVersionPage.draftVersions()
   ).within(() => {
-    header.setSorting(column, 'ascending');
+    StopVersionsTableHeader.setSorting(column, 'ascending');
     checkSortedOnColumn(column, expectedAscendingOrder);
 
-    header.setSorting(column, 'descending');
+    StopVersionsTableHeader.setSorting(column, 'descending');
     checkSortedOnColumn(column, [...expectedAscendingOrder].reverse());
   });
 }
@@ -410,8 +404,8 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      page.visit(stopArea.stopArea.publicCode);
-      page.pageLoader().should('not.exist');
+      StopVersionPage.visit(stopArea.stopArea.publicCode);
+      StopVersionPage.pageLoader().should('not.exist');
     });
 
     function validateDraftVersions() {
@@ -424,21 +418,21 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       const { index, publicCode } = stopArea.stopArea;
       const titleBase = `Versiot | Pysäkki ${publicCode}`;
 
-      page.title().shouldHaveText(titleBase);
+      StopVersionPage.title().shouldHaveText(titleBase);
       cy.title().should(
         'eq',
         `${titleBase} Versiokatu ${index} - Jore4 Testiversio`,
       );
 
-      page
-        .names()
-        .shouldHaveText(`Versiokatu ${index} - Versiongatan ${index}`);
+      StopVersionPage.names().shouldHaveText(
+        `Versiokatu ${index} - Versiongatan ${index}`,
+      );
     });
 
     it('should filter and list versions', () => {
       // Limit to today
-      page.startDate().inputDateValue(today);
-      page.endDate().inputDateValue(today);
+      StopVersionPage.startDate().inputDateValue(today);
+      StopVersionPage.endDate().inputDateValue(today);
 
       checkScheduledRow(0, standard, currentStandardVersion.info);
       checkScheduledRow(1, active, todayTempVersion.info);
@@ -446,8 +440,8 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       validateDraftVersions();
 
       // Show all
-      page.startDate().inputDateValue(areaValidityStart);
-      page.endDate().inputDateValue(areaValidityEnd);
+      StopVersionPage.startDate().inputDateValue(areaValidityStart);
+      StopVersionPage.endDate().inputDateValue(areaValidityEnd);
 
       checkScheduledRow(0, standard, pastStandardVersion.info);
       checkScheduledRow(1, standard, currentStandardVersion.info);
@@ -461,8 +455,8 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
 
     it('should sort versions', () => {
       // Show all
-      page.startDate().inputDateValue(areaValidityStart);
-      page.endDate().inputDateValue(areaValidityEnd);
+      StopVersionPage.startDate().inputDateValue(areaValidityStart);
+      StopVersionPage.endDate().inputDateValue(areaValidityEnd);
 
       // By default, should be sorted on validity Start
       testScheduledVersionsSorting('VALIDITY_START', [
@@ -543,16 +537,15 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      page.visit('E2E001');
-      page.pageLoader().should('not.exist');
+      StopVersionPage.visit('E2E001');
+      StopVersionPage.pageLoader().should('not.exist');
     });
 
     it('should have working locator button on row', () => {
-      page.scheduledVersions().within(() => {
-        row
-          .rows()
+      StopVersionPage.scheduledVersions().within(() => {
+        StopVersionRow.rows()
           .eq(0)
-          .within(() => row.locatorButton().click());
+          .within(() => StopVersionRow.locatorButton().click());
       });
 
       Map.waitForLoadToComplete();
@@ -565,13 +558,12 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
     });
 
     it('should have working map link in action menu', () => {
-      page.scheduledVersions().within(() => {
-        row
-          .rows()
+      StopVersionPage.scheduledVersions().within(() => {
+        StopVersionRow.rows()
           .eq(0)
-          .within(() => row.actionMenu().click());
+          .within(() => StopVersionRow.actionMenu().click());
       });
-      row.actionMenuShowOnMap().click();
+      StopVersionRow.actionMenuShowOnMap().click();
 
       Map.waitForLoadToComplete();
 
@@ -583,13 +575,12 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
     });
 
     it('should have working show details action menu', () => {
-      page.scheduledVersions().within(() => {
-        row
-          .rows()
+      StopVersionPage.scheduledVersions().within(() => {
+        StopVersionRow.rows()
           .eq(0)
-          .within(() => row.actionMenu().click());
+          .within(() => StopVersionRow.actionMenu().click());
       });
-      row.actionMenuShowStopDetails().click();
+      StopVersionRow.actionMenuShowStopDetails().click();
 
       StopDetailsPage.loadingStopDetails().should('not.exist');
 

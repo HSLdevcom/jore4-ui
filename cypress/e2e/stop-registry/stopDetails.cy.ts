@@ -790,10 +790,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         .should('not.exist');
     });
 
-    it.only('shoud display reason for change in versions', () => {
-      const stopVersionPage = new StopVersionPage();
-      const stopVersionRow = new StopVersionRow();
-
+    it('should display reason for change in versions', () => {
       StopDetailsPage.visit('H2003');
       StopDetailsPage.page().shouldBeVisible();
 
@@ -806,12 +803,11 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       Toast.expectSuccessToast('Pysäkki muokattu');
       cy.get('[data-testid="StopDetailsPage::goToVersions"]').click();
 
-      stopVersionPage.scheduledVersions().within(() => {
-        stopVersionRow
-          .rows()
+      StopVersionPage.scheduledVersions().within(() => {
+        StopVersionRow.rows()
           .eq(0)
           .within(() => {
-            stopVersionRow.versionComment().shouldHaveText('Initial reason');
+            StopVersionRow.versionComment().shouldHaveText('Initial reason');
           });
       });
       cy.get('[data-testid="StopVersionsPage::returnButton"]').click();
@@ -825,12 +821,11 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       Toast.expectSuccessToast('Pysäkki muokattu');
 
       cy.get('[data-testid="StopDetailsPage::goToVersions"]').click();
-      stopVersionPage.scheduledVersions().within(() => {
-        stopVersionRow
-          .rows()
+      StopVersionPage.scheduledVersions().within(() => {
+        StopVersionRow.rows()
           .eq(0)
           .within(() => {
-            stopVersionRow.versionComment().should('be.empty');
+            StopVersionRow.versionComment().should('be.empty');
           });
       });
     });
