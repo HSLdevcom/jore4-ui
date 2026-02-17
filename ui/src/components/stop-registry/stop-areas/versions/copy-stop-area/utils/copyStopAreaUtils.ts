@@ -111,6 +111,7 @@ export function mapToStopAreaCopyInput(
   state: StopAreaVersionFormState,
 ): StopRegistryStopAreaCopyInput {
   const input = mapStopPlaceToInput(stopArea);
+  const transportMode = stopArea.transportMode ?? input.transportMode;
 
   // Set new validity dates to the keyvalues
   const keyValues = patchKeyValues(
@@ -142,6 +143,7 @@ export function mapToStopAreaCopyInput(
 
   return {
     ...omit(input, 'id'),
+    transportMode,
     keyValues,
     versionComment: state.reasonForChange,
     quays: filteredQuays.length > 0 ? filteredQuays : undefined,

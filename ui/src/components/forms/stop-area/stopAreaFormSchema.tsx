@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { StopRegistryTransportModeType } from '../../../generated/graphql';
 import {
   ValidityPeriodFormState,
   refineValidityPeriodSchema,
@@ -9,6 +10,7 @@ import {
 
 export const stopAreaFormSchema = z
   .object({
+    id: z.string().optional(), // Used internally to determine if editing
     nameLongFin: z.string().optional(),
     nameLongSwe: z.string().optional(),
     abbreviationFin: z.string().optional(),
@@ -21,6 +23,7 @@ export const stopAreaFormSchema = z
     name: requiredString.max(21, 'nameValueTooLong'),
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
+    transportMode: z.nativeEnum(StopRegistryTransportModeType).optional(),
   })
   .merge(validityPeriodFormSchema)
   .superRefine(refineValidityPeriodSchema);
