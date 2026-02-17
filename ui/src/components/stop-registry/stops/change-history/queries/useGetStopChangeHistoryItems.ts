@@ -14,6 +14,13 @@ import {
 } from '../../../../common/ChangeHistory';
 import { StopChangeHistoryFilters } from '../types';
 
+// Normally paging should be done on the DB side.
+// But we would need a second native query for that,
+// or a proper view. The amount of data fetched by this query,
+// should be relatively minimal, and thus paging can be done
+// safely on the client side. At least for the time being.
+// This might change, in 10 years if we ger a million changed
+// done to a single stop.
 const GQL_GET_STOP_CHANGE_HISTORY = gql`
   query GetStopChangeHistory(
     $publicCode: String!
