@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
 import { EnrichedStopPlace } from '../../../types';
 import { getGeometryPoint } from '../../../utils';
+import { mapTransportModeToColor } from '../../../utils/colors';
 import { StopAreaMarker } from '../markers';
 
 const testIds = {
@@ -21,6 +22,8 @@ export const NewStopAreaMarker: FC<NewStopAreaMarker> = ({ editedArea }) => {
     return null;
   }
 
+  const color = mapTransportModeToColor(editedArea.transportMode);
+
   return (
     <Marker
       className="z-1"
@@ -31,6 +34,7 @@ export const NewStopAreaMarker: FC<NewStopAreaMarker> = ({ editedArea }) => {
         isPlaceholder
         testId={testIds.placeholder}
         title={t('stopArea.newStopArea')}
+        color={color}
       />
     </Marker>
   );
