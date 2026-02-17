@@ -236,7 +236,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
        * Easier solution would have been to use max-width but that would be
        * dependent on the locale (actual texts).
        */}
-      <DialogPanel className="basis-[100px] rounded-md bg-white p-5 shadow-md">
+      <DialogPanel className="basis-25 rounded-md bg-white p-5 shadow-md">
         <DialogTitle
           as="h3"
           className="flex flex-nowrap justify-between gap-5 text-nowrap"
