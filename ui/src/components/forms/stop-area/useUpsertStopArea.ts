@@ -104,6 +104,7 @@ const mapFormStateToInput = ({
       lang: 'fin',
     },
     geometry: mapPointToStopRegistryGeoJSON(state),
+    transportMode: state.transportMode,
     validBetween: null,
     keyValues: patchKeyValues(
       stop,
