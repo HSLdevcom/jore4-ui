@@ -2200,7 +2200,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
-      StopSearchResultsPage.getResultCount().shouldHaveText('13 hakutulosta');
+      StopSearchResultsPage.getResultCount().shouldHaveText('14 hakutulosta');
       StopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
       StopSearchResultsPage.getDownloadInfoSpotDetailsReportButton()
         .shouldBeVisible()
