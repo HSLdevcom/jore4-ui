@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { OrderBy } from '../../../../generated/graphql';
 import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
 import { Container, Row } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
@@ -27,7 +26,8 @@ const testIds = {
 export const StopChangeHistoryPage: FC = () => {
   const { t } = useTranslation();
 
-  const { filters, setFilters } = useStopChangeHistoryPageRouterState();
+  const { filters, setFilters, sortingInfo, setSortingInfo } =
+    useStopChangeHistoryPageRouterState();
 
   const goBack = useNavigateBackSafely();
 
@@ -38,9 +38,9 @@ export const StopChangeHistoryPage: FC = () => {
   );
   const { historyItems, loading, error, refetch } =
     useGetStopChangeHistoryItems({
-      ...filters,
+      filters,
       publicCode,
-      orderBy: [{ changed: OrderBy.Desc }, { version: OrderBy.Desc }],
+      sortingInfo,
     });
 
   const titleText = todaysNameForQuay.name
@@ -110,6 +110,8 @@ export const StopChangeHistoryPage: FC = () => {
               className="mt-5 w-full"
               filters={filters}
               historyItems={historyItems}
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
             />
           )}
         </LoadingWrapper>
