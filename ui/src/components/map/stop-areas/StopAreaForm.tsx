@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { mapToISODate } from '../../../time';
 import { EnrichedStopPlace } from '../../../types';
+import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
 import { mapLngLatToPoint } from '../../../utils';
 import {
   FormActionButtons,
@@ -18,6 +19,7 @@ import {
   stopAreaFormSchema,
 } from '../../forms/stop-area/stopAreaFormSchema';
 import { StopAreaNames } from './StopAreaNames';
+import { TransportationModeField } from './TransportationModeFormField';
 
 const testIds = {
   form: 'StopAreaFormComponent::form',
@@ -35,6 +37,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
   );
 
   const formState: StopAreaFormState = {
+    id: stopArea.id ?? undefined,
     privateCode: stopArea.privateCode?.value ?? '',
     name: stopArea.name ?? '',
     nameSwe: stopArea.nameSwe ?? stopArea.name ?? '',
@@ -47,6 +50,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     abbreviationEng: stopArea.abbreviationEng,
     latitude,
     longitude,
+    transportMode: stopArea.transportMode ?? undefined,
     validityStart: mapToISODate(stopArea.validityStart) ?? '',
     validityEnd: mapToISODate(stopArea.validityEnd),
     indefinite: !stopArea.validityEnd,
@@ -63,12 +67,24 @@ type StopAreaFormProps = {
   readonly onCancel: () => void;
   readonly onSubmit: (changes: StopAreaFormState) => void;
   readonly testIdPrefix: string;
+  readonly availableTransportModes?: ReadonlyArray<JoreStopRegistryTransportModeType>;
+  readonly loadingTransportModes?: boolean;
+  readonly enableTransportModeAutoSelect?: boolean;
 };
 
 const StopAreaFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaFormProps
-> = ({ className, defaultValues, onCancel, onSubmit, testIdPrefix }, ref) => {
+> = ({
+  className,
+  defaultValues,
+  onCancel,
+  onSubmit,
+  testIdPrefix,
+  availableTransportModes,
+  loadingTransportModes,
+  enableTransportModeAutoSelect,
+}, ref) => {
   const methods = useForm<StopAreaFormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
@@ -114,6 +130,13 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
             </FormRow>
           </FormColumn>
           <FormColumn>
+            <FormRow className="border-t border-light-grey px-4 py-4">
+              <TransportationModeField 
+                availableTransportModes={availableTransportModes}
+                loadingTransportModes={loadingTransportModes}
+                enableAutoSelect={enableTransportModeAutoSelect}
+              />
+            </FormRow>
             <FormRow
               mdColumns={2}
               className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"

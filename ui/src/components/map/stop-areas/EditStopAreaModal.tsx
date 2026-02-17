@@ -1,6 +1,7 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedStopPlace } from '../../../types';
+import { getGeometryPoint, mapPointToGeoJSON } from '../../../utils';
 import {
   StopAreaFormState,
   useGetNextPrivateCode,
@@ -8,6 +9,7 @@ import {
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal/Modal';
 import { StopAreaForm, mapStopAreaDataToFormState } from './StopAreaForm';
+import { useNearbyTransportModes } from './useNearbyTransportModes';
 
 const testIds = {
   modal: 'EditStopAreaModal',
@@ -22,18 +24,13 @@ function useGetDefaultValues(
     const baseDefaultValues = mapStopAreaDataToFormState(editedArea);
 
     if (editedArea.id) {
-      const promisedData = Promise.resolve(baseDefaultValues);
-      return () => promisedData;
+      return () => Promise.resolve(baseDefaultValues);
     }
 
-    const promisedData: Promise<StopAreaFormState> = getNextPrivateCode().then(
-      (privateCode) => ({
-        ...baseDefaultValues,
-        privateCode,
-      }),
-    );
-
-    return () => promisedData;
+    return async () => ({
+      ...baseDefaultValues,
+      privateCode: await getNextPrivateCode(),
+    });
   }, [editedArea, getNextPrivateCode]);
 }
 
@@ -50,11 +47,22 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+
   const { t } = useTranslation();
 
   const formRef = useRef<ExplicitAny>(null);
+  const point = useMemo(() => {
+    const geometryPoint = getGeometryPoint(editedArea.geometry);
+    return geometryPoint ? mapPointToGeoJSON(geometryPoint) : null;
+  }, [editedArea.geometry]);
 
-  const getDefaultValues = useGetDefaultValues(editedArea);
+  const { availableTransportModes, loading } = useNearbyTransportModes(
+    point,
+    !editedArea.id, // Only query for new stop areas
+  );
+
+  const enableTransportModeAutoSelect =
+    !editedArea.id && !editedArea.privateCode?.value && !editedArea.name;
 
   const heading = editedArea?.privateCode?.value
     ? t('map.editStopArea', { stopArea: editedArea.privateCode.value })
@@ -75,12 +83,15 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
         navigationContext="StopAreaForm"
       >
         <StopAreaForm
-          defaultValues={getDefaultValues}
+          defaultValues={useGetDefaultValues(editedArea)}
           onSubmit={onSubmit}
           onCancel={onCancel}
           testIdPrefix={testIds.modal}
           ref={formRef}
           className="min-h-0"
+          availableTransportModes={availableTransportModes}
+          loadingTransportModes={loading}
+          enableTransportModeAutoSelect={enableTransportModeAutoSelect}
         />
       </Modal>
     </CustomOverlay>
