@@ -7,6 +7,7 @@ type StopAreaMarkerProps = {
   readonly size?: number;
   readonly testId?: string;
   readonly title?: string;
+  readonly color?: string;
 };
 
 export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
@@ -16,6 +17,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
   size = 28,
   testId,
   title,
+  color = '#0074BF',
 }) => {
   const strokeClassName =
     selected && !isPlaceholder
@@ -54,7 +56,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
         cx="13.75"
         cy="13.75"
         r="12.75"
-        stroke="#0074BF"
+        stroke={color}
         strokeWidth="2"
       />
       {selected || isMouseHovering ? (
