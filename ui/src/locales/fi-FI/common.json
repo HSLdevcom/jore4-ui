@@ -143,6 +143,8 @@
     "nameSwe": "Nimi (ruotsi)",
     "privateCode": "Pysäkkialueen tunnus",
     "quays": "Jäsenpysäkit",
+    "transportMode": "Joukkoliikennemuoto",
+    "noNearbyNetworks": "Ei infraverkostoja lähistöllä",
     "editSuccess": "Pysäkkialue muokattu",
     "saveSuccess": "Pysäkkialue luotu",
     "errors": {
@@ -740,7 +742,6 @@
     "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
     "gotoTerminalDetails": "Siirry terminaalin tietoihin.",
     "showOnMap": "Näytä kartalla",
-
     "csv": {
       "downloadEquipmentReport": "Lataa Varustelutietoraportti",
       "downloadInfoSpotReport": "Lataa Infopaikkaraportti",
@@ -753,34 +754,28 @@
       "generationCanceled": "CSV raportin tuottaminen peruutettiin.",
       "generationError": "CSV raportin tuottaminen epäonnistui",
       "downloaded": "CSV raportti ladattu nimellä: <Filename />",
-
       "metaHeaders": {
         "validity": "Voimassaolo",
         "shelter": "Katos"
       }
     },
-
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
       "showOnMap": "Näytä pysäkki kartalla"
     },
-
     "stopAreaRowActions": {
       "openDetails": "Näytä pysäkkialueen tiedot",
       "showOnMap": "Näytä pysäkkialue kartalla"
     },
-
     "terminalRowActions": {
       "openDetails": "Näytä terminaalin tiedot",
       "showOnMap": "Näytä terminaali kartalla"
     },
-
     "searchFor": {
       "stops": "Pysäkit",
       "stopAreas": "Pysäkkialueet",
       "terminals": "Terminaalit"
     },
-
     "fieldLabels": {
       "query": "Haku",
       "searchFor": "Hakukohde",
@@ -794,13 +789,11 @@
       "infoSpots": "Infopaikat",
       "stopOwner": "Pysäkin omistaja"
     },
-
     "noOptions": {
       "shelter": "Ei katosta",
       "electricity": "Ei tiedossa",
       "infoSpot": "Ei infopaikkaa"
     },
-
     "sortBy": {
       "label": "Tunnus",
       "name": "Nimi",
