@@ -1,6 +1,8 @@
-import { FC, ReactNode } from 'react';
+import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
+import { SortByButton } from './SortByButton';
+import { ChangeHistorySortingInfo, SortChangeHistoryBy } from './types';
 
 const testIds = {
   table: 'ChangeHistory::Table',
@@ -23,11 +25,15 @@ const dataColWidth = 'w-[calc((max(96rem,100vw)-(10*var(--spacing)))/5)]';
 type ChangeHistoryTableProps = {
   readonly children: ReactNode;
   readonly className?: string;
+  readonly setSortingInfo: Dispatch<SetStateAction<ChangeHistorySortingInfo>>;
+  readonly sortingInfo: ChangeHistorySortingInfo;
 };
 
 export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
   children,
   className,
+  setSortingInfo,
+  sortingInfo,
 }) => {
   const { t } = useTranslation();
 
@@ -65,40 +71,88 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
             className="hidden w-0 px-2 pb-5 text-right lg:table-cell xl:px-5"
             data-testid={testIds.validityStart}
           >
-            {t('changeHistory.tableHeaders.validityStart')}
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.ValidityStart}
+            >
+              {t('changeHistory.tableHeaders.validityStart')}
+            </SortByButton>
           </th>
           <th
             className="hidden w-0 px-2 pb-5 text-right lg:table-cell xl:px-5"
             data-testid={testIds.validityEnd}
           >
-            {t('changeHistory.tableHeaders.validityEnd')}
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.ValidityEnd}
+            >
+              {t('changeHistory.tableHeaders.validityEnd')}
+            </SortByButton>
           </th>
           <th
             className="w-0 px-2 pb-5 text-right lg:hidden xl:px-5"
             data-testid={testIds.validityCombined}
           >
-            <div>{t('changeHistory.tableHeaders.validityStart')}</div>
-            <div>{t('changeHistory.tableHeaders.validityEnd')}</div>
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.ValidityStart}
+            >
+              {t('changeHistory.tableHeaders.validityStart')}
+            </SortByButton>
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.ValidityEnd}
+            >
+              {t('changeHistory.tableHeaders.validityEnd')}
+            </SortByButton>
           </th>
           {/* Just like the validity columns. */}
           <th
             className="hidden w-0 px-2 pb-5 text-right lg:table-cell xl:px-5"
             data-testid={testIds.changedBy}
           >
-            {t('changeHistory.tableHeaders.changedBy')}
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.ChangedBy}
+            >
+              {t('changeHistory.tableHeaders.changedBy')}
+            </SortByButton>
           </th>
           <th
             className="hidden w-0 px-2 pr-2 pb-5 text-right lg:table-cell xl:pl-5"
             data-testid={testIds.changed}
           >
-            {t('changeHistory.tableHeaders.changed')}
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.Changed}
+            >
+              {t('changeHistory.tableHeaders.changed')}
+            </SortByButton>
           </th>
           <th
             className="w-0 px-2 pb-5 text-right lg:hidden xl:px-5"
             data-testid={testIds.changedCombined}
           >
-            <div>{t('changeHistory.tableHeaders.changedBy')}</div>
-            <div>{t('changeHistory.tableHeaders.changed')}</div>
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.ChangedBy}
+            >
+              {t('changeHistory.tableHeaders.changedBy')}
+            </SortByButton>
+            <SortByButton
+              setSortingInfo={setSortingInfo}
+              sortingInfo={sortingInfo}
+              sortBy={SortChangeHistoryBy.Changed}
+            >
+              {t('changeHistory.tableHeaders.changed')}
+            </SortByButton>
           </th>
         </tr>
       </thead>

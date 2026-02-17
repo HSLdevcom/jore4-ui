@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { Priority } from '../../../../../types/enums';
+import { ChangeHistorySortingInfo } from '../../../../common/ChangeHistory';
 
 export type StopChangeHistoryFilters = {
   readonly from: DateTime;
@@ -9,4 +10,5 @@ export type StopChangeHistoryFilters = {
 
 export type StopChangeHistoryRouterState = {
   readonly filters: StopChangeHistoryFilters;
+  readonly sortingInfo: ChangeHistorySortingInfo;
 };

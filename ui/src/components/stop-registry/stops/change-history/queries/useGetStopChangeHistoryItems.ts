@@ -1,13 +1,18 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
+  OrderBy,
   QuayChangeHistoryItem,
   StopsDatabaseQuayChangeHistoryItemOrderBy,
   useGetStopChangeHistoryQuery,
 } from '../../../../../generated/graphql';
-import { Priority } from '../../../../../types/enums';
+import { SortOrder } from '../../../../../types';
+import {
+  ChangeHistorySortingInfo,
+  SortChangeHistoryBy,
+} from '../../../../common/ChangeHistory';
+import { StopChangeHistoryFilters } from '../types';
 
 const GQL_GET_STOP_CHANGE_HISTORY = gql`
   query GetStopChangeHistory(
@@ -69,20 +74,42 @@ const GQL_GET_STOP_CHANGE_HISTORY = gql`
   }
 `;
 
+function sortingInfoToOrderBy({
+  sortBy,
+  sortOrder,
+}: ChangeHistorySortingInfo): Array<StopsDatabaseQuayChangeHistoryItemOrderBy> {
+  const orderBy =
+    sortOrder === SortOrder.ASCENDING ? OrderBy.Asc : OrderBy.Desc;
+  const byVersion: StopsDatabaseQuayChangeHistoryItemOrderBy = {
+    changed: orderBy,
+  };
+
+  switch (sortBy) {
+    case SortChangeHistoryBy.ValidityStart:
+      return [{ validityStart: orderBy }, byVersion];
+
+    case SortChangeHistoryBy.ValidityEnd:
+      return [{ validityEnd: orderBy }, byVersion];
+
+    case SortChangeHistoryBy.ChangedBy:
+      return [{ changedBy: orderBy }, byVersion];
+
+    case SortChangeHistoryBy.Changed:
+    default:
+      return [{ changed: orderBy }, byVersion];
+  }
+}
+
 type GetStopChangeHistoryOptions = {
-  readonly from: DateTime;
-  readonly to: DateTime;
+  readonly filters: StopChangeHistoryFilters;
+  readonly sortingInfo: ChangeHistorySortingInfo;
   readonly publicCode: string;
-  readonly priority: Priority;
-  readonly orderBy: ReadonlyArray<StopsDatabaseQuayChangeHistoryItemOrderBy>;
 };
 
 export function useGetStopChangeHistoryItems({
-  from,
-  to,
+  filters: { from, to, priority },
   publicCode,
-  priority,
-  orderBy,
+  sortingInfo,
 }: GetStopChangeHistoryOptions) {
   const { data, ...rest } = useGetStopChangeHistoryQuery({
     variables: {
@@ -90,7 +117,7 @@ export function useGetStopChangeHistoryItems({
       priority,
       from: from.startOf('day').toISO(),
       to: to.endOf('day').toISO(),
-      orderBy,
+      orderBy: sortingInfoToOrderBy(sortingInfo),
     },
   });
 

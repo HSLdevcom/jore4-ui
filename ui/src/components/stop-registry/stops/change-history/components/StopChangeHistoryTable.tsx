@@ -1,7 +1,10 @@
-import { FC, useMemo } from 'react';
+import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { useGetUserNames } from '../../../../../hooks';
-import { ChangeHistoryTable } from '../../../../common/ChangeHistory';
+import {
+  ChangeHistorySortingInfo,
+  ChangeHistoryTable,
+} from '../../../../common/ChangeHistory';
 import { StopChangeHistoryFilters } from '../types';
 import { StopChangeHistoryItem } from './StopChangeHistoryItem';
 
@@ -32,12 +35,16 @@ type StopChangeHistoryTableProps = {
   readonly className?: string;
   readonly filters: StopChangeHistoryFilters;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
+  readonly setSortingInfo: Dispatch<SetStateAction<ChangeHistorySortingInfo>>;
+  readonly sortingInfo: ChangeHistorySortingInfo;
 };
 
 export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   className,
   filters: { from, to },
   historyItems,
+  setSortingInfo,
+  sortingInfo,
 }) => {
   const { getUserNameById } = useGetUserNames();
 
@@ -68,7 +75,11 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   }, [historyItems, from, to]);
 
   return (
-    <ChangeHistoryTable className={className}>
+    <ChangeHistoryTable
+      className={className}
+      setSortingInfo={setSortingInfo}
+      sortingInfo={sortingInfo}
+    >
       {itemsToShow.map((historyItem) => (
         <StopChangeHistoryItem
           key={`${historyItem.netexId}-${historyItem.version}`}
