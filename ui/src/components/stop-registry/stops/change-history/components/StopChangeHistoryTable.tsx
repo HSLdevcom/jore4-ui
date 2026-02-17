@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { useGetUserNames } from '../../../../../hooks';
+import { PagingInfo } from '../../../../../types';
 import {
   ChangeHistorySortingInfo,
   ChangeHistoryTable,
@@ -35,6 +36,7 @@ type StopChangeHistoryTableProps = {
   readonly className?: string;
   readonly filters: StopChangeHistoryFilters;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
+  readonly pagingInfo: PagingInfo;
   readonly setSortingInfo: Dispatch<SetStateAction<ChangeHistorySortingInfo>>;
   readonly sortingInfo: ChangeHistorySortingInfo;
 };
@@ -43,6 +45,7 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   className,
   filters: { from, to },
   historyItems,
+  pagingInfo: { page, pageSize },
   setSortingInfo,
   sortingInfo,
 }) => {
@@ -69,10 +72,10 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
     const fromStr = from.toISO();
     const toStr = to.toISO();
 
-    return historyItems.filter(({ changed }) => {
-      return fromStr <= changed && changed <= toStr;
-    });
-  }, [historyItems, from, to]);
+    return historyItems
+      .filter(({ changed }) => fromStr <= changed && changed <= toStr)
+      .slice((page - 1) * pageSize, page * pageSize);
+  }, [historyItems, from, to, page, pageSize]);
 
   return (
     <ChangeHistoryTable

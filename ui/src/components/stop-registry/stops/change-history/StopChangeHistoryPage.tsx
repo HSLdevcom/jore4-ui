@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
 import { Container, Row } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { CloseIconButton, SimpleButton } from '../../../../uiComponents';
+import {
+  CloseIconButton,
+  Pagination,
+  SimpleButton,
+} from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../../common';
 import { DateRangeFilter } from './components/DateRangeFilter';
@@ -26,8 +30,14 @@ const testIds = {
 export const StopChangeHistoryPage: FC = () => {
   const { t } = useTranslation();
 
-  const { filters, setFilters, sortingInfo, setSortingInfo } =
-    useStopChangeHistoryPageRouterState();
+  const {
+    filters,
+    setFilters,
+    pagingInfo,
+    setPagingInfo,
+    sortingInfo,
+    setSortingInfo,
+  } = useStopChangeHistoryPageRouterState();
 
   const goBack = useNavigateBackSafely();
 
@@ -51,7 +61,11 @@ export const StopChangeHistoryPage: FC = () => {
     : t(t('stopChangeHistory.title', { publicCode }));
 
   return (
-    <Container testId={testIds.container} type="fluid">
+    <Container
+      className="flex flex-col items-stretch"
+      testId={testIds.container}
+      type="fluid"
+    >
       <Row className="items-end justify-between">
         <PageTitle.H1 titleText={titleText} testId={testIds.title}>
           {t('stopChangeHistory.title', { publicCode })}
@@ -106,13 +120,23 @@ export const StopChangeHistoryPage: FC = () => {
               </SimpleButton>
             </div>
           ) : (
-            <StopChangeHistoryTable
-              className="mt-5 w-full"
-              filters={filters}
-              historyItems={historyItems}
-              setSortingInfo={setSortingInfo}
-              sortingInfo={sortingInfo}
-            />
+            <>
+              <StopChangeHistoryTable
+                className="mt-5"
+                filters={filters}
+                historyItems={historyItems}
+                pagingInfo={pagingInfo}
+                setSortingInfo={setSortingInfo}
+                sortingInfo={sortingInfo}
+              />
+
+              <Pagination
+                className="mt-5 self-center"
+                pagingInfo={pagingInfo}
+                setPagingInfo={setPagingInfo}
+                totalItemsCount={historyItems.length}
+              />
+            </>
           )}
         </LoadingWrapper>
       </HistoricalStopDataProvider>

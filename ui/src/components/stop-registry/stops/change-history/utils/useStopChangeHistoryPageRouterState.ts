@@ -2,7 +2,7 @@ import noop from 'lodash/noop';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { parseDate } from '../../../../../time';
-import { SortOrder } from '../../../../../types';
+import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { memoizeStatePicker } from '../../../../../utils';
 import {
@@ -22,7 +22,8 @@ type HistoryState = Readonly<Record<string, never>>;
 const defaultHistoryState: HistoryState = {};
 
 type FlatStopChangeHistoryState = StopChangeHistoryFilters &
-  ChangeHistorySortingInfo;
+  ChangeHistorySortingInfo &
+  PagingInfo;
 
 export const defaultValues: FlatStopChangeHistoryState = {
   // Filters
@@ -32,6 +33,9 @@ export const defaultValues: FlatStopChangeHistoryState = {
 
   // Sorting
   ...defaultChangeHistorySortingInfo,
+
+  // Paging
+  ...defaultPagingInfo,
 };
 
 const serializers: UrlStateSerializers<FlatStopChangeHistoryState> = {
@@ -43,6 +47,10 @@ const serializers: UrlStateSerializers<FlatStopChangeHistoryState> = {
   // Sorting
   sortBy: String,
   sortOrder: String,
+
+  // Paging
+  page: String,
+  pageSize: String,
 };
 
 const deserializers: UrlStateDeserializers<FlatStopChangeHistoryState> = {
@@ -54,6 +62,10 @@ const deserializers: UrlStateDeserializers<FlatStopChangeHistoryState> = {
   // Sorting
   sortBy: toEnum(Object.values(SortChangeHistoryBy)),
   sortOrder: toEnum(Object.values(SortOrder)),
+
+  // Paging
+  page: Number,
+  pageSize: Number,
 };
 
 export function useStopChangeHistoryPageRouterState() {
@@ -75,6 +87,7 @@ export function useStopChangeHistoryPageRouterState() {
   const pickers = useMemo(
     () => ({
       filters: memoizeStatePicker(['from', 'to', 'priority'], setSearchState),
+      pagingInfo: memoizeStatePicker(['page', 'pageSize'], setSearchState),
       sortingInfo: memoizeStatePicker(['sortBy', 'sortOrder'], setSearchState),
     }),
     [setSearchState],
@@ -83,6 +96,9 @@ export function useStopChangeHistoryPageRouterState() {
   return {
     filters: pickers.filters.getPickedState(state.search),
     setFilters: pickers.filters.setPickedState,
+
+    pagingInfo: pickers.pagingInfo.getPickedState(state.search),
+    setPagingInfo: pickers.pagingInfo.setPickedState,
 
     sortingInfo: pickers.sortingInfo.getPickedState(state.search),
     setSortingInfo: pickers.sortingInfo.setPickedState,
