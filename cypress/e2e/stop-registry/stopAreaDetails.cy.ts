@@ -929,12 +929,11 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
       StopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
 
-      StopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
-        cy.get('[title="Voimassaolo"]').should(
-          'have.text',
-          '20.3.2020-1.1.2052',
-        );
+      StopAreaDetailsPage.memberStops.getStopRow('E2E011').as('stopRow');
+      cy.get('@stopRow').within(() => {
+        cy.get('[title="Voimassaolo"]').as('validityText');
       });
+      cy.get('@validityText').should('have.text', '20.3.2020-1.1.2052');
     });
 
     it('should be able to copy stop area without stops', () => {
