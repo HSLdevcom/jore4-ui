@@ -241,6 +241,10 @@ export const getQuayDetailsForEnrichment = <
     | AccessibilityAssessmentDetailsFragment
     | null
     | undefined,
+  timingPlaceData?: {
+    timingPlaceId: string | null;
+    timingPlaceLabel: string | null;
+  },
 ): QuayEnrichmentProperties => {
   const rawPriorityNumber = Number(findKeyValue(quay, KnownValueKey.Priority));
 
@@ -277,6 +281,8 @@ export const getQuayDetailsForEnrichment = <
       ? (rawPriorityNumber as Priority)
       : null,
     stopOwner: findKeyValue(quay, KnownValueKey.StopOwner) as StopOwner,
+    timingPlaceId: timingPlaceData?.timingPlaceId ?? null,
+    timingPlaceLabel: timingPlaceData?.timingPlaceLabel ?? null,
   };
 };
 

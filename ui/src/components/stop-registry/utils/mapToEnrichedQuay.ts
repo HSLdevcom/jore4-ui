@@ -31,14 +31,24 @@ export function mapToEnrichedQuay(
     | undefined,
   changed?: string | null,
   changedByUserName?: string | null,
+  timingPlaceData?: {
+    timingPlaceId: string | null;
+    timingPlaceLabel: string | null;
+  },
 ): EnrichedQuay | null {
   if (!quay) {
     return null;
   }
 
+  const enrichmentProperties = getQuayDetailsForEnrichment(
+    quay,
+    accessibilityAssessment,
+    timingPlaceData,
+  );
+
   return {
     ...quay,
-    ...getQuayDetailsForEnrichment(quay, accessibilityAssessment),
+    ...enrichmentProperties,
     changed,
     changedByUserName,
     infoSpots: sortInfoSpots(quay.infoSpots).map((infoSpot) => ({

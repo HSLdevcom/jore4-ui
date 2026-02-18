@@ -33,6 +33,7 @@ import {
 } from '../../../../utils';
 import { mapToEnrichedQuay } from '../../utils';
 import { useGetLatestQuayChange } from '../queries/useGetQuayChangeHistory';
+import { useGetQuayTimingPlace } from './useGetQuayTimingPlace';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
@@ -401,6 +402,10 @@ const getStopDetails = (
     changed: string | null;
     changedBy: string | null;
   },
+  timingPlaceData?: {
+    timingPlaceId: string | null;
+    timingPlaceLabel: string | null;
+  },
 ): StopWithDetails | null => {
   const stopPlaceResults = data?.stopsDb?.newestVersion ?? [];
 
@@ -443,6 +448,7 @@ const getStopDetails = (
       result.stopPlace?.accessibilityAssessment,
       changeData?.changed,
       changedByUserName,
+      timingPlaceData,
     ),
   };
 };
@@ -470,6 +476,8 @@ export const useGetStopDetails = () => {
   const where = getWhereCondition(label);
   const { data, ...rest } = useGetStopDetailsQuery({ variables: { where } });
 
+  const { timingPlaceData } = useGetQuayTimingPlace(label);
+
   const { latestQuayChangeData } = useGetLatestQuayChange({
     public_code: { _eq: label },
   });
@@ -484,6 +492,7 @@ export const useGetStopDetails = () => {
         label,
         getUserNameById,
         latestQuayChangeData,
+        timingPlaceData ?? undefined,
       ),
     [
       data,
@@ -492,6 +501,7 @@ export const useGetStopDetails = () => {
       label,
       getUserNameById,
       latestQuayChangeData,
+      timingPlaceData,
     ],
   );
 

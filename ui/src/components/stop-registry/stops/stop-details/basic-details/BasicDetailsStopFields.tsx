@@ -40,6 +40,9 @@ export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
     stop.stop_place?.transportMode &&
     mapStopRegistryTransportModeTypeToUiName(t, stop.stop_place.transportMode);
 
+  const timingPlaceLabel =
+    stop.quay?.timingPlaceLabel ?? stop.timing_place?.label ?? null;
+
   return (
     <>
       <DetailRow>
@@ -82,7 +85,7 @@ export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
         />
         <LabeledDetail
           title={t('stops.timingPlaceId')}
-          detail={stop.timing_place?.label}
+          detail={timingPlaceLabel}
           testId={testIds.timingPlaceId}
         />
         <div className="flex items-center gap-4">

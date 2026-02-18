@@ -40032,6 +40032,8 @@ export type StopsDatabaseQuayNewestVersion = {
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   stop_state?: Maybe<Scalars['String']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
+  timing_place?: Maybe<TimingPatternTimingPlace>;
+  timing_place_id?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   validity_end?: Maybe<Scalars['String']['output']>;
   validity_start?: Maybe<Scalars['String']['output']>;
@@ -40197,6 +40199,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   stop_place_version?: InputMaybe<BigintComparisonExp>;
   stop_state?: InputMaybe<StringComparisonExp>;
   street_address?: InputMaybe<StringComparisonExp>;
+  timing_place_id?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
   validity_end?: InputMaybe<StringComparisonExp>;
   validity_start?: InputMaybe<StringComparisonExp>;
@@ -40244,6 +40247,7 @@ export type StopsDatabaseQuayNewestVersionMaxFields = {
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   stop_state?: Maybe<Scalars['String']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
+  timing_place_id?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   validity_end?: Maybe<Scalars['String']['output']>;
   validity_start?: Maybe<Scalars['String']['output']>;
@@ -40291,6 +40295,7 @@ export type StopsDatabaseQuayNewestVersionMinFields = {
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   stop_state?: Maybe<Scalars['String']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
+  timing_place_id?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   validity_end?: Maybe<Scalars['String']['output']>;
   validity_start?: Maybe<Scalars['String']['output']>;
@@ -40346,6 +40351,7 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
   stop_place_version?: InputMaybe<OrderBy>;
   stop_state?: InputMaybe<OrderBy>;
   street_address?: InputMaybe<OrderBy>;
+  timing_place_id?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
   validity_end?: InputMaybe<OrderBy>;
   validity_start?: InputMaybe<OrderBy>;
@@ -40433,6 +40439,8 @@ export enum StopsDatabaseQuayNewestVersionSelectColumn {
   StopState = 'stop_state',
   /** column name */
   StreetAddress = 'street_address',
+  /** column name */
+  TimingPlaceId = 'timing_place_id',
   /** column name */
   ToDate = 'to_date',
   /** column name */
@@ -40536,6 +40544,7 @@ export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   stop_place_version?: InputMaybe<Scalars['bigint']['input']>;
   stop_state?: InputMaybe<Scalars['String']['input']>;
   street_address?: InputMaybe<Scalars['String']['input']>;
+  timing_place_id?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   validity_end?: InputMaybe<Scalars['String']['input']>;
   validity_start?: InputMaybe<Scalars['String']['input']>;
