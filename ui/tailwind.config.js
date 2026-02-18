@@ -84,6 +84,11 @@ module.exports = {
       },
       boxShadow: {
         't-md': '0 -4px 6px -1px #0000001a, 0 -2px 4px -2px #0000001a',
+        card: '7px 11px 5px 0px #00000040',
+      },
+      backgroundImage: {
+        'welcome-gradient':
+          'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(0,116,191,0.5) 49.04%)',
       },
     },
   },
