@@ -53,13 +53,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
     >
       {title ? <title>{title}</title> : null}
 
-      <circle
-        cx="13.75"
-        cy="13.75"
-        r="12.75"
-        stroke={color}
-        strokeWidth="2"
-      />
+      <circle cx="13.75" cy="13.75" r="12.75" stroke={color} strokeWidth="2" />
       {selected || isMouseHovering ? (
         <>
           <ellipse

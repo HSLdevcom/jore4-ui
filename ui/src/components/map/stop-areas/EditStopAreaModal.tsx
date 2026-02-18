@@ -47,7 +47,6 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-
   const { t } = useTranslation();
 
   const formRef = useRef<ExplicitAny>(null);
