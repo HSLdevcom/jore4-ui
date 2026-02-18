@@ -1,3 +1,4 @@
 export * from './HistoricalStopData';
-export * from './StopChangeHistoryRouterState';
 export * from './HistoricalStopVersionSpecifier';
+export * from './StopChangeHistoryRouterState';
+export * from './TodaysNameForQuay';

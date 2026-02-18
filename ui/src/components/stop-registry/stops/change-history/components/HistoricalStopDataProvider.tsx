@@ -24,14 +24,14 @@ import {
   none,
 } from '../../../../../utils';
 import { mapToEnrichedQuay } from '../../../utils';
-import { HistoricalStopDataCacheInconsistencyError } from '../errors/HistoricalStopDataCacheInconsistencyError';
-import { useGetHistoricalStopPlace } from '../queries/useGetHistoricalStopPlace';
+import { HistoricalStopDataCacheInconsistencyError } from '../errors';
+import { useGetHistoricalStopPlace } from '../queries';
 import {
+  HistoricalStopData,
   HistoricalStopVersionSpecifier,
   QuayVersionSpecifier,
   StopPlaceVersionSpecifier,
 } from '../types';
-import { HistoricalStopData } from '../types/HistoricalStopData';
 
 type AsyncCacheDataRequested<KeyT> = {
   readonly key: KeyT;

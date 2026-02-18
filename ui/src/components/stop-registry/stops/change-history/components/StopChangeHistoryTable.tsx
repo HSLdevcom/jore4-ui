@@ -1,81 +1,77 @@
-import { Dispatch, FC, SetStateAction, useMemo } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { useGetUserNames } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
 import {
   ChangeHistorySortingInfo,
   ChangeHistoryTable,
 } from '../../../../common/ChangeHistory';
 import { StopChangeHistoryFilters } from '../types';
-import { StopChangeHistoryItem } from './StopChangeHistoryItem';
+import { FailedToLoadStopChangeHistory } from './FailedToLoadStopChangeHistory';
+import { LoadingStopChangeHistory } from './LoadingStopChangeHistory';
+import { StopChangeHistoryDataRows } from './StopChangeHistoryDataRows';
 
 /**
- * Extract the numeric sequence number from a Netex ID.
- * @param netexId
+ * Prevent flashing of various loading states on a fast connection.
+ *
+ * Don't show the loader at all, if we already know the previous result.
+ * If we don't know the previous result, show the old results and wait for
+ * 0.15s before switching to the loader state.
+ *
+ * @param loading
+ * @param historyItems
  */
-function sequenceNumber(netexId: string): number {
-  return Number(netexId.split(':').at(2));
-}
+function usePrettyLoaderState(
+  loading: boolean,
+  historyItems: ReadonlyArray<QuayChangeHistoryItem>,
+) {
+  const [showLoader, setShowLoader] = useState(loading);
+  const [previousHistoryItems, setPreviousHistoryItems] =
+    useState(historyItems);
 
-function findPreviousVersion(
-  historyItemsSortedByVersion: ReadonlyArray<QuayChangeHistoryItem>,
-  item: QuayChangeHistoryItem,
-): QuayChangeHistoryItem | null {
-  const index = historyItemsSortedByVersion.indexOf(item);
+  useEffect(() => {
+    if (!loading || historyItems.length > 0) {
+      setPreviousHistoryItems(historyItems);
+    }
+  }, [loading, historyItems]);
 
-  // IndexOf should always find a valid index.
-  // But index of 0 is the first item, thus there is no previous version.
-  if (index <= 0) {
-    return null;
-  }
+  useEffect(() => {
+    const id = setTimeout(
+      () => setShowLoader(loading && historyItems.length === 0),
+      150, // Matches with the transition time for the sorting buttons.
+    );
+    return () => clearTimeout(id);
+  }, [loading, historyItems]);
 
-  return historyItemsSortedByVersion[index - 1];
+  return { showLoader, previousHistoryItems };
 }
 
 type StopChangeHistoryTableProps = {
   readonly className?: string;
+  readonly error: Error | null;
   readonly filters: StopChangeHistoryFilters;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
+  readonly loading: boolean;
   readonly pagingInfo: PagingInfo;
+  readonly refetch: () => void;
   readonly setSortingInfo: Dispatch<SetStateAction<ChangeHistorySortingInfo>>;
   readonly sortingInfo: ChangeHistorySortingInfo;
 };
 
 export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   className,
-  filters: { from, to },
+  filters,
+  error,
   historyItems,
-  pagingInfo: { page, pageSize },
+  loading,
+  pagingInfo,
+  refetch,
   setSortingInfo,
   sortingInfo,
 }) => {
-  const { getUserNameById } = useGetUserNames();
-
-  // Item data sorted on actual version info.
-  // Needed to determine previous version.
-  const historyItemsSortedByVersion = useMemo(
-    () =>
-      historyItems.toSorted((a, b) => {
-        if (a.netexId === b.netexId) {
-          return Number(a.version) - Number(b.version);
-        }
-
-        return sequenceNumber(a.netexId) - sequenceNumber(b.netexId);
-      }),
-    [historyItems],
+  const { showLoader, previousHistoryItems } = usePrettyLoaderState(
+    loading,
+    historyItems,
   );
-
-  // historyItems can contain extra versions needed to ćonstruct the diffs,
-  // even tough the version itself, should not be shown based on the time
-  // filters.
-  const itemsToShow = useMemo(() => {
-    const fromStr = from.toISO();
-    const toStr = to.toISO();
-
-    return historyItems
-      .filter(({ changed }) => fromStr <= changed && changed <= toStr)
-      .slice((page - 1) * pageSize, page * pageSize);
-  }, [historyItems, from, to, page, pageSize]);
 
   return (
     <ChangeHistoryTable
@@ -83,17 +79,17 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
       setSortingInfo={setSortingInfo}
       sortingInfo={sortingInfo}
     >
-      {itemsToShow.map((historyItem) => (
-        <StopChangeHistoryItem
-          key={`${historyItem.netexId}-${historyItem.version}`}
-          getUserNameById={getUserNameById}
-          historyItem={historyItem}
-          previousHistoryItem={findPreviousVersion(
-            historyItemsSortedByVersion,
-            historyItem,
-          )}
+      {error !== null && <FailedToLoadStopChangeHistory refetch={refetch} />}
+
+      {error === null && showLoader && <LoadingStopChangeHistory />}
+
+      {error === null && !showLoader && (
+        <StopChangeHistoryDataRows
+          filters={filters}
+          historyItems={loading ? previousHistoryItems : historyItems}
+          pagingInfo={pagingInfo}
         />
-      ))}
+      )}
     </ChangeHistoryTable>
   );
 };
