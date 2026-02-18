@@ -75,16 +75,19 @@ type StopAreaFormProps = {
 const StopAreaFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaFormProps
-> = ({
-  className,
-  defaultValues,
-  onCancel,
-  onSubmit,
-  testIdPrefix,
-  availableTransportModes,
-  loadingTransportModes,
-  enableTransportModeAutoSelect,
-}, ref) => {
+> = (
+  {
+    className,
+    defaultValues,
+    onCancel,
+    onSubmit,
+    testIdPrefix,
+    availableTransportModes,
+    loadingTransportModes,
+    enableTransportModeAutoSelect,
+  },
+  ref,
+) => {
   const methods = useForm<StopAreaFormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
@@ -131,7 +134,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
           </FormColumn>
           <FormColumn>
             <FormRow className="border-t border-light-grey px-4 py-4">
-              <TransportationModeField 
+              <TransportationModeField
                 availableTransportModes={availableTransportModes}
                 loadingTransportModes={loadingTransportModes}
                 enableAutoSelect={enableTransportModeAutoSelect}
