@@ -156,6 +156,14 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       .getLabel()
       .should('have.attr', 'href')
       .and('include', '/stop-registry/stop-areas/700001');
+
+    // Verify that transportation mode was auto-selected and persisted
+    MapPage.stopAreaPopup.getEditButton().click();
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    // Check that transportMode has a non-empty value (using the ListboxButton which displays the selected value)
+    cy.getByTestId('StopAreaFormComponent::transportMode::ListboxButton')
+      .invoke('text')
+      .should('not.be.empty');
   });
 
   it('Should create stop area and change observation date', () => {
@@ -202,6 +210,13 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('700001 Annankatu 2');
+
+    // Verify that transportation mode was auto-selected and persisted
+    MapPage.stopAreaPopup.getEditButton().click();
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    cy.getByTestId('StopAreaFormComponent::transportMode::ListboxButton')
+      .invoke('text')
+      .should('not.be.empty');
   });
 
   it('should cancel creating a new stop area', () => {
@@ -269,6 +284,13 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
     MapPage.stopAreaPopup.getEditButton().click();
     MapPage.stopAreaForm.getForm().shouldBeVisible();
     MapPage.stopAreaForm.getPrivateCode().shouldBeVisible().shouldBeDisabled();
+
+    // Capture the current transport mode value - it should remain unchanged during edit
+    // (auto-select should NOT run for existing stop areas)
+    cy.getByTestId('StopAreaFormComponent::transportMode::ListboxButton')
+      .invoke('text')
+      .as('initialTransportMode');
+
     MapPage.stopAreaForm.validityPeriodForm.setAsIndefinite();
 
     MapPage.stopAreaForm.save();
@@ -289,6 +311,14 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       .getValidityPeriod()
       .shouldHaveText('1.1.2000 -  Voimassa toistaiseksi');
     MapPage.stopAreaPopup.getEditButton().click();
+
+    // Verify that transport mode did not change (auto-select should NOT run on edits)
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    cy.get('@initialTransportMode').then((initialText) => {
+      cy.getByTestId('StopAreaFormComponent::transportMode::ListboxButton')
+        .invoke('text')
+        .should('equal', initialText);
+    });
   });
 
   it('should set correct observation date after editing ', () => {

@@ -1,4 +1,7 @@
-import { ReusableComponentsVehicleModeEnum, StopRegistryTransportModeType } from '../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  StopRegistryTransportModeType,
+} from '../generated/graphql';
 import { theme } from '../generated/theme';
 
 export const mapVehicleModeToRouteColor = (
@@ -35,6 +38,6 @@ export const mapTransportModeToColor = (
     [StopRegistryTransportModeType.Tram]: colors.routes.tram,
     [StopRegistryTransportModeType.Water]: colors.routes.ferry,
   };
-  
+
   return transportModeColors[transportMode] ?? '#0074BF';
 };

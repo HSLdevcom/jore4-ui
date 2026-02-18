@@ -4,13 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { StopRegistryTransportModeType } from '../../../generated/graphql';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../i18n/uiNameMappings';
 import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
-import {
-  EnumDropdown,
-  InputField,
-} from '../../forms/common';
-import {
-  StopAreaFormState,
-} from '../../forms/stop-area/stopAreaFormSchema';
+import { EnumDropdown, InputField } from '../../forms/common';
+import { StopAreaFormState } from '../../forms/stop-area/stopAreaFormSchema';
 
 const testId = 'StopAreaFormComponent::transportMode';
 
@@ -43,12 +38,22 @@ export const TransportationModeField = ({
   useEffect(() => {
     if (shouldAutoSelect) {
       // Cast to StopRegistryTransportModeType since the values are compatible
-      setValue('transportMode', availableTransportModes[0] as unknown as StopRegistryTransportModeType, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
+      setValue(
+        'transportMode',
+        availableTransportModes[0] as unknown as StopRegistryTransportModeType,
+        {
+          shouldDirty: true,
+          shouldValidate: true,
+        },
+      );
     }
-  }, [shouldAutoSelect, availableTransportModes, setValue, isEditing, currentValue]);
+  }, [
+    shouldAutoSelect,
+    availableTransportModes,
+    setValue,
+    isEditing,
+    currentValue,
+  ]);
 
   // Filter enum to only show available modes
   const filteredEnum = useMemo(() => {
@@ -68,12 +73,11 @@ export const TransportationModeField = ({
     }
 
     // Filter to only available modes
-    return availableTransportModes.reduce<Record<string, JoreStopRegistryTransportModeType>>(
-      (acc, mode) => {
-        return { ...acc, [mode]: mode };
-      },
-      {},
-    );
+    return availableTransportModes.reduce<
+      Record<string, JoreStopRegistryTransportModeType>
+    >((acc, mode) => {
+      return { ...acc, [mode]: mode };
+    }, {});
   }, [isEditing, loadingTransportModes, availableTransportModes]);
 
   // Determine placeholder text

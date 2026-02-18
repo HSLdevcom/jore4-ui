@@ -26,11 +26,16 @@ const VEHICLE_MODE_TO_TRANSPORT_MODE_MAP: Record<
   ReusableComponentsVehicleModeEnum,
   JoreStopRegistryTransportModeType | null
 > = {
-  [ReusableComponentsVehicleModeEnum.Bus]: JoreStopRegistryTransportModeType.Bus,
-  [ReusableComponentsVehicleModeEnum.Ferry]: JoreStopRegistryTransportModeType.Water,
-  [ReusableComponentsVehicleModeEnum.Metro]: JoreStopRegistryTransportModeType.Metro,
-  [ReusableComponentsVehicleModeEnum.Train]: JoreStopRegistryTransportModeType.Rail,
-  [ReusableComponentsVehicleModeEnum.Tram]: JoreStopRegistryTransportModeType.Tram,
+  [ReusableComponentsVehicleModeEnum.Bus]:
+    JoreStopRegistryTransportModeType.Bus,
+  [ReusableComponentsVehicleModeEnum.Ferry]:
+    JoreStopRegistryTransportModeType.Water,
+  [ReusableComponentsVehicleModeEnum.Metro]:
+    JoreStopRegistryTransportModeType.Metro,
+  [ReusableComponentsVehicleModeEnum.Train]:
+    JoreStopRegistryTransportModeType.Rail,
+  [ReusableComponentsVehicleModeEnum.Tram]:
+    JoreStopRegistryTransportModeType.Tram,
 };
 
 type InfrastructureLink = {
@@ -52,7 +57,6 @@ export const useNearbyTransportModes = (
   longitude?: number,
   enabled = true,
 ) => {
-
   const point = useMemo(() => {
     if (latitude === undefined || longitude === undefined) {
       return undefined;
@@ -112,7 +116,9 @@ export const useNearbyTransportModes = (
     // Convert vehicle modes to transport modes
     const transportModes = Array.from(vehicleModes)
       .map((mode) => VEHICLE_MODE_TO_TRANSPORT_MODE_MAP[mode])
-      .filter((mode): mode is JoreStopRegistryTransportModeType => mode !== null);
+      .filter(
+        (mode): mode is JoreStopRegistryTransportModeType => mode !== null,
+      );
 
     return Array.from(new Set(transportModes)).sort();
   }, [data, loading, shouldQuery]);

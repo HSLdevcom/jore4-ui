@@ -63,6 +63,10 @@ export class StopAreaForm {
     return cy.getByTestId('StopAreaFormComponent::longitude');
   }
 
+  static getTransportationMode() {
+    return cy.getByTestId('StopAreaFormComponent::transportMode');
+  }
+
   /** Clicks the EditStopAreaModal's save button. Can be given forceAction = true
    * to force the click without waiting for it's actionability (If it's covered
    * by another element etc.).
