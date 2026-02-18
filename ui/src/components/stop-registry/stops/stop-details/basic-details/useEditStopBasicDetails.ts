@@ -241,6 +241,10 @@ export const useEditStopBasicDetails = () => {
               key: KnownValueKey.StopState,
               values: state.stopState ? [state.stopState] : [],
             },
+            {
+              key: KnownValueKey.TimingPlaceId,
+              values: state.timingPlaceId ? [state.timingPlaceId] : [],
+            },
           ]),
           versionComment: state.reasonForChange,
         },
