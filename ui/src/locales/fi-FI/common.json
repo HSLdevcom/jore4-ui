@@ -1411,11 +1411,15 @@
   "abort": "Keskeytä",
   "dontAbort": "Älä keskeytä",
   "welcomePage": {
-    "heading": "JORE4 | Pysäkkirekisterin testikäyttö käynnissä",
-    "subheading1": "Pysäkit ja infopaikat",
-    "paragraph1": "JORE4:n toteutus on edennyt pysäkkirekisteriin. Edellisessä vaiheessa toteutettiin Reitit ja Linjat sekä Aikataulut. Nyt voit jo hakea pysäkkejä ja pysäkkialueita muutamalla hakukriteerillä, päivittää pysäkkien ominaisuuksia ja hallita infopaikkoja. Testiversio hyödyntää oikeiden pysäkkien tietoja, mutta siellä voi testata ja päivittää asioita vaikuttamatta tuotantoon. Haluamme palautteesi siitä, mihin on tärkeintä kiinnittää voimavarat seuraavaksi. Palautetta keräämme esim. haastatteluin, sitä voi lähettää myös suoraan Teamsissa tai Slackissa JORE4:n kanavilla.",
-    "subheading2": "Kehitystyö jatkuu",
-    "paragraph2": "Saamamme palautteen perusteella listaamme oleellisimmat kehityskohteet. Kehitystyön edetessä lisäämme uutta toiminnallisuutta. Seuraavaksi työ jatkuu mm. terminaaleihin.",
+    "iconAlt": "Jore4-ikoni",
+    "callout": "Antoisaa testailua!",
+    "heading": "Ratikkakevät 2026 ",
+    "subheading1": "Ratikat Jore4:ään – etenemistä esitellään joka toinen tiistai",
+    "subheading2": "Käyttöönoton lähestyessä testaus tiivistyy",
+    "paragraph1": "Jore4 saa uuden joukkoliikennemuodon. Bussien toteutus on toiminnoiltaan siinä laajuudessa kuin sen on tarkoitus ensimmäisessä versiossa olla. Testiversion sisältö vaihtelee vielä toteutuksen eri vaiheissa. Helmikuussa on aloitettu ratikoiden tuominen bussiliikenteen tasolle, alkaen ratikkaverkosta ja -pysäkeistä. ",
+    "paragraph2": "Toteutamme yhtäaikaa ratikoiden kanssa muutoshistorianäkymät. Muutoshistorian kautta on mahdollista nähdä viimeisimmät päivitykset ja laajempi päivityshistoria.",
+    "paragraph3": "Toteutustyön etenemistä voi seurata ja kommentoida ensisijaisesti demotilaisuuksissa tiistaisin parittomina viikkoina klo 9. Mikäli tarvitset kutsun esittelyihin, ota yhteyttä Petri Pohjolaiseen.",
+    "paragraph4": "Kaikkien käyttäjien on mahdollista tutustua nykyisiin ja eteneviin toiminnallisuuksiin omaehtoisesti tässä testitympäristössä. Ympäristöä ei saa rikki eivätkä sillä tehdyt kokeilut päädy tuotantoon. Rakentuvasta kokonaisuudesta tullaan järjestämään myös erillisiä käyttäjätestisessioita ja opastuksia.",
     "login": "Siirry kirjautumiseen"
   },
   "dayOfWeek": {

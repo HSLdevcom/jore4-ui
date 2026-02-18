@@ -1411,11 +1411,15 @@
   "abort": "Abort",
   "dontAbort": "Do not abort",
   "welcomePage": {
-    "heading": "JORE4 | Testing of the stop register is now starting",
-    "subheading1": "Stops and info spots",
-    "paragraph1": "The implementation of JORE4 has progressed to the stop register. In the previous phase, Routes and Lines as well as Timetables were implemented. You can now search for stops and stop areas using a few search criteria, update stop attributes, and manage info spots. The test version uses real stop data, but it allows testing and updates without affecting the production environment. We value your feedback on where to focus our efforts next. Feedback will be collected through interviews, and it can also be sent directly via Teams or Slack on the JORE4 channels.",
-    "subheading2": "Development continues",
-    "paragraph2": "Based on the feedback we receive, we will prioritize key development areas. As development progresses, new functionalities will be added. Next, work will continue on areas such as terminals.",
+    "iconAlt": "Jore4-icon",
+    "callout": "Have fun testing!",
+    "heading": "Tram Spring 2026",
+    "subheading1": "Trams in JORE4 – progress is presented every other Tuesday",
+    "subheading2": "Testing intensifies as the rollout approaches",
+    "paragraph1": "JORE4 is gaining a new public transport mode. The bus implementation already includes the functionality scope intended for the first version. The content of the test version still varies across implementation phases. In February, we started bringing trams to the same level as bus operations, beginning with the tram network and stops.",
+    "paragraph2": "At the same time as tram features, we are implementing change history views. Through change history, you can see the latest updates and a broader update history.",
+    "paragraph3": "You can primarily follow and comment on implementation progress in demo sessions on Tuesdays of odd weeks at 9:00. If you need an invitation to the presentations, please contact Petri Pohjolainen.",
+    "paragraph4": "All users can independently explore the current and upcoming functionalities in this test environment. You cannot break the environment, and experiments done here will not end up in production. Separate user testing sessions and guidance will also be arranged for the evolving whole.",
     "login": "Login"
   },
   "dayOfWeek": {
