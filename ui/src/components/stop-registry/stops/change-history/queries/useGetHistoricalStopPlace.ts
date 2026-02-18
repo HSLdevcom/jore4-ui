@@ -7,7 +7,7 @@ import {
   GetVersionedStopPlaceAndQuaysQuery,
   GetVersionedStopPlaceAndQuaysQueryVariables,
 } from '../../../../../generated/graphql';
-import { FailedToFetchHistoricalStopPlaceError } from '../errors/FailedToFetchHistoricalStopPlaceError';
+import { FailedToFetchHistoricalStopPlaceError } from '../errors';
 import { StopPlaceVersionSpecifier } from '../types';
 import { identifyVersionedStopPlace } from '../utils';
 

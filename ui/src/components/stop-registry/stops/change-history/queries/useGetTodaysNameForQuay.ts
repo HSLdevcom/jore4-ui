@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useGetTodaysNameForQuayQuery } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
+import { TodaysNameForQuay } from '../types';
 
 const GQL_GET_TODAYS_NAME_FOR_QUAY = gql`
   query GetTodaysNameForQuay(
@@ -44,11 +45,6 @@ const GQL_GET_TODAYS_NAME_FOR_QUAY = gql`
     }
   }
 `;
-
-type TodaysNameForQuay = {
-  readonly name: string | null;
-  readonly nameSwe: string | null;
-};
 
 export function useGetTodaysNameForQuay(
   publicCode: string,
