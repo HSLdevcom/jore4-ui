@@ -5,6 +5,7 @@ import {
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { useGetTimingPlaceLabel } from '../../queries/useGetTimingPlaceLabel';
 import { DetailRow, LabeledDetail } from '../layout';
 import { translateStopTypes } from '../utils';
 
@@ -39,6 +40,10 @@ export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
   const transportMode =
     stop.stop_place?.transportMode &&
     mapStopRegistryTransportModeTypeToUiName(t, stop.stop_place.transportMode);
+
+  const { timingPlaceLabel } = useGetTimingPlaceLabel(
+    stop.quay?.timingPlaceId ?? stop.timing_place_id,
+  );
 
   return (
     <>
@@ -82,7 +87,7 @@ export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
         />
         <LabeledDetail
           title={t('stops.timingPlaceId')}
-          detail={stop.timing_place?.label}
+          detail={timingPlaceLabel}
           testId={testIds.timingPlaceId}
         />
         <div className="flex items-center gap-4">
