@@ -69,6 +69,7 @@ export type QuayEnrichmentProperties = {
   readonly validityEnd: string | null;
   readonly priority: Priority | null;
   readonly stopOwner: StopOwner | null;
+  readonly timingPlaceId: string | null;
   readonly changed?: string | null;
   readonly changedByUserName?: string | null;
 };

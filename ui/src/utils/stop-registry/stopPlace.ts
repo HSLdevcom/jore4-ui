@@ -277,6 +277,7 @@ export const getQuayDetailsForEnrichment = <
       ? (rawPriorityNumber as Priority)
       : null,
     stopOwner: findKeyValue(quay, KnownValueKey.StopOwner) as StopOwner,
+    timingPlaceId: findKeyValue(quay, KnownValueKey.TimingPlaceId),
   };
 };
 
