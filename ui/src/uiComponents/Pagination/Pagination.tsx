@@ -1,9 +1,10 @@
 import clamp from 'lodash/clamp';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { PagingInfo } from '../../types';
+import { areEqual } from '../../utils';
 import { IconButton } from '../IconButton';
 import { getDisplayedPageNumberList, getRenderedPageNumber } from './utils';
 
@@ -78,13 +79,31 @@ type PaginationProps = ClassNameProps & {
 export const Pagination: FC<PaginationProps> = ({
   amountOfNeighbours = DEFAULT_AMOUNT_OF_NEIGHBOURS,
   className,
-  pagingInfo: { page: currentPage, pageSize },
+  pagingInfo,
   setPagingInfo,
   totalItemsCount,
 }) => {
   const { t } = useTranslation();
 
-  const totalPages = Math.ceil(totalItemsCount / pageSize);
+  const { page: currentPage, pageSize } = pagingInfo;
+  const totalPages = Math.max(1, Math.ceil(totalItemsCount / pageSize));
+
+  // Fix any invalid pagingInfo.
+  // Page must be withing [1, totalPages]
+  // PageSize must be <= 1
+  useEffect(() => {
+    const validPagingInfo: PagingInfo = {
+      page: clamp(currentPage, 1, totalPages),
+      pageSize: Math.max(1, pageSize),
+    };
+
+    if (!areEqual(pagingInfo, validPagingInfo)) {
+      setPagingInfo(validPagingInfo);
+    }
+
+    // Ignore changes to setPagingInfo.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, pageSize, totalPages]);
 
   const setPage = (page: number) => {
     setPagingInfo({ page: clamp(page, 1, totalPages), pageSize });
