@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useGetSelectedTimingPlaceDetailsByIdQuery } from '../../../../generated/graphql';
 
 export function useGetTimingPlaceLabel(
@@ -10,10 +9,8 @@ export function useGetTimingPlaceLabel(
     fetchPolicy: 'cache-first',
   });
 
-  const timingPlaceLabel = useMemo(
-    () => data?.timing_pattern_timing_place_by_pk?.label ?? null,
-    [data],
-  );
-
-  return { timingPlaceLabel, ...rest };
+  return {
+    ...rest,
+    timingPlaceLabel: data?.timing_pattern_timing_place_by_pk?.label ?? null,
+  };
 }
