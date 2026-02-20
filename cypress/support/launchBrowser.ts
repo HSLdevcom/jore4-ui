@@ -49,7 +49,7 @@ function setHeadlessBrowserScreenSizeLaunchOptions(
 ): Cypress.BeforeBrowserLaunchOptions {
   console.log('Setting the browser window size to %d x %d', width, height);
 
-  if (browser.name === 'chrome') {
+  if (browser.name === 'chrome-for-testing') {
     return {
       ...launchOptions,
       args: launchOptions.args.concat(
@@ -130,7 +130,7 @@ function applyReducedMotionOptions(
   browser: Cypress.Browser,
   launchOptions: Cypress.BeforeBrowserLaunchOptions,
 ): Cypress.BeforeBrowserLaunchOptions {
-  if (browser.name === 'chrome') {
+  if (browser.name === 'chrome-for-testing') {
     return {
       ...launchOptions,
       args: launchOptions.args.concat('--force-prefers-reduced-motion'),
