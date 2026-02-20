@@ -1,5 +1,8 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
+import { FC } from 'react';
+import { PulseLoader } from 'react-spinners';
+import { theme } from '../../../../../../generated/theme';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
@@ -9,8 +12,25 @@ import {
   diffValues,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
+import { useGetTimingPlaceLabel } from '../../../queries/useGetTimingPlaceLabel';
 import { optionalBooleanToUiText } from '../../../stop-details/utils';
 import { HistoricalStopData } from '../../types';
+
+type TimingPlaceLabelProps = { readonly timingPlaceId: string | null };
+
+const TimingPlaceLabel: FC<TimingPlaceLabelProps> = ({ timingPlaceId }) => {
+  const { timingPlaceLabel, loading } = useGetTimingPlaceLabel(timingPlaceId);
+
+  if (timingPlaceId === null) {
+    return '-';
+  }
+
+  if (loading) {
+    return <PulseLoader color={theme.colors.brand} size={12} />;
+  }
+
+  return timingPlaceLabel ?? timingPlaceId;
+};
 
 export function diffBasicDetails(
   t: TFunction,
@@ -59,8 +79,9 @@ export function diffBasicDetails(
     }),
     diffValues({
       field: t('stops.timingPlaceId'),
-      oldValue: null,
-      newValue: null,
+      oldValue: previous.quay.timingPlaceId,
+      newValue: current.quay.timingPlaceId,
+      mapper: (id) => <TimingPlaceLabel timingPlaceId={id} />,
     }),
     diffValues({
       field: t('stopPlaceTypes.railReplacement'),
