@@ -334,7 +334,7 @@ export const HistoricalStopDataProvider: FC<PropsWithChildren> = ({
   );
 };
 
-type CachedHistoricalStop =
+export type CachedHistoricalStop =
   | AsyncCacheDataFetching<HistoricalStopVersionSpecifier>
   | AsyncCacheDataFetched<HistoricalStopVersionSpecifier, HistoricalStopData>
   | AsyncCacheDataError<HistoricalStopVersionSpecifier>;

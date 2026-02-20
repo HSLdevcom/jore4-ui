@@ -20,7 +20,7 @@ import { StopChangeHistoryDataRows } from './StopChangeHistoryDataRows';
  * @param loading
  * @param historyItems
  */
-function usePrettyLoaderState(
+export function usePrettyLoaderState(
   loading: boolean,
   historyItems: ReadonlyArray<QuayChangeHistoryItem>,
 ) {
