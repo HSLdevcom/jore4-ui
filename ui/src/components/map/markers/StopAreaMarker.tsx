@@ -1,4 +1,5 @@
 import { FC, MouseEventHandler, useState } from 'react';
+import { theme } from '../../../generated/theme';
 
 type StopAreaMarkerProps = {
   readonly selected?: boolean;
@@ -7,6 +8,7 @@ type StopAreaMarkerProps = {
   readonly size?: number;
   readonly testId?: string;
   readonly title?: string;
+  readonly color?: string;
 };
 
 export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
@@ -16,6 +18,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
   size = 28,
   testId,
   title,
+  color = theme.colors.tweakedBrand,
 }) => {
   const strokeClassName =
     selected && !isPlaceholder
@@ -50,13 +53,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
     >
       {title ? <title>{title}</title> : null}
 
-      <circle
-        cx="13.75"
-        cy="13.75"
-        r="12.75"
-        stroke="#0074BF"
-        strokeWidth="2"
-      />
+      <circle cx="13.75" cy="13.75" r="12.75" stroke={color} strokeWidth="2" />
       {selected || isMouseHovering ? (
         <>
           <ellipse
