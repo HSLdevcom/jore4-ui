@@ -88,7 +88,7 @@ function sortingInfoToOrderBy({
   const orderBy =
     sortOrder === SortOrder.ASCENDING ? OrderBy.Asc : OrderBy.Desc;
   const byVersion: StopsDatabaseQuayChangeHistoryItemOrderBy = {
-    changed: orderBy,
+    version: orderBy,
   };
 
   switch (sortBy) {
