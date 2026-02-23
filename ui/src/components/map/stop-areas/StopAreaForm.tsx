@@ -37,7 +37,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
   const formState: StopAreaFormState = {
     privateCode: stopArea.privateCode?.value ?? '',
     name: stopArea.name ?? '',
-    nameSwe: stopArea.nameSwe ?? stopArea.name ?? '',
+    nameSwe: stopArea.nameSwe,
     nameEng: stopArea.nameEng,
     nameLongFin: stopArea.nameLongFin,
     nameLongSwe: stopArea.nameLongSwe,
