@@ -101,7 +101,7 @@ export type QuayChangeHistoryItem = {
   changedBy?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Scalars['String']['output']>;
   netexId: Scalars['String']['output'];
-  priority?: Maybe<Scalars['Int']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
   privateCodeType?: Maybe<Scalars['String']['output']>;
   privateCodeValue: Scalars['String']['output'];
   publicCode: Scalars['String']['output'];
@@ -11365,7 +11365,7 @@ export type StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp = {
   changedBy?: InputMaybe<StringComparisonExp>;
   importedId?: InputMaybe<StringComparisonExp>;
   netexId?: InputMaybe<StringComparisonExp>;
-  priority?: InputMaybe<IntComparisonExp>;
+  priority?: InputMaybe<StringComparisonExp>;
   privateCodeType?: InputMaybe<StringComparisonExp>;
   privateCodeValue?: InputMaybe<StringComparisonExp>;
   publicCode?: InputMaybe<StringComparisonExp>;
