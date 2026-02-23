@@ -26,7 +26,7 @@ const GQL_GET_STOP_CHANGE_HISTORY = gql`
     $publicCode: String!
     $from: timestamp!
     $to: timestamp!
-    $priority: Int!
+    $priority: String!
     $orderBy: [stops_database_QuayChangeHistoryItem_order_by!]!
   ) {
     stopsDb: stops_database {
@@ -121,7 +121,7 @@ export function useGetStopChangeHistoryItems({
   const { data, ...rest } = useGetStopChangeHistoryQuery({
     variables: {
       publicCode,
-      priority,
+      priority: String(priority),
       from: from.startOf('day').toISO(),
       to: to.endOf('day').toISO(),
       orderBy: sortingInfoToOrderBy(sortingInfo),
