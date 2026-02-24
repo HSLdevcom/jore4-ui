@@ -25,5 +25,6 @@ tsconfig.tsbuildinfo
 dump.sql
 *.pgdump
 infraLinks.sql
+tram_infraLinks.sql
 
 .DS_Store
