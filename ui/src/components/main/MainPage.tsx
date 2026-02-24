@@ -18,7 +18,8 @@ export const MainPage: FC = () => {
   return (
     <div
       data-testid={testIds.main}
-      className="min-h-screen bg-welcome-gradient p-20"
+      // The min-height is calculated to fill the screen except the navbar, which is 68px tall
+      className="min-h-[calc(100vh-68px)] bg-welcome-gradient p-20"
     >
       <div className="mx-auto w-4/5 max-w-285 rounded-xl border-2 border-brand bg-white px-18.5 py-12 shadow-card">
         <PageTitle.H1
@@ -43,23 +44,22 @@ export const MainPage: FC = () => {
           <p className="text-lg">{t('welcomePage.paragraph4')}</p>
         </div>
 
+        <p className="mt-12 mb-6 text-center text-xl font-bold text-brand">
+          {t('welcomePage.callout')}
+        </p>
+
         {!userInfo?.permissions && (
-          <>
-            <p className="mt-12 mb-6 text-center text-xl font-bold text-brand">
-              {t('welcomePage.callout')}
-            </p>
-            <SimpleButton
-              // Workaround, because SimpleButton href does not seem to
-              // work with urls that are proxied, because it uses React Router Link
-              // under the hood instead of native <a>
-              onClick={() => {
-                window.location.href = LOGIN_URL;
-              }}
-              className="mx-auto px-6 py-3 text-sm"
-            >
-              {t('welcomePage.login')}
-            </SimpleButton>
-          </>
+          <SimpleButton
+            // Workaround, because SimpleButton href does not seem to
+            // work with urls that are proxied, because it uses React Router Link
+            // under the hood instead of native <a>
+            onClick={() => {
+              window.location.href = LOGIN_URL;
+            }}
+            className="mx-auto px-6 py-3 text-sm"
+          >
+            {t('welcomePage.login')}
+          </SimpleButton>
         )}
       </div>
     </div>
