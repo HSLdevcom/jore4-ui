@@ -74,7 +74,11 @@ export const useEditStopSignageDetails = () => {
     const changesToTiamatDb = prepareEditForTiamatDb(editParams);
     await updateStopPlaceMutation({
       variables: changesToTiamatDb,
-      refetchQueries: ['GetStopDetails', 'GetLatestQuayChange'],
+      refetchQueries: [
+        'GetStopDetails',
+        'GetLatestQuayChange',
+        'GetStopChangeHistory',
+      ],
     });
   };
 
