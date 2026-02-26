@@ -12,6 +12,8 @@ import { mapToShortDate, mapUTCToDateTime } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
+import { HistoricalStopDataProvider } from '../change-history/components/HistoricalStopDataProvider';
+import { LatestStopChangeHistoryTable } from '../change-history/components/LatestStopChangeHistoryTable';
 import { BasicDetailsSection } from './basic-details';
 import {
   DetailTabSelector,
@@ -167,7 +169,18 @@ export const StopDetailsPage: FC = () => {
             )}
           </div>
           <div className="w-full md:w-[30%]">
-            {stopDetails && <StopExternalLinks stop={stopDetails} />}
+            {stopDetails && (
+              <>
+                <StopExternalLinks stop={stopDetails} />
+                <HistoricalStopDataProvider>
+                  <LatestStopChangeHistoryTable
+                    publicCode={label}
+                    priority={stopDetails.priority}
+                    className="mt-6"
+                  />
+                </HistoricalStopDataProvider>
+              </>
+            )}
           </div>
         </div>
       </LoadingWrapper>
