@@ -13,4 +13,5 @@ export enum Tag {
   HastusExport = '@hastusExport',
   HastusImport = '@hastusImport',
   Search = '@search',
+  ChangeHistory = '@changeHistory',
 }
