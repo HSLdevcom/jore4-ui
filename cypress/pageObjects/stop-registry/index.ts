@@ -6,6 +6,7 @@ export * from './search';
 export * from './SortByButton';
 export * from './StopAreaDetailsPage';
 export * from './StopAreaPopup';
+export * from './StopChangeHistoryPage';
 export * from './stop-details';
 export * from './stop-versions';
 export * from './StopDetailsPage';
