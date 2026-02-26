@@ -1,4 +1,6 @@
 export class MeasurementsForm {
+  static getContainer = () => cy.getByTestId('MeasurementsForm::container');
+
   static getStopTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::stopType::ListboxButton');
 
