@@ -1483,6 +1483,8 @@
   "stopChangeHistory": {
     "title": "Muutoshistoria | Pysäkki {{publicCode}}",
     "titleWithName": "Muutoshistoria | Pysäkki {{publicCode}} {{name}}",
+    "titleLatest": "Muutoshistoria",
+    "showAll": "Näytä muutoshistoria",
     "goBack": "Palaa",
     "firstVersion": "Uusi pysäkki luotu",
     "importedVersion": "Pysäkki tuotu Jore 3:sta",

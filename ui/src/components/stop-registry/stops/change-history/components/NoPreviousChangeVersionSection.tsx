@@ -14,7 +14,9 @@ const testIds = {
 type ChangeVersionType = 'imported' | 'copied' | 'created';
 
 const copiedVersionsImportedIdRegexp = /HSL:Quay:\d+-\d{4}-\d{2}-\d{2}-\d+/;
-function determineType(historyItem: QuayChangeHistoryItem): ChangeVersionType {
+export function determineType(
+  historyItem: QuayChangeHistoryItem,
+): ChangeVersionType {
   if (historyItem.importedId?.match(copiedVersionsImportedIdRegexp)) {
     return 'copied';
   }
@@ -26,7 +28,7 @@ function determineType(historyItem: QuayChangeHistoryItem): ChangeVersionType {
   return 'created';
 }
 
-function getHeadingText(t: TFunction, type: ChangeVersionType): string {
+export function getHeadingText(t: TFunction, type: ChangeVersionType): string {
   switch (type) {
     case 'imported':
       return t('stopChangeHistory.importedVersion');
