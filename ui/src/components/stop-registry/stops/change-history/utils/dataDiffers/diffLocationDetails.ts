@@ -90,7 +90,10 @@ export function diffLocationDetails(
         previous.quay?.placeEquipments?.generalSign?.at(0)?.signContentType,
       newValue:
         current.quay?.placeEquipments?.generalSign?.at(0)?.signContentType,
-      mapper: mapNullable((v) => mapSignContentTypeToUiName(t, v)),
+      mapper: mapNullable(
+        (v) => mapSignContentTypeToUiName(t, v),
+        t('signContentTypeEnum.none'),
+      ),
     }),
   ];
 
