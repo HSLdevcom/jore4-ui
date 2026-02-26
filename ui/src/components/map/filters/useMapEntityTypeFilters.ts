@@ -50,8 +50,13 @@ function useInitialFilterInfo() {
 
   const initialNetworkTypes: ReadonlyArray<InitialFilterItem> = [
     {
-      type: MapEntityType.Network,
+      type: MapEntityType.BusNetwork,
       label: t('filters.mapEntityType.busNetwork'),
+      disabled: false,
+    },
+    {
+      type: MapEntityType.TramNetwork,
+      label: t('filters.mapEntityType.tramNetwork'),
       disabled: false,
     },
   ];

@@ -23,7 +23,7 @@ export const ItemTypeFiltersOverlay: FC<ClassNameProps> = ({ className }) => {
   };
 
   return (
-    <MapOverlay className={twMerge(`w-[430px] rounded-b`, className)}>
+    <MapOverlay className={twMerge(`w-107.5 rounded-b`, className)}>
       <MapOverlayHeader>
         <h4>{t('filters.title')}</h4>
         <CloseIconButton onClick={onCloseClick} testId={testIds.closeButton} />
