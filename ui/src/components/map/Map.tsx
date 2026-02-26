@@ -189,7 +189,9 @@ export const MapComponent: ForwardRefRenderFunction<
   const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
   const showMapEntityTypes = useAppSelector(selectShowMapEntityTypes);
-  const showInfraLinks = showMapEntityTypes[MapEntityType.Network];
+  const showBusNetwork = showMapEntityTypes[MapEntityType.BusNetwork];
+  const showTramNetwork = showMapEntityTypes[MapEntityType.TramNetwork];
+  const showInfraLinks = showBusNetwork || showTramNetwork;
 
   const { areas, displayedRouteIds, stops, terminals } = useGetMapData();
 
@@ -238,7 +240,8 @@ export const MapComponent: ForwardRefRenderFunction<
           isPlacingOrMoving(mapViewState.mapStopViewState) ||
           hasDraftStopLocation
         }
-        showInfraLinks={showInfraLinks}
+        showBusNetwork={showBusNetwork}
+        showTramNetwork={showTramNetwork}
       />
 
       <Routes

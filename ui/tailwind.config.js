@@ -56,6 +56,7 @@ module.exports = {
         'lighter-grey': colors.lighterGrey,
         'dark-grey': colors.darkGrey,
         'hsl-dark-green': colors.hslDarkGreen,
+        'hsl-tram-dark-green': colors.hslTramDarkGreen,
         'hsl-red': colors.hslRed,
         'hsl-neutral-blue': colors.hslNeutralBlue,
         'city-bicycle-yellow': colors.cityBicycleYellow,

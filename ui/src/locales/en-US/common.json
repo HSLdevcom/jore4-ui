@@ -1150,7 +1150,8 @@
       "terminal": "Terminals",
       "infoScreen": "Info screens",
       "infoSpot": "Info spots",
-      "busNetwork": "Bus network"
+      "busNetwork": "Bus network",
+      "tramNetwork": "Tram network"
     }
   },
   "search": {
