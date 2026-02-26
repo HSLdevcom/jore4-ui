@@ -84,7 +84,8 @@ function useSetupMapReduxStore() {
           [MapEntityType.StopArea]: false,
           [MapEntityType.Terminal]: false,
           [MapEntityType.InfoSpot]: false,
-          [MapEntityType.Network]: false,
+          [MapEntityType.BusNetwork]: false,
+          [MapEntityType.TramNetwork]: false,
         }),
       );
 
