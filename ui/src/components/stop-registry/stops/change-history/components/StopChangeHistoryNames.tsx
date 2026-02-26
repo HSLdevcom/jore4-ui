@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { TodaysNameForQuay } from '../types';
 
 const testIds = {
-  names: 'StopChangeHistoryPage::names',
+  names: 'StopChangeHistoryPage::Names',
 };
 
 type StopChangeHistoryNamesProps = {

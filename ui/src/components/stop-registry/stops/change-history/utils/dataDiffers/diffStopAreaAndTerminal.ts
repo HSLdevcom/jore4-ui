@@ -1,7 +1,10 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { TerminalDetailsFragment } from '../../../../../../generated/graphql';
-import { ChangedValue, diffValues } from '../../../../../common/ChangeHistory';
+import {
+  ChangedValue,
+  diffKeyedValues,
+} from '../../../../../common/ChangeHistory';
 import { HistoricalStopData } from '../../types';
 
 function getTerminal(stop: HistoricalStopData) {
@@ -25,17 +28,20 @@ export function diffStopAreaAndTerminal(
   current: HistoricalStopData,
 ): Array<ChangedValue> {
   return compact([
-    diffValues({
+    diffKeyedValues({
+      key: 'StopAreaNameFin',
       field: t('stopChangeHistory.stopPlace.stopAreaNameFin'),
       oldValue: previous.stop_place.name,
       newValue: current.stop_place.name,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'StopAreaNameSwe',
       field: t('stopChangeHistory.stopPlace.stopAreaNameSwe'),
       oldValue: previous.stop_place.nameSwe,
       newValue: current.stop_place.nameSwe,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'TerminalNameFin',
       field: t('stopChangeHistory.stopPlace.terminalNameFin'),
       oldValue: getTerminal(previous)?.name?.value,
       newValue: getTerminal(current)?.name?.value,

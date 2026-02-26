@@ -11,6 +11,11 @@ import { useTranslation } from 'react-i18next';
 import { parseDate } from '../../../../../time';
 import { StopChangeHistoryFilters } from '../types';
 
+const testIds = {
+  fromDate: 'StopChangeHistoryPage::DateFilter::FromDate',
+  toDate: 'StopChangeHistoryPage::DateFilter::ToDate',
+};
+
 type DateRangeFilterProps = {
   readonly className?: string;
   readonly filters: StopChangeHistoryFilters;
@@ -95,12 +100,14 @@ export const DateRangeFilter: FC<DateRangeFilterProps> = ({
       </label>
       <fieldset aria-labelledby={id} className="flex gap-4">
         <input
+          data-testid={testIds.fromDate}
           id={`${id}from`}
           onChange={onFromChange}
           type="date"
           value={fromDateStr}
         />
         <input
+          data-testid={testIds.toDate}
           id={`${id}to`}
           className="invalid:border-hsl-red"
           onChange={onToChange}

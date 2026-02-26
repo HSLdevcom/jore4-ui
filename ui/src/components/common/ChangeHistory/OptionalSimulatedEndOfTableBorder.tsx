@@ -17,7 +17,7 @@ import { FC } from 'react';
  * @constructor
  */
 export const OptionalSimulatedEndOfTableBorder: FC = () => (
-  <tr aria-hidden className="bg-light-grey not-last:hidden">
+  <tr aria-hidden className="hidden bg-light-grey group-last:table-row">
     <td className="pt-[1px]" colSpan={7}>
       {null}
     </td>

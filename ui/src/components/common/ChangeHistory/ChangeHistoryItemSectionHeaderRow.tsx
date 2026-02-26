@@ -5,11 +5,11 @@ import { BaseChangeHistoryItemDetails } from './types';
 
 const testIds = {
   row: (testId: string) => `ChangeHistory::SectionHeader::${testId}`,
-  title: 'ChangeHistory::SectionHeader::title',
-  validityStart: 'ChangeHistory::SectionHeader::validityStart',
-  validityEnd: 'ChangeHistory::SectionHeader::validityEnd',
-  changedBy: 'ChangeHistory::SectionHeader::changedBy',
-  changed: 'ChangeHistory::SectionHeader::changed',
+  title: 'ChangeHistory::SectionHeader::Title',
+  validityStart: 'ChangeHistory::SectionHeader::ValidityStart',
+  validityEnd: 'ChangeHistory::SectionHeader::ValidityEnd',
+  changedBy: 'ChangeHistory::SectionHeader::ChangedBy',
+  changed: 'ChangeHistory::SectionHeader::Changed',
 };
 
 type ChangeHistoryItemSectionHeaderRowProps = {
@@ -37,7 +37,11 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
       data-testid={testIds.row(testId)}
     >
       {/* Title spans all the way through the name and value fields */}
-      <td className="py-3 pr-2 pl-2 xl:pr-5" colSpan={3}>
+      <td
+        className="py-3 pr-2 pl-2 xl:pr-5"
+        colSpan={3}
+        data-testid={testIds.title}
+      >
         {sectionTitle}
       </td>
 

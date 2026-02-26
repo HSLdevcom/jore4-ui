@@ -8,7 +8,7 @@ import { mapStopOwnerToUiName } from '../../../../../../i18n/uiNameMappings';
 import { CloseIconButton } from '../../../../../../uiComponents';
 import {
   ChangedValue,
-  diffValues,
+  diffKeyedValues,
   mapNullable,
   optionalToDefault,
 } from '../../../../../common/ChangeHistory';
@@ -84,41 +84,47 @@ export function diffOwnerDetails(
   );
 
   const changes = [
-    diffValues({
+    diffKeyedValues({
+      key: 'StopOwner',
       field: t('stopDetails.maintenance.maintainers.stopOwner'),
       oldValue: previous.quay.stopOwner,
       newValue: current.quay.stopOwner,
       mapper: mapNullable((v) => mapStopOwnerToUiName(t, v)),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ShelterMaintenance',
       field: t('stopDetails.maintenance.maintainers.shelterMaintenance'),
       oldValue: previousMaintainers.shelterMaintenance,
       newValue: currentMaintainers.shelterMaintenance,
       compare: compareOwners,
       mapper: mapOwner,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Maintenance',
       field: t('stopDetails.maintenance.maintainers.maintenance'),
       oldValue: previousMaintainers.maintenance,
       newValue: currentMaintainers.maintenance,
       compare: compareOwners,
       mapper: mapOwner,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'WinterMaintenance',
       field: t('stopDetails.maintenance.maintainers.winterMaintenance'),
       oldValue: previousMaintainers.winterMaintenance,
       newValue: currentMaintainers.winterMaintenance,
       compare: compareOwners,
       mapper: mapOwner,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'InfoUpkeep',
       field: t('stopDetails.maintenance.maintainers.infoUpkeep'),
       oldValue: previousMaintainers.infoUpkeep,
       newValue: currentMaintainers.infoUpkeep,
       compare: compareOwners,
       mapper: mapOwner,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Cleaning',
       field: t('stopDetails.maintenance.maintainers.cleaning'),
       oldValue: previousMaintainers.cleaning,
       newValue: currentMaintainers.cleaning,

@@ -9,7 +9,7 @@ import {
 } from '../../../../../../i18n/uiNameMappings';
 import {
   ChangedValue,
-  diffValues,
+  diffKeyedValues,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
 import {
@@ -54,144 +54,167 @@ export function diffMeasurementDetails(
   );
 
   const changes = [
-    diffValues({
+    diffKeyedValues({
+      key: 'StopType',
       field: t('stopDetails.measurements.stopType'),
       oldValue: previous?.stopType,
       newValue: current?.stopType,
       mapper: mapNullable((v) => mapStopRegistryStopTypeToUiName(t, v)),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'CurvedStop',
       field: t('stopDetails.measurements.curvedStop'),
       oldValue: previous?.curvedStop,
       newValue: current?.curvedStop,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ShelterType',
       field: t('stopDetails.measurements.shelterType'),
       oldValue: previous?.shelterType,
       newValue: current?.shelterType,
       mapper: mapNullable((v) => mapStopRegistryShelterWidthTypeToUiName(t, v)),
     }),
 
-    diffValues({
+    diffKeyedValues({
+      key: 'ShelterLaneDistance',
       field: t('stopDetails.measurements.shelterLaneDistance'),
       oldValue: previous?.shelterLaneDistance,
       newValue: current?.shelterLaneDistance,
       mapper: mapCentimeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'CurbBackOfRailDistance',
       field: t('stopDetails.measurements.curbBackOfRailDistance'),
       oldValue: previous?.curbBackOfRailDistance,
       newValue: current?.curbBackOfRailDistance,
       mapper: mapCentimeters,
     }),
 
-    diffValues({
+    diffKeyedValues({
+      key: 'StopAreaSideSlope',
       field: t('stopDetails.measurements.stopAreaSideSlope'),
       oldValue: previous?.stopAreaSideSlope,
       newValue: current?.stopAreaSideSlope,
       mapper: mapPercentage,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'StopAreaLengthwiseSlope',
       field: t('stopDetails.measurements.stopAreaLengthwiseSlope'),
       oldValue: previous?.stopAreaLengthwiseSlope,
       newValue: current?.stopAreaLengthwiseSlope,
       mapper: mapPercentage,
     }),
 
-    diffValues({
+    diffKeyedValues({
+      key: 'StructureLaneDistance',
       field: t('stopDetails.measurements.structureLaneDistance'),
       oldValue: previous?.structureLaneDistance,
       newValue: current?.structureLaneDistance,
       mapper: mapCentimeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'StopElevationFromRailTop',
       field: t('stopDetails.measurements.stopElevationFromRailTop'),
       oldValue: previous?.stopElevationFromRailTop,
       newValue: current?.stopElevationFromRailTop,
       mapper: mapCentimeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'StopElevationFromSidewalk',
       field: t('stopDetails.measurements.stopElevationFromSidewalk'),
       oldValue: previous?.stopElevationFromSidewalk,
       newValue: current?.stopElevationFromSidewalk,
       mapper: mapCentimeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'LowerCleatHeight',
       field: t('stopDetails.measurements.lowerCleatHeight'),
       oldValue: previous?.lowerCleatHeight,
       newValue: current?.lowerCleatHeight,
       mapper: mapCentimeters,
     }),
 
-    diffValues({
+    diffKeyedValues({
+      key: 'PlatformEdgeWarningArea',
       field: t('stopDetails.measurements.platformEdgeWarningArea'),
       oldValue: previous?.platformEdgeWarningArea,
       newValue: current?.platformEdgeWarningArea,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'SidewalkAccessibleConnection',
       field: t('stopDetails.measurements.sidewalkAccessibleConnection'),
       oldValue: previous?.sidewalkAccessibleConnection,
       newValue: current?.sidewalkAccessibleConnection,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'GuidanceStripe',
       field: t('stopDetails.measurements.guidanceStripe'),
       oldValue: previous?.guidanceStripe,
       newValue: current?.guidanceStripe,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ServiceAreaStripes',
       field: t('stopDetails.measurements.serviceAreaStripes'),
       oldValue: previous?.serviceAreaStripes,
       newValue: current?.serviceAreaStripes,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'GuidanceType',
       field: t('stopDetails.measurements.guidanceType'),
       oldValue: previous?.guidanceType,
       newValue: current?.guidanceType,
       mapper: mapNullable((v) => mapStopRegistryGuidanceTypeToUiName(t, v)),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'GuidanceTiles',
       field: t('stopDetails.measurements.guidanceTiles'),
       oldValue: previous?.guidanceTiles,
       newValue: current?.guidanceTiles,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'MapType',
       field: t('stopDetails.measurements.mapType'),
       oldValue: previous?.mapType,
       newValue: current?.mapType,
       mapper: mapNullable((v) => mapStopRegistryMapTypeToUiName(t, v)),
     }),
 
-    diffValues({
+    diffKeyedValues({
+      key: 'CurbDriveSideOfRailDistance',
       field: t('stopDetails.measurements.curbDriveSideOfRailDistance'),
       oldValue: previous?.curbDriveSideOfRailDistance,
       newValue: current?.curbDriveSideOfRailDistance,
       mapper: mapCentimeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'EndRampSlope',
       field: t('stopDetails.measurements.endRampSlope'),
       oldValue: previous?.endRampSlope,
       newValue: current?.endRampSlope,
       mapper: mapPercentage,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ServiceAreaWidth',
       field: t('stopDetails.measurements.serviceAreaWidth'),
       oldValue: previous?.serviceAreaWidth,
       newValue: current?.serviceAreaWidth,
       mapper: mapMeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ServiceAreaLength',
       field: t('stopDetails.measurements.serviceAreaLength'),
       oldValue: previous?.serviceAreaLength,
       newValue: current?.serviceAreaLength,
       mapper: mapMeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'PedestrianCrossingRampType',
       field: t('stopDetails.measurements.pedestrianCrossingRampType'),
       oldValue: previous?.pedestrianCrossingRampType,
       newValue: current?.pedestrianCrossingRampType,
@@ -199,7 +222,8 @@ export function diffMeasurementDetails(
         mapStopRegistryPedestrianCrossingRampTypeToUiName(t, v),
       ),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'StopAreaSurroundingsAccessible',
       field: t('stopDetails.measurements.stopAreaSurroundingsAccessible'),
       oldValue: previous?.stopAreaSurroundingsAccessible,
       newValue: current?.stopAreaSurroundingsAccessible,

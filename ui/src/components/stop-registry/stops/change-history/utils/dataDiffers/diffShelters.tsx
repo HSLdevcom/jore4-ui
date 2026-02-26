@@ -27,26 +27,26 @@ function diffShelterVersions(
 
   return compact([
     diffKeyedValues({
-      key: 'shelterNumber',
+      key: 'ShelterNumber',
       field: t('stopDetails.shelters.shelterNumber'),
       oldValue: previous?.shelterNumber,
       newValue: current?.shelterNumber,
     }),
     diffKeyedValues({
-      key: 'shelterExternalId',
+      key: 'ShelterExternalId',
       field: t('stopDetails.shelters.shelterExternalId'),
       oldValue: previous?.shelterExternalId,
       newValue: current?.shelterExternalId,
     }),
     diffKeyedValues({
-      key: 'shelterType',
+      key: 'ShelterType',
       field: t('stopDetails.shelters.shelterType'),
       oldValue: previous?.shelterType,
       newValue: current?.shelterType,
       mapper: mapNullable((v) => mapStopRegistryShelterTypeEnumToUiName(t, v)),
     }),
     diffKeyedValues({
-      key: 'shelterElectricity',
+      key: 'ShelterElectricity',
       field: t('stopDetails.shelters.shelterElectricity'),
       oldValue: previous?.shelterElectricity,
       newValue: current?.shelterElectricity,
@@ -55,14 +55,14 @@ function diffShelterVersions(
       ),
     }),
     diffKeyedValues({
-      key: 'shelterLighting',
+      key: 'ShelterLighting',
       field: t('stopDetails.shelters.shelterLighting'),
       oldValue: previous?.shelterLighting,
       newValue: current?.shelterLighting,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
-      key: 'shelterCondition',
+      key: 'ShelterCondition',
       field: t('stopDetails.shelters.shelterCondition'),
       oldValue: previous?.shelterCondition,
       newValue: current?.shelterCondition,
@@ -71,48 +71,48 @@ function diffShelterVersions(
       ),
     }),
     diffKeyedValues({
-      key: 'timetableCabinets',
+      key: 'TimetableCabinets',
       field: t('stopDetails.shelters.timetableCabinets'),
       oldValue: previous?.timetableCabinets,
       newValue: current?.timetableCabinets,
     }),
     diffKeyedValues({
-      key: 'trashCan',
+      key: 'TrashCan',
       field: t('stopDetails.shelters.trashCan'),
       oldValue: previous?.trashCan,
       newValue: current?.trashCan,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
-      key: 'shelterHasDisplay',
+      key: 'ShelterHasDisplay',
       field: t('stopDetails.shelters.shelterHasDisplay'),
       oldValue: previous?.shelterHasDisplay,
       newValue: current?.shelterHasDisplay,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
-      key: 'bicycleParking',
+      key: 'BicycleParking',
       field: t('stopDetails.shelters.bicycleParking'),
       oldValue: previous?.bicycleParking,
       newValue: current?.bicycleParking,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
-      key: 'leaningRail',
+      key: 'LeaningRail',
       field: t('stopDetails.shelters.leaningRail'),
       oldValue: previous?.leaningRail,
       newValue: current?.leaningRail,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
-      key: 'outsideBench',
+      key: 'OutsideBench',
       field: t('stopDetails.shelters.outsideBench'),
       oldValue: previous?.outsideBench,
       newValue: current?.outsideBench,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
-      key: 'shelterFasciaBoardTaping',
+      key: 'ShelterFasciaBoardTaping',
       field: t('stopDetails.shelters.shelterFasciaBoardTaping'),
       oldValue: previous?.shelterFasciaBoardTaping,
       newValue: current?.shelterFasciaBoardTaping,
@@ -126,7 +126,7 @@ function getAddedShelterHeading(
   shelter: ShelterEquipmentDetailsFragment,
 ): ChangedValue {
   return {
-    key: `${shelter.id}::added`,
+    key: `Added::${shelter.id}`,
     field: null,
     oldValue: <EmptyCell />,
     newValue: (
@@ -141,7 +141,7 @@ function getUpdatedShelterHeading(
   // current: ShelterEquipmentDetailsFragment,
 ): ChangedValue {
   return {
-    key: `${previous.id}::updated`,
+    key: `Updated::${previous.id}`,
     field: null,
     oldValue: (
       <span className="font-bold">
@@ -157,7 +157,7 @@ function getRemovedShelterHeading(
   shelter: ShelterEquipmentDetailsFragment,
 ): ChangedValue {
   return {
-    key: `${shelter.id}::removed`,
+    key: `Removed::${shelter.id}`,
     field: null,
     oldValue: (
       <span className="font-bold">

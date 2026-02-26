@@ -7,8 +7,8 @@ import { CloseIconButton } from '../../../../../uiComponents';
 import { PageTitle } from '../../../../common';
 
 const testIds = {
-  returnButton: 'StopChangeHistoryPage::returnButton',
-  title: 'StopChangeHistoryPage::title',
+  returnButton: 'StopChangeHistoryPage::ReturnButton',
+  title: 'StopChangeHistoryPage::Title',
 };
 
 type StopChangeHistoryPageTitleRowProps = {

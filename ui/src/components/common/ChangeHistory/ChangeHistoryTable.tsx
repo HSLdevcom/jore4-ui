@@ -157,7 +157,7 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
         </tr>
       </thead>
 
-      <tbody>{children}</tbody>
+      {children}
     </table>
   );
 };

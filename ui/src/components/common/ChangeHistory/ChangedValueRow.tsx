@@ -6,9 +6,9 @@ import { ChangedValue } from './types';
 const testIds = {
   dataRow: (testId: string, field: string) =>
     `ChangeHistory::ChangedValues::${testId}::${field}`,
-  name: 'ChangeHistory::ChangedValues::name',
-  oldValue: 'ChangeHistory::ChangedValues::oldValue',
-  newValue: 'ChangeHistory::ChangedValues::newValue',
+  name: 'ChangeHistory::ChangedValues::Name',
+  oldValue: 'ChangeHistory::ChangedValues::OldValue',
+  newValue: 'ChangeHistory::ChangedValues::NewValue',
 };
 
 const rowClassNames = twJoin(

@@ -70,25 +70,25 @@ function diffInfoSpotVersions(
 
   return compact([
     diffKeyedValues({
-      key: 'label',
+      key: 'Label',
       field: t('stopDetails.infoSpots.label'),
       oldValue: previous?.label,
       newValue: current?.label,
     }),
     diffKeyedValues({
-      key: 'purpose',
+      key: 'Purpose',
       field: t('stopDetails.infoSpots.purpose'),
       oldValue: previous?.purpose,
       newValue: current?.purpose,
     }),
     diffKeyedValues({
-      key: 'size',
+      key: 'Size',
       field: t('stopDetails.infoSpots.size'),
       oldValue: previous && formatSizedDbItem(t, previous),
       newValue: current && formatSizedDbItem(t, current),
     }),
     diffKeyedValues({
-      key: 'backlight',
+      key: 'Backlight',
       field: t('stopDetails.infoSpots.backlight'),
       oldValue: previous?.backlight,
       newValue: current?.backlight,
@@ -96,45 +96,45 @@ function diffInfoSpotVersions(
     }),
 
     diffKeyedValues({
-      key: 'latitude',
+      key: 'Latitude',
       field: t('stopDetails.location.latitude'),
       oldValue: previousPoint?.latitude,
       newValue: currentPoint?.latitude,
     }),
     diffKeyedValues({
-      key: 'longitude',
+      key: 'Longitude',
       field: t('stopDetails.location.longitude'),
       oldValue: previousPoint?.longitude,
       newValue: currentPoint?.longitude,
     }),
 
     diffKeyedValues({
-      key: 'zoneLabel',
+      key: 'ZoneLabel',
       field: t('stopDetails.infoSpots.zoneLabel'),
       oldValue: previous?.zoneLabel,
       newValue: current?.zoneLabel,
     }),
     diffKeyedValues({
-      key: 'railInformation',
+      key: 'RailInformation',
       field: t('stopDetails.infoSpots.railInformation'),
       oldValue: previous?.railInformation,
       newValue: current?.railInformation,
     }),
     diffKeyedValues({
-      key: 'floor',
+      key: 'Floor',
       field: t('stopDetails.infoSpots.floor'),
       oldValue: previous?.floor,
       newValue: current?.floor,
     }),
     diffKeyedValues({
-      key: 'description',
+      key: 'Description',
       field: t('stopDetails.infoSpots.description'),
       oldValue: previous?.description,
       newValue: current?.description,
     }),
 
     diffKeyedValues({
-      key: 'description',
+      key: 'Posters',
       field: t('stopChangeHistory.infoSpots.posters'),
       oldValue: previous && preparePosters(t, previous),
       newValue: current && preparePosters(t, current),
@@ -148,7 +148,7 @@ function getAddedInfoSpotHeading(
   infoSpot: InfoSpotDetailsFragment,
 ): ChangedValue {
   return {
-    key: `${infoSpot.id}::added`,
+    key: `Added::${infoSpot.id}`,
     field: null,
     oldValue: <EmptyCell />,
     newValue: (
@@ -165,7 +165,7 @@ function getUpdatedInfoSpotHeading(
   // current: InfoSpotEquipmentDetailsFragment,
 ): ChangedValue {
   return {
-    key: `${previous.id}::updated`,
+    key: `Updated::${previous.id}`,
     field: null,
     oldValue: (
       <span className="font-bold">
@@ -181,7 +181,7 @@ function getRemovedInfoSpotHeading(
   infoSpot: InfoSpotDetailsFragment,
 ): ChangedValue {
   return {
-    key: `${infoSpot.id}::removed`,
+    key: `Removed::${infoSpot.id}`,
     field: null,
     oldValue: (
       <span className="font-bold">

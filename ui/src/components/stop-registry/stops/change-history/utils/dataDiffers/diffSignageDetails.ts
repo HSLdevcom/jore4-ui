@@ -4,7 +4,7 @@ import { mapStopPlaceSignTypeToUiName } from '../../../../../../i18n/uiNameMappi
 import { StopPlaceSignType } from '../../../../../../types/stop-registry';
 import {
   ChangedValue,
-  diffValues,
+  diffKeyedValues,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
 import { optionalBooleanToUiText } from '../../../stop-details/utils';
@@ -20,7 +20,8 @@ export function diffSignageDetails(
   const currentGeneralSign = current.quay?.placeEquipments?.generalSign?.at(0);
 
   const changes = [
-    diffValues({
+    diffKeyedValues({
+      key: 'SignType',
       field: t('stopDetails.signs.signType'),
       oldValue: previousGeneralSign?.privateCode?.value,
       newValue: currentGeneralSign?.privateCode?.value,
@@ -28,17 +29,20 @@ export function diffSignageDetails(
         mapStopPlaceSignTypeToUiName(t, v as StopPlaceSignType),
       ),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'NumberOfFrames',
       field: t('stopDetails.signs.numberOfFrames'),
       oldValue: previousGeneralSign?.numberOfFrames?.toString(10),
       newValue: currentGeneralSign?.numberOfFrames?.toString(10),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'SignageInstructionExceptions',
       field: t('stopDetails.signs.signageInstructionExceptions'),
       oldValue: previousGeneralSign?.note?.value,
       newValue: currentGeneralSign?.note?.value,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ReplacesRailSign',
       field: t('stopDetails.signs.replacesRailSign'),
       oldValue: previousGeneralSign?.replacesRailSign,
       newValue: currentGeneralSign?.replacesRailSign,

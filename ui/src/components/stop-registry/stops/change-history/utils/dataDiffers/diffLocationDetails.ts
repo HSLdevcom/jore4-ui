@@ -4,7 +4,7 @@ import { mapSignContentTypeToUiName } from '../../../../../../i18n/uiNameMapping
 import { getGeometryPoint } from '../../../../../../utils';
 import {
   ChangedValue,
-  diffValues,
+  diffKeyedValues,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
 import { HistoricalStopData } from '../../types';
@@ -26,55 +26,65 @@ export function diffLocationDetails(
   );
 
   const changes = [
-    diffValues({
+    diffKeyedValues({
+      key: 'StreetAddress',
       field: t('stopDetails.location.streetAddress'),
       oldValue: previous.quay.streetAddress,
       newValue: current.quay.streetAddress,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'PostalCode',
       field: t('stopDetails.location.postalCode'),
       oldValue: previous.quay.postalCode,
       newValue: current.quay.postalCode,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Municipality',
       field: t('stopDetails.location.municipality'),
       oldValue: previous.stop_place.municipality,
       newValue: current.stop_place.municipality,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'FareZone',
       field: t('stopDetails.location.fareZone'),
       oldValue: previous.stop_place.fareZone,
       newValue: current.stop_place.fareZone,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Latitude',
       field: t('stopDetails.location.latitude'),
       oldValue: previousPoint?.latitude,
       newValue: currentPoint?.latitude,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Longitude',
       field: t('stopDetails.location.longitude'),
       oldValue: previousPoint?.longitude,
       newValue: currentPoint?.longitude,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Altitude',
       field: t('stopDetails.location.altitude'),
       oldValue: previousPoint?.elevation,
       newValue: currentPoint?.elevation,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'FunctionalArea',
       field: t('stopDetails.location.functionalArea'),
       oldValue: previous.quay.functionalArea,
       newValue: current.quay.functionalArea,
       mapper: mapMeters,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'PlatformNumber',
       field: t('stopDetails.location.platformNumber'),
       oldValue:
         previous.quay.placeEquipments?.generalSign?.at(0)?.content?.value,
       newValue:
         current.quay.placeEquipments?.generalSign?.at(0)?.content?.value,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'SignContentType',
       field: t('stopDetails.location.signContentType'),
       oldValue:
         previous.quay?.placeEquipments?.generalSign?.at(0)?.signContentType,

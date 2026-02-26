@@ -17,8 +17,6 @@ import { useStopChangeHistoryPageRouterState } from './utils';
 
 const testIds = {
   container: 'StopChangeHistoryPage::Container',
-  title: 'StopChangeHistoryPage::title',
-  names: 'StopChangeHistoryPage::names',
 };
 
 export const StopChangeHistoryPage: FC = () => {

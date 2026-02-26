@@ -61,7 +61,7 @@ function addedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
         heading: getHeading.added(t, item),
         fields: diffItemVersions(t, null, item).map((field) => ({
           ...field,
-          key: `${item.id}::${field.key}`,
+          key: `${field.key}::${item.id}`,
           oldValue: <EmptyCell />,
         })),
       }),
@@ -93,7 +93,7 @@ function updatedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
       fields: diffItemVersions(t, previousVersion, currentVersion).map(
         (field) => ({
           ...field,
-          key: `${previousVersion.id}::${field.key}`,
+          key: `${field.key}::${previousVersion.id}`,
         }),
       ),
     }));
@@ -114,7 +114,7 @@ function removedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
         heading: getHeading.removed(t, item),
         fields: diffItemVersions(t, item, null).map((field) => ({
           ...field,
-          key: `${item.id}::${field.key}`,
+          key: `${field.key}::${item.id}`,
           newValue: <EmptyCell />,
         })),
       }),

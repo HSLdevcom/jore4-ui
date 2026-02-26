@@ -5,6 +5,10 @@ import { PagingInfo } from '../../../../../types';
 import { StopChangeHistoryFilters } from '../types';
 import { StopChangeHistoryItem } from './StopChangeHistoryItem';
 
+const testIds = {
+  group: (id: string) => `ChangeHistory::Group::${id}`,
+};
+
 /**
  * Extract the numeric sequence number from a Netex ID.
  * @param netexId
@@ -68,14 +72,21 @@ export const StopChangeHistoryDataRows: FC<StopChangeHistoryDataRowsProps> = ({
   }, [historyItems, from, to, page, pageSize]);
 
   return itemsToShow.map((historyItem) => (
-    <StopChangeHistoryItem
-      key={`${historyItem.netexId}-${historyItem.version}`}
-      getUserNameById={getUserNameById}
-      historyItem={historyItem}
-      previousHistoryItem={findPreviousVersion(
-        historyItemsSortedByVersion,
-        historyItem,
+    <tbody
+      data-testid={testIds.group(
+        `${historyItem.netexId}-${historyItem.version}`,
       )}
-    />
+      className="group"
+    >
+      <StopChangeHistoryItem
+        key={`${historyItem.netexId}-${historyItem.version}`}
+        getUserNameById={getUserNameById}
+        historyItem={historyItem}
+        previousHistoryItem={findPreviousVersion(
+          historyItemsSortedByVersion,
+          historyItem,
+        )}
+      />
+    </tbody>
   ));
 };

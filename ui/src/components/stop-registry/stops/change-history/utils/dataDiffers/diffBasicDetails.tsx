@@ -9,7 +9,7 @@ import {
 } from '../../../../../../i18n/uiNameMappings';
 import {
   ChangedValue,
-  diffValues,
+  diffKeyedValues,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
 import { useGetTimingPlaceLabel } from '../../../queries/useGetTimingPlaceLabel';
@@ -38,33 +38,39 @@ export function diffBasicDetails(
   current: HistoricalStopData,
 ): Array<ChangedValue> {
   const changes = [
-    diffValues({
+    diffKeyedValues({
+      key: 'PublicCode',
       field: t('stopDetails.basicDetails.label'),
       oldValue: previous.quay.publicCode,
       newValue: current.quay.publicCode,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'PrivateCode',
       field: t('stopDetails.basicDetails.privateCode'),
       oldValue: previous.quay.privateCode,
       newValue: current.quay.privateCode,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'LocationFin',
       field: t('stopDetails.basicDetails.locationFin'),
       oldValue: previous.quay.locationFin,
       newValue: current.quay.locationFin,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'LocationSwe',
       field: t('stopDetails.basicDetails.locationSwe'),
       oldValue: previous.quay.locationSwe,
       newValue: current.quay.locationSwe,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'StopState',
       field: t('stopDetails.basicDetails.stopState'),
       oldValue: previous.quay.stopState,
       newValue: current.quay.stopState,
       mapper: mapNullable((v) => mapStopPlaceStateToUiName(t, v)),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'TransportMode',
       field: t('stopDetails.basicDetails.transportMode'),
       oldValue: previous.stop_place.transportMode,
       newValue: current.stop_place.transportMode,
@@ -72,24 +78,28 @@ export function diffBasicDetails(
         mapStopRegistryTransportModeTypeToUiName(t, v),
       ),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'ElyNumber',
       field: t('stopDetails.basicDetails.elyNumber'),
       oldValue: previous.quay.elyNumber,
       newValue: current.quay.elyNumber,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'TimingPlaceId',
       field: t('stops.timingPlaceId'),
       oldValue: previous.quay.timingPlaceId,
       newValue: current.quay.timingPlaceId,
       mapper: (id) => <TimingPlaceLabel timingPlaceId={id} />,
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'RailReplacement',
       field: t('stopPlaceTypes.railReplacement'),
       oldValue: previous.quay.stopType.railReplacement,
       newValue: current.quay.stopType.railReplacement,
       mapper: (v) => optionalBooleanToUiText(t, v),
     }),
-    diffValues({
+    diffKeyedValues({
+      key: 'Virtual',
       field: t('stopPlaceTypes.virtual'),
       oldValue: previous.quay.stopType.virtual,
       newValue: current.quay.stopType.virtual,
