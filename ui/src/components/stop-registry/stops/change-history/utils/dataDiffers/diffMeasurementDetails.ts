@@ -47,11 +47,18 @@ export function diffMeasurementDetails(
       unit: 'meter',
     }),
   );
-  const mapPercentage = optionalFmt(
-    new Intl.NumberFormat(langCode, {
-      style: 'percent',
-    }),
-  );
+
+  const percentFmt = new Intl.NumberFormat(langCode, {
+    style: 'percent',
+    maximumFractionDigits: 2,
+  });
+  const mapPercentage = (v: number | null | undefined) => {
+    if (v === null || v === undefined) {
+      return null;
+    }
+
+    return percentFmt.format(v / 100);
+  };
 
   const changes = [
     diffKeyedValues({
