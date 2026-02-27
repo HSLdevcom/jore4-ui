@@ -36,7 +36,7 @@ const testIds = {
   shelterFasciaBoardTaping: 'ShelterFormFields::shelterFasciaBoardTaping',
   shelterExternalId: 'ShelterFormFields::shelterExternalId',
   deleteShelter: 'ShelterFormFields::deleteShelter',
-  copyShelter: 'SheltersFormFields::copyShelter',
+  copyShelter: 'ShelterFormFields::copyShelter',
 };
 
 type ShelterFormFieldsProps = {
