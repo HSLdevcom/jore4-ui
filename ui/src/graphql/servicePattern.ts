@@ -72,6 +72,7 @@ const ROUTE_STOP_FIELDS = gql`
     ...stop_with_journey_pattern_fields
     stop_place {
       id
+      version
       name {
         lang
         value
