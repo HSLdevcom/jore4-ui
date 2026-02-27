@@ -9,6 +9,7 @@ import {
   selectDraftLocation,
   setCopyStopIdAction,
   setDraftLocationAction,
+  setDraftVehicleModeAction,
   setMapStopViewStateAction,
   setSelectedStopIdAction,
 } from '../../../../redux';
@@ -68,6 +69,7 @@ export function useMapCopyStopUtils(
   const setCopyStopId = useAppAction(setCopyStopIdAction);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
   const setDraftStopLocation = useAppAction(setDraftLocationAction);
+  const setDraftVehicleMode = useAppAction(setDraftVehicleModeAction);
 
   const getStopDetails = useGetStopDetailsLazy();
   const copyStop = useCopyStop();
@@ -82,6 +84,7 @@ export function useMapCopyStopUtils(
     setDialogOpen(false);
     setSelectedStopId(undefined);
     setDraftStopLocation(undefined);
+    setDraftVehicleMode(undefined);
     setMapStopViewState(MapEntityEditorViewState.PLACECOPY);
   };
 
@@ -90,6 +93,7 @@ export function useMapCopyStopUtils(
     setSelectedStopId(copyStopId);
     setCopyStopId(undefined);
     setDraftStopLocation(undefined);
+    setDraftVehicleMode(undefined);
   };
 
   const onCloseCopyModal = () => {
