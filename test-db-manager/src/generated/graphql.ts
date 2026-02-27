@@ -1259,7 +1259,8 @@ export enum InfrastructureNetworkExternalSourceConstraint {
 export enum InfrastructureNetworkExternalSourceEnum {
   DigiroadRMml = 'digiroad_r_mml',
   DigiroadRSupplementary = 'digiroad_r_supplementary',
-  HslFixup = 'hsl_fixup'
+  HslFixup = 'hsl_fixup',
+  HslTram = 'hsl_tram'
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
