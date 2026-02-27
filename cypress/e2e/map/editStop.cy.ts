@@ -106,9 +106,15 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
 
       Map.stopPopUp.getMoveButton().click();
 
+      cy.intercept('POST', '/api/graphql/v1/graphql?q=QueryClosestLink').as(
+        'gqlQueryClosestLink',
+      );
+
       // Point where the stop is moved on the map. Moving the stop here gives it the endCoordinates.
       // Map view zoom level should not be changed in the test since it would naturally affect this test location.
       Map.clickRelativePoint(71, 35);
+
+      expectGraphQLCallToSucceed('@gqlQueryClosestLink');
 
       ConfirmationDialog.getConfirmButton().click();
 
@@ -236,7 +242,14 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
     Map.stopPopUp.getEditButton().click();
 
     StopForm.fillBaseForm(updatedStopInfo);
+
+    cy.intercept('POST', '/api/graphql/v1/graphql?q=QueryClosestLink').as(
+      'gqlQueryClosestLink',
+    );
+
     StopForm.save();
+
+    expectGraphQLCallToSucceed('@gqlQueryClosestLink');
 
     ConfirmationDialog.getConfirmButton().click();
 

@@ -1,3 +1,4 @@
+import { ReusableComponentsVehicleModeEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { StopAreaForm } from '../forms/StopAreaForm';
@@ -43,11 +44,13 @@ export class MapPage {
   static createStopAtLocation({
     stopFormInfo,
     clickRelativePoint,
+    vehicleMode = ReusableComponentsVehicleModeEnum.Bus,
   }: {
     stopFormInfo: NewStopFormInfo;
     clickRelativePoint: { xPercentage: number; yPercentage: number };
+    vehicleMode?: ReusableComponentsVehicleModeEnum;
   }) {
-    MapFooter.addStop();
+    MapFooter.addStop(vehicleMode);
 
     Map.clickRelativePoint(
       clickRelativePoint.xPercentage,

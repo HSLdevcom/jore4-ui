@@ -1260,7 +1260,8 @@ export enum InfrastructureNetworkExternalSourceEnum {
   DigiroadRMml = 'digiroad_r_mml',
   DigiroadRSupplementary = 'digiroad_r_supplementary',
   HslFixup = 'hsl_fixup',
-  HslTram = 'hsl_tram'
+  HslTram = 'hsl_tram',
+  TempHslTram = 'temp_hsl_tram'
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
@@ -1989,6 +1990,7 @@ export type InfrastructureNetworkInfrastructureLinkVarianceOrderBy = {
 };
 
 export type InfrastructureNetworkResolvePointToClosestLinkArgs = {
+  filter_vehicle_submode?: InputMaybe<Scalars['String']['input']>;
   geog?: InputMaybe<Scalars['geography']['input']>;
 };
 
