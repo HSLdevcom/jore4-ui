@@ -2,6 +2,7 @@ import debounce from 'lodash/debounce';
 import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { useCallbackOnKeyEscape } from '../../../hooks';
 import {
   drawLineToClosestRoad,
@@ -11,9 +12,13 @@ import { LineToActiveStopArea } from './LineToActiveStopArea';
 
 type CreateStopMarkerProps = {
   readonly onCancel: () => void;
+  readonly vehicleMode: ReusableComponentsVehicleModeEnum | null;
 };
 
-export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
+export const CreateStopMarker: FC<CreateStopMarkerProps> = ({
+  onCancel,
+  vehicleMode,
+}) => {
   const [mouseCoords, setMouseCoords] = useState<MapLibrePoint | null>(null);
 
   const { current: map } = useMap();
@@ -31,9 +36,9 @@ export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
   const onMouseMove = useCallback(
     (e: MapLayerMouseEvent) => {
       setMouseCoords(e.point);
-      debouncedDrawLineToClosestRoad(map?.getMap(), e.point);
+      debouncedDrawLineToClosestRoad(map?.getMap(), e.point, vehicleMode);
     },
-    [debouncedDrawLineToClosestRoad, map],
+    [debouncedDrawLineToClosestRoad, map, vehicleMode],
   );
 
   useEffect(() => {

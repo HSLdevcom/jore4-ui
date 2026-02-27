@@ -1,5 +1,7 @@
 import {
   InfrastructureNetworkDirectionEnum,
+  ReusableComponentsVehicleModeEnum,
+  ReusableComponentsVehicleSubmodeEnum,
   useQueryClosestLinkLazyQuery,
   useQueryPointDirectionOnLinkLazyQuery,
 } from '../../../../generated/graphql';
@@ -13,8 +15,25 @@ import {
   LinkNotResolvedError,
 } from '../../../../utils';
 
+const vehicleModeToSubmode: Record<
+  ReusableComponentsVehicleModeEnum,
+  ReusableComponentsVehicleSubmodeEnum
+> = {
+  [ReusableComponentsVehicleModeEnum.Bus]:
+    ReusableComponentsVehicleSubmodeEnum.GenericBus,
+  [ReusableComponentsVehicleModeEnum.Tram]:
+    ReusableComponentsVehicleSubmodeEnum.GenericTram,
+  [ReusableComponentsVehicleModeEnum.Metro]:
+    ReusableComponentsVehicleSubmodeEnum.GenericMetro,
+  [ReusableComponentsVehicleModeEnum.Train]:
+    ReusableComponentsVehicleSubmodeEnum.GenericTrain,
+  [ReusableComponentsVehicleModeEnum.Ferry]:
+    ReusableComponentsVehicleSubmodeEnum.GenericFerry,
+};
+
 type Params = {
   readonly stopLocation: GeoJSON.Point;
+  readonly vehicleMode: ReusableComponentsVehicleModeEnum;
   readonly maxSearchDistance?: number;
 };
 
@@ -39,12 +58,14 @@ export const useGetStopLinkAndDirection = () => {
 
   const getStopLinkAndDirection = async ({
     stopLocation,
+    vehicleMode,
     maxSearchDistance = 50,
   }: Params) => {
     // fetch the closest link to the stop location
     const closestLinkResult = await fetchClosestLink({
       variables: {
         point: stopLocation,
+        filter_vehicle_submode: vehicleModeToSubmode[vehicleMode],
       },
     });
     const closestLink = mapClosestLinkResult(closestLinkResult);

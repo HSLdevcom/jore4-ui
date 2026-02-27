@@ -3,6 +3,7 @@ import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
   MapStopMinimalDetailsFragment,
+  ReusableComponentsVehicleModeEnum,
   StopsDatabaseQuayNewestVersionBoolExp,
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
@@ -39,6 +40,11 @@ const GQL_GET_MAP_STOPS = gql`
 
     centroid
     functional_area
+
+    stop_place {
+      id
+      transport_mode
+    }
   }
 `;
 
@@ -107,6 +113,10 @@ function mapRawStopToMapStop(
     return null;
   }
 
+  const vehicleMode = rawStop.stop_place?.transport_mode as
+    | ReusableComponentsVehicleModeEnum
+    | undefined;
+
   return {
     label: rawStop.label,
     location: rawStop.centroid,
@@ -116,6 +126,7 @@ function mapRawStopToMapStop(
     validity_start: parseDate(rawStop.validity_start),
     validity_end: parseDate(rawStop.validity_end),
     functional_area: parseValidNumber(rawStop.functional_area),
+    vehicle_mode: vehicleMode,
   };
 }
 

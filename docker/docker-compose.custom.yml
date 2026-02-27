@@ -15,9 +15,8 @@ services:
     # Link to available jore4-hasura imags in Docker Hub:
     # https://hub.docker.com/r/hsldevcom/jore4-hasura/tags?page=1&ordering=last_updated
     # The :hsl-tag contains the desired version of hsl specific hasura.
-    # Waiting for merging feature-branch to main in hasura-repo
     # Note: also update jore4-hasura-e2e in docker-compose.e2e when changing this.
-    #image: "crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-11-03-a11bef7ade55dbe7c61a11e02bee65908e44febe"
+    #image: "crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2026-03-26-1525ae244d0d6821ac2109227dd03991b1a47d55"
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -30,9 +29,9 @@ services:
     # extra_hosts:
     #   - "jore4-timetablesapi:host-gateway"
 
-#  jore4-mapmatching:
-    # pinning map-matching API to compatible version
-#    image: "hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7"
+  #  jore4-mapmatching:
+  # pinning map-matching API to compatible version
+  #    image: "hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7"
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
@@ -43,11 +42,11 @@ services:
       HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
 
   #jore4-tiamat:
-    # Pin tiamat to a compatible version.
-    # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
-    #image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-11-19-75e2b9396dad8c114433d4fc0025b5116a04709a"
+  # Pin tiamat to a compatible version.
+  # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
+  #image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-11-19-75e2b9396dad8c114433d4fc0025b5116a04709a"
 
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.
     # Note: also update jore4-timetablesapi-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
+    image: "hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f"
