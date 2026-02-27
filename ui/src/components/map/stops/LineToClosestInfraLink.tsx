@@ -1,6 +1,7 @@
 import type { LineString } from 'geojson';
 import { FC } from 'react';
 import { MapInstance, useMap } from 'react-map-gl/maplibre';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { Point } from '../../../types';
 import { findNearestPointOnARoad } from '../../../utils/map';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
@@ -25,12 +26,17 @@ function linestringFromStop(
 function linestringFromDraftLocation(
   map: MapInstance | undefined,
   draftLocation: Point | null,
+  vehicleMode: ReusableComponentsVehicleModeEnum | null,
 ): LineString | null {
   if (!draftLocation) {
     return null;
   }
 
-  const pointOnInfraLink = findNearestPointOnARoad(map, draftLocation);
+  const pointOnInfraLink = findNearestPointOnARoad(
+    map,
+    draftLocation,
+    vehicleMode,
+  );
 
   if (!pointOnInfraLink) {
     return null;
@@ -48,17 +54,19 @@ function linestringFromDraftLocation(
 type LineToClosestInfraLinkProps = {
   readonly draftLocation: Point | null;
   readonly stop: StopInfoForEditingOnMap | null;
+  readonly vehicleMode: ReusableComponentsVehicleModeEnum | null;
 };
 
 export const LineToClosestInfraLink: FC<LineToClosestInfraLinkProps> = ({
   draftLocation,
   stop,
+  vehicleMode,
 }) => {
   const { current: map } = useMap();
 
   const lineToInfraLink: LineString | null =
     linestringFromStop(stop) ??
-    linestringFromDraftLocation(map?.getMap(), draftLocation);
+    linestringFromDraftLocation(map?.getMap(), draftLocation, vehicleMode);
 
   if (!lineToInfraLink) {
     return null;

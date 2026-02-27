@@ -1,16 +1,20 @@
 import { gql } from '@apollo/client';
 import type { Point } from 'geojson';
 import {
+  ReusableComponentsVehicleModeEnum,
   ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
   StopRegistryQuayInput,
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
+  useQueryAnyClosestLinkLazyQuery,
 } from '../../../../generated/graphql';
+import { mapAnyClosestLinkResult } from '../../../../graphql';
 import { OptionalKeys } from '../../../../types';
 import {
   IncompatibleWithExistingRoutesError,
   KnownValueKey,
+  LinkNotResolvedError,
   findKeyValue,
   getRouteLabelVariantText,
   removeFromApolloCache,
@@ -104,7 +108,12 @@ export function usePrepareCreate() {
         }),
 
         // we need to fetch the infra link and direction for the stop
-        getStopLinkAndDirection({ stopLocation: stopPoint.measured_location }),
+        getStopLinkAndDirection({
+          stopLocation: stopPoint.measured_location,
+          vehicleMode:
+            stopPoint.vehicle_mode_on_scheduled_stop_point?.data?.[0]
+              ?.vehicle_mode ?? ReusableComponentsVehicleModeEnum.Bus,
+        }),
 
         // next private code
         getNextQuayPrivateCode(),
@@ -143,11 +152,19 @@ export function usePrepareCreate() {
 }
 
 export function useCheckIsLocationValidForStop() {
-  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const [fetchAnyClosestLink] = useQueryAnyClosestLinkLazyQuery();
 
-  // Checks if the given location is on and on the right side of a road.
+  // Checks if the given location is near any infrastructure link at all.
   return async (stopLocation: Point): Promise<true> => {
-    await getStopLinkAndDirection({ stopLocation });
+    const result = await fetchAnyClosestLink({
+      variables: { point: stopLocation },
+    });
+    if (!mapAnyClosestLinkResult(result)) {
+      throw new LinkNotResolvedError(
+        result.error,
+        `Could not resolve closest link to point ${stopLocation}`,
+      );
+    }
     return true;
   };
 }
