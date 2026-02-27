@@ -14,6 +14,7 @@ import {
   isEditorOpen,
   isPlacingOrMoving,
   selectDraftLocation,
+  selectDraftVehicleMode,
   selectMapStopSelection,
   selectSelectedStopAreaId,
   selectSelectedStopId,
@@ -96,6 +97,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
   const draftLocation = useAppSelector(selectDraftLocation);
+  const draftVehicleMode = useAppSelector(selectDraftVehicleMode);
   const mapStopSelection = useAppSelector(selectMapStopSelection);
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
@@ -248,6 +250,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
           ref={editStopLayerRef}
           selectedStopId={selectedStopId ?? null}
           draftLocation={draftLocation ?? null}
+          draftVehicleMode={draftVehicleMode ?? null}
           onEditingFinished={onEditingFinished}
           onPopupClose={onPopupClose}
         />

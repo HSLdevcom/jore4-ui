@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
 import {
   REQUIRED_FIELD_ERROR_MESSAGE,
   schema as changeValidityFormSchema,
@@ -29,6 +30,10 @@ export const stopFormSchema = z
     stopId: z.string().uuid().optional(), // for stops that are edited
     quayId: z.string().optional(), // for stops that are edited
     stopArea: stopModalStopAreaFormSchema.nullable(),
+    vehicleMode: z
+      .nativeEnum(ReusableComponentsVehicleModeEnum)
+      .nullable()
+      .optional(),
     publicCode: publicCodeSchema.required(),
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),

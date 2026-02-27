@@ -29,10 +29,15 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   const formRef = useRef<ExplicitAny>(null);
 
   const buildHeading = () => {
-    const { publicCode: { value: label } = {} } = defaultValues;
+    const { publicCode: { value: label } = {}, vehicleMode } = defaultValues;
+
+    const modeLabel = vehicleMode
+      ? t(`stops.${vehicleMode.toLowerCase()}Stop`)
+      : t('stops.stop');
+
     return label
       ? t('stops.stopWithLabel', { stopLabel: label })
-      : t('stops.createStop');
+      : t('stops.createStop', { vehicleModeTranslation: modeLabel });
   };
 
   /**
