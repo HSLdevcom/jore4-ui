@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { Point } from '../../types';
 import { StoreType } from '../mappers';
 import { MapEntityEditorViewState } from '../types';
@@ -6,6 +7,7 @@ import { MapEntityEditorViewState } from '../types';
 export type MapStopEditorState = {
   readonly selectedStopId?: string;
   readonly draftLocation?: Point;
+  readonly draftVehicleMode?: ReusableComponentsVehicleModeEnum;
   readonly viewState: MapEntityEditorViewState;
   readonly copyStopId?: string;
 };
@@ -15,6 +17,7 @@ type IState = StoreType<MapStopEditorState>;
 const initialState: IState = {
   selectedStopId: undefined,
   draftLocation: undefined,
+  draftVehicleMode: undefined,
   viewState: MapEntityEditorViewState.NONE,
   copyStopId: undefined,
 };
@@ -31,6 +34,12 @@ const slice = createSlice({
       action: PayloadAction<StoreType<Point> | undefined>,
     ) => {
       state.draftLocation = action.payload;
+    },
+    setDraftVehicleMode: (
+      state,
+      action: PayloadAction<ReusableComponentsVehicleModeEnum | undefined>,
+    ) => {
+      state.draftVehicleMode = action.payload;
     },
     setMapStopViewState: (
       state,
@@ -50,6 +59,7 @@ const slice = createSlice({
 export const {
   setSelectedStopId: setSelectedStopIdAction,
   setDraftLocation: setDraftLocationAction,
+  setDraftVehicleMode: setDraftVehicleModeAction,
   setMapStopViewState: setMapStopViewStateAction,
   setCopyStopId: setCopyStopIdAction,
   reset: resetMapStopEditorStateAction,

@@ -63,16 +63,17 @@ function determineFillColor(
   stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
   inSelection: boolean,
 ) {
-  if (
-    stopVehicleMode !== undefined ||
-    isSelected ||
-    asMemberStop ||
-    inSelection
-  ) {
+  if (isSelected || asMemberStop || inSelection) {
     return 'white';
   }
-
-  return colors.lightGrey;
+  switch (stopVehicleMode) {
+    case ReusableComponentsVehicleModeEnum.Bus:
+      return colors.stops.bus;
+    case ReusableComponentsVehicleModeEnum.Tram:
+      return colors.stops.tram;
+    default:
+      return colors.lightGrey;
+  }
 }
 
 type BaseStopProps = {

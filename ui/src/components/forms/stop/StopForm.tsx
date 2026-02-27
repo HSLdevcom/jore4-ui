@@ -73,13 +73,15 @@ function mapFormStateToStopPointSetInput(
 function mapFormStateToStopPointCreateInput(
   state: StopFormState,
 ): CreateStopPointInput {
+  const vehicleMode =
+    state.vehicleMode ?? ReusableComponentsVehicleModeEnum.Bus;
+
   return {
     ...mapFormStateToStopPointSetInput(state),
     vehicle_mode_on_scheduled_stop_point: {
       data: [
         {
-          // TODO: Replace hard-coded Bus-value with propagated one
-          vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+          vehicle_mode: vehicleMode,
         },
       ],
     },
