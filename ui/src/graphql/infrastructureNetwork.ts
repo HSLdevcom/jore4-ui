@@ -9,6 +9,7 @@ import {
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
   InfrastructureNetworkInfrastructureLinkInsertInput,
+  QueryAnyClosestLinkQuery,
   QueryClosestLinkQuery,
   QueryPointDirectionOnLinkQuery,
   ReusableComponentsVehicleSubmodeEnum,
@@ -126,11 +127,23 @@ const INFRA_LINK_MATCHING_FIELDS = gql`
 `;
 
 const QUERY_CLOSEST_LINK = gql`
-  query QueryClosestLink($point: geography) {
+  query QueryClosestLink($point: geography!, $filter_vehicle_submode: String) {
     infrastructure_network_resolve_point_to_closest_link(
-      args: { geog: $point }
+      args: { geog: $point, filter_vehicle_submode: $filter_vehicle_submode }
     ) {
       ...infrastructure_link_all_fields
+    }
+  }
+`;
+
+const QUERY_ANY_CLOSEST_LINK = gql`
+  query QueryAnyClosestLink($point: geography!) {
+    infrastructure_network_infrastructure_link(
+      where: { shape: { _st_d_within: { distance: 100, from: $point } } }
+      order_by: []
+      limit: 1
+    ) {
+      infrastructure_link_id
     }
   }
 `;
@@ -141,6 +154,10 @@ export const mapClosestLinkResult = (
   result.data?.infrastructure_network_resolve_point_to_closest_link[0] as
     | InfrastructureNetworkInfrastructureLink
     | undefined;
+
+export const mapAnyClosestLinkResult = (
+  result: GqlQueryResult<QueryAnyClosestLinkQuery>,
+) => result.data?.infrastructure_network_infrastructure_link[0];
 
 const QUERY_POINT_DIRECTION = gql`
   query QueryPointDirectionOnLink(

@@ -132,6 +132,31 @@ export function expectGraphQLCallToSucceed(alias: string) {
     });
 }
 
+/**
+ * Like expectGraphQLCallToSucceed, but skips intercepted calls that have a raw
+ * network error (e.g. socket closed mid-response due to rapid re-querying).
+ * Useful when typing into a search field triggers multiple debounced requests
+ * and intermediate requests may get cancelled in CI.
+ */
+export function waitForSuccessfulGraphQLCall(
+  alias: string,
+): Cypress.Chainable<SuccessfulGraphQLInterception> {
+  return cy
+    .wait(alias)
+    .then(
+      (interceptedCall): Cypress.Chainable<SuccessfulGraphQLInterception> => {
+        if (interceptedCall.error) {
+          return waitForSuccessfulGraphQLCall(alias);
+        }
+        const body = assertAndGetValidGraphGLBody(alias, interceptedCall);
+        assertGraphQLBodyHasNoErrors(alias, body);
+        return cy.wrap(
+          interceptedCall as unknown as SuccessfulGraphQLInterception,
+        );
+      },
+    );
+}
+
 export function expectGraphQLCallToReturnError(alias: string) {
   return cy
     .wait(alias)

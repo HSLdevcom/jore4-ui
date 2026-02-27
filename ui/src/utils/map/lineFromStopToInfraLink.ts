@@ -12,6 +12,7 @@ import {
   Point as MapLibrePoint,
 } from 'maplibre-gl';
 import { MapInstance } from 'react-map-gl/maplibre';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { Point as JorePoint } from '../../types';
 import { notNullish } from '../misc';
 import { createGeometryLineBetweenPoints, removeLayer } from './mapUtils';
@@ -23,8 +24,17 @@ type LineAndDistance = {
 
 const INFRA_CONNECTION_NAME = 'infraConnection';
 
-// Name of the road layer in digiroad material
-const ROAD_LAYER_ID = 'digiroad_r_links';
+const BUS_LAYER_ID = 'digiroad_r_links_bus';
+const TRAM_LAYER_ID = 'mml_links_tram';
+
+function getLayerIdForVehicleMode(
+  vehicleMode: ReusableComponentsVehicleModeEnum | null | undefined,
+): string {
+  // Only tram and bus have their own tile sources. All other vehicle modes fall back to the bus (digiroad) layer.
+  return vehicleMode === ReusableComponentsVehicleModeEnum.Tram
+    ? TRAM_LAYER_ID
+    : BUS_LAYER_ID;
+}
 
 const SEARCH_RADIUS_IN_PIXELS = 100;
 
@@ -145,6 +155,7 @@ export function addLineFromStopToInfraLink(
 export function findNearestPointOnARoad(
   map: MapInstance | undefined,
   to: JorePoint,
+  vehicleMode?: ReusableComponentsVehicleModeEnum | null,
 ): Point | null {
   if (!map) {
     return null;
@@ -155,7 +166,7 @@ export function findNearestPointOnARoad(
   const features: ReadonlyArray<MapGeoJSONFeature> =
     findFeaturesForLayerWithRadius(
       map,
-      ROAD_LAYER_ID,
+      getLayerIdForVehicleMode(vehicleMode),
       map.project(toCoordinates),
       SEARCH_RADIUS_IN_PIXELS,
     );
@@ -172,6 +183,7 @@ export function findNearestPointOnARoad(
 export function drawLineToClosestRoad(
   map: MapInstance | undefined,
   coords: MapLibrePoint,
+  vehicleMode?: ReusableComponentsVehicleModeEnum | null,
 ) {
   if (!map) {
     return;
@@ -180,7 +192,7 @@ export function drawLineToClosestRoad(
   const features: ReadonlyArray<MapGeoJSONFeature> =
     findFeaturesForLayerWithRadius(
       map,
-      ROAD_LAYER_ID,
+      getLayerIdForVehicleMode(vehicleMode),
       coords,
       SEARCH_RADIUS_IN_PIXELS,
     );
