@@ -1,4 +1,7 @@
-import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import {
+  expectGraphQLCallToSucceed,
+  waitForSuccessfulGraphQLCall,
+} from '../../utils/assertions';
 import { ChangeValidityForm } from './ChangeValidityForm';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 import { PriorityForm, PriorityFormInfo } from './PriorityForm';
@@ -129,6 +132,7 @@ export class StopForm {
 
     if (values.stopPlace) {
       StopForm.getStopAreaInput().clearAndType(values.stopPlace);
+      waitForSuccessfulGraphQLCall('@gqlFindStopAreasByNames');
       StopForm.getStopAreaResult(values.stopPlace).click();
     }
 
