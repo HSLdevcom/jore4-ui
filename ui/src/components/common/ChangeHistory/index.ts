@@ -4,3 +4,6 @@ export * from './ChangedValuesWithHeaderRow';
 export * from './ChangeHistoryItemSectionHeaderRow';
 export * from './ChangeHistoryTable';
 export * from './EmptyCell';
+export * from './ErrorLoadingState';
+export * from './LatestChangeHistoryItem';
+export * from './LoadingState';
