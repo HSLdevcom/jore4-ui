@@ -10,6 +10,7 @@ import {
   isModalOpen,
   selectMapStopAreaViewState,
   selectMapStopViewState,
+  setDraftVehicleModeAction,
   setEditedStopAreaDataAction,
   setMapStopAreaViewStateAction,
   setMapStopViewStateAction,
@@ -20,6 +21,7 @@ import { ConfirmationDialog } from '../../../uiComponents';
 import {
   getGeometryPoint,
   mapPointToStopRegistryGeoJSON,
+  parseVehicleMode,
   showSuccessToast,
 } from '../../../utils';
 import { useLoader } from '../../common/hooks';
@@ -51,6 +53,7 @@ export const EditStopAreaLayer = forwardRef<
 
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
+  const setDraftVehicleMode = useAppAction(setDraftVehicleModeAction);
 
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
   const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
@@ -96,6 +99,9 @@ export const EditStopAreaLayer = forwardRef<
   };
 
   const onAddStop = () => {
+    setDraftVehicleMode(
+      parseVehicleMode(editedArea.transportMode) ?? undefined,
+    );
     setMapStopViewState(MapEntityEditorViewState.PLACE);
   };
 

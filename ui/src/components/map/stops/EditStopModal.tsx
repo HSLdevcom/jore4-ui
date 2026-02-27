@@ -1,5 +1,6 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapVehicleModeToStopTypeName } from '../../../i18n/uiNameMappings';
 import { StopFormState as FormState, StopForm } from '../../forms/stop';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal';
@@ -29,10 +30,15 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   const formRef = useRef<ExplicitAny>(null);
 
   const buildHeading = () => {
-    const { publicCode: { value: label } = {} } = defaultValues;
+    const { publicCode: { value: label } = {}, vehicleMode } = defaultValues;
+
+    const modeLabel = vehicleMode
+      ? mapVehicleModeToStopTypeName(t, vehicleMode)
+      : t('stops.stop');
+
     return label
       ? t('stops.stopWithLabel', { stopLabel: label })
-      : t('stops.createStop');
+      : t('stops.createStop', { vehicleModeTranslation: modeLabel });
   };
 
   /**
