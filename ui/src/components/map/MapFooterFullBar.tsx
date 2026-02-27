@@ -2,7 +2,8 @@ import some from 'lodash/some';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { useAppSelector } from '../../hooks';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
+import { useAppAction, useAppSelector } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
@@ -12,9 +13,11 @@ import {
   selectHasDraftRouteGeometry,
   selectIsInViewMode,
   selectMapRouteEditor,
+  setDraftVehicleModeAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
+import { MapFooterAddStopDropdown } from './MapFooterAddStopDropdown';
 import { useMapViewState } from './utils/useMapViewState';
 
 const testIds = {
@@ -55,8 +58,10 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
   const isInViewMode = useAppSelector(selectIsInViewMode);
 
   const [mapViewState, setMapViewState] = useMapViewState();
+  const setDraftVehicleMode = useAppAction(setDraftVehicleModeAction);
 
-  const onAddStops = () => {
+  const onAddStops = (vehicleMode: ReusableComponentsVehicleModeEnum) => {
+    setDraftVehicleMode(vehicleMode);
     setMapViewState({ stops: MapEntityEditorViewState.PLACE });
   };
 
@@ -93,8 +98,9 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       >
         {t('map.editRoute')}
       </SimpleButton>
-      <SimpleButton
-        onClick={onAddStops}
+      <MapFooterAddStopDropdown
+        onAddStops={onAddStops}
+        testId={testIds.addStopButton}
         disabled={
           drawingMode !== undefined ||
           creatingNewRoute ||
@@ -105,11 +111,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           mapViewState.terminals !== MapEntityEditorViewState.NONE
         }
         inverted={mapViewState.stops === MapEntityEditorViewState.NONE}
-        testId={testIds.addStopButton}
-        disabledTooltip={t('dataModelRefactor.disabled')}
-      >
-        {t('map.addStop')}
-      </SimpleButton>
+      />
       <MapFooterActionsDropdown
         disabled={
           someItemIsSelected ||

@@ -7,6 +7,7 @@ import {
   EditStopMutationVariables,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
+  ReusableComponentsVehicleModeEnum,
   RouteAllFieldsFragment,
   RouteUniqueFieldsFragment,
   ScheduledStopPointAllFieldsFragment,
@@ -313,6 +314,9 @@ function useOnStopLocationChanged() {
     const { closestLink, direction } = await getStopLinkAndDirection({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       stopLocation: newStop.measured_location!,
+      vehicleMode:
+        oldStop.vehicle_mode_on_scheduled_stop_point?.[0]?.vehicle_mode ??
+        ReusableComponentsVehicleModeEnum.Bus,
     });
 
     const {

@@ -14,6 +14,8 @@ export type SimpleButtonDropdownMenuProps = {
   readonly buttonClassName?: string;
   readonly className?: string;
   readonly disabled?: boolean;
+  readonly disabledTooltip?: string;
+  readonly inverted?: boolean;
   readonly shape?: SimpleButtonDropdownShape;
   readonly testId?: string;
 };
@@ -25,6 +27,8 @@ export const SimpleButtonDropdownMenu: FC<SimpleButtonDropdownMenuProps> = ({
   buttonClassName,
   className,
   disabled,
+  disabledTooltip,
+  inverted,
   shape = 'normal',
   testId,
 }) => {
@@ -32,7 +36,7 @@ export const SimpleButtonDropdownMenu: FC<SimpleButtonDropdownMenuProps> = ({
     <Menu as="div" className={twMerge('relative', className)}>
       <MenuButton
         className={getSimpleButtonClassNames(
-          true,
+          inverted,
           disabled,
           shape,
           twJoin(
@@ -44,6 +48,7 @@ export const SimpleButtonDropdownMenu: FC<SimpleButtonDropdownMenuProps> = ({
         data-testid={testId}
         disabled={disabled}
         aria-label={ariaLabel}
+        title={disabled ? disabledTooltip : undefined}
       >
         <div>{buttonText}</div>
         <div

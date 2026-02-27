@@ -1989,6 +1989,7 @@ export type InfrastructureNetworkInfrastructureLinkVarianceOrderBy = {
 };
 
 export type InfrastructureNetworkResolvePointToClosestLinkArgs = {
+  filter_vehicle_submode?: InputMaybe<Scalars['String']['input']>;
   geog?: InputMaybe<Scalars['geography']['input']>;
 };
 
