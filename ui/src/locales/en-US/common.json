@@ -1483,6 +1483,8 @@
   "stopChangeHistory": {
     "title": "Change history | Stop {{publicCode}}",
     "titleWithName": "Change history | Stop  {{publicCode}} {{name}}",
+    "titleLatest": "Change history",
+    "showAll": "Show change history",
     "goBack": "Back",
     "firstVersion": "New stop created",
     "importedVersion": "Stop imported from Jore 3",
