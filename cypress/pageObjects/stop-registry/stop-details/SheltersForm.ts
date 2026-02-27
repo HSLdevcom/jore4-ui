@@ -12,6 +12,10 @@ export class SheltersForm {
   }
 
   static getCopyNewShelterButton() {
-    return cy.getByTestId('SheltersFormFields::copyShelter');
+    return cy.getByTestId('ShelterFormFields::copyShelter');
+  }
+
+  static getDeleteShelterButton() {
+    return cy.getByTestId('ShelterFormFields::deleteShelter');
   }
 }
