@@ -85,7 +85,11 @@ function handleDeletions(
 export const useEditStopInfoSpots = () => {
   const { t } = useTranslation();
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
-    refetchQueries: [GetStopDetailsDocument],
+    refetchQueries: [
+      GetStopDetailsDocument,
+      'GetLatestQuayChange',
+      'GetLatestStopChangeHistory',
+    ],
   });
 
   const saveStopPlaceInfoSpots = async (params: {
