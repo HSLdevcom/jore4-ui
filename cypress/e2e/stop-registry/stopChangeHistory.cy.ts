@@ -32,6 +32,7 @@ import {
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 const testInfraLinks = [
@@ -932,6 +933,267 @@ describe('Stop Change History', { tags }, () => {
               assertValueChanged(['Kyllä', 'Ei']),
             ),
           );
+      });
+    });
+  });
+
+  describe('Sorting', () => {
+    type SortChangeHistoryBy =
+      | 'ValidityStart'
+      | 'ValidityEnd'
+      | 'Changed'
+      | 'ChangedBy';
+    type SortOrder = 'asc' | 'desc';
+
+    function assertSortButtonState(by: SortChangeHistoryBy, order: SortOrder) {
+      StopChangeHistoryPage.changeHistoryTable.sortByButton
+        .getValidityStart()
+        .should('have.attr', 'data-is-active', String(by === 'ValidityStart'))
+        .and('have.attr', 'data-sort-direction', order);
+
+      StopChangeHistoryPage.changeHistoryTable.sortByButton
+        .getValidityEnd()
+        .should('have.attr', 'data-is-active', String(by === 'ValidityEnd'))
+        .and('have.attr', 'data-sort-direction', order);
+
+      StopChangeHistoryPage.changeHistoryTable.sortByButton
+        .getChanged()
+        .should('have.attr', 'data-is-active', String(by === 'Changed'))
+        .and('have.attr', 'data-sort-direction', order);
+
+      StopChangeHistoryPage.changeHistoryTable.sortByButton
+        .getChangedBy()
+        .should('have.attr', 'data-is-active', String(by === 'ChangedBy'))
+        .and('have.attr', 'data-sort-direction', order);
+    }
+
+    function assertSectionsAreInOrder(
+      assertRowPair: (current: HTMLElement, next: HTMLElement) => void,
+    ) {
+      StopChangeHistoryPage.changeHistoryTable.sectionHeader
+        .getAll()
+        .each((current, index, rows) => {
+          if (index === rows.length - 1) {
+            return false;
+          }
+
+          assertRowPair(current[0], rows[index + 1]);
+          return true;
+        });
+    }
+
+    function getAndAssertTimeStamps(current: HTMLElement, next: HTMLElement) {
+      const currentTimeStamp = current.dataset.timestamp as string;
+      const nextTimeStamp = next.dataset.timestamp as string;
+
+      expect(currentTimeStamp).to.be.a('string');
+      expect(nextTimeStamp).to.be.a('string');
+
+      return { currentTimeStamp, nextTimeStamp };
+    }
+
+    function getAndAssertValidityStartDates(
+      current: HTMLElement,
+      next: HTMLElement,
+    ) {
+      const currentDate = current.dataset.validityStart as string;
+      const nextDate = next.dataset.validityStart as string;
+
+      expect(currentDate).to.be.a('string');
+      expect(nextDate).to.be.a('string');
+
+      return { currentDate, nextDate };
+    }
+
+    function getAndAssertValidityEndDates(
+      current: HTMLElement,
+      next: HTMLElement,
+    ) {
+      const currentDate = current.dataset.validityEnd as string;
+      const nextDate = next.dataset.validityEnd as string;
+
+      expect(currentDate).to.be.a('string');
+      expect(nextDate).to.be.a('string');
+
+      return { currentDate, nextDate };
+    }
+
+    it('Should sort by Change Time', () => {
+      StopDetailsPage.visit('H2003');
+      StopDetailsPage.page().shouldBeVisible();
+
+      cy.section('Make changes', () => {
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000); // Ensure we get unique timestamps
+        StopDetailsPage.basicDetails.getEditButton().click();
+        BasicDetailsForm.getPrivateCodeInput().clearAndType('1');
+        StopDetailsPage.basicDetails.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000); // Ensure we get unique timestamps
+        StopDetailsPage.basicDetails.getEditButton().click();
+        BasicDetailsForm.getPrivateCodeInput().clearAndType('2');
+        StopDetailsPage.basicDetails.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+      });
+
+      StopDetailsPage.changeHistoryLink().click();
+      expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+
+      cy.section('Check sorting by Change time', () => {
+        cy.info('Should be sorted from newest to oldest.');
+        cy.info('Sort buttons should have correct state by default.');
+        assertSortButtonState('Changed', 'desc');
+
+        cy.info('Data rows should be ordered correctly Changed|Desc.');
+        assertSectionsAreInOrder((current, next) => {
+          const { currentTimeStamp, nextTimeStamp } = getAndAssertTimeStamps(
+            current,
+            next,
+          );
+
+          expect(
+            currentTimeStamp >= nextTimeStamp,
+            `Expected ${currentTimeStamp} >= ${nextTimeStamp} to be true!`,
+          ).to.eq(true);
+        });
+
+        cy.info('Reverse sort order');
+        StopChangeHistoryPage.changeHistoryTable.sortByButton
+          .getChanged()
+          .filter(':visible')
+          .click();
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+        cy.info('Sort buttons should have new correct state.');
+        assertSortButtonState('Changed', 'asc');
+        cy.info('Data rows should be ordered correctly Changed|Asc.');
+        assertSectionsAreInOrder((current, next) => {
+          const { currentTimeStamp, nextTimeStamp } = getAndAssertTimeStamps(
+            current,
+            next,
+          );
+
+          expect(
+            currentTimeStamp <= nextTimeStamp,
+            `Expected ${currentTimeStamp} <= ${nextTimeStamp} to be true!`,
+          ).to.eq(true);
+        });
+      });
+    });
+
+    it('Should sort by Validity times', () => {
+      StopDetailsPage.visit('H2003');
+      StopDetailsPage.page().shouldBeVisible();
+
+      const today = DateTime.now();
+
+      cy.section('Make changes', () => {
+        // First validity period change.
+        StopDetailsPage.editStopValidityButton().click();
+        StopDetailsPage.editStopModal.form.priority.setAsStandard();
+        StopDetailsPage.editStopModal.form.validity.setStartDate(
+          today.toISODate(),
+        );
+        StopDetailsPage.editStopModal.form.validity.setEndDate('2029-12-31');
+        StopDetailsPage.editStopModal.form.submitButton().click();
+        Toast.expectSuccessToast('Versio muokattu');
+
+        // Another change
+        StopDetailsPage.editStopValidityButton().click();
+        StopDetailsPage.editStopModal.form.priority.setAsStandard();
+        StopDetailsPage.editStopModal.form.validity.setStartDate('2030-01-01');
+        StopDetailsPage.editStopModal.form.validity.setEndDate('2039-12-31');
+        StopDetailsPage.editStopModal.form.submitButton().click();
+        Toast.expectSuccessToast('Versio muokattu');
+      });
+
+      StopDetailsPage.changeHistoryLink().click();
+      expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+
+      cy.section('Check sorting by Validity Start date', () => {
+        StopChangeHistoryPage.changeHistoryTable.sortByButton
+          .getValidityStart()
+          .filter(':visible')
+          .click();
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+        assertSortButtonState('ValidityStart', 'desc');
+
+        cy.info('Data rows should be ordered correctly ValidityStart|Desc.');
+        assertSectionsAreInOrder((current, next) => {
+          const { currentDate, nextDate } = getAndAssertValidityStartDates(
+            current,
+            next,
+          );
+
+          expect(
+            currentDate >= nextDate,
+            `Expected ${currentDate} >= ${nextDate} to be true!`,
+          ).to.eq(true);
+        });
+
+        cy.info('Reverse sort order');
+        StopChangeHistoryPage.changeHistoryTable.sortByButton
+          .getValidityStart()
+          .filter(':visible')
+          .click();
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+        cy.info('Sort buttons should have new correct state.');
+        assertSortButtonState('ValidityStart', 'asc');
+        cy.info('Data rows should be ordered correctly ValidityStart|Asc.');
+        assertSectionsAreInOrder((current, next) => {
+          const { currentDate, nextDate } = getAndAssertValidityStartDates(
+            current,
+            next,
+          );
+
+          expect(
+            currentDate <= nextDate,
+            `Expected ${currentDate} <= ${nextDate} to be true!`,
+          ).to.eq(true);
+        });
+      });
+
+      cy.section('Check sorting by Validity End date', () => {
+        StopChangeHistoryPage.changeHistoryTable.sortByButton
+          .getValidityEnd()
+          .filter(':visible')
+          .click();
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+        assertSortButtonState('ValidityEnd', 'asc');
+        cy.info('Data rows should be ordered correctly ValidityEnd|Asc.');
+        assertSectionsAreInOrder((current, next) => {
+          const { currentDate, nextDate } = getAndAssertValidityEndDates(
+            current,
+            next,
+          );
+
+          expect(
+            currentDate <= nextDate,
+            `Expected ${currentDate} <= ${nextDate} to be true!`,
+          ).to.eq(true);
+        });
+
+        cy.info('Reverse sort order');
+        StopChangeHistoryPage.changeHistoryTable.sortByButton
+          .getValidityEnd()
+          .filter(':visible')
+          .click();
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+        cy.info('Sort buttons should have new correct state.');
+        assertSortButtonState('ValidityEnd', 'desc');
+        cy.info('Data rows should be ordered correctly ValidityEnd|Desc.');
+        assertSectionsAreInOrder((current, next) => {
+          const { currentDate, nextDate } = getAndAssertValidityEndDates(
+            current,
+            next,
+          );
+
+          expect(
+            currentDate >= nextDate,
+            `Expected ${currentDate} >= ${nextDate} to be true!`,
+          ).to.eq(true);
+        });
       });
     });
   });
