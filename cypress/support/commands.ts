@@ -116,6 +116,36 @@ Cypress.Commands.add('withinHeadlessPortal', (commands) => {
   cy.get('@body').find('#headlessui-portal-root').within(commands);
 });
 
+Cypress.Commands.add('print', ({ title, message, type }) => {
+  Cypress.log({
+    name: `ptf-${type}`,
+    displayName: title,
+    message,
+  });
+});
+
+Cypress.Commands.add('info', (message, title = 'INFO') =>
+  cy.print({ message, title, type: 'info' }),
+);
+
+Cypress.Commands.add('warning', (message, title = 'WARNING') =>
+  cy.print({ message, title, type: 'warning' }),
+);
+
+Cypress.Commands.add('error', (message, title = 'ERROR') =>
+  cy.print({ message, title, type: 'error' }),
+);
+
+Cypress.Commands.add('success', (message, title = 'SUCCESS') =>
+  cy.print({ message, title, type: 'success' }),
+);
+
+Cypress.Commands.add('section', (name, commands) => {
+  cy.print({ title: `Start: ${name}`, message: '', type: 'section' });
+  commands();
+  cy.print({ title: `End: ${name}`, message: '', type: 'section' });
+});
+
 Cypress.Commands.add('mockLogin', () => {
   cy.fixture('users/e2e.json').then((userInfo) => {
     // return a mock user info instead of going for the auth backend
