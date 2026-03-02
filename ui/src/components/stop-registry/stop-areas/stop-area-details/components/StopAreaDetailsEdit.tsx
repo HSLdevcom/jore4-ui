@@ -198,6 +198,8 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           }
           isSubmitting={methods.formState.isSubmitting}
           variant="infoContainer"
+          invertedSaveButton
+          cancelAsTextButton
         />
       </form>
     </FormProvider>

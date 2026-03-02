@@ -1,6 +1,7 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { theme } from '../../../../../generated/theme';
 import { submitFormByRef } from '../../../../../utils';
 import {
@@ -16,6 +17,25 @@ const testIds = {
   prefix: 'StopAreaDetails',
   editPrefix: 'StopAreaDetailsEdit',
 };
+
+function getContainerColors(
+  mode: StopRegistryTransportModeType | null | undefined,
+) {
+  switch (mode) {
+    case StopRegistryTransportModeType.Tram:
+      return {
+        backgroundColor: theme.colors.hslTramDarkGreen,
+        borderColor: theme.colors.border.hslTramGreen,
+        textColor: 'text-white',
+      };
+    default:
+      return {
+        backgroundColor: theme.colors.tweakedBrand,
+        borderColor: theme.colors.border.hslBlue,
+        textColor: 'text-white',
+      };
+  }
+}
 
 export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
   area,
@@ -34,18 +54,18 @@ export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
     ...rawInfoContainerControls,
   };
 
+  const containerColors = getContainerColors(area.transportMode);
+
   return (
     <InfoContainer
       className={twMerge('w-4/6', className)}
-      colors={{
-        backgroundColor: theme.colors.background.grey,
-        borderColor: theme.colors.lightGrey,
-      }}
+      colors={containerColors}
       controls={infoContainerControls}
       title={t('stopAreaDetails.basicDetails.title')}
       testIdPrefix={
         infoContainerControls.isInEditMode ? testIds.editPrefix : testIds.prefix
       }
+      inverted
     >
       {infoContainerControls.isInEditMode ? (
         <StopAreaDetailsEdit
