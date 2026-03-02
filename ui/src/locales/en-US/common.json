@@ -152,7 +152,8 @@
     },
     "noStops": "No stops.",
     "newStopArea": "New stop area",
-    "deleteSuccess": "Stop area deleted"
+    "deleteSuccess": "Stop area deleted",
+    "chooseTransportMode": "Choose"
   },
   "stopAreaDetails": {
     "title": "Stop area",

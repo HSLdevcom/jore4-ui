@@ -74,7 +74,7 @@ export const TransportationModeField = ({
   // Determine placeholder text
   const placeholder = useMemo(() => {
     if (isEditing) {
-      return t('common.chooseFrom');
+      return t('stopArea.chooseTransportMode');
     }
     if (loadingTransportModes) {
       return t('loading');
@@ -82,7 +82,7 @@ export const TransportationModeField = ({
     if (!availableTransportModes || availableTransportModes.length === 0) {
       return t('stopArea.noNearbyNetworks');
     }
-    return t('common.chooseFrom');
+    return t('stopArea.chooseTransportMode');
   }, [isEditing, loadingTransportModes, availableTransportModes, t]);
 
   return (
