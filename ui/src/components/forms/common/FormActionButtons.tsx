@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton, TextButton } from '../../../uiComponents';
 
 const baseStyles = 'flex items-center gap-2 px-4 py-2';
 
@@ -21,6 +21,8 @@ type FormActionButtonsProps = {
   readonly onDelete?: () => void;
   readonly deleteButtonText?: string;
   readonly variant?: keyof typeof variantStyles;
+  readonly invertedSaveButton?: boolean;
+  readonly cancelAsTextButton?: boolean;
 };
 
 export const FormActionButtons: FC<FormActionButtonsProps> = ({
@@ -33,6 +35,8 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
   onDelete,
   deleteButtonText,
   variant,
+  invertedSaveButton,
+  cancelAsTextButton,
 }) => {
   const { t } = useTranslation();
 
@@ -56,15 +60,27 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
           {deleteButtonText ?? t('remove')}
         </SimpleButton>
       )}
+      {cancelAsTextButton ? (
+        <TextButton
+          onClick={onCancel}
+          disabled={isSubmitting}
+          testId={`${testIdPrefix}::cancelButton`}
+          className="px-2 font-semibold text-white"
+        >
+          {t('cancel')}
+        </TextButton>
+      ) : (
+        <SimpleButton
+          inverted
+          onClick={onCancel}
+          disabled={isSubmitting}
+          testId={`${testIdPrefix}::cancelButton`}
+        >
+          {t('cancel')}
+        </SimpleButton>
+      )}
       <SimpleButton
-        inverted
-        onClick={onCancel}
-        disabled={isSubmitting}
-        testId={`${testIdPrefix}::cancelButton`}
-      >
-        {t('cancel')}
-      </SimpleButton>
-      <SimpleButton
+        inverted={invertedSaveButton}
         type="submit"
         disabled={isDisabled}
         testId={`${testIdPrefix}::saveButton`}
