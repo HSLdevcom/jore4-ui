@@ -76,6 +76,7 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   return (
     <ChangeHistoryTable
       className={className}
+      loading={loading}
       setSortingInfo={setSortingInfo}
       sortingInfo={sortingInfo}
     >

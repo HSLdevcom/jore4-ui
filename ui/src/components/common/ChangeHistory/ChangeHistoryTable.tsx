@@ -25,6 +25,7 @@ const dataColWidth = 'w-[calc((max(96rem,100vw)-(10*var(--spacing)))/5)]';
 type ChangeHistoryTableProps = {
   readonly children: ReactNode;
   readonly className?: string;
+  readonly loading?: boolean;
   readonly setSortingInfo: Dispatch<SetStateAction<ChangeHistorySortingInfo>>;
   readonly sortingInfo: ChangeHistorySortingInfo;
 };
@@ -32,6 +33,7 @@ type ChangeHistoryTableProps = {
 export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
   children,
   className,
+  loading,
   setSortingInfo,
   sortingInfo,
 }) => {
@@ -42,6 +44,7 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
     <table
       className={twMerge('leading-tight', className)}
       data-testid={testIds.table}
+      data-loading={loading}
     >
       <thead>
         <tr className="text-nowrap">
