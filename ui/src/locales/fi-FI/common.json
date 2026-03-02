@@ -1495,6 +1495,7 @@
     "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
     "versionLoading": "Selvitetään muuttuneita kenttiä",
     "ownerDetails": "Omistajan tiedot",
+    "validityPeriodTitle": "Pysäkin voimassaolo",
     "shelters": {
       "title": "Pysäkkikatokset",
       "added": "Uusi katos",

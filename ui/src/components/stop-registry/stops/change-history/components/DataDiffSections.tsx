@@ -16,6 +16,7 @@ import { DataDiffFailedToLoadSection } from './DataDiffFailedToLoadSection';
 import { DataDiffSectionLoading } from './DataDiffSectionLoading';
 import { useHistoricalStopVersion } from './HistoricalStopDataProvider';
 import { SectionTitle } from './SectionTitle';
+import { ValidityPeriodChangedSectionRow } from './ValidityPeriodChangedSectionRow';
 
 const infoSpotJoinsVersionedInTiamat = false;
 
@@ -60,6 +61,12 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
 
   return (
     <>
+      <ValidityPeriodChangedSectionRow
+        getUserNameById={getUserNameById}
+        historyItem={historyItem}
+        previousHistoryItem={previousHistoryItem}
+      />
+
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffStopAreaAndTerminal}
