@@ -5,6 +5,8 @@ type TextButtonProps = {
   readonly active?: boolean;
   readonly onClick: () => void;
   readonly className?: string;
+  readonly disabled?: boolean;
+  readonly testId?: string;
 };
 
 export const TextButton: FC<PropsWithChildren<TextButtonProps>> = ({
@@ -12,12 +14,16 @@ export const TextButton: FC<PropsWithChildren<TextButtonProps>> = ({
   onClick,
   children,
   className,
+  disabled,
+  testId,
 }) => (
   <button
     onClick={onClick}
     type="button"
+    disabled={disabled}
+    data-testid={testId}
     className={twMerge(
-      'cursor-pointer active:underline',
+      'cursor-pointer active:underline disabled:cursor-not-allowed disabled:opacity-50',
       active ? 'font-bold underline' : '',
       className,
     )}

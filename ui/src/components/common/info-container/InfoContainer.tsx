@@ -51,7 +51,7 @@ type InfoContainerProps = {
   readonly controls: InfoContainerControls;
   readonly testIdPrefix?: string;
   /**
-   * Title shown on the tittle bar.
+   * Title shown on the title bar.
    * String gets wrapped in a <h4>-tags.
    * Complex titles with multiple React nodes should wrap the
    * actual title text within a <h4>-tag.
@@ -59,6 +59,10 @@ type InfoContainerProps = {
    * See also headerButtons.
    */
   readonly title: ReactNode;
+  /**
+   * Whether to invert the edit button.
+   */
+  readonly inverted?: boolean;
 };
 
 const testIds = {
@@ -71,12 +75,13 @@ const testIds = {
 export const InfoContainer: FC<InfoContainerProps> = ({
   className,
   children,
-  colors: { backgroundColor, borderColor },
+  colors: { backgroundColor, borderColor, textColorClassName },
   controls,
   headerButtons: HeaderButtons = DefaultHeaderButtons,
   testIdPrefix = '',
   title,
   bodyClassName,
+  inverted,
 }) => {
   const { isExpanded } = controls;
 
@@ -99,12 +104,19 @@ export const InfoContainer: FC<InfoContainerProps> = ({
           isExpanded ? 'rounded-b-none border-b border-(--borderColor)' : '',
         )}
       >
-        <span data-testid={testIds.title(testIdPrefix)}>
+        <span
+          data-testid={testIds.title(testIdPrefix)}
+          className={textColorClassName ?? ''}
+        >
           {isValidElement(title) ? title : <h4>{title}</h4>}
         </span>
 
         {typeof HeaderButtons === 'function' ? (
-          <HeaderButtons controls={controls} testIdPrefix={testIdPrefix} />
+          <HeaderButtons
+            controls={controls}
+            testIdPrefix={testIdPrefix}
+            inverted={inverted}
+          />
         ) : (
           HeaderButtons
         )}

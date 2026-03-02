@@ -2,7 +2,8 @@ import compact from 'lodash/compact';
 import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
+import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { LocatorButton } from '../../../../../uiComponents';
 import { mapLngLatToPoint } from '../../../../../utils';
 import { PageTitle } from '../../../../common';
@@ -18,6 +19,24 @@ const testIds = {
   locatorButton: 'StopAreaTitleRow::locatorButton',
 };
 
+function getIconClass(mode: StopRegistryTransportModeType | null | undefined) {
+  switch (mode) {
+    case StopRegistryTransportModeType.Tram:
+      return 'icon-tram-filled';
+    default:
+      return 'icon-bus-alt';
+  }
+}
+
+function getColorClass(mode: StopRegistryTransportModeType | null | undefined) {
+  switch (mode) {
+    case StopRegistryTransportModeType.Tram:
+      return 'text-hsl-tram-dark-green';
+    default:
+      return 'text-tweaked-brand';
+  }
+}
+
 export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
   area,
   className,
@@ -31,9 +50,12 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
     ? () => showOnMap(area.id ?? undefined, point)
     : noop;
 
+  const iconClass = getIconClass(area.transportMode);
+  const colorClass = getColorClass(area.transportMode);
+
   return (
     <div className={twMerge('flex items-center', className)}>
-      <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
+      <i className={twJoin(iconClass, colorClass, 'mr-2 text-3xl')} />
       <PageTitle.H1
         className="mr-2"
         testId={testIds.privateCode}
