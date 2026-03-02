@@ -1494,6 +1494,7 @@
     "failedToLoad": "Failed to load change details",
     "versionLoading": "Resolving changed fields",
     "ownerDetails": "Owner details",
+    "validityPeriodTitle": "Validity period",
     "shelters": {
       "title": "Shelters",
       "added": "New shelter",
