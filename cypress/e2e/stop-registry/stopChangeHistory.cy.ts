@@ -22,6 +22,7 @@ import {
   BasicDetailsForm,
   LocationDetailsForm,
   MeasurementsForm,
+  Pagination,
   SelectStopDropdown,
   ShelterViewCard,
   SheltersForm,
@@ -1210,6 +1211,67 @@ describe('Stop Change History', { tags }, () => {
             `Expected ${currentDate} >= ${nextDate} to be true!`,
           ).to.eq(true);
         });
+      });
+    });
+  });
+
+  describe('Filtering and paging', () => {
+    it('Should filter and page items', () => {
+      StopDetailsPage.visit('H2003');
+      StopDetailsPage.page().shouldBeVisible();
+
+      cy.section('Make a change', () => {
+        StopDetailsPage.basicDetails.getEditButton().click();
+        BasicDetailsForm.getPrivateCodeInput().clearAndType('1');
+        StopDetailsPage.basicDetails.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+      });
+
+      cy.section('Check paging', () => {
+        cy.visit('/stop-registry/stops/H2003/history?pageSize=1');
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getBasicDetails()
+          .shouldBeVisible();
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getCreatedVersion()
+          .should('not.exist');
+
+        Pagination.getPageButton(3).should('not.exist');
+        Pagination.getPageButton(2).shouldBeVisible().click();
+
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getBasicDetails()
+          .should('not.exist');
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getCreatedVersion()
+          .shouldBeVisible();
+      });
+
+      cy.section('Check filtering', () => {
+        cy.visit('/stop-registry/stops/H2003/history');
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getBasicDetails()
+          .shouldBeVisible();
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getCreatedVersion()
+          .shouldBeVisible();
+
+        StopChangeHistoryPage.dateFilter
+          .getToDate()
+          .focus()
+          .inputDateValue(DateTime.now().minus({ months: 1 }));
+        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
+
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getBasicDetails()
+          .should('not.exist');
+        StopChangeHistoryPage.changeHistoryTable.sectionHeader
+          .getCreatedVersion()
+          .should('not.exist');
       });
     });
   });
