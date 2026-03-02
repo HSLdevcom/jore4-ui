@@ -5,7 +5,8 @@ import { SortOrder } from '../../../types';
 import { ChangeHistorySortingInfo, SortChangeHistoryBy } from './types';
 
 const testIds = {
-  button: (value: SortChangeHistoryBy) => `SortByButton::${value}`,
+  button: (value: SortChangeHistoryBy) =>
+    `ChangeHistory::SortByButton::${value}`,
 };
 
 function reverseSortingOrder(sortOrder: SortOrder): SortOrder {
@@ -51,7 +52,7 @@ export const SortByButton: FC<SortByButtonProps> = ({
       type="button"
       onClick={onClick}
       data-testid={testIds.button(sortBy)}
-      data-is-active={sortingInfo.sortBy === sortBy}
+      data-is-active={String(sortingInfo.sortBy === sortBy)}
       data-sort-direction={sortingInfo.sortOrder}
     >
       <span>{children}</span>

@@ -7,6 +7,10 @@ const StopChangeHistoryTableShelterChangedValues =
   createPageObjectWithIdSelectors(
     'ChangeHistory::ChangedValues::ShelterDetails',
     [
+      'ChangeHistory::ChangedValues::ShelterDetails::Added',
+      'ChangeHistory::ChangedValues::ShelterDetails::Updated',
+      'ChangeHistory::ChangedValues::ShelterDetails::Removed',
+
       'ChangeHistory::ChangedValues::ShelterDetails::ShelterNumber',
       'ChangeHistory::ChangedValues::ShelterDetails::ShelterExternalId',
       'ChangeHistory::ChangedValues::ShelterDetails::ShelterType',
@@ -67,8 +71,10 @@ const ChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::SectionHeader::Title',
     'ChangeHistory::SectionHeader::ValidityStart',
     'ChangeHistory::SectionHeader::ValidityEnd',
+    'ChangeHistory::SectionHeader::ValidityCombined',
     'ChangeHistory::SectionHeader::ChangedBy',
     'ChangeHistory::SectionHeader::Changed',
+    'ChangeHistory::SectionHeader::ChangedCombined',
 
     // ChangedValueRow
     'ChangeHistory::ChangedValues::Name',
@@ -164,6 +170,10 @@ const ChangeHistoryTable = createSimplePageObject(
   ],
   (base) => ({
     ...base,
+    sectionHeader: {
+      ...base.sectionHeader,
+      getAll: () => cy.get('tr[data-testid^="ChangeHistory::SectionHeader::"]'),
+    },
     changedValues: {
       ...base.changedValues,
       shelterDetails: StopChangeHistoryTableShelterChangedValues,
@@ -171,9 +181,8 @@ const ChangeHistoryTable = createSimplePageObject(
     },
     group: {
       getAllGroupElements: () =>
-        cy.get('[data-testid^="ChangeHistory::Table::Group::"]'),
-      getGroup: (id: string) =>
-        cy.getByTestId(`ChangeHistory::Table::Group::${id}`),
+        cy.get('[data-testid^="ChangeHistory::Group::"]'),
+      getGroup: (id: string) => cy.getByTestId(`ChangeHistory::Group::${id}`),
     },
   }),
 );

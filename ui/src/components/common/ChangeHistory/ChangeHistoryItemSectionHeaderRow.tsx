@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate, mapToShortDateTime } from '../../../time';
+import { mapToShortDate, mapToShortDateTime, parseDate } from '../../../time';
 import { BaseChangeHistoryItemDetails } from './types';
 
 const testIds = {
@@ -8,8 +8,10 @@ const testIds = {
   title: 'ChangeHistory::SectionHeader::Title',
   validityStart: 'ChangeHistory::SectionHeader::ValidityStart',
   validityEnd: 'ChangeHistory::SectionHeader::ValidityEnd',
+  validityCombined: 'ChangeHistory::SectionHeader::ValidityCombined',
   changedBy: 'ChangeHistory::SectionHeader::ChangedBy',
   changed: 'ChangeHistory::SectionHeader::Changed',
+  changedCombined: 'ChangeHistory::SectionHeader::ChangedCombined',
 };
 
 type ChangeHistoryItemSectionHeaderRowProps = {
@@ -35,6 +37,9 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
     <tr
       className={twMerge('bg-hsl-neutral-blue', className)}
       data-testid={testIds.row(testId)}
+      data-timestamp={parseDate(historyItem.changed)?.toUTC().toISO()}
+      data-validity-start={historyItem.validityStart}
+      data-validity-end={historyItem.validityEnd}
     >
       {/* Title spans all the way through the name and value fields */}
       <td
@@ -60,7 +65,7 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
       </td>
       <td
         className="px-2 py-3 text-right lg:hidden xl:px-5"
-        data-testid={testIds.validityEnd}
+        data-testid={testIds.validityCombined}
       >
         <div>{mapToShortDate(historyItem.validityStart)}</div>
         <div>{mapToShortDate(historyItem.validityEnd)}</div>
@@ -81,7 +86,7 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
       </td>
       <td
         className="py-3 pr-2 pl-2 text-right text-nowrap lg:hidden xl:pl-5"
-        data-testid={testIds.changed}
+        data-testid={testIds.changedCombined}
       >
         <div>{getUserNameById(historyItem.changedBy) ?? 'HSL'}</div>
         <div>{mapToShortDateTime(historyItem.changed)}</div>
