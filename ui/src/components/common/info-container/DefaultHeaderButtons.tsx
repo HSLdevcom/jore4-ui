@@ -20,6 +20,7 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
     setIsInEditMode,
   },
   testIdPrefix,
+  inverted,
 }) => {
   const { t } = useTranslation();
   return (
@@ -27,6 +28,7 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
       <Visible visible={isEditable && !isInEditMode}>
         <SimpleButton
           shape="slim"
+          inverted={inverted}
           testId={testIds.editButton(testIdPrefix)}
           onClick={() => {
             setIsInEditMode(true);
