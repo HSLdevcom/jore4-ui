@@ -25,7 +25,7 @@ type TestIdToPageObjectWithIdFragment<TestId extends string> =
         readonly [Key in `getAll${Capitalize<TestId>}Elements`]: () => Cypress.Chainable<JQuery>;
       } & {
         readonly [Key in `get${Capitalize<TestId>}`]: (
-          id: string,
+          id?: string,
         ) => Cypress.Chainable<JQuery>;
       };
 
@@ -151,8 +151,13 @@ export function createPageObjectWithIdSelectors<
       obj[`getAll${capitalize(part)}Elements`] = () =>
         cy.get(`[data-testid^="${testId}"]`);
       // eslint-disable-next-line no-param-reassign
-      obj[`get${capitalize(part)}`] = (id: string) =>
-        cy.getByTestId(`${testId}::${id}`);
+      obj[`get${capitalize(part)}`] = (id?: string) => {
+        if (id === undefined) {
+          return cy.get(`[data-testid^="${testId}"]`).should('have.length', 1);
+        }
+
+        return cy.getByTestId(`${testId}::${id}`);
+      };
     },
   );
 
