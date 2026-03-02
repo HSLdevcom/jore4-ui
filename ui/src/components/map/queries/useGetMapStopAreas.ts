@@ -28,6 +28,7 @@ const GQL_QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
     private_code_value
     centroid
     name_value
+    transport_mode
   }
 `;
 

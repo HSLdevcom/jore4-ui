@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
 import { MapEntityEditorViewState } from '../../../redux';
-import { getGeometryPoint } from '../../../utils';
+import {
+  getGeometryPoint,
+  mapTransportModeToColor,
+  parseStopRegistryTransportMode,
+} from '../../../utils';
 import { StopAreaMarker } from '../markers';
 import { MapStopArea } from '../types';
 
@@ -33,6 +37,9 @@ export const StopArea: FC<StopAreaProps> = ({
     return null;
   }
 
+  const transportMode = parseStopRegistryTransportMode(area.transport_mode);
+  const color = mapTransportModeToColor(transportMode);
+
   return (
     <Marker
       className="z-1"
@@ -43,6 +50,7 @@ export const StopArea: FC<StopAreaProps> = ({
         onClick={() => onClick(area)}
         selected={selected}
         isPlaceholder={isPlaceholder}
+        color={color}
         testId={testIds.stopArea(area)}
         title={`${area.private_code_value} ${area.name_value}`}
       />

@@ -152,7 +152,8 @@
     },
     "noStops": "Ei pysäkkejä.",
     "newStopArea": "Uusi pysäkkialue",
-    "deleteSuccess": "Pysäkkialue poistettu"
+    "deleteSuccess": "Pysäkkialue poistettu",
+    "chooseTransportMode": "Valitse"
   },
   "stopAreaDetails": {
     "title": "Pysäkkialue",
