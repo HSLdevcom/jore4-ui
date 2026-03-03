@@ -6,6 +6,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { twJoin } from 'tailwind-merge';
 import {
   Maybe,
   SubstituteOperatingPeriodSettingsInfoFragment,
@@ -16,6 +17,7 @@ import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redu
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { ConfirmationDialog, SimpleButton } from '../../../../uiComponents';
+import { TextAndIconButton } from '../../../../uiComponents/TextAndIconButton';
 import {
   generateLineTypes,
   mapDateTimeToFormState,
@@ -193,17 +195,22 @@ export const OccasionalSubstitutePeriodForm: FC<
           ))}
           <Row className="my-8 items-center gap-4">
             <Visible visible={!loading}>
-              <span className="text-brand-darker">
-                {t('timetables.settings.addRow')}
-              </span>
-              <SimpleButton
-                shape="round"
-                className="h-[32px] text-xl"
+              <TextAndIconButton
+                className="group text-brand-darker"
+                icon={
+                  <AiOutlinePlus
+                    className={twJoin(
+                      'h-[32px] w-[32px] rounded-full p-[5px] text-xl',
+                      'border border-brand bg-brand text-white',
+                      'group-hover:bg-brand/50 group-active:bg-brand/50',
+                    )}
+                  />
+                }
+                text={t('timetables.settings.addRow')}
+                type="button"
                 onClick={() => append(emptyRowObject)}
                 testId={testIds.addRowButton}
-              >
-                <AiOutlinePlus aria-label={t('timetables.settings.addRow')} />
-              </SimpleButton>
+              />
             </Visible>
           </Row>
           <Row className="my-8 justify-end gap-4">
