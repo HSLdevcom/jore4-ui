@@ -23,7 +23,7 @@ export const TextButton: FC<PropsWithChildren<TextButtonProps>> = ({
     disabled={disabled}
     data-testid={testId}
     className={twMerge(
-      'cursor-pointer active:underline disabled:cursor-not-allowed disabled:opacity-50',
+      'active:underline disabled:cursor-not-allowed disabled:opacity-50',
       active ? 'font-bold underline' : '',
       className,
     )}

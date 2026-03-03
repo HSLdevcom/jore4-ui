@@ -61,9 +61,21 @@
     color: #666666;
   }
 
+  /* Buttons, radio- and checkbox- buttons should have pointer cursor.
+     Associated clickable labels should have one too. */
+  button:not(:disabled),
+  input[type='button']:not(:disabled),
   input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled),
+  label:has(input[type='radio']:not(:disabled)),
   label:has(input[type='checkbox']:not(:disabled)) {
     cursor: pointer;
+  }
+
+  /* "Reset" date input to display a normal text selection cursor
+     so it looks more like other <input /> elements. */
+  input[type='date'] {
+    cursor: text;
   }
 
   label,
