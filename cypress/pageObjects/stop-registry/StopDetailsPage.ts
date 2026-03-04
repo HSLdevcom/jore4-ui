@@ -95,4 +95,14 @@ export class StopDetailsPage {
       'StopDetailsVersion::returnToDateBasedVersionSelection',
     );
   }
+
+  static latestChangeHistory = {
+    container: () => cy.getByTestId('LatestStopChangeHistoryTable::Container'),
+    title: () => cy.getByTestId('LatestStopChangeHistoryTable::Title'),
+    showAllLink: () =>
+      cy.getByTestId('LatestStopChangeHistoryTable::ShowAllLink'),
+    getItems: () => cy.getByTestId('LatestStopChangeHistoryTable::Item'),
+    getNthItem: (index: number) =>
+      cy.getByTestId('LatestStopChangeHistoryTable::Item').eq(index),
+  };
 }
