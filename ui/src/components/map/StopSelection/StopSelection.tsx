@@ -23,14 +23,15 @@ function useResolveProperSelectionMode(): ResolveProperSelectionModeResult {
     state: { displayedRoute, filters },
   } = useMapUrlStateContext();
 
+  const hasRouteDefined =
+    displayedRoute.routeId !== null || displayedRoute.routeLabels.length > 0;
+
   useEffect(() => {
     // If on by-result-mode (default if not changed before navigation to the map)
-    // change that to by-list mode, if there are no filters or routes defined.
+    // change that to by-list mode, if there are no filters or if there is a route defined.
     const switchToListMode =
       selectedStops.byResultSelection &&
-      !hasMeaningfulFilters(filters) &&
-      displayedRoute.routeId === null &&
-      displayedRoute.routeLabels.length === 0;
+      (!hasMeaningfulFilters(filters) || hasRouteDefined);
 
     if (switchToListMode) {
       dispatch(
