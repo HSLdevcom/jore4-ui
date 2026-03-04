@@ -16,6 +16,10 @@ import {
   getHeadingText,
 } from './NoPreviousChangeVersionSection';
 
+const testIds = {
+  item: 'LatestStopChangeHistoryTable::Item',
+};
+
 type LatestStopChangeHistoryItemProps = {
   readonly historyItem: QuayChangeHistoryItem;
   readonly previousHistoryItem: QuayChangeHistoryItem | null;
@@ -41,7 +45,7 @@ export const LatestStopChangeHistoryItem: FC<
     const type = determineType(historyItem);
     const versionText = getHeadingText(t, type);
     return (
-      <div className="mb-3 text-sm font-semibold">
+      <div className="mb-3 text-sm font-semibold" data-testid={testIds.item}>
         <Link to={link} className="text-brand hover:underline">
           {versionText}
         </Link>
@@ -74,6 +78,7 @@ export const LatestStopChangeHistoryItem: FC<
       historyItem={historyItem}
       sections={sections}
       link={link}
+      testId={testIds.item}
     />
   );
 };

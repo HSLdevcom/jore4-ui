@@ -18,12 +18,14 @@ type LatestChangeHistoryItemProps = {
   };
   readonly sections: ReadonlyArray<ChangeSection>;
   readonly link: To;
+  readonly testId: string;
 };
 
 export const LatestChangeHistoryItem = ({
   historyItem,
   sections,
   link,
+  testId,
 }: LatestChangeHistoryItemProps): ReactNode => {
   const { getUserNameById } = useGetUserNames();
 
@@ -35,7 +37,7 @@ export const LatestChangeHistoryItem = ({
   }
 
   return (
-    <div className="mb-3 text-sm">
+    <div className="mb-3 text-sm" data-testid={testId}>
       {sections.map((section) => (
         <div key={section.title}>
           <Link to={link} className="font-semibold text-brand hover:underline">
