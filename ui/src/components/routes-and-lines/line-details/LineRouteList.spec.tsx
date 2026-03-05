@@ -118,6 +118,7 @@ describe(`<${LineRouteList.name} />`, () => {
                         {
                           __typename: 'stop_registry_StopPlace',
                           id: 'HSL:StopPlace:0',
+                          version: '0',
                           name: {
                             lang: 'fi-FI',
                             value: 'Pysäkkialue 0',
@@ -253,6 +254,7 @@ describe(`<${LineRouteList.name} />`, () => {
                         {
                           __typename: 'stop_registry_StopPlace',
                           id: 'HSL:StopPlace:1',
+                          version: '0',
                           name: {
                             lang: 'fi-FI',
                             value: 'Pysäkkialue 1',
@@ -376,6 +378,7 @@ describe(`<${LineRouteList.name} />`, () => {
                         {
                           __typename: 'stop_registry_StopPlace',
                           id: 'HSL:StopPlace:2',
+                          version: '0',
                           name: {
                             lang: 'fi-FI',
                             value: 'Pysäkkialue 2',
