@@ -69,7 +69,14 @@ export const StopDetailsPage: FC = () => {
           <div
             title={t('accessibility:stops.validityPeriod')}
             data-testid={testIds.validityPeriod}
+            className="flex items-center"
           >
+            {stopDetails?.priority === Priority.Temporary && (
+              <i
+                className="icon-temporary mr-1 text-xl text-city-bicycle-yellow"
+                title={t('priority.temporary')}
+              />
+            )}
             {mapToShortDate(stopDetails?.validity_start)}
             <span className="mx-1">-</span>
             {mapToShortDate(stopDetails?.validity_end)}
