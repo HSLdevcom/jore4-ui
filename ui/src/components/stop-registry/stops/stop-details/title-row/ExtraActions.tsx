@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twJoin } from 'tailwind-merge';
 import { StopWithDetails } from '../../../../../types';
 import {
   SimpleDropdownMenu,
@@ -27,10 +26,8 @@ export const ExtraActions: FC<ExtraActionsProps> = ({ className, stop }) => {
     <>
       <SimpleDropdownMenu
         className={className}
-        buttonClassName={twJoin(
-          'h-11 w-11 justify-center border border-grey',
-          'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
-        )}
+        buttonClassName="h-11 w-11"
+        buttonShape="round"
         tooltip={t('accessibility:common.actionMenu')}
         testId={testIds.actionMenu}
         disabled={!stop}

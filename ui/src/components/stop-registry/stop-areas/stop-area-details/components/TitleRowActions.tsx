@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { twJoin } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { EnrichedStopPlace } from '../../../../../types';
 import {
@@ -50,10 +49,8 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
     <>
       <SimpleDropdownMenu
         className={className}
-        buttonClassName={twJoin(
-          'flex h-11 w-11 items-center justify-center border border-grey',
-          'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
-        )}
+        buttonClassName="h-11 w-11"
+        buttonShape="round"
         tooltip={t('accessibility:common.actionMenu')}
         testId={testIds.actionMenu}
         disabled={!area}

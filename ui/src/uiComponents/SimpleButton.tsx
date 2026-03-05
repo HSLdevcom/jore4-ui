@@ -16,7 +16,12 @@ import { twJoin, twMerge } from 'tailwind-merge';
  * compact: Unrounded rectangular-ish button, with minimal padding
  * round: Circular button for a single icon
  */
-type SimpleButtonShape = 'normal' | 'slim' | 'square' | 'compact' | 'round';
+export type SimpleButtonShape =
+  | 'normal'
+  | 'slim'
+  | 'square'
+  | 'compact'
+  | 'round';
 
 function getShapeClassNames(shape: SimpleButtonShape) {
   switch (shape) {

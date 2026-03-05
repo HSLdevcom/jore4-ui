@@ -22,7 +22,7 @@ export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
   return (
     <SimpleDropdownMenu
       className={className}
-      buttonClassName="h-10 w-10 justify-center"
+      buttonClassName="h-10 w-10"
       tooltip={t('accessibility:common.actionMenu')}
       testId={testIds.actionMenu}
     >
