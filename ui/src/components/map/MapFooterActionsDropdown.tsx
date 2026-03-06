@@ -1,12 +1,6 @@
-import { Menu, MenuButton } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdMoreVert } from 'react-icons/md';
-import {
-  SimpleDropdownMenuItem,
-  SimpleDropdownMenuItems,
-  getSimpleButtonClassNames,
-} from '../../uiComponents';
+import { SimpleDropdownMenu, SimpleDropdownMenuItem } from '../../uiComponents';
 
 const testIds = {
   menu: 'MapFooterActionsDropdown::menu',
@@ -28,30 +22,24 @@ export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Menu as="div" className="relative inline-flex h-auto">
-      <MenuButton
-        data-testid={testIds.menu}
-        className={({ open }) =>
-          getSimpleButtonClassNames(!open, disabled, 'round')
-        }
-        title={t('map.footerActionsTooltip')}
-        aria-label={t('map.footerActionsTooltip')}
-      >
-        <MdMoreVert aria-hidden className="text-4xl" />
-      </MenuButton>
-
-      <SimpleDropdownMenuItems anchor="top start">
-        <SimpleDropdownMenuItem
-          onClick={onCreateNewTerminal}
-          text={t('map.createNewTerminal')}
-          testId={testIds.createNewTerminal}
-        />
-        <SimpleDropdownMenuItem
-          onClick={onCreateNewStopArea}
-          text={t('map.createNewStopArea')}
-          testId={testIds.createNewStopArea}
-        />
-      </SimpleDropdownMenuItems>
-    </Menu>
+    <SimpleDropdownMenu
+      anchorItems="top start"
+      buttonShape="round"
+      className="relative inline-flex h-auto"
+      disabled={disabled}
+      testId={testIds.menu}
+      tooltip={t('map.footerActionsTooltip')}
+    >
+      <SimpleDropdownMenuItem
+        onClick={onCreateNewTerminal}
+        text={t('map.createNewTerminal')}
+        testId={testIds.createNewTerminal}
+      />
+      <SimpleDropdownMenuItem
+        onClick={onCreateNewStopArea}
+        text={t('map.createNewStopArea')}
+        testId={testIds.createNewStopArea}
+      />
+    </SimpleDropdownMenu>
   );
 };

@@ -18,8 +18,8 @@ type StopTitleRowProps = {
 
 export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
   return (
-    <div className="flex items-center">
-      <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
+    <div className="flex items-center gap-2">
+      <i className="icon-bus-alt text-3xl text-tweaked-brand" />
       <PageTitle.H1
         className="mr-2"
         testId={testIds.label}
@@ -46,8 +46,8 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
       <div className="grow" />
 
       <StopTimetablesButton />
-      <OpenOnMapButton className="ml-2" label={label} stop={stopDetails} />
-      <ExtraActions className="ml-2" stop={stopDetails} />
+      <OpenOnMapButton label={label} stop={stopDetails} />
+      <ExtraActions stop={stopDetails} />
     </div>
   );
 };

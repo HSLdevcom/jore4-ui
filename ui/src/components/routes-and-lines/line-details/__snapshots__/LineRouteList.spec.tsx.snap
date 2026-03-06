@@ -476,7 +476,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full disabled:cursor-default"
+                aria-label="Lisää toimintoja pysäkille H1234"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
@@ -485,7 +487,6 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               >
                 <svg
                   aria-hidden="true"
-                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -582,7 +583,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full disabled:cursor-default"
+                aria-label="Lisää toimintoja pysäkille H1236"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:rb:"
@@ -591,7 +594,6 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               >
                 <svg
                   aria-hidden="true"
-                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -895,7 +897,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full disabled:cursor-default"
+                aria-label="Lisää toimintoja pysäkille H1234"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
@@ -904,7 +908,6 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               >
                 <svg
                   aria-hidden="true"
-                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -1001,7 +1004,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full disabled:cursor-default"
+                aria-label="Lisää toimintoja pysäkille H1235"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:rh:"
@@ -1010,7 +1015,6 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               >
                 <svg
                   aria-hidden="true"
-                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -1107,7 +1111,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center rounded-full disabled:cursor-default"
+                aria-label="Lisää toimintoja pysäkille H1236"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:rb:"
@@ -1116,7 +1122,6 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               >
                 <svg
                   aria-hidden="true"
-                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
