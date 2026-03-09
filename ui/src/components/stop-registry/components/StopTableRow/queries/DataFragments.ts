@@ -24,6 +24,7 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
     stop_place {
       id
       name_value
+      transport_mode
 
       stop_place_alternative_names {
         alternative_name {
@@ -41,6 +42,7 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
         ... on stop_registry_StopPlace {
           id
           version
+          transportMode
 
           quays {
             id
@@ -88,6 +90,7 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
   fragment StopTableRow_StopArea_Details on stop_registry_StopPlace {
     id
     publicCode
+    transportMode
 
     name {
       lang

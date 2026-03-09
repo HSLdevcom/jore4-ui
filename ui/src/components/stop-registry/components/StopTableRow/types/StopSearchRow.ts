@@ -1,5 +1,6 @@
 import type { Point } from 'geojson';
 import { DateTime } from 'luxon';
+import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 
 export type StopSearchRowTimingPlace = {
@@ -24,6 +25,7 @@ export type StopSearchRow = {
   readonly validityEnd: DateTime | null;
   readonly priority: Priority;
 
+  readonly transportMode?: StopRegistryTransportModeType | null;
   readonly replacesRailSign?: boolean;
   readonly electricity?: string | null;
   readonly shelter?: string | null;
