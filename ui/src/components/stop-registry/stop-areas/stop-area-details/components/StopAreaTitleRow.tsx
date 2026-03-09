@@ -3,12 +3,12 @@ import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { LocatorButton } from '../../../../../uiComponents';
 import { mapLngLatToPoint } from '../../../../../utils';
 import { PageTitle } from '../../../../common';
 import { ObservationDateControl } from '../../../../common/ObservationDateControl';
 import { useShowStopAreaOnMap } from '../../../utils';
+import { getTransportModeIcon } from '../../../utils/getTransportModeIcon';
 import { StopAreaComponentProps } from '../types';
 import { TitleRowActions } from './TitleRowActions';
 
@@ -18,24 +18,6 @@ const testIds = {
   weighting: 'StopAreaTitleRow::weighting',
   locatorButton: 'StopAreaTitleRow::locatorButton',
 };
-
-function getIconClass(mode: StopRegistryTransportModeType | null | undefined) {
-  switch (mode) {
-    case StopRegistryTransportModeType.Tram:
-      return 'icon-tram-filled';
-    default:
-      return 'icon-bus-alt';
-  }
-}
-
-function getColorClass(mode: StopRegistryTransportModeType | null | undefined) {
-  switch (mode) {
-    case StopRegistryTransportModeType.Tram:
-      return 'text-hsl-tram-dark-green';
-    default:
-      return 'text-tweaked-brand';
-  }
-}
 
 export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
   area,
@@ -50,12 +32,11 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
     ? () => showOnMap(area.id ?? undefined, point)
     : noop;
 
-  const iconClass = getIconClass(area.transportMode);
-  const colorClass = getColorClass(area.transportMode);
+  const transportModeIcon = getTransportModeIcon(area.transportMode);
 
   return (
     <div className={twMerge('flex items-center', className)}>
-      <i className={twJoin(iconClass, colorClass, 'mr-2 text-3xl')} />
+      <i className={twJoin(transportModeIcon, 'mr-2 text-3xl')} />
       <PageTitle.H1
         className="mr-2"
         testId={testIds.privateCode}

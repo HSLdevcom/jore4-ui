@@ -20,6 +20,7 @@ import {
   log,
   requireValue,
 } from '../../../../../utils';
+import { parseStopRegistryTransportMode } from '../../../../../utils/stop-registry/transportMode';
 import { StopSearchRow } from '../types';
 
 function parsePriority(value: unknown): Priority {
@@ -166,6 +167,10 @@ function mapQueryResultToStopSearchRowImpl(
     nameSwe: findSwedishNameFromRawDbResponse(quay),
     description: quay.description_value ?? null,
 
+    transportMode: parseStopRegistryTransportMode(
+      quay.stop_place?.transport_mode,
+    ),
+
     location: validateLocation(quay.centroid),
 
     validityStart: parseDate(requireValue(quay.validity_start)),
@@ -229,6 +234,8 @@ function mapSingleTiamatStopAreaQuayToStopSearchRow<
     publicCode: requireValue(quay.publicCode),
     location: validateLocation(quay.geometry),
     description: quay.description?.value ?? null,
+
+    transportMode: stopArea.transportMode ?? null,
 
     validityStart: requireValue(
       findKeyValueParsed(quay, KnownValueKey.ValidityStart, parseDate),
