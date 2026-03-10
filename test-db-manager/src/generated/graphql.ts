@@ -1260,7 +1260,8 @@ export enum InfrastructureNetworkExternalSourceEnum {
   DigiroadRMml = 'digiroad_r_mml',
   DigiroadRSupplementary = 'digiroad_r_supplementary',
   HslFixup = 'hsl_fixup',
-  HslTram = 'hsl_tram'
+  HslTram = 'hsl_tram',
+  TempHslTram = 'temp_hsl_tram'
 }
 
 /** Boolean expression to compare columns of type "infrastructure_network_external_source_enum". All fields are combined with logical 'AND'. */
@@ -3347,6 +3348,10 @@ export type MutationRoot = {
   delete_route_line?: Maybe<RouteLineMutationResponse>;
   /** delete single row from the table: "route.line" */
   delete_route_line_by_pk?: Maybe<RouteLine>;
+  /** delete data from the table: "route.line_change_history" */
+  delete_route_line_change_history?: Maybe<RouteLineChangeHistoryMutationResponse>;
+  /** delete single row from the table: "route.line_change_history" */
+  delete_route_line_change_history_by_pk?: Maybe<RouteLineChangeHistory>;
   /** delete data from the table: "route.route" */
   delete_route_route?: Maybe<RouteRouteMutationResponse>;
   /** delete single row from the table: "route.route" */
@@ -3425,6 +3430,10 @@ export type MutationRoot = {
   insert_route_infrastructure_link_along_route_one?: Maybe<RouteInfrastructureLinkAlongRoute>;
   /** insert data into the table: "route.line" */
   insert_route_line?: Maybe<RouteLineMutationResponse>;
+  /** insert data into the table: "route.line_change_history" */
+  insert_route_line_change_history?: Maybe<RouteLineChangeHistoryMutationResponse>;
+  /** insert a single row into the table: "route.line_change_history" */
+  insert_route_line_change_history_one?: Maybe<RouteLineChangeHistory>;
   /** insert a single row into the table: "route.line" */
   insert_route_line_one?: Maybe<RouteLine>;
   /** insert data into the table: "route.route" */
@@ -3537,6 +3546,12 @@ export type MutationRoot = {
   update_route_line?: Maybe<RouteLineMutationResponse>;
   /** update single row of the table: "route.line" */
   update_route_line_by_pk?: Maybe<RouteLine>;
+  /** update data of the table: "route.line_change_history" */
+  update_route_line_change_history?: Maybe<RouteLineChangeHistoryMutationResponse>;
+  /** update single row of the table: "route.line_change_history" */
+  update_route_line_change_history_by_pk?: Maybe<RouteLineChangeHistory>;
+  /** update multiples rows of table: "route.line_change_history" */
+  update_route_line_change_history_many?: Maybe<Array<Maybe<RouteLineChangeHistoryMutationResponse>>>;
   /** update multiples rows of table: "route.line" */
   update_route_line_many?: Maybe<Array<Maybe<RouteLineMutationResponse>>>;
   /** update data of the table: "route.route" */
@@ -3752,6 +3767,18 @@ export type MutationRootDeleteRouteLineArgs = {
 /** mutation root */
 export type MutationRootDeleteRouteLineByPkArgs = {
   line_id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteRouteLineChangeHistoryArgs = {
+  where: RouteLineChangeHistoryBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteRouteLineChangeHistoryByPkArgs = {
+  id: Scalars['bigint']['input'];
 };
 
 
@@ -4017,6 +4044,20 @@ export type MutationRootInsertRouteInfrastructureLinkAlongRouteOneArgs = {
 export type MutationRootInsertRouteLineArgs = {
   objects: Array<RouteLineInsertInput>;
   on_conflict?: InputMaybe<RouteLineOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertRouteLineChangeHistoryArgs = {
+  objects: Array<RouteLineChangeHistoryInsertInput>;
+  on_conflict?: InputMaybe<RouteLineChangeHistoryOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertRouteLineChangeHistoryOneArgs = {
+  object: RouteLineChangeHistoryInsertInput;
+  on_conflict?: InputMaybe<RouteLineChangeHistoryOnConflict>;
 };
 
 
@@ -4420,6 +4461,38 @@ export type MutationRootUpdateRouteLineByPkArgs = {
   _prepend?: InputMaybe<RouteLinePrependInput>;
   _set?: InputMaybe<RouteLineSetInput>;
   pk_columns: RouteLinePkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateRouteLineChangeHistoryArgs = {
+  _append?: InputMaybe<RouteLineChangeHistoryAppendInput>;
+  _delete_at_path?: InputMaybe<RouteLineChangeHistoryDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<RouteLineChangeHistoryDeleteElemInput>;
+  _delete_key?: InputMaybe<RouteLineChangeHistoryDeleteKeyInput>;
+  _inc?: InputMaybe<RouteLineChangeHistoryIncInput>;
+  _prepend?: InputMaybe<RouteLineChangeHistoryPrependInput>;
+  _set?: InputMaybe<RouteLineChangeHistorySetInput>;
+  where: RouteLineChangeHistoryBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateRouteLineChangeHistoryByPkArgs = {
+  _append?: InputMaybe<RouteLineChangeHistoryAppendInput>;
+  _delete_at_path?: InputMaybe<RouteLineChangeHistoryDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<RouteLineChangeHistoryDeleteElemInput>;
+  _delete_key?: InputMaybe<RouteLineChangeHistoryDeleteKeyInput>;
+  _inc?: InputMaybe<RouteLineChangeHistoryIncInput>;
+  _prepend?: InputMaybe<RouteLineChangeHistoryPrependInput>;
+  _set?: InputMaybe<RouteLineChangeHistorySetInput>;
+  pk_columns: RouteLineChangeHistoryPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateRouteLineChangeHistoryManyArgs = {
+  updates: Array<RouteLineChangeHistoryUpdates>;
 };
 
 
@@ -4879,6 +4952,12 @@ export type QueryRoot = {
   route_line_aggregate: RouteLineAggregate;
   /** fetch data from the table: "route.line" using primary key columns */
   route_line_by_pk?: Maybe<RouteLine>;
+  /** fetch data from the table: "route.line_change_history" */
+  route_line_change_history: Array<RouteLineChangeHistory>;
+  /** fetch aggregated fields from the table: "route.line_change_history" */
+  route_line_change_history_aggregate: RouteLineChangeHistoryAggregate;
+  /** fetch data from the table: "route.line_change_history" using primary key columns */
+  route_line_change_history_by_pk?: Maybe<RouteLineChangeHistory>;
   /** fetch data from the table: "route.route" */
   route_route: Array<RouteRoute>;
   /** fetch aggregated fields from the table: "route.route" */
@@ -5313,6 +5392,29 @@ export type QueryRootRouteLineAggregateArgs = {
 
 export type QueryRootRouteLineByPkArgs = {
   line_id: Scalars['uuid']['input'];
+};
+
+
+export type QueryRootRouteLineChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+
+export type QueryRootRouteLineChangeHistoryAggregateArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+
+export type QueryRootRouteLineChangeHistoryByPkArgs = {
+  id: Scalars['bigint']['input'];
 };
 
 
@@ -6561,6 +6663,10 @@ export type RouteInfrastructureLinkAlongRouteVarianceOrderBy = {
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
 export type RouteLine = {
   __typename?: 'route_line';
+  /** An array relationship */
+  change_history: Array<RouteLineChangeHistory>;
+  /** An aggregate relationship */
+  change_history_aggregate: RouteLineChangeHistoryAggregate;
   /** The line text description of the line. */
   description?: Maybe<Scalars['String']['output']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
@@ -6598,6 +6704,26 @@ export type RouteLine = {
   vehicle_mode: ReusableComponentsVehicleMode;
   /** An extra comment describing the latest change to the Line's details. */
   version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+export type RouteLineChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+
+/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+export type RouteLineChangeHistoryAggregateArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
 };
 
 
@@ -6721,6 +6847,8 @@ export type RouteLineBoolExp = {
   _and?: InputMaybe<Array<RouteLineBoolExp>>;
   _not?: InputMaybe<RouteLineBoolExp>;
   _or?: InputMaybe<Array<RouteLineBoolExp>>;
+  change_history?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+  change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateBoolExp>;
   description?: InputMaybe<StringComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
@@ -6740,6 +6868,718 @@ export type RouteLineBoolExp = {
   validity_start?: InputMaybe<DateComparisonExp>;
   vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
+};
+
+/** Collects and represents the historical states of an HSL Lines. */
+export type RouteLineChangeHistory = {
+  __typename?: 'route_line_change_history';
+  /** Time when this history item was recorded / the change occurred */
+  changed: Scalars['timestamptz']['output'];
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: Maybe<Scalars['String']['output']>;
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data: Scalars['jsonb']['output'];
+  /** Auto-incremented serial db row ID. */
+  id: Scalars['bigint']['output'];
+  line_id: Scalars['uuid']['output'];
+  /** Label of the HSL Line this historical record represents. */
+  line_label: Scalars['String']['output'];
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority: Scalars['Int']['output'];
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: Maybe<Scalars['date']['output']>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: Maybe<Scalars['date']['output']>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: Maybe<Scalars['String']['output']>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: Maybe<Scalars['String']['output']>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: Maybe<Scalars['uuid']['output']>;
+  /** Label of the HSL route that was changed. */
+  route_label?: Maybe<Scalars['String']['output']>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: Maybe<Scalars['date']['output']>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: Maybe<Scalars['date']['output']>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation: Scalars['String']['output'];
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Collects and represents the historical states of an HSL Lines. */
+export type RouteLineChangeHistoryDataArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "route.line_change_history" */
+export type RouteLineChangeHistoryAggregate = {
+  __typename?: 'route_line_change_history_aggregate';
+  aggregate?: Maybe<RouteLineChangeHistoryAggregateFields>;
+  nodes: Array<RouteLineChangeHistory>;
+};
+
+export type RouteLineChangeHistoryAggregateBoolExp = {
+  count?: InputMaybe<RouteLineChangeHistoryAggregateBoolExpCount>;
+};
+
+export type RouteLineChangeHistoryAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+  predicate: IntComparisonExp;
+};
+
+/** aggregate fields of "route.line_change_history" */
+export type RouteLineChangeHistoryAggregateFields = {
+  __typename?: 'route_line_change_history_aggregate_fields';
+  avg?: Maybe<RouteLineChangeHistoryAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<RouteLineChangeHistoryMaxFields>;
+  min?: Maybe<RouteLineChangeHistoryMinFields>;
+  stddev?: Maybe<RouteLineChangeHistoryStddevFields>;
+  stddev_pop?: Maybe<RouteLineChangeHistoryStddevPopFields>;
+  stddev_samp?: Maybe<RouteLineChangeHistoryStddevSampFields>;
+  sum?: Maybe<RouteLineChangeHistorySumFields>;
+  var_pop?: Maybe<RouteLineChangeHistoryVarPopFields>;
+  var_samp?: Maybe<RouteLineChangeHistoryVarSampFields>;
+  variance?: Maybe<RouteLineChangeHistoryVarianceFields>;
+};
+
+
+/** aggregate fields of "route.line_change_history" */
+export type RouteLineChangeHistoryAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "route.line_change_history" */
+export type RouteLineChangeHistoryAggregateOrderBy = {
+  avg?: InputMaybe<RouteLineChangeHistoryAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<RouteLineChangeHistoryMaxOrderBy>;
+  min?: InputMaybe<RouteLineChangeHistoryMinOrderBy>;
+  stddev?: InputMaybe<RouteLineChangeHistoryStddevOrderBy>;
+  stddev_pop?: InputMaybe<RouteLineChangeHistoryStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<RouteLineChangeHistoryStddevSampOrderBy>;
+  sum?: InputMaybe<RouteLineChangeHistorySumOrderBy>;
+  var_pop?: InputMaybe<RouteLineChangeHistoryVarPopOrderBy>;
+  var_samp?: InputMaybe<RouteLineChangeHistoryVarSampOrderBy>;
+  variance?: InputMaybe<RouteLineChangeHistoryVarianceOrderBy>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type RouteLineChangeHistoryAppendInput = {
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** input type for inserting array relation for remote table "route.line_change_history" */
+export type RouteLineChangeHistoryArrRelInsertInput = {
+  data: Array<RouteLineChangeHistoryInsertInput>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<RouteLineChangeHistoryOnConflict>;
+};
+
+/** aggregate avg on columns */
+export type RouteLineChangeHistoryAvgFields = {
+  __typename?: 'route_line_change_history_avg_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryAvgOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "route.line_change_history". All fields are combined with a logical 'AND'. */
+export type RouteLineChangeHistoryBoolExp = {
+  _and?: InputMaybe<Array<RouteLineChangeHistoryBoolExp>>;
+  _not?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+  _or?: InputMaybe<Array<RouteLineChangeHistoryBoolExp>>;
+  changed?: InputMaybe<TimestamptzComparisonExp>;
+  changed_by?: InputMaybe<StringComparisonExp>;
+  data?: InputMaybe<JsonbComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  line_id?: InputMaybe<UuidComparisonExp>;
+  line_label?: InputMaybe<StringComparisonExp>;
+  line_priority?: InputMaybe<IntComparisonExp>;
+  line_validity_end?: InputMaybe<DateComparisonExp>;
+  line_validity_start?: InputMaybe<DateComparisonExp>;
+  name?: InputMaybe<StringComparisonExp>;
+  route_direction?: InputMaybe<StringComparisonExp>;
+  route_id?: InputMaybe<UuidComparisonExp>;
+  route_label?: InputMaybe<StringComparisonExp>;
+  route_validity_end?: InputMaybe<DateComparisonExp>;
+  route_validity_start?: InputMaybe<DateComparisonExp>;
+  tg_operation?: InputMaybe<StringComparisonExp>;
+  version_comment?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "route.line_change_history" */
+export enum RouteLineChangeHistoryConstraint {
+  /** unique or primary key constraint on columns "route_id", "changed", "line_id" */
+  HistoryUniqueLineRouteComboPerTransaction = 'history_unique_line_route_combo_per_transaction',
+  /** unique or primary key constraint on columns "id" */
+  LineChangeHistoryPkey = 'line_change_history_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type RouteLineChangeHistoryDeleteAtPathInput = {
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type RouteLineChangeHistoryDeleteElemInput = {
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type RouteLineChangeHistoryDeleteKeyInput = {
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for incrementing numeric columns in table "route.line_change_history" */
+export type RouteLineChangeHistoryIncInput = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "route.line_change_history" */
+export type RouteLineChangeHistoryInsertInput = {
+  /** Time when this history item was recorded / the change occurred */
+  changed?: InputMaybe<Scalars['timestamptz']['input']>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  line_id?: InputMaybe<Scalars['uuid']['input']>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: InputMaybe<Scalars['String']['input']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<Scalars['Int']['input']>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: InputMaybe<Scalars['date']['input']>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: InputMaybe<Scalars['String']['input']>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: InputMaybe<Scalars['uuid']['input']>;
+  /** Label of the HSL route that was changed. */
+  route_label?: InputMaybe<Scalars['String']['input']>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: InputMaybe<Scalars['date']['input']>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: InputMaybe<Scalars['String']['input']>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type RouteLineChangeHistoryMaxFields = {
+  __typename?: 'route_line_change_history_max_fields';
+  /** Time when this history item was recorded / the change occurred */
+  changed?: Maybe<Scalars['timestamptz']['output']>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: Maybe<Scalars['String']['output']>;
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['bigint']['output']>;
+  line_id?: Maybe<Scalars['uuid']['output']>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: Maybe<Scalars['String']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Int']['output']>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: Maybe<Scalars['date']['output']>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: Maybe<Scalars['date']['output']>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: Maybe<Scalars['String']['output']>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: Maybe<Scalars['String']['output']>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: Maybe<Scalars['uuid']['output']>;
+  /** Label of the HSL route that was changed. */
+  route_label?: Maybe<Scalars['String']['output']>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: Maybe<Scalars['date']['output']>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: Maybe<Scalars['date']['output']>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: Maybe<Scalars['String']['output']>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by max() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryMaxOrderBy = {
+  /** Time when this history item was recorded / the change occurred */
+  changed?: InputMaybe<OrderBy>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: InputMaybe<OrderBy>;
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  line_id?: InputMaybe<OrderBy>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: InputMaybe<OrderBy>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: InputMaybe<OrderBy>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: InputMaybe<OrderBy>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: InputMaybe<OrderBy>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: InputMaybe<OrderBy>;
+  /** Label of the HSL route that was changed. */
+  route_label?: InputMaybe<OrderBy>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: InputMaybe<OrderBy>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: InputMaybe<OrderBy>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: InputMaybe<OrderBy>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: InputMaybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type RouteLineChangeHistoryMinFields = {
+  __typename?: 'route_line_change_history_min_fields';
+  /** Time when this history item was recorded / the change occurred */
+  changed?: Maybe<Scalars['timestamptz']['output']>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: Maybe<Scalars['String']['output']>;
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['bigint']['output']>;
+  line_id?: Maybe<Scalars['uuid']['output']>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: Maybe<Scalars['String']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Int']['output']>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: Maybe<Scalars['date']['output']>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: Maybe<Scalars['date']['output']>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: Maybe<Scalars['String']['output']>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: Maybe<Scalars['String']['output']>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: Maybe<Scalars['uuid']['output']>;
+  /** Label of the HSL route that was changed. */
+  route_label?: Maybe<Scalars['String']['output']>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: Maybe<Scalars['date']['output']>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: Maybe<Scalars['date']['output']>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: Maybe<Scalars['String']['output']>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by min() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryMinOrderBy = {
+  /** Time when this history item was recorded / the change occurred */
+  changed?: InputMaybe<OrderBy>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: InputMaybe<OrderBy>;
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  line_id?: InputMaybe<OrderBy>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: InputMaybe<OrderBy>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: InputMaybe<OrderBy>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: InputMaybe<OrderBy>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: InputMaybe<OrderBy>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: InputMaybe<OrderBy>;
+  /** Label of the HSL route that was changed. */
+  route_label?: InputMaybe<OrderBy>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: InputMaybe<OrderBy>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: InputMaybe<OrderBy>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: InputMaybe<OrderBy>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: InputMaybe<OrderBy>;
+};
+
+/** response of any mutation on the table "route.line_change_history" */
+export type RouteLineChangeHistoryMutationResponse = {
+  __typename?: 'route_line_change_history_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<RouteLineChangeHistory>;
+};
+
+/** on_conflict condition type for table "route.line_change_history" */
+export type RouteLineChangeHistoryOnConflict = {
+  constraint: RouteLineChangeHistoryConstraint;
+  update_columns?: Array<RouteLineChangeHistoryUpdateColumn>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+/** Ordering options when selecting data from "route.line_change_history". */
+export type RouteLineChangeHistoryOrderBy = {
+  changed?: InputMaybe<OrderBy>;
+  changed_by?: InputMaybe<OrderBy>;
+  data?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  line_id?: InputMaybe<OrderBy>;
+  line_label?: InputMaybe<OrderBy>;
+  line_priority?: InputMaybe<OrderBy>;
+  line_validity_end?: InputMaybe<OrderBy>;
+  line_validity_start?: InputMaybe<OrderBy>;
+  name?: InputMaybe<OrderBy>;
+  route_direction?: InputMaybe<OrderBy>;
+  route_id?: InputMaybe<OrderBy>;
+  route_label?: InputMaybe<OrderBy>;
+  route_validity_end?: InputMaybe<OrderBy>;
+  route_validity_start?: InputMaybe<OrderBy>;
+  tg_operation?: InputMaybe<OrderBy>;
+  version_comment?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: route.line_change_history */
+export type RouteLineChangeHistoryPkColumnsInput = {
+  /** Auto-incremented serial db row ID. */
+  id: Scalars['bigint']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type RouteLineChangeHistoryPrependInput = {
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "route.line_change_history" */
+export enum RouteLineChangeHistorySelectColumn {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changed_by',
+  /** column name */
+  Data = 'data',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LineId = 'line_id',
+  /** column name */
+  LineLabel = 'line_label',
+  /** column name */
+  LinePriority = 'line_priority',
+  /** column name */
+  LineValidityEnd = 'line_validity_end',
+  /** column name */
+  LineValidityStart = 'line_validity_start',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  RouteDirection = 'route_direction',
+  /** column name */
+  RouteId = 'route_id',
+  /** column name */
+  RouteLabel = 'route_label',
+  /** column name */
+  RouteValidityEnd = 'route_validity_end',
+  /** column name */
+  RouteValidityStart = 'route_validity_start',
+  /** column name */
+  TgOperation = 'tg_operation',
+  /** column name */
+  VersionComment = 'version_comment'
+}
+
+/** input type for updating data in table "route.line_change_history" */
+export type RouteLineChangeHistorySetInput = {
+  /** Time when this history item was recorded / the change occurred */
+  changed?: InputMaybe<Scalars['timestamptz']['input']>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  line_id?: InputMaybe<Scalars['uuid']['input']>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: InputMaybe<Scalars['String']['input']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<Scalars['Int']['input']>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: InputMaybe<Scalars['date']['input']>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: InputMaybe<Scalars['String']['input']>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: InputMaybe<Scalars['uuid']['input']>;
+  /** Label of the HSL route that was changed. */
+  route_label?: InputMaybe<Scalars['String']['input']>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: InputMaybe<Scalars['date']['input']>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: InputMaybe<Scalars['String']['input']>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type RouteLineChangeHistoryStddevFields = {
+  __typename?: 'route_line_change_history_stddev_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryStddevOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** aggregate stddev_pop on columns */
+export type RouteLineChangeHistoryStddevPopFields = {
+  __typename?: 'route_line_change_history_stddev_pop_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryStddevPopOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** aggregate stddev_samp on columns */
+export type RouteLineChangeHistoryStddevSampFields = {
+  __typename?: 'route_line_change_history_stddev_samp_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryStddevSampOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** Streaming cursor of the table "route_line_change_history" */
+export type RouteLineChangeHistoryStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: RouteLineChangeHistoryStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type RouteLineChangeHistoryStreamCursorValueInput = {
+  /** Time when this history item was recorded / the change occurred */
+  changed?: InputMaybe<Scalars['timestamptz']['input']>;
+  /** UserID of the user who made the change, empty on automated system operations */
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  line_id?: InputMaybe<Scalars['uuid']['input']>;
+  /** Label of the HSL Line this historical record represents. */
+  line_label?: InputMaybe<Scalars['String']['input']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<Scalars['Int']['input']>;
+  /** Validity end date of the HSL line as it was at time of the change. */
+  line_validity_end?: InputMaybe<Scalars['date']['input']>;
+  /** Validity start date of the HSL line as it was at time of the change. */
+  line_validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Label of the HSL route that was changed. */
+  route_direction?: InputMaybe<Scalars['String']['input']>;
+  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
+  route_id?: InputMaybe<Scalars['uuid']['input']>;
+  /** Label of the HSL route that was changed. */
+  route_label?: InputMaybe<Scalars['String']['input']>;
+  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_end?: InputMaybe<Scalars['date']['input']>;
+  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
+  route_validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
+  tg_operation?: InputMaybe<Scalars['String']['input']>;
+  /** Version comment of the line or route, if a route change triggered this history item. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type RouteLineChangeHistorySumFields = {
+  __typename?: 'route_line_change_history_sum_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['bigint']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistorySumOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** update columns of table "route.line_change_history" */
+export enum RouteLineChangeHistoryUpdateColumn {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changed_by',
+  /** column name */
+  Data = 'data',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LineId = 'line_id',
+  /** column name */
+  LineLabel = 'line_label',
+  /** column name */
+  LinePriority = 'line_priority',
+  /** column name */
+  LineValidityEnd = 'line_validity_end',
+  /** column name */
+  LineValidityStart = 'line_validity_start',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  RouteDirection = 'route_direction',
+  /** column name */
+  RouteId = 'route_id',
+  /** column name */
+  RouteLabel = 'route_label',
+  /** column name */
+  RouteValidityEnd = 'route_validity_end',
+  /** column name */
+  RouteValidityStart = 'route_validity_start',
+  /** column name */
+  TgOperation = 'tg_operation',
+  /** column name */
+  VersionComment = 'version_comment'
+}
+
+export type RouteLineChangeHistoryUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<RouteLineChangeHistoryAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<RouteLineChangeHistoryDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<RouteLineChangeHistoryDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<RouteLineChangeHistoryDeleteKeyInput>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<RouteLineChangeHistoryIncInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<RouteLineChangeHistoryPrependInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<RouteLineChangeHistorySetInput>;
+  /** filter the rows which have to be updated */
+  where: RouteLineChangeHistoryBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type RouteLineChangeHistoryVarPopFields = {
+  __typename?: 'route_line_change_history_var_pop_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryVarPopOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** aggregate var_samp on columns */
+export type RouteLineChangeHistoryVarSampFields = {
+  __typename?: 'route_line_change_history_var_samp_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryVarSampOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
+};
+
+/** aggregate variance on columns */
+export type RouteLineChangeHistoryVarianceFields = {
+  __typename?: 'route_line_change_history_variance_fields';
+  /** Auto-incremented serial db row ID. */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "route.line_change_history" */
+export type RouteLineChangeHistoryVarianceOrderBy = {
+  /** Auto-incremented serial db row ID. */
+  id?: InputMaybe<OrderBy>;
+  /** Priority of the HSL Line this historical record represents. */
+  line_priority?: InputMaybe<OrderBy>;
 };
 
 /** unique or primary key constraints on table "route.line" */
@@ -6780,6 +7620,7 @@ export type RouteLineIncInput = {
 
 /** input type for inserting data into table "route.line" */
 export type RouteLineInsertInput = {
+  change_history?: InputMaybe<RouteLineChangeHistoryArrRelInsertInput>;
   /** The line text description of the line. */
   description?: InputMaybe<Scalars['String']['input']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
@@ -6919,6 +7760,7 @@ export type RouteLineOnConflict = {
 
 /** Ordering options when selecting data from "route.line". */
 export type RouteLineOrderBy = {
+  change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateOrderBy>;
   description?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOrderBy>;
@@ -59657,6 +60499,14 @@ export type SubscriptionRoot = {
   route_line_aggregate: RouteLineAggregate;
   /** fetch data from the table: "route.line" using primary key columns */
   route_line_by_pk?: Maybe<RouteLine>;
+  /** fetch data from the table: "route.line_change_history" */
+  route_line_change_history: Array<RouteLineChangeHistory>;
+  /** fetch aggregated fields from the table: "route.line_change_history" */
+  route_line_change_history_aggregate: RouteLineChangeHistoryAggregate;
+  /** fetch data from the table: "route.line_change_history" using primary key columns */
+  route_line_change_history_by_pk?: Maybe<RouteLineChangeHistory>;
+  /** fetch data from the table in a streaming manner: "route.line_change_history" */
+  route_line_change_history_stream: Array<RouteLineChangeHistory>;
   /** fetch data from the table in a streaming manner: "route.line" */
   route_line_stream: Array<RouteLine>;
   /** fetch data from the table: "route.route" */
@@ -60193,6 +61043,36 @@ export type SubscriptionRootRouteLineAggregateArgs = {
 
 export type SubscriptionRootRouteLineByPkArgs = {
   line_id: Scalars['uuid']['input'];
+};
+
+
+export type SubscriptionRootRouteLineChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+
+export type SubscriptionRootRouteLineChangeHistoryAggregateArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+
+export type SubscriptionRootRouteLineChangeHistoryByPkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
+export type SubscriptionRootRouteLineChangeHistoryStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<RouteLineChangeHistoryStreamCursorInput>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
 };
 
 
