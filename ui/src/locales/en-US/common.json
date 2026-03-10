@@ -640,7 +640,7 @@
       "departurePlatforms": "Departure platforms",
       "arrivalPlatforms": "Arrival platforms",
       "loadingPlatforms": "Loading platforms",
-      "electricCharging": "Electric charging"
+      "electricCharging": "Electric charging points (pcs)"
     },
     "location": {
       "title": "Location",
