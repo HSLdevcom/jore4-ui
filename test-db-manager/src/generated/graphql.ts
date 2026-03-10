@@ -6595,6 +6595,8 @@ export type RouteLine = {
   validity_start?: Maybe<Scalars['date']['output']>;
   /** An object relationship */
   vehicle_mode: ReusableComponentsVehicleMode;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -6736,6 +6738,7 @@ export type RouteLineBoolExp = {
   validity_end?: InputMaybe<DateComparisonExp>;
   validity_start?: InputMaybe<DateComparisonExp>;
   vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeBoolExp>;
+  version_comment?: InputMaybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.line" */
@@ -6804,6 +6807,8 @@ export type RouteLineInsertInput = {
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<Scalars['date']['input']>;
   vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -6823,6 +6828,8 @@ export type RouteLineMaxFields = {
   validity_end?: Maybe<Scalars['date']['output']>;
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['date']['output']>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "route.line" */
@@ -6841,6 +6848,8 @@ export type RouteLineMaxOrderBy = {
   validity_end?: InputMaybe<OrderBy>;
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<OrderBy>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -6860,6 +6869,8 @@ export type RouteLineMinFields = {
   validity_end?: Maybe<Scalars['date']['output']>;
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: Maybe<Scalars['date']['output']>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "route.line" */
@@ -6878,6 +6889,8 @@ export type RouteLineMinOrderBy = {
   validity_end?: InputMaybe<OrderBy>;
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<OrderBy>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.line" */
@@ -6922,6 +6935,7 @@ export type RouteLineOrderBy = {
   validity_end?: InputMaybe<OrderBy>;
   validity_start?: InputMaybe<OrderBy>;
   vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeOrderBy>;
+  version_comment?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: route.line */
@@ -6963,7 +6977,9 @@ export enum RouteLineSelectColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
+  /** column name */
+  VersionComment = 'version_comment'
 }
 
 /** input type for updating data in table "route.line" */
@@ -6991,6 +7007,8 @@ export type RouteLineSetInput = {
   validity_end?: InputMaybe<Scalars['date']['input']>;
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
@@ -7065,6 +7083,8 @@ export type RouteLineStreamCursorValueInput = {
   validity_end?: InputMaybe<Scalars['date']['input']>;
   /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   validity_start?: InputMaybe<Scalars['date']['input']>;
+  /** An extra comment describing the latest change to the Line's details. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
@@ -7105,7 +7125,9 @@ export enum RouteLineUpdateColumn {
   /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
-  ValidityStart = 'validity_start'
+  ValidityStart = 'validity_start',
+  /** column name */
+  VersionComment = 'version_comment'
 }
 
 export type RouteLineUpdates = {
@@ -7210,6 +7232,8 @@ export type RouteRoute = {
   validity_start?: Maybe<Scalars['date']['output']>;
   /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']['output']>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -7407,6 +7431,7 @@ export type RouteRouteBoolExp = {
   validity_end?: InputMaybe<DateComparisonExp>;
   validity_start?: InputMaybe<DateComparisonExp>;
   variant?: InputMaybe<SmallintComparisonExp>;
+  version_comment?: InputMaybe<StringComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.route" */
@@ -7487,6 +7512,8 @@ export type RouteRouteInsertInput = {
   validity_start?: InputMaybe<Scalars['date']['input']>;
   /** The variant for route definition. */
   variant?: InputMaybe<Scalars['smallint']['input']>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -7510,6 +7537,8 @@ export type RouteRouteMaxFields = {
   validity_start?: Maybe<Scalars['date']['output']>;
   /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']['output']>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "route.route" */
@@ -7532,6 +7561,8 @@ export type RouteRouteMaxOrderBy = {
   validity_start?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
   variant?: InputMaybe<OrderBy>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -7555,6 +7586,8 @@ export type RouteRouteMinFields = {
   validity_start?: Maybe<Scalars['date']['output']>;
   /** The variant for route definition. */
   variant?: Maybe<Scalars['smallint']['output']>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "route.route" */
@@ -7577,6 +7610,8 @@ export type RouteRouteMinOrderBy = {
   validity_start?: InputMaybe<OrderBy>;
   /** The variant for route definition. */
   variant?: InputMaybe<OrderBy>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "route.route" */
@@ -7625,6 +7660,7 @@ export type RouteRouteOrderBy = {
   validity_end?: InputMaybe<OrderBy>;
   validity_start?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
+  version_comment?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: route.route */
@@ -7677,7 +7713,9 @@ export enum RouteRouteSelectColumn {
   /** column name */
   ValidityStart = 'validity_start',
   /** column name */
-  Variant = 'variant'
+  Variant = 'variant',
+  /** column name */
+  VersionComment = 'version_comment'
 }
 
 /** input type for updating data in table "route.route" */
@@ -7707,6 +7745,8 @@ export type RouteRouteSetInput = {
   validity_start?: InputMaybe<Scalars['date']['input']>;
   /** The variant for route definition. */
   variant?: InputMaybe<Scalars['smallint']['input']>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
@@ -7797,6 +7837,8 @@ export type RouteRouteStreamCursorValueInput = {
   validity_start?: InputMaybe<Scalars['date']['input']>;
   /** The variant for route definition. */
   variant?: InputMaybe<Scalars['smallint']['input']>;
+  /** An extra comment describing the latest change to the Route's details. */
+  version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
@@ -7847,7 +7889,9 @@ export enum RouteRouteUpdateColumn {
   /** column name */
   ValidityStart = 'validity_start',
   /** column name */
-  Variant = 'variant'
+  Variant = 'variant',
+  /** column name */
+  VersionComment = 'version_comment'
 }
 
 export type RouteRouteUpdates = {
