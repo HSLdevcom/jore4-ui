@@ -640,7 +640,7 @@
       "departurePlatforms": "Lähtölaitureita",
       "arrivalPlatforms": "Tulolaitureita",
       "loadingPlatforms": "Lastauslaitureita",
-      "electricCharging": "Sähkölataus"
+      "electricCharging": "Sähkölatauspisteitä (kpl)"
     },
     "location": {
       "title": "Sijainti",
