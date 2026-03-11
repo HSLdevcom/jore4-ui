@@ -29,10 +29,7 @@ export const useVisibleRouteStops = () => {
     [displayedRoutes],
   );
 
-  /**
-   * Attach edited route's stops to the list of stops that should be displayed
-   */
-  const visibleRouteStopLabels = useMemo(
+  const visibleRouteStopLabels: ReadonlyArray<string> = useMemo(
     () =>
       routeEditingInProgress
         ? [...displayedRouteStopLabels, ...editedRouteStopLabels]
