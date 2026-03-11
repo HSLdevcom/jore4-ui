@@ -73,7 +73,9 @@ export function useFindStopAreas(
       compact(
         (rawAreas ?? [])
           .filter((area) =>
-            !vehicleMode ? true : parseVehicleMode(area.transportMode) === vehicleMode,
+            !vehicleMode
+              ? true
+              : parseVehicleMode(area.transportMode) === vehicleMode,
           )
           .map(parseStopFormStopAreaInfo),
       ),

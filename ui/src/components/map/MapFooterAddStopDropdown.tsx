@@ -10,10 +10,10 @@ const testIds: Readonly<Record<string, string>> = {
 };
 
 type MapFooterAddStopDropdownProps = {
-  onAddStops: (vehicleMode: ReusableComponentsVehicleModeEnum) => void;
-  testId: string;
-  disabled?: boolean;
-  inverted?: boolean;
+  readonly onAddStops: (vehicleMode: ReusableComponentsVehicleModeEnum) => void;
+  readonly testId: string;
+  readonly disabled?: boolean;
+  readonly inverted?: boolean;
 };
 
 export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
@@ -32,13 +32,15 @@ export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
       disabledTooltip={t('dataModelRefactor.disabled')}
     >
       <SimpleDropdownMenuItem
-        testId="AddStopDropdownOption::addBusStop"
+        testId={testIds.addBusStop}
+        data-vehicle-mode={ReusableComponentsVehicleModeEnum.Bus}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Bus)}
       >
         {t('map.addBusStop')}
       </SimpleDropdownMenuItem>
       <SimpleDropdownMenuItem
-        testId="AddStopDropdownOption::addTramStop"
+        testId={testIds.addTramStop}
+        data-vehicle-mode={ReusableComponentsVehicleModeEnum.Tram}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Tram)}
       >
         {t('map.addTramStop')}
