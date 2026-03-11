@@ -8,7 +8,6 @@ import {
 import { getRouteStopLabels } from '../../../../graphql';
 import { useAppSelector } from '../../../../hooks/redux';
 import {
-  selectEditedRouteData,
   selectEditedRouteIncludedStops,
   selectMapRouteEditor,
   selectSelectedStopAreaId,
@@ -17,12 +16,11 @@ import {
 import { Priority } from '../../../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
+  isCurrentEntity,
   mapToVariables,
 } from '../../../../utils';
 import { MapStop } from '../../types';
 import { useMapObservationDate } from '../../utils/mapUrlState';
-
-type LabelledStop = { readonly label: string };
 
 const extractHighestPriorityStopsFromRoute = <
   TRoute extends RouteWithJourneyPatternStopsFragment,
@@ -52,10 +50,6 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     selectEditedRouteIncludedStops,
   );
 
-  const { includedStopLabels: editedRouteStopLabels } = useAppSelector(
-    selectEditedRouteData,
-  );
-
   const displayedRoutesResult = useGetRouteDetailsByIdsQuery(
     mapToVariables({ route_ids: displayedRouteIds }),
   );
@@ -81,25 +75,42 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     (stop) => stop.stop_place_ref,
   );
 
+  const stopLabelToVehicleMode = useMemo(() => {
+    const labelsToModes = new Map<string, ReusableComponentsVehicleModeEnum>();
+
+    displayedRoutes.forEach((route) => {
+      const vehicleMode = route.route_line.primary_vehicle_mode;
+      getRouteStopLabels(route).forEach((label) => {
+        if (!labelsToModes.has(label)) {
+          labelsToModes.set(label, vehicleMode);
+        }
+      });
+    });
+
+    return labelsToModes;
+  }, [displayedRoutes]);
+
+  const usedStopLabels = useMemo(
+    () =>
+      new Set<string>([
+        ...editedRouteIncludedStops
+          .map((stop) => stop.label)
+          .filter((label): label is string => !!label),
+        ...stopLabelToVehicleMode.keys(),
+      ]),
+    [editedRouteIncludedStops, stopLabelToVehicleMode],
+  );
+
   const getStopVehicleMode = useCallback(
-    (stop: LabelledStop): ReusableComponentsVehicleModeEnum | undefined => {
-      const stopsLabelsOnRoutes = [
-        ...editedRouteStopLabels,
-        ...(displayedRoutes.flatMap(getRouteStopLabels) ?? []),
-      ];
+    (stop: MapStop): ReusableComponentsVehicleModeEnum | undefined =>
+      stop.vehicle_mode ?? stopLabelToVehicleMode.get(stop.label),
+    [stopLabelToVehicleMode],
+  );
 
-      // Note added during change: Fetch stops from StopDB instead of Lines DB
-      // Currently the vehicleMode is always Bus as we do not have other
-      // modes implemented yet. Also, this value should be based on type of
-      // the line we are inspecting, not on the type of the stop itself.
-      // A train cannot stop at a bus stop after all.
-
-      return stop.label && stopsLabelsOnRoutes.includes(stop.label)
-        ? // TODO: Determinate type based on the active route
-          ReusableComponentsVehicleModeEnum.Bus
-        : undefined;
-    },
-    [displayedRoutes, editedRouteStopLabels],
+  const getStopShouldBeGray = useCallback(
+    (stop: MapStop): boolean =>
+      !usedStopLabels.has(stop.label) && isCurrentEntity(observationDate, stop),
+    [observationDate, usedStopLabels],
   );
 
   // If editing a route, highlight stops on edited route
@@ -117,5 +128,5 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     [highlightedStopIds, selectedStopId, selectedStopAreaId],
   );
 
-  return { getStopVehicleMode, getStopHighlighted };
+  return { getStopVehicleMode, getStopHighlighted, getStopShouldBeGray };
 };

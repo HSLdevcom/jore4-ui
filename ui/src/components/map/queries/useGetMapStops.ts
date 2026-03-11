@@ -39,6 +39,13 @@ const GQL_GET_MAP_STOPS = gql`
 
     centroid
     functional_area
+
+    scheduled_stop_point_instance {
+      scheduled_stop_point_id
+      vehicle_mode_on_scheduled_stop_point {
+        vehicle_mode
+      }
+    }
   }
 `;
 
@@ -107,6 +114,10 @@ function mapRawStopToMapStop(
     return null;
   }
 
+  const vehicleMode =
+    rawStop.scheduled_stop_point_instance
+      ?.vehicle_mode_on_scheduled_stop_point[0]?.vehicle_mode;
+
   return {
     label: rawStop.label,
     location: rawStop.centroid,
@@ -116,6 +127,7 @@ function mapRawStopToMapStop(
     validity_start: parseDate(rawStop.validity_start),
     validity_end: parseDate(rawStop.validity_end),
     functional_area: parseValidNumber(rawStop.functional_area),
+    vehicle_mode: vehicleMode,
   };
 }
 
