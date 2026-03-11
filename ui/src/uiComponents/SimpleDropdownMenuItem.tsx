@@ -11,12 +11,26 @@ type SimpleDropdownMenuItemProps = {
 } & (
   | { readonly text: string; readonly children?: never }
   | { readonly text?: never; readonly children: ReactNode }
-);
+) & {
+    readonly [key in `data-${string}`]?: string;
+  };
 
 const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
   HTMLButtonElement,
   SimpleDropdownMenuItemProps
-> = ({ text, children, onClick, disabled, testId, className, title }, ref) => {
+> = (
+  {
+    text,
+    children,
+    onClick,
+    disabled,
+    testId,
+    className,
+    title,
+    ...dataAttributes
+  },
+  ref,
+) => {
   return (
     <MenuItem
       as="button"
@@ -27,6 +41,8 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
       onClick={onClick}
       data-testid={testId}
       title={title}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...dataAttributes}
     >
       {text ?? children}
     </MenuItem>
