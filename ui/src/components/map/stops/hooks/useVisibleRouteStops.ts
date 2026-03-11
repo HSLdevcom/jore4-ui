@@ -30,13 +30,17 @@ export const useVisibleRouteStops = () => {
   );
 
   /**
-   * Attach edited route's stops to the list of stops that should be displayed
+   * Attach edited route's stops to the list of stops that should be displayed.
+   * Set is used instead of array because the consumer (useFilterStopsByVehicleMode)
+   * calls .has() for every stop on the map, and Set.has() is O(1) vs Array.includes() O(n).
    */
   const visibleRouteStopLabels = useMemo(
     () =>
-      routeEditingInProgress
-        ? [...displayedRouteStopLabels, ...editedRouteStopLabels]
-        : displayedRouteStopLabels,
+      new Set(
+        routeEditingInProgress
+          ? [...displayedRouteStopLabels, ...editedRouteStopLabels]
+          : displayedRouteStopLabels,
+      ),
     [displayedRouteStopLabels, editedRouteStopLabels, routeEditingInProgress],
   );
 

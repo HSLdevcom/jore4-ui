@@ -6,13 +6,11 @@ type IconToggleProps = {
   readonly onToggle: (active: boolean) => void;
   readonly disabled?: boolean;
   readonly className?: string;
+  readonly activeColorClassName?: string;
+  readonly inactiveColorClassName?: string;
   readonly iconClassName: string;
   readonly testId: string;
   readonly tooltip: string;
-  readonly colorClassNames: {
-    readonly active: string;
-    readonly inactive: string;
-  };
 };
 
 export const IconToggle: FC<IconToggleProps> = ({
@@ -20,14 +18,15 @@ export const IconToggle: FC<IconToggleProps> = ({
   onToggle,
   disabled = false,
   className,
+  activeColorClassName = 'bg-tweaked-brand text-white',
+  inactiveColorClassName = 'bg-white text-tweaked-brand',
   iconClassName,
   testId,
   tooltip,
-  colorClassNames,
 }) => {
-  const activeColorClassNames = active
-    ? colorClassNames.active
-    : colorClassNames.inactive;
+  const colorClassNames = active
+    ? activeColorClassName
+    : inactiveColorClassName;
   const disabledClassNames = disabled ? 'text-white bg-light-grey' : '';
 
   return (
@@ -41,19 +40,19 @@ export const IconToggle: FC<IconToggleProps> = ({
         'h-[26px] w-[26px]',
         'flex items-center justify-center',
         'rounded-sm border border-gray-300 disabled:cursor-default',
-        activeColorClassNames,
+        colorClassNames,
         disabledClassNames,
         className,
       )}
       onClick={() => onToggle(!active)}
-      aria-disabled={active}
+      aria-pressed={active}
       title={tooltip}
     >
       <i
         aria-hidden
         className={twMerge('text-xl', iconClassName)}
         // our icon library's css file adds margins with ::before pseudo element and this inline style is hack to get rid of those
-        style={{ marginLeft: '-.2em', marginRight: '-0.2em' }}
+        style={{ marginLeft: '-0.2em', marginRight: '-0.2em' }}
       />
     </button>
   );
