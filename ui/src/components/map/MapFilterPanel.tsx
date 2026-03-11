@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FilterType, selectMapFilter, setStopFilterAction } from '../../redux';
-import { FilterPanel, placeholderToggles } from './FilterPanel';
+import { FilterPanel } from './FilterPanel';
 
 type MapFilterPanelProps = {
   readonly routeDisplayed: boolean;
@@ -35,8 +35,6 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
             inactive: 'bg-white text-tweaked-brand',
           },
         },
-        // We want to show placeholder toggles of unimplemented features for visual purposes
-        ...placeholderToggles,
       ]}
       stops={[
         {
@@ -58,6 +56,8 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
         },
         {
           iconClassName: 'icon-tram',
+          activeColorClassName: 'bg-hsl-tram-dark-green text-white',
+          inactiveColorClassName: 'bg-white text-hsl-tram-dark-green',
           active: stopFilters[FilterType.ShowAllTramStops],
           onToggle: (isActive: boolean) =>
             dispatch(
@@ -73,7 +73,6 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
             inactive: 'bg-white text-hsl-tram-dark-green',
           },
         },
-        ...placeholderToggles,
       ]}
     />
   );

@@ -18,18 +18,10 @@ import {
 } from '../../../../utils';
 import { useMapObservationDate } from '../../utils/mapUrlState';
 import { useIsInSearchResultMode } from '../../utils/useIsInSearchResultMode';
-import { useVisibleRouteStops } from './useVisibleRouteStops';
 
 type FilterStopsFn = <TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,
 ) => ReadonlyArray<TStop>;
-
-function isStopInDisplayedRoutes(
-  displayedRouteStopLabels: ReadonlyArray<string>,
-  label: string,
-) {
-  return displayedRouteStopLabels.includes(label);
-}
 
 type TypeAndFilterFn = {
   readonly type: FilterType;
@@ -108,8 +100,6 @@ export function useFilterStops(): FilterStopsFn {
   const { stopFilters } = useAppSelector(selectMapFilter);
   const observationDate = useMapObservationDate();
 
-  const { visibleRouteStopLabels } = useVisibleRouteStops();
-
   const isInSearchResultMode = useIsInSearchResultMode();
 
   return useCallback(
@@ -118,29 +108,8 @@ export function useFilterStops(): FilterStopsFn {
         return stops;
       }
 
-      const filteredByTimeAndPriority = filterStopsByTimeAndPriority(
-        stops,
-        observationDate,
-        stopFilters,
-      );
-
-      if (stopFilters[FilterType.ShowAllBusStops]) {
-        return filteredByTimeAndPriority;
-      }
-
-      /**
-       * Filter out stops that don't belong to any displayed route, if
-       * "Show all stops" -filter is not active
-       */
-      return filteredByTimeAndPriority.filter((stop) =>
-        isStopInDisplayedRoutes(visibleRouteStopLabels, stop.label),
-      );
+      return filterStopsByTimeAndPriority(stops, observationDate, stopFilters);
     },
-    [
-      observationDate,
-      stopFilters,
-      visibleRouteStopLabels,
-      isInSearchResultMode,
-    ],
+    [observationDate, stopFilters, isInSearchResultMode],
   );
 }
