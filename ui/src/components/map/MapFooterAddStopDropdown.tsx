@@ -32,13 +32,15 @@ export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
       disabledTooltip={t('dataModelRefactor.disabled')}
     >
       <SimpleDropdownMenuItem
-        testId="AddStopDropdownOption::addBusStop"
+        testId={testIds.addBusStop}
+        dataVehicleMode={ReusableComponentsVehicleModeEnum.Bus}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Bus)}
       >
         {t('map.addBusStop')}
       </SimpleDropdownMenuItem>
       <SimpleDropdownMenuItem
-        testId="AddStopDropdownOption::addTramStop"
+        testId={testIds.addTramStop}
+        dataVehicleMode={ReusableComponentsVehicleModeEnum.Tram}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Tram)}
       >
         {t('map.addTramStop')}

@@ -26,6 +26,8 @@ type Toggle = {
 
 type IconToggle = Toggle & {
   readonly iconClassName: string;
+  readonly activeColorClassName?: string;
+  readonly inactiveColorClassName?: string;
   readonly disabled?: boolean;
   readonly tooltip: (t: TFunction) => string;
   readonly colorClassNames: {
@@ -49,14 +51,17 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
             active,
             onToggle,
             iconClassName,
+            activeColorClassName,
+            inactiveColorClassName,
             disabled,
             testId,
             tooltip,
-            colorClassNames,
           },
           index: number,
         ) => (
           <IconToggle
+            activeColorClassName={activeColorClassName}
+            inactiveColorClassName={inactiveColorClassName}
             // We don't have proper ids to use as keys here.
             // This shouldn't matter as this array isn't dynamic.
             key={index} // eslint-disable-line react/no-array-index-key
@@ -67,55 +72,12 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
             disabled={disabled}
             testId={testId}
             tooltip={tooltip(t)}
-            colorClassNames={colorClassNames}
           />
         ),
       )}
     </Row>
   );
 };
-
-const noop = () => null;
-// placeholder toggles of unimplemented features that can be used
-// for visual purposes.
-export const placeholderToggles: ReadonlyArray<IconToggle> = [
-  {
-    iconClassName: 'icon-train',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.train'),
-    colorClassNames: {
-      active: 'bg-tweaked-brand text-white',
-      inactive: 'bg-white text-tweaked-brand',
-    },
-  },
-  {
-    iconClassName: 'icon-ferry',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.ferry'),
-    colorClassNames: {
-      active: 'bg-tweaked-brand text-white',
-      inactive: 'bg-white text-tweaked-brand',
-    },
-  },
-  {
-    iconClassName: 'icon-metro',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.metro'),
-    colorClassNames: {
-      active: 'bg-tweaked-brand text-white',
-      inactive: 'bg-white text-tweaked-brand',
-    },
-  },
-];
 
 type FilterPanelProps = {
   readonly routes: ReadonlyArray<IconToggle>;
