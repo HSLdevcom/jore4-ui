@@ -8,6 +8,7 @@ type SimpleDropdownMenuItemProps = {
   readonly testId: string;
   readonly className?: string;
   readonly title?: string;
+  readonly dataVehicleMode?: string;
 } & (
   | { readonly text: string; readonly children?: never }
   | { readonly text?: never; readonly children: ReactNode }
@@ -16,7 +17,19 @@ type SimpleDropdownMenuItemProps = {
 const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
   HTMLButtonElement,
   SimpleDropdownMenuItemProps
-> = ({ text, children, onClick, disabled, testId, className, title }, ref) => {
+> = (
+  {
+    text,
+    children,
+    onClick,
+    disabled,
+    testId,
+    className,
+    title,
+    dataVehicleMode,
+  },
+  ref,
+) => {
   return (
     <MenuItem
       as="button"
@@ -27,6 +40,7 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
       onClick={onClick}
       data-testid={testId}
       title={title}
+      data-vehicle-mode={dataVehicleMode}
     >
       {text ?? children}
     </MenuItem>

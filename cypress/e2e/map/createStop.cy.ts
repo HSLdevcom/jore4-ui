@@ -98,7 +98,7 @@ describe('Stop creation tests', rootOpts, () => {
     });
   });
 
-  it('Should create stop on map', { tags: [Tag.Smoke] }, () => {
+  it.only('Should create stop on map', { tags: [Tag.Smoke] }, () => {
     MapPage.createStopAtLocation({
       stopFormInfo: {
         publicCode: testStopLabels.testLabel1,

@@ -3065,12 +3065,17 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
   });
 
   describe('latest change history', () => {
-    it('should display 5 latest change history items and support show all navigation', () => {
+    it('should display 5 latest change history items', () => {
       StopDetailsPage.visit('H2003');
       StopDetailsPage.page().shouldBeVisible();
 
       StopDetailsPage.latestChangeHistory.container().shouldBeVisible();
-      StopDetailsPage.latestChangeHistory.title().shouldBeVisible();
+      StopDetailsPage.latestChangeHistory
+        .title()
+        .shouldBeVisible()
+        .should('contain.text', 'Muutoshistoria');
+
+      StopDetailsPage.latestChangeHistory.getItems().should('have.length', 1);
 
       cy.section('Make multiple changes to create history', () => {
         // Change 1
@@ -3122,27 +3127,32 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(0)
-          .should('be.visible')
+          .should('contain.text', 'Perustiedot')
+          .and('contain.text', 'ELY-numero:')
           .and('contain.text', '9999999');
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(1)
-          .should('be.visible')
+          .should('contain.text', 'Sijainti')
+          .and('contain.text', 'Postinumero:')
           .and('contain.text', '00200');
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(2)
-          .should('be.visible')
+          .should('contain.text', 'Perustiedot')
+          .and('contain.text', 'Sijainti (suomi):')
           .and('contain.text', 'Uusi sijainti');
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(3)
-          .should('be.visible')
+          .should('contain.text', 'Pysäkkikilvet')
+          .and('contain.text', 'Pysäkkikilpien tyyppi:')
           .and('contain.text', 'Katoskehikko');
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(4)
-          .should('be.visible')
+          .should('contain.text', 'Sijainti')
+          .and('contain.text', 'Pysäkin osoite:')
           .and('contain.text', 'Mannerheimintie 1');
       });
 

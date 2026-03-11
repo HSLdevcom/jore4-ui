@@ -24,15 +24,8 @@ export class MapFooter {
       .and('be.enabled')
       .click();
 
-    if (vehicleMode === ReusableComponentsVehicleModeEnum.Tram) {
-      return cy
-        .getByTestId('AddStopDropdownOption::addTramStop')
-        .should('be.visible')
-        .click();
-    }
-
     return cy
-      .getByTestId('AddStopDropdownOption::addBusStop')
+      .get(`[data-vehicle-mode="${vehicleMode}"]`)
       .should('be.visible')
       .click();
   }

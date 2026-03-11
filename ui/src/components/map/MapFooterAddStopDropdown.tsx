@@ -4,6 +4,11 @@ import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { SimpleDropdownMenuItem } from '../../uiComponents';
 import { SimpleButtonDropdownMenu } from '../../uiComponents/SimpleButtonDropdownMenu';
 
+const testIds = {
+  addBusStop: 'AddStopDropdownOption::addBusStop',
+  addTramStop: 'AddStopDropdownOption::addTramStop',
+};
+
 type MapFooterAddStopDropdownProps = {
   onAddStops: (vehicleMode: ReusableComponentsVehicleModeEnum) => void;
   testId: string;
@@ -27,13 +32,15 @@ export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
       disabledTooltip={t('dataModelRefactor.disabled')}
     >
       <SimpleDropdownMenuItem
-        testId="AddStopDropdownOption::addBusStop"
+        testId={testIds.addBusStop}
+        dataVehicleMode={ReusableComponentsVehicleModeEnum.Bus}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Bus)}
       >
         {t('map.addBusStop')}
       </SimpleDropdownMenuItem>
       <SimpleDropdownMenuItem
-        testId="AddStopDropdownOption::addTramStop"
+        testId={testIds.addTramStop}
+        dataVehicleMode={ReusableComponentsVehicleModeEnum.Tram}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Tram)}
       >
         {t('map.addTramStop')}
