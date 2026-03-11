@@ -39,6 +39,7 @@ import {
   useDefaultErrorHandler,
   useMapStops,
 } from './hooks';
+import { useFilterStopsByVehicleMode } from './hooks/useFilterStopsByVehicleMode';
 import { Stop } from './Stop';
 
 const testIds = {
@@ -109,8 +110,10 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
-  const { getStopVehicleMode, getStopHighlighted } =
+  const { getStopVehicleMode, getStopHighlighted, getStopShouldBeGray } =
     useMapStops(displayedRouteIds);
+  const filterStopsByVehicleMode =
+    useFilterStopsByVehicleMode(getStopVehicleMode);
 
   const { setLoadingState: setFetchStopsLoadingState } = useLoader(
     Operation.FetchStops,
@@ -215,10 +218,12 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     (isInSearchResultMode && mapStopSelection.byResultSelection) ||
     selectedStops.includes(stop.netex_id);
 
+  const modeFilteredStops = filterStopsByVehicleMode(filteredStops);
+
   return (
     <>
       {/* Display existing stops */}
-      {filteredStops.map((item) => {
+      {modeFilteredStops.map((item) => {
         const point = mapLngLatToPoint(item.location.coordinates);
 
         return (
@@ -240,6 +245,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
                 : testIds.stopMarker(item.label, item.priority)
             }
             vehicleMode={getStopVehicleMode(item)}
+            shouldBeGray={getStopShouldBeGray(item)}
           />
         );
       })}
