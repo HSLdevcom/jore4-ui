@@ -3,9 +3,11 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import noop from 'lodash/noop';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import { mapZoneLabelToUiName } from '../../../../../i18n/uiNameMappings';
 import { getPointPosition } from '../../../../../utils';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
+import { normalizeZoneLabel } from '../../../types';
 import {
   EnrichedQuayWithTimingPlace,
   EnrichedStopDetails,
@@ -269,7 +271,9 @@ function writeInfoSpotFields(
   writer.writeNumberField(position?.at(1));
   writer.writeNumberField(position?.at(0));
 
-  writer.writeTextField(infoSpot.zoneLabel);
+  writer.writeTextField(
+    mapZoneLabelToUiName(t, normalizeZoneLabel(infoSpot.zoneLabel)),
+  );
   writer.writeTextField(infoSpot.railInformation);
   writer.writeTextField(infoSpot.floor);
 

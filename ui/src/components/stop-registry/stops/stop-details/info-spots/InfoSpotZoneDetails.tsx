@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import { mapZoneLabelToUiName } from '../../../../../i18n/uiNameMappings';
+import { normalizeZoneLabel } from '../../../types/utils';
 import { DetailRow, LabeledDetail } from '../layout';
 
 const testIds = {
@@ -35,7 +37,7 @@ export const InfoSpotZoneDetails: FC<InfoSpotZoneDetailsProps> = ({
       />
       <LabeledDetail
         title={t('stopDetails.infoSpots.zoneLabel')}
-        detail={infoSpot.zoneLabel}
+        detail={mapZoneLabelToUiName(t, normalizeZoneLabel(infoSpot.zoneLabel))}
         testId={testIds.zoneLabel}
       />
       <LabeledDetail

@@ -26,7 +26,7 @@ const infoSpotJP1234568: StopRegistryInfoSpotInput = {
   infoSpotType: StopRegistryInfoSpotType.Static,
   purpose: 'Announcement',
   railInformation: '7',
-  zoneLabel: 'A',
+  zoneLabel: 'YES',
   displayType: null, // Only set if posterPlaceType = Dynamic
   speechProperty: null, // Only set if posterPlaceType = Dynamic
   backlight: true, // Only set if posterPlaceType = Static
@@ -53,7 +53,7 @@ const infoSpotJP1234567: StopRegistryInfoSpotInput = {
   maintenance: 'Huoltotietojen tekstit tähän...',
   purpose: 'Dynaaminen näyttö',
   railInformation: '8',
-  zoneLabel: 'B',
+  zoneLabel: 'NO',
   infoSpotType: StopRegistryInfoSpotType.Dynamic,
   displayType: StopRegistryDisplayType.BatteryMultiRow, // Only set if posterPlaceType = Dynamic
   speechProperty: true, // Only set if posterPlaceType = Dynamic
@@ -74,7 +74,7 @@ const infoSpotJP1234569: StopRegistryInfoSpotInput = {
   maintenance: 'Huoltotietojen tekstit tähän...',
   purpose: 'Infopaikan käyttötarkoitus',
   railInformation: '9',
-  zoneLabel: 'C',
+  zoneLabel: 'UNKNOWN',
   displayType: null, // Only set if posterPlaceType = Dynamic
   speechProperty: null, // Only set if posterPlaceType = Dynamic
   backlight: null, // Only set if posterPlaceType = Static
