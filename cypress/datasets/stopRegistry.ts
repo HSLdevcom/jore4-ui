@@ -452,7 +452,7 @@ const infoSpotData = [
       infoSpotType: StopRegistryInfoSpotType.Static,
       purpose: 'Tiedotteet',
       railInformation: '1',
-      zoneLabel: 'A',
+      zoneLabel: 'YES',
       backlight: true,
       width: 800,
       height: 1200,

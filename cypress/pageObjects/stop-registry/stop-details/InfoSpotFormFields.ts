@@ -62,6 +62,12 @@ export class InfoSpotFormFields {
 
   static getZoneLabel = () => cy.getByTestId('InfoSpotFormFields::zoneLabel');
 
+  static getZoneLabelButton = () =>
+    cy.getByTestId('InfoSpotFormFields::zoneLabel::ListboxButton');
+
+  static getZoneLabelOptions = () =>
+    cy.getByTestId('InfoSpotFormFields::zoneLabel::ListboxOptions');
+
   static getPosterContainers = () =>
     cy.getByTestId('InfoSpotPosterFormFields::container');
 

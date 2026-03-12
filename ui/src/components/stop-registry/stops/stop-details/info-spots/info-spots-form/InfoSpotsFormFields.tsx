@@ -2,13 +2,16 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
+  EnumDropdown,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
+import { ZoneLabel } from '../../../../types';
 import { InfoSpotsFormState } from '../types';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
 import { PurposeFormFragment } from './PurposeFormFragment';
@@ -118,11 +121,21 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
         </Row>
         <Row className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap">
           <InputField<InfoSpotsFormState>
-            type="text"
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.zoneLabel`}
             testId={testIds.zoneLabel}
-            disabled={toBeDeleted}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<ZoneLabel>
+                enumType={ZoneLabel}
+                placeholder={t('unknown')}
+                uiNameMapper={(val) => mapZoneLabelToUiName(t, val)}
+                buttonClassName="min-w-32"
+                disabled={toBeDeleted}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
           />
 
           <InputField<InfoSpotsFormState>

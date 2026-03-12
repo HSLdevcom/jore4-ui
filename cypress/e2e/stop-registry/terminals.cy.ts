@@ -987,7 +987,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
         TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
         TerminalInfoSpotsViewCard.getRailInformation().shouldHaveText('1');
-        TerminalInfoSpotsViewCard.getZoneLabel().shouldHaveText('A');
+        TerminalInfoSpotsViewCard.getZoneLabel().shouldHaveText('Kyllä');
         TerminalInfoSpotsViewCard.getDescription().shouldHaveText(
           'Terminaalin infopiste',
         );
@@ -1108,9 +1108,13 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
           .getLongitude()
           .clearAndType('24.926000');
 
-        TerminalInfoSpotsSection.form.formFields
-          .getZoneLabel()
-          .clearAndType('A');
+        TerminalInfoSpotsSection.form.formFields.getZoneLabelButton().click();
+        cy.withinHeadlessPortal(() =>
+          TerminalInfoSpotsSection.form.formFields
+            .getZoneLabelOptions()
+            .contains('Kyllä')
+            .click(),
+        );
         TerminalInfoSpotsSection.form.formFields.getFloor().clearAndType('1');
         TerminalInfoSpotsSection.form.formFields
           .getDescription()
@@ -1157,7 +1161,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
         TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
         TerminalInfoSpotsViewCard.getRailInformation().shouldHaveText('-');
-        TerminalInfoSpotsViewCard.getZoneLabel().shouldHaveText('A');
+        TerminalInfoSpotsViewCard.getZoneLabel().shouldHaveText('Kyllä');
         TerminalInfoSpotsViewCard.getDescription().shouldHaveText(
           'Toinen terminaalin infopiste',
         );

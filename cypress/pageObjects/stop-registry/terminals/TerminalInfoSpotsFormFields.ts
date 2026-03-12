@@ -59,6 +59,12 @@ export class TerminalInfoSpotsFormFields {
   static getZoneLabel = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::zoneLabel');
 
+  static getZoneLabelButton = () =>
+    cy.getByTestId('TerminalInfoSpotFormFields::zoneLabel::ListboxButton');
+
+  static getZoneLabelOptions = () =>
+    cy.getByTestId('TerminalInfoSpotFormFields::zoneLabel::ListboxOptions');
+
   static getPosterContainers = () =>
     cy.getByTestId('TerminalInfoSpotPosterFormFields::container');
 

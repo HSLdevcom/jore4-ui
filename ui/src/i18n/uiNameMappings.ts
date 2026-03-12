@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next';
 import { InfoSpotPurposeEnum } from '../components/stop-registry/stops/stop-details/info-spots/types';
 import { TerminalType } from '../components/stop-registry/types/TerminalType';
+import { ZoneLabel } from '../components/stop-registry/types/ZoneLabel';
 import {
   HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
@@ -430,6 +431,16 @@ export const mapTerminalTypeToUiName = genTranslationMapper<TerminalType>({
   [TerminalType.FerryTerminal]: (t) => t('terminalTypeEnum.ferryTerminal'),
   [TerminalType.FerryStation]: (t) => t('terminalTypeEnum.ferryStation'),
 });
+
+export const mapZoneLabelToUiName = genTranslationMapper<ZoneLabel, string>(
+  {
+    [ZoneLabel.Yes]: (t) => t('yes'),
+    [ZoneLabel.No]: (t) => t('no'),
+    [ZoneLabel.Unknown]: (t) => t('unknown'),
+  },
+  // This field was previously a text input, so existing data may contain incorrect values. Fallback to unknown.
+  (t) => t('unknown'),
+);
 
 export const mapInfoSpotPurposeToUiName =
   genTranslationMapper<InfoSpotPurposeEnum>({
