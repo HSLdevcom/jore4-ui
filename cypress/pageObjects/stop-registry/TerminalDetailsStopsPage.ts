@@ -1,7 +1,10 @@
+import { ConfirmationDialog } from '../shared-components';
 import { TerminalAddStopsModal } from './terminals';
 
 export class TerminalDetailsStopsPage {
   static addStopsModal = TerminalAddStopsModal;
+
+  static confirmationDialog = ConfirmationDialog;
 
   static getTitle() {
     return cy.getByTestId('TerminalDetailsPage::stopsTitle');
@@ -25,5 +28,9 @@ export class TerminalDetailsStopsPage {
 
   static getAddStopToTerminalButton() {
     return cy.getByTestId('TerminalDetailsPage::addStopToTerminalButton');
+  }
+
+  static getRemoveStopAreaButton() {
+    return cy.getByTestId('TerminalDetailsPage::removeStopAreaButton');
   }
 }
