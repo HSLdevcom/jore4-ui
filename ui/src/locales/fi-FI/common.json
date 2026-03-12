@@ -682,7 +682,14 @@
     "stops": {
       "title": "Pysäkit",
       "addStopToTerminal": "Lisää pysäkki terminaaliin",
-      "editSuccess": "Terminaalin jäsenpysäkit muokattu"
+      "editSuccess": "Terminaalin jäsenpysäkit muokattu",
+      "removeStopArea": "Poista pysäkkialue {{ name }} terminaalin käytöstä"
+    },
+    "confirmRemoveStopAreaDialog": {
+      "title": "Poistetaan pysäkkialue terminaalin käytöstä",
+      "description": "Pysäkkialueeseen on yhdistetty {{ count }} pysäkkiä.",
+      "additionalInfo": "Pysäkkialue ja sen pysäkit jäävät edelleen jäljelle, niitä ei vain ole yhdistetty terminaaliin.",
+      "confirmText": "Poista"
     },
     "errors": {
       "terminalsUniqueName": "Terminaalilla tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
