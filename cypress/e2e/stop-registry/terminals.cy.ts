@@ -130,6 +130,11 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
     Toast.expectSuccessToast('Terminaali muokattu');
   }
 
+  function waitForStopAreaRemoveToBeFinished() {
+    expectGraphQLCallToSucceed('@gqlremoveFromMultiModalStopPlace');
+    Toast.expectSuccessToast('Terminaalin jäsenpysäkit muokattu');
+  }
+
   function assertBasicDetails(expected: ExpectedBasicDetails) {
     TerminalDetailsPage.titleRow.getName().shouldHaveText(expected.name);
 
@@ -865,6 +870,31 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         });
       },
     );
+
+    it('should be able to remove stop areas from terminal on stops tab', () => {
+      TerminalDetailsPage.page().shouldBeVisible();
+      TerminalDetailsPage.getTabSelector().getStopsTab().click();
+
+      TerminalDetailsPage.stopsPage.getStopAreas().should('have.length', 2);
+
+      TerminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+        TerminalDetailsPage.stopsPage.getRemoveStopAreaButton().click();
+      });
+
+      TerminalDetailsPage.stopsPage.confirmationDialog
+        .getConfirmButton()
+        .click();
+
+      waitForStopAreaRemoveToBeFinished();
+
+      TerminalDetailsPage.stopsPage.getStopAreas().should('have.length', 1);
+
+      TerminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+        TerminalDetailsPage.stopsPage
+          .getStopAreaHeader()
+          .should('contain.text', 'Kuttulammentie');
+      });
+    });
 
     it(
       'should not be able to add stops that belong to a different terminal',
