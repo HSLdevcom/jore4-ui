@@ -682,7 +682,14 @@
     "stops": {
       "title": "Stops",
       "addStopToTerminal": "Add stop to terminal",
-      "editSuccess": "Terminal member stops edited"
+      "editSuccess": "Terminal member stops edited",
+      "removeStopArea": "Remove stop area {{ name }} from terminal"
+    },
+    "confirmRemoveStopAreaDialog": {
+      "title": "Remove stop area from terminal",
+      "description": "Stop area has {{ count }} stops.",
+      "additionalInfo": "The stop area itself will not be deleted, only its connection to the terminal.",
+      "confirmText": "Remove"
     },
     "errors": {
       "terminalsUniqueName": "Terminal should have unique name but {{name}} is already in use by another terminal or stop area!",
