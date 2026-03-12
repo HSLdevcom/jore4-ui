@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapZoneLabelToUiName } from '../../../../../i18n/uiNameMappings';
 import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
 import {
   formatPurposeForDisplay,
@@ -7,6 +8,7 @@ import {
 } from '../../../stops/stop-details/info-spots/utils';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { optionalBooleanToUiText } from '../../../stops/stop-details/utils';
+import { normalizeZoneLabel } from '../../../types/utils';
 import { TerminalInfoSpotsViewCardProps } from './types';
 import { getTerminalInfoSpotLocation } from './utils';
 
@@ -70,7 +72,10 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
         <DetailRow>
           <LabeledDetail
             title={t('stopDetails.infoSpots.zoneLabel')}
-            detail={infoSpot.zoneLabel}
+            detail={mapZoneLabelToUiName(
+              t,
+              normalizeZoneLabel(infoSpot.zoneLabel),
+            )}
             testId={testIds.zoneLabel}
           />
           <LabeledDetail
