@@ -2,12 +2,12 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { PagingInfo } from '../../../../../types';
 import {
+  ChangeHistoryFilters,
   ChangeHistorySortingInfo,
   ChangeHistoryTable,
+  FailedToLoadChangeHistory,
+  LoadingChangeHistory,
 } from '../../../../common/ChangeHistory';
-import { StopChangeHistoryFilters } from '../types';
-import { FailedToLoadStopChangeHistory } from './FailedToLoadStopChangeHistory';
-import { LoadingStopChangeHistory } from './LoadingStopChangeHistory';
 import { StopChangeHistoryDataRows } from './StopChangeHistoryDataRows';
 
 /**
@@ -48,7 +48,7 @@ function usePrettyLoaderState(
 type StopChangeHistoryTableProps = {
   readonly className?: string;
   readonly error: Error | null;
-  readonly filters: StopChangeHistoryFilters;
+  readonly filters: ChangeHistoryFilters;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
   readonly loading: boolean;
   readonly pagingInfo: PagingInfo;
@@ -80,9 +80,9 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
       setSortingInfo={setSortingInfo}
       sortingInfo={sortingInfo}
     >
-      {error !== null && <FailedToLoadStopChangeHistory refetch={refetch} />}
+      {error !== null && <FailedToLoadChangeHistory refetch={refetch} />}
 
-      {error === null && showLoader && <LoadingStopChangeHistory />}
+      {error === null && showLoader && <LoadingChangeHistory />}
 
       {error === null && !showLoader && (
         <StopChangeHistoryDataRows

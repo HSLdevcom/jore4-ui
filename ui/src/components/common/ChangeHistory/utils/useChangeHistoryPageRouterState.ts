@@ -1,31 +1,31 @@
 import noop from 'lodash/noop';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { parseDate } from '../../../../../time';
-import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../../types';
-import { Priority } from '../../../../../types/enums';
-import { memoizeStatePicker } from '../../../../../utils';
-import {
-  ChangeHistorySortingInfo,
-  SortChangeHistoryBy,
-  defaultChangeHistorySortingInfo,
-} from '../../../../common/ChangeHistory';
+import { parseDate } from '../../../../time';
+import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
+import { Priority } from '../../../../types/enums';
+import { memoizeStatePicker } from '../../../../utils';
 import {
   UrlStateDeserializers,
   UrlStateSerializers,
   toEnum,
   useTypedRouterState,
-} from '../../../../common/hooks/typedRouterState';
-import { StopChangeHistoryFilters } from '../types';
+} from '../../hooks/typedRouterState';
+import {
+  ChangeHistoryFilters,
+  ChangeHistorySortingInfo,
+  SortChangeHistoryBy,
+  defaultChangeHistorySortingInfo,
+} from '../types';
 
 type HistoryState = Readonly<Record<string, never>>;
 const defaultHistoryState: HistoryState = {};
 
-type FlatStopChangeHistoryState = StopChangeHistoryFilters &
+type FlatChangeHistoryState = ChangeHistoryFilters &
   ChangeHistorySortingInfo &
   PagingInfo;
 
-export const defaultValues: FlatStopChangeHistoryState = {
+export const defaultValues: FlatChangeHistoryState = {
   // Filters
   from: DateTime.now().minus({ months: 6 }).startOf('month').startOf('day'),
   to: DateTime.now().endOf('day'),
@@ -38,7 +38,7 @@ export const defaultValues: FlatStopChangeHistoryState = {
   ...defaultPagingInfo,
 };
 
-const serializers: UrlStateSerializers<FlatStopChangeHistoryState> = {
+const serializers: UrlStateSerializers<FlatChangeHistoryState> = {
   // Filters
   from: (v) => v.toISODate(),
   to: (v) => v.toISODate(),
@@ -53,7 +53,7 @@ const serializers: UrlStateSerializers<FlatStopChangeHistoryState> = {
   pageSize: String,
 };
 
-const deserializers: UrlStateDeserializers<FlatStopChangeHistoryState> = {
+const deserializers: UrlStateDeserializers<FlatChangeHistoryState> = {
   // Filters
   from: (str) => parseDate(str).startOf('day'),
   to: (str) => parseDate(str).endOf('day'),
@@ -68,9 +68,9 @@ const deserializers: UrlStateDeserializers<FlatStopChangeHistoryState> = {
   pageSize: Number,
 };
 
-export function useStopChangeHistoryPageRouterState() {
+export function useChangeHistoryPageRouterState() {
   const { state, setSearchState } = useTypedRouterState<
-    FlatStopChangeHistoryState,
+    FlatChangeHistoryState,
     HistoryState
   >({
     search: {

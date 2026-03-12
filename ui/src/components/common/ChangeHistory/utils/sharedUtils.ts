@@ -51,7 +51,7 @@ export function areEqualWithDefault<ValueT, DefaultT>(
   };
 }
 
-function normalizeEmptyValue<ValueT>(
+export function normalizeEmptyValue<ValueT>(
   value: ValueT,
 ): null | Exclude<ValueT, undefined> {
   if (value === null || value === undefined) {

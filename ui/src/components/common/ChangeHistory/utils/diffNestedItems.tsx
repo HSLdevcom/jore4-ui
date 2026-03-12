@@ -2,14 +2,12 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import intersection from 'lodash/intersection';
 import without from 'lodash/without';
-import { notNullish } from '../../../../../../utils';
-import {
-  ChangedValue,
-  EmptyCell,
-  KeyedChangedValue,
-} from '../../../../../common/ChangeHistory';
+import { notNullish } from '../../../../utils';
+import { EmptyCell } from '../EmptyCell';
+import { ChangedValue, KeyedChangedValue } from '../types';
 
-type HasTiamatTypedID = { readonly id?: string | null | undefined };
+// Blame Tiamat for the "optional" & nullable part of the ID typings.
+type HopefullyHasId = { readonly id?: string | null | undefined };
 
 type ChangeValueSet = {
   readonly heading: ChangedValue;
@@ -34,19 +32,7 @@ type DiffItemVersionsFn<ItemT> = (
   currentVersion: ItemT | null,
 ) => ReadonlyArray<KeyedChangedValue>;
 
-type DiffNestedItemsOptions<ItemT> = {
-  readonly t: TFunction;
-
-  readonly previousItems: UncleanItems<ItemT> | null | undefined;
-
-  readonly currentItems: UncleanItems<ItemT> | null | undefined;
-
-  readonly diffItemVersions: DiffItemVersionsFn<ItemT>;
-
-  readonly getHeading: GetHeading<ItemT>;
-};
-
-function addedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
+function addedItemsToChangedValueSets<ItemT extends HopefullyHasId>(
   t: TFunction,
   getHeading: GetHeading<ItemT>,
   diffItemVersions: DiffItemVersionsFn<ItemT>,
@@ -68,7 +54,7 @@ function addedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
     );
 }
 
-function updatedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
+function updatedItemsToChangedValueSets<ItemT extends HopefullyHasId>(
   t: TFunction,
   getHeading: GetHeading<ItemT>,
   diffItemVersions: DiffItemVersionsFn<ItemT>,
@@ -99,7 +85,7 @@ function updatedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
     }));
 }
 
-function removedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
+function removedItemsToChangedValueSets<ItemT extends HopefullyHasId>(
   t: TFunction,
   getHeading: GetHeading<ItemT>,
   diffItemVersions: DiffItemVersionsFn<ItemT>,
@@ -121,7 +107,19 @@ function removedItemsToChangedValueSets<ItemT extends HasTiamatTypedID>(
     );
 }
 
-export function diffNestedItems<ItemT extends HasTiamatTypedID>({
+type DiffNestedItemsOptions<ItemT> = {
+  readonly t: TFunction;
+
+  readonly previousItems: UncleanItems<ItemT> | null | undefined;
+
+  readonly currentItems: UncleanItems<ItemT> | null | undefined;
+
+  readonly diffItemVersions: DiffItemVersionsFn<ItemT>;
+
+  readonly getHeading: GetHeading<ItemT>;
+};
+
+export function diffNestedItems<ItemT extends HopefullyHasId>({
   t,
   previousItems: uncleanPreviousItems,
   currentItems: uncleanCurrentItems,

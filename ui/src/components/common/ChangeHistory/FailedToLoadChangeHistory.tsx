@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleButton } from '../../../../../uiComponents';
+import { SimpleButton } from '../../../uiComponents';
 
 const testIds = {
-  failedToLoad: 'StopChangeHistoryPage::FailedToLoad',
-  retryButton: 'StopChangeHistoryPage::RetryButton',
+  failedToLoad: 'ChangeHistoryPage::FailedToLoad',
+  retryButton: 'ChangeHistoryPage::RetryButton',
 };
 
-type FailedToLoadStopChangeHistoryProps = {
+type FailedToLoadChangeHistoryProps = {
   readonly refetch: () => void;
 };
 
-export const FailedToLoadStopChangeHistory: FC<
-  FailedToLoadStopChangeHistoryProps
-> = ({ refetch }) => {
+export const FailedToLoadChangeHistory: FC<FailedToLoadChangeHistoryProps> = ({
+  refetch,
+}) => {
   const { t } = useTranslation();
 
   return (

@@ -9,10 +9,10 @@ import {
 } from '../../../../../generated/graphql';
 import { SortOrder } from '../../../../../types';
 import {
+  ChangeHistoryFilters,
   ChangeHistorySortingInfo,
   SortChangeHistoryBy,
 } from '../../../../common/ChangeHistory';
-import { StopChangeHistoryFilters } from '../types';
 
 // Normally paging should be done on the DB side.
 // But we would need a second native query for that,
@@ -108,7 +108,7 @@ function sortingInfoToOrderBy({
 }
 
 type GetStopChangeHistoryOptions = {
-  readonly filters: StopChangeHistoryFilters;
+  readonly filters: ChangeHistoryFilters;
   readonly sortingInfo: ChangeHistorySortingInfo;
   readonly publicCode: string;
 };

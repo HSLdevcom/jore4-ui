@@ -1,4 +1,6 @@
 export * from './BaseChangeHistoryItem';
 export * from './ChangedValue';
+export * from './ChangeHistoryFilters';
+export * from './ChangeHistoryRouterState';
 export * from './ChangeHistorySortingInfo';
 export * from './SortChangeHistoryBy';

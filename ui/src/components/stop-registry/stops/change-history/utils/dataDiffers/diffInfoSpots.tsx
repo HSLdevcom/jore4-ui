@@ -8,11 +8,11 @@ import {
   EmptyCell,
   KeyedChangedValue,
   diffKeyedValues,
+  diffNestedItems,
 } from '../../../../../common/ChangeHistory';
 import { formatSizedDbItem } from '../../../stop-details/info-spots/utils';
 import { optionalBooleanToUiText } from '../../../stop-details/utils';
 import { HistoricalStopData } from '../../types';
-import { diffNestedItems } from './diffNestedItems';
 
 type FieldValueTuple = readonly [string, string];
 type PosterInfo = {

@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { useGetUserNames } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
-import { StopChangeHistoryFilters } from '../types';
+import { ChangeHistoryFilters } from '../../../../common/ChangeHistory';
 import { StopChangeHistoryItem } from './StopChangeHistoryItem';
 
 const testIds = {
@@ -33,7 +33,7 @@ function findPreviousVersion(
 }
 
 type StopChangeHistoryDataRowsProps = {
-  readonly filters: StopChangeHistoryFilters;
+  readonly filters: ChangeHistoryFilters;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
   readonly pagingInfo: PagingInfo;
 };

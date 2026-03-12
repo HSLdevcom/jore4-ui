@@ -11,11 +11,11 @@ import {
   EmptyCell,
   KeyedChangedValue,
   diffKeyedValues,
+  diffNestedItems,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
 import { optionalBooleanToUiText } from '../../../stop-details/utils';
 import { HistoricalStopData } from '../../types';
-import { diffNestedItems } from './diffNestedItems';
 
 function diffShelterVersions(
   t: TFunction,

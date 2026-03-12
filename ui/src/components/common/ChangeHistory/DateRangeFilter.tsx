@@ -8,18 +8,18 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { parseDate } from '../../../../../time';
-import { StopChangeHistoryFilters } from '../types';
+import { parseDate } from '../../../time';
+import { ChangeHistoryFilters } from './types';
 
 const testIds = {
-  fromDate: 'StopChangeHistoryPage::DateFilter::FromDate',
-  toDate: 'StopChangeHistoryPage::DateFilter::ToDate',
+  fromDate: 'ChangeHistoryPage::DateFilter::FromDate',
+  toDate: 'ChangeHistoryPage::DateFilter::ToDate',
 };
 
 type DateRangeFilterProps = {
   readonly className?: string;
-  readonly filters: StopChangeHistoryFilters;
-  readonly setFilters: Dispatch<SetStateAction<StopChangeHistoryFilters>>;
+  readonly filters: ChangeHistoryFilters;
+  readonly setFilters: Dispatch<SetStateAction<ChangeHistoryFilters>>;
 };
 
 export const DateRangeFilter: FC<DateRangeFilterProps> = ({

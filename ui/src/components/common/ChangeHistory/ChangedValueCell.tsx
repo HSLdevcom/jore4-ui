@@ -10,7 +10,7 @@ const longStringThreshold = 50;
  *
  * @param value
  */
-function getFinalValueForDisplay(value: ReactNode): ReactNode {
+export function getFinalValueForDisplay(value: ReactNode): ReactNode {
   if (value === null || value === undefined) {
     return placeholder;
   }

@@ -187,6 +187,19 @@ const ChangeHistoryTable = createSimplePageObject(
   }),
 );
 
+const BaseChangeHistoryPage = createSimplePageObject('ChangeHistoryPage', [
+  // DateRangeFilter
+  'ChangeHistoryPage::DateFilter::FromDate',
+  'ChangeHistoryPage::DateFilter::ToDate',
+
+  // FailedToLoadChangeHistory
+  'ChangeHistoryPage::FailedToLoad',
+  'ChangeHistoryPage::RetryButton',
+
+  // LoadingChangeHistory
+  'ChangeHistoryPage::Loading',
+]);
+
 export const StopChangeHistoryPage = createSimplePageObject(
   'StopChangeHistoryPage',
   [
@@ -199,19 +212,9 @@ export const StopChangeHistoryPage = createSimplePageObject(
 
     // StopChangeHistoryNames
     'StopChangeHistoryPage::Names',
-
-    // DateRangeFilter
-    'StopChangeHistoryPage::DateFilter::FromDate',
-    'StopChangeHistoryPage::DateFilter::ToDate',
-
-    // FailedToLoadStopChangeHistory
-    'StopChangeHistoryPage::FailedToLoad',
-    'StopChangeHistoryPage::RetryButton',
-
-    // LoadingStopChangeHistory
-    'StopChangeHistoryPage::Loading',
   ],
   (base) => ({
+    ...BaseChangeHistoryPage,
     ...base,
     changeHistoryTable: ChangeHistoryTable,
   }),

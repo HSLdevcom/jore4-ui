@@ -4,6 +4,9 @@ import { Container } from '../../../../layoutComponents';
 import { Pagination } from '../../../../uiComponents';
 import {
   DateRangeFilter,
+  useChangeHistoryPageRouterState,
+} from '../../../common/ChangeHistory';
+import {
   HistoricalStopDataProvider,
   StopChangeHistoryNames,
   StopChangeHistoryPageTitleRow,
@@ -13,7 +16,6 @@ import {
   useGetStopChangeHistoryItems,
   useGetTodaysNameForQuay,
 } from './queries';
-import { useStopChangeHistoryPageRouterState } from './utils';
 
 const testIds = {
   container: 'StopChangeHistoryPage::Container',
@@ -27,7 +29,7 @@ export const StopChangeHistoryPage: FC = () => {
     setPagingInfo,
     sortingInfo,
     setSortingInfo,
-  } = useStopChangeHistoryPageRouterState();
+  } = useChangeHistoryPageRouterState();
 
   const { label: publicCode } = useRequiredParams<{ label: string }>();
   const { todaysNameForQuay } = useGetTodaysNameForQuay(

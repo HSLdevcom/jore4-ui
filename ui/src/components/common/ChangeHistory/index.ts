@@ -3,4 +3,7 @@ export * from './utils';
 export * from './ChangedValuesWithHeaderRow';
 export * from './ChangeHistoryItemSectionHeaderRow';
 export * from './ChangeHistoryTable';
+export * from './DateRangeFilter';
 export * from './EmptyCell';
+export * from './FailedToLoadChangeHistory';
+export * from './LoadingChangeHistory';

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
-import { theme } from '../../../../../generated/theme';
+import { theme } from '../../../generated/theme';
 
 const testIds = {
-  loading: 'StopChangeHistoryPage::Loading',
+  loading: 'ChangeHistoryPage::Loading',
 };
 
-export const LoadingStopChangeHistory: FC = () => {
+export const LoadingChangeHistory: FC = () => {
   const { t } = useTranslation();
 
   return (
