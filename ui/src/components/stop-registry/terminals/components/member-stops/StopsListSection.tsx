@@ -61,6 +61,8 @@ export const StopsListSection: FC<StopsProps> = ({ terminal }) => {
       {stopAreas.map((section) => (
         <StopAreaSection
           key={section.id}
+          id={section.id}
+          terminalId={terminal.id ?? ''}
           privateCode={section.privateCode}
           name={section.name}
           stops={section.stops}
