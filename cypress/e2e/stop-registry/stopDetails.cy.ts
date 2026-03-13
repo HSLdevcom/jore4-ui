@@ -460,7 +460,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
     infoSpotView.getRailInformation().shouldHaveText('7');
     infoSpotView.getStops().shouldHaveText(expectedLocation.stops);
     infoSpotView.getTerminals().shouldHaveText('-');
-    infoSpotView.getZoneLabel().shouldHaveText('A');
+    infoSpotView.getZoneLabel().shouldHaveText('Kyllä');
     infoSpotView.getNoPosters().should('not.exist');
   };
 
@@ -488,7 +488,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       infoSpotView.getRailInformation().shouldHaveText('8');
       infoSpotView.getStops().shouldHaveText('V1562');
       infoSpotView.getTerminals().shouldHaveText('-');
-      infoSpotView.getZoneLabel().shouldHaveText('B');
+      infoSpotView.getZoneLabel().shouldHaveText('Ei');
       infoSpotView.getNoPosters().shouldHaveText('Ei infotuotetta');
     });
 
@@ -504,7 +504,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       infoSpotView.getRailInformation().shouldHaveText('9');
       infoSpotView.getStops().shouldHaveText('V1562');
       infoSpotView.getTerminals().shouldHaveText('-');
-      infoSpotView.getZoneLabel().shouldHaveText('C');
+      infoSpotView.getZoneLabel().shouldHaveText('Ei tiedossa');
       infoSpotView.getNoPosters().shouldHaveText('Ei infotuotetta');
     });
   };
@@ -2082,7 +2082,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         infoSpot.getSizeSelectorButton().should('have.text', '80 × 120 cm');
         infoSpot.getFloor().should('have.value', '1');
         infoSpot.getRailInformation().should('have.value', '7');
-        infoSpot.getZoneLabel().should('have.value', 'A');
+        infoSpot.getZoneLabelButton().should('have.text', 'Kyllä');
         infoSpot.getNthPosterContainer(0).within(() => {
           infoSpot
             .getSizeSelectorButton()
@@ -2112,7 +2112,10 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           infoSpot.getBacklightOptions().contains('Ei').click(),
         );
         infoSpot.getDescription().clearAndType('Infopaikan uusi kuvaus');
-        infoSpot.getZoneLabel().clearAndType('B');
+        infoSpot.getZoneLabelButton().click();
+        cy.withinHeadlessPortal(() =>
+          infoSpot.getZoneLabelOptions().contains('Ei').click(),
+        );
         infoSpot.getRailInformation().clearAndType('8');
         infoSpot.getFloor().clearAndType('2');
         infoSpot.getNthPosterContainer(0).within(() => {
@@ -2143,7 +2146,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         InfoSpotViewCard.getSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
         InfoSpotViewCard.getFloor().shouldHaveText('2');
         InfoSpotViewCard.getRailInformation().shouldHaveText('8');
-        InfoSpotViewCard.getZoneLabel().shouldHaveText('B');
+        InfoSpotViewCard.getZoneLabel().shouldHaveText('Ei');
         InfoSpotViewCard.getNthPosterContainer(0).within(() => {
           InfoSpotViewCard.getPosterSize().shouldHaveText(
             'A3 (29.7 × 42.0 cm)',
@@ -2166,7 +2169,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         infoSpot.getPurposeButton().should('have.text', 'Dynaaminen näyttö');
         infoSpot.getFloor().should('have.value', '1');
         infoSpot.getRailInformation().should('have.value', '8');
-        infoSpot.getZoneLabel().should('have.value', 'B');
+        infoSpot.getZoneLabelButton().should('have.text', 'Ei');
         infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
 
         // Change everything
@@ -2177,7 +2180,10 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         );
         infoSpot.getPurposeCustom().should('not.exist');
         infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
-        infoSpot.getZoneLabel().clearAndType('C');
+        infoSpot.getZoneLabelButton().click();
+        cy.withinHeadlessPortal(() =>
+          infoSpot.getZoneLabelOptions().contains('Ei tiedossa').click(),
+        );
         infoSpot.getRailInformation().clearAndType('9');
         infoSpot.getFloor().clearAndType('2');
       });
@@ -2199,7 +2205,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         InfoSpotViewCard.getRailInformation().shouldHaveText('9');
         InfoSpotViewCard.getStops().shouldHaveText('V1562');
         InfoSpotViewCard.getTerminals().shouldHaveText('-');
-        InfoSpotViewCard.getZoneLabel().shouldHaveText('C');
+        InfoSpotViewCard.getZoneLabel().shouldHaveText('Ei tiedossa');
         InfoSpotViewCard.getNoPosters().shouldHaveText('Ei infotuotetta');
       });
     });
@@ -2260,7 +2266,10 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
             infoSpot.getPurposeOptions().contains('Kartta').click(),
           );
           infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
-          infoSpot.getZoneLabel().clearAndType('A');
+          infoSpot.getZoneLabelButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getZoneLabelOptions().contains('Kyllä').click(),
+          );
           infoSpot.getRailInformation().clearAndType('1');
           infoSpot.getFloor().clearAndType('3');
           infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
@@ -2311,7 +2320,10 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
             );
             infoSpot.getPosterLines().clearAndType('2');
           });
-          infoSpot.getZoneLabel().clearAndType('A');
+          infoSpot.getZoneLabelButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getZoneLabelOptions().contains('Kyllä').click(),
+          );
           infoSpot.getRailInformation().clearAndType('7');
           infoSpot.getFloor().clearAndType('2');
           infoSpot.getNoPostersLabel().should('not.exist');
@@ -2334,7 +2346,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         InfoSpotViewCard.getRailInformation().shouldHaveText('1');
         InfoSpotViewCard.getStops().shouldHaveText('V1562');
         InfoSpotViewCard.getTerminals().shouldHaveText('-');
-        InfoSpotViewCard.getZoneLabel().shouldHaveText('A');
+        InfoSpotViewCard.getZoneLabel().shouldHaveText('Kyllä');
         InfoSpotViewCard.getNoPosters().shouldHaveText('Ei infotuotetta');
       });
 
@@ -2364,7 +2376,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         InfoSpotViewCard.getRailInformation().shouldHaveText('7');
         InfoSpotViewCard.getStops().shouldHaveText('V1562');
         InfoSpotViewCard.getTerminals().shouldHaveText('-');
-        InfoSpotViewCard.getZoneLabel().shouldHaveText('A');
+        InfoSpotViewCard.getZoneLabel().shouldHaveText('Kyllä');
         InfoSpotViewCard.getNoPosters().should('not.exist');
       });
 
@@ -2396,7 +2408,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
               .should('have.text', 'A4 (21.0 × 29.7 cm)');
             infoSpot.getPosterLines().should('have.value', '2');
           });
-          infoSpot.getZoneLabel().should('have.value', 'A');
+          infoSpot.getZoneLabelButton().should('have.text', 'Kyllä');
           infoSpot.getRailInformation().should('have.value', '7');
           infoSpot.getFloor().should('have.value', '2');
 
@@ -2437,7 +2449,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         InfoSpotViewCard.getRailInformation().shouldHaveText('7');
         InfoSpotViewCard.getStops().shouldHaveText('V1562');
         InfoSpotViewCard.getTerminals().shouldHaveText('-');
-        InfoSpotViewCard.getZoneLabel().shouldHaveText('A');
+        InfoSpotViewCard.getZoneLabel().shouldHaveText('Kyllä');
       });
     });
 

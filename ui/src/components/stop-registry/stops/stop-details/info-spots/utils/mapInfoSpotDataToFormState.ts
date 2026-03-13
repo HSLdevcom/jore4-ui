@@ -1,5 +1,6 @@
 import compact from 'lodash/compact';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { normalizeZoneLabel } from '../../../../types/utils';
 import { InfoSpotState, ItemSizeState, SizedDbItem } from '../types';
 import { mapStringToPurpose } from './infoSpotPurposeUtils';
 
@@ -33,7 +34,7 @@ export function mapInfoSpotDataToFormState(
     purpose: mapStringToPurpose(infoSpot.purpose),
     railInformation: infoSpot.railInformation ?? null,
     speechProperty: infoSpot.speechProperty ?? null,
-    zoneLabel: infoSpot.zoneLabel ?? null,
+    zoneLabel: normalizeZoneLabel(infoSpot.zoneLabel),
     poster: compact(infoSpot.poster).map((poster) => ({
       // Just use random ID to use as key for poster components
       id: poster.id ?? crypto.randomUUID(),

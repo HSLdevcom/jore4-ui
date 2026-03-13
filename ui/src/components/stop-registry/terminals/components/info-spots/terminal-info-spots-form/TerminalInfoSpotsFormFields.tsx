@@ -2,16 +2,19 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../../layoutComponents';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
+  EnumDropdown,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
 import { PurposeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/PurposeFormFragment';
 import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
+import { ZoneLabel } from '../../../../types';
 import { TerminalInfoSpotFormState } from '../types';
 import { resolveQuayPublicCode } from '../utils';
 import { TerminalInfoSpotsFormPosters } from './TerminalInfoSpotsFormPosters';
@@ -123,11 +126,21 @@ export const TerminalInfoSpotFormFields: FC<
           />
 
           <InputField<TerminalInfoSpotFormState>
-            type="text"
             translationPrefix="stopDetails.infoSpots"
             fieldPath="zoneLabel"
             testId={testIds.zoneLabel}
-            disabled={toBeDeleted}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<ZoneLabel>
+                enumType={ZoneLabel}
+                placeholder={t('unknown')}
+                uiNameMapper={(val) => mapZoneLabelToUiName(t, val)}
+                buttonClassName="min-w-32"
+                disabled={toBeDeleted}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
           />
 
           <InputField<TerminalInfoSpotFormState>
