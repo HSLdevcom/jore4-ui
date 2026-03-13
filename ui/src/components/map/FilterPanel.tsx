@@ -26,6 +26,8 @@ type Toggle = {
 
 type IconToggle = Toggle & {
   readonly iconClassName: string;
+  readonly activeColorClassName?: string;
+  readonly inactiveColorClassName?: string;
   readonly disabled?: boolean;
   readonly tooltip: (t: TFunction) => string;
 };
@@ -41,10 +43,21 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
     <Row>
       {toggles.map(
         (
-          { active, onToggle, iconClassName, disabled, testId, tooltip },
+          {
+            active,
+            onToggle,
+            iconClassName,
+            activeColorClassName,
+            inactiveColorClassName,
+            disabled,
+            testId,
+            tooltip,
+          },
           index: number,
         ) => (
           <IconToggle
+            activeColorClassName={activeColorClassName}
+            inactiveColorClassName={inactiveColorClassName}
             // We don't have proper ids to use as keys here.
             // This shouldn't matter as this array isn't dynamic.
             key={index} // eslint-disable-line react/no-array-index-key
@@ -61,36 +74,6 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
     </Row>
   );
 };
-
-const noop = () => null;
-// placeholder toggles of unimplemented features that can be used
-// for visual purposes.
-export const placeholderToggles: ReadonlyArray<IconToggle> = [
-  {
-    iconClassName: 'icon-train',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.train'),
-  },
-  {
-    iconClassName: 'icon-ferry',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.ferry'),
-  },
-  {
-    iconClassName: 'icon-metro',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.metro'),
-  },
-];
 
 type FilterPanelProps = {
   readonly routes: ReadonlyArray<IconToggle>;

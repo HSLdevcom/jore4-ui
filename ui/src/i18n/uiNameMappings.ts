@@ -147,6 +147,15 @@ export const mapVehicleModeToUiName = genTranslationMapper<
   [ReusableComponentsVehicleModeEnum.Tram]: (t) => t('vehicleModeEnum.tram'),
 });
 
+export const mapVehicleModeToStopTypeName =
+  genTranslationMapper<ReusableComponentsVehicleModeEnum>({
+    [ReusableComponentsVehicleModeEnum.Bus]: (t) => t('stops.busStop'),
+    [ReusableComponentsVehicleModeEnum.Ferry]: (t) => t('stops.ferryStop'),
+    [ReusableComponentsVehicleModeEnum.Metro]: (t) => t('stops.metroStop'),
+    [ReusableComponentsVehicleModeEnum.Train]: (t) => t('stops.trainStop'),
+    [ReusableComponentsVehicleModeEnum.Tram]: (t) => t('stops.tramStop'),
+  });
+
 export const mapStopRegistryTransportModeTypeToUiName = genTranslationMapper<
   JoreStopRegistryTransportModeType,
   JoreStopRegistryTransportModeType | StopRegistryTransportModeType

@@ -1,3 +1,5 @@
+import { ReusableComponentsVehicleModeEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
+
 export class MapFooter {
   static getMapFooter() {
     return cy.getByTestId('MapFooter::mapFooter');
@@ -14,11 +16,17 @@ export class MapFooter {
       .click();
   }
 
-  static addStop() {
-    return cy
-      .getByTestId('MapFooter:addStopButton')
+  static addStop(
+    vehicleMode: ReusableComponentsVehicleModeEnum = ReusableComponentsVehicleModeEnum.Bus,
+  ) {
+    cy.getByTestId('MapFooter:addStopButton')
       .should('be.visible')
       .and('be.enabled')
+      .click();
+
+    return cy
+      .get(`[data-vehicle-mode="${vehicleMode}"]`)
+      .should('be.visible')
       .click();
   }
 

@@ -8,7 +8,7 @@ import {
 } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { useController } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
 import { comboboxStyles } from '../../../../uiComponents';
@@ -32,13 +32,18 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
   disabled,
 }) => {
   const { t } = useTranslation();
+  const { watch } = useFormContext<StopFormState>();
+  const vehicleMode = watch('vehicleMode');
 
   const [query, setQuery] = useState('');
   // Is there pending keystrokes in the input field being buffered by debouncing.
   // Set to true on key input and reset to false, after DB query.
   // This is to avoid flickering of the loading state
   const [queryDebounced, setQueryDebounced] = useState(false);
-  const { areas, loading: loadingResults } = useFindStopAreas(query);
+  const { areas, loading: loadingResults } = useFindStopAreas(
+    query,
+    vehicleMode,
+  );
 
   const {
     field: { onChange: onSelect, value: selected, ref },

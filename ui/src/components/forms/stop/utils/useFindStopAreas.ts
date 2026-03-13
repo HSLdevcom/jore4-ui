@@ -1,7 +1,11 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import { useMemo } from 'react';
-import { useFindStopAreasByNamesQuery } from '../../../../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  useFindStopAreasByNamesQuery,
+} from '../../../../generated/graphql';
+import { parseVehicleMode } from '../../../../utils';
 import { StopModalStopAreaFormSchema } from '../types';
 import { parseStopFormStopAreaInfo } from './parseStopFormStopAreaInfo';
 
@@ -10,6 +14,7 @@ const GQL_STOP_FORM_STOP_AREA_INFO = gql`
     id
     netexId: netex_id
     privateCode: private_code_value
+    transportMode: transport_mode
 
     validityStart: validity_start
     validityEnd: validity_end
@@ -51,7 +56,10 @@ const GQL_FIND_STOP_AREA_BY_NAMES = gql`
 
 const emptyList: ReadonlyArray<StopModalStopAreaFormSchema> = [];
 
-export function useFindStopAreas(rawQuery: string) {
+export function useFindStopAreas(
+  rawQuery: string,
+  vehicleMode?: ReusableComponentsVehicleModeEnum | null,
+) {
   const query = rawQuery.replaceAll('*', '%');
   const { data, ...rest } = useFindStopAreasByNamesQuery({
     variables: { query: `${query}%` },
@@ -59,9 +67,22 @@ export function useFindStopAreas(rawQuery: string) {
   });
 
   const rawAreas = data?.stops_database?.areas;
+
+  const filteredRawAreas = useMemo(
+    () =>
+      (rawAreas ?? []).filter((area) => {
+        if (!vehicleMode) {
+          return true;
+        }
+
+        return parseVehicleMode(area.transportMode) === vehicleMode;
+      }),
+    [rawAreas, vehicleMode],
+  );
+
   const areas: ReadonlyArray<StopModalStopAreaFormSchema> = useMemo(
-    () => compact((rawAreas ?? []).map(parseStopFormStopAreaInfo)),
-    [rawAreas],
+    () => compact(filteredRawAreas.map(parseStopFormStopAreaInfo)),
+    [filteredRawAreas],
   );
 
   return { ...rest, areas: query ? areas : emptyList };

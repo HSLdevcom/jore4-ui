@@ -60,19 +60,23 @@ function determineBorderColor(
 function determineFillColor(
   asMemberStop: boolean,
   isSelected: boolean,
-  stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
   inSelection: boolean,
+  shouldBeGray: boolean,
+  stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
 ) {
-  if (
-    stopVehicleMode !== undefined ||
-    isSelected ||
-    asMemberStop ||
-    inSelection
-  ) {
+  if (isSelected || asMemberStop || inSelection) {
     return 'white';
   }
 
-  return colors.lightGrey;
+  if (shouldBeGray) {
+    return colors.lightGrey;
+  }
+
+  if (stopVehicleMode) {
+    return colors.stops[stopVehicleMode] ?? 'white';
+  }
+
+  return 'white';
 }
 
 type BaseStopProps = {
@@ -85,6 +89,7 @@ type BaseStopProps = {
   readonly selected?: boolean;
   readonly testId?: string;
   readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
+  readonly shouldBeGray?: boolean;
 };
 
 type ExistingStopSpecialProps = {
@@ -113,6 +118,7 @@ export const Stop: FC<StopProps> = ({
   selected = false,
   testId,
   vehicleMode,
+  shouldBeGray = false,
   onClick,
   onResolveTitle,
   stop,
@@ -133,8 +139,9 @@ export const Stop: FC<StopProps> = ({
   const iconFillColor = determineFillColor(
     asMemberStop,
     selected,
-    vehicleMode,
     inSelection,
+    shouldBeGray,
+    vehicleMode,
   );
 
   return (

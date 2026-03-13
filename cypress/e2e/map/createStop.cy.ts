@@ -3,6 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   StopAreaInput,
   StopRegistryGeoJsonType,
+  StopRegistryTransportModeType,
   timingPlaces,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../../enums';
@@ -25,6 +26,9 @@ const testStopLabels = {
   testLabel1: 'T0001',
   stopAreaPrivateCode: '123456',
   stopAreaName: 'Test area',
+  tramLabel: 'T1001',
+  tramStopAreaPrivateCode: 'Y1238',
+  tramStopAreaName: 'Tram',
   manualCoordinatesLabel: 'T0002',
   endDateLabel: 'T0003',
   timingPlaceLabel: 'T0004',
@@ -32,9 +36,30 @@ const testStopLabels = {
 
 const dbResources = { timingPlaces };
 
+const tramStopLocation = {
+  lat: 60.15737558915313,
+  lng: 24.91175322455062,
+};
+
 const stopAreaInput: Array<StopAreaInput> = [
   {
     StopArea: {
+      transportMode: StopRegistryTransportModeType.Tram,
+      name: { lang: 'fin', value: testStopLabels.tramStopAreaName },
+      privateCode: {
+        type: 'HSL/TEST',
+        value: testStopLabels.tramStopAreaPrivateCode,
+      },
+      geometry: {
+        coordinates: [24.93648964, 60.15551145],
+        type: StopRegistryGeoJsonType.Point,
+      },
+    },
+    organisations: null,
+  },
+  {
+    StopArea: {
+      transportMode: StopRegistryTransportModeType.Bus,
       name: { lang: 'fin', value: testStopLabels.stopAreaName },
       privateCode: {
         type: 'HSL/TEST',
@@ -73,7 +98,7 @@ describe('Stop creation tests', rootOpts, () => {
     });
   });
 
-  it('Should create stop on map', { tags: [Tag.Smoke] }, () => {
+  it.only('Should create stop on map', { tags: [Tag.Smoke] }, () => {
     MapPage.createStopAtLocation({
       stopFormInfo: {
         publicCode: testStopLabels.testLabel1,
@@ -86,6 +111,7 @@ describe('Stop creation tests', rootOpts, () => {
         xPercentage: 40,
         yPercentage: 55,
       },
+      vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
     });
 
     MapPage.gqlStopShouldBeCreatedSuccessfully();
@@ -97,6 +123,35 @@ describe('Stop creation tests', rootOpts, () => {
     cy.getByTestId(
       `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
     ).should('exist');
+  });
+
+  it('Should create tram stop', () => {
+    MapPage.map.visit({
+      zoom: 16,
+      lat: tramStopLocation.lat,
+      lng: tramStopLocation.lng,
+    });
+
+    MapPage.createStopAtLocation({
+      stopFormInfo: {
+        publicCode: testStopLabels.tramLabel,
+        stopPlace: testStopLabels.tramStopAreaPrivateCode,
+        latitude: String(tramStopLocation.lat),
+        longitude: String(tramStopLocation.lng),
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+        reasonForChange: 'Initial creation',
+      },
+      clickRelativePoint: {
+        xPercentage: 50,
+        yPercentage: 50,
+      },
+      vehicleMode: ReusableComponentsVehicleModeEnum.Tram,
+    });
+
+    MapPage.gqlStopShouldBeCreatedSuccessfully();
+
+    MapPage.checkStopSubmitSuccessToast();
   });
 
   it(
