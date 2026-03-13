@@ -15,12 +15,13 @@ import {
   selectMapStopSelection,
   selectMapStopViewState,
   setCopyStopIdAction,
+  setDraftVehicleModeAction,
   setMapStopViewStateAction,
   setSelectedRouteIdAction,
   toggleStopSelectionAction,
 } from '../../../redux';
 import { EnrichedStopPlace, Point } from '../../../types';
-import { showSuccessToast } from '../../../utils';
+import { parseVehicleMode, showSuccessToast } from '../../../utils';
 import { useMapDataLayerLoader } from '../../common/hooks';
 import {
   StopFormState,
@@ -88,6 +89,7 @@ function enrichedStopAreaToStopModalStopAreaFormSchema(
 
 function useDefaultValues(
   draftLocation: Point | null,
+  draftVehicleMode: ReusableComponentsVehicleModeEnum | null,
   stopInfo: StopInfoForEditingOnMap | null,
 ): Partial<StopFormState> | null {
   const editedStopAreaData = useAppSelector(selectEditedStopAreaData);
@@ -95,14 +97,23 @@ function useDefaultValues(
   return useMemo(() => {
     if (draftLocation) {
       if (editedStopAreaData) {
+        const vehicleMode =
+          parseVehicleMode(editedStopAreaData.transportMode) ??
+          draftVehicleMode ??
+          ReusableComponentsVehicleModeEnum.Bus;
+
         return {
           ...draftLocation,
           stopArea:
             enrichedStopAreaToStopModalStopAreaFormSchema(editedStopAreaData),
+          vehicleMode,
         };
       }
 
-      return draftLocation;
+      return {
+        ...draftLocation,
+        vehicleMode: draftVehicleMode,
+      };
     }
 
     if (stopInfo) {
@@ -110,18 +121,28 @@ function useDefaultValues(
     }
 
     return null;
-  }, [draftLocation, stopInfo, editedStopAreaData]);
+  }, [draftLocation, draftVehicleMode, stopInfo, editedStopAreaData]);
 }
 
 type EditStopLayerProps = {
   readonly draftLocation: Point | null;
+  readonly draftVehicleMode: ReusableComponentsVehicleModeEnum | null;
   readonly onEditingFinished: (netexId: string | null) => void;
   readonly onPopupClose: () => void;
   readonly selectedStopId: string | null;
 };
 
 export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
-  ({ draftLocation, onEditingFinished, onPopupClose, selectedStopId }, ref) => {
+  (
+    {
+      draftLocation,
+      draftVehicleMode,
+      onEditingFinished,
+      onPopupClose,
+      selectedStopId,
+    },
+    ref,
+  ) => {
     const { t } = useTranslation();
 
     const dispatch = useDispatch();
@@ -139,11 +160,16 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       loading,
     );
 
-    const defaultValues = useDefaultValues(draftLocation, stopInfo);
+    const defaultValues = useDefaultValues(
+      draftLocation,
+      draftVehicleMode,
+      stopInfo,
+    );
 
     const [copyDialogOpen, setCopyDialogOpen] = useState(false);
 
     const onCloseEditors = () => {
+      dispatch(setDraftVehicleModeAction(undefined));
       dispatch(setMapStopViewStateAction(MapEntityEditorViewState.NONE));
       dispatch(closeTimingPlaceModalAction());
       onPopupClose();
@@ -237,14 +263,14 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
         <LineToClosestInfraLink draftLocation={draftLocation} stop={stopInfo} />
         <LineToActiveStopArea.FromDraft draftLocation={draftLocation} />
 
-        {draftLocation && (
+        {draftLocation && draftVehicleMode && (
           <Stop
             isHighlighted
             longitude={draftLocation.longitude}
             latitude={draftLocation.latitude}
             mapStopViewState={mapStopViewState}
             selected
-            vehicleMode={ReusableComponentsVehicleModeEnum.Bus}
+            vehicleMode={draftVehicleMode}
           />
         )}
 

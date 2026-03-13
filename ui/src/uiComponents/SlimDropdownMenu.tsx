@@ -1,47 +1,27 @@
-import { Menu, MenuButton } from '@headlessui/react';
-import { FC, ReactNode } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
-import { twJoin, twMerge } from 'tailwind-merge';
-import { getSimpleButtonClassNames } from './SimpleButton';
-import { SimpleDropdownMenuItems } from './SimpleDropdownMenuItems';
+import { FC } from 'react';
+import {
+  SimpleButtonDropdownMenu,
+  SimpleButtonDropdownMenuProps,
+} from './SimpleButtonDropdownMenu';
 
-type SlimDropDownMenuProps = {
-  readonly buttonClassName?: string;
-  readonly buttonText: ReactNode;
-  readonly className?: string;
-  readonly disabled?: boolean;
-  readonly children: ReactNode;
-  readonly testId?: string;
-};
+type SlimDropdownMenuProps = Exclude<SimpleButtonDropdownMenuProps, 'shape'>;
 
-export const SlimDropDownMenu: FC<SlimDropDownMenuProps> = ({
+export const SlimDropDownMenu: FC<SlimDropdownMenuProps> = ({
   buttonClassName,
   buttonText,
   className,
-  children,
   disabled,
+  children,
   testId,
-}) => {
-  return (
-    <Menu as="div" className={twMerge('relative', className)}>
-      <MenuButton
-        className={getSimpleButtonClassNames(
-          true,
-          disabled,
-          'slim',
-          twJoin(
-            'px-3 py-0 transition-[border-radius] ui-open:rounded-r-none ui-not-open:rounded-r-full',
-            buttonClassName,
-          ),
-        )}
-        data-testid={testId}
-        disabled={disabled}
-      >
-        <div>{buttonText}</div>
-        <div className="mx-2 w-px self-stretch bg-grey" />
-        <FaChevronDown />
-      </MenuButton>
-      <SimpleDropdownMenuItems>{children}</SimpleDropdownMenuItems>
-    </Menu>
-  );
-};
+}: SlimDropdownMenuProps) => (
+  <SimpleButtonDropdownMenu
+    buttonClassName={buttonClassName}
+    buttonText={buttonText}
+    className={className}
+    disabled={disabled}
+    testId={testId}
+    shape="slim"
+  >
+    {children}
+  </SimpleButtonDropdownMenu>
+);
