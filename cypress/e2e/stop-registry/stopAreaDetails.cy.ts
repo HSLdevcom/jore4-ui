@@ -915,9 +915,10 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       waitForCopyWithNoStopsToBeFinished();
 
       // Confirm that the dates of the new version are correct
+      // Use have.text instead of shouldHaveText to make sure validity period gets re-queried
       StopAreaDetailsPage.versioningRow
         .getValidityPeriod()
-        .shouldHaveText('2.1.2052-');
+        .should('have.text', '2.1.2052-');
       StopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
 
       StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2025-01-01');
