@@ -14,6 +14,7 @@ export type DialogButton = {
   readonly text: ReactNode;
   readonly inverted?: boolean;
   readonly testId?: string;
+  readonly disabled?: boolean;
 };
 
 function getDialogButtonKey(button: DialogButton, index: number) {
@@ -87,6 +88,7 @@ export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
                 testId={button.testId}
                 inverted={button.inverted}
                 onClick={button.onClick}
+                disabled={button.disabled}
               >
                 {button.text}
               </SimpleButton>

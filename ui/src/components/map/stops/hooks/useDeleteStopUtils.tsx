@@ -8,6 +8,7 @@ import { DeleteChanges, useDeleteStop } from './useDeleteStop';
 
 type DeleteUtilsDeleteActive = {
   readonly deleteChanges: DeleteChanges;
+  readonly isDeleting: boolean;
   readonly onDeleteStop: () => Promise<void>;
   readonly onConfirmDelete: () => void;
   readonly onCancelDelete: () => void;
@@ -15,6 +16,7 @@ type DeleteUtilsDeleteActive = {
 
 type DeleteUtilsDeleteInactive = {
   readonly deleteChanges: null;
+  readonly isDeleting: boolean;
   readonly onDeleteStop: () => Promise<void>;
   readonly onConfirmDelete?: never;
   readonly onCancelDelete?: never;
@@ -33,9 +35,13 @@ export function useDeleteStopUtils(
   const [deleteChanges, setDeleteChanges] = useState<DeleteChanges | null>(
     null,
   );
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { setIsLoading: setIsLoadingBrokenRoutes } = useLoader(
     Operation.CheckBrokenRoutes,
+  );
+  const { setIsLoading: setIsLoadingDeleteStop } = useLoader(
+    Operation.DeleteStop,
   );
 
   const {
@@ -69,13 +75,15 @@ export function useDeleteStopUtils(
       throw new Error('Stop Info not loaded in yet! Nothing to delete!');
     }
 
+    setIsDeleting(true);
     setIsLoadingBrokenRoutes(true);
     await onPrepareDelete(stopInfo);
     setIsLoadingBrokenRoutes(false);
+    setIsDeleting(false);
   };
 
   if (!deleteChanges) {
-    return { deleteChanges: null, onDeleteStop };
+    return { deleteChanges: null, isDeleting, onDeleteStop };
   }
 
   const onConfirmPreviousDelete = async () => {
@@ -84,6 +92,7 @@ export function useDeleteStopUtils(
 
   const onConfirmDelete = async () => {
     try {
+      setIsLoadingDeleteStop(true);
       await removeStop(deleteChanges);
       setDeleteChanges(null);
 
@@ -91,6 +100,8 @@ export function useDeleteStopUtils(
       onFinishEditing(null);
     } catch (err) {
       deleteErrorHandler(err as Error);
+    } finally {
+      setIsLoadingDeleteStop(false);
     }
   };
 
@@ -98,6 +109,7 @@ export function useDeleteStopUtils(
 
   return {
     deleteChanges,
+    isDeleting,
     onDeleteStop: onConfirmPreviousDelete,
     onConfirmDelete,
     onCancelDelete,

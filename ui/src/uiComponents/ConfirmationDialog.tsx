@@ -16,6 +16,7 @@ export type ConfirmationDialogProps = {
   readonly cancelText: ReactNode;
   readonly className?: string;
   readonly widthClassName?: string;
+  readonly isConfirming?: boolean;
 };
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
@@ -28,6 +29,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   cancelText,
   className,
   widthClassName,
+  isConfirming = false,
 }) => {
   return (
     <DialogWithButtons
@@ -44,6 +46,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
         {
           text: confirmText,
           onClick: onConfirm,
+          disabled: isConfirming,
           testId: testIds.confirmButton,
         },
       ]}

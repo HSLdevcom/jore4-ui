@@ -53,6 +53,7 @@ type StopPopupProps = {
   readonly onClose: () => void;
   readonly onDelete: () => void;
   readonly onCopy: () => void;
+  readonly isDeleting?: boolean;
 } & (
   | {
       readonly isSelectable: true;
@@ -76,6 +77,7 @@ export const StopPopup: FC<StopPopupProps> = ({
   onClose,
   onDelete,
   onCopy,
+  isDeleting = false,
 }) => {
   const { t } = useTranslation();
 
@@ -163,6 +165,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           shape="round"
           className="h-[38px]"
           onClick={onDelete}
+          disabled={isDeleting}
           inverted
           testId={testIds.deleteButton}
           tooltip={t('map.deleteStop')}

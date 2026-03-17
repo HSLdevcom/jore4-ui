@@ -10,12 +10,20 @@ type DeleteStopConfirmationDialogProps = {
   readonly onCancel: () => void;
   readonly className?: string;
   readonly deleteChanges: DeleteChanges;
+  readonly isConfirming?: boolean;
 };
 
 // renders a confirmation dialog for confirming changes when a stop is deleted
 export const DeleteStopConfirmationDialog: FC<
   DeleteStopConfirmationDialogProps
-> = ({ isOpen, onConfirm, onCancel, className, deleteChanges }) => {
+> = ({
+  isOpen,
+  onConfirm,
+  onCancel,
+  className,
+  deleteChanges,
+  isConfirming,
+}) => {
   const { t } = useTranslation();
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like
@@ -51,6 +59,7 @@ export const DeleteStopConfirmationDialog: FC<
       confirmText={t('confirmDeleteStopDialog.confirmText')}
       cancelText={t('cancel')}
       widthClassName="w-235"
+      isConfirming={isConfirming}
     />
   );
 };

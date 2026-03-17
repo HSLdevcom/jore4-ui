@@ -166,8 +166,13 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onCancelEdit,
     } = useEditStopUtils(stopInfo, onFinishEditing);
 
-    const { deleteChanges, onDeleteStop, onConfirmDelete, onCancelDelete } =
-      useDeleteStopUtils(stopInfo, onFinishEditing);
+    const {
+      deleteChanges,
+      isDeleting,
+      onDeleteStop,
+      onConfirmDelete,
+      onCancelDelete,
+    } = useDeleteStopUtils(stopInfo, onFinishEditing);
 
     const {
       defaultStopFormValues,
@@ -266,6 +271,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
             onDelete={onDeleteStop}
             onClose={onCloseEditors}
             onCopy={onInitCopyStop}
+            isDeleting={isDeleting}
           />
         )}
 
@@ -304,6 +310,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
             onCancel={onCancelDelete}
             onConfirm={onConfirmDelete}
             deleteChanges={deleteChanges}
+            isConfirming={isDeleting}
           />
         )}
 
