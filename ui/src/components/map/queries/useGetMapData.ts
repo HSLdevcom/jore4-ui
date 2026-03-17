@@ -10,6 +10,7 @@ import {
   selectShowMapEntityTypes,
 } from '../../../redux';
 import { useLoader } from '../../common/hooks';
+import { useFilterStopAreas } from '../stop-areas';
 import { useFilterStops, useGetRoutesDisplayedInMap } from '../stops/hooks';
 import { isViewportLoaded } from '../utils/isViewportLoaded';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
@@ -73,9 +74,11 @@ export function useGetMapData() {
     [filterByUiFiltersAndRoute, stops],
   );
 
+  const filteredAreas = useFilterStopAreas(areas);
+
   return {
     stops: filteredStops,
-    areas,
+    areas: filteredAreas,
     displayedRouteIds,
     terminals,
   };
