@@ -1,122 +1,74 @@
+import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LineAllFieldsFragment } from '../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { Column, Container, Row, Visible } from '../../../layoutComponents';
-import {
-  resetMapRouteEditorStateAction,
-  selectIsTimingSettingsModalOpen,
-  selectIsViaModalOpen,
-  setLineInfoAction,
-  startRouteCreatingAction,
-} from '../../../redux';
-import { Priority } from '../../../types/enums';
-import { isPastEntity } from '../../../utils';
-import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
-import { PageHeader } from '../common/PageHeader';
-import { TimingSettingsModal } from '../stop-timing-settings/TimingSettingsModal';
-import { ViaModal } from '../via/ViaModal';
-import { ActionsRow } from './ActionsRow';
-import { AdditionalInformation } from './AdditionalInformation';
-import { CreateRouteBox } from './CreateRouteBox';
-import { LineDetailsEmptyMapPlaceholder } from './LineDetailsEmptyMapPlaceholder';
-import { LineMissingBox } from './LineMissingBox';
-import { LineRouteList } from './LineRouteList';
-import { LineTitle } from './LineTitle';
-import { MapPreview } from './MapPreview';
-import { LineFetchError, useGetLineDetails } from './useGetLineDetails';
-import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
+import { Navigate, useSearchParams } from 'react-router';
+import { useResolveLineIdByLabelQuery } from '../../../generated/graphql';
+import { useRequiredParams } from '../../../hooks';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { parseDate } from '../../../time';
+import { LineDetailsByIdPage } from './LineDetailsByIdPage';
+
+const uuidLength = 36;
+
+const GQL_RESOLVE_LINE_ID_BY_LABEL = gql`
+  query ResolveLineIdByLabel($label: String!, $observationDate: date!) {
+    route_line(
+      where: {
+        label: { _ilike: $label }
+        validity_start: { _lte: $observationDate }
+        priority: { _lt: 30 }
+        _or: [
+          { validity_end: { _gte: $observationDate } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+      order_by: [{ priority: desc }]
+      limit: 1
+    ) {
+      line_id
+    }
+  }
+`;
+
+const RedirectToLineDetailsByIdPageByLabel: FC<{
+  readonly label: string;
+}> = ({ label }) => {
+  const [searchParams] = useSearchParams();
+  const observationDate =
+    parseDate(searchParams.get('observationDate')) ??
+    DateTime.now().startOf('day');
+
+  const { data, loading } = useResolveLineIdByLabelQuery({
+    variables: { label, observationDate },
+    fetchPolicy: 'network-only',
+  });
+
+  if (loading) {
+    return null;
+  }
+
+  const id = data?.route_line.at(0)?.line_id;
+  if (id?.length === 36) {
+    return <Navigate to={routeDetails[Path.lineDetails].getLink(id)} replace />;
+  }
+
+  return <Navigate to="/404" replace />;
+};
 
 export const LineDetailsPage: FC = () => {
-  const { t } = useTranslation();
+  const { id } = useRequiredParams<{ id: string }>();
 
-  const dispatch = useAppDispatch();
-  const navigateToMap = useNavigateToMap();
+  // If the ID has proper length, assume it is a UUID and render the existing
+  // page, that shows the line details based in the ID in the URL.
+  if (id.length === uuidLength) {
+    return <LineDetailsByIdPage />;
+  }
 
-  const { line, lineError } = useGetLineDetails();
-
-  const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
-
-  const createRoute = (routeLine: LineAllFieldsFragment) => {
-    dispatch(resetMapRouteEditorStateAction());
-    dispatch(setLineInfoAction(routeLine));
-    dispatch(startRouteCreatingAction());
-    navigateToMap();
-  };
-
-  const isViaModalOpen = useAppSelector(selectIsViaModalOpen);
-  const isTimingSettingsModalOpen = useAppSelector(
-    selectIsTimingSettingsModalOpen,
-  );
-
-  const getHeaderBorderClassName = () => {
-    if (line?.priority === Priority.Draft) {
-      return 'border-b-4 border-medium-grey border-dashed';
-    }
-    if (line?.priority === Priority.Temporary) {
-      return 'border-b-4 border-city-bicycle-yellow';
-    }
-    return '';
-  };
-
-  const isRouteCreationAllowed = line && !isPastEntity(DateTime.now(), line);
-  const onCreateRoute = isRouteCreationAllowed
-    ? () => createRoute(line)
-    : undefined;
-
-  const displayedRoutes =
-    line?.line_routes?.filter((route) =>
-      displayedRouteLabels?.includes(route.label),
-    ) ?? [];
-
-  return (
-    <div>
-      <PageHeader className={getHeaderBorderClassName()}>
-        <Row>
-          <i className="icon-bus-alt mt-2 text-6xl text-tweaked-brand" />
-          {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
-        </Row>
-      </PageHeader>
-      <ActionsRow className="pt-4 pb-0" />
-      <Container className="pt-10">
-        {line ? (
-          <>
-            <Row>
-              <AdditionalInformation className="w-2/3" line={line} />
-              <MapPreview className="w-1/3" />
-            </Row>
-            <Row>
-              <Column className="w-full">
-                <h2 className="mt-8">{t('lines.routes')}</h2>
-                {line.line_routes?.length > 0 ? (
-                  <LineRouteList routes={displayedRoutes} />
-                ) : (
-                  <CreateRouteBox onCreateRoute={onCreateRoute} />
-                )}
-              </Column>
-            </Row>
-          </>
-        ) : (
-          <div className="grid grid-cols-4 gap-2">
-            <div className="col col-span-3">
-              <LineMissingBox
-                error={lineError ?? LineFetchError.LINE_MISSING_DEFAULT}
-              />
-            </div>
-            <div className="col col-span-1">
-              <LineDetailsEmptyMapPlaceholder />
-            </div>
-          </div>
-        )}
-      </Container>
-
-      <Visible visible={isViaModalOpen}>
-        <ViaModal />
-      </Visible>
-      <Visible visible={isTimingSettingsModalOpen}>
-        <TimingSettingsModal />
-      </Visible>
-    </div>
-  );
+  // Else, assume that the string in the URL is the label of the line.
+  // Find out the proper ID for the active version as per observationDate,
+  // and then replace the URL with one that has the UUID ID in the url,
+  // thus triggering the above code path to the actual implementation.
+  // The above page should likely be recoded to fetch the line details by
+  // the label, not by the id.
+  return <RedirectToLineDetailsByIdPageByLabel label={id} />;
 };
