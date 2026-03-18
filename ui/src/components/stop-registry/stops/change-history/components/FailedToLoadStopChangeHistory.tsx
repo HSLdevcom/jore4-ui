@@ -17,22 +17,24 @@ export const FailedToLoadStopChangeHistory: FC<
   const { t } = useTranslation();
 
   return (
-    <tr>
-      <td className="border p-5" colSpan={7}>
-        <div
-          className="flex flex-col items-center justify-center"
-          data-testid={testIds.failedToLoad}
-        >
-          <p>{t('changeHistory.failedToLoad')}</p>
-          <SimpleButton
-            className="mt-5"
-            onClick={() => refetch()}
-            testId={testIds.retryButton}
+    <tbody>
+      <tr>
+        <td className="border p-5" colSpan={7}>
+          <div
+            className="flex flex-col items-center justify-center"
+            data-testid={testIds.failedToLoad}
           >
-            {t('changeHistory.tryAgainButton')}
-          </SimpleButton>
-        </div>
-      </td>
-    </tr>
+            <p>{t('changeHistory.failedToLoad')}</p>
+            <SimpleButton
+              className="mt-5"
+              onClick={() => refetch()}
+              testId={testIds.retryButton}
+            >
+              {t('changeHistory.tryAgainButton')}
+            </SimpleButton>
+          </div>
+        </td>
+      </tr>
+    </tbody>
   );
 };
