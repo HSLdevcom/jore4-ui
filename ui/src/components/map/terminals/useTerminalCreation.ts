@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppAction } from '../../../hooks';
 import {
   MapEntityEditorViewState,
+  MapEntityType,
   Operation,
   setEditedTerminalDataAction,
   setMapTerminalViewStateAction,
@@ -11,6 +12,7 @@ import { showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
+import { useEnsureMapEntityTypeVisible } from '../utils/useEnsureMapEntityTypeVisible';
 import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 
 export const useTerminalCreation = () => {
@@ -25,6 +27,7 @@ export const useTerminalCreation = () => {
   const setMapTerminalViewState = useAppAction(setMapTerminalViewStateAction);
 
   const setMapObservationDate = useSetMapObservationDate();
+  const ensureMapEntityTypeVisible = useEnsureMapEntityTypeVisible();
 
   const doCreateTerminal = async (state: TerminalFormState) => {
     setIsLoading(true);
@@ -35,6 +38,7 @@ export const useTerminalCreation = () => {
       });
 
       showSuccessToast(t('terminal.saveSuccess'));
+      ensureMapEntityTypeVisible(MapEntityType.Terminal);
       setMapObservationDate(createdTerminal);
       setEditedTerminalData(createdTerminal ?? undefined);
       setSelectedTerminalId(createdTerminal?.id ?? undefined);

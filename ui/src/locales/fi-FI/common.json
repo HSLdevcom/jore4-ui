@@ -1152,6 +1152,8 @@
     "observationDate": "Tarkasteluhetki",
     "observationDateAdjusted": "Tarkasteluhetkeä muutettu",
     "stopFiltersAdjusted": "Pysäkkien suodattimia muutettu",
+    "temporalFiltersAdjusted": "Ajankohdan suodattimia muutettu",
+    "visibilityFiltersAdjusted": "Näkyvyyden suodattimia muutettu",
     "mapEntityType": {
       "stop": "Pysäkit",
       "stopArea": "Pysäkkialueet",

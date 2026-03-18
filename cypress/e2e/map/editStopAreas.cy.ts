@@ -13,7 +13,9 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   ConfirmationDialog,
+  KnownMapItemTypeFilters,
   MapFooter,
+  MapItemTypeFiltersOverlay,
   MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
@@ -218,6 +220,34 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       .getTransportationMode()
       .invoke('text')
       .should('not.be.empty');
+  });
+
+  it('Should auto-enable stop area filter when creating a stop area with filter disabled', () => {
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.StopArea]: false,
+    });
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+
+    MapFooter.addStopArea();
+    MapPage.map.clickAtCoordinates(24.9375, 60.1655);
+
+    MapPage.stopAreaForm.getForm().shouldBeVisible();
+    MapPage.stopAreaForm.getName().type('Filter test area');
+    MapPage.stopAreaForm.getShowHideButton().click();
+    MapPage.stopAreaForm.getNameSwe().type('Filtertest område');
+    MapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    MapPage.stopAreaForm.validityPeriodForm
+      .getIndefiniteCheckbox()
+      .should('be.checked');
+
+    MapPage.stopAreaForm.save();
+    expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+
+    Toast.expectWarningToast('Näkyvyyden suodattimia muutettu');
+
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    cy.get(`#filter-${KnownMapItemTypeFilters.StopArea}`).should('be.checked');
   });
 
   it('should cancel creating a new stop area', () => {

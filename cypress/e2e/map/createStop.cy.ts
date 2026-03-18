@@ -8,7 +8,9 @@ import {
 import { Tag } from '../../enums';
 import {
   FilterPanel,
+  KnownMapItemTypeFilters,
   MapFooter,
+  MapItemTypeFiltersOverlay,
   MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
@@ -16,6 +18,7 @@ import {
   StopDetailsPage,
   StopSearchBar,
   StopSearchResultsPage,
+  Toast,
   ValidityPeriodForm,
 } from '../../pageObjects';
 import { insertToDbHelper } from '../../utils';
@@ -323,6 +326,42 @@ describe('Stop creation tests', rootOpts, () => {
     MapPage.gqlStopShouldBeCreatedSuccessfully();
     MapPage.checkStopSubmitSuccessToast();
     MapPage.map.stopPopUp.getLabel().shouldBeVisible();
+  });
+
+  it('Should auto-enable stop and temporal filters when creating a stop with filters disabled', () => {
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.Stop]: false,
+      [KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops]: false,
+      [KnownMapItemTypeFilters.ShowCurrentStops]: false,
+      [KnownMapItemTypeFilters.ShowFutureStops]: false,
+      [KnownMapItemTypeFilters.ShowPastStops]: false,
+    });
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+
+    MapPage.createStopAtLocation({
+      stopFormInfo: {
+        publicCode: testStopLabels.testLabel1,
+        stopPlace: testStopLabels.stopAreaPrivateCode,
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+        reasonForChange: 'Initial creation',
+      },
+      clickRelativePoint: {
+        xPercentage: 40,
+        yPercentage: 55,
+      },
+    });
+    MapPage.gqlStopShouldBeCreatedSuccessfully();
+
+    Toast.expectWarningToast('Ajankohdan suodattimia muutettu');
+    Toast.expectWarningToast('Näkyvyyden suodattimia muutettu');
+
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    cy.get(`#filter-${KnownMapItemTypeFilters.Stop}`).should('be.checked');
+    cy.get(`#filter-${KnownMapItemTypeFilters.ShowCurrentStops}`).should(
+      'be.checked',
+    );
   });
 
   it(
