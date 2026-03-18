@@ -75,7 +75,7 @@ const buildScalarMappingLink = () => {
       },
     },
     stop_registry_DateTime: dateTimeMapper,
-    timetamptz: dateTimeMapper,
+    timestamptz: dateTimeMapper,
   };
 
   const schema = buildClientSchema(
