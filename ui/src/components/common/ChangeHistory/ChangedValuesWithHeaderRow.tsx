@@ -23,6 +23,7 @@ type ChangedValuesWithHeaderRowProps<HistoryItemT, HistoricalDataT> = {
   readonly historyItem: HistoryItemT;
   readonly previous: HistoricalDataT;
   readonly sectionTitle: ReactNode;
+  readonly sectionTitleClassName?: string;
   readonly testId: string;
 };
 
@@ -36,6 +37,7 @@ export const ChangedValuesWithHeaderRow = <
   historyItem,
   previous,
   sectionTitle,
+  sectionTitleClassName,
   testId,
 }: ChangedValuesWithHeaderRowProps<
   HistoryItemT,
@@ -55,6 +57,7 @@ export const ChangedValuesWithHeaderRow = <
   return (
     <>
       <ChangeHistoryItemSectionHeaderRow
+        className={sectionTitleClassName}
         getUserNameById={getUserNameById}
         historyItem={historyItem}
         sectionTitle={sectionTitle}
