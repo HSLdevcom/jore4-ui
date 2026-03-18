@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
+import { GetUserNameById } from '../../../../../hooks';
 import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
 
 const testIds = {
@@ -53,9 +54,7 @@ function getTestId(type: ChangeVersionType): string {
 }
 
 type NoPreviousChangeVersionSectionProps = {
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
 };
 

@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { theme } from '../../../../../generated/theme';
+import { GetUserNameById } from '../../../../../hooks';
 import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
 import { SectionTitle } from './SectionTitle';
 
 type DataDiffSectionLoadingProps = {
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
 };
 

@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next';
 import { ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { GetUserNameById } from '../../../hooks';
 import {
   ChangedValueRow,
   getLocationByArrayIndex,
@@ -12,9 +13,7 @@ import { BaseChangeHistoryItemDetails, ChangedValue } from './types';
 
 type ChangedValuesWithHeaderRowProps<HistoryItemT, HistoricalDataT> = {
   readonly current: HistoricalDataT;
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly diffVersions: (
     t: TFunction,
     previous: HistoricalDataT,

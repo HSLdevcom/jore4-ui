@@ -15,7 +15,10 @@ import {
   useObservationDateQueryParam,
   useUrlQuery,
 } from '../../../../hooks/urlQuery';
-import { useGetUserNames } from '../../../../hooks/useGetUserNames';
+import {
+  GetUserNameById,
+  useGetUserNames,
+} from '../../../../hooks/useGetUserNames';
 import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
   EnrichedStopPlace,
@@ -396,7 +399,7 @@ const getStopDetails = (
   observationDateTs: number,
   priority: number,
   label: string,
-  getUserNameById: (userId: string | null | undefined) => string | null,
+  getUserNameById: GetUserNameById,
   quayChangeData?: {
     changed: string | null;
     changedBy: string | null;

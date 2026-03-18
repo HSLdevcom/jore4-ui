@@ -5,7 +5,10 @@ import {
   StopVersionInfoFragment,
   useGetQuayVersionsQuery,
 } from '../../../../../generated/graphql';
-import { useGetUserNames } from '../../../../../hooks/useGetUserNames';
+import {
+  GetUserNameById,
+  useGetUserNames,
+} from '../../../../../hooks/useGetUserNames';
 import { parseDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 import {
@@ -75,7 +78,7 @@ function mapPriorityToStopVersionStatus(priority: Priority): StopVersionStatus {
 function mapQuayToStopVersionInfoItem(
   rawQuay: StopVersionInfoFragment,
   activeVersionId: number | null,
-  getUserNameById: (userId: string | null | undefined) => string | null,
+  getUserNameById: GetUserNameById,
 ): StopVersion {
   const priority = parsePriority(rawQuay.priority);
   const status =

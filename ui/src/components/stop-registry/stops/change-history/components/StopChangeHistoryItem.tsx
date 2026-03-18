@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
+import { GetUserNameById } from '../../../../../hooks';
 import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
 import { DataDiffSections } from './DataDiffSections';
 import { NoPreviousChangeVersionSection } from './NoPreviousChangeVersionSection';
@@ -13,9 +14,7 @@ const testIds = {
 };
 
 type StopChangeHistoryItemProps = {
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
   readonly previousHistoryItem: QuayChangeHistoryItem | null;
 };

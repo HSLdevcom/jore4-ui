@@ -15,13 +15,16 @@ const GQL_GET_USER_NAMES = gql`
   }
 `;
 
+export type GetUserNameById = (
+  userId: string | null | undefined,
+) => string | null;
+
 export const useGetUserNames = () => {
   const { data, ...rest } = useGetUserNamesQuery();
 
   const users = useMemo(() => compact(data?.login_audit), [data]);
-  const getUserNameById = useCallback(
-    (userId: string | null | undefined) =>
-      users.find((u) => u?.user_id === userId)?.user_name ?? null,
+  const getUserNameById = useCallback<GetUserNameById>(
+    (userId) => users.find((u) => u?.user_id === userId)?.user_name ?? null,
     [users],
   );
 

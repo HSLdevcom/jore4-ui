@@ -7,6 +7,7 @@ import {
   useGetParentStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
+  GetUserNameById,
   useGetUserNames,
   useObservationDateQueryParam,
   useRequiredParams,
@@ -186,7 +187,7 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
 
 export function getEnrichedParentStopPlace(
   parentStopPlace: ParentStopPlaceDetailsFragment | null | undefined,
-  getUserNameById?: (userId: string | null | undefined) => string | null,
+  getUserNameById?: GetUserNameById,
   parentStopPlaceChangeData?: {
     changed: string | null;
     changedBy: string | null;
@@ -211,7 +212,7 @@ export function getEnrichedParentStopPlace(
 
 function useGetParentStopPlaceDetailsByWhere(
   where: StopsDatabaseStopPlaceNewestVersionBoolExp | null,
-  getUserNameById: (userId: string | null | undefined) => string | null,
+  getUserNameById: GetUserNameById,
   parentStopPlaceChangeData?: {
     changed: string | null;
     changedBy: string | null;

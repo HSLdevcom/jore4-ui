@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
+import { GetUserNameById } from '../../../../../hooks';
 import { ChangedValuesWithHeaderRow } from '../../../../common/ChangeHistory';
 import {
   diffBasicDetails,
@@ -21,9 +22,7 @@ import { ValidityPeriodChangedSectionRow } from './ValidityPeriodChangedSectionR
 const infoSpotJoinsVersionedInTiamat = false;
 
 type DataDiffSectionsProps = {
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
   readonly previousHistoryItem: QuayChangeHistoryItem;
 };

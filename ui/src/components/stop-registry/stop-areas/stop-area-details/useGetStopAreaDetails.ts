@@ -7,6 +7,7 @@ import {
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
+  GetUserNameById,
   useGetUserNames,
   useObservationDateQueryParam,
   useRequiredParams,
@@ -116,7 +117,7 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
 
 export function getEnrichedStopPlace(
   stopPlace: StopPlaceDetailsFragment | null | undefined,
-  getUserNameById?: (userId: string | null | undefined) => string | null,
+  getUserNameById?: GetUserNameById,
   stopPlaceChangeData?: {
     changed: string | null;
     changedBy: string | null;
@@ -146,7 +147,7 @@ export function getEnrichedStopPlace(
 
 function useGetStopPlaceDetailsByWhere(
   where: StopsDatabaseStopPlaceNewestVersionBoolExp | null,
-  getUserNameById?: (userId: string | null | undefined) => string | null,
+  getUserNameById?: GetUserNameById,
   stopPlaceChangeData?: {
     changed: string | null;
     changedBy: string | null;

@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { GetUserNameById } from '../../../hooks';
 import { mapToShortDate, mapToShortDateTime, parseDate } from '../../../time';
 import { BaseChangeHistoryItemDetails } from './types';
 
@@ -16,9 +17,7 @@ const testIds = {
 
 type ChangeHistoryItemSectionHeaderRowProps = {
   readonly className?: string;
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItem: BaseChangeHistoryItemDetails;
   readonly sectionTitle: ReactNode;
   readonly testId: string;

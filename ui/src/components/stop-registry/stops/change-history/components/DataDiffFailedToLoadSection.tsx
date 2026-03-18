@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
+import { GetUserNameById } from '../../../../../hooks';
 import { SimpleButton } from '../../../../../uiComponents';
 import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
 import { useRefetchFailedHistoricalStopVersions } from './HistoricalStopDataProvider';
@@ -12,9 +13,7 @@ const testIds = {
 };
 
 type DataDiffFailedToLoadSectionProps = {
-  readonly getUserNameById: (
-    userId: string | null | undefined,
-  ) => string | null;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
 };
 
