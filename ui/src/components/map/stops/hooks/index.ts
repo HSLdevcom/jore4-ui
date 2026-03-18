@@ -4,6 +4,7 @@ export * from './useDeleteStop';
 export * from './useDeleteStopUtils';
 export * from './useEditStop';
 export * from './useEditStopUtils';
+export * from './useEnsureTemporalFilterActive';
 export * from './useFilterStops';
 export * from './useGetNextQuayPrivateCode';
 export * from './useGetRoutesDisplayedInMap';

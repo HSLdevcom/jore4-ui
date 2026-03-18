@@ -14,8 +14,10 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   FilterPanel,
+  KnownMapItemTypeFilters,
   Map,
   MapFooter,
+  MapItemTypeFiltersOverlay,
   MapObservationDateControl,
   MapObservationDateFiltersOverlay,
   MapPage,
@@ -165,6 +167,34 @@ describe('Terminal creation tests', rootOpts, () => {
         cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should('exist');
       });
     });
+  });
+
+  it('Should auto-enable terminal filter when creating a terminal with filter disabled', () => {
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.Terminal]: false,
+    });
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+
+    MapPage.createTerminalAtLocation({
+      terminalFormInfo: {
+        name: testTerminalLabels.terminalName,
+        nameSwe: testTerminalLabels.terminalName,
+        validityStartISODate: '2022-01-01',
+        stops: testTerminalLabels.stops,
+      },
+      clickRelativePoint: {
+        xPercentage: 40,
+        yPercentage: 55,
+      },
+    });
+
+    MapPage.gqlTerminalShouldBeCreatedSuccessfully();
+
+    Toast.expectWarningToast('Näkyvyyden suodattimia muutettu');
+
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    cy.get(`#filter-${KnownMapItemTypeFilters.Terminal}`).should('be.checked');
   });
 
   it('should cancel creating a new terminal', () => {

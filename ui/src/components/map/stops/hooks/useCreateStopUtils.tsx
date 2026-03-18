@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Operation } from '../../../../redux';
+import { MapEntityType, Operation } from '../../../../redux';
 import { isDateInRange } from '../../../../time';
 import { showSuccessToast, showWarningToast } from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
 import { useMapUrlStateContext } from '../../utils/mapUrlState';
+import { useEnsureMapEntityTypeVisible } from '../../utils/useEnsureMapEntityTypeVisible';
 import { CreateChanges, useCreateStop } from './useCreateStop';
 import { useDefaultErrorHandler } from './useEditStop';
+import { useEnsureTemporalFilterActive } from './useEnsureTemporalFilterActive';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
 export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
@@ -27,6 +29,8 @@ export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
 
   const updateStopPriorityFilterIfNeeded =
     useUpdateStopPriorityFilterIfNeeded();
+  const ensureMapEntityTypeVisible = useEnsureMapEntityTypeVisible();
+  const ensureTemporalFilterActive = useEnsureTemporalFilterActive();
 
   const createStop = useCreateStop();
   const defaultErrorHandler = useDefaultErrorHandler();
@@ -62,6 +66,8 @@ export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
         showWarningToast(t('filters.observationDateAdjusted'));
       }
 
+      ensureTemporalFilterActive();
+      ensureMapEntityTypeVisible(MapEntityType.Stop);
       updateStopPriorityFilterIfNeeded(changes.stopPoint.priority);
       onFinishEditing(quayId);
     } catch (err) {

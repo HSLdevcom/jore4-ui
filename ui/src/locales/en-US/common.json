@@ -1152,6 +1152,8 @@
     "observationDate": "Observation date",
     "observationDateAdjusted": "Observation date adjusted",
     "stopFiltersAdjusted": "Stop filters adjusted",
+    "temporalFiltersAdjusted": "Temporal filters adjusted",
+    "visibilityFiltersAdjusted": "Visibility filters adjusted",
     "mapEntityType": {
       "stop": "Stops",
       "stopArea": "Stop areas",

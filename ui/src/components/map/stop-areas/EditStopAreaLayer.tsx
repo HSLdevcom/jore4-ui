@@ -5,6 +5,7 @@ import { useMap } from 'react-map-gl/maplibre';
 import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
+  MapEntityType,
   Operation,
   isModalOpen,
   selectMapStopAreaViewState,
@@ -28,6 +29,7 @@ import {
   useStopAreaDeletion,
 } from '../../stop-registry/stop-areas/stop-area-details/hooks/DeleteStopArea';
 import { EditStopAreaLayerRef } from '../refTypes';
+import { useEnsureMapEntityTypeVisible } from '../utils/useEnsureMapEntityTypeVisible';
 import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { NewStopAreaMarker } from './NewStopAreaMarker';
@@ -73,6 +75,7 @@ export const EditStopAreaLayer = forwardRef<
     useStopAreaDeletion();
 
   const setMapObservationDate = useSetMapObservationDate();
+  const ensureMapEntityTypeVisible = useEnsureMapEntityTypeVisible();
 
   const onStartEditStopArea = () => {
     const point = getGeometryPoint(editedArea.geometry);
@@ -124,6 +127,7 @@ export const EditStopAreaLayer = forwardRef<
         showSuccessToast(t('stopArea.editSuccess'));
       } else {
         showSuccessToast(t('stopArea.saveSuccess'));
+        ensureMapEntityTypeVisible(MapEntityType.StopArea);
       }
 
       setMapObservationDate(updatedStopArea);
