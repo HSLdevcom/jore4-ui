@@ -29,6 +29,10 @@ i18nextUse(initReactI18next).init({
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
   },
+  react: {
+    transSupportBasicHtmlNodes: true,
+    transKeepBasicHtmlNodesFor: ['b', 'br', 'i', 'span'],
+  },
 });
 
 // All the translation key paths as strings (e.g. "navigation.logout")
