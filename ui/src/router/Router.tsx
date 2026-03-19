@@ -26,6 +26,7 @@ import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
 import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLinePage';
 import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRoutePage';
+import { LineChangeHistoryPage } from '../components/routes-and-lines/line-change-history/LineChangeHistoryPage';
 import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
@@ -230,6 +231,11 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.lineDrafts,
     protected: true,
     element: <LineDraftsPage />,
+  },
+  {
+    path: Path.lineChangeHistory,
+    protected: true,
+    element: <LineChangeHistoryPage />,
   },
   {
     path: Path.editLine,

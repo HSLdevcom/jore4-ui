@@ -18,6 +18,7 @@ export const Path = {
   createLine: '/lines/create',
   lineDetails: '/lines/:id',
   lineDrafts: '/lines/:label/drafts',
+  lineChangeHistory: '/lines/:label/history',
   editLine: '/lines/:id/edit',
 
   // Stop registry
@@ -140,6 +141,10 @@ export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   },
   [Path.lineDrafts]: {
     getLink: genVariableLinkGenerator(Path.lineDrafts, ':label'),
+    includeInNav: false,
+  },
+  [Path.lineChangeHistory]: {
+    getLink: genVariableLinkGenerator(Path.lineChangeHistory, ':label'),
     includeInNav: false,
   },
   [Path.editLine]: {
