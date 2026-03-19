@@ -93,7 +93,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           title=""
         >
           <span
-            class="relative flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
+            class="flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
             data-testid="DirectionBadge"
             title="1 - Keskustasta pois"
           >
@@ -143,7 +143,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           title=""
         >
           <span
-            class="relative flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
+            class="flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
             data-testid="DirectionBadge"
             title="2 - Keskustaan päin"
           >
@@ -193,7 +193,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           title=""
         >
           <span
-            class="relative flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
+            class="flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
             data-testid="DirectionBadge"
             title="1 - Keskustasta pois"
           >

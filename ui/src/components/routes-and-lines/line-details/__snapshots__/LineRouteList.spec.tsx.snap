@@ -48,7 +48,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             id="direction-and-label-65x-null-outbound"
           >
             <span
-              class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white"
+              class="flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white"
               data-testid="DirectionBadge"
               title="1 - Keskustasta pois"
             >
@@ -249,7 +249,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             id="direction-and-label-65x-null-outbound"
           >
             <span
-              class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white"
+              class="flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white"
               data-testid="DirectionBadge"
               title="1 - Keskustasta pois"
             >
@@ -670,7 +670,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             id="direction-and-label-65x-null-outbound"
           >
             <span
-              class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white"
+              class="flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white"
               data-testid="DirectionBadge"
               title="1 - Keskustasta pois"
             >

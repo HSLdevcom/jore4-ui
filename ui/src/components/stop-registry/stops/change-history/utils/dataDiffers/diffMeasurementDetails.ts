@@ -11,13 +11,13 @@ import {
   ChangedValue,
   diffKeyedValues,
   mapNullable,
+  optionalFmt,
 } from '../../../../../common/ChangeHistory';
 import {
   optionalBooleanToCustomUiText,
   optionalBooleanToUiText,
 } from '../../../stop-details/utils';
 import { HistoricalStopData } from '../../types';
-import { optionalFmt } from './utils';
 
 export function diffMeasurementDetails(
   t: TFunction,

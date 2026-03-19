@@ -1535,6 +1535,32 @@
       "terminalNameFin": "Terminal name"
     }
   },
+  "lineChangeHistory": {
+    "title": "Change history | Line {{label}}",
+    "titleWithName": "Change history | Line {{label}} {{name}}",
+    "goBack": "Back",
+    "newLineVersion": "New line version created: {{lineLabel}} {{name}}",
+    "newRouteVersion": "New route version created: <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
+    "deletedLineVersion": "Line version deleted: {{lineLabel}} {{name}}",
+    "deletedRouteVersion": "Route version deleted: <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
+    "failedToLoad": "Failed to load change details",
+    "versionLoading": "Resolving changed fields",
+    "lineSectionTitle": "Line {{lineLabel}} {{name}}",
+    "routeSectionTitle": "Route <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
+    "viaPointDetails": "Show full Via-details",
+    "viaPoint": "{{label}}: {{name}}",
+    "extraFields": {
+      "routeNameSwe": "Route name (ruotsi)",
+      "routeDescription": "Route description (Finnish)",
+      "routeDescriptionSwe": "Route description (Swedish)",
+      "routeEstimatedLength": "Estimated length of the route",
+      "drivingOrder": "Driving order of stops",
+      "viaPoints": "Via-details",
+      "usedTimingPoints": "Hastus-places",
+      "usedRegulatedTimingPoints": "Regulated timing point stops",
+      "loadingTimeAllowedOn": "Loading time allowed on stops"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
   },
