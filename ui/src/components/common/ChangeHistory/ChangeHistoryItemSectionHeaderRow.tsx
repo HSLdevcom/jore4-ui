@@ -34,7 +34,7 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
 }: ChangeHistoryItemSectionHeaderRowProps) => {
   return (
     <tr
-      className={twMerge('bg-hsl-neutral-blue', className)}
+      className={twMerge('bg-hsl-neutral-blue align-top', className)}
       data-testid={testIds.row(testId)}
       data-timestamp={parseDate(historyItem.changed)?.toUTC().toISO()}
       data-validity-start={historyItem.validityStart}
@@ -72,7 +72,7 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
 
       {/* See the <ChangeHistoryTable> component for more details. */}
       <td
-        className="pt-y hidden px-2 text-right lg:table-cell xl:px-5"
+        className="hidden px-2 py-3 text-right lg:table-cell xl:px-5"
         data-testid={testIds.changedBy}
       >
         {getUserNameById(historyItem.changedBy) ?? 'HSL'}
