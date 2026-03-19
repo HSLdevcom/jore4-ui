@@ -1,4 +1,4 @@
-import { ComponentType, FC } from 'react';
+import { ComponentType, FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../../i18n';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
@@ -36,12 +36,34 @@ export const StopPlaceSearchResults: FC<StopPlaceSearchResultsProps> = ({
       filters,
       sortingInfo: { sortBy },
     },
+    historyState,
+    setHistoryState,
   } = useStopSearchRouterState();
 
   const { stopPlaces, loading } = useFindStopPlaces(filters, placeType);
 
   const groupByArea =
     sortBy === groupingField || sortBy === SortStopsBy.DEFAULT;
+
+  // When switching back to grouped view, knownStopIds may still be in 'flat'
+  // mode. Reset it to 'grouped'.
+  useEffect(() => {
+    if (!groupByArea) {
+      return;
+    }
+    setHistoryState((p) => {
+      if (p.knownStopIds.listingMode === 'grouped') {
+        return p;
+      }
+      return {
+        ...p,
+        knownStopIds: { listingMode: 'grouped', ids: [], groups: {} },
+      };
+    });
+  }, [groupByArea, setHistoryState]);
+
+  const isReadyToShowGrouped =
+    groupByArea && historyState.knownStopIds.listingMode === 'grouped';
 
   return (
     <LoadingWrapper
@@ -50,7 +72,7 @@ export const StopPlaceSearchResults: FC<StopPlaceSearchResultsProps> = ({
       loading={stopPlaces.length === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >
-      {groupByArea ? (
+      {isReadyToShowGrouped ? (
         <SearchGroupedStopsResults
           groupingField={groupingField}
           stopPlaces={stopPlaces}
