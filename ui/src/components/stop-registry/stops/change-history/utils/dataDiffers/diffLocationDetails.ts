@@ -6,9 +6,9 @@ import {
   ChangedValue,
   diffKeyedValues,
   mapNullable,
+  optionalFmt,
 } from '../../../../../common/ChangeHistory';
 import { HistoricalStopData } from '../../types';
-import { optionalFmt } from './utils';
 
 export function diffLocationDetails(
   t: TFunction,

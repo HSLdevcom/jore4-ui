@@ -104,7 +104,7 @@ const ROUTES_WITH_INFRASTRUCTURE_LINKS = gql`
 `;
 
 const GQL_GET_LINE_LATES_CHANGE_INFO_FRAGEMENT = gql`
-  fragment LineLatesChangeInfo on route_line {
+  fragment LineLatestChangeInfo on route_line {
     change_history(order_by: [{ changed: desc }], limit: 1) {
       id
       changed
@@ -117,7 +117,7 @@ const GET_LINE_DETAILS_BY_ID = gql`
   query GetLineDetailsById($line_id: uuid!) {
     route_line_by_pk(line_id: $line_id) {
       ...line_all_fields
-      ...LineLatesChangeInfo
+      ...LineLatestChangeInfo
     }
   }
 `;

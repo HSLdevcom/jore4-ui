@@ -9,7 +9,7 @@ import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { makeBackNavigationIsSafeState, useGetUserNames } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToShortDateTime, mapUTCToDateTime } from '../../../time';
+import { mapToShortDateTime } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
@@ -34,7 +34,7 @@ type LineTitleProps = {
 const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
   fragment line_with_routes_unique_fields on route_line {
     ...line_all_fields
-    ...LineLatesChangeInfo
+    ...LineLatestChangeInfo
     line_routes(where: $lineRouteFilters) {
       ...route_unique_fields
     }
