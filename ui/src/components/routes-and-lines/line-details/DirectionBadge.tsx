@@ -31,7 +31,7 @@ export const DirectionBadge: FC<DirectionBadgeProps> = ({
       title={directionText}
       data-testid={testIds.container}
       className={twMerge(
-        'relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white',
+        'flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white',
         className,
       )}
     >

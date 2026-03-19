@@ -1,0 +1,101 @@
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { GetUserNameById } from '../../../../hooks';
+import { PagingInfo } from '../../../../types';
+import {
+  ChangeHistorySortingInfo,
+  ChangeHistoryTable,
+  FailedToLoadChangeHistory,
+  LoadingChangeHistory,
+} from '../../../common/ChangeHistory';
+import { LineChangeHistoryItem } from '../types';
+import { LineChangeHistoryDataRows } from './LineChangeHistoryDataRows';
+
+/**
+ * Prevent flashing of various loading states on a fast connection.
+ *
+ * Don't show the loader at all, if we already know the previous result.
+ * If we don't know the previous result, show the old results and wait for
+ * 0.15s before switching to the loader state.
+ *
+ * @param loading
+ * @param historyItems
+ */
+function usePrettyLoaderState(
+  loading: boolean,
+  historyItems: ReadonlyArray<LineChangeHistoryItem>,
+) {
+  const [showLoader, setShowLoader] = useState(loading);
+  const [previousHistoryItems, setPreviousHistoryItems] =
+    useState(historyItems);
+
+  useEffect(() => {
+    if (!loading || historyItems.length > 0) {
+      setPreviousHistoryItems(historyItems);
+    }
+  }, [loading, historyItems]);
+
+  useEffect(() => {
+    const id = setTimeout(
+      () => setShowLoader(loading && historyItems.length === 0),
+      150, // Matches with the transition time for the sorting buttons.
+    );
+    return () => clearTimeout(id);
+  }, [loading, historyItems]);
+
+  return { showLoader, previousHistoryItems };
+}
+
+type LineChangeHistoryTableProps = {
+  readonly className?: string;
+  readonly error: Error | null;
+  readonly getUserNameById: GetUserNameById;
+  readonly historyItems: ReadonlyArray<LineChangeHistoryItem>;
+  readonly sortedHistoryItems: ReadonlyArray<LineChangeHistoryItem>;
+  readonly loading: boolean;
+  readonly pagingInfo: PagingInfo;
+  readonly refetch: () => void;
+  readonly setSortingInfo: Dispatch<SetStateAction<ChangeHistorySortingInfo>>;
+  readonly sortingInfo: ChangeHistorySortingInfo;
+};
+
+export const LineChangeHistoryTable: FC<LineChangeHistoryTableProps> = ({
+  className,
+  getUserNameById,
+  error,
+  historyItems,
+  sortedHistoryItems,
+  loading,
+  pagingInfo,
+  refetch,
+  setSortingInfo,
+  sortingInfo,
+}) => {
+  const { showLoader, previousHistoryItems } = usePrettyLoaderState(
+    loading,
+    sortedHistoryItems,
+  );
+
+  return (
+    <ChangeHistoryTable
+      className={className}
+      loading={loading}
+      setSortingInfo={setSortingInfo}
+      sortingInfo={sortingInfo}
+    >
+      {error !== null && <FailedToLoadChangeHistory refetch={refetch} />}
+
+      {error === null && showLoader && <LoadingChangeHistory />}
+
+      {error === null && !showLoader && (
+        <LineChangeHistoryDataRows
+          getUserNameById={getUserNameById}
+          historyItems={historyItems}
+          sortedHistoryItems={
+            loading ? previousHistoryItems : sortedHistoryItems
+          }
+          pagingInfo={pagingInfo}
+        />
+      )}
+    </ChangeHistoryTable>
+  );
+};

@@ -1535,6 +1535,32 @@
       "terminalNameFin": "Terminaalin nimi"
     }
   },
+  "lineChangeHistory": {
+    "title": "Muutoshistoria | Linja {{label}}",
+    "titleWithName": "Muutoshistoria | Linja {{label}} {{name}}",
+    "goBack": "Palaa",
+    "newLineVersion": "Uusi versio linjasta luotu: {{lineLabel}} {{name}}",
+    "newRouteVersion": "Uusi versio reitistä luotu: <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
+    "deletedLineVersion": "Linjan versio poistettu: {{lineLabel}} {{name}}",
+    "deletedRouteVersion": "Reittin versio poistettu: <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
+    "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
+    "versionLoading": "Selvitetään muuttuneita kenttiä",
+    "lineSectionTitle": "Linja {{lineLabel}} {{name}}",
+    "routeSectionTitle": "Reitti <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
+    "viaPointDetails": "Näytä tarkat Via-tiedot",
+    "viaPoint": "{{label}}: {{name}}",
+    "extraFields": {
+      "routeNameSv": "Reitin nimi (ruotsi)",
+      "routeDescriptionFi": "Reitin kuvaus (suomi)",
+      "routeDescriptionSv": "Reitin kuvaus (ruotsi)",
+      "routeEstimatedLength": "Reitin arvioitu pituus",
+      "drivingOrder": "Pysäkkien ajojärjestys",
+      "viaPoints": "Via-tiedot",
+      "usedTimingPoints": "Hastuspaikat",
+      "usedRegulatedTimingPoints": "Ajantasauspysäkit",
+      "loadingTimeAllowedOn": "Lastausaika sallittu pysäkeillä"
+    }
+  },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   },
