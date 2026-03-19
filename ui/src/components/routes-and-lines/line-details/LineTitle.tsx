@@ -3,9 +3,14 @@ import uniqBy from 'lodash/uniqBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { Link } from 'react-router';
 import { twJoin } from 'tailwind-merge';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
+import { makeBackNavigationIsSafeState, useGetUserNames } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { mapToShortDateTime, mapUTCToDateTime } from '../../../time';
+import { Priority } from '../../../types/enums';
 import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { LineValidityPeriod } from './LineValidityPeriod';
@@ -15,6 +20,7 @@ const testIds = {
   heading: 'LineTitle::heading',
   createRouteButton: 'LineTitle::createRouteButton',
   name: 'LineTitle::name',
+  changeHistoryLink: 'LineTitle::changeHistoryLink',
 };
 
 type LineTitleProps = {
@@ -28,6 +34,7 @@ type LineTitleProps = {
 const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
   fragment line_with_routes_unique_fields on route_line {
     ...line_all_fields
+    ...LineLatesChangeInfo
     line_routes(where: $lineRouteFilters) {
       ...route_unique_fields
     }
@@ -48,6 +55,8 @@ export const LineTitle: FC<LineTitleProps> = ({
     setDisplayedRoutesToUrl,
   } = useGetRoutesDisplayedInList(line);
 
+  const { getUserNameById } = useGetUserNames();
+
   const onRouteToggleClick = (label: string) => {
     // If "multiple route select" is disabled, only one route can be selected at once
     if (allowSelectingMultipleRoutes) {
@@ -59,11 +68,12 @@ export const LineTitle: FC<LineTitleProps> = ({
 
   const lineRoutes = uniqBy(line.line_routes, (route) => route.label);
   return (
-    <Column>
+    <Column className="grow items-stretch">
       <Row className={twJoin('items-center', className)}>
         <PageTitle.H1 className="mr-4" data-testid={testIds.heading}>
           {t('lines.line', { label: line.label })}
         </PageTitle.H1>
+
         <span className="mr-2 space-x-2">
           {lineRoutes?.length > 0 &&
             lineRoutes.map((item) => (
@@ -77,6 +87,7 @@ export const LineTitle: FC<LineTitleProps> = ({
               </SimpleButton>
             ))}
         </span>
+
         {onCreateRoute && (
           <SimpleButton
             onClick={onCreateRoute}
@@ -93,6 +104,22 @@ export const LineTitle: FC<LineTitleProps> = ({
             <AiFillPlusCircle className="text-2xl" />
           </SimpleButton>
         )}
+
+        <div className="grow" />
+
+        <Link
+          to={routeDetails[Path.lineChangeHistory].getLink(line.label, {
+            priority:
+              line.priority === Priority.Standard ? undefined : line.priority,
+          })}
+          state={makeBackNavigationIsSafeState()}
+          className="flex items-center text-base text-tweaked-brand hover:underline"
+          data-testid={testIds.changeHistoryLink}
+        >
+          {mapToShortDateTime(line.change_history.at(0)?.changed)} |{' '}
+          {getUserNameById(line.change_history.at(0)?.changed_by) ?? 'HSL'}{' '}
+          <i className="icon-history text-xl" aria-hidden />
+        </Link>
       </Row>
       <Row>
         <span className="font-bold" data-testid={testIds.name}>
