@@ -1,4 +1,8 @@
 import {
+  BaseChangeHistoryPage,
+  BaseChangeHistoryTable,
+} from '../base-change-history';
+import {
   createPageObjectWithIdSelectors,
   createSimplePageObject,
 } from '../createSimplePageObject';
@@ -45,42 +49,9 @@ const StopChangeHistoryTableInfoSpotChangedValues =
     ],
   );
 
-const ChangeHistoryTable = createSimplePageObject(
+const StopChangeHistoryTable = createSimplePageObject(
   'ChangeHistory',
   [
-    // Shared generic component getters
-    // ChangeHistoryTable
-    'ChangeHistory::Table',
-    'ChangeHistory::Heading::Name',
-    'ChangeHistory::Heading::OldValue',
-    'ChangeHistory::Heading::NewValue',
-    'ChangeHistory::Heading::ValidityStart',
-    'ChangeHistory::Heading::ValidityEnd',
-    'ChangeHistory::Heading::ValidityCombined',
-    'ChangeHistory::Heading::Changed',
-    'ChangeHistory::Heading::ChangedBy',
-    'ChangeHistory::Heading::ChangedCombined',
-
-    // SortByButton(s)
-    'ChangeHistory::SortByButton::ValidityStart',
-    'ChangeHistory::SortByButton::ValidityEnd',
-    'ChangeHistory::SortByButton::Changed',
-    'ChangeHistory::SortByButton::ChangedBy',
-
-    // ChangeHistoryItemSectionHeaderRow
-    'ChangeHistory::SectionHeader::Title',
-    'ChangeHistory::SectionHeader::ValidityStart',
-    'ChangeHistory::SectionHeader::ValidityEnd',
-    'ChangeHistory::SectionHeader::ValidityCombined',
-    'ChangeHistory::SectionHeader::ChangedBy',
-    'ChangeHistory::SectionHeader::Changed',
-    'ChangeHistory::SectionHeader::ChangedCombined',
-
-    // ChangedValueRow
-    'ChangeHistory::ChangedValues::Name',
-    'ChangeHistory::ChangedValues::OldValue',
-    'ChangeHistory::ChangedValues::NewValue',
-
     // Stop Change history table getters
     // StopChangeHistoryItem | NoPreviousChangeVersionSection
     'ChangeHistory::SectionHeader::InvalidVersion',
@@ -169,36 +140,20 @@ const ChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::SectionHeader::InfoSpotDetails',
   ],
   (base) => ({
+    ...BaseChangeHistoryTable,
     ...base,
     sectionHeader: {
+      ...BaseChangeHistoryTable.sectionHeader,
       ...base.sectionHeader,
-      getAll: () => cy.get('tr[data-testid^="ChangeHistory::SectionHeader::"]'),
     },
     changedValues: {
+      ...BaseChangeHistoryTable.changedValues,
       ...base.changedValues,
       shelterDetails: StopChangeHistoryTableShelterChangedValues,
       infoSpotDetails: StopChangeHistoryTableInfoSpotChangedValues,
     },
-    group: {
-      getAllGroupElements: () =>
-        cy.get('[data-testid^="ChangeHistory::Group::"]'),
-      getGroup: (id: string) => cy.getByTestId(`ChangeHistory::Group::${id}`),
-    },
   }),
 );
-
-const BaseChangeHistoryPage = createSimplePageObject('ChangeHistoryPage', [
-  // DateRangeFilter
-  'ChangeHistoryPage::DateFilter::FromDate',
-  'ChangeHistoryPage::DateFilter::ToDate',
-
-  // FailedToLoadChangeHistory
-  'ChangeHistoryPage::FailedToLoad',
-  'ChangeHistoryPage::RetryButton',
-
-  // LoadingChangeHistory
-  'ChangeHistoryPage::Loading',
-]);
 
 export const StopChangeHistoryPage = createSimplePageObject(
   'StopChangeHistoryPage',
@@ -216,6 +171,6 @@ export const StopChangeHistoryPage = createSimplePageObject(
   (base) => ({
     ...BaseChangeHistoryPage,
     ...base,
-    changeHistoryTable: ChangeHistoryTable,
+    changeHistoryTable: StopChangeHistoryTable,
   }),
 );
