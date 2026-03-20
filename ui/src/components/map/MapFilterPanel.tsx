@@ -30,6 +30,10 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
           disabled: !routeDisplayed,
           testId: 'FilterPanel::toggleShowBusRoutes',
           tooltip: (t) => t('vehicleModeEnum.bus'),
+          colorClassNames: {
+            active: 'bg-tweaked-brand text-white',
+            inactive: 'bg-white text-tweaked-brand',
+          },
         },
         // We want to show placeholder toggles of unimplemented features for visual purposes
         ...placeholderToggles,
@@ -47,6 +51,10 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
             ),
           testId: 'FilterPanel::toggleShowAllBusStops',
           tooltip: (t) => t('vehicleModeEnum.bus'),
+          colorClassNames: {
+            active: 'bg-tweaked-brand text-white',
+            inactive: 'bg-white text-tweaked-brand',
+          },
         },
         {
           iconClassName: 'icon-tram',
@@ -60,6 +68,10 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
             ),
           testId: 'FilterPanel::toggleShowAllTramStops',
           tooltip: (t) => t('vehicleModeEnum.tram'),
+          colorClassNames: {
+            active: 'bg-hsl-tram-green text-white',
+            inactive: 'bg-white text-hsl-tram-dark-green',
+          },
         },
         ...placeholderToggles,
       ]}

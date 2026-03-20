@@ -42,6 +42,7 @@ export const theme = {
     lighterGrey: "#FBFCFD",
     darkGrey: "#666666",
     hslDarkGreen: "#3B7F00",
+    hslTramGreen: "#00985F",
     hslTramDarkGreen: "#008151",
     hslRed: "#DC0451",
     hslNeutralBlue: "#E5F2FA",

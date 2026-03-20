@@ -28,6 +28,10 @@ type IconToggle = Toggle & {
   readonly iconClassName: string;
   readonly disabled?: boolean;
   readonly tooltip: (t: TFunction) => string;
+  readonly colorClassNames: {
+    readonly active: string;
+    readonly inactive: string;
+  };
 };
 
 type ToggleRowProps = {
@@ -41,7 +45,15 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
     <Row>
       {toggles.map(
         (
-          { active, onToggle, iconClassName, disabled, testId, tooltip },
+          {
+            active,
+            onToggle,
+            iconClassName,
+            disabled,
+            testId,
+            tooltip,
+            colorClassNames,
+          },
           index: number,
         ) => (
           <IconToggle
@@ -55,6 +67,7 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
             disabled={disabled}
             testId={testId}
             tooltip={tooltip(t)}
+            colorClassNames={colorClassNames}
           />
         ),
       )}
@@ -73,6 +86,10 @@ export const placeholderToggles: ReadonlyArray<IconToggle> = [
     disabled: true,
     testId: 'placeholder',
     tooltip: (t) => t('vehicleModeEnum.train'),
+    colorClassNames: {
+      active: 'bg-tweaked-brand text-white',
+      inactive: 'bg-white text-tweaked-brand',
+    },
   },
   {
     iconClassName: 'icon-ferry',
@@ -81,6 +98,10 @@ export const placeholderToggles: ReadonlyArray<IconToggle> = [
     disabled: true,
     testId: 'placeholder',
     tooltip: (t) => t('vehicleModeEnum.ferry'),
+    colorClassNames: {
+      active: 'bg-tweaked-brand text-white',
+      inactive: 'bg-white text-tweaked-brand',
+    },
   },
   {
     iconClassName: 'icon-metro',
@@ -89,6 +110,10 @@ export const placeholderToggles: ReadonlyArray<IconToggle> = [
     disabled: true,
     testId: 'placeholder',
     tooltip: (t) => t('vehicleModeEnum.metro'),
+    colorClassNames: {
+      active: 'bg-tweaked-brand text-white',
+      inactive: 'bg-white text-tweaked-brand',
+    },
   },
 ];
 

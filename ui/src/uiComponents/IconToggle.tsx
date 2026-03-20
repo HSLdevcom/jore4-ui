@@ -9,6 +9,10 @@ type IconToggleProps = {
   readonly iconClassName: string;
   readonly testId: string;
   readonly tooltip: string;
+  readonly colorClassNames: {
+    readonly active: string;
+    readonly inactive: string;
+  };
 };
 
 export const IconToggle: FC<IconToggleProps> = ({
@@ -19,10 +23,11 @@ export const IconToggle: FC<IconToggleProps> = ({
   iconClassName,
   testId,
   tooltip,
+  colorClassNames,
 }) => {
-  const colorClassNames = active
-    ? 'bg-tweaked-brand text-white'
-    : 'bg-white text-tweaked-brand';
+  const activeColorClassNames = active
+    ? colorClassNames.active
+    : colorClassNames.inactive;
   const disabledClassNames = disabled ? 'text-white bg-light-grey' : '';
 
   return (
@@ -36,7 +41,7 @@ export const IconToggle: FC<IconToggleProps> = ({
         'h-[26px] w-[26px]',
         'flex items-center justify-center',
         'rounded-sm border border-gray-300 disabled:cursor-default',
-        colorClassNames,
+        activeColorClassNames,
         disabledClassNames,
         className,
       )}
