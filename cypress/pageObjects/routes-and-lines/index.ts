@@ -1,6 +1,7 @@
 export * from './EditRouteModal';
 export * from './EditRoutePage';
 export * from './ExportToolBar';
+export * from './LineChangeHistory';
 export * from './LineDetailsPage';
 export * from './LineRouteList';
 export * from './LineValidityPeriod';

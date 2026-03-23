@@ -17,6 +17,10 @@ export class LineForm {
     return cy.getByTestId('LinePropertiesForm::finnishName');
   }
 
+  static getShowNameVersionButton() {
+    return cy.getByTestId('LinePropertiesForm::showNameVersionsButton');
+  }
+
   static getSwedishNameInput() {
     return cy.getByTestId('LinePropertiesForm::swedishName');
   }

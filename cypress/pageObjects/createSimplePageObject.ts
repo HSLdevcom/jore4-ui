@@ -149,11 +149,13 @@ export function createPageObjectWithIdSelectors<
     (obj, part, testId) => {
       // eslint-disable-next-line no-param-reassign
       obj[`getAll${capitalize(part)}Elements`] = () =>
-        cy.get(`[data-testid^="${testId}"]`);
+        cy.get(`[data-testid^="${testId}::"]`);
       // eslint-disable-next-line no-param-reassign
       obj[`get${capitalize(part)}`] = (id?: string) => {
         if (id === undefined) {
-          return cy.get(`[data-testid^="${testId}"]`).should('have.length', 1);
+          return cy
+            .get(`[data-testid^="${testId}::"]`)
+            .should('have.length', 1);
         }
 
         return cy.getByTestId(`${testId}::${id}`);
