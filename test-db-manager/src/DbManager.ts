@@ -21,6 +21,7 @@ export const resetRoutesAndLinesDb = async (db: Knex) => {
     '"service_pattern"."vehicle_mode_on_scheduled_stop_point"',
     '"route"."infrastructure_link_along_route"',
     '"route"."line"',
+    '"route"."line_change_history"',
     '"route"."route"',
     '"service_pattern"."scheduled_stop_point"',
     '"service_pattern"."scheduled_stop_point_invariant"',
