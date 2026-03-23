@@ -13,7 +13,10 @@ const dateRegex = /^[12][0-9]{3}-[0-9]{2}-[0-9]{2}$/;
 
 export const validityPeriodFormSchema = z.object({
   validityStart: requiredString.regex(dateRegex, 'invalidValidityStartDate'),
-  validityEnd: z.string().regex(dateRegex, 'invalidValidityEndDate').optional(),
+  validityEnd: z
+    .string()
+    .refine((val) => !val || dateRegex.test(val), 'invalidValidityEndDate')
+    .optional(),
   indefinite: z.boolean(),
 });
 
