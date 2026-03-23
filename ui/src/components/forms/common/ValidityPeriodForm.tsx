@@ -8,11 +8,12 @@ import { FormColumn } from './FormColumn';
 import { FormRow } from './FormRow';
 import { InputField } from './InputField';
 
-const dateRegex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+// Allow only dates between year 1000 and 2999
+const dateRegex = /^[12][0-9]{3}-[0-9]{2}-[0-9]{2}$/;
 
 export const validityPeriodFormSchema = z.object({
-  validityStart: requiredString.regex(dateRegex),
-  validityEnd: z.string().optional(),
+  validityStart: requiredString.regex(dateRegex, 'invalidValidityStartDate'),
+  validityEnd: z.string().regex(dateRegex, 'invalidValidityEndDate').optional(),
   indefinite: z.boolean(),
 });
 
@@ -83,6 +84,7 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
         <FormRow className={dateInputRowClassName} mdColumns={2}>
           <InputField<ValidityPeriodFormState>
             type="date"
+            max="9999-12-31"
             translationPrefix="validityPeriod"
             fieldPath="validityStart"
             testId={testIds.startDateInput}
@@ -90,6 +92,7 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
           <InputField<ValidityPeriodFormState>
             className={indefinite ? 'hidden' : ''}
             type="date"
+            max="9999-12-31"
             translationPrefix="validityPeriod"
             fieldPath="validityEnd"
             testId={testIds.endDateInput}

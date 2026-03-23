@@ -1130,6 +1130,7 @@
     "Invalid url": "Virheellinen URL",
     "validityEndNotDefined": "Päättymispäivä on annettava tai asetettava toistaiseksi voimassaolevaksi",
     "invalidValidityEndDate": "Päättymispäivämäärä on virheellinen",
+    "invalidValidityStartDate": "Alkupäivämäärä on virheellinen",
     "validityEndDateBeforeStartDate": "Päättymispäivämäärä ei voi olla ennen alkamispäivämäärää",
     "nameValueTooLong": "Nimessä on yli 21 merkkiä."
   },

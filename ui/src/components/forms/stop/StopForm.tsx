@@ -98,7 +98,7 @@ function mapFormStateToQuayKeyValues(
     },
     { key: KnownValueKey.Priority, values: [state.priority.toString(10)] },
     { key: KnownValueKey.ValidityStart, values: [state.validityStart] },
-    state.validityEnd
+    state.validityEnd && !state.indefinite
       ? {
           key: KnownValueKey.ValidityEnd,
           values: [state.validityEnd],
