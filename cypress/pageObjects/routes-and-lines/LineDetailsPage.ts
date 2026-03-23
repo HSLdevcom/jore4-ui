@@ -35,4 +35,8 @@ export class LineDetailsPage {
   static getShowDraftsButton() {
     return cy.getByTestId('ActionsRow::showDraftsButton');
   }
+
+  static getChangeHistoryLink() {
+    return cy.getByTestId('LineTitle::changeHistoryLink');
+  }
 }
