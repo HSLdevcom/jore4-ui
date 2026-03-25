@@ -8,10 +8,6 @@ import { MapStop } from '../types';
 
 const { colors } = theme;
 
-const iconSize = 30;
-const selectedIconSize = 32;
-const centerDotSize = 6;
-
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
  * * isPlaceholder: when moving a stop we have a placeholder for the stop's
@@ -140,14 +136,12 @@ export const Stop: FC<StopProps> = ({
   return (
     <Marker longitude={longitude} latitude={latitude} className="z-2">
       <StopMarker
-        size={selected ? selectedIconSize : iconSize}
         testId={testId}
         borderColor={iconBorderColor}
         fillColor={iconFillColor}
         borderWidth={3}
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}
-        centerDotSize={selected ? centerDotSize * 1.5 : centerDotSize}
         inSelection={inSelection}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...(stop

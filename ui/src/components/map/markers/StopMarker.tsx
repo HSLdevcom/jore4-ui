@@ -17,7 +17,6 @@ type StopMarkerBaseProps = {
   readonly borderColor?: string;
   readonly strokeDashArray?: number;
   readonly centerDot?: boolean;
-  readonly centerDotSize?: number;
   readonly inSelection?: boolean;
 };
 
@@ -41,13 +40,10 @@ type StopMarkerProps = PlaceholderStopMarkerProps | ExistingStopMarkerProps;
 
 export const StopMarker: FC<StopMarkerProps> = ({
   testId,
-  size = 20,
-  borderWidth = 2,
   fillColor = 'white',
   borderColor = 'black',
   strokeDashArray = 0,
   centerDot = false,
-  centerDotSize = 2,
   inSelection = false,
   onClick,
   onResolveTitle,
@@ -70,7 +66,7 @@ export const StopMarker: FC<StopMarkerProps> = ({
     [onResolveTitle],
   );
 
-  const onMouseEnter: MouseEventHandler<SVGSVGElement> = () => {
+  const onMouseEnter: MouseEventHandler<HTMLDivElement> = () => {
     setIsMouseHovering(true);
 
     if (promisedTitle === null && onResolveTitle) {
@@ -88,52 +84,42 @@ export const StopMarker: FC<StopMarkerProps> = ({
     }
   };
 
-  const onMouseLeave: MouseEventHandler<SVGSVGElement> = () => {
+  const onMouseLeave: MouseEventHandler<HTMLDivElement> = () => {
     setIsMouseHovering(false);
   };
 
-  const normalizationFactor = size / 40;
-  const normalizedBorderWidth = normalizationFactor * borderWidth;
-  const normalizedCenterDotSize = normalizationFactor * centerDotSize;
-
   return (
-    <svg
-      height={size}
-      width={size}
-      viewBox="0 0 40 40"
-      onClick={onClick ? () => onClick(stop) : undefined}
-      className="cursor-pointer rounded-full"
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div
+      className="h-[26px] w-[26px] cursor-pointer rounded-full p-[6px]"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      title={promisedTitle?.title ?? undefined}
+      onClick={onClick ? () => onClick(stop) : undefined}
     >
-      {promisedTitle?.title ? <title>{promisedTitle.title}</title> : null}
-
-      <circle
-        data-testid={testId}
-        cx={20}
-        cy={20}
-        r={20 - normalizedBorderWidth}
-        stroke={borderColor}
-        strokeDasharray={strokeDashArray}
-        strokeWidth={normalizedBorderWidth}
-        fill={fillColor}
-      />
-      {!inSelection && (centerDot || isMouseHovering) && (
+      <svg height={14} width={14} viewBox="0 0 14 14">
         <circle
-          cx={20}
-          cy={20}
-          r={normalizedCenterDotSize}
-          fill={borderColor}
+          data-testid={testId}
+          cx={7}
+          cy={7}
+          r={6}
+          stroke={borderColor}
+          strokeDasharray={strokeDashArray}
+          strokeWidth={1}
+          fill={fillColor}
         />
-      )}
+        {!inSelection && (centerDot || isMouseHovering) && (
+          <circle cx={7} cy={7} r={3} fill={borderColor} />
+        )}
 
-      {inSelection && (
-        <path
-          fillRule="evenodd"
-          d="M 20,10 C 25.5228,10 30,14.4772 30,20 30,25.5228 25.5228,30 20,30 14.4772,30 10,25.5228 10,20 10,14.4772 14.4772,10 20,10 Z M 23.6424,15.8132 18.4867,20.9666 16.2559,18.7368 C 15.7778,18.2589 15.0693,18.2419 14.5748,18.6856 L 14.5207,18.7368 C 14.025,19.2323 14.025,19.9756 14.5207,20.4711 L 18.4867,24.4353 25.4271,17.5475 C 25.9052,17.0697 25.9222,16.3615 25.4783,15.8672 L 25.4271,15.8132 C 24.8818,15.3672 24.1382,15.3672 23.6424,15.8132Z"
-          fill={borderColor}
-        />
-      )}
-    </svg>
+        {inSelection && (
+          <path
+            fillRule="evenodd"
+            d="M 9.834,3.799 5.851,7.78 4.128,6.057 C 3.758,5.688 3.211,5.675 2.829,6.018 L 2.787,6.057 C 2.404,6.44 2.404,7.014 2.787,7.397 L 5.851,10.46 11.213,5.139 C 11.582,4.77 11.595,4.222 11.252,3.841 L 11.213,3.799 C 10.791,3.454 10.217,3.454 9.834,3.799 Z"
+            fill={borderColor}
+          />
+        )}
+      </svg>
+    </div>
   );
 };
