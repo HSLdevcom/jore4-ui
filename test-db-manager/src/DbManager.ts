@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import knex, { Knex } from 'knex';
+import { Knex, knex } from 'knex';
 import { DatabaseConnectionInfo } from './config';
 
 export const getDbConnection = (knexConfig: DatabaseConnectionInfo): Knex => {

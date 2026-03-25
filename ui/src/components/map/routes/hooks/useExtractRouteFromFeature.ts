@@ -1,5 +1,11 @@
 import { gql } from '@apollo/client';
-import { length } from '@turf/turf';
+// We cannot import directly from the @turf/turf top level package in this file.
+// This file is indirectly used in a Jest based unit test, which breaks down
+// if we import in kdbush package (One of the turf modules has dep on it).
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { along } from '@turf/along';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { length } from '@turf/length';
 import type { Feature, LineString, Point } from 'geojson';
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
@@ -28,7 +34,6 @@ import { areValidityPeriodsOverlapping } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import {
   mapGeoJSONtoFeature,
-  relativeAlong,
   sortStopsOnInfraLinkComparator,
 } from '../../../../utils';
 
@@ -47,6 +52,21 @@ const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
     }
   }
 `;
+
+/**
+ * Takes a LineString and returns a Point at a specified relative distance along the line.
+ * @param feature input feature
+ * @param percentage relative distance along the line
+ * @returns Point `percentage`% along the line
+ */
+export const relativeAlong = (
+  feature: Feature<LineString>,
+  percentage: number,
+) => {
+  const featureLength = length(feature);
+
+  return along(feature, featureLength * percentage);
+};
 
 /**
  * Get RouteStops for stops along route geometry

@@ -10,7 +10,6 @@ import {
   useGetStopsByValidityLazyQuery,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
-import { buildVariantGqlFilter } from '../../../utils';
 
 export type CommonParams = {
   readonly label: string;
@@ -156,6 +155,11 @@ const buildCommonGqlFilter = (params: CommonParams) => {
     ...buildCommonGqlFilterOrConditions(params),
   };
 };
+
+/** Builds an object for gql to filter by variant */
+export const buildVariantGqlFilter = (variant?: number | null) => ({
+  variant: variant === null ? { _is_null: true } : { _eq: variant },
+});
 
 export const useCheckValidityAndPriorityConflicts = () => {
   const [getLineValidity] = useGetLinesByValidityLazyQuery();

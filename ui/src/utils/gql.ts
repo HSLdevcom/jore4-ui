@@ -119,11 +119,6 @@ export const buildLabelInGqlFilter = (labels?: ReadonlyArray<string>) => ({
   label: { _in: labels },
 });
 
-/** Builds an object for gql to filter by variant */
-export const buildVariantGqlFilter = (variant?: number | null) => ({
-  variant: variant === null ? { _is_null: true } : { _eq: variant },
-});
-
 /** Builds an object for gql to filter by label using the '_like' operator.
  * This will means that all the '%' in the label are considered as 'any'
  */
