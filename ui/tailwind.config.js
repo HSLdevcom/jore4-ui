@@ -49,6 +49,7 @@ module.exports = {
           'hsl-pink': colors.border.hslPink,
           'hsl-speedtram-turquoise': colors.border.hslSpeedtramTurquoise,
           'hsl-tram-green': colors.border.hslTramGreen,
+          weak: colors.border.weak,
         },
         'hsl-dark-80': colors.hslDark80,
         grey: colors.grey,

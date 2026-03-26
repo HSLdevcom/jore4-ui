@@ -1161,6 +1161,7 @@
       "terminal": "Terminaalit",
       "infoScreen": "Infonäytöt",
       "infoSpot": "Infopaikat",
+      "stopLabel": "Pyäsäkkitunnukset",
       "busNetwork": "Bussiverkko",
       "tramNetwork": "Raitiotieverkko"
     }

@@ -35,6 +35,7 @@ export const theme = {
       hslPink10: "#F9EFF5",
       hslSpeedtramTurquoise: "#80D9D4",
       hslTramGreen: "#80CBAF",
+      weak: "#DDDDDD",
     },
     hslDark80: "#333333",
     grey: "#888888",

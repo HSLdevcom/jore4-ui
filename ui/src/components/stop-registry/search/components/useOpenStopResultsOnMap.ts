@@ -82,6 +82,7 @@ function useSetupMapReduxStore() {
         setShowMapEntityTypesAction({
           [MapEntityType.Stop]: true,
           [MapEntityType.StopArea]: false,
+          [MapEntityType.StopLabel]: false,
           [MapEntityType.Terminal]: false,
           [MapEntityType.InfoSpot]: false,
           [MapEntityType.BusNetwork]: false,

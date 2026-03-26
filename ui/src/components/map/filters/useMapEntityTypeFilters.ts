@@ -24,6 +24,11 @@ function useInitialFilterInfo() {
 
   const initialInfoTypes: ReadonlyArray<InitialFilterItem> = [
     {
+      type: MapEntityType.StopLabel,
+      label: t('filters.mapEntityType.stopLabel'),
+      disabled: false,
+    },
+    {
       type: MapEntityType.InfoSpot,
       label: t('filters.mapEntityType.infoSpot'),
       disabled: true,
