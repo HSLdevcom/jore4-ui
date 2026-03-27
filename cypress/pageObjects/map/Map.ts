@@ -105,6 +105,10 @@ export class Map {
     );
   }
 
+  static getStopMarkerLabel() {
+    return cy.getByTestId('Map::Stops::stopMarker::Label');
+  }
+
   static getMemberStop(testStopLabel: string) {
     return cy.getByTestId(`Map::Stops::memberStop::${testStopLabel}`);
   }
