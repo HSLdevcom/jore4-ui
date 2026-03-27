@@ -1,6 +1,11 @@
 import { FC, MouseEventHandler, useEffect, useState } from 'react';
 import { MapStop } from '../types';
 
+const testIds = {
+  icon: 'Map::Stops::stopMarker::Icon',
+  label: 'Map::Stops::stopMarker::Label',
+};
+
 type PromisedTitle =
   | { readonly title: string | null; readonly promise?: never }
   | {
@@ -18,6 +23,7 @@ type StopMarkerBaseProps = {
   readonly strokeDashArray?: number;
   readonly centerDot?: boolean;
   readonly inSelection?: boolean;
+  readonly showLabel?: boolean;
 };
 
 type ExistingStopMarkerSpecialProps = {
@@ -48,6 +54,7 @@ export const StopMarker: FC<StopMarkerProps> = ({
   onClick,
   onResolveTitle,
   stop,
+  showLabel = false,
 }) => {
   const [isMouseHovering, setIsMouseHovering] = useState(false);
   const [promisedTitle, setPromisedTitle] = useState<PromisedTitle | null>(
@@ -91,15 +98,22 @@ export const StopMarker: FC<StopMarkerProps> = ({
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
-      className="h-[26px] w-[26px] cursor-pointer rounded-full p-[6px]"
+      className="flex cursor-pointer items-center rounded-full"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       title={promisedTitle?.title ?? undefined}
       onClick={onClick ? () => onClick(stop) : undefined}
+      aria-label={stop?.label}
+      data-testid={testId}
     >
-      <svg height={14} width={14} viewBox="0 0 14 14">
+      <svg
+        data-testid={testIds.icon}
+        height={26}
+        width={26}
+        className="p-[6px]"
+        viewBox="0 0 14 14"
+      >
         <circle
-          data-testid={testId}
           cx={7}
           cy={7}
           r={6}
@@ -120,6 +134,16 @@ export const StopMarker: FC<StopMarkerProps> = ({
           />
         )}
       </svg>
+
+      {showLabel && stop && (
+        <p
+          aria-hidden
+          data-testid={testIds.label}
+          className="rounded border border-border-weak bg-white/50 px-1 text-[10px] text-dark-grey"
+        >
+          {stop.label}
+        </p>
+      )}
     </div>
   );
 };

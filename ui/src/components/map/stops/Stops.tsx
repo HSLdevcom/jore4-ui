@@ -10,6 +10,7 @@ import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityEditorViewState,
+  MapEntityType,
   Operation,
   isEditorOpen,
   isPlacingOrMoving,
@@ -19,6 +20,7 @@ import {
   selectSelectedStopAreaId,
   selectSelectedStopId,
   selectSelectedTerminalId,
+  selectShowMapEntityTypes,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
@@ -100,6 +102,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   const draftLocation = useAppSelector(selectDraftLocation);
   const draftVehicleMode = useAppSelector(selectDraftVehicleMode);
   const mapStopSelection = useAppSelector(selectMapStopSelection);
+  const showStopLabels = useAppSelector(selectShowMapEntityTypes)[
+    MapEntityType.StopLabel
+  ];
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
@@ -237,6 +242,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
             mapStopViewState={mapViewState.stops}
             onClick={onClickStop}
             onResolveTitle={resolveStopHoverTitle}
+            showLabel={showStopLabels}
             stop={item}
             selected={item.netex_id === selectedStopId}
             testId={

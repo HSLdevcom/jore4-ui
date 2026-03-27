@@ -2,6 +2,7 @@
 export enum KnownMapItemTypeFilters {
   Stop = 'show-stops',
   StopArea = 'show-stop-areas',
+  StopLabel = 'show-stop-labels',
   Terminal = 'show-terminals',
   InfoScreen = 'show-info-screens',
   InfoSpot = 'show-info-spots',

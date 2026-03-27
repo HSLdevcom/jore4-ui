@@ -98,6 +98,30 @@ describe('Stop area details', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       );
     }
 
+    function assertStopLabelsAre(visible: 'visible' | 'hidden') {
+      if (visible === 'visible') {
+        Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).within(
+          () =>
+            Map.getStopMarkerLabel()
+              .shouldBeVisible()
+              .and('have.text', 'E2E001'),
+        );
+        Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).within(
+          () =>
+            Map.getStopMarkerLabel()
+              .shouldBeVisible()
+              .and('have.text', 'E2E009'),
+        );
+      } else {
+        Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).within(
+          () => Map.getStopMarkerLabel().should('not.exist'),
+        );
+        Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).within(
+          () => Map.getStopMarkerLabel().should('not.exist'),
+        );
+      }
+    }
+
     it('should filter stops', { tags: [Tag.Smoke] }, () => {
       // Wait for map to load
       Map.waitForLoadToComplete();
@@ -193,6 +217,31 @@ describe('Stop area details', { tags: [Tag.StopAreas, Tag.Map] }, () => {
         [KnownMapItemTypeFilters.Terminal]: false,
       });
       Map.getTerminalById('T2').should('not.exist');
+    });
+
+    it('should show & hide stops labels', () => {
+      // Wait for map to load
+      Map.waitForLoadToComplete();
+
+      // Make sure stops are visible
+      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      assertStopsAreVisible();
+
+      // Labels should off by default
+      assertStopLabelsAre('hidden');
+
+      // Set labels to be visible
+      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+      MapItemTypeFiltersOverlay.setFilters({
+        [KnownMapItemTypeFilters.StopLabel]: true,
+      });
+      assertStopLabelsAre('visible');
+
+      // Toggle back to hidden
+      MapItemTypeFiltersOverlay.setFilters({
+        [KnownMapItemTypeFilters.StopLabel]: false,
+      });
+      assertStopLabelsAre('hidden');
     });
   });
 });

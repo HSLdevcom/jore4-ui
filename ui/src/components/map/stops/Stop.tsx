@@ -1,3 +1,4 @@
+import type { PointLike } from 'maplibre-gl';
 import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
@@ -7,6 +8,10 @@ import { StopMarker } from '../markers';
 import { MapStop } from '../types';
 
 const { colors } = theme;
+
+// Offset from the markers left edge, to the center of the circle icon.
+// Needed to align the stop correctly, when the stop label is or isn't shown.
+const offset: PointLike = [-13, 0];
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
@@ -86,6 +91,7 @@ type BaseStopProps = {
   readonly testId?: string;
   readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
   readonly shouldBeGray?: boolean;
+  readonly showLabel?: boolean;
 };
 
 type ExistingStopSpecialProps = {
@@ -118,6 +124,7 @@ export const Stop: FC<StopProps> = ({
   onClick,
   onResolveTitle,
   stop,
+  showLabel = false,
 }) => {
   // If the stop is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
@@ -141,7 +148,13 @@ export const Stop: FC<StopProps> = ({
   );
 
   return (
-    <Marker longitude={longitude} latitude={latitude} className="z-2">
+    <Marker
+      anchor="left"
+      offset={offset}
+      longitude={longitude}
+      latitude={latitude}
+      className="z-2"
+    >
       <StopMarker
         testId={testId}
         borderColor={iconBorderColor}
@@ -150,9 +163,14 @@ export const Stop: FC<StopProps> = ({
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}
         inSelection={inSelection}
+        showLabel={showLabel}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...(stop
-          ? ({ onClick, onResolveTitle, stop } as ExistingStopSpecialProps)
+          ? ({
+              onClick,
+              onResolveTitle,
+              stop,
+            } as ExistingStopSpecialProps)
           : ({} as ExistingStopSpecialPropsNever))}
       />
     </Marker>

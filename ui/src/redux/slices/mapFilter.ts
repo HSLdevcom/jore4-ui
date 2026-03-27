@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 export enum MapEntityType {
   Stop = 'show-stops',
   StopArea = 'show-stop-areas',
+  StopLabel = 'show-stop-labels',
   Terminal = 'show-terminals',
   InfoSpot = 'show-info-spots',
   BusNetwork = 'show-bus-network',
@@ -51,6 +52,7 @@ const initialState: IState = {
   showMapEntityType: {
     [MapEntityType.Stop]: true,
     [MapEntityType.StopArea]: true,
+    [MapEntityType.StopLabel]: false,
     [MapEntityType.Terminal]: true,
     [MapEntityType.InfoSpot]: false,
     [MapEntityType.BusNetwork]: false,
