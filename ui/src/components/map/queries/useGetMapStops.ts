@@ -11,6 +11,7 @@ import { Operation } from '../../../redux';
 import { Viewport } from '../../../redux/types';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
+import { StopPlaceState } from '../../../types/stop-registry';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
 import { mapCompactOrNull } from '../../stop-registry/utils';
@@ -37,6 +38,7 @@ const GQL_GET_MAP_STOPS = gql`
     validity_start
     validity_end
     priority
+    stop_state
 
     centroid
     functional_area
@@ -113,7 +115,7 @@ function mapRawStopToMapStop(
     return null;
   }
 
-  const vehicleMode = rawStop.stop_place?.transport_mode as
+  const vehicleMode = rawStop.stop_place?.transport_mode?.toLowerCase() as
     | ReusableComponentsVehicleModeEnum
     | undefined;
 
@@ -127,6 +129,7 @@ function mapRawStopToMapStop(
     validity_end: parseDate(rawStop.validity_end),
     functional_area: parseValidNumber(rawStop.functional_area),
     vehicle_mode: vehicleMode,
+    stop_state: rawStop.stop_state as StopPlaceState,
   };
 }
 

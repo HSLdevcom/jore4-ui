@@ -14,6 +14,7 @@ import {
   selectSelectedStopId,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
+import { StopPlaceState } from '../../../../types/stop-registry';
 import {
   filterHighestPriorityCurrentStops,
   isCurrentEntity,
@@ -110,9 +111,10 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
 
   const getStopShouldBeGray = useCallback(
     (stop: MapStop): boolean =>
-      !usedStopLabels.includes(stop.label) &&
-      isCurrentEntity(observationDate, stop),
-    [observationDate, usedStopLabels],
+      (!!selectedRouteId && !usedStopLabels.includes(stop.label)) ||
+      stop.stop_state !== StopPlaceState.InOperation ||
+      !isCurrentEntity(observationDate, stop),
+    [selectedRouteId, observationDate, usedStopLabels],
   );
 
   // If editing a route, highlight stops on edited route

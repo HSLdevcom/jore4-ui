@@ -63,7 +63,6 @@ function determineFillColor(
   isSelected: boolean,
   inSelection: boolean,
   shouldBeGray: boolean,
-  stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
 ) {
   if (isSelected || asMemberStop || inSelection) {
     return 'white';
@@ -71,10 +70,6 @@ function determineFillColor(
 
   if (shouldBeGray) {
     return colors.lightGrey;
-  }
-
-  if (stopVehicleMode) {
-    return colors.stops[stopVehicleMode] ?? 'white';
   }
 
   return 'white';
@@ -144,7 +139,6 @@ export const Stop: FC<StopProps> = ({
     selected,
     inSelection,
     shouldBeGray,
-    vehicleMode,
   );
 
   return (
