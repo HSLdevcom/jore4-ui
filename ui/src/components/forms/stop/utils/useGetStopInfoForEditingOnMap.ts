@@ -7,7 +7,11 @@ import {
   useGetStopInfoForEditingOnMapQuery,
 } from '../../../../generated/graphql';
 import { RequiredNonNullableKeys } from '../../../../types';
-import { getGeometryPoint, requireValue } from '../../../../utils';
+import {
+  getGeometryPoint,
+  parseVehicleMode,
+  requireValue,
+} from '../../../../utils';
 import { StopFormState } from '../types';
 import {
   RawName,
@@ -135,6 +139,8 @@ function parseResult(
     quayId: requireValue(rawQuay.netexId),
     stopId: requireValue(rawQuay.stopPoint.id),
     stopArea: requireValue(parseStopFormStopAreaInfo(rawQuay.stopPlace)),
+    vehicleMode:
+      parseVehicleMode(rawQuay.stopPlace?.transportMode) ?? undefined,
 
     latitude: requireValue(point?.latitude),
     longitude: requireValue(point?.longitude),
