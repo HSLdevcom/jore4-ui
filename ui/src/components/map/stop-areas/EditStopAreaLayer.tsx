@@ -32,6 +32,7 @@ import {
 } from '../../stop-registry/stop-areas/stop-area-details/hooks/DeleteStopArea';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { useEnsureMapEntityTypeVisible } from '../utils/useEnsureMapEntityTypeVisible';
+import { useEnsureStopVehicleModeVisible } from '../utils/useEnsureStopVehicleModeVisible';
 import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { NewStopAreaMarker } from './NewStopAreaMarker';
@@ -79,6 +80,7 @@ export const EditStopAreaLayer = forwardRef<
 
   const setMapObservationDate = useSetMapObservationDate();
   const ensureMapEntityTypeVisible = useEnsureMapEntityTypeVisible();
+  const ensureStopVehicleModeVisible = useEnsureStopVehicleModeVisible();
 
   const onStartEditStopArea = () => {
     const point = getGeometryPoint(editedArea.geometry);
@@ -134,6 +136,7 @@ export const EditStopAreaLayer = forwardRef<
       } else {
         showSuccessToast(t('stopArea.saveSuccess'));
         ensureMapEntityTypeVisible(MapEntityType.StopArea);
+        ensureStopVehicleModeVisible(updatedStopArea?.transportMode);
       }
 
       setMapObservationDate(updatedStopArea);
