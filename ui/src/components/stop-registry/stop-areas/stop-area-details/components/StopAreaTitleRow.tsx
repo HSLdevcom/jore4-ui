@@ -29,7 +29,7 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
   const point = mapLngLatToPoint(area.geometry?.coordinates ?? []);
 
   const onClickAreaMap = point
-    ? () => showOnMap(area.id ?? undefined, point)
+    ? () => showOnMap(area.id ?? undefined, point, area.transportMode)
     : noop;
 
   const transportModeIcon = getTransportModeIcon(area.transportMode);

@@ -23,6 +23,8 @@ export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
     label: member.publicCode,
     netexId: member.netexId,
     location: getGeometryPoint(member.location),
+    priority: member.priority,
+    transportMode: member.transportMode,
   };
 
   return (

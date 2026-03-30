@@ -1,13 +1,12 @@
 import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import {
-  FilterType,
   MapEntityEditorViewState,
   resetMapState,
   setMapStopAreaViewStateAction,
   setSelectedMapStopAreaIdAction,
-  setStopFilterAction,
 } from '../../../redux';
 import { Point } from '../../../types';
+import { useEnsureStopVehicleModeVisible } from '../../map/utils/useEnsureStopVehicleModeVisible';
 import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 
 export function useShowStopAreaOnMap() {
@@ -18,17 +17,17 @@ export function useShowStopAreaOnMap() {
     initialize: false,
   });
   const navigateToMap = useNavigateToMap();
+  const ensureVehicleModeVisible = useEnsureStopVehicleModeVisible();
 
-  return (id: string | undefined, point: Point) => {
+  return (
+    id: string | undefined,
+    point: Point,
+    transportMode?: string | null,
+  ) => {
     dispatch(resetMapState()).then(() => {
       dispatch(setSelectedMapStopAreaIdAction(id));
       dispatch(setMapStopAreaViewStateAction(MapEntityEditorViewState.POPUP));
-      dispatch(
-        setStopFilterAction({
-          filterType: FilterType.ShowAllBusStops,
-          isActive: false,
-        }),
-      );
+      ensureVehicleModeVisible(transportMode);
 
       navigateToMap({
         viewPort: {

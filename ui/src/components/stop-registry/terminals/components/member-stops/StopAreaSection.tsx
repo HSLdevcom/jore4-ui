@@ -135,6 +135,8 @@ const StopRow: FC<StopRowProps> = ({ stop, observationDate }) => {
     label: stop.publicCode,
     netexId: stop.netexId,
     location: getGeometryPoint(stop.location),
+    priority: stop.priority,
+    transportMode: stop.transportMode,
   };
 
   return (

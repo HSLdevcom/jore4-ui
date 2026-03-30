@@ -33,6 +33,8 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
           label: stop.label,
           netexId: stop.quay.id,
           location,
+          priority: stop.priority,
+          transportMode: stop.stop_place?.transportMode ?? null,
         });
       }
     }
