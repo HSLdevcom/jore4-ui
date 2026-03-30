@@ -19,7 +19,7 @@ const ShowOnMapImpl: ForwardRefRenderFunction<
     <SimpleDropdownMenuItem
       ref={ref}
       className={className}
-      text={t('stopRegistrySearch.stopRowActions.showOnMap')}
+      text={t(($) => $.stopRegistrySearch.stopRowActions.showOnMap)}
       onClick={() => openStopOnMap(stop, observationDate)}
       testId={testIds.showOnMap}
     />

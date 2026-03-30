@@ -70,7 +70,7 @@ export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
             <Row className="flex-1 items-center justify-between font-normal">
               <p data-testid={testIds.vehicleType}>
                 {vehicleType &&
-                  t('timetablesPreview.vehicleType', {
+                  t(($) => $.timetablesPreview.vehicleType, {
                     vehicleTypeName: getLocalizedTextFromDbBlob(
                       vehicleType.description_i18n,
                     ),
@@ -82,12 +82,16 @@ export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
                 onToggle={toggleIsOpen}
                 iconClassName="text-[50px] text-brand"
                 openTooltip={t(
-                  'accessibility.timetables.expandScheduleBlocksPreview',
-                  { scheduleBlock: identifier },
+                  ($) => $.accessibility.timetables.expandScheduleBlocksPreview,
+                  {
+                    scheduleBlock: identifier,
+                  },
                 )}
                 closeTooltip={t(
-                  'accessibility.timetables.closeScheduleBlocksPreview',
-                  { scheduleBlock: identifier },
+                  ($) => $.accessibility.timetables.closeScheduleBlocksPreview,
+                  {
+                    scheduleBlock: identifier,
+                  },
                 )}
                 controls={identifier}
               />
@@ -99,11 +103,11 @@ export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
             className="bg-white [&>th]:px-5 [&>th]:py-2 [&>th]:text-left [&>th]:font-normal"
             data-testid={testIds.vehicleJourneyHeaders}
           >
-            <th>{t('timetablesPreview.tableHeaders.routeLabel')}</th>
-            <th>{t('timetablesPreview.tableHeaders.dayType')}</th>
-            <th>{t('timetablesPreview.tableHeaders.departureTime')}</th>
-            <th>{t('timetablesPreview.tableHeaders.endTime')}</th>
-            <th>{t('timetablesPreview.tableHeaders.contractNumber')}</th>
+            <th>{t(($) => $.timetablesPreview.tableHeaders.routeLabel)}</th>
+            <th>{t(($) => $.timetablesPreview.tableHeaders.dayType)}</th>
+            <th>{t(($) => $.timetablesPreview.tableHeaders.departureTime)}</th>
+            <th>{t(($) => $.timetablesPreview.tableHeaders.endTime)}</th>
+            <th>{t(($) => $.timetablesPreview.tableHeaders.contractNumber)}</th>
           </tr>
         )}
       </thead>

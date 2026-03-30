@@ -31,7 +31,7 @@ export const SelectMemberStopQueryStatus: FC<
   }
 
   if (loading) {
-    return <p>{t('search.searching')}</p>;
+    return <p>{t(($) => $.search.searching)}</p>;
   }
 
   return (
@@ -40,7 +40,7 @@ export const SelectMemberStopQueryStatus: FC<
       value={FETCH_MORE_OPTION}
       className={comboboxStyles.option('font-bold')}
     >
-      {t('search.showMore')}
+      {t(($) => $.search.showMore)}
     </ComboboxOption>
   );
 };

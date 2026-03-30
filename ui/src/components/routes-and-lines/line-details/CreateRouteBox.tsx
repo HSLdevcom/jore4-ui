@@ -28,13 +28,13 @@ export const CreateRouteBox: FC<CreateRouteBoxProps> = ({
           className="mb-4"
           onClick={onCreateRoute}
         >
-          {t('lines.createNewRoute')}
+          {t(($) => $.lines.createNewRoute)}
         </SimpleButton>
       )}
       {onCreateRoute ? (
-        <span>{t('lines.createNewRouteInstructions')}</span>
+        <span>{t(($) => $.lines.createNewRouteInstructions)}</span>
       ) : (
-        <span>{t('lines.cannotCreateRoute')}</span>
+        <span>{t(($) => $.lines.cannotCreateRoute)}</span>
       )}
     </Column>
   );

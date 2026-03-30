@@ -484,47 +484,57 @@ export function useDefaultErrorHandler() {
 
   return (err: Error) => {
     if (err instanceof LinkNotResolvedError) {
-      return showDangerToast(t('stops.fetchClosestLinkFailed'));
+      return showDangerToast(t(($) => $.stops.fetchClosestLinkFailed));
     }
 
     if (err instanceof DirectionNotResolvedError) {
-      return showDangerToast(t('stops.fetchDirectionFailed'));
+      return showDangerToast(t(($) => $.stops.fetchDirectionFailed));
     }
 
     if (err instanceof IncompatibleDirectionsError) {
-      return showDangerToast(t('stops.incompatibleDirections'));
+      return showDangerToast(t(($) => $.stops.incompatibleDirections));
     }
 
     if (err instanceof EditRouteTerminalStopsError) {
-      return showDangerToast(t('stops.cannotEditTerminalStops'));
+      return showDangerToast(t(($) => $.stops.cannotEditTerminalStops));
     }
 
     if (err instanceof IncompatibleWithExistingRoutesError) {
       return showDangerToast(
-        t('stops.stopBreaksRoutes', { routeLabels: err.message }),
+        t(($) => $.stops.stopBreaksRoutes, {
+          routeLabels: err.message,
+        }),
       );
     }
 
     if (err instanceof TimingPlaceRequiredError) {
       return showDangerToast(
-        t('stops.timingPlaceRequired', { routeLabels: err.message }),
+        t(($) => $.stops.timingPlaceRequired, {
+          routeLabels: err.message,
+        }),
       );
     }
 
     if (err instanceof TiamatUpdateFailedError) {
       return showDangerToast(
-        t('stops.tiamatUpdateFailed', { errorMessage: err.causeMessage }),
+        t(($) => $.stops.tiamatUpdateFailed, {
+          errorMessage: err.causeMessage,
+        }),
       );
     }
 
     if (err instanceof StopPointUpdateFailed) {
       return showDangerToast(
-        t('stops.stopPointUpdateFailed', { errorMessage: err.causeMessage }),
+        t(($) => $.stops.stopPointUpdateFailed, {
+          errorMessage: err.causeMessage,
+        }),
       );
     }
 
     // if other error happened, show the generic error message
-    return showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
+    return showDangerToast(
+      `${t(($) => $.errors.saveFailed)}, ${err}, ${err.message}`,
+    );
   };
 }
 

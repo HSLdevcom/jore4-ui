@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -73,12 +74,12 @@ function getStopPlacesToRemove(
 
 function validateSelectedStops(
   selectedStopIds: readonly string[],
-  t: (key: string) => string,
+  t: TFunction,
   isDeleting?: boolean,
 ): void {
   // When deleting a terminal, we need to be able to remove all members
   if (selectedStopIds.length === 0 && !isDeleting) {
-    throw new Error(t('terminalDetails.location.noMemberStopsSelected'));
+    throw new Error(t(($) => $.terminalDetails.location.noMemberStopsSelected));
   }
 }
 

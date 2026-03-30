@@ -60,8 +60,8 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
       isOpen={isOpen}
       onToggle={setIsOpen}
       iconClassName="text-3xl"
-      openTooltip={t('terminalDetails.infoSpots.openDetails')}
-      closeTooltip={t('terminalDetails.infoSpots.closeDetails')}
+      openTooltip={t(($) => $.terminalDetails.infoSpots.openDetails)}
+      closeTooltip={t(($) => $.terminalDetails.infoSpots.closeDetails)}
       controls={ariaControls}
       ariaLabel={infoSpot.label ?? ''}
     />
@@ -77,12 +77,12 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
           <div className="border-t border-border-hsl-commuter-train-purple py-3 pr-3 pl-5 xl:py-5">
             <span className="text-xl" data-testid={testIds.idAndQuayCell}>
               {infoSpotQuay
-                ? t('terminalDetails.infoSpots.infoSpotWithQuay', {
+                ? t(($) => $.terminalDetails.infoSpots.infoSpotWithQuay, {
                     infoSpot: infoSpot.label,
                     quayPublicCode: infoSpotQuay.publicCode,
                     quayName: stopPlaceName?.name?.value,
                   })
-                : t('terminalDetails.infoSpots.infoSpot', {
+                : t(($) => $.terminalDetails.infoSpots.infoSpot, {
                     infoSpot: infoSpot.label,
                   })}
             </span>
@@ -105,7 +105,7 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
                   inverted
                   testId={testIds.editButton}
                 >
-                  {t('edit')}
+                  {t(($) => $.edit)}
                 </SimpleButton>
 
                 {accordionButton}

@@ -74,7 +74,7 @@ const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, ToastProps> = (
       <div className={`${bg} ${border} rounded-md border`}>
         <Row>
           <IconButton
-            tooltip={t('close')}
+            tooltip={t(($) => $.close)}
             icon={
               <i className={twJoin('icon-close-large text-lg', textColor)} />
             }

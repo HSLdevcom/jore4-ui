@@ -1,10 +1,45 @@
 import { Dialog } from '@headlessui/react';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { Column, Row } from '../../../../../layoutComponents';
 import { NewModalBody, NewModalHeader } from '../../../../../uiComponents';
-import { AccessibilityLevelIcon } from './AccessibilityLevelIcon';
+import {
+  AccessibilityLevelIcon,
+  AccessibilityLevelWithIcon,
+} from './AccessibilityLevelIcon';
+
+type DescriptionSectionProps = {
+  readonly titlePrefix?: ReactNode;
+  readonly title: ReactNode;
+  readonly items: ReadonlyArray<ReactNode>;
+  readonly level?: AccessibilityLevelWithIcon | null;
+};
+
+const DescriptionSection: FC<DescriptionSectionProps> = ({
+  titlePrefix,
+  title,
+  items,
+  level,
+}) => {
+  return (
+    <div className="py-4 pr-3 pl-6 odd:bg-white even:bg-background">
+      <h3 className="text-lg">
+        {titlePrefix ? <>{titlePrefix}:</> : null} {title}
+      </h3>
+      <Row>
+        <Column>
+          <ul className="list-disc pl-4">
+            {items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Column>
+        <Column>{level && <AccessibilityLevelIcon level={level} />}</Column>
+      </Row>
+    </div>
+  );
+};
 
 type AccessibilityLevelDescriptionsDialogProps = {
   readonly isOpen: boolean;
@@ -14,158 +49,84 @@ type AccessibilityLevelDescriptionsDialogProps = {
 export const AccessibilityLevelDescriptionsDialog: FC<
   AccessibilityLevelDescriptionsDialogProps
 > = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
-
-  const translationKeys = {
-    fullyAccessible: {
-      item1: 'stopDetails.accessibilityLevelDescriptions.fullyAccessible.item1',
-      item2: 'stopDetails.accessibilityLevelDescriptions.fullyAccessible.item2',
-      item3: 'stopDetails.accessibilityLevelDescriptions.fullyAccessible.item3',
-      item4: 'stopDetails.accessibilityLevelDescriptions.fullyAccessible.item4',
-    },
-    mostlyAccessible: {
-      item1:
-        'stopDetails.accessibilityLevelDescriptions.mostlyAccessible.item1',
-      item2:
-        'stopDetails.accessibilityLevelDescriptions.mostlyAccessible.item2',
-      item3:
-        'stopDetails.accessibilityLevelDescriptions.mostlyAccessible.item3',
-      item4:
-        'stopDetails.accessibilityLevelDescriptions.mostlyAccessible.item4',
-    },
-    partiallyInaccessible: {
-      item1:
-        'stopDetails.accessibilityLevelDescriptions.partiallyInaccessible.item1',
-      item2:
-        'stopDetails.accessibilityLevelDescriptions.partiallyInaccessible.item2',
-      item3:
-        'stopDetails.accessibilityLevelDescriptions.partiallyInaccessible.item3',
-      item4:
-        'stopDetails.accessibilityLevelDescriptions.partiallyInaccessible.item4',
-    },
-    inaccessible: {
-      item1: 'stopDetails.accessibilityLevelDescriptions.inaccessible.item1',
-      item2: 'stopDetails.accessibilityLevelDescriptions.inaccessible.item2',
-      item3: 'stopDetails.accessibilityLevelDescriptions.inaccessible.item3',
-      item4: 'stopDetails.accessibilityLevelDescriptions.inaccessible.item4',
-    },
-    additionalInfo: {
-      item1: 'stopDetails.accessibilityLevelDescriptions.additionalInfo.item1',
-      item2: 'stopDetails.accessibilityLevelDescriptions.additionalInfo.item2',
-      item3: 'stopDetails.accessibilityLevelDescriptions.additionalInfo.item3',
-      item4: 'stopDetails.accessibilityLevelDescriptions.additionalInfo.item4',
-    },
-  };
-
-  const infoSectionClassName = 'odd:bg-white even:bg-background pl-6 pr-3 py-4';
-  const listStyle = 'list-disc pl-4';
+  const { t } = useTranslation('common');
+  const { t: tDescription } = useTranslation('common', {
+    keyPrefix: ($) => $.stopDetails.accessibilityLevelDescriptions,
+  });
 
   return (
     <Dialog
       open={isOpen}
       onClose={onClose}
-      /* The dialog should be positioned so that it doesn't block the stop details. Placing it on the top right of screen works in most cases. */
+      // The dialog should be positioned so that it doesn't block the stop details.
+      //  Placing it on the top right of screen works in most cases.
       className="absolute top-28 right-16 max-h-[calc(100vh-12rem)] overflow-y-auto border border-grey drop-shadow-lg"
     >
       <NewModalHeader
-        heading={t('stopDetails.accessibilityLevelDescriptions.modalTitle')}
+        heading={t(
+          ($) => $.stopDetails.accessibilityLevelDescriptions.modalTitle,
+        )}
         onClose={onClose}
         className="border-0 bg-white pb-0"
       />
       <NewModalBody className="max-w-md p-0">
-        <div className={infoSectionClassName}>
-          <h3 className="text-lg">
-            4: {t('stopAccessibilityLevelEnum.fullyAccessible')}
-          </h3>
-          <Row>
-            <Column>
-              <ul className={listStyle}>
-                <li>{t(translationKeys.fullyAccessible.item1)}</li>
-                <li>{t(translationKeys.fullyAccessible.item2)}</li>
-                <li>{t(translationKeys.fullyAccessible.item3)}</li>
-                <li>{t(translationKeys.fullyAccessible.item4)}</li>
-              </ul>
-            </Column>
-            <Column>
-              <AccessibilityLevelIcon
-                level={StopRegistryAccessibilityLevel.FullyAccessible}
-              />
-            </Column>
-          </Row>
-        </div>
-        <div className={infoSectionClassName}>
-          <h3 className="text-lg">
-            3: {t('stopAccessibilityLevelEnum.mostlyAccessible')}
-          </h3>
-          <Row>
-            <Column>
-              <ul className={listStyle}>
-                <li>{t(translationKeys.mostlyAccessible.item1)}</li>
-                <li>{t(translationKeys.mostlyAccessible.item2)}</li>
-                <li>{t(translationKeys.mostlyAccessible.item3)}</li>
-                <li>{t(translationKeys.mostlyAccessible.item4)}</li>
-              </ul>
-            </Column>
-            <Column>
-              <AccessibilityLevelIcon
-                level={StopRegistryAccessibilityLevel.MostlyAccessible}
-              />
-            </Column>
-          </Row>
-        </div>
-        <div className={infoSectionClassName}>
-          <h3 className="text-lg">
-            2: {t('stopAccessibilityLevelEnum.partiallyInaccessible')}
-          </h3>
-          <Row>
-            <Column>
-              <ul className={listStyle}>
-                <li>{t(translationKeys.partiallyInaccessible.item1)}</li>
-                <li>{t(translationKeys.partiallyInaccessible.item2)}</li>
-                <li>{t(translationKeys.partiallyInaccessible.item3)}</li>
-                <li>{t(translationKeys.partiallyInaccessible.item4)}</li>
-              </ul>
-            </Column>
-            <Column>
-              <AccessibilityLevelIcon
-                level={StopRegistryAccessibilityLevel.PartiallyInaccessible}
-              />
-            </Column>
-          </Row>
-        </div>
-        <div className={infoSectionClassName}>
-          <h3 className="text-lg">
-            1: {t('stopAccessibilityLevelEnum.inaccessible')}
-          </h3>
-          <Row>
-            <Column>
-              <ul className={listStyle}>
-                <li>{t(translationKeys.inaccessible.item1)}</li>
-                <li>{t(translationKeys.inaccessible.item2)}</li>
-                <li>{t(translationKeys.inaccessible.item3)}</li>
-                <li>{t(translationKeys.inaccessible.item4)}</li>
-              </ul>
-            </Column>
-            <Column>
-              <AccessibilityLevelIcon
-                level={StopRegistryAccessibilityLevel.Inaccessible}
-              />
-            </Column>
-          </Row>
-        </div>
-        <div className={infoSectionClassName}>
-          <h3 className="text-sm">
-            {t(
-              'stopDetails.accessibilityLevelDescriptions.additionalInfo.title',
-            )}
-          </h3>
-          <ul className={listStyle}>
-            <li>{t(translationKeys.additionalInfo.item1)}</li>
-            <li>{t(translationKeys.additionalInfo.item2)}</li>
-            <li>{t(translationKeys.additionalInfo.item3)}</li>
-            <li>{t(translationKeys.additionalInfo.item4)}</li>
-          </ul>
-        </div>
+        <DescriptionSection
+          titlePrefix={4}
+          title={t(($) => $.stopAccessibilityLevelEnum.fullyAccessible)}
+          items={[
+            tDescription(($) => $.fullyAccessible.item1),
+            tDescription(($) => $.fullyAccessible.item2),
+            tDescription(($) => $.fullyAccessible.item3),
+            tDescription(($) => $.fullyAccessible.item4),
+          ]}
+          level={StopRegistryAccessibilityLevel.FullyAccessible}
+        />
+
+        <DescriptionSection
+          titlePrefix={3}
+          title={t(($) => $.stopAccessibilityLevelEnum.mostlyAccessible)}
+          items={[
+            tDescription(($) => $.mostlyAccessible.item1),
+            tDescription(($) => $.mostlyAccessible.item2),
+            tDescription(($) => $.mostlyAccessible.item3),
+            tDescription(($) => $.mostlyAccessible.item4),
+          ]}
+          level={StopRegistryAccessibilityLevel.MostlyAccessible}
+        />
+
+        <DescriptionSection
+          titlePrefix={2}
+          title={t(($) => $.stopAccessibilityLevelEnum.partiallyInaccessible)}
+          items={[
+            tDescription(($) => $.partiallyInaccessible.item1),
+            tDescription(($) => $.partiallyInaccessible.item2),
+            tDescription(($) => $.partiallyInaccessible.item3),
+            tDescription(($) => $.partiallyInaccessible.item4),
+          ]}
+          level={StopRegistryAccessibilityLevel.PartiallyInaccessible}
+        />
+
+        <DescriptionSection
+          titlePrefix={1}
+          title={t(($) => $.stopAccessibilityLevelEnum.inaccessible)}
+          items={[
+            tDescription(($) => $.inaccessible.item1),
+            tDescription(($) => $.inaccessible.item2),
+            tDescription(($) => $.inaccessible.item3),
+            tDescription(($) => $.inaccessible.item4),
+          ]}
+          level={StopRegistryAccessibilityLevel.Inaccessible}
+        />
+
+        <DescriptionSection
+          title={tDescription(($) => $.additionalInfo.title)}
+          items={[
+            tDescription(($) => $.additionalInfo.item1),
+            tDescription(($) => $.additionalInfo.item2),
+            tDescription(($) => $.additionalInfo.item3),
+            tDescription(($) => $.additionalInfo.item4),
+          ]}
+        />
       </NewModalBody>
     </Dialog>
   );

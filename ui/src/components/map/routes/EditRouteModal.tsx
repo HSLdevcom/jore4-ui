@@ -36,7 +36,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
         bodyClassName="mx-0 my-0"
         testId={testIds.modal}
         onClose={onClose}
-        heading={t('routes.enterRouteData')}
+        heading={t(($) => $.routes.enterRouteData)}
         navigationContext="RoutePropertiesForm"
       >
         <RoutePropertiesForm

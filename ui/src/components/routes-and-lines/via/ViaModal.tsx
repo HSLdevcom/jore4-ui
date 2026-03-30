@@ -58,9 +58,12 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
       });
 
       dispatch(closeViaModalAction());
-      showSuccessToast(t('viaModal.viaSaveSuccess'));
+      showSuccessToast(t(($) => $.viaModal.viaSaveSuccess));
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
@@ -74,9 +77,12 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
       });
 
       dispatch(closeViaModalAction());
-      showSuccessToast(t('viaModal.viaRemoveSuccess'));
+      showSuccessToast(t(($) => $.viaModal.viaRemoveSuccess));
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
@@ -87,7 +93,7 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
     <Modal isOpen onClose={onClose} contentClassName={className}>
       <ModalHeader
         onClose={onClose}
-        heading={t('viaModal.viaModalTitle', {
+        heading={t(($) => $.viaModal.viaModalTitle, {
           label: stopInfo?.journey_pattern.journey_pattern_route?.label,
         })}
       />

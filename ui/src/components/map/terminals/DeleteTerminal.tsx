@@ -48,9 +48,15 @@ const getDeleteTerminalDescription = ({
 
   return (
     <span className="inline-flex flex-col gap-2">
-      <span>{t('confirmDeleteTerminalDialog.description', { count })}</span>
+      <span>
+        {t(($) => $.confirmDeleteTerminalDialog.description, {
+          count,
+        })}
+      </span>
       <span className="font-bold">{memberStops}</span>
-      <span>{t('confirmDeleteTerminalDialog.deleteTerminalDescription')}</span>
+      <span>
+        {t(($) => $.confirmDeleteTerminalDialog.deleteTerminalDescription)}
+      </span>
     </span>
   );
 };
@@ -90,12 +96,15 @@ export const DeleteTerminal: FC<DeleteTerminalProps> = ({
 
       await deleteTerminal(terminalId);
 
-      showSuccessToast(t('terminal.deleteSuccess'));
+      showSuccessToast(t(($) => $.terminal.deleteSuccess));
       setEditedTerminalData(undefined);
       setSelectedTerminalId(undefined);
       setMapTerminalViewState(MapEntityEditorViewState.NONE);
     } catch (err) {
-      showDangerToastWithError(t('errors.deleteFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.deleteFailed),
+        err,
+      );
     }
     setIsLoading(false);
   };
@@ -118,10 +127,10 @@ export const DeleteTerminal: FC<DeleteTerminalProps> = ({
       isOpen={isOpen}
       onCancel={onCancelDeleteTerminal}
       onConfirm={onConfirmDeleteTerminal}
-      title={t('confirmDeleteTerminalDialog.title')}
+      title={t(($) => $.confirmDeleteTerminalDialog.title)}
       description={getDeleteTerminalDescription({ terminal, t })}
-      confirmText={t('confirmDeleteTerminalDialog.confirmText')}
-      cancelText={t('cancel')}
+      confirmText={t(($) => $.confirmDeleteTerminalDialog.confirmText)}
+      cancelText={t(($) => $.cancel)}
       widthClassName="w-235"
     />
   );

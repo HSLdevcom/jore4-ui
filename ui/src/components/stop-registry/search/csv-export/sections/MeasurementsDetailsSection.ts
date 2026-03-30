@@ -11,37 +11,37 @@ import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
 const metaHeaders: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.measurements.title'),
+  (t) => t(($) => $.stopDetails.measurements.title),
 ];
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.measurements.stopType'),
-  (t) => t('stopDetails.measurements.curvedStop'),
-  (t) => t('stopDetails.measurements.shelterType'),
-  (t) => t('stopDetails.measurements.shelterLaneDistance'),
-  (t) => t('stopDetails.measurements.curbBackOfRailDistance'),
-  (t) => t('stopDetails.measurements.stopAreaSideSlope'),
-  (t) => t('stopDetails.measurements.stopAreaLengthwiseSlope'),
+  (t) => t(($) => $.stopDetails.measurements.stopType),
+  (t) => t(($) => $.stopDetails.measurements.curvedStop),
+  (t) => t(($) => $.stopDetails.measurements.shelterType),
+  (t) => t(($) => $.stopDetails.measurements.shelterLaneDistance),
+  (t) => t(($) => $.stopDetails.measurements.curbBackOfRailDistance),
+  (t) => t(($) => $.stopDetails.measurements.stopAreaSideSlope),
+  (t) => t(($) => $.stopDetails.measurements.stopAreaLengthwiseSlope),
 
-  (t) => t('stopDetails.measurements.structureLaneDistance'),
-  (t) => t('stopDetails.measurements.stopElevationFromRailTop'),
-  (t) => t('stopDetails.measurements.stopElevationFromSidewalk'),
-  (t) => t('stopDetails.measurements.lowerCleatHeight'),
+  (t) => t(($) => $.stopDetails.measurements.structureLaneDistance),
+  (t) => t(($) => $.stopDetails.measurements.stopElevationFromRailTop),
+  (t) => t(($) => $.stopDetails.measurements.stopElevationFromSidewalk),
+  (t) => t(($) => $.stopDetails.measurements.lowerCleatHeight),
 
-  (t) => t('stopDetails.measurements.platformEdgeWarningArea'),
-  (t) => t('stopDetails.measurements.sidewalkAccessibleConnection'),
-  (t) => t('stopDetails.measurements.guidanceStripe'),
-  (t) => t('stopDetails.measurements.serviceAreaStripes'),
-  (t) => t('stopDetails.measurements.guidanceType'),
-  (t) => t('stopDetails.measurements.guidanceTiles'),
-  (t) => t('stopDetails.measurements.mapType'),
+  (t) => t(($) => $.stopDetails.measurements.platformEdgeWarningArea),
+  (t) => t(($) => $.stopDetails.measurements.sidewalkAccessibleConnection),
+  (t) => t(($) => $.stopDetails.measurements.guidanceStripe),
+  (t) => t(($) => $.stopDetails.measurements.serviceAreaStripes),
+  (t) => t(($) => $.stopDetails.measurements.guidanceType),
+  (t) => t(($) => $.stopDetails.measurements.guidanceTiles),
+  (t) => t(($) => $.stopDetails.measurements.mapType),
 
-  (t) => t('stopDetails.measurements.curbDriveSideOfRailDistance'),
-  (t) => t('stopDetails.measurements.endRampSlope'),
-  (t) => t('stopDetails.measurements.serviceAreaWidth'),
-  (t) => t('stopDetails.measurements.serviceAreaLength'),
-  (t) => t('stopDetails.measurements.pedestrianCrossingRampType'),
-  (t) => t('stopDetails.measurements.stopAreaSurroundingsAccessible'),
+  (t) => t(($) => $.stopDetails.measurements.curbDriveSideOfRailDistance),
+  (t) => t(($) => $.stopDetails.measurements.endRampSlope),
+  (t) => t(($) => $.stopDetails.measurements.serviceAreaWidth),
+  (t) => t(($) => $.stopDetails.measurements.serviceAreaLength),
+  (t) => t(($) => $.stopDetails.measurements.pedestrianCrossingRampType),
+  (t) => t(($) => $.stopDetails.measurements.stopAreaSurroundingsAccessible),
 ];
 
 function writeRecordFields(
@@ -60,7 +60,7 @@ function writeRecordFields(
   writer.writeEnumField(details.stopType, mapStopRegistryStopTypeToUiName);
   writer.writeBooleanField(
     details.curvedStop,
-    t('stopDetails.measurements.curvedStop'),
+    t(($) => $.stopDetails.measurements.curvedStop),
   );
   writer.writeEnumField(
     details.shelterType,
@@ -78,19 +78,19 @@ function writeRecordFields(
 
   writer.writeBooleanField(
     details.platformEdgeWarningArea,
-    t('stopDetails.measurements.platformEdgeWarningArea'),
+    t(($) => $.stopDetails.measurements.platformEdgeWarningArea),
   );
   writer.writeBooleanField(
     details.sidewalkAccessibleConnection,
-    t('stopDetails.measurements.sidewalkAccessibleConnection'),
+    t(($) => $.stopDetails.measurements.sidewalkAccessibleConnection),
   );
   writer.writeBooleanField(
     details.guidanceStripe,
-    t('stopDetails.measurements.guidanceStripe'),
+    t(($) => $.stopDetails.measurements.guidanceStripe),
   );
   writer.writeBooleanField(
     details.serviceAreaStripes,
-    t('stopDetails.measurements.serviceAreaStripes'),
+    t(($) => $.stopDetails.measurements.serviceAreaStripes),
   );
   writer.writeEnumField(
     details.guidanceType,
@@ -98,7 +98,7 @@ function writeRecordFields(
   );
   writer.writeBooleanField(
     details.guidanceTiles,
-    t('stopDetails.measurements.guidanceTiles'),
+    t(($) => $.stopDetails.measurements.guidanceTiles),
   );
   writer.writeEnumField(details.mapType, mapStopRegistryMapTypeToUiName);
 
@@ -112,8 +112,8 @@ function writeRecordFields(
   );
   writer.writeTextField(
     details.stopAreaSurroundingsAccessible
-      ? t('stopDetails.measurements.accessible')
-      : t('stopDetails.measurements.inaccessible'),
+      ? t(($) => $.stopDetails.measurements.accessible)
+      : t(($) => $.stopDetails.measurements.inaccessible),
   );
 
   return undefined;

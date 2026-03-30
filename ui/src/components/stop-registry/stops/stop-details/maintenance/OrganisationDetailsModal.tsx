@@ -70,12 +70,11 @@ export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
         onClose={onClose}
         heading={
           organisation?.id
-            ? t('stopDetails.maintenance.organisation.modalTitleEdit')
-            : t('stopDetails.maintenance.organisation.modalTitleCreate')
+            ? t(($) => $.stopDetails.maintenance.organisation.modalTitleEdit)
+            : t(($) => $.stopDetails.maintenance.organisation.modalTitleCreate)
         }
         titleTestId={testIds.title}
       />
-
       <ModalBody className="w-[500px]">
         <OrganisationDetailsForm
           defaultValues={mapOrganisationToFormState(organisation)}

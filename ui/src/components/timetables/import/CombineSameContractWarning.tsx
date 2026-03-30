@@ -25,7 +25,7 @@ export const CombineSameContractWarning: FC<
         role="img"
       />
       <div className="flex flex-row">
-        {t('import.combineSameContractWarning')}
+        {t(($) => $.import.combineSameContractWarning)}
       </div>
     </div>
   );

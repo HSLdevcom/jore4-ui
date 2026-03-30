@@ -48,7 +48,9 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
       return uiNameMapper(AllOptionEnum.All as unknown as TEnum);
     }
     if (enumValues.length > 1) {
-      return t('selected', { count: enumValues.length });
+      return t(($) => $.selected, {
+        count: enumValues.length,
+      });
     }
     return uiNameMapper(enumValues[0] as unknown as TEnum);
   };

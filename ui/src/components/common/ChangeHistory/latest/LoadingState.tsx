@@ -15,7 +15,7 @@ export const LoadingState: FC<LoadingStateProps> = ({
       className="mt-5 flex justify-center"
       data-testid={`${testIdPrefix}::Loading`}
     >
-      <p>{t('changeHistory.loading')}</p>
+      <p>{t(($) => $.changeHistory.loading)}</p>
     </div>
   );
 };

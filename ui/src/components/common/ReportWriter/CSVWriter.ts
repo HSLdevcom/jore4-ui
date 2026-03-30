@@ -166,8 +166,8 @@ export class CSVWriter {
   /**
    * Write a boolean field.
    * - Nullish values count as empty fields.
-   * - True is mapped to t('yes'), or to a more fluid value if given.
-   * - False is mapped to t('no')
+   * - True is mapped to t(($) => $.yes), or to a more fluid value if given.
+   * - False is mapped to t(($) => $.no)
    *
    * @param value possibly nullish boolean value
    * @param trueOption fluid string to map the true value into
@@ -177,14 +177,14 @@ export class CSVWriter {
    */
   writeBooleanField(
     value: boolean | null | undefined,
-    trueOption: string = this.t('yes'),
+    trueOption: string = this.t(($) => $.yes),
   ) {
     switch (value) {
       case true:
         return this.writeField(escapeString(trueOption));
 
       case false:
-        return this.writeField(escapeString(this.t('no')));
+        return this.writeField(escapeString(this.t(($) => $.no)));
 
       default:
         return this.writeField('');

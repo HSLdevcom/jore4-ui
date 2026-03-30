@@ -24,7 +24,7 @@ export const DirectionDropdown: FC<DirectionDropdownProps> = ({
       onChange={onChange}
       onBlur={onBlur}
       enumType={RouteDirection}
-      placeholder={t('routes.chooseDirection')}
+      placeholder={t(($) => $.routes.chooseDirection)}
       uiNameMapper={(direction) => mapDirectionToUiName(t, direction)}
     />
   );

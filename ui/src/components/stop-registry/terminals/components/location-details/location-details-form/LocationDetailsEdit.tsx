@@ -117,7 +117,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
         selectedStops: state.selectedStops,
       });
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -171,7 +171,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               />
               <div
                 className="flex h-full items-center"
-                title={t('stopDetails.location.municipalityInputNote')}
+                title={t(($) => $.stopDetails.location.municipalityInputNote)}
               >
                 <span
                   id="terminalDetails.location.municipality"
@@ -192,7 +192,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               />
               <div
                 className="flex h-full items-center"
-                title={t('stopDetails.location.fareZoneInputNote')}
+                title={t(($) => $.stopDetails.location.fareZoneInputNote)}
               >
                 <span
                   id="terminalDetails.location.fareZone"
@@ -227,7 +227,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
           <Row className="gap-4">
             <div className="lg:w-1/2">
               <div className="mb-2 text-sm font-bold">
-                {t('terminalDetails.location.memberStopsTotal', {
+                {t(($) => $.terminalDetails.location.memberStopsTotal, {
                   total: selectedStops.length,
                 })}
               </div>

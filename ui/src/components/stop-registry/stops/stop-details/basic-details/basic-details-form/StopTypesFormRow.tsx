@@ -26,7 +26,7 @@ export const StopTypesFormRow: FC = () => {
           testId={testIds.railReplacement}
           disabled={!isBusTransportMode}
         />
-        {t('stopPlaceTypes.railReplacement')}
+        {t(($) => $.stopPlaceTypes.railReplacement)}
       </label>
       <label htmlFor="virtual" className="inline-flex font-normal">
         <InputElement<StopBasicDetailsFormState>
@@ -36,7 +36,7 @@ export const StopTypesFormRow: FC = () => {
           className="mr-3.5 h-6 w-6"
           testId={testIds.virtual}
         />
-        {t('stopPlaceTypes.virtual')}
+        {t(($) => $.stopPlaceTypes.virtual)}
       </label>
     </FormRow>
   );

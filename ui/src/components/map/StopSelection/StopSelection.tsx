@@ -75,8 +75,8 @@ export const StopSelection: FC<StopSelectionProps> = ({ align, className }) => {
             className="relative grow"
             tooltip={
               open
-                ? t('map.stopSelection.hideSelection')
-                : t('map.stopSelection.showSelection')
+                ? t(($) => $.map.stopSelection.hideSelection)
+                : t(($) => $.map.stopSelection.showSelection)
             }
             icon={
               <>

@@ -119,7 +119,7 @@ export const EditRoutePage: FC = () => {
   const onDelete = async () => {
     try {
       await deleteRoute(route?.route_id);
-      showSuccessToast(t('routes.deleteSuccess'));
+      showSuccessToast(t(($) => $.routes.deleteSuccess));
       setHasFinishedEditing(true);
     } catch (err) {
       defaultDeleteErrorHandler(err);
@@ -139,7 +139,7 @@ export const EditRoutePage: FC = () => {
     );
   }
 
-  const pageTitleText = t('lines.line', {
+  const pageTitleText = t(($) => $.lines.line, {
     label: route?.route_line?.label ?? '',
   });
 
@@ -163,7 +163,7 @@ export const EditRoutePage: FC = () => {
                 onCancel={onCancel}
                 testIdPrefix="EditRoutePage"
                 onDelete={() => setIsDeleting(true)}
-                deleteButtonText={t('map.deleteRoute')}
+                deleteButtonText={t(($) => $.map.deleteRoute)}
                 actionButtonsClassName="mb-0 border-none"
               />
             )}
@@ -178,10 +178,10 @@ export const EditRoutePage: FC = () => {
         isOpen={isDeleting}
         onCancel={() => setIsDeleting(false)}
         onConfirm={onDelete}
-        title={t('confirmDeleteRouteDialog.title')}
-        description={t('confirmDeleteRouteDialog.description')}
-        confirmText={t('confirmDeleteRouteDialog.confirmText')}
-        cancelText={t('cancel')}
+        title={t(($) => $.confirmDeleteRouteDialog.title)}
+        description={t(($) => $.confirmDeleteRouteDialog.description)}
+        confirmText={t(($) => $.confirmDeleteRouteDialog.confirmText)}
+        cancelText={t(($) => $.cancel)}
       />
       <RouteDraftStopsConfirmationDialog
         isOpen={draftStops?.length > 0}

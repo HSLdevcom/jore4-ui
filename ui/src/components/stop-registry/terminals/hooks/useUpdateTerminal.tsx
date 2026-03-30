@@ -62,7 +62,10 @@ export const useUpdateTerminal = () => {
         }
       }
 
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     },
     [t, tryHandleApolloError],
   );

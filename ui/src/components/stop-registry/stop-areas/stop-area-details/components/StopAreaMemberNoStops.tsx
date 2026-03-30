@@ -14,7 +14,7 @@ export const StopAreaMemberNoStops: FC = () => {
       data-testid={testIds.noStopsText}
     >
       <i className="icon-info text-2xl text-brand" />
-      <p>{t('stopArea.noStops')}</p>
+      <p>{t(($) => $.stopArea.noStops)}</p>
     </div>
   );
 };

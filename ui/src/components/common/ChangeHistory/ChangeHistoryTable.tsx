@@ -52,19 +52,19 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
             className={twJoin(dataColWidth, 'px-2 pb-5 pl-2 text-left xl:pr-5')}
             data-testid={testIds.name}
           >
-            {t('changeHistory.tableHeaders.name')}
+            {t(($) => $.changeHistory.tableHeaders.name)}
           </th>
           <th
             className={twJoin(dataColWidth, 'px-2 pb-5 text-left xl:px-5')}
             data-testid={testIds.oldValue}
           >
-            {t('changeHistory.tableHeaders.oldValue')}
+            {t(($) => $.changeHistory.tableHeaders.oldValue)}
           </th>
           <th
             className={twJoin(dataColWidth, 'px-2 pb-5 text-left xl:px-5')}
             data-testid={testIds.newValue}
           >
-            {t('changeHistory.tableHeaders.newValue')}
+            {t(($) => $.changeHistory.tableHeaders.newValue)}
           </th>
           {/* When on a large screen, display the validity details on separate
            *  columns. But when we are running out of space, merge those fields
@@ -79,7 +79,7 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.ValidityStart}
             >
-              {t('changeHistory.tableHeaders.validityStart')}
+              {t(($) => $.changeHistory.tableHeaders.validityStart)}
             </SortByButton>
           </th>
           <th
@@ -91,7 +91,7 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.ValidityEnd}
             >
-              {t('changeHistory.tableHeaders.validityEnd')}
+              {t(($) => $.changeHistory.tableHeaders.validityEnd)}
             </SortByButton>
           </th>
           <th
@@ -103,14 +103,14 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.ValidityStart}
             >
-              {t('changeHistory.tableHeaders.validityStart')}
+              {t(($) => $.changeHistory.tableHeaders.validityStart)}
             </SortByButton>
             <SortByButton
               setSortingInfo={setSortingInfo}
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.ValidityEnd}
             >
-              {t('changeHistory.tableHeaders.validityEnd')}
+              {t(($) => $.changeHistory.tableHeaders.validityEnd)}
             </SortByButton>
           </th>
           {/* Just like the validity columns. */}
@@ -123,7 +123,7 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.ChangedBy}
             >
-              {t('changeHistory.tableHeaders.changedBy')}
+              {t(($) => $.changeHistory.tableHeaders.changedBy)}
             </SortByButton>
           </th>
           <th
@@ -135,7 +135,7 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.Changed}
             >
-              {t('changeHistory.tableHeaders.changed')}
+              {t(($) => $.changeHistory.tableHeaders.changed)}
             </SortByButton>
           </th>
           <th
@@ -147,19 +147,18 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.ChangedBy}
             >
-              {t('changeHistory.tableHeaders.changedBy')}
+              {t(($) => $.changeHistory.tableHeaders.changedBy)}
             </SortByButton>
             <SortByButton
               setSortingInfo={setSortingInfo}
               sortingInfo={sortingInfo}
               sortBy={SortChangeHistoryBy.Changed}
             >
-              {t('changeHistory.tableHeaders.changed')}
+              {t(($) => $.changeHistory.tableHeaders.changed)}
             </SortByButton>
           </th>
         </tr>
       </thead>
-
       {children}
     </table>
   );

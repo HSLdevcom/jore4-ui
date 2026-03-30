@@ -96,7 +96,7 @@ export const DateRangeFilter: FC<DateRangeFilterProps> = ({
   return (
     <div className={className}>
       <label id={id} className="inline-block">
-        {t('changeHistory.tableHeaders.changed')}
+        {t(($) => $.changeHistory.tableHeaders.changed)}
       </label>
       <fieldset aria-labelledby={id} className="flex gap-4">
         <input

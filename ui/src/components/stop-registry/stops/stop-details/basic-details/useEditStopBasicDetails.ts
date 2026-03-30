@@ -297,12 +297,14 @@ export const useEditStopBasicDetails = () => {
   const defaultErrorHandler = (err: Error) => {
     if (err instanceof TimingPlaceRequiredError) {
       showDangerToast(
-        t('stops.timingPlaceRequired', { routeLabels: err.message }),
+        t(($) => $.stops.timingPlaceRequired, {
+          routeLabels: err.message,
+        }),
       );
       return;
     }
     // if other error happened, show the generic error message
-    showDangerToast(`${t('errors.saveFailed')}, ${err}`);
+    showDangerToast(`${t(($) => $.errors.saveFailed)}, ${err}`);
   };
 
   return {

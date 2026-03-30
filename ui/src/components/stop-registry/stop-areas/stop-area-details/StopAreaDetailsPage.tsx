@@ -55,7 +55,6 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
           <StopAreaVersioningRow area={stopPlaceDetails} />
         </>
       )}
-
       {stopPlaceDetails && !error && isValidOnObservationDate && (
         <>
           <StopAreaDetailsAndMap
@@ -72,7 +71,6 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
           />
         </>
       )}
-
       {(!stopPlaceDetails ||
         Boolean(error) ||
         (stopPlaceDetails && !isValidOnObservationDate)) && (
@@ -81,16 +79,16 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
             <MdWarning
               className="mr-2 inline h-6 w-6 text-hsl-red"
               role="img"
-              title={t(
+              title={t(($) =>
                 error
-                  ? 'stopAreaDetails.errorWhileGettingStopAreaDetails'
-                  : 'stopAreaDetails.notValidOnObservationDate',
+                  ? $.stopAreaDetails.errorWhileGettingStopAreaDetails
+                  : $.stopAreaDetails.notValidOnObservationDate,
               )}
             />
-            {t(
+            {t(($) =>
               error
-                ? 'stopAreaDetails.errorWhileGettingStopAreaDetails'
-                : 'stopAreaDetails.notValidOnObservationDate',
+                ? $.stopAreaDetails.errorWhileGettingStopAreaDetails
+                : $.stopAreaDetails.notValidOnObservationDate,
             )}
           </span>
         </div>

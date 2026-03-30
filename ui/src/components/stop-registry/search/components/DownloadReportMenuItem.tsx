@@ -54,7 +54,7 @@ const DownloadReportMenuItemImpl: ForwardRefRenderFunction<
     showSuccessToast(
       <Trans
         t={t}
-        i18nKey="stopRegistrySearch.csv.downloaded"
+        i18nKey={($) => $.stopRegistrySearch.csv.downloaded}
         components={{
           Filename: (
             <span data-testid={testIds.filename(type)}>{fileName}</span>
@@ -67,9 +67,12 @@ const DownloadReportMenuItemImpl: ForwardRefRenderFunction<
   const onGenerationError = (e: unknown) => {
     const cancellationError = AsyncTaskCancelledError.findFromErrorChain(e);
     if (cancellationError) {
-      showWarningToast(t('stopRegistrySearch.csv.generationCanceled'));
+      showWarningToast(t(($) => $.stopRegistrySearch.csv.generationCanceled));
     } else {
-      showDangerToastWithError(t('stopRegistrySearch.csv.generationError'), e);
+      showDangerToastWithError(
+        t(($) => $.stopRegistrySearch.csv.generationError),
+        e,
+      );
     }
   };
 
@@ -84,7 +87,7 @@ const DownloadReportMenuItemImpl: ForwardRefRenderFunction<
           filters,
           selection,
           filename,
-          t('stopRegistrySearch.csv.saveAs'),
+          t(($) => $.stopRegistrySearch.csv.saveAs),
           abortController.signal,
           onProgress,
         )
@@ -100,15 +103,15 @@ const DownloadReportMenuItemImpl: ForwardRefRenderFunction<
       };
 
       const onConfirmCancellation: ConfirmCancellation = () => ({
-        title: t('stopRegistrySearch.csv.confirmCancellationTitle'),
-        description: t('stopRegistrySearch.csv.confirmCancellationBody'),
-        confirmText: t('abort'),
-        cancelText: t('dontAbort'),
+        title: t(($) => $.stopRegistrySearch.csv.confirmCancellationTitle),
+        description: t(($) => $.stopRegistrySearch.csv.confirmCancellationBody),
+        confirmText: t(($) => $.abort),
+        cancelText: t(($) => $.dontAbort),
         widthClassName: 'w-235',
       });
 
       return {
-        body: t('stopRegistrySearch.csv.generationInProgress'),
+        body: t(($) => $.stopRegistrySearch.csv.generationInProgress),
         initialize,
         onCancel,
         onConfirmCancellation,

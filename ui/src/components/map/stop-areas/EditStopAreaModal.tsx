@@ -64,8 +64,10 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
     !editedArea.id && !editedArea.privateCode?.value && !editedArea.name;
 
   const heading = editedArea?.privateCode?.value
-    ? t('map.editStopArea', { stopArea: editedArea.privateCode.value })
-    : t('map.createNewStopArea');
+    ? t(($) => $.map.editStopArea, {
+        stopArea: editedArea.privateCode.value,
+      })
+    : t(($) => $.map.createNewStopArea);
 
   return (
     <CustomOverlay

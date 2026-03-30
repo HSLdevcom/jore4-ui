@@ -32,7 +32,7 @@ export const ResultsActionMenu: FC<ResultsActionMenuProps> = ({
   return (
     <SimpleDropdownMenu
       className={twJoin('pr-4', className)}
-      tooltip={t('accessibility.common.actionMenu')}
+      tooltip={t(($) => $.accessibility.common.actionMenu)}
       testId={testIds.actionMenu}
     >
       <EquipmentReportMenuItem

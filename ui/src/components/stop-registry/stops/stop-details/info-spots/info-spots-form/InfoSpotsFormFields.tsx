@@ -78,7 +78,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             className="icon-passenger-info mr-2.5 text-brand"
             role="presentation"
           />
-          {t('stopDetails.infoSpots.infoSpot', {
+          {t(($) => $.stopDetails.infoSpots.infoSpot, {
             infoSpot: infoSpotsData[infoSpotIndex]?.label,
           })}
         </span>
@@ -110,7 +110,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
               <NullableBooleanDropdown
-                placeholder={t('unknown')}
+                placeholder={t(($) => $.unknown)}
                 buttonClassName="min-w-32"
                 disabled={toBeDeleted}
                 // eslint-disable-next-line react/jsx-props-no-spreading
@@ -128,7 +128,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             inputElementRenderer={(props) => (
               <EnumDropdown<ZoneLabel>
                 enumType={ZoneLabel}
-                placeholder={t('unknown')}
+                placeholder={t(($) => $.unknown)}
                 uiNameMapper={(val) => mapZoneLabelToUiName(t, val)}
                 buttonClassName="min-w-32"
                 disabled={toBeDeleted}
@@ -174,8 +174,8 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             inverted
           >
             {toBeDeleted
-              ? t('stopDetails.infoSpots.cancelDeleteInfoSpot')
-              : t('stopDetails.infoSpots.deleteInfoSpot')}
+              ? t(($) => $.stopDetails.infoSpots.cancelDeleteInfoSpot)
+              : t(($) => $.stopDetails.infoSpots.deleteInfoSpot)}
           </SimpleButton>
         </Column>
       </div>
@@ -194,17 +194,16 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
         <Row className="items-center p-5">
           <span data-testid={testIds.noPosters}>
             <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
-            {t('stopDetails.infoSpots.noPosters')}
+            {t(($) => $.stopDetails.infoSpots.noPosters)}
           </span>
           <AddNewButton
             testId={testIds.addInfoSpotPoster}
-            label={t('stopDetails.infoSpots.addInfoSpotPoster')}
+            label={t(($) => $.stopDetails.infoSpots.addInfoSpotPoster)}
             onClick={() => addPoster(infoSpotIndex)}
             className="ml-auto"
           />
         </Row>
       )}
-
       <input
         type="checkbox"
         hidden

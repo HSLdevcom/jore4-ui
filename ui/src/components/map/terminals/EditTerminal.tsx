@@ -68,12 +68,12 @@ export const EditTerminal: FC<EditTerminalProps> = ({
       isOpen={isOpen}
       onCancel={onCancelEditTerminal}
       onConfirm={onConfirmEditTerminal}
-      title={t('confirmEditTerminalDialog.title')}
-      description={t('confirmEditTerminalDialog.description', {
+      title={t(($) => $.confirmEditTerminalDialog.title)}
+      description={t(($) => $.confirmEditTerminalDialog.description, {
         terminalName: terminal.name ?? '',
       })}
-      confirmText={t('confirmEditTerminalDialog.confirmText')}
-      cancelText={t('cancel')}
+      confirmText={t(($) => $.confirmEditTerminalDialog.confirmText)}
+      cancelText={t(($) => $.cancel)}
       widthClassName="w-235"
     />
   );

@@ -16,7 +16,7 @@ export const TerminalTypeDropdown: FC<TerminalTypeDropdownProps> = ({
   return (
     <EnumDropdown<TerminalType>
       enumType={TerminalType}
-      placeholder={t('terminal.chooseTerminalType')}
+      placeholder={t(($) => $.terminal.chooseTerminalType)}
       uiNameMapper={(val) => mapTerminalTypeToUiName(t, val)}
       value={value}
       // eslint-disable-next-line react/jsx-props-no-spreading

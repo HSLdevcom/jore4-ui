@@ -35,7 +35,7 @@ const NoFiltersHeader: FC = () => {
 
   return (
     <Row className="items-end justify-between">
-      <PageTitle.H1>{t('stops.stops')}</PageTitle.H1>
+      <PageTitle.H1>{t(($) => $.stops.stops)}</PageTitle.H1>
       <OpenDefaultMapButton />
     </Row>
   );
@@ -55,13 +55,13 @@ const ActiveFiltersHeader: FC<ActiveFiltersHeaderProps> = ({
   return (
     <Row className="items-end justify-between">
       <PageTitle.H1>
-        {t('search.searchResultsTitleFor', {
+        {t(($) => $.search.searchResultsTitleFor, {
           for: trSearchFor(t, searchFor),
         })}
       </PageTitle.H1>
       <CloseIconButton
         className="text-lg font-bold text-brand"
-        label={t('close')}
+        label={t(($) => $.close)}
         onClick={resetSearch}
         testId={testIds.closeButton}
       />

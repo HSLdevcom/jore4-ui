@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 import {
   LineTableRowFragment,
   RouteValidityFragment,
@@ -21,6 +22,8 @@ export type AlertStatus = {
 };
 
 export const useAlertsAndHighLights = () => {
+  const { t } = useTranslation();
+
   const getAlertStatus = (
     input:
       | RouteValidityFragment
@@ -40,8 +43,8 @@ export const useAlertsAndHighLights = () => {
     ) {
       return {
         alertLevel: AlertLevel.Important,
-        title: 'alert.important.topic',
-        description: 'alert.important.description',
+        title: t(($) => $.alert.important.topic),
+        description: t(($) => $.alert.important.description),
       };
     }
 
@@ -49,8 +52,8 @@ export const useAlertsAndHighLights = () => {
     if (input.priority === Priority.Temporary) {
       return {
         alertLevel: AlertLevel.Warning,
-        title: 'alert.warning.topic',
-        description: 'alert.warning.description',
+        title: t(($) => $.alert.warning.topic),
+        description: t(($) => $.alert.warning.description),
       };
     }
 

@@ -44,7 +44,9 @@ const DirectionInfo: FC<DirectionInfoProps> = ({
         {mapDirectionToSymbol(t, direction)}
       </span>
       <span data-testid={`${testId}::count`}>
-        {t('stopRegistrySearch.stopsCountShort', { count })}
+        {t(($) => $.stopRegistrySearch.stopsCountShort, {
+          count,
+        })}
       </span>
     </span>
   );
@@ -137,14 +139,13 @@ export const ActiveLineHeader: FC<ActiveLineHeaderProps> = ({
         line={line}
         stopIds={stopIds}
       />
-
       <div className="flex w-full items-center gap-4 bg-brand p-4 text-white">
         <div className="font-bold" data-testid={testIds.name}>
           {line.label} {line.name_i18n.fi_FI}
         </div>
 
         <div data-testid={testIds.validity}>
-          {t('validity.validDuring', {
+          {t(($) => $.validity.validDuring, {
             startDate: mapToShortDate(line.validity_start),
             endDate: mapToShortDate(line.validity_end),
           })}
@@ -155,7 +156,9 @@ export const ActiveLineHeader: FC<ActiveLineHeaderProps> = ({
         {counts && (
           <div>
             <span data-testid={testIds.countAll}>
-              {t('stopRegistrySearch.stopsCount', { count: counts.all })}
+              {t(($) => $.stopRegistrySearch.stopsCount, {
+                count: counts.all,
+              })}
             </span>
 
             <DirectionInfo

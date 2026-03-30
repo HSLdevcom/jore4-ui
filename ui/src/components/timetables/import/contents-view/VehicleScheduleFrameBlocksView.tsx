@@ -46,7 +46,7 @@ export const VehicleScheduleFrameBlocksView: FC<
     validityStart,
   )} - ${mapToShortDate(validityEnd)}`;
 
-  const blockCountString = `${t('timetablesPreview.blockCount', {
+  const blockCountString = `${t(($) => $.timetablesPreview.blockCount, {
     count: blocks.length,
   })}`;
 
@@ -78,18 +78,23 @@ export const VehicleScheduleFrameBlocksView: FC<
               isOpen={isOpen}
               onToggle={toggleIsOpen}
               iconClassName="text-[50px] text-white"
-              openTooltip={t('accessibility.timetables.expandSchedulePreview', {
-                vehicleScheduleFrameLabel,
-              })}
-              closeTooltip={t('accessibility.timetables.closeSchedulePreview', {
-                vehicleScheduleFrameLabel,
-              })}
+              openTooltip={t(
+                ($) => $.accessibility.timetables.expandSchedulePreview,
+                {
+                  vehicleScheduleFrameLabel,
+                },
+              )}
+              closeTooltip={t(
+                ($) => $.accessibility.timetables.closeSchedulePreview,
+                {
+                  vehicleScheduleFrameLabel,
+                },
+              )}
               controls={vehicleScheduleFrameBlocksId}
             />
           </Row>
         </Row>
       </Row>
-
       <Visible visible={isOpen}>
         <div id={vehicleScheduleFrameBlocksId} className="my-4 space-y-4">
           {blocks.map((block) => (

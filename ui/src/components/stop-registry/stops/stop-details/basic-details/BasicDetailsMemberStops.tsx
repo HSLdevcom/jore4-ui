@@ -17,5 +17,5 @@ export function getFormattedQuayCodes(
 
   return quayPublicCodes.length > 0
     ? quayPublicCodes.join(', ')
-    : t('stopDetails.basicAreaDetails.areaNoMemberStops');
+    : t(($) => $.stopDetails.basicAreaDetails.areaNoMemberStops);
 }

@@ -39,27 +39,21 @@ export const ReasonForChangeForm: FC<ReasonForChangeFormProps> = ({
 
   return (
     <Column className={className}>
-      <InputLabel
-        fieldPath={fieldPath}
-        translationPrefix={translationPrefix}
-        customTitlePath={undefined}
-      />
+      <InputLabel fieldPath={fieldPath} translationPrefix={translationPrefix} />
       <AutomaticallyResizingTextArea
         id={id}
         fieldPath={fieldPath}
         testId={testIds.reasonForChange}
         maxLength={254}
       />
-
       {characterCount >= 254 && (
         <p
           className="mt-2 text-sm font-bold text-hsl-red"
           data-testid={testIds.characterLimitReached}
         >
-          {t('reasonForChangeForm.characterLimit')}
+          {t(($) => $.reasonForChangeForm.characterLimit)}
         </p>
       )}
-
       <ValidationErrorList fieldPath={fieldPath} />
     </Column>
   );

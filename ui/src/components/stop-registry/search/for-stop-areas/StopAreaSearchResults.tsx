@@ -9,7 +9,7 @@ export const StopAreaSearchResults: FC = () => {
     <StopPlaceSearchResults
       groupingField={SortStopsBy.BY_STOP_AREA}
       placeType="area"
-      translationLabel="stopRegistrySearch.stopAreas"
+      translationLabel={($) => $.stopRegistrySearch.stopAreas}
       HeaderComponent={StopAreaHeader}
       NoStopsComponent={StopAreaSearchNoStops}
     />

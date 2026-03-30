@@ -20,7 +20,9 @@ export const TimetableIcon: FC<TimetableIconProps> = ({
   hasTimetables = false,
 }) => {
   const { t } = useTranslation();
-  const iconTitle = hasTimetables ? t('accessibility.timetables.icon') : '';
+  const iconTitle = hasTimetables
+    ? t(($) => $.accessibility.timetables.icon)
+    : '';
   const fontColor = hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400';
   return (
     <i

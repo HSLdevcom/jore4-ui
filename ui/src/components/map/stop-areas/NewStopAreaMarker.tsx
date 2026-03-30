@@ -33,7 +33,7 @@ export const NewStopAreaMarker: FC<NewStopAreaMarker> = ({ editedArea }) => {
       <StopAreaMarker
         isPlaceholder
         testId={testIds.placeholder}
-        title={t('stopArea.newStopArea')}
+        title={t(($) => $.stopArea.newStopArea)}
         color={color}
       />
     </Marker>

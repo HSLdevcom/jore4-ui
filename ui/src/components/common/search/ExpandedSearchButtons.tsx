@@ -38,7 +38,7 @@ export const ExpandedSearchButtons: FC<ExpandedSearchButtonsProps> = ({
         testId={testIds.hideButton(testIdPrefix)}
         onClick={toggleExpand}
       >
-        {t('hide')}
+        {t(($) => $.hide)}
       </SimpleButton>
       <SimpleButton
         className="w-32"
@@ -46,7 +46,7 @@ export const ExpandedSearchButtons: FC<ExpandedSearchButtonsProps> = ({
         onClick={searchButtonType === 'button' ? onSearch : undefined}
         testId={testIds.searchButton(testIdPrefix)}
       >
-        {t('search.search')}
+        {t(($) => $.search.search)}
       </SimpleButton>
     </Row>
   );

@@ -14,22 +14,22 @@ const testIds = {
 function trSortStopsBy(t: TFunction, value: SortStopsBy): ReactNode {
   switch (value) {
     case SortStopsBy.ADDRESS:
-      return t('stopRegistrySearch.sortBy.address');
+      return t(($) => $.stopRegistrySearch.sortBy.address);
 
     case SortStopsBy.LABEL:
-      return t('stopRegistrySearch.sortBy.label');
+      return t(($) => $.stopRegistrySearch.sortBy.label);
 
     case SortStopsBy.NAME:
-      return t('stopRegistrySearch.sortBy.name');
+      return t(($) => $.stopRegistrySearch.sortBy.name);
 
     case SortStopsBy.SEQUENCE_NUMBER:
-      return t('stopRegistrySearch.sortBy.sequenceNumber');
+      return t(($) => $.stopRegistrySearch.sortBy.sequenceNumber);
 
     case SortStopsBy.BY_STOP_AREA:
-      return t('stopRegistrySearch.sortBy.byStopArea');
+      return t(($) => $.stopRegistrySearch.sortBy.byStopArea);
 
     case SortStopsBy.BY_TERMINAL:
-      return t('stopRegistrySearch.sortBy.byTerminal');
+      return t(($) => $.stopRegistrySearch.sortBy.byTerminal);
 
     default:
       return null;

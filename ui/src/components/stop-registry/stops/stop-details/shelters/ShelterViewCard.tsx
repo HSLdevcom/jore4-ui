@@ -49,69 +49,69 @@ export const ShelterViewCard: FC<ShelterViewCardProps> = ({ shelter }) => {
     <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterNumber')}
+          title={t(($) => $.stopDetails.shelters.shelterNumber)}
           detail={shelter.shelterNumber}
           testId={testIds.shelterNumber}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterExternalId')}
+          title={t(($) => $.stopDetails.shelters.shelterExternalId)}
           detail={shelter.shelterExternalId}
           testId={testIds.shelterExternalId}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterType')}
+          title={t(($) => $.stopDetails.shelters.shelterType)}
           detail={shelterType}
           testId={testIds.shelterType}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterElectricity')}
+          title={t(($) => $.stopDetails.shelters.shelterElectricity)}
           detail={shelterElectricity}
           testId={testIds.shelterElectricity}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterLighting')}
+          title={t(($) => $.stopDetails.shelters.shelterLighting)}
           detail={optionalBooleanToUiText(t, shelter.shelterLighting)}
           testId={testIds.shelterLighting}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterCondition')}
+          title={t(($) => $.stopDetails.shelters.shelterCondition)}
           detail={shelterCondition}
           testId={testIds.shelterCondition}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.timetableCabinets')}
+          title={t(($) => $.stopDetails.shelters.timetableCabinets)}
           detail={shelter.timetableCabinets}
           testId={testIds.timetableCabinets}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.shelters.trashCan')}
+          title={t(($) => $.stopDetails.shelters.trashCan)}
           detail={optionalBooleanToUiText(t, shelter.trashCan)}
           testId={testIds.trashCan}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterHasDisplay')}
+          title={t(($) => $.stopDetails.shelters.shelterHasDisplay)}
           detail={optionalBooleanToUiText(t, shelter.shelterHasDisplay)}
           testId={testIds.shelterHasDisplay}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.bicycleParking')}
+          title={t(($) => $.stopDetails.shelters.bicycleParking)}
           detail={optionalBooleanToUiText(t, shelter.bicycleParking)}
           testId={testIds.bicycleParking}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.leaningRail')}
+          title={t(($) => $.stopDetails.shelters.leaningRail)}
           detail={optionalBooleanToUiText(t, shelter.leaningRail)}
           testId={testIds.leaningRail}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.outsideBench')}
+          title={t(($) => $.stopDetails.shelters.outsideBench)}
           detail={optionalBooleanToUiText(t, shelter.outsideBench)}
           testId={testIds.outsideBench}
         />
         <LabeledDetail
-          title={t('stopDetails.shelters.shelterFasciaBoardTaping')}
+          title={t(($) => $.stopDetails.shelters.shelterFasciaBoardTaping)}
           detail={optionalBooleanToUiText(t, shelter.shelterFasciaBoardTaping)}
           testId={testIds.shelterFasciaBoardTaping}
         />

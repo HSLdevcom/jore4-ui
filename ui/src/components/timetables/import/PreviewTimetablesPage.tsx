@@ -110,11 +110,11 @@ export const PreviewTimetablesPage: FC = () => {
 
   return (
     <Container>
-      <PageTitle.H1>{t('timetablesPreview.preview')}</PageTitle.H1>
+      <PageTitle.H1>{t(($) => $.timetablesPreview.preview)}</PageTitle.H1>
       <div className="overflow-none mt-9 rounded-sm border border-grey">
         <Row className="justify-between rounded-t-sm border-brand bg-brand pr-8 pl-16 text-white">
           <h2 className="py-2" data-testid={testIds.previewTitle}>
-            {t('timetablesPreview.departures', {
+            {t(($) => $.timetablesPreview.departures, {
               count: vehicleJourneyCount,
             })}
           </h2>
@@ -125,16 +125,16 @@ export const PreviewTimetablesPage: FC = () => {
               aria-hidden
             >
               {showStagingTimetables
-                ? t('timetablesPreview.closeContent')
-                : t('timetablesPreview.showContent')}
+                ? t(($) => $.timetablesPreview.closeContent)
+                : t(($) => $.timetablesPreview.showContent)}
               <AccordionButton
                 identifier="timetablesPreviewToggle"
                 testId={testIds.toggleShowStagingTimetables}
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
                 iconClassName="text-[50px] text-white"
-                openTooltip={t('accessibility.timetables.showPreview')}
-                closeTooltip={t('accessibility.timetables.closePreview')}
+                openTooltip={t(($) => $.accessibility.timetables.showPreview)}
+                closeTooltip={t(($) => $.accessibility.timetables.closePreview)}
                 controls="fileContent"
               />
             </label>
@@ -142,7 +142,7 @@ export const PreviewTimetablesPage: FC = () => {
         </Row>
         <div className="px-16 py-9">
           <Row className="items-center gap-14">
-            <h3>{t('timetablesPreview.contentUsage')}</h3>
+            <h3>{t(($) => $.timetablesPreview.contentUsage)}</h3>
             <Visible visible={formReadyForRender}>
               <ConfirmPreviewedTimetablesImportForm
                 ref={formRef}
@@ -188,14 +188,14 @@ export const PreviewTimetablesPage: FC = () => {
             disabled={isLoading}
             href={Path.timetablesImport}
           >
-            {t('timetablesPreview.closePreview')}
+            {t(($) => $.timetablesPreview.closePreview)}
           </SimpleButton>
           <SimpleButton
             testId={testIds.saveButton}
             onClick={onSave}
             disabled={!importedTimetablesExist || isLoading}
           >
-            {t('timetablesPreview.save')}
+            {t(($) => $.timetablesPreview.save)}
           </SimpleButton>
         </Row>
       </div>

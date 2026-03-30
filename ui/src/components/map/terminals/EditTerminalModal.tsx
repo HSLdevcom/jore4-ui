@@ -55,7 +55,7 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
 
   const getDefaultValues = useGetDefaultValues(editedTerminal);
 
-  const heading = editedTerminal?.name ?? t('map.createNewTerminal');
+  const heading = editedTerminal?.name ?? t(($) => $.map.createNewTerminal);
 
   return (
     <CustomOverlay

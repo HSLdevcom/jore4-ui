@@ -46,7 +46,7 @@ const OwnerDetails: FC<OwnerDetailsProps> = ({ owner, t }) => {
 
   return (
     <Popover className="ml-2 inline-block text-left">
-      <PopoverButton title={t('stopChangeHistory.ownerDetails')}>
+      <PopoverButton title={t(($) => $.stopChangeHistory.ownerDetails)}>
         <i className="icon-info text-sm text-tweaked-brand" />
       </PopoverButton>
       <PopoverPanel
@@ -86,14 +86,14 @@ export function diffOwnerDetails(
   const changes = [
     diffKeyedValues({
       key: 'StopOwner',
-      field: t('stopDetails.maintenance.maintainers.stopOwner'),
+      field: t(($) => $.stopDetails.maintenance.maintainers.stopOwner),
       oldValue: previous.quay.stopOwner,
       newValue: current.quay.stopOwner,
       mapper: mapNullable((v) => mapStopOwnerToUiName(t, v)),
     }),
     diffKeyedValues({
       key: 'ShelterMaintenance',
-      field: t('stopDetails.maintenance.maintainers.shelterMaintenance'),
+      field: t(($) => $.stopDetails.maintenance.maintainers.shelterMaintenance),
       oldValue: previousMaintainers.shelterMaintenance,
       newValue: currentMaintainers.shelterMaintenance,
       compare: compareOwners,
@@ -101,7 +101,7 @@ export function diffOwnerDetails(
     }),
     diffKeyedValues({
       key: 'Maintenance',
-      field: t('stopDetails.maintenance.maintainers.maintenance'),
+      field: t(($) => $.stopDetails.maintenance.maintainers.maintenance),
       oldValue: previousMaintainers.maintenance,
       newValue: currentMaintainers.maintenance,
       compare: compareOwners,
@@ -109,7 +109,7 @@ export function diffOwnerDetails(
     }),
     diffKeyedValues({
       key: 'WinterMaintenance',
-      field: t('stopDetails.maintenance.maintainers.winterMaintenance'),
+      field: t(($) => $.stopDetails.maintenance.maintainers.winterMaintenance),
       oldValue: previousMaintainers.winterMaintenance,
       newValue: currentMaintainers.winterMaintenance,
       compare: compareOwners,
@@ -117,7 +117,7 @@ export function diffOwnerDetails(
     }),
     diffKeyedValues({
       key: 'InfoUpkeep',
-      field: t('stopDetails.maintenance.maintainers.infoUpkeep'),
+      field: t(($) => $.stopDetails.maintenance.maintainers.infoUpkeep),
       oldValue: previousMaintainers.infoUpkeep,
       newValue: currentMaintainers.infoUpkeep,
       compare: compareOwners,
@@ -125,7 +125,7 @@ export function diffOwnerDetails(
     }),
     diffKeyedValues({
       key: 'Cleaning',
-      field: t('stopDetails.maintenance.maintainers.cleaning'),
+      field: t(($) => $.stopDetails.maintenance.maintainers.cleaning),
       oldValue: previousMaintainers.cleaning,
       newValue: currentMaintainers.cleaning,
       compare: compareOwners,

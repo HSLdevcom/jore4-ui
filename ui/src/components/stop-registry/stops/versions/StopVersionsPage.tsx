@@ -27,14 +27,20 @@ export const StopVersionsPage: FC = () => {
     useGetStopVersionPageInfo(publicCode);
 
   const titleText = stopPlaceName?.name
-    ? t('stopVersion.titleWithName', { publicCode, name: stopPlaceName.name })
-    : t(t('stopVersion.title', { publicCode }));
-
+    ? t(($) => $.stopVersion.titleWithName, {
+        publicCode,
+        name: stopPlaceName.name,
+      })
+    : t(($) => $.stopVersion.title, {
+        publicCode,
+      });
   return (
     <Container testId={testIds.container}>
       <Row className="items-end justify-between">
         <PageTitle.H1 titleText={titleText} testId={testIds.title}>
-          {t('stopVersion.title', { publicCode })}
+          {t(($) => $.stopVersion.title, {
+            publicCode,
+          })}
         </PageTitle.H1>
 
         <CloseIconButton
@@ -45,7 +51,7 @@ export const StopVersionsPage: FC = () => {
             })
           }
           testId={testIds.returnButton}
-          label={t('stopVersion.goBack')}
+          label={t(($) => $.stopVersion.goBack)}
         />
       </Row>
       <Row>
@@ -57,10 +63,9 @@ export const StopVersionsPage: FC = () => {
           </h2>
         )}
       </Row>
-
       <LoadingWrapper
         className="flex justify-center"
-        loadingText={t('stopVersion.loading')}
+        loadingText={t(($) => $.stopVersion.loading)}
         loading={loading}
         testId={testIds.loadingWrapper}
       >

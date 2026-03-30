@@ -28,17 +28,16 @@ export const ExtraActions: FC<ExtraActionsProps> = ({ className, stop }) => {
         className={className}
         buttonClassName="h-11 w-11"
         buttonShape="round"
-        tooltip={t('accessibility.common.actionMenu')}
+        tooltip={t(($) => $.accessibility.common.actionMenu)}
         testId={testIds.actionMenu}
         disabled={!stop}
       >
         <SimpleDropdownMenuItem
-          text={t('stopDetails.actions.extra.copy')}
+          text={t(($) => $.stopDetails.actions.extra.copy)}
           onClick={() => setShowCopyModal(true)}
           testId={testIds.copy}
         />
       </SimpleDropdownMenu>
-
       <CopyStopModal
         isOpen={showCopyModal}
         onClose={() => setShowCopyModal(false)}

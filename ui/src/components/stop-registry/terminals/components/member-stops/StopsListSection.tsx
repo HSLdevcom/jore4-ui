@@ -52,12 +52,11 @@ export const StopsListSection: FC<StopsProps> = ({ terminal }) => {
     <>
       <div className="flex flex-row items-center justify-between">
         <h2 data-testid={testIds.stopsTitle}>
-          {t('terminalDetails.stops.title')}
+          {t(($) => $.terminalDetails.stops.title)}
         </h2>
 
         <AddMemberStopsHeader terminal={terminal} />
       </div>
-
       {stopAreas.map((section) => (
         <StopAreaSection
           key={section.id}

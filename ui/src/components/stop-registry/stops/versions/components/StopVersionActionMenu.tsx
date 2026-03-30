@@ -23,7 +23,7 @@ export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
     <SimpleDropdownMenu
       className={className}
       buttonClassName="h-10 w-10"
-      tooltip={t('accessibility.common.actionMenu')}
+      tooltip={t(($) => $.accessibility.common.actionMenu)}
       testId={testIds.actionMenu}
     >
       <ShowOnMap stop={stop} observationDate={stop.startDate} />

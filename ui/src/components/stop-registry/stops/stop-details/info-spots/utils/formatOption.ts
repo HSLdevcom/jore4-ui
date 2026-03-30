@@ -42,11 +42,11 @@ export function formatSizeOption(option: PosterSize): string {
 
 export function formatOption(t: TFunction, option: ItemSizeState): string {
   if (option.uiState === 'UNKNOWN') {
-    return t('stopDetails.infoSpots.sizes.unknown');
+    return t(($) => $.stopDetails.infoSpots.sizes.unknown);
   }
 
   if (option.uiState === 'NEW') {
-    return t('stopDetails.infoSpots.sizes.new');
+    return t(($) => $.stopDetails.infoSpots.sizes.new);
   }
 
   assertValidSize(option);

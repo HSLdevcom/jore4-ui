@@ -47,10 +47,10 @@ export const useDeleteVehicleScheduleFrame = ({
         const errorText = getApolloErrorMessage(error);
         dispatch(
           openErrorListModalAction({
-            errorModalTitle: t('deleteTimetableModal.errorModalTitle'),
+            errorModalTitle: t(($) => $.deleteTimetableModal.errorModalTitle),
             errorList: [
               {
-                errorTitle: t('deleteTimetableModal.errorMessage'),
+                errorTitle: t(($) => $.deleteTimetableModal.errorMessage),
                 details: errorText,
                 key: errorText,
               },

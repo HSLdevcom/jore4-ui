@@ -57,7 +57,7 @@ const OwnerDetailsEditImpl: ForwardRefRenderFunction<
     try {
       await updateOwner({ terminal, state });
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error, state);

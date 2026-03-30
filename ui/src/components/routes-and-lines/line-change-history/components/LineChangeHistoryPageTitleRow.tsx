@@ -26,14 +26,14 @@ export const LineChangeHistoryPageTitleRow: FC<
 
   const name = names?.fi_FI ?? names?.sv_FI;
   const titleText = name
-    ? t('lineChangeHistory.titleWithName', { label, name })
-    : t(t('lineChangeHistory.title', { label }));
+    ? t(($) => $.lineChangeHistory.titleWithName, { label, name })
+    : t(($) => $.lineChangeHistory.title, { label });
 
   return (
     <>
       <Row className="items-end justify-between">
         <PageTitle.H1 titleText={titleText} testId={testIds.title}>
-          {t('lineChangeHistory.title', { label })}
+          {t(($) => $.lineChangeHistory.title, { label })}
         </PageTitle.H1>
 
         <CloseIconButton
@@ -44,7 +44,7 @@ export const LineChangeHistoryPageTitleRow: FC<
             })
           }
           testId={testIds.returnButton}
-          label={t('lineChangeHistory.goBack')}
+          label={t(($) => $.lineChangeHistory.goBack)}
         />
       </Row>
 

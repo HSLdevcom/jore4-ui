@@ -97,14 +97,16 @@ export function diffTimingPoints(
   return [
     diffKeyedValues({
       key: 'TimingPoints',
-      field: t('lineChangeHistory.extraFields.usedTimingPoints'),
+      field: t(($) => $.lineChangeHistory.extraFields.usedTimingPoints),
       oldValue: uniqueSortedStopLabels(previousTimingPoints),
       newValue: uniqueSortedStopLabels(currentTimingPoints),
       mapper: (stopLabels) => <RouteTimingPointsList stopLabels={stopLabels} />,
     }),
     diffKeyedValues({
       key: 'RegulatedTimingPoints',
-      field: t('lineChangeHistory.extraFields.usedRegulatedTimingPoints'),
+      field: t(
+        ($) => $.lineChangeHistory.extraFields.usedRegulatedTimingPoints,
+      ),
       oldValue: previousRegulationPoints.map(
         (it) => it.scheduled_stop_point_label,
       ),
@@ -115,7 +117,7 @@ export function diffTimingPoints(
     }),
     diffKeyedValues({
       key: 'LoadingTimeAllowedOn',
-      field: t('lineChangeHistory.extraFields.loadingTimeAllowedOn'),
+      field: t(($) => $.lineChangeHistory.extraFields.loadingTimeAllowedOn),
       oldValue: previousLoadingPoints.map(
         (it) => it.scheduled_stop_point_label,
       ),

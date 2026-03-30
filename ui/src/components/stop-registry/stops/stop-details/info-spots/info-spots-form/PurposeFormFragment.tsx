@@ -55,7 +55,7 @@ export const PurposeFormFragment = <FormState extends FieldValues>({
     const enterNewOption: PurposeOption = {
       purposeType: InfoSpotPurposeEnum.OTHER,
       customPurpose: '',
-      displayName: t('stopDetails.infoSpots.purposes.other'),
+      displayName: t(($) => $.stopDetails.infoSpots.purposes.other),
     };
 
     return [...enumOptions, ...customOptions, enterNewOption];

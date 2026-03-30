@@ -26,7 +26,7 @@ export const RouteStopsList: FC<RouteStopsListProps> = ({ t, stopLabels }) => {
           <Link
             className="flex"
             data-testid={testIds.stopLink(stopLabel)}
-            title={t('accessibility:stops.showStopDetails', {
+            title={t(($) => $.accessibility.stops.showStopDetails, {
               stopLabel,
             })}
             to={routeDetails[Path.stopDetails].getLink(stopLabel)}
@@ -48,7 +48,7 @@ export function diffStopDrivingOrder(
   return [
     diffKeyedValues({
       key: 'DrivingOrder',
-      field: t('lineChangeHistory.extraFields.drivingOrder'),
+      field: t(($) => $.lineChangeHistory.extraFields.drivingOrder),
       oldValue: previous.stops.map((it) => it.scheduled_stop_point_label),
       newValue: current.stops.map((it) => it.scheduled_stop_point_label),
       mapper: (stopLabels) => <RouteStopsList t={t} stopLabels={stopLabels} />,

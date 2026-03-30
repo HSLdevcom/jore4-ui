@@ -125,7 +125,7 @@ export const SelectTerminalMemberStopsDropdown: FC<
       <div className="text-hsl-red">
         <MdWarning className="mr-2 inline text-lg" />
         <span data-testid={testIds.warningText}>
-          {t('terminalDetails.location.noMemberStopsSelected')}
+          {t(($) => $.terminalDetails.location.noMemberStopsSelected)}
         </span>
       </div>
     );
@@ -136,7 +136,7 @@ export const SelectTerminalMemberStopsDropdown: FC<
       value={value}
       onSelectionChange={handleSelectionChange}
       renderWarning={renderWarning}
-      inputAriaLabel={t('terminalDetails.location.memberStops')}
+      inputAriaLabel={t(($) => $.terminalDetails.location.memberStops)}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...restProps}
     />

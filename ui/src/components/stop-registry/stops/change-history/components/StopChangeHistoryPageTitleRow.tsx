@@ -24,15 +24,21 @@ export const StopChangeHistoryPageTitleRow: FC<
   const goBack = useNavigateBackSafely();
 
   const titleText = name
-    ? t('stopChangeHistory.titleWithName', { publicCode, name })
-    : t(t('stopChangeHistory.title', { publicCode }));
+    ? t(($) => $.stopChangeHistory.titleWithName, {
+        publicCode,
+        name,
+      })
+    : t(($) => $.stopChangeHistory.title, {
+        publicCode,
+      });
 
   return (
     <Row className="items-end justify-between">
       <PageTitle.H1 titleText={titleText} testId={testIds.title}>
-        {t('stopChangeHistory.title', { publicCode })}
+        {t(($) => $.stopChangeHistory.title, {
+          publicCode,
+        })}
       </PageTitle.H1>
-
       <CloseIconButton
         className="font-bold text-brand [&>i]:text-xl"
         onClick={() =>
@@ -41,7 +47,7 @@ export const StopChangeHistoryPageTitleRow: FC<
           })
         }
         testId={testIds.returnButton}
-        label={t('stopChangeHistory.goBack')}
+        label={t(($) => $.stopChangeHistory.goBack)}
       />
     </Row>
   );

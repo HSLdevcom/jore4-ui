@@ -36,27 +36,27 @@ export const StopAreaDetailsView: FC<StopAreaComponentProps> = ({
     <>
       <DetailRow className={className}>
         <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.privateCode')}
+          title={t(($) => $.stopAreaDetails.basicDetails.privateCode)}
           detail={area.privateCode?.value}
           testId={testIds.privateCode}
         />
         <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.name')}
+          title={t(($) => $.stopAreaDetails.basicDetails.name)}
           detail={area.name}
           testId={testIds.name}
         />
         <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.nameSwe')}
+          title={t(($) => $.stopAreaDetails.basicDetails.nameSwe)}
           detail={area.nameSwe}
           testId={testIds.nameSwe}
         />
         <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.parentTerminal')}
+          title={t(($) => $.stopAreaDetails.basicDetails.parentTerminal)}
           detail={null}
           testId={testIds.parentTerminal}
         />
         <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.validityPeriod')}
+          title={t(($) => $.stopAreaDetails.basicDetails.validityPeriod)}
           detail={validityPeriod(area)}
           testId={testIds.validityPeriod}
         />
@@ -64,7 +64,7 @@ export const StopAreaDetailsView: FC<StopAreaComponentProps> = ({
       {area.alternativeNames && <AlternativeNames alternativeNames={area} />}
       <DetailRow className={className}>
         <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.areaSize')}
+          title={t(($) => $.stopAreaDetails.basicDetails.areaSize)}
           detail={null}
           testId={testIds.areaSize}
         />

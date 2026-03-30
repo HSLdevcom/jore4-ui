@@ -66,13 +66,14 @@ const InfoSpotTitle: FC<{
     <h4>
       <span>
         {infoSpotCount
-          ? t('stopDetails.infoSpots.title')
-          : t('stopDetails.infoSpots.titleNoInfoSpots')}{' '}
+          ? t(($) => $.stopDetails.infoSpots.title)
+          : t(($) => $.stopDetails.infoSpots.titleNoInfoSpots)}{' '}
         &nbsp;
       </span>
       <span className="font-normal">
-        {t('stopDetails.infoSpots.shelterTypeSubtitle', {
+        {t(($) => $.stopDetails.infoSpots.shelterTypeSubtitle, {
           index: shelterNumber,
+
           shelterType: mapStopRegistryShelterTypeEnumToUiName(
             t,
             shelter.shelterType ?? NullOptionEnum.Null,
@@ -117,7 +118,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
     try {
       await saveStopPlaceInfoSpots({ state });
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
       infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -141,7 +142,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
       headerButtons={
         !isInEditMode && !infoSpots.length ? (
           <EmptyListHeaderButtons
-            addNewItemText={t('stopDetails.infoSpots.addInfoSpot')}
+            addNewItemText={t(($) => $.stopDetails.infoSpots.addInfoSpot)}
             onAddNewItem={editAndAddInfoSpot}
             testIdPrefix="InfoSpotsSection"
           />
@@ -170,7 +171,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           addNewButton={
             <AddNewButton
               onClick={handleAddNewInfoSpot}
-              label={t('stopDetails.infoSpots.addInfoSpot')}
+              label={t(($) => $.stopDetails.infoSpots.addInfoSpot)}
               testId={testIds.addInfoSpot}
             />
           }

@@ -1,8 +1,8 @@
 import get from 'lodash/get';
 import { ForwardedRef, ReactElement, forwardRef } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
+import { useTranslateStringKey } from './UseTranslateStringKey';
 
 type InputLabelProps<FormState extends FieldValues> = {
   readonly className?: string;
@@ -20,7 +20,8 @@ const InputLabelImpl = <FormState extends FieldValues>(
   }: InputLabelProps<FormState>,
   ref: ForwardedRef<HTMLLabelElement>,
 ): ReactElement => {
-  const { t } = useTranslation();
+  const translateStringKey = useTranslateStringKey();
+
   const {
     formState: { errors },
   } = useFormContext<FormState>();
@@ -34,13 +35,15 @@ const InputLabelImpl = <FormState extends FieldValues>(
       ref={ref}
     >
       {customTitlePath ? (
-        t(customTitlePath)
+        translateStringKey(customTitlePath)
       ) : (
         <>
-          {/* Regex removes dot and series of numbers eg. ".10"
+          {translateStringKey(
+            /* Regex removes dot and series of numbers eg. ".10"
               This is needed for translation to work with fields that are
-              created with React Hook Form useFieldArray */}
-          {t(`${translationPrefix}.${fieldPath.replace(/\.\d+/, '')}`)}
+              created with React Hook Form useFieldArray */
+            `${translationPrefix}.${fieldPath.replace(/\.\d+/, '')}`,
+          )}
           {hasError && <span className="ml-1 text-hsl-red">*</span>}
         </>
       )}

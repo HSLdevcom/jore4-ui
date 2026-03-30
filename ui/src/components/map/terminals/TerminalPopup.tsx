@@ -73,9 +73,12 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
-                  title={t('accessibility.terminals.showTerminalDetails', {
-                    terminalLabel,
-                  })}
+                  title={t(
+                    ($) => $.accessibility.terminals.showTerminalDetails,
+                    {
+                      terminalLabel,
+                    },
+                  )}
                 >
                   <span>{terminalLabel}</span> <span>{terminalName}</span>
                   <i className="icon-open-in-new" aria-hidden />
@@ -109,7 +112,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
-            tooltip={t('remove')}
+            tooltip={t(($) => $.remove)}
           >
             <MdDelete role="presentation" className="text-xl" />
           </SimpleButton>
@@ -119,7 +122,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
             onClick={onMove}
             testId={testIds.moveButton}
           >
-            {t('move')}
+            {t(($) => $.move)}
           </SimpleButton>
 
           <SimpleButton
@@ -127,7 +130,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
             onClick={onEdit}
             testId={testIds.editButton}
           >
-            {t('edit')}
+            {t(($) => $.edit)}
           </SimpleButton>
         </Row>
       </div>

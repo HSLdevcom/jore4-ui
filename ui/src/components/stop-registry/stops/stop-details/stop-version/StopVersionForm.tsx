@@ -50,39 +50,34 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
       <FormRow>
         <ReasonForChangeForm />
       </FormRow>
-
       <FormRow>
         <PriorityForm />
       </FormRow>
-
       <FormRow>
         <ValidityPeriodForm />
       </FormRow>
-
       {existingValidityRanges && (
         <ValidityRangeIsValidVirtualField
           existingValidityRanges={existingValidityRanges}
           isEditing={isEditing}
         />
       )}
-
       {affectedLines && (
         <AffectedRouteLabels
           affectedRouteLabels={affectedLines.map((l) => l.label)}
-          text={t('stopDetails.version.fields.affectedLines')}
+          text={t(($) => $.stopDetails.version.fields.affectedLines)}
         />
       )}
-
       <Row className="-mx-12 -mb-8 justify-end gap-4 border border-light-grey bg-background px-12 py-2">
         <SimpleButton inverted onClick={onCancel} testId={testIds.cancelButton}>
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
         <SimpleButton
           type="submit"
           testId={testIds.submitButton}
           disabled={!formState.isDirty || formState.isSubmitting}
         >
-          {t('save')}
+          {t(($) => $.save)}
         </SimpleButton>
       </Row>
     </form>

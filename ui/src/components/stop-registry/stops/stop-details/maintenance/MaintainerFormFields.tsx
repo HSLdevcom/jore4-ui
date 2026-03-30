@@ -104,7 +104,7 @@ export const MaintainerFormFields: FC<MaintainerFormFieldsProps> = ({
             onClick={onEditOrganisation}
             testId={testIds.editOrganisationButton}
           >
-            {t('edit')}
+            {t(($) => $.edit)}
           </SimpleButton>
         </Visible>
       </div>

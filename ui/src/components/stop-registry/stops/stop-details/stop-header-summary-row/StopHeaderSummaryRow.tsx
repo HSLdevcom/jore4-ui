@@ -53,24 +53,21 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
           <Visible visible={isAccessible}>
             <i
               className="icon-accessible text-4xl text-dark-grey"
-              title={t('stopDetails.measurements.accessible')}
+              title={t(($) => $.stopDetails.measurements.accessible)}
               data-testid={testIds.accessibleIcon}
             />
           </Visible>
           <VerticalDivider />
         </div>
       </Visible>
-
       <NumberDetailItem
         count={lineCount}
-        translationKey="stopDetails.highlightPropertiesRow.lines"
+        translationKey={($) => $.stopDetails.highlightPropertiesRow.lines}
         testIdPrefix={testIds.lines}
         className={!anyIconsShown ? 'ml-2' : undefined}
       />
-
       {/* <VerticalDivider /> */}
       {/* TODO: Departures and other non MVP properties */}
-
       <Visible visible={showStopTypeOrState}>
         <VerticalDivider />
         <div
@@ -79,11 +76,11 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
         >
           <StopTypeLabel
             hasType={!!stopType?.railReplacement}
-            text={t('stopPlaceTypes.railReplacement')}
+            text={t(($) => $.stopPlaceTypes.railReplacement)}
           />
           <StopTypeLabel
             hasType={!!stopType?.virtual}
-            text={t('stopPlaceTypes.virtual')}
+            text={t(($) => $.stopPlaceTypes.virtual)}
           />
         </div>
         {showStopState && (

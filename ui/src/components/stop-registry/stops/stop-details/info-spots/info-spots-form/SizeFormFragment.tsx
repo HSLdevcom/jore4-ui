@@ -36,14 +36,14 @@ function usePosterSizeMenu() {
   const options = useMemo<ReadonlyArray<PosterSizeSubMenu>>(
     () => [
       {
-        label: t('stopDetails.infoSpots.sizes.standardSizes'),
+        label: t(($) => $.stopDetails.infoSpots.sizes.standardSizes),
         options: standardPosterSizes.map((it) => ({
           uiState: 'EXISTING',
           ...it.size,
         })),
       },
       {
-        label: t('stopDetails.infoSpots.sizes.extraSizes'),
+        label: t(($) => $.stopDetails.infoSpots.sizes.extraSizes),
         options: [
           UnknownMenuItem,
           NewMenuItem,

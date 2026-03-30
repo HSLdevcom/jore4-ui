@@ -41,7 +41,7 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
   const [isCopyDialogOpen, setIsCopyDialogOpen] = useState(false);
 
   const onDeleteSuccess = () => {
-    showSuccessToast(t('stopArea.deleteSuccess'));
+    showSuccessToast(t(($) => $.stopArea.deleteSuccess));
     navigate(routeDetails[Path.stopRegistry].getLink());
   };
 
@@ -51,17 +51,17 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
         className={className}
         buttonClassName="h-11 w-11"
         buttonShape="round"
-        tooltip={t('accessibility.common.actionMenu')}
+        tooltip={t(($) => $.accessibility.common.actionMenu)}
         testId={testIds.actionMenu}
         disabled={!area}
       >
         <SimpleDropdownMenuItem
-          text={t('stopArea.copy')}
+          text={t(($) => $.stopArea.copy)}
           onClick={() => setIsCopyDialogOpen(true)}
           testId={testIds.copy}
         />
         <SimpleDropdownMenuItem
-          text={t('stopArea.delete')}
+          text={t(($) => $.stopArea.delete)}
           onClick={openDeleteDialog}
           testId={testIds.delete}
         />
@@ -69,16 +69,14 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
           key="showOnMap"
           onClick={showOnMap}
           testId={testIds.showOnMap}
-          text={t('stopRegistrySearch.stopAreaRowActions.showOnMap')}
+          text={t(($) => $.stopRegistrySearch.stopAreaRowActions.showOnMap)}
         />
       </SimpleDropdownMenu>
-
       <CopyStopAreaModal
         stopArea={area}
         isOpen={isCopyDialogOpen}
         onClose={() => setIsCopyDialogOpen(false)}
       />
-
       <DeleteStopArea
         stopArea={area}
         isOpen={isConfirmDeleteDialogOpen}

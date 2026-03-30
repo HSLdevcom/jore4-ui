@@ -19,7 +19,7 @@ export const LoadingChangeHistory: FC = () => {
             data-testid={testIds.loading}
           >
             <PulseLoader color={theme.colors.brand} size={25} />
-            <span className="mt-4">{t('changeHistory.loading')}</span>
+            <span className="mt-4">{t(($) => $.changeHistory.loading)}</span>
           </div>
         </td>
       </tr>

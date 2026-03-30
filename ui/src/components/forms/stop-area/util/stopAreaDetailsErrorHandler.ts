@@ -1,21 +1,21 @@
 import { ApolloError } from '@apollo/client';
+import { SelectorParam } from 'i18next';
 import get from 'lodash/get';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TranslationKey } from '../../../../i18n';
 import { showDangerToast } from '../../../../utils';
 import { StopAreaFormState } from '../stopAreaFormSchema';
 
-const ERRORS: Readonly<Record<string, TranslationKey>> = {
-  STOP_PLACE_UNIQUE_NAME: 'stopAreaDetails.errors.stopPlacesUniqueName',
+const ERRORS: Readonly<Record<string, SelectorParam>> = {
+  STOP_PLACE_UNIQUE_NAME: ($) => $.stopAreaDetails.errors.stopPlacesUniqueName,
 
-  STOP_PLACE_UNIQUE_PRIVATE_CODE:
-    'stopAreaDetails.errors.stopPlacesUniquePrivateCode',
+  STOP_PLACE_UNIQUE_PRIVATE_CODE: ($) =>
+    $.stopAreaDetails.errors.stopPlacesUniquePrivateCode,
 };
 
 function mapApolloErrorToTranslationKey(
   error: ApolloError,
-): TranslationKey | null {
+): SelectorParam | null {
   const errorCode: unknown = get(error, ['cause', 'extensions', 'errorCode']);
   if (typeof errorCode === 'string' && errorCode in ERRORS) {
     return ERRORS[errorCode];

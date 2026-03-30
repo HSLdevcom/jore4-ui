@@ -69,7 +69,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
   return (
     <div data-testid={testIds.form} className={className}>
       <Row>
-        <h2 className="mb-8">{t('lines.properties')}</h2>
+        <h2 className="mb-8">{t(($) => $.lines.properties)}</h2>
       </Row>
       <FormColumn>
         <FormRow mdColumns={3}>
@@ -94,15 +94,15 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             htmlFor="showNameVersionsToggle"
             className="my-0 cursor-pointer text-base font-normal"
           >
-            {t('lines.showNameVersions')}
+            {t(($) => $.lines.showNameVersions)}
             <AccordionButton
               identifier="showNameVersionsToggle"
               className="ml-1"
               isOpen={showNameVersions}
               onToggle={setShowNameVersions}
               testId={testIds.showNameVersionsButton}
-              openTooltip={t('accessibility.lines.expandNameVersions')}
-              closeTooltip={t('accessibility.lines.closeNameVersions')}
+              openTooltip={t(($) => $.accessibility.lines.expandNameVersions)}
+              closeTooltip={t(($) => $.accessibility.lines.closeNameVersions)}
               controls="nameVersions"
             />
           </label>

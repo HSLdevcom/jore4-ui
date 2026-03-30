@@ -65,16 +65,16 @@ export const StopDetailsPage: FC = () => {
       <hr className="my-4" />
       <div className="my-4 flex">
         <div className="flex items-center gap-2">
-          <h2>{t('stopDetails.stopDetails')}</h2>
+          <h2>{t(($) => $.stopDetails.stopDetails)}</h2>
           <div
-            title={t('accessibility.stops.validityPeriod')}
+            title={t(($) => $.accessibility.stops.validityPeriod)}
             data-testid={testIds.validityPeriod}
             className="flex items-center"
           >
             {stopDetails?.priority === Priority.Temporary && (
               <i
                 className="icon-temporary mr-1 text-xl text-city-bicycle-yellow"
-                title={t('priority.temporary')}
+                title={t(($) => $.priority.temporary)}
               />
             )}
             {mapToShortDate(stopDetails?.validity_start)}
@@ -160,16 +160,16 @@ export const StopDetailsPage: FC = () => {
                   <MdWarning
                     className="mr-2 inline h-6 w-6 text-hsl-red"
                     role="img"
-                    title={t(
+                    title={t(($) =>
                       error
-                        ? 'stopDetails.errorWhileGettingStopDetails'
-                        : 'stopDetails.notValidOnObservationDate',
+                        ? $.stopDetails.errorWhileGettingStopDetails
+                        : $.stopDetails.notValidOnObservationDate,
                     )}
                   />
-                  {t(
+                  {t(($) =>
                     error
-                      ? 'stopDetails.errorWhileGettingStopDetails'
-                      : 'stopDetails.notValidOnObservationDate',
+                      ? $.stopDetails.errorWhileGettingStopDetails
+                      : $.stopDetails.notValidOnObservationDate,
                   )}
                 </span>
               </div>

@@ -93,7 +93,6 @@ export const RouteInfoRow: FC<RouteInfoRowProps> = ({
         stops={stops}
         route={route}
       />
-
       <div
         className="flex w-full items-center border-x border-t border-x-light-grey border-t-light-grey"
         data-testid={testIds.container(route.route_id)}
@@ -121,7 +120,7 @@ export const RouteInfoRow: FC<RouteInfoRowProps> = ({
           className="px-8 py-3 text-right font-bold whitespace-nowrap"
           data-testid={testIds.validity}
         >
-          {t('validity.validDuring', {
+          {t(($) => $.validity.validDuring, {
             startDate: mapToShortDate(route.validity_start),
             endDate: mapToShortDate(route.validity_end),
           })}
@@ -131,7 +130,7 @@ export const RouteInfoRow: FC<RouteInfoRowProps> = ({
           <LocatorButton
             onClick={() => showRouteOnMap(route)}
             testId={testIds.locatorButton}
-            tooltipText={t('accessibility.common.showOnMap', {
+            tooltipText={t(($) => $.accessibility.common.showOnMap, {
               label: route.label,
             })}
           />

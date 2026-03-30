@@ -38,7 +38,7 @@ export const StopSearchByStopResults: FC = () => {
   return (
     <LoadingWrapper
       className="flex justify-center"
-      loadingText={t('search.searching')}
+      loadingText={t(($) => $.search.searching)}
       loading={resultCount === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >
@@ -63,7 +63,6 @@ export const StopSearchByStopResults: FC = () => {
           stops={stops}
         />
       )}
-
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
           <Pagination

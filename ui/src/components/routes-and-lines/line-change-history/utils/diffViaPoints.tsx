@@ -55,7 +55,7 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
           className="flex items-start gap-2 pl-1.5 not-first:mt-2"
           data-testid={testIds.viaPoint(viaPoint.scheduled_stop_point_label)}
         >
-          {t('lineChangeHistory.viaPoint', {
+          {t(($) => $.lineChangeHistory.viaPoint, {
             label: viaPoint.scheduled_stop_point_label,
             name: viaPoint.via_point_name_i18n?.fi_FI ?? '',
           })}
@@ -63,7 +63,7 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
           <Popover className="inline-block">
             <PopoverButton
               data-testid={testIds.openButton}
-              title={t('lineChangeHistory.viaPointDetails')}
+              title={t(($) => $.lineChangeHistory.viaPointDetails)}
             >
               <i className="icon-info text-sm text-tweaked-brand" />
             </PopoverButton>
@@ -75,14 +75,14 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
                 <dl className="text-sm">
                   <Definition
                     testId={testIds.nameFi}
-                    dt={t('viaModal.viaPointName.fi_FI')}
+                    dt={t(($) => $.viaModal.viaPointName.fi_FI)}
                     dd={getFinalValueForDisplay(
                       viaPoint.via_point_name_i18n?.fi_FI,
                     )}
                   />
                   <Definition
                     testId={testIds.nameSv}
-                    dt={t('viaModal.viaPointName.sv_FI')}
+                    dt={t(($) => $.viaModal.viaPointName.sv_FI)}
                     dd={getFinalValueForDisplay(
                       viaPoint.via_point_name_i18n?.sv_FI,
                     )}
@@ -90,14 +90,14 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
 
                   <Definition
                     testId={testIds.shortNameFi}
-                    dt={t('viaModal.viaPointShortName.fi_FI')}
+                    dt={t(($) => $.viaModal.viaPointShortName.fi_FI)}
                     dd={getFinalValueForDisplay(
                       viaPoint.via_point_short_name_i18n?.fi_FI,
                     )}
                   />
                   <Definition
                     testId={testIds.shortNameSv}
-                    dt={t('viaModal.viaPointShortName.sv_FI')}
+                    dt={t(($) => $.viaModal.viaPointShortName.sv_FI)}
                     dd={getFinalValueForDisplay(
                       viaPoint.via_point_short_name_i18n?.sv_FI,
                     )}
@@ -158,7 +158,7 @@ export function diffViaPoints(
   return [
     diffKeyedValues({
       key: 'ViaPoints',
-      field: t('lineChangeHistory.extraFields.viaPoints'),
+      field: t(($) => $.lineChangeHistory.extraFields.viaPoints),
       compare: areViaPointDetailsEqual,
       oldValue: previousViaPoints,
       newValue: currentViaPoints,

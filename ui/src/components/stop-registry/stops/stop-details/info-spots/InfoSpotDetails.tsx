@@ -20,12 +20,12 @@ export const InfoSpotDetails: FC<InfoSpotDetailsProps> = ({ infoSpot }) => {
   return (
     <>
       <LabeledDetail
-        title={t('stopDetails.infoSpots.size')}
+        title={t(($) => $.stopDetails.infoSpots.size)}
         detail={formatSizedDbItem(t, infoSpot)}
         testId={testIds.size}
       />
       <LabeledDetail
-        title={t('stopDetails.infoSpots.backlight')}
+        title={t(($) => $.stopDetails.infoSpots.backlight)}
         detail={optionalBooleanToUiText(t, infoSpot.backlight)}
         testId={testIds.backlight}
       />

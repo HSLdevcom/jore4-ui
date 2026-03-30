@@ -60,7 +60,7 @@ export const ChooseRouteDropdown: FC<ChooseRouteDropdownProps> = ({
       <div className="w-full">
         {displayedRoute
           ? `${displayedRoute.label} (${displayedRoute.name_i18n?.fi_FI})`
-          : t('routes.chooseRoute')}
+          : t(($) => $.routes.chooseRoute)}
       </div>
     );
   };

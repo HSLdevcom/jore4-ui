@@ -25,7 +25,11 @@ export const LineSelector: FC<LineSelectorProps> = ({ className, lines }) => {
     <StopGroupSelector
       className={className}
       groups={groups}
-      label={(count) => t('stopRegistrySearch.lines', { count })}
+      label={(count) =>
+        t(($) => $.stopRegistrySearch.lines, {
+          count,
+        })
+      }
     />
   );
 };

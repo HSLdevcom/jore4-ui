@@ -28,16 +28,16 @@ export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
       className="relative inline-flex h-auto"
       disabled={disabled}
       testId={testIds.menu}
-      tooltip={t('map.footerActionsTooltip')}
+      tooltip={t(($) => $.map.footerActionsTooltip)}
     >
       <SimpleDropdownMenuItem
         onClick={onCreateNewTerminal}
-        text={t('map.createNewTerminal')}
+        text={t(($) => $.map.createNewTerminal)}
         testId={testIds.createNewTerminal}
       />
       <SimpleDropdownMenuItem
         onClick={onCreateNewStopArea}
-        text={t('map.createNewStopArea')}
+        text={t(($) => $.map.createNewStopArea)}
         testId={testIds.createNewStopArea}
       />
     </SimpleDropdownMenu>

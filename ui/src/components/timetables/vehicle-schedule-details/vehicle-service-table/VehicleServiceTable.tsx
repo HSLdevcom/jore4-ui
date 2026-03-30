@@ -136,7 +136,7 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
         </div>
       </Visible>
       <Visible visible={!hasVehicleJourneys}>
-        <p className="text-center">{t('timetables.noTraffic')}</p>
+        <p className="text-center">{t(($) => $.timetables.noTraffic)}</p>
       </Visible>
     </div>
   );

@@ -80,16 +80,16 @@ export const SubstituteDaySettingsPage: FC = () => {
   return (
     <Container>
       <Row className="justify-between py-8">
-        <PageTitle.H1>{t('timetables.daySettings')}</PageTitle.H1>
+        <PageTitle.H1>{t(($) => $.timetables.daySettings)}</PageTitle.H1>
         <CloseIconButton
           testId={testIds.closeButton}
-          label={t('close')}
+          label={t(($) => $.close)}
           className="text-base font-bold text-brand"
           onClick={handleClose}
         />
       </Row>
       <div className="space-y-4 rounded-md bg-hsl-neutral-blue px-8 pt-10 pb-4">
-        <h4>{t('timetables.filter')}</h4>
+        <h4>{t(($) => $.timetables.filter)}</h4>
         <ObservationPeriodForm
           dateRange={dateRange}
           setDateRange={setDateRange}
@@ -110,10 +110,16 @@ export const SubstituteDaySettingsPage: FC = () => {
         isOpen={isOpen}
         onCancel={() => setIsOpen(false)}
         onConfirm={closePage}
-        title={t('confirmSubstituteDaySettingsPageLeave.title')}
-        description={t('confirmSubstituteDaySettingsPageLeave.description')}
-        confirmText={t('confirmSubstituteDaySettingsPageLeave.confirmText')}
-        cancelText={t('confirmSubstituteDaySettingsPageLeave.cancelText')}
+        title={t(($) => $.confirmSubstituteDaySettingsPageLeave.title)}
+        description={t(
+          ($) => $.confirmSubstituteDaySettingsPageLeave.description,
+        )}
+        confirmText={t(
+          ($) => $.confirmSubstituteDaySettingsPageLeave.confirmText,
+        )}
+        cancelText={t(
+          ($) => $.confirmSubstituteDaySettingsPageLeave.cancelText,
+        )}
       />
     </Container>
   );

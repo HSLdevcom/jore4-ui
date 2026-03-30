@@ -85,16 +85,16 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
           inverted
           disabled={infoSpotToBeDeleted}
         >
-          {t(
+          {t(($) =>
             toBeDeletedPoster
-              ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
-              : 'stopDetails.infoSpots.deleteInfoSpotPoster',
+              ? $.stopDetails.infoSpots.cancelDeleteInfoSpot
+              : $.stopDetails.infoSpots.deleteInfoSpotPoster,
           )}
         </SimpleButton>
         {isLastPoster && !infoSpotToBeDeleted && (
           <AddNewButton
             testId={testIds.addInfoSpotPoster}
-            label={t('stopDetails.infoSpots.addInfoSpotPoster')}
+            label={t(($) => $.stopDetails.infoSpots.addInfoSpotPoster)}
             onClick={() => addPoster(infoSpotIndex)}
             className="ml-auto"
           />

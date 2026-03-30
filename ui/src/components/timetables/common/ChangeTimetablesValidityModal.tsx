@@ -47,7 +47,7 @@ export const ChangeTimetablesValidityModal: FC<
       const { vehicleScheduleFrameId } = changeTimetableValidityModalState;
       await updateValidity(state.validityStart, state.validityEnd);
 
-      showSuccessToast(t('changeTimetablesValidityModal.saveSuccess'));
+      showSuccessToast(t(($) => $.changeTimetablesValidityModal.saveSuccess));
 
       if (vehicleScheduleFrameId) {
         dispatch(
@@ -63,7 +63,10 @@ export const ChangeTimetablesValidityModal: FC<
       }
       onClose();
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
@@ -79,7 +82,7 @@ export const ChangeTimetablesValidityModal: FC<
     >
       <ModalHeader
         onClose={wrappedOnClose}
-        heading={t('changeTimetablesValidityModal.title')}
+        heading={t(($) => $.changeTimetablesValidityModal.title)}
       />
       <ModalBody>
         <ChangeTimetablesValidityForm

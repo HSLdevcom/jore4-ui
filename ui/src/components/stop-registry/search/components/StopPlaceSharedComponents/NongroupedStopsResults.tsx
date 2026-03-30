@@ -54,7 +54,7 @@ export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
   return (
     <LoadingWrapper
       className="flex justify-center"
-      loadingText={t('search.searching')}
+      loadingText={t(($) => $.search.searching)}
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
@@ -68,7 +68,6 @@ export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
         resultSelection={resultSelection}
         stopPlaceIds={stopPlaceIds}
       />
-
       {error ? (
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       ) : (
@@ -79,7 +78,6 @@ export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
           stops={stops}
         />
       )}
-
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
           <Pagination

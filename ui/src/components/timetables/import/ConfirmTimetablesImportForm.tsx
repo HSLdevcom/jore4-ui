@@ -83,7 +83,9 @@ export const ConfirmTimetablesImportForm: FC<
         ref={formRef}
       >
         <div className="space-y-7">
-          <h3>{t('confirmTimetablesImportModal.importStrategy.title')}</h3>
+          <h3>
+            {t(($) => $.confirmTimetablesImportModal.importStrategy.title)}
+          </h3>
           <TimetableImportStrategyForm
             testIdPrefix={testIds.strategyRadioButtonPrefix}
           />
@@ -95,7 +97,7 @@ export const ConfirmTimetablesImportForm: FC<
             />
           </Visible>
 
-          <h3>{t('confirmTimetablesImportModal.priority')}</h3>
+          <h3>{t(($) => $.confirmTimetablesImportModal.priority)}</h3>
           <TimetablesImportPriorityForm />
 
           <Visible visible={inconsistentSpecialDayPrioritiesStaged}>
@@ -108,10 +110,10 @@ export const ConfirmTimetablesImportForm: FC<
               onClick={onCancel}
               inverted
             >
-              {t('cancel')}
+              {t(($) => $.cancel)}
             </SimpleButton>
             <SimpleButton testId={testIds.saveButton} onClick={onSave}>
-              {t('save')}
+              {t(($) => $.save)}
             </SimpleButton>
           </Row>
         </div>

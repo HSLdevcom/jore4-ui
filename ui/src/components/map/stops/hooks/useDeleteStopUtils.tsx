@@ -96,7 +96,7 @@ export function useDeleteStopUtils(
       await removeStop(deleteChanges);
       setDeleteChanges(null);
 
-      showSuccessToast(t('stops.removeSuccess'));
+      showSuccessToast(t(($) => $.stops.removeSuccess));
       onFinishEditing(null);
     } catch (err) {
       deleteErrorHandler(err as Error);

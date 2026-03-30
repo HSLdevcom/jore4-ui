@@ -16,7 +16,7 @@ const options: ReadonlyArray<StopPlaceState | AllOptionEnum> = [
 ];
 
 const uiNameMapper = mapStopPlaceStateToUiName.extend({
-  [AllOptionEnum.All]: (t) => t('all'),
+  [AllOptionEnum.All]: (t) => t(($) => $.all),
 });
 
 const defaultValue: ReadonlyArray<StopPlaceState | AllOptionEnum> = [

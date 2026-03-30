@@ -8,32 +8,36 @@ export const mapHastusErrorTypeToErrorMessage = (
   switch (errorType) {
     case HastusApiErrorType.CannotFindJourneyPatternRefByRouteLabelAndDirectionError:
       return t(
-        'hastusApiErrors.cannotFindJourneyPatternRefByRouteLabelAndDirectionError',
+        ($) =>
+          $.hastusApiErrors
+            .cannotFindJourneyPatternRefByRouteLabelAndDirectionError,
       );
     case HastusApiErrorType.CannotFindJourneyPatternRefByStopPointLabelsError:
       return t(
-        'hastusApiErrors.cannotFindJourneyPatternRefByStopPointLabelsError',
+        ($) =>
+          $.hastusApiErrors.cannotFindJourneyPatternRefByStopPointLabelsError,
       );
     case HastusApiErrorType.CannotFindJourneyPatternRefByTimingPlaceLabelsError:
       return t(
-        'hastusApiErrors.cannotFindJourneyPatternRefByTimingPlaceLabelsError',
+        ($) =>
+          $.hastusApiErrors.cannotFindJourneyPatternRefByTimingPlaceLabelsError,
       );
     case HastusApiErrorType.ErrorWhileProcessingHastusDataError:
-      return t('hastusApiErrors.errorWhileProcessingHastusDataError');
+      return t(($) => $.hastusApiErrors.errorWhileProcessingHastusDataError);
     case HastusApiErrorType.FirstStopNotTimingPointError:
-      return t('hastusApiErrors.firstStopNotTimingPointError');
+      return t(($) => $.hastusApiErrors.firstStopNotTimingPointError);
     case HastusApiErrorType.GraphQLAuthenticationFailedError:
-      return t('hastusApiErrors.graphQLAuthenticationFailedError');
+      return t(($) => $.hastusApiErrors.graphQLAuthenticationFailedError);
     case HastusApiErrorType.IllegalArgumentError:
-      return t('hastusApiErrors.illegalArgumentError');
+      return t(($) => $.hastusApiErrors.illegalArgumentError);
     case HastusApiErrorType.InvalidHastusDataError:
-      return t('hastusApiErrors.invalidHastusDataError');
+      return t(($) => $.hastusApiErrors.invalidHastusDataError);
     case HastusApiErrorType.LastStopNotTimingPointError:
-      return t('hastusApiErrors.lastStopNotTimingPointError');
+      return t(($) => $.hastusApiErrors.lastStopNotTimingPointError);
     case HastusApiErrorType.TooFewStopPointsError:
-      return t('hastusApiErrors.tooFewStopPointsError');
+      return t(($) => $.hastusApiErrors.tooFewStopPointsError);
     case HastusApiErrorType.UnknownError:
     default:
-      return t('hastusApiErrors.unknownError');
+      return t(($) => $.hastusApiErrors.unknownError);
   }
 };

@@ -6,24 +6,24 @@ import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
 const metaHeaders: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.location.title'),
+  (t) => t(($) => $.stopDetails.location.title),
 ];
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.location.streetAddress'),
-  (t) => t('stopDetails.location.postalCode'),
-  (t) => t('stopDetails.location.municipality'),
-  (t) => t('stopDetails.location.fareZone'),
+  (t) => t(($) => $.stopDetails.location.streetAddress),
+  (t) => t(($) => $.stopDetails.location.postalCode),
+  (t) => t(($) => $.stopDetails.location.municipality),
+  (t) => t(($) => $.stopDetails.location.fareZone),
 
-  (t) => t('stopDetails.location.latitude'),
-  (t) => t('stopDetails.location.longitude'),
-  (t) => t('stopDetails.location.altitude'),
-  (t) => t('stopDetails.location.functionalArea'),
+  (t) => t(($) => $.stopDetails.location.latitude),
+  (t) => t(($) => $.stopDetails.location.longitude),
+  (t) => t(($) => $.stopDetails.location.altitude),
+  (t) => t(($) => $.stopDetails.location.functionalArea),
 
-  (t) => t('stopDetails.location.platformNumber'),
-  (t) => t('stopDetails.location.signContentType'),
+  (t) => t(($) => $.stopDetails.location.platformNumber),
+  (t) => t(($) => $.stopDetails.location.signContentType),
 
-  (t) => t('stopDetails.location.memberPlatforms'),
+  (t) => t(($) => $.stopDetails.location.memberPlatforms),
 ];
 
 function writeRecordFields(

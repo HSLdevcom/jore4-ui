@@ -20,7 +20,7 @@ export const LineTypeMultiSelectDropdown: FC<
       id={id}
       testId={testId}
       enumType={RouteTypeOfLineEnum}
-      placeholder={t('lines.chooseTypeOfLine')}
+      placeholder={t(($) => $.lines.chooseTypeOfLine)}
       uiNameMapper={(value) => mapLineTypeToUiName(t, value)}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}

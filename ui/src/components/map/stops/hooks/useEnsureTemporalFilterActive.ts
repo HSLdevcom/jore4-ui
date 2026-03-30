@@ -27,7 +27,7 @@ export function useEnsureTemporalFilterActive() {
           isActive: true,
         }),
       );
-      showWarningToast(t('filters.temporalFiltersAdjusted'));
+      showWarningToast(t(($) => $.filters.temporalFiltersAdjusted));
     }
   };
 }

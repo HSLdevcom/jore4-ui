@@ -7,7 +7,7 @@ export const ValidityPeriodTd: FC<StopRowTdProps> = ({ className, stop }) => {
   const { t } = useTranslation();
   return (
     <td className={className}>
-      <span title={t('accessibility.stops.validityPeriod')}>
+      <span title={t(($) => $.accessibility.stops.validityPeriod)}>
         {mapToShortDate(stop.validityStart)}
         <span className="mx-1">-</span>
         {mapToShortDate(stop.validityEnd)}

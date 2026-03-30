@@ -40,16 +40,20 @@ export const StopAreaHeader: FC<StopPlaceHeaderPublicPropsProps> = ({
         colorClasses: 'border-light-grey bg-background',
         onShowOnMap,
         path: Path.stopAreaDetails,
-        linkTitle: t('accessibility.stopAreas.showStopAreaDetails', {
+        linkTitle: t(($) => $.accessibility.stopAreas.showStopAreaDetails, {
           areaLabel: stopPlace.name_value,
         }),
-        linkContent: t('stopRegistrySearch.stopAreaLabel', {
+        linkContent: t(($) => $.stopRegistrySearch.stopAreaLabel, {
           privateCode: stopPlace.private_code,
           name: stopPlace.name_value,
         }),
-        showOnMapTooltip: t('stopRegistrySearch.showStopAreaOnMap'),
-        menuShowDetails: t('stopRegistrySearch.stopAreaRowActions.openDetails'),
-        menuShowOnMap: t('stopRegistrySearch.stopAreaRowActions.showOnMap'),
+        showOnMapTooltip: t(($) => $.stopRegistrySearch.showStopAreaOnMap),
+        menuShowDetails: t(
+          ($) => $.stopRegistrySearch.stopAreaRowActions.openDetails,
+        ),
+        menuShowOnMap: t(
+          ($) => $.stopRegistrySearch.stopAreaRowActions.showOnMap,
+        ),
       }}
     />
   );

@@ -32,7 +32,7 @@ export const NewTerminalMarker: FC<NewTerminalMarkerProps> = ({
       <TerminalMarker
         isPlaceholder
         testId={testIds.placeholder}
-        title={t('terminal.newTerminal')}
+        title={t(($) => $.terminal.newTerminal)}
       />
     </Marker>
   );

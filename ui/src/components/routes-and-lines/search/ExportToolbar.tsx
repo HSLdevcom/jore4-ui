@@ -94,7 +94,7 @@ export const ExportToolbar: FC = () => {
       );
     } else {
       showDangerToast(
-        t('export.notEligibleRoutesForExport', {
+        t(($) => $.export.notEligibleRoutesForExport, {
           routes: notEligibleRoutes.join(', '),
         }),
       );
@@ -112,7 +112,7 @@ export const ExportToolbar: FC = () => {
         />
       </Visible>
       <h2 className="my-4 ml-2">
-        {t('search.resultCount', {
+        {t(($) => $.search.resultCount, {
           resultCount,
         })}
       </h2>
@@ -122,10 +122,10 @@ export const ExportToolbar: FC = () => {
         onClick={toggleIsSelecting}
         testId={testIds.toggleSelectingButton}
       >
-        {t(
+        {t(($) =>
           isSelectingRoutesForExport
-            ? 'export.quitSelecting'
-            : 'export.startSelecting',
+            ? $.export.quitSelecting
+            : $.export.startSelecting,
         )}
       </SimpleButton>
       <Visible visible={isSelectingRoutesForExport}>
@@ -139,10 +139,10 @@ export const ExportToolbar: FC = () => {
           }
           onClick={exportRoutes}
           testId={testIds.exportSelectedButton}
-          tooltip={t('export.tooltip')}
-          disabledTooltip={t('export.disabledTooltip')}
+          tooltip={t(($) => $.export.tooltip)}
+          disabledTooltip={t(($) => $.export.disabledTooltip)}
         >
-          {t('export.exportSelected')}
+          {t(($) => $.export.exportSelected)}
         </SimpleButton>
       </Visible>
     </Row>

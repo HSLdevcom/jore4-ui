@@ -118,7 +118,7 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
         <Row className="mt-4 justify-between gap-2">
           <AddNewButton
             onClick={addNewExternalLink}
-            label={t('stopDetails.externalLinks.addExternalLink')}
+            label={t(($) => $.stopDetails.externalLinks.addExternalLink)}
             testId={testIds.addExternalLink}
           />
           <div className="flex gap-2">
@@ -128,14 +128,14 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
               shape="slim"
               testId={testIds.cancelButton}
             >
-              {t('cancel')}
+              {t(($) => $.cancel)}
             </SimpleButton>
             <SimpleButton
               shape="slim"
               testId={testIds.saveButton}
               type="submit"
             >
-              {t('save')}
+              {t(($) => $.save)}
             </SimpleButton>
           </div>
         </Row>

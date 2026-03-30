@@ -32,7 +32,7 @@ export const ActionsRow: FC<ActionsRowProps> = ({ className }) => {
               href={getDraftsUrl(line.label, line.line_id)}
               testId={testIds.showDraftsButton}
             >
-              {t('lines.showDrafts')}
+              {t(($) => $.lines.showDrafts)}
             </SimpleButton>
           </Column>
         )}

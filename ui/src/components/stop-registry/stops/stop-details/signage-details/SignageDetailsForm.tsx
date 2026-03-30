@@ -58,7 +58,7 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
                 inputElementRenderer={(props) => (
                   <EnumDropdown<StopPlaceSignType>
                     enumType={StopPlaceSignType}
-                    placeholder={t('stopDetails.signs.signType')}
+                    placeholder={t(($) => $.stopDetails.signs.signType)}
                     uiNameMapper={(value) =>
                       mapStopPlaceSignTypeToUiName(t, value)
                     }
@@ -88,7 +88,7 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
                   className="mr-2 h-6 w-6"
                   testId={testIds.replacesRailSign}
                 />
-                {t('stopDetails.signs.replacesRailSign')}
+                {t(($) => $.stopDetails.signs.replacesRailSign)}
               </label>
             </Row>
           </Column>

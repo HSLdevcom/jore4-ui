@@ -47,7 +47,7 @@ export const CreateNewLinePage: FC = () => {
       const result = await insertLineMutation({ variables });
       const createdLine = mapInsertLineOneResult(result);
       setCreatedLineId(createdLine?.line_id);
-      showSuccessToast(t('lines.saveSuccess'));
+      showSuccessToast(t(($) => $.lines.saveSuccess));
     } catch (err) {
       defaultErrorHandler(err);
     }
@@ -70,7 +70,7 @@ export const CreateNewLinePage: FC = () => {
       />
       <Row>
         <i className="icon-bus-alt text-6xl text-tweaked-brand" />
-        <PageTitle.H1>{t('lines.createNew')}</PageTitle.H1>
+        <PageTitle.H1>{t(($) => $.lines.createNew)}</PageTitle.H1>
       </Row>
       <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
     </Container>

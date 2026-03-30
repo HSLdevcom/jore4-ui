@@ -1,5 +1,5 @@
+import { SelectorParam } from 'i18next';
 import { ComponentType, FC } from 'react';
-import { TranslationKey } from '../../../../../i18n';
 import { SortStopsBy } from '../../types';
 import {
   useGroupedResultSelection,
@@ -15,7 +15,7 @@ import { FindStopPlaceInfo } from './useFindStopPlaces';
 type SearchGroupedStopsResultsProps = {
   readonly groupingField: SortStopsBy;
   readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
-  readonly translationLabel: TranslationKey;
+  readonly translationLabel: SelectorParam;
   readonly HeaderComponent: ComponentType<StopPlaceHeaderPublicPropsProps>;
   readonly NoStopsComponent: ComponentType<NoStopsComponentProps>;
 };

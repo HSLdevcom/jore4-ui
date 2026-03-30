@@ -48,10 +48,10 @@ export const ExpandableRouteTimetableRow: FC<
             onToggle={setIsExpanded}
             testId={testIds.expandButton}
             controls={sectionIdentifier}
-            openTooltip={t('accessibility.routes.expandTimetable', {
+            openTooltip={t(($) => $.accessibility.routes.expandTimetable, {
               routeName,
             })}
-            closeTooltip={t('accessibility.routes.closeTimetable', {
+            closeTooltip={t(($) => $.accessibility.routes.closeTimetable, {
               routeName,
             })}
           />

@@ -34,9 +34,8 @@ export const AddMemberStopsHeader: FC<AddMemberStopsHeaderProps> = ({
         onClick={handleOpenModal}
         testId={testIds.addStopToTerminalButton}
       >
-        {t('terminalDetails.stops.addStopToTerminal')}
+        {t(($) => $.terminalDetails.stops.addStopToTerminal)}
       </SimpleButton>
-
       <AddMemberStopsModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

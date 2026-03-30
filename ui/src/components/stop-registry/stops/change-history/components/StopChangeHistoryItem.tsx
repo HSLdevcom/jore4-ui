@@ -35,7 +35,7 @@ export const StopChangeHistoryItem: FC<StopChangeHistoryItemProps> = ({
         historyItem={historyItem}
         sectionTitle={
           <h5>
-            {t('stopChangeHistory.invalidVersion', {
+            {t(($) => $.stopChangeHistory.invalidVersion, {
               version: historyItem.version,
             })}
           </h5>

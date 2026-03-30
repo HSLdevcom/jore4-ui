@@ -97,17 +97,17 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
   })}`;
 
   const statusText = data.inEffect
-    ? t('timetables.inEffect')
+    ? t(($) => $.timetables.inEffect)
     : mapTimetablePriorityToUiName(t, data.vehicleScheduleFrame.priority);
 
   const substituteDayOperatingText = data.substituteDay?.substituteDayOfWeek
-    ? t('timetables.operatedLike', {
+    ? t(($) => $.timetables.operatedLike, {
         dayOfWeek: mapDayOfWeekToUiName(
           t,
           data.substituteDay.substituteDayOfWeek,
         ),
       })
-    : t('timetables.noService');
+    : t(($) => $.timetables.noService);
 
   const dayType = getLocalizedTextFromDbBlob(data.dayType.nameI18n);
   const vehicleScheduleFrameName = getLocalizedTextFromDbBlob(
@@ -128,7 +128,7 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <IconButton
             onClick={openVersionPanel}
-            tooltip={t('accessibility.timetables.showTimetable')}
+            tooltip={t(($) => $.accessibility.timetables.showTimetable)}
             icon={<i className="icon-calendar" />}
           />
         </Visible>
@@ -152,7 +152,7 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <SimpleDropdownMenu
             testId={testIds.actions}
-            tooltip={t('accessibility.timetables.versionActions', {
+            tooltip={t(($) => $.accessibility.timetables.versionActions, {
               status: statusText,
               schedule: vehicleScheduleFrameName,
               dayType,
@@ -161,12 +161,12 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
             <SimpleDropdownMenuItem
               onClick={onClick}
               testId={testIds.deleteTimetableMenuItem}
-              text={t('timetables.versions.deleteTimetable')}
+              text={t(($) => $.timetables.versions.deleteTimetable)}
             />
             <SimpleDropdownMenuItem
               onClick={openVersionPanel}
               testId={testIds.versionPanelMenuItem}
-              text={t('timetables.versions.showInfo')}
+              text={t(($) => $.timetables.versions.showInfo)}
             />
           </SimpleDropdownMenu>
         </Visible>

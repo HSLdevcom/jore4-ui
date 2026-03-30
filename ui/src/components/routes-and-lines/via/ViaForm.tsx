@@ -111,7 +111,7 @@ export const ViaForm: FC<ViaFormProps> = ({
         </Row>
         <Row className="gap-4">
           <SimpleButton onClick={onCancel} inverted>
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
           <SimpleButton
             disabled={!defaultValues?.isViaPoint}
@@ -119,10 +119,10 @@ export const ViaForm: FC<ViaFormProps> = ({
             inverted
             testId={testIds.removeButton}
           >
-            {t('viaModal.removeViaInfo')}
+            {t(($) => $.viaModal.removeViaInfo)}
           </SimpleButton>
           <SimpleButton onClick={onSave} testId={testIds.saveButton}>
-            {t('viaModal.setViaInfo')}
+            {t(($) => $.viaModal.setViaInfo)}
           </SimpleButton>
         </Row>
       </form>

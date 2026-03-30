@@ -54,18 +54,18 @@ export const CopyStopAreaCutConfirmationModal: FC<
 
   return (
     <ConfirmModal
-      heading={t('stopAreaDetails.version.cutModal.title')}
+      heading={t(($) => $.stopAreaDetails.version.cutModal.title)}
       isOpen
       onCancel={onClose}
       onConfirm={onConfirm}
-      confirmButtonText={t('cut')}
-      cancelButtonText={t('cancel')}
+      confirmButtonText={t(($) => $.cut)}
+      cancelButtonText={t(($) => $.cancel)}
       testId={testIds.modal}
     >
       <Description as="div" className="text-sm">
         <p>
           <span className="font-bold">
-            {t('stopAreaDetails.version.cutModal.currentVersion')}:
+            {t(($) => $.stopAreaDetails.version.cutModal.currentVersion)}:
           </span>{' '}
           <span data-testid={testIds.currentVersion}>
             {displayState.currentVersion}
@@ -73,7 +73,7 @@ export const CopyStopAreaCutConfirmationModal: FC<
         </p>
         <p>
           <span className="font-bold">
-            {t('stopAreaDetails.version.cutModal.newVersion')}:
+            {t(($) => $.stopAreaDetails.version.cutModal.newVersion)}:
           </span>{' '}
           <span data-testid={testIds.newVersion}>
             {displayState.newVersion}
@@ -82,12 +82,20 @@ export const CopyStopAreaCutConfirmationModal: FC<
 
         <p data-testid={testIds.cutDate} className="mt-4">
           {displayState.cutDirection === 'end'
-            ? t('stopAreaDetails.version.cutModal.cutCurrentVersionToEnd', {
-                date: displayState.cutDate,
-              })
-            : t('stopAreaDetails.version.cutModal.cutCurrentVersionToStart', {
-                date: displayState.cutDate,
-              })}
+            ? t(
+                ($) =>
+                  $.stopAreaDetails.version.cutModal.cutCurrentVersionToEnd,
+                {
+                  date: displayState.cutDate,
+                },
+              )
+            : t(
+                ($) =>
+                  $.stopAreaDetails.version.cutModal.cutCurrentVersionToStart,
+                {
+                  date: displayState.cutDate,
+                },
+              )}
         </p>
       </Description>
     </ConfirmModal>

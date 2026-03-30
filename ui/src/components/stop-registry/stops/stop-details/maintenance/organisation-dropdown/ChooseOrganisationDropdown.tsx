@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -23,13 +24,11 @@ const mapToOption = (
   content: item.name,
 });
 
-const createNewOrganisationOption = (
-  t: (key: string) => string,
-): ComboboxOptionItem => ({
+const createNewOrganisationOption = (t: TFunction): ComboboxOptionItem => ({
   value: CREATE_NEW_ORGANISATION_OPTION,
   content: (
     <div className="flex items-center gap-2">
-      {t('stopDetails.maintenance.organisation.createNewOrganisation')}
+      {t(($) => $.stopDetails.maintenance.organisation.createNewOrganisation)}
       <AiFillPlusCircle className="text-m text-brand" />
     </div>
   ),
@@ -66,7 +65,7 @@ export const ChooseOrganisationDropdown: FC<
       nullOptionContent={
         query
           ? undefined
-          : t('stopDetails.maintenance.organisation.noContractor')
+          : t(($) => $.stopDetails.maintenance.organisation.noContractor)
       }
       options={options}
       value={value}

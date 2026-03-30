@@ -49,7 +49,7 @@ export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
       <div className="w-full">
         {displayedLine
           ? `${displayedLine?.label} (${displayedLine?.name_i18n.fi_FI})`
-          : t('routes.onLineId')}
+          : t(($) => $.routes.onLineId)}
       </div>
     );
   };

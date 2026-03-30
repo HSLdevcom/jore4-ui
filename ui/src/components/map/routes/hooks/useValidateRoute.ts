@@ -30,7 +30,7 @@ export const useValidateRoute = () => {
    */
   const validateStopCount = (includedStopLabels: ReadonlyArray<string>) => {
     if (includedStopLabels.length < 2) {
-      throw new Error(t('routes.tooFewStops'));
+      throw new Error(t(($) => $.routes.tooFewStops));
     }
   };
 
@@ -46,14 +46,14 @@ export const useValidateRoute = () => {
       !route.validity_start ||
       (line.validity_start && route.validity_start < line.validity_start)
     ) {
-      throw new Error(t('routes.startNotInsideLineValidity'));
+      throw new Error(t(($) => $.routes.startNotInsideLineValidity));
     }
 
     if (
       line.validity_end &&
       (!route.validity_end || route.validity_end > line.validity_end)
     ) {
-      throw new Error(t('routes.endNotInsideLineValidity'));
+      throw new Error(t(($) => $.routes.endNotInsideLineValidity));
     }
   };
 
@@ -65,7 +65,7 @@ export const useValidateRoute = () => {
       route.validity_end &&
       route.validity_start > route.validity_end
     ) {
-      throw new Error(t('routes.validityStartIsAfterEnd'));
+      throw new Error(t(($) => $.routes.validityStartIsAfterEnd));
     }
   };
 

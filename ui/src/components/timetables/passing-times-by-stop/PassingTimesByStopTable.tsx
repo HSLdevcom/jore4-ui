@@ -66,10 +66,10 @@ export const PassingTimesByStopTable: FC<PassingTimesByStopTableProps> = ({
       <thead className="text-left">
         <tr>
           <th className="w-1 border border-brand p-1 px-3 whitespace-nowrap">
-            {t('stops.stop')}
+            {t(($) => $.stops.stop)}
           </th>
           <th className="border border-brand p-1 px-3">
-            {t('timetables.departures')}
+            {t(($) => $.timetables.departures)}
           </th>
         </tr>
       </thead>

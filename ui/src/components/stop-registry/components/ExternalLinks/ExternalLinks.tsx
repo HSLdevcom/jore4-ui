@@ -38,17 +38,16 @@ export const ExternalLinks: FC<ExternalLinksProps> = ({
     <div>
       <Row className="items-center justify-between">
         <h3 data-testid={testIds.title}>
-          {t('stopDetails.externalLinks.externalLinks')}
+          {t(($) => $.stopDetails.externalLinks.externalLinks)}
         </h3>
         {!isEditing && (
           <EditButton
             onClick={() => setIsEditing(true)}
-            tooltip={t('accessibility.stops.editExternalLink')}
+            tooltip={t(($) => $.accessibility.stops.editExternalLink)}
             testId={testIds.editButton}
           />
         )}
       </Row>
-
       {isEditing ? (
         <ExternalLinksForm
           externalLinks={externalLinks}

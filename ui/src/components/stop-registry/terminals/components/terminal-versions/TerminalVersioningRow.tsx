@@ -20,19 +20,16 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
 
   return (
     <div className={twMerge('my-4 flex items-center gap-2', className)}>
-      <h2>{t('terminalDetails.title')}</h2>
-
+      <h2>{t(($) => $.terminalDetails.title)}</h2>
       <div
-        title={t('accessibility.terminals.validityPeriod')}
+        title={t(($) => $.accessibility.terminals.validityPeriod)}
         data-testid={testIds.validityPeriod}
       >
         {mapToShortDate(terminal.validityStart)}
         <span className="mx-1">-</span>
         {mapToShortDate(terminal.validityEnd)}
       </div>
-
       <EditTerminalValidityButton terminal={terminal} />
-
       <Link
         to={routeDetails[Path.terminalDetails].getLink(
           terminal.privateCode?.value,

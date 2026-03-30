@@ -62,10 +62,9 @@ export const TaskWithProgressBar: FC<TaskWithProgressBarProps> = ({
           {body}
         </div>
       </div>
-
       <CloseIconButton
         className="ml-2 font-bold text-brand [&>i]:text-2xl"
-        title={t('abort')}
+        title={t(($) => $.abort)}
         onClick={() =>
           onConfirmCancellation
             ? setConfirmProps(onConfirmCancellation())
@@ -73,7 +72,6 @@ export const TaskWithProgressBar: FC<TaskWithProgressBarProps> = ({
         }
         testId={testIds.abort}
       />
-
       {confirmProps && (
         <ConfirmationDialog
           isOpen

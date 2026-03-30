@@ -225,7 +225,7 @@ export const CommonSubstitutePeriodForm: FC<
               testId={testIds.cancelButton}
               inverted
             >
-              {t('cancel')}
+              {t(($) => $.cancel)}
             </SimpleButton>
 
             <SimpleButton
@@ -234,7 +234,7 @@ export const CommonSubstitutePeriodForm: FC<
               id="save-button"
               testId={testIds.saveButton}
             >
-              {t('save')}
+              {t(($) => $.save)}
             </SimpleButton>
           </Row>
         </form>
@@ -243,10 +243,16 @@ export const CommonSubstitutePeriodForm: FC<
         isOpen={isResetting}
         onCancel={() => setIsResetting(false)}
         onConfirm={onReset}
-        title={t('confirmResetCommonSubstitutePeriodDialog.title')}
-        description={t('confirmResetCommonSubstitutePeriodDialog.description')}
-        confirmText={t('confirmResetCommonSubstitutePeriodDialog.confirmText')}
-        cancelText={t('confirmResetCommonSubstitutePeriodDialog.cancelText')}
+        title={t(($) => $.confirmResetCommonSubstitutePeriodDialog.title)}
+        description={t(
+          ($) => $.confirmResetCommonSubstitutePeriodDialog.description,
+        )}
+        confirmText={t(
+          ($) => $.confirmResetCommonSubstitutePeriodDialog.confirmText,
+        )}
+        cancelText={t(
+          ($) => $.confirmResetCommonSubstitutePeriodDialog.cancelText,
+        )}
       />
     </div>
   );

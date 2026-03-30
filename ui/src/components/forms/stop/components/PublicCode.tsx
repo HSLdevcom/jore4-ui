@@ -52,10 +52,11 @@ export const PublicCode: FC<PublicCodeProps> = ({ className, disabled }) => {
         fieldPath="publicCode.value"
         customTitlePath="stops.publicCode"
         testId={testIds.publicCode}
-        placeholder={loading ? t('stops.loadingUsedPublicCodes') : undefined}
+        placeholder={
+          loading ? t(($) => $.stops.loadingUsedPublicCodes) : undefined
+        }
         disabled={disabled || loading}
       />
-
       <datalist id={datalistId}>
         {candidates.map((publicCode) => (
           <option

@@ -26,12 +26,11 @@ export const DataDiffSectionLoading: FC<DataDiffSectionLoadingProps> = ({
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopChangeHistory.versionLoading')}
+            section={t(($) => $.stopChangeHistory.versionLoading)}
           />
         }
         testId="LoadingStopPlaceVersion"
       />
-
       <tr>
         <td className="p-5" colSpan={7}>
           <PulseLoader color={theme.colors.brand} size={14} />

@@ -1,3 +1,4 @@
+import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -22,8 +23,26 @@ const testIds = {
 type PriorityButtonProps = {
   readonly priority: TimetablePriority;
   readonly testIdPrefix: string;
-  readonly translationKey: string;
+  readonly translationKey: SelectorParam;
 };
+
+const displayedPriorities: PriorityButtonProps[] = [
+  {
+    priority: TimetablePriority.Draft,
+    testIdPrefix: 'draft',
+    translationKey: ($) => $.priority.draft,
+  },
+  {
+    priority: TimetablePriority.Standard,
+    testIdPrefix: 'standard',
+    translationKey: ($) => $.priority.standard,
+  },
+  {
+    priority: TimetablePriority.Temporary,
+    testIdPrefix: 'temporary',
+    translationKey: ($) => $.priority.temporary,
+  },
+];
 
 type TimetablesImportPriorityFormProps = {
   readonly showLabel?: boolean;
@@ -48,34 +67,16 @@ export const TimetablesImportPriorityForm: FC<
     setValue('priority', value, { shouldValidate: true });
   };
 
-  const displayedPriorities: PriorityButtonProps[] = [
-    {
-      priority: TimetablePriority.Draft,
-      testIdPrefix: 'draft',
-      translationKey: 'priority.draft',
-    },
-    {
-      priority: TimetablePriority.Standard,
-      testIdPrefix: 'standard',
-      translationKey: 'priority.standard',
-    },
-    {
-      priority: TimetablePriority.Temporary,
-      testIdPrefix: 'temporary',
-      translationKey: 'priority.temporary',
-    },
-  ];
-
   const isSpecialPriority = selectedPriority === TimetablePriority.Special;
   const specialDayExplanationTooltip = t(
-    'timetablesImportPriorityForm.specialDayDisabledExplanation',
+    ($) => $.timetablesImportPriorityForm.specialDayDisabledExplanation,
   );
 
   return (
     <Column>
       <fieldset>
         <Visible visible={showLabel}>
-          <legend className="font-bold">{t('priority.label')}</legend>
+          <legend className="font-bold">{t(($) => $.priority.label)}</legend>
         </Visible>
         <Row className="flex-wrap gap-2">
           <LabeledRadioButton
@@ -84,7 +85,7 @@ export const TimetablesImportPriorityForm: FC<
             value={TimetablePriority.Special}
             key="specialDay"
             className={!isSpecialPriority ? 'hidden' : ''}
-            label={t('priority.special')}
+            label={t(($) => $.priority.special)}
             onClick={() => setPriority(TimetablePriority.Special)}
             selected={isSpecialPriority}
             tooltip={specialDayExplanationTooltip}

@@ -44,62 +44,77 @@ type GenerateInfoSpotHeader = (
 
 const infoSpotHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.label', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.label, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.purpose', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.purpose, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.size', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.size, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.backlight', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.backlight, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.latitude', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.latitude, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.longitude', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.longitude, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.zoneLabel', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.zoneLabel, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.railInformation', context),
+    t(
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.railInformation,
+      context,
+    ),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.floor', context),
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.floor, context),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.description', context),
+    t(
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.description,
+      context,
+    ),
 ];
 
 const singleInfoSpotHeaders: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.infoSpots.label'),
-  (t) => t('stopDetails.infoSpots.purpose'),
-  (t) => t('stopDetails.infoSpots.size'),
-  (t) => t('stopDetails.infoSpots.backlight'),
-  (t) => t('stopDetails.location.latitude'),
-  (t) => t('stopDetails.location.longitude'),
-  (t) => t('stopDetails.infoSpots.zoneLabel'),
-  (t) => t('stopDetails.infoSpots.railInformation'),
-  (t) => t('stopDetails.infoSpots.floor'),
-  (t) => t('stopDetails.infoSpots.description'),
+  (t) => t(($) => $.stopDetails.infoSpots.label),
+  (t) => t(($) => $.stopDetails.infoSpots.purpose),
+  (t) => t(($) => $.stopDetails.infoSpots.size),
+  (t) => t(($) => $.stopDetails.infoSpots.backlight),
+  (t) => t(($) => $.stopDetails.location.latitude),
+  (t) => t(($) => $.stopDetails.location.longitude),
+  (t) => t(($) => $.stopDetails.infoSpots.zoneLabel),
+  (t) => t(($) => $.stopDetails.infoSpots.railInformation),
+  (t) => t(($) => $.stopDetails.infoSpots.floor),
+  (t) => t(($) => $.stopDetails.infoSpots.description),
 ];
 
 const posterHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.productSize', context),
+    t(
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.productSize,
+      context,
+    ),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.posterLabel', context),
+    t(
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.posterLabel,
+      context,
+    ),
   (t, context) =>
-    t('stopDetails.infoSpots.equipmentReport.title.posterLines', context),
+    t(
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.posterLines,
+      context,
+    ),
 ];
 
 const singleInfoSpotPosterHeaders: ReadonlyArray<
   (t: TFunction, posterNumber: number) => string
 > = [
   (t, posterNumber) =>
-    t('stopDetails.infoSpots.infoSpotReport.title.productSize', {
+    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.productSize, {
       posterNumber,
     }),
   (t, posterNumber) =>
-    t('stopDetails.infoSpots.infoSpotReport.title.posterLabel', {
+    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.posterLabel, {
       posterNumber,
     }),
   (t, posterNumber) =>
-    t('stopDetails.infoSpots.infoSpotReport.title.posterLines', {
+    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.posterLines, {
       posterNumber,
     }),
 ];
@@ -265,7 +280,7 @@ function writeInfoSpotFields(
   writer.writeTextField(formatSizedDbItem(t, infoSpot));
   writer.writeBooleanField(
     infoSpot.backlight,
-    t('stopDetails.infoSpots.backlight'),
+    t(($) => $.stopDetails.infoSpots.backlight),
   );
 
   writer.writeNumberField(position?.at(1));
@@ -372,7 +387,7 @@ class InfoSpotsSectionImplementation implements ReportSection {
     )) {
       for (const posterCount of Object.values(infoSpotsOfShelter)) {
         writer.writeTextField(
-          t('stopDetails.infoSpots.equipmentReport.title.metaHeader', {
+          t(($) => $.stopDetails.infoSpots.equipmentReport.title.metaHeader, {
             shelterNumber,
           }).toLocaleUpperCase(),
         );
@@ -450,7 +465,9 @@ class SingleInfoSposSectionImplementation implements ReportSection<EnrichedStopD
   writeMetaHeaders(writer: CSVWriter) {
     const { t } = writer;
 
-    writer.writeTextField(t('stopDetails.infoSpots.title').toLocaleUpperCase());
+    writer.writeTextField(
+      t(($) => $.stopDetails.infoSpots.title).toLocaleUpperCase(),
+    );
     writer.writeEmptyFields(this.fieldCount - 1);
   }
 

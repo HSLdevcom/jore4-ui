@@ -126,7 +126,7 @@ export const StopPopup: FC<StopPopupProps> = ({
               target="_blank"
               rel="noreferrer"
               data-testid={testIds.label}
-              title={t('accessibility.stops.showStopDetails', {
+              title={t(($) => $.accessibility.stops.showStopDetails, {
                 stopLabel,
               })}
             >
@@ -137,7 +137,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           <Visible visible={!!timingPlaceLabel}>
             <span
               className="text-sm text-hsl-dark-80"
-              title={t('accessibility.stops.timingPlace')}
+              title={t(($) => $.accessibility.stops.timingPlace)}
             >
               {timingPlaceLabel}
             </span>
@@ -150,7 +150,6 @@ export const StopPopup: FC<StopPopupProps> = ({
           testId={testIds.closeButton}
         />
       </Row>
-
       <Row className="mt-1 items-center gap-1.5 text-sm">
         <PriorityBadge
           priority={priority}
@@ -159,7 +158,6 @@ export const StopPopup: FC<StopPopupProps> = ({
         />
         {mapToValidityPeriod(t, validityStart, validityEnd)}
       </Row>
-
       <Row className="mt-4">
         <SimpleButton
           shape="round"
@@ -168,7 +166,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           disabled={isDeleting}
           inverted
           testId={testIds.deleteButton}
-          tooltip={t('map.deleteStop')}
+          tooltip={t(($) => $.map.deleteStop)}
         >
           <MdDelete role="presentation" className="text-xl" />
         </SimpleButton>
@@ -179,7 +177,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           onClick={onCopy}
           inverted
           testId={testIds.copyButton}
-          tooltip={t('map.copyStop')}
+          tooltip={t(($) => $.map.copyStop)}
         >
           <MdControlPointDuplicate role="presentation" className="text-xl" />
         </SimpleButton>
@@ -190,7 +188,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           onClick={onMove}
           testId={testIds.moveButton}
         >
-          {t('move')}
+          {t(($) => $.move)}
         </SimpleButton>
 
         <SimpleButton
@@ -198,7 +196,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           onClick={onEdit}
           testId={testIds.editButton}
         >
-          {t('edit')}
+          {t(($) => $.edit)}
         </SimpleButton>
       </Row>
     </Popup>

@@ -92,7 +92,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
       onChange={onSelect}
       disabled={disabled}
     >
-      <Label>{t('stops.stopArea.label')}</Label>
+      <Label>{t(($) => $.stops.stopArea.label)}</Label>
       <div className="flex h-(--input-height)">
         <ComboboxInput<StopModalStopAreaFormSchema>
           ref={ref}
@@ -111,13 +111,12 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
             'static flex h-(--input-height) w-(--input-height) justify-center rounded-tr-[5px] rounded-br-[5px] bg-tweaked-brand text-xl',
             'ui-open:rounded-br-none',
           )}
-          title={t('stops.stopArea.search')}
+          title={t(($) => $.stops.stopArea.search)}
         >
           <MdOutlineSearch color="white" />
         </ComboboxButton>
       </div>
       <ValidationErrorList<StopFormState> fieldPath="stopArea" />
-
       <ComboboxOptions
         anchor="bottom start"
         className={comboboxStyles.options(
@@ -132,7 +131,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
             disabled
             data-testid={testIds.loading}
           >
-            {t('stops.stopArea.label')}
+            {t(($) => $.stops.stopArea.label)}
           </ComboboxOption>
         )}
 
@@ -161,7 +160,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
             value={null}
             disabled
           >
-            {t('stops.stopArea.help')}
+            {t(($) => $.stops.stopArea.help)}
           </ComboboxOption>
         )}
       </ComboboxOptions>

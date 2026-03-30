@@ -52,19 +52,18 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
   return (
     <div className={className}>
       <Row className="justify-between">
-        <h4 id={HeaderId}>{t('stopVersion.drafts.title')}</h4>
+        <h4 id={HeaderId}>{t(($) => $.stopVersion.drafts.title)}</h4>
 
         <ExpandButton
           className="self-end"
           ariaControls={ID}
           expanded={expanded}
-          expandedText={t('stopVersion.drafts.hide')}
-          collapsedText={t('stopVersion.drafts.show')}
+          expandedText={t(($) => $.stopVersion.drafts.hide)}
+          collapsedText={t(($) => $.stopVersion.drafts.show)}
           onClick={() => setExpanded((p) => !p)}
           testId={testIds.showHideButton}
         />
       </Row>
-
       <Transition
         as="div"
         className="mt-2"
@@ -78,7 +77,7 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
       >
         <StopVersionTable
           publicCode={publicCode}
-          noVersionsText={t('stopVersion.drafts.noVersions')}
+          noVersionsText={t(($) => $.stopVersion.drafts.noVersions)}
           stopVersions={sortedStopVersions}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}

@@ -56,7 +56,7 @@ export const EditTerminalValidityModal: FC<EditTerminalValidityModalProps> = ({
     >
       <ModalHeader
         onClose={wrappedOnClose}
-        heading={t('terminalDetails.version.title.edit')}
+        heading={t(($) => $.terminalDetails.version.title.edit)}
       />
       <LoadingWrapper testId={testIds.loading} loading={!terminal}>
         {terminal && (

@@ -74,9 +74,12 @@ export const StopAreaPopup = ({
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
-                  title={t('accessibility.stopAreas.showStopAreaDetails', {
-                    areaLabel,
-                  })}
+                  title={t(
+                    ($) => $.accessibility.stopAreas.showStopAreaDetails,
+                    {
+                      areaLabel,
+                    },
+                  )}
                 >
                   <span>{areaLabel}</span> <span>{areaName}</span>
                   <i className="icon-open-in-new" aria-hidden />
@@ -106,11 +109,11 @@ export const StopAreaPopup = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
-            tooltip={t('stopArea.delete')}
+            tooltip={t(($) => $.stopArea.delete)}
           >
             <MdDelete
               role="presentation"
-              aria-label={t('stopArea.delete')}
+              aria-label={t(($) => $.stopArea.delete)}
               className="text-xl"
             />
           </SimpleButton>
@@ -121,7 +124,7 @@ export const StopAreaPopup = ({
             inverted
             onClick={onAddStop}
             testId={testIds.addStopButton}
-            tooltip={t('map.addStop')}
+            tooltip={t(($) => $.map.addStop)}
           >
             <MdAddCircle role="presentation" className="text-xl" />
           </SimpleButton>
@@ -131,7 +134,7 @@ export const StopAreaPopup = ({
             onClick={onMove}
             testId={testIds.moveButton}
           >
-            {t('move')}
+            {t(($) => $.move)}
           </SimpleButton>
 
           <SimpleButton
@@ -139,7 +142,7 @@ export const StopAreaPopup = ({
             onClick={onEdit}
             testId={testIds.editButton}
           >
-            {t('edit')}
+            {t(($) => $.edit)}
           </SimpleButton>
         </Row>
       </div>

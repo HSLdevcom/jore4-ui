@@ -43,7 +43,6 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
           {area.name}
         </span>
       </div>
-
       <SimpleButton
         shape="slim"
         className="absolute top-2 right-2"
@@ -51,7 +50,7 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
         onClick={() => showOnMap(area.id ?? undefined, point)}
         testId={testIds.openMapButton}
       >
-        {t('stopAreaDetails.minimap.showOnMap')}
+        {t(($) => $.stopAreaDetails.minimap.showOnMap)}
       </SimpleButton>
     </div>
   );

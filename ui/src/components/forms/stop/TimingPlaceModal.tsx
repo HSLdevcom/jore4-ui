@@ -31,7 +31,7 @@ export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
 
   return (
     <Modal isOpen onClose={onClose} testId={testIds.modal}>
-      <ModalHeader onClose={onClose} heading={t('timingPlaces.label')} />
+      <ModalHeader onClose={onClose} heading={t(($) => $.timingPlaces.label)} />
       <ModalBody>
         <CreateTimingPlaceForm
           onCancel={onCloseModal}

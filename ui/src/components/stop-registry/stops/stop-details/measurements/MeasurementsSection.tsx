@@ -94,7 +94,7 @@ export const MeasurementsSection: FC<MeasurementsSectionProps> = ({ stop }) => {
     try {
       await saveStopPlaceMeasurementDetails({ state, stop });
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
       infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -109,7 +109,7 @@ export const MeasurementsSection: FC<MeasurementsSectionProps> = ({ stop }) => {
       controls={infoContainerControls}
       title={
         <div className="flex items-start">
-          <h4>{t('stopDetails.measurements.title')}</h4>
+          <h4>{t(($) => $.stopDetails.measurements.title)}</h4>
           <div className="mx-4 h-8 border-l border-dark-grey"> </div>
           <AccessibilityLevelInfo stop={stop} />
         </div>

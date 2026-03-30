@@ -21,7 +21,7 @@ export const TimetablesMainPage: FC = () => {
   return (
     <Container>
       <Row className="items-end justify-between gap-4">
-        <PageTitle.H1>{t('timetables.timetables')}</PageTitle.H1>
+        <PageTitle.H1>{t(($) => $.timetables.timetables)}</PageTitle.H1>
 
         <SimpleButton
           className="ml-auto"
@@ -29,14 +29,14 @@ export const TimetablesMainPage: FC = () => {
           testId={testIds.settingsButton}
           href={substituteOperatingPeriodSettings.getLink()}
         >
-          {t('timetables.settingsButton')}
+          {t(($) => $.timetables.settingsButton)}
         </SimpleButton>
         <SimpleButton
           id="import-timetables-button"
           testId={testIds.importButton}
           href={importTimetablesRoute.getLink()}
         >
-          {t('import.importTimetables')}
+          {t(($) => $.import.importTimetables)}
         </SimpleButton>
       </Row>
       <SearchContainer />

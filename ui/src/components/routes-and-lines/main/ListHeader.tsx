@@ -29,13 +29,13 @@ export const ListHeader: FC<ListHeaderProps> = ({
       <Visible visible={false}>
         <Field as={Row} className="grow items-center">
           <SwitchLabel className="my-1 mr-2">
-            {t('routes.showOwnLines')}
+            {t(($) => $.routes.showOwnLines)}
           </SwitchLabel>
           <Switch checked={showOwnLines} onChange={onShowOwnChange} />
         </Field>
       </Visible>
       <Row className="items-center">
-        <span>{t('routes.showLimit')}:</span>
+        <span>{t(($) => $.routes.showLimit)}:</span>
         {limitOptions.map((item, index) => (
           <span key={`limit_${item}`}>
             {index !== 0 && '|'}

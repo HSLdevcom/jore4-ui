@@ -61,7 +61,7 @@ export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
       className={twMerge('w-4/6', className)}
       colors={containerColors}
       controls={infoContainerControls}
-      title={t('stopAreaDetails.basicDetails.title')}
+      title={t(($) => $.stopAreaDetails.basicDetails.title)}
       testIdPrefix={
         infoContainerControls.isInEditMode ? testIds.editPrefix : testIds.prefix
       }

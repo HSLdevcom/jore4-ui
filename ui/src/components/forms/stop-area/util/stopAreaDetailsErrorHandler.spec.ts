@@ -5,6 +5,8 @@ import { renderHook } from '../../../../utils/test-utils';
 import { StopAreaFormState } from '../stopAreaFormSchema';
 import { useStopAreaDetailsApolloErrorHandler } from './stopAreaDetailsErrorHandler';
 
+const { keyFromSelector } = jest.requireActual('i18next');
+
 jest.mock('react-i18next', () => ({
   useTranslation: jest.fn(),
 }));
@@ -52,7 +54,8 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
     };
 
     tMock.mockImplementation(
-      (key, details) => `${key} ${JSON.stringify(details)}`,
+      (selector, details) =>
+        `${keyFromSelector(selector)} ${JSON.stringify(details)}`,
     );
 
     const tryHandle = renderHook(() => useStopAreaDetailsApolloErrorHandler())
@@ -67,10 +70,6 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
     const handled = tryHandle(errorWithKnownCode as ApolloError, details);
 
     expect(handled).toBe(true);
-    expect(tMock).toHaveBeenCalledWith(
-      'stopAreaDetails.errors.stopPlacesUniqueName',
-      details,
-    );
     expect(showDangerToast).toHaveBeenCalledWith(
       'stopAreaDetails.errors.stopPlacesUniqueName {"indefinite":false,"latitude":0,"longitude":0,"quays":[],"validityStart":"","privateCode":"Testlabel1","name":"Testname1","nameSwe":"TestnameSwe1"}',
     );
@@ -86,7 +85,7 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
       cause: { extensions, message: knownErrorCode },
     };
 
-    tMock.mockImplementation((key) => key);
+    tMock.mockImplementation(keyFromSelector);
 
     const tryHandle = renderHook(() => useStopAreaDetailsApolloErrorHandler())
       .result.current;
@@ -94,10 +93,6 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
     const handled = tryHandle(errorWithKnownCode as ApolloError);
 
     expect(handled).toBe(true);
-    expect(tMock).toHaveBeenCalledWith(
-      'stopAreaDetails.errors.stopPlacesUniquePrivateCode',
-      undefined,
-    );
     expect(showDangerToast).toHaveBeenCalledWith(
       'stopAreaDetails.errors.stopPlacesUniquePrivateCode',
     );

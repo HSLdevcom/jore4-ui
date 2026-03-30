@@ -55,7 +55,7 @@ export const UserNavMenu: FC<UserNavMenuProps> = ({ className }) => {
         href={LOGOUT_URL}
         testId={testIds.logoutButton}
       >
-        {t('navigation.logout')}
+        {t(($) => $.navigation.logout)}
       </NavigationDropdownMenuLinkOut>
     </NavigationDropdownMenu>
   );

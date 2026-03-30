@@ -53,7 +53,7 @@ export const OpenStopResultsOnMapButton: FC<
           size={14}
         />
       ) : (
-        t('stopRegistrySearch.showOnMap')
+        t(($) => $.stopRegistrySearch.showOnMap)
       )}
     </SimpleButton>
   );

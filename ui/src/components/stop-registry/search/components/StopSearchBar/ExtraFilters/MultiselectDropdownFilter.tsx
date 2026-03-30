@@ -137,11 +137,12 @@ export const MultiselectDropdownFilter = <OptionT,>({
       <JoreListboxButton id={id} testId={`${testId}::button`}>
         <span>
           {value.length > 1
-            ? t('selected', { count: value.length })
+            ? t(($) => $.selected, {
+                count: value.length,
+              })
             : formatOption(value[0])}
         </span>
       </JoreListboxButton>
-
       <ListboxOptions
         anchor="bottom start"
         transition

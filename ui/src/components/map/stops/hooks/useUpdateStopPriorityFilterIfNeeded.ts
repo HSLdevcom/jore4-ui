@@ -48,7 +48,7 @@ export function useUpdateStopPriorityFilterIfNeeded() {
           isActive: false,
         }),
       );
-      showWarningToast(t('filters.stopFiltersAdjusted'));
+      showWarningToast(t(($) => $.filters.stopFiltersAdjusted));
     }
   };
 }

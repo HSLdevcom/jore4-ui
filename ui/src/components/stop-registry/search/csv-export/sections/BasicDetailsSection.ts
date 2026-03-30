@@ -8,32 +8,32 @@ import { EnrichedStopDetails } from '../types';
 import { dynamicSection, writeHeaderArray } from './utils';
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.basicDetails.label'),
+  (t) => t(($) => $.stopDetails.basicDetails.label),
 
-  (t) => t('stopDetails.basicAreaDetails.areaName'),
-  (t) => t('stopDetails.basicAreaDetails.areaNameSwe'),
-  (t) => t('stopDetails.basicAreaDetails.areaNameEng'),
+  (t) => t(($) => $.stopDetails.basicAreaDetails.areaName),
+  (t) => t(($) => $.stopDetails.basicAreaDetails.areaNameSwe),
+  (t) => t(($) => $.stopDetails.basicAreaDetails.areaNameEng),
 
-  (t) => t('stopDetails.basicDetails.elyNumber'),
-  (t) => t('stopDetails.basicAreaDetails.areaPrivateCode'),
-  (t) => t('stopDetails.basicDetails.privateCode'),
+  (t) => t(($) => $.stopDetails.basicDetails.elyNumber),
+  (t) => t(($) => $.stopDetails.basicAreaDetails.areaPrivateCode),
+  (t) => t(($) => $.stopDetails.basicDetails.privateCode),
 
-  (t) => t('stopDetails.alternativeNames.nameLongFin'),
-  (t) => t('stopDetails.alternativeNames.nameLongSwe'),
-  (t) => t('stopDetails.alternativeNames.nameLongEng'),
+  (t) => t(($) => $.stopDetails.alternativeNames.nameLongFin),
+  (t) => t(($) => $.stopDetails.alternativeNames.nameLongSwe),
+  (t) => t(($) => $.stopDetails.alternativeNames.nameLongEng),
 
-  (t) => t('stopDetails.alternativeNames.abbreviationFin'),
-  (t) => t('stopDetails.alternativeNames.abbreviationSwe'),
-  (t) => t('stopDetails.alternativeNames.abbreviationEng'),
+  (t) => t(($) => $.stopDetails.alternativeNames.abbreviationFin),
+  (t) => t(($) => $.stopDetails.alternativeNames.abbreviationSwe),
+  (t) => t(($) => $.stopDetails.alternativeNames.abbreviationEng),
 
-  (t) => t('stopDetails.basicDetails.locationFin'),
-  (t) => t('stopDetails.basicDetails.locationSwe'),
+  (t) => t(($) => $.stopDetails.basicDetails.locationFin),
+  (t) => t(($) => $.stopDetails.basicDetails.locationSwe),
 
-  (t) => t('stopDetails.basicDetails.stopState'),
-  (t) => t('stopDetails.basicDetails.transportMode'),
-  (t) => t('stops.timingPlaceId'),
-  (t) => t('stopPlaceTypes.railReplacement'),
-  (t) => t('stopPlaceTypes.virtual'),
+  (t) => t(($) => $.stopDetails.basicDetails.stopState),
+  (t) => t(($) => $.stopDetails.basicDetails.transportMode),
+  (t) => t(($) => $.stops.timingPlaceId),
+  (t) => t(($) => $.stopPlaceTypes.railReplacement),
+  (t) => t(($) => $.stopPlaceTypes.virtual),
 ];
 
 function writeRecordFields(
@@ -71,9 +71,12 @@ function writeRecordFields(
   writer.writeTextField(quay.timingPlace);
   writer.writeBooleanField(
     quay.stopType.railReplacement,
-    t('stopPlaceTypes.railReplacement'),
+    t(($) => $.stopPlaceTypes.railReplacement),
   );
-  writer.writeBooleanField(quay.stopType.virtual, t('stopPlaceTypes.virtual'));
+  writer.writeBooleanField(
+    quay.stopType.virtual,
+    t(($) => $.stopPlaceTypes.virtual),
+  );
 }
 
 export const BasicDetailsSection = dynamicSection((_data, context) => ({
@@ -83,9 +86,11 @@ export const BasicDetailsSection = dynamicSection((_data, context) => ({
     const { t } = writer;
 
     writer.writeTextField(
-      t('stopDetails.basicDetails.title').toLocaleUpperCase(),
+      t(($) => $.stopDetails.basicDetails.title).toLocaleUpperCase(),
     );
-    writer.writeTextField(t('filters.observationDate').toLocaleUpperCase());
+    writer.writeTextField(
+      t(($) => $.filters.observationDate).toLocaleUpperCase(),
+    );
     writer.writeDateField(context.observationDate);
 
     writer.writeEmptyFields(headers.length - 3);

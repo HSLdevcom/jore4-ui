@@ -36,18 +36,18 @@ export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({
       data-testid={testIds.noStopsInStopArea}
     >
       <i className="icon-info ml-[-0.2em] text-2xl text-brand" />
-      <p>{t('stopArea.noStops')}</p>
+      <p>{t(($) => $.stopArea.noStops)}</p>
       <Link
         to={routeDetails[Path.stopAreaDetails].getLink(stopArea.private_code, {
           observationDate,
         })}
         data-testid={testIds.stopAreaLink}
-        title={t('accessibility.stopAreas.showStopAreaDetails', {
+        title={t(($) => $.accessibility.stopAreas.showStopAreaDetails, {
           areaLabel: stopArea.name_value,
         })}
         className="flex flex-row items-center gap-1 font-bold"
       >
-        <span>{t('stopRegistrySearch.goToStopAreaDetails')}</span>
+        <span>{t(($) => $.stopRegistrySearch.goToStopAreaDetails)}</span>
         <MdOpenInNew />
       </Link>
     </div>

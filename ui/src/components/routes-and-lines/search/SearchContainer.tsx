@@ -103,11 +103,11 @@ export const SearchContainer: FC<SearchContainerProps> = ({
             id={extraFiltersId}
             className="space-y-5 border-2 border-background p-10"
           >
-            <h2>{t('search.advancedSearchTitle')}</h2>
+            <h2>{t(($) => $.search.advancedSearchTitle)}</h2>
             <Row className="gap-4">
               <TransportationModeFilter<RoutesAndLinesSearchFilters>
                 testIdPrefix={routesAndLinesTestIds.prefix}
-                translationPrefix="lines"
+                label={t(($) => $.lines.transportMode)}
                 fieldPath="transportMode"
                 className="sm:-order-2 md:order-0"
               />

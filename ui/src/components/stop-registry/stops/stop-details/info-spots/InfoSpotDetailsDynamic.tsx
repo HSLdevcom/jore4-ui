@@ -25,12 +25,12 @@ export const InfoSpotDetailsDynamic: FC<InfoSpotDetailsDynamicProps> = ({
   return (
     <>
       <LabeledDetail
-        title={t('stopDetails.infoSpots.displayType')}
+        title={t(($) => $.stopDetails.infoSpots.displayType)}
         detail={trInfoSpotDisplayType(t, infoSpot.displayType)}
         testId={testIds.displayType}
       />
       <LabeledDetail
-        title={t('stopDetails.infoSpots.speechProperty')}
+        title={t(($) => $.stopDetails.infoSpots.speechProperty)}
         detail={optionalBooleanToUiText(t, infoSpot.speechProperty)}
         testId={testIds.speechProperty}
       />
