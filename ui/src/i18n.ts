@@ -23,6 +23,8 @@ i18nextUse(initReactI18next).init({
   lng: defaultLocale,
   fallbackLng: defaultLocale,
   resources,
+  // Do not return null from t function
+  returnNull: false,
   debug: false,
   ns: ['common', 'accessibility'],
   defaultNS: 'common',
