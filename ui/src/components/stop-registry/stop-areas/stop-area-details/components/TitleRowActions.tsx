@@ -51,7 +51,7 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
         className={className}
         buttonClassName="h-11 w-11"
         buttonShape="round"
-        tooltip={t('accessibility:common.actionMenu')}
+        tooltip={t('accessibility.common.actionMenu')}
         testId={testIds.actionMenu}
         disabled={!area}
       >

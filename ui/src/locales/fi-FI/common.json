@@ -1543,5 +1543,81 @@
     "body": "Sivulla olevalla lomakkeella on tallentamattomia muutoksia, jotka menetetään jos poistut.",
     "proceed": "Hylkää muutokset",
     "cancel": "Jatka muokkausta"
+  },
+  "accessibility": {
+    "common": {
+      "showOnMap": "Näytä kartalla {{label}}",
+      "nextPage": "Seuraava sivu",
+      "prevPage": "Edellinen sivu",
+      "currentPage": "Nykyinen sivu {{pageNumber}}",
+      "goToPage": "Mene sivulle",
+      "paginationNavigation": "Sivutusnavigaatio",
+      "expandSearch": "Avaa tarkennettu haku",
+      "closeSearch": "Sulje tarkennettu haku",
+      "actionMenu": "Toimintovalikko"
+    },
+    "lines": {
+      "details": "Näytä tarkemmat tiedot linjalle {{label}}",
+      "createNewRoute": "Luo uusi reitti linjalle {{label}}",
+      "showOnMap": "Näytä kartalla linja {{label}}",
+      "showTimetables": "Näytä aikataulut linjalle {{label}}",
+      "expandNameVersions": "Näytä nimiversiot",
+      "closeNameVersions": "Sulje nimiversiot näkymä",
+      "edit": "Muokkaa linjaa {{label}}",
+      "versionHistory": "Versiohistoria",
+      "bus": "Bussilinja"
+    },
+    "routes": {
+      "showOnMap": "Näytä kartalla reitti {{label}}",
+      "showOnMapDirection": "Näytä kartalla reitti {{label}}, suunta {{directionNumber}}",
+      "editRouteDirection": "Muokkaa reittiä {{label}}, suunta {{directionNumber}}",
+      "showTimetables": "Näytä aikataulut reitille {{label}}",
+      "expandStops": "Näytä pysäkit reitille {{label}}, suunta {{directionNumber}}",
+      "closeStops": "Piilota pysäkit reitiltä {{label}}, suunta {{directionNumber}}",
+      "expandTimetable": "Avaa aikataulut reitille {{routeName}}",
+      "closeTimetable": "Piilota reitin {{routeName}} aikataulut",
+      "showStopActions": "Lisää toimintoja pysäkille {{stopLabel}}",
+      "openTimingSettings": "Avaa aika-asetukset pysäkille {{stopLabel}}",
+      "bus": "Bussireitti"
+    },
+    "stops": {
+      "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot",
+      "timingPlace": "Hastus-paikka",
+      "validityPeriod": "Voimassaolo",
+      "editExternalLink": "Muokkaa ulkoisia linkkejä",
+      "addExternalLink": "Lisää ulkoinen linkki",
+      "openExternalLink": "Avaa ulkoinen linkki {{ linkTitle }}",
+      "editStopValidity": "Muokkaa pysäkin {{ stopLabel }} versiota",
+      "stopTimetablesButton": "Näytä aikataulut pysäkille"
+    },
+    "stopAreas": {
+      "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot"
+    },
+    "terminals": {
+      "showTerminalDetails": "Näytä terminaalin {{ terminalLabel }} tiedot",
+      "validityPeriod": "Voimassaolo",
+      "editTerminalValidity": "Muokkaa terminaalin {{ terminalName }} versiota",
+      "openInfoSpots": "Avaa infopaikan tiedot"
+    },
+    "timetables": {
+      "icon": "Aikataulu",
+      "changeValidityPeriod": "Muuta voimassaoloaikaa päivätyypille {{dayType}}",
+      "substituteDayEdit": "Muokkaa poikkeuspäivää \"{{substituteDay}}\"",
+      "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus",
+      "showPreview": "Näytä tiedoston sisältö",
+      "closePreview": "Sulje tiedoston sisältö",
+      "showTimetable": "Näytä aikataulu",
+      "expandSchedulePreview": "Näytä aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
+      "closeSchedulePreview": "Piilota aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
+      "expandScheduleBlocksPreview": "Näytä autokierron {{scheduleBlock}} tiedot",
+      "closeScheduleBlocksPreview": "Piilota autokierron {{scheduleBlock}} tiedot",
+      "versionActions": "Lisää toimintoja aikataululle {{status}} {{schedule}} {{dayType}}",
+      "closeMissingRouteDeviationsWarning": "Sulje huomio poikkeamista"
+    },
+    "map": {
+      "showFilters": "Suodata näkymää",
+      "editRoute": "Muokkaa reitin {{routeName}} tietoja",
+      "routeStopsOverlayRowActions": "Lisää toimintoja pysäkille {{stopLabel}}"
+    }
   }
 }

@@ -78,10 +78,10 @@ export const VehicleScheduleFrameBlocksView: FC<
               isOpen={isOpen}
               onToggle={toggleIsOpen}
               iconClassName="text-[50px] text-white"
-              openTooltip={t('accessibility:timetables.expandSchedulePreview', {
+              openTooltip={t('accessibility.timetables.expandSchedulePreview', {
                 vehicleScheduleFrameLabel,
               })}
-              closeTooltip={t('accessibility:timetables.closeSchedulePreview', {
+              closeTooltip={t('accessibility.timetables.closeSchedulePreview', {
                 vehicleScheduleFrameLabel,
               })}
               controls={vehicleScheduleFrameBlocksId}

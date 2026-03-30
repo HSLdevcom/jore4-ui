@@ -42,7 +42,7 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
             priority: stop.priority,
           })}
           data-testid={testIds.link}
-          title={t('accessibility:stops.showStopDetails', {
+          title={t('accessibility.stops.showStopDetails', {
             stopLabel: stop.publicCode,
           })}
         >
@@ -53,7 +53,7 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
         <Row className="mt-2 items-center">
           <span
             className="h-4 text-sm leading-none"
-            title={t('accessibility:stops.timingPlace')}
+            title={t('accessibility.stops.timingPlace')}
           >
             {stop.timingPlace?.label}
           </span>

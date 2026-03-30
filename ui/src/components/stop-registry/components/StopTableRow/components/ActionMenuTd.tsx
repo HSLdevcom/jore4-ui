@@ -27,7 +27,7 @@ export const ActionMenuTd: FC<ActionMenuTdProps> = ({
   return (
     <td className={className}>
       <SimpleDropdownMenu
-        tooltip={t('accessibility:common.actionMenu')}
+        tooltip={t('accessibility.common.actionMenu')}
         testId={testIds.actionMenu}
       >
         {menuItems}

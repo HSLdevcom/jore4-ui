@@ -101,8 +101,8 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
               isOpen={showNameVersions}
               onToggle={setShowNameVersions}
               testId={testIds.showNameVersionsButton}
-              openTooltip={t('accessibility:lines.expandNameVersions')}
-              closeTooltip={t('accessibility:lines.closeNameVersions')}
+              openTooltip={t('accessibility.lines.expandNameVersions')}
+              closeTooltip={t('accessibility.lines.closeNameVersions')}
               controls="nameVersions"
             />
           </label>

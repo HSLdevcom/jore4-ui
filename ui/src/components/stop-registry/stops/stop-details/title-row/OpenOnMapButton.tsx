@@ -44,7 +44,7 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
       disabled={!stop}
       onClick={onClick}
       testId={testIds.button}
-      tooltipText={t('accessibility:common.showOnMap', { label })}
+      tooltipText={t('accessibility.common.showOnMap', { label })}
     />
   );
 };

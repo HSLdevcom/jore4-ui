@@ -133,8 +133,8 @@ export const PreviewTimetablesPage: FC = () => {
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
                 iconClassName="text-[50px] text-white"
-                openTooltip={t('accessibility:timetables.showPreview')}
-                closeTooltip={t('accessibility:timetables.closePreview')}
+                openTooltip={t('accessibility.timetables.showPreview')}
+                closeTooltip={t('accessibility.timetables.closePreview')}
                 controls="fileContent"
               />
             </label>

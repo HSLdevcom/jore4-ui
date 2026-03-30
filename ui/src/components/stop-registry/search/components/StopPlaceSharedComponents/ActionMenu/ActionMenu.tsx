@@ -10,7 +10,7 @@ export const ActionMenu: FC<PropsWithChildren> = ({ children }) => {
   const { t } = useTranslation();
   return (
     <SimpleDropdownMenu
-      tooltip={t('accessibility:common.actionMenu')}
+      tooltip={t('accessibility.common.actionMenu')}
       testId={testIds.actionMenu}
     >
       {children}

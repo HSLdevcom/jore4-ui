@@ -23,7 +23,7 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
       <h2>{t('terminalDetails.title')}</h2>
 
       <div
-        title={t('accessibility:terminals.validityPeriod')}
+        title={t('accessibility.terminals.validityPeriod')}
         data-testid={testIds.validityPeriod}
       >
         {mapToShortDate(terminal.validityStart)}

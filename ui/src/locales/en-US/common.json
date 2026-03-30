@@ -1543,5 +1543,81 @@
     "body": "You have unsaved changes on the one of the form in the current page, if you leave now, you will lose your changes.",
     "proceed": "Discard changes",
     "cancel": "Continue editing"
+  },
+  "accessibility": {
+    "common": {
+      "showOnMap": "Show {{label}} on the map",
+      "nextPage": "Next page",
+      "prevPage": "Previous page",
+      "currentPage": "Current page {{pageNumber}}",
+      "goToPage": "Go to page",
+      "paginationNavigation": "Pagination Navigation",
+      "expandSearch": "Open advanced search",
+      "closeSearch": "Close advanced search",
+      "actionMenu": "Action menu"
+    },
+    "lines": {
+      "details": "Show details for line {{label}}",
+      "createNewRoute": "Create new route for line {{label}}",
+      "showOnMap": "Show line {{label}} on the map",
+      "showTimetables": "Show timetables for line {{label}}",
+      "expandNameVersions": "Show name versions",
+      "closeNameVersions": "Close the name version view",
+      "edit": "Edit line {{label}}",
+      "versionHistory": "Version history",
+      "bus": "Bus line"
+    },
+    "routes": {
+      "showOnMap": "Show route {{label}} on the map",
+      "showOnMapDirection": "Show route {{label}} on the map, direction {{directionNumber}}",
+      "editRouteDirection": "Edit the route {{label}}, direction {{directionNumber}}",
+      "showTimetables": "Show timetables for route {{label}}",
+      "expandStops": "Open the stops list for the route {{label}}, direction {{directionNumber}}",
+      "closeStops": "Hide the stops of the route {{label}, direction {{directionNumber}}",
+      "expandTimetable": "Open the timetables for the route {{routeName}}",
+      "closeTimetable": "Hide the timetables of the route {{routeName}}",
+      "showStopActions": "More actions for the stop {{stopLabel}}",
+      "openTimingSettings": "Open the timing settings for the stop {{stopLabel}}",
+      "bus": "Bus route"
+    },
+    "stops": {
+      "showStopDetails": "Show details for stop {{ stopLabel }}",
+      "timingPlace": "Timing place",
+      "validityPeriod": "Validity period",
+      "editExternalLink": "Edit external links",
+      "addExternalLink": "Add external link",
+      "openExternalLink": "Open external link {{ linkTitle }}",
+      "editStopValidity": "Edit version for stop {{ stopLabel }}",
+      "stopTimetablesButton": "Show timetables for stop"
+    },
+    "stopAreas": {
+      "showStopAreaDetails": "Show details for stop area {{ areaLabel }}"
+    },
+    "terminals": {
+      "showTerminalDetails": "Show details for terminal {{ terminalLabel }}",
+      "validityPeriod": "Validity period",
+      "editTerminalValidity": "Edit version for terminal {{ terminalName }}",
+      "openInfoSpots": "Open info spot details"
+    },
+    "timetables": {
+      "icon": "Timetable",
+      "changeValidityPeriod": "Change the validity period for {{dayType}}",
+      "substituteDayEdit": "Edit the substitute day of \"{{substituteDay}}\"",
+      "substituteDayEditClose": "Stop editing subsitute day \"{{substituteDay}}\"",
+      "showPreview": "Show the file's content",
+      "closePreview": "Close the file's content",
+      "showTimetable": "Show timetable",
+      "expandSchedulePreview": "Show the schedule {{vehicleScheduleFrameLabel}}'s blocks",
+      "closeSchedulePreview": "Hide the schedule {{vehicleScheduleFrameLabel}}'s blocks",
+      "expandScheduleBlocksPreview": "Show the {{scheduleBlock}} block's information",
+      "closeScheduleBlocksPreview": "Hide the {{scheduleBlock}} block's information",
+      "versionActions": "More actions for the schedule {{status}} {{schedule}} {{dayType}}",
+      "closeMissingRouteDeviationsWarning": "Close the warning of the deviations"
+    },
+    "map": {
+      "showFilters": "Show filters",
+      "editRoute": "Edit route {{routeName}}'s data",
+      "routeStopsOverlayRowActions": "More actions for stop {{stopLabel}}"
+    }
   }
 }

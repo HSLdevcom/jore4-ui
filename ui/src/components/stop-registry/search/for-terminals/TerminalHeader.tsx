@@ -41,7 +41,7 @@ export const TerminalHeader: FC<StopPlaceHeaderPublicPropsProps> = ({
           'border-border-hsl-commuter-train-purple bg-background-hsl-commuter-train-purple',
         onShowOnMap,
         path: Path.terminalDetails,
-        linkTitle: t('accessibility:terminals.showTerminalDetails', {
+        linkTitle: t('accessibility.terminals.showTerminalDetails', {
           areaLabel: stopPlace.name_value,
         }),
         linkContent: t('stopRegistrySearch.terminalLabel', {

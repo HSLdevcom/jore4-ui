@@ -128,7 +128,7 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <IconButton
             onClick={openVersionPanel}
-            tooltip={t('accessibility:timetables.showTimetable')}
+            tooltip={t('accessibility.timetables.showTimetable')}
             icon={<i className="icon-calendar" />}
           />
         </Visible>
@@ -152,7 +152,7 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <SimpleDropdownMenu
             testId={testIds.actions}
-            tooltip={t('accessibility:timetables.versionActions', {
+            tooltip={t('accessibility.timetables.versionActions', {
               status: statusText,
               schedule: vehicleScheduleFrameName,
               dayType,

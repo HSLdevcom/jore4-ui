@@ -108,7 +108,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
           observationDate: observationDate.toISODate(),
         })}
         testId={testIds.editRouteButton}
-        tooltip={t('accessibility:routes.editRouteDirection', {
+        tooltip={t('accessibility.routes.editRouteDirection', {
           label,
           directionNumber,
         })}
@@ -146,7 +146,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }
           testId={testIds.showRouteButton}
-          tooltipText={t('accessibility:routes.showOnMapDirection', {
+          tooltipText={t('accessibility.routes.showOnMapDirection', {
             label,
             directionNumber,
           })}
@@ -158,11 +158,11 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         isOpen={isExpanded}
         onToggle={onToggle}
         testId={testIds.toggleAccordion}
-        openTooltip={t('accessibility:routes.expandStops', {
+        openTooltip={t('accessibility.routes.expandStops', {
           label,
           directionNumber,
         })}
-        closeTooltip={t('accessibility:routes.closeStops', {
+        closeTooltip={t('accessibility.routes.closeStops', {
           label,
           directionNumber,
         })}

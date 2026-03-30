@@ -67,7 +67,7 @@ export const StopDetailsPage: FC = () => {
         <div className="flex items-center gap-2">
           <h2>{t('stopDetails.stopDetails')}</h2>
           <div
-            title={t('accessibility:stops.validityPeriod')}
+            title={t('accessibility.stops.validityPeriod')}
             data-testid={testIds.validityPeriod}
             className="flex items-center"
           >
