@@ -3,7 +3,6 @@ import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
   MapStopMinimalDetailsFragment,
-  ReusableComponentsVehicleModeEnum,
   StopsDatabaseQuayNewestVersionBoolExp,
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
@@ -11,6 +10,7 @@ import { Operation } from '../../../redux';
 import { Viewport } from '../../../redux/types';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
+import { parseVehicleMode } from '../../../utils';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
 import { mapCompactOrNull } from '../../stop-registry/utils';
@@ -113,9 +113,8 @@ function mapRawStopToMapStop(
     return null;
   }
 
-  const vehicleMode = rawStop.stop_place?.transport_mode as
-    | ReusableComponentsVehicleModeEnum
-    | undefined;
+  const vehicleMode =
+    parseVehicleMode(rawStop.stop_place?.transport_mode) ?? undefined;
 
   return {
     label: rawStop.label,

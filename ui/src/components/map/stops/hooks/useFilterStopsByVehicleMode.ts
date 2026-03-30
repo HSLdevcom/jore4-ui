@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
 import { useAppSelector } from '../../../../hooks';
 import { FilterType, selectMapFilter } from '../../../../redux';
+import { parseVehicleMode } from '../../../../utils';
 import { MapStop } from '../../types';
 import { useVisibleRouteStops } from './useVisibleRouteStops';
 
@@ -16,7 +17,7 @@ export function useFilterStopsByVehicleMode(
   return useCallback(
     (stops: ReadonlyArray<MapStop>): ReadonlyArray<MapStop> =>
       stops.filter((stop) => {
-        const vehicleMode = getStopVehicleMode(stop);
+        const vehicleMode = parseVehicleMode(getStopVehicleMode(stop));
         const isStopInVisibleRoutes = visibleRouteStopLabels.includes(
           stop.label,
         );
