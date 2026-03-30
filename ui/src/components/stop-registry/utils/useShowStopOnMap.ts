@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon';
 import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import {
-  FilterType,
   MapEntityEditorViewState,
   resetMapState,
   setMapStopViewStateAction,
   setSelectedStopIdAction,
-  setStopFilterAction,
 } from '../../../redux';
+import { useUpdateStopPriorityFilterIfNeeded } from '../../map/stops/hooks/useUpdateStopPriorityFilterIfNeeded';
+import { useEnsureStopVehicleModeVisible } from '../../map/utils/useEnsureStopVehicleModeVisible';
 import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { LocatableStop } from '../types';
 
@@ -20,9 +20,11 @@ export function useShowStopOnMap() {
       initialize: false,
     });
   const navigateToMap = useNavigateToMap();
+  const ensureVehicleModeVisible = useEnsureStopVehicleModeVisible();
+  const updatePriorityFilterIfNeeded = useUpdateStopPriorityFilterIfNeeded();
 
   return (
-    { netexId, location }: LocatableStop,
+    { netexId, location, priority, transportMode }: LocatableStop,
     observeOnDate: DateTime | null = null,
   ) => {
     dispatch(resetMapState()).then(() => {
@@ -31,12 +33,10 @@ export function useShowStopOnMap() {
         dispatch(setMapStopViewStateAction(MapEntityEditorViewState.POPUP));
       }
 
-      dispatch(
-        setStopFilterAction({
-          filterType: FilterType.ShowAllBusStops,
-          isActive: true,
-        }),
-      );
+      if (priority !== undefined) {
+        updatePriorityFilterIfNeeded(priority);
+      }
+      ensureVehicleModeVisible(transportMode);
 
       navigateToMap({
         viewPort: {

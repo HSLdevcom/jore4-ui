@@ -48,7 +48,9 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
         shape="slim"
         className="absolute top-2 right-2"
         inverted
-        onClick={() => showOnMap(area.id ?? undefined, point)}
+        onClick={() =>
+          showOnMap(area.id ?? undefined, point, area.transportMode)
+        }
         testId={testIds.openMapButton}
       >
         {t('stopAreaDetails.minimap.showOnMap')}
