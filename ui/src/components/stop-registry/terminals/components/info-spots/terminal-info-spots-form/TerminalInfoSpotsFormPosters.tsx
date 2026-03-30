@@ -76,16 +76,16 @@ export const TerminalInfoSpotsFormPosters: FC<
           onClick={() => onRemovePoster(posterIndex)}
           inverted
         >
-          {t(
+          {t(($) =>
             toBeDeletedPoster
-              ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
-              : 'stopDetails.infoSpots.deleteInfoSpotPoster',
+              ? $.stopDetails.infoSpots.cancelDeleteInfoSpot
+              : $.stopDetails.infoSpots.deleteInfoSpotPoster,
           )}
         </SimpleButton>
         {isLastPoster && (
           <AddNewButton
             testId={testIds.addInfoSpotPoster}
-            label={t('stopDetails.infoSpots.addInfoSpotPoster')}
+            label={t(($) => $.stopDetails.infoSpots.addInfoSpotPoster)}
             onClick={addPoster}
             className="ml-auto"
           />

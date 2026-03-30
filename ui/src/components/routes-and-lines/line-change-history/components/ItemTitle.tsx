@@ -15,7 +15,7 @@ export const ItemTitle: FC<ItemTitleProps> = ({ item }) => {
         <h5>
           <Trans
             t={t}
-            i18nKey="lineChangeHistory.routeSectionTitle"
+            i18nKey={($) => $.lineChangeHistory.routeSectionTitle}
             components={{
               Direction: <HistoricalRouteDirectionBadge item={item} />,
             }}
@@ -29,7 +29,7 @@ export const ItemTitle: FC<ItemTitleProps> = ({ item }) => {
 
   return (
     <div>
-      <h5>{t('lineChangeHistory.lineSectionTitle', item)}</h5>
+      <h5>{t(($) => $.lineChangeHistory.lineSectionTitle, item)}</h5>
       <VersionComment item={item} />
     </div>
   );

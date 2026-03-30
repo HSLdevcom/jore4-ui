@@ -88,7 +88,7 @@ export const LineDetailsByIdPage: FC = () => {
             </Row>
             <Row>
               <Column className="w-full">
-                <h2 className="mt-8">{t('lines.routes')}</h2>
+                <h2 className="mt-8">{t(($) => $.lines.routes)}</h2>
                 {line.line_routes?.length > 0 ? (
                   <LineRouteList routes={displayedRoutes} />
                 ) : (
@@ -110,7 +110,6 @@ export const LineDetailsByIdPage: FC = () => {
           </div>
         )}
       </Container>
-
       <Visible visible={isViaModalOpen}>
         <ViaModal />
       </Visible>

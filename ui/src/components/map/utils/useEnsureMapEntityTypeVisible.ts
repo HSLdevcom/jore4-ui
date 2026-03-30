@@ -24,7 +24,7 @@ export function useEnsureMapEntityTypeVisible() {
   return (entityType: MapEntityType) => {
     if (!showMapEntityType[entityType]) {
       dispatch(setShowMapEntityTypeAction({ entityType, shown: true }));
-      showWarningToast(t('filters.visibilityFiltersAdjusted'));
+      showWarningToast(t(($) => $.filters.visibilityFiltersAdjusted));
     }
   };
 }

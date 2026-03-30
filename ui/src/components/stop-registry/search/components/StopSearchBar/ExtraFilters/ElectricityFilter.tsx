@@ -19,8 +19,9 @@ const options: ReadonlyArray<
 ];
 
 const uiNameMapper = mapStopRegistryShelterElectricityEnumToUiName.extend({
-  [AllOptionEnum.All]: (t) => t('all'),
-  [NullOptionEnum.Null]: (t) => t('stopRegistrySearch.noOptions.electricity'),
+  [AllOptionEnum.All]: (t) => t(($) => $.all),
+  [NullOptionEnum.Null]: (t) =>
+    t(($) => $.stopRegistrySearch.noOptions.electricity),
 });
 
 const defaultValue: ReadonlyArray<

@@ -50,14 +50,14 @@ export const TerminalNames: FC = () => {
             className="mr-2 w-1/2 text-hsl-red"
             data-testid={testIds.errorIndicator}
           >
-            <span>{t('terminal.errors.expandToSeeErrors')}</span>
+            <span>{t(($) => $.terminal.errors.expandToSeeErrors)}</span>
           </div>
         )}
         <ExpandButton
           className="ml-auto"
           ariaControls={ID}
           expanded={expanded}
-          expandedText={t('terminal.showDetails')}
+          expandedText={t(($) => $.terminal.showDetails)}
           onClick={() => setExpanded((p) => !p)}
           testId={testIds.showHideButton}
           iconClassName="text-base"

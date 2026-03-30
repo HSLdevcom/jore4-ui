@@ -13,11 +13,10 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
   return (
     <>
       <div className="flex items-center gap-4">
-        <h2>{t('stopAreaDetails.memberStops.title')}</h2>
+        <h2>{t(($) => $.stopAreaDetails.memberStops.title)}</h2>
 
         <MoveQuayToStopAreaHeader area={area} refetch={refetch} />
       </div>
-
       <StopAreaMemberStopRows area={area} />
     </>
   );

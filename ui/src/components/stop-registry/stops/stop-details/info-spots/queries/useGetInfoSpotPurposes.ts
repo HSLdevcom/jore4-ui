@@ -24,7 +24,7 @@ export function useGetInfoSpotPurposes() {
   const { t } = useTranslation();
 
   const collator = useMemo(
-    () => new Intl.Collator(t('languages.intlLangCode')),
+    () => new Intl.Collator(t(($) => $.languages.intlLangCode)),
     [t],
   );
 

@@ -29,5 +29,18 @@ i18nextUse(initReactI18next).init({
   },
 });
 
-// All the translation key paths as strings (e.g. "navigation.logout")
+/**
+ * All the translation key paths as strings (e.g. "navigation.logout")
+ * Retain here so that I don't have to re-implement everything form in the app,
+ * as part of this change set.
+ *
+ * Preferred alternatives:
+ * 1. Do the translation at the calling in, and pass through the actual
+ *    translated value into the child component.
+ * 2. Cant do that? Reconsider your codes design.
+ * 3. Still cant do that? Pass through separate testIds and construct a proper
+ *    I18Next Selector function that can be passed through to the end use site.
+ *
+ * @deprecated
+ */
 export type TranslationKey = Paths<typeof fiCommon>;

@@ -25,7 +25,7 @@ const OpenDetailsPageImpl: ForwardRefRenderFunction<
     <SimpleDropdownMenuItem
       ref={ref}
       className={className}
-      text={t('stopRegistrySearch.stopRowActions.openDetails')}
+      text={t(($) => $.stopRegistrySearch.stopRowActions.openDetails)}
       onClick={() =>
         navigate(
           routeDetails[Path.stopDetails].getLink(stop.label, {

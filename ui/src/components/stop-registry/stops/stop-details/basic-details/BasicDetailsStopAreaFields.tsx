@@ -49,13 +49,13 @@ export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
             { observationDate },
           )}
           data-testid={testIds.areaLink}
-          title={t('accessibility.stopAreas.showStopAreaDetails', {
+          title={t(($) => $.accessibility.stopAreas.showStopAreaDetails, {
             areaLabel: stop.stop_place?.name,
           })}
         >
           <div className="flex flex-col">
             <div className="text-sm">
-              {t('stopDetails.basicAreaDetails.areaPrivateCode')}
+              {t(($) => $.stopDetails.basicAreaDetails.areaPrivateCode)}
             </div>
             <div
               className="text-sm font-bold"
@@ -67,19 +67,19 @@ export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
           </div>
         </Link>
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaMemberStops', {
+          title={t(($) => $.stopDetails.basicAreaDetails.areaMemberStops, {
             count: getQuayPublicCodes(stop).length,
           })}
           detail={getFormattedQuayCodes(t, stop)}
           testId="BasicDetailsSection::areaQuays"
         />
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaName')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaName)}
           detail={stop.stop_place?.name}
           testId={testIds.areaName}
         />
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaNameSwe')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaNameSwe)}
           detail={stop.stop_place?.nameSwe}
           testId={testIds.areaNameSwe}
         />

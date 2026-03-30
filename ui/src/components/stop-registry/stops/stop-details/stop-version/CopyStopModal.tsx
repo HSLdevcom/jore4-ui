@@ -56,7 +56,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
     <Modal isOpen={isOpen} onClose={wrappedOnClose} testId={testIds.modal}>
       <ModalHeader
         onClose={wrappedOnClose}
-        heading={t('stopDetails.version.title.copy')}
+        heading={t(($) => $.stopDetails.version.title.copy)}
       />
       <LoadingWrapper
         testId={testIds.loading}
@@ -66,7 +66,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
           <ModalBody>
             <CopyStopBoilerPlate originalStop={originalStop} />
             <h4 className="mt-4">
-              {t('stopDetails.version.title.copySubTitle')}
+              {t(($) => $.stopDetails.version.title.copySubTitle)}
             </h4>
             <CopyStopForm
               className="mt-4 w-[550px]"

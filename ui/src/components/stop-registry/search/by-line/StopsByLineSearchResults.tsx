@@ -28,7 +28,7 @@ export const StopsByLineSearchResults: FC = () => {
   return (
     <LoadingWrapper
       className="flex justify-center"
-      loadingText={t('search.searching')}
+      loadingText={t(($) => $.search.searching)}
       loading={lines.length === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >

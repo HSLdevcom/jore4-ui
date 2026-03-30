@@ -116,7 +116,9 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
             observationDate,
           })}
           data-testid={testIds.label}
-          title={t('accessibility.stops.showStopDetails', { stopLabel })}
+          title={t(($) => $.accessibility.stops.showStopDetails, {
+            stopLabel,
+          })}
         >
           {stop.label}
         </a>
@@ -135,18 +137,16 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         data-testid={testIds.validityPeriod}
       >
         {stopBelongsToJourneyPattern
-          ? t('validity.validDuring', {
+          ? t(($) => $.validity.validDuring, {
               startDate: mapToShortDate(stop.validity_start ?? MIN_DATE),
               endDate: mapToShortDate(stop.validity_end ?? MAX_DATE),
             })
-          : t('stops.notPartOfRoute')}
+          : t(($) => $.stops.notPartOfRoute)}
       </span>
       <div className="items-center">
         <AlertPopover
-          title={t(alertStatus.title, {
-            type: t('routes.route'),
-          })}
-          description={t(alertStatus.description)}
+          title={alertStatus.title}
+          description={alertStatus.description}
           alertIcon={alertStyle.icon}
         />
       </div>
@@ -174,7 +174,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
                 }`}
               />
             }
-            tooltip={`${t('accessibility.routes.openTimingSettings', {
+            tooltip={`${t(($) => $.accessibility.routes.openTimingSettings, {
               stopLabel,
             })}`}
             onClick={showTimingSettingsModal}
@@ -184,7 +184,9 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         )}
       </div>
       <StopActionsDropdown
-        tooltip={t('accessibility.routes.showStopActions', { stopLabel })}
+        tooltip={t(($) => $.accessibility.routes.showStopActions, {
+          stopLabel,
+        })}
         stopLabel={stopLabel}
         stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
         isViaPoint={isViaPoint}

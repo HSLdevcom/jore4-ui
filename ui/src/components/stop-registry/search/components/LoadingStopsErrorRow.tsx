@@ -29,14 +29,16 @@ export const LoadingStopsErrorRow: FC<LoadingStopsErrorRowProps> = ({
       )}
     >
       <span data-testid={testIds.reason}>
-        {t('stopRegistrySearch.failedToFetchStops', { reason: String(error) })}
+        {t(($) => $.stopRegistrySearch.failedToFetchStops, {
+          reason: String(error),
+        })}
       </span>
       <SimpleButton
         testId={testIds.refetch}
         shape="slim"
         onClick={() => refetch()}
       >
-        {t('stopRegistrySearch.tryToRefetch')}
+        {t(($) => $.stopRegistrySearch.tryToRefetch)}
       </SimpleButton>
     </div>
   );

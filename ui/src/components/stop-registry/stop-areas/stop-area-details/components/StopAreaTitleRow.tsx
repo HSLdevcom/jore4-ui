@@ -44,15 +44,13 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
       >
         {area.privateCode?.value ?? ''}
       </PageTitle.H1>
-
       <div className="text-xl" data-testid={testIds.name}>
         {area.name ?? null}
       </div>
-
       <div className="grow" />
       <LocatorButton
         onClick={onClickAreaMap}
-        tooltipText={t('stopRegistrySearch.showStopAreaOnMap')}
+        tooltipText={t(($) => $.stopRegistrySearch.showStopAreaOnMap)}
         testId={testIds.locatorButton}
         className="mt-5 mr-2"
       />

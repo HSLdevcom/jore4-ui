@@ -98,7 +98,7 @@ export const useExportRoutes = () => {
 
       dispatch(
         openSingleErrorModalAction({
-          errorModalTitle: t('export.hastusErrorTitle'),
+          errorModalTitle: t(($) => $.export.hastusErrorTitle),
           errorDetails: {
             details: mapHastusErrorTypeToErrorMessage(
               t,

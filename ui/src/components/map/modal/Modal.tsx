@@ -36,10 +36,10 @@ const ModalFooter: FC<ModalFooterProps> = ({
     >
       <Row className="justify-end gap-2">
         <SimpleButton onClick={onCancel} inverted>
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
         <SimpleButton testId={testIds.saveButton} onClick={onSave}>
-          {t('save')}
+          {t(($) => $.save)}
         </SimpleButton>
       </Row>
     </div>

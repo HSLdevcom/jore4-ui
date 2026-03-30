@@ -1,4 +1,3 @@
-import { TFunction } from 'i18next';
 import get from 'lodash/get';
 import { FC, ReactElement } from 'react';
 import {
@@ -11,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { Column, Row } from '../../../layoutComponents';
 import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
+import { useTranslateStringKey } from './useTranslateStringKey';
 
 const testIds = {
   errorMessage: (fieldPath: string) => `ValidationError::message::${fieldPath}`,
@@ -52,17 +52,27 @@ const isDefaultZodErrorMessage = (message: string) => {
   );
 };
 
-// Try and see of the `message` is a translation key.
-// Else assume it is a pre translated string and return it as is.
-const translateErrorMessage = (message: string | undefined, t: TFunction) => {
-  return t(`formValidation.${message}`, { defaultValue: message });
-};
+function useTranslateErrorMessage(): (message: string | undefined) => string {
+  const translateStringKey = useTranslateStringKey();
+
+  // Try and see of the `message` is a translation key.
+  // Else assume it is a pre translated string and return it as is.
+  return (message: string | undefined) => {
+    if (!message) {
+      return '';
+    }
+
+    return translateStringKey(`formValidation.${message}`) ?? message;
+  };
+}
 
 export const ValidationErrorList = <FormState extends FieldValues>({
   className,
   fieldPath,
 }: ErrorListProps<FormState>): ReactElement | null => {
   const { t } = useTranslation();
+  const translateErrorMessage = useTranslateErrorMessage();
+
   const {
     formState: { errors },
   } = useFormContext<FormState>();
@@ -76,26 +86,26 @@ export const ValidationErrorList = <FormState extends FieldValues>({
     // invalid type error messages to 'required' and then map them
     // to error messages here
     if (message === REQUIRED_FIELD_ERROR_MESSAGE) {
-      return t(`formValidation.required`);
+      return t(($) => $.formValidation.required);
     }
 
     switch (type) {
       case 'too_small':
         return message && !isDefaultZodErrorMessage(message)
-          ? translateErrorMessage(message, t)
-          : t('formValidation.tooSmall');
+          ? translateErrorMessage(message)
+          : t(($) => $.formValidation.tooSmall);
       case 'too_big':
         return message && !isDefaultZodErrorMessage(message)
-          ? translateErrorMessage(message, t)
-          : t('formValidation.tooBig');
+          ? translateErrorMessage(message)
+          : t(($) => $.formValidation.tooBig);
       case 'custom':
-        return translateErrorMessage(message, t);
+        return translateErrorMessage(message);
       case 'invalid_string':
         if (message === INVALID_EMAIL_MESSAGE) {
-          return t(`formValidation.invalidEmail`);
+          return t(($) => $.formValidation.invalidEmail);
         }
 
-        return translateErrorMessage(message, t);
+        return translateErrorMessage(message);
       default:
         return `${type}: ${message}`;
     }

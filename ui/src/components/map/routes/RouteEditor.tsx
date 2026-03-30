@@ -168,7 +168,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
         observationDate:
           newRoute.validity_start ?? newRoute.validity_end ?? observationDate,
       }));
-      showWarningToast(t('filters.observationDateAdjusted'));
+      showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
     // Reset map editor drap mode and remove draft route
@@ -264,12 +264,12 @@ const RouteEditorComponent: ForwardRefRenderFunction<
 
       if (editedRouteId) {
         await editRoute(editedRouteId);
-        showSuccessToast(t('routes.saveSuccess'));
+        showSuccessToast(t(($) => $.routes.saveSuccess));
       } else {
         const createdRoute = await createRoute();
 
         if (createdRoute) {
-          showSuccessToast(t('routes.saveSuccess'));
+          showSuccessToast(t(($) => $.routes.saveSuccess));
           onRouteCreated(createdRoute);
         }
       }
@@ -288,7 +288,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     try {
       // delete the route from the backend
       await deleteRoute(editedRouteId);
-      showSuccessToast(t('routes.deleteSuccess'));
+      showSuccessToast(t(($) => $.routes.deleteSuccess));
 
       setIsDeleting(false);
       resetUrlState();
@@ -320,10 +320,10 @@ const RouteEditorComponent: ForwardRefRenderFunction<
         isOpen={isDeleting}
         onCancel={() => setIsDeleting(false)}
         onConfirm={onDeleteConfirm}
-        title={t('confirmDeleteRouteDialog.title')}
-        description={t('confirmDeleteRouteDialog.description')}
-        confirmText={t('confirmDeleteRouteDialog.confirmText')}
-        cancelText={t('cancel')}
+        title={t(($) => $.confirmDeleteRouteDialog.title)}
+        description={t(($) => $.confirmDeleteRouteDialog.description)}
+        confirmText={t(($) => $.confirmDeleteRouteDialog.confirmText)}
+        cancelText={t(($) => $.cancel)}
       />
       <ConflictResolverModal
         onClose={() => setConflicts([])}

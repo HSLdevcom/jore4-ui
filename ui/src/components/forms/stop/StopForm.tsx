@@ -381,7 +381,7 @@ const StopFormComponent: ForwardRefRenderFunction<
 
           {missingId ?? (
             <ValidationError
-              errorMessage={t('stops.missingIds')}
+              errorMessage={t(($) => $.stops.missingIds)}
               fieldPath="stopId"
             />
           )}
@@ -396,7 +396,6 @@ const StopFormComponent: ForwardRefRenderFunction<
           variant="modal"
         />
       </form>
-
       <Visible visible={isTimingPlaceModalOpen}>
         <TimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
       </Visible>

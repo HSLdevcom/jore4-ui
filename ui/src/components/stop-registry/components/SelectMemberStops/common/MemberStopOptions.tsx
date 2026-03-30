@@ -34,7 +34,7 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
         disabled={isDisabled}
         title={
           isDisabled
-            ? t('terminalDetails.location.stopAlreadyBelongsToTerminal')
+            ? t(($) => $.terminalDetails.location.stopAlreadyBelongsToTerminal)
             : undefined
         }
       >
@@ -46,7 +46,6 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
           {mapToShortDate(stop.validityEnd)}
         </span>
         <div className="grow" />
-
         {!isDisabled && (
           <MdOutlineAddCircle className="text-hsl mx-1 text-2xl text-brand" />
         )}

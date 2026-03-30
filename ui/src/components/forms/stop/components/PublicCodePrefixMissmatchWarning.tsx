@@ -40,7 +40,10 @@ export const PublicCodePrefixMissmatchWarning: FC<
   return (
     <Column className={className}>
       <ValidationError
-        errorMessage={t('stops.stopPublicCodePrefixMissmatch', publicCode)}
+        errorMessage={t(
+          ($) => $.stops.stopPublicCodePrefixMissmatch,
+          publicCode,
+        )}
         fieldPath="PublicCodePrefixMissmatchWarning"
       />
     </Column>

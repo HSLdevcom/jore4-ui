@@ -66,7 +66,9 @@ export const ChangeTimetablesValidityForm: FC<
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
       >
-        <h3 className="mb-6">{t('changeTimetablesValidityModal.validity')}</h3>
+        <h3 className="mb-6">
+          {t(($) => $.changeTimetablesValidityModal.validity)}
+        </h3>
         <FormColumn>
           <FormRow mdColumns={2}>
             <InputField<FormState>
@@ -86,15 +88,17 @@ export const ChangeTimetablesValidityForm: FC<
         <Visible visible={affectedRouteLabels.length > 1}>
           <AffectedRouteLabels
             affectedRouteLabels={affectedRouteLabels}
-            text={t('changeTimetablesValidityModal.noticeChangesInRoutes')}
+            text={t(
+              ($) => $.changeTimetablesValidityModal.noticeChangesInRoutes,
+            )}
           />
         </Visible>
         <Row className="mt-6 justify-end gap-4">
           <SimpleButton onClick={onCancel} inverted>
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
           <SimpleButton testId={testIds.saveButton} onClick={onSave}>
-            {t('save')}
+            {t(($) => $.save)}
           </SimpleButton>
         </Row>
       </form>

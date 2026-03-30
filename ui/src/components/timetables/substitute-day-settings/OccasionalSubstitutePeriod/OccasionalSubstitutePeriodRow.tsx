@@ -148,7 +148,7 @@ export const OccasionalSubstitutePeriodRow: FC<
             inverted
           >
             {/* TODO: needs proper label, we are not removing a route */}
-            <MdDelete aria-label={t('map.deleteRoute')} />
+            <MdDelete aria-label={t(($) => $.map.deleteRoute)} />
           </SimpleButton>
         </Visible>
       </Column>

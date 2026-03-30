@@ -111,7 +111,7 @@ export const useCreateTimingPlace = () => {
   // in case an exception is thrown
   const defaultErrorHandler = (err: Error) => {
     // if other error happened, show the generic error message
-    showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
+    showDangerToast(`${t(($) => $.errors.saveFailed)}, ${err}, ${err.message}`);
   };
 
   return {

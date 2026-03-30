@@ -19,7 +19,7 @@ export const RoutesAndLinesMainPage: FC = () => {
   return (
     <Container>
       <Row className="items-end">
-        <PageTitle.H1>{t('routes.routes')}</PageTitle.H1>
+        <PageTitle.H1>{t(($) => $.routes.routes)}</PageTitle.H1>
         <OpenDefaultMapButton className="ml-auto" />
         <SimpleButton
           id="create-line-button"
@@ -27,7 +27,7 @@ export const RoutesAndLinesMainPage: FC = () => {
           className="ml-3"
           href={createLineReactRoute.getLink()}
         >
-          {t('lines.createNew')}
+          {t(($) => $.lines.createNew)}
         </SimpleButton>
       </Row>
       <SearchContainer />

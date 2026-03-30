@@ -30,19 +30,19 @@ export function diffStopAreaAndTerminal(
   return compact([
     diffKeyedValues({
       key: 'StopAreaNameFin',
-      field: t('stopChangeHistory.stopPlace.stopAreaNameFin'),
+      field: t(($) => $.stopChangeHistory.stopPlace.stopAreaNameFin),
       oldValue: previous.stop_place.name,
       newValue: current.stop_place.name,
     }),
     diffKeyedValues({
       key: 'StopAreaNameSwe',
-      field: t('stopChangeHistory.stopPlace.stopAreaNameSwe'),
+      field: t(($) => $.stopChangeHistory.stopPlace.stopAreaNameSwe),
       oldValue: previous.stop_place.nameSwe,
       newValue: current.stop_place.nameSwe,
     }),
     diffKeyedValues({
       key: 'TerminalNameFin',
-      field: t('stopChangeHistory.stopPlace.terminalNameFin'),
+      field: t(($) => $.stopChangeHistory.stopPlace.terminalNameFin),
       oldValue: getTerminal(previous)?.name?.value,
       newValue: getTerminal(current)?.name?.value,
     }),

@@ -42,7 +42,7 @@ export const ChangeValidityForm: FC<ChangeValidityFormProps> = ({
 
   return (
     <div className={className} data-testid={testIds.container}>
-      <h3>{t('saveChangesModal.validityPeriod')}</h3>
+      <h3>{t(($) => $.saveChangesModal.validityPeriod)}</h3>
       <Row className="mb-4 pt-6">
         <PriorityForm hiddenPriorities={hiddenPriorities} />
       </Row>

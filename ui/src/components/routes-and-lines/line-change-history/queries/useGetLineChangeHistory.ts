@@ -306,7 +306,7 @@ function useSortHistoryItems(
   getUserNameByIdRealImpl: GetUserNameById,
 ): ReadonlyArray<LineChangeHistoryItem> {
   const { t } = useTranslation();
-  const langCode = t('languages.intlLangCode');
+  const langCode = t(($) => $.languages.intlLangCode);
   const collator = useMemo(
     () => new Intl.Collator(langCode, { numeric: true }),
     [langCode],

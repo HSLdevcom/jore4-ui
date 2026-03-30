@@ -45,14 +45,14 @@ export const StopAreaNames: FC = () => {
             className="mr-2 w-1/2 text-hsl-red"
             data-testid={testIds.errorIndicator}
           >
-            <span>{t('stopArea.errors.expandToSeeErrors')}</span>
+            <span>{t(($) => $.stopArea.errors.expandToSeeErrors)}</span>
           </div>
         )}
         <ExpandButton
           className="ml-auto"
           ariaControls={ID}
           expanded={expanded}
-          expandedText={t('stops.stopArea.showDetails')}
+          expandedText={t(($) => $.stops.stopArea.showDetails)}
           onClick={() => setExpanded((p) => !p)}
           testId={testIds.showHideButton}
           iconClassName="text-base"

@@ -1,9 +1,8 @@
 import without from 'lodash/without';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, ReactNode } from 'react';
 import { FieldPathByValue, FieldValues, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { TranslationKey } from '../../../../i18n';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../i18n/uiNameMappings';
 import { Row } from '../../../../layoutComponents';
 import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
@@ -72,7 +71,7 @@ type TransportationModeFilterProps<FormState extends FieldValues> = {
     FormState,
     ReadonlyArray<JoreStopRegistryTransportModeType | AllOptionEnum>
   >;
-  readonly translationPrefix: TranslationKey;
+  readonly label: ReactNode;
   readonly testIdPrefix: string;
   readonly className?: string;
   readonly disabled?: boolean;
@@ -80,13 +79,11 @@ type TransportationModeFilterProps<FormState extends FieldValues> = {
 
 export const TransportationModeFilter = <FormState extends FieldValues>({
   fieldPath,
-  translationPrefix,
+  label,
   testIdPrefix,
   className,
   disabled,
 }: TransportationModeFilterProps<FormState>): ReactElement => {
-  const { t } = useTranslation();
-
   const {
     field: { value, onBlur, onChange },
   } = useController<FormState, typeof fieldPath>({
@@ -127,7 +124,7 @@ export const TransportationModeFilter = <FormState extends FieldValues>({
 
   return (
     <fieldset className={twMerge('flex flex-col', className)} onBlur={onBlur}>
-      <label>{t(`${translationPrefix}.transportMode`)}</label>
+      <label>{label}</label>
       <Row className={twJoin('gap-1', s.noIconMargins)}>
         {options.map((mode) => (
           <TransportationModeButton

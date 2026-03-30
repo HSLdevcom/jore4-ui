@@ -164,7 +164,6 @@ Non-VSCode users can sort imports e.g. by running `yarn lint --fix` on command l
 
 Plugins:
 
-- i18n support: For ui translation string autocompletion and navigation
 - GraphQL: For GraphQL query autocompletion. Due to the size of our GraphQL schema extra configuration is needed:
   1. (Shift+Ctrl+A | Shift+⌘+A) And search for: Registry
   2. Open Registry

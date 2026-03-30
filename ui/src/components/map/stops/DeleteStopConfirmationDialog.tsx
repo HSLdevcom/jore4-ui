@@ -28,7 +28,7 @@ export const DeleteStopConfirmationDialog: FC<
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like
   const buildDescription = (changes: DeleteChanges) => {
-    const deletedStopText = t('confirmDeleteStopDialog.description', {
+    const deletedStopText = t(($) => $.confirmDeleteStopDialog.description, {
       stopLabel: changes.deletedStopPoint.label,
     });
     const confirmationTextParts: string[] = [deletedStopText];
@@ -39,9 +39,12 @@ export const DeleteStopConfirmationDialog: FC<
         changes.deleteStopFromRoutes,
         t,
       );
-      const removedRoutesText = t('confirmDeleteStopDialog.removedFromRoutes', {
-        routeLabels,
-      });
+      const removedRoutesText = t(
+        ($) => $.confirmDeleteStopDialog.removedFromRoutes,
+        {
+          routeLabels,
+        },
+      );
       confirmationTextParts.push(removedRoutesText);
     }
 
@@ -54,10 +57,10 @@ export const DeleteStopConfirmationDialog: FC<
       isOpen={isOpen}
       onCancel={onCancel}
       onConfirm={onConfirm}
-      title={t('confirmDeleteStopDialog.title')}
+      title={t(($) => $.confirmDeleteStopDialog.title)}
       description={buildDescription(deleteChanges)}
-      confirmText={t('confirmDeleteStopDialog.confirmText')}
-      cancelText={t('cancel')}
+      confirmText={t(($) => $.confirmDeleteStopDialog.confirmText)}
+      cancelText={t(($) => $.cancel)}
       widthClassName="w-235"
       isConfirming={isConfirming}
     />

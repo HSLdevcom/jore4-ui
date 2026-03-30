@@ -151,7 +151,7 @@ export function useEditStopUtils(
       await editStop(editChanges);
       setEditChanges(null);
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
 
       if (
         !isDateInRange(
@@ -167,7 +167,7 @@ export function useEditStopUtils(
             editChanges.editedStop.validity_end ??
             observationDate,
         }));
-        showWarningToast(t('filters.observationDateAdjusted'));
+        showWarningToast(t(($) => $.filters.observationDateAdjusted));
       }
       updateStopPriorityFilterIfNeeded(editChanges.editedStop.priority);
 

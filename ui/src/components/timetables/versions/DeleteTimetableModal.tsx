@@ -53,21 +53,21 @@ export const DeleteTimetableModal: FC<DeleteTimetableModalProps> = ({
 
   return (
     <ConfirmModal
-      heading={t('deleteTimetableModal.title')}
+      heading={t(($) => $.deleteTimetableModal.title)}
       isOpen={isOpen}
       onCancel={onClose}
       onConfirm={() =>
         vehicleScheduleFrameId && onConfirm(vehicleScheduleFrameId)
       }
-      confirmButtonText={t('deleteTimetableModal.confirmText')}
-      cancelButtonText={t('deleteTimetableModal.cancelText')}
+      confirmButtonText={t(($) => $.deleteTimetableModal.confirmText)}
+      cancelButtonText={t(($) => $.deleteTimetableModal.cancelText)}
     >
       <Description data-testid={testIds.description}>
-        {t('deleteTimetableModal.description')}
+        {t(($) => $.deleteTimetableModal.description)}
       </Description>
       <AffectedRouteLabels
         affectedRouteLabels={affectedRouteLabels}
-        text={t('deleteTimetableModal.affectedRoutesText')}
+        text={t(($) => $.deleteTimetableModal.affectedRoutesText)}
       />
     </ConfirmModal>
   );

@@ -13,7 +13,7 @@ const testIds = {
 export const MainPage: FC = () => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation('common');
-  const pageHeading = t('welcomePage.heading');
+  const pageHeading = t(($) => $.welcomePage.heading);
 
   return (
     <div
@@ -28,24 +28,24 @@ export const MainPage: FC = () => {
         >
           <img
             src="/favicon.svg"
-            alt={t('welcomePage.iconAlt')}
+            alt={t(($) => $.welcomePage.iconAlt)}
             className="h-9 w-9"
           />
           {pageHeading}
         </PageTitle.H1>
 
         <div className="mb-6 space-y-2.5">
-          <h4>{t('welcomePage.subheading1')}</h4>
-          <p className="text-lg">{t('welcomePage.paragraph1')}</p>
-          <p className="text-lg">{t('welcomePage.paragraph2')}</p>
-          <p className="text-lg">{t('welcomePage.paragraph3')}</p>
+          <h4>{t(($) => $.welcomePage.subheading1)}</h4>
+          <p className="text-lg">{t(($) => $.welcomePage.paragraph1)}</p>
+          <p className="text-lg">{t(($) => $.welcomePage.paragraph2)}</p>
+          <p className="text-lg">{t(($) => $.welcomePage.paragraph3)}</p>
 
-          <h4>{t('welcomePage.subheading2')}</h4>
-          <p className="text-lg">{t('welcomePage.paragraph4')}</p>
+          <h4>{t(($) => $.welcomePage.subheading2)}</h4>
+          <p className="text-lg">{t(($) => $.welcomePage.paragraph4)}</p>
         </div>
 
         <p className="mt-12 mb-6 text-center text-xl font-bold text-brand">
-          {t('welcomePage.callout')}
+          {t(($) => $.welcomePage.callout)}
         </p>
 
         {!userInfo?.permissions && (
@@ -58,7 +58,7 @@ export const MainPage: FC = () => {
             }}
             className="mx-auto px-6 py-3 text-sm"
           >
-            {t('welcomePage.login')}
+            {t(($) => $.welcomePage.login)}
           </SimpleButton>
         )}
       </div>

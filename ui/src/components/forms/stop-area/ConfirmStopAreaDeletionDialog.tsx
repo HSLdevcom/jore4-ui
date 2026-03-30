@@ -29,9 +29,9 @@ function getDeleteBlockedContent(
   return {
     body: (
       <div>
-        <p>{t('confirmStopAreaDeletionDialog.bodyCanNotBeDeleted')}</p>
+        <p>{t(($) => $.confirmStopAreaDeletionDialog.bodyCanNotBeDeleted)}</p>
         <p className="mt-4 mb-2">
-          {t('confirmStopAreaDeletionDialog.memberStops')}
+          {t(($) => $.confirmStopAreaDeletionDialog.memberStops)}
         </p>
         <ul>
           {compact(stopArea.quays).map((quay) => (
@@ -43,7 +43,7 @@ function getDeleteBlockedContent(
                 target="_blank"
                 rel="noreferrer"
                 data-testid={testIds.linkToMemberStop(quay.publicCode ?? '')}
-                title={t('accessibility.stops.showStopDetails', {
+                title={t(($) => $.accessibility.stops.showStopDetails, {
                   stopLabel: quay.publicCode,
                 })}
               >
@@ -70,7 +70,7 @@ function getConfirmationContent(
   }
 
   return {
-    body: t('confirmStopAreaDeletionDialog.bodyCanBeDeleted'),
+    body: t(($) => $.confirmStopAreaDeletionDialog.bodyCanBeDeleted),
     isDeletable: true,
   };
 }
@@ -102,18 +102,18 @@ export const ConfirmStopAreaDeletionDialog: FC<
     <DialogWithButtons
       className={className}
       isOpen={isOpen}
-      title={t('confirmStopAreaDeletionDialog.title')}
+      title={t(($) => $.confirmStopAreaDeletionDialog.title)}
       description={body}
       buttons={compact([
         {
-          text: t('cancel'),
+          text: t(($) => $.cancel),
           onClick: onCancel,
           inverted: true,
           testId: testIds.cancelButton,
         },
         isDeletable
           ? {
-              text: t('confirmStopAreaDeletionDialog.confirmText'),
+              text: t(($) => $.confirmStopAreaDeletionDialog.confirmText),
               onClick: onConfirm,
               testId: testIds.confirmButton,
             }

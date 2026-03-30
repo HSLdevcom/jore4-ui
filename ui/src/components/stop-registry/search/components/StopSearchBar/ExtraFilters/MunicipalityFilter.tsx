@@ -22,7 +22,7 @@ const options: ReadonlyArray<Option> = [
 
 function uiNameMapper(t: TFunction, value: Option): string {
   if (value === AllOptionEnum.All) {
-    return t('all');
+    return t(($) => $.all);
   }
 
   return value;

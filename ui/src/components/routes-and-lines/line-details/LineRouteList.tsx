@@ -23,7 +23,7 @@ export const LineRouteList: FC<LineRouteListProps> = ({ routes }) => {
     <div>
       <Field className="flex items-center">
         <SwitchLabel className="my-4 mr-4">
-          {t('routes.showUnusedStops')}
+          {t(($) => $.routes.showUnusedStops)}
         </SwitchLabel>
         <Switch
           checked={showUnusedStops}

@@ -38,8 +38,8 @@ export const ExtraFiltersToggle: FC<ExtraFiltersToggleProps> = ({
       testId={testIds.toggleExpand(testIdPrefix)}
       title={
         searchIsExpanded
-          ? t('accessibility.common.closeSearch')
-          : t('accessibility.common.expandSearch')
+          ? t(($) => $.accessibility.common.closeSearch)
+          : t(($) => $.accessibility.common.expandSearch)
       }
     />
   );

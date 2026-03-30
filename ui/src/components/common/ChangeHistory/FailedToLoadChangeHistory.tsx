@@ -24,13 +24,13 @@ export const FailedToLoadChangeHistory: FC<FailedToLoadChangeHistoryProps> = ({
             className="flex flex-col items-center justify-center"
             data-testid={testIds.failedToLoad}
           >
-            <p>{t('changeHistory.failedToLoad')}</p>
+            <p>{t(($) => $.changeHistory.failedToLoad)}</p>
             <SimpleButton
               className="mt-5"
               onClick={() => refetch()}
               testId={testIds.retryButton}
             >
-              {t('changeHistory.tryAgainButton')}
+              {t(($) => $.changeHistory.tryAgainButton)}
             </SimpleButton>
           </div>
         </td>

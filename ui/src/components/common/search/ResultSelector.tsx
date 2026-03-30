@@ -41,7 +41,7 @@ export const ResultSelector: FC = () => {
         onClick={displayLines}
         testId={testIds.linesResultsButton}
       >
-        {t('lines.lines')}
+        {t(($) => $.lines.lines)}
       </SimpleButton>
       <SimpleButton
         shape="compact"
@@ -49,7 +49,7 @@ export const ResultSelector: FC = () => {
         inverted={displayedType !== DisplayedSearchResultType.Routes}
         testId={testIds.routesResultsButton}
       >
-        {t('lines.routes')}
+        {t(($) => $.lines.routes)}
       </SimpleButton>
     </div>
   );

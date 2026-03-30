@@ -32,7 +32,7 @@ export const ValidityPeriodChangedSectionRow: FC<
       sectionTitle={
         <SectionTitle
           historyItem={historyItem}
-          section={t('stopChangeHistory.validityPeriodTitle')}
+          section={t(($) => $.stopChangeHistory.validityPeriodTitle)}
         />
       }
       testId="ValidityPeriod"

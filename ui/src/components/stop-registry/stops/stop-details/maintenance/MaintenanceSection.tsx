@@ -59,7 +59,7 @@ export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
     try {
       await saveStopMaintenanceDetails({ state, stop });
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
       infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -86,7 +86,7 @@ export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
     <InfoContainer
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
-      title={t('stopDetails.maintenance.title')}
+      title={t(($) => $.stopDetails.maintenance.title)}
       testIdPrefix={testIds.prefix}
     >
       {infoContainerControls.isInEditMode ? (

@@ -65,14 +65,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         historyItem={historyItem}
         previousHistoryItem={previousHistoryItem}
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffStopAreaAndTerminal}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopChangeHistory.stopPlace.title')}
+            section={t(($) => $.stopChangeHistory.stopPlace.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -80,14 +79,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="StopPlaceDetails"
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffBasicDetails}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopDetails.basicDetails.title')}
+            section={t(($) => $.stopDetails.basicDetails.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -95,14 +93,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="BasicDetails"
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffLocationDetails}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopDetails.location.title')}
+            section={t(($) => $.stopDetails.location.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -110,14 +107,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="LocationDetails"
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffSignageDetails}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopDetails.signs.title')}
+            section={t(($) => $.stopDetails.signs.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -125,14 +121,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="SignDetails"
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffMeasurementDetails}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopDetails.measurements.title')}
+            section={t(($) => $.stopDetails.measurements.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -140,14 +135,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="MeasurementDetails"
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffOwnerDetails}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopDetails.maintenance.title')}
+            section={t(($) => $.stopDetails.maintenance.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -155,14 +149,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="MaintenanceDetails"
       />
-
       <ChangedValuesWithHeaderRow
         current={currentCached.value}
         diffVersions={diffShelters}
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopChangeHistory.shelters.title')}
+            section={t(($) => $.stopChangeHistory.shelters.title)}
           />
         }
         getUserNameById={getUserNameById}
@@ -170,7 +163,6 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="ShelterDetails"
       />
-
       {infoSpotJoinsVersionedInTiamat && (
         <ChangedValuesWithHeaderRow
           current={currentCached.value}
@@ -178,7 +170,7 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
           sectionTitle={
             <SectionTitle
               historyItem={historyItem}
-              section={t('stopChangeHistory.infoSpots.title')}
+              section={t(($) => $.stopChangeHistory.infoSpots.title)}
             />
           }
           getUserNameById={getUserNameById}

@@ -63,15 +63,18 @@ export const OccasionalSubstitutePeriodSection: FC<
 
       await refetch();
 
-      showSuccessToast(t('timetables.settings.saveSuccess'));
+      showSuccessToast(t(($) => $.timetables.settings.saveSuccess));
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
   return (
     <div className="pt-8">
-      <h2>{t('timetables.settings.occasionalSubstituteDays')}</h2>
+      <h2>{t(($) => $.timetables.settings.occasionalSubstituteDays)}</h2>
       <OccasionalSubstitutePeriodForm
         onSubmit={onSubmit}
         loading={loading}

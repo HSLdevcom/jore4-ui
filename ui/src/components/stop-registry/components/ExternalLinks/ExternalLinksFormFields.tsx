@@ -44,8 +44,8 @@ export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
           inverted
           tooltip={
             toBeDeleted
-              ? t('stopDetails.externalLinks.cancelDeleteExternalLink')
-              : t('stopDetails.externalLinks.deleteExternalLink')
+              ? t(($) => $.stopDetails.externalLinks.cancelDeleteExternalLink)
+              : t(($) => $.stopDetails.externalLinks.deleteExternalLink)
           }
           className="h-11"
         >

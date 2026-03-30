@@ -80,12 +80,12 @@ export const MoveTerminal: FC<MoveTerminalProps> = ({
       isOpen={isOpen}
       onCancel={onCancelMoveTerminal}
       onConfirm={onConfirmMoveStopArea}
-      title={t('confirmEditTerminalDialog.title')}
-      description={t('confirmEditTerminalDialog.description', {
+      title={t(($) => $.confirmEditTerminalDialog.title)}
+      description={t(($) => $.confirmEditTerminalDialog.description, {
         terminalName: terminal.name ?? '',
       })}
-      confirmText={t('confirmEditTerminalDialog.confirmText')}
-      cancelText={t('cancel')}
+      confirmText={t(($) => $.confirmEditTerminalDialog.confirmText)}
+      cancelText={t(($) => $.cancel)}
       widthClassName="w-235"
     />
   );

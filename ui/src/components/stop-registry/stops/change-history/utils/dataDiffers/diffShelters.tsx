@@ -28,26 +28,26 @@ function diffShelterVersions(
   return compact([
     diffKeyedValues({
       key: 'ShelterNumber',
-      field: t('stopDetails.shelters.shelterNumber'),
+      field: t(($) => $.stopDetails.shelters.shelterNumber),
       oldValue: previous?.shelterNumber,
       newValue: current?.shelterNumber,
     }),
     diffKeyedValues({
       key: 'ShelterExternalId',
-      field: t('stopDetails.shelters.shelterExternalId'),
+      field: t(($) => $.stopDetails.shelters.shelterExternalId),
       oldValue: previous?.shelterExternalId,
       newValue: current?.shelterExternalId,
     }),
     diffKeyedValues({
       key: 'ShelterType',
-      field: t('stopDetails.shelters.shelterType'),
+      field: t(($) => $.stopDetails.shelters.shelterType),
       oldValue: previous?.shelterType,
       newValue: current?.shelterType,
       mapper: mapNullable((v) => mapStopRegistryShelterTypeEnumToUiName(t, v)),
     }),
     diffKeyedValues({
       key: 'ShelterElectricity',
-      field: t('stopDetails.shelters.shelterElectricity'),
+      field: t(($) => $.stopDetails.shelters.shelterElectricity),
       oldValue: previous?.shelterElectricity,
       newValue: current?.shelterElectricity,
       mapper: mapNullable((v) =>
@@ -56,14 +56,14 @@ function diffShelterVersions(
     }),
     diffKeyedValues({
       key: 'ShelterLighting',
-      field: t('stopDetails.shelters.shelterLighting'),
+      field: t(($) => $.stopDetails.shelters.shelterLighting),
       oldValue: previous?.shelterLighting,
       newValue: current?.shelterLighting,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
       key: 'ShelterCondition',
-      field: t('stopDetails.shelters.shelterCondition'),
+      field: t(($) => $.stopDetails.shelters.shelterCondition),
       oldValue: previous?.shelterCondition,
       newValue: current?.shelterCondition,
       mapper: mapNullable((v) =>
@@ -72,48 +72,48 @@ function diffShelterVersions(
     }),
     diffKeyedValues({
       key: 'TimetableCabinets',
-      field: t('stopDetails.shelters.timetableCabinets'),
+      field: t(($) => $.stopDetails.shelters.timetableCabinets),
       oldValue: previous?.timetableCabinets,
       newValue: current?.timetableCabinets,
     }),
     diffKeyedValues({
       key: 'TrashCan',
-      field: t('stopDetails.shelters.trashCan'),
+      field: t(($) => $.stopDetails.shelters.trashCan),
       oldValue: previous?.trashCan,
       newValue: current?.trashCan,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
       key: 'ShelterHasDisplay',
-      field: t('stopDetails.shelters.shelterHasDisplay'),
+      field: t(($) => $.stopDetails.shelters.shelterHasDisplay),
       oldValue: previous?.shelterHasDisplay,
       newValue: current?.shelterHasDisplay,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
       key: 'BicycleParking',
-      field: t('stopDetails.shelters.bicycleParking'),
+      field: t(($) => $.stopDetails.shelters.bicycleParking),
       oldValue: previous?.bicycleParking,
       newValue: current?.bicycleParking,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
       key: 'LeaningRail',
-      field: t('stopDetails.shelters.leaningRail'),
+      field: t(($) => $.stopDetails.shelters.leaningRail),
       oldValue: previous?.leaningRail,
       newValue: current?.leaningRail,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
       key: 'OutsideBench',
-      field: t('stopDetails.shelters.outsideBench'),
+      field: t(($) => $.stopDetails.shelters.outsideBench),
       oldValue: previous?.outsideBench,
       newValue: current?.outsideBench,
       mapper: mapBoolean,
     }),
     diffKeyedValues({
       key: 'ShelterFasciaBoardTaping',
-      field: t('stopDetails.shelters.shelterFasciaBoardTaping'),
+      field: t(($) => $.stopDetails.shelters.shelterFasciaBoardTaping),
       oldValue: previous?.shelterFasciaBoardTaping,
       newValue: current?.shelterFasciaBoardTaping,
       mapper: mapBoolean,
@@ -130,7 +130,9 @@ function getAddedShelterHeading(
     field: null,
     oldValue: <EmptyCell />,
     newValue: (
-      <span className="font-bold">{t('stopChangeHistory.shelters.added')}</span>
+      <span className="font-bold">
+        {t(($) => $.stopChangeHistory.shelters.added)}
+      </span>
     ),
   };
 }
@@ -145,7 +147,7 @@ function getUpdatedShelterHeading(
     field: null,
     oldValue: (
       <span className="font-bold">
-        {t('stopChangeHistory.shelters.updated')}
+        {t(($) => $.stopChangeHistory.shelters.updated)}
       </span>
     ),
     newValue: <EmptyCell />,
@@ -161,7 +163,7 @@ function getRemovedShelterHeading(
     field: null,
     oldValue: (
       <span className="font-bold">
-        {t('stopChangeHistory.shelters.removed')}
+        {t(($) => $.stopChangeHistory.shelters.removed)}
       </span>
     ),
     newValue: <EmptyCell />,

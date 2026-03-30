@@ -71,7 +71,7 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
     try {
       await saveStopPlaceShelters({ state, stop });
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
       infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -94,8 +94,10 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
 
   const showAddNewShelterHeader = !isInEditMode && !shelters.length;
   const sectionTitle = shelterCount
-    ? t('stopDetails.shelters.title', { count: shelterCount })
-    : t('stopDetails.shelters.titleNoShelters');
+    ? t(($) => $.stopDetails.shelters.title, {
+        count: shelterCount,
+      })
+    : t(($) => $.stopDetails.shelters.titleNoShelters);
 
   return (
     <InfoContainer
@@ -104,7 +106,7 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
       headerButtons={
         showAddNewShelterHeader ? (
           <EmptyListHeaderButtons
-            addNewItemText={t('stopDetails.shelters.addShelter')}
+            addNewItemText={t(($) => $.stopDetails.shelters.addShelter)}
             onAddNewItem={editAndAddShelter}
             testIdPrefix="SheltersSection"
           />
@@ -125,7 +127,7 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
           addNewButton={
             <AddNewButton
               onClick={handleAddNewShelter}
-              label={t('stopDetails.shelters.addNewShelter')}
+              label={t(($) => $.stopDetails.shelters.addNewShelter)}
               testId={testIds.addShelter}
             />
           }

@@ -31,7 +31,7 @@ export const buildRouteLabelListString = (
     .map(([routeLabel, labelCount]) =>
       // Only display count if it is greater than 1
       labelCount > 1
-        ? t('confirmEditStopDialog.routeWithNVersions', {
+        ? t(($) => $.confirmEditStopDialog.routeWithNVersions, {
             routeLabel,
             labelCount,
           })
@@ -48,7 +48,7 @@ export const EditStopConfirmationDialog: FC<
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like
   const buildDescription = (changes: EditChanges) => {
-    const editedStopText = t('confirmEditStopDialog.description', {
+    const editedStopText = t(($) => $.confirmEditStopDialog.description, {
       stopLabel: changes.editedStop.label,
     });
     const confirmationTextParts: string[] = [editedStopText];
@@ -59,15 +59,18 @@ export const EditStopConfirmationDialog: FC<
         changes.deleteStopFromRoutes,
         t,
       );
-      const removedRoutesText = t('confirmEditStopDialog.removedFromRoutes', {
-        routeLabels,
-      });
+      const removedRoutesText = t(
+        ($) => $.confirmEditStopDialog.removedFromRoutes,
+        {
+          routeLabels,
+        },
+      );
       confirmationTextParts.push(removedRoutesText);
     }
 
     // Only show additional info for move operations
     if (changes.isMove) {
-      const additionalInfo = t('confirmEditStopDialog.additionalInfo');
+      const additionalInfo = t(($) => $.confirmEditStopDialog.additionalInfo);
       confirmationTextParts.push(additionalInfo);
     }
 
@@ -80,10 +83,10 @@ export const EditStopConfirmationDialog: FC<
       isOpen={isOpen}
       onCancel={onCancel}
       onConfirm={onConfirm}
-      title={t('confirmEditStopDialog.title')}
+      title={t(($) => $.confirmEditStopDialog.title)}
       description={buildDescription(editChanges)}
-      confirmText={t('confirmEditStopDialog.confirmText')}
-      cancelText={t('cancel')}
+      confirmText={t(($) => $.confirmEditStopDialog.confirmText)}
+      cancelText={t(($) => $.cancel)}
       widthClassName="w-235"
     />
   );

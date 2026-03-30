@@ -56,10 +56,10 @@ export const StopSelectionPanel: FC<StopSelectionPanelProps> = ({
       data-testid={testIds.panel}
     >
       <div className="flex items-center justify-between border-b border-light-grey p-2">
-        <h4>{t('map.stopSelection.title')}</h4>
+        <h4>{t(($) => $.map.stopSelection.title)}</h4>
         <SlimDropDownMenu
           className="text-base"
-          buttonText={t('map.stopSelection.download')}
+          buttonText={t(($) => $.map.stopSelection.download)}
           disabled={reportResultSelection.selectionState === 'NONE_SELECTED'}
           testId={testIds.actionMenu}
         >
@@ -75,7 +75,6 @@ export const StopSelectionPanel: FC<StopSelectionPanelProps> = ({
           />
         </SlimDropDownMenu>
       </div>
-
       <StopSelectionListing />
     </PopoverPanel>
   );

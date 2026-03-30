@@ -39,8 +39,7 @@ export const SortResultsBy: FC<SortResultsByProps> = ({
 
   return (
     <div className={twMerge('flex gap-4', className)}>
-      <p className="font-bold">{t('stopRegistrySearch.sortOrder')}</p>
-
+      <p className="font-bold">{t(($) => $.stopRegistrySearch.sortOrder)}</p>
       {supportedFields.map((sortBy) => (
         <SortByButton
           key={sortBy}

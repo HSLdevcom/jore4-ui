@@ -95,9 +95,12 @@ export const TimingSettingsModal: FC = () => {
       });
 
       dispatch(closeTimingSettingsModalAction());
-      showSuccessToast(t('timingSettingsModal.saveSuccess'));
+      showSuccessToast(t(($) => $.timingSettingsModal.saveSuccess));
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
@@ -108,7 +111,7 @@ export const TimingSettingsModal: FC = () => {
     <Modal isOpen onClose={onClose}>
       <ModalHeader
         onClose={onClose}
-        heading={t('timingSettingsModal.timingSettingsModalTitle', {
+        heading={t(($) => $.timingSettingsModal.timingSettingsModalTitle, {
           label: stopInfo?.scheduled_stop_point_label,
         })}
       />

@@ -75,12 +75,16 @@ export const FloatingStopResultsFooter = () => {
     >
       {loading ? (
         <>
-          <span>{t('map.searchResults')}</span>
+          <span>{t(($) => $.map.searchResults)}</span>
           <PulseLoader color={theme.colors.brand} size={14} />
           <div className="grow" />
         </>
       ) : (
-        <span>{t('map.searchResultCount', { count })}</span>
+        <span>
+          {t(($) => $.map.searchResultCount, {
+            count,
+          })}
+        </span>
       )}
     </FloatingFooter>
   );

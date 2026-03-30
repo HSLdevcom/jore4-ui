@@ -59,7 +59,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t('terminalDetails.infoSpots.label')}
+          {t(($) => $.terminalDetails.infoSpots.label)}
         </SortableHeader>
         <SortableHeader
           field="stop"
@@ -67,7 +67,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t('terminalDetails.infoSpots.stop')}
+          {t(($) => $.terminalDetails.infoSpots.stop)}
         </SortableHeader>
         <SortableHeader
           field="shelter"
@@ -75,7 +75,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t('terminalDetails.infoSpots.shelter')}
+          {t(($) => $.terminalDetails.infoSpots.shelter)}
         </SortableHeader>
         <SortableHeader
           field="purpose"
@@ -83,7 +83,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t('terminalDetails.infoSpots.purpose')}
+          {t(($) => $.terminalDetails.infoSpots.purpose)}
         </SortableHeader>
         <SortableHeader
           field="size"
@@ -92,7 +92,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t('terminalDetails.infoSpots.size')}
+          {t(($) => $.terminalDetails.infoSpots.size)}
         </SortableHeader>
         <SortableHeader
           field="description"
@@ -101,11 +101,11 @@ export const TerminalInfoSpotsViewListHeader: FC<
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t('terminalDetails.infoSpots.description')}
+          {t(($) => $.terminalDetails.infoSpots.description)}
         </SortableHeader>
         <th className={CSS_CLASSES.actionCell}>
           <span className="sr-only">
-            {t('accessibility.terminals.openInfoSpots')}
+            {t(($) => $.accessibility.terminals.openInfoSpots)}
           </span>
         </th>
       </tr>

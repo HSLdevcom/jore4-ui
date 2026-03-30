@@ -16,19 +16,19 @@ import {
 import { dynamicSection, staticSection, writeHeaderArray } from './utils';
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.shelters.shelterNumber'),
-  (t) => t('stopDetails.shelters.shelterExternalId'),
-  (t) => t('stopDetails.shelters.shelterType'),
-  (t) => t('stopDetails.shelters.shelterElectricity'),
-  (t) => t('stopDetails.shelters.shelterLighting'),
-  (t) => t('stopDetails.shelters.shelterCondition'),
-  (t) => t('stopDetails.shelters.timetableCabinets'),
-  (t) => t('stopDetails.shelters.trashCan'),
-  (t) => t('stopDetails.shelters.shelterHasDisplay'),
-  (t) => t('stopDetails.shelters.bicycleParking'),
-  (t) => t('stopDetails.shelters.leaningRail'),
-  (t) => t('stopDetails.shelters.outsideBench'),
-  (t) => t('stopDetails.shelters.shelterFasciaBoardTaping'),
+  (t) => t(($) => $.stopDetails.shelters.shelterNumber),
+  (t) => t(($) => $.stopDetails.shelters.shelterExternalId),
+  (t) => t(($) => $.stopDetails.shelters.shelterType),
+  (t) => t(($) => $.stopDetails.shelters.shelterElectricity),
+  (t) => t(($) => $.stopDetails.shelters.shelterLighting),
+  (t) => t(($) => $.stopDetails.shelters.shelterCondition),
+  (t) => t(($) => $.stopDetails.shelters.timetableCabinets),
+  (t) => t(($) => $.stopDetails.shelters.trashCan),
+  (t) => t(($) => $.stopDetails.shelters.shelterHasDisplay),
+  (t) => t(($) => $.stopDetails.shelters.bicycleParking),
+  (t) => t(($) => $.stopDetails.shelters.leaningRail),
+  (t) => t(($) => $.stopDetails.shelters.outsideBench),
+  (t) => t(($) => $.stopDetails.shelters.shelterFasciaBoardTaping),
 ];
 
 function writeEmptyShelter(writer: CSVWriter) {
@@ -53,7 +53,7 @@ function writeProperShelter(
   );
   writer.writeBooleanField(
     shelter.shelterLighting,
-    t('stopDetails.shelters.shelterLighting'),
+    t(($) => $.stopDetails.shelters.shelterLighting),
   );
   writer.writeEnumField(
     shelter.shelterCondition,
@@ -63,27 +63,27 @@ function writeProperShelter(
 
   writer.writeBooleanField(
     shelter.trashCan,
-    t('stopDetails.shelters.trashCan'),
+    t(($) => $.stopDetails.shelters.trashCan),
   );
   writer.writeBooleanField(
     shelter.shelterHasDisplay,
-    t('stopDetails.shelters.shelterHasDisplay'),
+    t(($) => $.stopDetails.shelters.shelterHasDisplay),
   );
   writer.writeBooleanField(
     shelter.bicycleParking,
-    t('stopDetails.shelters.bicycleParking'),
+    t(($) => $.stopDetails.shelters.bicycleParking),
   );
   writer.writeBooleanField(
     shelter.leaningRail,
-    t('stopDetails.shelters.leaningRail'),
+    t(($) => $.stopDetails.shelters.leaningRail),
   );
   writer.writeBooleanField(
     shelter.outsideBench,
-    t('stopDetails.shelters.outsideBench'),
+    t(($) => $.stopDetails.shelters.outsideBench),
   );
   writer.writeBooleanField(
     shelter.shelterFasciaBoardTaping,
-    t('stopDetails.shelters.shelterFasciaBoardTaping'),
+    t(($) => $.stopDetails.shelters.shelterFasciaBoardTaping),
   );
 }
 
@@ -112,7 +112,7 @@ class SheltersSectionImplementation implements ReportSection {
 
     for (let number = 1; number <= this.subSections; number += 1) {
       writer.writeTextField(
-        t('stopDetails.shelters.csvHeaderPrefix', {
+        t(($) => $.stopDetails.shelters.csvHeaderPrefix, {
           number,
         }).toLocaleUpperCase(),
       );
@@ -126,7 +126,7 @@ class SheltersSectionImplementation implements ReportSection {
         writer,
         headers.map(
           (getFieldName) => (t: TFunction) =>
-            t('stopDetails.shelters.csvHeaderPrefixAndFieldName', {
+            t(($) => $.stopDetails.shelters.csvHeaderPrefixAndFieldName, {
               number,
               fieldName: getFieldName(t),
             }),
@@ -173,7 +173,7 @@ export const SheltersSection = dynamicSection(
 
 export const ShelterCountSection = staticSection(
   [],
-  [(t) => t('stopDetails.shelters.csvCount')],
+  [(t) => t(($) => $.stopDetails.shelters.csvCount)],
   (writer, record) =>
     writer.writeNumberField(
       record.quay.placeEquipments?.shelterEquipment?.length ?? 0,
@@ -183,7 +183,7 @@ export const ShelterCountSection = staticSection(
 
 export const SingularShelterSection =
   staticSection<EnrichedStopDetailsWithSelectedInfoSpot>(
-    [(t) => t('stopRegistrySearch.csv.metaHeaders.shelter')],
+    [(t) => t(($) => $.stopRegistrySearch.csv.metaHeaders.shelter)],
     headers,
     // eslint-disable-next-line consistent-return
     (writer, record) => {

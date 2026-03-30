@@ -21,8 +21,8 @@ export const VehicleIcon: FC<VehicleIconProps> = ({
   rowItem,
 }) => {
   const { t } = useTranslation();
-  const iconTitle = t(
-    isLine(rowItem) ? 'accessibility.lines.bus' : 'accessibility.routes.bus',
+  const iconTitle = t(($) =>
+    isLine(rowItem) ? $.accessibility.lines.bus : $.accessibility.routes.bus,
   );
   return (
     <i

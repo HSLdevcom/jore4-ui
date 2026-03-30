@@ -242,13 +242,13 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
           className="flex flex-nowrap justify-between gap-5 text-nowrap"
           data-testid={testIds.title}
         >
-          {t('navigationBlock.title')}
+          {t(($) => $.navigationBlock.title)}
 
           <CloseIconButton onClick={onReset} testId={testIds.closeButton} />
         </DialogTitle>
 
         <Description className="my-5" data-testid={testIds.body}>
-          {t('navigationBlock.body')}
+          {t(($) => $.navigationBlock.body)}
         </Description>
 
         <div className="flex flex-nowrap gap-5">
@@ -257,7 +257,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
             onClick={onProceed}
             testId={testIds.proceedButton}
           >
-            {t('navigationBlock.proceed')}
+            {t(($) => $.navigationBlock.proceed)}
           </SimpleButtonButton>
 
           <SimpleButtonButton
@@ -267,7 +267,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
             testId={testIds.resetButton}
             ref={initialFocusRef}
           >
-            {t('navigationBlock.cancel')}
+            {t(($) => $.navigationBlock.cancel)}
           </SimpleButtonButton>
         </div>
       </DialogPanel>

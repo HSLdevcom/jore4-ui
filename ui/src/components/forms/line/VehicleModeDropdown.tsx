@@ -28,7 +28,7 @@ export const VehicleModeDropdown: FC<VehicleModeDropdownProps> = ({
       id={id}
       testId={testId}
       enumType={ReusableComponentsVehicleModeEnum}
-      placeholder={t('lines.chooseVehicleMode')}
+      placeholder={t(($) => $.lines.chooseVehicleMode)}
       uiNameMapper={(value) => mapVehicleModeToUiName(t, value)}
       includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading

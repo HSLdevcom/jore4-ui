@@ -27,10 +27,13 @@ export const MissingRouteDeviationsSection: FC<
       <div className="relative mt-8 flex flex-row gap-4 rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-6">
         <div>
           <p>
-            {t('timetablesPreview.missingRouteDeviations.deviationsWarning')}
+            {t(
+              ($) =>
+                $.timetablesPreview.missingRouteDeviations.deviationsWarning,
+            )}
           </p>
           <div className="flex flex-row">
-            {t('timetablesPreview.missingRoutes')}
+            {t(($) => $.timetablesPreview.missingRoutes)}
             {sortedDeviations.map((deviation, index, { length }) => (
               <RouteDeviationLink
                 key={deviation.routeId}
@@ -45,7 +48,8 @@ export const MissingRouteDeviationsSection: FC<
             icon={<MdClose aria-hidden />}
             onClick={handleClose}
             tooltip={`${t(
-              'accessibility.timetables.closeMissingRouteDeviationsWarning',
+              ($) =>
+                $.accessibility.timetables.closeMissingRouteDeviationsWarning,
             )}`}
           />
         </div>

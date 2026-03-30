@@ -33,7 +33,7 @@ export const LineChangeDeletedVersionHeaderRow: FC<
             <h5>
               <Trans
                 t={t}
-                i18nKey="lineChangeHistory.deletedRouteVersion"
+                i18nKey={($) => $.lineChangeHistory.deletedRouteVersion}
                 components={{
                   Direction: (
                     <HistoricalRouteDirectionBadge item={historyItem} />
@@ -56,7 +56,9 @@ export const LineChangeDeletedVersionHeaderRow: FC<
       historyItem={historyItem}
       sectionTitle={
         <div>
-          <h5>{t('lineChangeHistory.deletedLineVersion', historyItem)}</h5>
+          <h5>
+            {t(($) => $.lineChangeHistory.deletedLineVersion, historyItem)}
+          </h5>
           <VersionComment item={historyItem} />
         </div>
       }

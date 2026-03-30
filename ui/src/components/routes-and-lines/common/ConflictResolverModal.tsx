@@ -81,10 +81,12 @@ const ConflictItemRow: FC<ConflictItemRowProps> = ({ item }) => {
     >
       <td>{mapPriorityToUiName(t, item.priority)}</td>
       <td>
-        {mapToShortDate(item.validityStart) ?? t('saveChangesModal.indefinite')}
+        {mapToShortDate(item.validityStart) ??
+          t(($) => $.saveChangesModal.indefinite)}
       </td>
       <td>
-        {mapToShortDate(item.validityEnd) ?? t('saveChangesModal.indefinite')}
+        {mapToShortDate(item.validityEnd) ??
+          t(($) => $.saveChangesModal.indefinite)}
       </td>
       <td>
         {item.href ? (
@@ -117,22 +119,24 @@ export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
       <ModalBody>
         <DialogTitle className="flex text-xl font-bold">
-          {t('saveChangesModal.validityConflictTitle')}
+          {t(($) => $.saveChangesModal.validityConflictTitle)}
           <CloseIconButton
             className="ml-auto"
             onClick={onClose}
             testId={testIds.closeButton}
           />
         </DialogTitle>
-        <Description>{t('saveChangesModal.validityConflictBody')}</Description>
+        <Description>
+          {t(($) => $.saveChangesModal.validityConflictBody)}
+        </Description>
 
         <table className="mt-6">
           <thead>
             <tr className="[&>th]font-normal">
-              <th>{t('priority.label')}</th>
-              <th>{t('validityPeriod.validityStart')}</th>
-              <th>{t('validityPeriod.validityEnd')}</th>
-              <th>{t('lines.label')}</th>
+              <th>{t(($) => $.priority.label)}</th>
+              <th>{t(($) => $.validityPeriod.validityStart)}</th>
+              <th>{t(($) => $.validityPeriod.validityEnd)}</th>
+              <th>{t(($) => $.lines.label)}</th>
             </tr>
           </thead>
           <tbody>
@@ -144,7 +148,7 @@ export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
 
         <Row className="mt-14 justify-end">
           <SimpleButton onClick={onClose} inverted>
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
         </Row>
       </ModalBody>

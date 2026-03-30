@@ -193,7 +193,11 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
   };
 
   const onError = ({ error }: ErrorEvent) => {
-    showWarningToast(t('map.error', { message: error.message }));
+    showWarningToast(
+      t(($) => $.map.error, {
+        message: error.message,
+      }),
+    );
     log.error('Map error:', error);
   };
 

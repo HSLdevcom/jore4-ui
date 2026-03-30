@@ -39,7 +39,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
           inputElementRenderer={(props) => (
             <EnumDropdown<JoreStopRegistryTransportModeType>
               enumType={JoreStopRegistryTransportModeType}
-              placeholder={t('stopDetails.basicDetails.transportMode')}
+              placeholder={t(($) => $.stopDetails.basicDetails.transportMode)}
               uiNameMapper={(value) =>
                 mapStopRegistryTransportModeTypeToUiName(t, value)
               }
@@ -79,7 +79,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
             testId={testIds.addTimingPlaceButton}
             inverted
           >
-            {t('stops.createTimingPlace')}
+            {t(($) => $.stops.createTimingPlace)}
           </SimpleButton>
         </Row>
       </Column>

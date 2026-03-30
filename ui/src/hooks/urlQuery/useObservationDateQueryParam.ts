@@ -63,7 +63,7 @@ export const useObservationDateQueryParam = (
       setObservationDateToUrl(validity_start ?? validity_end!);
 
       if (showToast) {
-        showWarningToast(t('filters.observationDateAdjusted'));
+        showWarningToast(t(($) => $.filters.observationDateAdjusted));
       }
     }
   };

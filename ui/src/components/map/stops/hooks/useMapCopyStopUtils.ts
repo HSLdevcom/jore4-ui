@@ -114,7 +114,7 @@ export function useMapCopyStopUtils(
   ) => {
     // There are conflicts, don't copy and warn the user
     if (changes.conflicts?.length) {
-      showDangerToast(t('stops.stopConflictsOnCopyError'));
+      showDangerToast(t(($) => $.stops.stopConflictsOnCopyError));
       return;
     }
 
@@ -158,7 +158,7 @@ export function useMapCopyStopUtils(
           parseDate(state.validityEnd) ??
           observationDate,
       }));
-      showWarningToast(t('filters.observationDateAdjusted'));
+      showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
     setCopyStopId(undefined);

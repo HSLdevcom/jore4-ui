@@ -6,14 +6,14 @@ import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
 const metaHeaders: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.signs.title'),
+  (t) => t(($) => $.stopDetails.signs.title),
 ];
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.signs.signType'),
-  (t) => t('stopDetails.signs.numberOfFrames'),
-  (t) => t('stopDetails.signs.signageInstructionExceptions'),
-  (t) => t('stopDetails.signs.replacesRailSign'),
+  (t) => t(($) => $.stopDetails.signs.signType),
+  (t) => t(($) => $.stopDetails.signs.numberOfFrames),
+  (t) => t(($) => $.stopDetails.signs.signageInstructionExceptions),
+  (t) => t(($) => $.stopDetails.signs.replacesRailSign),
 ];
 
 function writeRecordFields(
@@ -35,7 +35,7 @@ function writeRecordFields(
   writer.writeTextField(sign.note?.value);
   writer.writeBooleanField(
     sign.replacesRailSign,
-    t('stopDetails.signs.replacesRailSign'),
+    t(($) => $.stopDetails.signs.replacesRailSign),
   );
 
   return undefined;

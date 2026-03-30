@@ -34,11 +34,15 @@ export const EditStopModal: FC<EditStopModalProps> = ({
 
     const modeLabel = vehicleMode
       ? mapVehicleModeToStopTypeName(t, vehicleMode)
-      : t('stops.stop');
+      : t(($) => $.stops.stop);
 
     return label
-      ? t('stops.stopWithLabel', { stopLabel: label })
-      : t('stops.createStop', { vehicleModeTranslation: modeLabel });
+      ? t(($) => $.stops.stopWithLabel, {
+          stopLabel: label,
+        })
+      : t(($) => $.stops.createStop, {
+          vehicleModeTranslation: modeLabel,
+        });
   };
 
   /**

@@ -61,8 +61,8 @@ function usePriorityMap(): Partial<Readonly<Record<Priority, string>>> {
 
   return useMemo(
     () => ({
-      [Priority.Draft]: t('priority.draft'),
-      [Priority.Temporary]: t('priority.temporary'),
+      [Priority.Draft]: t(($) => $.priority.draft),
+      [Priority.Temporary]: t(($) => $.priority.temporary),
     }),
     [t],
   );

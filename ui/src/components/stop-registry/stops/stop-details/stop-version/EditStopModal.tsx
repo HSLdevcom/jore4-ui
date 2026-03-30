@@ -71,7 +71,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
     >
       <ModalHeader
         onClose={wrappedOnClose}
-        heading={t('stopDetails.version.title.edit')}
+        heading={t(($) => $.stopDetails.version.title.edit)}
       />
       <LoadingWrapper
         testId={testIds.loading}

@@ -17,7 +17,7 @@ export const LocatorActionButton: FC<LocatableStopWithObservationDateProps> = ({
     <LocatorButton
       className={className}
       onClick={() => openStopOnMap(stop, observationDate)}
-      tooltipText={t('accessibility.common.showOnMap', {
+      tooltipText={t(($) => $.accessibility.common.showOnMap, {
         label: stop.label,
       })}
     />

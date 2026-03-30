@@ -33,7 +33,7 @@ export const TimetableImportStrategyForm: FC<
           htmlFor="timetableImportStrategy.replace"
           className="text-base font-normal"
         >
-          {t('confirmTimetablesImportModal.importStrategy.replace')}
+          {t(($) => $.confirmTimetablesImportModal.importStrategy.replace)}
         </label>
         <RadioButton
           fieldPath="timetableImportStrategy"
@@ -47,7 +47,7 @@ export const TimetableImportStrategyForm: FC<
           htmlFor="timetableImportStrategy.combine"
           className="text-base font-normal"
         >
-          {t('confirmTimetablesImportModal.importStrategy.combine')}
+          {t(($) => $.confirmTimetablesImportModal.importStrategy.combine)}
         </label>
         <RadioButton
           fieldPath="timetableImportStrategy"

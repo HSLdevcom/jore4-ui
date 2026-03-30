@@ -28,7 +28,7 @@ export const EditStopValidityButton: FC<EditStopValidityButtonProps> = ({
         inverted
         className={twJoin('px-2', className)}
         testId={testIds.button}
-        tooltip={t('accessibility.stops.editStopValidity', {
+        tooltip={t(($) => $.accessibility.stops.editStopValidity, {
           stopLabel: stop?.label,
         })}
         disabled={!stop}
@@ -36,7 +36,6 @@ export const EditStopValidityButton: FC<EditStopValidityButtonProps> = ({
       >
         <i aria-hidden className="icon-calendar text-lg" />
       </SimpleButton>
-
       <EditStopModal
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}

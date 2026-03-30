@@ -86,7 +86,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         disabled={!isInViewMode || creatingNewRoute || someItemIsSelected}
         inverted={drawingMode !== Mode.Draw}
       >
-        {t('map.drawRoute')}
+        {t(($) => $.map.drawRoute)}
       </SimpleButton>
       <SimpleButton
         testId={testIds.editRouteButton}
@@ -96,7 +96,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           drawingMode === Mode.Edit
         }
       >
-        {t('map.editRoute')}
+        {t(($) => $.map.editRoute)}
       </SimpleButton>
       <MapFooterAddStopDropdown
         onAddStops={onAddStops}
@@ -129,7 +129,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         onClick={onDeleteRoute}
         disabled={!hasChangesInProgress || isRouteMetadataFormOpen}
       >
-        <MdDelete aria-label={t('map.deleteRoute')} />
+        <MdDelete aria-label={t(($) => $.map.deleteRoute)} />
       </SimpleButton>
       <Visible visible={hasChangesInProgress && !isRouteMetadataFormOpen}>
         <SimpleButton
@@ -139,14 +139,14 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           testId={testIds.cancelButton}
           inverted
         >
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
         <SimpleButton
           onClick={onSave}
           disabled={!(hasChangesInProgress && hasDraftRouteGeometry)}
           testId={testIds.saveButton}
         >
-          {t('routes.save')}
+          {t(($) => $.routes.save)}
         </SimpleButton>
       </Visible>
     </Row>

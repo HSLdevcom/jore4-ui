@@ -26,17 +26,17 @@ function getAriaSortValue(
 function trColumnName(t: TFunction, columnType: StopVersionTableColumn) {
   switch (columnType) {
     case 'CHANGED':
-      return t('stopVersion.header.changed');
+      return t(($) => $.stopVersion.header.changed);
     case 'CHANGED_BY':
-      return t('stopVersion.header.changed_by');
+      return t(($) => $.stopVersion.header.changed_by);
     case 'STATUS':
-      return t('stopVersion.header.status');
+      return t(($) => $.stopVersion.header.status);
     case 'VALIDITY_END':
-      return t('stopVersion.header.validity_end');
+      return t(($) => $.stopVersion.header.validity_end);
     case 'VALIDITY_START':
-      return t('stopVersion.header.validity_start');
+      return t(($) => $.stopVersion.header.validity_start);
     case 'VERSION_COMMENT':
-      return t('stopVersion.header.version_comment');
+      return t(($) => $.stopVersion.header.version_comment);
 
     default:
       return '';

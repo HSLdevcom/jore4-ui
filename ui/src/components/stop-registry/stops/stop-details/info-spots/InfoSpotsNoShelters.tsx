@@ -14,7 +14,7 @@ export const InfoSpotsNoShelters: FC = () => {
       data-testid={testIds.noSheltersText}
     >
       <i className="icon-info text-2xl text-brand" />
-      <p>{t('stopDetails.infoSpots.noSheltersInfo')}</p>
+      <p>{t(($) => $.stopDetails.infoSpots.noSheltersInfo)}</p>
     </div>
   );
 };

@@ -51,7 +51,7 @@ export const TemplateRouteSelector: FC<TemplateRouteSelectorProps> = ({
     >
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <FormProvider {...methods}>
-        <h3 className="mb-4">{t('routes.searchTemplate')}</h3>
+        <h3 className="mb-4">{t(($) => $.routes.searchTemplate)}</h3>
         <Row className="mb-4">
           <PriorityForm hiddenPriorities={[]} />
         </Row>
@@ -63,7 +63,9 @@ export const TemplateRouteSelector: FC<TemplateRouteSelectorProps> = ({
             className="flex-1"
           />
         </Column>
-        <label htmlFor="choose-route-combobox">{t('routes.label')}</label>
+        <label htmlFor="choose-route-combobox">
+          {t(($) => $.routes.label)}
+        </label>
         <Row className="mb-4">
           <ChooseRouteDropdown
             value={value}

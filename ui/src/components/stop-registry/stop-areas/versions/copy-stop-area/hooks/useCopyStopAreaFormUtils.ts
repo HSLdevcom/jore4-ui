@@ -67,7 +67,8 @@ function useErrorHandler() {
   const resolveErrorMessage = (error: unknown) => {
     if (error instanceof OverlappingMultipleStopAreaVersions) {
       return t(
-        'stopAreaDetails.version.errors.overlappingMultipleStopAreaVersions',
+        ($) =>
+          $.stopAreaDetails.version.errors.overlappingMultipleStopAreaVersions,
         {
           reason: extractNestedOrTopLevelMessage(error),
         },
@@ -76,31 +77,36 @@ function useErrorHandler() {
 
     if (error instanceof StopAreaEditWouldMakeRouteInvalidError) {
       return t(
-        'stopAreaDetails.version.errors.stopAreaEditWouldMakeRouteInvalidError',
+        ($) =>
+          $.stopAreaDetails.version.errors
+            .stopAreaEditWouldMakeRouteInvalidError,
       );
     }
 
     if (error instanceof StopPlacesInsertFailed) {
-      return t('stopAreaDetails.version.errors.stopPlacesInsertFailed', {
+      return t(($) => $.stopAreaDetails.version.errors.stopPlacesInsertFailed, {
         reason: extractNestedOrTopLevelMessage(error),
       });
     }
 
     if (error instanceof FailedToResolveNewShelters) {
-      return t('stopAreaDetails.version.errors.failedToResolveNewShelters', {
-        reason: extractNestedOrTopLevelMessage(error),
-      });
+      return t(
+        ($) => $.stopAreaDetails.version.errors.failedToResolveNewShelters,
+        {
+          reason: extractNestedOrTopLevelMessage(error),
+        },
+      );
     }
 
     if (error instanceof StopAreaInsertFailed) {
-      return t('stopAreaDetails.version.errors.stopAreaInsertFailed', {
+      return t(($) => $.stopAreaDetails.version.errors.stopAreaInsertFailed, {
         reason: extractNestedOrTopLevelMessage(error),
       });
     }
 
     if (error instanceof FailedToResolveExistingShelter) {
       return t(
-        'stopAreaDetails.version.errors.failedToResolveExistingShelter',
+        ($) => $.stopAreaDetails.version.errors.failedToResolveExistingShelter,
         {
           reason: extractNestedOrTopLevelMessage(error),
         },
@@ -109,7 +115,8 @@ function useErrorHandler() {
 
     if (error instanceof CopyStopAreaInvalidDateRangeError) {
       return t(
-        'stopAreaDetails.version.errors.copyStopAreaInvalidDateRangeError',
+        ($) =>
+          $.stopAreaDetails.version.errors.copyStopAreaInvalidDateRangeError,
       );
     }
 
@@ -118,7 +125,7 @@ function useErrorHandler() {
 
   return (error: unknown) => {
     showToast({
-      message: t('stopAreaDetails.version.errors.copy', {
+      message: t(($) => $.stopAreaDetails.version.errors.copy, {
         reason: resolveErrorMessage(error),
       }),
       type: 'danger',
@@ -151,7 +158,7 @@ export const useCopyStopAreaFormUtils = (
 
   const handleSuccess = (result: CopyStopAreaSuccessResult) => {
     showToast({
-      message: t('stopAreaDetails.version.copy.success'),
+      message: t(($) => $.stopAreaDetails.version.copy.success),
       type: 'success',
       className: 'whitespace-pre',
     });

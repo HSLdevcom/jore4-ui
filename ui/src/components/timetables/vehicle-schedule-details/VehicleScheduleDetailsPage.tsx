@@ -99,7 +99,7 @@ export const VehicleScheduleDetailsPage: FC = () => {
           <ObservationDateControl className="max-w-max" />
           <Visible visible={activeView === TimetablesView.DEFAULT}>
             <Field className="col-span-2 mb-1 flex items-center justify-normal gap-4 self-end">
-              <SwitchLabel>{t('timetables.showAllValid')}</SwitchLabel>
+              <SwitchLabel>{t(($) => $.timetables.showAllValid)}</SwitchLabel>
               <Switch
                 checked={showAllValid}
                 testId={testIds.showAllValidSwitch}
@@ -112,7 +112,9 @@ export const VehicleScheduleDetailsPage: FC = () => {
             visible={activeView === TimetablesView.PASSING_TIMES_BY_STOP}
           >
             <Field className="col-span-2 flex items-center justify-normal gap-4 self-end">
-              <SwitchLabel>{t('timetables.showArrivalTimes')}</SwitchLabel>
+              <SwitchLabel>
+                {t(($) => $.timetables.showArrivalTimes)}
+              </SwitchLabel>
               <Switch
                 checked={showArrivalTimes}
                 onChange={onShowArrivalTimesChanged}
@@ -127,7 +129,7 @@ export const VehicleScheduleDetailsPage: FC = () => {
                 href={getVersionsUrl(line.label, line.line_id)}
                 testId={testIds.showVersionsButton}
               >
-                {t('timetables.showVersions')}
+                {t(($) => $.timetables.showVersions)}
               </SimpleButton>
             )}
           </FormColumn>

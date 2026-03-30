@@ -98,10 +98,10 @@ export const RouteTimetablesSection: FC<RouteTimetablesSectionProps> = ({
             isOpen={isOpen}
             onToggle={toggleIsOpen}
             testId={testIds.accordionToggle}
-            openTooltip={t('accessibility.routes.expandTimetable', {
+            openTooltip={t(($) => $.accessibility.routes.expandTimetable, {
               routeName,
             })}
-            closeTooltip={t('accessibility.routes.closeTimetable', {
+            closeTooltip={t(($) => $.accessibility.routes.closeTimetable, {
               routeName,
             })}
             controls={sectionIdentifier}
@@ -137,7 +137,7 @@ export const RouteTimetablesSection: FC<RouteTimetablesSectionProps> = ({
               )}
           </div>
           <Visible visible={!displayedVehicleJourneyGroups.length}>
-            <p>{t('timetables.noSchedules')}</p>
+            <p>{t(($) => $.timetables.noSchedules)}</p>
           </Visible>
         </Visible>
       </LoadingWrapper>

@@ -28,36 +28,39 @@ export const OverlappingVersionCutConfirmationModal: FC<
 
   return (
     <ConfirmModal
-      heading={t('stopDetails.version.title.cutTitle')}
+      heading={t(($) => $.stopDetails.version.title.cutTitle)}
       isOpen={cutModalState.isOpen}
       onCancel={() => dispatch(closeCutStopVersionValidityModalAction())}
       onConfirm={onConfirm}
-      confirmButtonText={t('cut')}
-      cancelButtonText={t('cancel')}
+      confirmButtonText={t(($) => $.cut)}
+      cancelButtonText={t(($) => $.cancel)}
       testId={testIds.modal}
     >
       <Description as="div" className="text-sm">
         <p data-testid={testIds.currentVersion}>
           <span className="font-bold">
-            {t('stopDetails.version.cutModal.currentVersion')}:
+            {t(($) => $.stopDetails.version.cutModal.currentVersion)}:
           </span>{' '}
           {cutModalState.currentVersion}
         </p>
         <p data-testid={testIds.newVersion}>
           <span className="font-bold">
-            {t('stopDetails.version.cutModal.newVersion')}:
+            {t(($) => $.stopDetails.version.cutModal.newVersion)}:
           </span>{' '}
           {cutModalState.newVersion}
         </p>
 
         <p data-testid={testIds.cutDate} className="mt-4">
           {cutModalState.isCutToEnd
-            ? t('stopDetails.version.cutModal.cutCurrentVersionToEnd', {
+            ? t(($) => $.stopDetails.version.cutModal.cutCurrentVersionToEnd, {
                 date: cutModalState.cutDate,
               })
-            : t('stopDetails.version.cutModal.cutCurrentVersionToStart', {
-                date: cutModalState.cutDate,
-              })}
+            : t(
+                ($) => $.stopDetails.version.cutModal.cutCurrentVersionToStart,
+                {
+                  date: cutModalState.cutDate,
+                },
+              )}
         </p>
       </Description>
     </ConfirmModal>

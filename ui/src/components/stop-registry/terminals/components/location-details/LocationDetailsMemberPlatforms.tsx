@@ -37,7 +37,7 @@ export const MemberPlatforms: FC<MemberPlatformsProps> = ({
 
   return (
     <LabeledDetail
-      title={t('terminalDetails.location.memberPlatforms', {
+      title={t(($) => $.terminalDetails.location.memberPlatforms, {
         total: memberPlatformsTotal,
       })}
       detail={memberPlatforms}

@@ -30,7 +30,10 @@ export const useUpsertOrganisation = () => {
   };
 
   const defaultErrorHandler = (err: unknown) => {
-    showDangerToastWithError(t('errors.saveFailed'), err);
+    showDangerToastWithError(
+      t(($) => $.errors.saveFailed),
+      err,
+    );
   };
 
   return {

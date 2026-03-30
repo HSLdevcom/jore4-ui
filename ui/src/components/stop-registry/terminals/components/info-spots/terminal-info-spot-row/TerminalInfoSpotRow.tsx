@@ -53,7 +53,7 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
     try {
       await saveTerminalInfoSpots({ state });
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
       infoContainerControls.setIsInEditMode(false);
       setIsOpen(true);
     } catch (err) {

@@ -56,7 +56,7 @@ export const StopsByLineNongroupedStopsResults: FC<
   return (
     <LoadingWrapper
       className="flex justify-center"
-      loadingText={t('search.searching')}
+      loadingText={t(($) => $.search.searching)}
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
@@ -72,18 +72,15 @@ export const StopsByLineNongroupedStopsResults: FC<
         hasResults={resultCount > 0}
         resultSelection={resultSelection}
       />
-
       {error && resolveStopPlaceIdsInError && (
         <LoadingStopsErrorRow
           error={error}
           refetch={resolveStopPlaceIdsRefetch}
         />
       )}
-
       {error && stopsInError && (
         <LoadingStopsErrorRow error={error} refetch={stopsRefetch} />
       )}
-
       {!error && (
         <SelectableStopSearchResultStopsTable
           observationDate={observationDate}
@@ -92,7 +89,6 @@ export const StopsByLineNongroupedStopsResults: FC<
           selection={resultSelection}
         />
       )}
-
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
           <Pagination

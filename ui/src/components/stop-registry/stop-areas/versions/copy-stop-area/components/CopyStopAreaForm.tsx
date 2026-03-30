@@ -65,14 +65,13 @@ export const CopyStopAreaForm: FC<CopyStopAreaFormProps> = ({
             onClick={onCancel}
             testId={testIds.cancelButton}
           >
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
           <SimpleButton type="submit" testId={testIds.submitButton}>
-            {t('save')}
+            {t(($) => $.save)}
           </SimpleButton>
         </Row>
       </form>
-
       {!!cutConfirmationState && (
         <CopyStopAreaCutConfirmationModal
           modalState={cutConfirmationState}

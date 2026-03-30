@@ -71,7 +71,9 @@ export const LineTitle: FC<LineTitleProps> = ({
     <Column className="grow items-stretch">
       <Row className={twJoin('items-center', className)}>
         <PageTitle.H1 className="mr-4" data-testid={testIds.heading}>
-          {t('lines.line', { label: line.label })}
+          {t(($) => $.lines.line, {
+            label: line.label,
+          })}
         </PageTitle.H1>
 
         <span className="mr-2 space-x-2">
@@ -94,12 +96,12 @@ export const LineTitle: FC<LineTitleProps> = ({
             testId={testIds.createRouteButton}
             inverted
             className="flex items-center gap-2 border-0 bg-transparent px-1 py-0.5"
-            aria-label={t(`accessibility.lines.createNewRoute`, {
+            aria-label={t(($) => $.accessibility.lines.createNewRoute, {
               label: line.label,
             })}
           >
             <span className="font-normal text-black">
-              {t('lines.newRoute')}
+              {t(($) => $.lines.newRoute)}
             </span>
             <AiFillPlusCircle className="text-2xl" />
           </SimpleButton>

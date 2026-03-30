@@ -40,7 +40,7 @@ export function useEnsureStopVehicleModeVisible() {
 
     if (!stopFilters[filterType]) {
       dispatch(setStopFilterAction({ filterType, isActive: true }));
-      showWarningToast(t('filters.visibilityFiltersAdjusted'));
+      showWarningToast(t(($) => $.filters.visibilityFiltersAdjusted));
     }
   };
 }

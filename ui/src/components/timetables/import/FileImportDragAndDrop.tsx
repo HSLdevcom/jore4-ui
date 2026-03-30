@@ -62,7 +62,7 @@ export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
     );
 
     if (incorrectFormatFiles.length) {
-      showDangerToast(t('import.incorrectFileFormat'));
+      showDangerToast(t(($) => $.import.incorrectFileFormat));
     }
 
     setFileList(
@@ -96,7 +96,7 @@ export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
       onDragOver={handleOnDragOver}
       onDrop={handleOnDrop}
     >
-      {!!fileList?.length && <h5>{t('import.filesToUpload')}</h5>}
+      {!!fileList?.length && <h5>{t(($) => $.import.filesToUpload)}</h5>}
       <ul>
         {fileList?.map((file) => (
           <li key={file.name}>{file.name}</li>
@@ -135,10 +135,10 @@ export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
       </Row>
       <Row className="flex items-center justify-center">
         <span className="mr-2 font-bold text-gray-700">{`${t(
-          'import.dragAndDrop',
+          ($) => $.import.dragAndDrop,
         )}`}</span>
         <SimpleButton onClick={handleOnClick}>
-          {t('import.browse')}
+          {t(($) => $.import.browse)}
         </SimpleButton>
       </Row>
     </div>

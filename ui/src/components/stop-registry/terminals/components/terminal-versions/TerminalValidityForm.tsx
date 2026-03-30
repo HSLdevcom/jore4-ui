@@ -39,21 +39,19 @@ export const TerminalValidityForm: FC<TerminalValidityFormProps> = ({
       <FormRow>
         <ReasonForChangeForm />
       </FormRow>
-
       <FormRow>
         <ValidityPeriodForm />
       </FormRow>
-
       <Row className="-mx-12 -mb-8 justify-end gap-4 border border-light-grey bg-background px-12 py-2">
         <SimpleButton inverted onClick={onCancel} testId={testIds.cancelButton}>
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
         <SimpleButton
           type="submit"
           testId={testIds.submitButton}
           disabled={!formState.isDirty || formState.isSubmitting}
         >
-          {t('save')}
+          {t(($) => $.save)}
         </SimpleButton>
       </Row>
     </form>

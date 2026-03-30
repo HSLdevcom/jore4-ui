@@ -53,7 +53,7 @@ export const useMoveQuayToStopPlace = () => {
     if (originalQuays.length === 0) {
       // No original quays found, cannot proceed as would cause quay mapping to fail
       throw new Error(
-        t('stopAreaDetails.memberStops.errors.noOriginalQuaysFound'),
+        t(($) => $.stopAreaDetails.memberStops.errors.noOriginalQuaysFound),
       );
     }
 
@@ -72,7 +72,7 @@ export const useMoveQuayToStopPlace = () => {
       if (newQuays.length === 0) {
         // No new quays found, cannot proceed as would cause quay mapping to fail
         throw new Error(
-          t('stopAreaDetails.memberStops.errors.noNewQuaysFound'),
+          t(($) => $.stopAreaDetails.memberStops.errors.noNewQuaysFound),
         );
       }
 
@@ -85,14 +85,14 @@ export const useMoveQuayToStopPlace = () => {
       const originalQuayId = stopPointNeedingUpdate.stop_place_ref;
       if (!originalQuayId) {
         throw new Error(
-          t('stopAreaDetails.memberStops.errors.originalQuayIdRequired'),
+          t(($) => $.stopAreaDetails.memberStops.errors.originalQuayIdRequired),
         );
       }
 
       const newQuayId = quayMapping.get(originalQuayId);
       if (!newQuayId) {
         throw new Error(
-          t('stopAreaDetails.memberStops.errors.noMappingForQuayId', {
+          t(($) => $.stopAreaDetails.memberStops.errors.noMappingForQuayId, {
             quayId: originalQuayId,
           }),
         );
@@ -126,7 +126,7 @@ export const useMoveQuayToStopPlace = () => {
     const originalQuayId = params.quayIds[0];
     if (!originalQuayId) {
       throw new Error(
-        t('stopAreaDetails.memberStops.errors.originalQuayIdRequired'),
+        t(($) => $.stopAreaDetails.memberStops.errors.originalQuayIdRequired),
       );
     }
 
@@ -143,7 +143,7 @@ export const useMoveQuayToStopPlace = () => {
 
       if (!stopPointId) {
         throw new Error(
-          t('stopAreaDetails.memberStops.errors.stopPointIdRequired'),
+          t(($) => $.stopAreaDetails.memberStops.errors.stopPointIdRequired),
         );
       }
 
@@ -159,7 +159,10 @@ export const useMoveQuayToStopPlace = () => {
   };
 
   const defaultErrorHandler = (err: unknown) => {
-    showDangerToastWithError(t('errors.saveFailed'), err);
+    showDangerToastWithError(
+      t(($) => $.errors.saveFailed),
+      err,
+    );
   };
 
   return {

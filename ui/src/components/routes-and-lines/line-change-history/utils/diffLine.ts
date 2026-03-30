@@ -18,54 +18,54 @@ export function diffLine(
   return compact([
     diffKeyedValues({
       key: 'Label',
-      field: t('lines.label'),
+      field: t(($) => $.lines.label),
       oldValue: previous.label,
       newValue: current.label,
     }),
 
     diffKeyedValues({
       key: 'NameFi',
-      field: t('lines.name.fi_FI'),
+      field: t(($) => $.lines.name.fi_FI),
       oldValue: previous.name_i18n.fi_FI,
       newValue: current.name_i18n.fi_FI,
     }),
     diffKeyedValues({
       key: 'NameSv',
-      field: t('lines.name.sv_FI'),
+      field: t(($) => $.lines.name.sv_FI),
       oldValue: previous.name_i18n.sv_FI,
       newValue: current.name_i18n.sv_FI,
     }),
 
     diffKeyedValues({
       key: 'ShortNameFi',
-      field: t('lines.shortName.fi_FI'),
+      field: t(($) => $.lines.shortName.fi_FI),
       oldValue: previous.short_name_i18n.fi_FI,
       newValue: current.short_name_i18n.fi_FI,
     }),
     diffKeyedValues({
       key: 'ShortNameSv',
-      field: t('lines.shortName.sv_FI'),
+      field: t(($) => $.lines.shortName.sv_FI),
       oldValue: previous.short_name_i18n.sv_FI,
       newValue: current.short_name_i18n.sv_FI,
     }),
 
     diffKeyedValues({
       key: 'ValidityStart',
-      field: t('changeHistory.tableHeaders.validityStart'),
+      field: t(($) => $.changeHistory.tableHeaders.validityStart),
       oldValue: previous.validity_start,
       newValue: current.validity_start,
       mapper: mapToShortDate,
     }),
     diffKeyedValues({
       key: 'ValidityEnd',
-      field: t('changeHistory.tableHeaders.validityEnd'),
+      field: t(($) => $.changeHistory.tableHeaders.validityEnd),
       oldValue: previous.validity_end,
       newValue: current.validity_end,
       mapper: mapToShortDate,
     }),
     diffKeyedValues({
       key: 'Priority',
-      field: t('priority.label'),
+      field: t(($) => $.priority.label),
       oldValue: previous.priority,
       newValue: current.priority,
       mapper: (v) => mapPriorityToUiName(t, v),
@@ -73,21 +73,21 @@ export function diffLine(
 
     diffKeyedValues({
       key: 'PrimaryVehicleMode',
-      field: t('lines.primaryVehicleMode'),
+      field: t(($) => $.lines.primaryVehicleMode),
       oldValue: previous.primary_vehicle_mode,
       newValue: current.primary_vehicle_mode,
       mapper: (v) => mapVehicleModeToUiName(t, v),
     }),
     diffKeyedValues({
       key: 'TypeOfLine',
-      field: t('lines.typeOfLine'),
+      field: t(($) => $.lines.typeOfLine),
       oldValue: previous.type_of_line,
       newValue: current.type_of_line,
       mapper: (v) => mapLineTypeToUiName(t, v),
     }),
     diffKeyedValues({
       key: 'TransportTarget',
-      field: t('lines.transportTarget'),
+      field: t(($) => $.lines.transportTarget),
       oldValue: previous.transport_target,
       newValue: current.transport_target,
       mapper: (v) => mapTransportTargetToUiName(t, v),

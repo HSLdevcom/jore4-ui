@@ -38,7 +38,7 @@ export const DataDiffSectionLoading: FC<DataDiffSectionLoadingProps> = ({
           className="p-5"
           colSpan={7}
           data-testid={testIds.contentCell}
-          title={t('lineChangeHistory.versionLoading')}
+          title={t(($) => $.lineChangeHistory.versionLoading)}
         >
           <PulseLoader color={theme.colors.brand} size={14} />
         </td>

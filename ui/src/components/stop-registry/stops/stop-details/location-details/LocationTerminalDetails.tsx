@@ -67,13 +67,13 @@ export const LocationTerminalDetails: FC<LocationTerminalDetailsProps> = ({
           <Link
             to={routeDetails[Path.terminalDetails].getLink(terminalPrivateCode)}
             data-testid={testIds.terminalLink}
-            title={t('accessibility.terminals.showTerminalDetails', {
+            title={t(($) => $.accessibility.terminals.showTerminalDetails, {
               terminalLabel: terminalName,
             })}
           >
             <div className="flex flex-col">
               <div className="text-sm">
-                {t('stopDetails.location.terminal')}
+                {t(($) => $.stopDetails.location.terminal)}
               </div>
               <div
                 className="text-sm font-bold"
@@ -86,7 +86,9 @@ export const LocationTerminalDetails: FC<LocationTerminalDetailsProps> = ({
           </Link>
         ) : (
           <div className="flex flex-col">
-            <div className="text-sm">{t('stopDetails.location.terminal')}</div>
+            <div className="text-sm">
+              {t(($) => $.stopDetails.location.terminal)}
+            </div>
             <div
               className="text-sm font-bold"
               data-testid={testIds.terminalPrivateCode}
@@ -96,13 +98,13 @@ export const LocationTerminalDetails: FC<LocationTerminalDetailsProps> = ({
           </div>
         )}
         <LabeledDetail
-          title={t('stopDetails.location.terminalName')}
+          title={t(($) => $.stopDetails.location.terminalName)}
           detail={terminalName}
           testId={testIds.terminalName}
         />
 
         <LabeledDetail
-          title={t('stopDetails.location.terminalStops', {
+          title={t(($) => $.stopDetails.location.terminalStops, {
             total: memberStopsTotal,
           })}
           detail={memberStops}

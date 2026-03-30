@@ -641,7 +641,6 @@ export const StopGroupSelector = ({
           ? radioGroupLabel(selected.length)
           : radioGroupLabel}
       </label>
-
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
         onMouseDown={onMouseDown}
@@ -686,11 +685,10 @@ export const StopGroupSelector = ({
             }}
             type="button"
           >
-            {t('stopRegistrySearch.showLessLines')}
+            {t(($) => $.stopRegistrySearch.showLessLines)}
           </button>
         </Visible>
       </div>
-
       {/* Show more button is outside the list as to exclude from the overflow calculations.  */}
       <Visible visible={!showAll && someGroupIsHidden}>
         <button
@@ -699,7 +697,9 @@ export const StopGroupSelector = ({
           onClick={() => setShowAll(true)}
           type="button"
         >
-          {t('stopRegistrySearch.showAllLines', { count: groups.length })}
+          {t(($) => $.stopRegistrySearch.showAllLines, {
+            count: groups.length,
+          })}
         </button>
       </Visible>
     </div>

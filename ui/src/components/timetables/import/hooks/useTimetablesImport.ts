@@ -245,7 +245,9 @@ export const useTimetablesImport = () => {
           .then(() => {
             successfulFiles.push(file);
             showSuccessToast(
-              t('import.fileUploadSuccess', { filename: file.name }),
+              t(($) => $.import.fileUploadSuccess, {
+                filename: file.name,
+              }),
             );
           })
           .catch((error) => {

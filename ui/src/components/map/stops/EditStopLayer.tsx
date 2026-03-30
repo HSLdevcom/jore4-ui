@@ -254,9 +254,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       if (selectedStopId && mapStopSelection.byResultSelection === false) {
         dispatch(toggleStopSelectionAction(selectedStopId));
         if (mapStopSelection.selected.includes(selectedStopId)) {
-          showSuccessToast(t('map.stopSelection.stopUnselected'));
+          showSuccessToast(t(($) => $.map.stopSelection.stopUnselected));
         } else {
-          showSuccessToast(t('map.stopSelection.stopSelected'));
+          showSuccessToast(t(($) => $.map.stopSelection.stopSelected));
         }
       }
     };

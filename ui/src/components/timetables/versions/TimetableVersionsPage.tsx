@@ -102,11 +102,13 @@ export const TimetableVersionsPage: FC = () => {
     <Container>
       <FormRow mdColumns={2}>
         <PageTitle.H1>
-          {`${t('timetables.versionsTitle')} | ${t('lines.line', { label })}`}
+          {`${t(($) => $.timetables.versionsTitle)} | ${t(($) => $.lines.line, {
+            label,
+          })}`}
         </PageTitle.H1>
         <FormColumn className="items-end">
           <CloseIconButton
-            label={t('close')}
+            label={t(($) => $.close)}
             className="text-base font-bold text-brand"
             onClick={onClose}
             testId={testIds.closeButton}
@@ -114,14 +116,14 @@ export const TimetableVersionsPage: FC = () => {
         </FormColumn>
       </FormRow>
       <Container>
-        <h2 className="text-xl">{t('timetables.timeline')}</h2>
+        <h2 className="text-xl">{t(($) => $.timetables.timeline)}</h2>
         <TimeRangeControl className="mb-8" />
-        <h2 className="text-xl">{t('timetables.operatingCalendar')}</h2>
+        <h2 className="text-xl">{t(($) => $.timetables.operatingCalendar)}</h2>
         <TimetableVersionTable
           className="mb-8 w-full"
           data={sortTimetables(timetablesExcludingDrafts)}
         />
-        <h2 className="text-xl">{t('timetables.drafts')}</h2>
+        <h2 className="text-xl">{t(($) => $.timetables.drafts)}</h2>
         <TimetableVersionTable
           className="mb-8 w-full"
           data={onlyDraftTimetables}

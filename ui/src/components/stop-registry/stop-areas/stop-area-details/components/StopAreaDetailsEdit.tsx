@@ -112,7 +112,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
         await refetch();
       }
 
-      showSuccessToast(t('stopArea.editSuccess'));
+      showSuccessToast(t(($) => $.stopArea.editSuccess));
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error, state);

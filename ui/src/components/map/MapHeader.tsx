@@ -16,12 +16,12 @@ export const MapHeader: FC<MapHeaderProps> = ({ onClose }) => {
   const { t } = useTranslation();
   return (
     <Row className="absolute top-0 right-0 z-30 p-2.5">
-      <PageTitle.H2 className="sr-only" titleText={t('map.pageTitle')}>
-        {t('map.joreMap')}
+      <PageTitle.H2 className="sr-only" titleText={t(($) => $.map.pageTitle)}>
+        {t(($) => $.map.joreMap)}
       </PageTitle.H2>
       <CloseIconButton
         className="ml-auto bg-white p-2.5 font-bold text-brand shadow-md"
-        label={t('close')}
+        label={t(($) => $.close)}
         onClick={onClose}
         testId={testIds.closeButton}
       />

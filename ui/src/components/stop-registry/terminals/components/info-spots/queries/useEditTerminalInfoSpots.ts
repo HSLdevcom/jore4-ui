@@ -103,7 +103,10 @@ export const useEditTerminalInfoSpots = () => {
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
   const defaultErrorHandler = (err: Error) => {
-    showDangerToastWithError(t('errors.saveFailed'), err);
+    showDangerToastWithError(
+      t(($) => $.errors.saveFailed),
+      err,
+    );
   };
 
   return {

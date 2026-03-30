@@ -56,11 +56,12 @@ export const TerminalTitleRow: FC<TerminalTitleRowProps> = ({
         <div className="grow" />
         <LocatorButton
           onClick={onClickTerminalMap}
-          tooltipText={t('stopRegistrySearch.terminalRowActions.showOnMap')}
+          tooltipText={t(
+            ($) => $.stopRegistrySearch.terminalRowActions.showOnMap,
+          )}
           testId={testIds.locatorButton}
         />
       </div>
-
       <div className="flex items-center justify-between">
         <TabSelector
           activeTab={activeTab}

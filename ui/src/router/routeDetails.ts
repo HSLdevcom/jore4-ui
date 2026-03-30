@@ -1,7 +1,7 @@
+import { SelectorParam } from 'i18next';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { QueryParameterName } from '../hooks/urlQuery';
-import { TranslationKey } from '../i18n';
 
 export const Path = {
   root: '/',
@@ -76,14 +76,17 @@ function genVariableLinkGenerator(
 
 type NavigationRoute = {
   readonly getLink: GetLinkFn;
-  readonly translationKey: TranslationKey; // Currently only needed if the route is included in navigation.
   readonly includeInNav: true;
+  // Currently only needed if the route is included in navigation.
+  readonly key: string;
+  readonly translationKey: SelectorParam;
 };
 
 type NonNavigationRoute = {
   readonly getLink: GetLinkFn;
-  readonly translationKey?: never;
   readonly includeInNav?: false;
+  readonly key?: never;
+  readonly translationKey?: never;
 };
 
 type RouteDetails = NavigationRoute | NonNavigationRoute;
@@ -97,7 +100,8 @@ export function isNavigationRoute(
 export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   [Path.root]: {
     getLink: () => Path.root,
-    translationKey: 'routes.root',
+    key: 'routes.root',
+    translationKey: ($) => $.routes.root,
     includeInNav: true,
   },
 
@@ -105,17 +109,20 @@ export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   // Note: the order in which these are declared here controls the display order in navigation bar.
   [Path.stopRegistry]: {
     getLink: () => Path.stopRegistry,
-    translationKey: 'stops.stops',
+    key: 'stops.stops',
+    translationKey: ($) => $.stops.stops,
     includeInNav: true,
   },
   [Path.routes]: {
     getLink: () => Path.routes,
-    translationKey: 'routes.routes',
+    key: 'routes.routes',
+    translationKey: ($) => $.routes.routes,
     includeInNav: true,
   },
   [Path.timetables]: {
     getLink: () => Path.timetables,
-    translationKey: 'timetables.timetables',
+    key: 'timetables.timetables',
+    translationKey: ($) => $.timetables.timetables,
     includeInNav: true,
   },
   [Path.map]: {

@@ -50,7 +50,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
         bodyClassName="mx-0 my-0 flex flex-col"
         testId={testIds.modal}
         onClose={onClose}
-        heading={t('stops.createStopCopy', {
+        heading={t(($) => $.stops.createStopCopy, {
           stopLabel: defaultValues.publicCode?.value,
         })}
         navigationContext="StopForm"

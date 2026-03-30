@@ -35,7 +35,6 @@ export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
   return (
     <>
       <div className="grow" />
-
       <SimpleButton
         shape="slim"
         type="button"
@@ -43,9 +42,8 @@ export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
         inverted
         testId={testIds.addStopButton}
       >
-        {t('stopAreaDetails.memberStops.moveStopToArea')}
+        {t(($) => $.stopAreaDetails.memberStops.moveStopToArea)}
       </SimpleButton>
-
       <MoveQuayToStopAreaModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

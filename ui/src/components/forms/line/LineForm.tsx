@@ -80,7 +80,7 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
             testId={testIds.cancelButton}
             disabled={methods.formState.isSubmitting}
           >
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
           <SimpleButton
             onClick={onSave}
@@ -90,7 +90,7 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
               !methods.formState.isDirty || methods.formState.isSubmitting
             }
           >
-            {t('save')}
+            {t(($) => $.save)}
           </SimpleButton>
         </Row>
       </form>

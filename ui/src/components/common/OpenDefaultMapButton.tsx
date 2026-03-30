@@ -35,7 +35,7 @@ export const OpenDefaultMapButton = ({
 
   return (
     <SimpleButton className={className} onClick={onOpenMap} testId={testId}>
-      {t('map.open')}
+      {t(($) => $.map.open)}
     </SimpleButton>
   );
 };

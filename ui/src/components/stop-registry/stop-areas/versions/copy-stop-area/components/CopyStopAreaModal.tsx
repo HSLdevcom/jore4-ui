@@ -52,14 +52,14 @@ export const CopyStopAreaModal: FC<CopyStopAreaProps> = ({
     <Modal isOpen={isOpen} onClose={noop} testId={testIds.modal}>
       <ModalHeader
         onClose={wrappedOnClose}
-        heading={t('stopAreaDetails.version.copy.title')}
+        heading={t(($) => $.stopAreaDetails.version.copy.title)}
       />
       <LoadingWrapper testId={testIds.loading} loading={!stopArea}>
         {stopArea && (
           <ModalBody className="w-[550px]">
             <CopyStopAreaBoilerplate stopArea={stopArea} />
             <h4 className="mt-4">
-              {t('stopAreaDetails.version.copy.subTitle')}
+              {t(($) => $.stopAreaDetails.version.copy.subTitle)}
             </h4>
             <CopyStopAreaForm
               className="mt-4"

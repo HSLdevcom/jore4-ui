@@ -13,7 +13,7 @@ export const ImportContentsView: FC<ImportContentsViewProps> = ({
   const { t } = useTranslation();
   return (
     <div className="space-y-3">
-      <h2>{t('timetablesPreview.fileContent')}</h2>
+      <h2>{t(($) => $.timetablesPreview.fileContent)}</h2>
       {vehicleScheduleFrames.map((frame) => (
         <VehicleScheduleFrameBlocksView
           key={frame.vehicle_schedule_frame_id}

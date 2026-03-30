@@ -30,7 +30,7 @@ export const StopOwnerFormField: FC<StopOwnerFormFieldProps> = ({
   return (
     <div className="flex flex-col text-sm [&>label]:leading-8">
       <label htmlFor="stopOwner">
-        {t('stopDetails.maintenance.maintainers.stopOwner')}
+        {t(($) => $.stopDetails.maintenance.maintainers.stopOwner)}
       </label>
       <EnumDropdown
         id="stopOwner"

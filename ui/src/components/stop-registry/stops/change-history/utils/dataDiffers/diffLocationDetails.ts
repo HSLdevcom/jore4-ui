@@ -19,65 +19,68 @@ export function diffLocationDetails(
   const currentPoint = getGeometryPoint(current.quay.geometry);
 
   const mapMeters = optionalFmt(
-    new Intl.NumberFormat(t('languages.intlLangCode'), {
-      style: 'unit',
-      unit: 'meter',
-    }),
+    new Intl.NumberFormat(
+      t(($) => $.languages.intlLangCode),
+      {
+        style: 'unit',
+        unit: 'meter',
+      },
+    ),
   );
 
   const changes = [
     diffKeyedValues({
       key: 'StreetAddress',
-      field: t('stopDetails.location.streetAddress'),
+      field: t(($) => $.stopDetails.location.streetAddress),
       oldValue: previous.quay.streetAddress,
       newValue: current.quay.streetAddress,
     }),
     diffKeyedValues({
       key: 'PostalCode',
-      field: t('stopDetails.location.postalCode'),
+      field: t(($) => $.stopDetails.location.postalCode),
       oldValue: previous.quay.postalCode,
       newValue: current.quay.postalCode,
     }),
     diffKeyedValues({
       key: 'Municipality',
-      field: t('stopDetails.location.municipality'),
+      field: t(($) => $.stopDetails.location.municipality),
       oldValue: previous.stop_place.municipality,
       newValue: current.stop_place.municipality,
     }),
     diffKeyedValues({
       key: 'FareZone',
-      field: t('stopDetails.location.fareZone'),
+      field: t(($) => $.stopDetails.location.fareZone),
       oldValue: previous.stop_place.fareZone,
       newValue: current.stop_place.fareZone,
     }),
     diffKeyedValues({
       key: 'Latitude',
-      field: t('stopDetails.location.latitude'),
+      field: t(($) => $.stopDetails.location.latitude),
       oldValue: previousPoint?.latitude,
       newValue: currentPoint?.latitude,
     }),
     diffKeyedValues({
       key: 'Longitude',
-      field: t('stopDetails.location.longitude'),
+      field: t(($) => $.stopDetails.location.longitude),
       oldValue: previousPoint?.longitude,
       newValue: currentPoint?.longitude,
     }),
     diffKeyedValues({
       key: 'Altitude',
-      field: t('stopDetails.location.altitude'),
+      field: t(($) => $.stopDetails.location.altitude),
       oldValue: previousPoint?.elevation,
       newValue: currentPoint?.elevation,
     }),
     diffKeyedValues({
       key: 'FunctionalArea',
-      field: t('stopDetails.location.functionalArea'),
+      field: t(($) => $.stopDetails.location.functionalArea),
       oldValue: previous.quay.functionalArea,
       newValue: current.quay.functionalArea,
       mapper: mapMeters,
     }),
     diffKeyedValues({
       key: 'PlatformNumber',
-      field: t('stopDetails.location.platformNumber'),
+      field: t(($) => $.stopDetails.location.platformNumber),
       oldValue:
         previous.quay.placeEquipments?.generalSign?.at(0)?.content?.value,
       newValue:
@@ -85,14 +88,14 @@ export function diffLocationDetails(
     }),
     diffKeyedValues({
       key: 'SignContentType',
-      field: t('stopDetails.location.signContentType'),
+      field: t(($) => $.stopDetails.location.signContentType),
       oldValue:
         previous.quay?.placeEquipments?.generalSign?.at(0)?.signContentType,
       newValue:
         current.quay?.placeEquipments?.generalSign?.at(0)?.signContentType,
       mapper: mapNullable(
         (v) => mapSignContentTypeToUiName(t, v),
-        t('signContentTypeEnum.none'),
+        t(($) => $.signContentTypeEnum.none),
       ),
     }),
   ];

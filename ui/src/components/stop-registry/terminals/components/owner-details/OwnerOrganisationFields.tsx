@@ -128,12 +128,11 @@ export const OwnerOrganizationFields: FC<MaintainerFormFieldsProps> = ({
               onClick={() => onEditOrganisation(selectedOwner)}
               testId={testIds.editOrganisationButton}
             >
-              {t('edit')}
+              {t(($) => $.edit)}
             </SimpleButton>
           </Visible>
         </div>
       </Column>
-
       <OrganisationDetailsModal
         isOpen={isEditingOrganisation}
         organisation={editedOrganisation}

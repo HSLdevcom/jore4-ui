@@ -32,7 +32,7 @@ export const OwnerDetailsSection: FC<TerminalComponentProps> = ({
     <InfoContainer
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
-      title={t('terminalDetails.owner.title')}
+      title={t(($) => $.terminalDetails.owner.title)}
       testIdPrefix="TerminalOwnerDetailsSection"
     >
       {infoContainerControls.isInEditMode ? (

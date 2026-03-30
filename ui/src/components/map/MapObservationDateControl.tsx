@@ -71,7 +71,7 @@ export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
 
   return (
     <Column className={containerClassName}>
-      <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
+      <label htmlFor={dateInputId}>{t(($) => $.filters.observationDate)}</label>
       <input
         type="date"
         value={mapToISODate(localDateValue)}

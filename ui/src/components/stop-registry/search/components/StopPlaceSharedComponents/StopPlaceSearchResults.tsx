@@ -1,6 +1,6 @@
+import { SelectorParam } from 'i18next';
 import { ComponentType, FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TranslationKey } from '../../../../../i18n';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
 import { SortStopsBy } from '../../types';
 import { useStopSearchRouterState } from '../../utils';
@@ -17,7 +17,7 @@ const testIds = {
 type StopPlaceSearchResultsProps = {
   readonly groupingField: SortStopsBy;
   readonly placeType: 'area' | 'terminal';
-  readonly translationLabel: TranslationKey;
+  readonly translationLabel: SelectorParam;
   readonly HeaderComponent: ComponentType<StopPlaceHeaderPublicPropsProps>;
   readonly NoStopsComponent: ComponentType<NoStopsComponentProps>;
 };
@@ -68,7 +68,7 @@ export const StopPlaceSearchResults: FC<StopPlaceSearchResultsProps> = ({
   return (
     <LoadingWrapper
       className="flex justify-center"
-      loadingText={t('search.searching')}
+      loadingText={t(($) => $.search.searching)}
       loading={stopPlaces.length === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >

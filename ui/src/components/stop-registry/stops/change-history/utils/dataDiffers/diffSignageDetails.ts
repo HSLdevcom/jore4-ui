@@ -22,7 +22,7 @@ export function diffSignageDetails(
   const changes = [
     diffKeyedValues({
       key: 'SignType',
-      field: t('stopDetails.signs.signType'),
+      field: t(($) => $.stopDetails.signs.signType),
       oldValue: previousGeneralSign?.privateCode?.value,
       newValue: currentGeneralSign?.privateCode?.value,
       mapper: mapNullable((v) =>
@@ -31,19 +31,19 @@ export function diffSignageDetails(
     }),
     diffKeyedValues({
       key: 'NumberOfFrames',
-      field: t('stopDetails.signs.numberOfFrames'),
+      field: t(($) => $.stopDetails.signs.numberOfFrames),
       oldValue: previousGeneralSign?.numberOfFrames?.toString(10),
       newValue: currentGeneralSign?.numberOfFrames?.toString(10),
     }),
     diffKeyedValues({
       key: 'SignageInstructionExceptions',
-      field: t('stopDetails.signs.signageInstructionExceptions'),
+      field: t(($) => $.stopDetails.signs.signageInstructionExceptions),
       oldValue: previousGeneralSign?.note?.value,
       newValue: currentGeneralSign?.note?.value,
     }),
     diffKeyedValues({
       key: 'ReplacesRailSign',
-      field: t('stopDetails.signs.replacesRailSign'),
+      field: t(($) => $.stopDetails.signs.replacesRailSign),
       oldValue: previousGeneralSign?.replacesRailSign,
       newValue: currentGeneralSign?.replacesRailSign,
       mapper: (v) => optionalBooleanToUiText(t, v),

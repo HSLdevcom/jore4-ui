@@ -94,7 +94,10 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
           </FormRow>
           <Visible visible={!!defaultValues.id}>
             <p>
-              {t('stopDetails.maintenance.organisation.modalEditDisclaimer')}
+              {t(
+                ($) =>
+                  $.stopDetails.maintenance.organisation.modalEditDisclaimer,
+              )}
             </p>
           </Visible>
         </div>
@@ -104,7 +107,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
             inverted
             testId={testIds.cancelButton}
           >
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
           <SimpleButton
             onClick={onSave}
@@ -114,7 +117,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
               !methods.formState.isDirty || methods.formState.isSubmitting
             }
           >
-            {t('save')}
+            {t(($) => $.save)}
           </SimpleButton>
         </Row>
       </form>

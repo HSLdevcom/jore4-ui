@@ -65,28 +65,38 @@ function useErrorHandler() {
 
   const resolveErrorMessage = (error: unknown) => {
     if (error instanceof FailedToResolveExistingQuays) {
-      return t('stopDetails.version.errors.failedToResolveExistingQuays', {
-        reason: extractNestedOrTopLevelMessage(error),
-      });
+      return t(
+        ($) => $.stopDetails.version.errors.failedToResolveExistingQuays,
+        {
+          reason: extractNestedOrTopLevelMessage(error),
+        },
+      );
     }
 
     if (error instanceof StopPlaceInsertFailed) {
-      return t('stopDetails.version.errors.stopPlaceInsertFailed', {
+      return t(($) => $.stopDetails.version.errors.stopPlaceInsertFailed, {
         reason: extractNestedOrTopLevelMessage(error),
       });
     }
 
     if (error instanceof StopPointInsertFailed) {
       return t(
-        'stopDetails.version.errors.stopPointInsertFailedStopPlaceReverted',
-        { reason: extractNestedOrTopLevelMessage(error) },
+        ($) =>
+          $.stopDetails.version.errors.stopPointInsertFailedStopPlaceReverted,
+        {
+          reason: extractNestedOrTopLevelMessage(error),
+        },
       );
     }
 
     if (error instanceof StopPlaceRevertFailed) {
       return t(
-        'stopDetails.version.errors.stopPointInsertFailedStopPlaceNotReverted',
-        { reason: error.errors.map(extractMessageFromError).join('\n') },
+        ($) =>
+          $.stopDetails.version.errors
+            .stopPointInsertFailedStopPlaceNotReverted,
+        {
+          reason: error.errors.map(extractMessageFromError).join('\n'),
+        },
       );
     }
 
@@ -97,7 +107,7 @@ function useErrorHandler() {
     log.error('Failed to create copy of stop place:', error);
     showToast({
       className: 'whitespace-pre-line',
-      message: t('stopDetails.version.errors.copy', {
+      message: t(($) => $.stopDetails.version.errors.copy, {
         reason: resolveErrorMessage(error),
       }),
       type: 'danger',
@@ -128,7 +138,7 @@ export const useCopyStopFormUtils = (
   const handleSuccess = (result: CreateStopVersionResult) => {
     showToast({
       className: 'whitespace-pre-line',
-      message: t('stopDetails.version.success.copy'),
+      message: t(($) => $.stopDetails.version.success.copy),
       type: 'success',
     });
     onCopyCreated(result);
