@@ -36,7 +36,7 @@ services:
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
-    image: "hsldevcom/jore4-hastus:main--20240906-7d2024adb1008dec08768b54a5ad73a74bd3d7fe"
+    # image: "hsldevcom/jore4-hastus:main--20240906-7d2024adb1008dec08768b54a5ad73a74bd3d7fe"
     environment:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
       # when running e2e tests locally
@@ -50,4 +50,4 @@ services:
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.
     # Note: also update jore4-timetablesapi-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
+    # image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'

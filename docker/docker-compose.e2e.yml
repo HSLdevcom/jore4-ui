@@ -26,7 +26,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-timetablesapi-base
-    image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
+    # image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
     container_name: "timetablesapi-e2e"
     environment:
       - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
