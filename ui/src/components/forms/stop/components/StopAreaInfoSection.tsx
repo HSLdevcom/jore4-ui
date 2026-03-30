@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../hooks';
+import { mapVehicleModeToUiName } from '../../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { ExpandButton } from '../../../../uiComponents';
 import { LabeledDetail } from '../../../stop-registry/stops/stop-details/layout';
@@ -45,6 +46,9 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
   });
 
   const stopArea = useWatch<StopFormState, 'stopArea'>({ name: 'stopArea' });
+  const vehicleMode = useWatch<StopFormState, 'vehicleMode'>({
+    name: 'vehicleMode',
+  });
 
   if (!stopArea) {
     return null;
@@ -143,6 +147,13 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
           </>
         )}
       </Transition>
+
+      {vehicleMode && (
+        <span className="mt-1 font-bold">
+          {t('stopArea.transportMode')}:{' '}
+          {mapVehicleModeToUiName(t, vehicleMode)}
+        </span>
+      )}
     </div>
   );
 };
