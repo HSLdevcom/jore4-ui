@@ -34,6 +34,8 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
     label: stop.publicCode,
     netexId: stop.netexId,
     location: getGeometryPoint(stop.location),
+    priority: stop.priority,
+    transportMode: stop.transportMode,
   };
 
   return (
