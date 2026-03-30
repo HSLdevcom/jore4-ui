@@ -43,7 +43,7 @@ export const ExternalLinks: FC<ExternalLinksProps> = ({
         {!isEditing && (
           <EditButton
             onClick={() => setIsEditing(true)}
-            tooltip={t('accessibility:stops.editExternalLink')}
+            tooltip={t('accessibility.stops.editExternalLink')}
             testId={testIds.editButton}
           />
         )}

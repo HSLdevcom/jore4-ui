@@ -98,10 +98,10 @@ export const RouteTimetablesSection: FC<RouteTimetablesSectionProps> = ({
             isOpen={isOpen}
             onToggle={toggleIsOpen}
             testId={testIds.accordionToggle}
-            openTooltip={t('accessibility:routes.expandTimetable', {
+            openTooltip={t('accessibility.routes.expandTimetable', {
               routeName,
             })}
-            closeTooltip={t('accessibility:routes.closeTimetable', {
+            closeTooltip={t('accessibility.routes.closeTimetable', {
               routeName,
             })}
             controls={sectionIdentifier}

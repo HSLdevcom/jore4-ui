@@ -105,7 +105,7 @@ export const TerminalInfoSpotsViewListHeader: FC<
         </SortableHeader>
         <th className={CSS_CLASSES.actionCell}>
           <span className="sr-only">
-            {t('accessibility:terminals.openInfoSpots')}
+            {t('accessibility.terminals.openInfoSpots')}
           </span>
         </th>
       </tr>

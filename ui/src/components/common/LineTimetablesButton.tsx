@@ -38,7 +38,7 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   };
   return (
     <IconButton
-      tooltip={t('accessibility:lines.showTimetables', { label })}
+      tooltip={t('accessibility.lines.showTimetables', { label })}
       className={twMerge(
         'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
         'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',

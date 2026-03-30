@@ -23,7 +23,7 @@ export const EditTerminalValidityButton: FC<TerminalComponentProps> = ({
         inverted
         className={twJoin('px-2', className)}
         testId={testIds.button}
-        tooltip={t('accessibility:terminals.editTerminalValidity', {
+        tooltip={t('accessibility.terminals.editTerminalValidity', {
           terminalName: terminal?.name,
         })}
         disabled={!terminal}

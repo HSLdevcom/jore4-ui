@@ -22,7 +22,7 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
       <h2>{t('stopAreaDetails.title')}</h2>
 
       <div
-        title={t('accessibility:stops.validityPeriod')}
+        title={t('accessibility.stops.validityPeriod')}
         data-testid={testIds.validityPeriod}
       >
         {mapToShortDate(area.validityStart)}

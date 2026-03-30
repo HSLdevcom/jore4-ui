@@ -70,7 +70,7 @@ export const RouteStopsOverlayRow: FC<RouteStopsOverlayRowProps> = ({
         <div className="text-tweaked-brand">
           <SimpleDropdownMenu
             testId={testIds.menuButton}
-            tooltip={t('accessibility:map.routeStopsOverlayRowActions', {
+            tooltip={t('accessibility.map.routeStopsOverlayRowActions', {
               stopLabel: stop.label,
             })}
           >

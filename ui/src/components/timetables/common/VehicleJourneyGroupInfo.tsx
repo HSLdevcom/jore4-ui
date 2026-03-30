@@ -74,7 +74,7 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
       )}
     >
       <IconButton
-        tooltip={t('accessibility:timetables.changeValidityPeriod', {
+        tooltip={t('accessibility.timetables.changeValidityPeriod', {
           dayType: getLocalizedTextFromDbBlob(dayTypeNameI18n),
         })}
         className={twMerge(

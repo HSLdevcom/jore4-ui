@@ -82,11 +82,11 @@ export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
                 onToggle={toggleIsOpen}
                 iconClassName="text-[50px] text-brand"
                 openTooltip={t(
-                  'accessibility:timetables.expandScheduleBlocksPreview',
+                  'accessibility.timetables.expandScheduleBlocksPreview',
                   { scheduleBlock: identifier },
                 )}
                 closeTooltip={t(
-                  'accessibility:timetables.closeScheduleBlocksPreview',
+                  'accessibility.timetables.closeScheduleBlocksPreview',
                   { scheduleBlock: identifier },
                 )}
                 controls={identifier}

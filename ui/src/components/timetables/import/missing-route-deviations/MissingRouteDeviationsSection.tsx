@@ -45,7 +45,7 @@ export const MissingRouteDeviationsSection: FC<
             icon={<MdClose aria-hidden />}
             onClick={handleClose}
             tooltip={`${t(
-              'accessibility:timetables.closeMissingRouteDeviationsWarning',
+              'accessibility.timetables.closeMissingRouteDeviationsWarning',
             )}`}
           />
         </div>

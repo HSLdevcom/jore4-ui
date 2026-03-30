@@ -116,7 +116,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
             observationDate,
           })}
           data-testid={testIds.label}
-          title={t('accessibility:stops.showStopDetails', { stopLabel })}
+          title={t('accessibility.stops.showStopDetails', { stopLabel })}
         >
           {stop.label}
         </a>
@@ -174,7 +174,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
                 }`}
               />
             }
-            tooltip={`${t('accessibility:routes.openTimingSettings', {
+            tooltip={`${t('accessibility.routes.openTimingSettings', {
               stopLabel,
             })}`}
             onClick={showTimingSettingsModal}
@@ -184,7 +184,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         )}
       </div>
       <StopActionsDropdown
-        tooltip={t('accessibility:routes.showStopActions', { stopLabel })}
+        tooltip={t('accessibility.routes.showStopActions', { stopLabel })}
         stopLabel={stopLabel}
         stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
         isViaPoint={isViaPoint}

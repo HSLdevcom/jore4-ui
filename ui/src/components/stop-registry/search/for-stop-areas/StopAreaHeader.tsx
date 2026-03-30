@@ -40,7 +40,7 @@ export const StopAreaHeader: FC<StopPlaceHeaderPublicPropsProps> = ({
         colorClasses: 'border-light-grey bg-background',
         onShowOnMap,
         path: Path.stopAreaDetails,
-        linkTitle: t('accessibility:stopAreas.showStopAreaDetails', {
+        linkTitle: t('accessibility.stopAreas.showStopAreaDetails', {
           areaLabel: stopPlace.name_value,
         }),
         linkContent: t('stopRegistrySearch.stopAreaLabel', {

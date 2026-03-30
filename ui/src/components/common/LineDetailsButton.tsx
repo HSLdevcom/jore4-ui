@@ -36,7 +36,7 @@ export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
   };
   return (
     <IconButton
-      tooltip={t('accessibility:lines.details', { label })}
+      tooltip={t('accessibility.lines.details', { label })}
       className={twMerge(
         'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
         'hover:border-tweaked-brand hover:outline-tweaked-brand',
