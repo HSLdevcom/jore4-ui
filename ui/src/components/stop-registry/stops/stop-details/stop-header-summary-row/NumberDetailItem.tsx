@@ -1,7 +1,7 @@
+import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { TranslationKey } from '../../../../../i18n';
 
 const testIds = {
   count: (prefix: string) => `${prefix}::count`,
@@ -9,7 +9,7 @@ const testIds = {
 
 type NumberDetailItemProps = {
   readonly count: number | null;
-  readonly translationKey: TranslationKey;
+  readonly translationKey: SelectorParam;
   readonly testIdPrefix: string;
   readonly className?: string;
 };

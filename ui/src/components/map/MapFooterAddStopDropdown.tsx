@@ -25,25 +25,25 @@ export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
   const { t } = useTranslation();
   return (
     <SimpleButtonDropdownMenu
-      buttonText={t('map.addStop')}
+      buttonText={t(($) => $.map.addStop)}
       disabled={disabled}
       inverted={inverted}
       testId={testId}
-      disabledTooltip={t('dataModelRefactor.disabled')}
+      disabledTooltip={t(($) => $.dataModelRefactor.disabled)}
     >
       <SimpleDropdownMenuItem
         testId={testIds.addBusStop}
         data-vehicle-mode={ReusableComponentsVehicleModeEnum.Bus}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Bus)}
       >
-        {t('map.addBusStop')}
+        {t(($) => $.map.addBusStop)}
       </SimpleDropdownMenuItem>
       <SimpleDropdownMenuItem
         testId={testIds.addTramStop}
         data-vehicle-mode={ReusableComponentsVehicleModeEnum.Tram}
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Tram)}
       >
-        {t('map.addTramStop')}
+        {t(($) => $.map.addTramStop)}
       </SimpleDropdownMenuItem>
     </SimpleButtonDropdownMenu>
   );

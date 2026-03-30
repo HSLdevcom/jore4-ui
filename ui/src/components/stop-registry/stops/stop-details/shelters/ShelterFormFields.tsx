@@ -96,7 +96,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           inputElementRenderer={(props) => (
             <EnumDropdown<StopRegistryShelterType>
               enumType={StopRegistryShelterType}
-              placeholder={t('unknown')}
+              placeholder={t(($) => $.unknown)}
               uiNameMapper={(value) =>
                 mapStopRegistryShelterTypeEnumToUiName(t, value)
               }
@@ -116,7 +116,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           inputElementRenderer={(props) => (
             <EnumDropdown<StopRegistryShelterElectricity>
               enumType={StopRegistryShelterElectricity}
-              placeholder={t('unknown')}
+              placeholder={t(($) => $.unknown)}
               uiNameMapper={(value) =>
                 mapStopRegistryShelterElectricityEnumToUiName(t, value)
               }
@@ -135,7 +135,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
             <NullableBooleanDropdown
-              placeholder={t('unknown')}
+              placeholder={t(($) => $.unknown)}
               buttonClassName="min-w-32"
               disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
@@ -151,7 +151,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           inputElementRenderer={(props) => (
             <EnumDropdown<StopRegistryShelterCondition>
               enumType={StopRegistryShelterCondition}
-              placeholder={t('unknown')}
+              placeholder={t(($) => $.unknown)}
               uiNameMapper={(value) =>
                 mapStopRegistryShelterConditionEnumToUiName(t, value)
               }
@@ -186,7 +186,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             testId={testIds.trashCan}
             disabled={toBeDeleted}
           />
-          {t('stopDetails.shelters.trashCan')}
+          {t(($) => $.stopDetails.shelters.trashCan)}
         </label>
 
         <label
@@ -201,7 +201,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             testId={testIds.shelterHasDisplay}
             disabled={toBeDeleted}
           />
-          {t('stopDetails.shelters.shelterHasDisplay')}
+          {t(($) => $.stopDetails.shelters.shelterHasDisplay)}
         </label>
 
         <label
@@ -216,7 +216,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             testId={testIds.bicycleParking}
             disabled={toBeDeleted}
           />
-          {t('stopDetails.shelters.bicycleParking')}
+          {t(($) => $.stopDetails.shelters.bicycleParking)}
         </label>
 
         <label
@@ -231,7 +231,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             testId={testIds.leaningRail}
             disabled={toBeDeleted}
           />
-          {t('stopDetails.shelters.leaningRail')}
+          {t(($) => $.stopDetails.shelters.leaningRail)}
         </label>
 
         <label
@@ -246,7 +246,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             testId={testIds.outsideBench}
             disabled={toBeDeleted}
           />
-          {t('stopDetails.shelters.outsideBench')}
+          {t(($) => $.stopDetails.shelters.outsideBench)}
         </label>
 
         <label
@@ -261,7 +261,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             testId={testIds.shelterFasciaBoardTaping}
             disabled={toBeDeleted}
           />
-          {t('stopDetails.shelters.shelterFasciaBoardTaping')}
+          {t(($) => $.stopDetails.shelters.shelterFasciaBoardTaping)}
         </label>
       </Row>
       <input
@@ -276,10 +276,10 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           onClick={() => onRemove(index)}
           inverted
         >
-          {t(
+          {t(($) =>
             toBeDeleted
-              ? 'stopDetails.shelters.cancelDeleteShelter'
-              : 'stopDetails.shelters.deleteShelter',
+              ? $.stopDetails.shelters.cancelDeleteShelter
+              : $.stopDetails.shelters.deleteShelter,
           )}
         </SimpleButton>
         <SimpleButton
@@ -288,7 +288,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           onClick={() => onCopy(index)}
           inverted
         >
-          {t('stopDetails.shelters.copyShelter')}
+          {t(($) => $.stopDetails.shelters.copyShelter)}
         </SimpleButton>
       </div>
     </Column>

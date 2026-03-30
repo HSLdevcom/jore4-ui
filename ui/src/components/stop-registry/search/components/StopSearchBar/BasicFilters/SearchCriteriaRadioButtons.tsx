@@ -11,15 +11,15 @@ function useOptions() {
     () => [
       {
         name: SearchBy.LabelOrName,
-        label: t('stopRegistrySearch.byLabel'),
+        label: t(($) => $.stopRegistrySearch.byLabel),
       },
       {
         name: SearchBy.Address,
-        label: t('stopRegistrySearch.byAddress'),
+        label: t(($) => $.stopRegistrySearch.byAddress),
       },
       {
         name: SearchBy.Line,
-        label: t('stopRegistrySearch.byLine'),
+        label: t(($) => $.stopRegistrySearch.byLine),
       },
     ],
     [t],

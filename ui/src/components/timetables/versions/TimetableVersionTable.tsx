@@ -41,26 +41,28 @@ export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
       <thead className="text-center [&>th]:p-4">
         <tr>
           <th className="w-[10%]">
-            {t('timetableVersionsTableHeaders.status')}
+            {t(($) => $.timetableVersionsTableHeaders.status)}
           </th>
           <th className="w-[15%]">
-            {t('timetableVersionsTableHeaders.dayType')}
+            {t(($) => $.timetableVersionsTableHeaders.dayType)}
           </th>
           <th className="w-[10%]">
-            {t('timetableVersionsTableHeaders.validityStart')}
+            {t(($) => $.timetableVersionsTableHeaders.validityStart)}
           </th>
           <th className="w-[10%]">
-            {t('timetableVersionsTableHeaders.validityEnd')}
+            {t(($) => $.timetableVersionsTableHeaders.validityEnd)}
           </th>
-          <th className="w-[7%]">{t('timetableVersionsTableHeaders.label')}</th>
+          <th className="w-[7%]">
+            {t(($) => $.timetableVersionsTableHeaders.label)}
+          </th>
           <th className="w-[20%]">
-            {t('timetableVersionsTableHeaders.version')}
+            {t(($) => $.timetableVersionsTableHeaders.version)}
           </th>
           <th className="w-[12.5%]">
-            {t('timetableVersionsTableHeaders.modified')}
+            {t(($) => $.timetableVersionsTableHeaders.modified)}
           </th>
           <th className="w-[12.5%]">
-            {t('timetableVersionsTableHeaders.modifier')}
+            {t(($) => $.timetableVersionsTableHeaders.modifier)}
           </th>
           <th className="invisible w-[3%]">Actions</th>
         </tr>
@@ -72,7 +74,7 @@ export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
           ))
         ) : (
           <tr>
-            <td>{t('timetables.noTimetables')}</td>
+            <td>{t(($) => $.timetables.noTimetables)}</td>
           </tr>
         )}
       </tbody>

@@ -15,36 +15,36 @@ type FilterTypeAndLabel = {
 
 const highestPriorityCurrentFilter: FilterTypeAndLabel = {
   type: FilterType.ShowHighestPriorityCurrentStops,
-  label: (t) => t('filters.highestPriorityCurrent'),
+  label: (t) => t(($) => $.filters.highestPriorityCurrent),
 };
 
 const timeBasedFilters: ReadonlyArray<FilterTypeAndLabel> = [
   {
     type: FilterType.ShowFutureStops,
-    label: (t) => t('filters.future'),
+    label: (t) => t(($) => $.filters.future),
   },
   {
     type: FilterType.ShowCurrentStops,
-    label: (t) => t('filters.current'),
+    label: (t) => t(($) => $.filters.current),
   },
   {
     type: FilterType.ShowPastStops,
-    label: (t) => t('filters.past'),
+    label: (t) => t(($) => $.filters.past),
   },
 ];
 
 const priorityBasedFilters: ReadonlyArray<FilterTypeAndLabel> = [
   {
     type: FilterType.ShowStandardStops,
-    label: (t) => t('filters.standard'),
+    label: (t) => t(($) => $.filters.standard),
   },
   {
     type: FilterType.ShowTemporaryStops,
-    label: (t) => t('filters.temporary'),
+    label: (t) => t(($) => $.filters.temporary),
   },
   {
     type: FilterType.ShowDraftStops,
-    label: (t) => t('filters.draft'),
+    label: (t) => t(($) => $.filters.draft),
   },
 ];
 

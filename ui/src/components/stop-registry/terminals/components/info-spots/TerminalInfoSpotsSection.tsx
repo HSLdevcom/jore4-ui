@@ -58,7 +58,7 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
       const createdInfoSpotId = await saveTerminalInfoSpots({ state });
       setLatestAdded(createdInfoSpotId);
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
       infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -84,8 +84,8 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
       }
       title={
         isInEditMode
-          ? t('terminalDetails.infoSpots.addTerminalInfoSpot')
-          : t('terminalDetails.infoSpots.title')
+          ? t(($) => $.terminalDetails.infoSpots.addTerminalInfoSpot)
+          : t(($) => $.terminalDetails.infoSpots.title)
       }
       testIdPrefix="TerminalInfoSpotsSection"
     >

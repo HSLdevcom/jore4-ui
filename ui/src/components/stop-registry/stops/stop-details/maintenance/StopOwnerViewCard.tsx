@@ -21,7 +21,7 @@ export const StopOwnerViewCard: FC<StopOwnerViewCardProps> = ({
   return (
     <div data-testid={testIds.stopOwner} className="text-sm">
       <h5 className="mb-2">
-        {t('stopDetails.maintenance.maintainers.stopOwner')}
+        {t(($) => $.stopDetails.maintenance.maintainers.stopOwner)}
       </h5>
       {stopOwner ? (
         <div data-testid={testIds.stopOwnerName}>

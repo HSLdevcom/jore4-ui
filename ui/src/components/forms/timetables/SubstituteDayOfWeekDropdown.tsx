@@ -21,7 +21,7 @@ export const SubstituteDayOfWeekDropdown: FC<
       id={id}
       testId={testId}
       enumType={SubstituteDayOfWeek}
-      placeholder={t('timetables.chooseSubstituteDay')}
+      placeholder={t(($) => $.timetables.chooseSubstituteDay)}
       uiNameMapper={(value) => mapSubstituteDayOfWeekToUiName(t, value)}
       includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading

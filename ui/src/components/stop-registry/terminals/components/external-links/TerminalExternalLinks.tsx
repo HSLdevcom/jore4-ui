@@ -30,7 +30,7 @@ export const TerminalExternalLinks: FC<ExternalLinksProps> = ({ terminal }) => {
     try {
       await saveParentStopPlaceExternalLinks({ state, terminal });
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
     } catch (err) {
       defaultErrorHandler(err as Error);
     }

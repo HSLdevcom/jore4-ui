@@ -107,7 +107,7 @@ export const useEditStopInfoSpots = () => {
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
   const defaultErrorHandler = (err: Error) => {
-    showDangerToast(`${t('errors.saveFailed')}, ${err}`);
+    showDangerToast(`${t(($) => $.errors.saveFailed)}, ${err}`);
   };
 
   return {

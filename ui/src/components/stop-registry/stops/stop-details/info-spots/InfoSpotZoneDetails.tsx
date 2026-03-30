@@ -26,27 +26,27 @@ export const InfoSpotZoneDetails: FC<InfoSpotZoneDetailsProps> = ({
   return (
     <DetailRow>
       <LabeledDetail
-        title={t('stopDetails.infoSpots.stops')}
+        title={t(($) => $.stopDetails.infoSpots.stops)}
         detail={stopName}
         testId={testIds.stops}
       />
       <LabeledDetail
-        title={t('stopDetails.infoSpots.terminals')}
+        title={t(($) => $.stopDetails.infoSpots.terminals)}
         detail="-"
         testId={testIds.terminals}
       />
       <LabeledDetail
-        title={t('stopDetails.infoSpots.zoneLabel')}
+        title={t(($) => $.stopDetails.infoSpots.zoneLabel)}
         detail={mapZoneLabelToUiName(t, normalizeZoneLabel(infoSpot.zoneLabel))}
         testId={testIds.zoneLabel}
       />
       <LabeledDetail
-        title={t('stopDetails.infoSpots.railInformation')}
+        title={t(($) => $.stopDetails.infoSpots.railInformation)}
         detail={infoSpot.railInformation}
         testId={testIds.railInformation}
       />
       <LabeledDetail
-        title={t('stopDetails.infoSpots.floor')}
+        title={t(($) => $.stopDetails.infoSpots.floor)}
         detail={infoSpot.floor}
         testId={testIds.floor}
       />

@@ -37,17 +37,17 @@ export const SignageDetailsViewCard: FC<SignageDetailsViewCardProps> = ({
     <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.signs.signType')}
+          title={t(($) => $.stopDetails.signs.signType)}
           detail={signType}
           testId={testIds.signType}
         />
         <LabeledDetail
-          title={t('stopDetails.signs.numberOfFrames')}
+          title={t(($) => $.stopDetails.signs.numberOfFrames)}
           detail={generalSign?.numberOfFrames?.toString()}
           testId={testIds.numberOfFrames}
         />
         <LabeledDetail
-          title={t('stopDetails.signs.signageInstructionExceptions')}
+          title={t(($) => $.stopDetails.signs.signageInstructionExceptions)}
           className="max-w-[500px]"
           detail={generalSign?.note?.value}
           testId={testIds.signageInstructionExceptions}
@@ -55,7 +55,7 @@ export const SignageDetailsViewCard: FC<SignageDetailsViewCardProps> = ({
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.signs.replacesRailSign')}
+          title={t(($) => $.stopDetails.signs.replacesRailSign)}
           detail={optionalBooleanToUiText(t, generalSign?.replacesRailSign)}
           testId={testIds.replacesRailSign}
         />

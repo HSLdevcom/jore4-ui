@@ -41,8 +41,10 @@ export const TabSelector: FC<TabSelectorProps> = ({
 }) => {
   const { t } = useTranslation();
   const stopsTitle = Number.isFinite(stopsCount)
-    ? t('terminalDetails.tabs.stopsWithCount', { count: stopsCount })
-    : t('terminalDetails.tabs.stops');
+    ? t(($) => $.terminalDetails.tabs.stopsWithCount, {
+        count: stopsCount,
+      })
+    : t(($) => $.terminalDetails.tabs.stops);
 
   return (
     <div
@@ -55,7 +57,7 @@ export const TabSelector: FC<TabSelectorProps> = ({
         id={tabs.basic.buttonId}
         tabPanelId={tabs.basic.panelId}
         testId={testIds.basicDetailsTabButton}
-        title={t('terminalDetails.tabs.basic')}
+        title={t(($) => $.terminalDetails.tabs.basic)}
         className="rounded-tr-none rounded-br-none"
         onClick={() => {
           selectTab(TabType.BasicTab);

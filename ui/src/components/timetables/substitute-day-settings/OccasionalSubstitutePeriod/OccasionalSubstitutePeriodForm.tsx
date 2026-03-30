@@ -206,7 +206,7 @@ export const OccasionalSubstitutePeriodForm: FC<
                     )}
                   />
                 }
-                text={t('timetables.settings.addRow')}
+                text={t(($) => $.timetables.settings.addRow)}
                 type="button"
                 onClick={() => append(emptyRowObject)}
                 testId={testIds.addRowButton}
@@ -221,7 +221,7 @@ export const OccasionalSubstitutePeriodForm: FC<
               testId={testIds.cancelButton}
               inverted
             >
-              {t('cancel')}
+              {t(($) => $.cancel)}
             </SimpleButton>
 
             <SimpleButton
@@ -230,7 +230,7 @@ export const OccasionalSubstitutePeriodForm: FC<
               id="save-button"
               testId={testIds.saveButton}
             >
-              {t('save')}
+              {t(($) => $.save)}
             </SimpleButton>
           </Row>
         </form>
@@ -239,15 +239,15 @@ export const OccasionalSubstitutePeriodForm: FC<
         isOpen={isResetting}
         onCancel={() => setIsResetting(false)}
         onConfirm={onReset}
-        title={t('confirmResetOccasionalSubstitutePeriodDialog.title')}
+        title={t(($) => $.confirmResetOccasionalSubstitutePeriodDialog.title)}
         description={t(
-          'confirmResetOccasionalSubstitutePeriodDialog.description',
+          ($) => $.confirmResetOccasionalSubstitutePeriodDialog.description,
         )}
         confirmText={t(
-          'confirmResetOccasionalSubstitutePeriodDialog.confirmText',
+          ($) => $.confirmResetOccasionalSubstitutePeriodDialog.confirmText,
         )}
         cancelText={t(
-          'confirmResetOccasionalSubstitutePeriodDialog.cancelText',
+          ($) => $.confirmResetOccasionalSubstitutePeriodDialog.cancelText,
         )}
       />
     </div>

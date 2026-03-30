@@ -142,7 +142,7 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
     try {
       await updateTerminalDetails({ terminal, state });
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error, state);

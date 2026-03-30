@@ -55,14 +55,14 @@ function buildRemoveStopAreaDescription(
   return (
     <>
       <p>
-        {t('terminalDetails.confirmRemoveStopAreaDialog.description', {
+        {t(($) => $.terminalDetails.confirmRemoveStopAreaDialog.description, {
           count,
         })}
         <br />
         <strong>{stopLabels}</strong>
       </p>
       <p className="mt-2">
-        {t('terminalDetails.confirmRemoveStopAreaDialog.additionalInfo')}
+        {t(($) => $.terminalDetails.confirmRemoveStopAreaDialog.additionalInfo)}
       </p>
     </>
   );
@@ -92,7 +92,7 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
           to={routeDetails[Path.stopAreaDetails].getLink(privateCode, {
             observationDate,
           })}
-          title={t('accessibility.stopAreas.showStopAreaDetails', {
+          title={t(($) => $.accessibility.stopAreas.showStopAreaDetails, {
             areaLabel: name,
           })}
           data-testid={testIds.stopAreaHeader}
@@ -101,7 +101,6 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
           <i className="icon-open-in-new ml-1" aria-hidden />
         </Link>
       </h3>
-
       <IconButton
         className={twMerge(
           'mr-3 h-10 w-10',
@@ -109,22 +108,23 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
           'bg-white text-tweaked-brand',
           'hover:border-tweaked-brand enabled:outline-tweaked-brand',
         )}
-        tooltip={t('terminalDetails.stops.removeStopArea', { name })}
+        tooltip={t(($) => $.terminalDetails.stops.removeStopArea, {
+          name,
+        })}
         icon={<i className="icon-trash text-xl" aria-hidden />}
         onClick={() => setIsConfirmDialogOpen(true)}
         testId={testIds.removeStopAreaButton}
       />
-
       <ConfirmationDialog
         isOpen={isConfirmDialogOpen}
         onConfirm={handleRemoveConfirm}
         onCancel={() => setIsConfirmDialogOpen(false)}
-        title={t('terminalDetails.confirmRemoveStopAreaDialog.title')}
+        title={t(($) => $.terminalDetails.confirmRemoveStopAreaDialog.title)}
         description={buildRemoveStopAreaDescription(t, stops)}
         confirmText={t(
-          'terminalDetails.confirmRemoveStopAreaDialog.confirmText',
+          ($) => $.terminalDetails.confirmRemoveStopAreaDialog.confirmText,
         )}
-        cancelText={t('cancel')}
+        cancelText={t(($) => $.cancel)}
       />
     </div>
   );

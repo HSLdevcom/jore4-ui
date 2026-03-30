@@ -18,14 +18,14 @@ export const ErrorLoadingState: FC<ErrorLoadingStateProps> = ({
       className="mt-5 flex flex-col items-center justify-center"
       data-testid={`${testIdPrefix}::FailedToLoad`}
     >
-      <p>{t('changeHistory.failedToLoad')}</p>
+      <p>{t(($) => $.changeHistory.failedToLoad)}</p>
       {onRetry && (
         <SimpleButton
           className="mt-5"
           onClick={onRetry}
           testId={`${testIdPrefix}::RetryButton`}
         >
-          {t('changeHistory.tryAgainButton')}
+          {t(($) => $.changeHistory.tryAgainButton)}
         </SimpleButton>
       )}
     </div>

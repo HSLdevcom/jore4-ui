@@ -102,7 +102,7 @@ export const PassingTimesByStopTableRow: FC<
           <p className="mt-3 text-sm">
             {isUsedAsTimingPoint
               ? stopMetadata?.timing_place?.label
-              : t('timetables.interpolated')}
+              : t(($) => $.timetables.interpolated)}
           </p>
         </Column>
       </td>

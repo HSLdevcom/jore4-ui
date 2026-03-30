@@ -40,7 +40,7 @@ const AddMemberStopsFormImpl: ForwardRefRenderFunction<
         ref={ref}
       >
         <div className="mb-2 text-sm font-bold">
-          {t('terminalDetails.location.memberStopsTotal', {
+          {t(($) => $.terminalDetails.location.memberStopsTotal, {
             total: selectedStops.length,
           })}
         </div>

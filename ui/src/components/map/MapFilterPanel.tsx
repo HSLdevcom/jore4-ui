@@ -29,7 +29,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
           onToggle: setShowRoute,
           disabled: !routeDisplayed,
           testId: 'FilterPanel::toggleShowBusRoutes',
-          tooltip: (t) => t('vehicleModeEnum.bus'),
+          tooltip: (t) => t(($) => $.vehicleModeEnum.bus),
           colorClassNames: {
             active: 'bg-tweaked-brand text-white',
             inactive: 'bg-white text-tweaked-brand',
@@ -48,7 +48,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
               }),
             ),
           testId: 'FilterPanel::toggleShowAllBusStops',
-          tooltip: (t) => t('vehicleModeEnum.bus'),
+          tooltip: (t) => t(($) => $.vehicleModeEnum.bus),
           colorClassNames: {
             active: 'bg-tweaked-brand text-white',
             inactive: 'bg-white text-tweaked-brand',
@@ -67,7 +67,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
               }),
             ),
           testId: 'FilterPanel::toggleShowAllTramStops',
-          tooltip: (t) => t('vehicleModeEnum.tram'),
+          tooltip: (t) => t(($) => $.vehicleModeEnum.tram),
           colorClassNames: {
             active: 'bg-hsl-tram-green text-white',
             inactive: 'bg-white text-hsl-tram-dark-green',

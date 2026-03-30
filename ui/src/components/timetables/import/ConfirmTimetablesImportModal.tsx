@@ -79,7 +79,7 @@ export const ConfirmTimetablesImportModal: FC<
     >
       <NewModalHeader
         onClose={wrappedOnClose}
-        heading={t('confirmTimetablesImportModal.title')}
+        heading={t(($) => $.confirmTimetablesImportModal.title)}
       />
       <NewModalBody>
         <Visible visible={formReadyForRender}>

@@ -1,13 +1,13 @@
+import { SelectorParam } from 'i18next';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TranslationKey } from '../../../../../i18n';
 import { StopGroupSelector, StopGroupSelectorItem } from '../StopGroupSelector';
 import { FindStopPlaceInfo } from './useFindStopPlaces';
 
 type StopPlaceSelectorProps = {
   readonly className?: string;
   readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
-  readonly translationLabel: TranslationKey;
+  readonly translationLabel: SelectorParam;
 };
 
 export const StopPlaceSelector: FC<StopPlaceSelectorProps> = ({

@@ -146,13 +146,19 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
     // eslint-disable-next-line no-underscore-dangle
     switch (item.__typename) {
       case 'route_line': {
-        return t('accessibility.lines.showOnMap', { label });
+        return t(($) => $.accessibility.lines.showOnMap, {
+          label,
+        });
       }
       case 'route_route': {
-        return t('accessibility.routes.showOnMap', { label });
+        return t(($) => $.accessibility.routes.showOnMap, {
+          label,
+        });
       }
       default: {
-        return t('accessibility.common.showOnMap', { label });
+        return t(($) => $.accessibility.common.showOnMap, {
+          label,
+        });
       }
     }
   }
@@ -181,8 +187,8 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
       </Visible>
       <td className={`${alertStyle.listItemBorder} ${yBorderClassNames} p-4`}>
         <AlertPopover
-          title={t(alertStatus.title)}
-          description={t(alertStatus.description)}
+          title={alertStatus.title}
+          description={alertStatus.description}
           alertIcon={alertStyle.icon}
         />
       </td>
@@ -207,13 +213,13 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
                 {displayInformation.rowIcon}
                 {rowVariant === RouteLineTableRowVariant.Timetables &&
                   !hasTimetables &&
-                  t('timetables.noTimetables')}
+                  t(($) => $.timetables.noTimetables)}
               </Row>
               <p>{rowItem.name_i18n.fi_FI}</p>
             </Column>
             <Column className="w-1/2 text-right">
               <p className="font-bold">
-                {t('validity.validDuring', {
+                {t(($) => $.validity.validDuring, {
                   startDate: mapToShortDate(rowItem.validity_start ?? MIN_DATE),
                   endDate: mapToShortDate(rowItem.validity_end ?? MAX_DATE),
                 })}

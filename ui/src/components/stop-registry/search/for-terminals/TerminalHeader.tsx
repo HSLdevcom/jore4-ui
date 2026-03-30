@@ -41,16 +41,22 @@ export const TerminalHeader: FC<StopPlaceHeaderPublicPropsProps> = ({
           'border-border-hsl-commuter-train-purple bg-background-hsl-commuter-train-purple',
         onShowOnMap,
         path: Path.terminalDetails,
-        linkTitle: t('accessibility.terminals.showTerminalDetails', {
+        linkTitle: t(($) => $.accessibility.terminals.showTerminalDetails, {
           areaLabel: stopPlace.name_value,
         }),
-        linkContent: t('stopRegistrySearch.terminalLabel', {
+        linkContent: t(($) => $.stopRegistrySearch.terminalLabel, {
           privateCode: stopPlace.private_code,
           name: stopPlace.name_value,
         }),
-        showOnMapTooltip: t('stopRegistrySearch.terminalRowActions.showOnMap'),
-        menuShowDetails: t('stopRegistrySearch.terminalRowActions.openDetails'),
-        menuShowOnMap: t('stopRegistrySearch.terminalRowActions.showOnMap'),
+        showOnMapTooltip: t(
+          ($) => $.stopRegistrySearch.terminalRowActions.showOnMap,
+        ),
+        menuShowDetails: t(
+          ($) => $.stopRegistrySearch.terminalRowActions.openDetails,
+        ),
+        menuShowOnMap: t(
+          ($) => $.stopRegistrySearch.terminalRowActions.showOnMap,
+        ),
       }}
     />
   );

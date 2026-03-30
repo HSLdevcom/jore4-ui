@@ -36,18 +36,18 @@ function getAboutToEndTitle(
   const remainingDays = remainingValidityDays(validityEnd);
 
   if (remainingDays < 0) {
-    return t('priority.alreadyEnded');
+    return t(($) => $.priority.alreadyEnded);
   }
 
   if (remainingDays === 0) {
-    return t('priority.aboutToEndToday');
+    return t(($) => $.priority.aboutToEndToday);
   }
 
   if (remainingDays === 1) {
-    return t('priority.aboutToEndTomorrow');
+    return t(($) => $.priority.aboutToEndTomorrow);
   }
 
-  return t('priority.aboutToEnd', {
+  return t(($) => $.priority.aboutToEnd, {
     count: remainingValidityDays(validityEnd),
   });
 }
@@ -60,21 +60,21 @@ function useTitle(
 
   switch (type) {
     case PriorityVisualizationType.STANDARD:
-      return t('priority.labelAndPriority', {
-        priority: t('priority.standard'),
+      return t(($) => $.priority.labelAndPriority, {
+        priority: t(($) => $.priority.standard),
       });
 
     case PriorityVisualizationType.ABOUT_TO_END:
       return getAboutToEndTitle(t, validityEnd);
 
     case PriorityVisualizationType.TEMPORARY:
-      return t('priority.labelAndPriority', {
-        priority: t('priority.temporary'),
+      return t(($) => $.priority.labelAndPriority, {
+        priority: t(($) => $.priority.temporary),
       });
 
     case PriorityVisualizationType.DRAFT:
-      return t('priority.labelAndPriority', {
-        priority: t('priority.draft'),
+      return t(($) => $.priority.labelAndPriority, {
+        priority: t(($) => $.priority.draft),
       });
 
     default:

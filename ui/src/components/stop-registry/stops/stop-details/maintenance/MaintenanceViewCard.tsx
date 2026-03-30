@@ -32,32 +32,36 @@ export const MaintenanceViewCard: FC<MaintenanceViewCardProps> = ({ stop }) => {
         <MaintainerViewCard
           testId={testIds.owner}
           maintainer={maintainers.owner}
-          title={t('stopDetails.maintenance.maintainers.owner')}
+          title={t(($) => $.stopDetails.maintenance.maintainers.owner)}
         />
         <MaintainerViewCard
           testId={testIds.shelterMaintenance}
           maintainer={maintainers.shelterMaintenance}
-          title={t('stopDetails.maintenance.maintainers.shelterMaintenance')}
+          title={t(
+            ($) => $.stopDetails.maintenance.maintainers.shelterMaintenance,
+          )}
         />
         <MaintainerViewCard
           testId={testIds.maintenance}
           maintainer={maintainers.maintenance}
-          title={t('stopDetails.maintenance.maintainers.maintenance')}
+          title={t(($) => $.stopDetails.maintenance.maintainers.maintenance)}
         />
         <MaintainerViewCard
           testId={testIds.winterMaintenance}
           maintainer={maintainers.winterMaintenance}
-          title={t('stopDetails.maintenance.maintainers.winterMaintenance')}
+          title={t(
+            ($) => $.stopDetails.maintenance.maintainers.winterMaintenance,
+          )}
         />
         <MaintainerViewCard
           testId={testIds.infoUpkeep}
           maintainer={maintainers.infoUpkeep}
-          title={t('stopDetails.maintenance.maintainers.infoUpkeep')}
+          title={t(($) => $.stopDetails.maintenance.maintainers.infoUpkeep)}
         />
         <MaintainerViewCard
           testId={testIds.cleaning}
           maintainer={maintainers.cleaning}
-          title={t('stopDetails.maintenance.maintainers.cleaning')}
+          title={t(($) => $.stopDetails.maintenance.maintainers.cleaning)}
         />
       </div>
     </div>

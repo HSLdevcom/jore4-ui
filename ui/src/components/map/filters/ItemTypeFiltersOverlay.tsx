@@ -25,7 +25,7 @@ export const ItemTypeFiltersOverlay: FC<ClassNameProps> = ({ className }) => {
   return (
     <MapOverlay className={twMerge('w-[430px] rounded-b', className)}>
       <MapOverlayHeader>
-        <h4>{t('filters.title')}</h4>
+        <h4>{t(($) => $.filters.title)}</h4>
         <CloseIconButton onClick={onCloseClick} testId={testIds.closeButton} />
       </MapOverlayHeader>
       <div className="flex gap-4">

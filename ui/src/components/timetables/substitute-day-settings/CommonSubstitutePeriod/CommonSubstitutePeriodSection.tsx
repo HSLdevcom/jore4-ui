@@ -69,15 +69,18 @@ export const CommonSubstitutePeriodSection: FC<
       await prepareAndExecuteCreate({ form: { periods } });
       await refetch();
 
-      showSuccessToast(t('timetables.settings.saveSuccess'));
+      showSuccessToast(t(($) => $.timetables.settings.saveSuccess));
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
   return (
     <div className={className}>
-      <h2>{t('timetables.settings.commonSubstituteDays')}</h2>
+      <h2>{t(($) => $.timetables.settings.commonSubstituteDays)}</h2>
       <LoadingWrapper
         loading={loading}
         testId={testIds.loadingCommonSubstitutePeriods}

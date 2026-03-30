@@ -23,9 +23,14 @@ export const LineDraftsPage: FC = () => {
   return (
     <Container>
       <Row>
-        <PageTitle.H1>{`${t('lines.draftsTitle')} | ${t('lines.line', { label })}`}</PageTitle.H1>
+        <PageTitle.H1>{`${t(($) => $.lines.draftsTitle)} | ${t(
+          ($) => $.lines.line,
+          {
+            label,
+          },
+        )}`}</PageTitle.H1>
         <CloseIconButton
-          label={t('close')}
+          label={t(($) => $.close)}
           className="ml-auto text-base font-bold text-brand"
           onClick={onClose}
           testId={testIds.closeButton}
@@ -36,12 +41,11 @@ export const LineDraftsPage: FC = () => {
           <ObservationDateControl className="flex-1" />
         </Column>
       </Row>
-
       {routes?.length ? (
         <LineRouteList routes={routes} />
       ) : (
         <Row className="py-20">
-          <h2 className="mx-auto flex">{t('lines.noDrafts')}</h2>
+          <h2 className="mx-auto flex">{t(($) => $.lines.noDrafts)}</h2>
         </Row>
       )}
     </Container>

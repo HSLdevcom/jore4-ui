@@ -5,13 +5,13 @@ import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
 const metaHeaders: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopRegistrySearch.csv.metaHeaders.validity'),
+  (t) => t(($) => $.stopRegistrySearch.csv.metaHeaders.validity),
 ];
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('validityPeriod.validityStart'),
-  (t) => t('validityPeriod.validityEnd'),
-  (t) => t('priority.label'),
+  (t) => t(($) => $.validityPeriod.validityStart),
+  (t) => t(($) => $.validityPeriod.validityEnd),
+  (t) => t(($) => $.priority.label),
 ];
 
 function writeRecordFields(writer: CSVWriter, { quay }: EnrichedStopDetails) {

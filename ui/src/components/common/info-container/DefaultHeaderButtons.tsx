@@ -35,10 +35,9 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
             setIsExpanded(true);
           }}
         >
-          {t('edit')}
+          {t(($) => $.edit)}
         </SimpleButton>
       </Visible>
-
       <Visible visible={isExpandable && !isInEditMode}>
         <SimpleButton
           shape="slim"

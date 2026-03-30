@@ -88,7 +88,6 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
           <hr />
         </>
       )}
-
       {parentStopPlaceDetails && !error && isValidOnObservationDate && (
         <>
           <Visible visible={activeTab === tabs.basic.type}>
@@ -126,7 +125,6 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
           </Visible>
         </>
       )}
-
       {(!parentStopPlaceDetails ||
         Boolean(error) ||
         (parentStopPlaceDetails && !isValidOnObservationDate)) && (
@@ -135,16 +133,16 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
             <MdWarning
               className="mr-2 inline h-6 w-6 text-hsl-red"
               role="img"
-              title={t(
+              title={t(($) =>
                 error
-                  ? 'terminalDetails.errorWhileGettingTerminalDetails'
-                  : 'terminalDetails.notValidOnObservationDate',
+                  ? $.terminalDetails.errorWhileGettingTerminalDetails
+                  : $.terminalDetails.notValidOnObservationDate,
               )}
             />
-            {t(
+            {t(($) =>
               error
-                ? 'terminalDetails.errorWhileGettingTerminalDetails'
-                : 'terminalDetails.notValidOnObservationDate',
+                ? $.terminalDetails.errorWhileGettingTerminalDetails
+                : $.terminalDetails.notValidOnObservationDate,
             )}
           </span>
         </div>

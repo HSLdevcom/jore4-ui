@@ -10,26 +10,23 @@ const testIds = {
 
 export const NavLinks: FC = () => {
   const { t } = useTranslation();
-  return (
-    <>
-      {Object.values(routeDetails)
-        .filter(isNavigationRoute)
-        .map(({ translationKey, getLink }) => (
-          <div key={translationKey} className="flex hover:bg-brand-darker">
-            <NavLink
-              to={getLink()}
-              className={({ isActive }) =>
-                twMerge(
-                  'mx-5 border-b-4 border-transparent py-5 text-white hover:border-white',
-                  isActive && 'border-white',
-                )
-              }
-              data-testid={testIds.navLink(translationKey)}
-            >
-              {t(translationKey)}
-            </NavLink>
-          </div>
-        ))}
-    </>
-  );
+
+  return Object.values(routeDetails)
+    .filter(isNavigationRoute)
+    .map(({ key, translationKey, getLink }) => (
+      <div key={key} className="flex hover:bg-brand-darker">
+        <NavLink
+          to={getLink()}
+          className={({ isActive }) =>
+            twMerge(
+              'mx-5 border-b-4 border-transparent py-5 text-white hover:border-white',
+              isActive && 'border-white',
+            )
+          }
+          data-testid={testIds.navLink(key)}
+        >
+          {t(translationKey)}
+        </NavLink>
+      </div>
+    ));
 };

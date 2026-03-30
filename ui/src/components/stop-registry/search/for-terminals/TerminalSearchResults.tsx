@@ -9,7 +9,7 @@ export const TerminalSearchResults: FC = () => {
     <StopPlaceSearchResults
       groupingField={SortStopsBy.BY_TERMINAL}
       placeType="terminal"
-      translationLabel="stopRegistrySearch.terminals"
+      translationLabel={($) => $.stopRegistrySearch.terminals}
       HeaderComponent={TerminalHeader}
       NoStopsComponent={TerminalSearchNoStops}
     />

@@ -23,7 +23,7 @@ export const TimetableNavigation: FC<TimetableNavigationProps> = ({
     <Row className="items-center justify-end border-y border-background bg-lighter-grey px-12 py-4 font-bold text-brand">
       <CloseIconButton
         className="font-bold text-brand"
-        label={t('close')}
+        label={t(($) => $.close)}
         onClick={onClose}
         testId={testIds.closeButton}
       />

@@ -70,7 +70,7 @@ export const RouteStopsOverlayRow: FC<RouteStopsOverlayRowProps> = ({
         <div className="text-tweaked-brand">
           <SimpleDropdownMenu
             testId={testIds.menuButton}
-            tooltip={t('accessibility.map.routeStopsOverlayRowActions', {
+            tooltip={t(($) => $.accessibility.map.routeStopsOverlayRowActions, {
               stopLabel: stop.label,
             })}
           >
@@ -81,8 +81,8 @@ export const RouteStopsOverlayRow: FC<RouteStopsOverlayRowProps> = ({
               testId={testIds.toggleStopInJourneyPatternButton}
             >
               {belongsToJourneyPattern
-                ? t('stops.removeFromRoute')
-                : t('stops.addToRoute')}
+                ? t(($) => $.stops.removeFromRoute)
+                : t(($) => $.stops.addToRoute)}
             </SimpleDropdownMenuItem>
           </SimpleDropdownMenu>
         </div>

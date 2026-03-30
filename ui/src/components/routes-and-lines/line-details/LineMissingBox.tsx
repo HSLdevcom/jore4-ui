@@ -8,16 +8,12 @@ const testIds = {
 
 const useLineMissingTranslation = (error?: LineFetchError) => {
   const { t } = useTranslation();
-  const translationKeys = {
-    LINE_MISSING_DEFAULT: 'lines.lineMissingDefault',
-    LINE_NOT_VALID_FOR_DAY: 'lines.lineNotValidForDay',
-  };
 
-  return t(
-    error
-      ? translationKeys[error]
-      : translationKeys[LineFetchError.LINE_MISSING_DEFAULT],
-  );
+  if (error === LineFetchError.LINE_NOT_VALID_FOR_DAY) {
+    return t(($) => $.lines.lineNotValidForDay);
+  }
+
+  return t(($) => $.lines.lineMissingDefault);
 };
 
 type LineMissingBoxProps = {

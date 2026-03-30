@@ -74,7 +74,7 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
       )}
     >
       <IconButton
-        tooltip={t('accessibility.timetables.changeValidityPeriod', {
+        tooltip={t(($) => $.accessibility.timetables.changeValidityPeriod, {
           dayType: getLocalizedTextFromDbBlob(dayTypeNameI18n),
         })}
         className={twMerge(
@@ -94,7 +94,9 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
         <>
           <span>|</span>
           <span className="font-bold" data-testid={testIds.tripCount}>
-            {t('timetables.tripCount', { count: tripCount })}
+            {t(($) => $.timetables.tripCount, {
+              count: tripCount,
+            })}
           </span>
           <span>|</span>
           <span data-testid={testIds.tripTimeRange}>

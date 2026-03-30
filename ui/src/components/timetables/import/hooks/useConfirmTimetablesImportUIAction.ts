@@ -31,29 +31,41 @@ export const useConfirmTimetablesImportUIAction = () => {
       // Note: there are others, but only adding translations to those that can realistically occur here.
       switch (type) {
         case TimetablesApiErrorType.ConflictingSchedulesError:
-          return t('timetablesSubmitFailure.errors.conflictingSchedules');
+          return t(
+            ($) => $.timetablesSubmitFailure.errors.conflictingSchedules,
+          );
         case TimetablesApiErrorType.MultipleTargetFramesFoundError:
-          return t('timetablesSubmitFailure.errors.multipleTargetFramesFound');
+          return t(
+            ($) => $.timetablesSubmitFailure.errors.multipleTargetFramesFound,
+          );
         case TimetablesApiErrorType.SequentialIntegrityError:
-          return t('timetablesSubmitFailure.errors.sequentialIntegrityError');
+          return t(
+            ($) => $.timetablesSubmitFailure.errors.sequentialIntegrityError,
+          );
         case TimetablesApiErrorType.StagingVehicleScheduleFrameNotFoundError:
           return t(
-            'timetablesSubmitFailure.errors.stagingVehicleScheduleFrameNotFound',
+            ($) =>
+              $.timetablesSubmitFailure.errors
+                .stagingVehicleScheduleFrameNotFound,
           );
         case TimetablesApiErrorType.TargetVehicleScheduleFrameNotFoundError:
           return t(
-            'timetablesSubmitFailure.errors.targetVehicleScheduleFrameNotFound',
+            ($) =>
+              $.timetablesSubmitFailure.errors
+                .targetVehicleScheduleFrameNotFound,
           );
         case TimetablesApiErrorType.TransactionSystemError:
-          return t('timetablesSubmitFailure.errors.transactionSystemError');
+          return t(
+            ($) => $.timetablesSubmitFailure.errors.transactionSystemError,
+          );
         default:
-          return t(`timetablesSubmitFailure.errors.unknown`);
+          return t(($) => $.timetablesSubmitFailure.errors.unknown);
       }
     };
 
     dispatch(
       openSingleErrorModalAction({
-        errorModalTitle: t('timetablesSubmitFailure.modalTitle'),
+        errorModalTitle: t(($) => $.timetablesSubmitFailure.modalTitle),
         errorDetails: {
           details: translateError(extractErrorType(error)),
           additionalDetails: extractRawSqlError(error) ?? '',
@@ -82,7 +94,7 @@ export const useConfirmTimetablesImportUIAction = () => {
         );
       }
 
-      showSuccessToast(t('import.importSuccess'));
+      showSuccessToast(t(($) => $.import.importSuccess));
     } finally {
       setIsLoading(false);
     }

@@ -24,7 +24,7 @@ export const StopTimetablesButton: FC<StopTimetablesButtonProps> = ({
       inverted
       className={twJoin('h-11 w-11', className)}
       testId={testIds.button}
-      tooltip={t('accessibility.stops.stopTimetablesButton')}
+      tooltip={t(($) => $.accessibility.stops.stopTimetablesButton)}
       disabled={disabledUntilImplemented}
       type="button"
       onClick={noop}

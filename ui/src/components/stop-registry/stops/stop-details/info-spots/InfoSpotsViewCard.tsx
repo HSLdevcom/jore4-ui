@@ -36,23 +36,23 @@ export const InfoSpotsViewCard: FC<InfoSpotsViewCardProps> = ({
       <div className="bg-background p-5">
         <DetailRow>
           <LabeledDetail
-            title={t('stopDetails.infoSpots.label')}
+            title={t(($) => $.stopDetails.infoSpots.label)}
             detail={infoSpot.label}
             testId={testIds.label}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.purpose')}
+            title={t(($) => $.stopDetails.infoSpots.purpose)}
             detail={formatPurposeForDisplay(t, infoSpot.purpose)}
             testId={testIds.purpose}
           />
           <InfoSpotDetails infoSpot={infoSpot} />
           <LabeledDetail
-            title={t('stopDetails.location.latitude')}
+            title={t(($) => $.stopDetails.location.latitude)}
             detail={location.latitude}
             testId={testIds.latitude}
           />
           <LabeledDetail
-            title={t('stopDetails.location.longitude')}
+            title={t(($) => $.stopDetails.location.longitude)}
             detail={location.longitude}
             testId={testIds.longitude}
           />
@@ -60,7 +60,7 @@ export const InfoSpotsViewCard: FC<InfoSpotsViewCardProps> = ({
         <InfoSpotZoneDetails infoSpot={infoSpot} stopName={stopName} />
         <DetailRow>
           <LabeledDetail
-            title={t('stopDetails.infoSpots.description')}
+            title={t(($) => $.stopDetails.infoSpots.description)}
             detail={infoSpot.description?.value}
             testId={testIds.description}
           />

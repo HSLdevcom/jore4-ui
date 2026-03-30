@@ -36,50 +36,50 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
     stop.quay?.placeEquipments?.generalSign?.at(0)?.signContentType;
   const signContentText = signContentType
     ? mapSignContentTypeToUiName(t, signContentType)
-    : t('signContentTypeEnum.none');
+    : t(($) => $.signContentTypeEnum.none);
 
   return (
     <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.location.streetAddress')}
+          title={t(($) => $.stopDetails.location.streetAddress)}
           detail={stop.quay?.streetAddress}
           testId={testIds.streetAddress}
         />
         <LabeledDetail
-          title={t('stopDetails.location.postalCode')}
+          title={t(($) => $.stopDetails.location.postalCode)}
           detail={stop.quay?.postalCode}
           testId={testIds.postalCode}
         />
         <LabeledDetail
-          title={t('stopDetails.location.municipality')}
+          title={t(($) => $.stopDetails.location.municipality)}
           detail={stop.stop_place?.municipality}
           testId={testIds.municipality}
         />
         <LabeledDetail
-          title={t('stopDetails.location.fareZone')}
+          title={t(($) => $.stopDetails.location.fareZone)}
           detail={stop.stop_place?.fareZone}
           testId={testIds.fareZone}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.location.latitude')}
+          title={t(($) => $.stopDetails.location.latitude)}
           detail={stop.location.latitude}
           testId={testIds.latitude}
         />
         <LabeledDetail
-          title={t('stopDetails.location.longitude')}
+          title={t(($) => $.stopDetails.location.longitude)}
           detail={stop.location.longitude}
           testId={testIds.longitude}
         />
         <LabeledDetail
-          title={t('stopDetails.location.altitude')}
+          title={t(($) => $.stopDetails.location.altitude)}
           detail={stop.location.elevation}
           testId={testIds.altitude}
         />
         <LabeledDetail
-          title={t('stopDetails.location.functionalArea')}
+          title={t(($) => $.stopDetails.location.functionalArea)}
           detail={
             Number.isFinite(stop.quay?.functionalArea)
               ? `${stop.quay?.functionalArea} m`
@@ -91,17 +91,17 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
       <HorizontalSeparator />
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.location.platformNumber')}
+          title={t(($) => $.stopDetails.location.platformNumber)}
           detail={stop.quay?.placeEquipments?.generalSign?.[0]?.content?.value}
           testId={testIds.platformNumber}
         />
         <LabeledDetail
-          title={t('stopDetails.location.signContentType')}
+          title={t(($) => $.stopDetails.location.signContentType)}
           detail={signContentText}
           testId={testIds.signContentType}
         />
         <LabeledDetail
-          title={t('stopDetails.location.memberPlatforms')}
+          title={t(($) => $.stopDetails.location.memberPlatforms)}
           detail={null /* TODO: Also TODO In CSV report */}
           testId={testIds.memberPlatforms}
         />

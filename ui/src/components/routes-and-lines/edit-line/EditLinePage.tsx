@@ -67,7 +67,7 @@ export const EditLinePage: FC = () => {
       const variables = mapEditChangesToVariables(changes);
       await editLineMutation({ variables });
       setHasFinishedEditing(true);
-      showSuccessToast(t('lines.saveSuccess'));
+      showSuccessToast(t(($) => $.lines.saveSuccess));
     } catch (err) {
       defaultErrorHandler(err);
     }
@@ -80,7 +80,9 @@ export const EditLinePage: FC = () => {
     );
   }
 
-  const pageTitleText = t('lines.line', { label: line?.label });
+  const pageTitleText = t(($) => $.lines.line, {
+    label: line?.label,
+  });
 
   return (
     <div>

@@ -67,7 +67,10 @@ export const useReplaceDeviations = (
         setDeviations(foundDeviations);
       } catch (error) {
         showDangerToastWithError(
-          t('timetablesPreview.missingRouteDeviations.deviationFetchFailed'),
+          t(
+            ($) =>
+              $.timetablesPreview.missingRouteDeviations.deviationFetchFailed,
+          ),
           error,
         );
         setDeviations([]);

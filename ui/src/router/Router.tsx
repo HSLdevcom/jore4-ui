@@ -91,7 +91,7 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
         setLoading(true);
         await getUserInfo();
       } catch {
-        showDangerToast(t('errors.unauthorized'));
+        showDangerToast(t(($) => $.errors.unauthorized));
       } finally {
         setLoading(false);
       }
@@ -146,7 +146,7 @@ const WithFooter: FC<PropsWithChildren> = ({ children }) => {
       {children}
       <footer className="mt-6 flex justify-center">
         <p>
-          {t('version', {
+          {t(($) => $.version, {
             gitHash: joreConfig.gitHash,
             buildTime: mapToShortDateTime(joreConfig.buildTime),
           })}

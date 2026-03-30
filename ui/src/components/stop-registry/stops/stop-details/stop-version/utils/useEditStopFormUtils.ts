@@ -67,27 +67,36 @@ function useErrorHandler() {
 
   const resolveErrorMessage = (error: unknown) => {
     if (error instanceof ScheduledStopPointEditFailed) {
-      return t('stopDetails.version.errors.failedToEditScheduledStopPoint', {
-        reason: extractNestedOrTopLevelMessage(error),
-      });
+      return t(
+        ($) => $.stopDetails.version.errors.failedToEditScheduledStopPoint,
+        {
+          reason: extractNestedOrTopLevelMessage(error),
+        },
+      );
     }
 
     if (error instanceof QuayKeyValuesEditFailed) {
-      return t('stopDetails.version.errors.failedToEditQuayKeyValues', {
+      return t(($) => $.stopDetails.version.errors.failedToEditQuayKeyValues, {
         reason: extractNestedOrTopLevelMessage(error),
       });
     }
 
     if (error instanceof FailedToCutOverlappingStopVersion) {
-      return t('stopDetails.version.errors.failedToCutOverlappingStopVersion', {
-        reason: extractNestedOrTopLevelMessage(error),
-      });
+      return t(
+        ($) => $.stopDetails.version.errors.failedToCutOverlappingStopVersion,
+        {
+          reason: extractNestedOrTopLevelMessage(error),
+        },
+      );
     }
 
     if (error instanceof UnableToCutOverlappingStopVersion) {
-      return t('stopDetails.version.errors.unableToCutOverlappingStopVersion', {
-        reason: extractNestedOrTopLevelMessage(error),
-      });
+      return t(
+        ($) => $.stopDetails.version.errors.unableToCutOverlappingStopVersion,
+        {
+          reason: extractNestedOrTopLevelMessage(error),
+        },
+      );
     }
 
     return extractMessageFromError(error);
@@ -97,7 +106,7 @@ function useErrorHandler() {
     log.error('Failed to edit stop validity:', error);
     showToast({
       className: 'whitespace-pre-line',
-      message: t('stopDetails.version.errors.edit', {
+      message: t(($) => $.stopDetails.version.errors.edit, {
         reason: resolveErrorMessage(error),
       }),
       type: 'danger',
@@ -130,7 +139,7 @@ export const useEditStopFormUtils = (
   const handleSuccess = (result: EditStopVersionResult) => {
     showToast({
       className: 'whitespace-pre-line',
-      message: t('stopDetails.version.success.edit'),
+      message: t(($) => $.stopDetails.version.success.edit),
       type: 'success',
     });
     onEditDone(result);

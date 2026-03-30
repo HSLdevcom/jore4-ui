@@ -18,7 +18,9 @@ export const ResultCountHeader: FC<ResultCountHeader> = ({
 
   return (
     <h2 className={className} data-testid={testIds.resultCount}>
-      {t('stopRegistrySearch.resultCount', { count: resultCount })}
+      {t(($) => $.stopRegistrySearch.resultCount, {
+        count: resultCount,
+      })}
     </h2>
   );
 };

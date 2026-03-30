@@ -36,17 +36,17 @@ export const useTimeRangeQueryParams = () => {
         ],
       });
       showWarningToast(
-        t('timetables.observationPeriodForm.observationPeriodAdjusted'),
+        t(($) => $.timetables.observationPeriodForm.observationPeriodAdjusted),
       );
     } else if (newStartDate < startDate) {
       setStartDateToUrl(newStartDate);
       showWarningToast(
-        t('timetables.observationPeriodForm.observationPeriodAdjusted'),
+        t(($) => $.timetables.observationPeriodForm.observationPeriodAdjusted),
       );
     } else if (newEndDate > endDate) {
       setEndDateToUrl(newEndDate);
       showWarningToast(
-        t('timetables.observationPeriodForm.observationPeriodAdjusted'),
+        t(($) => $.timetables.observationPeriodForm.observationPeriodAdjusted),
       );
     }
   };

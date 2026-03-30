@@ -53,7 +53,7 @@ export const useEditTerminalValidityFormUtils = (
 
     showToast({
       className: 'whitespace-pre-line',
-      message: t('terminalDetails.version.success.edit'),
+      message: t(($) => $.terminalDetails.version.success.edit),
       type: 'success',
     });
     onEditDone(result);

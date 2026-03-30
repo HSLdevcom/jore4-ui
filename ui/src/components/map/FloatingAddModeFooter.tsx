@@ -52,19 +52,19 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
 
   const getAddModeText = () => {
     if (isInDrawingMode) {
-      return t('map.drawRoute');
+      return t(($) => $.map.drawRoute);
     }
     if (mapViewState.stops === MapEntityEditorViewState.PLACE) {
-      return t('map.addStop');
+      return t(($) => $.map.addStop);
     }
     if (mapViewState.stops === MapEntityEditorViewState.PLACECOPY) {
-      return t('map.copyStop');
+      return t(($) => $.map.copyStop);
     }
     if (mapViewState.stopAreas === MapEntityEditorViewState.PLACE) {
-      return t('map.createNewStopArea');
+      return t(($) => $.map.createNewStopArea);
     }
     if (mapViewState.terminals === MapEntityEditorViewState.PLACE) {
-      return t('map.createNewTerminal');
+      return t(($) => $.map.createNewTerminal);
     }
     return '';
   };

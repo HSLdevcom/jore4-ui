@@ -19,16 +19,13 @@ export const VersionInfo: FC<VersionInfoProps> = ({ className }) => {
 
   return (
     <FormColumn className={className} data-testid={testIds.container}>
-      <h3>{t('stops.versionInfoTitle')}</h3>
-
+      <h3>{t(($) => $.stops.versionInfoTitle)}</h3>
       <FormRow>
         <ReasonForChangeForm />
       </FormRow>
-
       <FormRow>
         <PriorityForm />
       </FormRow>
-
       <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
     </FormColumn>
   );

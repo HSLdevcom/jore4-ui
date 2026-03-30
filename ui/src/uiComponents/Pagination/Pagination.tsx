@@ -46,7 +46,7 @@ const PageButton: FC<PageButtonProps> = ({
     >
       <button
         type="button"
-        aria-label={`${t('accessibility.common.goToPage')} ${pageNumber}`}
+        aria-label={`${t(($) => $.accessibility.common.goToPage)} ${pageNumber}`}
         data-testid={testId.pageButton(pageNumber)}
       >
         {getRenderedPageNumber(pageNumber)}
@@ -132,13 +132,13 @@ export const Pagination: FC<PaginationProps> = ({
   const onFirstPage = currentPage === firstPageNumber;
   const onLastPage = currentPage === lastPageNumber;
 
-  const ariaLabelPrevious = t('accessibility.common.prevPage');
-  const ariaLabelNext = t('accessibility.common.nextPage');
+  const ariaLabelPrevious = t(($) => $.accessibility.common.prevPage);
+  const ariaLabelNext = t(($) => $.accessibility.common.nextPage);
 
   return (
     <nav
       role="navigation"
-      aria-label={`${t('accessibility.common.paginationNavigation')}`}
+      aria-label={`${t(($) => $.accessibility.common.paginationNavigation)}`}
       className={twMerge('flex justify-evenly', className)}
     >
       <IconButton
@@ -158,7 +158,6 @@ export const Pagination: FC<PaginationProps> = ({
         }
         ariaAttributes={{ ariaLabel: ariaLabelPrevious }}
       />
-
       {showAdditionalElementsOnStart && (
         <>
           <PageButton
@@ -169,7 +168,6 @@ export const Pagination: FC<PaginationProps> = ({
           {showDotsNearStart && <Dots className={commonClassName} />}
         </>
       )}
-
       <ul className="flex flex-1 justify-evenly">
         {displayedPageNumbers.map((pageNumber) =>
           pageNumber !== currentPage ? (
@@ -190,7 +188,7 @@ export const Pagination: FC<PaginationProps> = ({
               aria-current="page"
             >
               <span
-                aria-label={t('accessibility.common.currentPage', {
+                aria-label={t(($) => $.accessibility.common.currentPage, {
                   pageNumber,
                 })}
               >
@@ -200,7 +198,6 @@ export const Pagination: FC<PaginationProps> = ({
           ),
         )}
       </ul>
-
       {showAdditionalElementsOnEnd && (
         <>
           {showDotsNearEnd && <Dots className={commonClassName} />}
@@ -211,7 +208,6 @@ export const Pagination: FC<PaginationProps> = ({
           />
         </>
       )}
-
       <IconButton
         disabled={onLastPage}
         tooltip={ariaLabelNext}

@@ -34,47 +34,49 @@ export const AdditionalInformation: FC<AdditionalInformationProps> = ({
   return (
     <Column className={className}>
       <Row className="mb-4 items-center">
-        <h2>{t('lines.additionalInformation')}</h2>
+        <h2>{t(($) => $.lines.additionalInformation)}</h2>
         <SimpleButton
           href={routeDetails[Path.editLine].getLink(line.line_id)}
           testId={testIds.editLineButton}
-          tooltip={t('accessibility.lines.edit', { label: line.label })}
+          tooltip={t(($) => $.accessibility.lines.edit, {
+            label: line.label,
+          })}
           inverted
           className="ml-4 py-0.5"
         >
-          {t('edit')}
+          {t(($) => $.edit)}
         </SimpleButton>
       </Row>
       <Row className="mb-5 gap-6">
         <FieldValue
-          fieldName={t('lines.label')}
+          fieldName={t(($) => $.lines.label)}
           value={line.label}
           testId={testIds.label}
         />
         <FieldValue
-          fieldName={t('lines.name.fi_FI')}
+          fieldName={t(($) => $.lines.name.fi_FI)}
           value={line.name_i18n.fi_FI}
           testId={testIds.name}
         />
         <FieldValue
-          fieldName={t('lines.name.sv_FI')}
+          fieldName={t(($) => $.lines.name.sv_FI)}
           value={line.name_i18n.sv_FI}
           testId={testIds.nameSwe}
         />
       </Row>
       <Row className="mb-5 gap-6">
         <FieldValue
-          fieldName={t('lines.primaryVehicleMode')}
+          fieldName={t(($) => $.lines.primaryVehicleMode)}
           value={mapVehicleModeToUiName(t, line.primary_vehicle_mode)}
           testId={testIds.primaryVehicleMode}
         />
         <FieldValue
-          fieldName={t('lines.typeOfLine')}
+          fieldName={t(($) => $.lines.typeOfLine)}
           value={mapLineTypeToUiName(t, line.type_of_line)}
           testId={testIds.typeOfLine}
         />
         <FieldValue
-          fieldName={t('lines.transportTarget')}
+          fieldName={t(($) => $.lines.transportTarget)}
           value={mapTransportTargetToUiName(t, line.transport_target)}
           testId={testIds.transportTarget}
         />

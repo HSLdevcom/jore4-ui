@@ -24,7 +24,9 @@ export const AccessibilityLevelInfo: FC<AccessibilityLevelInfoProps> = ({
 
   return (
     <div
-      title={t('stopDetails.accessibilityLevelDescriptions.modalTriggerTitle')}
+      title={t(
+        ($) => $.stopDetails.accessibilityLevelDescriptions.modalTriggerTitle,
+      )}
     >
       <button
         className="flex items-center"

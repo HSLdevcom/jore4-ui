@@ -33,9 +33,18 @@ function preparePosters(
     .map((poster) => ({
       id: poster.id ?? '',
       fieldValues: [
-        fv(t('stopDetails.infoSpots.posterSize'), formatSizedDbItem(t, poster)),
-        fv(t('stopDetails.infoSpots.posterLabel'), poster.label),
-        fv(t('stopDetails.infoSpots.posterLines'), poster.lines),
+        fv(
+          t(($) => $.stopDetails.infoSpots.posterSize),
+          formatSizedDbItem(t, poster),
+        ),
+        fv(
+          t(($) => $.stopDetails.infoSpots.posterLabel),
+          poster.label,
+        ),
+        fv(
+          t(($) => $.stopDetails.infoSpots.posterLines),
+          poster.lines,
+        ),
       ],
     }));
 }
@@ -71,25 +80,25 @@ function diffInfoSpotVersions(
   return compact([
     diffKeyedValues({
       key: 'Label',
-      field: t('stopDetails.infoSpots.label'),
+      field: t(($) => $.stopDetails.infoSpots.label),
       oldValue: previous?.label,
       newValue: current?.label,
     }),
     diffKeyedValues({
       key: 'Purpose',
-      field: t('stopDetails.infoSpots.purpose'),
+      field: t(($) => $.stopDetails.infoSpots.purpose),
       oldValue: previous?.purpose,
       newValue: current?.purpose,
     }),
     diffKeyedValues({
       key: 'Size',
-      field: t('stopDetails.infoSpots.size'),
+      field: t(($) => $.stopDetails.infoSpots.size),
       oldValue: previous && formatSizedDbItem(t, previous),
       newValue: current && formatSizedDbItem(t, current),
     }),
     diffKeyedValues({
       key: 'Backlight',
-      field: t('stopDetails.infoSpots.backlight'),
+      field: t(($) => $.stopDetails.infoSpots.backlight),
       oldValue: previous?.backlight,
       newValue: current?.backlight,
       mapper: (v) => optionalBooleanToUiText(t, v),
@@ -97,45 +106,45 @@ function diffInfoSpotVersions(
 
     diffKeyedValues({
       key: 'Latitude',
-      field: t('stopDetails.location.latitude'),
+      field: t(($) => $.stopDetails.location.latitude),
       oldValue: previousPoint?.latitude,
       newValue: currentPoint?.latitude,
     }),
     diffKeyedValues({
       key: 'Longitude',
-      field: t('stopDetails.location.longitude'),
+      field: t(($) => $.stopDetails.location.longitude),
       oldValue: previousPoint?.longitude,
       newValue: currentPoint?.longitude,
     }),
 
     diffKeyedValues({
       key: 'ZoneLabel',
-      field: t('stopDetails.infoSpots.zoneLabel'),
+      field: t(($) => $.stopDetails.infoSpots.zoneLabel),
       oldValue: previous?.zoneLabel,
       newValue: current?.zoneLabel,
     }),
     diffKeyedValues({
       key: 'RailInformation',
-      field: t('stopDetails.infoSpots.railInformation'),
+      field: t(($) => $.stopDetails.infoSpots.railInformation),
       oldValue: previous?.railInformation,
       newValue: current?.railInformation,
     }),
     diffKeyedValues({
       key: 'Floor',
-      field: t('stopDetails.infoSpots.floor'),
+      field: t(($) => $.stopDetails.infoSpots.floor),
       oldValue: previous?.floor,
       newValue: current?.floor,
     }),
     diffKeyedValues({
       key: 'Description',
-      field: t('stopDetails.infoSpots.description'),
+      field: t(($) => $.stopDetails.infoSpots.description),
       oldValue: previous?.description,
       newValue: current?.description,
     }),
 
     diffKeyedValues({
       key: 'Posters',
-      field: t('stopChangeHistory.infoSpots.posters'),
+      field: t(($) => $.stopChangeHistory.infoSpots.posters),
       oldValue: previous && preparePosters(t, previous),
       newValue: current && preparePosters(t, current),
       mapper: mapInfoPosters,
@@ -153,7 +162,7 @@ function getAddedInfoSpotHeading(
     oldValue: <EmptyCell />,
     newValue: (
       <span className="font-bold">
-        {t('stopChangeHistory.infoSpots.added')}
+        {t(($) => $.stopChangeHistory.infoSpots.added)}
       </span>
     ),
   };
@@ -169,7 +178,7 @@ function getUpdatedInfoSpotHeading(
     field: null,
     oldValue: (
       <span className="font-bold">
-        {t('stopChangeHistory.infoSpots.updated')}
+        {t(($) => $.stopChangeHistory.infoSpots.updated)}
       </span>
     ),
     newValue: <EmptyCell />,
@@ -185,7 +194,7 @@ function getRemovedInfoSpotHeading(
     field: null,
     oldValue: (
       <span className="font-bold">
-        {t('stopChangeHistory.infoSpots.removed')}
+        {t(($) => $.stopChangeHistory.infoSpots.removed)}
       </span>
     ),
     newValue: <EmptyCell />,

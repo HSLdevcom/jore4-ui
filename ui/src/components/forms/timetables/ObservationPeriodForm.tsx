@@ -165,7 +165,7 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
             <Visible visible={formDisabled}>
               <WarningText
                 warningMessage={t(
-                  'timetables.observationPeriodForm.warningMessage',
+                  ($) => $.timetables.observationPeriodForm.warningMessage,
                 )}
               />
             </Visible>

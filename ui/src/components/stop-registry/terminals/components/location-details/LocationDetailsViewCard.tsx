@@ -42,39 +42,39 @@ export const LocationDetailsView: FC<TerminalComponentProps> = ({
     <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
-          title={t('terminalDetails.location.streetAddress')}
+          title={t(($) => $.terminalDetails.location.streetAddress)}
           detail={terminal.streetAddress}
           testId={testIds.streetAddress}
         />
         <LabeledDetail
-          title={t('terminalDetails.location.postalCode')}
+          title={t(($) => $.terminalDetails.location.postalCode)}
           detail={terminal.postalCode}
           testId={testIds.postalCode}
         />
         <LabeledDetail
-          title={t('terminalDetails.location.municipality')}
+          title={t(($) => $.terminalDetails.location.municipality)}
           detail={terminal.municipality}
           testId={testIds.municipality}
         />
         <LabeledDetail
-          title={t('terminalDetails.location.fareZone')}
+          title={t(($) => $.terminalDetails.location.fareZone)}
           detail={terminal.fareZone}
           testId={testIds.fareZone}
         />
         <LabeledDetail
-          title={t('terminalDetails.location.latitude')}
+          title={t(($) => $.terminalDetails.location.latitude)}
           detail={terminal.locationLat}
           testId={testIds.latitude}
         />
         <LabeledDetail
-          title={t('terminalDetails.location.longitude')}
+          title={t(($) => $.terminalDetails.location.longitude)}
           detail={terminal.locationLong}
           testId={testIds.longitude}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('terminalDetails.location.memberStopsTotal', {
+          title={t(($) => $.terminalDetails.location.memberStopsTotal, {
             total: memberStopsTotal,
           })}
           detail={memberStops}

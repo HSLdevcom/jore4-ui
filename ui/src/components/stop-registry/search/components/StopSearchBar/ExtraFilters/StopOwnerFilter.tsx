@@ -16,7 +16,7 @@ const options: ReadonlyArray<StopOwner | AllOptionEnum> = [
 ];
 
 const uiNameMapper = mapStopOwnerToUiName.extend({
-  [AllOptionEnum.All]: (t) => t('all'),
+  [AllOptionEnum.All]: (t) => t(($) => $.all),
 });
 
 const defaultValue: ReadonlyArray<StopOwner | AllOptionEnum> = [

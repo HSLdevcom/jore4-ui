@@ -29,22 +29,22 @@ export const TerminalDetailsView: FC<TerminalComponentProps> = ({
     <>
       <DetailRow className={className}>
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.privateCode')}
+          title={t(($) => $.terminalDetails.basicDetails.privateCode)}
           detail={terminal.privateCode?.value}
           testId={testIds.privateCode}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.name')}
+          title={t(($) => $.terminalDetails.basicDetails.name)}
           detail={terminal.name}
           testId={testIds.name}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.nameSwe')}
+          title={t(($) => $.terminalDetails.basicDetails.nameSwe)}
           detail={terminal.nameSwe}
           testId={testIds.nameSwe}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.description')}
+          title={t(($) => $.terminalDetails.basicDetails.description)}
           detail={terminal.description?.value}
           testId={testIds.description}
         />
@@ -54,29 +54,29 @@ export const TerminalDetailsView: FC<TerminalComponentProps> = ({
       )}
       <DetailRow className={className}>
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.terminalType')}
+          title={t(($) => $.terminalDetails.basicDetails.terminalType)}
           detail={
             terminalType ? mapTerminalTypeToUiName(t, terminalType) : undefined
           }
           testId={testIds.terminalType}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.departurePlatforms')}
+          title={t(($) => $.terminalDetails.basicDetails.departurePlatforms)}
           detail={terminal.departurePlatforms}
           testId={testIds.departurePlatforms}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.arrivalPlatforms')}
+          title={t(($) => $.terminalDetails.basicDetails.arrivalPlatforms)}
           detail={terminal.arrivalPlatforms}
           testId={testIds.arrivalPlatforms}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.loadingPlatforms')}
+          title={t(($) => $.terminalDetails.basicDetails.loadingPlatforms)}
           detail={terminal.loadingPlatforms}
           testId={testIds.loadingPlatforms}
         />
         <LabeledDetail
-          title={t('terminalDetails.basicDetails.electricCharging')}
+          title={t(($) => $.terminalDetails.basicDetails.electricCharging)}
           detail={terminal.electricCharging}
           testId={testIds.electricCharging}
         />

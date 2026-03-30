@@ -52,7 +52,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
     try {
       await saveStopPlaceDetails({ state, stop });
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
       infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -65,7 +65,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
     <InfoContainer
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
-      title={t('stopDetails.basicDetails.title')}
+      title={t(($) => $.stopDetails.basicDetails.title)}
       testIdPrefix="BasicDetailsSection"
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (

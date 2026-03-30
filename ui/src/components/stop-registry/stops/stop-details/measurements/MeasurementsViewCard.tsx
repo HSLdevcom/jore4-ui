@@ -82,66 +82,66 @@ export const MeasurementsViewCard: FC<MeasurementsViewCardProps> = ({
     <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.measurements.stopType')}
+          title={t(($) => $.stopDetails.measurements.stopType)}
           detail={stopType}
           testId={testIds.stopType}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.curvedStop')}
+          title={t(($) => $.stopDetails.measurements.curvedStop)}
           detail={optionalBooleanToUiText(t, accessibilityProps?.curvedStop)}
           testId={testIds.curvedStop}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.shelterType')}
+          title={t(($) => $.stopDetails.measurements.shelterType)}
           detail={shelterType}
           testId={testIds.shelterType}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.shelterLaneDistance')}
+          title={t(($) => $.stopDetails.measurements.shelterLaneDistance)}
           detail={accessibilityProps?.shelterLaneDistance}
           testId={testIds.shelterLaneDistance}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.curbBackOfRailDistance')}
+          title={t(($) => $.stopDetails.measurements.curbBackOfRailDistance)}
           detail={accessibilityProps?.curbBackOfRailDistance}
           testId={testIds.curbBackOfRailDistance}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.stopAreaSideSlope')}
+          title={t(($) => $.stopDetails.measurements.stopAreaSideSlope)}
           detail={accessibilityProps?.stopAreaSideSlope}
           testId={testIds.stopAreaSideSlope}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.stopAreaLengthwiseSlope')}
+          title={t(($) => $.stopDetails.measurements.stopAreaLengthwiseSlope)}
           detail={accessibilityProps?.stopAreaLengthwiseSlope}
           testId={testIds.stopAreaLengthwiseSlope}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.measurements.structureLaneDistance')}
+          title={t(($) => $.stopDetails.measurements.structureLaneDistance)}
           detail={accessibilityProps?.structureLaneDistance}
           testId={testIds.structureLaneDistance}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.stopElevationFromRailTop')}
+          title={t(($) => $.stopDetails.measurements.stopElevationFromRailTop)}
           detail={accessibilityProps?.stopElevationFromRailTop}
           testId={testIds.stopElevationFromRailTop}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.stopElevationFromSidewalk')}
+          title={t(($) => $.stopDetails.measurements.stopElevationFromSidewalk)}
           detail={accessibilityProps?.stopElevationFromSidewalk}
           testId={testIds.stopElevationFromSidewalk}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.lowerCleatHeight')}
+          title={t(($) => $.stopDetails.measurements.lowerCleatHeight)}
           detail={accessibilityProps?.lowerCleatHeight}
           testId={testIds.lowerCleatHeight}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.measurements.platformEdgeWarningArea')}
+          title={t(($) => $.stopDetails.measurements.platformEdgeWarningArea)}
           detail={optionalBooleanToUiText(
             t,
             accessibilityProps?.platformEdgeWarningArea,
@@ -149,7 +149,9 @@ export const MeasurementsViewCard: FC<MeasurementsViewCardProps> = ({
           testId={testIds.platformEdgeWarningArea}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.sidewalkAccessibleConnection')}
+          title={t(
+            ($) => $.stopDetails.measurements.sidewalkAccessibleConnection,
+          )}
           detail={optionalBooleanToUiText(
             t,
             accessibilityProps?.sidewalkAccessibleConnection,
@@ -157,7 +159,7 @@ export const MeasurementsViewCard: FC<MeasurementsViewCardProps> = ({
           testId={testIds.sidewalkAccessibleConnection}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.guidanceStripe')}
+          title={t(($) => $.stopDetails.measurements.guidanceStripe)}
           detail={optionalBooleanToUiText(
             t,
             accessibilityProps?.guidanceStripe,
@@ -165,7 +167,7 @@ export const MeasurementsViewCard: FC<MeasurementsViewCardProps> = ({
           testId={testIds.guidanceStripe}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.serviceAreaStripes')}
+          title={t(($) => $.stopDetails.measurements.serviceAreaStripes)}
           detail={optionalBooleanToUiText(
             t,
             accessibilityProps?.serviceAreaStripes,
@@ -173,53 +175,59 @@ export const MeasurementsViewCard: FC<MeasurementsViewCardProps> = ({
           testId={testIds.serviceAreaStripes}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.guidanceType')}
+          title={t(($) => $.stopDetails.measurements.guidanceType)}
           detail={guidanceType}
           testId={testIds.guidanceType}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.guidanceTiles')}
+          title={t(($) => $.stopDetails.measurements.guidanceTiles)}
           detail={optionalBooleanToUiText(t, accessibilityProps?.guidanceTiles)}
           testId={testIds.guidanceTiles}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.mapType')}
+          title={t(($) => $.stopDetails.measurements.mapType)}
           detail={mapType}
           testId={testIds.mapType}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.measurements.curbDriveSideOfRailDistance')}
+          title={t(
+            ($) => $.stopDetails.measurements.curbDriveSideOfRailDistance,
+          )}
           detail={accessibilityProps?.curbDriveSideOfRailDistance}
           testId={testIds.curbDriveSideOfRailDistance}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.endRampSlope')}
+          title={t(($) => $.stopDetails.measurements.endRampSlope)}
           detail={accessibilityProps?.endRampSlope}
           testId={testIds.endRampSlope}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.serviceAreaWidth')}
+          title={t(($) => $.stopDetails.measurements.serviceAreaWidth)}
           detail={accessibilityProps?.serviceAreaWidth}
           testId={testIds.serviceAreaWidth}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.serviceAreaLength')}
+          title={t(($) => $.stopDetails.measurements.serviceAreaLength)}
           detail={accessibilityProps?.serviceAreaLength}
           testId={testIds.serviceAreaLength}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.pedestrianCrossingRampType')}
+          title={t(
+            ($) => $.stopDetails.measurements.pedestrianCrossingRampType,
+          )}
           detail={pedestrianCrossingRampType}
           testId={testIds.pedestrianCrossingRampType}
         />
         <LabeledDetail
-          title={t('stopDetails.measurements.stopAreaSurroundingsAccessible')}
+          title={t(
+            ($) => $.stopDetails.measurements.stopAreaSurroundingsAccessible,
+          )}
           detail={optionalBooleanToCustomUiText(
             accessibilityProps?.stopAreaSurroundingsAccessible,
-            t('stopDetails.measurements.accessible'),
-            t('stopDetails.measurements.inaccessible'),
+            t(($) => $.stopDetails.measurements.accessible),
+            t(($) => $.stopDetails.measurements.inaccessible),
           )}
           testId={testIds.stopAreaSurroundingsAccessible}
         />

@@ -19,10 +19,10 @@ export const CopyStopConfirmationDialog: FC<
       isOpen={isOpen}
       onCancel={onCancel}
       onConfirm={onConfirm}
-      title={t('confirmStopCopyDialog.title')}
-      description={t('confirmStopCopyDialog.description')}
-      confirmText={t('confirmStopCopyDialog.confirmText')}
-      cancelText={t('cancel')}
+      title={t(($) => $.confirmStopCopyDialog.title)}
+      description={t(($) => $.confirmStopCopyDialog.description)}
+      confirmText={t(($) => $.confirmStopCopyDialog.confirmText)}
+      cancelText={t(($) => $.cancel)}
       widthClassName="w-235"
     />
   );

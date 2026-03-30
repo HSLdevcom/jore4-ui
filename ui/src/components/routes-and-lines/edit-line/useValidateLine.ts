@@ -43,7 +43,7 @@ export const useValidateLine = () => {
 
     if (conflictingRoutes.length) {
       throw new Error(
-        `${t('lines.routesOutsideValidity')}: ${conflictingRoutes.join(', ')}`,
+        `${t(($) => $.lines.routesOutsideValidity)}: ${conflictingRoutes.join(', ')}`,
       );
     }
   };

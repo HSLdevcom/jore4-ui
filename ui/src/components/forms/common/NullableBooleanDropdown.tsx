@@ -1,6 +1,6 @@
+import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TranslationKey } from '../../../i18n';
 import {
   BaseFormInputProps,
   JoreListbox,
@@ -15,9 +15,9 @@ const values = ['true', 'false', 'null'] as const;
 type ValidStringValue = (typeof values)[number];
 
 type DropdownTranslationKeys = {
-  readonly true: TranslationKey;
-  readonly false: TranslationKey;
-  readonly null: TranslationKey;
+  readonly true: SelectorParam;
+  readonly false: SelectorParam;
+  readonly null: SelectorParam;
 };
 
 export type NullableBooleanDropdownProps = BaseFormInputProps & {
@@ -32,9 +32,9 @@ export type NullableBooleanDropdownProps = BaseFormInputProps & {
 };
 
 const defaultTranslationKeys: DropdownTranslationKeys = {
-  true: 'yes',
-  false: 'no',
-  null: 'unknown',
+  true: ($) => $.yes,
+  false: ($) => $.no,
+  null: ($) => $.unknown,
 };
 
 /**
@@ -58,11 +58,11 @@ export const NullableBooleanDropdown: FC<NullableBooleanDropdownProps> = ({
   const uiNameMapper = (val: ValidStringValue) => {
     switch (val) {
       case 'true':
-        return t(translationKeys.true ?? defaultTranslationKeys.true);
+        return t(translationKeys.true);
       case 'false':
-        return t(translationKeys.false ?? defaultTranslationKeys.false);
+        return t(translationKeys.false);
       default:
-        return t(translationKeys.null ?? defaultTranslationKeys.null);
+        return t(translationKeys.null);
     }
   };
 

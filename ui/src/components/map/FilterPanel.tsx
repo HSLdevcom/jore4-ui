@@ -112,17 +112,17 @@ export const FilterPanel: FC<FilterPanelProps> = ({
           <MapObservationDateControl />
 
           <div className="flex items-center gap-4 rounded-md border border-grey p-2">
-            <h6 className={headingClassName}>{t('map.showStops')}</h6>
+            <h6 className={headingClassName}>{t(($) => $.map.showStops)}</h6>
             <ToggleRow toggles={stops} />
           </div>
 
           <div className="flex items-center gap-4 rounded-md border border-grey p-2">
-            <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
+            <h6 className={headingClassName}>{t(($) => $.map.showRoutes)}</h6>
             <ToggleRow toggles={routes} />
           </div>
 
           <IconButton
-            tooltip={t('accessibility.map.showFilters')}
+            tooltip={t(($) => $.accessibility.map.showFilters)}
             className="block h-11 w-11 rounded-md border border-black"
             icon={
               <MdLayers aria-hidden className="text-2xl text-tweaked-brand" />
@@ -138,7 +138,6 @@ export const FilterPanel: FC<FilterPanelProps> = ({
           />
         </>
       )}
-
       <StopSelection
         align={isInSearchResultMode ? 'left' : 'right'}
         className="h-11 w-11 rounded-md border border-black"

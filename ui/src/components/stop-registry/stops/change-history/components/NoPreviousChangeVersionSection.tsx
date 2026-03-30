@@ -32,12 +32,12 @@ export function determineType(
 export function getHeadingText(t: TFunction, type: ChangeVersionType): string {
   switch (type) {
     case 'imported':
-      return t('stopChangeHistory.importedVersion');
+      return t(($) => $.stopChangeHistory.importedVersion);
     case 'copied':
-      return t('stopChangeHistory.copiedVersion');
+      return t(($) => $.stopChangeHistory.copiedVersion);
     case 'created':
     default:
-      return t('stopChangeHistory.firstVersion');
+      return t(($) => $.stopChangeHistory.firstVersion);
   }
 }
 

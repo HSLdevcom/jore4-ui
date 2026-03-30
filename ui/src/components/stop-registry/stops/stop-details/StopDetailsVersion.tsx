@@ -27,11 +27,11 @@ export const StopDetailsVersion: FC<StopDetailsVersionProps> = ({ label }) => {
       {priority ? (
         <Row className="mx-auto items-center rounded-sm bg-city-bicycle-yellow px-4 py-2">
           <span className="mr-4 font-bold">
-            {t('stopDetails.selectedVersion.showingSelected')}
+            {t(($) => $.stopDetails.selectedVersion.showingSelected)}
           </span>
           <CloseIconButton
             className="underline"
-            label={t('stopDetails.selectedVersion.showByDate')}
+            label={t(($) => $.stopDetails.selectedVersion.showByDate)}
             onClick={() =>
               deleteFromUrlQuery({ paramName: 'priority', replace: true })
             }
@@ -47,7 +47,7 @@ export const StopDetailsVersion: FC<StopDetailsVersionProps> = ({ label }) => {
         state={makeBackNavigationIsSafeState()}
         testId={testIds.goToVersions}
       >
-        {t('stopDetails.actions.showVersions')}
+        {t(($) => $.stopDetails.actions.showVersions)}
       </SimpleButton>
     </Row>
   );

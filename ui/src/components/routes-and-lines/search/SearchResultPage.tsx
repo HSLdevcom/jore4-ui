@@ -46,13 +46,13 @@ export const SearchResultPage: FC = () => {
     switch (basePath) {
       case Path.timetables:
         return {
-          title: t('timetables.timetables'),
+          title: t(($) => $.timetables.timetables),
           rowVariant: RouteLineTableRowVariant.Timetables,
         };
       case Path.routes:
       default:
         return {
-          title: t('routes.routes'),
+          title: t(($) => $.routes.routes),
           rowVariant: RouteLineTableRowVariant.RoutesAndLines,
         };
     }
@@ -64,10 +64,10 @@ export const SearchResultPage: FC = () => {
     <Container testId={testIds.container}>
       <Row className="items-end">
         <PageTitle.H1>
-          {`${t('search.searchResultsTitle')} | ${displayInformation.title}`}
+          {`${t(($) => $.search.searchResultsTitle)} | ${displayInformation.title}`}
         </PageTitle.H1>
         <CloseIconButton
-          label={t('close')}
+          label={t(($) => $.close)}
           className="ml-auto text-base font-bold text-brand"
           onClick={() => handleClose({ searchExpanded: searchIsExpanded })}
           testId={testIds.closeButton}
@@ -76,7 +76,7 @@ export const SearchResultPage: FC = () => {
       <SearchContainer searchExpandChanged={setSearchIsExpanded} />
       <LoadingWrapper
         className="flex justify-center"
-        loadingText={t('search.searching')}
+        loadingText={t(($) => $.search.searching)}
         loading={loading}
         testId={testIds.loadingSearchResults}
       >

@@ -19,17 +19,15 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
 
   return (
     <div className={twMerge('my-4 flex items-center gap-2', className)}>
-      <h2>{t('stopAreaDetails.title')}</h2>
-
+      <h2>{t(($) => $.stopAreaDetails.title)}</h2>
       <div
-        title={t('accessibility.stops.validityPeriod')}
+        title={t(($) => $.accessibility.stops.validityPeriod)}
         data-testid={testIds.validityPeriod}
       >
         {mapToShortDate(area.validityStart)}
         <span className="mx-1">-</span>
         {mapToShortDate(area.validityEnd)}
       </div>
-
       <Link
         to={routeDetails[Path.stopAreaDetails].getLink(area.privateCode?.value)}
         className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"

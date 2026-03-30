@@ -29,7 +29,7 @@ export const FutureVersionsAlertPopover: FC<
       </PopoverButton>
       <PopoverPanel className="absolute z-20 mt-2 ml-2 inline-flex w-52 flex-row items-start rounded-lg border border-light-grey bg-white p-2 drop-shadow-md">
         <p className="text-xs">
-          {t('stopAreaDetails.memberStops.futureVersionsAlert')}
+          {t(($) => $.stopAreaDetails.memberStops.futureVersionsAlert)}
         </p>
       </PopoverPanel>
     </Popover>

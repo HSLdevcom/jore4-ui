@@ -29,17 +29,18 @@ export const SummarySection: FC<SummarySectionProps> = ({
 
   return (
     <div className={className}>
-      <h2>{t('timetablesPreview.summary')}</h2>
-
+      <h2>{t(($) => $.timetablesPreview.summary)}</h2>
       <Visible visible={totalDeviations > 0}>
         <div className="my-4 items-center space-y-4 rounded-sm border px-16 py-6">
           <h3>
             <MdWarning
               className="mr-2 inline h-6 w-6 text-hsl-red"
               role="img"
-              title={t('timetablesPreview.attention')}
+              title={t(($) => $.timetablesPreview.attention)}
             />
-            {t('timetablesPreview.deviations', { count: totalDeviations })}
+            {t(($) => $.timetablesPreview.deviations, {
+              count: totalDeviations,
+            })}
           </h3>
 
           <Visible visible={routeDeviations.length > 0 && showDeviationSection}>

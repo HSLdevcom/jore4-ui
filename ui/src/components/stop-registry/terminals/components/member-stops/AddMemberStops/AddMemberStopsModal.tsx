@@ -62,7 +62,7 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
       contentClassName="mx-4 w-full max-w-2xl rounded-lg drop-shadow-none"
     >
       <Row className="flex flex-row items-center border border-light-grey bg-background px-10 py-7">
-        <h2>{t('terminalDetails.stops.addStopToTerminal')}</h2>
+        <h2>{t(($) => $.terminalDetails.stops.addStopToTerminal)}</h2>
 
         <CloseIconButton
           className="ml-auto"
@@ -70,7 +70,6 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
           testId={testIds.closeButton}
         />
       </Row>
-
       <ModalBody className="mx-0 my-0">
         <AddMemberStopsForm
           terminal={terminal}
@@ -79,10 +78,9 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
           ref={formRef}
         />
       </ModalBody>
-
       <NewModalFooter>
         <SimpleButton shape="slim" type="button" onClick={onClose} inverted>
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
 
         <SimpleButton
@@ -93,7 +91,7 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
           disabled={isSaving}
           testId={testIds.saveButton}
         >
-          {isSaving ? t('saving') : t('save')}
+          {isSaving ? t(($) => $.saving) : t(($) => $.save)}
         </SimpleButton>
       </NewModalFooter>
     </Modal>

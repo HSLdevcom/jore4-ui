@@ -48,7 +48,11 @@ const PageTitleImpl: FC<PageTitleProps> = ({
   return (
     <>
       <Helmet>
-        <title>{t('navigation.pageTitle', { title })}</title>
+        <title>
+          {t(($) => $.navigation.pageTitle, {
+            title,
+          })}
+        </title>
       </Helmet>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <As className={className} {...testIdProps}>

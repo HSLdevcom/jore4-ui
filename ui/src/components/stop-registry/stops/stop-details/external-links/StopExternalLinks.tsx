@@ -30,7 +30,7 @@ export const StopExternalLinks: FC<ExternalLinksProps> = ({ stop }) => {
     try {
       await saveStopPlaceExternalLinks({ state, stop });
 
-      showSuccessToast(t('stops.editSuccess'));
+      showSuccessToast(t(($) => $.stops.editSuccess));
     } catch (err) {
       defaultErrorHandler(err as Error);
     }

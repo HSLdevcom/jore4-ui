@@ -109,7 +109,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
           {routeLabel && (
             <Row>
               <h2 className="mb-8">
-                {t('routes.route')} {routeLabel}
+                {t(($) => $.routes.route)} {routeLabel}
               </h2>
             </Row>
           )}
@@ -174,7 +174,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             <>
               <Field as={Row} className="flex-auto items-center px-4">
                 <SwitchLabel className="my-1 mr-2">
-                  {t('routes.useTemplateRoute')}
+                  {t(($) => $.routes.useTemplateRoute)}
                 </SwitchLabel>
                 <Switch
                   checked={showTemplateRouteSelector}

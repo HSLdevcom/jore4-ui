@@ -35,14 +35,13 @@ export const TimingPlace: FC<TimingPlaceProps> = ({ className }) => {
         )}
         className="flex-1"
       />
-
       <SimpleButton
         className="ml-6 self-end"
         onClick={() => dispatch(openTimingPlaceModalAction())}
         testId={testIds.addTimingPlaceButton}
         inverted
       >
-        {t('stops.createTimingPlace')}
+        {t(($) => $.stops.createTimingPlace)}
       </SimpleButton>
     </Row>
   );

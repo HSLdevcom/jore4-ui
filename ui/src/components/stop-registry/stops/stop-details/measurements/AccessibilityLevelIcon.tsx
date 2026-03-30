@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
 
-type AccessibilityLevelWithIcon = Exclude<
+export type AccessibilityLevelWithIcon = Exclude<
   StopRegistryAccessibilityLevel,
   StopRegistryAccessibilityLevel.Unknown
 >;

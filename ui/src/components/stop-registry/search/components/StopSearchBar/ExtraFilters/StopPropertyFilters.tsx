@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Row } from '../../../../../../layoutComponents';
 import {
@@ -49,11 +50,13 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
   className,
   notForStops,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Row className={twMerge('flex-wrap justify-start gap-4', className)}>
       <TransportationModeFilter<StopSearchFilters>
         testIdPrefix={stopSearchBarTestIds.prefix}
-        translationPrefix="stopRegistrySearch.fieldLabels"
+        label={t(($) => $.stopRegistrySearch.fieldLabels.transportMode)}
         fieldPath="transportationMode"
         className={twJoin('sm:-order-2 md:order-0', genericFilterSizing)}
       />

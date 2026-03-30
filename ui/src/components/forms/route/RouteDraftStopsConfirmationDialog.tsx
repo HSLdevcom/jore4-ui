@@ -28,20 +28,20 @@ export const RouteDraftStopsConfirmationDialog: FC<
   return (
     <DialogWithButtons
       isOpen={isOpen}
-      title={t('confirmRouteDraftStopsDialog.title')}
-      description={t('confirmRouteDraftStopsDialog.description', {
+      title={t(($) => $.confirmRouteDraftStopsDialog.title)}
+      description={t(($) => $.confirmRouteDraftStopsDialog.description, {
         routeLabel,
         stopLabels: stopsLabelsToRemove.join(', '),
       })}
       buttons={[
-        { onClick: onCancel, text: t('cancel'), inverted: true },
+        { onClick: onCancel, text: t(($) => $.cancel), inverted: true },
         {
           onClick: onRemoveStops,
-          text: t('confirmRouteDraftStopsDialog.removeStopsText'),
+          text: t(($) => $.confirmRouteDraftStopsDialog.removeStopsText),
         },
         {
           onClick: onConfirm,
-          text: t('confirmRouteDraftStopsDialog.confirmText'),
+          text: t(($) => $.confirmRouteDraftStopsDialog.confirmText),
         },
       ]}
       onCancel={onCancel}

@@ -58,7 +58,7 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
           observationDate,
         })}
         target="_blank"
-        title={t('accessibility.stopAreas.showStopAreaDetails', {
+        title={t(($) => $.accessibility.stopAreas.showStopAreaDetails, {
           areaLabel: stopArea.nameFin ?? stopArea.nameSwe,
         })}
       >
@@ -72,17 +72,15 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
         </span>
         <i className="icon-open-in-new" role="presentation" />
       </Link>
-
       <ExpandButton
         className="self-end"
         ariaControls={ID}
         expanded={expanded}
-        expandedText={t('stops.stopArea.showDetails')}
+        expandedText={t(($) => $.stops.stopArea.showDetails)}
         onClick={() => setExpanded((p) => !p)}
         testId={testIds.showHideButton}
         iconClassName="text-base"
       />
-
       <Transition
         as="div"
         className="mt-2 flex flex-row flex-wrap gap-8 py-2"
@@ -95,29 +93,29 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
         {...accordionClassNames}
       >
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaNameSwe')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaNameSwe)}
           detail={stopArea.nameSwe}
           testId={testIds.areaNameSwe}
         />
 
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaNameLongFin')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaNameLongFin)}
           detail={stopArea.longNameFin}
           testId={testIds.areaNameLong}
         />
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaNameLongSwe')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaNameLongSwe)}
           detail={stopArea.longNameSwe}
           testId={testIds.areaNameLongSwe}
         />
 
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaAbbreviationFin')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaAbbreviationFin)}
           detail={stopArea.abbreviationFin}
           testId={testIds.areaAbbreviationName}
         />
         <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaAbbreviationSwe')}
+          title={t(($) => $.stopDetails.basicAreaDetails.areaAbbreviationSwe)}
           detail={stopArea.abbreviationSwe}
           testId={testIds.areaAbbreviationNameSwe}
         />
@@ -126,17 +124,19 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
           stopArea.abbreviationEng) && (
           <>
             <LabeledDetail
-              title={t('stopDetails.basicAreaDetails.areaNameEng')}
+              title={t(($) => $.stopDetails.basicAreaDetails.areaNameEng)}
               detail={stopArea.nameEng}
               testId={testIds.areaNameEng}
             />
             <LabeledDetail
-              title={t('stopDetails.basicAreaDetails.areaNameLongEng')}
+              title={t(($) => $.stopDetails.basicAreaDetails.areaNameLongEng)}
               detail={stopArea.longNameEng}
               testId={testIds.areaNameLongEng}
             />
             <LabeledDetail
-              title={t('stopDetails.basicAreaDetails.areaAbbreviationEng')}
+              title={t(
+                ($) => $.stopDetails.basicAreaDetails.areaAbbreviationEng,
+              )}
               detail={stopArea.abbreviationEng}
               testId={testIds.areaAbbreviationNameEng}
             />

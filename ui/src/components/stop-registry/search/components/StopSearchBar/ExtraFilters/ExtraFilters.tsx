@@ -33,7 +33,7 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
           className,
         )}
       >
-        <h2>{t('search.advancedSearchTitle')}</h2>
+        <h2>{t(($) => $.search.advancedSearchTitle)}</h2>
 
         <Row className="flex flex-wrap xl:flex-nowrap">
           <StopPropertyFilters
@@ -47,7 +47,6 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
           />
         </Row>
       </div>
-
       <ExpandedSearchButtons
         testIdPrefix={stopSearchBarTestIds.prefix}
         searchButtonType="submit"

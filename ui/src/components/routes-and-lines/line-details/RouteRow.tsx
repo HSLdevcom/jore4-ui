@@ -108,7 +108,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
           observationDate: observationDate.toISODate(),
         })}
         testId={testIds.editRouteButton}
-        tooltip={t('accessibility.routes.editRouteDirection', {
+        tooltip={t(($) => $.accessibility.routes.editRouteDirection, {
           label,
           directionNumber,
         })}
@@ -118,17 +118,15 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         data-testid={testIds.validityPeriod}
         className="col-span-4 text-center md:text-sm lg:text-base"
       >
-        {t('validity.validDuring', {
+        {t(($) => $.validity.validDuring, {
           startDate: mapToShortDate(route.validity_start ?? MIN_DATE),
           endDate: mapToShortDate(route.validity_end ?? MAX_DATE),
         })}
       </span>
       <div className="flex justify-center">
         <AlertPopover
-          title={t(alertStatus.title, {
-            type: t('routes.route'),
-          })}
-          description={t(alertStatus.description)}
+          title={alertStatus.title}
+          description={alertStatus.description}
           alertIcon={alertStyle.icon}
         />
       </div>
@@ -146,7 +144,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }
           testId={testIds.showRouteButton}
-          tooltipText={t('accessibility.routes.showOnMapDirection', {
+          tooltipText={t(($) => $.accessibility.routes.showOnMapDirection, {
             label,
             directionNumber,
           })}
@@ -158,11 +156,11 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         isOpen={isExpanded}
         onToggle={onToggle}
         testId={testIds.toggleAccordion}
-        openTooltip={t('accessibility.routes.expandStops', {
+        openTooltip={t(($) => $.accessibility.routes.expandStops, {
           label,
           directionNumber,
         })}
-        closeTooltip={t('accessibility.routes.closeStops', {
+        closeTooltip={t(($) => $.accessibility.routes.closeStops, {
           label,
           directionNumber,
         })}

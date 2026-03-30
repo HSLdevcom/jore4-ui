@@ -66,9 +66,12 @@ export const ImportTimetablesPage: FC = () => {
       );
 
       setIsAbortImportModalOpen(false);
-      showSuccessToast(t('import.abortedSuccessfully'));
+      showSuccessToast(t(($) => $.import.abortedSuccessfully));
     } catch (err) {
-      showDangerToastWithError(t('errors.saveFailed'), err);
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
     }
   };
 
@@ -89,7 +92,9 @@ export const ImportTimetablesPage: FC = () => {
             const filename = failure.file.name;
 
             return {
-              errorTitle: t('import.fileUploadFailed', { filename }),
+              errorTitle: t(($) => $.import.fileUploadFailed, {
+                filename,
+              }),
               details: mapHastusErrorTypeToErrorMessage(
                 t,
                 extractErrorType(getImportErrorBody(failure.error)),
@@ -101,7 +106,7 @@ export const ImportTimetablesPage: FC = () => {
         );
         dispatch(
           openErrorListModalAction({
-            errorModalTitle: t('import.errorModalTitle'),
+            errorModalTitle: t(($) => $.import.errorModalTitle),
             errorList: importErrors,
           }),
         );
@@ -113,10 +118,12 @@ export const ImportTimetablesPage: FC = () => {
   return (
     <Container>
       <Row>
-        <PageTitle.H1>{t('import.importTimetablesFromHastus')}</PageTitle.H1>
+        <PageTitle.H1>
+          {t(($) => $.import.importTimetablesFromHastus)}
+        </PageTitle.H1>
         <CloseIconButton
           testId={testIds.closeButton}
-          label={t('close')}
+          label={t(($) => $.close)}
           className="ml-auto text-base font-bold text-brand"
           onClick={handleClose}
         />
@@ -128,7 +135,7 @@ export const ImportTimetablesPage: FC = () => {
           onClick={handleUpload}
           disabled={!fileList?.length || isLoading}
         >
-          {t('import.uploadFiles')}
+          {t(($) => $.import.uploadFiles)}
         </SimpleButton>
         <div className="flex justify-end gap-4">
           <SimpleButton
@@ -136,21 +143,21 @@ export const ImportTimetablesPage: FC = () => {
             onClick={openAbortImportModal}
             disabled={!importedTimetablesExist || isLoading}
           >
-            {t('import.abort')}
+            {t(($) => $.import.abort)}
           </SimpleButton>
           <SimpleButton
             testId={testIds.saveButton}
             onClick={openConfirmImportModal}
             disabled={!importedTimetablesExist || isLoading}
           >
-            {t('save')}
+            {t(($) => $.save)}
           </SimpleButton>
           <SimpleButton
             testId={testIds.previewButton}
             href={Path.timetablesImportPreview}
             disabled={!importedTimetablesExist || isLoading}
           >
-            {t('import.openPreview')}
+            {t(($) => $.import.openPreview)}
           </SimpleButton>
         </div>
       </FormRow>
@@ -159,10 +166,10 @@ export const ImportTimetablesPage: FC = () => {
         onCancel={() => setIsAbortImportModalOpen(false)}
         onConfirm={onConfirmAbortImport}
         widthClassName="max-w-md"
-        title={t('confirmTimetablesAbortImportDialog.title')}
-        description={t('confirmTimetablesAbortImportDialog.description')}
-        confirmText={t('confirmTimetablesAbortImportDialog.confirm')}
-        cancelText={t('confirmTimetablesAbortImportDialog.abort')}
+        title={t(($) => $.confirmTimetablesAbortImportDialog.title)}
+        description={t(($) => $.confirmTimetablesAbortImportDialog.description)}
+        confirmText={t(($) => $.confirmTimetablesAbortImportDialog.confirm)}
+        cancelText={t(($) => $.confirmTimetablesAbortImportDialog.abort)}
       />
       <ConfirmTimetablesImportModal
         isOpen={isConfirmImportModalOpen}

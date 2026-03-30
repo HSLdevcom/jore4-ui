@@ -130,9 +130,9 @@ export const EditStopAreaLayer = forwardRef<
       setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
 
       if (editedArea.id) {
-        showSuccessToast(t('stopArea.editSuccess'));
+        showSuccessToast(t(($) => $.stopArea.editSuccess));
       } else {
-        showSuccessToast(t('stopArea.saveSuccess'));
+        showSuccessToast(t(($) => $.stopArea.saveSuccess));
         ensureMapEntityTypeVisible(MapEntityType.StopArea);
       }
 
@@ -192,7 +192,7 @@ export const EditStopAreaLayer = forwardRef<
     setMapStopAreaViewState(MapEntityEditorViewState.NONE);
     setEditedStopAreaData(undefined);
     setSelectedMapStopAreaId(undefined);
-    showSuccessToast(t('stopArea.deleteSuccess'));
+    showSuccessToast(t(($) => $.stopArea.deleteSuccess));
   };
 
   const onCloseModal = () => {
@@ -228,9 +228,7 @@ export const EditStopAreaLayer = forwardRef<
           onSubmit={onEditStopArea}
         />
       )}
-
       <NewStopAreaMarker editedArea={editedArea} />
-
       <DeleteStopArea
         stopArea={editedArea}
         isOpen={isConfirmDeleteDialogOpen}
@@ -242,24 +240,24 @@ export const EditStopAreaLayer = forwardRef<
         isOpen={isConfirmMoveDialogOpen}
         onCancel={onCancelMoveStopArea}
         onConfirm={onConfirmMoveStopArea}
-        title={t('confirmEditStopAreaDialog.title')}
-        description={t('confirmEditStopAreaDialog.description', {
+        title={t(($) => $.confirmEditStopAreaDialog.title)}
+        description={t(($) => $.confirmEditStopAreaDialog.description, {
           stopAreaLabel: editedArea.privateCode?.value ?? '',
         })}
-        confirmText={t('confirmEditStopAreaDialog.confirmText')}
-        cancelText={t('cancel')}
+        confirmText={t(($) => $.confirmEditStopAreaDialog.confirmText)}
+        cancelText={t(($) => $.cancel)}
         widthClassName="w-235"
       />
       <ConfirmationDialog
         isOpen={isConfirmEditDialogOpen}
         onCancel={onCancelEditStopArea}
         onConfirm={onConfirmEditStopArea}
-        title={t('confirmEditStopAreaDialog.title')}
-        description={t('confirmEditStopAreaDialog.description', {
+        title={t(($) => $.confirmEditStopAreaDialog.title)}
+        description={t(($) => $.confirmEditStopAreaDialog.description, {
           stopAreaLabel: editedArea.privateCode?.value ?? '',
         })}
-        confirmText={t('confirmEditStopAreaDialog.confirmText')}
-        cancelText={t('cancel')}
+        confirmText={t(($) => $.confirmEditStopAreaDialog.confirmText)}
+        cancelText={t(($) => $.cancel)}
         widthClassName="w-235"
       />
     </>

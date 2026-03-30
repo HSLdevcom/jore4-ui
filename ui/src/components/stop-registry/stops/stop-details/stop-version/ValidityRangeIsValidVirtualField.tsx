@@ -66,19 +66,19 @@ function resolveErrorMessage(
   // If end is before start
   if (validityStart && !indefinite && validityEnd) {
     if (validityStart > validityEnd) {
-      return t('formValidation.timeRange');
+      return t(($) => $.formValidation.timeRange);
     }
   }
 
   // If start is before today
   const today = DateTime.now().startOf('day').toISODate();
   if (validityStart < today) {
-    return t('formValidation.validityDateRangeInPast');
+    return t(($) => $.formValidation.validityDateRangeInPast);
   }
 
   // If end date or indefinite not set yet.
   if (!indefinite && !validityEnd) {
-    return t('formValidation.stopValidityEndNotDefined');
+    return t(($) => $.formValidation.stopValidityEndNotDefined);
   }
 
   const overlappingRange = getOverlappingValidityRange(existingValidityRanges, {
@@ -92,7 +92,7 @@ function resolveErrorMessage(
 
   // If we are editing validity range, we don't need to check for overlaps at this point
   if (overlappingRange && !isEditing) {
-    return t('formValidation.stopValidityPeriodOverlap', {
+    return t(($) => $.formValidation.stopValidityPeriodOverlap, {
       start: mapToShortDate(overlappingRange.validity_start),
       end: mapToShortDate(overlappingRange.validity_end),
     });

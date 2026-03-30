@@ -42,7 +42,7 @@ export const useTerminalEdit = () => {
         selectedStops: state.selectedStops,
       });
 
-      showSuccessToast(t('terminalDetails.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.editSuccess));
       setMapObservationDate(updatedTerminal);
       setEditedTerminalData(updatedTerminal ?? undefined);
       setSelectedTerminalId(updatedTerminal?.id ?? undefined);

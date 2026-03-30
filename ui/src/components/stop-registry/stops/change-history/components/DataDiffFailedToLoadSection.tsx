@@ -31,12 +31,11 @@ export const DataDiffFailedToLoadSection: FC<
         sectionTitle={
           <SectionTitle
             historyItem={historyItem}
-            section={t('stopChangeHistory.failedToLoad')}
+            section={t(($) => $.stopChangeHistory.failedToLoad)}
           />
         }
         testId={testIds.failedToLoad}
       />
-
       <tr>
         <td className="p-5" colSpan={7}>
           <SimpleButton
@@ -45,7 +44,7 @@ export const DataDiffFailedToLoadSection: FC<
             onClick={refetch}
             testId={testIds.retryButton}
           >
-            {t('changeHistory.tryAgainButton')}
+            {t(($) => $.changeHistory.tryAgainButton)}
           </SimpleButton>
         </td>
       </tr>

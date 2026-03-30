@@ -90,9 +90,9 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
       const variables = mapEditJourneyPatternChangesToVariables(changes);
 
       await updateRouteGeometryMutation(variables);
-      showSuccessToast(t('routes.saveSuccess'));
+      showSuccessToast(t(($) => $.routes.saveSuccess));
     } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+      showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);
     }
     setIsLoading(false);
   };
@@ -108,9 +108,9 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
       const variables = mapEditJourneyPatternChangesToVariables(changes);
 
       await updateRouteGeometryMutation(variables);
-      showSuccessToast(t('routes.saveSuccess'));
+      showSuccessToast(t(($) => $.routes.saveSuccess));
     } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+      showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);
     }
     setIsLoading(false);
   };
@@ -124,34 +124,34 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
       {stopBelongsToJourneyPattern ? (
         <SimpleDropdownMenuItem
           onClick={onRemoveFromRoute}
-          text={t('stops.removeFromRoute')}
+          text={t(($) => $.stops.removeFromRoute)}
           testId={testIds.removeStop}
         />
       ) : (
         <SimpleDropdownMenuItem
           onClick={onAddToRoute}
-          text={t('stops.addToRoute')}
+          text={t(($) => $.stops.addToRoute)}
           testId={testIds.addStop}
         />
       )}
       {isViaPoint ? (
         <SimpleDropdownMenuItem
           onClick={showViaModal}
-          text={t('viaModal.editViaPoint')}
+          text={t(($) => $.viaModal.editViaPoint)}
           testId={testIds.editViaPoint}
         />
       ) : (
         <SimpleDropdownMenuItem
           disabled={!stopBelongsToJourneyPattern}
           onClick={showViaModal}
-          text={t('viaModal.createViaPoint')}
+          text={t(($) => $.viaModal.createViaPoint)}
           testId={testIds.createViaPoint}
         />
       )}
       <SimpleDropdownMenuItem
         disabled={!stopBelongsToJourneyPattern}
         onClick={showTimingSettingsModal}
-        text={t('timingSettingsModal.timingSettings')}
+        text={t(($) => $.timingSettingsModal.timingSettings)}
         testId={testIds.openTimingSettings}
       />
     </SimpleDropdownMenu>

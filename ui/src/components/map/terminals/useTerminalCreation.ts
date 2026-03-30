@@ -37,7 +37,7 @@ export const useTerminalCreation = () => {
         state,
       });
 
-      showSuccessToast(t('terminal.saveSuccess'));
+      showSuccessToast(t(($) => $.terminal.saveSuccess));
       ensureMapEntityTypeVisible(MapEntityType.Terminal);
       setMapObservationDate(createdTerminal);
       setEditedTerminalData(createdTerminal ?? undefined);

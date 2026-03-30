@@ -37,22 +37,22 @@ export const AlternativeNames: FC<AlternativeNamesProps> = ({
     <>
       <DetailRow className={className}>
         <LabeledDetail
-          title={t('stopDetails.alternativeNames.nameLongFin')}
+          title={t(($) => $.stopDetails.alternativeNames.nameLongFin)}
           detail={alternativeNames.nameLongFin}
           testId={testIds.nameLongFin}
         />
         <LabeledDetail
-          title={t('stopDetails.alternativeNames.nameLongSwe')}
+          title={t(($) => $.stopDetails.alternativeNames.nameLongSwe)}
           detail={alternativeNames.nameLongSwe}
           testId={testIds.nameLongSwe}
         />
         <LabeledDetail
-          title={t('stopDetails.alternativeNames.abbreviationFin')}
+          title={t(($) => $.stopDetails.alternativeNames.abbreviationFin)}
           detail={alternativeNames.abbreviationFin}
           testId={testIds.abbreviationFin}
         />
         <LabeledDetail
-          title={t('stopDetails.alternativeNames.abbreviationSwe')}
+          title={t(($) => $.stopDetails.alternativeNames.abbreviationSwe)}
           detail={alternativeNames.abbreviationSwe}
           testId={testIds.abbreviationSwe}
         />
@@ -62,17 +62,17 @@ export const AlternativeNames: FC<AlternativeNamesProps> = ({
         alternativeNames.abbreviationEng) && (
         <DetailRow className={className}>
           <LabeledDetail
-            title={t('stopDetails.alternativeNames.nameEng')}
+            title={t(($) => $.stopDetails.alternativeNames.nameEng)}
             detail={alternativeNames.nameEng}
             testId={testIds.nameEng}
           />
           <LabeledDetail
-            title={t('stopDetails.alternativeNames.nameLongEng')}
+            title={t(($) => $.stopDetails.alternativeNames.nameLongEng)}
             detail={alternativeNames.nameLongEng}
             testId={testIds.nameLongEng}
           />
           <LabeledDetail
-            title={t('stopDetails.alternativeNames.abbreviationEng')}
+            title={t(($) => $.stopDetails.alternativeNames.abbreviationEng)}
             detail={alternativeNames.abbreviationEng}
             testId={testIds.abbreviationEng}
           />

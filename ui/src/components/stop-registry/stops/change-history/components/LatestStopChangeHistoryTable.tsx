@@ -51,7 +51,7 @@ export const LatestStopChangeHistoryTable: FC<
   return (
     <div className={className} data-testid={testIds.container}>
       <h3 className="mb-4" data-testid={testIds.title}>
-        {t('stopChangeHistory.titleLatest')}
+        {t(($) => $.stopChangeHistory.titleLatest)}
       </h3>
       {historyItems.slice(0, 5).map((item, i) => {
         return (
@@ -71,7 +71,7 @@ export const LatestStopChangeHistoryTable: FC<
         className="mt-4 text-sm font-bold text-brand hover:underline"
         data-testid={testIds.showAllLink}
       >
-        {t('stopChangeHistory.showAll')}
+        {t(($) => $.stopChangeHistory.showAll)}
       </Link>
     </div>
   );

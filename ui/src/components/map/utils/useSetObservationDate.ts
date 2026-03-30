@@ -25,7 +25,7 @@ export const useSetMapObservationDate = () => {
         ...p,
         observationDate: validityStart ?? validityEnd ?? observationDate,
       }));
-      showWarningToast(t('filters.observationDateAdjusted'));
+      showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
   };
 

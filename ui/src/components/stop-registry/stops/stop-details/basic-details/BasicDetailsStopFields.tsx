@@ -49,50 +49,50 @@ export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
     <>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.basicDetails.label')}
+          title={t(($) => $.stopDetails.basicDetails.label)}
           detail={stop.label}
           testId={testIds.label}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.privateCode')}
+          title={t(($) => $.stopDetails.basicDetails.privateCode)}
           detail={stop.quay?.privateCode}
           testId={testIds.privateCode}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.locationFin')}
+          title={t(($) => $.stopDetails.basicDetails.locationFin)}
           detail={stop.quay?.locationFin}
           testId={testIds.locationFin}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.locationSwe')}
+          title={t(($) => $.stopDetails.basicDetails.locationSwe)}
           detail={stop.quay?.locationSwe}
           testId={testIds.locationSwe}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.stopState')}
+          title={t(($) => $.stopDetails.basicDetails.stopState)}
           detail={stopState}
           testId={testIds.stopState}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.basicDetails.transportMode')}
+          title={t(($) => $.stopDetails.basicDetails.transportMode)}
           detail={transportMode}
           testId={testIds.transportMode}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.elyNumber')}
+          title={t(($) => $.stopDetails.basicDetails.elyNumber)}
           detail={stop.quay?.elyNumber}
           testId={testIds.elyNumber}
         />
         <LabeledDetail
-          title={t('stops.timingPlaceId')}
+          title={t(($) => $.stops.timingPlaceId)}
           detail={timingPlaceLabel}
           testId={testIds.timingPlaceId}
         />
         <div className="flex items-center gap-4">
           <LabeledDetail
-            title={t('stopDetails.basicDetails.stopType')}
+            title={t(($) => $.stopDetails.basicDetails.stopType)}
             detail={stop.quay && translateStopTypes(t, stop.quay)}
             testId={testIds.stopType}
           />

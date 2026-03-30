@@ -70,7 +70,6 @@ export const StopsTable: FC<StopsTableProps> = ({
         stopPlace={stopPlace}
         isRounded={!loading && stops.length === 0 && !error}
       />
-
       <Visible visible={!!error}>
         <LoadingStopsErrorRow
           className="ml-[calc(3rem+1px)]"
@@ -78,11 +77,10 @@ export const StopsTable: FC<StopsTableProps> = ({
           refetch={refetch}
         />
       </Visible>
-
       <LoadingWrapper
         testId={testIds.loader}
         className="ml-[calc(3rem+1px)] flex justify-center border border-light-grey p-8"
-        loadingText={t('search.searching')}
+        loadingText={t(($) => $.search.searching)}
         loading={loading && stops.length === 0}
       >
         <Visible visible={stops.length > 0}>
@@ -94,7 +92,6 @@ export const StopsTable: FC<StopsTableProps> = ({
           />
         </Visible>
       </LoadingWrapper>
-
       <Visible visible={!loading && stops.length === 0}>
         <NoStopsComponent
           className="ml-[calc(3rem+1px)]"

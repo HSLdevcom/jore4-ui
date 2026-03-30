@@ -50,7 +50,7 @@ export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
       <div className="w-full">
         {displayedTimingPlace
           ? `${displayedTimingPlace?.label} (${displayedTimingPlace?.description?.fi_FI})`
-          : t('stops.chooseTimingPlace')}
+          : t(($) => $.stops.chooseTimingPlace)}
       </div>
     );
   };
@@ -61,7 +61,7 @@ export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
       query={query}
       testId={testId}
       mapToButtonContent={mapToButtonContent}
-      nullOptionContent={t('stops.noTimingPlace')}
+      nullOptionContent={t(($) => $.stops.noTimingPlace)}
       options={options}
       value={value}
       onChange={onChange}

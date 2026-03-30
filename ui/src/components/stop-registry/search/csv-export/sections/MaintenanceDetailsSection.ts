@@ -6,16 +6,16 @@ import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
 const metaHeaders: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.maintenance.title'),
+  (t) => t(($) => $.stopDetails.maintenance.title),
 ];
 const headers: ReadonlyArray<(t: TFunction) => string> = [
-  (t) => t('stopDetails.maintenance.maintainers.stopOwner'),
-  (t) => t('stopDetails.maintenance.maintainers.owner'),
-  (t) => t('stopDetails.maintenance.maintainers.shelterMaintenance'),
-  (t) => t('stopDetails.maintenance.maintainers.maintenance'),
-  (t) => t('stopDetails.maintenance.maintainers.winterMaintenance'),
-  (t) => t('stopDetails.maintenance.maintainers.infoUpkeep'),
-  (t) => t('stopDetails.maintenance.maintainers.cleaning'),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.stopOwner),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.owner),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.shelterMaintenance),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.maintenance),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.winterMaintenance),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.infoUpkeep),
+  (t) => t(($) => $.stopDetails.maintenance.maintainers.cleaning),
 ];
 
 function findOrganisationByType(

@@ -32,8 +32,8 @@ function useFilterVersionsByDateRange(
         stopVersion.validity_end?.valueOf() ?? Number.POSITIVE_INFINITY;
 
       return !(
-        stopTo < from || // End before range start
-        stopFrom > to // Starts after range end
+        // End before range start
+        (stopTo < from || stopFrom > to) // Starts after range end
       );
     });
   }, [stopVersions, from, to]);
@@ -90,7 +90,7 @@ export const ScheduledVersionsContainer: FC<
   return (
     <div className={className}>
       <Column>
-        <h4 id={HeaderId}>{t('stopVersion.scheduled.title')}</h4>
+        <h4 id={HeaderId}>{t(($) => $.stopVersion.scheduled.title)}</h4>
 
         <DateRangeInputs
           className="mt-4 gap-4"
@@ -102,13 +102,12 @@ export const ScheduledVersionsContainer: FC<
           className="self-end"
           ariaControls={ID}
           expanded={expanded}
-          expandedText={t('stopVersion.scheduled.hide')}
-          collapsedText={t('stopVersion.scheduled.show')}
+          expandedText={t(($) => $.stopVersion.scheduled.hide)}
+          collapsedText={t(($) => $.stopVersion.scheduled.show)}
           onClick={() => setExpanded((p) => !p)}
           testId={testIds.showHideButton}
         />
       </Column>
-
       <Transition
         as="div"
         className="mt-2"
@@ -122,7 +121,7 @@ export const ScheduledVersionsContainer: FC<
       >
         <StopVersionTable
           publicCode={publicCode}
-          noVersionsText={t('stopVersion.scheduled.noVersions')}
+          noVersionsText={t(($) => $.stopVersion.scheduled.noVersions)}
           stopVersions={filteredStopVersions}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}

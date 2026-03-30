@@ -19,7 +19,7 @@ export const CopyStopAreaBoilerplate: FC<CopyStopAreaBoilerplateProps> = ({
 
   return (
     <div className="flex w-full flex-col gap-4 bg-hsl-neutral-blue p-4">
-      <p>{t('stopAreaDetails.version.copy.boilerplate')}</p>
+      <p>{t(($) => $.stopAreaDetails.version.copy.boilerplate)}</p>
       <div className="flex flex-col">
         <p className="font-bold" data-testid={testIds.names}>
           <span>{stopArea.privateCode?.value}</span>{' '}

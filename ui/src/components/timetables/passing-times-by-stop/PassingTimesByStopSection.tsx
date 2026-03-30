@@ -99,7 +99,7 @@ export const PassingTimesByStopSection: FC<PassingTimesByStopSectionProps> = ({
             />
           ) : (
             <span className="flex justify-center">
-              {t('timetables.noTraffic')}
+              {t(($) => $.timetables.noTraffic)}
             </span>
           )}
         </div>

@@ -99,11 +99,11 @@ export const useAddMemberStopsFormUtils = (
         selectedStops: state.selectedStops,
       });
 
-      showSuccessToast(t('terminalDetails.stops.editSuccess'));
+      showSuccessToast(t(($) => $.terminalDetails.stops.editSuccess));
       onSuccess();
     } catch (err) {
       showDangerToastWithError(
-        t('terminalDetails.errors.editMemberStops'),
+        t(($) => $.terminalDetails.errors.editMemberStops),
         err,
       );
       onError();

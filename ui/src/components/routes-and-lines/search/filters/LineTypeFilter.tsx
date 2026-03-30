@@ -21,7 +21,9 @@ export const LineTypeFilter: FC<LineTypeFilterProps> = ({
 
   return (
     <Column className={twMerge('min-w-48', className)}>
-      <label htmlFor={typeOfLineDropdownId}>{t('lines.typeOfLine')}</label>
+      <label htmlFor={typeOfLineDropdownId}>
+        {t(($) => $.lines.typeOfLine)}
+      </label>
       <Controller
         control={control}
         name="typeOfLine"

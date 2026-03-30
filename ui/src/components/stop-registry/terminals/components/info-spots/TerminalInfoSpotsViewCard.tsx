@@ -39,39 +39,39 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
       <div className="bg-background-hsl-commuter-train-purple/25 p-5 pt-0">
         <DetailRow className="flex-wrap">
           <LabeledDetail
-            title={t('stopDetails.infoSpots.label')}
+            title={t(($) => $.stopDetails.infoSpots.label)}
             detail={infoSpot.label}
             testId={testIds.label}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.purpose')}
+            title={t(($) => $.stopDetails.infoSpots.purpose)}
             detail={formatPurposeForDisplay(t, infoSpot.purpose)}
             testId={testIds.purpose}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.size')}
+            title={t(($) => $.stopDetails.infoSpots.size)}
             detail={formatSizedDbItem(t, infoSpot)}
             testId={testIds.size}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.backlight')}
+            title={t(($) => $.stopDetails.infoSpots.backlight)}
             detail={optionalBooleanToUiText(t, infoSpot.backlight)}
             testId={testIds.backlight}
           />
           <LabeledDetail
-            title={t('stopDetails.location.latitude')}
+            title={t(($) => $.stopDetails.location.latitude)}
             detail={location?.latitude}
             testId={testIds.latitude}
           />
           <LabeledDetail
-            title={t('stopDetails.location.longitude')}
+            title={t(($) => $.stopDetails.location.longitude)}
             detail={location?.longitude}
             testId={testIds.longitude}
           />
         </DetailRow>
         <DetailRow>
           <LabeledDetail
-            title={t('stopDetails.infoSpots.zoneLabel')}
+            title={t(($) => $.stopDetails.infoSpots.zoneLabel)}
             detail={mapZoneLabelToUiName(
               t,
               normalizeZoneLabel(infoSpot.zoneLabel),
@@ -79,19 +79,19 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
             testId={testIds.zoneLabel}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.railInformation')}
+            title={t(($) => $.stopDetails.infoSpots.railInformation)}
             detail={infoSpot.railInformation}
             testId={testIds.railInformation}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.floor')}
+            title={t(($) => $.stopDetails.infoSpots.floor)}
             detail={infoSpot.floor}
             testId={testIds.floor}
           />
         </DetailRow>
         <DetailRow>
           <LabeledDetail
-            title={t('stopDetails.infoSpots.description')}
+            title={t(($) => $.stopDetails.infoSpots.description)}
             detail={infoSpot.description?.value}
             testId={testIds.description}
           />

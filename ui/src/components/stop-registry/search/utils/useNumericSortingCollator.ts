@@ -11,7 +11,11 @@ export function useNumericSortingCollator() {
   const { t } = useTranslation();
 
   return useMemo(
-    () => new Intl.Collator(t('languages.intlLangCode'), { numeric: true }),
+    () =>
+      new Intl.Collator(
+        t(($) => $.languages.intlLangCode),
+        { numeric: true },
+      ),
     [t],
   );
 }

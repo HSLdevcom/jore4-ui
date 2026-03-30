@@ -50,7 +50,7 @@ export const ErrorModal: FC<ErrorModalProps> = ({
       <NewModalBody className={bodyClassName}>{children}</NewModalBody>
       <Row className="justify-end gap-1 px-5 pt-2 pb-4">
         <SimpleButton testId={testIds.closeButton} onClick={onClose}>
-          {t('close')}
+          {t(($) => $.close)}
         </SimpleButton>
       </Row>
     </Modal>

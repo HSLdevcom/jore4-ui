@@ -47,7 +47,7 @@ export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
       const { quayId } = await createStop(changes);
       setCreateChanges(null);
 
-      showSuccessToast(t('stops.saveSuccess'));
+      showSuccessToast(t(($) => $.stops.saveSuccess));
 
       if (
         !isDateInRange(
@@ -63,7 +63,7 @@ export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
             changes.stopPoint.validity_end ??
             observationDate,
         }));
-        showWarningToast(t('filters.observationDateAdjusted'));
+        showWarningToast(t(($) => $.filters.observationDateAdjusted));
       }
 
       ensureTemporalFilterActive();

@@ -27,7 +27,7 @@ const InfoSpotNoPosters = () => {
   return (
     <Row className="px-10 py-5" testId={testIds.noPosters}>
       <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
-      {t('stopDetails.infoSpots.noPosters')}
+      {t(($) => $.stopDetails.infoSpots.noPosters)}
     </Row>
   );
 };
@@ -46,17 +46,17 @@ export const InfoSpotPosters: FC<InfoSpotPostersProps> = ({ infoSpot }) => {
         <div key={poster.id} data-testid={testIds.posterContainer}>
           <DetailRow className="px-10 py-5">
             <LabeledDetail
-              title={t('stopDetails.infoSpots.posterSize')}
+              title={t(($) => $.stopDetails.infoSpots.posterSize)}
               detail={formatSizedDbItem(t, poster)}
               testId={testIds.posterSize}
             />
             <LabeledDetail
-              title={t('stopDetails.infoSpots.posterLabel')}
+              title={t(($) => $.stopDetails.infoSpots.posterLabel)}
               detail={poster.label}
               testId={testIds.posterLabel}
             />
             <LabeledDetail
-              title={t('stopDetails.infoSpots.posterLines')}
+              title={t(($) => $.stopDetails.infoSpots.posterLines)}
               detail={poster.lines}
               testId={testIds.posterLines}
             />

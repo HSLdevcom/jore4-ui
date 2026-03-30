@@ -47,11 +47,11 @@ function useFormatOption(t: TFunction) {
   return useCallback(
     (option: InfoSpotFilterMenuOption) => {
       if (option === AllOptionEnum.All) {
-        return t('all');
+        return t(($) => $.all);
       }
 
       if (option === NullOptionEnum.Null) {
-        return t('stopRegistrySearch.noOptions.infoSpot');
+        return t(($) => $.stopRegistrySearch.noOptions.infoSpot);
       }
 
       return formatSizeOption(option);
@@ -82,13 +82,13 @@ function useOptionGroups(t: TFunction) {
       },
       {
         key: 'standardSizes',
-        label: t('stopDetails.infoSpots.sizes.standardSizes'),
+        label: t(($) => $.stopDetails.infoSpots.sizes.standardSizes),
         options: standardOptions,
       },
       extraOptions.length
         ? {
             key: 'extraSizes',
-            label: t('stopDetails.infoSpots.sizes.extraSizes'),
+            label: t(($) => $.stopDetails.infoSpots.sizes.extraSizes),
             options: extraOptions,
           }
         : null,

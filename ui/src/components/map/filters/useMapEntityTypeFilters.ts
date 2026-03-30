@@ -25,12 +25,12 @@ function useInitialFilterInfo() {
   const initialInfoTypes: ReadonlyArray<InitialFilterItem> = [
     {
       type: MapEntityType.StopLabel,
-      label: t('filters.mapEntityType.stopLabel'),
+      label: t(($) => $.filters.mapEntityType.stopLabel),
       disabled: false,
     },
     {
       type: MapEntityType.InfoSpot,
-      label: t('filters.mapEntityType.infoSpot'),
+      label: t(($) => $.filters.mapEntityType.infoSpot),
       disabled: true,
     },
   ];
@@ -38,17 +38,17 @@ function useInitialFilterInfo() {
   const initialStopTypes: ReadonlyArray<InitialFilterItem> = [
     {
       type: MapEntityType.Stop,
-      label: t('filters.mapEntityType.stop'),
+      label: t(($) => $.filters.mapEntityType.stop),
       disabled: false,
     },
     {
       type: MapEntityType.StopArea,
-      label: t('filters.mapEntityType.stopArea'),
+      label: t(($) => $.filters.mapEntityType.stopArea),
       disabled: false,
     },
     {
       type: MapEntityType.Terminal,
-      label: t('filters.mapEntityType.terminal'),
+      label: t(($) => $.filters.mapEntityType.terminal),
       disabled: false,
     },
   ];
@@ -56,12 +56,12 @@ function useInitialFilterInfo() {
   const initialNetworkTypes: ReadonlyArray<InitialFilterItem> = [
     {
       type: MapEntityType.BusNetwork,
-      label: t('filters.mapEntityType.busNetwork'),
+      label: t(($) => $.filters.mapEntityType.busNetwork),
       disabled: false,
     },
     {
       type: MapEntityType.TramNetwork,
-      label: t('filters.mapEntityType.tramNetwork'),
+      label: t(($) => $.filters.mapEntityType.tramNetwork),
       disabled: false,
     },
   ];

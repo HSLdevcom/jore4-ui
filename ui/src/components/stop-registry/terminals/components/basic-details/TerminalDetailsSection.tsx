@@ -33,7 +33,7 @@ export const TerminalDetails: FC<TerminalComponentProps> = ({
       className={className}
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
-      title={t('terminalDetails.basicDetails.title')}
+      title={t(($) => $.terminalDetails.basicDetails.title)}
       testIdPrefix="TerminalDetailsSection"
     >
       {infoContainerControls.isInEditMode ? (

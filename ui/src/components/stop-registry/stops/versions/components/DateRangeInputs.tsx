@@ -44,15 +44,14 @@ export const DateRangeInputs: FC<DateRangeInputsProps> = ({
     <Row className={twMerge('gap-4', className)}>
       <DateInput
         value={dateRange.startDate}
-        label={t('validityPeriod.validityStart')}
+        label={t(($) => $.validityPeriod.validityStart)}
         onChange={onStartDateChange}
         testId={testIds.startDate}
         dateInputId={testIds.startDate}
       />
-
       <DateInput
         value={dateRange.endDate}
-        label={t('validityPeriod.validityEnd')}
+        label={t(($) => $.validityPeriod.validityEnd)}
         onChange={onEndDateChange}
         testId={testIds.endDate}
         dateInputId={testIds.endDate}

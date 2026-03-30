@@ -57,7 +57,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
           disabled={isSubmitting}
           testId={`${testIdPrefix}::deleteButton`}
         >
-          {deleteButtonText ?? t('remove')}
+          {deleteButtonText ?? t(($) => $.remove)}
         </SimpleButton>
       )}
       {cancelAsTextButton ? (
@@ -67,7 +67,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
           testId={`${testIdPrefix}::cancelButton`}
           className="px-2 font-semibold text-white"
         >
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </TextButton>
       ) : (
         <SimpleButton
@@ -76,7 +76,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
           disabled={isSubmitting}
           testId={`${testIdPrefix}::cancelButton`}
         >
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
       )}
       <SimpleButton
@@ -85,7 +85,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
         disabled={isDisabled}
         testId={`${testIdPrefix}::saveButton`}
       >
-        {t('save')}
+        {t(($) => $.save)}
       </SimpleButton>
     </div>
   );

@@ -17,7 +17,7 @@ export const StopLabelAndLocationFormRow = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t('stopDetails.basicDetails.stopInformation')}</h3>
+      <h3>{t(($) => $.stopDetails.basicDetails.stopInformation)}</h3>
       <FormRow mdColumns={5}>
         <Column>
           <InputField<StopBasicDetailsFormState>
@@ -65,7 +65,7 @@ export const StopLabelAndLocationFormRow = () => {
             inputElementRenderer={(props) => (
               <EnumDropdown<StopPlaceState>
                 enumType={StopPlaceState}
-                placeholder={t('stopDetails.basicDetails.stopState')}
+                placeholder={t(($) => $.stopDetails.basicDetails.stopState)}
                 uiNameMapper={(value) => mapStopPlaceStateToUiName(t, value)}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}

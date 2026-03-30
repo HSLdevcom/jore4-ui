@@ -117,7 +117,7 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
             onClick={() => dispatch(openTimingPlaceModalAction())}
             testId={testIds.addTimingPlaceButton}
           >
-            {t('stops.createTimingPlace')}
+            {t(($) => $.stops.createTimingPlace)}
           </SimpleButton>
         </Row>
         <Row>
@@ -133,7 +133,7 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
               testId={testIds.isUsedAsTimingPoint}
               disabled={!timingPlaceId}
             />
-            {t('timingSettingsModal.isUsedAsTimingPoint')}
+            {t(($) => $.timingSettingsModal.isUsedAsTimingPoint)}
           </label>
         </Row>
         <Row>
@@ -149,7 +149,7 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
               testId={testIds.isRegulatedTimingPoint}
               className="mr-3.5 h-6 w-6"
             />
-            {t('timingSettingsModal.isRegulatedTimingPoint')}
+            {t(($) => $.timingSettingsModal.isRegulatedTimingPoint)}
           </label>
         </Row>
         <Row>
@@ -165,16 +165,16 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
               testId={testIds.isLoadingTimeAllowed}
               className="mr-3.5 h-6 w-6"
             />
-            {t('timingSettingsModal.isLoadingTimeAllowed')}
+            {t(($) => $.timingSettingsModal.isLoadingTimeAllowed)}
           </label>
         </Row>
         <Row className="mt-4 justify-end gap-4">
           <SimpleButton onClick={onCancel} inverted>
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
 
           <SimpleButton onClick={onSave} testId={testIds.saveButton}>
-            {t('save')}
+            {t(($) => $.save)}
           </SimpleButton>
         </Row>
       </form>

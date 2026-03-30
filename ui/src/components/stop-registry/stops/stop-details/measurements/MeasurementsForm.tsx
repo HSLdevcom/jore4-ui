@@ -100,7 +100,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryStopType>
                   enumType={StopRegistryStopType}
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   uiNameMapper={(value) =>
                     mapStopRegistryStopTypeToUiName(t, value)
                   }
@@ -117,7 +117,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               // eslint-disable-next-line react/no-unstable-nested-components
               inputElementRenderer={(props) => (
                 <NullableBooleanDropdown
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   buttonClassName="min-w-32"
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
@@ -132,7 +132,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryShelterWidthType>
                   enumType={StopRegistryShelterWidthType}
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   uiNameMapper={(value) =>
                     mapStopRegistryShelterWidthTypeToUiName(t, value)
                   }
@@ -271,7 +271,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryPedestrianCrossingRampType>
                   enumType={StopRegistryPedestrianCrossingRampType}
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   uiNameMapper={(value) =>
                     mapStopRegistryPedestrianCrossingRampTypeToUiName(t, value)
                   }
@@ -291,12 +291,12 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               // eslint-disable-next-line react/no-unstable-nested-components
               inputElementRenderer={(props) => (
                 <NullableBooleanDropdown
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   buttonClassName="min-w-32"
                   translationKeys={{
-                    true: 'stopDetails.measurements.accessible',
-                    false: 'stopDetails.measurements.inaccessible',
-                    null: 'unknown',
+                    true: ($) => $.stopDetails.measurements.accessible,
+                    false: ($) => $.stopDetails.measurements.inaccessible,
+                    null: ($) => $.unknown,
                   }}
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
@@ -311,7 +311,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryGuidanceType>
                   enumType={StopRegistryGuidanceType}
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   uiNameMapper={(value) =>
                     mapStopRegistryGuidanceTypeToUiName(t, value)
                   }
@@ -330,7 +330,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryMapType>
                   enumType={StopRegistryMapType}
-                  placeholder={t('unknown')}
+                  placeholder={t(($) => $.unknown)}
                   uiNameMapper={(value) =>
                     mapStopRegistryMapTypeToUiName(t, value)
                   }
@@ -354,7 +354,9 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 className="mr-2 h-6 w-6"
                 testId={testIds.sidewalkAccessibleConnection}
               />
-              {t('stopDetails.measurements.sidewalkAccessibleConnection')}
+              {t(
+                ($) => $.stopDetails.measurements.sidewalkAccessibleConnection,
+              )}
             </label>
             <label
               htmlFor="platformEdgeWarningArea"
@@ -367,7 +369,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 className="mr-2 h-6 w-6"
                 testId={testIds.platformEdgeWarningArea}
               />
-              {t('stopDetails.measurements.platformEdgeWarningArea')}
+              {t(($) => $.stopDetails.measurements.platformEdgeWarningArea)}
             </label>
             <label htmlFor="guidanceStripe" className="inline-flex font-normal">
               <InputElement<MeasurementsFormState>
@@ -377,7 +379,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 className="mr-2 h-6 w-6"
                 testId={testIds.guidanceStripe}
               />
-              {t('stopDetails.measurements.guidanceStripe')}
+              {t(($) => $.stopDetails.measurements.guidanceStripe)}
             </label>
             <label
               htmlFor="serviceAreaStripes"
@@ -390,7 +392,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 className="mr-2 h-6 w-6"
                 testId={testIds.serviceAreaStripes}
               />
-              {t('stopDetails.measurements.serviceAreaStripes')}
+              {t(($) => $.stopDetails.measurements.serviceAreaStripes)}
             </label>
             <label htmlFor="guidanceTiles" className="inline-flex font-normal">
               <InputElement<MeasurementsFormState>
@@ -400,7 +402,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 className="mr-2 h-6 w-6"
                 testId={testIds.guidanceTiles}
               />
-              {t('stopDetails.measurements.guidanceTiles')}
+              {t(($) => $.stopDetails.measurements.guidanceTiles)}
             </label>
           </Row>
         </Column>

@@ -32,10 +32,9 @@ export const TerminalInfoSpotsHeaderButtons: FC<
           testId={testIds.addNewInfoSpotButton(testIdPrefix)}
           onClick={() => setIsInEditMode(true)}
         >
-          {t('stopDetails.infoSpots.addInfoSpot')}
+          {t(($) => $.stopDetails.infoSpots.addInfoSpot)}
         </SimpleButton>
       </Visible>
-
       <Visible visible={isExpandable && !isInEditMode}>
         <SimpleButton
           shape="slim"

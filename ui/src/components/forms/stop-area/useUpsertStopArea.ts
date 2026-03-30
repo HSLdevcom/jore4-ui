@@ -164,10 +164,10 @@ export const useUpsertStopArea = () => {
       }
       if (error instanceof Error) {
         showDangerToast(
-          `${t('errors.saveFailed')}, ${error}, ${error.message}`,
+          `${t(($) => $.errors.saveFailed)}, ${error}, ${error.message}`,
         );
       } else {
-        showDangerToast(`${t('errors.saveFailed')}, ${error}`);
+        showDangerToast(`${t(($) => $.errors.saveFailed)}, ${error}`);
       }
     },
     [t, tryHandleApolloError],

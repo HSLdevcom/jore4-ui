@@ -21,14 +21,14 @@ export const TimeRangeControl: FC<TimeRangeControlProps> = ({ className }) => {
     <div className={className}>
       <Row className="gap-8">
         <DateControl
-          label={t('validityPeriod.validityStart')}
+          label={t(($) => $.validityPeriod.validityStart)}
           dateInputId="startDate"
           className="max-w-max"
           testId={testIds.startDate}
           queryParamName={QueryParameterName.StartDate}
         />
         <DateControl
-          label={t('validityPeriod.validityEnd')}
+          label={t(($) => $.validityPeriod.validityEnd)}
           dateInputId="endDate"
           className="max-w-max"
           testId={testIds.endDate}
@@ -38,7 +38,7 @@ export const TimeRangeControl: FC<TimeRangeControlProps> = ({ className }) => {
       {isInvalidDateRange && (
         <ValidationError
           fieldPath="timeRange"
-          errorMessage={t('formValidation.timeRange')}
+          errorMessage={t(($) => $.formValidation.timeRange)}
         />
       )}
     </div>

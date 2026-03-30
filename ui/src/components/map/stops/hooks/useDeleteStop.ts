@@ -111,11 +111,14 @@ export const useDeleteStop = () => {
   // in case an exception is thrown
   const defaultErrorHandler = (err: Error) => {
     if (err instanceof EditRouteTerminalStopsError) {
-      showDangerToast(t('stops.cannotEditTerminalStops'));
+      showDangerToast(t(($) => $.stops.cannotEditTerminalStops));
       return;
     }
     // if other error happened, show the generic error message
-    showDangerToastWithError(t('errors.saveFailed'), err);
+    showDangerToastWithError(
+      t(($) => $.errors.saveFailed),
+      err,
+    );
   };
 
   return { prepareDelete, removeStop, defaultErrorHandler };

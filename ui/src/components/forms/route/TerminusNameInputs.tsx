@@ -31,7 +31,7 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
   const { t } = useTranslation();
   return (
     <div className={twMerge('w-full px-4', className)}>
-      <h3 className="my-4 w-full pt-1">{t('routes.origin.title')}</h3>
+      <h3 className="my-4 w-full pt-1">{t(($) => $.routes.origin.title)}</h3>
       <FormColumn>
         <FormRow
           className="items-end sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
@@ -63,7 +63,9 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
           />
         </FormRow>
       </FormColumn>
-      <h3 className="my-4 w-full pt-1">{t('routes.destination.title')}</h3>
+      <h3 className="my-4 w-full pt-1">
+        {t(($) => $.routes.destination.title)}
+      </h3>
       <FormColumn>
         <FormRow
           className="items-end sm:gap-x-4 md:gap-x-4 lg:gap-x-4"

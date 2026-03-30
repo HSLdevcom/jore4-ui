@@ -111,7 +111,7 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
             className="mr-3.5 h-6 w-6"
             data-testid={testIds.indefiniteCheckbox}
           />
-          {t('saveChangesModal.indefinite')}
+          {t(($) => $.saveChangesModal.indefinite)}
         </label>
       </Row>
     </div>

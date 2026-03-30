@@ -68,7 +68,7 @@ export const IconsTd: FC<StopRowTdProps> = ({ className, stop }) => {
 
   const replaceRailSignIcon: Details = stop.replacesRailSign && {
     icon: 'icon-replacement-line-grey',
-    label: t('stopDetails.signs.replacesRailSign'),
+    label: t(($) => $.stopDetails.signs.replacesRailSign),
   };
 
   const electricityIcon: Details = stop.electricity && {

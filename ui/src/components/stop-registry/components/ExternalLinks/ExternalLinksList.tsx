@@ -40,7 +40,7 @@ export const ExternalLinksList: FC<ExternalLinksListProps> = ({
                 <Column>
                   <a
                     href={link.location ?? ''}
-                    title={t('accessibility.stops.openExternalLink', {
+                    title={t(($) => $.accessibility.stops.openExternalLink, {
                       linkTitle: link.name,
                     })}
                     referrerPolicy="no-referrer"
@@ -59,7 +59,7 @@ export const ExternalLinksList: FC<ExternalLinksListProps> = ({
       ) : (
         <Row testId={testIds.noExternalLinks}>
           <Column>
-            <span>{t('stopDetails.externalLinks.noExternalLinks')}</span>
+            <span>{t(($) => $.stopDetails.externalLinks.noExternalLinks)}</span>
           </Column>
         </Row>
       )}

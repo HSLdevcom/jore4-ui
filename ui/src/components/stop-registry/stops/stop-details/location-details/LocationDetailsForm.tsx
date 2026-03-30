@@ -88,7 +88,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
               />
               <div
                 className="flex h-full items-center"
-                title={t('stopDetails.location.municipalityInputNote')}
+                title={t(($) => $.stopDetails.location.municipalityInputNote)}
               >
                 <span
                   id="stopDetails.location.municipality"
@@ -109,7 +109,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
               />
               <div
                 className="flex h-full items-center"
-                title={t('stopDetails.location.fareZoneInputNote')}
+                title={t(($) => $.stopDetails.location.fareZoneInputNote)}
               >
                 <span
                   id="stopDetails.location.fareZone"
@@ -175,7 +175,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistrySignContentType>
                   enumType={LocationSignContentType}
-                  placeholder={t('signContentTypeEnum.none')}
+                  placeholder={t(($) => $.signContentTypeEnum.none)}
                   uiNameMapper={(value) => mapSignContentTypeToUiName(t, value)}
                   buttonClassName="min-w-36"
                   includeNullOption

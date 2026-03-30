@@ -41,12 +41,12 @@ const EquipmentReportMenuItemImpl: ForwardRefRenderFunction<
       generateReport={generateEquipmentReport}
       genFilename={() => {
         const now = DateTime.now();
-        return t('stopRegistrySearch.csv.equipmentReportFileName', {
+        return t(($) => $.stopRegistrySearch.csv.equipmentReportFileName, {
           today: mapToShortDate(now),
           now: mapToShortTime(now),
         });
       }}
-      text={t('stopRegistrySearch.csv.downloadEquipmentReport')}
+      text={t(($) => $.stopRegistrySearch.csv.downloadEquipmentReport)}
       type={testIds.equipmentReport}
     />
   );
@@ -72,12 +72,12 @@ const InfoSpotReportReportMenuItemImpl: ForwardRefRenderFunction<
       generateReport={generateInfoSpotReport}
       genFilename={() => {
         const now = DateTime.now();
-        return t('stopRegistrySearch.csv.infoSpotReportFileName', {
+        return t(($) => $.stopRegistrySearch.csv.infoSpotReportFileName, {
           today: mapToShortDate(now),
           now: mapToShortTime(now),
         });
       }}
-      text={t('stopRegistrySearch.csv.downloadInfoSpotReport')}
+      text={t(($) => $.stopRegistrySearch.csv.downloadInfoSpotReport)}
       type={testIds.infoSpotReport}
     />
   );

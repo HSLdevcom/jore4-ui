@@ -61,7 +61,7 @@ export const DetailTabSelector: FC<DetailTabSelectorProps> = ({
         id={detailTabs.basic.buttonId}
         tabPanelId={detailTabs.basic.panelId}
         testId={testIds.basicDetailsTabButton}
-        title={t('stopDetails.detailTabs.basic')}
+        title={t(($) => $.stopDetails.detailTabs.basic)}
         onClick={() => {
           selectDetailTab(DetailTabType.BasicDetailsTab);
         }}
@@ -71,7 +71,7 @@ export const DetailTabSelector: FC<DetailTabSelectorProps> = ({
         id={detailTabs.technical.buttonId}
         tabPanelId={detailTabs.technical.panelId}
         testId={testIds.technicalFeaturesTabButton}
-        title={t('stopDetails.detailTabs.technical')}
+        title={t(($) => $.stopDetails.detailTabs.technical)}
         onClick={() => {
           selectDetailTab(DetailTabType.TechnicalFeaturesTab);
         }}
@@ -81,7 +81,7 @@ export const DetailTabSelector: FC<DetailTabSelectorProps> = ({
         id={detailTabs.info.buttonId}
         tabPanelId={detailTabs.info.panelId}
         testId={testIds.infoSpotsTabButton}
-        title={t('stopDetails.detailTabs.info')}
+        title={t(($) => $.stopDetails.detailTabs.info)}
         onClick={() => {
           selectDetailTab(DetailTabType.InfoSpotsTab);
         }}

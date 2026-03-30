@@ -99,7 +99,7 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
         className={rootContainerClassNames}
         data-testid={testIds.resolvingSearchResults}
       >
-        <p>{t('map.stopSelection.resolvingSearchResultSelection')}</p>
+        <p>{t(($) => $.map.stopSelection.resolvingSearchResultSelection)}</p>
         <PulseLoader color={theme.colors.brand} size={14} />
       </div>
     );
@@ -111,13 +111,15 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
         className={rootContainerClassNames}
         data-testid={testIds.resolvingSearchResultsFailed}
       >
-        <p>{t('map.stopSelection.resolvingSearchResultSelectionFailed')}</p>
+        <p>
+          {t(($) => $.map.stopSelection.resolvingSearchResultSelectionFailed)}
+        </p>
         <SimpleButton
           className="py-1"
           onClick={() => resolveRefetch().then(noop, noop)}
           testId={testIds.retryButton}
         >
-          {t('map.stopSelection.retry')}
+          {t(($) => $.map.stopSelection.retry)}
         </SimpleButton>
       </div>
     );
@@ -129,12 +131,12 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
         className={rootContainerClassNames}
         data-testid={testIds.nothingSelected}
       >
-        <p>{t('map.stopSelection.nothingSelected')}</p>
+        <p>{t(($) => $.map.stopSelection.nothingSelected)}</p>
       </div>
     );
   }
 
-  const removeButtonTitle = t('map.stopSelection.removeSelection');
+  const removeButtonTitle = t(($) => $.map.stopSelection.removeSelection);
 
   return (
     <>
@@ -150,7 +152,7 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
             className="flex flex-col items-center justify-center gap-2 p-2"
             data-testid={testIds.loadingMissingDetails}
           >
-            <p>{t('map.stopSelection.loadingMissingDetails')}</p>
+            <p>{t(($) => $.map.stopSelection.loadingMissingDetails)}</p>
             <PulseLoader color={theme.colors.brand} size={14} />
           </div>
         ) : null}
@@ -160,13 +162,13 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
             className="flex flex-col items-center justify-center gap-2 p-2"
             data-testid={testIds.loadingMissingDetailsFailed}
           >
-            <p>{t('map.stopSelection.loadingMissingDetailsFailed')}</p>
+            <p>{t(($) => $.map.stopSelection.loadingMissingDetailsFailed)}</p>
             <SimpleButton
               className="py-1"
               onClick={() => loadRefetch().then(noop, noop)}
               testId={testIds.retryButton}
             >
-              {t('map.stopSelection.retry')}
+              {t(($) => $.map.stopSelection.retry)}
             </SimpleButton>
           </div>
         ) : null}
@@ -184,7 +186,6 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
           />
         ))}
       </div>
-
       {stops !== stopsToShow && (
         <SimpleButton
           className="mx-auto my-2 py-1"
@@ -192,7 +193,9 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
           onClick={() => setShowAll(true)}
           testId={testIds.showAllButton}
         >
-          {t('map.stopSelection.showAll', { count: stops.length })}
+          {t(($) => $.map.stopSelection.showAll, {
+            count: stops.length,
+          })}
         </SimpleButton>
       )}
     </>

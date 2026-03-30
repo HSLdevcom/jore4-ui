@@ -62,7 +62,6 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
         selection={selection}
         stops={stops}
       />
-
       <Visible visible={!!error}>
         <LoadingStopsErrorRow
           className="ml-[calc(3rem+1px)]"
@@ -70,11 +69,10 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
           refetch={refetch}
         />
       </Visible>
-
       <LoadingWrapper
         testId={testIds.loader}
         className="ml-[calc(3rem+1px)] flex justify-center border border-light-grey p-8"
-        loadingText={t('search.searching')}
+        loadingText={t(($) => $.search.searching)}
         loading={lineTransitionInProgress || (loading && stops.length === 0)}
       >
         <Visible visible={!lineTransitionInProgress && stops.length > 0}>

@@ -1,8 +1,8 @@
+import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { TranslationKey } from '../../../i18n';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { LabeledRadioButton } from './LabeledRadioButton';
@@ -22,30 +22,30 @@ const testIds = {
 type PriorityButtonProps = {
   readonly priority: Priority;
   readonly testIdPrefix: string;
-  readonly translationKey: TranslationKey;
-};
-
-type PriorityFormProps = {
-  readonly hiddenPriorities?: ReadonlyArray<Priority>;
+  readonly translationKey: SelectorParam;
 };
 
 const defaultPriorities: ReadonlyArray<PriorityButtonProps> = [
   {
     priority: Priority.Standard,
     testIdPrefix: 'standard',
-    translationKey: 'priority.standard',
+    translationKey: ($) => $.priority.standard,
   },
   {
     priority: Priority.Temporary,
     testIdPrefix: 'temporary',
-    translationKey: 'priority.temporary',
+    translationKey: ($) => $.priority.temporary,
   },
   {
     priority: Priority.Draft,
     testIdPrefix: 'draft',
-    translationKey: 'priority.draft',
+    translationKey: ($) => $.priority.draft,
   },
 ];
+
+type PriorityFormProps = {
+  readonly hiddenPriorities?: ReadonlyArray<Priority>;
+};
 
 /**
  * Component for selecting priority.
@@ -75,7 +75,7 @@ export const PriorityForm: FC<PriorityFormProps> = ({ hiddenPriorities }) => {
   return (
     <Column>
       <fieldset>
-        <legend className="font-bold">{t('priority.label')}</legend>
+        <legend className="font-bold">{t(($) => $.priority.label)}</legend>
         <Row className="flex-wrap gap-2">
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (

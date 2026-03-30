@@ -161,7 +161,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
       await moveQuayToStopPlace(saveParams);
       await refetch();
 
-      showSuccessToast(t('stopAreaDetails.memberStops.moveSuccess'));
+      showSuccessToast(t(($) => $.stopAreaDetails.memberStops.moveSuccess));
 
       onSave();
       handleClose();
@@ -214,7 +214,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
       contentClassName="mx-4 w-full max-w-2xl rounded-lg drop-shadow-none"
     >
       <Row className="flex flex-row items-center border border-light-grey bg-background px-10 py-7">
-        <h2>{t('stopAreaDetails.memberStops.moveStopToArea')}</h2>
+        <h2>{t(($) => $.stopAreaDetails.memberStops.moveStopToArea)}</h2>
         {hasMultipleFutureStopAreaVersions ? (
           <FutureVersionsAlertPopover className="ml-4" />
         ) : null}
@@ -224,11 +224,10 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
           testId={testIds.closeButton}
         />
       </Row>
-
       <ModalBody className="mx-0 my-0">
         <div className="mx-8 my-8">
           <div className="mb-2 text-sm font-bold">
-            {t('stopAreaDetails.memberStops.getStop')}
+            {t(($) => $.stopAreaDetails.memberStops.getStop)}
           </div>
           <SelectStopDropdown
             value={selectedStop ?? null}
@@ -245,7 +244,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
             <Row className="items-end gap-5">
               <Column>
                 <label className="block" htmlFor="observation-date-input">
-                  {t('stopAreaDetails.memberStops.transferDate')}
+                  {t(($) => $.stopAreaDetails.memberStops.transferDate)}
                 </label>
                 <input
                   type="date"
@@ -264,9 +263,11 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
                 testId={testIds.getStopVersionsButton}
               >
                 {stopVersionsResult.loading
-                  ? t('loading')
+                  ? t(($) => $.loading)
                   : t(
-                      'stopAreaDetails.memberStops.actionButtons.getStopVersions',
+                      ($) =>
+                        $.stopAreaDetails.memberStops.actionButtons
+                          .getStopVersions,
                     )}
               </SimpleButton>
             </Row>
@@ -274,7 +275,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
             {shouldShowVersionsList && (
               <StopVersionsList
                 versions={filteredStopVersions}
-                title={t('stopAreaDetails.memberStops.stopVersions')}
+                title={t(($) => $.stopAreaDetails.memberStops.stopVersions)}
               />
             )}
           </div>
@@ -282,13 +283,12 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
 
         {moveError && (
           <div className="mx-8 mb-4 rounded-sm border border-red-400 bg-red-100 p-3 text-red-700">
-            {t('stopAreaDetails.memberStops.moveError', {
+            {t(($) => $.stopAreaDetails.memberStops.moveError, {
               reason: moveError.message,
             })}
           </div>
         )}
       </ModalBody>
-
       <NewModalFooter>
         <SimpleButton
           shape="slim"
@@ -297,7 +297,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
           disabled={isSaving}
           inverted
         >
-          {t('cancel')}
+          {t(($) => $.cancel)}
         </SimpleButton>
         <SimpleButton
           shape="slim"
@@ -307,7 +307,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
           disabled={!canSave}
           testId={testIds.saveButton}
         >
-          {isSaving ? t('moving') : t('move')}
+          {isSaving ? t(($) => $.moving) : t(($) => $.move)}
         </SimpleButton>
       </NewModalFooter>
     </Modal>

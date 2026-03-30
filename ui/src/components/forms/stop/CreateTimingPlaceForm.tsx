@@ -84,14 +84,14 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
       const changes = await onCreate(state);
 
       if (changes.conflicts?.length) {
-        showDangerToast(t('timingPlaces.labelReserved'));
+        showDangerToast(t(($) => $.timingPlaces.labelReserved));
         return;
       }
 
       const variables = mapCreateChangesToVariables(changes);
       const createResponse = await insertTimingPlaceMutation(variables);
 
-      showSuccessToast(t('timingPlaces.saveSuccess'));
+      showSuccessToast(t(($) => $.timingPlaces.saveSuccess));
 
       const createdTimingPlaceId =
         // If creation is successful, response contains created timing place.
@@ -141,10 +141,10 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
             onClick={onCancel}
             testId={testIds.cancelButton}
           >
-            {t('cancel')}
+            {t(($) => $.cancel)}
           </SimpleButton>
           <SimpleButton onClick={onSave} testId={testIds.submitButton}>
-            {t('timingPlaces.create')}
+            {t(($) => $.timingPlaces.create)}
           </SimpleButton>
         </Row>
       </form>

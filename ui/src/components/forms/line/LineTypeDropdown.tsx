@@ -25,7 +25,7 @@ export const LineTypeDropdown: FC<LineTypeDropdownProps> = ({
       id={id}
       testId={testId}
       enumType={RouteTypeOfLineEnum}
-      placeholder={t('lines.chooseTypeOfLine')}
+      placeholder={t(($) => $.lines.chooseTypeOfLine)}
       uiNameMapper={(value) => mapLineTypeToUiName(t, value)}
       includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading

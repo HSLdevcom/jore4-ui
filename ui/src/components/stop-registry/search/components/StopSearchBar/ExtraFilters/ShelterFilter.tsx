@@ -19,8 +19,9 @@ const options: ReadonlyArray<
 ];
 
 const uiNameMapper = mapStopRegistryShelterTypeEnumToUiName.extend({
-  [AllOptionEnum.All]: (t) => t('all'),
-  [NullOptionEnum.Null]: (t) => t('stopRegistrySearch.noOptions.shelter'),
+  [AllOptionEnum.All]: (t) => t(($) => $.all),
+  [NullOptionEnum.Null]: (t) =>
+    t(($) => $.stopRegistrySearch.noOptions.shelter),
 });
 
 const defaultValue: ReadonlyArray<

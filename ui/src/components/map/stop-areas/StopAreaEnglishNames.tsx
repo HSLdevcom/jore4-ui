@@ -37,19 +37,18 @@ export const StopAreaEnglishNames: FC = () => {
           className="mr-2 w-1/2 text-hsl-red"
           data-testid={testIds.errorIndicator}
         >
-          <span>{t('stopArea.errors.expandToSeeErrors')}</span>
+          <span>{t(($) => $.stopArea.errors.expandToSeeErrors)}</span>
         </div>
       )}
       <ExpandButton
         className="ml-auto"
         ariaControls={ID}
         expanded={expanded}
-        expandedText={t('stopAreaDetails.englishNames')}
+        expandedText={t(($) => $.stopAreaDetails.englishNames)}
         onClick={() => setExpanded((p) => !p)}
         testId={testIds.showHideButtonEng}
         iconClassName="text-base"
       />
-
       <Transition
         as="div"
         className="mt-2 flex flex-row flex-wrap gap-8 py-2"
