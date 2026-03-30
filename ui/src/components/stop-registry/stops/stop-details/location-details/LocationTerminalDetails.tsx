@@ -67,7 +67,7 @@ export const LocationTerminalDetails: FC<LocationTerminalDetailsProps> = ({
           <Link
             to={routeDetails[Path.terminalDetails].getLink(terminalPrivateCode)}
             data-testid={testIds.terminalLink}
-            title={t('accessibility:terminals.showTerminalDetails', {
+            title={t('accessibility.terminals.showTerminalDetails', {
               terminalLabel: terminalName,
             })}
           >

@@ -38,7 +38,7 @@ export const AdditionalInformation: FC<AdditionalInformationProps> = ({
         <SimpleButton
           href={routeDetails[Path.editLine].getLink(line.line_id)}
           testId={testIds.editLineButton}
-          tooltip={t('accessibility:lines.edit', { label: line.label })}
+          tooltip={t('accessibility.lines.edit', { label: line.label })}
           inverted
           className="ml-4 py-0.5"
         >

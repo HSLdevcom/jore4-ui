@@ -126,7 +126,7 @@ export const StopPopup: FC<StopPopupProps> = ({
               target="_blank"
               rel="noreferrer"
               data-testid={testIds.label}
-              title={t('accessibility:stops.showStopDetails', {
+              title={t('accessibility.stops.showStopDetails', {
                 stopLabel,
               })}
             >
@@ -137,7 +137,7 @@ export const StopPopup: FC<StopPopupProps> = ({
           <Visible visible={!!timingPlaceLabel}>
             <span
               className="text-sm text-hsl-dark-80"
-              title={t('accessibility:stops.timingPlace')}
+              title={t('accessibility.stops.timingPlace')}
             >
               {timingPlaceLabel}
             </span>

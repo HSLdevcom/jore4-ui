@@ -91,7 +91,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
           <Visible visible={creatingNewRoute}>
             <EditButton
               onClick={() => dispatch(setRouteMetadataFormOpenAction(true))}
-              tooltip={t('accessibility:map.editRoute', { routeName })}
+              tooltip={t('accessibility.map.editRoute', { routeName })}
             />
           </Visible>
         </MapOverlayHeader>

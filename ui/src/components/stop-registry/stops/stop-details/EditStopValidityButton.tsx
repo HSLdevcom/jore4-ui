@@ -28,7 +28,7 @@ export const EditStopValidityButton: FC<EditStopValidityButtonProps> = ({
         inverted
         className={twJoin('px-2', className)}
         testId={testIds.button}
-        tooltip={t('accessibility:stops.editStopValidity', {
+        tooltip={t('accessibility.stops.editStopValidity', {
           stopLabel: stop?.label,
         })}
         disabled={!stop}

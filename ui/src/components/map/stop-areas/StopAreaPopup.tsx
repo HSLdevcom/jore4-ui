@@ -74,7 +74,7 @@ export const StopAreaPopup = ({
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
-                  title={t('accessibility:stopAreas.showStopAreaDetails', {
+                  title={t('accessibility.stopAreas.showStopAreaDetails', {
                     areaLabel,
                   })}
                 >

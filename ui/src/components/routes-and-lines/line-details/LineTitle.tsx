@@ -94,7 +94,7 @@ export const LineTitle: FC<LineTitleProps> = ({
             testId={testIds.createRouteButton}
             inverted
             className="flex items-center gap-2 border-0 bg-transparent px-1 py-0.5"
-            aria-label={t(`accessibility:lines.createNewRoute`, {
+            aria-label={t(`accessibility.lines.createNewRoute`, {
               label: line.label,
             })}
           >

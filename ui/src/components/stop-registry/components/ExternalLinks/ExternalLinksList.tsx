@@ -40,7 +40,7 @@ export const ExternalLinksList: FC<ExternalLinksListProps> = ({
                 <Column>
                   <a
                     href={link.location ?? ''}
-                    title={t('accessibility:stops.openExternalLink', {
+                    title={t('accessibility.stops.openExternalLink', {
                       linkTitle: link.name,
                     })}
                     referrerPolicy="no-referrer"

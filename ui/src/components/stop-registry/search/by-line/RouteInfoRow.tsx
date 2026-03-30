@@ -131,7 +131,7 @@ export const RouteInfoRow: FC<RouteInfoRowProps> = ({
           <LocatorButton
             onClick={() => showRouteOnMap(route)}
             testId={testIds.locatorButton}
-            tooltipText={t('accessibility:common.showOnMap', {
+            tooltipText={t('accessibility.common.showOnMap', {
               label: route.label,
             })}
           />

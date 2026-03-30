@@ -62,10 +62,10 @@ export const CommonSubstitutePeriodItem: FC<
   const { register, watch } = useFormContext<FormState>();
   const edited = watch(`commonDays.${index}.created`);
   const toBeDeleted = watch(`commonDays.${index}.toBeDeleted`) ?? false;
-  const titleEdit = t(`accessibility:timetables.substituteDayEdit`, {
+  const titleEdit = t(`accessibility.timetables.substituteDayEdit`, {
     substituteDay: field.periodName,
   });
-  const titleCloseEdit = t(`accessibility:timetables.substituteDayEditClose`, {
+  const titleCloseEdit = t(`accessibility.timetables.substituteDayEditClose`, {
     substituteDay: field.periodName,
   });
 

@@ -146,13 +146,13 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
     // eslint-disable-next-line no-underscore-dangle
     switch (item.__typename) {
       case 'route_line': {
-        return t('accessibility:lines.showOnMap', { label });
+        return t('accessibility.lines.showOnMap', { label });
       }
       case 'route_route': {
-        return t('accessibility:routes.showOnMap', { label });
+        return t('accessibility.routes.showOnMap', { label });
       }
       default: {
-        return t('accessibility:common.showOnMap', { label });
+        return t('accessibility.common.showOnMap', { label });
       }
     }
   }

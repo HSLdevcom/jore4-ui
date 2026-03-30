@@ -122,7 +122,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({
           </div>
 
           <IconButton
-            tooltip={t('accessibility:map.showFilters')}
+            tooltip={t('accessibility.map.showFilters')}
             className="block h-11 w-11 rounded-md border border-black"
             icon={
               <MdLayers aria-hidden className="text-2xl text-tweaked-brand" />

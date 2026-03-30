@@ -43,7 +43,7 @@ function getDeleteBlockedContent(
                 target="_blank"
                 rel="noreferrer"
                 data-testid={testIds.linkToMemberStop(quay.publicCode ?? '')}
-                title={t('accessibility:stops.showStopDetails', {
+                title={t('accessibility.stops.showStopDetails', {
                   stopLabel: quay.publicCode,
                 })}
               >

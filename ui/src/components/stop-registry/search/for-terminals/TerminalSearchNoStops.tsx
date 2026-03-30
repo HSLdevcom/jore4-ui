@@ -36,7 +36,7 @@ export const TerminalSearchNoStops: FC<TerminalSearchNoStopsProps> = ({
           observationDate,
         })}
         data-testid={testIds.terminalLink}
-        title={t('accessibility:terminals.showTerminalDetails', {
+        title={t('accessibility.terminals.showTerminalDetails', {
           terminalLabel: terminal.name_value,
         })}
         className="flex flex-row items-center gap-1 font-bold"

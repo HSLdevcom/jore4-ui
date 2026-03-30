@@ -49,7 +49,7 @@ export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
             { observationDate },
           )}
           data-testid={testIds.areaLink}
-          title={t('accessibility:stopAreas.showStopAreaDetails', {
+          title={t('accessibility.stopAreas.showStopAreaDetails', {
             areaLabel: stop.stop_place?.name,
           })}
         >

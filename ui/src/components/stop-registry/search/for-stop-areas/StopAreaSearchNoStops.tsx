@@ -42,7 +42,7 @@ export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({
           observationDate,
         })}
         data-testid={testIds.stopAreaLink}
-        title={t('accessibility:stopAreas.showStopAreaDetails', {
+        title={t('accessibility.stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.name_value,
         })}
         className="flex flex-row items-center gap-1 font-bold"

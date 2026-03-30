@@ -58,7 +58,7 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
           observationDate,
         })}
         target="_blank"
-        title={t('accessibility:stopAreas.showStopAreaDetails', {
+        title={t('accessibility.stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.nameFin ?? stopArea.nameSwe,
         })}
       >

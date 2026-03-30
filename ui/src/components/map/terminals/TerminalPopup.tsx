@@ -73,7 +73,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
-                  title={t('accessibility:terminals.showTerminalDetails', {
+                  title={t('accessibility.terminals.showTerminalDetails', {
                     terminalLabel,
                   })}
                 >
