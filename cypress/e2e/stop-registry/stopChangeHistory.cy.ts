@@ -341,6 +341,7 @@ describe('Stop Change History', { tags }, () => {
           .shouldBeVisible();
 
         StopAreaDetailsPage.memberStops.modal.saveButton().click();
+        Toast.expectSuccessToast('Pysäkki siirretty pysäkkialueelle.');
       });
 
       cy.section('Check change history', () => {
