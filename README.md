@@ -475,6 +475,203 @@ It should be noted, that the order of classnames given to component does not aut
   - Should be used as the final step when combining className lists and passing them
     onto raw HTML nodes or external React components.
 
+### I18Next
+
+`18next` & `i18next-react` is used to manage and handle all user facing strings in the UI.
+Examples of good and bad code in relation to translations below. Many if the following are
+more general guidelines to translation handling in any and all software project. This project
+only truly uses Finnish as the language, providing a rudimentary English translation also.
+So some of these could be ignored in Jore, due to the limited set of languages in use, but
+why learn bad habits or broken patterns that can cause problems in your future projects?
+
+```tsx
+import type { SelectorKey, SelectorParam, TFunction } from 'i18next';
+import { Trans, useTranslation } from 'i18next-react';
+
+/* translations.json
+ * {
+ *   // Good strings
+ *   myString: 'My translation string',
+ *   someEnumA: 'This the A value of SomeEnum',
+ *   someEnumB: 'This the B value of SomeEnum',
+ *
+ *   // Plurals are marked by duplicating the translation string and marking the plural with __other postfix.
+ *   // If translating to a more complex language see:
+ *   // https://www.i18next.com/translation-function/plurals#languages-with-multiple-plurals
+ *   routeCount: '1 route', // Or: {{count}} route
+ *   routeCount__other: '{{count}} routes',
+ *
+ *   // Keep string "fragments" scoped within the use case.
+ *   // I.e. random translations should not be injected into other translations,
+ *   // unless it is clear that they belong together and function well.
+ *   scopedStopCountOnRoute: {
+ *     stopCount: "1 pysäkki",
+ *     stopCount__other: "{{count}} pysäkkiä",
+ *     busRouteStopCount: "Bussireittillä {{routeLabel}} on $t(scopedStopCountOnRoute.stopCount, { \"count\": {{stopCount}} }).",
+ *     tramRouteStopCount: "Ratikkareitillä {{routeLabel}} on $t(scopedStopCountOnRoute.stopCount, { \"count\": {{stopCount}} }).",
+ *   },
+ *   compelexLongText: "Instructional text about color use in <b>Jore</b>. <BusColor>This color is used for busses in Jore<BusColor>, <TramColor>...</TramColor>. See <LinkToDocumentation>Color guide</LinkToDocumentation> for more indetail instructrions."
+ *
+ *
+ *   // Bad strings
+ *   routeCountOne: '1 route'
+ *   routeCountPlural: '{{count}} routes'
+ *
+ *   // Defined on line 200. Last change: 2024-01-31: Decapitalize route type on RoutePage
+ *   routeType: {
+ *     bus: 'bussireitti',
+ *     tram: 'ratikkareitti'
+ *   },
+ *   // ... 2000 other translations here
+ *   // Defined on line 2500. Last change: 2026-04-02: Make text more fluid on StopPage
+ *   stopCount: "Pysäkkien lukumäärä: {{count}}",
+ *   // Defined on line 4000. Last change: 2022-05-05: Add nice Route header line to LinePage
+ *   stopCountOnRoute: "{{type}}llä {{routeLabel}} on $t(stopCount, { \"count\": {{stopCount}} })."
+ *
+ *   compelexTextFragments: {
+ *     intro: "Instructional text about color use in",
+ *     jore: "Jore",
+ *     bus: "This color is used for busses in Jore",
+ *     tram: "...",
+ *     see: "See",
+ *     link: "Color guide",
+ *     more: "for more indetail instructrions."
+ *   }
+ * }
+ */
+
+// Always stay within React's reactive context.
+// Access i18next trough the:
+const { t, i18n } = useTranslation(); // Hook
+
+// Use the new Typed selectorApi to choose strings
+const goodSelection = t(($) => $.myString);
+const badSelection = t('myString'); // Won't even compile anymore, with selector API activated
+
+// If you need to access translations outside of React component or hook, either:
+// Pass troug the t-function instance into the function, from the calling React context.
+function passInT(t: TFunction, value: SomeEnum): ReactNode {
+  switch (value) {
+    case SomeEnum.A:
+      return t(($) => $.someEnumA);
+    case SomeEnum.B:
+      return t(($) => $.someEnumB);
+  }
+}
+const passInTUsed = passInT(t, SomeEnum.A);
+
+// Or return a SelectorFunction from the function
+function returnSelector(value: SomeEnum): SelectorParam {
+  switch (value) {
+    case SomeEnum.A:
+      return ($) => $.someEnumA;
+    case SomeEnum.B:
+      return ($) => $.someEnumB;
+  }
+}
+const returnSelectorUsed = t(returnSelector(SomeEnum.A));
+
+// Technicallly it is also possible to construct and return SelectorKey
+// directly from a function to be passed into t. No example of that.
+
+// Prefer to keep the complex logick outside of the SelectorFunction
+// Good examples: returnSelector
+// Bad code:
+function badReturnComplexSelector(value: SomeEnum): SelectorParam {
+  return ($) => {
+    switch (value) {
+      case SomeEnum.A:
+        $.someEnumA;
+      case SomeEnum.B:
+        $.someEnumB;
+    }
+  };
+}
+
+// Trust I18next to handle plurals:
+const goodPlural = t(($) => $.routeCount, { count: routes.length });
+const badPlural =
+  routes.length === 1
+    ? t(($) => $.routeCountOne)
+    : t(($) => $.routeCountPlural, { count: routes.length });
+
+// Prefer having full text strings in the translation file,
+// instead of constructing them from multiple parts in the UI code.
+// Grammar and natural language constructs should be encoded within the
+// the translations, and not being handled in the ts code.
+function trGoodStopCountOnRoute(
+  t: TFunction,
+  routeType: RouteType,
+  routeLabel: string,
+  stopCount: number,
+): ReactNode {
+  switch (routeType) {
+    case RouteType.Bus:
+      return t(($) => $.scopedStopCountOnRoute.busRouteStopCount, {
+        routeLabel,
+        stopCount,
+      });
+    // ...
+  }
+}
+trGoodStopCountOnRoute(t, RouteType.Bus, '123', 10);
+// == Bussireitillä 123 on 10 pysäkkiä.
+
+function trBadStopCountOnRoute(
+  t: TFunction,
+  routeType: RouteType,
+  routeLabel: string,
+  stopCount: number,
+): ReactNode {
+  switch (routeType) {
+    case RouteType.Bus:
+      return t(($) => $.stopCountOnRoute, {
+        type: t(($) => $.routeType.bus),
+        routeLabel,
+        stopCount,
+      });
+    // ...
+  }
+}
+trBadStopCountOnRoute(t, RouteType.Bus, '123', 10);
+// == bussireittillä 123 on Pysäkkien lukumäärä: 10.
+
+// Good complex long text sections:
+const goodCompelexLongText = (
+  <p>
+    <Trans
+      i18nKey={($) => $.compelexLongText}
+      components={{
+        BusColor: <span className="color-bus" />,
+        TramColor: <span className="color-tram" />,
+        LinkToDocumentation: (
+          <a href="http://jore4.hsl.fi/documentation/colors" />
+        ),
+      }}
+    />
+  </p>
+);
+
+// Bad complex long text section constructed from pieces on the code side:
+const badCompelexLongText = (
+  <p>
+    {t(($) => $.compelexTextFragments.intro)}{' '}
+    <b>{t(($) => $.compelexTextFragments.intro)}</b>
+    {'. '}
+    <span className="color-bus">
+      {t(($) => $.compelexTextFragments.bus)}
+    </span>{' '}
+    <span className="color-tram">{t(($) => $.compelexTextFragments.tram)}</span>
+    {'. '}
+    {t(($) => $.compelexTextFragments.see)}{' '}
+    <a href="http://jore4.hsl.fi/documentation/colors">
+      {t(($) => $.compelexTextFragments.link)}
+    </a>{' '}
+    {t(($) => $.compelexTextFragments.more)}
+  </p>
+);
+```
+
 ## Loading state of async request handling / indication
 
 To have consistency and reduce duplicated code and passing loading states through components we use redux for the loading state of async requests. We have `enum Operation` in `loader.ts` which contains different async operations e.g. `ConfirmTimetablesImport`. When making an async request, you can use the `setLoadingAction` with the correct `Operation` to handle the state. After this you can use the state how you please, but if you want to show the global `LoadingOverlay`, just add the chosen `Operation` to `joreOperations` in `loader.ts`.
