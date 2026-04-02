@@ -112,7 +112,8 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
   const getStopShouldBeGray = useCallback(
     (stop: MapStop): boolean =>
       (!!selectedRouteId && !usedStopLabels.includes(stop.label)) ||
-      stop.stop_state !== StopPlaceState.InOperation ||
+      (stop.stop_state !== null &&
+        stop.stop_state !== StopPlaceState.InOperation) ||
       !isCurrentEntity(observationDate, stop),
     [selectedRouteId, observationDate, usedStopLabels],
   );
