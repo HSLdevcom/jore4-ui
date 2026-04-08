@@ -1,3 +1,4 @@
+export * from './mirrorRelation';
 export * from './stopPlace';
 export * from './alternativeNames';
 export * from './buildSearchStopByLabelOrNameFilter';
