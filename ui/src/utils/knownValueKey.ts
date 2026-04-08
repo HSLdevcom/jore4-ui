@@ -25,4 +25,5 @@ export enum KnownValueKey {
   TimingPlaceId = 'timingPlaceId',
   SpeedTramStop = 'speedTramStop',
   TrunkLineStop = 'trunkLineStop',
+  Mirrors = 'mirrors',
 }
