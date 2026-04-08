@@ -10,14 +10,11 @@ import {
 import { GetUserNameById } from '../../../../hooks';
 import { SortOrder } from '../../../../types';
 import {
+  ChangeHistoryFilters,
   ChangeHistorySortingInfo,
   SortChangeHistoryBy,
 } from '../../../common/ChangeHistory';
-import {
-  LineChangeHistoryFilters,
-  LineChangeHistoryItem,
-  TgOperation,
-} from '../types';
+import { LineChangeHistoryItem, TgOperation } from '../types';
 
 const GQL_GET_LINE_CHANGE_HISTORY = gql`
   query GetLineChangeHistory(
@@ -329,7 +326,7 @@ function useSortHistoryItems(
 }
 
 type GetLineChangeHistoryOptions = {
-  readonly filters: LineChangeHistoryFilters;
+  readonly filters: ChangeHistoryFilters;
   readonly getUserNameById: GetUserNameById;
   readonly label: string;
   readonly sortingInfo: ChangeHistorySortingInfo;
