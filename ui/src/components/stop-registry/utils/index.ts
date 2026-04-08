@@ -4,6 +4,7 @@ export * from './findPreviousTiamatHistoryItemVersion';
 export * from './mapInfoSpotToInput';
 export * from './mapQuayToInput';
 export * from './mapToEnrichedQuay';
+export * from './mirrorRelation';
 export * from './parseTerminalType';
 export { sortByVersion } from './sortTiamatChangeHistoryItems';
 export * from './useShowStopAreaOnMap';

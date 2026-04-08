@@ -22,6 +22,8 @@ export enum KnownValueKey {
   StopOwner = 'stopOwner',
   OwnerContractId = 'owner-contractId',
   OwnerNote = 'owner-note',
+  TimingPlaceId = 'timingPlaceId',
+  Mirrors = 'mirrors',
 }
 
 // Represents the values of hsl_municipality in LegacyHslMunicipalityCode table.
