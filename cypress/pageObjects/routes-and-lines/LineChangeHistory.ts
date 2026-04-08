@@ -38,6 +38,7 @@ const LineChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::ChangedValues::LineDetails::PrimaryVehicleMode',
     'ChangeHistory::ChangedValues::LineDetails::TypeOfLine',
     'ChangeHistory::ChangedValues::LineDetails::TransportTarget',
+    'ChangeHistory::ChangedValues::LineDetails::Description',
 
     // LineDetailsChangedSectionRow
     'ChangeHistory::SectionHeader::RouteDetails',

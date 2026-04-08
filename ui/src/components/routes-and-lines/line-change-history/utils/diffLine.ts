@@ -92,5 +92,12 @@ export function diffLine(
       newValue: current.transport_target,
       mapper: (v) => mapTransportTargetToUiName(t, v),
     }),
+
+    diffKeyedValues({
+      key: 'Description',
+      field: t(($) => $.lines.description),
+      oldValue: previous.description,
+      newValue: current.description,
+    }),
   ]);
 }

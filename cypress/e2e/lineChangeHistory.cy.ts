@@ -200,6 +200,10 @@ describe('Line & Route Change History', { tags }, () => {
                 changed.line.transportTarget,
               ]),
             );
+
+          LineChangeHistory.changeHistoryTable.changedValues.lineDetails
+            .getDescription()
+            .within(assertValueChanged(['-', changed.line.lineText]));
         });
     });
   });
