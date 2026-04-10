@@ -3,11 +3,11 @@ import {
   OrderBy,
   useGetLineChangeHistoryItemDataQuery,
 } from '../../../../generated/graphql';
+import { PreviousVersionUnknown } from '../../../common/ChangeHistory';
 import { DataNotFoundError } from '../errors';
 import {
   LineChangeHistoryItem,
   LineData,
-  PreviousVersionUnknown,
   TruePreviousLineChangeHistoryItem,
 } from '../types';
 

@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { TodaysNameForQuay } from '../types';
+import { TodaysName } from '../types';
 
 const testIds = {
   names: 'StopChangeHistoryPage::Names',
 };
 
 type StopChangeHistoryNamesProps = {
-  readonly names: TodaysNameForQuay;
+  readonly names: TodaysName;
 };
 
 export const StopChangeHistoryNames: FC<StopChangeHistoryNamesProps> = ({

@@ -1,9 +1,12 @@
 import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { useGetTodaysNameForQuayQuery } from '../../../../../generated/graphql';
+import {
+  StopPlaceAlternativeNamesFragment,
+  useGetTodaysNameForQuayQuery,
+} from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
-import { TodaysNameForQuay } from '../types';
+import { TodaysName } from '../types';
 
 const GQL_GET_TODAYS_NAME_FOR_QUAY = gql`
   query GetTodaysNameForQuay(
@@ -31,20 +34,42 @@ const GQL_GET_TODAYS_NAME_FOR_QUAY = gql`
           name: name_value
 
           alternativeNames: stop_place_alternative_names {
-            stop_place_id
-            alternative_names_id
-            alternativeName: alternative_name {
-              id
-              name_value
-              name_lang
-              name_type
-            }
+            ...StopPlaceAlternativeNames
           }
         }
       }
     }
   }
+
+  fragment StopPlaceAlternativeNames on stops_database_stop_place_alternative_names {
+    stop_place_id
+    alternative_names_id
+    alternativeName: alternative_name {
+      id
+      name_value
+      name_lang
+      name_type
+    }
+  }
 `;
+
+type StopPlaceWithNames = {
+  readonly name?: string | null;
+  readonly alternativeNames: ReadonlyArray<StopPlaceAlternativeNamesFragment>;
+};
+
+export function getNamesFromStopPlace(
+  stopPlace: StopPlaceWithNames | null | undefined,
+): TodaysName {
+  const name = stopPlace?.name ?? null;
+  const nameSwe =
+    stopPlace?.alternativeNames
+      .map((it) => it.alternativeName)
+      .find((it) => it.name_lang === 'swe' && it.name_type === 'TRANSLATION')
+      ?.name_value ?? null;
+
+  return { name, nameSwe };
+}
 
 export function useGetTodaysNameForQuay(
   publicCode: string,
@@ -56,16 +81,10 @@ export function useGetTodaysNameForQuay(
   });
 
   const rawStopPlace = data?.stopsDb?.stop?.at(0)?.stopPlace;
-  const todaysNameForQuay: TodaysNameForQuay = useMemo(() => {
-    const name = rawStopPlace?.name ?? null;
-    const nameSwe =
-      rawStopPlace?.alternativeNames
-        .map((it) => it.alternativeName)
-        .find((it) => it.name_lang === 'swe' && it.name_type === 'TRANSLATION')
-        ?.name_value ?? null;
-
-    return { name, nameSwe };
-  }, [rawStopPlace]);
+  const todaysNameForQuay: TodaysName = useMemo(
+    () => getNamesFromStopPlace(rawStopPlace),
+    [rawStopPlace],
+  );
 
   return { ...rest, todaysNameForQuay };
 }

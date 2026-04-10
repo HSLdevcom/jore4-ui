@@ -27,6 +27,7 @@ import { StopOwner, StopPlaceState } from '../../types/stop-registry';
 import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
 import { mapLngLatToPoint } from '../gis';
 import { KnownValueKey } from '../knownValueKey';
+import { findAlternativeName } from './alternativeNames';
 
 type StopPlaceType = Pick<StopRegistryStopPlace, '__typename'>;
 type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
@@ -84,17 +85,6 @@ export const getParentStopPlacesFromQueryResult = <
 
 // Required in DB so can't be null.
 export const defaultAccessibilityLevel = StopRegistryAccessibilityLevel.Unknown;
-
-const findAlternativeName = (
-  stopPlace: Pick<StopRegistryStopPlace, 'alternativeNames'>,
-  lang: string,
-  nameType: StopRegistryNameType = StopRegistryNameType.Translation,
-): StopRegistryEmbeddableMultilingualString | null => {
-  const matchingName = stopPlace.alternativeNames?.find(
-    (an) => an?.name.lang === lang && an.nameType === nameType,
-  );
-  return matchingName?.name ?? null;
-};
 
 export const setAlternativeName = (
   initialAlternativeNames:

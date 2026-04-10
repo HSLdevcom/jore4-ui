@@ -2,11 +2,10 @@ import { FC } from 'react';
 import { GetUserNameById } from '../../../../hooks';
 import { PagingInfo } from '../../../../types';
 import {
-  LineChangeHistoryItem,
   NoEarlierVersionExists,
-  PreviousLineChangeHistoryItem,
   PreviousVersionUnknown,
-} from '../types';
+} from '../../../common/ChangeHistory';
+import { LineChangeHistoryItem, PreviousLineChangeHistoryItem } from '../types';
 import { LineChangeHistoryItemSections } from './LineChangeHistoryItem';
 
 const testIds = {
@@ -60,7 +59,6 @@ export const LineChangeHistoryDataRows: FC<LineChangeHistoryDataRowsProps> = ({
       className="group"
     >
       <LineChangeHistoryItemSections
-        key={historyItem.id}
         getUserNameById={getUserNameById}
         historyItem={historyItem}
         previousHistoryItem={findPreviousVersion(historyItems, historyItem)}

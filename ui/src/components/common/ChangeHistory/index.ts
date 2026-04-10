@@ -7,3 +7,4 @@ export * from './DateRangeFilter';
 export * from './EmptyCell';
 export * from './FailedToLoadChangeHistory';
 export * from './LoadingChangeHistory';
+export * from './StopsList';

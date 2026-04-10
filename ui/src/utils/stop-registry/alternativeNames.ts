@@ -1,4 +1,9 @@
 import i18next from 'i18next';
+import {
+  StopRegistryAlternativeName,
+  StopRegistryEmbeddableMultilingualString,
+  StopRegistryNameType,
+} from '../../generated/graphql';
 
 type AlternativeName = {
   readonly name_lang?: string | null;
@@ -48,4 +53,25 @@ export function getNameFromAlternatives(
   }
 
   return defaultName ?? null;
+}
+
+export const findAlternativeName = (
+  entity: {
+    readonly alternativeNames?: ReadonlyArray<
+      StopRegistryAlternativeName | null | undefined
+    > | null;
+  },
+  lang: string,
+  nameType: StopRegistryNameType = StopRegistryNameType.Translation,
+): StopRegistryEmbeddableMultilingualString | null => {
+  const matchingName = entity.alternativeNames?.find(
+    (an) => an?.name.lang === lang && an.nameType === nameType,
+  );
+  return matchingName?.name ?? null;
+};
+
+export function getEmbeddedName(
+  name: StopRegistryEmbeddableMultilingualString | null | undefined,
+): string | null {
+  return name?.value ?? null;
 }

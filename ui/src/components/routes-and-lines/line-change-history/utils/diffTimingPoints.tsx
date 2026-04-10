@@ -8,10 +8,11 @@ import { useResolveTimingPointNamesQuery } from '../../../../generated/graphql';
 import { theme } from '../../../../generated/theme';
 import {
   KeyedChangedValue,
+  StopsList,
   diffKeyedValues,
 } from '../../../common/ChangeHistory';
 import { RouteData, RouteStopData } from '../types';
-import { RouteStopsList } from './diffStopDrivingOrder';
+import { getRouteStopLinkTestId } from './getRouteStopLinkTestId';
 
 const testIds = {
   timingPoint: (label: string) =>
@@ -113,7 +114,13 @@ export function diffTimingPoints(
       newValue: currentRegulationPoints.map(
         (it) => it.scheduled_stop_point_label,
       ),
-      mapper: (stopLabels) => <RouteStopsList t={t} stopLabels={stopLabels} />,
+      mapper: (stopLabels) => (
+        <StopsList
+          t={t}
+          stopLabels={stopLabels}
+          getLinkTestId={getRouteStopLinkTestId}
+        />
+      ),
     }),
     diffKeyedValues({
       key: 'LoadingTimeAllowedOn',
@@ -122,7 +129,13 @@ export function diffTimingPoints(
         (it) => it.scheduled_stop_point_label,
       ),
       newValue: currentLoadingPoints.map((it) => it.scheduled_stop_point_label),
-      mapper: (stopLabels) => <RouteStopsList t={t} stopLabels={stopLabels} />,
+      mapper: (stopLabels) => (
+        <StopsList
+          t={t}
+          stopLabels={stopLabels}
+          getLinkTestId={getRouteStopLinkTestId}
+        />
+      ),
     }),
   ];
 }

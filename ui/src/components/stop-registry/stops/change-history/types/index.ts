@@ -1,3 +1,3 @@
 export * from './HistoricalStopData';
 export * from './HistoricalStopVersionSpecifier';
-export * from './TodaysNameForQuay';
+export * from './TodaysName';

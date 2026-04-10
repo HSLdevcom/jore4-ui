@@ -1,14 +1,20 @@
 import { gql } from '@apollo/client';
-import identity from 'lodash/identity';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   LineChangeHistoryItemDetailsFragment,
   useGetLineChangeHistoryQuery,
 } from '../../../../generated/graphql';
 import { GetUserNameById } from '../../../../hooks';
 import { SortOrder } from '../../../../types';
+import {
+  Comparator,
+  NullOrder,
+  chainedComparator,
+  compareValues,
+  getOrder,
+  useCollator,
+} from '../../../../utils';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
@@ -73,94 +79,31 @@ function parseRawLineChangeHistoryItem(
   };
 }
 
-type NullOrder = 'NullsFirst' | 'NullsLast';
-type Comparator = (
-  a: LineChangeHistoryItem,
-  b: LineChangeHistoryItem,
-) => number;
-type Order = (comparator: Comparator) => Comparator;
-
-function getOrder(sortOrder: SortOrder): Order {
-  if (sortOrder === SortOrder.ASCENDING) {
-    return identity;
-  }
-
-  return (comparator) => (a, b) => -1 * comparator(a, b);
-}
-
-function compareValues<ValueT>(
-  rawA: ValueT,
-  rawB: ValueT,
-  compareNonNullable: (
-    a: NonNullable<ValueT>,
-    b: NonNullable<ValueT>,
-  ) => number,
-  nullOrder: NullOrder = 'NullsLast',
-): number {
-  const a = rawA ?? null;
-  const b = rawB ?? null;
-
-  if (a !== null && b !== null) {
-    return compareNonNullable(a, b);
-  }
-
-  if (a === null && b !== null) {
-    return nullOrder === 'NullsLast'
-      ? Number.NEGATIVE_INFINITY
-      : Number.POSITIVE_INFINITY;
-  }
-
-  if (b === null && a !== null) {
-    return nullOrder === 'NullsLast'
-      ? Number.POSITIVE_INFINITY
-      : Number.NEGATIVE_INFINITY;
-  }
-
-  return 0;
-}
-
-function chainedComparator(
-  ...comparators: ReadonlyArray<Comparator>
-): Comparator {
-  return (a, b) => {
-    let result = 0;
-
-    for (const comparator of comparators) {
-      result = comparator(a, b);
-      if (result !== 0) {
-        return result;
-      }
-    }
-
-    return result;
-  };
-}
-
 function diffDateTime(a: DateTime, b: DateTime) {
   return a.valueOf() - b.valueOf();
 }
 
-function byChanged(): Comparator {
+function byChanged(): Comparator<LineChangeHistoryItem> {
   return (a, b) => compareValues(a.changed, b.changed, diffDateTime);
 }
 
-function byValidityStart(): Comparator {
+function byValidityStart(): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
     compareValues(a.validityStart, b.validityStart, diffDateTime);
 }
 
-function byValidityEnd(): Comparator {
+function byValidityEnd(): Comparator<LineChangeHistoryItem> {
   return (a, b) => compareValues(a.validityEnd, b.validityEnd, diffDateTime);
 }
 
-function byDbId(): Comparator {
+function byDbId(): Comparator<LineChangeHistoryItem> {
   return (a, b) => Number(a.id) - Number(b.id);
 }
 
 function byChanger(
   collator: Intl.Collator,
   getUserNameById: GetUserNameById,
-): Comparator {
+): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
     compareValues(
       getUserNameById(a.changedBy) ?? a.changedBy ?? 'HSL',
@@ -172,7 +115,7 @@ function byChanger(
 function byLineLabel(
   collator: Intl.Collator,
   nullOrder?: NullOrder,
-): Comparator {
+): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
     compareValues(
       a.lineLabel,
@@ -185,7 +128,7 @@ function byLineLabel(
 function byRouteLabel(
   collator: Intl.Collator,
   nullOrder?: NullOrder,
-): Comparator {
+): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
     compareValues(
       a.routeLabel,
@@ -195,8 +138,10 @@ function byRouteLabel(
     );
 }
 
-function sortByChangedTime(sortOrder: SortOrder): Comparator {
-  const order = getOrder(sortOrder);
+function sortByChangedTime(
+  sortOrder: SortOrder,
+): Comparator<LineChangeHistoryItem> {
+  const order = getOrder<LineChangeHistoryItem>(sortOrder);
   return chainedComparator(order(byChanged()), order(byDbId()));
 }
 
@@ -204,8 +149,8 @@ function sortByChanger(
   sortOrder: SortOrder,
   collator: Intl.Collator,
   getUserNameById: GetUserNameById,
-): Comparator {
-  const order = getOrder(sortOrder);
+): Comparator<LineChangeHistoryItem> {
+  const order = getOrder<LineChangeHistoryItem>(sortOrder);
   return chainedComparator(
     order(byChanger(collator, getUserNameById)),
     order(byChanged()),
@@ -216,8 +161,8 @@ function sortByChanger(
 function sortByValidityStart(
   sortOrder: SortOrder,
   collator: Intl.Collator,
-): Comparator {
-  const order = getOrder(sortOrder);
+): Comparator<LineChangeHistoryItem> {
+  const order = getOrder<LineChangeHistoryItem>(sortOrder);
   return chainedComparator(
     order(byValidityStart()),
     order(byLineLabel(collator)),
@@ -230,8 +175,8 @@ function sortByValidityStart(
 function sortByValidityEnd(
   sortOrder: SortOrder,
   collator: Intl.Collator,
-): Comparator {
-  const order = getOrder(sortOrder);
+): Comparator<LineChangeHistoryItem> {
+  const order = getOrder<LineChangeHistoryItem>(sortOrder);
   return chainedComparator(
     order(byValidityEnd()),
     order(byLineLabel(collator)),
@@ -245,7 +190,7 @@ function sortBySortingInfo(
   { sortBy, sortOrder }: ChangeHistorySortingInfo,
   collator: Intl.Collator,
   getUserNameById: GetUserNameById,
-): Comparator {
+): Comparator<LineChangeHistoryItem> {
   switch (sortBy) {
     case SortChangeHistoryBy.Changed:
       return sortByChangedTime(sortOrder);
@@ -276,17 +221,19 @@ function compareUUIDs(a: UUID, b: UUID) {
   return 1;
 }
 
-function byLineId(): Comparator {
+function byLineId(): Comparator<LineChangeHistoryItem> {
   return (a, b) => compareValues(a.lineId, b.lineId, compareUUIDs);
 }
 
-function byRouteId(): Comparator {
+function byRouteId(): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
     compareValues(a.routeId, b.routeId, compareUUIDs, 'NullsFirst');
 }
 
-function sortByVersion(): Comparator {
-  const inDescendingOrder = getOrder(SortOrder.DESCENDING);
+function sortByVersion(): Comparator<LineChangeHistoryItem> {
+  const inDescendingOrder = getOrder<LineChangeHistoryItem>(
+    SortOrder.DESCENDING,
+  );
   return chainedComparator(
     byLineId(),
     byRouteId(),
@@ -302,12 +249,7 @@ function useSortHistoryItems(
   sortingInfo: ChangeHistorySortingInfo,
   getUserNameByIdRealImpl: GetUserNameById,
 ): ReadonlyArray<LineChangeHistoryItem> {
-  const { t } = useTranslation();
-  const langCode = t(($) => $.languages.intlLangCode);
-  const collator = useMemo(
-    () => new Intl.Collator(langCode, { numeric: true }),
-    [langCode],
-  );
+  const collator = useCollator({ numeric: true });
 
   // Most sorting setups do not need to access the mapped username.
   // Thus, we do not need to react to changes in them.
