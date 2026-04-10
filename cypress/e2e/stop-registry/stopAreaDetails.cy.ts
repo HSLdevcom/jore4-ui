@@ -30,6 +30,13 @@ import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
+import {
+  ExpectedBasicDetails,
+  changedBasicDetails,
+  inputBasicDetails,
+  setValidity,
+  waitForSaveToBeFinished,
+} from './stopAreaUtils';
 
 function mapToShortDate(date: DateTime | null) {
   if (!date) {
@@ -38,25 +45,6 @@ function mapToShortDate(date: DateTime | null) {
 
   return date.setLocale('fi').toFormat('d.L.yyyy');
 }
-
-type ExpectedBasicDetails = {
-  readonly name: string;
-  readonly nameSwe: string;
-  readonly nameEng: string;
-  readonly nameLongFin: string;
-  readonly nameLongSwe: string;
-  readonly nameLongEng: string;
-  readonly abbreviationFin: string;
-  readonly abbreviationSwe: string;
-  readonly abbreviationEng: string;
-  readonly privateCode: string;
-  readonly areaSize: string;
-  readonly parentTerminal: string;
-  readonly validFrom: DateTime;
-  readonly validTo: DateTime | null;
-  readonly longitude: number;
-  readonly latitude: number;
-};
 
 describe('Stop area details', { tags: Tag.StopRegistry }, () => {
   let dbResources: SupportedResources;
@@ -287,63 +275,12 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
   });
 
   describe('Editing', () => {
-    function setValidity(from: DateTime, to: DateTime | null) {
-      StopAreaDetailsPage.details.edit.validity.setStartDate(
-        from.toISODate() ?? '',
-      );
-      if (to) {
-        StopAreaDetailsPage.details.edit.validity.setAsIndefinite(false);
-        StopAreaDetailsPage.details.edit.validity.setEndDate(
-          to.toISODate() ?? '',
-        );
-      } else {
-        StopAreaDetailsPage.details.edit.validity.setAsIndefinite(true);
-      }
-    }
-
-    function waitForSaveToBeFinished() {
-      expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-      Toast.expectSuccessToast('Pysäkkialue muokattu');
-    }
-
-    function inputBasicDetails(inputs: ExpectedBasicDetails) {
-      const { edit } = StopAreaDetailsPage.details;
-
-      edit.getName().clearAndType(inputs.name);
-      edit.getNameSwe().clearAndType(inputs.nameSwe);
-      AlternativeNamesEdit.getNameEng().clearAndType(inputs.nameEng);
-      AlternativeNamesEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
-      AlternativeNamesEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
-      AlternativeNamesEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
-      AlternativeNamesEdit.getAbbreviationFin().clearAndType(
-        inputs.abbreviationFin,
-      );
-      AlternativeNamesEdit.getAbbreviationSwe().clearAndType(
-        inputs.abbreviationSwe,
-      );
-      AlternativeNamesEdit.getAbbreviationEng().clearAndType(
-        inputs.abbreviationEng,
-      );
-
-      setValidity(inputs.validFrom, inputs.validTo);
-    }
-
     it('should allow editing details', () => {
       assertBasicDetails(testAreaExpectedBasicDetails);
 
       const newBasicDetails: ExpectedBasicDetails = {
         ...testAreaExpectedBasicDetails,
-        name: 'New name',
-        nameSwe: 'New name swe',
-        nameEng: 'New name eng',
-        nameLongFin: 'New name long fin',
-        nameLongSwe: 'New name long swe',
-        nameLongEng: 'New name long eng',
-        abbreviationFin: 'New abbreviation swe',
-        abbreviationSwe: 'New abbreviation swe',
-        abbreviationEng: 'New abbreviation eng',
-        validFrom: DateTime.now(),
-        validTo: null,
+        ...changedBasicDetails,
       };
 
       // Edit basic details

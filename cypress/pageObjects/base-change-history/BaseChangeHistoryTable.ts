@@ -47,5 +47,45 @@ export const BaseChangeHistoryTable = createSimplePageObject(
         cy.get('[data-testid^="ChangeHistory::Group::"]'),
       getGroup: (id: string) => cy.getByTestId(`ChangeHistory::Group::${id}`),
     },
+    sortByButton: {
+      ...base.sortByButton,
+      sortBy(
+        by: 'ValidityStart' | 'ValidityEnd' | 'Changed' | 'ChangedBy',
+        order: 'asc' | 'desc',
+      ) {
+        const toggleSort = (getButton: () => Cypress.Chainable<JQuery>) => {
+          getButton().then((button) => {
+            if (button.attr('data-is-active') !== 'true') {
+              button.get(0).click();
+            }
+          });
+          getButton().should('have.attr', 'data-is-active', 'true');
+
+          getButton().then((button) => {
+            if (button.attr('data-sort-direction') !== order) {
+              button.get(0).click();
+            }
+          });
+          getButton().should('have.attr', 'data-sort-direction', order);
+        };
+
+        switch (by) {
+          case 'ValidityStart':
+            return toggleSort(base.sortByButton.getValidityStart);
+
+          case 'ValidityEnd':
+            return toggleSort(base.sortByButton.getValidityEnd);
+
+          case 'Changed':
+            return toggleSort(base.sortByButton.getChanged);
+
+          case 'ChangedBy':
+            return toggleSort(base.sortByButton.getChangedBy);
+
+          default:
+            throw new Error(`Not implemented: by - ${by}`);
+        }
+      },
+    },
   }),
 );

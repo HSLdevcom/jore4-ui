@@ -4,6 +4,7 @@ export * from './ExternalLinksForm';
 export * from './ExternalLinksSection';
 export * from './search';
 export * from './SortByButton';
+export * from './StopAreaChangeHistory';
 export * from './StopAreaDetailsPage';
 export * from './StopAreaPopup';
 export * from './StopChangeHistoryPage';
