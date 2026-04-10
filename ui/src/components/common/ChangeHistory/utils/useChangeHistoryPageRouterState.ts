@@ -2,7 +2,7 @@ import noop from 'lodash/noop';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { parseDate } from '../../../../time';
-import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
+import { PagingInfo, SortOrder } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { memoizeStatePicker } from '../../../../utils';
 import {
@@ -35,7 +35,8 @@ export const defaultValues: FlatChangeHistoryState = {
   ...defaultChangeHistorySortingInfo,
 
   // Paging
-  ...defaultPagingInfo,
+  page: 1,
+  pageSize: 20,
 };
 
 const serializers: UrlStateSerializers<FlatChangeHistoryState> = {
