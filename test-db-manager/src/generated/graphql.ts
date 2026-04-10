@@ -154,6 +154,46 @@ export type ReplaceTimetablesOutput = {
   replacedVehicleScheduleFrameIds: Array<Maybe<Scalars['uuid']['output']>>;
 };
 
+export type StopPlaceChangeHistoryItem = {
+  __typename?: 'StopPlaceChangeHistoryItem';
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changedBy?: Maybe<Scalars['String']['output']>;
+  netexId: Scalars['String']['output'];
+  parentStopPlace: Scalars['Boolean']['output'];
+  priority?: Maybe<Scalars['String']['output']>;
+  privateCodeType?: Maybe<Scalars['String']['output']>;
+  privateCodeValue: Scalars['String']['output'];
+  validityEnd?: Maybe<Scalars['String']['output']>;
+  validityStart?: Maybe<Scalars['String']['output']>;
+  version: Scalars['String']['output'];
+  versionComment?: Maybe<Scalars['String']['output']>;
+};
+
+export enum StopPlaceChangeHistoryItemEnumName {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changedBy',
+  /** column name */
+  NetexId = 'netexId',
+  /** column name */
+  ParentStopPlace = 'parentStopPlace',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  PrivateCodeType = 'privateCodeType',
+  /** column name */
+  PrivateCodeValue = 'privateCodeValue',
+  /** column name */
+  ValidityEnd = 'validityEnd',
+  /** column name */
+  ValidityStart = 'validityStart',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'versionComment'
+}
+
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type StringComparisonExp = {
   _eq?: InputMaybe<Scalars['String']['input']>;
@@ -12276,6 +12316,39 @@ export type StopsDatabaseQuayChangeHistoryItemOrderBy = {
   publicCode?: InputMaybe<OrderBy>;
   stopPlaceNetexId?: InputMaybe<OrderBy>;
   stopPlaceVersion?: InputMaybe<OrderBy>;
+  validityEnd?: InputMaybe<OrderBy>;
+  validityStart?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
+  versionComment?: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the logical model for "StopPlaceChangeHistoryItem". All fields are combined with a logical 'AND'. */
+export type StopsDatabaseStopPlaceChangeHistoryItemBoolExpBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabaseStopPlaceChangeHistoryItemBoolExpBoolExp>>;
+  _not?: InputMaybe<StopsDatabaseStopPlaceChangeHistoryItemBoolExpBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabaseStopPlaceChangeHistoryItemBoolExpBoolExp>>;
+  changed?: InputMaybe<TimestampComparisonExp>;
+  changedBy?: InputMaybe<StringComparisonExp>;
+  netexId?: InputMaybe<StringComparisonExp>;
+  parentStopPlace?: InputMaybe<BooleanComparisonExp>;
+  priority?: InputMaybe<StringComparisonExp>;
+  privateCodeType?: InputMaybe<StringComparisonExp>;
+  privateCodeValue?: InputMaybe<StringComparisonExp>;
+  validityEnd?: InputMaybe<StringComparisonExp>;
+  validityStart?: InputMaybe<StringComparisonExp>;
+  version?: InputMaybe<StringComparisonExp>;
+  versionComment?: InputMaybe<StringComparisonExp>;
+};
+
+/** Ordering options when selecting data from "StopPlaceChangeHistoryItem". */
+export type StopsDatabaseStopPlaceChangeHistoryItemOrderBy = {
+  changed?: InputMaybe<OrderBy>;
+  changedBy?: InputMaybe<OrderBy>;
+  netexId?: InputMaybe<OrderBy>;
+  parentStopPlace?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  privateCodeType?: InputMaybe<OrderBy>;
+  privateCodeValue?: InputMaybe<OrderBy>;
   validityEnd?: InputMaybe<OrderBy>;
   validityStart?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
@@ -51593,6 +51666,7 @@ export type StopsDatabaseStopsDatabaseQuery = {
   __typename?: 'stops_database_stops_database_query';
   findStopsForTerminal: Array<TerminalStopSearchResult>;
   getQuayChangeHistory: Array<QuayChangeHistoryItem>;
+  getStopPlaceChangeHistory: Array<StopPlaceChangeHistoryItem>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -52154,6 +52228,15 @@ export type StopsDatabaseStopsDatabaseQueryGetQuayChangeHistoryArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemOrderBy>>;
   where?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
+};
+
+
+export type StopsDatabaseStopsDatabaseQueryGetStopPlaceChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<StopPlaceChangeHistoryItemEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseStopPlaceChangeHistoryItemOrderBy>>;
+  where?: InputMaybe<StopsDatabaseStopPlaceChangeHistoryItemBoolExpBoolExp>;
 };
 
 
@@ -54380,6 +54463,7 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   __typename?: 'stops_database_stops_database_subscription';
   findStopsForTerminal: Array<TerminalStopSearchResult>;
   getQuayChangeHistory: Array<QuayChangeHistoryItem>;
+  getStopPlaceChangeHistory: Array<StopPlaceChangeHistoryItem>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -55151,6 +55235,15 @@ export type StopsDatabaseStopsDatabaseSubscriptionGetQuayChangeHistoryArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseQuayChangeHistoryItemOrderBy>>;
   where?: InputMaybe<StopsDatabaseQuayChangeHistoryItemBoolExpBoolExp>;
+};
+
+
+export type StopsDatabaseStopsDatabaseSubscriptionGetStopPlaceChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<StopPlaceChangeHistoryItemEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseStopPlaceChangeHistoryItemOrderBy>>;
+  where?: InputMaybe<StopsDatabaseStopPlaceChangeHistoryItemBoolExpBoolExp>;
 };
 
 
