@@ -1561,6 +1561,16 @@
       "loadingTimeAllowedOn": "Loading time allowed on stops"
     }
   },
+  "stopAreaChangeHistory": {
+    "title": "Change history | Stop Area {{privateCode}}",
+    "titleWithName": "Change history | Stop Area {{privateCode}} {{name}}",
+    "goBack": "Back",
+    "newStopAreaVersion": "New Stop Area version created",
+    "importedStopAreaVersion": "Stop Area imported from Jore 3",
+    "sectionTitle": "Stop Area {{privateCodeValue}}",
+    "failedToLoad": "Failed to load change details",
+    "versionLoading": "Resolving changed fields"
+  },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
   },

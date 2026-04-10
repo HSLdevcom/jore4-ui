@@ -28,6 +28,7 @@ export const Path = {
   stopChangeHistory: '/stop-registry/stops/:label/history',
   terminalDetails: '/stop-registry/terminals/:privateCode',
   stopAreaDetails: '/stop-registry/stop-areas/:id',
+  stopAreaChangeHistory: '/stop-registry/stop-areas/:privateCode/history',
 
   // Timetables
   timetablesSearch: '/timetables/search',
@@ -178,6 +179,13 @@ export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   },
   [Path.stopAreaDetails]: {
     getLink: genVariableLinkGenerator(Path.stopAreaDetails),
+    includeInNav: false,
+  },
+  [Path.stopAreaChangeHistory]: {
+    getLink: genVariableLinkGenerator(
+      Path.stopAreaChangeHistory,
+      ':privateCode',
+    ),
     includeInNav: false,
   },
   [Path.terminalDetails]: {

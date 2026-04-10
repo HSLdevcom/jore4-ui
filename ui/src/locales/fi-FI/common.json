@@ -1561,6 +1561,16 @@
       "loadingTimeAllowedOn": "Lastausaika sallittu pysäkeillä"
     }
   },
+  "stopAreaChangeHistory": {
+    "title": "Muutoshistoria | Pysäkkialue {{privateCode}}",
+    "titleWithName": "Muutoshistoria | Pysäkkialue {{privateCode}} {{name}}",
+    "goBack": "Palaa",
+    "newStopAreaVersion": "Uusi versio pysäkkialueesta luotu",
+    "importedStopAreaVersion": "Pysäkkialue tuotu Jore 3:sta",
+    "sectionTitle": "Pysäkkialue {{privateCodeValue}}",
+    "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
+    "versionLoading": "Selvitetään muuttuneita kenttiä"
+  },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   },

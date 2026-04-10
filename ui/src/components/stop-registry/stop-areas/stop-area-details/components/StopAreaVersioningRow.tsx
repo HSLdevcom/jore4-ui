@@ -29,7 +29,9 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
         {mapToShortDate(area.validityEnd)}
       </div>
       <Link
-        to={routeDetails[Path.stopAreaDetails].getLink(area.privateCode?.value)}
+        to={routeDetails[Path.stopAreaChangeHistory].getLink(
+          area.privateCode?.value,
+        )}
         className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
         data-testid={testIds.changeHistoryLink}
       >
