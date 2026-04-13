@@ -159,7 +159,7 @@ export type StopPlaceChangeHistoryItem = {
   changed?: Maybe<Scalars['timestamp']['output']>;
   changedBy?: Maybe<Scalars['String']['output']>;
   netexId: Scalars['String']['output'];
-  parentStopPlace: Scalars['Boolean']['output'];
+  parentStopPlace?: Maybe<Scalars['Boolean']['output']>;
   priority?: Maybe<Scalars['String']['output']>;
   privateCodeType?: Maybe<Scalars['String']['output']>;
   privateCodeValue: Scalars['String']['output'];
@@ -11115,6 +11115,15 @@ export enum StopRegistryLimitationStatusType {
   Unknown = 'UNKNOWN'
 }
 
+/** Version-aware reference to a location (read-only) */
+export type StopRegistryLocationRef = {
+  __typename?: 'stop_registry_LocationRef';
+  /** NetEx ID of the referenced location */
+  ref?: Maybe<Scalars['String']['output']>;
+  /** Version of the referenced location */
+  version?: Maybe<Scalars['String']['output']>;
+};
+
 export enum StopRegistryModificationEnumerationType {
   Delete = 'delete',
   Delta = 'delta',
@@ -12113,9 +12122,12 @@ export type StopRegistryInfoSpot = {
   geometry?: Maybe<StopRegistryGeoJson>;
   height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  /** List of location NetEx IDs (simple string format) */
   infoSpotLocations?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpotType?: Maybe<StopRegistryInfoSpotType>;
   label?: Maybe<Scalars['String']['output']>;
+  /** Version-aware references to locations showing which version was referenced */
+  locationRefs?: Maybe<Array<Maybe<StopRegistryLocationRef>>>;
   maintenance?: Maybe<Scalars['String']['output']>;
   poster?: Maybe<Array<Maybe<StopRegistryPoster>>>;
   posterPlaceSize?: Maybe<StopRegistryPosterPlaceSize>;
@@ -12136,6 +12148,7 @@ export type StopRegistryInfoSpotInput = {
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  /** List of location NetEx IDs - backend auto-resolves to current version */
   infoSpotLocations?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   infoSpotType?: InputMaybe<StopRegistryInfoSpotType>;
   label?: InputMaybe<Scalars['String']['input']>;
@@ -26137,6 +26150,7 @@ export type StopsDatabaseInfoSpotLocation = {
   info_spot: StopsDatabaseInfoSpot;
   info_spot_id: Scalars['bigint']['output'];
   location_netex_id?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "info_spot_location" */
@@ -26208,6 +26222,7 @@ export type StopsDatabaseInfoSpotLocationBoolExp = {
   info_spot?: InputMaybe<StopsDatabaseInfoSpotBoolExp>;
   info_spot_id?: InputMaybe<BigintComparisonExp>;
   location_netex_id?: InputMaybe<StringComparisonExp>;
+  version?: InputMaybe<StringComparisonExp>;
 };
 
 /** input type for incrementing numeric columns in table "info_spot_location" */
@@ -26220,6 +26235,7 @@ export type StopsDatabaseInfoSpotLocationInsertInput = {
   info_spot?: InputMaybe<StopsDatabaseInfoSpotObjRelInsertInput>;
   info_spot_id?: InputMaybe<Scalars['bigint']['input']>;
   location_netex_id?: InputMaybe<Scalars['String']['input']>;
+  version?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -26227,12 +26243,14 @@ export type StopsDatabaseInfoSpotLocationMaxFields = {
   __typename?: 'stops_database_info_spot_location_max_fields';
   info_spot_id?: Maybe<Scalars['bigint']['output']>;
   location_netex_id?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "info_spot_location" */
 export type StopsDatabaseInfoSpotLocationMaxOrderBy = {
   info_spot_id?: InputMaybe<OrderBy>;
   location_netex_id?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
@@ -26240,12 +26258,14 @@ export type StopsDatabaseInfoSpotLocationMinFields = {
   __typename?: 'stops_database_info_spot_location_min_fields';
   info_spot_id?: Maybe<Scalars['bigint']['output']>;
   location_netex_id?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "info_spot_location" */
 export type StopsDatabaseInfoSpotLocationMinOrderBy = {
   info_spot_id?: InputMaybe<OrderBy>;
   location_netex_id?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "info_spot_location" */
@@ -26262,6 +26282,7 @@ export type StopsDatabaseInfoSpotLocationOrderBy = {
   info_spot?: InputMaybe<StopsDatabaseInfoSpotOrderBy>;
   info_spot_id?: InputMaybe<OrderBy>;
   location_netex_id?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
 };
 
 /** select columns of table "info_spot_location" */
@@ -26269,13 +26290,16 @@ export enum StopsDatabaseInfoSpotLocationSelectColumn {
   /** column name */
   InfoSpotId = 'info_spot_id',
   /** column name */
-  LocationNetexId = 'location_netex_id'
+  LocationNetexId = 'location_netex_id',
+  /** column name */
+  Version = 'version'
 }
 
 /** input type for updating data in table "info_spot_location" */
 export type StopsDatabaseInfoSpotLocationSetInput = {
   info_spot_id?: InputMaybe<Scalars['bigint']['input']>;
   location_netex_id?: InputMaybe<Scalars['String']['input']>;
+  version?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
@@ -26323,6 +26347,7 @@ export type StopsDatabaseInfoSpotLocationStreamCursorInput = {
 export type StopsDatabaseInfoSpotLocationStreamCursorValueInput = {
   info_spot_id?: InputMaybe<Scalars['bigint']['input']>;
   location_netex_id?: InputMaybe<Scalars['String']['input']>;
+  version?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
