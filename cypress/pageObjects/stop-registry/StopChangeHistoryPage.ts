@@ -54,7 +54,6 @@ const StopChangeHistoryTable = createSimplePageObject(
   [
     // Stop Change history table getters
     // StopChangeHistoryItem | NoPreviousChangeVersionSection
-    'ChangeHistory::SectionHeader::InvalidVersion',
     'ChangeHistory::SectionHeader::ImportedVersion',
     'ChangeHistory::SectionHeader::CreatedVersion',
     'ChangeHistory::SectionHeader::CopiedVersion',

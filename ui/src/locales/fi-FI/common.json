@@ -1510,7 +1510,6 @@
     "firstVersion": "Uusi pysäkki luotu",
     "importedVersion": "Pysäkki tuotu Jore 3:sta",
     "copiedVersion": "Pysäkki kopioitu toisesta versiosta",
-    "invalidVersion": "Tuntematon versionumero {{version}}",
     "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
     "versionLoading": "Selvitetään muuttuneita kenttiä",
     "ownerDetails": "Omistajan tiedot",

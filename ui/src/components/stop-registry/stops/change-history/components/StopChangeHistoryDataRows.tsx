@@ -1,92 +1,95 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { useGetUserNames } from '../../../../../hooks';
+import { GetUserNameById } from '../../../../../hooks';
+import { parseDate } from '../../../../../time';
 import { PagingInfo } from '../../../../../types';
-import { ChangeHistoryFilters } from '../../../../common/ChangeHistory';
+import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
+import { PreviousQuayChangeHistoryItem } from '../types';
 import { StopChangeHistoryItem } from './StopChangeHistoryItem';
 
 const testIds = {
   group: (id: string) => `ChangeHistory::Group::${id}`,
 };
 
-/**
- * Extract the numeric sequence number from a Netex ID.
- * @param netexId
- */
-function sequenceNumber(netexId: string): number {
-  return Number(netexId.split(':').at(2));
+function findPreviousInstance(
+  historyItemsSortedByVersion: ReadonlyArray<QuayChangeHistoryItem>,
+  item: QuayChangeHistoryItem,
+): PreviousQuayChangeHistoryItem {
+  // Special case: Moved from one StopPlace to another.
+  // Under hood Tiamat sometimes creates a new version.
+  const importedIdIfMoved = `${item.publicCode}-${item.validityStart}-${item.priority}`;
+
+  if (item.importedId === importedIdIfMoved) {
+    const previousInstanceEndData = parseDate(item.validityStart)
+      ?.minus({ day: 1 })
+      ?.toISODate();
+
+    if (previousInstanceEndData) {
+      const previousInstance = historyItemsSortedByVersion.find(
+        (other) => other.validityEnd === previousInstanceEndData,
+      );
+
+      if (previousInstance) {
+        return previousInstance;
+      }
+    }
+  }
+
+  return NoEarlierVersionExists;
 }
 
 function findPreviousVersion(
   historyItemsSortedByVersion: ReadonlyArray<QuayChangeHistoryItem>,
   item: QuayChangeHistoryItem,
-): QuayChangeHistoryItem | null {
-  const index = historyItemsSortedByVersion.indexOf(item);
+): PreviousQuayChangeHistoryItem {
+  const previousVersion = historyItemsSortedByVersion.find(
+    (other) =>
+      other.netexId === item.netexId &&
+      Number(other.version) < Number(item.version),
+  );
 
-  // IndexOf should always find a valid index.
-  // But index of 0 is the first item, thus there is no previous version.
-  if (index <= 0) {
-    return null;
+  if (previousVersion) {
+    return previousVersion;
   }
 
-  return historyItemsSortedByVersion[index - 1];
+  return findPreviousInstance(historyItemsSortedByVersion, item);
 }
 
 type StopChangeHistoryDataRowsProps = {
-  readonly filters: ChangeHistoryFilters;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
+  readonly sortedHistoryItems: ReadonlyArray<QuayChangeHistoryItem>;
   readonly pagingInfo: PagingInfo;
 };
 
 export const StopChangeHistoryDataRows: FC<StopChangeHistoryDataRowsProps> = ({
-  filters: { from, to },
+  getUserNameById,
   historyItems,
+  sortedHistoryItems,
   pagingInfo: { page, pageSize },
 }) => {
-  const { getUserNameById } = useGetUserNames();
-
-  // Item data sorted on actual version info.
-  // Needed to determine previous version.
-  const historyItemsSortedByVersion = useMemo(
-    () =>
-      historyItems.toSorted((a, b) => {
-        if (a.netexId === b.netexId) {
-          return Number(a.version) - Number(b.version);
-        }
-
-        return sequenceNumber(a.netexId) - sequenceNumber(b.netexId);
-      }),
-    [historyItems],
+  const pagedItems = sortedHistoryItems.slice(
+    (page - 1) * pageSize,
+    page * pageSize,
   );
 
-  // historyItems can contain extra versions needed to ćonstruct the diffs,
-  // even tough the version itself, should not be shown based on the time
-  // filters.
-  const itemsToShow = useMemo(() => {
-    const fromStr = from.toISO();
-    const toStr = to.toISO();
+  return pagedItems.map((historyItem) => {
+    const key = `${historyItem.netexId}-${historyItem.version}`;
 
-    return historyItems
-      .filter(({ changed }) => fromStr <= changed && changed <= toStr)
-      .slice((page - 1) * pageSize, page * pageSize);
-  }, [historyItems, from, to, page, pageSize]);
-
-  return itemsToShow.map((historyItem) => (
-    <tbody
-      data-testid={testIds.group(
-        `${historyItem.netexId}-${historyItem.version}`,
-      )}
-      className="group"
-    >
-      <StopChangeHistoryItem
-        key={`${historyItem.netexId}-${historyItem.version}`}
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previousHistoryItem={findPreviousVersion(
-          historyItemsSortedByVersion,
-          historyItem,
-        )}
-      />
-    </tbody>
-  ));
+    return (
+      <tbody
+        key={key}
+        data-testid={testIds.group(key)}
+        data-netexid={historyItem.netexId}
+        data-version={historyItem.version}
+        className="group"
+      >
+        <StopChangeHistoryItem
+          getUserNameById={getUserNameById}
+          historyItem={historyItem}
+          previousHistoryItem={findPreviousVersion(historyItems, historyItem)}
+        />
+      </tbody>
+    );
+  });
 };
