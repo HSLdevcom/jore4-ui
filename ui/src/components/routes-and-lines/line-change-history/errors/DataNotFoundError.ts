@@ -1,21 +1,17 @@
 /* eslint-disable @stylistic/lines-between-class-members */
-import {
-  LineChangeHistoryItem,
-  LineData,
-  PreviousLineChangeHistoryItem,
-} from '../types';
+import { LineChangeHistoryItem, LineData } from '../types';
 
 interface DataNotFoundErrorData {
   readonly currentHistoryItem: LineChangeHistoryItem;
   readonly currentItemData: LineData | null;
-  readonly previousHistoryItem: PreviousLineChangeHistoryItem;
+  readonly previousHistoryItem: LineChangeHistoryItem;
   readonly previousItemData: LineData | null;
 }
 
 export class DataNotFoundError extends Error implements DataNotFoundErrorData {
   readonly currentHistoryItem: LineChangeHistoryItem;
   readonly currentItemData: LineData | null;
-  readonly previousHistoryItem: PreviousLineChangeHistoryItem;
+  readonly previousHistoryItem: LineChangeHistoryItem;
   readonly previousItemData: LineData | null;
 
   constructor(props: DataNotFoundErrorData) {

@@ -23,19 +23,12 @@ import {
 import { LineChangeHistoryItem, TgOperation } from '../types';
 
 const GQL_GET_LINE_CHANGE_HISTORY = gql`
-  query GetLineChangeHistory(
-    $label: String!
-    $from: timestamptz!
-    $to: timestamptz!
-    $priority: Int!
-  ) {
+  query GetLineChangeHistory($label: String!, $priority: Int!) {
     historyItems: route_line_change_history(
       where: {
         _and: [
           { line_label: { _eq: $label } }
           { line_priority: { _eq: $priority } }
-          { changed: { _gte: $from } }
-          { changed: { _lte: $to } }
         ]
       }
     ) {
@@ -73,6 +66,7 @@ function parseRawLineChangeHistoryItem(
 ): LineChangeHistoryItem {
   return {
     ...raw,
+    versionComment: raw.versionComment?.trim() ?? null,
     tgOperation: raw.tgOperation as TgOperation,
     validityStart: raw.routeId ? raw.routeValidityStart : raw.lineValidityStart,
     validityEnd: raw.routeId ? raw.routeValidityEnd : raw.lineValidityEnd,
@@ -242,10 +236,20 @@ function sortByVersion(): Comparator<LineChangeHistoryItem> {
   );
 }
 
+function filterHistoryItems(
+  filters: ChangeHistoryFilters,
+): (item: LineChangeHistoryItem) => boolean {
+  const from = filters.from.startOf('day');
+  const to = filters.to.endOf('day');
+
+  return (item) => from <= item.changed && item.changed <= to;
+}
+
 const noopGetUserNameById: GetUserNameById = () => null;
 
 function useSortHistoryItems(
   historyItems: ReadonlyArray<LineChangeHistoryItem>,
+  filters: ChangeHistoryFilters,
   sortingInfo: ChangeHistorySortingInfo,
   getUserNameByIdRealImpl: GetUserNameById,
 ): ReadonlyArray<LineChangeHistoryItem> {
@@ -260,10 +264,10 @@ function useSortHistoryItems(
 
   return useMemo(
     () =>
-      historyItems.toSorted(
-        sortBySortingInfo(sortingInfo, collator, getUserNameById),
-      ),
-    [historyItems, sortingInfo, collator, getUserNameById],
+      historyItems
+        .filter(filterHistoryItems(filters))
+        .sort(sortBySortingInfo(sortingInfo, collator, getUserNameById)),
+    [historyItems, filters, sortingInfo, collator, getUserNameById],
   );
 }
 
@@ -275,18 +279,13 @@ type GetLineChangeHistoryOptions = {
 };
 
 export function useGetLineChangeHistoryItems({
-  filters: { from, to, priority },
+  filters,
   getUserNameById,
   label,
   sortingInfo,
 }: GetLineChangeHistoryOptions) {
   const { data, ...rest } = useGetLineChangeHistoryQuery({
-    variables: {
-      label,
-      priority,
-      from: from.startOf('day'),
-      to: to.endOf('day'),
-    },
+    variables: { label, priority: filters.priority },
   });
 
   const historyItems: ReadonlyArray<LineChangeHistoryItem> = useMemo(
@@ -298,7 +297,7 @@ export function useGetLineChangeHistoryItems({
   );
 
   const sortedHistoryItems: ReadonlyArray<LineChangeHistoryItem> =
-    useSortHistoryItems(historyItems, sortingInfo, getUserNameById);
+    useSortHistoryItems(historyItems, filters, sortingInfo, getUserNameById);
 
   return {
     ...rest,

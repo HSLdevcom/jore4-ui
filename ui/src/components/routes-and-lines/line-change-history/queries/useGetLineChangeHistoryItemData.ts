@@ -1,15 +1,7 @@
 import { gql } from '@apollo/client';
-import {
-  OrderBy,
-  useGetLineChangeHistoryItemDataQuery,
-} from '../../../../generated/graphql';
-import { PreviousVersionUnknown } from '../../../common/ChangeHistory';
+import { useGetLineChangeHistoryItemDataQuery } from '../../../../generated/graphql';
 import { DataNotFoundError } from '../errors';
-import {
-  LineChangeHistoryItem,
-  LineData,
-  TruePreviousLineChangeHistoryItem,
-} from '../types';
+import { LineChangeHistoryItem, LineData } from '../types';
 
 const GQL_GET_LINE_CHANGE_HISTORY_ITEM_DATA = gql`
   query GetLineChangeHistoryItemData(
@@ -41,37 +33,9 @@ function getByIdQueryOptions(item: LineChangeHistoryItem): QueryParameters {
   };
 }
 
-function getQueryOptionsForPreviousHistoryItem(
-  currentHistoryItem: LineChangeHistoryItem,
-  previousHistoryItem: TruePreviousLineChangeHistoryItem,
-): QueryParameters {
-  // Previous version was not included in the date filter range.
-  // We need to resolve it now.
-  if (previousHistoryItem === PreviousVersionUnknown) {
-    return {
-      variables: {
-        where: {
-          // Include LineLabel in query, so we can use the associated index.
-          line_label: { _eq: currentHistoryItem.lineLabel },
-          id: { _neq: currentHistoryItem.id },
-          changed: { _lte: currentHistoryItem.changed },
-          line_id: { _eq: currentHistoryItem.lineId },
-          ...(currentHistoryItem.routeId
-            ? { route_id: { _eq: currentHistoryItem.routeId } }
-            : { route_id: { _is_null: true } }),
-        },
-        orderBy: [{ changed: OrderBy.Desc }],
-      },
-    };
-  }
-
-  // We know the ID of the previous version, fetch by ID.
-  return getByIdQueryOptions(previousHistoryItem);
-}
-
 function getError(
   currentHistoryItem: LineChangeHistoryItem,
-  previousHistoryItem: TruePreviousLineChangeHistoryItem,
+  previousHistoryItem: LineChangeHistoryItem,
   currentItemResult: QueryResult,
   previousItemResult: QueryResult,
   currentItemData: LineData | null,
@@ -135,7 +99,7 @@ type GetLineChangeHistoryItemDataResult =
 
 export function useGetLineChangeHistoryItemData(
   currentHistoryItem: LineChangeHistoryItem,
-  previousHistoryItem: TruePreviousLineChangeHistoryItem,
+  previousHistoryItem: LineChangeHistoryItem,
 ): GetLineChangeHistoryItemDataResult {
   const currentItemResult = useGetLineChangeHistoryItemDataQuery({
     ...getByIdQueryOptions(currentHistoryItem),
@@ -144,10 +108,7 @@ export function useGetLineChangeHistoryItemData(
   });
 
   const previousItemResult = useGetLineChangeHistoryItemDataQuery({
-    ...getQueryOptionsForPreviousHistoryItem(
-      currentHistoryItem,
-      previousHistoryItem,
-    ),
+    ...getByIdQueryOptions(previousHistoryItem),
     fetchPolicy: 'cache-first',
     nextFetchPolicy: 'cache-first',
   });

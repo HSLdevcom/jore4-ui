@@ -1,10 +1,7 @@
 import { FC } from 'react';
 import { GetUserNameById } from '../../../../hooks';
 import { PagingInfo } from '../../../../types';
-import {
-  NoEarlierVersionExists,
-  PreviousVersionUnknown,
-} from '../../../common/ChangeHistory';
+import { NoEarlierVersionExists } from '../../../common/ChangeHistory';
 import { LineChangeHistoryItem, PreviousLineChangeHistoryItem } from '../types';
 import { LineChangeHistoryItemSections } from './LineChangeHistoryItem';
 
@@ -27,7 +24,11 @@ function findPreviousVersion(
       other.routeId === item.routeId,
   );
 
-  return previous ?? PreviousVersionUnknown;
+  if (previous) {
+    return previous;
+  }
+
+  throw new Error('Unable to find previous version!');
 }
 
 type LineChangeHistoryDataRowsProps = {

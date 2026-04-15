@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { GetUserNameById } from '../../../../hooks';
 import { PagingInfo } from '../../../../types';
 import {
@@ -9,41 +9,6 @@ import {
 } from '../../../common/ChangeHistory';
 import { LineChangeHistoryItem } from '../types';
 import { LineChangeHistoryDataRows } from './LineChangeHistoryDataRows';
-
-/**
- * Prevent flashing of various loading states on a fast connection.
- *
- * Don't show the loader at all, if we already know the previous result.
- * If we don't know the previous result, show the old results and wait for
- * 0.15s before switching to the loader state.
- *
- * @param loading
- * @param historyItems
- */
-function usePrettyLoaderState(
-  loading: boolean,
-  historyItems: ReadonlyArray<LineChangeHistoryItem>,
-) {
-  const [showLoader, setShowLoader] = useState(loading);
-  const [previousHistoryItems, setPreviousHistoryItems] =
-    useState(historyItems);
-
-  useEffect(() => {
-    if (!loading || historyItems.length > 0) {
-      setPreviousHistoryItems(historyItems);
-    }
-  }, [loading, historyItems]);
-
-  useEffect(() => {
-    const id = setTimeout(
-      () => setShowLoader(loading && historyItems.length === 0),
-      150, // Matches with the transition time for the sorting buttons.
-    );
-    return () => clearTimeout(id);
-  }, [loading, historyItems]);
-
-  return { showLoader, previousHistoryItems };
-}
 
 type LineChangeHistoryTableProps = {
   readonly className?: string;
@@ -70,10 +35,7 @@ export const LineChangeHistoryTable: FC<LineChangeHistoryTableProps> = ({
   setSortingInfo,
   sortingInfo,
 }) => {
-  const { showLoader, previousHistoryItems } = usePrettyLoaderState(
-    loading,
-    sortedHistoryItems,
-  );
+  const showLoader = historyItems.length === 0 && loading;
 
   return (
     <ChangeHistoryTable
@@ -90,9 +52,7 @@ export const LineChangeHistoryTable: FC<LineChangeHistoryTableProps> = ({
         <LineChangeHistoryDataRows
           getUserNameById={getUserNameById}
           historyItems={historyItems}
-          sortedHistoryItems={
-            loading ? previousHistoryItems : sortedHistoryItems
-          }
+          sortedHistoryItems={sortedHistoryItems}
           pagingInfo={pagingInfo}
         />
       )}

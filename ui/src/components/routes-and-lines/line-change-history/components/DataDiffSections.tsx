@@ -1,10 +1,7 @@
 import { FC } from 'react';
 import { GetUserNameById } from '../../../../hooks';
 import { useGetLineChangeHistoryItemData } from '../queries';
-import {
-  LineChangeHistoryItem,
-  TruePreviousLineChangeHistoryItem,
-} from '../types';
+import { LineChangeHistoryItem } from '../types';
 import { DataDiffFailedToLoadSection } from './DataDiffFailedToLoadSection';
 import { DataDiffSectionLoading } from './DataDiffSectionLoading';
 import { LineDetailsChangedSectionRow } from './LineDetailsChangedSectionRow';
@@ -13,7 +10,7 @@ import { RouteDetailsChangedSectionRow } from './RouteDetailsChangedSectionRow';
 type DataDiffSectionsProps = {
   readonly getUserNameById: GetUserNameById;
   readonly historyItem: LineChangeHistoryItem;
-  readonly previousHistoryItem: TruePreviousLineChangeHistoryItem;
+  readonly previousHistoryItem: LineChangeHistoryItem;
 };
 
 export const DataDiffSections: FC<DataDiffSectionsProps> = ({
