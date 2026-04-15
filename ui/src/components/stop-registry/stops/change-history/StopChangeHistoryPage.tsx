@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useRequiredParams } from '../../../../hooks';
+import { useGetUserNames, useRequiredParams } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
 import { Pagination } from '../../../../uiComponents';
 import {
@@ -36,9 +36,12 @@ export const StopChangeHistoryPage: FC = () => {
     publicCode,
     filters.priority,
   );
-  const { historyItems, loading, error, refetch } =
+
+  const { getUserNameById } = useGetUserNames();
+  const { historyItems, sortedHistoryItems, loading, error, refetch } =
     useGetStopChangeHistoryItems({
       filters,
+      getUserNameById,
       publicCode,
       sortingInfo,
     });
@@ -65,8 +68,9 @@ export const StopChangeHistoryPage: FC = () => {
         <StopChangeHistoryTable
           className="mt-5"
           error={error ?? null}
-          filters={filters}
+          getUserNameById={getUserNameById}
           historyItems={historyItems}
+          sortedHistoryItems={sortedHistoryItems}
           loading={loading}
           pagingInfo={pagingInfo}
           refetch={refetch}

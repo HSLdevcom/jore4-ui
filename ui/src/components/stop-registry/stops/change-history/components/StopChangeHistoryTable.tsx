@@ -1,8 +1,8 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
+import { GetUserNameById } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
 import {
-  ChangeHistoryFilters,
   ChangeHistorySortingInfo,
   ChangeHistoryTable,
   FailedToLoadChangeHistory,
@@ -10,46 +10,12 @@ import {
 } from '../../../../common/ChangeHistory';
 import { StopChangeHistoryDataRows } from './StopChangeHistoryDataRows';
 
-/**
- * Prevent flashing of various loading states on a fast connection.
- *
- * Don't show the loader at all, if we already know the previous result.
- * If we don't know the previous result, show the old results and wait for
- * 0.15s before switching to the loader state.
- *
- * @param loading
- * @param historyItems
- */
-function usePrettyLoaderState(
-  loading: boolean,
-  historyItems: ReadonlyArray<QuayChangeHistoryItem>,
-) {
-  const [showLoader, setShowLoader] = useState(loading);
-  const [previousHistoryItems, setPreviousHistoryItems] =
-    useState(historyItems);
-
-  useEffect(() => {
-    if (!loading || historyItems.length > 0) {
-      setPreviousHistoryItems(historyItems);
-    }
-  }, [loading, historyItems]);
-
-  useEffect(() => {
-    const id = setTimeout(
-      () => setShowLoader(loading && historyItems.length === 0),
-      150, // Matches with the transition time for the sorting buttons.
-    );
-    return () => clearTimeout(id);
-  }, [loading, historyItems]);
-
-  return { showLoader, previousHistoryItems };
-}
-
 type StopChangeHistoryTableProps = {
   readonly className?: string;
   readonly error: Error | null;
-  readonly filters: ChangeHistoryFilters;
+  readonly getUserNameById: GetUserNameById;
   readonly historyItems: ReadonlyArray<QuayChangeHistoryItem>;
+  readonly sortedHistoryItems: ReadonlyArray<QuayChangeHistoryItem>;
   readonly loading: boolean;
   readonly pagingInfo: PagingInfo;
   readonly refetch: () => void;
@@ -59,19 +25,17 @@ type StopChangeHistoryTableProps = {
 
 export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
   className,
-  filters,
   error,
+  getUserNameById,
   historyItems,
+  sortedHistoryItems,
   loading,
   pagingInfo,
   refetch,
   setSortingInfo,
   sortingInfo,
 }) => {
-  const { showLoader, previousHistoryItems } = usePrettyLoaderState(
-    loading,
-    historyItems,
-  );
+  const showLoader = historyItems.length === 0 && loading;
 
   return (
     <ChangeHistoryTable
@@ -86,8 +50,9 @@ export const StopChangeHistoryTable: FC<StopChangeHistoryTableProps> = ({
 
       {error === null && !showLoader && (
         <StopChangeHistoryDataRows
-          filters={filters}
-          historyItems={loading ? previousHistoryItems : historyItems}
+          getUserNameById={getUserNameById}
+          historyItems={historyItems}
+          sortedHistoryItems={sortedHistoryItems}
           pagingInfo={pagingInfo}
         />
       )}

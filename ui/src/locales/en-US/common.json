@@ -1510,7 +1510,6 @@
     "firstVersion": "New stop created",
     "importedVersion": "Stop imported from Jore 3",
     "copiedVersion": "Stop copied from another version",
-    "invalidVersion": "Invalid version {{version}}",
     "failedToLoad": "Failed to load change details",
     "versionLoading": "Resolving changed fields",
     "ownerDetails": "Owner details",

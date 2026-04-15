@@ -1082,7 +1082,6 @@ describe('Stop Change History', { tags }, () => {
           .getChanged()
           .filter(':visible')
           .click();
-        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
         cy.info('Sort buttons should have new correct state.');
         assertSortButtonState('Changed', 'asc');
         cy.info('Data rows should be ordered correctly Changed|Asc.');
@@ -1134,7 +1133,6 @@ describe('Stop Change History', { tags }, () => {
           .getValidityStart()
           .filter(':visible')
           .click();
-        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
         assertSortButtonState('ValidityStart', 'desc');
 
         cy.info('Data rows should be ordered correctly ValidityStart|Desc.');
@@ -1155,7 +1153,6 @@ describe('Stop Change History', { tags }, () => {
           .getValidityStart()
           .filter(':visible')
           .click();
-        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
         cy.info('Sort buttons should have new correct state.');
         assertSortButtonState('ValidityStart', 'asc');
         cy.info('Data rows should be ordered correctly ValidityStart|Asc.');
@@ -1177,7 +1174,6 @@ describe('Stop Change History', { tags }, () => {
           .getValidityEnd()
           .filter(':visible')
           .click();
-        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
         assertSortButtonState('ValidityEnd', 'asc');
         cy.info('Data rows should be ordered correctly ValidityEnd|Asc.');
         assertSectionsAreInOrder((current, next) => {
@@ -1197,7 +1193,6 @@ describe('Stop Change History', { tags }, () => {
           .getValidityEnd()
           .filter(':visible')
           .click();
-        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
         cy.info('Sort buttons should have new correct state.');
         assertSortButtonState('ValidityEnd', 'desc');
         cy.info('Data rows should be ordered correctly ValidityEnd|Desc.');
@@ -1265,7 +1260,6 @@ describe('Stop Change History', { tags }, () => {
           .getToDate()
           .focus()
           .inputDateValue(DateTime.now().minus({ months: 1 }));
-        expectGraphQLCallToSucceed('@gqlGetStopChangeHistory');
 
         StopChangeHistoryPage.changeHistoryTable.sectionHeader
           .getBasicDetails()
