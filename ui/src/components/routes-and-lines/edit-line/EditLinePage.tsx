@@ -101,6 +101,7 @@ export const EditLinePage: FC = () => {
           <LineForm
             onSubmit={onSubmit}
             defaultValues={mapLineToFormState(line)}
+            editing
           />
         )}
       </Container>
