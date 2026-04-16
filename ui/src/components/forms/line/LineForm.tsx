@@ -33,10 +33,15 @@ const formSchema = linePropertiesFormSchema
 
 type LineFormProps = {
   readonly defaultValues: Partial<FormState>;
+  readonly editing?: boolean;
   readonly onSubmit: (state: FormState) => void;
 };
 
-export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
+export const LineForm: FC<LineFormProps> = ({
+  defaultValues,
+  editing = false,
+  onSubmit,
+}) => {
   const navigate = useNavigate();
   const formRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
@@ -62,7 +67,7 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
       <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <Row className="mt-10">
           <FormContainer className="w-full p-6">
-            <LinePropertiesForm className="m-2" />
+            <LinePropertiesForm editing={editing} className="m-2" />
           </FormContainer>
         </Row>
         <Row className="mt-2">

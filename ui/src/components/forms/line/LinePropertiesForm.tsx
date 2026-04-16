@@ -48,10 +48,12 @@ const testIds = {
 };
 type LinePropertiesFormProps = {
   readonly className?: string;
+  readonly editing: boolean;
 };
 
 export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
   className,
+  editing,
 }) => {
   const { t } = useTranslation();
   const { getValues } = useFormContext<FormState>();
@@ -78,6 +80,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             translationPrefix="lines"
             fieldPath="label"
             testId={testIds.label}
+            disabled={editing}
           />
         </FormRow>
         <FormRow mdColumns={3}>

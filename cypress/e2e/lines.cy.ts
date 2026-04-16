@@ -16,7 +16,6 @@ import {
 import { insertToDbHelper } from '../utils';
 
 const testInputs = {
-  newLabel: 'Muokattu label 1999',
   newName: 'Muokattu nimi Testilinja FI',
   newPriority: 'Luonnos',
 };
@@ -90,9 +89,9 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       LineDetailsPage.visit(lines[0].line_id);
     });
 
-    it("Edits a line's name, label, priority and line text", () => {
+    it("Edits a line's name, priority and line text", () => {
       LineDetailsPage.getEditLineButton().click();
-      LineForm.getLabelInput().clearAndType(testInputs.newLabel);
+      LineForm.getLabelInput().shouldBeDisabled();
       LineForm.getFinnishNameInput().clearAndType(testInputs.newName);
       LineForm.selectTransportTarget('Helsingin sisäinen liikenne');
       LineForm.selectVehicleType('Bussi');
@@ -105,8 +104,8 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       LineForm.save();
       LineForm.checkLineSubmitSuccess();
 
+      LineDetailsPage.getLineLabel().should('have.text', lines[0].label);
       LineDetailsPage.getLineName().should('have.text', testInputs.newName);
-      LineDetailsPage.getLineLabel().should('have.text', testInputs.newLabel);
       LineValidityPeriod.getLinePriority().should(
         'have.text',
         testInputs.newPriority,
