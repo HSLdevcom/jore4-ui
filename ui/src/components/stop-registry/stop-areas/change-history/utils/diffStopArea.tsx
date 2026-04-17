@@ -20,7 +20,7 @@ import {
   mapNullable,
 } from '../../../../common/ChangeHistory';
 
-export function diffStopArea(
+export function diffStopAreaBasicDetails(
   t: TFunction,
   previous: HistoricalStopAreaDetailsFragment,
   current: HistoricalStopAreaDetailsFragment,
@@ -160,6 +160,27 @@ export function diffStopArea(
     }),
 
     diffKeyedValues({
+      key: 'Latitude',
+      field: t(($) => $.stopDetails.location.latitude),
+      oldValue: previousPoint?.latitude,
+      newValue: currentPoint?.latitude,
+    }),
+    diffKeyedValues({
+      key: 'Longitude',
+      field: t(($) => $.stopDetails.location.longitude),
+      oldValue: previousPoint?.longitude,
+      newValue: currentPoint?.longitude,
+    }),
+  ]);
+}
+
+export function diffStopAreaStops(
+  t: TFunction,
+  previous: HistoricalStopAreaDetailsFragment,
+  current: HistoricalStopAreaDetailsFragment,
+): Array<ChangedValue> {
+  return compact([
+    diffKeyedValues({
       key: 'Stops',
       field: t(($) => $.stopArea.quays),
       oldValue: compact(previous.quays?.map((it) => it?.publicCode)).sort(),
@@ -172,18 +193,48 @@ export function diffStopArea(
         />
       ),
     }),
+  ]);
+}
 
+function getTerminal(details: HistoricalStopAreaDetailsFragment) {
+  // Badly typed in Tiamat Schema. There can never be more than one ParentStopPlace.
+  const terminal = details.parentStopPlace?.at(0);
+
+  // eslint-disable-next-line no-underscore-dangle
+  if (terminal?.__typename !== 'stop_registry_ParentStopPlace') {
+    return null;
+  }
+
+  return terminal;
+}
+
+export function diffStopAreaTerminal(
+  t: TFunction,
+  previous: HistoricalStopAreaDetailsFragment,
+  current: HistoricalStopAreaDetailsFragment,
+): Array<ChangedValue> {
+  return compact([
     diffKeyedValues({
-      key: 'Latitude',
-      field: t(($) => $.stopDetails.location.latitude),
-      oldValue: previousPoint?.latitude,
-      newValue: currentPoint?.latitude,
-    }),
-    diffKeyedValues({
-      key: 'Longitude',
-      field: t(($) => $.stopDetails.location.longitude),
-      oldValue: previousPoint?.longitude,
-      newValue: currentPoint?.longitude,
+      key: 'ParentTerminal',
+      field: t(($) => $.stopAreaDetails.basicDetails.parentTerminal),
+      oldValue: getTerminal(previous),
+      newValue: getTerminal(current),
+      mapper: (terminal) => {
+        if (!terminal) {
+          return '-';
+        }
+
+        return `${terminal.privateCode?.value}: ${terminal.name?.value ?? ''}`;
+      },
+      compare: (oldTerminal, newTerminal) => {
+        if (!oldTerminal && !newTerminal) {
+          return true;
+        }
+
+        return (
+          oldTerminal?.privateCode?.value === newTerminal?.privateCode?.value
+        );
+      },
     }),
   ]);
 }

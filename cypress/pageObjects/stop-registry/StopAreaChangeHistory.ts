@@ -20,6 +20,8 @@ const StopAreaChangeHistoryTable = createSimplePageObject(
 
     // LineDetailsChangedSectionRow
     'ChangeHistory::SectionHeader::StopAreaDetails',
+    'ChangeHistory::SectionHeader::StopAreaStops',
+    'ChangeHistory::SectionHeader::StopAreaTerminal',
     'ChangeHistory::ChangedValues::StopAreaDetails::NameFin',
     'ChangeHistory::ChangedValues::StopAreaDetails::NameSwe',
     'ChangeHistory::ChangedValues::StopAreaDetails::NameEng',
@@ -32,9 +34,10 @@ const StopAreaChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::ChangedValues::StopAreaDetails::ValidityStart',
     'ChangeHistory::ChangedValues::StopAreaDetails::ValidityEnd',
     'ChangeHistory::ChangedValues::StopAreaDetails::TransportMode',
-    'ChangeHistory::ChangedValues::StopAreaDetails::Stops',
     'ChangeHistory::ChangedValues::StopAreaDetails::Latitude',
     'ChangeHistory::ChangedValues::StopAreaDetails::Longitude',
+    'ChangeHistory::ChangedValues::StopAreaStops::Stops',
+    'ChangeHistory::ChangedValues::StopAreaTerminal::ParentTerminal',
   ],
   (base) => ({
     ...BaseChangeHistoryTable,

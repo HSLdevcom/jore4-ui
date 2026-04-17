@@ -1571,7 +1571,9 @@
     "goBack": "Back",
     "newStopAreaVersion": "New Stop Area version created",
     "importedStopAreaVersion": "Stop Area imported from Jore 3",
-    "sectionTitle": "Stop Area {{privateCodeValue}}",
+    "sectionTitle": "Stop area",
+    "stopsSectionTitle": "Stops",
+    "terminalSectionTitle": "Parent terminal",
     "failedToLoad": "Failed to load change details",
     "versionLoading": "Resolving changed fields"
   },

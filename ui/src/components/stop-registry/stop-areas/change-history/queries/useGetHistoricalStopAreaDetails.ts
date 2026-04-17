@@ -9,7 +9,7 @@ import {
 const GQL_GET_HISTORICAL_STOP_AREA_DETAILS = gql`
   query GetHistoricalStopAreaDetails($id: String!, $version: Int!) {
     stopsRegistry: stop_registry {
-      stopPlace(id: $id, version: $version) {
+      stopPlace(id: $id, version: $version, onlyMonomodalStopPlaces: true) {
         ...HistoricalStopAreaDetails
       }
     }

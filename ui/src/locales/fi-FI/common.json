@@ -1571,7 +1571,9 @@
     "goBack": "Palaa",
     "newStopAreaVersion": "Uusi versio pysäkkialueesta luotu",
     "importedStopAreaVersion": "Pysäkkialue tuotu Jore 3:sta",
-    "sectionTitle": "Pysäkkialue {{privateCodeValue}}",
+    "sectionTitle": "Pysäkkialue",
+    "stopsSectionTitle": "Pysäkit",
+    "terminalSectionTitle": "Emoterminaali",
     "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
     "versionLoading": "Selvitetään muuttuneita kenttiä"
   },

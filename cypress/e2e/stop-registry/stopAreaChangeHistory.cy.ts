@@ -7,6 +7,7 @@ import {
   StopInsertInput,
   StopRegistryNameType,
   StopRegistryTransportModeType,
+  TerminalInput,
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
@@ -15,6 +16,7 @@ import {
   seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { DateTime } from 'luxon';
+import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   MapPage,
@@ -122,6 +124,11 @@ const stopAreaInput: StopAreaInput = {
   organisations: null,
 };
 
+const baseTerminalInput: TerminalInput = {
+  terminal: getClonedBaseStopRegistryData().terminals[0].terminal,
+  memberLabels: ['AreaA'],
+};
+
 function assertValueChanged([oldValue, newValue]: readonly [string, string]) {
   return () => {
     StopAreaChangeHistory.changeHistoryTable.changedValues
@@ -180,7 +187,7 @@ describe('Stop Change History', { tags }, () => {
     });
   });
 
-  beforeEach(() => {
+  function initTestData(withTerminal: boolean = false) {
     cy.task('resetDbs');
 
     insertToDbHelper(dbResources);
@@ -188,13 +195,16 @@ describe('Stop Change History', { tags }, () => {
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       stopPlaces: [stopAreaInput],
       organisations: seedOrganisations,
+      ...(withTerminal ? { terminals: [baseTerminalInput] } : {}),
     });
 
     cy.setupTests();
     cy.mockLogin();
-  });
+  }
 
   it('Should diff basic Stop Area details', () => {
+    initTestData();
+
     StopAreaDetailsPage.visit('AreaA');
 
     cy.section('Make changes', () => {
@@ -305,6 +315,8 @@ describe('Stop Change History', { tags }, () => {
   });
 
   it('Should diff list of stops', () => {
+    initTestData();
+
     MapPage.map.visit({
       zoom: 16,
       lat: 60.164074274478054,
@@ -339,14 +351,33 @@ describe('Stop Change History', { tags }, () => {
         .getAllGroupElements()
         .eq(0)
         .within(() => {
-          StopAreaChangeHistory.changeHistoryTable.changedValues.stopAreaDetails
+          StopAreaChangeHistory.changeHistoryTable.changedValues.stopAreaStops
             .getStops()
             .within(assertValueChanged(['H2003', ['H2003', 'T1234'].join('')]));
         });
     });
   });
 
+  it('Should diff terminal', () => {
+    initTestData(true);
+
+    // Base data insert conveniently triggers an "added to a new terminal"
+    // change to be generated.
+    cy.visit('/stop-registry/stop-areas/AreaA/history');
+
+    StopAreaChangeHistory.changeHistoryTable.group
+      .getAllGroupElements()
+      .eq(1) // Group 0 contains some update the associated quay.
+      .within(() => {
+        StopAreaChangeHistory.changeHistoryTable.changedValues.stopAreaTerminal
+          .getParentTerminal()
+          .within(assertValueChanged(['-', 'T2: E2ET001']));
+      });
+  });
+
   it('Should filter and page items', () => {
+    initTestData();
+
     StopAreaDetailsPage.visit('AreaA');
 
     cy.section('Make changes to Finnish name', () => {
@@ -408,6 +439,8 @@ describe('Stop Change History', { tags }, () => {
   });
 
   it('Should sort items', () => {
+    initTestData();
+
     StopAreaDetailsPage.visit('AreaA');
 
     const start = DateTime.local(2026, 1, 1);

@@ -4,7 +4,11 @@ import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
 import { ChangedValuesWithHeaderRow } from '../../../../common/ChangeHistory';
 import { useGetHistoricalStopAreaDetails } from '../queries';
-import { diffStopArea } from '../utils';
+import {
+  diffStopAreaBasicDetails,
+  diffStopAreaStops,
+  diffStopAreaTerminal,
+} from '../utils';
 import { DataDiffFailedToLoadSection } from './DataDiffFailedToLoadSection';
 import { DataDiffSectionLoading } from './DataDiffSectionLoading';
 import { SectionTitle } from './SectionTitle';
@@ -62,19 +66,51 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
   }
 
   return (
-    <ChangedValuesWithHeaderRow
-      getUserNameById={getUserNameById}
-      historyItem={historyItem}
-      diffVersions={diffStopArea}
-      current={current}
-      previous={previous}
-      testId="StopAreaDetails"
-      sectionTitle={
-        <SectionTitle
-          historyItem={historyItem}
-          section={t(($) => $.stopAreaChangeHistory.sectionTitle, historyItem)}
-        />
-      }
-    />
+    <>
+      <ChangedValuesWithHeaderRow
+        getUserNameById={getUserNameById}
+        historyItem={historyItem}
+        diffVersions={diffStopAreaBasicDetails}
+        current={current}
+        previous={previous}
+        testId="StopAreaDetails"
+        sectionTitle={
+          <SectionTitle
+            historyItem={historyItem}
+            section={t(($) => $.stopAreaChangeHistory.sectionTitle)}
+          />
+        }
+      />
+
+      <ChangedValuesWithHeaderRow
+        getUserNameById={getUserNameById}
+        historyItem={historyItem}
+        diffVersions={diffStopAreaStops}
+        current={current}
+        previous={previous}
+        testId="StopAreaStops"
+        sectionTitle={
+          <SectionTitle
+            historyItem={historyItem}
+            section={t(($) => $.stopAreaChangeHistory.stopsSectionTitle)}
+          />
+        }
+      />
+
+      <ChangedValuesWithHeaderRow
+        getUserNameById={getUserNameById}
+        historyItem={historyItem}
+        diffVersions={diffStopAreaTerminal}
+        current={current}
+        previous={previous}
+        testId="StopAreaTerminal"
+        sectionTitle={
+          <SectionTitle
+            historyItem={historyItem}
+            section={t(($) => $.stopAreaChangeHistory.terminalSectionTitle)}
+          />
+        }
+      />
+    </>
   );
 };
