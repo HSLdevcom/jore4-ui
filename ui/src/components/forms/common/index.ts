@@ -16,6 +16,5 @@ export * from './NullableBooleanDropdown';
 export * from './ObservationDateInput';
 export * from './PriorityForm';
 export * from './ReasonForChangeForm';
-export * from './TextAreaElement';
 export * from './ValidationErrorList';
 export * from './ValidityPeriodForm';

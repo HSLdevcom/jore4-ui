@@ -10,7 +10,6 @@ import {
   FormActionButtons,
   InputElement,
   InputField,
-  TextAreaElement,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
@@ -98,15 +97,7 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
               fieldPath="signageInstructionExceptions"
               testId={testIds.signageInstructionExceptions}
               className="h-full"
-              // eslint-disable-next-line react/no-unstable-nested-components, @typescript-eslint/no-unused-vars
-              inputElementRenderer={({ fieldState, ...props }) => (
-                <TextAreaElement
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                  fieldPath="signageInstructionExceptions"
-                  className="h-full"
-                />
-              )}
+              type="textarea"
             />
           </Column>
         </Row>

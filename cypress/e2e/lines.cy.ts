@@ -78,7 +78,7 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
 
       // Check line text from edit page
       LineDetailsPage.getEditLineButton().click();
-      LineForm.getLineTextInput().should('have.text', 'Linjateksti');
+      LineForm.getLineTextInput().should('have.value', 'Linjateksti');
       LineForm.cancel();
     });
   });
@@ -117,7 +117,7 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
 
       // Check line text from edit page
       LineDetailsPage.getEditLineButton().click();
-      LineForm.getLineTextInput().should('have.text', 'Muokattu linjateksti');
+      LineForm.getLineTextInput().should('have.value', 'Muokattu linjateksti');
       LineForm.cancel();
     });
 

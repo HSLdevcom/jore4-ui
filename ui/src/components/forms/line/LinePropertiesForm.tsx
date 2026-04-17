@@ -13,7 +13,6 @@ import {
   FormColumn,
   FormRow,
   InputField,
-  TextAreaElement,
   localizedStringRequired,
   requiredString,
 } from '../common';
@@ -185,15 +184,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             translationPrefix="lines"
             fieldPath="description"
             testId={testIds.lineDescription}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <TextAreaElement
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-                fieldPath="description"
-                className="h-full"
-              />
-            )}
+            type="textarea"
           />
         </FormRow>
       </FormColumn>
