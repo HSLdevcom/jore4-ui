@@ -19,6 +19,7 @@ import {
   FormState as LinePropertiesFormState,
   schema as linePropertiesFormSchema,
 } from './LinePropertiesForm';
+import { lineTypesByVehicleMode } from './LineTypeDropdown';
 
 export type FormState = LinePropertiesFormState & ChangeValidityFormState;
 
@@ -27,9 +28,21 @@ const testIds = {
   cancelButton: 'LineForm::cancelButton',
 };
 
+const INVALID_LINE_TYPE = 'invalidLineType';
+
 const formSchema = linePropertiesFormSchema
   .merge(changeValidityFormSaveFormSchema)
-  .superRefine(refineValidityPeriodSchema);
+  .superRefine(refineValidityPeriodSchema)
+  .superRefine((line, ctx) => {
+    const validLineTypes = lineTypesByVehicleMode[line.primaryVehicleMode];
+    if (!validLineTypes.includes(line.typeOfLine)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: INVALID_LINE_TYPE,
+        path: ['typeOfLine'],
+      });
+    }
+  });
 
 type LineFormProps = {
   readonly defaultValues: Partial<FormState>;

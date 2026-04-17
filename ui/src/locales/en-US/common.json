@@ -1140,7 +1140,8 @@
     "invalidValidityEndDate": "Invalid validity end date",
     "invalidValidityStartDate": "Invalid validity start date",
     "validityEndDateBeforeStartDate": "Validity end date cannot be before start date",
-    "nameValueTooLong": "Name has over 21 characters."
+    "nameValueTooLong": "Name has over 21 characters.",
+    "invalidLineType": "Line type must match with it's vehicle mode"
   },
   "errors": {
     "deleteFailed": "Deletion failed",

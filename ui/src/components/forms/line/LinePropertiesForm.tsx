@@ -56,16 +56,15 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
   editing,
 }) => {
   const { t } = useTranslation();
-  const { getValues } = useFormContext<FormState>();
+  const { getValues, watch } = useFormContext<FormState>();
 
   // if either own of {Swedish name, Finnish short name, Swedish short name} are not defined, open
   // the "name versions" section by default
-  const defaultShowNameVersions =
-    !getValues('name.sv_FI') ||
-    !getValues('shortName.fi_FI') ||
-    !getValues('shortName.sv_FI');
   const [showNameVersions, setShowNameVersions] = useState<boolean>(
-    defaultShowNameVersions,
+    () =>
+      !getValues('name.sv_FI') ||
+      !getValues('shortName.fi_FI') ||
+      !getValues('shortName.sv_FI'),
   );
 
   return (
@@ -175,6 +174,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
               <LineTypeDropdown
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
+                vehicleMode={watch('primaryVehicleMode')}
               />
             )}
           />

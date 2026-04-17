@@ -59,6 +59,7 @@ export class LineForm {
   }
 
   static save() {
+    cy.getByTestId('LineForm::saveButton').scrollIntoView();
     return cy.getByTestId('LineForm::saveButton').click();
   }
 

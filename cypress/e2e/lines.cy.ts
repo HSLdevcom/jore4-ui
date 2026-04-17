@@ -133,5 +133,16 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       ObservationDateControl.setObservationDate(withinValidityPeriod);
       cy.getByTestId('LineMissingBox::notValidText').should('not.exist');
     });
+
+    it('should error on invalid vehicle mode and line type combination', () => {
+      LineDetailsPage.getEditLineButton().click();
+
+      LineForm.selectVehicleType('Raitiovaunu');
+
+      LineForm.save();
+      cy.getByTestId('ValidationError::message::typeOfLine').shouldHaveText(
+        'Linjan tyyppi ei vastaa sen kulkumuotoa',
+      );
+    });
   });
 });
