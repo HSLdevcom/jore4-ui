@@ -24,6 +24,7 @@ type EnumDropdownBaseProps<TEnum extends string> = BaseFormInputProps & {
   // Allow string in for compatability with old untyped use sites.
   readonly value?: TEnum | string;
   readonly onChange: (newValue: TEnum) => void;
+  readonly disabledOptions?: ReadonlyArray<TEnum>;
 };
 
 type EnumDropdownWithNullOptionProps = {
@@ -69,6 +70,7 @@ const EnumDropdownImpl = <TEnum extends string>(
     buttonClassName,
     includeAllOption = false,
     includeNullOption = false,
+    disabledOptions,
     ...formInputProps
   }: EnumDropdownProps<TEnum>,
   ref: Ref<HTMLDivElement>,
@@ -97,6 +99,7 @@ const EnumDropdownImpl = <TEnum extends string>(
     (item) => ({
       value: item as unknown as TEnum,
       content: uiNameMapper(item as unknown as TEnum),
+      disabled: disabledOptions?.includes(item as unknown as TEnum) ?? false,
     }),
   );
 

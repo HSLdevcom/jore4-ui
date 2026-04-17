@@ -25,11 +25,13 @@ export type ListboxOptionItem<ValueType> =
       readonly value: ValueType;
       readonly render: (props: OptionRenderPropArg) => ReactNode;
       readonly content?: never;
+      readonly disabled?: boolean;
     }
   | {
       readonly value: ValueType;
       readonly render?: never;
       readonly content: ReactNode;
+      readonly disabled?: boolean;
     };
 
 type JoreListboxOptionsProps<ValueType> = {
@@ -63,6 +65,7 @@ const JoreListboxOptionsImpl = <ValueType extends string>(
         key={item.value}
         value={item.value}
         data-testid={`${testId}::${item.value}`}
+        disabled={item.disabled}
       >
         {'content' in item ? item.content : wrapInFragment(item.render)}
       </ListboxOption>
