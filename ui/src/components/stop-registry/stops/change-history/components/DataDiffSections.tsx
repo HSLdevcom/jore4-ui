@@ -18,8 +18,6 @@ import { DataDiffSectionLoading } from './DataDiffSectionLoading';
 import { useHistoricalStopVersion } from './HistoricalStopDataProvider';
 import { SectionTitle } from './SectionTitle';
 
-const infoSpotJoinsVersionedInTiamat = false;
-
 type DataDiffSectionsProps = {
   readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
@@ -141,20 +139,16 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
           ),
           testId: 'ShelterDetails',
         },
-        ...(infoSpotJoinsVersionedInTiamat
-          ? [
-              {
-                diffVersions: diffInfoSpots,
-                sectionTitle: (
-                  <SectionTitle
-                    historyItem={historyItem}
-                    section={t(($) => $.stopChangeHistory.infoSpots.title)}
-                  />
-                ),
-                testId: 'InfoSpotDetails',
-              },
-            ]
-          : []),
+        {
+          diffVersions: diffInfoSpots,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopChangeHistory.infoSpots.title)}
+            />
+          ),
+          testId: 'InfoSpotDetails',
+        },
       ]}
     />
   );
