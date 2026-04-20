@@ -6,6 +6,7 @@ import {
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../enums';
 import {
+  LineChangeHistory,
   LineDetailsPage,
   LineForm,
   LineValidityPeriod,
@@ -46,6 +47,8 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
     });
 
     it('Creates new line as expected', { tags: [Tag.Smoke] }, () => {
+      const versionComment = 'E2E line create reason';
+
       LineForm.getLabelInput().type('7327');
       LineForm.getFinnishNameInput().type('Testilinja FI');
       LineForm.getSwedishNameInput().type('Testilinja SV');
@@ -59,6 +62,7 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       LineForm.priorityForm.setPriority(Priority.Standard);
       ValidityPeriodForm.setStartDate('2022-01-01');
       ValidityPeriodForm.setEndDate('2050-01-01');
+      LineForm.getVersionCommentInput().type(versionComment);
 
       LineForm.save();
       LineForm.checkLineSubmitSuccess();
@@ -75,6 +79,13 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       );
       LineDetailsPage.getPrimaryVehicleMode().should('contain', 'Bussi');
       LineDetailsPage.getTypeOfLine().should('contain', 'Peruslinja');
+
+      LineDetailsPage.getChangeHistoryLink().click();
+      LineChangeHistory.changeHistoryTable.sectionHeader
+        .getVersionComment()
+        .should('be.visible')
+        .and('contain', versionComment);
+      cy.go('back');
 
       // Check line text from edit page
       LineDetailsPage.getEditLineButton().click();
@@ -100,6 +111,7 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
 
       PriorityForm.setAsDraft();
       ValidityPeriodForm.setStartDate('2022-01-01');
+      LineForm.getVersionCommentInput().type('E2E line edit reason');
 
       LineForm.save();
       LineForm.checkLineSubmitSuccess();
@@ -143,6 +155,25 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       cy.getByTestId('ValidationError::message::typeOfLine').shouldHaveText(
         'Linjan tyyppi ei vastaa sen kulkumuotoa',
       );
+    });
+
+    it('should show version comment in line change history after edit', () => {
+      const versionComment = 'E2E line change history reason';
+
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getFinnishNameInput().clearAndType('Muutettu historia-nimi');
+      ValidityPeriodForm.setStartDate('2022-01-01');
+      ValidityPeriodForm.setEndDate('2050-01-01');
+      LineForm.getVersionCommentInput().type(versionComment);
+
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
+
+      LineDetailsPage.getChangeHistoryLink().click();
+      LineChangeHistory.changeHistoryTable.sectionHeader
+        .getVersionComment()
+        .should('be.visible')
+        .and('contain', versionComment);
     });
   });
 });

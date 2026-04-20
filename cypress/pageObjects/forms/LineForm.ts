@@ -58,6 +58,10 @@ export class LineForm {
     return cy.getByTestId('LinePropertiesForm::descriptionInput');
   }
 
+  static getVersionCommentInput() {
+    return cy.getByTestId('LineForm::versionComment');
+  }
+
   static save() {
     cy.getByTestId('LineForm::saveButton').scrollIntoView();
     return cy.getByTestId('LineForm::saveButton').click();
