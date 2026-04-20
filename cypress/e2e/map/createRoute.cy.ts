@@ -78,6 +78,7 @@ describe('Route creation', rootOpts, () => {
         finnishName: 'Test route',
         label: '901Y',
         variant: '56',
+        versionComment: 'E2E create route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -163,6 +164,7 @@ describe('Route creation', rootOpts, () => {
       finnishName: 'Test route',
       label: '901Y',
       variant: '56',
+      versionComment: 'E2E cancel create route reason',
       line: '901',
       direction: RouteDirectionEnum.Outbound,
       origin: {
@@ -201,6 +203,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901X',
+        versionComment: 'E2E create route with removed stop reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -295,6 +298,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Erronous route',
         label: '901F',
+        versionComment: 'E2E invalid single-stop route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -367,6 +371,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Indefinite end time route',
         label: '901I',
+        versionComment: 'E2E indefinite route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -425,6 +430,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Based on template test route',
         label: '901T',
+        versionComment: 'E2E template route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {

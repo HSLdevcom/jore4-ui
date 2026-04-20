@@ -17,6 +17,7 @@ export interface RouteFormInfo
   finnishName?: string;
   label?: string;
   variant?: string;
+  versionComment?: string;
   direction?: RouteDirectionEnum;
   line?: string;
   origin?: TerminusValues;
@@ -54,6 +55,10 @@ export class RoutePropertiesForm {
     return cy.getByTestId(
       'RoutePropertiesFormComponent::useTemplateRouteButton',
     );
+  }
+
+  static getVersionCommentInput() {
+    return cy.getByTestId('RoutePropertiesFormComponent::versionComment');
   }
 
   static selectDirection(direction: RouteDirectionEnum) {
@@ -103,6 +108,11 @@ export class RoutePropertiesForm {
     }
     if (values.variant) {
       RoutePropertiesForm.getVariantInput().clearAndType(values.variant);
+    }
+    if (values.versionComment) {
+      RoutePropertiesForm.getVersionCommentInput().clearAndType(
+        values.versionComment,
+      );
     }
     if (values.direction) {
       RoutePropertiesForm.selectDirection(values.direction);
