@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, isValidElement } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { Link, To } from 'react-router';
 import { useGetUserNames } from '../../../../hooks';
 import { mapUTCToDateTime } from '../../../../time';
+import { EmptyCell } from '../EmptyCell';
 import { ChangedValue } from '../types';
 
 type ChangeSection = {
@@ -19,6 +20,10 @@ type LatestChangeHistoryItemProps = {
   readonly sections: ReadonlyArray<ChangeSection>;
   readonly link: To;
   readonly testId: string;
+};
+
+const isEmptyCell = (value: unknown): boolean => {
+  return isValidElement(value) && value.type === EmptyCell;
 };
 
 export const LatestChangeHistoryItem = ({
@@ -44,12 +49,21 @@ export const LatestChangeHistoryItem = ({
             {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
             {historyItem.versionComment || section.title}
           </Link>
-          {section.changes.map((c) => (
-            <span className="block" key={c.key ?? String(c.field)}>
-              {c.field}: {c.oldValue}{' '}
-              <FaPlay className="mx-1 inline text-[8px]" /> {c.newValue}
-            </span>
-          ))}
+          {section.changes.map((c) => {
+            const hasOldValue = c.oldValue && !isEmptyCell(c.oldValue);
+            return (
+              <span className="block" key={c.key ?? String(c.field)}>
+                {c.field && `${c.field}: `}
+                {hasOldValue && (
+                  <>
+                    {c.oldValue}{' '}
+                    <FaPlay className="mx-1 inline text-[8px]" />{' '}
+                  </>
+                )}
+                {c.newValue}
+              </span>
+            );
+          })}
         </div>
       ))}
       <div>
