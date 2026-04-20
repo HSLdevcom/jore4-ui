@@ -13,6 +13,7 @@ import { Tag } from '../enums';
 import {
   ConfirmationDialog,
   EditRoutePage,
+  LineChangeHistory,
   LineDetailsPage,
   RouteRow,
   TerminusNameInputs,
@@ -52,6 +53,8 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
     });
 
     it("Should edit a routes's information", { tags: [Tag.Smoke] }, () => {
+      const versionComment = 'E2E route edit reason';
+
       LineDetailsPage.visit(baseDbResources.lines[0].line_id);
       RouteRow.getEditRouteButton('901', RouteDirectionEnum.Inbound).click();
 
@@ -60,6 +63,7 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
         finnishName: 'Edited route name',
         label: '901E',
         variant: '8',
+        versionComment,
         direction: RouteDirectionEnum.Outbound,
         origin: {
           finnishName: 'Edited origin FIN',
@@ -94,6 +98,13 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
         '901E',
         RouteDirectionEnum.Outbound,
       ).should('contain', '1.1.2022 - 31.12.2030');
+
+      LineDetailsPage.getChangeHistoryLink().click();
+      LineChangeHistory.changeHistoryTable.sectionHeader
+        .getVersionComment()
+        .should('be.visible')
+        .and('contain', versionComment);
+      cy.go('back');
 
       // Verify rest of the information from the edit route page
       RouteRow.getEditRouteButton('901E', RouteDirectionEnum.Outbound).click();
@@ -176,6 +187,7 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
         finnishName: 'Edited route name',
         label: '901E',
         variant: '8',
+        versionComment: 'E2E route validation reason',
         direction: RouteDirectionEnum.Outbound,
         origin: {
           finnishName: 'Edited origin FIN',

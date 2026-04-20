@@ -24,6 +24,7 @@ const LineChangeHistoryTable = createSimplePageObject(
 
     // DataDiffSectionLoading
     'ChangeHistory::SectionHeader::LoadingLineData',
+    'ChangeHistory::SectionHeader::VersionComment',
 
     // LineDetailsChangedSectionRow
     'ChangeHistory::SectionHeader::LineDetails',
