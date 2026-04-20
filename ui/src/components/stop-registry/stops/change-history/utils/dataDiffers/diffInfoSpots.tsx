@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { ReactNode } from 'react';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
 import { getGeometryPoint } from '../../../../../../utils';
 import {
   ChangedValue,
@@ -10,7 +11,9 @@ import {
   diffKeyedValues,
   diffNestedItems,
 } from '../../../../../common/ChangeHistory';
+import { normalizeZoneLabel } from '../../../../types/utils';
 import { formatSizedDbItem } from '../../../stop-details/info-spots/utils';
+import { formatPurposeForDisplay } from '../../../stop-details/info-spots/utils/infoSpotPurposeUtils';
 import { optionalBooleanToUiText } from '../../../stop-details/utils';
 import { HistoricalStopData } from '../../types';
 
@@ -89,6 +92,7 @@ function diffInfoSpotVersions(
       field: t(($) => $.stopDetails.infoSpots.purpose),
       oldValue: previous?.purpose,
       newValue: current?.purpose,
+      mapper: (v) => formatPurposeForDisplay(t, v),
     }),
     diffKeyedValues({
       key: 'Size',
@@ -122,6 +126,7 @@ function diffInfoSpotVersions(
       field: t(($) => $.stopDetails.infoSpots.zoneLabel),
       oldValue: previous?.zoneLabel,
       newValue: current?.zoneLabel,
+      mapper: (v) => mapZoneLabelToUiName(t, normalizeZoneLabel(v)),
     }),
     diffKeyedValues({
       key: 'RailInformation',
@@ -138,8 +143,8 @@ function diffInfoSpotVersions(
     diffKeyedValues({
       key: 'Description',
       field: t(($) => $.stopDetails.infoSpots.description),
-      oldValue: previous?.description,
-      newValue: current?.description,
+      oldValue: previous?.description?.value,
+      newValue: current?.description?.value,
     }),
 
     diffKeyedValues({
