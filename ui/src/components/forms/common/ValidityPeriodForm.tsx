@@ -103,12 +103,15 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
         </FormRow>
       </FormColumn>
       <Row>
-        <label htmlFor="indefinite" className="mt-3.5 inline-flex font-normal">
+        <label
+          htmlFor="indefinite"
+          className="mt-3.5 inline-flex items-center gap-3.5 font-normal"
+        >
           <input
             type="checkbox"
             id="indefinite"
             {...register('indefinite', {})}
-            className="mr-3.5 h-6 w-6"
+            className="h-6 w-6 shrink-0"
             data-testid={testIds.indefiniteCheckbox}
           />
           {t(($) => $.saveChangesModal.indefinite)}

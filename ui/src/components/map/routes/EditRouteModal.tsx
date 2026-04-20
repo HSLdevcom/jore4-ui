@@ -47,6 +47,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
           testIdPrefix={testIds.modal}
           className="min-h-0"
           variant="modal"
+          modalLayout
         />
       </Modal>
     </CustomOverlay>
