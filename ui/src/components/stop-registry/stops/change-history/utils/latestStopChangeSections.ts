@@ -3,6 +3,7 @@ import { ChangedValue } from '../../../../common/ChangeHistory';
 import { HistoricalStopData } from '../types';
 import {
   diffBasicDetails,
+  diffInfoSpots,
   diffLocationDetails,
   diffMeasurementDetails,
   diffOwnerDetails,
@@ -49,6 +50,10 @@ export function latestStopChangeSections(
     {
       title: t(($) => $.stopChangeHistory.shelters.title),
       changes: diffShelters(t, prev, curr),
+    },
+    {
+      title: t(($) => $.stopChangeHistory.infoSpots.title),
+      changes: diffInfoSpots(t, prev, curr),
     },
   ].filter((s) => s.changes.length > 0);
 }
