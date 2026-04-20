@@ -13,6 +13,8 @@ import {
 import { Tag } from '../../enums';
 import {
   FilterPanel,
+  LineChangeHistory,
+  LineDetailsPage,
   MapFooter,
   MapPage,
   RouteStopsOverlay,
@@ -62,12 +64,14 @@ describe('Route creation', rootOpts, () => {
     cy.mockLogin();
   });
 
-  it(
+  it.only(
     'Should create a new route',
     {
       tags: [Tag.Smoke, Tag.Network],
     },
     () => {
+      const versionComment = 'E2E create route reason';
+
       MapPage.map.visit(mapLocation);
 
       FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -93,6 +97,7 @@ describe('Route creation', rootOpts, () => {
           swedishShortName: 'Test destination SWE shortName',
         },
         priority: Priority.Standard,
+        versionComment,
         validityStartISODate: '2025-01-01',
         validityEndISODate: '2030-12-01',
       });
@@ -151,6 +156,13 @@ describe('Route creation', rootOpts, () => {
       RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
         'E2E005 -',
       );
+
+      LineDetailsPage.visit(baseDbResources.lines[0].line_id);
+      LineDetailsPage.getChangeHistoryLink().click();
+      LineChangeHistory.changeHistoryTable.sectionHeader
+        .getVersionComment()
+        .should('be.visible')
+        .and('contain', versionComment);
     },
   );
 
@@ -163,6 +175,7 @@ describe('Route creation', rootOpts, () => {
       finnishName: 'Test route',
       label: '901Y',
       variant: '56',
+      versionComment: 'E2E cancel create route reason',
       line: '901',
       direction: RouteDirectionEnum.Outbound,
       origin: {
@@ -201,6 +214,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901X',
+        versionComment: 'E2E create route with removed stop reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -295,6 +309,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Erronous route',
         label: '901F',
+        versionComment: 'E2E invalid single-stop route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -367,6 +382,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Indefinite end time route',
         label: '901I',
+        versionComment: 'E2E indefinite route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
@@ -425,6 +441,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Based on template test route',
         label: '901T',
+        versionComment: 'E2E template route reason',
         line: '901',
         direction: RouteDirectionEnum.Outbound,
         origin: {
