@@ -19,8 +19,6 @@ import { useHistoricalStopVersion } from './HistoricalStopDataProvider';
 import { SectionTitle } from './SectionTitle';
 import { ValidityPeriodChangedSectionRow } from './ValidityPeriodChangedSectionRow';
 
-const infoSpotJoinsVersionedInTiamat = false;
-
 type DataDiffSectionsProps = {
   readonly getUserNameById: GetUserNameById;
   readonly historyItem: QuayChangeHistoryItem;
@@ -163,22 +161,20 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
         previous={previousCached.value}
         testId="ShelterDetails"
       />
-      {infoSpotJoinsVersionedInTiamat && (
-        <ChangedValuesWithHeaderRow
-          current={currentCached.value}
-          diffVersions={diffInfoSpots}
-          sectionTitle={
-            <SectionTitle
-              historyItem={historyItem}
-              section={t(($) => $.stopChangeHistory.infoSpots.title)}
-            />
-          }
-          getUserNameById={getUserNameById}
-          historyItem={historyItem}
-          previous={previousCached.value}
-          testId="InfoSpotDetails"
-        />
-      )}
+      <ChangedValuesWithHeaderRow
+        current={currentCached.value}
+        diffVersions={diffInfoSpots}
+        sectionTitle={
+          <SectionTitle
+            historyItem={historyItem}
+            section={t(($) => $.stopChangeHistory.infoSpots.title)}
+          />
+        }
+        getUserNameById={getUserNameById}
+        historyItem={historyItem}
+        previous={previousCached.value}
+        testId="InfoSpotDetails"
+      />
     </>
   );
 };
