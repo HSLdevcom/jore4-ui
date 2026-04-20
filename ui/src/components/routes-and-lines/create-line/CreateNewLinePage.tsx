@@ -72,7 +72,11 @@ export const CreateNewLinePage: FC = () => {
         <i className="icon-bus-alt text-6xl text-tweaked-brand" />
         <PageTitle.H1>{t(($) => $.lines.createNew)}</PageTitle.H1>
       </Row>
-      <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
+      <LineForm
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        validityPeriodTitle={t(($) => $.lines.lineValidityPeriod)}
+      />
     </Container>
   );
 };

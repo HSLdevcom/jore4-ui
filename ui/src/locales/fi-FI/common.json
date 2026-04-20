@@ -13,6 +13,7 @@
     "routes": "Reitit ja linjat",
     "save": "Tallenna reitti",
     "saveSuccess": "Reitti tallennettu",
+    "updateSuccess": "Muutokset tallennettu",
     "deleteSuccess": "Reitti poistettu",
     "enterRouteData": "Anna reitin tiedot",
     "finnishName": "Reitin nimi",
@@ -52,6 +53,8 @@
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",
     "variant": "Piilovariantti",
+    "versionComment": "Muutoksen syy",
+    "routeValidityPeriod": "Reitin voimassaolo",
     "chooseDirection": "Valitse suunta",
     "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
     "startNotInsideLineValidity": "Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.",
@@ -95,7 +98,8 @@
     "showDraftDetails": "Näytä luonnoksen tiedot",
     "routesOutsideValidity": "Seuraavien reittien voimassaolo ylittää linjan uuden voimassaoloajan",
     "lineNotValidForDay": "Linja ei ole voimassa valittuna päivänä.",
-    "lineMissingDefault": "Tuntematon virhe linjan tiedoissa."
+    "lineMissingDefault": "Tuntematon virhe linjan tiedoissa.",
+    "lineValidityPeriod": "Linjan voimassaolo"
   },
   "stops": {
     "stops": "Pysäkit",

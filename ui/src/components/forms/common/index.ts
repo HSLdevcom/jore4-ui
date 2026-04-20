@@ -1,6 +1,7 @@
 export * from './AutomaticallyResizingTextArea';
 export * from './ChangeValidityForm';
 export * from './customZodSchemas';
+export * from './dirtyFields';
 export * from './DateInputField';
 export * from './FormActionButtons';
 export * from './DateRange';

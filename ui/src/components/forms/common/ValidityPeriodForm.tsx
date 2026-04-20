@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { requiredString } from './customZodSchemas';
@@ -66,6 +67,7 @@ const testIds = {
 type ValidityPeriodFormProps = {
   readonly className?: string;
   readonly dateInputRowClassName?: string;
+  readonly compactDateInputs?: boolean;
 };
 
 /**
@@ -75,6 +77,7 @@ type ValidityPeriodFormProps = {
 export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
   className,
   dateInputRowClassName,
+  compactDateInputs,
 }) => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<ValidityPeriodFormState>();
@@ -84,8 +87,13 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
   return (
     <div className={className}>
       <FormColumn>
-        <FormRow className={dateInputRowClassName} mdColumns={2}>
+        <FormRow
+          className={dateInputRowClassName}
+          mdColumns={2}
+          lgColumns={compactDateInputs ? 4 : undefined}
+        >
           <InputField<ValidityPeriodFormState>
+            className={compactDateInputs ? 'lg:col-span-2' : undefined}
             type="date"
             max="9999-12-31"
             translationPrefix="validityPeriod"
@@ -93,7 +101,10 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
             testId={testIds.startDateInput}
           />
           <InputField<ValidityPeriodFormState>
-            className={indefinite ? 'hidden' : ''}
+            className={twJoin(
+              indefinite ? 'hidden' : '',
+              compactDateInputs ? 'lg:col-span-2' : '',
+            )}
             type="date"
             max="9999-12-31"
             translationPrefix="validityPeriod"
@@ -103,12 +114,15 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
         </FormRow>
       </FormColumn>
       <Row>
-        <label htmlFor="indefinite" className="mt-3.5 inline-flex font-normal">
+        <label
+          htmlFor="indefinite"
+          className="mt-3.5 inline-flex items-center gap-3.5 font-normal"
+        >
           <input
             type="checkbox"
             id="indefinite"
             {...register('indefinite', {})}
-            className="mr-3.5 h-6 w-6"
+            className="h-6 w-6 shrink-0"
             data-testid={testIds.indefiniteCheckbox}
           />
           {t(($) => $.saveChangesModal.indefinite)}

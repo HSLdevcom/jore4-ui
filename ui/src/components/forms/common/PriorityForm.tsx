@@ -2,6 +2,7 @@ import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
@@ -45,13 +46,17 @@ const defaultPriorities: ReadonlyArray<PriorityButtonProps> = [
 
 type PriorityFormProps = {
   readonly hiddenPriorities?: ReadonlyArray<Priority>;
+  readonly priorityButtonClassName?: string;
 };
 
 /**
  * Component for selecting priority.
  * Can be merged with other forms.
  */
-export const PriorityForm: FC<PriorityFormProps> = ({ hiddenPriorities }) => {
+export const PriorityForm: FC<PriorityFormProps> = ({
+  hiddenPriorities,
+  priorityButtonClassName,
+}) => {
   const { t } = useTranslation();
   const {
     setValue,
@@ -80,7 +85,7 @@ export const PriorityForm: FC<PriorityFormProps> = ({ hiddenPriorities }) => {
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (
               <LabeledRadioButton
-                className="grow"
+                className={twJoin('grow', priorityButtonClassName)}
                 id={`priority.${testIdPrefix}`}
                 fieldPath="priority"
                 value={priority}

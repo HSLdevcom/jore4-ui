@@ -43,6 +43,7 @@ export const mapRouteFormToInput = (state: RouteFormState) => {
     variant: Number.isInteger(variant) ? variant : null,
     direction: state.direction,
     priority,
+    version_comment: state.versionComment?.trim() ?? null,
     validity_start: mapDateInputToValidityStart(validityStart),
     validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
     origin_name_i18n: defaultLocalizedString(state.origin?.name),
@@ -59,6 +60,7 @@ export const mapRouteToFormState = (
   route: RouteAllFieldsFragment,
 ): RouteFormState => ({
   finnishName: route.name_i18n?.fi_FI ?? '',
+  versionComment: '',
   label: route.label,
   onLineId: route.on_line_id,
   variant: route.variant ?? null,

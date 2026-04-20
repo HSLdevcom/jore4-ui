@@ -17,6 +17,7 @@ const LINE_DEFAULT_FIELDS = gql`
     line_id
     label
     description
+    version_comment
     name_i18n
     short_name_i18n
     validity_start
@@ -64,6 +65,7 @@ const ROUTE_DEFAULT_FIELDS = gql`
     ...route_unique_fields
     name_i18n
     description_i18n
+    version_comment
     origin_name_i18n
     origin_short_name_i18n
     destination_name_i18n

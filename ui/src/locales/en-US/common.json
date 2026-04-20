@@ -13,6 +13,7 @@
     "routes": "Routes and lines",
     "save": "Save route",
     "saveSuccess": "Route saved",
+    "updateSuccess": "Changes saved",
     "deleteSuccess": "Route deleted",
     "enterRouteData": "Enter route data",
     "finnishName": "Name of the route",
@@ -52,6 +53,8 @@
     "chooseRoute": "Choose route",
     "direction": "Direction",
     "variant": "Hidden variant",
+    "versionComment": "Reason for change",
+    "routeValidityPeriod": "Route validity period",
     "chooseDirection": "Choose direction",
     "tooFewStops": "There must be at least two stops on route.",
     "startNotInsideLineValidity": "Route's validity period cannot start before line's validity period.",
@@ -95,7 +98,8 @@
     "showDraftDetails": "Show draft details",
     "routesOutsideValidity": "The following routes' validity period exceed the line's new validity period",
     "lineNotValidForDay": "The line is not valid on the selected day.",
-    "lineMissingDefault": "Unknown error in line information."
+    "lineMissingDefault": "Unknown error in line information.",
+    "lineValidityPeriod": "Line validity period"
   },
   "stops": {
     "stops": "Stops",
