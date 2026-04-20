@@ -27,6 +27,7 @@ import { useEditLine } from './useEditLine';
 const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
   label: line.label,
   description: line.description ?? undefined,
+  versionComment: '',
   name: defaultLocalizedString(line.name_i18n),
   shortName: defaultLocalizedString(line.short_name_i18n),
   primaryVehicleMode: line.primary_vehicle_mode,
@@ -102,6 +103,7 @@ export const EditLinePage: FC = () => {
             onSubmit={onSubmit}
             defaultValues={mapLineToFormState(line)}
             editing
+            validityPeriodTitle={t(($) => $.lines.lineValidityPeriod)}
           />
         )}
       </Container>

@@ -75,6 +75,7 @@ export const EditRoutePage: FC = () => {
       }
       const variables = mapEditRouteMetadataChangesToVariables(changes);
       await editRouteMetadata(variables);
+      showSuccessToast(t(($) => $.routes.updateSuccess));
       setHasFinishedEditing(true);
       setRouteFormData(null);
     } catch (err) {

@@ -66,6 +66,7 @@ const testIds = {
 type ValidityPeriodFormProps = {
   readonly className?: string;
   readonly dateInputRowClassName?: string;
+  readonly compactDateInputs?: boolean;
 };
 
 /**
@@ -75,6 +76,7 @@ type ValidityPeriodFormProps = {
 export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
   className,
   dateInputRowClassName,
+  compactDateInputs,
 }) => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<ValidityPeriodFormState>();
@@ -91,6 +93,7 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
             translationPrefix="validityPeriod"
             fieldPath="validityStart"
             testId={testIds.startDateInput}
+            inputClassName={compactDateInputs ? 'lg:max-w-[190px]' : undefined}
           />
           <InputField<ValidityPeriodFormState>
             className={indefinite ? 'hidden' : ''}
@@ -99,16 +102,20 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
             translationPrefix="validityPeriod"
             fieldPath="validityEnd"
             testId={testIds.endDateInput}
+            inputClassName={compactDateInputs ? 'lg:max-w-[190px]' : undefined}
           />
         </FormRow>
       </FormColumn>
       <Row>
-        <label htmlFor="indefinite" className="mt-3.5 inline-flex font-normal">
+        <label
+          htmlFor="indefinite"
+          className="mt-3.5 inline-flex items-center gap-3.5 font-normal"
+        >
           <input
             type="checkbox"
             id="indefinite"
             {...register('indefinite', {})}
-            className="mr-3.5 h-6 w-6"
+            className="h-6 w-6 shrink-0"
             data-testid={testIds.indefiniteCheckbox}
           />
           {t(($) => $.saveChangesModal.indefinite)}
