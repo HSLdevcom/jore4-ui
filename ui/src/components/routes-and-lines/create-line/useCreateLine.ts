@@ -39,6 +39,7 @@ export const mapFormToInput = (state: FormState) => {
       state.validityEnd,
       state.indefinite,
     ),
+    version_comment: state.versionComment?.trim() ?? null,
   };
   return input;
 };

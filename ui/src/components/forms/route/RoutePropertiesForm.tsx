@@ -18,6 +18,7 @@ import {
   FormColumn,
   FormRow,
   InputField,
+  hasSavableDirtyFields,
 } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
@@ -41,6 +42,7 @@ export type RoutePropertiesFormProps = {
   readonly deleteButtonText?: string;
   readonly actionButtonsClassName?: string;
   readonly variant?: 'infoContainer' | 'modal';
+  readonly modalLayout?: boolean;
 };
 
 const testIds = {
@@ -49,6 +51,7 @@ const testIds = {
   label: 'RoutePropertiesFormComponent::label',
   finnishName: 'RoutePropertiesFormComponent::finnishName',
   variant: 'RoutePropertiesFormComponent::variant',
+  versionComment: 'RoutePropertiesFormComponent::versionComment',
   useTemplateRouteButton:
     'RoutePropertiesFormComponent::useTemplateRouteButton',
 };
@@ -69,6 +72,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     deleteButtonText,
     actionButtonsClassName,
     variant,
+    modalLayout,
   },
   ref,
 ) => {
@@ -91,6 +95,10 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     useState(false);
 
   const { handleSubmit } = methods;
+  const hasSavableChanges = hasSavableDirtyFields({
+    dirtyFields: methods.formState.dirtyFields,
+    ignoredFields: ['versionComment'],
+  });
 
   const setTemplateRoute = (uuid?: UUID) => {
     dispatch(setTemplateRouteIdAction(uuid));
@@ -197,15 +205,22 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             </>
           )}
           <FormRow className="border-t border-light-grey p-4">
-            <ChangeValidityForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
+            <ChangeValidityForm<FormState>
+              dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+              modalLayout={modalLayout}
+              title={t(($) => $.routes.routeValidityPeriod)}
+              versionCommentField={{
+                translationPrefix: 'routes',
+                customTitlePath: 'reasonForChangeForm.reasonForChange',
+                testId: testIds.versionComment,
+              }}
+            />
           </FormRow>
         </div>
         <FormActionButtons
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
-          isDisabled={
-            !methods.formState.isDirty || methods.formState.isSubmitting
-          }
+          isDisabled={!hasSavableChanges || methods.formState.isSubmitting}
           isSubmitting={methods.formState.isSubmitting}
           className={actionButtonsClassName}
           onDelete={onDelete}

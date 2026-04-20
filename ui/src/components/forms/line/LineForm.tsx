@@ -3,6 +3,7 @@ import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
@@ -11,6 +12,7 @@ import {
   ChangeValidityForm,
   FormState as ChangeValidityFormState,
   schema as changeValidityFormSaveFormSchema,
+  hasSavableDirtyFields,
   refineValidityPeriodSchema,
 } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
@@ -21,17 +23,26 @@ import {
 } from './LinePropertiesForm';
 import { lineTypesByVehicleMode } from './LineTypeDropdown';
 
-export type FormState = LinePropertiesFormState & ChangeValidityFormState;
+export type FormState = LinePropertiesFormState &
+  ChangeValidityFormState & {
+    readonly versionComment?: string;
+  };
 
 const testIds = {
   saveButton: 'LineForm::saveButton',
   cancelButton: 'LineForm::cancelButton',
+  versionComment: 'LineForm::versionComment',
 };
 
 const INVALID_LINE_TYPE = 'invalidLineType';
 
 const formSchema = linePropertiesFormSchema
   .merge(changeValidityFormSaveFormSchema)
+  .merge(
+    z.object({
+      versionComment: z.string().optional(),
+    }),
+  )
   .superRefine(refineValidityPeriodSchema)
   .superRefine((line, ctx) => {
     const validLineTypes = lineTypesByVehicleMode[line.primaryVehicleMode];
@@ -48,12 +59,14 @@ type LineFormProps = {
   readonly defaultValues: Partial<FormState>;
   readonly editing?: boolean;
   readonly onSubmit: (state: FormState) => void;
+  readonly validityPeriodTitle?: string;
 };
 
 export const LineForm: FC<LineFormProps> = ({
   defaultValues,
   editing = false,
   onSubmit,
+  validityPeriodTitle,
 }) => {
   const navigate = useNavigate();
   const formRef = useRef<ExplicitAny>(null);
@@ -65,6 +78,10 @@ export const LineForm: FC<LineFormProps> = ({
   });
   useDirtyFormBlockNavigation(methods.formState, 'LineForm');
   const { handleSubmit } = methods;
+  const hasSavableChanges = hasSavableDirtyFields({
+    dirtyFields: methods.formState.dirtyFields,
+    ignoredFields: ['versionComment'],
+  });
 
   const onSave = () => {
     submitFormByRef(formRef);
@@ -88,6 +105,12 @@ export const LineForm: FC<LineFormProps> = ({
             <ChangeValidityForm
               className="mb-2 ml-2"
               hiddenPriorities={[Priority.Temporary]} // Line does not have temporary priority, so hide it
+              title={validityPeriodTitle}
+              versionCommentField={{
+                translationPrefix: 'lines',
+                customTitlePath: 'reasonForChangeForm.reasonForChange',
+                testId: testIds.versionComment,
+              }}
             />
           </FormContainer>
         </Row>
@@ -104,9 +127,7 @@ export const LineForm: FC<LineFormProps> = ({
             onClick={onSave}
             id="save-button"
             testId={testIds.saveButton}
-            disabled={
-              !methods.formState.isDirty || methods.formState.isSubmitting
-            }
+            disabled={!hasSavableChanges || methods.formState.isSubmitting}
           >
             {t(($) => $.save)}
           </SimpleButton>
