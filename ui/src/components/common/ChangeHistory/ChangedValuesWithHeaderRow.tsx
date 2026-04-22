@@ -1,6 +1,4 @@
-import { TFunction } from 'i18next';
-import { ReactNode, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { FC, ReactNode } from 'react';
 import { GetUserNameById } from '../../../hooks';
 import {
   ChangedValueRow,
@@ -8,51 +6,27 @@ import {
   getParityByArrayIndex,
 } from './ChangedValueRow';
 import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
-import { OptionalSimulatedEndOfTableBorder } from './OptionalSimulatedEndOfTableBorder';
 import { BaseChangeHistoryItemDetails, ChangedValue } from './types';
 
-type ChangedValuesWithHeaderRowProps<HistoryItemT, HistoricalDataT> = {
-  readonly current: HistoricalDataT;
+export type ChangedValuesWithHeaderRowProps = {
+  readonly changedValues: ReadonlyArray<ChangedValue>;
   readonly getUserNameById: GetUserNameById;
-  readonly diffVersions: (
-    t: TFunction,
-    previous: HistoricalDataT,
-    current: HistoricalDataT,
-  ) => ReadonlyArray<ChangedValue>;
-  readonly historyItem: HistoryItemT;
-  readonly previous: HistoricalDataT;
+  readonly historyItem: BaseChangeHistoryItemDetails;
   readonly sectionTitle: ReactNode;
   readonly sectionTitleClassName?: string;
   readonly testId: string;
 };
 
-export const ChangedValuesWithHeaderRow = <
-  HistoryItemT extends BaseChangeHistoryItemDetails,
-  HistoricalDataT,
->({
-  current,
+export const ChangedValuesWithHeaderRow: FC<
+  ChangedValuesWithHeaderRowProps
+> = ({
+  changedValues,
   getUserNameById,
-  diffVersions,
   historyItem,
-  previous,
   sectionTitle,
   sectionTitleClassName,
   testId,
-}: ChangedValuesWithHeaderRowProps<
-  HistoryItemT,
-  HistoricalDataT
->): ReactNode => {
-  const { t } = useTranslation();
-
-  const changes = useMemo(
-    () => diffVersions(t, previous, current),
-    [current, previous, diffVersions, t],
-  );
-
-  if (changes.length === 0) {
-    return null;
-  }
-
+}) => {
   return (
     <>
       <ChangeHistoryItemSectionHeaderRow
@@ -63,17 +37,15 @@ export const ChangedValuesWithHeaderRow = <
         testId={testId}
       />
 
-      {changes.map((value, i) => (
+      {changedValues.map((value, i) => (
         <ChangedValueRow
           key={value.key ?? value.field}
-          location={getLocationByArrayIndex(changes, i)}
+          location={getLocationByArrayIndex(changedValues, i)}
           parity={getParityByArrayIndex(i)}
           testId={testId}
           value={value}
         />
       ))}
-
-      <OptionalSimulatedEndOfTableBorder />
     </>
   );
 };

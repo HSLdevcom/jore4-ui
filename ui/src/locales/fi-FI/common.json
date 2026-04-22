@@ -1496,6 +1496,7 @@
     "loading": "Ladataan muutoshistoriaa",
     "failedToLoad": "Muutoshistorian lataus epäonnistui",
     "tryAgainButton": "Yritä uudelleen",
+    "noChangedValues": "Uusi versio tallennettu, mutta siinä ei ole mitään muutoksia.",
     "tableHeaders": {
       "name": "Nimi",
       "oldValue": "Vanha arvo",
@@ -1518,7 +1519,7 @@
     "failedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
     "versionLoading": "Selvitetään muuttuneita kenttiä",
     "ownerDetails": "Omistajan tiedot",
-    "validityPeriodTitle": "Pysäkin voimassaolo",
+    "noChangesTitle": "Pysäkki",
     "shelters": {
       "title": "Pysäkkikatokset",
       "added": "Uusi katos",

@@ -1496,6 +1496,7 @@
     "loading": "Loading change history",
     "failedToLoad": "Failed to load change history",
     "tryAgainButton": "Try again",
+    "noChangedValues": "New version was saved, but nothing was changed.",
     "tableHeaders": {
       "name": "Name",
       "oldValue": "Old value",
@@ -1518,7 +1519,7 @@
     "failedToLoad": "Failed to load change details",
     "versionLoading": "Resolving changed fields",
     "ownerDetails": "Owner details",
-    "validityPeriodTitle": "Validity period",
+    "noChangesTitle": "Stop",
     "shelters": {
       "title": "Shelters",
       "added": "New shelter",

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
-import { ChangedValuesWithHeaderRow } from '../../../../common/ChangeHistory';
+import { ChangeValueSections } from '../../../../common/ChangeHistory';
 import { useGetHistoricalStopAreaDetails } from '../queries';
 import {
   diffStopAreaBasicDetails,
@@ -66,51 +66,50 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
   }
 
   return (
-    <>
-      <ChangedValuesWithHeaderRow
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        diffVersions={diffStopAreaBasicDetails}
-        current={current}
-        previous={previous}
-        testId="StopAreaDetails"
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopAreaChangeHistory.sectionTitle)}
-          />
-        }
-      />
-
-      <ChangedValuesWithHeaderRow
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        diffVersions={diffStopAreaStops}
-        current={current}
-        previous={previous}
-        testId="StopAreaStops"
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopAreaChangeHistory.stopsSectionTitle)}
-          />
-        }
-      />
-
-      <ChangedValuesWithHeaderRow
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        diffVersions={diffStopAreaTerminal}
-        current={current}
-        previous={previous}
-        testId="StopAreaTerminal"
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopAreaChangeHistory.terminalSectionTitle)}
-          />
-        }
-      />
-    </>
+    <ChangeValueSections
+      getUserNameById={getUserNameById}
+      historyItem={historyItem}
+      current={current}
+      previous={previous}
+      noChangedValuesTitle={
+        <SectionTitle
+          historyItem={historyItem}
+          section={t(($) => $.stopAreaChangeHistory.sectionTitle)}
+        />
+      }
+      noChangedValuesTitleTestId="NoChanges"
+      sections={[
+        {
+          testId: 'StopAreaDetails',
+          diffVersions: diffStopAreaBasicDetails,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopAreaChangeHistory.sectionTitle)}
+            />
+          ),
+        },
+        {
+          testId: 'StopAreaStops',
+          diffVersions: diffStopAreaStops,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopAreaChangeHistory.stopsSectionTitle)}
+            />
+          ),
+        },
+        {
+          testId: 'StopAreaTerminal',
+          diffVersions: diffStopAreaTerminal,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopAreaChangeHistory.terminalSectionTitle)}
+            />
+          ),
+        },
+      ]}
+    />
   );
 };

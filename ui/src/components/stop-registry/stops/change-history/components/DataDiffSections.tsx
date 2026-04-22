@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
-import { ChangedValuesWithHeaderRow } from '../../../../common/ChangeHistory';
+import { ChangeValueSections } from '../../../../common/ChangeHistory';
 import {
   diffBasicDetails,
   diffInfoSpots,
@@ -58,121 +58,104 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
   }
 
   return (
-    <>
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffStopAreaAndTerminal}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopChangeHistory.stopPlace.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="StopPlaceDetails"
-      />
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffBasicDetails}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopDetails.basicDetails.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="BasicDetails"
-      />
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffLocationDetails}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopDetails.location.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="LocationDetails"
-      />
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffSignageDetails}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopDetails.signs.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="SignDetails"
-      />
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffMeasurementDetails}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopDetails.measurements.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="MeasurementDetails"
-      />
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffOwnerDetails}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopDetails.maintenance.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="MaintenanceDetails"
-      />
-      <ChangedValuesWithHeaderRow
-        current={currentCached.value}
-        diffVersions={diffShelters}
-        sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(($) => $.stopChangeHistory.shelters.title)}
-          />
-        }
-        getUserNameById={getUserNameById}
-        historyItem={historyItem}
-        previous={previousCached.value}
-        testId="ShelterDetails"
-      />
-      {infoSpotJoinsVersionedInTiamat && (
-        <ChangedValuesWithHeaderRow
-          current={currentCached.value}
-          diffVersions={diffInfoSpots}
-          sectionTitle={
+    <ChangeValueSections
+      current={currentCached.value}
+      getUserNameById={getUserNameById}
+      historyItem={historyItem}
+      noChangedValuesTitle={
+        <SectionTitle
+          historyItem={historyItem}
+          section={t(($) => $.stopChangeHistory.noChangesTitle)}
+        />
+      }
+      noChangedValuesTitleTestId="NoChanges"
+      previous={previousCached.value}
+      sections={[
+        {
+          diffVersions: diffStopAreaAndTerminal,
+          sectionTitle: (
             <SectionTitle
               historyItem={historyItem}
-              section={t(($) => $.stopChangeHistory.infoSpots.title)}
+              section={t(($) => $.stopChangeHistory.stopPlace.title)}
             />
-          }
-          getUserNameById={getUserNameById}
-          historyItem={historyItem}
-          previous={previousCached.value}
-          testId="InfoSpotDetails"
-        />
-      )}
-    </>
+          ),
+          testId: 'StopPlaceDetails',
+        },
+        {
+          diffVersions: diffBasicDetails,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopDetails.basicDetails.title)}
+            />
+          ),
+          testId: 'BasicDetails',
+        },
+        {
+          diffVersions: diffLocationDetails,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopDetails.location.title)}
+            />
+          ),
+          testId: 'LocationDetails',
+        },
+        {
+          diffVersions: diffSignageDetails,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopDetails.signs.title)}
+            />
+          ),
+          testId: 'SignDetails',
+        },
+        {
+          diffVersions: diffMeasurementDetails,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopDetails.measurements.title)}
+            />
+          ),
+          testId: 'MeasurementDetails',
+        },
+        {
+          diffVersions: diffOwnerDetails,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopDetails.maintenance.title)}
+            />
+          ),
+          testId: 'MaintenanceDetails',
+        },
+        {
+          diffVersions: diffShelters,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.stopChangeHistory.shelters.title)}
+            />
+          ),
+          testId: 'ShelterDetails',
+        },
+        ...(infoSpotJoinsVersionedInTiamat
+          ? [
+              {
+                diffVersions: diffInfoSpots,
+                sectionTitle: (
+                  <SectionTitle
+                    historyItem={historyItem}
+                    section={t(($) => $.stopChangeHistory.infoSpots.title)}
+                  />
+                ),
+                testId: 'InfoSpotDetails',
+              },
+            ]
+          : []),
+      ]}
+    />
   );
 };

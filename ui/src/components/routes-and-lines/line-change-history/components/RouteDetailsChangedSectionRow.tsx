@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { GetUserNameById } from '../../../../hooks';
-import { ChangedValuesWithHeaderRow } from '../../../common/ChangeHistory';
+import { ChangeValueSections } from '../../../common/ChangeHistory';
 import { LineChangeHistoryItem, LineData } from '../types';
 import { diffRouteDetails } from '../utils';
 import { ItemTitle } from './ItemTitle';
@@ -24,16 +24,25 @@ export const RouteDetailsChangedSectionRow: FC<
     return null;
   }
 
+  const sectionTitle = <ItemTitle item={historyItem} />;
+
   return (
-    <ChangedValuesWithHeaderRow
+    <ChangeValueSections
       getUserNameById={getUserNameById}
       historyItem={historyItem}
-      diffVersions={diffRouteDetails}
+      noChangedValuesTitle={sectionTitle}
+      noChangedValuesTitleClassName="bg-background"
+      noChangedValuesTitleTestId="RouteDetails"
       current={currentRoute}
       previous={previousRoute}
-      testId="RouteDetails"
-      sectionTitle={<ItemTitle item={historyItem} />}
-      sectionTitleClassName="bg-background"
+      sections={[
+        {
+          diffVersions: diffRouteDetails,
+          sectionTitle,
+          sectionTitleClassName: 'bg-background',
+          testId: 'RouteDetails',
+        },
+      ]}
     />
   );
 };
