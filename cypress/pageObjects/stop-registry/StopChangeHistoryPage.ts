@@ -35,6 +35,10 @@ const StopChangeHistoryTableInfoSpotChangedValues =
   createPageObjectWithIdSelectors(
     'ChangeHistory::ChangedValues::InfoSpotDetails',
     [
+      'ChangeHistory::ChangedValues::InfoSpotDetails::Added',
+      'ChangeHistory::ChangedValues::InfoSpotDetails::Updated',
+      'ChangeHistory::ChangedValues::InfoSpotDetails::Removed',
+
       'ChangeHistory::ChangedValues::InfoSpotDetails::Label',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Purpose',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Size',

@@ -20,6 +20,8 @@ import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
+  InfoSpotViewCard,
+  InfoSpotsForm,
   LocationDetailsForm,
   MeasurementsForm,
   Pagination,
@@ -942,6 +944,321 @@ describe('Stop Change History', { tags }, () => {
               assertValueChanged(changed.updatedShelter.number),
               assertValueChanged,
               assertValueChanged(['Kyllä', 'Ei']),
+            ),
+          );
+      });
+    });
+
+    it.only('Should diff Info Spot Details', () => {
+      const changedInfoSpot = {
+        addedInfoSpot: {
+          label: 'Test Label',
+          purpose: 'Pysäkkijuliste',
+          size: 'A3 (29.7 × 42.0 cm)',
+        },
+        addedFirstInfoSpot: {
+          label: ['', 'Test Label'],
+          purpose: ['', 'Pysäkkijuliste'],
+          size: ['', 'A3 (29.7 × 42.0 cm)'],
+        },
+        updatedInfoSpot: {
+          label: ['Test Label', 'Updated Label'],
+          purpose: ['Pysäkkijuliste', 'Kartta'],
+          size: ['A3 (29.7 × 42.0 cm)', '100 × 140 cm'],
+          backlight: ['Ei', 'Kyllä'],
+          floor: ['', '2'],
+          railInformation: ['', 'Track 2'],
+          zoneLabel: ['Ei tiedossa', 'Kyllä'],
+        },
+        removedInfoSpot: {
+          label: ['Second Info Spot', ''],
+          purpose: ['Tiedotteet', ''],
+        },
+        addedSecondInfoSpot: {
+          label: ['', 'Second Info Spot'],
+          purpose: ['', 'Tiedotteet'],
+        },
+      } as const;
+
+      cy.section('Init', () => {
+        StopDetailsPage.visit('H2003');
+        StopDetailsPage.page().shouldBeVisible();
+        StopDetailsPage.infoSpotsTabButton().click();
+      });
+
+      cy.section('Add first info spot', () => {
+        StopDetailsPage.infoSpots.getAddNewButton().click();
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          InfoSpotsForm.infoSpots
+            .getLabel()
+            .clearAndType(changedInfoSpot.addedInfoSpot.label);
+
+          InfoSpotsForm.infoSpots.getPurposeButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getPurposeOptions()
+              .contains('Pysäkkijuliste')
+              .click(),
+          );
+
+          InfoSpotsForm.infoSpots.getSizeSelectorButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getSizeSelectorOptions()
+              .contains('A3')
+              .click(),
+          );
+        });
+
+        StopDetailsPage.infoSpots.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+      });
+
+      cy.info('Wait for the UI to refresh on screen info spot data.');
+      InfoSpotViewCard.getViewCardContainers().should('have.length', 1);
+      InfoSpotViewCard.getNthViewCardContainer(0).within(() => {
+        InfoSpotViewCard.getLabel().shouldHaveText(
+          changedInfoSpot.addedInfoSpot.label,
+        );
+      });
+
+      cy.section('Update existing info spot', () => {
+        StopDetailsPage.infoSpots.getEditButton().click();
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          InfoSpotsForm.infoSpots
+            .getLabel()
+            .clearAndType(changedInfoSpot.updatedInfoSpot.label[1]);
+
+          InfoSpotsForm.infoSpots.getPurposeButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getPurposeOptions()
+              .contains('Kartta')
+              .click(),
+          );
+
+          InfoSpotsForm.infoSpots.getSizeSelectorButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getSizeSelectorOptions()
+              .contains('Syötä mitat')
+              .click(),
+          );
+          InfoSpotsForm.infoSpots.getSizeWidth().clearAndType('1000');
+          InfoSpotsForm.infoSpots.getSizeHeight().clearAndType('1400');
+
+          InfoSpotsForm.infoSpots.getBacklightButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getBacklightOptions()
+              .contains('Kyllä')
+              .click(),
+          );
+
+          InfoSpotsForm.infoSpots
+            .getFloor()
+            .clearAndType(changedInfoSpot.updatedInfoSpot.floor[1]);
+          InfoSpotsForm.infoSpots
+            .getRailInformation()
+            .clearAndType(changedInfoSpot.updatedInfoSpot.railInformation[1]);
+
+          InfoSpotsForm.infoSpots.getZoneLabelButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getZoneLabelOptions()
+              .contains('Kyllä')
+              .click(),
+          );
+        });
+
+        StopDetailsPage.infoSpots.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+      });
+
+      cy.info('Wait for the UI to refresh on screen info spot data.');
+      InfoSpotViewCard.getNthViewCardContainer(0).within(() => {
+        InfoSpotViewCard.getLabel().shouldHaveText(
+          changedInfoSpot.updatedInfoSpot.label[1],
+        );
+      });
+
+      cy.section('Add second info spot', () => {
+        StopDetailsPage.infoSpots.getEditButton().click();
+
+        StopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          InfoSpotsForm.infoSpots.getLabel().clearAndType('Second Info Spot');
+
+          InfoSpotsForm.infoSpots.getPurposeButton().click();
+          cy.withinHeadlessPortal(() =>
+            InfoSpotsForm.infoSpots
+              .getPurposeOptions()
+              .contains('Tiedotteet')
+              .click(),
+          );
+        });
+
+        StopDetailsPage.infoSpots.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+      });
+
+      cy.info('Wait for the UI to refresh on screen info spot data.');
+      InfoSpotViewCard.getViewCardContainers().should('have.length', 2);
+
+      cy.section('Remove second info spot', () => {
+        StopDetailsPage.infoSpots.getEditButton().click();
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() =>
+          InfoSpotsForm.infoSpots.getDeleteInfoSpotButton().click(),
+        );
+
+        StopDetailsPage.infoSpots.getSaveButton().click();
+        Toast.expectSuccessToast('Pysäkki muokattu');
+      });
+
+      StopDetailsPage.changeHistoryLink().click();
+
+      const {
+        sectionHeader,
+        changedValues: { infoSpotDetails },
+      } = StopChangeHistoryPage.changeHistoryTable;
+
+      cy.section('Wait for all history groups to load', () => {
+        StopChangeHistoryPage.changeHistoryTable.group
+          .getAllGroupElements()
+          .should('have.length.at.least', 4);
+      });
+
+      const assertInfoSpot = (
+        assertChangeTypeHeader: () => void,
+        assertLabel: () => void,
+        assertProperInputFields: (
+          values: readonly [string, string],
+        ) => () => void,
+        infoSpotData: {
+          readonly label: readonly [string, string];
+          readonly purpose: readonly [string, string];
+          readonly size?: readonly [string, string];
+          readonly backlight?: readonly [string, string];
+          readonly floor?: readonly [string, string];
+          readonly railInformation?: readonly [string, string];
+          readonly zoneLabel?: readonly [string, string];
+        },
+      ) => {
+        sectionHeader
+          .getInfoSpotDetails()
+          .within(() => sectionHeader.getTitle().contains('Infopaikat'));
+
+        assertChangeTypeHeader();
+
+        infoSpotDetails.getLabel().within(assertLabel);
+
+        infoSpotDetails
+          .getPurpose()
+          .within(assertProperInputFields(infoSpotData.purpose));
+
+        if (infoSpotData.size) {
+          infoSpotDetails
+            .getSize()
+            .within(assertProperInputFields(infoSpotData.size));
+        }
+
+        if (infoSpotData.backlight) {
+          infoSpotDetails
+            .getBacklight()
+            .within(assertProperInputFields(infoSpotData.backlight));
+        }
+
+        if (infoSpotData.floor) {
+          infoSpotDetails
+            .getFloor()
+            .within(assertProperInputFields(infoSpotData.floor));
+        }
+
+        if (infoSpotData.railInformation) {
+          infoSpotDetails
+            .getRailInformation()
+            .within(assertProperInputFields(infoSpotData.railInformation));
+        }
+
+        if (infoSpotData.zoneLabel) {
+          infoSpotDetails
+            .getZoneLabel()
+            .within(assertProperInputFields(infoSpotData.zoneLabel));
+        }
+      };
+
+      cy.section('Check removed info spot history', () => {
+        StopChangeHistoryPage.changeHistoryTable.group
+          .getAllGroupElements()
+          .eq(0)
+          .within(() =>
+            assertInfoSpot(
+              () =>
+                infoSpotDetails
+                  .getAllRemovedElements()
+                  .should('have.length', 1)
+                  .within(assertValueChanged(['Poistettu infopaikka', ''])),
+              assertValueChanged(changedInfoSpot.removedInfoSpot.label),
+              assertValueChanged,
+              changedInfoSpot.removedInfoSpot,
+            ),
+          );
+      });
+
+      cy.section('Check added second info spot history', () => {
+        StopChangeHistoryPage.changeHistoryTable.group
+          .getAllGroupElements()
+          .eq(1)
+          .within(() =>
+            assertInfoSpot(
+              () =>
+                infoSpotDetails
+                  .getAllAddedElements()
+                  .should('have.length', 1)
+                  .within(assertValueChanged(['', 'Uusi infopaikka'])),
+              assertValueChanged(changedInfoSpot.addedSecondInfoSpot.label),
+              assertValueChanged,
+              changedInfoSpot.addedSecondInfoSpot,
+            ),
+          );
+      });
+
+      cy.section('Check updated info spot history', () => {
+        StopChangeHistoryPage.changeHistoryTable.group
+          .getAllGroupElements()
+          .eq(2)
+          .within(() =>
+            assertInfoSpot(
+              () =>
+                infoSpotDetails
+                  .getAllUpdatedElements()
+                  .should('have.length', 1)
+                  .within(assertValueChanged(['Päivitetty infopaikka', ''])),
+              assertValueChanged(changedInfoSpot.updatedInfoSpot.label),
+              assertValueChanged,
+              changedInfoSpot.updatedInfoSpot,
+            ),
+          );
+      });
+
+      cy.section('Check added first info spot history', () => {
+        StopChangeHistoryPage.changeHistoryTable.group
+          .getAllGroupElements()
+          .eq(3)
+          .within(() =>
+            assertInfoSpot(
+              () =>
+                infoSpotDetails
+                  .getAllAddedElements()
+                  .should('have.length', 1)
+                  .within(assertValueChanged(['', 'Uusi infopaikka'])),
+              assertValueChanged(changedInfoSpot.addedFirstInfoSpot.label),
+              assertValueChanged,
+              changedInfoSpot.addedFirstInfoSpot,
             ),
           );
       });
