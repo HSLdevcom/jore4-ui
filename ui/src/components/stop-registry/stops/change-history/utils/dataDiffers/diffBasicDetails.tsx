@@ -7,6 +7,7 @@ import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../../i18n/uiNameMappings';
+import { mapToShortDate } from '../../../../../../time';
 import {
   ChangedValue,
   diffKeyedValues,
@@ -104,6 +105,21 @@ export function diffBasicDetails(
       oldValue: previous.quay.stopType.virtual,
       newValue: current.quay.stopType.virtual,
       mapper: (v) => optionalBooleanToUiText(t, v),
+    }),
+
+    diffKeyedValues({
+      key: 'ValidityStart',
+      field: t(($) => $.changeHistory.tableHeaders.validityStart),
+      oldValue: previous.quay.validityStart,
+      newValue: current.quay.validityStart,
+      mapper: mapToShortDate,
+    }),
+    diffKeyedValues({
+      key: 'ValidityEnd',
+      field: t(($) => $.changeHistory.tableHeaders.validityEnd),
+      oldValue: previous.quay.validityEnd,
+      newValue: current.quay.validityEnd,
+      mapper: mapToShortDate,
     }),
   ];
 
