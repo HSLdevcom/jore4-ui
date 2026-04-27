@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getGeometryPoint } from '../../../../utils';
 import {
@@ -55,43 +55,10 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
   );
 };
 
-type StopSearchResultStopsWrapperProps = {
-  readonly className?: string;
-  readonly children: ReactNode;
-};
-
-const StopSearchResultStopsWrapper: FC<StopSearchResultStopsWrapperProps> = ({
-  className,
-  children,
-}) => (
-  <table
-    className={twMerge('h-1 w-full border-x border-x-light-grey', className)}
-    data-testid={testIds.table}
-  >
-    <tbody>{children}</tbody>
-  </table>
-);
-
 type StopSearchResultStopsTableProps = {
   readonly className?: string;
   readonly observationDate: DateTime;
   readonly stops: ReadonlyArray<StopSearchRow>;
-};
-
-export const StopSearchResultStopsTable: FC<
-  StopSearchResultStopsTableProps
-> = ({ className, observationDate, stops }) => {
-  return (
-    <StopSearchResultStopsWrapper className={className}>
-      {stops.map((stop: StopSearchRow) => (
-        <StopSearchResultRow
-          key={stop.id}
-          observationDate={observationDate}
-          stop={stop}
-        />
-      ))}
-    </StopSearchResultStopsWrapper>
-  );
 };
 
 type SelectableStopSearchResultStopsTableProps =
@@ -124,19 +91,24 @@ export const SelectableStopSearchResultStopsTable: FC<
   };
 
   return (
-    <StopSearchResultStopsWrapper
-      className={twMerge('border-x-0 border-r', className)}
-    >
-      {stops.map((stop: StopSearchRow) => (
-        <StopSearchResultRow
-          key={stop.id}
-          isSelected={isSelected(stop)}
-          observationDate={observationDate}
-          onToggleSelection={onToggleSelection}
-          selectable
-          stop={stop}
-        />
-      ))}
-    </StopSearchResultStopsWrapper>
+    <div className={twMerge('@container w-full', className)}>
+      <table
+        className={twMerge('h-1 w-full border-r', className)}
+        data-testid={testIds.table}
+      >
+        <tbody>
+          {stops.map((stop: StopSearchRow) => (
+            <StopSearchResultRow
+              key={stop.id}
+              isSelected={isSelected(stop)}
+              observationDate={observationDate}
+              onToggleSelection={onToggleSelection}
+              selectable
+              stop={stop}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };

@@ -8,25 +8,19 @@ const testIds = {
 
 type ActionMenuTdProps = {
   readonly className?: string;
-  readonly inEditMode?: boolean;
   readonly menuItems: ReactNode;
 };
 
 export const ActionMenuTd: FC<ActionMenuTdProps> = ({
   className,
-  inEditMode = false,
   menuItems,
 }) => {
   const { t } = useTranslation();
 
-  if (inEditMode) {
-    // eslint-disable-next-line jsx-a11y/control-has-associated-label
-    return <td className={className} />;
-  }
-
   return (
     <td className={className}>
       <SimpleDropdownMenu
+        className="@5xl:mt-[4px]"
         tooltip={t(($) => $.accessibility.common.actionMenu)}
         testId={testIds.actionMenu}
       >

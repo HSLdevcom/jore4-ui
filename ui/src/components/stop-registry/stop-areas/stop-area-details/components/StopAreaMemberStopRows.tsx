@@ -27,21 +27,23 @@ export const StopAreaMemberStopRows: FC<StopAreaComponentProps> = ({
   }
 
   return (
-    <table
-      className={twMerge(
-        'mt-4 h-1 w-full border-x border-x-light-grey',
-        className,
-      )}
-    >
-      <tbody>
-        {memberStops.map((member) => (
-          <StopAreaMemberStopRow
-            key={member.id}
-            member={member}
-            observationDate={observationDate}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className="@container">
+      <table
+        className={twMerge(
+          'mt-4 h-1 w-full border-x border-x-light-grey',
+          className,
+        )}
+      >
+        <tbody>
+          {memberStops.map((member) => (
+            <StopAreaMemberStopRow
+              key={member.id}
+              member={member}
+              observationDate={observationDate}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };

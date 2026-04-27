@@ -10,6 +10,6 @@ export const ActionButtonsTd: FC<ActionButtonsTdProps> = ({
   className,
 }) => (
   <td className={className}>
-    <div className="flex">{actionButtons}</div>
+    <div>{actionButtons}</div>
   </td>
 );

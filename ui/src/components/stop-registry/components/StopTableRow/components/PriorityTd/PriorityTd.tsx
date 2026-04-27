@@ -92,7 +92,7 @@ export const PriorityTd: FC<StopRowTdProps> = ({ className, stop }) => {
       data-testid={testIds.priorityTd}
       title={title}
     >
-      <div className="flex h-full w-full items-stretch">
+      <div className="flex h-full">
         <SideBar type={visualizationType} />
         <PriorityIcon type={visualizationType} />
       </div>

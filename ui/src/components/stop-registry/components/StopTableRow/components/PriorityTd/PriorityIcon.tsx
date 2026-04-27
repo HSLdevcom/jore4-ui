@@ -3,7 +3,7 @@ import { twJoin } from 'tailwind-merge';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
 import { SubComponentProps } from './SubComponentProps';
 
-const baseClasses = `self-center text-3xl min-w-[48px]`;
+const baseClasses = 'text-3xl';
 
 function getColorAndIconClassNames(
   type: PriorityVisualizationType,
@@ -24,5 +24,7 @@ function getColorAndIconClassNames(
 }
 
 export const PriorityIcon: FC<SubComponentProps> = ({ type }) => (
-  <span className={twJoin('self-center', getColorAndIconClassNames(type))} />
+  <span
+    className={twJoin('mt-2 self-start', getColorAndIconClassNames(type))}
+  />
 );

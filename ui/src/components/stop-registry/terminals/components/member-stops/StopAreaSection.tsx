@@ -162,7 +162,10 @@ export const StopAreaSection: FC<StopAreaSectionProps> = ({
   observationDate,
 }) => {
   return (
-    <div className="mt-4" data-testid="TerminalDetailsPage::stopAreaSection">
+    <div
+      className="@container mt-4"
+      data-testid="TerminalDetailsPage::stopAreaSection"
+    >
       <StopAreaHeader
         id={id}
         terminalId={terminalId}
