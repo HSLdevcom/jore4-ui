@@ -17,10 +17,12 @@ import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import { joreConfig } from '../config';
-import versionedTiamatEntities from '../generated/versionedTiamatEntities.json' with { type: 'json' };
+import tiamatTypeInfo from '../generated/versionedTiamatEntities.json' with { type: 'json' };
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
 import { authRoleMiddleware, roleHeaderMap, userHasuraRole } from './auth';
+
+const { embeddedTypes, typesWithId, typesWithVersion } = tiamatTypeInfo;
 
 function parseDateTime(raw: unknown) {
   if (!isDateLike(raw)) {
@@ -313,10 +315,16 @@ const buildCacheDefinition = () => {
         keyFields: ['netexId', 'version'],
       },
       ...Object.fromEntries(
-        versionedTiamatEntities.map((name) => [
+        typesWithVersion.map((name) => [
           name,
-          { keyFields: ['id', 'version'] },
+          { keyFields: ['id', 'version'], merge: true },
         ]),
+      ),
+      ...Object.fromEntries(
+        typesWithId.map((name) => [name, { keyFields: ['id'], merge: true }]),
+      ),
+      ...Object.fromEntries(
+        embeddedTypes.map((name) => [name, { keyFields: false, merge: true }]),
       ),
     },
   });
