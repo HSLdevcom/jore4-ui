@@ -2,7 +2,14 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
-import { ChangeValueSections } from '../../../../common/ChangeHistory';
+import {
+  ChangeValueSections,
+  SectionTitle,
+} from '../../../../common/ChangeHistory';
+import {
+  DataDiffFailedToLoadSection,
+  DataDiffSectionLoading,
+} from '../../../components/ChangeHistory';
 import {
   diffBasicDetails,
   diffInfoSpots,
@@ -13,10 +20,10 @@ import {
   diffSignageDetails,
   diffStopAreaAndTerminal,
 } from '../utils';
-import { DataDiffFailedToLoadSection } from './DataDiffFailedToLoadSection';
-import { DataDiffSectionLoading } from './DataDiffSectionLoading';
-import { useHistoricalStopVersion } from './HistoricalStopDataProvider';
-import { SectionTitle } from './SectionTitle';
+import {
+  useHistoricalStopVersion,
+  useRefetchFailedHistoricalStopVersions,
+} from './HistoricalStopDataProvider';
 
 type DataDiffSectionsProps = {
   readonly getUserNameById: GetUserNameById;
@@ -30,6 +37,7 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
   previousHistoryItem,
 }) => {
   const { t } = useTranslation();
+  const refetch = useRefetchFailedHistoricalStopVersions();
 
   const currentCached = useHistoricalStopVersion(historyItem);
   const previousCached = useHistoricalStopVersion(previousHistoryItem);
@@ -39,6 +47,15 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
       <DataDiffFailedToLoadSection
         getUserNameById={getUserNameById}
         historyItem={historyItem}
+        refetch={refetch}
+        sectionTitle={
+          <SectionTitle
+            historyItem={historyItem}
+            section={t(($) => $.stopChangeHistory.sectionTitle)}
+          />
+        }
+        headerTestId="FailedToLoadStopPlaceVersion"
+        retryButtonTestId="StopChangeHistory::FailedToLoadStopPlace::RetryButton"
       />
     );
   }
@@ -51,6 +68,13 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
       <DataDiffSectionLoading
         getUserNameById={getUserNameById}
         historyItem={historyItem}
+        sectionTitle={
+          <SectionTitle
+            historyItem={historyItem}
+            section={t(($) => $.stopChangeHistory.sectionTitle)}
+          />
+        }
+        headerTestId="LoadingStopPlaceVersion"
       />
     );
   }
