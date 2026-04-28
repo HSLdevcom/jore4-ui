@@ -55,7 +55,7 @@ export function getNameFromAlternatives(
   return defaultName ?? null;
 }
 
-export const findAlternativeName = (
+export function findAlternativeName(
   entity: {
     readonly alternativeNames?: ReadonlyArray<
       StopRegistryAlternativeName | null | undefined
@@ -63,12 +63,12 @@ export const findAlternativeName = (
   },
   lang: string,
   nameType: StopRegistryNameType = StopRegistryNameType.Translation,
-): StopRegistryEmbeddableMultilingualString | null => {
+): StopRegistryEmbeddableMultilingualString | null {
   const matchingName = entity.alternativeNames?.find(
     (an) => an?.name.lang === lang && an.nameType === nameType,
   );
   return matchingName?.name ?? null;
-};
+}
 
 export function getEmbeddedName(
   name: StopRegistryEmbeddableMultilingualString | null | undefined,
