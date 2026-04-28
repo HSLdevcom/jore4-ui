@@ -39,6 +39,7 @@ import { StopAreaChangeHistoryPage } from '../components/stop-registry/stop-area
 import { StopAreaDetailsPage } from '../components/stop-registry/stop-areas/stop-area-details/StopAreaDetailsPage';
 import { StopChangeHistoryPage } from '../components/stop-registry/stops/change-history';
 import { StopVersionsPage } from '../components/stop-registry/stops/versions';
+import { TerminalChangeHistoryPage } from '../components/stop-registry/terminals/change-history/TerminalChangeHistoryPage';
 import { TerminalDetailsPage } from '../components/stop-registry/terminals/TerminalDetailsPage';
 import {
   SubstituteDaySettingsPage,
@@ -279,6 +280,11 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.terminalDetails,
     protected: true,
     element: <TerminalDetailsPage />,
+  },
+  {
+    path: Path.terminalChangeHistory,
+    protected: true,
+    element: <TerminalChangeHistoryPage />,
   },
 
   // Timetables
