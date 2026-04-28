@@ -69,7 +69,6 @@ export const mapStopAreaDataToFormState = (
 type StopAreaDetailsEditProps = {
   readonly area: EnrichedStopPlace;
   readonly className?: string;
-  readonly refetch: () => Promise<unknown>;
   readonly onFinishEditing: () => void;
   readonly onCancel: () => void;
   readonly testIdPrefix: string;
@@ -78,10 +77,7 @@ type StopAreaDetailsEditProps = {
 const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaDetailsEditProps
-> = (
-  { area, className, refetch, onFinishEditing, onCancel, testIdPrefix },
-  ref,
-) => {
+> = ({ area, className, onFinishEditing, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
 
   const { observationDate, setObservationDateToUrl } =
@@ -108,8 +104,6 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           updatedValidityStart ?? updatedValidityEnd ?? observationDate,
           true,
         );
-      } else {
-        await refetch();
       }
 
       showSuccessToast(t(($) => $.stopArea.editSuccess));

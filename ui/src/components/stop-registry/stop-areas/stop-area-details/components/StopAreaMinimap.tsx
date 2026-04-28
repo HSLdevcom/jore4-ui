@@ -25,7 +25,7 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
   return (
     <div
       className={twMerge(
-        'relative flex h-[225px] w-2/6 items-center justify-center rounded-sm border bg-contain',
+        'relative flex h-[225px] w-full items-center justify-center rounded-sm border bg-contain lg:w-[30%]',
         className,
       )}
       style={{

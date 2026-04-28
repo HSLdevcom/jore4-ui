@@ -2,26 +2,12 @@ import { FC } from 'react';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
-import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
-import { PreviousStopPlaceChangeHistoryItem } from '../types';
+import { findPreviousTiamatHistoryItemVersion } from '../../../utils';
 import { StopAreaChangeHistoryItemSections } from './StopAreaChangeHistoryItemSections';
 
 const testIds = {
   group: (id: string) => `ChangeHistory::Group::${id}`,
 };
-
-function findPreviousVersion(
-  historyItemsSortedByVersion: ReadonlyArray<StopPlaceChangeHistoryItem>,
-  item: StopPlaceChangeHistoryItem,
-): PreviousStopPlaceChangeHistoryItem {
-  const previous = historyItemsSortedByVersion.find(
-    (other) =>
-      other.netexId === item.netexId &&
-      Number(other.version) < Number(item.version),
-  );
-
-  return previous ?? NoEarlierVersionExists;
-}
 
 type StopPlaceChangeHistoryDataRowsProps = {
   readonly getUserNameById: GetUserNameById;
@@ -57,7 +43,10 @@ export const StopPlaceChangeHistoryDataRows: FC<
         <StopAreaChangeHistoryItemSections
           getUserNameById={getUserNameById}
           historyItem={historyItem}
-          previousHistoryItem={findPreviousVersion(historyItems, historyItem)}
+          previousHistoryItem={findPreviousTiamatHistoryItemVersion(
+            historyItems,
+            historyItem,
+          )}
         />
       </tbody>
     );

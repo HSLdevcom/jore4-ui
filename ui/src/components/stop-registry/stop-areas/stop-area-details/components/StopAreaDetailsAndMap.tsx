@@ -1,23 +1,20 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { EditableStopAreaComponentProps } from '../types';
+import { StopAreaComponentProps } from '../types';
 import { StopAreaDetails } from './StopAreaDetails';
 import { StopAreaMinimap } from './StopAreaMinimap';
 
-export const StopAreaDetailsAndMap: FC<EditableStopAreaComponentProps> = ({
+export const StopAreaDetailsAndMap: FC<StopAreaComponentProps> = ({
   area,
   className,
-  blockInEdit,
-  onEditBlock,
-  refetch,
 }) => (
-  <div className={twMerge('flex items-stretch gap-2', className)}>
-    <StopAreaDetails
-      area={area}
-      blockInEdit={blockInEdit}
-      onEditBlock={onEditBlock}
-      refetch={refetch}
-    />
+  <div
+    className={twMerge(
+      'flex flex-col items-stretch gap-3 lg:flex-row',
+      className,
+    )}
+  >
+    <StopAreaDetails area={area} />
     <StopAreaMinimap area={area} />
   </div>
 );

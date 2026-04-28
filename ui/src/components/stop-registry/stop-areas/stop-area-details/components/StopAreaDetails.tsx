@@ -9,7 +9,7 @@ import {
   InfoContainerControls,
   useInfoContainerControls,
 } from '../../../../common';
-import { EditableStopAreaComponentProps } from '../types';
+import { StopAreaComponentProps } from '../types';
 import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
 import { StopAreaDetailsView } from './StopAreaDetailsView';
 
@@ -37,10 +37,9 @@ function getContainerColors(
   }
 }
 
-export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
+export const StopAreaDetails: FC<StopAreaComponentProps> = ({
   area,
   className,
-  refetch,
 }) => {
   const { t } = useTranslation();
 
@@ -58,7 +57,7 @@ export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
 
   return (
     <InfoContainer
-      className={twMerge('w-4/6', className)}
+      className={twMerge('w-full lg:w-[70%]', className)}
       colors={containerColors}
       controls={infoContainerControls}
       title={t(($) => $.stopAreaDetails.basicDetails.title)}
@@ -71,7 +70,6 @@ export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
         <StopAreaDetailsEdit
           area={area}
           ref={formRef}
-          refetch={refetch}
           onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
           onCancel={() => infoContainerControls.onCancel()}
           testIdPrefix={testIds.editPrefix}

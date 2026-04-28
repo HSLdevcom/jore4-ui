@@ -35,7 +35,6 @@ type MoveQuayToStopAreaModalProps = {
   readonly onSave: () => void;
   readonly areaId: string;
   readonly areaPrivateCode: string;
-  readonly refetch: () => Promise<unknown>;
 };
 
 type ModalState = {
@@ -94,7 +93,6 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
   onSave,
   areaId,
   areaPrivateCode,
-  refetch,
 }) => {
   const { t } = useTranslation();
   const [state, setState] = useState<ModalState>(initialState);
@@ -159,7 +157,6 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
 
     try {
       await moveQuayToStopPlace(saveParams);
-      await refetch();
 
       showSuccessToast(t(($) => $.stopAreaDetails.memberStops.moveSuccess));
 

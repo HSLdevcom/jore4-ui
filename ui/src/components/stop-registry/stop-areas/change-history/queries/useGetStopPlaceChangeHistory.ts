@@ -6,11 +6,13 @@ import {
   useGetStopPlaceChangeHistoryQuery,
 } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
+import { SortOrder } from '../../../../../types';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
 } from '../../../../common/ChangeHistory';
 import { sortByVersion, useSortTiamatHistoryItems } from '../../../utils';
+import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';
 
 const GQL_GET_STOP_PLACE_CHANGE_HISTORY_QUERY = gql`
   query getStopPlaceChangeHistory($privateCode: String!) {
@@ -50,12 +52,7 @@ type GetStopPlaceChangeHistoryOptions = {
   readonly sortingInfo: ChangeHistorySortingInfo;
 };
 
-export function useGetStopPlaceChangeHistory({
-  filters,
-  getUserNameById,
-  privateCode,
-  sortingInfo,
-}: GetStopPlaceChangeHistoryOptions) {
+function useGetStopPlaceChangeHistoryItemsSortedByVersion(privateCode: string) {
   const { data, ...rest } = useGetStopPlaceChangeHistoryQuery({
     variables: { privateCode },
   });
@@ -72,13 +69,40 @@ export function useGetStopPlaceChangeHistory({
     [rawHistoryItems],
   );
 
-  const sortedHistoryItems: ReadonlyArray<StopPlaceChangeHistoryItem> =
-    useSortTiamatHistoryItems(
-      historyItems,
+  return { ...rest, historyItems };
+}
+
+export function useGetStopPlaceChangeHistory({
+  filters,
+  getUserNameById,
+  privateCode,
+  sortingInfo,
+}: GetStopPlaceChangeHistoryOptions) {
+  const base = useGetStopPlaceChangeHistoryItemsSortedByVersion(privateCode);
+  return {
+    ...base,
+    sortedHistoryItems: useSortTiamatHistoryItems(
+      base.historyItems,
       filters,
       sortingInfo,
       getUserNameById,
-    );
+    ),
+  };
+}
 
-  return { ...rest, historyItems, sortedHistoryItems };
+const latestChangesLimit = 5;
+const compareByChangedTime = sortByChangedTime(SortOrder.DESCENDING);
+
+export function useGetLatestStopPlaceChangeHistory(privateCode: string) {
+  const base = useGetStopPlaceChangeHistoryItemsSortedByVersion(privateCode);
+  return {
+    ...base,
+    latestHistoryItems: useMemo(
+      () =>
+        base.historyItems
+          .toSorted(compareByChangedTime)
+          .slice(0, latestChangesLimit),
+      [base.historyItems],
+    ),
+  };
 }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Container } from '../../../../layoutComponents';
@@ -6,11 +6,11 @@ import { LoadingState, Operation } from '../../../../redux';
 import { useLoader } from '../../../common/hooks';
 import {
   StopAreaDetailsAndMap,
+  StopAreaLatestChanges,
   StopAreaMemberStops,
   StopAreaTitleRow,
   StopAreaVersioningRow,
 } from './components';
-import { StopAreaEditableBlock } from './StopAreaEditableBlock';
 import { useGetStopPlaceDetails } from './useGetStopAreaDetails';
 
 const testIds = {
@@ -19,15 +19,11 @@ const testIds = {
 
 export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
   const { t } = useTranslation();
-  const [blockInEdit, setBlockInEdit] = useState<StopAreaEditableBlock | null>(
-    null,
-  );
 
   const {
     stopPlaceDetails,
     loading,
     error,
-    refetch,
     isValidOnObservationDate = false,
   } = useGetStopPlaceDetails();
   const { setLoadingState } = useLoader(Operation.FetchStopAreaPageDetails, {
@@ -57,18 +53,18 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
       )}
       {stopPlaceDetails && !error && isValidOnObservationDate && (
         <>
-          <StopAreaDetailsAndMap
-            area={stopPlaceDetails}
-            blockInEdit={blockInEdit}
-            onEditBlock={setBlockInEdit}
-            refetch={refetch}
-          />
-          <StopAreaMemberStops
-            area={stopPlaceDetails}
-            blockInEdit={blockInEdit}
-            onEditBlock={setBlockInEdit}
-            refetch={refetch}
-          />
+          <StopAreaDetailsAndMap area={stopPlaceDetails} />
+          <div className="flex flex-col gap-3 lg:flex-row">
+            <StopAreaMemberStops
+              className="w-full lg:w-[70%]"
+              area={stopPlaceDetails}
+            />
+
+            <StopAreaLatestChanges
+              privateCode={stopPlaceDetails.privateCode?.value ?? ''}
+              className="w-full border-b pb-2 lg:w-[30%]"
+            />
+          </div>
         </>
       )}
       {(!stopPlaceDetails ||

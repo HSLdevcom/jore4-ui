@@ -10,12 +10,10 @@ const testIds = {
 
 type MoveQuayToStopAreaHeaderProps = {
   readonly area: EnrichedStopPlace;
-  readonly refetch: () => Promise<unknown>;
 };
 
 export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
   area,
-  refetch,
 }) => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +48,6 @@ export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
         onSave={handleCloseModal}
         areaId={area.id}
         areaPrivateCode={area.privateCode.value}
-        refetch={refetch}
       />
     </>
   );
