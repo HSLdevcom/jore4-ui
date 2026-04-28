@@ -2,16 +2,18 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
-import { ChangeValueSections } from '../../../../common/ChangeHistory';
+import {
+  ChangeValueSections,
+  DataDiffFailedToLoadSection,
+  DataDiffSectionLoading,
+  SectionTitle,
+} from '../../../../common/ChangeHistory';
 import { useGetHistoricalStopAreaDetails } from '../queries';
 import {
   diffStopAreaBasicDetails,
   diffStopAreaStops,
   diffStopAreaTerminal,
 } from '../utils';
-import { DataDiffFailedToLoadSection } from './DataDiffFailedToLoadSection';
-import { DataDiffSectionLoading } from './DataDiffSectionLoading';
-import { SectionTitle } from './SectionTitle';
 
 type DataDiffSectionsProps = {
   readonly getUserNameById: GetUserNameById;
@@ -44,6 +46,10 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
       <DataDiffSectionLoading
         getUserNameById={getUserNameById}
         historyItem={historyItem}
+        sectionTitle={t(
+          ($) => $.stopAreaChangeHistory.sectionTitle,
+          historyItem,
+        )}
       />
     );
   }
@@ -61,6 +67,10 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
             previousRefetch();
           }
         }}
+        sectionTitle={t(
+          ($) => $.stopAreaChangeHistory.sectionTitle,
+          historyItem,
+        )}
       />
     );
   }

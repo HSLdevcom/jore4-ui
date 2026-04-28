@@ -1497,6 +1497,8 @@
     "failedToLoad": "Muutoshistorian lataus epäonnistui",
     "tryAgainButton": "Yritä uudelleen",
     "noChangedValues": "Uusi versio tallennettu, mutta siinä ei ole mitään muutoksia.",
+    "versionLoading": "Selvitetään muuttuneita kenttiä",
+    "sectionFailedToLoad": "Muuttuneiden kenttien selvitys epäonnistui",
     "tableHeaders": {
       "name": "Nimi",
       "oldValue": "Vanha arvo",
@@ -1505,6 +1507,12 @@
       "validityEnd": "Päättyy",
       "changedBy": "Päivittäjä",
       "changed": "Päivitetty"
+    },
+    "infoSpots": {
+      "posters": "Infotuotteet",
+      "added": "Uusi infopaikka",
+      "updated": "Päivitetty infopaikka",
+      "removed": "Poistettu infopaikka"
     }
   },
   "stopChangeHistory": {
@@ -1527,11 +1535,7 @@
       "removed": "Poistettu katos"
     },
     "infoSpots": {
-      "title": "Infopaikat",
-      "posters": "Infotuotteet",
-      "added": "Uusi infopaikka",
-      "updated": "Päivitetty infopaikka",
-      "removed": "Poistettu infopaikka"
+      "title": "Infopaikat"
     },
     "stopPlace": {
       "title": "Pysäkkialue ja terminaali",

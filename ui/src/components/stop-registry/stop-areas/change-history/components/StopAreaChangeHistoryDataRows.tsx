@@ -2,15 +2,17 @@ import { FC } from 'react';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
-import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
-import { PreviousStopPlaceChangeHistoryItem } from '../types';
+import {
+  NoEarlierVersionExists,
+  PreviousStopPlaceChangeHistoryItem,
+} from '../../../../common/ChangeHistory';
 import { StopAreaChangeHistoryItemSections } from './StopAreaChangeHistoryItemSections';
 
 const testIds = {
   group: (id: string) => `ChangeHistory::Group::${id}`,
 };
 
-function findPreviousVersion(
+export function findPreviousVersion(
   historyItemsSortedByVersion: ReadonlyArray<StopPlaceChangeHistoryItem>,
   item: StopPlaceChangeHistoryItem,
 ): PreviousStopPlaceChangeHistoryItem {

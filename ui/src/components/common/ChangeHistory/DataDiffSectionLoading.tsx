@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
-import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { theme } from '../../../../../generated/theme';
-import { GetUserNameById } from '../../../../../hooks';
-import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
+import { StopPlaceChangeHistoryItem } from '../../../generated/graphql';
+import { theme } from '../../../generated/theme';
+import { GetUserNameById } from '../../../hooks';
+import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
 import { SectionTitle } from './SectionTitle';
 
 const testIds = {
@@ -16,11 +16,13 @@ const testIds = {
 type DataDiffSectionLoadingProps = {
   readonly getUserNameById: GetUserNameById;
   readonly historyItem: StopPlaceChangeHistoryItem;
+  readonly sectionTitle: ReactNode;
 };
 
 export const DataDiffSectionLoading: FC<DataDiffSectionLoadingProps> = ({
   getUserNameById,
   historyItem,
+  sectionTitle,
 }) => {
   const { t } = useTranslation();
 
@@ -30,13 +32,7 @@ export const DataDiffSectionLoading: FC<DataDiffSectionLoadingProps> = ({
         getUserNameById={getUserNameById}
         historyItem={historyItem}
         sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(
-              ($) => $.stopAreaChangeHistory.sectionTitle,
-              historyItem,
-            )}
-          />
+          <SectionTitle historyItem={historyItem} section={sectionTitle} />
         }
         testId={testIds.sectionTitle}
       />
@@ -46,7 +42,7 @@ export const DataDiffSectionLoading: FC<DataDiffSectionLoadingProps> = ({
           className="p-5"
           colSpan={7}
           data-testid={testIds.contentCell}
-          title={t(($) => $.stopAreaChangeHistory.versionLoading)}
+          title={t(($) => $.changeHistory.versionLoading)}
         >
           <PulseLoader color={theme.colors.brand} size={14} />
         </td>
