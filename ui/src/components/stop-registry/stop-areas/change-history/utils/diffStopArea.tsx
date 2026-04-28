@@ -10,7 +10,6 @@ import {
   KnownValueKey,
   findAlternativeName,
   findKeyValue,
-  getEmbeddedName,
   getGeometryPoint,
 } from '../../../../../utils';
 import {
@@ -18,7 +17,17 @@ import {
   StopsList,
   diffKeyedValues,
   mapNullable,
+  normalizeEmptyValue,
 } from '../../../../common/ChangeHistory';
+
+function getNormalizedAlternativeName(
+  details: HistoricalStopAreaDetailsFragment,
+  lang: string,
+  nameType: StopRegistryNameType,
+) {
+  const name = findAlternativeName(details, lang, nameType);
+  return normalizeEmptyValue(name?.value);
+}
 
 export function diffStopAreaBasicDetails(
   t: TFunction,
@@ -53,100 +62,116 @@ export function diffStopAreaBasicDetails(
     diffKeyedValues({
       key: 'NameSwe',
       field: t(($) => $.stopAreaDetails.basicDetails.nameSwe),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'swe',
         StopRegistryNameType.Translation,
       ),
-      newValue: findAlternativeName(
+      newValue: getNormalizedAlternativeName(
         current,
         'swe',
         StopRegistryNameType.Translation,
       ),
-      mapper: getEmbeddedName,
     }),
     diffKeyedValues({
       key: 'NameEng',
       field: t(($) => $.stopAreaDetails.basicDetails.nameEng),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'eng',
         StopRegistryNameType.Translation,
       ),
-      newValue: findAlternativeName(
+      newValue: getNormalizedAlternativeName(
         current,
         'eng',
         StopRegistryNameType.Translation,
       ),
-      mapper: getEmbeddedName,
     }),
 
     diffKeyedValues({
       key: 'LongNameFin',
       field: t(($) => $.stopAreaDetails.basicDetails.nameLongFin),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'fin',
         StopRegistryNameType.Alias,
       ),
-      newValue: findAlternativeName(current, 'fin', StopRegistryNameType.Alias),
-      mapper: getEmbeddedName,
+      newValue: getNormalizedAlternativeName(
+        current,
+        'fin',
+        StopRegistryNameType.Alias,
+      ),
     }),
     diffKeyedValues({
       key: 'LongNameSwe',
       field: t(($) => $.stopAreaDetails.basicDetails.nameLongSwe),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'swe',
         StopRegistryNameType.Alias,
       ),
-      newValue: findAlternativeName(current, 'swe', StopRegistryNameType.Alias),
-      mapper: getEmbeddedName,
+      newValue: getNormalizedAlternativeName(
+        current,
+        'swe',
+        StopRegistryNameType.Alias,
+      ),
     }),
     diffKeyedValues({
       key: 'LongNameEng',
       field: t(($) => $.stopAreaDetails.basicDetails.nameLongEng),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'eng',
         StopRegistryNameType.Alias,
       ),
-      newValue: findAlternativeName(current, 'eng', StopRegistryNameType.Alias),
-      mapper: getEmbeddedName,
+      newValue: getNormalizedAlternativeName(
+        current,
+        'eng',
+        StopRegistryNameType.Alias,
+      ),
     }),
 
     diffKeyedValues({
       key: 'AbbreviationFin',
       field: t(($) => $.stopAreaDetails.basicDetails.abbreviationFin),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'fin',
         StopRegistryNameType.Other,
       ),
-      newValue: findAlternativeName(current, 'fin', StopRegistryNameType.Other),
-      mapper: getEmbeddedName,
+      newValue: getNormalizedAlternativeName(
+        current,
+        'fin',
+        StopRegistryNameType.Other,
+      ),
     }),
     diffKeyedValues({
       key: 'AbbreviationSwe',
       field: t(($) => $.stopAreaDetails.basicDetails.abbreviationSwe),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'swe',
         StopRegistryNameType.Other,
       ),
-      newValue: findAlternativeName(current, 'swe', StopRegistryNameType.Other),
-      mapper: getEmbeddedName,
+      newValue: getNormalizedAlternativeName(
+        current,
+        'swe',
+        StopRegistryNameType.Other,
+      ),
     }),
     diffKeyedValues({
       key: 'AbbreviationEng',
       field: t(($) => $.stopAreaDetails.basicDetails.abbreviationEng),
-      oldValue: findAlternativeName(
+      oldValue: getNormalizedAlternativeName(
         previous,
         'eng',
         StopRegistryNameType.Other,
       ),
-      newValue: findAlternativeName(current, 'eng', StopRegistryNameType.Other),
-      mapper: getEmbeddedName,
+      newValue: getNormalizedAlternativeName(
+        current,
+        'eng',
+        StopRegistryNameType.Other,
+      ),
     }),
 
     diffKeyedValues({
