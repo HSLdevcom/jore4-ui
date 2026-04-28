@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
-import { SimpleButton } from '../../../../../uiComponents';
-import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
+import { StopPlaceChangeHistoryItem } from '../../../generated/graphql';
+import { GetUserNameById } from '../../../hooks';
+import { SimpleButton } from '../../../uiComponents';
+import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
 import { SectionTitle } from './SectionTitle';
 
 const testIds = {
@@ -16,11 +16,12 @@ type DataDiffFailedToLoadSectionProps = {
   readonly getUserNameById: GetUserNameById;
   readonly historyItem: StopPlaceChangeHistoryItem;
   readonly refetch: () => void;
+  readonly sectionTitle: ReactNode;
 };
 
 export const DataDiffFailedToLoadSection: FC<
   DataDiffFailedToLoadSectionProps
-> = ({ getUserNameById, historyItem, refetch }) => {
+> = ({ getUserNameById, historyItem, refetch, sectionTitle }) => {
   const { t } = useTranslation();
 
   return (
@@ -29,20 +30,14 @@ export const DataDiffFailedToLoadSection: FC<
         getUserNameById={getUserNameById}
         historyItem={historyItem}
         sectionTitle={
-          <SectionTitle
-            historyItem={historyItem}
-            section={t(
-              ($) => $.stopAreaChangeHistory.sectionTitle,
-              historyItem,
-            )}
-          />
+          <SectionTitle historyItem={historyItem} section={sectionTitle} />
         }
         testId={testIds.failedToLoad}
       />
 
       <tr>
         <td className="p-5" colSpan={7}>
-          {t(($) => $.stopAreaChangeHistory.failedToLoad)}
+          {t(($) => $.changeHistory.failedToLoad)}
         </td>
       </tr>
 

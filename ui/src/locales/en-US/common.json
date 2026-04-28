@@ -1497,6 +1497,8 @@
     "failedToLoad": "Failed to load change history",
     "tryAgainButton": "Try again",
     "noChangedValues": "New version was saved, but nothing was changed.",
+    "versionLoading": "Resolving changed fields",
+    "sectionFailedToLoad": "Failed to load change details",
     "tableHeaders": {
       "name": "Name",
       "oldValue": "Old value",
@@ -1505,6 +1507,12 @@
       "validityEnd": "Valid to",
       "changedBy": "Changed by",
       "changed": "Changed"
+    },
+    "infoSpots": {
+      "posters": "Posters",
+      "added": "New info spot",
+      "updated": "Updated info spot",
+      "removed": "Removed info spot"
     }
   },
   "stopChangeHistory": {
@@ -1527,11 +1535,7 @@
       "removed": "Removed shelter"
     },
     "infoSpots": {
-      "title": "Info Spots",
-      "posters": "Posters",
-      "added": "New Info Spot",
-      "updated": "Updated Info Spot",
-      "removed": "Removed Info Spot"
+      "title": "Info Spots"
     },
     "stopPlace": {
       "title": "Stop Area and Terminal",

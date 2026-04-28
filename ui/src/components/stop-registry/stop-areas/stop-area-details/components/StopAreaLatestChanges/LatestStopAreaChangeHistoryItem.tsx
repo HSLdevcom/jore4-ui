@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { StopPlaceChangeHistoryItem } from '../../../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../../../router/routeDetails';
-import { NoEarlierVersionExists } from '../../../../../common/ChangeHistory';
-import { PreviousStopPlaceChangeHistoryItem } from '../../../change-history/types';
+import {
+  NoEarlierVersionExists,
+  PreviousStopPlaceChangeHistoryItem,
+} from '../../../../../common/ChangeHistory';
 import { LatestStopAreaChangeDataDiff } from './LatestStopAreaChangeDataDiff';
 
 const testIds = {
