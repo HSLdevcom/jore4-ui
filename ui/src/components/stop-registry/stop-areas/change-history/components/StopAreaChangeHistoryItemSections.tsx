@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
 import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
-import { PreviousStopPlaceChangeHistoryItem } from '../types';
+import { PreviousStopPlaceChangeHistoryItem } from '../../../components/ChangeHistory/types/PreviousStopPlaceChangeHistoryItem';
 import { DataDiffSections } from './DataDiffSections';
 import { StopAreaChangeHistoryFirstVersionHeaderRow } from './StopAreaChangeHistoryFirstVersionHeaderRow';
 

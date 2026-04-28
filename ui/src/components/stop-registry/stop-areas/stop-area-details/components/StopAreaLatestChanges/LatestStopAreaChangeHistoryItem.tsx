@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { StopPlaceChangeHistoryItem } from '../../../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../../../router/routeDetails';
 import { NoEarlierVersionExists } from '../../../../../common/ChangeHistory';
-import { PreviousStopPlaceChangeHistoryItem } from '../../../change-history/types';
+import { PreviousStopPlaceChangeHistoryItem } from '../../../../components/ChangeHistory/types/PreviousStopPlaceChangeHistoryItem';
 import { LatestStopAreaChangeDataDiff } from './LatestStopAreaChangeDataDiff';
 
 const testIds = {

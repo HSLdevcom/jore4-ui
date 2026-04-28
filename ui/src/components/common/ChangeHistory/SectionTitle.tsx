@@ -1,10 +1,10 @@
 import { FC, ReactNode } from 'react';
-import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
+import { BaseChangeHistoryItemDetails } from './types';
 
 const testIds = { comment: 'ChangeHistory::SectionHeader::VersionComment' };
 
 type SectionTitleProps = {
-  readonly historyItem: StopPlaceChangeHistoryItem;
+  readonly historyItem: BaseChangeHistoryItemDetails;
   readonly section: ReactNode;
 };
 
