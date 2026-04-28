@@ -31,7 +31,7 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
       </div>
       <EditTerminalValidityButton terminal={terminal} />
       <Link
-        to={routeDetails[Path.terminalDetails].getLink(
+        to={routeDetails[Path.terminalChangeHistory].getLink(
           terminal.privateCode?.value,
         )}
         className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
