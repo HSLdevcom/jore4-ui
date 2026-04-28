@@ -51,12 +51,13 @@ export const useDateQueryParam = ({
   }, [defaultDate, getDateTimeFromUrlQuery]);
 
   /** Determines and sets date to query parameters if it's not there */
+  const queryParamValue = queryParams[queryParamName];
   const initializeDate = useCallback(async () => {
-    if (!queryParams[queryParamName] || !date) {
+    if (!queryParamValue || !date) {
       setDateToUrl(defaultDate, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultDate, date, queryParams[queryParamName]]);
+  }, [defaultDate, date, queryParamValue]);
 
   useEffect(() => {
     if (initialize) {

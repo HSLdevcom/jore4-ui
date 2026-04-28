@@ -156,7 +156,7 @@ export async function hasuraApi<
     );
   }
 
-  const body: HasuraResponseBody<Data> = await response.json();
+  const body = (await response.json()) as HasuraResponseBody<Data>;
 
   if (expectNoErrors && body.errors?.length) {
     throw new HasuraException(reqWithRawBody, body);
