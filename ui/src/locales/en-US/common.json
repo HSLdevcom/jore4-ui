@@ -1558,7 +1558,7 @@
     "viaPointDetails": "Show full Via-details",
     "viaPoint": "{{label}}: {{name}}",
     "extraFields": {
-      "routeNameSwe": "Route name (ruotsi)",
+      "routeNameSwe": "Route name (Swedish)",
       "routeDescription": "Route description (Finnish)",
       "routeDescriptionSwe": "Route description (Swedish)",
       "routeEstimatedLength": "Estimated length of the route",
@@ -1577,9 +1577,24 @@
     "importedStopAreaVersion": "Stop Area imported from Jore 3",
     "sectionTitle": "Stop area",
     "stopsSectionTitle": "Stops",
-    "terminalSectionTitle": "Parent terminal",
-    "failedToLoad": "Failed to load change details",
-    "versionLoading": "Resolving changed fields"
+    "terminalSectionTitle": "Parent terminal"
+  },
+  "terminalChangeHistory": {
+    "title": "Change history | Terminal {{privateCode}}",
+    "titleWithName": "Change history | Terminal {{privateCode}} {{name}}",
+    "goBack": "Back",
+    "newTerminalVersion": "New Terminal version created",
+    "importedTerminalVersion": "Terminal imported from Jore 3",
+    "sectionTitle": "Terminal",
+    "stopsSectionTitle": "Stops",
+    "memberStops": "Member stops",
+    "memberStopAreaAdded": "Added stop area",
+    "memberStopAreaUpdated": "Updated stop area",
+    "memberStopAreaRemoved": "Removed stop area",
+    "ownerDetails": "Owner details",
+    "infoSpots": {
+      "title": "Info Spots"
+    }
   },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
