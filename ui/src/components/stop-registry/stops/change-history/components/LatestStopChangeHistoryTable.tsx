@@ -7,8 +7,9 @@ import {
   ErrorLoadingState,
   LoadingState,
 } from '../../../../common/ChangeHistory/latest';
-import { useGetLatestStopChangeHistoryItems } from '../queries/useGetLatestStopChangeHistoryItems';
 import { LatestStopChangeHistoryItem } from './LatestStopChangeHistoryItem';
+import { useGetLatestStopChangeHistory } from '../queries';
+import { findPreviousTiamatHistoryItemVersion } from '../../../utils';
 
 const testIds = {
   container: 'LatestStopChangeHistoryTable::Container',
@@ -30,10 +31,8 @@ export const LatestStopChangeHistoryTable: FC<
 > = ({ publicCode, priority, className }) => {
   const { t } = useTranslation();
 
-  const { historyItems, loading, error, refetch } =
-    useGetLatestStopChangeHistoryItems({
-      publicCode,
-    });
+  const { historyItems, latestHistoryItems, loading, error, refetch } =
+    useGetLatestStopChangeHistory(publicCode, priority);
 
   if (error) {
     return (
@@ -53,12 +52,15 @@ export const LatestStopChangeHistoryTable: FC<
       <h3 className="mb-4" data-testid={testIds.title}>
         {t(($) => $.stopChangeHistory.titleLatest)}
       </h3>
-      {historyItems.slice(0, 5).map((item, i) => {
+      {latestHistoryItems.map((item, i) => {
         return (
           <LatestStopChangeHistoryItem
             key={`${item.netexId}-${item.version}`}
             historyItem={item}
-            previousHistoryItem={historyItems[i + 1] ?? null}
+            previousHistoryItem={findPreviousTiamatHistoryItemVersion(
+              historyItems,
+              item,
+            )}
             publicCode={publicCode}
             priority={priority}
           />

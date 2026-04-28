@@ -102,7 +102,7 @@ export const useEditStopLocationDetails = () => {
       refetchQueries: [
         'GetStopDetails',
         'GetLatestQuayChange',
-        'GetLatestStopChangeHistory',
+        'GetStopChangeHistory',
       ],
     });
   };

@@ -64,7 +64,7 @@ export const useEditStopExternalLinks = () => {
       refetchQueries: [
         'GetStopDetails',
         'GetLatestQuayChange',
-        'GetLatestStopChangeHistory',
+        'GetStopChangeHistory',
       ],
     });
   };

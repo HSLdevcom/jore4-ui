@@ -269,7 +269,7 @@ export const useEditStopBasicDetails = () => {
       refetchQueries: [
         'GetStopDetails',
         'GetLatestQuayChange',
-        'GetLatestStopChangeHistory',
+        'GetStopChangeHistory',
       ],
     });
   };

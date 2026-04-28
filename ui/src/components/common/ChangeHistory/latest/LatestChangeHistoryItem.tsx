@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { Link, To } from 'react-router';
 import { useGetUserNames } from '../../../../hooks';
-import { mapUTCToDateTime } from '../../../../time';
-import { ChangedValue } from '../types';
+import { mapToShortDateTime } from '../../../../time';
+import { BaseChangeHistoryItemDetails, ChangedValue } from '../types';
 
 type ChangeSection = {
   readonly title: string;
@@ -11,11 +11,7 @@ type ChangeSection = {
 };
 
 type LatestChangeHistoryItemProps = {
-  readonly historyItem: {
-    readonly changed?: string | null;
-    readonly changedBy?: string | null;
-    readonly versionComment?: string | null;
-  };
+  readonly historyItem: BaseChangeHistoryItemDetails;
   readonly sections: ReadonlyArray<ChangeSection>;
   readonly link: To;
   readonly testId: string;
@@ -30,7 +26,7 @@ export const LatestChangeHistoryItem = ({
   const { getUserNameById } = useGetUserNames();
 
   const changedBy = getUserNameById(historyItem.changedBy) ?? 'HSL';
-  const changedAt = mapUTCToDateTime(historyItem.changed);
+  const changedAt = mapToShortDateTime(historyItem.changed);
 
   if (sections.length === 0) {
     return null;
@@ -45,7 +41,7 @@ export const LatestChangeHistoryItem = ({
             {historyItem.versionComment || section.title}
           </Link>
           {section.changes.map((c) => (
-            <span className="block" key={c.key ?? String(c.field)}>
+            <span className="block" key={c.key ?? c.field}>
               {c.field}: {c.oldValue}{' '}
               <FaPlay className="mx-1 inline text-[8px]" /> {c.newValue}
             </span>

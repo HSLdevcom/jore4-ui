@@ -134,7 +134,7 @@ export const useEditStopMeasurementDetails = () => {
       refetchQueries: [
         'GetStopDetails',
         'GetLatestQuayChange',
-        'GetLatestStopChangeHistory',
+        'GetStopChangeHistory',
       ],
     });
   };

@@ -183,7 +183,7 @@ export const StopDetailsPage: FC = () => {
                   <LatestStopChangeHistoryTable
                     publicCode={label}
                     priority={stopDetails.priority}
-                    className="mt-6"
+                    className="mt-6 border-b pb-2"
                   />
                 </HistoricalStopDataProvider>
               </>
