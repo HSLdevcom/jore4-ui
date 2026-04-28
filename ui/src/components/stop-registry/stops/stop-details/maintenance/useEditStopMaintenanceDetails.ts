@@ -80,7 +80,7 @@ export const useEditStopMaintenanceDetails = () => {
       refetchQueries: [
         'GetStopDetails',
         'GetLatestQuayChange',
-        'GetLatestStopChangeHistory',
+        'GetStopChangeHistory',
       ],
     });
   };

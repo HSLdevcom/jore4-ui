@@ -5,4 +5,5 @@ export type BaseChangeHistoryItemDetails = {
   readonly changedBy?: string | null;
   readonly validityEnd?: DateLike | null;
   readonly validityStart?: DateLike | null;
+  readonly versionComment?: string | null;
 };

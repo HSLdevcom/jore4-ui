@@ -3087,7 +3087,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         .shouldBeVisible()
         .should('contain.text', 'Muutoshistoria');
 
-      StopDetailsPage.latestChangeHistory.getItems().should('have.length', 1);
+      StopDetailsPage.latestChangeHistory.getItems().should('have.length', 3);
 
       cy.section('Make multiple changes to create history', () => {
         // Change 1

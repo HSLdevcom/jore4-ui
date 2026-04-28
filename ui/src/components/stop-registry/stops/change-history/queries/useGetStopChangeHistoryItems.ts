@@ -6,11 +6,14 @@ import {
   useGetStopChangeHistoryQuery,
 } from '../../../../../generated/graphql';
 import { GetUserNameById } from '../../../../../hooks';
+import { SortOrder } from '../../../../../types';
+import { Priority } from '../../../../../types/enums';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
 } from '../../../../common/ChangeHistory';
 import { sortByVersion, useSortTiamatHistoryItems } from '../../../utils';
+import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';
 
 const GQL_GET_STOP_CHANGE_HISTORY = gql`
   query GetStopChangeHistory($publicCode: String!, $priority: String!) {
@@ -58,14 +61,12 @@ type GetStopChangeHistoryOptions = {
   readonly publicCode: string;
 };
 
-export function useGetStopChangeHistoryItems({
-  filters,
-  getUserNameById,
-  publicCode,
-  sortingInfo,
-}: GetStopChangeHistoryOptions) {
+function useGetStopChangeHistorySortedByVersion(
+  publicCode: string,
+  priority: Priority,
+) {
   const { data, ...rest } = useGetStopChangeHistoryQuery({
-    variables: { publicCode, priority: String(filters.priority) },
+    variables: { publicCode, priority: String(priority) },
   });
 
   const rawHistoryItems = data?.stopsDb?.historyItems;
@@ -80,13 +81,46 @@ export function useGetStopChangeHistoryItems({
     [rawHistoryItems],
   );
 
+  return { ...rest, historyItems };
+}
+
+export function useGetStopChangeHistoryItems({
+  filters,
+  getUserNameById,
+  publicCode,
+  sortingInfo,
+}: GetStopChangeHistoryOptions) {
+  const base = useGetStopChangeHistorySortedByVersion(
+    publicCode,
+    filters.priority,
+  );
+
   const sortedHistoryItems: ReadonlyArray<QuayChangeHistoryItem> =
     useSortTiamatHistoryItems(
-      historyItems,
+      base.historyItems,
       filters,
       sortingInfo,
       getUserNameById,
     );
 
-  return { ...rest, historyItems, sortedHistoryItems };
+  return { ...base, sortedHistoryItems };
+}
+
+const latestChangesLimit = 5;
+
+export function useGetLatestStopChangeHistory(
+  publicCode: string,
+  priority: Priority,
+) {
+  const base = useGetStopChangeHistorySortedByVersion(publicCode, priority);
+  return {
+    ...base,
+    latestHistoryItems: useMemo(
+      () =>
+        base.historyItems
+          .toSorted(sortByChangedTime(SortOrder.DESCENDING))
+          .slice(0, latestChangesLimit),
+      [base.historyItems],
+    ),
+  };
 }

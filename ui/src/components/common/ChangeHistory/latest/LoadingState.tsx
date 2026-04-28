@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type LoadingStateProps = {
-  readonly testIdPrefix?: string;
+  readonly testIdPrefix: string;
 };
 
 export const LoadingState: FC<LoadingStateProps> = ({

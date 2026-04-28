@@ -101,8 +101,9 @@ export class StopDetailsPage {
     title: () => cy.getByTestId('LatestStopChangeHistoryTable::Title'),
     showAllLink: () =>
       cy.getByTestId('LatestStopChangeHistoryTable::ShowAllLink'),
-    getItems: () => cy.getByTestId('LatestStopChangeHistoryTable::Item'),
+    getItems: () =>
+      cy.get('[data-testid^="LatestStopChangeHistoryTable::Item"]'),
     getNthItem: (index: number) =>
-      cy.getByTestId('LatestStopChangeHistoryTable::Item').eq(index),
+      cy.get('[data-testid^="LatestStopChangeHistoryTable::Item"]').eq(index),
   };
 }

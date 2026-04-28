@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { SimpleButton } from '../../../../uiComponents';
 
 type ErrorLoadingStateProps = {
-  readonly onRetry?: () => void;
-  readonly testIdPrefix?: string;
+  readonly onRetry: () => void;
+  readonly testIdPrefix: string;
 };
 
 export const ErrorLoadingState: FC<ErrorLoadingStateProps> = ({

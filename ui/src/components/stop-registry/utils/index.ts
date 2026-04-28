@@ -1,5 +1,6 @@
 export * from './copyEntityUtilities';
 export * from './decodeQuayPrivateCodeType';
+export * from './findPreviousTiamatHistoryItemVersion';
 export * from './mapInfoSpotToInput';
 export * from './mapQuayToInput';
 export * from './mapToEnrichedQuay';

@@ -7,10 +7,21 @@ import {
   SortChangeHistoryBy,
 } from '../../common/ChangeHistory';
 import { BaseTiamatChangeHistoryItem } from '../types';
-import { filterTiamatHistoryItems } from './filterTiamatHistoryItems';
 import { sortBySortingInfo } from './sortTiamatChangeHistoryItems';
 
-const noopGetUserNameById: GetUserNameById = () => null;
+export const noopGetUserNameById: GetUserNameById = () => null;
+
+function historyItemIsDateRange({
+  from,
+  to,
+}: ChangeHistoryFilters): (item: BaseTiamatChangeHistoryItem) => boolean {
+  const fromStr = from.startOf('day').toUTC().toISO({ includeOffset: false });
+  const toStr = to.endOf('day').toUTC().toISO({ includeOffset: false });
+
+  return (item) =>
+    // Changed is a ISO 8601 date-time string and be compared as string.
+    !!item.changed && fromStr <= item.changed && item.changed <= toStr;
+}
 
 export function useSortTiamatHistoryItems<
   T extends BaseTiamatChangeHistoryItem,
@@ -32,7 +43,7 @@ export function useSortTiamatHistoryItems<
   return useMemo(
     () =>
       historyItems
-        .filter(filterTiamatHistoryItems(filters))
+        .filter(historyItemIsDateRange(filters))
         .sort(sortBySortingInfo(sortingInfo, collator, getUserNameById)),
     [historyItems, filters, sortingInfo, collator, getUserNameById],
   );

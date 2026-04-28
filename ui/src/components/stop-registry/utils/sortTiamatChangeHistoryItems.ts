@@ -55,7 +55,7 @@ export function sortByVersion(): Comparator<BaseTiamatChangeHistoryItem> {
   return chainedComparator(byNetexId(), inDescendingOrder(byVersion()));
 }
 
-function sortByChangedTime(
+export function sortByChangedTime(
   sortOrder: SortOrder,
 ): Comparator<BaseTiamatChangeHistoryItem> {
   const order = getOrder<BaseTiamatChangeHistoryItem>(sortOrder);

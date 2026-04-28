@@ -4,25 +4,22 @@ import { Link } from 'react-router';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { Priority } from '../../../../../types/enums';
-import {
-  ErrorLoadingState,
-  LatestChangeHistoryItem,
-  LoadingState,
-} from '../../../../common/ChangeHistory/latest';
-import { latestStopChangeSections } from '../utils/latestStopChangeSections';
-import { useHistoricalStopVersion } from './HistoricalStopDataProvider';
+import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
+import { LatestStopChangeDataDiff } from './LatestStopChangeDataDiff';
 import {
   determineType,
   getHeadingText,
 } from './NoPreviousChangeVersionSection';
 
 const testIds = {
-  item: 'LatestStopChangeHistoryTable::Item',
+  newItem: 'LatestStopChangeHistoryTable::Item::NewItem',
 };
 
 type LatestStopChangeHistoryItemProps = {
   readonly historyItem: QuayChangeHistoryItem;
-  readonly previousHistoryItem: QuayChangeHistoryItem | null;
+  readonly previousHistoryItem:
+    | QuayChangeHistoryItem
+    | typeof NoEarlierVersionExists;
   readonly publicCode: string;
   readonly priority: Priority;
 };
@@ -32,20 +29,15 @@ export const LatestStopChangeHistoryItem: FC<
 > = ({ historyItem, previousHistoryItem, publicCode, priority }) => {
   const { t } = useTranslation();
 
-  const currentCached = useHistoricalStopVersion(historyItem);
-  const previousCached = useHistoricalStopVersion(
-    previousHistoryItem ?? historyItem,
-  );
-
   const link = routeDetails[Path.stopChangeHistory].getLink(publicCode, {
     priority: priority === Priority.Standard ? undefined : priority,
   });
 
-  if (!previousHistoryItem) {
+  if (previousHistoryItem === NoEarlierVersionExists) {
     const type = determineType(historyItem);
     const versionText = getHeadingText(t, type);
     return (
-      <div className="mb-3 text-sm font-semibold" data-testid={testIds.item}>
+      <div className="mb-3 text-sm font-semibold" data-testid={testIds.newItem}>
         <Link to={link} className="text-brand hover:underline">
           {versionText}
         </Link>
@@ -53,32 +45,12 @@ export const LatestStopChangeHistoryItem: FC<
     );
   }
 
-  if (
-    currentCached?.status === 'fetching' ||
-    previousCached?.status === 'fetching'
-  ) {
-    return <LoadingState />;
-  }
-
-  if (
-    currentCached?.status !== 'fetched' ||
-    previousCached?.status !== 'fetched'
-  ) {
-    return <ErrorLoadingState />;
-  }
-
-  const sections = latestStopChangeSections(
-    t,
-    previousCached.value,
-    currentCached.value,
-  );
-
   return (
-    <LatestChangeHistoryItem
+    <LatestStopChangeDataDiff
       historyItem={historyItem}
-      sections={sections}
-      link={link}
-      testId={testIds.item}
+      previousHistoryItem={previousHistoryItem}
+      priority={priority}
+      publicCode={publicCode}
     />
   );
 };
