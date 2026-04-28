@@ -25,13 +25,35 @@ function TiamatVersionedObjectTypesResolverPluginImplementation(
     .filter((type) => type instanceof GraphQLObjectType)
     .filter((type) => type.name.startsWith('stop_registry_'));
 
-  // Tiamat Output Objects that define both an id and version field
-  const versionedObjects = tiamatObjects.filter(
-    (object) => hasField(object, 'id') && hasField(object, 'version'),
+  // Tiamat Output Objects that define both an id field
+  const tiamatObjectsWithIds = tiamatObjects.filter((object) =>
+    hasField(object, 'id'),
   );
 
-  const outputContent = versionedObjects.map((object) => object.name).sort();
-  return JSON.stringify(outputContent, null, 2);
+  // Tiamat Output Objects that define both an id and version field
+  const versionedObjects = tiamatObjectsWithIds.filter((object) =>
+    hasField(object, 'version'),
+  );
+
+  const typesWithVersion = versionedObjects.map((object) => object.name).sort();
+
+  const typesWithId = tiamatObjectsWithIds
+    .map((object) => object.name)
+    .filter((name) => !typesWithVersion.includes(name))
+    .sort();
+
+  const embeddedTypes = tiamatObjects
+    .map((type) => type.name)
+    .filter(
+      (name) => !typesWithVersion.includes(name) && !typesWithId.includes(name),
+    )
+    .sort();
+
+  return JSON.stringify(
+    { typesWithVersion, typesWithId, embeddedTypes },
+    null,
+    2,
+  );
 }
 
 const TiamatVersionedObjectTypesResolverPlugin = {
