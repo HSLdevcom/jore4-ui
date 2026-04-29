@@ -4,7 +4,7 @@ import stylistic from '@stylistic/eslint-plugin';
 import configPrettier from 'eslint-config-prettier/flat';
 import cypress from 'eslint-plugin-cypress';
 import i18nJson from 'eslint-plugin-i18n-json';
-import importPlugin from 'eslint-plugin-import';
+import importPlugin from 'eslint-plugin-import-x';
 import lodash from 'eslint-plugin-lodash';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';

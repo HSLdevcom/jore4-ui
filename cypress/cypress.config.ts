@@ -8,7 +8,7 @@ import { CompositeCypressEventHandler } from './support/compositeEventHandler';
 import { onLaunchBrowser } from './support/launchBrowser';
 import * as tasks from './support/tasks';
 
-// eslint-disable-next-line import/no-default-export
+// eslint-disable-next-line import-x/no-default-export
 export default defineConfig({
   e2e: {
     // Update default file paths to strip `/cypress/` folder prefix

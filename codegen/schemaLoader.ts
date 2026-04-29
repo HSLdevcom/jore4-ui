@@ -135,7 +135,7 @@ const hasuraOverrideTypeDefs = gql`
 // Note: if want to make custom directives for the schema, here are some examples on how to do so:
 // https://www.graphql-tools.com/docs/schema-directives#examples
 
-// eslint-disable-next-line import/no-default-export
+// eslint-disable-next-line import-x/no-default-export
 export default async (schemaString: string, config: LoadSchemaOptions) => {
   const hasuraSchema = await loadSchema(schemaString, config);
 

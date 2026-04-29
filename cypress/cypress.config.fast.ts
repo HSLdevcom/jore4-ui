@@ -2,7 +2,7 @@
 import { defineConfig } from 'cypress';
 import config from './cypress.config';
 
-// eslint-disable-next-line import/no-default-export
+// eslint-disable-next-line import-x/no-default-export
 export default defineConfig({
   e2e: {
     ...config.e2e,
