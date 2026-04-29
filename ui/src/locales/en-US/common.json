@@ -547,8 +547,21 @@
     "actions": {
       "showVersions": "Versions",
       "extra": {
-        "copy": "Make a new copy"
+        "copy": "Make a new copy",
+        "makeHybrid": "Make hybrid stop",
+        "makeHybridDisabled": "Stop is already a hybrid stop"
       }
+    },
+    "hybrid": {
+      "title": "Make hybrid stop",
+      "transportMode": "Transport mode to add",
+      "selectTransportMode": "Select",
+      "stopArea": "Search stop area",
+      "searchStopArea": "Search stop area",
+      "confirm": "Add",
+      "cancel": "Cancel",
+      "success": "Hybrid stop created successfully",
+      "error": "Failed to create hybrid stop: {{reason}}"
     },
     "version": {
       "copyBoilerPlate": "All properties from the existing stop will be copied over. You can edit the properties of the new copy after its creation.",
