@@ -30,6 +30,7 @@ export enum Operation {
   ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
   UpdateRouteJourneyPattern = 'updateRouteJourneyPattern',
   UpdateLine = 'updateLine',
+  CreateMirrorQuay = 'createMirrorQuay',
 }
 
 /**
@@ -106,6 +107,7 @@ export const joreOperations = [
   Operation.DeleteTimetable,
   Operation.UpdateRouteJourneyPattern,
   Operation.UpdateLine,
+  Operation.CreateMirrorQuay,
 ];
 
 type IState = {
