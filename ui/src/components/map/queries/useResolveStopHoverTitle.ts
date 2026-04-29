@@ -24,7 +24,9 @@ type ResolveStopNameFn = (stopPlaceNetexId: string) => Promise<string | null>;
 function useResolveStopName(
   areas: ReadonlyArray<MapStopArea>,
 ): ResolveStopNameFn {
-  const [resolveStopNameFromDB] = useResolveStopNameLazyQuery();
+  const [resolveStopNameFromDB] = useResolveStopNameLazyQuery({
+    fetchPolicy: 'cache-first',
+  });
 
   return useCallback(
     async (stopPlaceNetexId: string) => {
@@ -38,7 +40,6 @@ function useResolveStopName(
 
       const dbName = await resolveStopNameFromDB({
         variables: { stopPlaceNetexId },
-        fetchPolicy: 'cache-first',
       }).then(
         (result) =>
           result.data?.stops_database?.stops_database_stop_place_newest_version.at(

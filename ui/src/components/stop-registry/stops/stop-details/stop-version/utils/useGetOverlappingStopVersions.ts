@@ -64,7 +64,9 @@ const GQL_GET_OVERLAPPING_STOP_VERSIONS_QUERY = gql`
 `;
 
 export function useGetOverlappingStopVersions() {
-  const [getOverlappingStopVersions] = useGetOverlappingStopVersionsLazyQuery();
+  const [getOverlappingStopVersions] = useGetOverlappingStopVersionsLazyQuery({
+    fetchPolicy: 'network-only',
+  });
   const [getOverlappingStopVersionsIndefinite] =
     useGetOverlappingStopVersionsIndefiniteLazyQuery();
 
@@ -94,7 +96,6 @@ export function useGetOverlappingStopVersions() {
             fromDate: fromDateTime,
             toDate: toDateTime,
           },
-          fetchPolicy: 'network-only',
         });
 
         if (data && data?.service_pattern_scheduled_stop_point.length > 0) {
