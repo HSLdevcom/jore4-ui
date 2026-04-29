@@ -1,6 +1,6 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { AppProps } from 'next/app';
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, StrictMode, useEffect, useState } from 'react';
 import '../generated/fontello/css/hsl-icons.css';
 import '../i18n';
 import '../styles/globals.css';
@@ -21,10 +21,12 @@ const SafeHydrate: FC<PropsWithChildren> = ({ children }) => {
 
 const Jore4App = ({ Component, pageProps }: AppProps) => {
   return (
-    <SafeHydrate>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Component {...pageProps} />
-    </SafeHydrate>
+    <StrictMode>
+      <SafeHydrate>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <Component {...pageProps} />
+      </SafeHydrate>
+    </StrictMode>
   );
 };
 
