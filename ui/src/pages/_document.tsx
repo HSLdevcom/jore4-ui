@@ -1,4 +1,4 @@
-/* eslint-disable import/no-default-export,react/function-component-definition */
+/* eslint-disable import-x/no-default-export,react/function-component-definition */
 import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {

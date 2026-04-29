@@ -2,9 +2,9 @@ import { gql } from '@apollo/client';
 // We cannot import directly from the @turf/turf top level package in this file.
 // This file is indirectly used in a Jest based unit test, which breaks down
 // if we import in kdbush package (One of the turf modules has dep on it).
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import-x/no-extraneous-dependencies
 import { along } from '@turf/along';
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import-x/no-extraneous-dependencies
 import { length } from '@turf/length';
 import type { Feature, LineString, Point } from 'geojson';
 import isEqual from 'lodash/isEqual';

@@ -26,9 +26,9 @@ const customRender = (
 
 // re-export everything
 // Disable warning about render being exported twice
-// eslint-disable-next-line import/export
+// eslint-disable-next-line import-x/export
 export * from '@testing-library/react';
 
 // override render method
-// eslint-disable-next-line import/export
+// eslint-disable-next-line import-x/export
 export { customRender as render };

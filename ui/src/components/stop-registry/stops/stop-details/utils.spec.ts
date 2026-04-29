@@ -1,5 +1,5 @@
-// i18n does export a TYPE called i18n, wich throws the import plugin off.
-// eslint-disable-next-line import/no-named-as-default
+// i18n does export a TYPE called i18n, which throws the import plugin off.
+// eslint-disable-next-line import-x/no-named-as-default
 import i18n from 'i18next';
 import '../../../../i18n';
 import { optionalBooleanToUiText, translateStopTypes } from './utils';
