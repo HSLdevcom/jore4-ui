@@ -182,6 +182,22 @@ export const mapStopRegistryTransportModeTypeToUiName = genTranslationMapper<
     t(($) => $.stopRegistryTransportModeTypeEnum.water),
 });
 
+export const mapTransportModeToStopTypeName = genTranslationMapper<
+  JoreStopRegistryTransportModeType,
+  JoreStopRegistryTransportModeType | StopRegistryTransportModeType
+>({
+  [JoreStopRegistryTransportModeType.Bus]: (t) =>
+    t(($) => $.stopDetails.hybrid.stopTypeName.bus),
+  [JoreStopRegistryTransportModeType.Metro]: (t) =>
+    t(($) => $.stopDetails.hybrid.stopTypeName.metro),
+  [JoreStopRegistryTransportModeType.Rail]: (t) =>
+    t(($) => $.stopDetails.hybrid.stopTypeName.rail),
+  [JoreStopRegistryTransportModeType.Tram]: (t) =>
+    t(($) => $.stopDetails.hybrid.stopTypeName.tram),
+  [JoreStopRegistryTransportModeType.Water]: (t) =>
+    t(($) => $.stopDetails.hybrid.stopTypeName.water),
+});
+
 export const mapStopPlaceStateToUiName = genTranslationMapper<StopPlaceState>({
   [StopPlaceState.InOperation]: (t) =>
     t(($) => $.stopPlaceStateEnum.InOperation),
