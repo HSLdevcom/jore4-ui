@@ -9,7 +9,6 @@ import { mapStopResultToStop } from '../../../../graphql';
 import {
   EditRouteTerminalStopsError,
   InternalError,
-  removeFromApolloCache,
   showDangerToast,
   showDangerToastWithError,
 } from '../../../../utils';
@@ -93,13 +92,6 @@ export const useDeleteStop = () => {
   }: DeleteChanges) => {
     const removedStopPointResult = await removeStopMutation({
       variables: { stop_id: stopPointId },
-      // remove stop from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          scheduled_stop_point_id: stopPointId,
-          __typename: 'service_pattern_scheduled_stop_point',
-        });
-      },
     });
 
     const removedQuayResult = await deleteQuay(stopPlaceId, quayId);

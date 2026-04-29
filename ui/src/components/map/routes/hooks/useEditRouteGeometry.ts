@@ -16,7 +16,6 @@ import {
 } from '../../../../graphql';
 import {
   buildJourneyPatternStopSequence,
-  removeFromApolloCache,
   showDangerToastWithError,
 } from '../../../../utils';
 import { useValidateRoute } from './useValidateRoute';
@@ -153,12 +152,6 @@ export const useEditRouteGeometry = () => {
   ) => {
     await mutateFunction({
       variables,
-      update(cache) {
-        removeFromApolloCache(cache, {
-          route_id: variables.route_id,
-          __typename: 'route_route',
-        });
-      },
       refetchQueries: [
         {
           query: GetRouteDetailsByIdDocument,

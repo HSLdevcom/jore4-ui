@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import {
+  GetRouteDetailsByIdDocument,
   JourneyPatternStopFragment,
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
@@ -16,7 +17,6 @@ import {
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
-  removeFromApolloCache,
 } from '../../../utils';
 import { extractJourneyPatternCandidateStops } from '../../map/routes/hooks/useExtractRouteFromFeature';
 import { useValidateRoute } from '../../map/routes/hooks/useValidateRoute';
@@ -141,16 +141,14 @@ export const useEditRouteJourneyPattern = () => {
 
   const updateRouteGeometryMutation = async (
     variables: UpdateRouteJourneyPatternMutationVariables,
+    routeId: UUID,
   ) => {
     await updateRouteJourneyPatternMutation({
       variables,
-      // remove scheduled stop point from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          journey_pattern_id: variables.journey_pattern_id,
-          __typename: 'journey_pattern_journey_pattern',
-        });
-      },
+      awaitRefetchQueries: true,
+      refetchQueries: [
+        { query: GetRouteDetailsByIdDocument, variables: { routeId } },
+      ],
     });
   };
 

@@ -109,7 +109,7 @@ export const EditRoutePage: FC = () => {
           stopPointLabels: draftStops?.map((stop) => stop.label),
         });
         const variables = mapEditJourneyPatternChangesToVariables(changes);
-        await updateRouteGeometryMutation(variables);
+        await updateRouteGeometryMutation(variables, route.route_id);
       }
       onSubmit(form);
     } catch (err) {

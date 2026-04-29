@@ -17,7 +17,6 @@ import {
   LinkNotResolvedError,
   findKeyValue,
   getRouteLabelVariantText,
-  removeFromApolloCache,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import {
@@ -207,12 +206,6 @@ export function useCreateStop() {
           ...stopPoint,
           stop_place_ref: quayId,
         },
-      },
-      update(cache) {
-        removeFromApolloCache(cache, {
-          infrastructure_link_id: stopPoint.located_on_infrastructure_link_id,
-          __typename: 'infrastructure_network_infrastructure_link',
-        });
       },
     });
 

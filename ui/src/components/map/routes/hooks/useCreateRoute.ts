@@ -15,7 +15,6 @@ import { MIN_DATE } from '../../../../time';
 import {
   buildJourneyPatternStopSequence,
   mapToObject,
-  removeFromApolloCache,
   showDangerToastWithError,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
@@ -47,15 +46,7 @@ export const useCreateRoute = () => {
   const insertRouteMutation = async (
     variables: InsertRouteOneMutationVariables,
   ) => {
-    return mutateFunction({
-      variables,
-      update(cache) {
-        removeFromApolloCache(cache, {
-          line_id: variables.object.on_line_id,
-          __typename: 'route_line',
-        });
-      },
-    });
+    return mutateFunction({ variables });
   };
 
   const mapRouteDetailsToInsertMutationVariables = (

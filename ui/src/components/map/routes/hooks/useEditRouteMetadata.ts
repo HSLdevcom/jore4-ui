@@ -15,7 +15,6 @@ import {
   defaultLocalizedString,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
-  removeFromApolloCache,
   showDangerToastWithError,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
@@ -161,15 +160,7 @@ export const useEditRouteMetadata = () => {
   });
 
   const editRouteMetadata = (variables: PatchRouteMutationVariables) => {
-    return mutateFunction({
-      variables,
-      update(cache) {
-        removeFromApolloCache(cache, {
-          route_id: variables.route_id,
-          __typename: 'route_route',
-        });
-      },
-    });
+    return mutateFunction({ variables });
   };
 
   // default handler that can be used to show error messages as toast

@@ -89,7 +89,7 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
 
       const variables = mapEditJourneyPatternChangesToVariables(changes);
 
-      await updateRouteGeometryMutation(variables);
+      await updateRouteGeometryMutation(variables, route.route_id);
       showSuccessToast(t(($) => $.routes.saveSuccess));
     } catch (err) {
       showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);
@@ -107,7 +107,7 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
 
       const variables = mapEditJourneyPatternChangesToVariables(changes);
 
-      await updateRouteGeometryMutation(variables);
+      await updateRouteGeometryMutation(variables, route.route_id);
       showSuccessToast(t(($) => $.routes.saveSuccess));
     } catch (err) {
       showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);

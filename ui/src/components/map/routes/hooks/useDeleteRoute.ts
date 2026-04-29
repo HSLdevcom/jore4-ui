@@ -1,10 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useDeleteRouteMutation } from '../../../../generated/graphql';
-import {
-  mapToVariables,
-  removeFromApolloCache,
-  showDangerToastWithError,
-} from '../../../../utils';
+import { mapToVariables, showDangerToastWithError } from '../../../../utils';
 
 export const useDeleteRoute = () => {
   const { t } = useTranslation();
@@ -17,12 +13,6 @@ export const useDeleteRoute = () => {
 
     const result = await mutateFunction({
       ...mapToVariables({ route_id: routeId }),
-      update(cache) {
-        removeFromApolloCache(cache, {
-          route_id: routeId,
-          __typename: 'route_route',
-        });
-      },
     });
     return result;
   };

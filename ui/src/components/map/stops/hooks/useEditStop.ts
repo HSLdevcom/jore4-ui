@@ -36,7 +36,6 @@ import {
   TiamatUpdateFailedError,
   TimingPlaceRequiredError,
   defaultTo,
-  removeFromApolloCache,
   showDangerToast,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
@@ -578,13 +577,6 @@ export const useEditStop = () => {
       updateStopPointResult = await wrapErrors(
         editStopMutation({
           variables,
-          update(cache) {
-            removeFromApolloCache(cache, {
-              infrastructure_link_id:
-                variables.stop_patch.located_on_infrastructure_link_id,
-              __typename: 'infrastructure_network_infrastructure_link',
-            });
-          },
 
           // Always refetch map queries after StopPoint update.
           ...refetchQueries,
