@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { useGroupedResultSelection, useStopSearchRouterState } from '../utils';
 import { ActiveLineHeader } from './ActiveLineHeader';
 import { LineRoutesListing } from './LineRoutesListing';
@@ -52,7 +52,7 @@ export const StopsByLineSearchGroupedStopsResults: FC<
       {lines
         .filter((line) => selectedGroups.includes(line.line_id))
         .map((line, i) => (
-          <>
+          <Fragment key={line.line_id}>
             <ActiveLineHeader
               line={line}
               className={i > 0 ? 'mt-6' : ''}
@@ -65,7 +65,7 @@ export const StopsByLineSearchGroupedStopsResults: FC<
               sortingInfo={sortingInfo}
               selection={resultSelection}
             />
-          </>
+          </Fragment>
         ))}
     </>
   );

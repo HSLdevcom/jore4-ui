@@ -104,7 +104,7 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
         onSubmit={handleSubmit(handleFormSubmit)}
       >
         {externalLinksFields.map((externalLink, idx) => (
-          <div key={externalLink.orderNum} data-testid={testIds.externalLink}>
+          <div key={externalLink.id} data-testid={testIds.externalLink}>
             <ExternalLinksFormFields
               index={idx}
               onRemove={onRemoveExternalLink}
