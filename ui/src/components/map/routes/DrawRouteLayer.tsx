@@ -58,7 +58,9 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
-  setCursor(map, drawingMode);
+  const shouldUseDrawingCursor =
+    drawingMode === Mode.Edit && creatingNewRoute && !editedRouteData.geometry;
+  setCursor(map, shouldUseDrawingCursor ? Mode.Draw : drawingMode);
 
   const { templateRouteId } = editedRouteData;
   // Fetch existing route's stops and geometry in case editing existing route

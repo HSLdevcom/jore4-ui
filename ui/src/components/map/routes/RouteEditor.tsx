@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMap } from 'react-map-gl/maplibre';
 import {
   RouteDefaultFieldsFragment,
   RouteRoute,
@@ -54,12 +55,15 @@ type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;
 };
 
+const SNAPPING_LINE_LAYER_ID = 'snapping-line';
+
 const RouteEditorComponent: ForwardRefRenderFunction<
   ExplicitAny,
   RouteEditorProps
 > = ({ onDeleteDrawnRoute }, externalRef) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { current: map } = useMap();
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
@@ -175,8 +179,6 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     // as it is now saved
 
     dispatch(resetRouteCreatingAction());
-
-    onDeleteDrawnRoute();
   };
 
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
@@ -206,6 +208,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
 
       // if editing a route that is just being created, we should already have the line info and the route metadata available
       if (!selectedRouteId) {
+        dispatch(setRouteToEditModeAction());
         return;
       }
 
