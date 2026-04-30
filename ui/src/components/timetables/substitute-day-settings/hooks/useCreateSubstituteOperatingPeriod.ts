@@ -5,7 +5,10 @@ import {
 } from '../../../../generated/graphql';
 import { MutationHook, extendHook } from '../../../../hooks';
 import { mapPeriodsToDayByLineTypes, mapToData } from '../../../../utils';
-import { FormState } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
+import {
+  CommonSubstitutePeriodType,
+  PeriodType,
+} from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
 const GQL_CREATE_SUBSTITUTE_OPERATING_PERIOD = gql`
   mutation CreateSubstituteOperatingPeriod(
@@ -34,7 +37,9 @@ const GQL_CREATE_SUBSTITUTE_OPERATING_PERIOD = gql`
 `;
 
 type CreateParams = {
-  readonly form: FormState;
+  readonly form: {
+    readonly periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>;
+  };
 };
 
 type CreateChanges = {

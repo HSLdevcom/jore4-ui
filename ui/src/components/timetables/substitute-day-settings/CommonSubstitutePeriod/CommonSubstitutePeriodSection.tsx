@@ -1,12 +1,14 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateRange } from '../../../../types';
+import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
 import { useCreateSubstituteOperatingPeriod } from '../hooks/useCreateSubstituteOperatingPeriod';
 import { useDeleteSubstituteOperatingPeriod } from '../hooks/useDeleteSubstituteOperatingPeriod';
 import { useEditSubstituteOperatingPeriod } from '../hooks/useEditSubstituteOperatingPeriod';
 import { useGetCommonSubstituteOperatingPeriods } from '../hooks/useGetSubstituteOperatingPeriod';
+import { CommonSubstitutePeriodType } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 import {
   CommonSubstitutePeriodForm,
   mapCommonSubstituteOperatingPeriodsToCommonDays,
@@ -56,12 +58,15 @@ export const CommonSubstitutePeriodSection: FC<
     // occasional substitute operating periods form type
     const periods = form.commonDays
       .filter((day) => day.created || day.fromDatabase)
-      .map((d) => ({
-        ...d,
-        beginDate: d.supersededDate,
-        endDate: d.supersededDate,
-        toBeDeleted: d.toBeDeleted ?? false,
-      }));
+      .map(
+        (d): CommonSubstitutePeriodType => ({
+          ...d,
+          substituteDayOfWeek: d.substituteDayOfWeek as SubstituteDayOfWeek,
+          beginDate: d.supersededDate,
+          endDate: d.supersededDate,
+          toBeDeleted: d.toBeDeleted ?? false,
+        }),
+      );
 
     try {
       await deleteSubstituteOperatingPeriod({ periods });

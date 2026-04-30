@@ -7,7 +7,10 @@ import {
 } from '../../../../generated/graphql';
 import { MutationHook, extendHook } from '../../../../hooks';
 import { mapPeriodsToDayByLineTypes } from '../../../../utils';
-import { FormState } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
+import {
+  CommonSubstitutePeriodType,
+  PeriodType,
+} from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
 // Hasura doesn't support updating nested objects in one mutation
 // https://hasura.io/docs/latest/mutations/postgres/update/
@@ -47,7 +50,9 @@ const GQL_UPDATE_SUBSTITUTE_PERIOD = gql`
 `;
 
 type EditParams = {
-  readonly form: FormState;
+  readonly form: {
+    readonly periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>;
+  };
 };
 
 type EditChanges = {
