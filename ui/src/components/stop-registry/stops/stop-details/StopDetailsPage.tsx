@@ -8,7 +8,7 @@ import {
 } from '../../../../hooks';
 import { Container, Visible } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { mapToShortDate, mapUTCToDateTime } from '../../../../time';
+import { mapToShortDate, mapToShortDateTime } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
@@ -94,7 +94,7 @@ export const StopDetailsPage: FC = () => {
           className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
           data-testid={testIds.changeHistoryLink}
         >
-          {mapUTCToDateTime(stopDetails?.quay?.changed)} |{' '}
+          {mapToShortDateTime(stopDetails?.quay?.changed)} |{' '}
           {stopDetails?.quay?.changedByUserName ?? 'HSL'}{' '}
           <i className="icon-history text-xl" aria-hidden />
         </Link>

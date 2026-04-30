@@ -524,8 +524,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
       StopDetailsPage.changeHistoryLink()
         .shouldBeVisible()
-        .invoke('text')
-        .should('match', /\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2}/); // Matches format: DD.MM.YYYY HH:mm
+        .shouldContainDateTime();
 
       StopDetailsPage.headerSummaryRow.lineCount().should('have.text', 0);
 

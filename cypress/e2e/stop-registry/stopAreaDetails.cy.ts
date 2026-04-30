@@ -209,8 +209,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     StopAreaDetailsPage.versioningRow
       .getChangeHistoryLink()
       .shouldBeVisible()
-      .invoke('text')
-      .should('match', /\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2}/); // Matches format: DD.MM.YYYY HH:mm
+      .shouldContainDateTime();
 
     const { details } = StopAreaDetailsPage;
     details.getName().shouldHaveText(expected.name);
