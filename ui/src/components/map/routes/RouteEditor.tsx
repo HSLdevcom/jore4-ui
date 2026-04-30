@@ -196,13 +196,18 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   // - start editing the just created route OR
   // - cancel the current edit changes
   const onEditRoute = async () => {
+    if (drawingMode === Mode.Edit) {
     if (!creatingNewRoute) {
       onDeleteDrawnRoute();
+        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     }
 
-    if (drawingMode === Mode.Edit) {
       dispatch(stopRouteEditingAction());
     } else {
+      if (!creatingNewRoute) {
+        onDeleteDrawnRoute();
+      }
+
       // start editing mode
       dispatch(startRouteEditingAction());
 
@@ -256,6 +261,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   };
 
   const onCancel = () => {
+    // For existing routes, cancel should discard unsaved geometry edits
+    // and then stop edit mode, keeping the original route visible.
+    if (!creatingNewRoute && drawingMode === Mode.Edit) {
+      onDeleteDrawnRoute();
+      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      dispatch(stopRouteEditingAction());
+      return;
+    }
+
     onDeleteDrawnRoute();
 
     dispatch(resetRouteCreatingAction());
