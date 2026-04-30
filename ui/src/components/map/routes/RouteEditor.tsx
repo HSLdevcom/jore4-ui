@@ -199,10 +199,10 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   // - cancel the current edit changes
   const onEditRoute = async () => {
     if (drawingMode === Mode.Edit) {
-    if (!creatingNewRoute) {
-      onDeleteDrawnRoute();
+      if (!creatingNewRoute) {
+        onDeleteDrawnRoute();
         removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
-    }
+      }
 
       dispatch(stopRouteEditingAction());
     } else {
@@ -288,6 +288,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       if (editedRouteId) {
         await editRoute(editedRouteId);
         showSuccessToast(t(($) => $.routes.saveSuccess));
+        dispatch(stopRouteEditingAction());
       } else {
         const createdRoute = await createRoute();
 
