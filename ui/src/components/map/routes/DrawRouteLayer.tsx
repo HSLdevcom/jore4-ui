@@ -25,9 +25,11 @@ import {
   mapInfraLinksToFeature,
   useSnappingLine,
 } from './hooks';
-import { NEW_ROUTE_ARROWS_ID, NEW_ROUTE_LINE_ID } from './utils';
-
-const SNAPPING_LINE_LAYER_ID = 'snapping-line';
+import {
+  NEW_ROUTE_ARROWS_ID,
+  NEW_ROUTE_LINE_ID,
+  SNAPPING_LINE_LAYER_ID,
+} from './utils';
 
 type DrawRouteLayerProps = {
   readonly editorLayerRef: Ref<EditorLayerRef>;
@@ -58,7 +60,9 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
-  setCursor(map, drawingMode);
+  const shouldUseDrawingCursor =
+    drawingMode === Mode.Edit && creatingNewRoute && !editedRouteData.geometry;
+  setCursor(map, shouldUseDrawingCursor ? Mode.Draw : drawingMode);
 
   const { templateRouteId } = editedRouteData;
   // Fetch existing route's stops and geometry in case editing existing route

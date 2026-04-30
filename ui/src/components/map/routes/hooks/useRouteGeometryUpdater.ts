@@ -9,6 +9,7 @@ import {
 } from '../../../../redux';
 import { log } from '../../../../utils';
 import { addRoute } from '../../../../utils/map';
+import { SNAPPING_LINE_LAYER_ID } from '../utils';
 import {
   LineStringFeature,
   extractJourneyPatternCandidateStops,
@@ -18,8 +19,6 @@ import {
 } from './useExtractRouteFromFeature';
 import { useFetchInfraLinksWithStops } from './useFetchInfraLinksWithStops';
 import { useRouteMetadata } from './useRouteMetadata';
-
-const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
 export const useRouteGeometryUpdater = (
   map: MapRef | undefined,

@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMap } from 'react-map-gl/maplibre';
 import {
   RouteDefaultFieldsFragment,
   RouteRoute,
@@ -14,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Mode,
   Operation,
+  resetDraftRouteGeometryAction,
   resetRouteCreatingAction,
   selectDrawingMode,
   selectEditedRouteData,
@@ -36,6 +38,7 @@ import {
   showWarningToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
+import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
@@ -49,6 +52,7 @@ import {
   useDeleteRoute,
   useEditRouteGeometry,
 } from './hooks';
+import { SNAPPING_LINE_LAYER_ID } from './utils';
 
 type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;
@@ -60,6 +64,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
 > = ({ onDeleteDrawnRoute }, externalRef) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { current: map } = useMap();
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
@@ -175,8 +180,6 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     // as it is now saved
 
     dispatch(resetRouteCreatingAction());
-
-    onDeleteDrawnRoute();
   };
 
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
@@ -194,11 +197,12 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   // - start editing the just created route OR
   // - cancel the current edit changes
   const onEditRoute = async () => {
-    if (!creatingNewRoute) {
-      onDeleteDrawnRoute();
-    }
-
     if (drawingMode === Mode.Edit) {
+      // Discard unsaved geometry when leaving existing route edit mode
+      if (!creatingNewRoute) {
+        onDeleteDrawnRoute();
+      }
+
       dispatch(stopRouteEditingAction());
     } else {
       // start editing mode
@@ -206,6 +210,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
 
       // if editing a route that is just being created, we should already have the line info and the route metadata available
       if (!selectedRouteId) {
+        dispatch(setRouteToEditModeAction());
         return;
       }
 
@@ -253,9 +258,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   };
 
   const onCancel = () => {
-    onDeleteDrawnRoute();
-
-    dispatch(resetRouteCreatingAction());
+    if (!creatingNewRoute && drawingMode === Mode.Edit) {
+      dispatch(stopRouteEditingAction());
+      onDeleteDrawnRoute();
+    } else {
+      dispatch(resetRouteCreatingAction());
+      // onDeleteDrawnRoute() can not be used here because the ref is not available when creating a new route
+      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      dispatch(resetDraftRouteGeometryAction());
+    }
   };
 
   const onSave = async () => {
