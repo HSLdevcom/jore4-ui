@@ -24,5 +24,12 @@ export const schema = z.object({
 });
 
 export type PeriodType = z.infer<typeof periodSchema>;
+export type CommonSubstitutePeriodType = Omit<
+  PeriodType,
+  'beginTime' | 'endTime'
+> & {
+  beginTime?: never;
+  endTime?: never;
+};
 
 export type FormState = z.infer<typeof schema>;

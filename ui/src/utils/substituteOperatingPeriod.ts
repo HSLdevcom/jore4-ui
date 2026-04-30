@@ -1,5 +1,8 @@
 import { DateTime, Duration } from 'luxon';
-import { PeriodType } from '../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
+import {
+  CommonSubstitutePeriodType,
+  PeriodType,
+} from '../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 import {
   Maybe,
   RouteTypeOfLineEnum,
@@ -25,8 +28,18 @@ export const parseSubstituteDayOfWeek = (
   return SubstituteDayOfWeek.NoTraffic;
 };
 
+function parseOptionalInterval(
+  str: string | undefined | null,
+): Duration | null {
+  if (!str) {
+    return null;
+  }
+
+  return Duration.fromISOTime(str);
+}
+
 export const mapPeriodsToDayByLineTypes = (
-  input: PeriodType,
+  input: PeriodType | CommonSubstitutePeriodType,
 ): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] => {
   const {
     beginDate,
@@ -58,8 +71,8 @@ export const mapPeriodsToDayByLineTypes = (
           superseded_date: date,
           substitute_day_of_week:
             mapSubstituteDayOfWeekToNumber(substituteDayOfWeek),
-          begin_time: Duration.fromISOTime(beginTime),
-          end_time: Duration.fromISOTime(endTime),
+          begin_time: parseOptionalInterval(beginTime),
+          end_time: parseOptionalInterval(endTime),
           substitute_operating_period_id: periodId,
         });
       }

@@ -43,7 +43,7 @@ export const extendHook = <
       prepare,
       mapChangesToVariables,
       executeMutation,
-    );
+    ) as (params: TParams) => Promise<FetchResult>;
 
     return {
       ...hookFunctions,
