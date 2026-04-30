@@ -2,7 +2,7 @@ import { ReactNode, isValidElement } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { Link, To } from 'react-router';
 import { useGetUserNames } from '../../../../hooks';
-import { mapUTCToDateTime } from '../../../../time';
+import { mapToShortDateTime } from '../../../../time';
 import { EmptyCell } from '../EmptyCell';
 import { ChangedValue } from '../types';
 
@@ -35,7 +35,7 @@ export const LatestChangeHistoryItem = ({
   const { getUserNameById } = useGetUserNames();
 
   const changedBy = getUserNameById(historyItem.changedBy) ?? 'HSL';
-  const changedAt = mapUTCToDateTime(historyItem.changed);
+  const changedAt = mapToShortDateTime(historyItem.changed);
 
   if (sections.length === 0) {
     return null;

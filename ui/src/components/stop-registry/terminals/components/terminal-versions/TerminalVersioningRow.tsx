@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { mapToShortDate, mapUTCToDateTime } from '../../../../../time';
+import { mapToShortDate, mapToShortDateTime } from '../../../../../time';
 import { TerminalComponentProps } from '../../types';
 import { EditTerminalValidityButton } from './EditTerminalValidityButton';
 
@@ -37,7 +37,7 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
         className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
         data-testid={testIds.changeHistoryLink}
       >
-        {mapUTCToDateTime(terminal.changed)} |{' '}
+        {mapToShortDateTime(terminal.changed)} |{' '}
         {terminal.changedByUserName ?? 'HSL'}{' '}
         <i className="icon-history text-xl" aria-hidden />
       </Link>

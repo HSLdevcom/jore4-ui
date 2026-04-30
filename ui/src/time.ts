@@ -1,16 +1,22 @@
 import isString from 'lodash/isString';
 import padStart from 'lodash/padStart';
-import { DateTime, Duration, Interval, Settings } from 'luxon';
+import {
+  DateTime,
+  Duration,
+  FixedOffsetZone,
+  IANAZone,
+  Interval,
+  Settings,
+} from 'luxon';
 import { Maybe, ValidityPeriod } from './generated/graphql';
 
-Settings.defaultZone = 'Europe/Helsinki';
+// Use Helsinki as the time default time zone.
+const helsinkiTimeZone = IANAZone.create('Europe/Helsinki');
+Settings.defaultZone = helsinkiTimeZone;
 
+// Throw instead of returning invalid dates.
+Settings.throwOnInvalid = true;
 declare module 'luxon' {
-  // This is in fact false at the moment.
-  // Previous versions of the luxon typings did not care about validity.
-  // Currently, our code base can produce NPEs when working with Luxon classes.
-  // Settings.throwOnInvalid = true; should be set next to defaultZone.
-  // TODO: Set the throwOnInvalid setting or fix the codebase to deal with nulls produced by Luxon.
   interface TSSettings {
     throwOnInvalid: true;
   }
@@ -38,14 +44,17 @@ export function parseDate(date?: DateLike | null) {
     return date;
   }
 
-  // if valid DateTime from date string, return it
-  // can handle yyyy-mm-dd date strings as well
-  const dt = DateTime.fromISO(date);
-  if (dt.isValid) {
-    return dt;
+  // It is a date string
+  if (date.length <= 10) {
+    // Set directly to Europe/Helsinki timezone to keep the time at midnight.
+    return DateTime.fromISO(date, { zone: helsinkiTimeZone });
   }
 
-  throw new Error(`Invalid date input: ${date}`);
+  // It is a date & time string.
+  return DateTime.fromISO(date, {
+    // If no timezone / offset info is specified, assume UTC
+    zone: FixedOffsetZone.utcInstance,
+  }).setZone(helsinkiTimeZone); // Convert to Helsinki time.
 }
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
@@ -72,16 +81,6 @@ export const mapToShortTime = (date?: DateLike | null) =>
 // "shortDateTime" means format "D.M.YYYY H.mm"
 export const mapToShortDateTime = (date?: DateLike | null) =>
   formatDateWithoutLocale('d.L.yyyy H.mm', date);
-
-// Convert UTC timestamp to Helsinki timezone and format as date time
-export const mapUTCToDateTime = (date?: string | null) => {
-  if (!date) {
-    return undefined;
-  }
-  return DateTime.fromISO(date, { zone: 'utc' })
-    .setZone('Europe/Helsinki')
-    .toFormat('dd.MM.yyyy HH:mm');
-};
 
 export function mapToISODate(date: DateLike): string;
 export function mapToISODate(date: null | undefined): undefined;
@@ -136,7 +135,3 @@ export const findEarliestTime = (times: ReadonlyArray<DateTime>) => {
 export const findLatestTime = (times: ReadonlyArray<DateTime>) => {
   return DateTime.fromMillis(Math.max(...times.map((item) => item.toMillis())));
 };
-
-export function toUtcDate(dateTime: DateTime): DateTime {
-  return DateTime.utc(dateTime.year, dateTime.month, dateTime.day);
-}
