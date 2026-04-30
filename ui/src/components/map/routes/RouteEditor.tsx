@@ -276,6 +276,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       if (editedRouteId) {
         await editRoute(editedRouteId);
         showSuccessToast(t(($) => $.routes.saveSuccess));
+        dispatch(stopRouteEditingAction());
       } else {
         const createdRoute = await createRoute();
 
