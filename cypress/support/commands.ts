@@ -114,6 +114,18 @@ Cypress.Commands.add(
   },
 );
 
+Cypress.Commands.add(
+  'shouldContainDateTime',
+  { prevSubject: 'element' },
+  (subject) => {
+    cy.wrap(subject)
+      .invoke('text')
+      // Matches formats with or without zero padded date and month values.
+      // Time values with either a '.' or ':' as the separator.
+      .should('match', /\d{1,2}\.\d{1,2}\.\d{4}\s+\d{1,2}[.:]\d{2}/); // Matches format: D(D).M(M).YYYY HH:mm
+  },
+);
+
 Cypress.Commands.add('closeDropdown', () => {
   cy.press('Escape');
 });

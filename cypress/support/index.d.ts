@@ -66,6 +66,11 @@ declare namespace Cypress {
     shouldBeDisabled(): Chainable<JQuery<HtmlElement>>;
 
     /**
+     * Custom command to check that the text content of an element contains a datetime value.
+     */
+    shouldContainDateTime(): Chainable<void>;
+
+    /**
      * Closes active dropdown. (Presses escape)
      */
     closeDropdown(): Chainable<void>;

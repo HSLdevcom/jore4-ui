@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { mapToShortDate, mapUTCToDateTime } from '../../../../../time';
+import { mapToShortDate, mapToShortDateTime } from '../../../../../time';
 import { LocatorActionButton } from '../../../components';
 import { StopVersion, StopVersionStatus } from '../types';
 import { ActionMenuStop } from '../types/ActionMenuStop';
@@ -96,7 +96,7 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
       </td>
 
       <td className="px-4 py-2 text-center" data-testid={testIds.changed}>
-        {mapUTCToDateTime(stopVersion.changed)}
+        {mapToShortDateTime(stopVersion.changed)}
       </td>
 
       <td className="px-4 py-2 text-center" data-testid={testIds.changedBy}>
