@@ -855,6 +855,7 @@
     "pageTitle": "Kartta",
     "drawRoute": "Vedä reitti",
     "editRoute": "Muokkaa reittiä",
+    "stopEditing": "Lopeta muokkaus",
     "addStop": "Lisää pysäkki",
     "addBusStop": "Lisää bussipysäkki",
     "addTramStop": "Lisää raitiotiepysäkki",

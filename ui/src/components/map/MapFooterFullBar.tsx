@@ -91,12 +91,11 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       <SimpleButton
         testId={testIds.editRouteButton}
         onClick={onEditRoute}
-        disabled={
-          !(hasDraftRouteGeometry || selectedRouteId) ||
-          drawingMode === Mode.Edit
-        }
+        disabled={!(hasDraftRouteGeometry || selectedRouteId)}
       >
-        {t(($) => $.map.editRoute)}
+        {drawingMode === Mode.Edit
+          ? t(($) => $.map.stopEditing)
+          : t(($) => $.map.editRoute)}
       </SimpleButton>
       <MapFooterAddStopDropdown
         onAddStops={onAddStops}

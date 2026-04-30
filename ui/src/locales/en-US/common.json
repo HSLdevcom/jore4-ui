@@ -855,6 +855,7 @@
     "pageTitle": "Map",
     "drawRoute": "Draw route",
     "editRoute": "Edit route",
+    "stopEditing": "Stop editing",
     "addStop": "Add stop",
     "addBusStop": "Add bus stop",
     "addTramStop": "Add tram stop",
