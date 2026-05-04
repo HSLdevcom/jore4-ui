@@ -1,4 +1,5 @@
-import { FC, useContext, useState } from 'react';
+import compact from 'lodash/compact';
+import { FC, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Link } from 'react-router';
@@ -22,6 +23,7 @@ import {
 } from './DetailTabSelector';
 import { EditStopValidityButton } from './EditStopValidityButton';
 import { StopExternalLinks } from './external-links/StopExternalLinks';
+import { MirroredQuayDetailsCard } from './hybrid-stop';
 import { SheltersInfoSpotsSection } from './info-spots/SheltersInfoSpots';
 import { LocationDetailsSection } from './location-details';
 import { MaintenanceSection } from './maintenance';
@@ -55,11 +57,20 @@ export const StopDetailsPage: FC = () => {
   const selectDetailTab = (nextTab: DetailTabType) =>
     requestNavigation(() => setActiveDetailTab(nextTab));
 
-  const { stopDetails, loading, error } = useGetStopDetails();
+  const { stopDetails, loading, error, mirroredQuays } = useGetStopDetails();
+
+  const mirroredTransportModes = useMemo(
+    () => compact(mirroredQuays.map((mq) => mq.stopPlace.transportMode)),
+    [mirroredQuays],
+  );
 
   return (
     <Container testId={testIds.page}>
-      <StopTitleRow stopDetails={stopDetails} label={label} />
+      <StopTitleRow
+        stopDetails={stopDetails}
+        label={label}
+        mirroredTransportModes={mirroredTransportModes}
+      />
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
       <StopDetailsVersion label={label} />
       <hr className="my-4" />
@@ -122,6 +133,13 @@ export const StopDetailsPage: FC = () => {
                     role="tabpanel"
                   >
                     <BasicDetailsSection stop={stopDetails} />
+                    {mirroredQuays.map((mq) => (
+                      <MirroredQuayDetailsCard
+                        key={mq.quay.id}
+                        details={mq}
+                        parentStop={stopDetails}
+                      />
+                    ))}
                     <LocationDetailsSection stop={stopDetails} />
                     <SignageDetailsSection stop={stopDetails} />
                   </div>
