@@ -1,7 +1,9 @@
-import { FC, useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { isMirrorParent } from '../../../../../utils/stop-registry/mirrorRelation';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
@@ -60,11 +62,24 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
 
   const defaultValues = mapStopBasicDetailsDataToFormState(stop);
 
+  const isHybrid = isMirrorParent(stop.quay ?? { keyValues: [] });
+  const title = useMemo(() => {
+    const base = t(($) => $.stopDetails.basicDetails.title);
+    if (!isHybrid || !stop.stop_place?.transportMode) {
+      return base;
+    }
+    const modeName = mapTransportModeToStopTypeName(
+      t,
+      stop.stop_place.transportMode,
+    );
+    return `${base} | ${modeName}`;
+  }, [t, isHybrid, stop.stop_place?.transportMode]);
+
   return (
     <InfoContainer
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
-      title={t(($) => $.stopDetails.basicDetails.title)}
+      title={title}
       testIdPrefix="BasicDetailsSection"
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (
@@ -73,6 +88,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
           ref={formRef}
           onSubmit={onSubmit}
           stop={stop}
+          isHybrid={isHybrid}
           onCancel={() => infoContainerControls.setIsInEditMode(false)}
           testIdPrefix="BasicDetailsSection"
         />

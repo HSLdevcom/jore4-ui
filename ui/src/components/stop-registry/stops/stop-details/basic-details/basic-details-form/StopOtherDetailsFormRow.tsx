@@ -17,10 +17,12 @@ const testIds = {
 };
 type StopOtherDetailsFormRowProps = {
   readonly onClickOpenTimingSettingsModal: () => void;
+  readonly isTransportModeLocked?: boolean;
 };
 
 export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
   onClickOpenTimingSettingsModal,
+  isTransportModeLocked,
 }) => {
   const { t } = useTranslation();
   const { watch } = useFormContext();
@@ -43,7 +45,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
               uiNameMapper={(value) =>
                 mapStopRegistryTransportModeTypeToUiName(t, value)
               }
-              disabled={isRailReplacement}
+              disabled={isRailReplacement || isTransportModeLocked}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />

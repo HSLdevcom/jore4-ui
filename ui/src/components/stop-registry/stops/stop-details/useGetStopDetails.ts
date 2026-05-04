@@ -34,6 +34,7 @@ import {
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
+import { isMirrorChild } from '../../../../utils/stop-registry/mirrorRelation';
 import { mapToEnrichedQuay } from '../../utils';
 import { useGetLatestQuayChange } from '../queries/useGetQuayChangeHistory';
 
@@ -370,6 +371,7 @@ function getCorrectQuay(
 ): Quay | null {
   const validQuays = compact(quays)
     .filter((it) => it.publicCode === requestedPublicCode)
+    .filter((it) => !isMirrorChild(it))
     .filter(validOn(observationDateTs));
 
   if (Number.isFinite(priority)) {

@@ -2,15 +2,29 @@ import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import {
   GetStopDetailsQuery,
+  StopRegistryStopPlaceInterface,
   useGetStopDetailsLazyQuery,
 } from '../../../../generated/graphql';
-import { EnrichedQuay, Quay, StopPlace } from '../../../../types';
-import { getStopPlacesFromQueryResult } from '../../../../utils';
+import {
+  EnrichedQuay,
+  EnrichedStopPlace,
+  Quay,
+  StopPlace,
+} from '../../../../types';
+import {
+  getStopPlaceDetailsForEnrichment,
+  getStopPlacesFromQueryResult,
+} from '../../../../utils';
 import { mapToEnrichedQuay } from '../../utils';
 
 // TODO: Currently reuses the full GetStopDetails query which fetches all fields.
 // Once the mirrored data requirements are finalized, create a dedicated
 // GetMirroredQuayDetails query with a lighter fragment to avoid overfetching.
+
+export type MirroredQuayDetails = {
+  readonly quay: EnrichedQuay;
+  readonly stopPlace: EnrichedStopPlace;
+};
 
 function findQuayByNetexId(
   data: GetStopDetailsQuery | undefined,
@@ -33,11 +47,25 @@ function findQuayByNetexId(
   return null;
 }
 
+function enrichStopPlace(stopPlace: StopPlace): EnrichedStopPlace {
+  const transformedStopPlace = {
+    ...stopPlace,
+    parentStopPlace: stopPlace.parentStopPlace
+      ? [stopPlace.parentStopPlace as StopRegistryStopPlaceInterface]
+      : undefined,
+  };
+
+  return {
+    ...stopPlace,
+    ...getStopPlaceDetailsForEnrichment(transformedStopPlace),
+  };
+}
+
 export function useGetMirroredQuay() {
   const [getStopDetailsLazy] = useGetStopDetailsLazyQuery();
 
   return useCallback(
-    async (quayNetexId: string): Promise<EnrichedQuay | null> => {
+    async (quayNetexId: string): Promise<MirroredQuayDetails | null> => {
       const { data } = await getStopDetailsLazy({
         variables: {
           where: {
@@ -55,10 +83,18 @@ export function useGetMirroredQuay() {
         return null;
       }
 
-      return mapToEnrichedQuay(
+      const enrichedQuay = mapToEnrichedQuay(
         result.quay,
         result.stopPlace.accessibilityAssessment,
       );
+      if (!enrichedQuay) {
+        return null;
+      }
+
+      return {
+        quay: enrichedQuay,
+        stopPlace: enrichStopPlace(result.stopPlace),
+      };
     },
     [getStopDetailsLazy],
   );
