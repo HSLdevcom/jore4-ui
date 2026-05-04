@@ -42,11 +42,14 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
         <SimpleButton
           shape="slim"
           onClick={() => setIsExpanded((expanded) => !expanded)}
-          inverted={!isExpanded}
+          inverted={inverted ?? !isExpanded}
           testId={testIds.toggle(testIdPrefix)}
         >
           {isExpanded ? (
-            <FaChevronUp className="text-white" aria-hidden />
+            <FaChevronUp
+              className={inverted ? 'text-tweaked-brand' : 'text-white'}
+              aria-hidden
+            />
           ) : (
             <FaChevronDown className="text-tweaked-brand" aria-hidden />
           )}

@@ -21,6 +21,7 @@ import {
 } from '../../../../hooks/useGetUserNames';
 import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
+  EnrichedQuay,
   EnrichedStopPlace,
   Quay,
   StopPlace,
@@ -35,6 +36,7 @@ import {
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
 import { mapToEnrichedQuay } from '../../utils';
+import { getMirrorParentId, isMirrorChild } from '../../utils/mirrorRelation';
 import { useGetLatestQuayChange } from '../queries/useGetQuayChangeHistory';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
@@ -370,6 +372,7 @@ function getCorrectQuay(
 ): Quay | null {
   const validQuays = compact(quays)
     .filter((it) => it.publicCode === requestedPublicCode)
+    .filter((it) => !isMirrorChild(it))
     .filter(validOn(observationDateTs));
 
   if (Number.isFinite(priority)) {
@@ -450,6 +453,52 @@ const getStopDetails = (
   };
 };
 
+export type MirroredQuayDetails = {
+  readonly quay: EnrichedQuay;
+  readonly stopPlace: EnrichedStopPlace;
+};
+
+function getMirroredQuays(
+  data: GetStopDetailsQuery | undefined,
+  parentQuay: Quay | null,
+): ReadonlyArray<MirroredQuayDetails> {
+  if (!parentQuay?.id) {
+    return [];
+  }
+
+  const parentQuayId = parentQuay.id;
+  const stopPlaceResults = data?.stopsDb?.newestVersion ?? [];
+
+  return compact(
+    stopPlaceResults.flatMap((result) => {
+      const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
+        result.TiamatStopPlace,
+      );
+      if (!stopPlace) {
+        return [];
+      }
+
+      const enrichedStopPlace = getEnrichedStopPlace(stopPlace);
+      if (!enrichedStopPlace) {
+        return [];
+      }
+
+      return compact(stopPlace.quays)
+        .filter((q) => getMirrorParentId(q) === parentQuayId)
+        .map((quay) => {
+          const enrichedQuay = mapToEnrichedQuay(
+            quay,
+            stopPlace.accessibilityAssessment,
+          );
+          if (!enrichedQuay) {
+            return null;
+          }
+          return { quay: enrichedQuay, stopPlace: enrichedStopPlace };
+        });
+    }),
+  );
+}
+
 function getWhereCondition(
   label: string,
 ): StopsDatabaseStopPlaceNewestVersionBoolExp {
@@ -498,7 +547,12 @@ export const useGetStopDetails = () => {
     ],
   );
 
-  return { ...rest, stopDetails };
+  const mirroredQuays = useMemo(
+    () => getMirroredQuays(data, stopDetails?.quay ?? null),
+    [data, stopDetails?.quay],
+  );
+
+  return { ...rest, stopDetails, mirroredQuays };
 };
 
 export const useGetStopDetailsLazy = () => {
