@@ -30,6 +30,7 @@ type StopBasicDetailsFormComponentProps = {
   readonly defaultValues: Partial<StopBasicDetailsFormState>;
   readonly onSubmit: (state: StopBasicDetailsFormState) => void;
   readonly stop: StopWithDetails;
+  readonly isHybrid?: boolean;
   readonly onCancel: () => void;
   readonly testIdPrefix: string;
 };
@@ -38,7 +39,15 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopBasicDetailsFormComponentProps
 > = (
-  { className, defaultValues, onSubmit, stop, onCancel, testIdPrefix },
+  {
+    className,
+    defaultValues,
+    onSubmit,
+    stop,
+    isHybrid,
+    onCancel,
+    testIdPrefix,
+  },
   ref,
 ) => {
   const dispatch = useDispatch();
@@ -69,6 +78,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
           <HorizontalSeparator />
           <StopOtherDetailsFormRow
             onClickOpenTimingSettingsModal={openTimingPlaceModal}
+            isTransportModeLocked={isHybrid}
           />
           <StopTypesFormRow />
           <HorizontalSeparator />
