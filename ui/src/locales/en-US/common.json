@@ -550,7 +550,14 @@
       "confirm": "Add",
       "cancel": "Cancel",
       "success": "Hybrid stop created successfully",
-      "error": "Failed to create hybrid stop: {{reason}}"
+      "error": "Failed to create hybrid stop: {{reason}}",
+      "stopTypeName": {
+        "bus": "Bus stop",
+        "tram": "Tram stop",
+        "metro": "Metro station",
+        "rail": "Train station",
+        "water": "Ferry stop"
+      }
     },
     "version": {
       "copyBoilerPlate": "All properties from the existing stop will be copied over. You can edit the properties of the new copy after its creation.",

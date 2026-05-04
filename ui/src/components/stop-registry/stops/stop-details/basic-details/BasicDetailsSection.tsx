@@ -1,5 +1,6 @@
-import { FC, useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
@@ -32,9 +33,13 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
 };
 type BasicDetailsSectionProps = {
   readonly stop: StopWithDetails;
+  readonly isHybrid: boolean;
 };
 
-export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
+export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
+  stop,
+  isHybrid,
+}) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceDetails, defaultErrorHandler } =
@@ -60,11 +65,21 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
 
   const defaultValues = mapStopBasicDetailsDataToFormState(stop);
 
+  const transportMode = stop.stop_place?.transportMode;
+  const title = useMemo(() => {
+    const base = t(($) => $.stopDetails.basicDetails.title);
+    if (!isHybrid || !transportMode) {
+      return base;
+    }
+    const modeName = mapTransportModeToStopTypeName(t, transportMode);
+    return `${base} | ${modeName}`;
+  }, [t, isHybrid, transportMode]);
+
   return (
     <InfoContainer
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
-      title={t(($) => $.stopDetails.basicDetails.title)}
+      title={title}
       testIdPrefix="BasicDetailsSection"
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (
@@ -73,6 +88,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
           ref={formRef}
           onSubmit={onSubmit}
           stop={stop}
+          isHybrid={isHybrid}
           onCancel={() => infoContainerControls.setIsInEditMode(false)}
           testIdPrefix="BasicDetailsSection"
         />

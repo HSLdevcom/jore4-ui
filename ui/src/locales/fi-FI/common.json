@@ -550,7 +550,14 @@
       "confirm": "Lisää",
       "cancel": "Peruuta",
       "success": "Yhteiskäyttöpysäkki luotu onnistuneesti",
-      "error": "Yhteiskäyttöpysäkin luonti epäonnistui: {{reason}}"
+      "error": "Yhteiskäyttöpysäkin luonti epäonnistui: {{reason}}",
+      "stopTypeName": {
+        "bus": "Bussipysäkki",
+        "tram": "Raitiotiepysäkki",
+        "metro": "Metroasema",
+        "rail": "Juna-asema",
+        "water": "Lauttapysäkki"
+      }
     },
     "version": {
       "copyBoilerPlate": "Pysäkin kaikki ominaisuudet kopioidaan mukana. Voit muokata uuden version ominaisuuksia kopioinnin jälkeen.",
