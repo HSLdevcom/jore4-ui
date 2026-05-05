@@ -179,7 +179,7 @@ const terminalTH2003: TerminalInput = {
   memberLabels: ['AreaB'],
 };
 
-type InfoSpotData = {
+export type InfoSpotData = {
   readonly label: readonly [string, string];
   readonly purpose: readonly [string, string];
   readonly size?: readonly [string, string];

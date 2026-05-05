@@ -13,6 +13,7 @@ export * from './stop-versions';
 export * from './StopDetailsPage';
 export * from './StopGroupSelector';
 export * from './StopPopUp';
+export * from './TerminalChangeHistory';
 export * from './TerminalDetailsPage';
 export * from './TerminalPopup';
 export * from './terminals';
