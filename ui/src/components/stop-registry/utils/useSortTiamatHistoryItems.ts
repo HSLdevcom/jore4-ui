@@ -11,7 +11,7 @@ import { sortBySortingInfo } from './sortTiamatChangeHistoryItems';
 
 export const noopGetUserNameById: GetUserNameById = () => null;
 
-function historyItemIsDateRange({
+export function historyItemIsDateRange({
   from,
   to,
 }: ChangeHistoryFilters): (item: BaseTiamatChangeHistoryItem) => boolean {
@@ -30,6 +30,9 @@ export function useSortTiamatHistoryItems<
   filters: ChangeHistoryFilters,
   sortingInfo: ChangeHistorySortingInfo,
   getUserNameByIdRealImpl: GetUserNameById,
+  getFilterFn: (
+    filters: ChangeHistoryFilters,
+  ) => (item: T) => boolean = historyItemIsDateRange,
 ): ReadonlyArray<T> {
   const collator = useCollator({ numeric: true });
 
@@ -43,8 +46,15 @@ export function useSortTiamatHistoryItems<
   return useMemo(
     () =>
       historyItems
-        .filter(historyItemIsDateRange(filters))
+        .filter(getFilterFn(filters))
         .sort(sortBySortingInfo(sortingInfo, collator, getUserNameById)),
-    [historyItems, filters, sortingInfo, collator, getUserNameById],
+    [
+      historyItems,
+      filters,
+      sortingInfo,
+      collator,
+      getUserNameById,
+      getFilterFn,
+    ],
   );
 }

@@ -23,14 +23,9 @@ import {
 import { LineChangeHistoryItem, TgOperation } from '../types';
 
 const GQL_GET_LINE_CHANGE_HISTORY = gql`
-  query GetLineChangeHistory($label: String!, $priority: Int!) {
+  query GetLineChangeHistory($label: String!) {
     historyItems: route_line_change_history(
-      where: {
-        _and: [
-          { line_label: { _eq: $label } }
-          { line_priority: { _eq: $priority } }
-        ]
-      }
+      where: { line_label: { _eq: $label } }
     ) {
       ...LineChangeHistoryItemDetails
     }
@@ -241,8 +236,12 @@ function filterHistoryItems(
 ): (item: LineChangeHistoryItem) => boolean {
   const from = filters.from.startOf('day');
   const to = filters.to.endOf('day');
+  const { priority } = filters;
 
-  return (item) => from <= item.changed && item.changed <= to;
+  return (item) =>
+    item.linePriority === priority &&
+    from <= item.changed &&
+    item.changed <= to;
 }
 
 const noopGetUserNameById: GetUserNameById = () => null;
@@ -285,7 +284,7 @@ export function useGetLineChangeHistoryItems({
   sortingInfo,
 }: GetLineChangeHistoryOptions) {
   const { data, ...rest } = useGetLineChangeHistoryQuery({
-    variables: { label, priority: filters.priority },
+    variables: { label },
   });
 
   const historyItems: ReadonlyArray<LineChangeHistoryItem> = useMemo(

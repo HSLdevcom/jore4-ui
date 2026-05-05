@@ -12,19 +12,18 @@ import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
 } from '../../../../common/ChangeHistory';
-import { sortByVersion, useSortTiamatHistoryItems } from '../../../utils';
+import {
+  historyItemIsDateRange,
+  sortByVersion,
+  useSortTiamatHistoryItems,
+} from '../../../utils';
 import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';
 
 const GQL_GET_STOP_CHANGE_HISTORY = gql`
-  query GetStopChangeHistory($publicCode: String!, $priority: String!) {
+  query GetStopChangeHistory($publicCode: String!) {
     stopsDb: stops_database {
       historyItems: getQuayChangeHistory(
-        where: {
-          _and: [
-            { publicCode: { _eq: $publicCode } }
-            { priority: { _eq: $priority } }
-          ]
-        }
+        where: { publicCode: { _eq: $publicCode } }
       ) {
         ...QuayChangeHistoryItemDetails
       }
@@ -61,12 +60,9 @@ type GetStopChangeHistoryOptions = {
   readonly publicCode: string;
 };
 
-function useGetStopChangeHistorySortedByVersion(
-  publicCode: string,
-  priority: Priority,
-) {
+function useGetStopChangeHistorySortedByVersion(publicCode: string) {
   const { data, ...rest } = useGetStopChangeHistoryQuery({
-    variables: { publicCode, priority: String(priority) },
+    variables: { publicCode },
   });
 
   const rawHistoryItems = data?.stopsDb?.historyItems;
@@ -84,16 +80,22 @@ function useGetStopChangeHistorySortedByVersion(
   return { ...rest, historyItems };
 }
 
+function filterQuayHistoryItems(
+  filters: ChangeHistoryFilters,
+): (item: QuayChangeHistoryItem) => boolean {
+  const priorityStr = String(filters.priority);
+  const isInDateRange = historyItemIsDateRange(filters);
+
+  return (item) => item.priority === priorityStr && isInDateRange(item);
+}
+
 export function useGetStopChangeHistoryItems({
   filters,
   getUserNameById,
   publicCode,
   sortingInfo,
 }: GetStopChangeHistoryOptions) {
-  const base = useGetStopChangeHistorySortedByVersion(
-    publicCode,
-    filters.priority,
-  );
+  const base = useGetStopChangeHistorySortedByVersion(publicCode);
 
   const sortedHistoryItems: ReadonlyArray<QuayChangeHistoryItem> =
     useSortTiamatHistoryItems(
@@ -101,6 +103,7 @@ export function useGetStopChangeHistoryItems({
       filters,
       sortingInfo,
       getUserNameById,
+      filterQuayHistoryItems,
     );
 
   return { ...base, sortedHistoryItems };
@@ -112,15 +115,18 @@ export function useGetLatestStopChangeHistory(
   publicCode: string,
   priority: Priority,
 ) {
-  const base = useGetStopChangeHistorySortedByVersion(publicCode, priority);
+  const priorityStr = String(priority);
+  const base = useGetStopChangeHistorySortedByVersion(publicCode);
+
   return {
     ...base,
     latestHistoryItems: useMemo(
       () =>
         base.historyItems
+          .filter((it) => it.priority === priorityStr)
           .toSorted(sortByChangedTime(SortOrder.DESCENDING))
           .slice(0, latestChangesLimit),
-      [base.historyItems],
+      [base.historyItems, priorityStr],
     ),
   };
 }
