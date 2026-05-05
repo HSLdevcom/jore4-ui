@@ -2,6 +2,7 @@ import {
   BaseChangeHistoryPage,
   BaseChangeHistoryTable,
 } from '../base-change-history';
+import { ChangeHistoryTableInfoSpotChangedValues } from '../base-change-history/ChangeHistoryTableInfoSpotPageObjects';
 import {
   createPageObjectWithIdSelectors,
   createSimplePageObject,
@@ -28,28 +29,6 @@ const StopChangeHistoryTableShelterChangedValues =
       'ChangeHistory::ChangedValues::ShelterDetails::LeaningRail',
       'ChangeHistory::ChangedValues::ShelterDetails::OutsideBench',
       'ChangeHistory::ChangedValues::ShelterDetails::ShelterFasciaBoardTaping',
-    ],
-  );
-
-const StopChangeHistoryTableInfoSpotChangedValues =
-  createPageObjectWithIdSelectors(
-    'ChangeHistory::ChangedValues::InfoSpotDetails',
-    [
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Added',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Updated',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Removed',
-
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Label',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Purpose',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Size',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Backlight',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Latitude',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Longitude',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::ZoneLabel',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::RailInformation',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Floor',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Description',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Posters',
     ],
   );
 
@@ -153,7 +132,7 @@ const StopChangeHistoryTable = createSimplePageObject(
       ...BaseChangeHistoryTable.changedValues,
       ...base.changedValues,
       shelterDetails: StopChangeHistoryTableShelterChangedValues,
-      infoSpotDetails: StopChangeHistoryTableInfoSpotChangedValues,
+      infoSpotDetails: ChangeHistoryTableInfoSpotChangedValues,
     },
   }),
 );
