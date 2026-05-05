@@ -30,12 +30,12 @@ export class TerminalInfoSpotsFormFields {
   static getSizeWidth = () =>
     // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
     // nest this call in proper getNthPosterContainer().within block
-    cy.getByTestId('TerminalInfoSpotFormFields::size::width').first();
+    cy.getByTestId('InfoSpotFormFields::size::width').first();
 
   static getSizeHeight = () =>
     // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
     // nest this call in proper getNthPosterContainer().within block
-    cy.getByTestId('TerminalInfoSpotFormFields::size::height').first();
+    cy.getByTestId('InfoSpotFormFields::size::height').first();
 
   static getDisplayTypeButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::displayType::ListboxButton');
