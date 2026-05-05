@@ -38,6 +38,7 @@ import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
+import { InfoSpotData, assertInfoSpot } from './infoSpotUtils';
 
 const testInfraLinks = [
   {
@@ -177,67 +178,6 @@ const terminalTH2003: TerminalInput = {
     ],
   },
   memberLabels: ['AreaB'],
-};
-
-type InfoSpotData = {
-  readonly label: readonly [string, string];
-  readonly purpose: readonly [string, string];
-  readonly size?: readonly [string, string];
-  readonly backlight?: readonly [string, string];
-  readonly floor?: readonly [string, string];
-  readonly railInformation?: readonly [string, string];
-  readonly zoneLabel?: readonly [string, string];
-};
-
-const assertInfoSpot = (
-  sectionHeader: typeof StopChangeHistoryPage.changeHistoryTable.sectionHeader,
-  infoSpotDetails: typeof StopChangeHistoryPage.changeHistoryTable.changedValues.infoSpotDetails,
-  assertChangeTypeHeader: () => void,
-  assertLabel: () => void,
-  assertProperInputFields: (values: readonly [string, string]) => () => void,
-  infoSpotData: InfoSpotData,
-) => {
-  sectionHeader
-    .getInfoSpotDetails()
-    .within(() => sectionHeader.getTitle().contains('Infopaikat'));
-
-  assertChangeTypeHeader();
-
-  infoSpotDetails.getLabel().within(assertLabel);
-
-  infoSpotDetails
-    .getPurpose()
-    .within(assertProperInputFields(infoSpotData.purpose));
-
-  if (infoSpotData.size) {
-    infoSpotDetails
-      .getSize()
-      .within(assertProperInputFields(infoSpotData.size));
-  }
-
-  if (infoSpotData.backlight) {
-    infoSpotDetails
-      .getBacklight()
-      .within(assertProperInputFields(infoSpotData.backlight));
-  }
-
-  if (infoSpotData.floor) {
-    infoSpotDetails
-      .getFloor()
-      .within(assertProperInputFields(infoSpotData.floor));
-  }
-
-  if (infoSpotData.railInformation) {
-    infoSpotDetails
-      .getRailInformation()
-      .within(assertProperInputFields(infoSpotData.railInformation));
-  }
-
-  if (infoSpotData.zoneLabel) {
-    infoSpotDetails
-      .getZoneLabel()
-      .within(assertProperInputFields(infoSpotData.zoneLabel));
-  }
 };
 
 const tags = [Tag.StopRegistry, Tag.ChangeHistory];
@@ -1180,7 +1120,6 @@ describe('Stop Change History', { tags }, () => {
       StopDetailsPage.changeHistoryLink().click();
 
       const {
-        sectionHeader,
         changedValues: { infoSpotDetails },
       } = StopChangeHistoryPage.changeHistoryTable;
 
@@ -1196,8 +1135,6 @@ describe('Stop Change History', { tags }, () => {
           .eq(0)
           .within(() =>
             assertInfoSpot(
-              sectionHeader,
-              infoSpotDetails,
               () =>
                 infoSpotDetails
                   .getAllRemovedElements()
@@ -1216,8 +1153,6 @@ describe('Stop Change History', { tags }, () => {
           .eq(1)
           .within(() =>
             assertInfoSpot(
-              sectionHeader,
-              infoSpotDetails,
               () =>
                 infoSpotDetails
                   .getAllAddedElements()
@@ -1236,8 +1171,6 @@ describe('Stop Change History', { tags }, () => {
           .eq(2)
           .within(() =>
             assertInfoSpot(
-              sectionHeader,
-              infoSpotDetails,
               () =>
                 infoSpotDetails
                   .getAllUpdatedElements()
@@ -1256,8 +1189,6 @@ describe('Stop Change History', { tags }, () => {
           .eq(3)
           .within(() =>
             assertInfoSpot(
-              sectionHeader,
-              infoSpotDetails,
               () =>
                 infoSpotDetails
                   .getAllAddedElements()
