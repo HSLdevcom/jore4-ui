@@ -234,7 +234,7 @@ function checkColumn(
   if (value === null || value === '') {
     column.should('be.empty');
   } else if (value instanceof DateTime) {
-    column.shouldHaveText(value.toFormat('d.L.yyyy'));
+    column.shouldHaveDate(value);
   } else if (typeof value === 'string') {
     column.shouldHaveText(value);
   }
