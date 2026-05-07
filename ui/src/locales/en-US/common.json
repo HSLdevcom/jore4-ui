@@ -568,7 +568,13 @@
         "metro": "Metro station",
         "rail": "Train station",
         "water": "Ferry stop"
-      }
+      },
+      "removeButton": "Remove from hybrid",
+      "removeConfirmTitle": "Remove transport mode",
+      "removeConfirmDescription": "Are you sure you want to remove this transport mode from hybrid use?",
+      "removeConfirm": "Remove",
+      "removeCancel": "Cancel",
+      "removeSuccess": "Stop removed from hybrid use"
     },
     "version": {
       "copyBoilerPlate": "All properties from the existing stop will be copied over. You can edit the properties of the new copy after its creation.",
