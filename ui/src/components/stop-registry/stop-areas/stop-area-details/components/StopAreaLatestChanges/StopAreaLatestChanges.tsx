@@ -6,8 +6,8 @@ import {
   ErrorLoadingState,
   LoadingState,
 } from '../../../../../common/ChangeHistory/latest';
+import { useGetLatestStopPlaceChangeHistory } from '../../../../components/ChangeHistory/queries';
 import { findPreviousTiamatHistoryItemVersion } from '../../../../utils';
-import { useGetLatestStopPlaceChangeHistory } from '../../../change-history/queries';
 import { LatestStopAreaChangeHistoryItem } from './LatestStopAreaChangeHistoryItem';
 
 const testIds = {

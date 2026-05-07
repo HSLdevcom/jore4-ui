@@ -7,13 +7,13 @@ import {
   useChangeHistoryPageRouterState,
 } from '../../../common/ChangeHistory';
 import {
+  useGetStopPlaceChangeHistory,
+  useGetTodaysNameForStopPlace,
+} from '../../components/ChangeHistory/queries';
+import {
   StopAreaChangeHistoryPageTitleRow,
   StopAreaChangeHistoryTable,
 } from './components';
-import {
-  useGetStopPlaceChangeHistory,
-  useGetTodaysNameForStopPlace,
-} from './queries';
 
 const testIds = {
   container: 'StopAreaChangeHistoryPage::Container',
