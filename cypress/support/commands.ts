@@ -26,6 +26,7 @@
 
 import { HasuraEnvironment } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import type { DateTime } from 'luxon';
+import { formatShortDate } from '../utils/time';
 import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 
 const getHasuraEnvironment = () => {
@@ -85,6 +86,15 @@ Cypress.Commands.add(
   { prevSubject: true },
   (subject, expectedText) => {
     cy.wrap(subject).should('have.text', expectedText);
+  },
+);
+
+Cypress.Commands.add(
+  'shouldHaveDate',
+  { prevSubject: true },
+  (subject, expectedDate: DateTime | null | undefined) => {
+    const formattedDate = formatShortDate(expectedDate);
+    cy.wrap(subject).should('have.text', formattedDate);
   },
 );
 

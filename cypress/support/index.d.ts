@@ -48,6 +48,14 @@ declare namespace Cypress {
     shouldHaveText(value: string): Chainable<JQuery<HtmlElement>>;
 
     /**
+     * Custom command to check if element has date formatted as d.L.yyyy
+     * @example cy.get('.date').shouldHaveDate(DateTime.local(2026, 5, 7))
+     */
+    shouldHaveDate(
+      value: DateTime | null | undefined,
+    ): Chainable<JQuery<HtmlElement>>;
+
+    /**
      * Custom command to check if element is visible
      */
     shouldBeVisible(): Chainable<JQuery<HtmlElement>>;
