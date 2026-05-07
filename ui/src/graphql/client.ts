@@ -296,7 +296,12 @@ const buildCacheDefinition = () => {
       group_of_stop_places_alternative_names: {
         keyFields: ['group_of_stop_places_id', 'alternative_names_id'],
       },
-      stop_registry_externalLink: { keyFields: ['quayId', 'orderNum'] },
+      stop_registry_externalLink: {
+        keyFields: (object) => {
+          const parentId = object.quayId ?? object.stopPlaceId;
+          return parentId ? `${parentId}:${object.orderNum}` : false;
+        },
+      },
       group_of_stop_places_members: {
         keyFields: ['group_of_stop_places_id', 'ref', 'version'],
       },
