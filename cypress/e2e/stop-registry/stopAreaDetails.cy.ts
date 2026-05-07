@@ -27,7 +27,11 @@ import {
 } from '../../pageObjects';
 import { DialogWithButtons } from '../../pageObjects/shared-components/DialogWithButtons';
 import { UUID } from '../../types';
-import { SupportedResources, insertToDbHelper } from '../../utils';
+import {
+  SupportedResources,
+  formatShortDate,
+  insertToDbHelper,
+} from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 import {
@@ -37,14 +41,6 @@ import {
   setValidity,
   waitForSaveToBeFinished,
 } from './stopAreaUtils';
-
-function mapToShortDate(date: DateTime | null) {
-  if (!date) {
-    return '';
-  }
-
-  return date.setLocale('fi').toFormat('d.L.yyyy');
-}
 
 function assertLatestChange(name: string, oldValue: string, newValue: string) {
   const { changes } = StopAreaDetailsPage.latestChangeHistory;
@@ -204,7 +200,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       .shouldHaveText(expected.privateCode);
     StopAreaDetailsPage.titleRow.getName().shouldHaveText(expected.name);
 
-    const validity = `${mapToShortDate(expected.validFrom)}-${mapToShortDate(expected.validTo)}`;
+    const validity = `${formatShortDate(expected.validFrom)}-${formatShortDate(expected.validTo)}`;
 
     StopAreaDetailsPage.versioningRow
       .getValidityPeriod()
