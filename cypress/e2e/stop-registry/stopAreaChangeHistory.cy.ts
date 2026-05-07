@@ -25,7 +25,11 @@ import {
   StopAreaDetailsPage,
 } from '../../pageObjects';
 import { UUID } from '../../types';
-import { SupportedResources, insertToDbHelper } from '../../utils';
+import {
+  SupportedResources,
+  formatShortDate,
+  insertToDbHelper,
+} from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
 import {
   changedBasicDetails,
@@ -151,12 +155,12 @@ function assertGroupValidityPeriod(
     .within(() => {
       StopAreaChangeHistory.changeHistoryTable.sectionHeader
         .getValidityStart()
-        .shouldHaveText(start.toFormat('d.L.yyyy'));
+        .shouldHaveDate(start);
 
       if (end) {
         StopAreaChangeHistory.changeHistoryTable.sectionHeader
           .getValidityEnd()
-          .shouldHaveText(end.toFormat('d.L.yyyy'));
+          .shouldHaveDate(end);
       } else {
         StopAreaChangeHistory.changeHistoryTable.sectionHeader
           .getValidityEnd()
@@ -304,7 +308,7 @@ describe('Stop Change History', { tags }, () => {
             .within(
               assertValueChanged([
                 '1.1.2000',
-                changedBasicDetails.validFrom.toFormat('d.L.yyyy'),
+                formatShortDate(changedBasicDetails.validFrom),
               ]),
             );
           stopAreaDetails
