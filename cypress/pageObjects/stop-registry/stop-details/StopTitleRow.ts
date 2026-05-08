@@ -18,4 +18,8 @@ export class StopTitleRow {
   static actionsMenuCopyButton() {
     return cy.getByTestId('StopTitleRow::extraActions::copy');
   }
+
+  static actionsMenuMakeHybridButton() {
+    return cy.getByTestId('StopTitleRow::extraActions::makeHybrid');
+  }
 }
