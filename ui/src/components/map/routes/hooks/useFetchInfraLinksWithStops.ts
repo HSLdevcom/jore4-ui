@@ -17,7 +17,10 @@ export const useFetchInfraLinksWithStops = () => {
         return await getInfraLinksWithStopsForGeometry(geometry);
       } catch (err) {
         if (err instanceof MapMatchingNoSegmentError) {
-          showDangerToast(t(($) => $.errors.tooFarFromInfrastructureLink));
+          showDangerToast(
+            t(($) => $.errors.tooFarFromInfrastructureLink),
+            'tooFarFromInfrastructureLink',
+          );
         } else {
           setIsLoading(false);
           throw err;

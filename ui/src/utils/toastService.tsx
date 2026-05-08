@@ -10,12 +10,14 @@ import { getApolloErrorMessage } from './apolloErrors';
 
 type ToastOptions = {
   readonly className?: string;
+  readonly id?: string;
   readonly message: ReactNode;
   readonly type?: ToastType;
 };
 
 export const showToast = ({
   className,
+  id,
   message,
   type = 'primary',
 }: ToastOptions) => {
@@ -53,21 +55,27 @@ export const showToast = ({
    * the browser's async task queue, after the form status update tasks.
    */
   setTimeout(() => {
-    toast.custom((t) => (
-      <ToastTransition show={t.visible}>
-        <Toast
-          className={className}
-          message={message}
-          toastId={t.id}
-          type={type}
-        />
-      </ToastTransition>
-    ));
+    toast.custom(
+      (t) => (
+        <ToastTransition show={t.visible}>
+          <Toast
+            className={className}
+            message={message}
+            toastId={t.id}
+            type={type}
+          />
+        </ToastTransition>
+      ),
+      {
+        id,
+      },
+    );
   }, 0);
 };
 
-export const showDangerToast = (message: ReactNode) => {
+export const showDangerToast = (message: ReactNode, id?: string) => {
   return showToast({
+    id,
     message,
     type: 'danger',
   });
