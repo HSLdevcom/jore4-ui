@@ -25,9 +25,11 @@ import {
   mapInfraLinksToFeature,
   useSnappingLine,
 } from './hooks';
-import { NEW_ROUTE_ARROWS_ID, NEW_ROUTE_LINE_ID } from './utils';
-
-const SNAPPING_LINE_LAYER_ID = 'snapping-line';
+import {
+  NEW_ROUTE_ARROWS_ID,
+  NEW_ROUTE_LINE_ID,
+  SNAPPING_LINE_LAYER_ID,
+} from './utils';
 
 type DrawRouteLayerProps = {
   readonly editorLayerRef: Ref<EditorLayerRef>;

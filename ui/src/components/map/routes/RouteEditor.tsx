@@ -50,12 +50,11 @@ import {
   useDeleteRoute,
   useEditRouteGeometry,
 } from './hooks';
+import { SNAPPING_LINE_LAYER_ID } from './utils';
 
 type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;
 };
-
-const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
 const RouteEditorComponent: ForwardRefRenderFunction<
   ExplicitAny,

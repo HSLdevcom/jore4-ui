@@ -4,10 +4,9 @@ import { MapRef } from 'react-map-gl/maplibre';
 import { useAppDispatch } from '../../../../hooks';
 import { resetDraftRouteGeometryAction } from '../../../../redux';
 import { removeRoute } from '../../../../utils/map';
+import { SNAPPING_LINE_LAYER_ID } from '../utils';
 import { LineStringFeature } from './useExtractRouteFromFeature';
 import { useRouteGeometryUpdater } from './useRouteGeometryUpdater';
-
-const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
 export const useSnappingLine = (map: MapRef | undefined) => {
   const dispatch = useAppDispatch();
