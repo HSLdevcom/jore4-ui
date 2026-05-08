@@ -5,7 +5,9 @@ import {
   InfoSpotsSection,
   LocationDetailsSection,
   MaintenanceSection,
+  MakeHybridStopModal,
   MeasurementsSection,
+  MirroredQuayDetails,
   SheltersSection,
   SignageDetailsSection,
   StopHeaderSummaryRow,
@@ -41,6 +43,10 @@ export class StopDetailsPage {
     OverlappingVersionCutConfirmationModal;
 
   static headerSummaryRow = StopHeaderSummaryRow;
+
+  static makeHybridModal = MakeHybridStopModal;
+
+  static mirroredQuayDetails = MirroredQuayDetails;
 
   static visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);
