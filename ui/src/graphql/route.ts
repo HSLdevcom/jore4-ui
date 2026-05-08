@@ -6,6 +6,7 @@ import {
   GetScheduledStopsOnRouteQuery,
   InsertLineOneMutation,
   RouteLine,
+  RouteLineChangeHistory,
   RouteRoute,
   RouteWithJourneyPatternStopsFragment,
   ServicePatternScheduledStopPoint,
@@ -357,4 +358,11 @@ export const isLine = (
 ): input is Pick<RouteLine, '__typename'> => {
   // eslint-disable-next-line no-underscore-dangle
   return isGqlEntity(input) && input.__typename === 'route_line';
+};
+
+export const isChangeHistory = (
+  input: unknown,
+): input is Pick<RouteLineChangeHistory, '__typename'> => {
+  // eslint-disable-next-line no-underscore-dangle
+  return isGqlEntity(input) && input.__typename === 'route_line_change_history';
 };
