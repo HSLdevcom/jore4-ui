@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Mode,
   Operation,
+  resetDraftRouteGeometryAction,
   resetRouteCreatingAction,
   selectDrawingMode,
   selectEditedRouteData,
@@ -37,6 +38,7 @@ import {
   showWarningToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
+import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
@@ -198,7 +200,6 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     if (drawingMode === Mode.Edit) {
       if (!creatingNewRoute) {
         onDeleteDrawnRoute();
-        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
       }
 
       dispatch(stopRouteEditingAction());
@@ -260,18 +261,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   };
 
   const onCancel = () => {
-    // For existing routes, cancel should discard unsaved geometry edits
-    // and then stop edit mode, keeping the original route visible.
     if (!creatingNewRoute && drawingMode === Mode.Edit) {
-      onDeleteDrawnRoute();
-      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
       dispatch(stopRouteEditingAction());
-      return;
+      onDeleteDrawnRoute();
+    } else {
+      dispatch(resetRouteCreatingAction());
+      // onDeleteDrawnRoute() can not be used here because the ref is not available when creating a new route
+      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      dispatch(resetDraftRouteGeometryAction());
     }
-
-    onDeleteDrawnRoute();
-
-    dispatch(resetRouteCreatingAction());
   };
 
   const onSave = async () => {
