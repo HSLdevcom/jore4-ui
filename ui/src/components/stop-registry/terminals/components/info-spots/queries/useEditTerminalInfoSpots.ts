@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import {
-  GetParentStopPlaceDetailsDocument,
   StopRegistryInfoSpotInput,
   StopRegistryPosterInput,
   useUpdateInfoSpotMutation,
@@ -80,7 +79,12 @@ function handleDeletions(
 export const useEditTerminalInfoSpots = () => {
   const { t } = useTranslation();
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
-    refetchQueries: [GetParentStopPlaceDetailsDocument],
+    awaitRefetchQueries: true,
+    refetchQueries: [
+      'getParentStopPlaceDetails',
+      'GetLatestStopPlaceChange',
+      'getStopPlaceChangeHistory',
+    ],
   });
 
   const saveTerminalInfoSpots = async (params: {

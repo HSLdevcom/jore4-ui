@@ -9,6 +9,7 @@ import { navigationBlockerContext } from '../../forms/common/NavigationBlocker';
 import { TerminalDetails } from './components/basic-details/TerminalDetailsSection';
 import { TerminalExternalLinks } from './components/external-links/TerminalExternalLinks';
 import { TerminalInfoSpotsSection } from './components/info-spots/TerminalInfoSpotsSection';
+import { TerminalLatestChanges } from './components/latest-changes/TerminalLatestChanges';
 import { LocationDetails } from './components/location-details/LocationDetailsSection';
 import { StopsListSection } from './components/member-stops/StopsListSection';
 import { OwnerDetailsSection } from './components/owner-details/OwnerDetailsSection';
@@ -115,7 +116,15 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
               </Visible>
               <div className="w-full md:w-[30%]">
                 {parentStopPlaceDetails && (
-                  <TerminalExternalLinks terminal={parentStopPlaceDetails} />
+                  <>
+                    <TerminalExternalLinks terminal={parentStopPlaceDetails} />
+                    <TerminalLatestChanges
+                      privateCode={
+                        parentStopPlaceDetails.privateCode?.value ?? ''
+                      }
+                      className="w-full border-b pb-2"
+                    />
+                  </>
                 )}
               </div>
             </div>
