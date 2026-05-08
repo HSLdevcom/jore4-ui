@@ -36,8 +36,12 @@ const LatestChangeHistoryItemChange: FC<ChangeProps> = ({ changedValue }) => {
 
   return (
     <div data-testid={testIds.change(changedValue)}>
-      <span data-testid={testIds.fieldName}>{field}</span>
-      <span>{': '}</span>
+      {field ? (
+        <>
+          <span data-testid={testIds.fieldName}>{field}</span>
+          <span>{': '}</span>
+        </>
+      ) : null}
 
       {hasOldValue ? (
         <>

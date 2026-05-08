@@ -31,6 +31,7 @@ export const useUpdateTerminal = () => {
       'getParentStopPlaceDetails',
       'GetStopTerminalsByLocation',
       'GetLatestStopPlaceChange',
+      'getStopPlaceChangeHistory',
     ],
   });
 
