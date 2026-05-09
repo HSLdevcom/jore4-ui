@@ -29,6 +29,10 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
 
+  const renderedRouteIds = selectedRouteId
+    ? Array.from(new Set([...displayedRouteIds, selectedRouteId]))
+    : displayedRouteIds;
+
   return (
     <>
       <EditRouteMetadataLayer />
@@ -44,7 +48,7 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
         paint={{}}
       />
       {showRoute &&
-        displayedRouteIds.map((item) => (
+        renderedRouteIds.map((item) => (
           <ExistingRouteGeometryLayer
             key={item}
             routeId={item}
