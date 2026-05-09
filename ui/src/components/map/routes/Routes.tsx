@@ -1,3 +1,4 @@
+import uniq from 'lodash/uniq';
 import { ForwardRefRenderFunction, forwardRef, useRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../hooks';
@@ -29,6 +30,10 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
 
+  const renderedRouteIds = selectedRouteId
+    ? uniq([...displayedRouteIds, selectedRouteId])
+    : displayedRouteIds;
+
   return (
     <>
       <EditRouteMetadataLayer />
@@ -44,7 +49,7 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
         paint={{}}
       />
       {showRoute &&
-        displayedRouteIds.map((item) => (
+        renderedRouteIds.map((item) => (
           <ExistingRouteGeometryLayer
             key={item}
             routeId={item}
