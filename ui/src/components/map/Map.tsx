@@ -4,6 +4,7 @@ import {
   MutableRefObject,
   RefObject,
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -40,6 +41,7 @@ import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
 import { FunctionalAreaVisualization, StopAreas } from './stop-areas';
 import { MemberStopLines, Stops } from './stops';
 import { Terminals } from './terminals';
+import { useMapUrlStateContext } from './utils/mapUrlState';
 
 type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;
@@ -179,9 +181,21 @@ export const MapComponent: ForwardRefRenderFunction<
   MapProps
 > = ({ className, width = '100vw', height = '100vh' }, externalRef) => {
   const [showRoute, setShowRoute] = useState(true);
+  const {
+    state: {
+      displayedRoute: { routeId: urlRouteId },
+    },
+  } = useMapUrlStateContext();
+  const dispatch = useAppDispatch();
 
   const editorRefs = useEditorRefs();
   const mapViewState = useMapViewState();
+
+  useEffect(() => {
+    if (urlRouteId) {
+      dispatch(setSelectedRouteIdAction(urlRouteId));
+    }
+  }, [dispatch, urlRouteId]);
 
   useRouteEditorImperativeHandle(externalRef, editorRefs.routeEditorRef);
   const onClick = useOnClickMap(editorRefs, mapViewState);
