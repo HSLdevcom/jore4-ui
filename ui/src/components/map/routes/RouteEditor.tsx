@@ -32,6 +32,7 @@ import {
 } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { RequiredKeys } from '../../../types';
+import { Priority } from '../../../types/enums';
 import { ConfirmationDialog } from '../../../uiComponents';
 import {
   showSuccessToast,
@@ -83,6 +84,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     state: {
       filters: { observationDate },
     },
+    setDisplayedRoute,
     setFlatUrlState,
     resetUrlState,
   } = useMapUrlStateContext();
@@ -156,11 +158,17 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     // Select created route
     dispatch(setSelectedRouteIdAction(newRoute.route_id));
 
-    setFlatUrlState((p) => ({ ...p, routeId: newRoute.route_id }));
-    // If created route is not valid at the selected observation date,
-    // change observation date to created route's validity start date
-    // so the user can see the freshly created route
+    setDisplayedRoute(() => ({
+      routeId: newRoute.route_id,
+      lineLabel: null,
+      routeLabels: [],
+      routePriorities: [Priority.Standard, Priority.Temporary, Priority.Draft],
+      showSelectedDaySituation: false,
+    }));
 
+    // // If created route is not valid at the selected observation date,
+    // // change observation date to created route's validity start date
+    // // so the user can see the freshly created route
     if (
       !isDateInRange(
         observationDate,
@@ -176,9 +184,13 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
-    // Reset map editor drap mode and remove draft route
-    // as it is now saved
-
+    /* 
+      - Reset map editor drap mode and remove draft route as it is now saved
+      - Parent has no access to ref here so use removeRoute directly 
+        here instead of onDeleteDrawnRoute which relies on the ref 
+    */
+    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+    dispatch(resetDraftRouteGeometryAction());
     dispatch(resetRouteCreatingAction());
   };
 
