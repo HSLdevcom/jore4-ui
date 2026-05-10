@@ -84,12 +84,13 @@ function useFilteredStops(
 type StopsProps = {
   readonly areas: ReadonlyArray<MapStopArea>;
   readonly displayedRouteIds: ReadonlyArray<string>;
+  readonly showRoute: boolean;
   readonly stops: ReadonlyArray<MapStop>;
   readonly terminals: ReadonlyArray<MapTerminal>;
 };
 
 export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
-  { areas, displayedRouteIds, stops, terminals },
+  { areas, displayedRouteIds, showRoute, stops, terminals },
   ref,
 ) => {
   const [mapViewState, setMapViewState] = useMapViewState();
@@ -117,8 +118,10 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 
   const { getStopVehicleMode, getStopHighlighted, getStopShouldBeGray } =
     useMapStops(displayedRouteIds);
-  const filterStopsByVehicleMode =
-    useFilterStopsByVehicleMode(getStopVehicleMode);
+  const filterStopsByVehicleMode = useFilterStopsByVehicleMode(
+    getStopVehicleMode,
+    showRoute,
+  );
 
   const { setLoadingState: setFetchStopsLoadingState } = useLoader(
     Operation.FetchStops,
