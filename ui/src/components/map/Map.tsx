@@ -221,6 +221,7 @@ export const MapComponent: ForwardRefRenderFunction<
         stops={stops}
         terminals={terminals}
         displayedRouteIds={displayedRouteIds}
+        showRoute={showRoute}
         ref={editorRefs.stopsRef}
       />
       <StopAreas areas={areas} ref={editorRefs.stopAreasRef} />

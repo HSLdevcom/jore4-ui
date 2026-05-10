@@ -10,6 +10,7 @@ export function useFilterStopsByVehicleMode(
   getStopVehicleMode: (
     stop: MapStop,
   ) => ReusableComponentsVehicleModeEnum | undefined,
+  showRoute: boolean,
 ) {
   const { stopFilters } = useAppSelector(selectMapFilter);
   const { visibleRouteStopLabels } = useVisibleRouteStops();
@@ -18,9 +19,8 @@ export function useFilterStopsByVehicleMode(
     (stops: ReadonlyArray<MapStop>): ReadonlyArray<MapStop> =>
       stops.filter((stop) => {
         const vehicleMode = parseVehicleMode(getStopVehicleMode(stop));
-        const isStopInVisibleRoutes = visibleRouteStopLabels.includes(
-          stop.label,
-        );
+        const isStopInVisibleRoutes =
+          showRoute && visibleRouteStopLabels.includes(stop.label);
 
         if (vehicleMode === ReusableComponentsVehicleModeEnum.Bus) {
           return (
@@ -40,6 +40,6 @@ export function useFilterStopsByVehicleMode(
           isStopInVisibleRoutes
         );
       }),
-    [getStopVehicleMode, stopFilters, visibleRouteStopLabels],
+    [getStopVehicleMode, showRoute, stopFilters, visibleRouteStopLabels],
   );
 }
