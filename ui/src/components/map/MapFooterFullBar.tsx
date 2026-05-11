@@ -78,6 +78,12 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     (state) => state !== MapEntityEditorViewState.NONE,
   );
 
+  const isEditingExistingRoute = drawingMode === Mode.Edit && !creatingNewRoute;
+  const isEditRouteActionAvailable =
+    hasDraftRouteGeometry ||
+    !!selectedRouteId ||
+    (creatingNewRoute && !isRouteMetadataFormOpen);
+
   return (
     <Row testId={testIds.mapFooter} className="gap-4 bg-white px-10 py-5">
       <SimpleButton
@@ -91,15 +97,9 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       <SimpleButton
         testId={testIds.editRouteButton}
         onClick={onEditRoute}
-        disabled={
-          !(
-            hasDraftRouteGeometry ||
-            !!selectedRouteId ||
-            (creatingNewRoute && !isRouteMetadataFormOpen)
-          )
-        }
+        disabled={isEditingExistingRoute || !isEditRouteActionAvailable}
       >
-        {drawingMode === Mode.Edit
+        {drawingMode === Mode.Edit && !isEditingExistingRoute
           ? t(($) => $.map.stopEditing)
           : t(($) => $.map.editRoute)}
       </SimpleButton>
