@@ -73,14 +73,16 @@ wait_for_database() {
   done
 }
 
-download_infralinks() {
+download_bus_infralinks() {
   if [ -f "infraLinks.sql" ]; then
     echo "infraLinks.sql already exists, skipping download."
   else
     echo "Downloading infraLinks.sql..."
     curl "$INFRALINKS_URL" -o "infraLinks.sql"
   fi
+}
 
+download_tram_infralinks() {
   if [ -f "tram_infraLinks.sql" ]; then
     echo "tram_infraLinks.sql already exists, skipping download."
   else
@@ -89,20 +91,41 @@ download_infralinks() {
   fi
 }
 
-seed_infra_links() {
-  download_infralinks
+download_infralinks() {
+  download_bus_infralinks
+  download_tram_infralinks
+}
 
-  echo "$1: Seeding infrastructure links..."
+seed_bus_infra_links() {
+  download_bus_infralinks
+
+  echo "$1: Seeding Bus infrastructure links..."
 
   wait_for_database "$1" infrastructure_network infrastructure_link
 
   echo "$1: infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
 
+  echo "$1: Done Bus seeding infrastructure links."
+}
+
+seed_tram_infra_links() {
+  download_tram_infralinks
+
+  echo "$1: Seeding Tram infrastructure links..."
+
+  wait_for_database "$1" infrastructure_network infrastructure_link
+
   echo "$1: tram_infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "tram_infraLinks.sql";
 
-  echo "$1: Done seeding infrastructure links."
+  echo "$1: Done Tram seeding infrastructure links."
+}
+
+
+seed_infra_links() {
+  seed_bus_infra_links $1
+  seed_tram_infra_links $1
 }
 
 check_pinned_image() {
@@ -335,6 +358,11 @@ setup_environment() {
   fi
 
   start_docker_containers "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
+
+  # Bus links are already in the above dump files.
+  # We need to wait for Hasura to run it's migrations,
+  # before we can inject in the tram network.
+  seed_tram_infra_links testdb
 
   if [ "$INCLUDE_E2E" = true ]; then
     seed_infra_links testdb-e2e
