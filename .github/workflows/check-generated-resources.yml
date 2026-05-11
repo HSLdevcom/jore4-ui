@@ -41,5 +41,8 @@ jobs:
       - name: Regenerate schemas
         run: yarn ws:codegen generate
 
+      - name: Print git diff to log
+        run: git diff
+
       - name: Verify that generate command made no changes, so schema is up to date
         run: '[ -z "$(git status --porcelain)" ]'
