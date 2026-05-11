@@ -290,6 +290,11 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       await deleteRoute(editedRouteId);
       showSuccessToast(t(($) => $.routes.deleteSuccess));
 
+      // clear the route from the map and reset redux state
+      onDeleteDrawnRoute();
+      dispatch(stopRouteEditingAction());
+      dispatch(setSelectedRouteIdAction(undefined));
+
       setIsDeleting(false);
       resetUrlState();
     } catch (err) {
