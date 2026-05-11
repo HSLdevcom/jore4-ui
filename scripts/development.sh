@@ -73,14 +73,16 @@ wait_for_database() {
   done
 }
 
-download_infralinks() {
+download_bus_infralinks() {
   if [ -f "infraLinks.sql" ]; then
     echo "infraLinks.sql already exists, skipping download."
   else
     echo "Downloading infraLinks.sql..."
     curl "$INFRALINKS_URL" -o "infraLinks.sql"
   fi
+}
 
+download_tram_infralinks() {
   if [ -f "tram_infraLinks.sql" ]; then
     echo "tram_infraLinks.sql already exists, skipping download."
   else
@@ -89,20 +91,41 @@ download_infralinks() {
   fi
 }
 
-seed_infra_links() {
-  download_infralinks
+download_infralinks() {
+  download_bus_infralinks
+  download_tram_infralinks
+}
 
-  echo "$1: Seeding infrastructure links..."
+seed_bus_infra_links() {
+  download_bus_infralinks
+
+  echo "$1: Seeding Bus infrastructure links..."
 
   wait_for_database "$1" infrastructure_network infrastructure_link
 
   echo "$1: infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
 
+  echo "$1: Done Bus seeding infrastructure links."
+}
+
+seed_tram_infra_links() {
+  download_tram_infralinks
+
+  echo "$1: Seeding Tram infrastructure links..."
+
+  wait_for_database "$1" infrastructure_network infrastructure_link
+
   echo "$1: tram_infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "tram_infraLinks.sql";
 
-  echo "$1: Done seeding infrastructure links."
+  echo "$1: Done Tram seeding infrastructure links."
+}
+
+
+seed_infra_links() {
+  seed_bus_infra_links $1
+  seed_tram_infra_links $1
 }
 
 check_pinned_image() {
@@ -328,6 +351,9 @@ setup_environment() {
   import_dump $DUMP_ROUTES_FILENAME jore4e2e
   import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
   import_dump $DUMP_STOPS_FILENAME stopdb
+
+  # Bus links are already in the above dump
+  seed_tram_infra_links testdb
 
   local additional_images=()
   if [ "$INCLUDE_E2E" = true ]; then
