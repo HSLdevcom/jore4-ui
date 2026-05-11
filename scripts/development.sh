@@ -328,6 +328,7 @@ setup_environment() {
   import_dump $DUMP_ROUTES_FILENAME jore4e2e
   import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
   import_dump $DUMP_STOPS_FILENAME stopdb
+  seed_infra_links testdb
 
   local additional_images=()
   if [ "$INCLUDE_E2E" = true ]; then
