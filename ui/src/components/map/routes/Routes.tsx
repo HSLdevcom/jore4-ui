@@ -4,6 +4,7 @@ import { Layer } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import {
+  Mode,
   selectHasDraftRouteGeometry,
   selectMapRouteEditor,
   selectSelectedRouteId,
@@ -28,7 +29,8 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
 
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
-  const { drawingMode } = useAppSelector(selectMapRouteEditor);
+  const { drawingMode, creatingNewRoute } =
+    useAppSelector(selectMapRouteEditor);
 
   const renderedRouteIds = selectedRouteId
     ? uniq([...displayedRouteIds, selectedRouteId])
@@ -53,7 +55,11 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
           <ExistingRouteGeometryLayer
             key={item}
             routeId={item}
-            isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
+            isSelected={
+              selectedRouteId === item &&
+              ((drawingMode === Mode.Edit && !creatingNewRoute) ||
+                !hasDraftRouteGeometry)
+            }
           />
         ))}
       <DraftRouteGeometryLayer />
