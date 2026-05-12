@@ -980,7 +980,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
   });
 
   describe('Latest change history', { tags: Tag.ChangeHistory }, () => {
-    it('should show last 5 changes', () => {
+    it('should show last 3 changes', () => {
       StopAreaDetailsPage.visit('X0003');
 
       cy.section('Change: Move a stop to the area', () => {
@@ -1026,46 +1026,22 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         waitForSaveToBeFinished();
       });
 
-      cy.section('Change: Change Swedish name', () => {
-        StopAreaDetailsPage.details.getEditButton().click();
-        StopAreaDetailsPage.details.edit
-          .getNameSwe()
-          .clearAndType('Nya namnet');
-        StopAreaDetailsPage.details.edit.getSaveButton().click();
-        waitForSaveToBeFinished();
-      });
-
-      cy.section('Change: Change English name', () => {
-        StopAreaDetailsPage.details.getEditButton().click();
-        AlternativeNamesEdit.getNameEng().clearAndType('New name');
-        StopAreaDetailsPage.details.edit.getSaveButton().click();
-        waitForSaveToBeFinished();
-      });
-
       StopAreaDetailsPage.latestChangeHistory
         .getItems()
-        .should('have.length', 5);
+        .should('have.length', 3);
 
       cy.section('Assert changed values', () => {
         StopAreaDetailsPage.latestChangeHistory
           .getNthItem(0)
-          .within(assertLatestChange('NameEng', 'Annas street 15', 'New name'));
-
-        StopAreaDetailsPage.latestChangeHistory
-          .getNthItem(1)
-          .within(assertLatestChange('NameSwe', 'Annasgatan 15', 'Nya namnet'));
-
-        StopAreaDetailsPage.latestChangeHistory
-          .getNthItem(2)
           .within(assertLatestChange('NameFin', 'Annankatu 15', 'Uusi nimi'));
 
-        StopAreaDetailsPage.latestChangeHistory.getNthItem(3).within(() => {
+        StopAreaDetailsPage.latestChangeHistory.getNthItem(1).within(() => {
           assertLatestChange('ValidityStart', '1.1.2000', '1.1.2030')();
           assertLatestChange('ValidityEnd', '1.1.2052', '')();
         });
 
         StopAreaDetailsPage.latestChangeHistory
-          .getNthItem(4)
+          .getNthItem(2)
           .within(
             assertLatestChange(
               'Stops',

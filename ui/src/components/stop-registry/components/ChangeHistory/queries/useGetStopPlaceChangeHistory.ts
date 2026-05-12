@@ -90,7 +90,7 @@ export function useGetStopPlaceChangeHistory({
   };
 }
 
-const latestChangesLimit = 5;
+const latestChangesLimit = 3;
 const compareByChangedTime = sortByChangedTime(SortOrder.DESCENDING);
 
 export function useGetLatestStopPlaceChangeHistory(privateCode: string) {

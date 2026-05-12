@@ -3076,7 +3076,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
   });
 
   describe('latest change history', () => {
-    it('should display 5 latest change history items', () => {
+    it('should display 3 latest change history items', () => {
       StopDetailsPage.visit('H2003');
       StopDetailsPage.page().shouldBeVisible();
 
@@ -3112,29 +3112,17 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         StopDetailsPage.signageDetails.getSaveButton().click();
         Toast.expectSuccessToast('Pysäkki muokattu');
 
-        // Change 4
-        StopDetailsPage.basicDetails.getEditButton().click();
-        BasicDetailsForm.getLocationFinInput().clearAndType('Uusi sijainti');
-        StopDetailsPage.basicDetails.getSaveButton().click();
-        Toast.expectSuccessToast('Pysäkki muokattu');
-
-        // Change 5
-        StopDetailsPage.locationDetails.getEditButton().click();
-        LocationDetailsForm.getPostalCodeInput().clearAndType('00200');
-        StopDetailsPage.locationDetails.getSaveButton().click();
-        Toast.expectSuccessToast('Pysäkki muokattu');
-
-        // Change 6 to ensure only 5 latest changes are shown
+        // Change 4 to ensure only 3 latest changes are shown
         StopDetailsPage.basicDetails.getEditButton().click();
         BasicDetailsForm.getElyNumberInput().clearAndType('9999999');
         StopDetailsPage.basicDetails.getSaveButton().click();
         Toast.expectSuccessToast('Pysäkki muokattu');
       });
 
-      cy.section('Verify 5 latest changes are displayed', () => {
+      cy.section('Verify 3 latest changes are displayed', () => {
         StopDetailsPage.page().shouldBeVisible();
 
-        StopDetailsPage.latestChangeHistory.getItems().should('have.length', 5);
+        StopDetailsPage.latestChangeHistory.getItems().should('have.length', 3);
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(0)
@@ -3144,24 +3132,12 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
         StopDetailsPage.latestChangeHistory
           .getNthItem(1)
-          .should('contain.text', 'Sijainti')
-          .and('contain.text', 'Postinumero:')
-          .and('contain.text', '00200');
-
-        StopDetailsPage.latestChangeHistory
-          .getNthItem(2)
-          .should('contain.text', 'Perustiedot')
-          .and('contain.text', 'Sijainti (suomi):')
-          .and('contain.text', 'Uusi sijainti');
-
-        StopDetailsPage.latestChangeHistory
-          .getNthItem(3)
           .should('contain.text', 'Pysäkkikilvet')
           .and('contain.text', 'Pysäkkikilpien tyyppi:')
           .and('contain.text', 'Katoskehikko');
 
         StopDetailsPage.latestChangeHistory
-          .getNthItem(4)
+          .getNthItem(2)
           .should('contain.text', 'Sijainti')
           .and('contain.text', 'Pysäkin osoite:')
           .and('contain.text', 'Mannerheimintie 1');
