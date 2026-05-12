@@ -20,7 +20,9 @@ const testIds = {
 // one fifth of the total page content width:
 // Content container size: max(96rem,100vw).
 // Padding on container: tailwind-5 on each side -> 10*var(--spacing)
+// nameCol one eighth to avoid line breaks with names
 const dataColWidth = 'w-[calc((max(96rem,100vw)-(10*var(--spacing)))/5)]';
+const nameColWidth = 'w-[calc((max(96rem,100vw)-(10*var(--spacing)))/8)]';
 
 type ChangeHistoryTableProps = {
   readonly children: ReactNode;
@@ -115,7 +117,10 @@ export const ChangeHistoryTable: FC<ChangeHistoryTableProps> = ({
           </th>
           {/* Just like the validity columns. */}
           <th
-            className="hidden w-0 px-2 pb-5 text-right lg:table-cell xl:px-5"
+            className={twJoin(
+              nameColWidth,
+              'hidden px-2 pb-5 text-right lg:table-cell xl:px-5',
+            )}
             data-testid={testIds.changedBy}
           >
             <SortByButton

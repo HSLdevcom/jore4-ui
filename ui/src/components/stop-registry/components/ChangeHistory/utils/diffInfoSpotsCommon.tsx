@@ -61,7 +61,7 @@ function mapInfoPosters(info: ReadonlyArray<PosterInfo> | null): ReactNode {
         <li key={poster.id}>
           <ul>
             {poster.fieldValues.map(([field, value]) => (
-              <li key={field}>{`${field}: ${value}`}</li>
+              <li key={field}>{`${field}: ${value.trim() || '-'}`}</li>
             ))}
           </ul>
         </li>
