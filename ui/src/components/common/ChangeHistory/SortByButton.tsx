@@ -45,7 +45,7 @@ export const SortByButton: FC<SortByButtonProps> = ({
   return (
     <button
       className={twMerge(
-        'group flex items-center gap-2',
+        'group flex w-full items-center justify-end gap-2',
         'data-[is-active=true]:underline',
         className,
       )}
