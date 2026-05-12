@@ -109,7 +109,7 @@ export function useGetStopChangeHistoryItems({
   return { ...base, sortedHistoryItems };
 }
 
-const latestChangesLimit = 5;
+const latestChangesLimit = 3;
 
 export function useGetLatestStopChangeHistory(
   publicCode: string,
