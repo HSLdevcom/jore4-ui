@@ -28,8 +28,13 @@ export const loadMapAssets = (mapRef: RefObject<MapRef>) => {
     return;
   }
 
-  const imageAssets: { name: string; fileUrl: string }[] = [
-    { name: 'arrow', fileUrl: '/img/arrow-right.png' },
+  const imageAssets: { name: string; fileUrl: string; sdf: boolean }[] = [
+    { name: 'arrow', fileUrl: '/img/arrow-right.png', sdf: true },
+    {
+      name: 'route_vector_icon',
+      fileUrl: '/img/route_vector_icon.png',
+      sdf: false,
+    },
   ];
 
   imageAssets.forEach(async (asset) => {
@@ -42,9 +47,7 @@ export const loadMapAssets = (mapRef: RefObject<MapRef>) => {
     // we need to check it again here because this code is inside event callback
     // which could be called multiple times before the map actually has the image
     if (!map.hasImage(asset.name)) {
-      // Enable Signed Distance Fields (sdf) to make enable icon coloring.
-      // https://docs.mapbox.com/help/troubleshooting/using-recolorable-images-in-mapbox-maps/
-      map.addImage(asset.name, response.data, { sdf: true });
+      map.addImage(asset.name, response.data, { sdf: asset.sdf });
     }
   });
 };
