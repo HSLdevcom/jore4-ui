@@ -61,6 +61,15 @@ type ExpectedLocationDetails = {
   readonly memberPlatforms: string;
 };
 
+function assertLatestChange(name: string, oldValue: string, newValue: string) {
+  const { changes } = TerminalDetailsPage.latestChangeHistory;
+  return () =>
+    changes.byName(name).within(() => {
+      changes.oldValue().shouldHaveText(oldValue);
+      changes.newValue().shouldHaveText(newValue);
+    });
+}
+
 describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   let dbResources: SupportedResources;
 
@@ -1314,5 +1323,66 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         );
       },
     );
+  });
+
+  describe('Latest change history', { tags: Tag.ChangeHistory }, () => {
+    it('should show last 3 changes', () => {
+      TerminalDetailsPage.visit('T2');
+
+      cy.section('Change terminal type', () => {
+        TerminalDetailsPage.terminalDetails.getEditButton().click();
+        TerminalDetailsPage.terminalDetails.edit.selectTerminalType(
+          'TramTerminal',
+        );
+        TerminalDetailsPage.terminalDetails.getSaveButton().click();
+        waitForSaveToBeFinished();
+      });
+
+      cy.section('Change description', () => {
+        TerminalDetailsPage.terminalDetails.getEditButton().click();
+        TerminalDetailsPage.terminalDetails.edit
+          .getDescription()
+          .clearAndType('Uusi kuvaus');
+        TerminalDetailsPage.terminalDetails.getSaveButton().click();
+        waitForSaveToBeFinished();
+      });
+
+      cy.section('Change name', () => {
+        TerminalDetailsPage.terminalDetails.getEditButton().click();
+        TerminalDetailsPage.terminalDetails.edit
+          .getName()
+          .clearAndType('Uusi nimi');
+        TerminalDetailsPage.terminalDetails.getSaveButton().click();
+        waitForSaveToBeFinished();
+      });
+
+      TerminalDetailsPage.latestChangeHistory
+        .getItems()
+        .should('have.length', 3);
+
+      cy.section('Assert changed values', () => {
+        TerminalDetailsPage.latestChangeHistory
+          .getNthItem(0)
+          .within(assertLatestChange('NameFin', 'E2ET001', 'Uusi nimi'));
+
+        TerminalDetailsPage.latestChangeHistory
+          .getNthItem(1)
+          .within(
+            assertLatestChange(
+              'Description',
+              'E2E testiterminaali',
+              'Uusi kuvaus',
+            ),
+          );
+
+        TerminalDetailsPage.latestChangeHistory.getNthItem(2).within(() => {
+          assertLatestChange(
+            'TerminalType',
+            'Bussiterminaali',
+            'Ratikkaterminaali',
+          );
+        });
+      });
+    });
   });
 });

@@ -29,6 +29,29 @@ export class TerminalDetailsPage {
 
   static owner = TerminalOwnerDetailsSection;
 
+  static latestChangeHistory = {
+    container: () =>
+      cy.getByTestId('LatestTerminalChangeHistoryTable::Container'),
+    title: () => cy.getByTestId('LatestTerminalChangeHistoryTable::Title'),
+    showAllLink: () =>
+      cy.getByTestId('LatestTerminalChangeHistoryTable::ShowAllLink'),
+    getItems: () =>
+      cy.get('[data-testid^="LatestTerminalChangeHistoryTable::Item"]'),
+    getNthItem: (index: number) =>
+      cy
+        .get('[data-testid^="LatestTerminalChangeHistoryTable::Item"]')
+        .eq(index),
+
+    changes: {
+      byName: (changeName: string) =>
+        cy.getByTestId(`LatestChangeHistoryItemChange::${changeName}`),
+      fieldName: () =>
+        cy.getByTestId('LatestChangeHistoryItemChange::FieldName'),
+      oldValue: () => cy.getByTestId('LatestChangeHistoryItemChange::OldValue'),
+      newValue: () => cy.getByTestId('LatestChangeHistoryItemChange::NewValue'),
+    } as const,
+  } as const;
+
   static visit(privateCode: string, observationDate?: string) {
     cy.visit(
       `/stop-registry/terminals/${privateCode}${observationDate ? `?observationDate=${observationDate}` : ''}`,
