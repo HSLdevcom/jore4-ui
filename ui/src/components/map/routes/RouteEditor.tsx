@@ -55,14 +55,10 @@ import {
 } from './hooks';
 import { SNAPPING_LINE_LAYER_ID } from './utils';
 
-type RouteEditorProps = {
-  onDeleteDrawnRoute: () => void;
-};
-
-const RouteEditorComponent: ForwardRefRenderFunction<
-  ExplicitAny,
-  RouteEditorProps
-> = ({ onDeleteDrawnRoute }, externalRef) => {
+const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
+  _,
+  externalRef,
+) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { current: map } = useMap();
@@ -184,19 +180,13 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
-    /* 
-      - Reset map editor drap mode and remove draft route as it is now saved
-      - Parent has no access to ref here so use removeRoute directly 
-        here instead of onDeleteDrawnRoute which relies on the ref 
-    */
-    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+    // Reset map editor state and clear draft route visuals.
     dispatch(resetDraftRouteGeometryAction());
     dispatch(resetRouteCreatingAction());
   };
 
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
   const onDrawRoute = () => {
-    onDeleteDrawnRoute();
     if (drawingMode === Mode.Draw) {
       dispatch(resetRouteCreatingAction());
     } else {
@@ -210,9 +200,9 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   // - cancel the current edit changes
   const onEditRoute = async () => {
     if (drawingMode === Mode.Edit) {
-      // Discard unsaved geometry when leaving existing route edit mode
+      // Discard unsaved geometry only when leaving existing-route edit mode.
       if (!creatingNewRoute) {
-        onDeleteDrawnRoute();
+        dispatch(resetDraftRouteGeometryAction());
       }
 
       dispatch(stopRouteEditingAction());
@@ -270,14 +260,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   };
 
   const onCancel = () => {
+    dispatch(resetDraftRouteGeometryAction());
     if (!creatingNewRoute && drawingMode === Mode.Edit) {
       dispatch(stopRouteEditingAction());
-      onDeleteDrawnRoute();
     } else {
       dispatch(resetRouteCreatingAction());
-      // onDeleteDrawnRoute() can not be used here because the ref is not available when creating a new route
-      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
       dispatch(resetDraftRouteGeometryAction());
+      // TODO: This should be only a temporary solution and the core issue should be fixed which has something to do with the debounced route updates and async calls.
+      // Fallback to removing snapping line if it wasn't removed when canceling drawing.
+      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     }
   };
 
