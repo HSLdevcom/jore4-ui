@@ -263,8 +263,6 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
       dispatch(stopRouteEditingAction());
     } else {
       dispatch(resetRouteCreatingAction());
-      // Sen voisi poistaa onCancelissa manuaalisesti kartalta, jos löytyy edelleen
-      // removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     }
   };
 

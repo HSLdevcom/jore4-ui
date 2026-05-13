@@ -104,30 +104,41 @@ export const DrawRouteLayer: FC = () => {
 
     // If creating new route (without a template) or snapping line already exists,
     // no need to initialize snapping line
-    if (snappingLine) {
-      return;
-    }
-    if (
-      creatingNewRoute &&
-      !templateRouteId &&
-      editedRouteData.infraLinks &&
-      !isEmpty(editedRouteData.infraLinks)
-    ) {
-      const infraSnappingLine = mapInfraLinksToFeature(
-        editedRouteData.infraLinks,
-      );
-      setSnappingLine(infraSnappingLine);
-      addSnappingLineToMap(infraSnappingLine);
+    if (!snappingLine) {
+      if (
+        creatingNewRoute &&
+        !templateRouteId &&
+        editedRouteData.infraLinks &&
+        !isEmpty(editedRouteData.infraLinks)
+      ) {
+        const infraSnappingLine = mapInfraLinksToFeature(
+          editedRouteData.infraLinks,
+        );
+        setSnappingLine(infraSnappingLine);
+        addSnappingLineToMap(infraSnappingLine);
+      }
+
+      if (drawingMode === Mode.Edit && baseRoute) {
+        // Starting to edit a route, generate snapping line from infra links
+        const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
+        const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
+        setSnappingLine(infraSnappingLine);
+        debouncedOnAddRoute(infraSnappingLine);
+        addSnappingLineToMap(infraSnappingLine);
+      }
     }
 
-    if (drawingMode === Mode.Edit && baseRoute) {
-      // Starting to edit a route, generate snapping line from infra links
-      const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
-      const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
-      setSnappingLine(infraSnappingLine);
-      debouncedOnAddRoute(infraSnappingLine);
-      addSnappingLineToMap(infraSnappingLine);
-    }
+    return () => {
+      const cleanUpSnappingLine = async () => {
+        // If there is a no snapping line when unmounting, flush the debounced route update
+        // to ensure that any pending geometry updates are applied before removing the snapping line from the map
+        if (!snappingLine) {
+          await debouncedOnAddRoute.flush();
+        }
+        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      };
+      cleanUpSnappingLine();
+    };
   }, [
     baseRoute,
     creatingNewRoute,
@@ -154,19 +165,6 @@ export const DrawRouteLayer: FC = () => {
       document.removeEventListener('keydown', keyDown, false);
     };
   }, [keyDown]);
-
-  // Tai sitten voisi flushilla suorittaa kaikki pending debouncet päivitykset ennen snapping linen poistoa
-  // Cleanup snapping line when exiting edit mode or cancelling route creation
-  useEffect(() => {
-    return () => {
-      const cleanUpSnappingLine = async () => {
-        // Flush any pending debounced snapping line updates to avoid race condition where a pending update tries to add the snapping line back after we removed it
-        await debouncedOnAddRoute.flush();
-        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
-      };
-      cleanUpSnappingLine();
-    };
-  }, [debouncedOnAddRoute, map]);
 
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state
