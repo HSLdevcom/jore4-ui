@@ -1,12 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import {
-  FC,
-  Ref,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
@@ -17,8 +10,8 @@ import {
   selectMapRouteEditor,
   stopRouteEditingAction,
 } from '../../../redux';
+import { removeRoute } from '../../../utils/map';
 import { DrawControl } from '../DrawControl';
-import { EditorLayerRef } from '../refTypes';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import {
   LineStringFeature,
@@ -30,10 +23,6 @@ import {
   NEW_ROUTE_LINE_ID,
   SNAPPING_LINE_LAYER_ID,
 } from './utils';
-
-type DrawRouteLayerProps = {
-  readonly editorLayerRef: Ref<EditorLayerRef>;
-};
 
 const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   if (!map) {
@@ -51,7 +40,7 @@ const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   }
 };
 
-export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
+export const DrawRouteLayer: FC = () => {
   const drawRef = useRef<MapboxDraw | null>(null);
   const { current: mapboxDraw } = drawRef;
   const { current: map } = useMap();
@@ -79,12 +68,8 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
 
-  const {
-    debouncedOnAddRoute,
-    removeSnappingLine,
-    snappingLine,
-    setSnappingLine,
-  } = useSnappingLine(map);
+  const { debouncedOnAddRoute, snappingLine, setSnappingLine } =
+    useSnappingLine(map);
 
   const addSnappingLineToMap = (infraSnappingLine: LineStringFeature) => {
     drawRef.current?.add({
@@ -119,30 +104,41 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
 
     // If creating new route (without a template) or snapping line already exists,
     // no need to initialize snapping line
-    if (snappingLine) {
-      return;
-    }
-    if (
-      creatingNewRoute &&
-      !templateRouteId &&
-      editedRouteData.infraLinks &&
-      !isEmpty(editedRouteData.infraLinks)
-    ) {
-      const infraSnappingLine = mapInfraLinksToFeature(
-        editedRouteData.infraLinks,
-      );
-      setSnappingLine(infraSnappingLine);
-      addSnappingLineToMap(infraSnappingLine);
+    if (!snappingLine) {
+      if (
+        creatingNewRoute &&
+        !templateRouteId &&
+        editedRouteData.infraLinks &&
+        !isEmpty(editedRouteData.infraLinks)
+      ) {
+        const infraSnappingLine = mapInfraLinksToFeature(
+          editedRouteData.infraLinks,
+        );
+        setSnappingLine(infraSnappingLine);
+        addSnappingLineToMap(infraSnappingLine);
+      }
+
+      if (drawingMode === Mode.Edit && baseRoute) {
+        // Starting to edit a route, generate snapping line from infra links
+        const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
+        const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
+        setSnappingLine(infraSnappingLine);
+        debouncedOnAddRoute(infraSnappingLine);
+        addSnappingLineToMap(infraSnappingLine);
+      }
     }
 
-    if (drawingMode === Mode.Edit && baseRoute) {
-      // Starting to edit a route, generate snapping line from infra links
-      const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
-      const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
-      setSnappingLine(infraSnappingLine);
-      debouncedOnAddRoute(infraSnappingLine);
-      addSnappingLineToMap(infraSnappingLine);
-    }
+    return () => {
+      const cleanUpSnappingLine = async () => {
+        // If there is a no snapping line when unmounting, flush the debounced route update
+        // to ensure that any pending geometry updates are applied before removing the snapping line from the map
+        if (!snappingLine) {
+          await debouncedOnAddRoute.flush();
+        }
+        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      };
+      cleanUpSnappingLine();
+    };
   }, [
     baseRoute,
     creatingNewRoute,
@@ -161,10 +157,6 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
       drawRef.current?.trash();
     }
   }, []);
-
-  useImperativeHandle(editorLayerRef, () => ({
-    onDelete: removeSnappingLine,
-  }));
 
   useEffect(() => {
     document.addEventListener('keydown', keyDown, false);
