@@ -65,6 +65,8 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
       <DraftRouteGeometryLayer />
       <RouteEditor
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDelete()}
+        onCancel={() => editorLayerRef.current?.onCancel()}
+        onSave={() => Promise.resolve(editorLayerRef.current?.onSave() ?? true)}
         ref={ref}
       />
       <Visible visible={drawingMode !== undefined}>

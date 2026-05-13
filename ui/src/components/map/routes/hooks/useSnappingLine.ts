@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import { useAppDispatch } from '../../../../hooks';
 import { resetDraftRouteGeometryAction } from '../../../../redux';
@@ -26,14 +26,21 @@ export const useSnappingLine = (map: MapRef | undefined) => {
     }
   }, [dispatch, map]);
 
+  // The implementation is unstable and not cannot safely be memoized.
   const onUpdateRouteGeometry = useRouteGeometryUpdater(
     map,
     removeSnappingLine,
   );
+  const onUpdateRouteGeometryRef = useRef(onUpdateRouteGeometry);
 
   const debouncedOnAddRoute = useMemo(
-    () => debounce(onUpdateRouteGeometry, 500),
-    [onUpdateRouteGeometry],
+    () =>
+      debounce(
+        (snappingLineFeature: LineStringFeature) =>
+          onUpdateRouteGeometryRef.current?.(snappingLineFeature),
+        500,
+      ),
+    [onUpdateRouteGeometryRef],
   );
 
   return {

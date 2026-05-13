@@ -57,12 +57,14 @@ import { SNAPPING_LINE_LAYER_ID } from './utils';
 
 type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;
+  readonly onCancel: () => void;
+  readonly onSave: () => Promise<true>;
 };
 
 const RouteEditorComponent: ForwardRefRenderFunction<
   ExplicitAny,
   RouteEditorProps
-> = ({ onDeleteDrawnRoute }, externalRef) => {
+> = ({ onCancel, onSave }, externalRef) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { current: map } = useMap();
@@ -184,10 +186,10 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
-    /* 
+    /*
       - Reset map editor drap mode and remove draft route as it is now saved
-      - Parent has no access to ref here so use removeRoute directly 
-        here instead of onDeleteDrawnRoute which relies on the ref 
+      - Parent has no access to ref here so use removeRoute directly
+        here instead of onDeleteDrawnRoute which relies on the ref
     */
     removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     dispatch(resetDraftRouteGeometryAction());

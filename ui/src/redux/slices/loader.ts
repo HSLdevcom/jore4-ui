@@ -29,6 +29,7 @@ export enum Operation {
   DeleteTimetable = 'deleteTimetable',
   ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
   UpdateRouteJourneyPattern = 'updateRouteJourneyPattern',
+  FinalizingRoute = 'finalizingRoute',
 }
 
 /**
@@ -91,6 +92,7 @@ export const mapOperations = [
   Operation.CheckBrokenRoutes,
   Operation.SaveTimingPlace,
   Operation.ResolveScheduledStopPoint,
+  Operation.FinalizingRoute,
 ];
 
 export const importOperations = [

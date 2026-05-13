@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
@@ -41,74 +40,62 @@ export const useRouteGeometryUpdater = (
   });
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
-  return useCallback(
-    async (snappingLineFeature: LineStringFeature) => {
-      if (!baseRoute && !creatingNewRoute) {
-        log.warn(
-          'Trying to edit an existing route but could not find a base route (yet)',
-        );
-        return;
-      }
-
-      if (!routeMetadata) {
-        log.warn(
-          'Trying to update route geometry but route metadata is not (yet) available',
-        );
-        return;
-      }
-
-      const response = await fetchInfraLinksWithStops(
-        snappingLineFeature.geometry,
+  return async (snappingLineFeature: LineStringFeature) => {
+    if (!baseRoute && !creatingNewRoute) {
+      log.warn(
+        'Trying to edit an existing route but could not find a base route (yet)',
       );
-      if (!response) {
-        return;
-      }
+      return;
+    }
 
-      const { infraLinksWithStops, matchedGeometry } = response;
-      const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
-        editedRouteData.includedStopLabels,
-        editedRouteData.infraLinks,
-        baseRoute,
+    if (!routeMetadata) {
+      log.warn(
+        'Trying to update route geometry but route metadata is not (yet) available',
       );
+      return;
+    }
 
-      const removedStopLabels = await getRemovedStopLabels(
-        oldInfraLinks.map((link) => link.infrastructure_link_id),
-        oldStopLabels,
-      );
+    const response = await fetchInfraLinksWithStops(
+      snappingLineFeature.geometry,
+    );
+    if (!response) {
+      return;
+    }
 
-      const stopsEligibleForJourneyPattern =
-        extractJourneyPatternCandidateStops(infraLinksWithStops, routeMetadata);
-      const includedStopLabels = getStopLabelsIncludedInRoute(
-        stopsEligibleForJourneyPattern,
-        removedStopLabels,
-      );
-
-      dispatch(
-        setDraftRouteGeometryAction({
-          includedStopLabels,
-          stopsEligibleForJourneyPattern,
-          infraLinks: infraLinksWithStops,
-          geometry: matchedGeometry,
-        }),
-      );
-
-      if (matchedGeometry && map) {
-        addRoute(map.getMap(), SNAPPING_LINE_LAYER_ID, matchedGeometry);
-      } else {
-        removeSnappingLine();
-      }
-    },
-    [
-      baseRoute,
-      creatingNewRoute,
-      routeMetadata,
-      fetchInfraLinksWithStops,
+    const { infraLinksWithStops, matchedGeometry } = response;
+    const { oldStopLabels, oldInfraLinks } = getOldRouteGeometryVariables(
       editedRouteData.includedStopLabels,
       editedRouteData.infraLinks,
-      getRemovedStopLabels,
-      dispatch,
-      map,
-      removeSnappingLine,
-    ],
-  );
+      baseRoute,
+    );
+
+    const removedStopLabels = await getRemovedStopLabels(
+      oldInfraLinks.map((link) => link.infrastructure_link_id),
+      oldStopLabels,
+    );
+
+    const stopsEligibleForJourneyPattern = extractJourneyPatternCandidateStops(
+      infraLinksWithStops,
+      routeMetadata,
+    );
+    const includedStopLabels = getStopLabelsIncludedInRoute(
+      stopsEligibleForJourneyPattern,
+      removedStopLabels,
+    );
+
+    dispatch(
+      setDraftRouteGeometryAction({
+        includedStopLabels,
+        stopsEligibleForJourneyPattern,
+        infraLinks: infraLinksWithStops,
+        geometry: matchedGeometry,
+      }),
+    );
+
+    if (matchedGeometry && map) {
+      addRoute(map.getMap(), SNAPPING_LINE_LAYER_ID, matchedGeometry);
+    } else {
+      removeSnappingLine();
+    }
+  };
 };

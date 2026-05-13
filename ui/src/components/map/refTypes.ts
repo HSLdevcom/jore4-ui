@@ -9,7 +9,8 @@ export type RouteEditorRef = {
 };
 
 export type EditorLayerRef = {
-  readonly onDelete: () => void;
+  readonly onCancel: () => void;
+  readonly onSave: () => Promise<true>;
 };
 
 export type EditStoplayerRef = {
