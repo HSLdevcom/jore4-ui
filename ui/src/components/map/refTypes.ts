@@ -9,8 +9,11 @@ export type RouteEditorRef = {
 };
 
 export type EditorLayerRef = {
-  readonly onCancel: () => void;
-  readonly onSave: () => Promise<true>;
+  // Called when canceling editing of a route..
+  readonly onDrawingCanceled: () => void;
+
+  // Needs to be called and awaited inline when finishing an edit of a route.
+  readonly onDrawingFinished: () => Promise<true>;
 };
 
 export type EditStoplayerRef = {

@@ -46,7 +46,6 @@ export const useSnappingLine = (map: MapRef | undefined) => {
   return {
     snappingLine,
     setSnappingLine: addSnappingLine,
-    removeSnappingLine,
     debouncedOnAddRoute,
   };
 };

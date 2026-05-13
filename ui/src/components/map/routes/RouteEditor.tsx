@@ -39,7 +39,6 @@ import {
   showWarningToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
-import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
@@ -53,21 +52,18 @@ import {
   useDeleteRoute,
   useEditRouteGeometry,
 } from './hooks';
-import { SNAPPING_LINE_LAYER_ID } from './utils';
 
 type RouteEditorProps = {
-  onDeleteDrawnRoute: () => void;
-  readonly onCancel: () => void;
-  readonly onSave: () => Promise<true>;
+  readonly onDrawingCanceled: () => void;
+  readonly onDrawingFinished: () => Promise<true>;
 };
 
 const RouteEditorComponent: ForwardRefRenderFunction<
   ExplicitAny,
   RouteEditorProps
-> = ({ onCancel, onSave }, externalRef) => {
+> = ({ onDrawingCanceled, onDrawingFinished }, externalRef) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { current: map } = useMap();
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
@@ -186,26 +182,22 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
-    /*
-      - Reset map editor drap mode and remove draft route as it is now saved
-      - Parent has no access to ref here so use removeRoute directly
-        here instead of onDeleteDrawnRoute which relies on the ref
-    */
-    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     dispatch(resetDraftRouteGeometryAction());
     dispatch(resetRouteCreatingAction());
   };
 
-  // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
+  // The "Draw Route" button has been clicked, start drawing a new route
   const onDrawRoute = () => {
-    onDeleteDrawnRoute();
-    if (drawingMode === Mode.Draw) {
-      dispatch(resetRouteCreatingAction());
-    } else {
-      dispatch(startRouteCreatingAction());
+    if (drawingMode !== undefined) {
+      throw new Error(
+        'Cannot start drawing a new route if drawing mode is already active!',
+      );
     }
+
+    dispatch(startRouteCreatingAction());
   };
 
+  // TODO: SPlit this into 2. One to start and one to cancle drawing.
   // The "Edit Route" button has been clicked/toggled ->
   // - start editing the selected route OR
   // - start editing the just created route OR
@@ -214,71 +206,78 @@ const RouteEditorComponent: ForwardRefRenderFunction<
     if (drawingMode === Mode.Edit) {
       // Discard unsaved geometry when leaving existing route edit mode
       if (!creatingNewRoute) {
-        onDeleteDrawnRoute();
-      }
+        onDrawingCanceled();
 
-      dispatch(stopRouteEditingAction());
-    } else {
-      // start editing mode
-      dispatch(startRouteEditingAction());
-
-      // if editing a route that is just being created, we should already have the line info and the route metadata available
-      if (!selectedRouteId) {
-        dispatch(setRouteToEditModeAction());
         return;
       }
+    }
 
-      // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
-      const routeDetailsResult = await getRouteDetailsById({
-        variables: {
-          routeId: selectedRouteId,
-        },
-      });
-      if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
-        throw new Error("Can't find route and line details");
-      }
-
-      dispatch(
-        setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),
+    if (drawingMode === Mode.Draw) {
+      throw new Error(
+        'Cannot start drawing a new route if drawing mode is already active!',
       );
-      dispatch(
-        setRouteMetadataAction(
-          mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
-        ),
-      );
+    }
 
-      // In our data model route has always exactly one journey pattern
-      const editedRouteJourneyPattern =
-        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
+    // start editing mode
+    dispatch(startRouteEditingAction());
 
-      // Preserve journey pattern stop metadata (e.g. via info)
+    // if editing a route that is just being created, we should already have the line info and the route metadata available
+    if (!selectedRouteId) {
+      dispatch(setRouteToEditModeAction());
+      return;
+    }
 
-      const newJourneyPatternStops =
-        editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns.map(
-          (stopInJourneyPattern) => ({
-            ...stopInJourneyPattern,
-            ...stopInJourneyPatternFieldsToRemove,
-          }),
-        );
+    // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
+    const routeDetailsResult = await getRouteDetailsById({
+      variables: {
+        routeId: selectedRouteId,
+      },
+    });
+    if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
+      throw new Error("Can't find route and line details");
+    }
 
-      dispatch(
-        setDraftRouteJourneyPatternAction({
-          id: editedRouteJourneyPattern.journey_pattern_id,
-          stops: newJourneyPatternStops,
+    dispatch(
+      setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),
+    );
+    dispatch(
+      setRouteMetadataAction(
+        mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
+      ),
+    );
+
+    // In our data model route has always exactly one journey pattern
+    const editedRouteJourneyPattern =
+      routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
+
+    // Preserve journey pattern stop metadata (e.g. via info)
+
+    const newJourneyPatternStops =
+      editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns.map(
+        (stopInJourneyPattern) => ({
+          ...stopInJourneyPattern,
+          ...stopInJourneyPatternFieldsToRemove,
         }),
       );
-      dispatch(setRouteToEditModeAction());
-    }
+
+    dispatch(
+      setDraftRouteJourneyPatternAction({
+        id: editedRouteJourneyPattern.journey_pattern_id,
+        stops: newJourneyPatternStops,
+      }),
+    );
+    dispatch(setRouteToEditModeAction());
   };
 
   const onCancel = () => {
+    if (drawingMode) {
+      onDrawingCanceled();
+    }
+
     if (!creatingNewRoute && drawingMode === Mode.Edit) {
       dispatch(stopRouteEditingAction());
-      onDeleteDrawnRoute();
     } else {
       dispatch(resetRouteCreatingAction());
-      // onDeleteDrawnRoute() can not be used here because the ref is not available when creating a new route
-      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
       dispatch(resetDraftRouteGeometryAction());
     }
   };
@@ -286,6 +285,13 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   const onSave = async () => {
     try {
       setIsLoading(true);
+
+      // Make sure we have no pending interactions to process on the drawing
+      // layer. When creating a new route, we need to finish up the editing
+      // manually, before this onSave function gets called, thus this does
+      // nothing, but when editing an existing one, we might still have pending
+      // changes that need to be processed.
+      await onDrawingFinished();
 
       if (editedRouteId) {
         await editRoute(editedRouteId);

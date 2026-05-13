@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Mode,
   Operation,
+  resetDraftRouteGeometryAction,
   selectEditedRouteData,
   selectMapRouteEditor,
   stopRouteEditingAction,
@@ -179,13 +180,19 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
 
   useImperativeHandle(editorLayerRef, () => ({
     // Cancel any pending route change calls.
-    onCancel: () => debouncedOnAddRoute.cancel(),
+    onDrawingCanceled: () => {
+      debouncedOnAddRoute.cancel();
+      dispatch(resetDraftRouteGeometryAction());
+    },
     // Flush any pending  route change calls, to ensure we have "saved"
     // the last interaction with the drawn line.
-    onSave: async () => {
+    onDrawingFinished: async () => {
       setIsLoading(true);
-      await debouncedOnAddRoute.flush();
-      setIsLoading(false);
+      try {
+        await debouncedOnAddRoute.flush();
+      } finally {
+        setIsLoading(false);
+      }
 
       return true;
     },
