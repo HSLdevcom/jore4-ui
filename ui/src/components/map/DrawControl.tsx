@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { ControlPosition, IControl, useControl } from 'react-map-gl/maplibre';
 import { styles } from './routes/editorStyles';
+import { joreDrawModes } from './utils/drawModeUtils';
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
   readonly position?: ControlPosition;
@@ -32,7 +33,12 @@ const DrawControlComponent: ForwardRefRenderFunction<
 > = (props, ref) => {
   const { onCreate, onModeChange, onUpdate, position } = props;
   const drawRef = useControl<MapLibreMapboxDraw>(
-    () => new MapboxDraw({ styles, ...props }) as MapLibreMapboxDraw,
+    () =>
+      new MapboxDraw({
+        styles,
+        ...props,
+        modes: joreDrawModes,
+      }) as MapLibreMapboxDraw,
     ({ map }) => {
       map.on('draw.create', onCreate);
       map.on('draw.update', onUpdate);
