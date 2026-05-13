@@ -5,7 +5,7 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMap } from 'react-map-gl/maplibre';
+// import { useMap } from 'react-map-gl/maplibre';
 import {
   RouteDefaultFieldsFragment,
   RouteRoute,
@@ -39,7 +39,6 @@ import {
   showWarningToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
-import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
@@ -53,19 +52,14 @@ import {
   useDeleteRoute,
   useEditRouteGeometry,
 } from './hooks';
-import { SNAPPING_LINE_LAYER_ID } from './utils';
 
-type RouteEditorProps = {
-  onDeleteDrawnRoute: () => void;
-};
-
-const RouteEditorComponent: ForwardRefRenderFunction<
-  ExplicitAny,
-  RouteEditorProps
-> = ({ onDeleteDrawnRoute }, externalRef) => {
+const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
+  _,
+  externalRef,
+) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { current: map } = useMap();
+  // const { current: map } = useMap();
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
@@ -184,19 +178,13 @@ const RouteEditorComponent: ForwardRefRenderFunction<
       showWarningToast(t(($) => $.filters.observationDateAdjusted));
     }
 
-    /* 
-      - Reset map editor drap mode and remove draft route as it is now saved
-      - Parent has no access to ref here so use removeRoute directly 
-        here instead of onDeleteDrawnRoute which relies on the ref 
-    */
-    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+    // Reset map editor state and clear draft route visuals.
     dispatch(resetDraftRouteGeometryAction());
     dispatch(resetRouteCreatingAction());
   };
 
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
   const onDrawRoute = () => {
-    onDeleteDrawnRoute();
     if (drawingMode === Mode.Draw) {
       dispatch(resetRouteCreatingAction());
     } else {
@@ -210,9 +198,9 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   // - cancel the current edit changes
   const onEditRoute = async () => {
     if (drawingMode === Mode.Edit) {
-      // Discard unsaved geometry when leaving existing route edit mode
+      // Discard unsaved geometry only when leaving existing-route edit mode.
       if (!creatingNewRoute) {
-        onDeleteDrawnRoute();
+        dispatch(resetDraftRouteGeometryAction());
       }
 
       dispatch(stopRouteEditingAction());
@@ -270,14 +258,13 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   };
 
   const onCancel = () => {
+    dispatch(resetDraftRouteGeometryAction());
     if (!creatingNewRoute && drawingMode === Mode.Edit) {
       dispatch(stopRouteEditingAction());
-      onDeleteDrawnRoute();
     } else {
       dispatch(resetRouteCreatingAction());
-      // onDeleteDrawnRoute() can not be used here because the ref is not available when creating a new route
-      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
-      dispatch(resetDraftRouteGeometryAction());
+      // Sen voisi poistaa onCancelissa manuaalisesti kartalta, jos löytyy edelleen
+      // removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     }
   };
 

@@ -1,12 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import {
-  FC,
-  Ref,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
@@ -17,8 +10,8 @@ import {
   selectMapRouteEditor,
   stopRouteEditingAction,
 } from '../../../redux';
+import { removeRoute } from '../../../utils/map';
 import { DrawControl } from '../DrawControl';
-import { EditorLayerRef } from '../refTypes';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import {
   LineStringFeature,
@@ -30,10 +23,6 @@ import {
   NEW_ROUTE_LINE_ID,
   SNAPPING_LINE_LAYER_ID,
 } from './utils';
-
-type DrawRouteLayerProps = {
-  readonly editorLayerRef: Ref<EditorLayerRef>;
-};
 
 const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   if (!map) {
@@ -51,7 +40,7 @@ const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   }
 };
 
-export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
+export const DrawRouteLayer: FC = () => {
   const drawRef = useRef<MapboxDraw | null>(null);
   const { current: mapboxDraw } = drawRef;
   const { current: map } = useMap();
@@ -79,12 +68,8 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
 
-  const {
-    debouncedOnAddRoute,
-    removeSnappingLine,
-    snappingLine,
-    setSnappingLine,
-  } = useSnappingLine(map);
+  const { debouncedOnAddRoute, snappingLine, setSnappingLine } =
+    useSnappingLine(map);
 
   const addSnappingLineToMap = (infraSnappingLine: LineStringFeature) => {
     drawRef.current?.add({
@@ -162,10 +147,6 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
     }
   }, []);
 
-  useImperativeHandle(editorLayerRef, () => ({
-    onDelete: removeSnappingLine,
-  }));
-
   useEffect(() => {
     document.addEventListener('keydown', keyDown, false);
 
@@ -173,6 +154,19 @@ export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
       document.removeEventListener('keydown', keyDown, false);
     };
   }, [keyDown]);
+
+  // Tai sitten voisi flushilla suorittaa kaikki pending debouncet päivitykset ennen snapping linen poistoa
+  // Cleanup snapping line when exiting edit mode or cancelling route creation
+  useEffect(() => {
+    return () => {
+      const cleanUpSnappingLine = async () => {
+        // Flush any pending debounced snapping line updates to avoid race condition where a pending update tries to add the snapping line back after we removed it
+        await debouncedOnAddRoute.flush();
+        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      };
+      cleanUpSnappingLine();
+    };
+  }, [debouncedOnAddRoute, map]);
 
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state

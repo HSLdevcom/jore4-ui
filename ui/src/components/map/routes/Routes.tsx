@@ -1,5 +1,5 @@
 import uniq from 'lodash/uniq';
-import { ForwardRefRenderFunction, forwardRef, useRef } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
@@ -9,7 +9,7 @@ import {
   selectMapRouteEditor,
   selectSelectedRouteId,
 } from '../../../redux';
-import { EditorLayerRef, RouteEditorRef } from '../refTypes';
+import { RouteEditorRef } from '../refTypes';
 import { DraftRouteGeometryLayer } from './DraftRouteGeometryLayer';
 import { DrawRouteLayer } from './DrawRouteLayer';
 import { EditRouteMetadataLayer } from './EditRouteMetadataLayer';
@@ -25,8 +25,6 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
   { displayedRouteIds, showRoute },
   ref,
 ) => {
-  const editorLayerRef = useRef<EditorLayerRef | null>(null);
-
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { drawingMode, creatingNewRoute } =
@@ -63,12 +61,9 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
           />
         ))}
       <DraftRouteGeometryLayer />
-      <RouteEditor
-        onDeleteDrawnRoute={() => editorLayerRef.current?.onDelete()}
-        ref={ref}
-      />
+      <RouteEditor ref={ref} />
       <Visible visible={drawingMode !== undefined}>
-        <DrawRouteLayer editorLayerRef={editorLayerRef} />
+        <DrawRouteLayer />
       </Visible>
     </>
   );
