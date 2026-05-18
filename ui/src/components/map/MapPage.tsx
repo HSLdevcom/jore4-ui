@@ -63,6 +63,7 @@ export const MapPage: FC = () => {
         <MapFooter
           onDrawRoute={() => mapRef.current?.onDrawRoute()}
           onEditRoute={() => mapRef.current?.onEditRoute()}
+          onStopEditRoute={() => mapRef.current?.onStopEditRoute()}
           onDeleteRoute={() => mapRef.current?.onDeleteRoute()}
           onCancel={() => mapRef.current?.onCancel()}
           onSave={() => mapRef.current?.onSave()}

@@ -32,6 +32,7 @@ const testIds = {
 type MapFooterFullBarProps = {
   readonly onDrawRoute: () => void;
   readonly onEditRoute: () => void;
+  readonly onStopEditRoute: () => void;
   readonly onDeleteRoute: () => void;
   readonly onCancel: () => void;
   readonly onSave: () => void;
@@ -40,6 +41,7 @@ type MapFooterFullBarProps = {
 export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
   onDrawRoute,
   onEditRoute,
+  onStopEditRoute,
   onDeleteRoute,
   onCancel,
   onSave,
@@ -84,6 +86,11 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     !!selectedRouteId ||
     (creatingNewRoute && !isRouteMetadataFormOpen);
 
+  const handleEditRouteClick =
+    drawingMode === Mode.Edit && !isEditingExistingRoute
+      ? onStopEditRoute
+      : onEditRoute;
+
   return (
     <Row testId={testIds.mapFooter} className="gap-4 bg-white px-10 py-5">
       <SimpleButton
@@ -96,7 +103,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       </SimpleButton>
       <SimpleButton
         testId={testIds.editRouteButton}
-        onClick={onEditRoute}
+        onClick={handleEditRouteClick}
         disabled={isEditingExistingRoute || !isEditRouteActionAvailable}
       >
         {drawingMode === Mode.Edit && !isEditingExistingRoute

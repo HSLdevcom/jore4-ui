@@ -196,67 +196,60 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
 
   // The "Edit Route" button has been clicked/toggled ->
   // - start editing the selected route OR
-  // - start editing the just created route OR
-  // - cancel the current edit changes
+  // - start editing the just created route
   const onEditRoute = async () => {
-    if (drawingMode === Mode.Edit) {
-      // Discard unsaved geometry only when leaving existing-route edit mode.
-      if (!creatingNewRoute) {
-        dispatch(resetDraftRouteGeometryAction());
-      }
+    dispatch(startRouteEditingAction());
 
-      dispatch(stopRouteEditingAction());
-    } else {
-      // start editing mode
-      dispatch(startRouteEditingAction());
+    // if editing a route that is just being created, we should already have the line info and the route metadata available
+    if (!selectedRouteId) {
+      dispatch(setRouteToEditModeAction());
+      return;
+    }
 
-      // if editing a route that is just being created, we should already have the line info and the route metadata available
-      if (!selectedRouteId) {
-        dispatch(setRouteToEditModeAction());
-        return;
-      }
+    // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
+    const routeDetailsResult = await getRouteDetailsById({
+      variables: {
+        routeId: selectedRouteId,
+      },
+    });
+    if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
+      throw new Error("Can't find route and line details");
+    }
 
-      // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
-      const routeDetailsResult = await getRouteDetailsById({
-        variables: {
-          routeId: selectedRouteId,
-        },
-      });
-      if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
-        throw new Error("Can't find route and line details");
-      }
+    dispatch(
+      setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),
+    );
+    dispatch(
+      setRouteMetadataAction(
+        mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
+      ),
+    );
 
-      dispatch(
-        setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),
-      );
-      dispatch(
-        setRouteMetadataAction(
-          mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
-        ),
-      );
+    // In our data model route has always exactly one journey pattern
+    const editedRouteJourneyPattern =
+      routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
 
-      // In our data model route has always exactly one journey pattern
-      const editedRouteJourneyPattern =
-        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
+    // Preserve journey pattern stop metadata (e.g. via info)
 
-      // Preserve journey pattern stop metadata (e.g. via info)
-
-      const newJourneyPatternStops =
-        editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns.map(
-          (stopInJourneyPattern) => ({
-            ...stopInJourneyPattern,
-            ...stopInJourneyPatternFieldsToRemove,
-          }),
-        );
-
-      dispatch(
-        setDraftRouteJourneyPatternAction({
-          id: editedRouteJourneyPattern.journey_pattern_id,
-          stops: newJourneyPatternStops,
+    const newJourneyPatternStops =
+      editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns.map(
+        (stopInJourneyPattern) => ({
+          ...stopInJourneyPattern,
+          ...stopInJourneyPatternFieldsToRemove,
         }),
       );
-      dispatch(setRouteToEditModeAction());
-    }
+
+    dispatch(
+      setDraftRouteJourneyPatternAction({
+        id: editedRouteJourneyPattern.journey_pattern_id,
+        stops: newJourneyPatternStops,
+      }),
+    );
+    dispatch(setRouteToEditModeAction());
+  };
+
+  const onStopEditRoute = () => {
+    dispatch(stopRouteEditingAction());
   };
 
   const onCancel = () => {
@@ -324,6 +317,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   useImperativeHandle(externalRef, () => ({
     onDrawRoute,
     onEditRoute,
+    onStopEditRoute,
     onDeleteRoute,
     onCancel,
     onSave,
