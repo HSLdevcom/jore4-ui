@@ -847,6 +847,8 @@
   },
   "map": {
     "map": "Map",
+    "mmlAttributation": "National Land Survey of Finland Topographic Database 01/2026",
+    "digiroadAttributation": "Digiroad, Finnish Transport Agency",
     "open": "Open map",
     "showRoutes": "Show routes",
     "showNetwork": "Show network",
