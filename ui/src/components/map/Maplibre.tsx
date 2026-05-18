@@ -240,7 +240,10 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
       transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
       cursor="auto"
-      attributionControl={false}
+      attributionControl={{
+        compact: true,
+        customAttribution: `<a href="https://vayla.fi/en/transport-network/data/digiroad/data" target="_blank" rel="noopener noreferrer">${t(($) => $.map.digiroadAttributation)}</a>, CC BY 4.0 | <a href="https://www.maanmittauslaitos.fi/en/opendata-licence-cc40" target="_blank" rel="noopener noreferrer">${t(($) => $.map.mmlAttributation)}</a>, CC BY 4.0`,
+      }}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />

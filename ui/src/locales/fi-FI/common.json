@@ -847,6 +847,8 @@
   },
   "map": {
     "map": "Kartta",
+    "mmlAttributation": "Maanmittauslaitoksen Maastotietokanta 01/2026",
+    "digiroadAttributation": "Digiroad, Liikennevirasto",
     "open": "Avaa kartta",
     "showRoutes": "Näytä reitit",
     "showNetwork": "Näytä verkko",
