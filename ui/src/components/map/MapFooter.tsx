@@ -39,6 +39,7 @@ function useActiveModes() {
 type MapFooterProps = {
   readonly onDrawRoute: () => void;
   readonly onEditRoute: () => void;
+  readonly onStopEditRoute: () => void;
   readonly onDeleteRoute: () => void;
   readonly onCancel: () => void;
   readonly onSave: () => void;
@@ -47,6 +48,7 @@ type MapFooterProps = {
 export const MapFooter: FC<MapFooterProps> = ({
   onDrawRoute,
   onEditRoute,
+  onStopEditRoute,
   onDeleteRoute,
   onCancel,
   onSave,
@@ -71,6 +73,7 @@ export const MapFooter: FC<MapFooterProps> = ({
     <MapFooterFullBar
       onDrawRoute={onDrawRoute}
       onEditRoute={onEditRoute}
+      onStopEditRoute={onStopEditRoute}
       onDeleteRoute={onDeleteRoute}
       onCancel={onCancel}
       onSave={onSave}

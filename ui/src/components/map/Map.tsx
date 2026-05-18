@@ -76,6 +76,9 @@ function useRouteEditorImperativeHandle(
     onEditRoute: () => {
       routeEditorRef.current?.onEditRoute();
     },
+    onStopEditRoute: () => {
+      routeEditorRef.current?.onStopEditRoute();
+    },
     onDeleteRoute: () => {
       routeEditorRef.current?.onDeleteRoute();
     },

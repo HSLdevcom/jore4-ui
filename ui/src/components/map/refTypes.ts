@@ -3,6 +3,7 @@ import { MapLayerMouseEvent } from 'maplibre-gl';
 export type RouteEditorRef = {
   readonly onDrawRoute: () => void;
   readonly onEditRoute: () => void;
+  readonly onStopEditRoute: () => void;
   readonly onDeleteRoute: () => void;
   readonly onCancel: () => void;
   readonly onSave: () => void;
