@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -14,7 +14,11 @@ import {
 } from '../../../uiComponents';
 import { showDangerToast, showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
-import { useEditRouteJourneyPattern } from '../edit-route/useEditRouteJourneyPattern';
+import { StopsNeedingUpdateModal } from '../common/StopsNeedingUpdateModal';
+import {
+  UpdateJourneyPatternChanges,
+  useEditRouteJourneyPattern,
+} from '../edit-route/useEditRouteJourneyPattern';
 
 const testIds = {
   menu: 'StopActionsDropdown::menu',
@@ -35,6 +39,7 @@ type StopActionsDropdownProps = {
   readonly tooltip: string;
 };
 
+// TODO: Fix this to be a simple presentation component, and externalize the actial update logic.
 export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
   journeyPatternId,
   scheduledStopPointSequence,
@@ -45,16 +50,16 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
   tooltip,
 }) => {
   const { t } = useTranslation();
+
+  const [pendingChanges, setPendingChanges] =
+    useState<UpdateJourneyPatternChanges | null>(null);
+
   const dispatch = useAppDispatch();
   const { setIsLoading } = useLoader(Operation.UpdateRouteJourneyPattern);
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
 
-  const {
-    prepareAddStopToRoute,
-    prepareDeleteStopFromRoute,
-    mapEditJourneyPatternChangesToVariables,
-    updateRouteGeometryMutation,
-  } = useEditRouteJourneyPattern();
+  const { prepareAddStopToRoute, prepareDeleteStopFromRoute, performUpdate } =
+    useEditRouteJourneyPattern();
 
   const showViaModal = () => {
     if (journeyPatternId) {
@@ -79,18 +84,33 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
     }
   };
 
+  const onCommitUpdate = async (changes: UpdateJourneyPatternChanges) => {
+    setIsLoading(true);
+    setPendingChanges(null);
+
+    try {
+      await performUpdate(changes);
+      showSuccessToast(t(($) => $.routes.saveSuccess));
+    } catch (err) {
+      showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const onAddToRoute = async () => {
     setIsLoading(true);
     try {
-      const changes = prepareAddStopToRoute({
+      const changes = await prepareAddStopToRoute({
         stopPointLabels: [stopLabel],
         route,
       });
 
-      const variables = mapEditJourneyPatternChangesToVariables(changes);
-
-      await updateRouteGeometryMutation(variables, route.route_id);
-      showSuccessToast(t(($) => $.routes.saveSuccess));
+      if (changes.stopsNeedingUpdate.length) {
+        setPendingChanges(changes);
+      } else {
+        await onCommitUpdate(changes);
+      }
     } catch (err) {
       showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);
     }
@@ -100,15 +120,16 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
   const onRemoveFromRoute = async () => {
     setIsLoading(true);
     try {
-      const changes = prepareDeleteStopFromRoute({
+      const changes = await prepareDeleteStopFromRoute({
         stopPointLabels: [stopLabel],
         route,
       });
 
-      const variables = mapEditJourneyPatternChangesToVariables(changes);
-
-      await updateRouteGeometryMutation(variables, route.route_id);
-      showSuccessToast(t(($) => $.routes.saveSuccess));
+      if (changes.stopsNeedingUpdate.length) {
+        setPendingChanges(changes);
+      } else {
+        await onCommitUpdate(changes);
+      }
     } catch (err) {
       showDangerToast(`${t(($) => $.errors.saveFailed)}, '${err}'`);
     }
@@ -116,44 +137,56 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
   };
 
   return (
-    <SimpleDropdownMenu
-      testId={testIds.menu}
-      disabled={isLoading}
-      tooltip={tooltip}
-    >
-      {stopBelongsToJourneyPattern ? (
-        <SimpleDropdownMenuItem
-          onClick={onRemoveFromRoute}
-          text={t(($) => $.stops.removeFromRoute)}
-          testId={testIds.removeStop}
-        />
-      ) : (
-        <SimpleDropdownMenuItem
-          onClick={onAddToRoute}
-          text={t(($) => $.stops.addToRoute)}
-          testId={testIds.addStop}
-        />
-      )}
-      {isViaPoint ? (
-        <SimpleDropdownMenuItem
-          onClick={showViaModal}
-          text={t(($) => $.viaModal.editViaPoint)}
-          testId={testIds.editViaPoint}
-        />
-      ) : (
+    <>
+      {' '}
+      <SimpleDropdownMenu
+        testId={testIds.menu}
+        disabled={isLoading}
+        tooltip={tooltip}
+      >
+        {stopBelongsToJourneyPattern ? (
+          <SimpleDropdownMenuItem
+            onClick={onRemoveFromRoute}
+            text={t(($) => $.stops.removeFromRoute)}
+            testId={testIds.removeStop}
+          />
+        ) : (
+          <SimpleDropdownMenuItem
+            onClick={onAddToRoute}
+            text={t(($) => $.stops.addToRoute)}
+            testId={testIds.addStop}
+          />
+        )}
+        {isViaPoint ? (
+          <SimpleDropdownMenuItem
+            onClick={showViaModal}
+            text={t(($) => $.viaModal.editViaPoint)}
+            testId={testIds.editViaPoint}
+          />
+        ) : (
+          <SimpleDropdownMenuItem
+            disabled={!stopBelongsToJourneyPattern}
+            onClick={showViaModal}
+            text={t(($) => $.viaModal.createViaPoint)}
+            testId={testIds.createViaPoint}
+          />
+        )}
         <SimpleDropdownMenuItem
           disabled={!stopBelongsToJourneyPattern}
-          onClick={showViaModal}
-          text={t(($) => $.viaModal.createViaPoint)}
-          testId={testIds.createViaPoint}
+          onClick={showTimingSettingsModal}
+          text={t(($) => $.timingSettingsModal.timingSettings)}
+          testId={testIds.openTimingSettings}
         />
-      )}
-      <SimpleDropdownMenuItem
-        disabled={!stopBelongsToJourneyPattern}
-        onClick={showTimingSettingsModal}
-        text={t(($) => $.timingSettingsModal.timingSettings)}
-        testId={testIds.openTimingSettings}
-      />
-    </SimpleDropdownMenu>
+      </SimpleDropdownMenu>
+      {pendingChanges ? (
+        <StopsNeedingUpdateModal
+          onCancel={() => setPendingChanges(null)}
+          onConfirm={() => onCommitUpdate(pendingChanges)}
+          isOpen
+          stops={pendingChanges.stopsNeedingUpdate}
+          typeOfLine={route.route_line.type_of_line}
+        />
+      ) : null}
+    </>
   );
 };

@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate } from 'react-router';
 import {
   LineAllFieldsFragment,
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
-import { useRequiredParams } from '../../../hooks';
+import { useNavigateBackSafely, useRequiredParams } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
+import { Operation } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
 import {
@@ -16,81 +16,134 @@ import {
   showSuccessToast,
 } from '../../../utils';
 import { PageTitle } from '../../common';
+import { useLoader } from '../../common/hooks';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
-import { useEditLine } from './useEditLine';
+import { getBlockers, hasBlockers } from '../common/SaveBlockers';
+import { StopsNeedingUpdateModal } from '../common/StopsNeedingUpdateModal';
+import { useUpdateStopRegistryStopMetatype } from '../common/useUpdateStopRegistryStopMetatype';
+import { EditLineChanges, useEditLine } from './useEditLine';
 
-const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
-  label: line.label,
-  description: line.description ?? undefined,
-  versionComment: '',
-  name: defaultLocalizedString(line.name_i18n),
-  shortName: defaultLocalizedString(line.short_name_i18n),
-  primaryVehicleMode: line.primary_vehicle_mode,
-  priority: line.priority,
-  transportTarget: line.transport_target,
-  typeOfLine: line.type_of_line,
-  validityStart: mapToISODate(line.validity_start) ?? '',
-  validityEnd: mapToISODate(line.validity_end) ?? '',
-  indefinite: !line.validity_end,
-});
+function mapLineToFormState(line: LineAllFieldsFragment): FormState {
+  return {
+    label: line.label,
+    description: line.description ?? undefined,
+    versionComment: '',
+    name: defaultLocalizedString(line.name_i18n),
+    shortName: defaultLocalizedString(line.short_name_i18n),
+    primaryVehicleMode: line.primary_vehicle_mode,
+    priority: line.priority,
+    transportTarget: line.transport_target,
+    typeOfLine: line.type_of_line,
+    validityStart: mapToISODate(line.validity_start) ?? '',
+    validityEnd: mapToISODate(line.validity_end) ?? '',
+    indefinite: !line.validity_end,
+  };
+}
 
 export const EditLinePage: FC = () => {
-  const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
-  const [conflicts, setConflicts] = useState<
-    ReadonlyArray<LineAllFieldsFragment>
-  >([]);
+  const { t } = useTranslation();
+
+  const { id } = useRequiredParams<{ id: string }>();
+  const navigateBack = useNavigateBackSafely();
+
+  const { setIsLoading } = useLoader(Operation.UpdateLine);
+
+  // Needed to disable the rendering of the actual form element,
+  // that blocks navigation after save.
+  const [saved, setSaved] = useState<boolean>(false);
+  const [pendingEditChanges, setPendingEditChanges] =
+    useState<EditLineChanges | null>(null);
+
   const {
     prepareEdit,
     mapEditChangesToVariables,
     editLineMutation,
     defaultErrorHandler,
   } = useEditLine();
+  const updateStopRegistryStopMetatype = useUpdateStopRegistryStopMetatype();
 
-  const { id } = useRequiredParams<{ id: string }>();
-  const lineDetailsResult = useGetLineDetailsByIdQuery(
-    mapToVariables({ line_id: id }),
+  const line = mapLineDetailsResult(
+    // Instead of subscribing to cache changes, we should only fetch the data once.
+    useGetLineDetailsByIdQuery(mapToVariables({ line_id: id })),
   );
-  const line = mapLineDetailsResult(lineDetailsResult);
-  const { t } = useTranslation();
 
-  const onSubmit = async (form: FormState) => {
+  const onCommitEditChanges = async (changes: EditLineChanges) => {
+    setIsLoading(true);
     try {
-      const changes = await prepareEdit({ lineId: id, form });
-      if (changes.conflicts?.length) {
-        setConflicts(changes.conflicts);
-        return;
-      }
-      const variables = mapEditChangesToVariables(changes);
-      await editLineMutation({ variables });
-      setHasFinishedEditing(true);
+      setPendingEditChanges(null);
+
+      await editLineMutation({ variables: mapEditChangesToVariables(changes) });
+      await updateStopRegistryStopMetatype(changes.stopsNeedingUpdate);
+
+      // Mark the line as saved
+      setSaved(true);
       showSuccessToast(t(($) => $.lines.saveSuccess));
+
+      // Navigate back to the previous page after this page has re-rendered.
+      setTimeout(
+        () =>
+          navigateBack(routeDetails[Path.lineDetails].getLink(id), {
+            replace: true,
+          }),
+        0,
+      );
     } catch (err) {
       defaultErrorHandler(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  if (hasFinishedEditing) {
-    // if line was successfully edited, redirect to its page
-    return (
-      <Navigate to={{ pathname: routeDetails[Path.lineDetails].getLink(id) }} />
-    );
-  }
+  const onSubmit = async (form: FormState) => {
+    setIsLoading(true);
+    try {
+      const changes = await prepareEdit({ lineId: id, form });
+
+      if (hasBlockers(changes)) {
+        setPendingEditChanges(changes);
+      } else {
+        await onCommitEditChanges(changes);
+      }
+    } catch (err) {
+      defaultErrorHandler(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const pageTitleText = t(($) => $.lines.line, {
     label: line?.label,
   });
 
+  const blockers = getBlockers(pendingEditChanges);
+
   return (
     <div>
-      <ConflictResolverModal
-        onClose={() => setConflicts([])}
-        conflicts={conflicts.map(mapLineToCommonConflictItem)}
-      />
+      {pendingEditChanges ? (
+        <>
+          <ConflictResolverModal
+            isOpen={blockers.hasConflicts}
+            onClose={() => setPendingEditChanges(null)}
+            conflicts={pendingEditChanges.conflicts.map(
+              mapLineToCommonConflictItem,
+            )}
+          />
+
+          <StopsNeedingUpdateModal
+            isOpen={!blockers.hasConflicts && blockers.hasStopsNeedingUpdate}
+            onCancel={() => setPendingEditChanges(null)}
+            onConfirm={() => onCommitEditChanges(pendingEditChanges)}
+            stops={pendingEditChanges.stopsNeedingUpdate}
+            typeOfLine={pendingEditChanges.patch.type_of_line}
+          />
+        </>
+      ) : null}
+
       <PageHeader>
         <PageTitle.H1 titleText={pageTitleText}>
           <i className="icon-bus-alt text-tweaked-brand" />
@@ -98,7 +151,7 @@ export const EditLinePage: FC = () => {
         </PageTitle.H1>
       </PageHeader>
       <Container>
-        {line && (
+        {line && !saved && (
           <LineForm
             onSubmit={onSubmit}
             defaultValues={mapLineToFormState(line)}

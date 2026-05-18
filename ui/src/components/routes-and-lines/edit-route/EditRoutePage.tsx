@@ -46,11 +46,8 @@ export const EditRoutePage: FC = () => {
   } = useEditRouteMetadata();
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
-  const {
-    prepareDeleteStopFromRoute,
-    mapEditJourneyPatternChangesToVariables,
-    updateRouteGeometryMutation,
-  } = useEditRouteJourneyPattern();
+  const { prepareDeleteStopFromRoute, performUpdate } =
+    useEditRouteJourneyPattern();
   const [conflicts, setConflicts] = useState<
     ReadonlyArray<RouteDefaultFieldsFragment>
   >([]);
@@ -104,12 +101,11 @@ export const EditRoutePage: FC = () => {
   const onRemoveStopsFromRoute = async (form: RouteFormState) => {
     try {
       if (route) {
-        const changes = prepareDeleteStopFromRoute({
+        const changes = await prepareDeleteStopFromRoute({
           route,
           stopPointLabels: draftStops?.map((stop) => stop.label),
         });
-        const variables = mapEditJourneyPatternChangesToVariables(changes);
-        await updateRouteGeometryMutation(variables, route.route_id);
+        await performUpdate(changes);
       }
       onSubmit(form);
     } catch (err) {
