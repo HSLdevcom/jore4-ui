@@ -919,6 +919,13 @@
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versions)",
     "confirmText": "OK"
   },
+  "confirmAutoUpdateStops": {
+    "title": "Changes to Stop details",
+    "bodySpeedTram": "Saving this route will mark the associated Stops as Speed Tram Stops. You can refine this on the Stops details page.",
+    "bodyTrunkLine": "Saving this route will mark the associated Stops as Trunk Line Stops. You can refine this on the Stops details page.",
+    "confirm": "Accept",
+    "failedToUpdate": "Failed to save stops: {{stops}}!"
+  },
   "confirmStopCopyDialog": {
     "title": "Copy stop",
     "description": "Next, place the new stop on the map. The equipment\ninformation for the copied stop will be preserved. You\ncan edit it in the stop equipment information view.",

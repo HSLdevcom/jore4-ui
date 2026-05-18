@@ -919,6 +919,13 @@
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versiota)",
     "confirmText": "OK"
   },
+  "confirmAutoUpdateStops": {
+    "title": "Muutoksia pysäkkien tietoihin",
+    "bodySpeedTram": "Reitin tallennus merkitsee seuraavat pysäkit pikaratikkapysäkeiksi. Voit tarkentaa tätä valintaa pysäkin perustiedoissa.",
+    "bodyTrunkLine": "Reitin tallennus merkitsee seuraavat pysäkit runkolinjapysäkeiksi. Voit tarkentaa tätä valintaa pysäkin perustiedoissa.",
+    "confirm": "Hyväksy",
+    "failedToUpdate": "Pysäkkien ({{stops}}) päivitys epäonnistui!"
+  },
   "confirmStopCopyDialog": {
     "title": "Pysäkki kopioidaan",
     "description": "Sijoita seuraavaksi uusi pysäkki kartalle. Kopioidun\npysäkin varustelutiedot säilyvät. Voit muokata niitä\npysäkin varustelutietonäkymässä.",

@@ -35,38 +35,44 @@ type CommonConflictItem = {
   readonly href?: string;
 };
 
-export const mapRouteToCommonConflictItem = (
+export function mapRouteToCommonConflictItem(
   route: RouteUniqueFieldsFragment,
-): CommonConflictItem => ({
-  validityStart: route.validity_start ?? undefined,
-  validityEnd: route.validity_end ?? undefined,
-  priority: route.priority,
-  label: route.label,
-  variant: route.variant,
-  id: route.route_id,
-  href: routeDetails[Path.editRoute].getLink(route.route_id),
-});
+): CommonConflictItem {
+  return {
+    validityStart: route.validity_start ?? undefined,
+    validityEnd: route.validity_end ?? undefined,
+    priority: route.priority,
+    label: route.label,
+    variant: route.variant,
+    id: route.route_id,
+    href: routeDetails[Path.editRoute].getLink(route.route_id),
+  };
+}
 
-export const mapLineToCommonConflictItem = (
+export function mapLineToCommonConflictItem(
   line: LineDefaultFieldsFragment,
-): CommonConflictItem => ({
-  validityStart: line.validity_start ?? undefined,
-  validityEnd: line.validity_end ?? undefined,
-  priority: line.priority,
-  label: line.label,
-  id: line.line_id,
-  href: routeDetails[Path.lineDetails].getLink(line.line_id),
-});
+): CommonConflictItem {
+  return {
+    validityStart: line.validity_start ?? undefined,
+    validityEnd: line.validity_end ?? undefined,
+    priority: line.priority,
+    label: line.label,
+    id: line.line_id,
+    href: routeDetails[Path.lineDetails].getLink(line.line_id),
+  };
+}
 
-export const mapStopToCommonConflictItem = (
+export function mapStopToCommonConflictItem(
   item: ScheduledStopPointDefaultFieldsFragment,
-): CommonConflictItem => ({
-  validityStart: item.validity_start ?? undefined,
-  validityEnd: item.validity_end ?? undefined,
-  priority: item.priority,
-  label: item.label,
-  id: item.scheduled_stop_point_id,
-});
+): CommonConflictItem {
+  return {
+    validityStart: item.validity_start ?? undefined,
+    validityEnd: item.validity_end ?? undefined,
+    priority: item.priority,
+    label: item.label,
+    id: item.scheduled_stop_point_id,
+  };
+}
 
 type ConflictItemRowProps = {
   readonly item: CommonConflictItem;
@@ -102,18 +108,19 @@ const ConflictItemRow: FC<ConflictItemRowProps> = ({ item }) => {
 };
 
 type ConflictResolverModalProps = {
-  readonly onClose: () => void;
   readonly className?: string;
-  readonly conflicts?: ReadonlyArray<CommonConflictItem>;
+  readonly conflicts: ReadonlyArray<CommonConflictItem>;
+  readonly isOpen?: boolean;
+  readonly onClose: () => void;
 };
 
 export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
   onClose,
   className,
-  conflicts = [],
+  conflicts,
+  isOpen = conflicts.length > 0,
 }) => {
   const { t } = useTranslation();
-  const isOpen = !!conflicts.length;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
