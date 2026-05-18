@@ -6,6 +6,12 @@ projects:
       - 'ui/src/**/*.ts'
       - 'ui/src/**/*.tsx'
     ignore: 'ui/src/generated/*'
+    extensions:
+      endpoints:
+        hasura:
+          url: http://localhost:3201/v1/graphql
+          headers:
+            x-hasura-admin-secret: 'hasura'
 
   tdb:
     schema: 'ui/graphql.schema.json'
