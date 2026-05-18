@@ -240,7 +240,11 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
       transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
       cursor="auto"
-      attributionControl={false}
+      attributionControl={{
+        compact: true,
+        customAttribution:
+          'Digiroad (<a href="https://vayla.fi/en/transport-network/data/digiroad/data" target="_blank" rel="noopener noreferrer">data</a>, CC BY 4.0)',
+      }}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />
