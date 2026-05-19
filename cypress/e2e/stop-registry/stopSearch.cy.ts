@@ -791,6 +791,9 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         'E2E010',
         'E2E011',
         'E2ENQ',
+        'E2ER001',
+        'E2ER002',
+        'E2ER003',
       ]);
     });
 
@@ -1004,7 +1007,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       SortByButton.getButton('label').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       SortByButton.assertSorting('label', 'desc');
-      assertResultOrder(['E2E009', 'E2E008', 'E2E007', 'E2E006', 'E2E005']);
+      assertResultOrder(['E2ER003', 'E2ER002', 'E2ER001', 'E2E009', 'E2E008']);
     });
 
     it('should sort on search for stop areas', () => {
@@ -2196,11 +2199,11 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
       const observationDate = '2025-01-01';
       StopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      StopSearchBar.getSearchInput().type(`*{enter}`);
+      StopSearchBar.getSearchInput().type(`E2E0*{enter}`);
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
-      StopSearchResultsPage.getResultCount().shouldHaveText('14 hakutulosta');
+      StopSearchResultsPage.getResultCount().shouldHaveText('12 hakutulosta');
       StopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
       StopSearchResultsPage.getDownloadInfoSpotDetailsReportButton()
         .shouldBeVisible()

@@ -11,6 +11,7 @@ import {
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
+  StopRegistryTransportModeType,
   TerminalInput,
   seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
@@ -356,6 +357,78 @@ const stopPlaceData: Array<StopAreaInput> = [
         coordinates: [60.16993495, 24.92596546],
         type: StopRegistryGeoJsonType.Point,
       },
+    },
+    organisations: null,
+  },
+  {
+    StopArea: {
+      transportMode: StopRegistryTransportModeType.Tram,
+      privateCode: { type: 'HSL/TEST', value: 'E2ER001' },
+      name: { lang: 'fin', value: 'Tram stop area' },
+      quays: [
+        {
+          publicCode: 'E2ER001',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2ER001,
+          ),
+          keyValues: [
+            { key: KnownValueKey.StreetAddress, values: ['Tram stop area'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2ER001'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
+          ],
+        },
+      ],
+      geometry: coordinatesToStopRegistryGeoJSON(
+        stopCoordinatesByLabel.E2ER001,
+      ),
+    },
+    organisations: null,
+  },
+  {
+    StopArea: {
+      transportMode: StopRegistryTransportModeType.Tram,
+      privateCode: { type: 'HSL/TEST', value: 'E2ER002' },
+      name: { lang: 'fin', value: 'Tram stop area 2' },
+      quays: [
+        {
+          publicCode: 'E2ER002',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2ER002,
+          ),
+          keyValues: [
+            { key: KnownValueKey.StreetAddress, values: ['Tram stop area 2'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2ER002'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
+          ],
+        },
+      ],
+      geometry: coordinatesToStopRegistryGeoJSON(
+        stopCoordinatesByLabel.E2ER002,
+      ),
+    },
+    organisations: null,
+  },
+  {
+    StopArea: {
+      transportMode: StopRegistryTransportModeType.Tram,
+      privateCode: { type: 'HSL/TEST', value: 'E2ER003' },
+      name: { lang: 'fin', value: 'Tram stop area 3' },
+      quays: [
+        {
+          publicCode: 'E2ER003',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2ER003,
+          ),
+          keyValues: [
+            { key: KnownValueKey.StreetAddress, values: ['Tram stop area 3'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2ER003'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
+          ],
+        },
+      ],
+      geometry: coordinatesToStopRegistryGeoJSON(
+        stopCoordinatesByLabel.E2ER003,
+      ),
     },
     organisations: null,
   },

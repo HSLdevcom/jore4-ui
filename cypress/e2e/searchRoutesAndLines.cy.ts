@@ -77,11 +77,12 @@ describe('Verify that route and line search works', rootTags, () => {
     SearchResultsPage.getRoutesResultsButton().click();
     SearchResultsPage.getSearchResultsContainer().should(
       'contain',
-      '2 hakutulosta',
+      '3 hakutulosta',
     );
     SearchResultsPage.getRoutesSearchResultTable()
       .should('contain', 'route 1999')
-      .and('contain', 'route 1888');
+      .and('contain', 'route 1888')
+      .and('contain', 'route 1112');
   });
 
   it(
