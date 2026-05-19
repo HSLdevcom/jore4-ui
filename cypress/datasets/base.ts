@@ -3,6 +3,7 @@ import {
   InfrastructureNetworkDirectionEnum,
   JourneyPatternInsertInput,
   LineInsertInput,
+  ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteInsertInput,
   RouteTypeOfLineEnum,
@@ -27,6 +28,10 @@ export const testInfraLinkExternalIds = [
   '87c2fbd0-697c-460a-ab38-8b0b41eeead1:1', // on Lönnrotinkatu, between Albertinkatu and Abrahaminkatu (one-way)
   'a87caa98-2d9d-45fa-9dff-3909b7d7d763:1', // on Abrahaminkatu, between Lönnrotinkatu and Kalevankatu
   '1b0dcad2-a363-482d-a630-5ef8cfcd0fec:1', // on Kalevankatu, between Abrahaminkatu and Albertinkatu
+  // Tram infrastructure links
+  '2281188169',
+  '2282539251',
+  '2282627150',
 ];
 
 const timingPlaces = [
@@ -48,6 +53,9 @@ export const stopCoordinatesByLabel = {
   E2E009: [24.93877038, 60.16537653, 0],
   E2E010: [24.706945, 60.157696, 0],
   E2E011: [24.920286, 60.176133, 0],
+  E2ER001: [24.90301031, 60.20621707, 0],
+  E2ER002: [24.93878407, 60.19863331, 0],
+  E2ER003: [24.94050752, 60.19760008, 0],
 };
 
 export const buildStopsOnInfraLinks = (
@@ -206,6 +214,55 @@ export const buildStopsOnInfraLinks = (
       coordinates: stopCoordinatesByLabel.E2E011,
     },
   },
+  // Tram stops
+  {
+    ...buildStop({
+      label: 'E2ER001',
+      located_on_infrastructure_link_id: testInfraLinkIds[8],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20'),
+    direction: InfrastructureNetworkDirectionEnum.Forward,
+    scheduled_stop_point_id: '9b6b3e8f-123a-4567-89ab-cdef01234567',
+    measured_location: {
+      type: 'Point',
+      coordinates: stopCoordinatesByLabel.E2ER001,
+    },
+    vehicle_mode_on_scheduled_stop_point: {
+      data: [{ vehicle_mode: ReusableComponentsVehicleModeEnum.Tram }],
+    },
+  },
+  {
+    ...buildStop({
+      label: 'E2ER002',
+      located_on_infrastructure_link_id: testInfraLinkIds[9],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20'),
+    direction: InfrastructureNetworkDirectionEnum.Forward,
+    scheduled_stop_point_id: '8a7c6d5e-234b-5678-9abc-def012345678',
+    measured_location: {
+      type: 'Point',
+      coordinates: stopCoordinatesByLabel.E2ER002,
+    },
+    vehicle_mode_on_scheduled_stop_point: {
+      data: [{ vehicle_mode: ReusableComponentsVehicleModeEnum.Tram }],
+    },
+  },
+  {
+    ...buildStop({
+      label: 'E2ER003',
+      located_on_infrastructure_link_id: testInfraLinkIds[10],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20'),
+    direction: InfrastructureNetworkDirectionEnum.Forward,
+    scheduled_stop_point_id: '7b8d9e0f-345c-6789-abcd-ef0123456789',
+    measured_location: {
+      type: 'Point',
+      coordinates: stopCoordinatesByLabel.E2ER003,
+    },
+    vehicle_mode_on_scheduled_stop_point: {
+      data: [{ vehicle_mode: ReusableComponentsVehicleModeEnum.Tram }],
+    },
+  },
 ];
 
 const lines: LineInsertInput[] = [
@@ -268,6 +325,15 @@ const lines: LineInsertInput[] = [
     validity_start: null,
     validity_end: null,
   },
+
+  // Tram line
+  {
+    ...buildLine({ label: '8543' }),
+    line_id: 'cc143f94-b6f4-4eef-a8f4-f3705d6d141a',
+    primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Tram,
+    type_of_line: RouteTypeOfLineEnum.CityTramService,
+    validity_start: DateTime.fromISO('2022-01-01'),
+  },
 ];
 
 export const routes: RouteInsertInput[] = [
@@ -287,6 +353,16 @@ export const routes: RouteInsertInput[] = [
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11'),
     validity_end: DateTime.fromISO('2032-08-11'),
+  },
+
+  // Tram route
+  {
+    ...buildRoute({ label: '1112' }),
+    route_id: 'a7e51bd8-0ebc-4e39-9f25-3b8b3cc09514',
+    direction: RouteDirectionEnum.Outbound,
+    on_line_id: lines[8].line_id,
+    validity_start: lines[8].validity_start,
+    validity_end: lines[8].validity_end,
   },
 
   // Raw routes
@@ -339,6 +415,10 @@ export const journeyPatterns: JourneyPatternInsertInput[] = [
   {
     journey_pattern_id: '940eda2f-c9b3-42ce-879e-01e8ac4c5326',
     on_route_id: routes[1].route_id,
+  },
+  {
+    journey_pattern_id: '97331fc1-35e8-4005-b668-efbf873d63e0',
+    on_route_id: routes[2].route_id,
   },
 ];
 
@@ -407,9 +487,32 @@ export const stopsInJourneyPattern901Inbound = [
     isUsedAsTimingPoint: true,
   }),
 ];
+
+export const stopsInJourneyPattern111Outbound = [
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[2].journey_pattern_id,
+    stopLabel: 'E2ER001',
+    scheduledStopPointSequence: 0,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[2].journey_pattern_id,
+    stopLabel: 'E2ER002',
+    scheduledStopPointSequence: 1,
+    isUsedAsTimingPoint: false,
+  }),
+  buildStopInJourneyPattern({
+    journeyPatternId: journeyPatterns[2].journey_pattern_id,
+    stopLabel: 'E2ER003',
+    scheduledStopPointSequence: 2,
+    isUsedAsTimingPoint: false,
+  }),
+];
+
 const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
   ...stopsInJourneyPattern901Outbound,
   ...stopsInJourneyPattern901Inbound,
+  ...stopsInJourneyPattern111Outbound,
 ];
 
 export const buildInfraLinksAlongRoute = (
@@ -492,6 +595,25 @@ export const buildInfraLinksAlongRoute = (
     infrastructure_link_id: infrastructureLinkIds[0],
     infrastructure_link_sequence: 6,
     is_traversal_forwards: false,
+  },
+  // Tram route 1112
+  {
+    route_id: routes[2].route_id,
+    infrastructure_link_id: infrastructureLinkIds[8],
+    infrastructure_link_sequence: 0,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[2].route_id,
+    infrastructure_link_id: infrastructureLinkIds[9],
+    infrastructure_link_sequence: 1,
+    is_traversal_forwards: true,
+  },
+  {
+    route_id: routes[2].route_id,
+    infrastructure_link_id: infrastructureLinkIds[10],
+    infrastructure_link_sequence: 2,
+    is_traversal_forwards: true,
   },
 ];
 
