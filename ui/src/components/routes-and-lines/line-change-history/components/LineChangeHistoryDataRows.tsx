@@ -1,35 +1,13 @@
 import { FC } from 'react';
 import { GetUserNameById } from '../../../../hooks';
 import { PagingInfo } from '../../../../types';
-import { NoEarlierVersionExists } from '../../../common/ChangeHistory';
-import { LineChangeHistoryItem, PreviousLineChangeHistoryItem } from '../types';
+import { LineChangeHistoryItem } from '../types';
+import { findPreviousLineHistoryItemVersion } from '../utils';
 import { LineChangeHistoryItemSections } from './LineChangeHistoryItem';
 
 const testIds = {
   group: (id: string) => `ChangeHistory::Group::${id}`,
 };
-
-function findPreviousVersion(
-  historyItemsSortedByVersion: ReadonlyArray<LineChangeHistoryItem>,
-  item: LineChangeHistoryItem,
-): PreviousLineChangeHistoryItem {
-  if (item.tgOperation === 'INSERT') {
-    return NoEarlierVersionExists;
-  }
-
-  const previous = historyItemsSortedByVersion.find(
-    (other) =>
-      other.id < item.id &&
-      other.lineId === item.lineId &&
-      other.routeId === item.routeId,
-  );
-
-  if (previous) {
-    return previous;
-  }
-
-  throw new Error('Unable to find previous version!');
-}
 
 type LineChangeHistoryDataRowsProps = {
   readonly getUserNameById: GetUserNameById;
@@ -62,7 +40,10 @@ export const LineChangeHistoryDataRows: FC<LineChangeHistoryDataRowsProps> = ({
       <LineChangeHistoryItemSections
         getUserNameById={getUserNameById}
         historyItem={historyItem}
-        previousHistoryItem={findPreviousVersion(historyItems, historyItem)}
+        previousHistoryItem={findPreviousLineHistoryItemVersion(
+          historyItems,
+          historyItem,
+        )}
       />
     </tbody>
   ));

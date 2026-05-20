@@ -277,12 +277,7 @@ type GetLineChangeHistoryOptions = {
   readonly sortingInfo: ChangeHistorySortingInfo;
 };
 
-export function useGetLineChangeHistoryItems({
-  filters,
-  getUserNameById,
-  label,
-  sortingInfo,
-}: GetLineChangeHistoryOptions) {
+function useGetLineChangeHistoryItemsSortedByVersion(label: string) {
   const { data, ...rest } = useGetLineChangeHistoryQuery({
     variables: { label },
   });
@@ -295,12 +290,44 @@ export function useGetLineChangeHistoryItems({
     [data],
   );
 
+  return { ...rest, historyItems };
+}
+
+export function useGetLineChangeHistoryItems({
+  filters,
+  getUserNameById,
+  label,
+  sortingInfo,
+}: GetLineChangeHistoryOptions) {
+  const base = useGetLineChangeHistoryItemsSortedByVersion(label);
+
   const sortedHistoryItems: ReadonlyArray<LineChangeHistoryItem> =
-    useSortHistoryItems(historyItems, filters, sortingInfo, getUserNameById);
+    useSortHistoryItems(
+      base.historyItems,
+      filters,
+      sortingInfo,
+      getUserNameById,
+    );
 
   return {
-    ...rest,
-    historyItems,
+    ...base,
     sortedHistoryItems,
+  };
+}
+
+const latestChangesLimit = 3;
+const compareByChangedTime = sortByChangedTime(SortOrder.DESCENDING);
+
+export function useGetLatestLineChangeHistory(label: string) {
+  const base = useGetLineChangeHistoryItemsSortedByVersion(label);
+  return {
+    ...base,
+    latestHistoryItems: useMemo(
+      () =>
+        base.historyItems
+          .toSorted(compareByChangedTime)
+          .slice(0, latestChangesLimit),
+      [base.historyItems],
+    ),
   };
 }
