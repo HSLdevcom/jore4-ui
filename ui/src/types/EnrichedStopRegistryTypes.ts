@@ -64,6 +64,7 @@ export type QuayEnrichmentProperties = {
   readonly stopType: {
     readonly virtual: boolean;
     readonly railReplacement: boolean;
+    readonly trunkLineStop: boolean;
   };
   readonly validityStart: string | null;
   readonly validityEnd: string | null;
