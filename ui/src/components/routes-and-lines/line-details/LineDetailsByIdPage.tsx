@@ -15,6 +15,7 @@ import { Priority } from '../../../types/enums';
 import { isPastEntity } from '../../../utils';
 import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { PageHeader } from '../common/PageHeader';
+import { LineLatestChanges } from '../line-change-history/components/latest-change-history/LineLatestChanges';
 import { TimingSettingsModal } from '../stop-timing-settings/TimingSettingsModal';
 import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
@@ -83,8 +84,9 @@ export const LineDetailsByIdPage: FC = () => {
         {line ? (
           <>
             <Row>
-              <AdditionalInformation className="w-2/3" line={line} />
-              <MapPreview className="w-1/3" />
+              <AdditionalInformation className="w-2/4" line={line} />
+              <LineLatestChanges className="w-1/4" label={line.label} />
+              <MapPreview className="w-1/4" />
             </Row>
             <Row>
               <Column className="w-full">
