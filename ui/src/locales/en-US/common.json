@@ -256,7 +256,8 @@
   },
   "stopPlaceTypes": {
     "railReplacement": "Rail replacement",
-    "virtual": "Virtual"
+    "virtual": "Virtual",
+    "trunkLineStop": "Trunk line stop"
   },
   "stopDetails": {
     "stopDetails": "Stop details",

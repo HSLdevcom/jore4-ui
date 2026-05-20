@@ -256,7 +256,8 @@
   },
   "stopPlaceTypes": {
     "railReplacement": "Raideliikennettä korvaava",
-    "virtual": "Virtuaalipysäkki"
+    "virtual": "Virtuaalipysäkki",
+    "trunkLineStop": "Runkolinjapysäkki"
   },
   "stopDetails": {
     "stopDetails": "Pysäkkitiedot",

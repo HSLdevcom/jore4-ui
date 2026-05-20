@@ -260,6 +260,7 @@ export const getQuayDetailsForEnrichment = <
       virtual: findKeyValue(quay, KnownValueKey.Virtual) === 'true',
       railReplacement:
         findKeyValue(quay, KnownValueKey.RailReplacement) === 'true',
+      trunkLineStop: findKeyValue(quay, KnownValueKey.TrunkLineStop) === 'true',
     },
     validityStart: findKeyValue(quay, KnownValueKey.ValidityStart),
     validityEnd: findKeyValue(quay, KnownValueKey.ValidityEnd),

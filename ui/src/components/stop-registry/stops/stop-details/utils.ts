@@ -21,6 +21,7 @@ export const translateStopTypes = (
   const result = compact([
     quay.stopType.railReplacement && t(($) => $.stopPlaceTypes.railReplacement),
     quay.stopType.virtual && t(($) => $.stopPlaceTypes.virtual),
+    quay.stopType.trunkLineStop && t(($) => $.stopPlaceTypes.trunkLineStop),
   ])
     // Uncapitalize each translation.
     .map((stopType) => stopType.charAt(0).toLowerCase() + stopType.slice(1))
