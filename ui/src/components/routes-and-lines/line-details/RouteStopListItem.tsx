@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdHistory } from 'react-icons/md';
+import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import {
   RouteStopFieldsFragment,
@@ -111,8 +112,8 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
       data-testid={testIds.container}
     >
       <div className="col-span-3 items-center justify-center text-center text-2xl">
-        <a
-          href={routeDetails[Path.stopDetails].getLink(stop.label, {
+        <Link
+          to={routeDetails[Path.stopDetails].getLink(stop.label, {
             observationDate,
           })}
           data-testid={testIds.label}
@@ -121,7 +122,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
           })}
         >
           {stop.label}
-        </a>
+        </Link>
       </div>
       <div className="col-span-9 flex items-center" data-testid={testIds.name}>
         <span>{stop.stop_place?.at(0)?.name?.value ?? '-'}</span>
