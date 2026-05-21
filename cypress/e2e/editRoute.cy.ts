@@ -1,7 +1,10 @@
 import {
   Priority,
   RouteDirectionEnum,
+  RouteInsertInput,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
+import identity from 'lodash/identity';
+import range from 'lodash/range';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
@@ -9,20 +12,26 @@ import {
   getClonedBaseDbResources,
   testInfraLinkExternalIds,
 } from '../datasets/base';
+import { getClonedBaseStopRegistryData } from '../datasets/stopRegistry';
 import { Tag } from '../enums';
 import {
+  BasicDetailsViewCard,
   ConfirmationDialog,
   EditRoutePage,
   LineChangeHistory,
   LineDetailsPage,
+  LineForm,
+  LineRouteList,
   RouteRow,
+  StopsNeedingUpdateModal,
   TerminusNameInputs,
   Toast,
   ValidityPeriodForm,
 } from '../pageObjects';
 import { UUID } from '../types';
-import { SupportedResources, insertToDbHelper } from '../utils';
+import { SupportedResources, insertToDbHelper, mapAt } from '../utils';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';
+import { InsertedStopRegistryIds } from './utils';
 
 describe('Route editing', { tags: [Tag.Routes] }, () => {
   let dbResources: SupportedResources;
@@ -336,6 +345,169 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
           'contain',
           'Jos haluat pysäkit mukaan reitille, säädä ensin niiden prioriteetti vastaamaan reittiä.',
         );
+    });
+  });
+
+  describe('Trunk Line bus Route', () => {
+    const { lineRouteListItem } = LineRouteList;
+    const { routeRow, routeStopListItem } = lineRouteListItem;
+
+    function buildTestData(infraLinkIds: ReadonlyArray<UUID>) {
+      const stops = buildStopsOnInfraLinks(infraLinkIds);
+      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
+      return {
+        ...getClonedBaseDbResources(),
+        stops,
+        infraLinksAlongRoute,
+      };
+    }
+
+    function initTrunkLineTest(
+      editResources: (
+        resources: ReturnType<typeof buildTestData>,
+      ) => SupportedResources = identity,
+    ) {
+      cy.task<UUID[]>(
+        'getInfrastructureLinkIdsByExternalIds',
+        testInfraLinkExternalIds,
+      )
+        .then(buildTestData)
+        .then(editResources)
+        .then((testResources) => {
+          cy.task('resetDbs');
+          insertToDbHelper(testResources);
+
+          cy.task<InsertedStopRegistryIds>(
+            'insertStopRegistryData',
+            getClonedBaseStopRegistryData(),
+          );
+
+          cy.setupTests();
+          cy.mockLogin();
+        });
+    }
+
+    function setRouteToDraft(route: RouteInsertInput): RouteInsertInput {
+      return { ...route, priority: Priority.Draft };
+    }
+
+    function setLineTypeToTrunkLineType() {
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.selectLineType('Runkolinja');
+      LineForm.save();
+    }
+
+    function addExcludedStopToRoute() {
+      LineRouteList.getShowUnusedStopsSwitch().click();
+
+      LineRouteList.getNthLineRouteListItem(1).within(() => {
+        routeRow.getToggleAccordionButton().click();
+
+        lineRouteListItem
+          .getNthRouteStopListItem(4)
+          .should('contain', 'E2E010')
+          .and('contain', 'Ei reitin käytössä');
+
+        // Add E2E010 to the route
+        lineRouteListItem.getNthRouteStopListItem(4).within(() => {
+          routeStopListItem.getStopActionsDropdown().click();
+          cy.withinHeadlessPortal(() =>
+            routeStopListItem.stopActionsDropdown
+              .getAddStopToRouteButton()
+              .click(),
+          );
+        });
+      });
+    }
+
+    function assertStopsAreTrunkLine(areTrunkLine: boolean) {
+      const expectedContent = areTrunkLine ? 'Runkolinjapysäkki' : '-';
+
+      LineRouteList.getNthLineRouteListItem(1).within(() => {
+        lineRouteListItem
+          .getNthRouteStopListItem(0)
+          .within(() => lineRouteListItem.getLabel().click());
+      });
+
+      BasicDetailsViewCard.getStopType()
+        .shouldBeVisible()
+        .shouldHaveText(expectedContent);
+      cy.go(-1);
+
+      LineRouteList.getNthLineRouteListItem(1).within(() => {
+        routeRow.getToggleAccordionButton().click();
+
+        lineRouteListItem
+          .getNthRouteStopListItem(4)
+          .within(() => lineRouteListItem.getLabel().click());
+      });
+
+      BasicDetailsViewCard.getStopType()
+        .shouldBeVisible()
+        .shouldHaveText(expectedContent);
+    }
+
+    it('Should not update stop Trunk Line status for Draft route', () => {
+      cy.section('Init test data', () => {
+        initTrunkLineTest((resources) => ({
+          ...resources,
+          routes: mapAt(resources.routes, {
+            0: setRouteToDraft,
+            1: setRouteToDraft,
+          }),
+        }));
+      });
+
+      LineDetailsPage.visit(baseDbResources.lines[0].line_id);
+
+      cy.section('Change line type to Trunk Line', () => {
+        setLineTypeToTrunkLineType();
+        LineForm.checkLineSubmitSuccess();
+      });
+
+      LineDetailsPage.getShowDraftsButton().click();
+
+      cy.section('Toggle a stop onto a Trunk Line', () => {
+        addExcludedStopToRoute();
+        Toast.expectSuccessToast('Reitti tallennettu');
+      });
+
+      cy.section('Assert stop Trunk Line status', () =>
+        assertStopsAreTrunkLine(false),
+      );
+    });
+
+    it('Should update stop Trunk Line status for non Draft route', () => {
+      cy.section('Init test data', () => initTrunkLineTest());
+
+      LineDetailsPage.visit(baseDbResources.lines[0].line_id);
+
+      cy.section('Change line type to Trunk Line', () => {
+        setLineTypeToTrunkLineType();
+
+        StopsNeedingUpdateModal.getModal().shouldBeVisible();
+        range(1, 10).forEach((i) =>
+          StopsNeedingUpdateModal.getStopLink(`E2E00${i}`).shouldBeVisible(),
+        );
+        StopsNeedingUpdateModal.getConfirmButton().click();
+
+        LineForm.checkLineSubmitSuccess();
+      });
+
+      cy.section('Toggle a stop onto a Trunk Line', () => {
+        addExcludedStopToRoute();
+
+        StopsNeedingUpdateModal.getModal().shouldBeVisible();
+        StopsNeedingUpdateModal.getStopLink('E2E010').shouldBeVisible();
+        StopsNeedingUpdateModal.getConfirmButton().click();
+
+        Toast.expectSuccessToast('Reitti tallennettu');
+      });
+
+      cy.section('Assert stop Trunk Line status', () =>
+        assertStopsAreTrunkLine(true),
+      );
     });
   });
 });
