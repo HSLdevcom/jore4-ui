@@ -51,7 +51,7 @@ export const stopCoordinatesByLabel = {
 };
 
 export const buildStopsOnInfraLinks = (
-  testInfraLinkIds: UUID[],
+  testInfraLinkIds: ReadonlyArray<UUID>,
 ): StopInsertInput[] => [
   // Stops along test route 901 Outbound
   {
@@ -413,7 +413,7 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
 ];
 
 export const buildInfraLinksAlongRoute = (
-  infrastructureLinkIds: UUID[],
+  infrastructureLinkIds: ReadonlyArray<UUID>,
 ): InfraLinkAlongRouteInsertInput[] => [
   {
     route_id: routes[0].route_id,

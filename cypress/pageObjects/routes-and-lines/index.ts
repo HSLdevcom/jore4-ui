@@ -11,4 +11,5 @@ export * from './RouteStopListItem';
 export * from './RoutesAndLinesPage';
 export * from './SearchContainer';
 export * from './SearchResultsPage';
+export * from './StopsNeedingUpdateModal';
 export * from './line-details-page';
