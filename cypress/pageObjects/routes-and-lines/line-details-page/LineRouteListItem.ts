@@ -13,4 +13,8 @@ export class LineRouteListItem {
   static getNthRouteStopListItem(nth: number) {
     return LineRouteListItem.getRouteStopListItems().eq(nth);
   }
+
+  static getLabel() {
+    return cy.getByTestId('RouteStopListItem::label');
+  }
 }
