@@ -39,4 +39,15 @@ export class LineDetailsPage {
   static getChangeHistoryLink() {
     return cy.getByTestId('LineTitle::changeHistoryLink');
   }
+
+  static latestChangeHistory = {
+    container: () => cy.getByTestId('LatestLineChangeHistoryTable::Container'),
+    title: () => cy.getByTestId('LatestLineChangeHistoryTable::Title'),
+    showAllLink: () =>
+      cy.getByTestId('LatestLineChangeHistoryTable::ShowAllLink'),
+    getItems: () =>
+      cy.get('[data-testid^="LatestLineChangeHistoryTable::Item"]'),
+    getNthItem: (index: number) =>
+      cy.get('[data-testid^="LatestLineChangeHistoryTable::Item"]').eq(index),
+  };
 }
