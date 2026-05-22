@@ -515,4 +515,66 @@ describe('Line & Route Change History', { tags }, () => {
       .getAllGroupElements()
       .should('have.length', 0);
   });
+
+  it('Should display 3 latest change history items on line details page', () => {
+    cy.section('Verify initial state', () => {
+      LineDetailsPage.latestChangeHistory.container().shouldBeVisible();
+      LineDetailsPage.latestChangeHistory
+        .title()
+        .shouldBeVisible()
+        .should('contain.text', 'Muutoshistoria');
+
+      LineDetailsPage.latestChangeHistory.getItems().should('have.length', 3);
+    });
+
+    cy.section('Make multiple changes to create history', () => {
+      // Change 1
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getFinnishNameInput().clearAndType('First change');
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
+
+      // Change 2
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getFinnishNameInput().clearAndType('Second change');
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
+
+      // Change 3
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getFinnishNameInput().clearAndType('Third change');
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
+
+      // Change 4 to ensure only 3 latest changes are shown
+      LineDetailsPage.getEditLineButton().click();
+      LineForm.getFinnishNameInput().clearAndType('Fourth change');
+      LineForm.save();
+      LineForm.checkLineSubmitSuccess();
+    });
+
+    cy.section('Verify 3 latest changes are displayed', () => {
+      LineDetailsPage.latestChangeHistory.getItems().should('have.length', 3);
+
+      LineDetailsPage.latestChangeHistory
+        .getNthItem(0)
+        .should('contain.text', 'Linja 901')
+        .and('contain.text', 'Fourth change');
+
+      LineDetailsPage.latestChangeHistory
+        .getNthItem(1)
+        .should('contain.text', 'Linja 901')
+        .and('contain.text', 'Third change');
+
+      LineDetailsPage.latestChangeHistory
+        .getNthItem(2)
+        .should('contain.text', 'Linja 901')
+        .and('contain.text', 'Second change');
+    });
+
+    cy.section('Verify "Show all" link', () => {
+      LineDetailsPage.latestChangeHistory.showAllLink().click();
+      cy.url().should('include', '/lines/901/history');
+    });
+  });
 });
