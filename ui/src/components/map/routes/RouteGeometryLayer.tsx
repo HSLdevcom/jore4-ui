@@ -1,6 +1,8 @@
 import { FC } from 'react';
+import { useMap } from 'react-map-gl/maplibre';
 import { theme } from '../../../generated/theme';
 import { ArrowLayout, ArrowPaint, ArrowRenderLayer } from './ArrowRenderLayer';
+import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import { LinePaint, LineRenderLayer } from './LineRenderLayer';
 import {
   NEW_ROUTE_ARROWS_ID,
@@ -25,7 +27,12 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
   defaultColor = colors.routes.bus,
   isHighlighted,
 }) => {
-  const beforeId = isHighlighted ? undefined : 'route_base';
+  const { current: map } = useMap();
+  const hasActiveLineStrokeLayer = !!map?.getLayer(ACTIVE_LINE_STROKE_ID);
+  const beforeId =
+    isHighlighted && hasActiveLineStrokeLayer
+      ? ACTIVE_LINE_STROKE_ID
+      : 'route_base';
 
   const color = isHighlighted ? colors.selectedMapItem : defaultColor;
 
