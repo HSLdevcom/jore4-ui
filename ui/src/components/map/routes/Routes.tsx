@@ -5,6 +5,7 @@ import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import {
   Mode,
+  selectEditedRouteData,
   selectHasDraftRouteGeometry,
   selectMapRouteEditor,
   selectSelectedRouteId,
@@ -29,10 +30,14 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { drawingMode, creatingNewRoute } =
     useAppSelector(selectMapRouteEditor);
+  const { id: editedRouteId } = useAppSelector(selectEditedRouteData);
+  const isEditingExistingRoute = drawingMode === Mode.Edit && !creatingNewRoute;
 
-  const renderedRouteIds = selectedRouteId
-    ? uniq([...displayedRouteIds, selectedRouteId])
-    : displayedRouteIds;
+  const renderedRouteIds = uniq([
+    ...displayedRouteIds,
+    ...(selectedRouteId ? [selectedRouteId] : []),
+    ...(isEditingExistingRoute && editedRouteId ? [editedRouteId] : []),
+  ]);
 
   return (
     <>
@@ -54,8 +59,9 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
             key={item}
             routeId={item}
             isSelected={
-              selectedRouteId === item &&
-              ((drawingMode === Mode.Edit && !creatingNewRoute) ||
+              (isEditingExistingRoute && editedRouteId === item) ||
+              (!isEditingExistingRoute &&
+                selectedRouteId === item &&
                 !hasDraftRouteGeometry)
             }
           />
