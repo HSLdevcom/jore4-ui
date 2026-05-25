@@ -38,11 +38,11 @@ type ValueOf<T> = T[keyof T];
 
 // Trick for fixing a known issue with isArray handling of ReadonlyArrays in Typescript
 // https://github.com/microsoft/TypeScript/issues/17002
-type ArrayConstructor = {
+interface ArrayConstructor {
   isArray<T = unknown>(
     arg: ReadonlyArray<T> | unknown,
   ): arg is ReadonlyArray<T>;
-};
+}
 
 // Global window interface extension for Cypress testing utilities
 interface Window {

@@ -135,13 +135,18 @@ export class AsyncTaskCancelledError extends Error {
     }
 
     if ('errors' in error && Array.isArray(error.errors)) {
-      return error.errors.find(AsyncTaskCancelledError.existsInErrorChain);
+      return (
+        error.errors.find(AsyncTaskCancelledError.isAsyncTaskCancelledError) ??
+        null
+      );
     }
 
     return null;
   }
 
-  static existsInErrorChain(error: unknown): boolean {
+  static isAsyncTaskCancelledError(
+    error: unknown,
+  ): error is AsyncTaskCancelledError {
     return AsyncTaskCancelledError.findFromErrorChain(error) !== null;
   }
 }
