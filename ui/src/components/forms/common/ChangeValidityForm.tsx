@@ -26,11 +26,7 @@ type VersionCommentFieldProps = {
   readonly customTitlePath?: TranslationKey;
 };
 
-const testIds = {
-  container: 'ChangeValidityForm::container',
-  priorityButton: (priorityLabel: string) =>
-    `ChangeValidityForm::${priorityLabel}PriorityButton`,
-};
+const testIds = { container: 'ChangeValidityForm::container' };
 
 type ChangeValidityFormProps = {
   readonly className?: string;

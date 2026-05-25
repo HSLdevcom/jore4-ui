@@ -29,19 +29,6 @@ export const sortStopsOnInfraLinkComparator = (isTraversalForwards: boolean) =>
     : flip(sortStopsByTraversalForwards);
 
 /**
- * Sort the stops on the same link according to the link traversal direction based on the
- * distance from the link start
- * @param stops list of stops on a single infra link
- * @param isTraversalForwards the traversal direction of the route along the link
- */
-export const sortStopsOnInfraLink = <
-  TStop extends ScheduledStopPointAllFieldsFragment,
->(
-  stops: ReadonlyArray<TStop>,
-  isTraversalForwards: boolean,
-) => stops.toSorted(sortStopsOnInfraLinkComparator(isTraversalForwards));
-
-/**
  * Adds stops to or removes stops from the first stop parameter, depending on
  * belongsToJourneyPattern boolean.
  * @param stops list of stops to modify

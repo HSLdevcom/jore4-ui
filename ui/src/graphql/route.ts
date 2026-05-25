@@ -325,19 +325,6 @@ const GET_SCHEDULED_STOPS_ON_ROUTE = gql`
   }
 `;
 
-// Used query has limit of 1 journey_pattern_journey_pattern because one route can have a maximum of one journey pattern
-export const mapScheduledStopsOnRoute = (
-  result: GqlQueryResult<GetScheduledStopsOnRouteQuery>,
-) =>
-  result.data?.journey_pattern_journey_pattern[0]?.scheduled_stop_point_in_journey_patterns.flatMap(
-    (item) => item.scheduled_stop_points,
-  ) as ServicePatternScheduledStopPoint[] | undefined;
-
-export const getStopsFromRoute = (route: RouteRoute) => {
-  return route.route_journey_patterns[0]
-    .scheduled_stop_point_in_journey_patterns;
-};
-
 export const getRouteStopLabels = (
   route: RouteWithJourneyPatternStopsFragment,
 ) => {

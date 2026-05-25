@@ -46,10 +46,6 @@ export type TerminalInfoSpotsViewCardProps = {
   readonly terminal: EnrichedParentStopPlace;
 };
 
-export type TerminalInfoSpotPosterDetailsProps = {
-  readonly infoSpot: InfoSpotDetailsFragment;
-};
-
 export type TerminalInfoSpotsSectionProps = {
   readonly terminal: EnrichedParentStopPlace;
   readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;

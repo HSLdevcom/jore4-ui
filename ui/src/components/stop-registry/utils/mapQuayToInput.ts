@@ -1,8 +1,5 @@
 import pick from 'lodash/pick';
 import {
-  Maybe,
-  StopRegistryBoardingPosition,
-  StopRegistryBoardingPositionInput,
   StopRegistryPrivateCodeInput,
   StopRegistryQuay,
   StopRegistryQuayInput,
@@ -11,7 +8,6 @@ import { EnrichedQuay } from '../../../types';
 import {
   mapAccessibilityAssessmentToInput,
   mapAlternativeNames,
-  mapCompactOrNull,
   mapExternalLinks,
   mapGeoJsonToInput,
   mapOrganisations,
@@ -19,20 +15,6 @@ import {
   omitTypeName,
 } from './copyEntityUtilities';
 import { decodeQuayPrivateCodeType } from './decodeQuayPrivateCodeType';
-
-// Boarding positions are not currently used
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function mapBoardingPositionsToInput(
-  positions:
-    | ReadonlyArray<Maybe<StopRegistryBoardingPosition>>
-    | null
-    | undefined,
-): Array<StopRegistryBoardingPositionInput> | null {
-  return mapCompactOrNull(positions, (position) => ({
-    geometry: mapGeoJsonToInput(position.geometry),
-    publicCode: position.publicCode,
-  }));
-}
 
 function isEnrichedQuay(
   quay: StopRegistryQuay | EnrichedQuay,

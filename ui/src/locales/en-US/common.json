@@ -488,19 +488,6 @@
       "deleteInfoSpotPoster": "Delete poster",
       "noPosters": "No posters",
       "noSheltersInfo": "No info spots. Please go to Technical properties tab and add shelter type first.",
-      "type": {
-        "static": "Static",
-        "dynamic": "Dynamic",
-        "sound_beacon": "Sound beacon"
-      },
-      "displayTypes": {
-        "electricTFT": "Electric TFT",
-        "batteryOneRow": "Battery, one row",
-        "batteryMultiRow": "Battery, multirow",
-        "batteryEInk": "Battery, E-ink",
-        "chargeableEInk": "Chargeable, E-ink",
-        "none": "None"
-      },
       "sizes": {
         "standardSizes": "Standard sizes",
         "extraSizes": "Other sizes",

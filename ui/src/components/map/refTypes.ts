@@ -9,10 +9,6 @@ export type RouteEditorRef = {
   readonly onSave: () => void;
 };
 
-export type EditorLayerRef = {
-  readonly onDelete: () => void;
-};
-
 export type EditStoplayerRef = {
   readonly onMoveStop: (e: MapLayerMouseEvent) => Promise<void>;
 };

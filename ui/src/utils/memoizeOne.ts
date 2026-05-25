@@ -69,22 +69,6 @@ export function memoizeOne<
   }) as TFunc;
 }
 
-export function memoizePicker<T extends object, U extends keyof T>(
-  props: ReadonlyArray<U>,
-): (object: T) => Pick<T, U> {
-  let cachedResult: Pick<T, U> | null = null;
-
-  return (object) => {
-    const newResult = pick(object, props);
-
-    if (!areEqual(cachedResult, newResult)) {
-      cachedResult = newResult;
-    }
-
-    return cachedResult as Pick<T, U>;
-  };
-}
-
 export function memoizeStatePicker<T extends object, U extends keyof T>(
   props: ReadonlyArray<U>,
   setState: Dispatch<SetStateAction<T>>,

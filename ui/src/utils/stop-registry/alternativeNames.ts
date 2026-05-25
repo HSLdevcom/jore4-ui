@@ -69,9 +69,3 @@ export function findAlternativeName(
   );
   return matchingName?.name ?? null;
 }
-
-export function getEmbeddedName(
-  name: StopRegistryEmbeddableMultilingualString | null | undefined,
-): string | null {
-  return name?.value ?? null;
-}

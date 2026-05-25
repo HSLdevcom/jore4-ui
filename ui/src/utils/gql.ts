@@ -6,7 +6,7 @@ import {
   StopsDatabaseStopPlaceNewestVersionBoolExp,
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/mapModal';
-import { Priority, TimetablePriority } from '../types/enums';
+import { Priority } from '../types/enums';
 import { AllOptionEnum } from './enum';
 
 /** Builds an object for gql to filter out all
@@ -95,17 +95,6 @@ export const buildPriorityInGqlFilter = (
 ) => ({
   priority: {
     _in: priorities as Priority[],
-  },
-});
-
-/**
- * Builds an object for gql to filter out all but the given TimetablePriority
- */
-export const buildTimetablePriorityInGqlFilter = (
-  priorities: ReadonlyArray<TimetablePriority>,
-) => ({
-  priority: {
-    _in: priorities,
   },
 });
 

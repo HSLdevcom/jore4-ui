@@ -10,14 +10,6 @@ import { RootState } from '../store';
 
 export const selectLoader = (state: RootState) => state.loader;
 
-export const selectIsMapOperationLoading = createSelector(
-  selectLoader,
-  (loaders) =>
-    Object.entries(loaders)
-      .filter(([operation]) => mapOperations.includes(operation as Operation))
-      .some(([, state]) => state !== LoadingState.NotLoading),
-);
-
 export const selectMapOperationLoadingState = createSelector(
   selectLoader,
   (loaders) => {

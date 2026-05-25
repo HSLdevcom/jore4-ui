@@ -488,19 +488,6 @@
       "deleteInfoSpotPoster": "Poista infotuote",
       "noPosters": "Ei infotuotetta",
       "noSheltersInfo": "Ei infopaikkoja. Mene Tekniset ominaisuudet -välilehdelle ja lisää ensin katostyyppi.",
-      "type": {
-        "dynamic": "Dynaaminen",
-        "static": "Staattinen",
-        "sound_beacon": "Äänimajakka"
-      },
-      "displayTypes": {
-        "electricTFT": "Sähkönäyttö TFT",
-        "batteryOneRow": "Patteri, yksi rivi",
-        "batteryMultiRow": "Patteri, monirivi",
-        "batteryEInk": "Patteri, E-muste",
-        "chargeableEInk": "Ladattava, E-muste",
-        "none": "Ei näyttöä"
-      },
       "sizes": {
         "standardSizes": "Standardimitat",
         "extraSizes": "Poikkevat mitat",

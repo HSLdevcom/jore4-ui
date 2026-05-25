@@ -11,7 +11,6 @@ import {
   StopRegistryParentStopPlace,
   StopRegistryQuay,
   StopRegistryStopPlace,
-  StopRegistryStopPlaceInput,
   StopRegistryStopPlaceOrganisationRelationshipType,
   StopRegistryTopographicPlaceType,
 } from '../../generated/graphql';
@@ -404,25 +403,4 @@ export const getParentStopPlaceDetailsForEnrichment = <
       findKeyValue(parentStopPlace, KnownValueKey.TerminalType) ?? undefined,
     owner: findParentStopPlaceOwnerDetails(parentStopPlace),
   } as ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties;
-};
-
-/**
- * A helper that returns properties which should always be included when updating a stop place.
- * Without these the mutation might have undesired side effects.
- * These can still be overridden in the mutation if needed.
- */
-export const getRequiredStopPlaceMutationProperties = <
-  T extends StopRegistryStopPlaceWithQuays & SharedEnrichmentProperties,
->(
-  stopPlace: T | null,
-): Partial<StopRegistryStopPlaceInput> => {
-  if (!stopPlace) {
-    return {};
-  }
-
-  return {
-    // Needs to be included because otherwise the mutation will clear this field.
-    // This feels like a bug in Tiamat. If that ever gets fixed, this can be removed.
-    description: stopPlace.description && omitTypename(stopPlace.description),
-  };
 };

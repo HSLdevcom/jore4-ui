@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { areEqual } from '../../../../utils';
-import { KeyedChangedValue, StringFieldChangedValue } from '../types';
+import { KeyedChangedValue } from '../types';
 
 /**
  * Replace nullable values with a more proper default value.
@@ -31,24 +31,6 @@ export function optionalToDefault<ValueT, DefaultT = ValueT>(
  */
 export function toStringMapper<T>(value: T): string {
   return String(optionalToDefault(value, ''));
-}
-
-/**
- * Are the 2 given values equal according to the algorithm of {@link areEqual}.
- * Normalizes nullable values to the given defaultValue before comparison.
- *
- * @param defaultValue value to replace `null` and `undefined` with
- * @returns a curried comparator function
- */
-export function areEqualWithDefault<ValueT, DefaultT>(
-  defaultValue: Exclude<DefaultT, null | undefined>,
-): (a: ValueT, b: ValueT) => boolean {
-  return (a: ValueT, b: ValueT) => {
-    const aOrDefault = optionalToDefault(a, defaultValue);
-    const bOrDefault = optionalToDefault(b, defaultValue);
-
-    return areEqual(aOrDefault, bOrDefault);
-  };
 }
 
 export function normalizeEmptyValue<ValueT>(
@@ -107,29 +89,6 @@ type DiffKeyedValuesOptions<ValueT> = Omit<
   readonly field: ReactNode;
   readonly key: string;
 };
-
-/**
- * Compare and produce a ChangeValue data item for the given field and values.
- *
- * @param options
- */
-export function diffValues<ValueT>({
-  field,
-  oldValue,
-  newValue,
-  compare = areEqualish,
-  mapper = toStringMapper,
-}: DiffValuesOptions<ValueT>): StringFieldChangedValue | null {
-  if (compare(oldValue, newValue)) {
-    return null;
-  }
-
-  return {
-    field,
-    oldValue: mapper(oldValue),
-    newValue: mapper(newValue),
-  };
-}
 
 /**
  * Compare and produce a ChangeValue data item for the given field and values.

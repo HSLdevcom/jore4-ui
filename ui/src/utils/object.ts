@@ -22,12 +22,6 @@ export function assertIsPlainObject(
   }
 }
 
-// the built-in Object.keys() method returns only a limited string[] type.
-// The actual return type should be keyof T[]
-export const getObjectKeys = <T extends PlainObject>(input: T) => {
-  return Object.keys(input) as (keyof T)[];
-};
-
 export const getObjectStringKeys = <T extends PlainObject>(input: T) => {
   return Object.keys(input).filter(
     (item) => typeof item === 'string',

@@ -19,9 +19,6 @@ export type TimetableImportStrategy = z.infer<typeof TimetableImportStrategy>;
 export const timetableImportStrategyFormSchema = z.object({
   timetableImportStrategy: TimetableImportStrategy,
 });
-export type TimetableImportStrategyFormState = z.infer<
-  typeof timetableImportStrategyFormSchema
->;
 
 export const TimetableImportStrategyForm: FC<
   TimetableImportStrategyFormProps

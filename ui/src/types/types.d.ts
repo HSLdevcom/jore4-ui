@@ -8,14 +8,6 @@ type LocalizedString = {
   sv_FI?: string;
 };
 
-// based on https://stackoverflow.com/questions/58434389/typescript-deep-keyof-of-a-nested-object/58436959#58436959
-
-type Cons<H, T> = T extends readonly ExplicitAny[]
-  ? ((h: H, ...t: T) => void) extends (...r: infer R) => void
-    ? R
-    : never
-  : never;
-
 // decrement numeric type value (used for recursion limit)
 // prettier-ignore
 type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,

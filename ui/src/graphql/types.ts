@@ -1,12 +1,10 @@
 import { ApolloQueryResult, QueryResult } from '@apollo/client';
-import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import { DateTime } from 'luxon';
 import { QueryRoot } from '../generated/graphql';
 import versionedTiamatEntities from '../generated/versionedTiamatEntities';
 
 export type GqlQueryResultData = { __typename?: 'query_root' };
-export type GqlMutationResultData = { __typename?: 'mutation_root' };
 
 export type GqlQueryResult<TData extends GqlQueryResultData> = Pick<
   | QueryResult<TData> // from useQuery
@@ -49,6 +47,3 @@ export const hasTypeName = (
 
 export const isGqlEntity = (entity: unknown): entity is GqlEntity =>
   hasTypeName(entity);
-
-export const isGqlEntityArray = (entity: unknown): entity is GqlEntity[] =>
-  isArray(entity) && entity.every(isGqlEntity);

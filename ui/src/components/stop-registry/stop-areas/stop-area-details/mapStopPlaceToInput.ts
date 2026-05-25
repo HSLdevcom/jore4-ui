@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import pick from 'lodash/pick';
 import {
   Maybe,
@@ -8,9 +6,6 @@ import {
   StopRegistryStopPlaceInput,
   StopRegistryStopPlaceOrganisationRef,
   StopRegistryStopPlaceOrganisationRefInput,
-  StopRegistryTariffZone,
-  StopRegistryVersionLessEntityRef,
-  StopRegistryVersionLessEntityRefInput,
 } from '../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../types';
 import {
@@ -18,27 +13,9 @@ import {
   mapAlternativeNames,
   mapCompactOrNull,
   mapGeoJsonToInput,
-  // mapPlaceEquipmentsToInput,
   mapPrivateCodeToInput,
   mapQuayToInput,
 } from '../../utils';
-
-function mapAdjacentSitesToInput(
-  adjacentSites:
-    | ReadonlyArray<Maybe<StopRegistryVersionLessEntityRef>>
-    | null
-    | undefined,
-): Array<StopRegistryVersionLessEntityRefInput> | null {
-  return mapCompactOrNull(adjacentSites, (site) =>
-    site?.ref ? { ref: site.ref } : null,
-  );
-}
-
-function mapTariffZonesToInput(
-  refs: ReadonlyArray<Maybe<StopRegistryTariffZone>> | null | undefined,
-): Array<StopRegistryVersionLessEntityRefInput> | null {
-  return mapCompactOrNull(refs, (ref) => (ref?.id ? { ref: ref.id } : null));
-}
 
 function mapQuaysToInput(
   quays:
@@ -61,7 +38,6 @@ function mapOrganizationsToInput(
   }));
 }
 
-// Kept in case we ever want to also make copies of StopAreas
 export function mapStopPlaceToInput(
   stopPlace: EnrichedStopPlace,
 ): StopRegistryStopPlaceInput {
@@ -79,21 +55,17 @@ export function mapStopPlaceToInput(
       lang: 'fin',
       value: stopPlace.name,
     },
-    description: null, // omitTypeName(stopPlace.description),
-    shortName: null, // omitTypeName(stopPlace.shortName),
     alternativeNames: mapAlternativeNames(stopPlace.alternativeNames),
     accessibilityAssessment: mapAccessibilityAssessmentToInput(
       stopPlace.accessibilityAssessment,
     ),
     geometry: mapGeoJsonToInput(stopPlace.geometry),
-    placeEquipments: null, // mapPlaceEquipmentsToInput(stopPlace.placeEquipments),
     privateCode: mapPrivateCodeToInput(stopPlace.privateCode),
     organisations: mapOrganizationsToInput(stopPlace.organisations),
     quays: mapQuaysToInput(stopPlace.quays),
-    adjacentSites: null, // mapAdjacentSitesToInput(stopPlace.adjacentSites),
-    tariffZones: null, // mapTariffZonesToInput(stopPlace.tariffZones),
-    validBetween: null,
-    // Location properties:
-    // Note: Tiamat sets topographicPlace and fareZone automatically based on coordinates. They can not be changed otherwise.
+
+    // All other properties are not copied and implicitly default to null.
+    // Location properties: Tiamat sets topographicPlace and fareZone
+    // automatically based on coordinates. They can not be changed manually.
   };
 }

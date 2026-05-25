@@ -27,7 +27,6 @@ import {
   UrlStateSerializers,
   parsePriorities,
   serializeArray,
-  serializeUrlSearchState,
   splitString,
   toEnum,
   useTypedRouterState,
@@ -508,14 +507,4 @@ export function useStopSearchRouterState() {
   }
 
   return context;
-}
-
-export function stopSearchUrlStateToSearch(
-  state: StopSearchSearchState,
-): string {
-  return serializeUrlSearchState(serializers, defaultValues, {
-    ...state.filters,
-    ...state.pagingInfo,
-    ...state.sortingInfo,
-  }).toString();
 }

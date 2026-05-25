@@ -59,7 +59,6 @@ export const InfoSpotsFormSchema = z.object({
   infoSpots: z.array(infoSpotSchema),
 });
 
-export type ItemSizeUiState = z.infer<typeof itemSizeUiState>;
 export type ItemSizeState = z.infer<typeof itemSizeSchema>;
 export type PosterState = z.infer<typeof posterSchema>;
 export type InfoSpotPurposeState = z.infer<typeof infoSpotPurposeSchema>;

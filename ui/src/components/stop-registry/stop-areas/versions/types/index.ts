@@ -5,5 +5,4 @@ export * from './StopAreaEditWouldMakeRouteInvalidError';
 export * from './StopAreaInsertFailed';
 export * from './StopAreaVersion';
 export * from './StopAreaVersionSchema';
-export * from './StopPlaceEditFailed';
 export * from './StopPlacesInsertFailed';

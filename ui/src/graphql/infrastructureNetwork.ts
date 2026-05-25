@@ -90,16 +90,6 @@ export const orderInfraLinksByExternalLinkId = <
     return infraLinkWithStop;
   });
 
-const input: InfrastructureNetworkInfrastructureLinkInsertInput = {
-  vehicle_submode_on_infrastructure_link: {
-    data: [
-      {
-        vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
-      },
-    ],
-  },
-};
-
 const INFRASTRUCTURE_LINK_DEFAULT_FIELDS = gql`
   fragment infrastructure_link_default_fields on infrastructure_network_infrastructure_link {
     infrastructure_link_id

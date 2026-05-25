@@ -5,13 +5,8 @@ import {
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
 } from '../generated/graphql';
-import { NonNullableKeys, RequiredKeys } from '../types';
+import { NonNullableKeys } from '../types';
 import { GqlQueryResult, isGqlEntity } from './types';
-
-export type StopWithLocation = RequiredKeys<
-  Partial<ServicePatternScheduledStopPoint>,
-  'measured_location'
->;
 
 // fixing the generated patching object type not to allow null values for required fields
 export type ScheduledStopPointSetInput = NonNullableKeys<
