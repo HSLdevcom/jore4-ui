@@ -49,11 +49,13 @@ function TiamatVersionedObjectTypesResolverPluginImplementation(
     )
     .sort();
 
-  return JSON.stringify(
+  const data = JSON.stringify(
     { typesWithVersion, typesWithId, embeddedTypes },
     null,
     2,
   );
+
+  return `export default ${data} as const;\n`;
 }
 
 const TiamatVersionedObjectTypesResolverPlugin = {

@@ -95,7 +95,7 @@ const config: CodegenConfig = {
     },
     // Create a list of Tiamat entities that are versioned,
     // for easy registration in Apollo cache config.
-    '../ui/src/generated/versionedTiamatEntities.json': {
+    '../ui/src/generated/versionedTiamatEntities.ts': {
       plugins: ['./TiamatVersionedObjectTypesResolverPlugin.ts'],
     },
   },

@@ -17,7 +17,7 @@ import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
 import { joreConfig } from '../config';
-import tiamatTypeInfo from '../generated/versionedTiamatEntities.json' with { type: 'json' };
+import tiamatTypeInfo from '../generated/versionedTiamatEntities';
 import { isDateLike, parseDate } from '../time';
 import { mapHttpToWs } from '../utils/url';
 import { authRoleMiddleware, roleHeaderMap, userHasuraRole } from './auth';

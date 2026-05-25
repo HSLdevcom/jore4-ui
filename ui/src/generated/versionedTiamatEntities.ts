@@ -1,4 +1,4 @@
-{
+export default {
   "typesWithVersion": [
     "stop_registry_AccessibilityAssessment",
     "stop_registry_AccessibilityLimitations",
@@ -53,4 +53,4 @@
     "stop_registry_externalLink",
     "stop_registry_stopPlaceExternalLink"
   ]
-}
+} as const;
