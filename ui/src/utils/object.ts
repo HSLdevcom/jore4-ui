@@ -3,14 +3,14 @@ import { DateTime } from 'luxon';
 // using ExplicitAny instead of unknown so that also interface types would be compatible
 export type PlainObject = Record<string, ExplicitAny>;
 
-export const isPlainObject = (input: unknown): input is PlainObject => {
+export function isPlainObject(input: unknown): input is PlainObject {
   return (
     typeof input === 'object' &&
     input !== null &&
     !Array.isArray(input) &&
     !DateTime.isDateTime(input)
   );
-};
+}
 
 export function assertIsPlainObject(
   input: unknown,
@@ -22,8 +22,8 @@ export function assertIsPlainObject(
   }
 }
 
-export const getObjectStringKeys = <T extends PlainObject>(input: T) => {
+export function getObjectStringKeys<T extends PlainObject>(input: T) {
   return Object.keys(input).filter(
     (item) => typeof item === 'string',
   ) as StringKeyOf<T>[];
-};
+}
