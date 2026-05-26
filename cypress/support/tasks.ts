@@ -1,6 +1,4 @@
 import {
-  GetAllOrganisationIdsResult,
-  GetAllStopAreaIdsResult,
   GetInfrastructureLinksByExternalIdsResult,
   InfoSpotInput,
   OrganisationIdsByName,
@@ -22,8 +20,6 @@ import {
   insertStopPlaces as insertStopRegistryStopPlaces,
   insertTerminals,
   mapTerminalOwnersToOrganisations,
-  mapToDeleteOrganisationMutation,
-  mapToDeleteStopAreaMutation,
   mapToGetAllOrganisationIds,
   mapToGetAllStopAreaIds,
   mapToGetAllStopPlaceIds,
@@ -228,49 +224,16 @@ export const getAllOrganisationIds = () => {
   return hasuraAPI(mapToGetAllOrganisationIds());
 };
 
-const deleteQuaysStopPlacesAndTerminals = async () => {
+const truncateStopRegistryTables = async () => {
   const truncateQuery = fs.readFileSync(
-    'fixtures/truncateQuaysAndStopPlaces.sql',
+    'fixtures/truncateStopRegistryTables.sql',
     'utf8',
   );
   return stopsDb.raw(truncateQuery);
 };
 
-const deleteStopAreas = async () => {
-  const stopAreaIdsResult =
-    (await getAllStopAreaIds()) as GetAllStopAreaIdsResult;
-
-  const stopAreaIds =
-    stopAreaIdsResult.data.stops_database.stops_database_group_of_stop_places.map(
-      (stopArea) => stopArea.netex_id,
-    );
-
-  return hasuraAPIMultiple(
-    stopAreaIds.map((stopAreaId) => mapToDeleteStopAreaMutation(stopAreaId)),
-  );
-};
-
-const deleteOrganisations = async () => {
-  const organisationIdsResult =
-    (await getAllOrganisationIds()) as GetAllOrganisationIdsResult;
-
-  const organisationIds =
-    organisationIdsResult.data.stops_database.stops_database_organisation.map(
-      (organisation) => organisation.netex_id,
-    );
-
-  return hasuraAPIMultiple(
-    organisationIds.map((organisationId) =>
-      mapToDeleteOrganisationMutation(organisationId),
-    ),
-  );
-};
-
 export const resetStopRegistryDb = async () => {
-  await deleteStopAreas();
-  await deleteQuaysStopPlacesAndTerminals();
-  await deleteOrganisations();
-  // TODO: Add deletion of info spots
+  await truncateStopRegistryTables();
 };
 
 export const resetDbs = async () => {
