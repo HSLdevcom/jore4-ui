@@ -1,16 +1,19 @@
 import isEmpty from 'lodash/isEmpty';
 import { FC, useCallback, useEffect, useRef } from 'react';
-import { MapRef, useMap } from 'react-map-gl/maplibre';
+import { MapInstance, MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
+  LoadingState,
   Mode,
+  Operation,
   selectEditedRouteData,
   selectMapRouteEditor,
   stopRouteEditingAction,
 } from '../../../redux';
 import { removeRoute } from '../../../utils/map';
+import { useLoader } from '../../common/hooks/useLoader';
 import { DrawControl } from '../DrawControl';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import {
@@ -45,13 +48,17 @@ export const DrawRouteLayer: FC = () => {
   const { current: mapboxDraw } = drawRef;
   const { current: map } = useMap();
   const dispatch = useAppDispatch();
+  const { setLoadingState: setRouteDrawLoadingState } = useLoader(
+    Operation.PrepareRouteDraw,
+  );
 
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
-  const shouldUseDrawingCursor =
-    drawingMode === Mode.Edit && creatingNewRoute && !editedRouteData.geometry;
-  setCursor(map, shouldUseDrawingCursor ? Mode.Draw : drawingMode);
+  const isNewRouteDrawPhase =
+    creatingNewRoute && !editedRouteData.geometry && drawingMode !== undefined;
+
+  setCursor(map, isNewRouteDrawPhase ? Mode.Draw : drawingMode);
 
   const { templateRouteId } = editedRouteData;
   // Fetch existing route's stops and geometry in case editing existing route
@@ -158,6 +165,63 @@ export const DrawRouteLayer: FC = () => {
       document.removeEventListener('keydown', keyDown, false);
     };
   }, [keyDown]);
+
+  const isDrawingReady = useCallback(
+    (mapInstance: MapInstance, drawReference: MapboxDraw | null) => {
+      const hasDrawRef = Boolean(drawReference);
+      const hasDrawHotSource = Boolean(
+        mapInstance.getSource('mapbox-gl-draw-hot'),
+      );
+      const hasDrawColdSource = Boolean(
+        mapInstance.getSource('mapbox-gl-draw-cold'),
+      );
+
+      setRouteDrawLoadingState(
+        hasDrawRef && hasDrawHotSource && hasDrawColdSource
+          ? LoadingState.NotLoading
+          : LoadingState.HighPriority,
+      );
+    },
+    [setRouteDrawLoadingState],
+  );
+
+  // Check that draw is ready before removing loader in new route draw phase and allowing user to start drawing
+  useEffect(() => {
+    const mapInstance = map?.getMap();
+    const handleDrawReady = () => {
+      if (mapInstance) {
+        isDrawingReady(mapInstance, mapboxDraw);
+      }
+    };
+
+    if (isNewRouteDrawPhase) {
+      setRouteDrawLoadingState(LoadingState.HighPriority);
+      if (mapInstance) {
+        // Check if drawing is ready
+        handleDrawReady();
+
+        // Re-check readiness when the map receives new data.
+        mapInstance.on('sourcedata', handleDrawReady);
+
+        // Re-check readiness after the map has finished updating.
+        mapInstance.on('idle', handleDrawReady);
+      }
+    }
+
+    return () => {
+      if (mapInstance) {
+        mapInstance.off('sourcedata', handleDrawReady);
+        mapInstance.off('idle', handleDrawReady);
+      }
+      setRouteDrawLoadingState(LoadingState.NotLoading);
+    };
+  }, [
+    isDrawingReady,
+    isNewRouteDrawPhase,
+    map,
+    mapboxDraw,
+    setRouteDrawLoadingState,
+  ]);
 
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state
