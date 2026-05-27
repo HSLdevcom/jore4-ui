@@ -5,12 +5,15 @@ import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
+  LoadingState,
   Mode,
+  Operation,
   selectEditedRouteData,
   selectMapRouteEditor,
   stopRouteEditingAction,
 } from '../../../redux';
 import { removeRoute } from '../../../utils/map';
+import { useLoader } from '../../common/hooks/useLoader';
 import { DrawControl } from '../DrawControl';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import {
@@ -42,16 +45,19 @@ const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
 
 export const DrawRouteLayer: FC = () => {
   const drawRef = useRef<MapboxDraw | null>(null);
-  const { current: mapboxDraw } = drawRef;
   const { current: map } = useMap();
   const dispatch = useAppDispatch();
+  const { setLoadingState: setRouteDrawLoadingState } = useLoader(
+    Operation.PrepareRouteDraw,
+  );
 
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
-  const shouldUseDrawingCursor =
-    drawingMode === Mode.Edit && creatingNewRoute && !editedRouteData.geometry;
-  setCursor(map, shouldUseDrawingCursor ? Mode.Draw : drawingMode);
+  const isNewRouteDrawPhase =
+    creatingNewRoute && !editedRouteData.geometry && drawingMode !== undefined;
+
+  setCursor(map, isNewRouteDrawPhase ? Mode.Draw : drawingMode);
 
   const { templateRouteId } = editedRouteData;
   // Fetch existing route's stops and geometry in case editing existing route
@@ -159,6 +165,44 @@ export const DrawRouteLayer: FC = () => {
     };
   }, [keyDown]);
 
+  // Check that draw is ready before removing loader in new route draw phase and allowing user to start drawing
+  useEffect(() => {
+    const mapInstance = map?.getMap();
+    const handleDrawLoadingState = () => {
+      const hasDrawRef = !!drawRef.current;
+      const hasDrawHotSource = !!mapInstance?.getSource('mapbox-gl-draw-hot');
+      const hasDrawColdSource = !!mapInstance?.getSource('mapbox-gl-draw-cold');
+
+      const isDrawReady = hasDrawRef && hasDrawHotSource && hasDrawColdSource;
+
+      setRouteDrawLoadingState(
+        isDrawReady ? LoadingState.NotLoading : LoadingState.HighPriority,
+      );
+    };
+
+    if (isNewRouteDrawPhase) {
+      setRouteDrawLoadingState(LoadingState.HighPriority);
+      if (mapInstance) {
+        // Check if drawing is ready
+        handleDrawLoadingState();
+
+        // Re-check readiness when the map receives new data.
+        mapInstance.on('sourcedata', handleDrawLoadingState);
+
+        // Re-check readiness after the map has finished updating.
+        mapInstance.on('idle', handleDrawLoadingState);
+      }
+    }
+
+    return () => {
+      if (mapInstance) {
+        mapInstance.off('sourcedata', handleDrawLoadingState);
+        mapInstance.off('idle', handleDrawLoadingState);
+      }
+      setRouteDrawLoadingState(LoadingState.NotLoading);
+    };
+  }, [isNewRouteDrawPhase, map, setRouteDrawLoadingState]);
+
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state
   if (!editedRouteData.metaData) {
@@ -184,7 +228,7 @@ export const DrawRouteLayer: FC = () => {
   const onModeChange = () => {
     // Disables all other modes when editing
     if (drawingMode === Mode.Edit) {
-      mapboxDraw?.changeMode('direct_select', {
+      drawRef.current?.changeMode('direct_select', {
         featureId: SNAPPING_LINE_LAYER_ID,
       });
     }
