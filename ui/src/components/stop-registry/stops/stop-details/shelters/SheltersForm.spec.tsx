@@ -76,7 +76,12 @@ describe('useSheltersFormUtils', () => {
       result.current.addNewShelter();
     });
 
-    expect(appendMock).toHaveBeenCalledWith(mapShelterDataToFormState({}));
+    expect(appendMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        ...mapShelterDataToFormState({}),
+        shelterNumber: 2,
+      }),
+    );
     expect(mockOnShelterCountChanged).toHaveBeenCalledWith(1);
   });
 
@@ -103,6 +108,7 @@ describe('useSheltersFormUtils', () => {
         mapShelterDataToFormState({
           ...testShelter,
           id: null,
+          shelterNumber: 2,
         }),
       ),
     );
