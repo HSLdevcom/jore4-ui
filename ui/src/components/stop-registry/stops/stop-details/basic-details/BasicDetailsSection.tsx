@@ -26,6 +26,7 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
     timingPlaceId: stop.quay?.timingPlaceId ?? stop.timing_place_id ?? null,
     stopState: stop.quay?.stopState ?? undefined,
     stopTypes: stop.quay?.stopType,
+    reasonForChange: '',
   };
 
   return formState;
