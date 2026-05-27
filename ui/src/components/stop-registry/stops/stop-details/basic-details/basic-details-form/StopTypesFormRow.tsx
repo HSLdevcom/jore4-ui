@@ -8,6 +8,7 @@ import { StopBasicDetailsFormState } from './schema';
 const testIds = {
   railReplacement: 'StopBasicDetailsForm::railReplacement',
   virtual: 'StopBasicDetailsForm::virtual',
+  trunkLineStop: 'StopBasicDetailsForm::trunkLineStop',
 };
 
 export const StopTypesFormRow: FC = () => {
@@ -37,6 +38,17 @@ export const StopTypesFormRow: FC = () => {
           testId={testIds.virtual}
         />
         {t(($) => $.stopPlaceTypes.virtual)}
+      </label>
+      <label htmlFor="trunkLineStop" className="inline-flex font-normal">
+        <InputElement<StopBasicDetailsFormState>
+          type="checkbox"
+          id="trunkLineStop"
+          fieldPath="stopTypes.trunkLineStop"
+          className="mr-3.5 h-6 w-6"
+          testId={testIds.trunkLineStop}
+          disabled={!isBusTransportMode}
+        />
+        {t(($) => $.stopPlaceTypes.trunkLineStop)}
       </label>
     </FormRow>
   );

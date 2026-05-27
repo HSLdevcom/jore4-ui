@@ -23,8 +23,10 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
   onClickOpenTimingSettingsModal,
 }) => {
   const { t } = useTranslation();
+
   const { watch } = useFormContext();
-  const isRailReplacement = watch('stopTypes.railReplacement');
+  const isRailReplacement = !!watch('stopTypes.railReplacement');
+  const isTrunkLine = !!watch('stopTypes.trunkLineStop');
 
   return (
     <FormRow mdColumns={4}>
@@ -43,7 +45,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
               uiNameMapper={(value) =>
                 mapStopRegistryTransportModeTypeToUiName(t, value)
               }
-              disabled={isRailReplacement}
+              disabled={isRailReplacement || isTrunkLine}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />

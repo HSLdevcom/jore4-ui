@@ -676,6 +676,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         // Verify correct initial values.
         BasicDetailsForm.getRailReplacementCheckbox().should('be.checked');
         BasicDetailsForm.getVirtualCheckbox().should('not.be.checked');
+        BasicDetailsForm.getTrunkLineStopCheckbox().should('not.be.checked');
         BasicDetailsForm.getTransportModeDropdownButton().shouldHaveText(
           'Bussi',
         );
@@ -686,6 +687,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         // Rail replacement is only available for transport mode: bus
         BasicDetailsForm.getTransportModeDropdownButton().shouldBeDisabled();
         BasicDetailsForm.getVirtualCheckbox().click();
+        BasicDetailsForm.getTrunkLineStopCheckbox().click();
 
         StopDetailsPage.basicDetails.getSaveButton().click();
 
@@ -705,7 +707,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         BasicDetailsViewCard.getTransportMode().shouldHaveText('Bussi');
         BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AURLA');
         BasicDetailsViewCard.getStopType().shouldHaveText(
-          'Raideliikennettä korvaava, virtuaalipysäkki',
+          'Raideliikennettä korvaava, virtuaalipysäkki, runkolinjapysäkki',
         );
         BasicDetailsViewCard.getStopState().shouldHaveText('Pois käytöstä');
         BasicDetailsViewCard.getElyNumber().shouldHaveText('1234567');
@@ -721,13 +723,15 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         StopDetailsPage.basicDetails.getEditButton().click();
 
         BasicDetailsForm.getRailReplacementCheckbox().click();
+        BasicDetailsForm.getTrunkLineStopCheckbox().click();
         BasicDetailsForm.getTransportModeDropdownButton().click();
         BasicDetailsForm.getTransportModeDropdownOptions()
           .contains('Raitiovaunu')
           .click();
 
-        // Rail replacement is only available for transport mode: bus
+        // Rail replacement & TrunkLine are only available for transport mode: bus
         BasicDetailsForm.getRailReplacementCheckbox().shouldBeDisabled();
+        BasicDetailsForm.getTrunkLineStopCheckbox().shouldBeDisabled();
 
         BasicDetailsForm.getStopPlaceStateDropdownButton().click();
         BasicDetailsForm.getStopPlaceStateDropdownOptions()

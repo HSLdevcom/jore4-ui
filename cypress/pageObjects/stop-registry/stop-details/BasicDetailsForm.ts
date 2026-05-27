@@ -23,6 +23,9 @@ export class BasicDetailsForm {
   static getVirtualCheckbox = () =>
     cy.getByTestId('StopBasicDetailsForm::virtual');
 
+  static getTrunkLineStopCheckbox = () =>
+    cy.getByTestId('StopBasicDetailsForm::trunkLineStop');
+
   static getTransportModeDropdownButton = () =>
     cy.getByTestId('StopBasicDetailsForm::transportMode::ListboxButton');
 

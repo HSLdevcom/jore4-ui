@@ -224,13 +224,19 @@ export const useEditStopBasicDetails = () => {
             {
               key: KnownValueKey.RailReplacement,
               values: state.stopTypes.railReplacement
-                ? [state.stopTypes.railReplacement?.toString()]
+                ? [state.stopTypes.railReplacement.toString()]
                 : [],
             },
             {
               key: KnownValueKey.Virtual,
               values: state.stopTypes.virtual
-                ? [state.stopTypes.virtual?.toString()]
+                ? [state.stopTypes.virtual.toString()]
+                : [],
+            },
+            {
+              key: KnownValueKey.TrunkLineStop,
+              values: state.stopTypes.trunkLineStop
+                ? [state.stopTypes.trunkLineStop.toString()]
                 : [],
             },
             {
