@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   StopRegistryShelterCondition,
@@ -50,23 +50,8 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
   onRemove,
   onCopy,
 }) => {
-  const { register, watch, setValue } = useFormContext<SheltersFormState>();
+  const { register, watch } = useFormContext<SheltersFormState>();
   const toBeDeleted = watch(`shelters.${index}.toBeDeleted`);
-  const allShelters = watch('shelters');
-  const currentShelterNumber = watch(`shelters.${index}.shelterNumber`);
-
-  // Suggest a shelter number based on previous numbers
-  useEffect(() => {
-    if (currentShelterNumber === null) {
-      const nextNumber =
-        Math.max(
-          0,
-          ...allShelters.map((shelter) => Number(shelter.shelterNumber)),
-        ) + 1;
-
-      setValue(`shelters.${index}.shelterNumber`, nextNumber);
-    }
-  }, [allShelters, index, currentShelterNumber, setValue]);
 
   return (
     <Column className="gap-4">
