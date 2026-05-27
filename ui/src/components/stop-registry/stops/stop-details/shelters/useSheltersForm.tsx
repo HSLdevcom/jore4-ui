@@ -8,6 +8,16 @@ type UtilProps = {
   readonly onShelterCountChanged: (newShelterCount: number) => void;
 };
 
+const getNextShelterNumber = (
+  shelters: SheltersFormState['shelters'],
+): number => {
+  const usedNumbers = shelters
+    .map((shelter) => shelter.shelterNumber)
+    .filter((num): num is number => num !== null && !Number.isNaN(num));
+
+  return Math.max(0, ...usedNumbers) + 1;
+};
+
 export const useSheltersFormUtils = (props: UtilProps) => {
   const { methods, onShelterCountChanged } = props;
   const { control, setValue, getValues, handleSubmit } = methods;
@@ -29,15 +39,27 @@ export const useSheltersFormUtils = (props: UtilProps) => {
   }, [getValues, onShelterCountChanged]);
 
   const addNewShelter = useCallback(() => {
-    append(mapShelterDataToFormState({}));
+    const currentShelters = getValues('shelters');
+    const nextShelterNumber = getNextShelterNumber(currentShelters);
+
+    append({
+      ...mapShelterDataToFormState({}),
+      shelterNumber: nextShelterNumber,
+    });
     updateShelterCount();
-  }, [append, updateShelterCount]);
+  }, [append, getValues, updateShelterCount]);
 
   const copyToNewShelter = useCallback(
     (shelterIndex: number) => {
       const currentShelters = getValues('shelters'); // Get the latest state
       const shelterToCopy = currentShelters?.at(shelterIndex);
-      const newShelter = shelterToCopy ? { ...shelterToCopy, id: null } : null;
+      const newShelter = shelterToCopy
+        ? {
+            ...shelterToCopy,
+            id: null,
+            shelterNumber: getNextShelterNumber(currentShelters),
+          }
+        : null;
 
       if (newShelter) {
         append(
