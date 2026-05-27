@@ -149,9 +149,12 @@ describe('Route creation', rootOpts, () => {
       });
 
       MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
 
       // Create a geometry for route that includes dataset stops E2E001,
       // (exclude E2E002) E2E003, E2E004 and E2E005
+      // Wait until loading has finished before starting to click on the map
+      MapPage.map.getLoader().should('not.exist');
       MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
@@ -287,8 +290,11 @@ describe('Route creation', rootOpts, () => {
       });
 
       MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
 
       // Create a geometry for route that includes dataset stops E2E001 - E2E004
+      // Wait until loading has finished before starting to click on the map
+      MapPage.map.getLoader().should('not.exist');
       MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
@@ -389,8 +395,11 @@ describe('Route creation', rootOpts, () => {
       });
 
       MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
 
       // Create a geometry for route that includes dataset stops E2E001 and E2E002
+      // Wait until loading has finished before starting to click on the map
+      MapPage.map.getLoader().should('not.exist');
       MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
@@ -461,9 +470,12 @@ describe('Route creation', rootOpts, () => {
       });
 
       MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
 
       // Create a geometry for route that includes dataset stops E2E001
       // and E2E002
+      // Wait until loading has finished before starting to click on the map
+      MapPage.map.getLoader().should('not.exist');
       MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
