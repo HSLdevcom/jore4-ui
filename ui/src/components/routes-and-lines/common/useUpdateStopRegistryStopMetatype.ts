@@ -178,7 +178,11 @@ function mapRawQuay(
   };
 }
 
-export function lineTypeAffectsMetatypes(mode: RouteTypeOfLineEnum): boolean {
+export function lineTypeAffectsMetatypes(
+  mode: RouteTypeOfLineEnum | null | undefined,
+): mode is
+  | RouteTypeOfLineEnum.ExpressBusService
+  | RouteTypeOfLineEnum.RegionalTramService {
   return (
     mode === RouteTypeOfLineEnum.ExpressBusService ||
     mode === RouteTypeOfLineEnum.RegionalTramService

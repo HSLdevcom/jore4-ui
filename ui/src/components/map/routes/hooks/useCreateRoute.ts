@@ -1,10 +1,11 @@
-import { useTranslation } from 'react-i18next';
+import { useApolloClient } from '@apollo/client';
 import {
   InfrastructureLinkAllFieldsFragment,
   InsertRouteOneMutationVariables,
   JourneyPatternStopFragment,
   RouteDefaultFieldsFragment,
   RouteStopFieldsFragment,
+  RouteTypeOfLineEnum,
   useInsertRouteOneMutation,
 } from '../../../../generated/graphql';
 import {
@@ -12,13 +13,19 @@ import {
   mapInfraLinksAlongRouteToGraphQL,
 } from '../../../../graphql';
 import { MIN_DATE } from '../../../../time';
+import { Priority } from '../../../../types/enums';
 import {
   buildJourneyPatternStopSequence,
   mapToObject,
-  showDangerToastWithError,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
+import {
+  StopMetaTypeUpdateInfo,
+  filterNeedUpdateByLineType,
+  lineTypeAffectsMetatypes,
+  resolveStopInfoByPublicCodes,
+} from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { useValidateRoute } from './useValidateRoute';
 
@@ -30,59 +37,73 @@ type CreateParams = {
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   readonly includedStopLabels: ReadonlyArray<string>;
   readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
+  readonly lineType: RouteTypeOfLineEnum | null;
 };
 
-type CreateChanges = {
+export type CreateChanges = {
   readonly input: InsertRouteOneMutationVariables;
-  readonly conflicts?: ReadonlyArray<RouteDefaultFieldsFragment>;
+  readonly conflicts: ReadonlyArray<RouteDefaultFieldsFragment>;
+  readonly stopsNeedingUpdate: ReadonlyArray<StopMetaTypeUpdateInfo>;
 };
+
+function mapRouteDetailsToInsertMutationVariables({
+  form,
+  infraLinksAlongRoute,
+  stopsEligibleForJourneyPattern,
+  includedStopLabels,
+  journeyPatternStops,
+}: CreateParams): InsertRouteOneMutationVariables {
+  return mapToObject({
+    ...mapRouteFormToInput(form),
+    // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
+    infrastructure_links_along_route: {
+      data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
+    },
+    route_journey_patterns: {
+      data: {
+        scheduled_stop_point_in_journey_patterns: {
+          data: buildJourneyPatternStopSequence({
+            stopsEligibleForJourneyPattern,
+            includedStopLabels,
+            journeyPatternStops,
+          }),
+        },
+      },
+    },
+  });
+}
 
 export const useCreateRoute = () => {
-  const { t } = useTranslation();
+  const client = useApolloClient();
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
   const { validateJourneyPattern, validateMetadata } = useValidateRoute();
 
-  const insertRouteMutation = async (
-    variables: InsertRouteOneMutationVariables,
-  ) => {
-    return mutateFunction({ variables });
+  const insertRouteMutation = ({ input: variables }: CreateChanges) =>
+    mutateFunction({ variables });
+
+  const getStopsNeedingUpdate = async (
+    routePriority: Priority,
+    lineType: RouteTypeOfLineEnum | null,
+    stopPointLabels: ReadonlyArray<string>,
+  ): Promise<ReadonlyArray<StopMetaTypeUpdateInfo>> => {
+    if (
+      routePriority < Priority.Draft && // Draft should not change the stop type.
+      lineTypeAffectsMetatypes(lineType)
+    ) {
+      const updatableStops = await resolveStopInfoByPublicCodes(
+        client,
+        stopPointLabels,
+      );
+      return updatableStops.filter(filterNeedUpdateByLineType(lineType));
+    }
+
+    return [];
   };
 
-  const mapRouteDetailsToInsertMutationVariables = (
+  const prepareCreate = async (
     params: CreateParams,
-  ): InsertRouteOneMutationVariables => {
-    const {
-      form,
-      infraLinksAlongRoute,
-      stopsEligibleForJourneyPattern,
-      includedStopLabels,
-      journeyPatternStops,
-    } = params;
-
-    const input: InsertRouteOneMutationVariables = mapToObject({
-      ...mapRouteFormToInput(form),
-      // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
-      infrastructure_links_along_route: {
-        data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
-      },
-      route_journey_patterns: {
-        data: {
-          scheduled_stop_point_in_journey_patterns: {
-            data: buildJourneyPatternStopSequence({
-              stopsEligibleForJourneyPattern,
-              includedStopLabels,
-              journeyPatternStops,
-            }),
-          },
-        },
-      },
-    });
-
-    return input;
-  };
-
-  const prepareCreate = async (params: CreateParams) => {
+  ): Promise<CreateChanges> => {
     const { includedStopLabels, form } = params;
 
     await validateJourneyPattern({ includedStopLabels });
@@ -92,40 +113,22 @@ export const useCreateRoute = () => {
     const conflicts = await getConflictingRoutes({
       // Form validation should make sure that label, priority and direction always exist.
       // For some reason form state is saved as Partial<> so we have to use non-null assertions here...
-      label: form.label!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      priority: form.priority!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      label: form.label,
+      priority: form.priority,
       validityStart: input.object.validity_start ?? MIN_DATE,
       validityEnd: input.object.validity_end ?? undefined,
-      direction: form.direction!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      direction: form.direction,
       variant: form.variant,
     });
 
-    const changes: CreateChanges = {
-      input,
-      conflicts,
-    };
-
-    return changes;
-  };
-
-  const mapCreateChangesToVariables = (changes: CreateChanges) => {
-    const variables: InsertRouteOneMutationVariables = { ...changes.input };
-    return variables;
-  };
-
-  // default handler that can be used to show error messages as toast
-  // in case an exception is thrown
-  const defaultErrorHandler = (err: unknown) => {
-    showDangerToastWithError(
-      t(($) => $.errors.saveFailed),
-      err,
+    const stopsNeedingUpdate = await getStopsNeedingUpdate(
+      params.form.priority,
+      params.lineType,
+      includedStopLabels,
     );
+
+    return { input, conflicts, stopsNeedingUpdate };
   };
 
-  return {
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertRouteMutation,
-    defaultErrorHandler,
-  };
+  return { prepareCreate, insertRouteMutation };
 };

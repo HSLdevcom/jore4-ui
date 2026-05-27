@@ -1,23 +1,28 @@
-import { gql } from '@apollo/client';
-import { useTranslation } from 'react-i18next';
+import { gql, useApolloClient } from '@apollo/client';
 import {
   GetRouteDetailsByIdDocument,
   InfrastructureLinkAllFieldsFragment,
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   JourneyPatternStopFragment,
+  RouteDefaultFieldsFragment,
   RouteInfrastructureLinkAlongRouteInsertInput,
   RouteStopFieldsFragment,
-  UpdateRouteGeometryMutationVariables,
+  RouteTypeOfLineEnum,
   useUpdateRouteGeometryMutation,
 } from '../../../../generated/graphql';
 import {
   RouteInfraLink,
   mapInfraLinksAlongRouteToGraphQL,
 } from '../../../../graphql';
+import { Priority } from '../../../../types/enums';
+import { buildJourneyPatternStopSequence } from '../../../../utils';
 import {
-  buildJourneyPatternStopSequence,
-  showDangerToastWithError,
-} from '../../../../utils';
+  StopMetaTypeUpdateInfo,
+  filterNeedUpdateByLineType,
+  lineTypeAffectsMetatypes,
+  resolveStopInfoByPublicCodes,
+  updateStopRegistryStopMetatype,
+} from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
 import { useValidateRoute } from './useValidateRoute';
 
 const GQL_UPDATE_ROUTE_GEOMETRY = gql`
@@ -83,13 +88,17 @@ type EditParams = {
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   readonly includedStopLabels: ReadonlyArray<string>;
   readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
+  readonly routePriority: Priority;
+  readonly lineType: RouteTypeOfLineEnum;
 };
 
-type EditChanges = {
+export type EditChanges = {
   readonly routeId: UUID;
   readonly journeyPatternId: UUID;
   readonly newInfrastructureLinks: ReadonlyArray<RouteInfrastructureLinkAlongRouteInsertInput>;
   readonly newStopsInJourneyPattern: ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
+  readonly stopsNeedingUpdate: ReadonlyArray<StopMetaTypeUpdateInfo>;
+  readonly conflicts: ReadonlyArray<RouteDefaultFieldsFragment>;
 };
 
 /**
@@ -98,9 +107,28 @@ type EditChanges = {
  * use editRouteMetadata
  */
 export const useEditRouteGeometry = () => {
-  const { t } = useTranslation();
+  const client = useApolloClient();
   const [mutateFunction] = useUpdateRouteGeometryMutation();
   const { validateJourneyPattern } = useValidateRoute();
+
+  const getStopsNeedingUpdate = async (
+    routePriority: Priority,
+    lineType: RouteTypeOfLineEnum,
+    stopPointLabels: ReadonlyArray<string>,
+  ): Promise<ReadonlyArray<StopMetaTypeUpdateInfo>> => {
+    if (
+      routePriority < Priority.Draft && // Draft should not change the stop type.
+      lineTypeAffectsMetatypes(lineType)
+    ) {
+      const updatableStops = await resolveStopInfoByPublicCodes(
+        client,
+        stopPointLabels,
+      );
+      return updatableStops.filter(filterNeedUpdateByLineType(lineType));
+    }
+
+    return [];
+  };
 
   const prepareEdit = async ({
     routeId,
@@ -109,10 +137,17 @@ export const useEditRouteGeometry = () => {
     includedStopLabels,
     journeyPatternStops,
     journeyPatternId,
-  }: EditParams) => {
+    routePriority,
+    lineType,
+  }: EditParams): Promise<EditChanges> => {
     await validateJourneyPattern({ includedStopLabels });
+    const stopsNeedingUpdate = await getStopsNeedingUpdate(
+      routePriority,
+      lineType,
+      includedStopLabels,
+    );
 
-    const changes: EditChanges = {
+    return {
       routeId,
       journeyPatternId,
       newInfrastructureLinks: mapInfraLinksAlongRouteToGraphQL(
@@ -124,47 +159,29 @@ export const useEditRouteGeometry = () => {
         journeyPatternStops,
         journeyPatternId,
       }),
+      stopsNeedingUpdate,
+      conflicts: [],
     };
-
-    return changes;
   };
 
-  const mapEditChangesToVariables = (
-    changes: EditChanges,
-  ): UpdateRouteGeometryMutationVariables => ({
-    route_id: changes.routeId,
-    journey_pattern_id: changes.journeyPatternId,
-    new_infrastructure_links: changes.newInfrastructureLinks,
-    new_stops_in_journey_pattern: changes.newStopsInJourneyPattern,
-  });
-
-  // default handler that can be used to show error messages as toast
-  // in case an exception is thrown
-  const defaultErrorHandler = (err: unknown) => {
-    showDangerToastWithError(
-      t(($) => $.errors.saveFailed),
-      err,
-    );
-  };
-
-  const editRouteGeometryMutation = async (
-    variables: UpdateRouteGeometryMutationVariables,
-  ) => {
+  const editRouteGeometryMutation = async (changes: EditChanges) => {
     await mutateFunction({
-      variables,
+      variables: {
+        route_id: changes.routeId,
+        journey_pattern_id: changes.journeyPatternId,
+        new_infrastructure_links: changes.newInfrastructureLinks,
+        new_stops_in_journey_pattern: changes.newStopsInJourneyPattern,
+      },
       refetchQueries: [
         {
           query: GetRouteDetailsByIdDocument,
-          variables: { routeId: variables.route_id },
+          variables: { routeId: changes.routeId },
         },
       ],
     });
+
+    await updateStopRegistryStopMetatype(client, changes.stopsNeedingUpdate);
   };
 
-  return {
-    prepareEditGeometry: prepareEdit,
-    mapEditGeometryChangesToVariables: mapEditChangesToVariables,
-    editRouteGeometryMutation,
-    defaultErrorHandler,
-  };
+  return { prepareEditGeometry: prepareEdit, editRouteGeometryMutation };
 };

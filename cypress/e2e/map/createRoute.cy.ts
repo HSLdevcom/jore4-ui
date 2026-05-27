@@ -1,7 +1,12 @@
 import {
   Priority,
-  ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
+  RouteTypeOfLineEnum,
+  StopAreaInput,
+  StopInsertInput,
+  StopRegistryGeoJsonInput,
+  StopRegistryGeoJsonType,
+  StopRegistryTransportModeType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
   buildInfraLinksAlongRoute,
@@ -12,17 +17,50 @@ import {
 } from '../../datasets/base';
 import { Tag } from '../../enums';
 import {
-  FilterPanel,
   LineChangeHistory,
   LineDetailsPage,
   MapFooter,
   MapPage,
   RouteStopsOverlay,
   RouteStopsOverlayRow,
+  StopsNeedingUpdateModal,
   Toast,
 } from '../../pageObjects';
 import { UUID } from '../../types';
-import { SupportedResources, insertToDbHelper } from '../../utils';
+import { SupportedResources, insertToDbHelper, mapAt } from '../../utils';
+import { InsertedStopRegistryIds } from '../utils';
+
+const baseDbResources = getClonedBaseDbResources();
+
+function constructStopRegistryEntriesForBaseDbResourceStopPoints(
+  stopPoints: ReadonlyArray<StopInsertInput> = [],
+) {
+  return stopPoints.map<StopAreaInput>(
+    ({ label, measured_location: location }) => {
+      const geometry: StopRegistryGeoJsonInput = {
+        coordinates: location.coordinates.slice(0, 2),
+        type: StopRegistryGeoJsonType.Point,
+      };
+
+      return {
+        organisations: null,
+        StopArea: {
+          name: { value: label, lang: 'fin' },
+          privateCode: { value: `A-${label}`, type: 'HSL/TEST' },
+          geometry,
+          transportMode: StopRegistryTransportModeType.Bus,
+          quays: [
+            {
+              privateCode: { value: label, type: 'HSL/TEST' },
+              publicCode: label,
+              geometry,
+            },
+          ],
+        },
+      };
+    },
+  );
+}
 
 const rootOpts: Cypress.SuiteConfigOverrides = {
   tags: [Tag.Routes, Tag.Map],
@@ -31,7 +69,6 @@ const rootOpts: Cypress.SuiteConfigOverrides = {
 describe('Route creation', rootOpts, () => {
   let dbResources: SupportedResources;
 
-  const baseDbResources = getClonedBaseDbResources();
   // Location where all test stops and routes are visible.
   const mapLocation = {
     lng: 24.929689228090112,
@@ -50,6 +87,11 @@ describe('Route creation', rootOpts, () => {
 
       dbResources = {
         ...baseDbResources,
+        // Change the 901 line to be a Trunk Line
+        lines: mapAt(baseDbResources.lines, 0, (line) => ({
+          ...line,
+          type_of_line: RouteTypeOfLineEnum.ExpressBusService,
+        })),
         stops,
         infraLinksAlongRoute,
       };
@@ -60,6 +102,12 @@ describe('Route creation', rootOpts, () => {
     cy.task('resetDbs');
 
     insertToDbHelper(dbResources);
+    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+      stopPlaces: constructStopRegistryEntriesForBaseDbResourceStopPoints(
+        dbResources.stops,
+      ),
+    });
+
     cy.setupTests();
     cy.mockLogin();
   });
@@ -73,8 +121,6 @@ describe('Route creation', rootOpts, () => {
       const versionComment = 'E2E create route reason';
 
       MapPage.map.visit(mapLocation);
-
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
       MapPage.map.waitForLoadToComplete();
 
       MapFooter.getCreateRouteButton().click();
@@ -129,10 +175,17 @@ describe('Route creation', rootOpts, () => {
         stopCoordinatesByLabel.E2E005[1],
       );
 
+      MapFooter.save();
+
+      StopsNeedingUpdateModal.getModal().shouldBeVisible();
+      ['E2E001', 'E2E003', 'E2E004', 'E2E005']
+        .map(StopsNeedingUpdateModal.getStopLink)
+        .forEach((link) => link.shouldBeVisible());
+      StopsNeedingUpdateModal.getConfirmButton().click();
+
       MapPage.map.getLoader().should('exist');
       MapPage.map.getLoader().should('not.exist');
 
-      MapFooter.save();
       Toast.expectSuccessToast('Reitti tallennettu');
 
       // Check from routeStopsOverlay that everything is correct
@@ -145,16 +198,16 @@ describe('Route creation', rootOpts, () => {
       ).shouldBeVisible();
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
       RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
-        'E2E001 -',
+        'E2E001 E2E001',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
-        'E2E003 -',
+        'E2E003 E2E003',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
-        'E2E004 -',
+        'E2E004 E2E004',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
-        'E2E005 -',
+        'E2E005 E2E005',
       );
 
       LineDetailsPage.visit(baseDbResources.lines[0].line_id);
@@ -208,7 +261,6 @@ describe('Route creation', rootOpts, () => {
     () => {
       MapPage.map.visit(mapLocation);
 
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
       MapPage.map.waitForLoadToComplete();
       MapFooter.getCreateRouteButton().click();
       MapPage.routePropertiesForm.fillRouteProperties({
@@ -257,19 +309,19 @@ describe('Route creation', rootOpts, () => {
 
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
       RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
-        'E2E001 -',
+        'E2E001 E2E001',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
-        'E2E002 -',
+        'E2E002 E2E002',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
-        'E2E003 -',
+        'E2E003 E2E003',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
-        'E2E004 -',
+        'E2E004 E2E004',
       );
 
-      // Remove one stop from the journey pattern
+      // Remove one stop (E2E003) from the journey pattern
       RouteStopsOverlay.getNthRouteStopsOverlayRow(2).within(() =>
         RouteStopsOverlayRow.getMenuButton().click(),
       );
@@ -278,6 +330,14 @@ describe('Route creation', rootOpts, () => {
         .click();
 
       MapFooter.save();
+
+      StopsNeedingUpdateModal.getModal().shouldBeVisible();
+      ['E2E001', 'E2E002', 'E2E004']
+        .map(StopsNeedingUpdateModal.getStopLink)
+        .forEach((link) => link.shouldBeVisible());
+      StopsNeedingUpdateModal.getStopLink('E2E003').should('not.exist');
+      StopsNeedingUpdateModal.getConfirmButton().click();
+
       Toast.expectSuccessToast('Reitti tallennettu');
 
       RouteStopsOverlay.getHeader()
@@ -285,13 +345,13 @@ describe('Route creation', rootOpts, () => {
         .and('contain', 'Test route');
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 3);
       RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
-        'E2E001 -',
+        'E2E001 E2E001',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
-        'E2E002 -',
+        'E2E002 E2E002',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
-        'E2E004 -',
+        'E2E004 E2E004',
       );
     },
   );
@@ -302,7 +362,6 @@ describe('Route creation', rootOpts, () => {
     () => {
       MapPage.map.visit(mapLocation);
 
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
       MapPage.map.waitForLoadToComplete();
 
       MapFooter.getCreateRouteButton().click();
@@ -348,10 +407,10 @@ describe('Route creation', rootOpts, () => {
 
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
       RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
-        'E2E001 -',
+        'E2E001 E2E001',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
-        'E2E002 -',
+        'E2E002 E2E002',
       );
 
       // Remove the other stop from the journey pattern
@@ -375,7 +434,6 @@ describe('Route creation', rootOpts, () => {
     () => {
       MapPage.map.visit(mapLocation);
 
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
       MapPage.map.waitForLoadToComplete();
 
       MapFooter.getCreateRouteButton().click();
@@ -420,10 +478,13 @@ describe('Route creation', rootOpts, () => {
         stopCoordinatesByLabel.E2E002[1],
       );
 
+      MapFooter.save();
+
+      StopsNeedingUpdateModal.getConfirmButton().click();
+
       MapPage.map.getLoader().should('exist');
       MapPage.map.getLoader().should('not.exist');
 
-      MapFooter.save();
       Toast.expectSuccessToast('Reitti tallennettu');
     },
   );
@@ -434,7 +495,6 @@ describe('Route creation', rootOpts, () => {
     () => {
       MapPage.map.visit(mapLocation);
 
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
       MapPage.map.waitForLoadToComplete();
 
       MapFooter.getCreateRouteButton().click();
@@ -469,29 +529,31 @@ describe('Route creation', rootOpts, () => {
       });
 
       MapPage.editRouteModal.save();
+      MapFooter.save();
+
+      StopsNeedingUpdateModal.getConfirmButton().click();
 
       MapPage.map.getLoader().should('exist');
       MapPage.map.getLoader().should('not.exist');
-      MapFooter.save();
 
       RouteStopsOverlay.getHeader()
         .should('contain', '901T')
         .and('contain', 'Based on template test route');
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 5);
       RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
-        'E2E001 -',
+        'E2E001 E2E001',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
-        'E2E002 -',
+        'E2E002 E2E002',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText(
-        'E2E003 -',
+        'E2E003 E2E003',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText(
-        'E2E004 -',
+        'E2E004 E2E004',
       );
       RouteStopsOverlay.getNthRouteStopsOverlayRow(4).shouldHaveText(
-        'E2E005 -',
+        'E2E005 E2E005',
       );
     },
   );
