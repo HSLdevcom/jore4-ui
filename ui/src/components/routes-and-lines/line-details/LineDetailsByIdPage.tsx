@@ -1,7 +1,11 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LineAllFieldsFragment } from '../../../generated/graphql';
+import { twJoin } from 'tailwind-merge';
+import {
+  LineAllFieldsFragment,
+  ReusableComponentsVehicleModeEnum,
+} from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
@@ -28,6 +32,53 @@ import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
 import { LineFetchError, useGetLineDetails } from './useGetLineDetails';
 import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
+
+export function showIconForVehicleMode(
+  vehicleMode: ReusableComponentsVehicleModeEnum | null,
+  className?: string,
+) {
+  switch (vehicleMode) {
+    case ReusableComponentsVehicleModeEnum.Bus:
+      return (
+        <i className={twJoin('icon-bus-alt text-tweaked-brand', className)} />
+      );
+    case ReusableComponentsVehicleModeEnum.Tram:
+      return (
+        <i
+          className={twJoin(
+            'icon-tram-filled text-hsl-tram-dark-green',
+            className,
+          )}
+        />
+      );
+    case ReusableComponentsVehicleModeEnum.Metro:
+      return (
+        <i
+          className={twJoin(
+            'icon-metro-filled text-hsl-metro-orange',
+            className,
+          )}
+        />
+      );
+    case ReusableComponentsVehicleModeEnum.Ferry:
+      return (
+        <i
+          className={twJoin('icon-ferry-filled text-hsl-ferry-blue', className)}
+        />
+      );
+    case ReusableComponentsVehicleModeEnum.Train:
+      return (
+        <i
+          className={twJoin(
+            'icon-train-filled text-hsl-train-purple',
+            className,
+          )}
+        />
+      );
+    default:
+      return null;
+  }
+}
 
 export const LineDetailsByIdPage: FC = () => {
   const { t } = useTranslation();
@@ -75,7 +126,10 @@ export const LineDetailsByIdPage: FC = () => {
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
         <Row>
-          <i className="icon-bus-alt mt-2 text-6xl text-tweaked-brand" />
+          {showIconForVehicleMode(
+            line?.primary_vehicle_mode ?? null,
+            'text-6xl mt-2',
+          )}
           {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
         </Row>
       </PageHeader>

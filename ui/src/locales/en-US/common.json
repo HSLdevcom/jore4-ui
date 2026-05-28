@@ -63,6 +63,7 @@
   },
   "lines": {
     "createNew": "Create new line",
+    "edit": "Muokkaa linjaa {{label}} {{name}}",
     "saveSuccess": "Line saved",
     "properties": "Properties",
     "label": "Line label",
@@ -1622,7 +1623,7 @@
       "showTimetables": "Show timetables for line {{label}}",
       "expandNameVersions": "Show name versions",
       "closeNameVersions": "Close the name version view",
-      "edit": "Edit line {{label}}",
+      "edit": "Edit line {{label}} {{name}}",
       "versionHistory": "Version history",
       "bus": "Bus line"
     },
