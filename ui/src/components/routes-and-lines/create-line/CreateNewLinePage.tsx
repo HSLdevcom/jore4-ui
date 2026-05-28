@@ -69,7 +69,6 @@ export const CreateNewLinePage: FC = () => {
         conflicts={conflicts.map(mapLineToCommonConflictItem)}
       />
       <Row>
-        <i className="icon-bus-alt text-6xl text-tweaked-brand" />
         <PageTitle.H1>{t(($) => $.lines.createNew)}</PageTitle.H1>
       </Row>
       <LineForm
