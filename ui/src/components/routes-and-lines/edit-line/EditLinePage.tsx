@@ -26,6 +26,7 @@ import { PageHeader } from '../common/PageHeader';
 import { getBlockers, hasBlockers } from '../common/SaveBlockers';
 import { StopsNeedingUpdateModal } from '../common/StopsNeedingUpdateModal';
 import { useUpdateStopRegistryStopMetatype } from '../common/useUpdateStopRegistryStopMetatype';
+import { showIconForVehicleMode } from '../line-details/LineDetailsByIdPage';
 import { EditLineChanges, useEditLine } from './useEditLine';
 
 function mapLineToFormState(line: LineAllFieldsFragment): FormState {
@@ -116,8 +117,9 @@ export const EditLinePage: FC = () => {
     }
   };
 
-  const pageTitleText = t(($) => $.lines.line, {
+  const pageTitleText = t(($) => $.lines.edit, {
     label: line?.label,
+    name: line?.name_i18n.fi_FI,
   });
 
   const blockers = getBlockers(pendingEditChanges);
@@ -145,12 +147,15 @@ export const EditLinePage: FC = () => {
       ) : null}
 
       <PageHeader>
-        <PageTitle.H1 titleText={pageTitleText}>
-          <i className="icon-bus-alt text-tweaked-brand" />
-          {pageTitleText}
-        </PageTitle.H1>
+        <div className="flex items-center">
+          {showIconForVehicleMode(
+            line?.primary_vehicle_mode ?? null,
+            'text-5xl',
+          )}
+          <PageTitle.H1 titleText={pageTitleText}>{pageTitleText}</PageTitle.H1>
+        </div>
       </PageHeader>
-      <Container>
+      <Container className="pt-0">
         {line && !saved && (
           <LineForm
             onSubmit={onSubmit}

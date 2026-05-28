@@ -63,6 +63,7 @@
   },
   "lines": {
     "createNew": "Luo uusi linja",
+    "edit": "Muokkaa linjaa {{label}} {{name}}",
     "saveSuccess": "Linja tallennettu",
     "properties": "Oheistiedot",
     "label": "Linjan tunnus",
@@ -1622,7 +1623,7 @@
       "showTimetables": "Näytä aikataulut linjalle {{label}}",
       "expandNameVersions": "Näytä nimiversiot",
       "closeNameVersions": "Sulje nimiversiot näkymä",
-      "edit": "Muokkaa linjaa {{label}}",
+      "edit": "Muokkaa linjaa {{label}} {{name}}",
       "versionHistory": "Versiohistoria",
       "bus": "Bussilinja"
     },
