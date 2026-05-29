@@ -81,5 +81,9 @@
 .icon-shelter:before { content: '\e8a5'; } /* '' */
 .icon-post:before { content: '\e8a6'; } /* '' */
 .icon-placeholder-dot:before { content: '\e8a7'; } /* '' */
+.icon-metro-filled:before { content: '\e8a8'; } /* '' */
+.icon-train-filled:before { content: '\e8a9'; } /* '' */
+.icon-ferry-filled:before { content: '\e8aa'; } /* '' */
+.icon-speedtram-filled:before { content: '\e8ab'; } /* '' */
 .icon-alert-filled:before { content: '\e8bf'; } /* '' */
 .icon-history:before { content: '\e8f8'; } /* '' */
