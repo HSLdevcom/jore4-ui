@@ -119,8 +119,6 @@ export async function executeQuayMove(
       toStopPlaceId: params.toStopPlaceId,
       quayIds: params.quayIds,
       moveQuayFromDate: params.moveQuayFromDate,
-      fromVersionComment: params.fromVersionComment,
-      toVersionComment: params.toVersionComment,
     },
   });
 
