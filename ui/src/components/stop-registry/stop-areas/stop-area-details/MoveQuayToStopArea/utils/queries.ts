@@ -5,16 +5,12 @@ const GQL_MOVE_QUAY_TO_STOP_PLACE = gql`
     $toStopPlaceId: String!
     $quayIds: [String!]!
     $moveQuayFromDate: stop_registry_LocalDate!
-    $fromVersionComment: String!
-    $toVersionComment: String!
   ) {
     stop_registry {
       moveQuaysToStop(
         toStopPlaceId: $toStopPlaceId
         quayIds: $quayIds
         moveQuayFromDate: $moveQuayFromDate
-        fromVersionComment: $fromVersionComment
-        toVersionComment: $toVersionComment
       ) {
         ... on stop_registry_StopPlace {
           id

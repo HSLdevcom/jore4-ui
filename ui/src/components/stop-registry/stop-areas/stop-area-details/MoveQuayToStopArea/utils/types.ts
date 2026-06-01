@@ -4,8 +4,6 @@ export type MoveQuayParams = {
   toStopPlaceId: string;
   quayIds: ReadonlyArray<string>;
   moveQuayFromDate: string;
-  fromVersionComment: string;
-  toVersionComment: string;
 };
 
 export type QuayInfo = {

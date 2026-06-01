@@ -151,8 +151,6 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
       toStopPlaceId: areaId,
       quayIds: [selectedStop.quayId],
       moveQuayFromDate: selectedDate,
-      fromVersionComment: `Moved quay on ${selectedDate}`,
-      toVersionComment: `Added quay on ${selectedDate}`,
     };
 
     try {
