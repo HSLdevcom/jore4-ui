@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { Point } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
-import { StopVersionStatus } from './StopVersionStatus';
+import { VersionStatus } from '../../../../common';
 
 export type StopVersion = {
   readonly id: number;
@@ -12,7 +12,7 @@ export type StopVersion = {
   readonly validity_start: DateTime;
   readonly validity_end: DateTime | null;
   readonly priority: Priority;
-  readonly status: StopVersionStatus;
+  readonly status: VersionStatus;
   readonly location: Point;
   readonly changed: string;
   readonly changedByUserName: string | null;

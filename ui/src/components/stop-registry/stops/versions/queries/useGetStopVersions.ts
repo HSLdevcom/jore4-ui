@@ -16,7 +16,8 @@ import {
   numberEnumValues,
   requireValue,
 } from '../../../../../utils';
-import { StopVersion, StopVersionStatus } from '../types';
+import { VersionStatus } from '../../../../common';
+import { StopVersion } from '../types';
 
 const GQL_GET_QUAY_VERSIONS = gql`
   query GetQuayVersions($publicCode: String!) {
@@ -64,14 +65,14 @@ function parsePriority(prioStr: string | null | undefined): Priority {
     : Priority.Standard;
 }
 
-function mapPriorityToStopVersionStatus(priority: Priority): StopVersionStatus {
+function mapPriorityToStopVersionStatus(priority: Priority): VersionStatus {
   switch (priority) {
     case Priority.Draft:
-      return StopVersionStatus.DRAFT;
+      return VersionStatus.DRAFT;
     case Priority.Temporary:
-      return StopVersionStatus.TEMPORARY;
+      return VersionStatus.TEMPORARY;
     default:
-      return StopVersionStatus.STANDARD;
+      return VersionStatus.STANDARD;
   }
 }
 
@@ -83,7 +84,7 @@ function mapQuayToStopVersionInfoItem(
   const priority = parsePriority(rawQuay.priority);
   const status =
     rawQuay.id === activeVersionId
-      ? StopVersionStatus.ACTIVE
+      ? VersionStatus.ACTIVE
       : mapPriorityToStopVersionStatus(priority);
 
   return {

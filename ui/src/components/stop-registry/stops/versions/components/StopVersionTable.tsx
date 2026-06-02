@@ -1,7 +1,10 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { StopVersion, StopVersionTableSortingInfo } from '../types';
-import { NoVersionRow } from './NoVersionRow';
+import {
+  NoVersionRow,
+  VersionTableSortingInfo,
+} from '../../../../common/versions';
+import { StopVersion } from '../types';
 import { StopVersionRow } from './StopVersionRow';
 import { StopVersionTableHeader } from './StopVersionTableHeader';
 
@@ -10,10 +13,8 @@ type StopVersionTableProps = {
   readonly noVersionsText: string;
   readonly publicCode: string;
   readonly stopVersions: ReadonlyArray<StopVersion>;
-  readonly sortingInfo: StopVersionTableSortingInfo;
-  readonly setSortingInfo: Dispatch<
-    SetStateAction<StopVersionTableSortingInfo>
-  >;
+  readonly sortingInfo: VersionTableSortingInfo;
+  readonly setSortingInfo: Dispatch<SetStateAction<VersionTableSortingInfo>>;
   readonly testId: string;
 };
 
@@ -47,7 +48,7 @@ export const StopVersionTable: FC<StopVersionTableProps> = ({
             />
           ))
         ) : (
-          <NoVersionRow noVersionsText={noVersionsText} />
+          <NoVersionRow noVersionsText={noVersionsText} colSpan={9} />
         )}
       </tbody>
     </table>

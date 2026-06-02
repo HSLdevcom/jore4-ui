@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ExpandButton } from '../../../uiComponents';
+import { accordionClassNames } from '../../common/versions';
 import { FormRow, InputField } from '../../forms/common';
-import { accordionClassNames } from '../../stop-registry/stops/versions/utils';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 
 const ID = 'TerminalNameSection';

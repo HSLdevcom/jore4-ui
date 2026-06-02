@@ -1,20 +1,14 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { StopVersionTableSortingInfo } from '../types';
-import { StopVersionTableHeaderSortableCell } from './StopVersionTableHeaderSortableCell';
-
-const EmptyColumnHeader: FC<{ readonly className?: string }> = ({
-  className,
-}) => (
-  // eslint-disable-next-line jsx-a11y/control-has-associated-label
-  <td className={className} />
-);
+import {
+  EmptyColumnHeader,
+  VersionTableHeaderSortableCell,
+  VersionTableSortingInfo,
+} from '../../../../common/versions';
 
 type StopVersionTableHeaderProps = {
   readonly className?: string;
-  readonly sortingInfo: StopVersionTableSortingInfo;
-  readonly setSortingInfo: Dispatch<
-    SetStateAction<StopVersionTableSortingInfo>
-  >;
+  readonly sortingInfo: VersionTableSortingInfo;
+  readonly setSortingInfo: Dispatch<SetStateAction<VersionTableSortingInfo>>;
 };
 
 export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
@@ -25,49 +19,55 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
   return (
     <thead className={className}>
       <tr className="text-nowrap">
-        <StopVersionTableHeaderSortableCell
+        <VersionTableHeaderSortableCell
           className="mr-auto px-4 py-2"
           columnType="STATUS"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testIdPrefix="StopVersionTableHeaderSortableCell"
         />
 
-        <StopVersionTableHeaderSortableCell
+        <VersionTableHeaderSortableCell
           className="ml-auto px-4 py-2"
           columnType="VALIDITY_START"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testIdPrefix="StopVersionTableHeaderSortableCell"
         />
 
         <EmptyColumnHeader className="w-fit" />
 
-        <StopVersionTableHeaderSortableCell
+        <VersionTableHeaderSortableCell
           className="ml-auto px-4 py-2"
           columnType="VALIDITY_END"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testIdPrefix="StopVersionTableHeaderSortableCell"
         />
 
-        <StopVersionTableHeaderSortableCell
+        <VersionTableHeaderSortableCell
           className="mx-auto px-4 py-2"
           tdClassName="w-full"
           columnType="VERSION_COMMENT"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testIdPrefix="StopVersionTableHeaderSortableCell"
         />
 
-        <StopVersionTableHeaderSortableCell
+        <VersionTableHeaderSortableCell
           className="mx-auto px-4 py-2"
           columnType="CHANGED"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testIdPrefix="StopVersionTableHeaderSortableCell"
         />
 
-        <StopVersionTableHeaderSortableCell
+        <VersionTableHeaderSortableCell
           className="mx-auto px-4 py-2"
           columnType="CHANGED_BY"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testIdPrefix="StopVersionTableHeaderSortableCell"
         />
 
         <EmptyColumnHeader />

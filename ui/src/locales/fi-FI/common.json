@@ -1501,6 +1501,14 @@
       "show": "Näytä luonnokset",
       "hide": "Piilota luonnokset",
       "noVersions": "Pysäkiin ei liity yhtään luonnosta."
+    }
+  },
+  "versions": {
+    "status": {
+      "active": "Voimassa",
+      "standard": "$t(priority.standard)",
+      "temporary": "$t(priority.temporary)",
+      "draft": "$t(priority.draft)"
     },
     "header": {
       "status": "Status",
@@ -1509,12 +1517,6 @@
       "version_comment": "Version nimi",
       "changed": "Muokattu",
       "changed_by": "Muokkaaja"
-    },
-    "status": {
-      "active": "Voimassa",
-      "standard": "$t(priority.standard)",
-      "temporary": "$t(priority.temporary)",
-      "draft": "$t(priority.draft)"
     }
   },
   "changeHistory": {
