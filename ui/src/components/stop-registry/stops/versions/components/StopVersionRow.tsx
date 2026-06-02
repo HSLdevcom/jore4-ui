@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { mapToShortDate, mapToShortDateTime } from '../../../../../time';
+import { statusToCellClasses } from '../../../../common/versions';
+import { trStatus } from '../../../../common/versions/trStatus';
 import { LocatorActionButton } from '../../../components';
-import { StopVersion, StopVersionStatus } from '../types';
+import { StopVersion } from '../types';
 import { ActionMenuStop } from '../types/ActionMenuStop';
-import { trStatus } from '../utils';
 import { StopVersionActionMenu } from './StopVersionActionMenu';
 
 const testIds = {
@@ -16,25 +17,6 @@ const testIds = {
   changed: 'StopVersionRow::changed',
   changedBy: 'StopVersionRow::changedBy',
 };
-
-function statusToCellClasses(status: StopVersionStatus): string {
-  switch (status) {
-    case StopVersionStatus.ACTIVE:
-      return 'bg-hsl-dark-green text-white';
-
-    case StopVersionStatus.STANDARD:
-      return 'bg-tweaked-brand text-white';
-
-    case StopVersionStatus.TEMPORARY:
-      return 'bg-city-bicycle-yellow';
-
-    case StopVersionStatus.DRAFT:
-      return 'bg-background';
-
-    default:
-      return '';
-  }
-}
 
 type StopVersionRowProps = {
   readonly className?: string;

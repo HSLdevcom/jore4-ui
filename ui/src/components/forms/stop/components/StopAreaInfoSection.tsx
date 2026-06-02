@@ -8,8 +8,8 @@ import { useObservationDateQueryParam } from '../../../../hooks';
 import { mapVehicleModeToUiName } from '../../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { ExpandButton } from '../../../../uiComponents';
+import { accordionClassNames } from '../../../common';
 import { LabeledDetail } from '../../../stop-registry/stops/stop-details/layout';
-import { accordionClassNames } from '../../../stop-registry/stops/versions/utils';
 import { StopFormState } from '../types';
 import { formatIsoDateString } from '../utils';
 

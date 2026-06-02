@@ -3,9 +3,9 @@ import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ExpandButton } from '../../../uiComponents';
+import { accordionClassNames } from '../../common';
 import { FormRow, InputField } from '../../forms/common';
 import { StopAreaFormState } from '../../forms/stop-area';
-import { accordionClassNames } from '../../stop-registry/stops/versions/utils';
 
 const ID = 'StopAreaEngNameSection';
 const HeaderId = 'StopAreaEngNameSection::Header';

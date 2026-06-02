@@ -1501,6 +1501,14 @@
       "show": "Show drafts",
       "hide": "Hide drafts",
       "noVersions": "The stop has no draft verisons."
+    }
+  },
+  "versions": {
+    "status": {
+      "active": "Active",
+      "standard": "$t(priority.standard)",
+      "temporary": "$t(priority.temporary)",
+      "draft": "$t(priority.draft)"
     },
     "header": {
       "status": "Status",
@@ -1509,12 +1517,6 @@
       "version_comment": "Version name",
       "changed": "Changed",
       "changed_by": "Changed by"
-    },
-    "status": {
-      "active": "Active",
-      "standard": "$t(priority.standard)",
-      "temporary": "$t(priority.temporary)",
-      "draft": "$t(priority.draft)"
     }
   },
   "changeHistory": {

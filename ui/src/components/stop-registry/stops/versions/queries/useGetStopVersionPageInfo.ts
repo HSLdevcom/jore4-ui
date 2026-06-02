@@ -1,15 +1,16 @@
-import { StopPlaceName, StopVersion, StopVersionStatus } from '../types';
+import { VersionStatus } from '../../../../common';
+import { StopPlaceName, StopVersion } from '../types';
 import { useGetStopPlaceName } from './useGetStopPlaceName';
 import { useGetStopVersions } from './useGetStopVersions';
 
 function active(stopVersion: StopVersion) {
-  return stopVersion.status === StopVersionStatus.ACTIVE;
+  return stopVersion.status === VersionStatus.ACTIVE;
 }
 
 function properVersion(stopVersion: StopVersion) {
   return (
-    stopVersion.status === StopVersionStatus.STANDARD ||
-    stopVersion.status === StopVersionStatus.TEMPORARY
+    stopVersion.status === VersionStatus.STANDARD ||
+    stopVersion.status === VersionStatus.TEMPORARY
   );
 }
 

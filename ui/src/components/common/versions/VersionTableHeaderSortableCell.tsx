@@ -2,15 +2,10 @@ import { TFunction } from 'i18next';
 import { AriaAttributes, Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { SortOrder } from '../../../../../types';
-import { ExpandButton } from '../../../../../uiComponents';
-import { StopVersionTableColumn, StopVersionTableSortingInfo } from '../types';
-
-const testIds = {
-  column: (type: StopVersionTableColumn) =>
-    `StopVersionTableHeaderSortableCell::${type.toLowerCase()}`,
-  sortButton: 'StopVersionTableHeaderSortableCell::sortButton',
-};
+import { SortOrder } from '../../../types';
+import { ExpandButton } from '../../../uiComponents';
+import { VersionTableSortingInfo } from './useVersionContainerControls';
+import { VersionTableColumn } from './VersionTableColumn';
 
 function getAriaSortValue(
   active: boolean,
@@ -23,39 +18,45 @@ function getAriaSortValue(
   return undefined;
 }
 
-function trColumnName(t: TFunction, columnType: StopVersionTableColumn) {
+function trColumnName(t: TFunction, columnType: VersionTableColumn) {
   switch (columnType) {
     case 'CHANGED':
-      return t(($) => $.stopVersion.header.changed);
+      return t(($) => $.versions.header.changed);
     case 'CHANGED_BY':
-      return t(($) => $.stopVersion.header.changed_by);
+      return t(($) => $.versions.header.changed_by);
     case 'STATUS':
-      return t(($) => $.stopVersion.header.status);
+      return t(($) => $.versions.header.status);
     case 'VALIDITY_END':
-      return t(($) => $.stopVersion.header.validity_end);
+      return t(($) => $.versions.header.validity_end);
     case 'VALIDITY_START':
-      return t(($) => $.stopVersion.header.validity_start);
+      return t(($) => $.versions.header.validity_start);
     case 'VERSION_COMMENT':
-      return t(($) => $.stopVersion.header.version_comment);
+      return t(($) => $.versions.header.version_comment);
 
     default:
       return '';
   }
 }
 
-type StopVersionTableHeaderSortableCellProps = {
+type VersionTableHeaderSortableCellProps = {
   readonly className?: string;
   readonly tdClassName?: string;
-  readonly columnType: StopVersionTableColumn;
-  readonly sortingInfo: StopVersionTableSortingInfo;
-  readonly setSortingInfo: Dispatch<
-    SetStateAction<StopVersionTableSortingInfo>
-  >;
+  readonly columnType: VersionTableColumn;
+  readonly sortingInfo: VersionTableSortingInfo;
+  readonly setSortingInfo: Dispatch<SetStateAction<VersionTableSortingInfo>>;
+  readonly testIdPrefix?: string;
 };
 
-export const StopVersionTableHeaderSortableCell: FC<
-  StopVersionTableHeaderSortableCellProps
-> = ({ className, tdClassName, columnType, sortingInfo, setSortingInfo }) => {
+export const VersionTableHeaderSortableCell: FC<
+  VersionTableHeaderSortableCellProps
+> = ({
+  className,
+  tdClassName,
+  columnType,
+  sortingInfo,
+  setSortingInfo,
+  testIdPrefix = 'VersionTableHeaderSortableCell',
+}) => {
   const { t } = useTranslation();
 
   const active = sortingInfo.sortBy === columnType;
@@ -81,7 +82,7 @@ export const StopVersionTableHeaderSortableCell: FC<
     <td
       aria-sort={getAriaSortValue(active, ascending)}
       className={tdClassName}
-      data-testid={testIds.column(columnType)}
+      data-testid={`${testIdPrefix}::${columnType.toLowerCase()}`}
     >
       <ExpandButton
         forSorting
@@ -90,7 +91,7 @@ export const StopVersionTableHeaderSortableCell: FC<
         expanded={!ascending}
         expandedText={trColumnName(t, columnType)}
         onClick={onClick}
-        testId={testIds.sortButton}
+        testId={`${testIdPrefix}::sortButton`}
       />
     </td>
   );
