@@ -1,11 +1,12 @@
 import { Transition } from '@headlessui/react';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../../../../layoutComponents';
-import { SortOrder } from '../../../../../types';
 import { ExpandButton } from '../../../../../uiComponents';
-import { StopVersion, StopVersionTableSortingInfo } from '../types';
-import { accordionClassNames, useSortedStopVersions } from '../utils';
+import { accordionClassNames } from '../../../../common';
+import { useVersionContainerControls } from '../../../../common/versions';
+import { StopVersion } from '../types';
+import { useSortedStopVersions } from '../utils';
 import { StopVersionTable } from './StopVersionTable';
 
 const ID = 'DraftVersionsContainer';
@@ -15,22 +16,6 @@ const testIds = {
   showHideButton: 'DraftVersionsContainer::showHideButton',
   versionTable: 'DraftVersionsContainer::versionTable',
 };
-
-function useControls() {
-  const [expanded, setExpanded] = useState<boolean>(true);
-
-  const [sortingInfo, setSortingInfo] = useState<StopVersionTableSortingInfo>({
-    sortBy: 'VALIDITY_START',
-    sortOrder: SortOrder.ASCENDING,
-  });
-
-  return {
-    expanded,
-    setExpanded,
-    setSortingInfo,
-    sortingInfo,
-  };
-}
 
 type DraftVersionsContainerProps = {
   readonly className?: string;
@@ -45,7 +30,8 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { expanded, setExpanded, sortingInfo, setSortingInfo } = useControls();
+  const { expanded, setExpanded, sortingInfo, setSortingInfo } =
+    useVersionContainerControls();
 
   const sortedStopVersions = useSortedStopVersions(sortingInfo, stopVersions);
 

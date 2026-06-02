@@ -1,4 +1,4 @@
-export type StopVersionTableColumn =
+export type VersionTableColumn =
   | 'STATUS'
   | 'VALIDITY_START'
   | 'VALIDITY_END'

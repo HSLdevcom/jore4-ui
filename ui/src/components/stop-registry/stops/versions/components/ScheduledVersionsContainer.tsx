@@ -1,13 +1,16 @@
 import { Transition } from '@headlessui/react';
-import { DateTime } from 'luxon';
-import { FC, useMemo, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../../../layoutComponents';
-import { DateRange, SortOrder } from '../../../../../types';
 import { ExpandButton } from '../../../../../uiComponents';
-import { StopVersion, StopVersionTableSortingInfo } from '../types';
-import { accordionClassNames, useSortedStopVersions } from '../utils';
-import { DateRangeInputs } from './DateRangeInputs';
+import { accordionClassNames } from '../../../../common';
+import {
+  DateRangeInputs,
+  useFilterVersionsByDateRange,
+  useVersionContainerControls,
+} from '../../../../common/versions';
+import { StopVersion } from '../types';
+import { useSortedStopVersions } from '../utils';
 import { StopVersionTable } from './StopVersionTable';
 
 const ID = 'ScheduledVersionsContainer';
@@ -17,50 +20,6 @@ const testIds = {
   showHideButton: 'ScheduledVersionsContainer::showHideButton',
   versionTable: 'ScheduledVersionsContainer::versionTable',
 };
-
-function useFilterVersionsByDateRange(
-  stopVersions: ReadonlyArray<StopVersion>,
-  dateRange: DateRange,
-): ReadonlyArray<StopVersion> {
-  const from = dateRange.startDate.valueOf();
-  const to = dateRange.endDate.valueOf();
-
-  return useMemo(() => {
-    return stopVersions.filter((stopVersion) => {
-      const stopFrom = stopVersion.validity_start.valueOf();
-      const stopTo =
-        stopVersion.validity_end?.valueOf() ?? Number.POSITIVE_INFINITY;
-
-      return !(
-        // End before range start
-        (stopTo < from || stopFrom > to) // Starts after range end
-      );
-    });
-  }, [stopVersions, from, to]);
-}
-
-function useControls() {
-  const [expanded, setExpanded] = useState<boolean>(true);
-
-  const [dateRange, setDateRange] = useState<DateRange>(() => ({
-    startDate: DateTime.now().minus({ month: 1 }).startOf('month'),
-    endDate: DateTime.now().plus({ months: 12 }).endOf('month'),
-  }));
-
-  const [sortingInfo, setSortingInfo] = useState<StopVersionTableSortingInfo>({
-    sortBy: 'VALIDITY_START',
-    sortOrder: SortOrder.ASCENDING,
-  });
-
-  return {
-    expanded,
-    setExpanded,
-    dateRange,
-    setDateRange,
-    setSortingInfo,
-    sortingInfo,
-  };
-}
 
 type ScheduledVersionsContainerProps = {
   readonly className?: string;
@@ -80,7 +39,7 @@ export const ScheduledVersionsContainer: FC<
     setDateRange,
     sortingInfo,
     setSortingInfo,
-  } = useControls();
+  } = useVersionContainerControls();
 
   const filteredStopVersions = useFilterVersionsByDateRange(
     useSortedStopVersions(sortingInfo, stopVersions),
