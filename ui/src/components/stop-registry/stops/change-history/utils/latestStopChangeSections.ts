@@ -10,6 +10,7 @@ import {
   diffShelters,
   diffSignageDetails,
   diffStopAreaAndTerminal,
+  diffStopExternalLinks,
 } from '.';
 
 type StopChangeSection = {
@@ -54,6 +55,10 @@ export function latestStopChangeSections(
     {
       title: t(($) => $.stopChangeHistory.infoSpots.title),
       changes: diffInfoSpots(t, prev, curr),
+    },
+    {
+      title: t(($) => $.changeHistory.externalLinks.title),
+      changes: diffStopExternalLinks(t, prev, curr),
     },
   ].filter((s) => s.changes.length > 0);
 }
