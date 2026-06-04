@@ -61,7 +61,9 @@ export const MapPage: FC = () => {
         <Map ref={mapRef} className="grow" />
 
         <MapFooter
-          onDrawRoute={() => mapRef.current?.onDrawRoute()}
+          onDrawRoute={(vehicleMode) =>
+            mapRef.current?.onDrawRoute(vehicleMode)
+          }
           onEditRoute={() => mapRef.current?.onEditRoute()}
           onStopEditRoute={() => mapRef.current?.onStopEditRoute()}
           onDeleteRoute={() => mapRef.current?.onDeleteRoute()}

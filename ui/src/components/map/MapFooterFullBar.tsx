@@ -17,6 +17,7 @@ import {
 import { SimpleButton } from '../../uiComponents';
 import { Row, Visible } from '../common/LayoutComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
+import { MapFooterAddRouteDropdown } from './MapFooterAddRouteDropdown';
 import { MapFooterAddStopDropdown } from './MapFooterAddStopDropdown';
 import { useMapViewState } from './utils/useMapViewState';
 
@@ -30,7 +31,9 @@ const testIds = {
 };
 
 type MapFooterFullBarProps = {
-  readonly onDrawRoute: () => void;
+  readonly onDrawRoute: (
+    vehicleMode: ReusableComponentsVehicleModeEnum,
+  ) => void;
   readonly onEditRoute: () => void;
   readonly onStopEditRoute: () => void;
   readonly onDeleteRoute: () => void;
@@ -93,14 +96,12 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
 
   return (
     <Row testId={testIds.mapFooter} className="gap-4 bg-white px-10 py-5">
-      <SimpleButton
+      <MapFooterAddRouteDropdown
         testId={testIds.drawRouteButton}
-        onClick={onDrawRoute}
+        onAddRoute={onDrawRoute}
         disabled={!isInViewMode || creatingNewRoute || someItemIsSelected}
         inverted={drawingMode !== Mode.Draw}
-      >
-        {t(($) => $.map.drawRoute)}
-      </SimpleButton>
+      />
       <SimpleButton
         testId={testIds.editRouteButton}
         onClick={handleEditRouteClick}
