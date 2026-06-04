@@ -122,7 +122,7 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
                       privateCode={
                         parentStopPlaceDetails.privateCode?.value ?? ''
                       }
-                      className="w-full border-b pb-2"
+                      className="mt-6 w-full border-b pb-2"
                     />
                   </>
                 )}
