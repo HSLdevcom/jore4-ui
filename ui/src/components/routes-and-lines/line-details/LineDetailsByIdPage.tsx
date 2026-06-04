@@ -93,7 +93,7 @@ export const LineDetailsByIdPage: FC = () => {
   const createRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapRouteEditorStateAction());
     dispatch(setLineInfoAction(routeLine));
-    dispatch(startRouteCreatingAction());
+    dispatch(startRouteCreatingAction(routeLine.primary_vehicle_mode));
     navigateToMap();
   };
 

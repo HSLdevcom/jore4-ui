@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../generated/graphql';
+import { useAppSelector } from '../../../hooks';
+import { selectEditedRouteData } from '../../../redux';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import {
   ComboboxInputProps,
@@ -36,10 +38,16 @@ export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
   onBlur,
 }) => {
   const { t } = useTranslation();
+  const { vehicleMode } = useAppSelector(selectEditedRouteData);
 
   const [query, setQuery] = useState('');
 
-  const { lines, selectedLine } = useChooseLineDropdown(query, value);
+  const { lines, selectedLine } = useChooseLineDropdown(
+    query,
+    value,
+    undefined,
+    vehicleMode,
+  );
 
   const options = lines?.map(mapToOption) ?? [];
 

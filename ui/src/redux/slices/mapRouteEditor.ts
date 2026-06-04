@@ -3,6 +3,7 @@ import uniq from 'lodash/uniq';
 import {
   InfrastructureLinkAllFieldsFragment,
   LineAllFieldsFragment,
+  ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
@@ -42,6 +43,10 @@ export type EditedRouteData = {
    * Used e.g. for determining the vehicle mode
    */
   readonly lineInfo?: LineAllFieldsFragment;
+  /**
+   * Vehicle mode selected by the user when creating a new route.
+   */
+  readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
   /**
    * Array of infrastructure links along the created / edited route
    */
@@ -105,6 +110,7 @@ const initialState: IState = {
   editedRouteData: {
     id: undefined,
     lineInfo: undefined,
+    vehicleMode: undefined,
     metaData: undefined,
     includedStopLabels: [],
     journeyPattern: {
@@ -134,10 +140,14 @@ const slice = createSlice({
     /**
      * Start creating a new route. Start by opening metadata form.
      */
-    startRouteCreating: (state) => {
+    startRouteCreating: (
+      state,
+      action: PayloadAction<ReusableComponentsVehicleModeEnum | undefined>,
+    ) => {
       state.isRouteMetadataFormOpen = true;
       state.creatingNewRoute = true;
       state.selectedRouteId = undefined;
+      state.editedRouteData.vehicleMode = action.payload;
     },
     /**
      * Quit route creation mode. Reset draw mode and metadata.

@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 import {
   LineForComboboxFragment,
+  ReusableComponentsVehicleModeEnum,
   useGetLinesForComboboxQuery,
   useGetSelectedLineDetailsByIdQuery,
 } from '../../../generated/graphql';
@@ -10,11 +11,16 @@ import { useDebouncedString } from '../../../hooks';
 import { mapToSqlLikeValue, mapToVariables } from '../../../utils';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
-  query GetLinesForCombobox($labelPattern: String!, $date: date!) {
+  query GetLinesForCombobox(
+    $labelPattern: String!
+    $date: date!
+    $primary_vehicle_mode: reusable_components_vehicle_mode_enum
+  ) {
     route_line(
       limit: 10
       where: {
         label: { _ilike: $labelPattern }
+        primary_vehicle_mode: { _eq: $primary_vehicle_mode }
         _or: [
           { validity_end: { _gte: $date } }
           { validity_end: { _is_null: true } }
@@ -49,6 +55,7 @@ export const useChooseLineDropdown = (
   query: string,
   lineId?: string,
   observationDate?: DateTime,
+  vehicleMode?: ReusableComponentsVehicleModeEnum,
 ): {
   lines: ReadonlyArray<LineForComboboxFragment>;
   selectedLine?: LineForComboboxFragment;
@@ -64,6 +71,7 @@ export const useChooseLineDropdown = (
     mapToVariables({
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
       date: observationDate ?? today.toISO(),
+      primary_vehicle_mode: vehicleMode,
     }),
   );
 
