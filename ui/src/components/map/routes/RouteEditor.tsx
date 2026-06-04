@@ -7,6 +7,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
 import {
+  ReusableComponentsVehicleModeEnum,
   RouteDefaultFieldsFragment,
   useGetRouteDetailsByIdLazyQuery,
 } from '../../../generated/graphql';
@@ -373,11 +374,11 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   const { setIsLoading } = useLoader(Operation.SaveRoute);
 
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
-  const onDrawRoute = () => {
+  const onDrawRoute = (vehicleMode: ReusableComponentsVehicleModeEnum) => {
     if (drawingMode === Mode.Draw) {
       dispatch(resetRouteCreatingAction());
     } else {
-      dispatch(startRouteCreatingAction());
+      dispatch(startRouteCreatingAction(vehicleMode));
     }
   };
 
