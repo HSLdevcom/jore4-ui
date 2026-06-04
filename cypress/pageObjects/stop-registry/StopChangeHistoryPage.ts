@@ -120,6 +120,9 @@ const StopChangeHistoryTable = createSimplePageObject(
     // ChangedValue sections need more complex logic.
     'ChangeHistory::SectionHeader::ShelterDetails',
     'ChangeHistory::SectionHeader::InfoSpotDetails',
+
+    'ChangeHistory::SectionHeader::ExternalLinksDetails',
+    'ChangeHistory::ChangedValues::ExternalLinksDetails::Links',
   ],
   (base) => ({
     ...BaseChangeHistoryTable,
