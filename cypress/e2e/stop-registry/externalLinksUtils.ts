@@ -10,14 +10,10 @@ export function assertExternalLinksChanged(
   newLinks: readonly ExternalLinkData[],
 ) {
   oldLinks.forEach((link) => {
-    getOldValue()
-      .should('contain.text', link.name)
-      .and('contain.text', `(${link.location})`);
+    getOldValue().should('contain.text', link.name);
   });
 
   newLinks.forEach((link) => {
-    getNewValue()
-      .should('contain.text', link.name)
-      .and('contain.text', `(${link.location})`);
+    getNewValue().should('contain.text', link.name);
   });
 }

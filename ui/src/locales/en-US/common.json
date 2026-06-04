@@ -1538,6 +1538,10 @@
       "added": "New info spot",
       "updated": "Updated info spot",
       "removed": "Removed info spot"
+    },
+    "externalLinks": {
+      "title": "Links",
+      "noExternalLinks": "No links"
     }
   },
   "stopChangeHistory": {

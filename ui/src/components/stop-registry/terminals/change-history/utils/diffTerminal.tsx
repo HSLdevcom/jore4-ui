@@ -20,32 +20,12 @@ import {
   mapNullable,
   normalizeEmptyValue,
 } from '../../../../common/ChangeHistory';
+import {
+  ExternalLink,
+  ExternalLinksList,
+  formatExternalLinks,
+} from '../../../../common/ChangeHistory/utils/externalLinks';
 import { TerminalType } from '../../../types/TerminalType';
-
-type FormattedExternalLink = {
-  name: string;
-  location: string;
-  orderNum: number;
-};
-
-type ExternalLinksListProps = {
-  links: FormattedExternalLink[];
-  terminalId?: string;
-};
-
-const ExternalLinksList = ({ links, terminalId }: ExternalLinksListProps) => {
-  return (
-    <ol>
-      {links.map((link) => (
-        <li key={`${terminalId}-${link.orderNum}`}>
-          <a href={link.location}>
-            {link.name} ({link.location})
-          </a>
-        </li>
-      ))}
-    </ol>
-  );
-};
 
 function getNormalizedAlternativeName(
   details: HistoricalTerminalDetailsFragment,
@@ -319,41 +299,32 @@ export function diffTerminalStops(
   return result;
 }
 
-type ExternalLink = NonNullable<
-  HistoricalTerminalDetailsFragment['externalLinks']
->[number];
-
-function formatExternalLinks(
-  links: readonly ExternalLink[],
-): FormattedExternalLink[] {
-  return compact(links).map((link) => ({
-    name: link?.name ?? '',
-    location: link?.location ?? '',
-    orderNum: link?.orderNum ?? 0,
-  }));
-}
-
 export function diffTerminalExternalLinks(
   t: TFunction,
   previous: HistoricalTerminalDetailsFragment,
   current: HistoricalTerminalDetailsFragment,
 ): Array<ChangedValue> {
-  const previousLinks = compact(previous.externalLinks ?? []);
-  const currentLinks = compact(current.externalLinks ?? []);
+  const formatLinks = (links: readonly (ExternalLink | null)[]) => {
+    const formatted = formatExternalLinks(compact(links ?? []));
+    return formatted.length === 0
+      ? t(($) => $.changeHistory.externalLinks.noExternalLinks)
+      : formatted;
+  };
 
-  const result = compact([
+  return compact([
     diffKeyedValues({
       key: 'Links',
-      field: t(($) => $.stopDetails.externalLinks.externalLinks),
-      oldValue: formatExternalLinks(previousLinks),
-      newValue: formatExternalLinks(currentLinks),
-      mapper: (links: FormattedExternalLink[]) => (
-        <ExternalLinksList links={links} terminalId={current.id ?? undefined} />
-      ),
+      field: null,
+      oldValue: formatLinks(previous.externalLinks ?? []),
+      newValue: formatLinks(current.externalLinks ?? []),
+      mapper: (links) =>
+        typeof links === 'string' ? (
+          links
+        ) : (
+          <ExternalLinksList links={links} id={current.id ?? undefined} />
+        ),
     }),
   ]);
-
-  return result;
 }
 
 function findOwnerOrganisation(terminal: HistoricalTerminalDetailsFragment) {
