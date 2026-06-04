@@ -20,6 +20,7 @@ import {
   diffSignageDetails,
   diffStopAreaAndTerminal,
 } from '../utils';
+import { diffStopExternalLinks } from '../utils/dataDiffers/diffExternalLinks';
 import {
   useHistoricalStopVersion,
   useRefetchFailedHistoricalStopVersions,
@@ -172,6 +173,16 @@ export const DataDiffSections: FC<DataDiffSectionsProps> = ({
             />
           ),
           testId: 'InfoSpotDetails',
+        },
+        {
+          diffVersions: diffStopExternalLinks,
+          sectionTitle: (
+            <SectionTitle
+              historyItem={historyItem}
+              section={t(($) => $.changeHistory.externalLinks.title)}
+            />
+          ),
+          testId: 'ExternalLinksDetails',
         },
       ]}
     />

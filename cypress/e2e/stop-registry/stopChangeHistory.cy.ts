@@ -20,6 +20,8 @@ import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
+  ExternalLinksForm,
+  ExternalLinksSection,
   InfoSpotViewCard,
   InfoSpotsForm,
   LocationDetailsForm,
@@ -38,7 +40,22 @@ import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
+import {
+  ExternalLinkData,
+  assertExternalLinksChanged,
+} from './externalLinksUtils';
 import { InfoSpotData, assertInfoSpot } from './infoSpotUtils';
+
+const externalLinksTestData = {
+  initialLink: {
+    name: 'Pysäkin Testilinkki',
+    location: 'https://stoptest.fi',
+  },
+  addedLink: {
+    name: 'Test Link',
+    location: 'http://www.example.com',
+  },
+} as const satisfies Readonly<Record<string, ExternalLinkData>>;
 
 const testInfraLinks = [
   {
@@ -125,6 +142,12 @@ const stopAreaInput: StopAreaInput = {
         organisations: quayH2003.organisations as
           | StopRegistryStopPlaceOrganisationRefInput[]
           | null,
+        externalLinks: [
+          {
+            name: externalLinksTestData.initialLink.name,
+            location: externalLinksTestData.initialLink.location,
+          },
+        ],
       },
     ],
   },
@@ -1199,6 +1222,52 @@ describe('Stop Change History', { tags }, () => {
               changedInfoSpot.addedFirstInfoSpot,
             ),
           );
+      });
+    });
+
+    it('Should diff external links', () => {
+      StopDetailsPage.visit('H2003');
+
+      cy.section('Add external link', () => {
+        ExternalLinksSection.getEditButton().click();
+        ExternalLinksForm.getAddNewButton().click();
+        ExternalLinksForm.getNthExternalLink(1).within(() => {
+          ExternalLinksForm.externalLinks
+            .getNameInput()
+            .clearAndType(externalLinksTestData.addedLink.name);
+          ExternalLinksForm.externalLinks
+            .getLocationInput()
+            .clearAndType(externalLinksTestData.addedLink.location);
+        });
+        ExternalLinksForm.getSaveButton().click();
+      });
+
+      StopDetailsPage.changeHistoryLink().click();
+
+      cy.section('Check changed details', () => {
+        StopChangeHistoryPage.changeHistoryTable.group
+          .getAllGroupElements()
+          .eq(0)
+          .within(() => {
+            StopChangeHistoryPage.changeHistoryTable.sectionHeader
+              .getExternalLinksDetails()
+              .shouldBeVisible();
+            StopChangeHistoryPage.changeHistoryTable.changedValues.externalLinksDetails
+              .getLinks()
+              .within(() => {
+                assertExternalLinksChanged(
+                  () =>
+                    StopChangeHistoryPage.changeHistoryTable.changedValues.getOldValue(),
+                  () =>
+                    StopChangeHistoryPage.changeHistoryTable.changedValues.getNewValue(),
+                  [externalLinksTestData.initialLink],
+                  [
+                    externalLinksTestData.initialLink,
+                    externalLinksTestData.addedLink,
+                  ],
+                );
+              });
+          });
       });
     });
   });
