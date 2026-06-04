@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   MapEntityEditorViewState,
@@ -70,8 +71,8 @@ function useRouteEditorImperativeHandle(
   routeEditorRef: RefObject<RouteEditorRef>,
 ) {
   useImperativeHandle(ref, () => ({
-    onDrawRoute: () => {
-      routeEditorRef.current?.onDrawRoute();
+    onDrawRoute: (vehicleMode: ReusableComponentsVehicleModeEnum) => {
+      routeEditorRef.current?.onDrawRoute(vehicleMode);
     },
     onEditRoute: () => {
       routeEditorRef.current?.onEditRoute();

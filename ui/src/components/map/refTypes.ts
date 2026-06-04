@@ -1,7 +1,10 @@
 import { MapLayerMouseEvent } from 'maplibre-gl';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 
 export type RouteEditorRef = {
-  readonly onDrawRoute: () => void;
+  readonly onDrawRoute: (
+    vehicleMode: ReusableComponentsVehicleModeEnum,
+  ) => void;
   readonly onEditRoute: () => void;
   readonly onStopEditRoute: () => void;
   readonly onDeleteRoute: () => void;
