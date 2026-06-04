@@ -51,7 +51,11 @@ export const useEditTerminalExternalLinks = () => {
   const { t } = useTranslation();
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
-    refetchQueries: ['getParentStopPlaceDetails'],
+    refetchQueries: [
+      'getParentStopPlaceDetails',
+      'GetLatestStopPlaceChange',
+      'getStopPlaceChangeHistory',
+    ],
   });
 
   const updateTiamatStopPlace = async (editParams: EditTiamatParams) => {

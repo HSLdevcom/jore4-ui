@@ -1538,6 +1538,10 @@
       "added": "Uusi infopaikka",
       "updated": "Päivitetty infopaikka",
       "removed": "Poistettu infopaikka"
+    },
+    "externalLinks": {
+      "title": "Linkit",
+      "noExternalLinks": "Ei linkkejä"
     }
   },
   "stopChangeHistory": {
