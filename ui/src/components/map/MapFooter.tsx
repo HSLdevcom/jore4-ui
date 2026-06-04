@@ -1,5 +1,6 @@
 import some from 'lodash/some';
 import { FC } from 'react';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { useAppSelector } from '../../hooks';
 import {
   MapEntityEditorViewState,
@@ -37,7 +38,9 @@ function useActiveModes() {
 }
 
 type MapFooterProps = {
-  readonly onDrawRoute: () => void;
+  readonly onDrawRoute: (
+    vehicleMode: ReusableComponentsVehicleModeEnum,
+  ) => void;
   readonly onEditRoute: () => void;
   readonly onStopEditRoute: () => void;
   readonly onDeleteRoute: () => void;
