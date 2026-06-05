@@ -79,6 +79,7 @@ function useDefaultErrorHandler() {
 function useCreateRouteHelper() {
   const { t } = useTranslation();
   const defaultErrorHandler = useDefaultErrorHandler();
+  const { current: map } = useMap();
 
   const {
     state: {
@@ -154,6 +155,7 @@ function useCreateRouteHelper() {
     // Reset map editor state and clear draft route visuals.
     dispatch(resetDraftRouteGeometryAction());
     dispatch(resetRouteCreatingAction());
+    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
   };
 
   const onDoCreate = async () => {
