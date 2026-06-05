@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ReusableComponentsVehicleModeEnum } from '../generated/graphql';
 import { MapMatchingNoSegmentError } from '../utils';
 
 type LatLng = {
@@ -20,6 +21,8 @@ const apiClient = axios.create({
 });
 
 const getBus = (coordinates: RouteBody) => apiClient.post('/bus', coordinates);
+const getTram = (coordinates: RouteBody) =>
+  apiClient.post('/tram', coordinates);
 
 export type BusRouteResponse = {
   readonly code: 'Ok';
@@ -45,17 +48,39 @@ export type BusRouteResponse = {
   }[];
 };
 
-export const getBusRoute = async (
+async function getRouteByVehicleMode(
   coordinates: ReadonlyArray<GeoJSON.Position>,
-) => {
+  vehicleMode: ReusableComponentsVehicleModeEnum,
+) {
   const request: RouteBody = {
     routePoints: coordinates.map(positionToLatLng),
   };
-  const response = await getBus(request);
+  const response =
+    vehicleMode === ReusableComponentsVehicleModeEnum.Tram
+      ? await getTram(request)
+      : await getBus(request);
 
   if (response.data.code === 'NoSegment') {
     throw new MapMatchingNoSegmentError(response.data.message);
   }
 
   return response.data as BusRouteResponse;
+}
+
+export const getBusRoute = async (
+  coordinates: ReadonlyArray<GeoJSON.Position>,
+) => {
+  return getRouteByVehicleMode(
+    coordinates,
+    ReusableComponentsVehicleModeEnum.Bus,
+  );
+};
+
+export const getTramRoute = async (
+  coordinates: ReadonlyArray<GeoJSON.Position>,
+) => {
+  return getRouteByVehicleMode(
+    coordinates,
+    ReusableComponentsVehicleModeEnum.Tram,
+  );
 };
