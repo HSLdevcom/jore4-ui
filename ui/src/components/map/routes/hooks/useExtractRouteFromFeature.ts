@@ -9,12 +9,13 @@ import { length } from '@turf/length';
 import type { Feature, LineString, Point } from 'geojson';
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
-import { getBusRoute } from '../../../../api/routing';
+import { getBusRoute, getTramRoute } from '../../../../api/routing';
 import {
   InfraLinkMatchingFieldsFragment,
   InfrastructureLinkAllFieldsFragment,
   InfrastructureLinkWithStopsFragment,
   InfrastructureNetworkDirectionEnum,
+  ReusableComponentsVehicleModeEnum,
   RouteStopFieldsFragment,
   RouteValidityFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
@@ -30,6 +31,8 @@ import {
   mapStopResultToStops,
   orderInfraLinksByExternalLinkId,
 } from '../../../../graphql';
+import { useAppSelector } from '../../../../hooks';
+import { selectEditedRouteData } from '../../../../redux';
 import { areValidityPeriodsOverlapping } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import {
@@ -413,6 +416,8 @@ export const getOldRouteGeometryVariables = (
 };
 
 export const useExtractRouteFromFeature = () => {
+  const { lineInfo, vehicleMode } = useAppSelector(selectEditedRouteData);
+
   const [fetchLinksWithStopsByExternalLinkIds] =
     useGetLinksWithStopsByExternalLinkIdsLazyQuery();
   const [fetchStopsAlongInfrastructureLinks] =
@@ -451,8 +456,13 @@ export const useExtractRouteFromFeature = () => {
    */
   const getInfraLinksWithStopsForGeometry = useCallback(
     async (geometry: GeoJSON.LineString) => {
+      const activeVehicleMode = lineInfo?.primary_vehicle_mode ?? vehicleMode;
       // Do map-matching for the given geometry
-      const mapMatchingResult = await getBusRoute(geometry.coordinates);
+      const mapMatchingResult =
+        activeVehicleMode === ReusableComponentsVehicleModeEnum.Tram
+          ? await getTramRoute(geometry.coordinates)
+          : await getBusRoute(geometry.coordinates);
+
       const matchedRoute = mapMatchingResult.routes[0];
 
       // Collect all the infra links' external ids, in order
@@ -479,7 +489,11 @@ export const useExtractRouteFromFeature = () => {
         matchedGeometry: matchedRoute?.geometry,
       };
     },
-    [fetchInfraLinksWithStopsByExternalIds],
+    [
+      fetchInfraLinksWithStopsByExternalIds,
+      lineInfo?.primary_vehicle_mode,
+      vehicleMode,
+    ],
   );
 
   const getRemovedStopLabels = useCallback(
