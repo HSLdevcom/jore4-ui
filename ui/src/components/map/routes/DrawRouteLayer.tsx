@@ -285,8 +285,10 @@ export const DrawRouteLayer: FC = () => {
   };
 
   const onModeChange = () => {
+    const hasSnappingLine = !!drawRef.current?.get(SNAPPING_LINE_LAYER_ID);
     // Disables all other modes when editing
-    if (drawingMode === Mode.Edit) {
+    // Don't allow to change mode if snapping line does not exist because it's required for direct_select
+    if (drawingMode === Mode.Edit && hasSnappingLine) {
       drawRef.current?.changeMode('direct_select', {
         featureId: SNAPPING_LINE_LAYER_ID,
       });
