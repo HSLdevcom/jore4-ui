@@ -1,6 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteDirectionEnum } from '../../../generated/graphql';
+import { twJoin } from 'tailwind-merge';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteDirectionEnum,
+} from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import { Row, Visible } from '../../../layoutComponents';
@@ -33,6 +37,30 @@ type RouteStopsOverlayProps = {
   readonly className?: string;
 };
 
+const getVehicleModeIcon: Readonly<
+  Record<ReusableComponentsVehicleModeEnum, string>
+> = {
+  [ReusableComponentsVehicleModeEnum.Bus]: 'icon-bus-alt text-tweaked-brand',
+  [ReusableComponentsVehicleModeEnum.Tram]:
+    'icon-tram-filled text-hsl-tram-dark-green',
+  [ReusableComponentsVehicleModeEnum.Metro]:
+    'icon-metro-filled text-hsl-metro-orange',
+  [ReusableComponentsVehicleModeEnum.Train]:
+    'icon-train-filled text-hsl-train-purple',
+  [ReusableComponentsVehicleModeEnum.Ferry]:
+    'icon-ferry-filled text-hsl-ferry-blue',
+};
+
+const getVehicleModeBackgroundColor: Readonly<
+  Record<ReusableComponentsVehicleModeEnum, string>
+> = {
+  [ReusableComponentsVehicleModeEnum.Bus]: 'bg-tweaked-brand',
+  [ReusableComponentsVehicleModeEnum.Tram]: 'bg-hsl-tram-dark-green',
+  [ReusableComponentsVehicleModeEnum.Metro]: 'bg-hsl-metro-orange',
+  [ReusableComponentsVehicleModeEnum.Train]: 'bg-hsl-train-purple',
+  [ReusableComponentsVehicleModeEnum.Ferry]: 'bg-hsl-ferry-blue',
+};
+
 export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
   className,
 }) => {
@@ -46,12 +74,13 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
 
   const {
     routeMetadata,
+    routeVehicleMode,
     includedStopLabels,
     stopsEligibleForJourneyPattern,
     // selectedRouteId is undefined if we are creating a new route
   } = useRouteInfo(selectedRouteId);
 
-  if (!routeMetadata) {
+  if (!routeMetadata || !routeVehicleMode) {
     return null;
   }
 
@@ -78,7 +107,13 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
     <CustomOverlay position="top-left">
       <MapOverlay className={className}>
         <MapOverlayHeader testId={testIds.mapOverlayHeader}>
-          <i className="icon-bus-alt mt-1 text-xl text-tweaked-brand" />
+          <i
+            className={twJoin(
+              getVehicleModeIcon[routeVehicleMode],
+              'mt-1 text-xl',
+            )}
+          />
+
           <div>
             <p className="text-base text-tweaked-brand">
               <RouteLabel
@@ -98,7 +133,12 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
           </Visible>
         </MapOverlayHeader>
         <div className="flex items-start border-b px-3 py-2">
-          <div className="mt-1 ml-1 flex h-6 w-6 items-center justify-center rounded-xs bg-brand font-bold text-white">
+          <div
+            className={twJoin(
+              'mt-1 ml-1 flex h-6 w-6 items-center justify-center rounded-xs font-bold text-white',
+              getVehicleModeBackgroundColor[routeVehicleMode],
+            )}
+          >
             {mapDirectionToSymbol(t, routeMetadata.direction)}
           </div>
           <div
