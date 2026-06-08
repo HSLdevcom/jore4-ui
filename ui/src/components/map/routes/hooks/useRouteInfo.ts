@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import {
+  ReusableComponentsVehicleModeEnum,
   RouteMetadataFragment,
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
@@ -89,6 +90,7 @@ const getRouteInfoFromRoute = (
 
   return {
     routeMetadata: route,
+    routeVehicleMode: route.route_line.primary_vehicle_mode,
     stopsEligibleForJourneyPattern,
     includedStopLabels,
   };
@@ -99,6 +101,7 @@ const getRouteInfoFromState = (editedRouteData: EditedRouteData) => {
     routeMetadata: editedRouteData.metaData
       ? mapRouteFormToInput(editedRouteData.metaData)
       : undefined,
+    routeVehicleMode: editedRouteData.lineInfo?.primary_vehicle_mode,
     stopsEligibleForJourneyPattern:
       editedRouteData.stopsEligibleForJourneyPattern,
     includedStopLabels: editedRouteData.includedStopLabels,
@@ -114,6 +117,7 @@ export const belongsToJourneyPattern = (
 
 type RouteInfo = {
   readonly routeMetadata: RouteMetadataFragment | undefined;
+  readonly routeVehicleMode: ReusableComponentsVehicleModeEnum | undefined;
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   readonly includedStopLabels: ReadonlyArray<string>;
 };
@@ -161,6 +165,7 @@ export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
 
   return {
     routeMetadata: fetchedRoute,
+    routeVehicleMode: undefined,
     stopsEligibleForJourneyPattern: [],
     includedStopLabels: [],
   };
