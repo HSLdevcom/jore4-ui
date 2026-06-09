@@ -2257,6 +2257,7 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = 
   new_priority?: InputMaybe<Scalars['Int']['input']>;
   new_validity_end?: InputMaybe<Scalars['date']['input']>;
   new_validity_start?: InputMaybe<Scalars['date']['input']>;
+  new_vehicle_mode?: InputMaybe<Scalars['String']['input']>;
   replace_scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 

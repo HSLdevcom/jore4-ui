@@ -53,6 +53,7 @@ const GQL_GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
     $new_priority: Int!
     $new_measured_location: geography!
     $replace_scheduled_stop_point_id: uuid
+    $new_vehicle_mode: String
   ) {
     journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
       args: {
@@ -64,6 +65,7 @@ const GQL_GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
         new_validity_end: $new_validity_end
         new_priority: $new_priority
         new_measured_location: $new_measured_location
+        new_vehicle_mode: $new_vehicle_mode
       }
     ) {
       journey_pattern_id
@@ -160,6 +162,7 @@ export type BrokenRouteCheckParams = {
   readonly label: string;
   readonly priority: number;
   readonly stopId: UUID | null;
+  readonly vehicleMode?: string | null;
 };
 
 export const isEditChanges = (
@@ -219,6 +222,7 @@ export function useGetRoutesBrokenByStopChange() {
     label,
     priority,
     stopId,
+    vehicleMode,
   }: BrokenRouteCheckParams): Promise<GetRoutesBrokenByStopChangeResult> => {
     // if a stop is moved away from the route geometry, remove it from its journey patterns
     const brokenRoutesResult = await getBrokenRoutes({
@@ -234,6 +238,7 @@ export function useGetRoutesBrokenByStopChange() {
         // measured_location always exists
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         new_measured_location: newStop.measured_location!,
+        new_vehicle_mode: vehicleMode ?? null,
       },
     });
 
@@ -328,6 +333,8 @@ function useOnStopLocationChanged() {
       label: newStop.label ?? oldStop.label,
       priority: newStop.priority ?? oldStop.priority,
       stopId,
+      vehicleMode:
+        oldStop.vehicle_mode_on_scheduled_stop_point?.[0]?.vehicle_mode ?? null,
     });
 
     return {
