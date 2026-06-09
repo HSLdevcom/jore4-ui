@@ -1519,6 +1519,38 @@
       "changed_by": "Muokkaaja"
     }
   },
+  "routeVersion": {
+    "title": "Versiot | Reitti {{label}} ({{direction}})",
+    "loading": "Ladataan versiotietoja",
+    "goBack": "Palaa",
+    "noVersions": "Versioita ei löytynyt",
+    "scheduled": {
+      "title": "Kalenteroidut",
+      "show": "Näytä kalenteroidut",
+      "hide": "Piilota kalenteroidut",
+      "noVersions": "Valitulla aikavälillä ei ole yhtään kalenteroitua reittiversion."
+    },
+    "drafts": {
+      "title": "Luonnokset",
+      "show": "Näytä luonnokset",
+      "hide": "Piilota luonnokset",
+      "noVersions": "Reittiin ei liity yhtään luonnosta."
+    },
+    "header": {
+      "status": "Status",
+      "validity_start": "Alkaa",
+      "validity_end": "Päättyy",
+      "version_comment": "Version nimi",
+      "changed": "Muokattu",
+      "changed_by": "Muokkaaja"
+    },
+    "status": {
+      "active": "Voimassa",
+      "standard": "$t(priority.standard)",
+      "temporary": "$t(priority.temporary)",
+      "draft": "$t(priority.draft)"
+    }
+  },
   "changeHistory": {
     "loading": "Ladataan muutoshistoriaa",
     "failedToLoad": "Muutoshistorian lataus epäonnistui",
@@ -1666,6 +1698,7 @@
       "showTimetables": "Näytä aikataulut reitille {{label}}",
       "expandStops": "Näytä pysäkit reitille {{label}}, suunta {{directionNumber}}",
       "closeStops": "Piilota pysäkit reitiltä {{label}}, suunta {{directionNumber}}",
+      "viewVersions": "Näytä versiot reitille {{label}}, suunta {{directionNumber}}",
       "expandTimetable": "Avaa aikataulut reitille {{routeName}}",
       "closeTimetable": "Piilota reitin {{routeName}} aikataulut",
       "showStopActions": "Lisää toimintoja pysäkille {{stopLabel}}",
