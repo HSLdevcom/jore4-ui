@@ -126,6 +126,9 @@ export function usePrepareCreate() {
       label: stopPoint.label,
       priority: stopPoint.priority,
       stopId: null,
+      vehicleMode:
+        stopPoint.vehicle_mode_on_scheduled_stop_point?.data?.[0]
+          ?.vehicle_mode ?? null,
     });
 
     const stopPointWithInfraInfo: ServicePatternScheduledStopPointInsertInput =
