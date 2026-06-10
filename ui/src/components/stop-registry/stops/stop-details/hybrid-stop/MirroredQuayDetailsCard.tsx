@@ -1,16 +1,23 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfrastructureNetworkDirectionEnum } from '../../../../../generated/graphql';
 import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
-import { ConfirmationDialog, SimpleButton } from '../../../../../uiComponents';
-import { showSuccessToast } from '../../../../../utils';
+import { StopPlaceState } from '../../../../../types/stop-registry';
+import { ConfirmationDialog } from '../../../../../uiComponents';
+import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { StopAreaDetailsSection } from '../basic-details/BasicDetailsStopAreaFields';
 import { StopDetailsSection } from '../basic-details/BasicDetailsStopFields';
-import { getContainerColorsByTransportMode } from '../stopInfoContainerColors';
+import {
+  getContainerColorsByTransportMode,
+  inactiveInfoContainerColors,
+} from '../stopInfoContainerColors';
 import { MirroredQuayDetails } from '../useGetStopDetails';
+import { MirroredQuayBasicDetailsForm } from './mirrored-quay-form/MirroredQuayBasicDetailsForm';
+import { MirroredQuayFormState } from './mirrored-quay-form/schema';
+import { useEditMirroredQuayDetails } from './useEditMirroredQuayDetails';
 import { useRemoveMirrorRelation } from './useRemoveMirrorRelation';
 
 function toStopWithDetails(details: MirroredQuayDetails): StopWithDetails {
@@ -51,13 +58,23 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
   const { t } = useTranslation();
   const [showRemoveDialog, setShowRemoveDialog] = useState(false);
   const { removeMirrorRelation, loading: removing } = useRemoveMirrorRelation();
+  const { saveMirroredQuayDetails, defaultErrorHandler } =
+    useEditMirroredQuayDetails();
+
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const { transportMode } = details.stopPlace;
-  const colors = getContainerColorsByTransportMode(transportMode);
+  const { stopState } = details.quay;
+  const isActive = !stopState || stopState === StopPlaceState.InOperation;
+
+  const colors = isActive
+    ? getContainerColorsByTransportMode(transportMode)
+    : inactiveInfoContainerColors;
 
   const infoContainerControls = useInfoContainerControls({
-    isEditable: false,
+    isEditable: true,
     isExpandable: true,
+    onSave: () => submitFormByRef(formRef),
   });
 
   const transportModeName = transportMode
@@ -67,6 +84,26 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
   const title = `${t(($) => $.stopDetails.basicDetails.title)} | ${transportModeName}`;
 
   const pseudoStop = useMemo(() => toStopWithDetails(details), [details]);
+
+  const defaultValues: Partial<MirroredQuayFormState> = {
+    stopState: stopState ?? undefined,
+    reasonForChange: '',
+  };
+
+  const onSubmit = async (state: MirroredQuayFormState) => {
+    try {
+      await saveMirroredQuayDetails({
+        state,
+        quay: details.quay,
+        stopPlace: details.stopPlace,
+      });
+
+      showSuccessToast(t(($) => $.stops.editSuccess));
+      infoContainerControls.setIsInEditMode(false);
+    } catch (err) {
+      defaultErrorHandler(err as Error);
+    }
+  };
 
   const handleRemove = async () => {
     const success = await removeMirrorRelation({
@@ -88,17 +125,22 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
         inverted
         testIdPrefix="MirroredQuayDetails"
       >
-        <StopAreaDetailsSection stop={pseudoStop} />
-        <StopDetailsSection stop={pseudoStop} />
-        <div className="mt-4 flex justify-end border-t border-light-grey pt-4">
-          <SimpleButton
-            inverted
-            onClick={() => setShowRemoveDialog(true)}
-            testId="MirroredQuayDetails::remove"
-          >
-            {t(($) => $.stopDetails.hybrid.removeButton)}
-          </SimpleButton>
-        </div>
+        {infoContainerControls.isInEditMode ? (
+          <MirroredQuayBasicDetailsForm
+            defaultValues={defaultValues}
+            ref={formRef}
+            onSubmit={onSubmit}
+            onCancel={() => infoContainerControls.setIsInEditMode(false)}
+            onRemove={() => setShowRemoveDialog(true)}
+            stop={pseudoStop}
+            testIdPrefix="MirroredQuayDetails"
+          />
+        ) : (
+          <>
+            <StopAreaDetailsSection stop={pseudoStop} />
+            <StopDetailsSection stop={pseudoStop} />
+          </>
+        )}
       </InfoContainer>
       <ConfirmationDialog
         isOpen={showRemoveDialog}

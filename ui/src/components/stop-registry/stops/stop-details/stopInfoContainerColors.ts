@@ -7,6 +7,12 @@ export const stopInfoContainerColors: InfoContainerColors = {
   borderColor: theme.colors.border.hslBlue,
 };
 
+export const inactiveInfoContainerColors: InfoContainerColors = {
+  backgroundColor: theme.colors.grey,
+  borderColor: theme.colors.lightGrey,
+  textColorClassName: 'text-white',
+};
+
 export function getContainerColorsByTransportMode(
   mode: StopRegistryTransportModeType | null | undefined,
 ): InfoContainerColors {
