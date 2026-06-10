@@ -9,13 +9,20 @@ import { Tag } from '../enums';
 import {
   RouteVersionPage,
   RouteVersionRow,
-  RouteVersionTableColumn,
   RouteVersionsTableHeader,
 } from '../pageObjects/routes-and-lines';
 import { insertToDbHelper } from '../utils';
-import Chainable = Cypress.Chainable;
+import {
+  active,
+  checkDraftRow,
+  checkScheduledRow,
+  draft,
+  standard,
+  temporary,
+  testDraftVersionsSorting,
+  testScheduledVersionsSorting,
+} from './utils/versionTestUtils';
 
-// Make route version utilities
 type RouteVersionInfo = {
   readonly priority: Priority;
   readonly validityStart: DateTime;
@@ -28,7 +35,6 @@ type RouteVersionOutput = {
   readonly input: RouteInsertInput;
 };
 
-// Create a dedicated line for our test route versions
 const testLine = {
   ...buildLine({ label: 'RV999' }),
   line_id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
@@ -36,7 +42,6 @@ const testLine = {
   validity_end: null, // Always valid
 };
 
-// Pre-generated UUIDs for test route versions
 const routeIds = [
   '11111111-1111-4111-a111-111111111111',
   '22222222-2222-4222-a222-222222222222',
@@ -68,7 +73,7 @@ function makeRouteVersion(info: RouteVersionInfo): RouteVersionOutput {
     validity_start: validityStart,
     validity_end: validityEnd,
     variant: null,
-    legacy_hsl_municipality_code: 'helsinki',
+    version_comment: comment,
   };
 
   return { info, input };
@@ -140,169 +145,6 @@ const draftThreeVersion = makeRouteVersion({
   comment: '3rd Draft Version',
 });
 
-type TranslatedStatus = 'Voimassa' | 'Perusversio' | 'Väliaikainen' | 'Luonnos';
-
-type RouteVersionRowValues = {
-  readonly status?: TranslatedStatus;
-  readonly validityStart?: string | DateTime | null;
-  readonly validityEnd?: string | DateTime | null;
-  readonly versionComment?: string | null;
-  readonly changed?: string | null;
-  readonly changedBy?: string | null;
-};
-
-const active: RouteVersionRowValues = { status: 'Voimassa' };
-const standard: RouteVersionRowValues = { status: 'Perusversio' };
-const temporary: RouteVersionRowValues = { status: 'Väliaikainen' };
-const draft: RouteVersionRowValues = { status: 'Luonnos' };
-
-/**
- * Check that the column/Cypress jQuery element has the given value
- * @param column Route version row column
- * @param value Expected value
- */
-function checkColumn(
-  column: Chainable<JQuery>,
-  value: string | DateTime | undefined | null,
-) {
-  if (value === null || value === '') {
-    column.should('be.empty');
-  } else if (value instanceof DateTime) {
-    column.shouldHaveDate(value);
-  } else if (typeof value === 'string') {
-    column.shouldHaveText(value);
-  }
-
-  // Else undefined → Ignore / dont test
-}
-
-// Check all defined columns for expected values.
-function checkRowColumns(version: Partial<RouteVersionRowValues>) {
-  checkColumn(RouteVersionRow.status(), version.status);
-  checkColumn(RouteVersionRow.validityStart(), version.validityStart);
-  checkColumn(RouteVersionRow.validityEnd(), version.validityEnd);
-  checkColumn(RouteVersionRow.versionComment(), version.versionComment);
-  checkColumn(RouteVersionRow.changed(), version.changed);
-  checkColumn(RouteVersionRow.changedBy(), version.changedBy);
-}
-
-// Get row by index and check it has the given version info.
-function checkRow(
-  index: number,
-  ...versionInfoFragments: ReadonlyArray<Partial<RouteVersionRowValues>>
-) {
-  const versionInfo = versionInfoFragments.reduce(
-    (r, f) => ({ ...r, ...f }),
-    {},
-  );
-
-  RouteVersionRow.rows().should('have.length.at.least', index + 1);
-  RouteVersionRow.rows()
-    .eq(index)
-    .within(() => checkRowColumns(versionInfo));
-}
-
-function checkScheduledRow(
-  index: number,
-  ...versionInfoFragments: ReadonlyArray<Partial<RouteVersionRowValues>>
-) {
-  RouteVersionPage.scheduledVersions().within(() =>
-    checkRow(index, ...versionInfoFragments),
-  );
-}
-
-function checkDraftRow(
-  index: number,
-  ...versionInfoFragments: ReadonlyArray<Partial<RouteVersionRowValues>>
-) {
-  RouteVersionPage.draftVersions().within(() =>
-    checkRow(index, ...versionInfoFragments),
-  );
-}
-
-function getTdsByTableColumn(
-  column: RouteVersionTableColumn,
-): Chainable<JQuery> {
-  switch (column) {
-    case 'STATUS':
-      return RouteVersionRow.status();
-
-    case 'VALIDITY_START':
-      return RouteVersionRow.validityStart();
-
-    case 'VALIDITY_END':
-      return RouteVersionRow.validityEnd();
-
-    case 'VERSION_COMMENT':
-      return RouteVersionRow.versionComment();
-
-    case 'CHANGED':
-      return RouteVersionRow.changed();
-
-    case 'CHANGED_BY':
-      return RouteVersionRow.changedBy();
-
-    default:
-      throw new Error(`Unknown Table column: ${column}`);
-  }
-}
-
-// Check whether the table is sorted on a column
-function checkSortedOnColumn(
-  column: RouteVersionTableColumn,
-  expectedValues: ReadonlyArray<string | DateTime | null>,
-) {
-  const rows = RouteVersionRow.rows();
-
-  rows.should('have.length', expectedValues.length);
-
-  for (let i = 0; i < expectedValues.length; i += 1) {
-    const expectedValue = expectedValues[i];
-    RouteVersionRow.rows()
-      .eq(i)
-      .within(() => checkColumn(getTdsByTableColumn(column), expectedValue));
-  }
-}
-
-function checkSortingWorksOnColumnInBothDirections(
-  table: 'scheduled' | 'drafts',
-  column: RouteVersionTableColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
-) {
-  (table === 'scheduled'
-    ? RouteVersionPage.scheduledVersions()
-    : RouteVersionPage.draftVersions()
-  ).within(() => {
-    RouteVersionsTableHeader.setSorting(column, 'ascending');
-    checkSortedOnColumn(column, expectedAscendingOrder);
-
-    RouteVersionsTableHeader.setSorting(column, 'descending');
-    checkSortedOnColumn(column, [...expectedAscendingOrder].reverse());
-  });
-}
-
-function testScheduledVersionsSorting(
-  column: RouteVersionTableColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
-) {
-  checkSortingWorksOnColumnInBothDirections(
-    'scheduled',
-    column,
-    expectedAscendingOrder,
-  );
-}
-
-function testDraftVersionsSorting(
-  column: RouteVersionTableColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
-) {
-  checkSortingWorksOnColumnInBothDirections(
-    'drafts',
-    column,
-    expectedAscendingOrder,
-  );
-}
-
 describe('Route Versions Page', { tags: [Tag.Routes] }, () => {
   before(() => {
     cy.task('resetDbs');
@@ -329,14 +171,32 @@ describe('Route Versions Page', { tags: [Tag.Routes] }, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      RouteVersionPage.visit('RV999', '1');
+      RouteVersionPage.visit('RV999', 'outbound');
       RouteVersionPage.pageLoader().should('not.exist');
     });
 
     function validateDraftVersions() {
-      checkDraftRow(0, draft, draftOneVersion.info);
-      checkDraftRow(1, draft, draftTwoVersion.info);
-      checkDraftRow(2, draft, draftThreeVersion.info);
+      checkDraftRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        0,
+        draft,
+        draftOneVersion.info,
+      );
+      checkDraftRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        1,
+        draft,
+        draftTwoVersion.info,
+      );
+      checkDraftRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        2,
+        draft,
+        draftThreeVersion.info,
+      );
     }
 
     it('should have route info', { tags: [Tag.Smoke] }, () => {
@@ -349,8 +209,20 @@ describe('Route Versions Page', { tags: [Tag.Routes] }, () => {
       RouteVersionPage.startDate().inputDateValue(today);
       RouteVersionPage.endDate().inputDateValue(today);
 
-      checkScheduledRow(0, standard, currentStandardVersion.info);
-      checkScheduledRow(1, active, todayTempVersion.info);
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        0,
+        standard,
+        currentStandardVersion.info,
+      );
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        1,
+        active,
+        todayTempVersion.info,
+      );
       // Time filters should not affect drafts
       validateDraftVersions();
 
@@ -358,11 +230,41 @@ describe('Route Versions Page', { tags: [Tag.Routes] }, () => {
       RouteVersionPage.startDate().inputDateValue(lineValidityStart);
       RouteVersionPage.endDate().inputDateValue(lineValidityEnd);
 
-      checkScheduledRow(0, standard, pastStandardVersion.info);
-      checkScheduledRow(1, standard, currentStandardVersion.info);
-      checkScheduledRow(2, active, todayTempVersion.info);
-      checkScheduledRow(3, temporary, nextMonthTempVersion.info);
-      checkScheduledRow(4, standard, futureStandardVersion.info);
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        0,
+        standard,
+        pastStandardVersion.info,
+      );
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        1,
+        standard,
+        currentStandardVersion.info,
+      );
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        2,
+        active,
+        todayTempVersion.info,
+      );
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        3,
+        temporary,
+        nextMonthTempVersion.info,
+      );
+      checkScheduledRow(
+        RouteVersionPage,
+        RouteVersionRow,
+        4,
+        standard,
+        futureStandardVersion.info,
+      );
 
       // Time filters should not affect drafts
       validateDraftVersions();
@@ -374,48 +276,84 @@ describe('Route Versions Page', { tags: [Tag.Routes] }, () => {
       RouteVersionPage.endDate().inputDateValue(lineValidityEnd);
 
       // By default, should be sorted on validity Start
-      testScheduledVersionsSorting('VALIDITY_START', [
-        pastStandardVersion.info.validityStart,
-        currentStandardVersion.info.validityStart,
-        todayTempVersion.info.validityStart,
-        nextMonthTempVersion.info.validityStart,
-        futureStandardVersion.info.validityStart,
-      ]);
+      testScheduledVersionsSorting(
+        RouteVersionPage,
+        RouteVersionRow,
+        RouteVersionsTableHeader,
+        'VALIDITY_START',
+        [
+          pastStandardVersion.info.validityStart,
+          currentStandardVersion.info.validityStart,
+          todayTempVersion.info.validityStart,
+          nextMonthTempVersion.info.validityStart,
+          futureStandardVersion.info.validityStart,
+        ],
+      );
 
-      testScheduledVersionsSorting('VALIDITY_END', [
-        pastStandardVersion.info.validityEnd,
-        todayTempVersion.info.validityEnd,
-        nextMonthTempVersion.info.validityEnd,
-        currentStandardVersion.info.validityEnd,
-        futureStandardVersion.info.validityEnd,
-      ]);
+      testScheduledVersionsSorting(
+        RouteVersionPage,
+        RouteVersionRow,
+        RouteVersionsTableHeader,
+        'VALIDITY_END',
+        [
+          pastStandardVersion.info.validityEnd,
+          todayTempVersion.info.validityEnd,
+          nextMonthTempVersion.info.validityEnd,
+          currentStandardVersion.info.validityEnd,
+          futureStandardVersion.info.validityEnd,
+        ],
+      );
 
-      testScheduledVersionsSorting('VERSION_COMMENT', [
-        currentStandardVersion.info.comment,
-        futureStandardVersion.info.comment,
-        pastStandardVersion.info.comment,
-        todayTempVersion.info.comment,
-        nextMonthTempVersion.info.comment,
-      ]);
+      testScheduledVersionsSorting(
+        RouteVersionPage,
+        RouteVersionRow,
+        RouteVersionsTableHeader,
+        'VERSION_COMMENT',
+        [
+          currentStandardVersion.info.comment,
+          futureStandardVersion.info.comment,
+          pastStandardVersion.info.comment,
+          todayTempVersion.info.comment,
+          nextMonthTempVersion.info.comment,
+        ],
+      );
 
       // Draft versions
-      testDraftVersionsSorting('VALIDITY_START', [
-        draftOneVersion.info.validityStart,
-        draftTwoVersion.info.validityStart,
-        draftThreeVersion.info.validityStart,
-      ]);
+      testDraftVersionsSorting(
+        RouteVersionPage,
+        RouteVersionRow,
+        RouteVersionsTableHeader,
+        'VALIDITY_START',
+        [
+          draftOneVersion.info.validityStart,
+          draftTwoVersion.info.validityStart,
+          draftThreeVersion.info.validityStart,
+        ],
+      );
 
-      testDraftVersionsSorting('VALIDITY_END', [
-        draftOneVersion.info.validityEnd,
-        draftTwoVersion.info.validityEnd,
-        draftThreeVersion.info.validityEnd,
-      ]);
+      testDraftVersionsSorting(
+        RouteVersionPage,
+        RouteVersionRow,
+        RouteVersionsTableHeader,
+        'VALIDITY_END',
+        [
+          draftOneVersion.info.validityEnd,
+          draftTwoVersion.info.validityEnd,
+          draftThreeVersion.info.validityEnd,
+        ],
+      );
 
-      testDraftVersionsSorting('VERSION_COMMENT', [
-        draftOneVersion.info.comment,
-        draftTwoVersion.info.comment,
-        draftThreeVersion.info.comment,
-      ]);
+      testDraftVersionsSorting(
+        RouteVersionPage,
+        RouteVersionRow,
+        RouteVersionsTableHeader,
+        'VERSION_COMMENT',
+        [
+          draftOneVersion.info.comment,
+          draftTwoVersion.info.comment,
+          draftThreeVersion.info.comment,
+        ],
+      );
     });
   });
 });
