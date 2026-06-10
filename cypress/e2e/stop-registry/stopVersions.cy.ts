@@ -22,13 +22,21 @@ import {
   StopPopUp,
   StopVersionPage,
   StopVersionRow,
-  StopVersionTableColumn,
   StopVersionsTableHeader,
 } from '../../pageObjects/stop-registry';
 import { UUID } from '../../types';
 import { insertToDbHelper } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
-import Chainable = Cypress.Chainable;
+import {
+  active,
+  checkDraftRow,
+  checkScheduledRow,
+  draft,
+  standard,
+  temporary,
+  testDraftVersionsSorting,
+  testScheduledVersionsSorting,
+} from '../utils/versionTestUtils';
 
 // Make stop version utilities
 type StopVersionInfo = {
@@ -206,177 +214,6 @@ function insertStopArea(stopArea: StopAreaOutput) {
     });
 }
 
-type TranslatedStatus = 'Voimassa' | 'Perusversio' | 'Väliaikainen' | 'Luonnos';
-
-type StopVersionRowValues = {
-  readonly status?: TranslatedStatus;
-  readonly validityStart?: string | DateTime | null;
-  readonly validityEnd?: string | DateTime | null;
-  readonly versionComment?: string | null;
-  readonly changed?: string | null;
-  readonly changedBy?: string | null;
-};
-
-const active: StopVersionRowValues = { status: 'Voimassa' };
-const standard: StopVersionRowValues = { status: 'Perusversio' };
-const temporary: StopVersionRowValues = { status: 'Väliaikainen' };
-const draft: StopVersionRowValues = { status: 'Luonnos' };
-
-/**
- * Check that the column/Cypress jQuery element has the given value
- * @param column Stop version row column
- * @param value Expected value
- */
-function checkColumn(
-  column: Chainable<JQuery>,
-  value: string | DateTime | undefined | null,
-) {
-  if (value === null || value === '') {
-    column.should('be.empty');
-  } else if (value instanceof DateTime) {
-    column.shouldHaveDate(value);
-  } else if (typeof value === 'string') {
-    column.shouldHaveText(value);
-  }
-
-  // Else undefined → Ignore / dont test
-}
-
-// Check all defined columns for expected values.
-function checkRowColumns(version: Partial<StopVersionRowValues>) {
-  checkColumn(StopVersionRow.status(), version.status);
-  checkColumn(StopVersionRow.validityStart(), version.validityStart);
-  checkColumn(StopVersionRow.validityEnd(), version.validityEnd);
-  checkColumn(StopVersionRow.versionComment(), version.versionComment);
-  checkColumn(StopVersionRow.changed(), version.changed);
-  checkColumn(StopVersionRow.changedBy(), version.changedBy);
-}
-
-// Get row by index and check it has the given version info.
-function checkRow(
-  index: number,
-  // Typed this way to help keep actual test code visually "pretty",
-  // and simple to read.
-  ...versionInfoFragments: ReadonlyArray<
-    Partial<StopVersionRowValues & StopVersionOutput>
-  >
-) {
-  const versionInfo = versionInfoFragments.reduce(
-    (r, f) => ({ ...r, ...f }),
-    {},
-  );
-
-  StopVersionRow.rows().should('have.length.at.least', index + 1);
-  StopVersionRow.rows()
-    .eq(index)
-    .within(() => checkRowColumns(versionInfo));
-}
-
-function checkScheduledRow(
-  index: number,
-  ...versionInfoFragments: ReadonlyArray<
-    Partial<StopVersionRowValues & StopVersionOutput>
-  >
-) {
-  StopVersionPage.scheduledVersions().within(() =>
-    checkRow(index, ...versionInfoFragments),
-  );
-}
-
-function checkDraftRow(
-  index: number,
-  ...versionInfoFragments: ReadonlyArray<
-    Partial<StopVersionRowValues & StopVersionOutput>
-  >
-) {
-  StopVersionPage.draftVersions().within(() =>
-    checkRow(index, ...versionInfoFragments),
-  );
-}
-
-function getTdsByTableColumn(
-  column: StopVersionTableColumn,
-): Chainable<JQuery> {
-  switch (column) {
-    case 'STATUS':
-      return StopVersionRow.status();
-
-    case 'VALIDITY_START':
-      return StopVersionRow.validityStart();
-
-    case 'VALIDITY_END':
-      return StopVersionRow.validityEnd();
-
-    case 'VERSION_COMMENT':
-      return StopVersionRow.versionComment();
-
-    case 'CHANGED':
-      return StopVersionRow.changed();
-
-    case 'CHANGED_BY':
-      return StopVersionRow.changedBy();
-
-    default:
-      throw new Error(`Unknown Table column: ${column}`);
-  }
-}
-
-// Check whether the table is sorted on a column
-function checkSortedOnColumn(
-  column: StopVersionTableColumn,
-  expectedValues: ReadonlyArray<string | DateTime | null>,
-) {
-  const rows = StopVersionRow.rows();
-
-  rows.should('have.length', expectedValues.length);
-
-  for (let i = 0; i < expectedValues.length; i += 1) {
-    const expectedValue = expectedValues[i];
-    StopVersionRow.rows()
-      .eq(i)
-      .within(() => checkColumn(getTdsByTableColumn(column), expectedValue));
-  }
-}
-
-function checkSortingWorksOnColumnInBothDirections(
-  table: 'scheduled' | 'drafts',
-  column: StopVersionTableColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
-) {
-  (table === 'scheduled'
-    ? StopVersionPage.scheduledVersions()
-    : StopVersionPage.draftVersions()
-  ).within(() => {
-    StopVersionsTableHeader.setSorting(column, 'ascending');
-    checkSortedOnColumn(column, expectedAscendingOrder);
-
-    StopVersionsTableHeader.setSorting(column, 'descending');
-    checkSortedOnColumn(column, [...expectedAscendingOrder].reverse());
-  });
-}
-
-function testScheduledVersionsSorting(
-  column: StopVersionTableColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
-) {
-  checkSortingWorksOnColumnInBothDirections(
-    'scheduled',
-    column,
-    expectedAscendingOrder,
-  );
-}
-
-function testDraftVersionsSorting(
-  column: StopVersionTableColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
-) {
-  checkSortingWorksOnColumnInBothDirections(
-    'drafts',
-    column,
-    expectedAscendingOrder,
-  );
-}
-
 describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
   before(() => cy.task('resetDbs'));
 
@@ -409,9 +246,27 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
     });
 
     function validateDraftVersions() {
-      checkDraftRow(0, draft, draftOneVersion);
-      checkDraftRow(0, draft, draftTwoVersion);
-      checkDraftRow(0, draft, draftThreeVersion);
+      checkDraftRow(
+        StopVersionPage,
+        StopVersionRow,
+        0,
+        draft,
+        draftOneVersion.info,
+      );
+      checkDraftRow(
+        StopVersionPage,
+        StopVersionRow,
+        1,
+        draft,
+        draftTwoVersion.info,
+      );
+      checkDraftRow(
+        StopVersionPage,
+        StopVersionRow,
+        2,
+        draft,
+        draftThreeVersion.info,
+      );
     }
 
     it('should have name info', { tags: [Tag.Smoke] }, () => {
@@ -434,8 +289,20 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       StopVersionPage.startDate().inputDateValue(today);
       StopVersionPage.endDate().inputDateValue(today);
 
-      checkScheduledRow(0, standard, currentStandardVersion.info);
-      checkScheduledRow(1, active, todayTempVersion.info);
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        0,
+        standard,
+        currentStandardVersion.info,
+      );
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        1,
+        active,
+        todayTempVersion.info,
+      );
       // Time filters should affect drafts
       validateDraftVersions();
 
@@ -443,11 +310,41 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       StopVersionPage.startDate().inputDateValue(areaValidityStart);
       StopVersionPage.endDate().inputDateValue(areaValidityEnd);
 
-      checkScheduledRow(0, standard, pastStandardVersion.info);
-      checkScheduledRow(1, standard, currentStandardVersion.info);
-      checkScheduledRow(2, active, todayTempVersion.info);
-      checkScheduledRow(3, temporary, nextMonthTempVersion.info);
-      checkScheduledRow(4, standard, futureStandardVersion.info);
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        0,
+        standard,
+        pastStandardVersion.info,
+      );
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        1,
+        standard,
+        currentStandardVersion.info,
+      );
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        2,
+        active,
+        todayTempVersion.info,
+      );
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        3,
+        temporary,
+        nextMonthTempVersion.info,
+      );
+      checkScheduledRow(
+        StopVersionPage,
+        StopVersionRow,
+        4,
+        standard,
+        futureStandardVersion.info,
+      );
 
       // Time filters should affect drafts
       validateDraftVersions();
@@ -459,48 +356,84 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
       StopVersionPage.endDate().inputDateValue(areaValidityEnd);
 
       // By default, should be sorted on validity Start
-      testScheduledVersionsSorting('VALIDITY_START', [
-        pastStandardVersion.info.validityStart,
-        currentStandardVersion.info.validityStart,
-        todayTempVersion.info.validityStart,
-        nextMonthTempVersion.info.validityStart,
-        futureStandardVersion.info.validityStart,
-      ]);
+      testScheduledVersionsSorting(
+        StopVersionPage,
+        StopVersionRow,
+        StopVersionsTableHeader,
+        'VALIDITY_START',
+        [
+          pastStandardVersion.info.validityStart,
+          currentStandardVersion.info.validityStart,
+          todayTempVersion.info.validityStart,
+          nextMonthTempVersion.info.validityStart,
+          futureStandardVersion.info.validityStart,
+        ],
+      );
 
-      testScheduledVersionsSorting('VALIDITY_END', [
-        pastStandardVersion.info.validityEnd,
-        todayTempVersion.info.validityEnd,
-        nextMonthTempVersion.info.validityEnd,
-        currentStandardVersion.info.validityEnd,
-        futureStandardVersion.info.validityEnd,
-      ]);
+      testScheduledVersionsSorting(
+        StopVersionPage,
+        StopVersionRow,
+        StopVersionsTableHeader,
+        'VALIDITY_END',
+        [
+          pastStandardVersion.info.validityEnd,
+          todayTempVersion.info.validityEnd,
+          nextMonthTempVersion.info.validityEnd,
+          currentStandardVersion.info.validityEnd,
+          futureStandardVersion.info.validityEnd,
+        ],
+      );
 
-      testScheduledVersionsSorting('VERSION_COMMENT', [
-        currentStandardVersion.info.comment,
-        futureStandardVersion.info.comment,
-        pastStandardVersion.info.comment,
-        todayTempVersion.info.comment,
-        nextMonthTempVersion.info.comment,
-      ]);
+      testScheduledVersionsSorting(
+        StopVersionPage,
+        StopVersionRow,
+        StopVersionsTableHeader,
+        'VERSION_COMMENT',
+        [
+          currentStandardVersion.info.comment,
+          futureStandardVersion.info.comment,
+          pastStandardVersion.info.comment,
+          todayTempVersion.info.comment,
+          nextMonthTempVersion.info.comment,
+        ],
+      );
 
       // Draft version
-      testDraftVersionsSorting('VALIDITY_START', [
-        draftOneVersion.info.validityStart,
-        draftTwoVersion.info.validityStart,
-        draftThreeVersion.info.validityStart,
-      ]);
+      testDraftVersionsSorting(
+        StopVersionPage,
+        StopVersionRow,
+        StopVersionsTableHeader,
+        'VALIDITY_START',
+        [
+          draftOneVersion.info.validityStart,
+          draftTwoVersion.info.validityStart,
+          draftThreeVersion.info.validityStart,
+        ],
+      );
 
-      testDraftVersionsSorting('VALIDITY_END', [
-        draftOneVersion.info.validityEnd,
-        draftTwoVersion.info.validityEnd,
-        draftThreeVersion.info.validityEnd,
-      ]);
+      testDraftVersionsSorting(
+        StopVersionPage,
+        StopVersionRow,
+        StopVersionsTableHeader,
+        'VALIDITY_END',
+        [
+          draftOneVersion.info.validityEnd,
+          draftTwoVersion.info.validityEnd,
+          draftThreeVersion.info.validityEnd,
+        ],
+      );
 
-      testDraftVersionsSorting('VERSION_COMMENT', [
-        draftOneVersion.info.comment,
-        draftTwoVersion.info.comment,
-        draftThreeVersion.info.comment,
-      ]);
+      testDraftVersionsSorting(
+        StopVersionPage,
+        StopVersionRow,
+        StopVersionsTableHeader,
+        'VERSION_COMMENT',
+        [
+          draftOneVersion.info.comment,
+          draftTwoVersion.info.comment,
+          draftThreeVersion.info.comment,
+        ],
+      );
 
       // Changed cannot be tested as all the versions get inserted simultaneously.
       // We would need a direct DB connection so that we could 🔪 proper data in.

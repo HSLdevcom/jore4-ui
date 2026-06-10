@@ -1,58 +1,8 @@
-export class StopVersionRow {
-  static rows() {
-    return cy.get("[data-test-element-type='StopVersionRow'");
-  }
+import { createVersionRowPageObject } from '../../common/VersionRowPageObject';
 
-  rows = () => StopVersionRow.rows();
+const BaseStopVersionRow = createVersionRowPageObject('StopVersionRow');
 
-  static changed() {
-    return cy.getByTestId('StopVersionRow::changed');
-  }
-
-  changed = () => StopVersionRow.changed();
-
-  static changedBy() {
-    return cy.getByTestId('StopVersionRow::changedBy');
-  }
-
-  changedBy = () => StopVersionRow.changedBy();
-
-  static status() {
-    return cy.getByTestId('StopVersionRow::status');
-  }
-
-  status = () => StopVersionRow.status();
-
-  static validityEnd() {
-    return cy.getByTestId('StopVersionRow::validityEnd');
-  }
-
-  validityEnd = () => StopVersionRow.validityEnd();
-
-  static validityStart() {
-    return cy.getByTestId('StopVersionRow::validityStart');
-  }
-
-  validityStart = () => StopVersionRow.validityStart();
-
-  static versionComment() {
-    return cy.getByTestId('StopVersionRow::versionComment');
-  }
-
-  versionComment = () => StopVersionRow.versionComment();
-
-  static locatorButton() {
-    return cy.getByTestId('LocatorButton::button');
-  }
-
-  locatorButton = () => StopVersionRow.locatorButton();
-
-  static actionMenu() {
-    return cy.getByTestId('StopVersionRow::actionMenu');
-  }
-
-  actionMenu = () => StopVersionRow.actionMenu();
-
+export class StopVersionRow extends BaseStopVersionRow {
   static actionMenuShowOnMap() {
     return cy.getByTestId('StopTableRow::ActionMenu::ShowOnMap');
   }
