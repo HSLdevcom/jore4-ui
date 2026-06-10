@@ -48,6 +48,7 @@ const knownNavigationContexts = [
   'LocationDetailsForm',
   'MaintenanceDetailsForm',
   'MeasurementsForm',
+  'MirroredQuayForm',
   'NavigationBlocker',
   'OccasionalSubstitutePeriodForm',
   'OrganisationDetailsForm',
