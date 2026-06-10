@@ -36,9 +36,8 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
   };
 
   const onCancelDrawMode = () => {
-    // Return to route modal mode when canceling drawing mode
-    dispatch(setRouteMetadataFormOpenAction(true));
-    // Stop the drawing mode but keep the route creation process
+    // Close metadata modal and stop route creation (same behavior as route cancel).
+    dispatch(setRouteMetadataFormOpenAction(false));
     onCancel();
   };
 
