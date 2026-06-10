@@ -41,6 +41,7 @@ const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
       canvas.style.cursor = 'auto';
       break;
     default:
+      canvas.style.cursor = 'auto';
   }
 };
 
@@ -60,6 +61,12 @@ export const DrawRouteLayer: FC = () => {
 
   useEffect(() => {
     setCursor(map, isNewRouteDrawPhase ? Mode.Draw : drawingMode);
+
+    // DrawRouteLayer unmounts when drawingMode becomes undefined.
+    // Reset cursor explicitly on unmount so stale crosshair does not persist.
+    return () => {
+      setCursor(map, undefined);
+    };
   }, [drawingMode, isNewRouteDrawPhase, map]);
 
   const { templateRouteId } = editedRouteData;
