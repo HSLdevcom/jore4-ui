@@ -1,67 +1,15 @@
-export class StopVersionRow {
-  static rows() {
-    return cy.get("[data-test-element-type='StopVersionRow'");
-  }
+import { VersionRowBase } from '../../common/VersionRowPageObject';
 
-  rows = () => StopVersionRow.rows();
+class StopVersionRowImpl extends VersionRowBase {
+  protected rowTestIdPrefix = 'StopVersionRow';
 
-  static changed() {
-    return cy.getByTestId('StopVersionRow::changed');
-  }
-
-  changed = () => StopVersionRow.changed();
-
-  static changedBy() {
-    return cy.getByTestId('StopVersionRow::changedBy');
-  }
-
-  changedBy = () => StopVersionRow.changedBy();
-
-  static status() {
-    return cy.getByTestId('StopVersionRow::status');
-  }
-
-  status = () => StopVersionRow.status();
-
-  static validityEnd() {
-    return cy.getByTestId('StopVersionRow::validityEnd');
-  }
-
-  validityEnd = () => StopVersionRow.validityEnd();
-
-  static validityStart() {
-    return cy.getByTestId('StopVersionRow::validityStart');
-  }
-
-  validityStart = () => StopVersionRow.validityStart();
-
-  static versionComment() {
-    return cy.getByTestId('StopVersionRow::versionComment');
-  }
-
-  versionComment = () => StopVersionRow.versionComment();
-
-  static locatorButton() {
-    return cy.getByTestId('LocatorButton::button');
-  }
-
-  locatorButton = () => StopVersionRow.locatorButton();
-
-  static actionMenu() {
-    return cy.getByTestId('StopVersionRow::actionMenu');
-  }
-
-  actionMenu = () => StopVersionRow.actionMenu();
-
-  static actionMenuShowOnMap() {
+  actionMenuShowOnMap() {
     return cy.getByTestId('StopTableRow::ActionMenu::ShowOnMap');
   }
 
-  actionMenuShowOnMap = () => StopVersionRow.actionMenuShowOnMap();
-
-  static actionMenuShowStopDetails() {
+  actionMenuShowStopDetails() {
     return cy.getByTestId('StopTableRow::ActionMenu::ShowStopDetails');
   }
-
-  actionMenuShowStopDetails = () => StopVersionRow.actionMenuShowStopDetails();
 }
+
+export const StopVersionRow = new StopVersionRowImpl();
