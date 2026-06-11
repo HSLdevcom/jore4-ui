@@ -30,6 +30,7 @@ import { LineChangeHistoryPage } from '../components/routes-and-lines/line-chang
 import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
+import { RouteVersionsPage } from '../components/routes-and-lines/route-versions';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
   StopDetailsPage,
@@ -218,6 +219,11 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.editRoute,
     protected: true,
     element: <EditRoutePage />,
+  },
+  {
+    path: Path.routeVersions,
+    protected: true,
+    element: <RouteVersionsPage />,
   },
   {
     path: Path.createLine,
