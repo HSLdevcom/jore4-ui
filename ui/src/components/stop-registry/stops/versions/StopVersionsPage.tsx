@@ -51,7 +51,7 @@ export const StopVersionsPage: FC = () => {
             })
           }
           testId={testIds.returnButton}
-          label={t(($) => $.stopVersion.goBack)}
+          label={t(($) => $.versions.goBack)}
         />
       </Row>
       <Row>
@@ -65,7 +65,7 @@ export const StopVersionsPage: FC = () => {
       </Row>
       <LoadingWrapper
         className="flex justify-center"
-        loadingText={t(($) => $.stopVersion.loading)}
+        loadingText={t(($) => $.versions.loading)}
         loading={loading}
         testId={testIds.loadingWrapper}
       >

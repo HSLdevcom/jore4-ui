@@ -12,7 +12,7 @@ type VersionWithSortableFields = {
   readonly validity_start: DateTime;
   readonly validity_end: DateTime | null;
   readonly version_comment: string;
-  readonly changed: string;
+  readonly changed: DateTime | string | null;
   readonly changedByUserName: string | null;
 };
 
@@ -34,6 +34,11 @@ function compareDates(
   }
 
   return dateA.valueOf() - dateB.valueOf();
+}
+
+// Route version has DateTime, stop version has string
+function ensureDateTime(value: DateTime | string | null): DateTime | null {
+  return parseDate(value) ?? null;
 }
 
 export function useSortedVersions<TVersion extends VersionWithSortableFields>(
@@ -59,7 +64,10 @@ export function useSortedVersions<TVersion extends VersionWithSortableFields>(
         case 'VERSION_COMMENT':
           return collator.compare(a.version_comment, b.version_comment);
         case 'CHANGED':
-          return compareDates(parseDate(a.changed), parseDate(b.changed));
+          return compareDates(
+            ensureDateTime(a.changed),
+            ensureDateTime(b.changed),
+          );
         case 'CHANGED_BY':
           return collator.compare(
             a.changedByUserName ?? '',

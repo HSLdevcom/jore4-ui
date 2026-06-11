@@ -7,10 +7,10 @@ import { accordionClassNames } from '../../../../common';
 import {
   DateRangeInputs,
   useFilterVersionsByDateRange,
+  useSortedVersions,
   useVersionContainerControls,
 } from '../../../../common/versions';
 import { StopVersion } from '../types';
-import { useSortedStopVersions } from '../utils';
 import { StopVersionTable } from './StopVersionTable';
 
 const ID = 'ScheduledVersionsContainer';
@@ -42,14 +42,14 @@ export const ScheduledVersionsContainer: FC<
   } = useVersionContainerControls();
 
   const filteredStopVersions = useFilterVersionsByDateRange(
-    useSortedStopVersions(sortingInfo, stopVersions),
+    useSortedVersions(sortingInfo, stopVersions),
     dateRange,
   );
 
   return (
     <div className={className}>
       <Column>
-        <h4 id={HeaderId}>{t(($) => $.stopVersion.scheduled.title)}</h4>
+        <h4 id={HeaderId}>{t(($) => $.versions.scheduled.title)}</h4>
 
         <DateRangeInputs
           className="mt-4 gap-4"
@@ -61,8 +61,8 @@ export const ScheduledVersionsContainer: FC<
           className="self-end"
           ariaControls={ID}
           expanded={expanded}
-          expandedText={t(($) => $.stopVersion.scheduled.hide)}
-          collapsedText={t(($) => $.stopVersion.scheduled.show)}
+          expandedText={t(($) => $.versions.scheduled.hide)}
+          collapsedText={t(($) => $.versions.scheduled.show)}
           onClick={() => setExpanded((p) => !p)}
           testId={testIds.showHideButton}
         />
