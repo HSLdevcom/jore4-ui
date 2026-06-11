@@ -394,7 +394,7 @@ export const mapLineTypeToUiName = genTranslationMapper<
 
 export const mapDirectionToUiName = genTranslationMapper<
   RouteDirectionEnum.Inbound | RouteDirectionEnum.Outbound,
-  RouteDirectionEnum
+  RouteDirectionEnum | string
 >(
   {
     [RouteDirectionEnum.Inbound]: (t) => t(($) => $.directionEnum.inbound),
