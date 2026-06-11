@@ -13,3 +13,4 @@ export * from './SearchContainer';
 export * from './SearchResultsPage';
 export * from './StopsNeedingUpdateModal';
 export * from './line-details-page';
+export * from './route-versions';
