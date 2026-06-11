@@ -9,3 +9,6 @@ export * from './trStatus';
 export * from './VersionTableColumn';
 export * from './EmptyColumnHeader';
 export * from './VersionTableHeaderSortableCell';
+export * from './VersionTableHeader';
+export * from './VersionRowCells';
+export * from './versionUtils';

@@ -1,20 +1,20 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import {
-  EmptyColumnHeader,
-  VersionTableHeaderSortableCell,
-  VersionTableSortingInfo,
-} from '../../../../common/versions';
+import { EmptyColumnHeader } from './EmptyColumnHeader';
+import { VersionTableSortingInfo } from './useVersionContainerControls';
+import { VersionTableHeaderSortableCell } from './VersionTableHeaderSortableCell';
 
-type StopVersionTableHeaderProps = {
+type VersionTableHeaderProps = {
   readonly className?: string;
   readonly sortingInfo: VersionTableSortingInfo;
   readonly setSortingInfo: Dispatch<SetStateAction<VersionTableSortingInfo>>;
+  readonly testIdPrefix?: string;
 };
 
-export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
+export const VersionTableHeader: FC<VersionTableHeaderProps> = ({
   className,
   sortingInfo,
   setSortingInfo,
+  testIdPrefix,
 }) => {
   return (
     <thead className={className}>
@@ -24,7 +24,7 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
           columnType="STATUS"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
-          testIdPrefix="StopVersionTableHeaderSortableCell"
+          testIdPrefix={testIdPrefix}
         />
 
         <VersionTableHeaderSortableCell
@@ -32,7 +32,7 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
           columnType="VALIDITY_START"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
-          testIdPrefix="StopVersionTableHeaderSortableCell"
+          testIdPrefix={testIdPrefix}
         />
 
         <EmptyColumnHeader className="w-fit" />
@@ -42,7 +42,7 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
           columnType="VALIDITY_END"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
-          testIdPrefix="StopVersionTableHeaderSortableCell"
+          testIdPrefix={testIdPrefix}
         />
 
         <VersionTableHeaderSortableCell
@@ -51,27 +51,27 @@ export const StopVersionTableHeader: FC<StopVersionTableHeaderProps> = ({
           columnType="VERSION_COMMENT"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
-          testIdPrefix="StopVersionTableHeaderSortableCell"
+          testIdPrefix={testIdPrefix}
         />
 
         <VersionTableHeaderSortableCell
-          className="mx-auto px-4 py-2"
+          className="mr-auto px-4 py-2"
           columnType="CHANGED"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
-          testIdPrefix="StopVersionTableHeaderSortableCell"
+          testIdPrefix={testIdPrefix}
         />
 
         <VersionTableHeaderSortableCell
-          className="mx-auto px-4 py-2"
+          className="mr-auto px-4 py-2"
           columnType="CHANGED_BY"
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
-          testIdPrefix="StopVersionTableHeaderSortableCell"
+          testIdPrefix={testIdPrefix}
         />
 
-        <EmptyColumnHeader />
-        <EmptyColumnHeader />
+        <EmptyColumnHeader className="w-fit" />
+        <EmptyColumnHeader className="w-fit" />
       </tr>
     </thead>
   );

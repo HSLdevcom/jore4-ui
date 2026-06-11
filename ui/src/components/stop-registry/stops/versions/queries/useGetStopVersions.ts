@@ -5,18 +5,14 @@ import {
   StopVersionInfoFragment,
   useGetQuayVersionsQuery,
 } from '../../../../../generated/graphql';
-import {
-  GetUserNameById,
-  useGetUserNames,
-} from '../../../../../hooks/useGetUserNames';
 import { parseDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
+import { getGeometryPoint, requireValue } from '../../../../../utils';
 import {
-  getGeometryPoint,
-  numberEnumValues,
-  requireValue,
-} from '../../../../../utils';
-import { VersionStatus } from '../../../../common';
+  VersionStatus,
+  mapPriorityToVersionStatus,
+  parsePriority,
+} from '../../../../common';
 import { StopVersion } from '../types';
 
 const GQL_GET_QUAY_VERSIONS = gql`
@@ -56,36 +52,15 @@ const GQL_GET_QUAY_VERSIONS = gql`
   }
 `;
 
-const knownPriorityNumbers: ReadonlyArray<number> = numberEnumValues(Priority);
-
-function parsePriority(prioStr: string | null | undefined): Priority {
-  const prioNumber = Number(prioStr);
-  return knownPriorityNumbers.includes(prioNumber)
-    ? (prioNumber as Priority)
-    : Priority.Standard;
-}
-
-function mapPriorityToStopVersionStatus(priority: Priority): VersionStatus {
-  switch (priority) {
-    case Priority.Draft:
-      return VersionStatus.DRAFT;
-    case Priority.Temporary:
-      return VersionStatus.TEMPORARY;
-    default:
-      return VersionStatus.STANDARD;
-  }
-}
-
 function mapQuayToStopVersionInfoItem(
   rawQuay: StopVersionInfoFragment,
   activeVersionId: number | null,
-  getUserNameById: GetUserNameById,
 ): StopVersion {
   const priority = parsePriority(rawQuay.priority);
   const status =
     rawQuay.id === activeVersionId
       ? VersionStatus.ACTIVE
-      : mapPriorityToStopVersionStatus(priority);
+      : mapPriorityToVersionStatus(priority);
 
   return {
     id: rawQuay.id,
@@ -99,7 +74,7 @@ function mapQuayToStopVersionInfoItem(
     status,
     location: requireValue(getGeometryPoint(rawQuay.centroid)),
     changed: requireValue(rawQuay.changed ?? rawQuay.created),
-    changedByUserName: getUserNameById(rawQuay.changed_by) ?? null,
+    changedByUserName: rawQuay.changed_by ?? null,
     version_comment: rawQuay.version_comment ?? '',
   };
 }
@@ -139,7 +114,6 @@ export function useGetStopVersions(
     variables: { publicCode },
     skip: !publicCode,
   });
-  const { getUserNameById } = useGetUserNames();
 
   const rawQuays = data?.stops_database?.quays;
   const stopVersions = useMemo(() => {
@@ -149,9 +123,9 @@ export function useGetStopVersions(
 
     const activeVersionId = resolveActiveVersionId(rawQuays);
     return rawQuays.map((rawQuay) =>
-      mapQuayToStopVersionInfoItem(rawQuay, activeVersionId, getUserNameById),
+      mapQuayToStopVersionInfoItem(rawQuay, activeVersionId),
     );
-  }, [rawQuays, getUserNameById]);
+  }, [rawQuays]);
 
   if (loading) {
     return { loading: true, stopVersions: null };

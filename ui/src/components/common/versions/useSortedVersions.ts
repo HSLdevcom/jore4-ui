@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useGetUserNames } from '../../../hooks/useGetUserNames';
 import { parseDate } from '../../../time';
 import { SortOrder } from '../../../types';
 import { trStatus } from './trStatus';
@@ -12,7 +13,7 @@ type VersionWithSortableFields = {
   readonly validity_start: DateTime;
   readonly validity_end: DateTime | null;
   readonly version_comment: string;
-  readonly changed: string;
+  readonly changed: DateTime | string | null;
   readonly changedByUserName: string | null;
 };
 
@@ -36,11 +37,23 @@ function compareDates(
   return dateA.valueOf() - dateB.valueOf();
 }
 
+// Route version has DateTime, stop version has string
+function ensureDateTime(value: DateTime | string | null): DateTime | null {
+  if (value === null) {
+    return null;
+  }
+  if (DateTime.isDateTime(value)) {
+    return value;
+  }
+  return parseDate(value);
+}
+
 export function useSortedVersions<TVersion extends VersionWithSortableFields>(
   sortingInfo: VersionTableSortingInfo,
   versions: ReadonlyArray<TVersion>,
 ): ReadonlyArray<TVersion> {
   const { t } = useTranslation();
+  const { getUserNameById } = useGetUserNames();
 
   const collator = useMemo(
     () => new Intl.Collator(t(($) => $.languages.intlLangCode)),
@@ -59,11 +72,14 @@ export function useSortedVersions<TVersion extends VersionWithSortableFields>(
         case 'VERSION_COMMENT':
           return collator.compare(a.version_comment, b.version_comment);
         case 'CHANGED':
-          return compareDates(parseDate(a.changed), parseDate(b.changed));
+          return compareDates(
+            ensureDateTime(a.changed),
+            ensureDateTime(b.changed),
+          );
         case 'CHANGED_BY':
           return collator.compare(
-            a.changedByUserName ?? '',
-            b.changedByUserName ?? '',
+            getUserNameById(a.changedByUserName) ?? '',
+            getUserNameById(b.changedByUserName) ?? '',
           );
         default:
           return 0;
@@ -76,5 +92,5 @@ export function useSortedVersions<TVersion extends VersionWithSortableFields>(
         : (a: TVersion, b: TVersion) => -compare(a, b);
 
     return versions.toSorted(orderedCompare);
-  }, [sortingInfo, collator, t, versions]);
+  }, [sortingInfo, collator, t, versions, getUserNameById]);
 }

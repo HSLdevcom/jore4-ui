@@ -1488,19 +1488,11 @@
   "stopVersion": {
     "title": "Versions | Stop {{publicCode}}",
     "titleWithName": "Versions | Stop {{publicCode}} {{name}}",
-    "loading": "Loading version information",
-    "goBack": "Go back",
     "scheduled": {
-      "title": "Scheduled",
-      "show": "Show scheduled",
-      "hide": "Hide scheduled",
       "noVersions": "No scheduled versions in the selected time range."
     },
     "drafts": {
-      "title": "Drafts",
-      "show": "Show drafts",
-      "hide": "Hide drafts",
-      "noVersions": "The stop has no draft verisons."
+      "noVersions": "The stop has no draft versions."
     }
   },
   "versions": {
@@ -1517,6 +1509,27 @@
       "version_comment": "Version name",
       "changed": "Changed",
       "changed_by": "Changed by"
+    },
+    "loading": "Loading version information",
+    "goBack": "Go back",
+    "scheduled": {
+      "title": "Scheduled",
+      "show": "Show scheduled",
+      "hide": "Hide scheduled"
+    },
+    "drafts": {
+      "title": "Drafts",
+      "show": "Show drafts",
+      "hide": "Hide drafts"
+    }
+  },
+  "routeVersion": {
+    "title": "Versions | Route {{label}} ({{direction}})",
+    "scheduled": {
+      "noVersions": "No scheduled versions in the selected time range."
+    },
+    "drafts": {
+      "noVersions": "The route has no draft versions."
     }
   },
   "changeHistory": {
@@ -1666,6 +1679,7 @@
       "showTimetables": "Show timetables for route {{label}}",
       "expandStops": "Open the stops list for the route {{label}}, direction {{directionNumber}}",
       "closeStops": "Hide the stops of the route {{label}, direction {{directionNumber}}",
+      "viewVersions": "View versions for route {{label}}, direction {{directionNumber}}",
       "expandTimetable": "Open the timetables for the route {{routeName}}",
       "closeTimetable": "Hide the timetables of the route {{routeName}}",
       "showStopActions": "More actions for the stop {{stopLabel}}",
