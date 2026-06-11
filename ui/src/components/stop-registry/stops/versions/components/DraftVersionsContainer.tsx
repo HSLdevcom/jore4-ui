@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Row } from '../../../../../layoutComponents';
 import { ExpandButton } from '../../../../../uiComponents';
 import { accordionClassNames } from '../../../../common';
-import { useVersionContainerControls } from '../../../../common/versions';
+import {
+  useSortedVersions,
+  useVersionContainerControls,
+} from '../../../../common/versions';
 import { StopVersion } from '../types';
-import { useSortedStopVersions } from '../utils';
 import { StopVersionTable } from './StopVersionTable';
 
 const ID = 'DraftVersionsContainer';
@@ -33,19 +35,19 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
   const { expanded, setExpanded, sortingInfo, setSortingInfo } =
     useVersionContainerControls();
 
-  const sortedStopVersions = useSortedStopVersions(sortingInfo, stopVersions);
+  const sortedStopVersions = useSortedVersions(sortingInfo, stopVersions);
 
   return (
     <div className={className}>
       <Row className="justify-between">
-        <h4 id={HeaderId}>{t(($) => $.stopVersion.drafts.title)}</h4>
+        <h4 id={HeaderId}>{t(($) => $.versions.drafts.title)}</h4>
 
         <ExpandButton
           className="self-end"
           ariaControls={ID}
           expanded={expanded}
-          expandedText={t(($) => $.stopVersion.drafts.hide)}
-          collapsedText={t(($) => $.stopVersion.drafts.show)}
+          expandedText={t(($) => $.versions.drafts.hide)}
+          collapsedText={t(($) => $.versions.drafts.show)}
           onClick={() => setExpanded((p) => !p)}
           testId={testIds.showHideButton}
         />

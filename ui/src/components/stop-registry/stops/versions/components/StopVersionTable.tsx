@@ -4,9 +4,9 @@ import {
   NoVersionRow,
   VersionTableSortingInfo,
 } from '../../../../common/versions';
+import { VersionTableHeader } from '../../../../common/versions/VersionTableHeader';
 import { StopVersion } from '../types';
 import { StopVersionRow } from './StopVersionRow';
-import { StopVersionTableHeader } from './StopVersionTableHeader';
 
 type StopVersionTableProps = {
   readonly className?: string;
@@ -32,10 +32,11 @@ export const StopVersionTable: FC<StopVersionTableProps> = ({
       className={twMerge('border-light-grey', className)}
       data-testid={testId}
     >
-      <StopVersionTableHeader
+      <VersionTableHeader
         className="border-b"
         sortingInfo={sortingInfo}
         setSortingInfo={setSortingInfo}
+        testIdPrefix="StopVersionTableHeaderSortableCell"
       />
 
       <tbody>

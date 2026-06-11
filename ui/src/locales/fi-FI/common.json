@@ -1488,19 +1488,11 @@
   "stopVersion": {
     "title": "Versiot | Pysäkki {{publicCode}}",
     "titleWithName": "Versiot | Pysäkki {{publicCode}} {{name}}",
-    "loading": "Ladataan versiotietoja",
-    "goBack": "Palaa",
     "scheduled": {
-      "title": "Kalenteroidut",
-      "show": "Näytä kalenteroidut",
-      "hide": "Piilota kalenteroidut",
       "noVersions": "Valitulla aikavälillä ei ole yhtään kalenteroitua pysäkkiversiota."
     },
     "drafts": {
-      "title": "Luonnokset",
-      "show": "Näytä luonnokset",
-      "hide": "Piilota luonnokset",
-      "noVersions": "Pysäkiin ei liity yhtään luonnosta."
+      "noVersions": "Pysäkkiin ei liity yhtään luonnosta."
     }
   },
   "versions": {
@@ -1517,6 +1509,27 @@
       "version_comment": "Version nimi",
       "changed": "Muokattu",
       "changed_by": "Muokkaaja"
+    },
+    "loading": "Ladataan versiotietoja",
+    "goBack": "Palaa",
+    "scheduled": {
+      "title": "Kalenteroidut",
+      "show": "Näytä kalenteroidut",
+      "hide": "Piilota kalenteroidut"
+    },
+    "drafts": {
+      "title": "Luonnokset",
+      "show": "Näytä luonnokset",
+      "hide": "Piilota luonnokset"
+    }
+  },
+  "routeVersion": {
+    "title": "Versiot | Reitti {{label}} ({{direction}})",
+    "scheduled": {
+      "noVersions": "Valitulla aikavälillä ei ole yhtään kalenteroitua reittiversiota."
+    },
+    "drafts": {
+      "noVersions": "Reittiin ei liity yhtään luonnosta."
     }
   },
   "changeHistory": {
@@ -1666,6 +1679,7 @@
       "showTimetables": "Näytä aikataulut reitille {{label}}",
       "expandStops": "Näytä pysäkit reitille {{label}}, suunta {{directionNumber}}",
       "closeStops": "Piilota pysäkit reitiltä {{label}}, suunta {{directionNumber}}",
+      "viewVersions": "Näytä versiot reitille {{label}}, suunta {{directionNumber}}",
       "expandTimetable": "Avaa aikataulut reitille {{routeName}}",
       "closeTimetable": "Piilota reitin {{routeName}} aikataulut",
       "showStopActions": "Lisää toimintoja pysäkille {{stopLabel}}",
