@@ -15,6 +15,7 @@ export const Path = {
   // Routes and lines
   routesSearch: '/routes/search',
   editRoute: '/routes/:id/edit',
+  routeVersions: '/routes/:label/:direction/versions',
   createLine: '/lines/create',
   lineDetails: '/lines/:id',
   lineDrafts: '/lines/:label/drafts',
@@ -138,6 +139,10 @@ export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   },
   [Path.editRoute]: {
     getLink: genVariableLinkGenerator(Path.editRoute),
+    includeInNav: false,
+  },
+  [Path.routeVersions]: {
+    getLink: genVariableLinkGenerator(Path.routeVersions, ':label/:direction'),
     includeInNav: false,
   },
   [Path.createLine]: {
