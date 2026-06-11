@@ -2,11 +2,13 @@ import { DateTime } from 'luxon';
 import { FC, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
+import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import {
   RouteAllFieldsFragment,
   RouteDirectionEnum,
 } from '../../../generated/graphql';
+import { makeBackNavigationIsSafeState } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -36,6 +38,7 @@ const testIds = {
   showRouteButton: 'RouteRow::showRouteButton',
   toggleAccordion: 'RouteRow::toggleAccordion',
   editRouteButton: 'RouteRow::editRouteButton',
+  versionsButton: 'RouteRow::versionsButton',
 };
 
 type RouteRowProps = {
@@ -92,11 +95,11 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
     >
       <div
         id={directionAndLabelId}
-        className="col-span-3 flex h-full items-center justify-evenly"
+        className="col-span-2 ml-2 flex h-full items-center justify-evenly"
       >
         <DirectionBadge direction={route.direction as RouteDirectionEnum} />
         {/* Route label max is 6 characters including space and the variant */}
-        <span className="w-[6ch] text-xl" data-testid={testIds.label}>
+        <span className="ml-2 w-[6ch] text-xl" data-testid={testIds.label}>
           <RouteLabel label={label} variant={route.variant} />
         </span>
       </div>
@@ -114,6 +117,22 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         })}
         className="ml-0"
       />
+      <Link
+        to={routeDetails[Path.routeVersions].getLink(
+          `${label}/${route.direction}`,
+        )}
+        state={makeBackNavigationIsSafeState()}
+        data-testid={testIds.versionsButton}
+        title={t(($) => $.accessibility.routes.viewVersions, {
+          label,
+          directionNumber,
+        })}
+      >
+        <i
+          aria-hidden
+          className="icon-lista text-xl text-tweaked-brand hover:text-black"
+        />
+      </Link>
       <span
         data-testid={testIds.validityPeriod}
         className="col-span-4 text-center md:text-sm lg:text-base"
