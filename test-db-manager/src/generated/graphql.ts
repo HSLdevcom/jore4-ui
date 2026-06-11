@@ -8074,6 +8074,10 @@ export type RouteLineVarianceOrderBy = {
 /** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
 export type RouteRoute = {
   __typename?: 'route_route';
+  /** An array relationship */
+  change_history: Array<RouteLineChangeHistory>;
+  /** An aggregate relationship */
+  change_history_aggregate: RouteLineChangeHistoryAggregate;
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: Maybe<Scalars['localized_string']['output']>;
   destination_name_i18n: Scalars['localized_string']['output'];
@@ -8117,6 +8121,26 @@ export type RouteRoute = {
   variant?: Maybe<Scalars['smallint']['output']>;
   /** An extra comment describing the latest change to the Route's details. */
   version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+export type RouteRouteChangeHistoryArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+};
+
+
+/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+export type RouteRouteChangeHistoryAggregateArgs = {
+  distinct_on?: InputMaybe<Array<RouteLineChangeHistorySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RouteLineChangeHistoryOrderBy>>;
+  where?: InputMaybe<RouteLineChangeHistoryBoolExp>;
 };
 
 
@@ -8291,6 +8315,8 @@ export type RouteRouteBoolExp = {
   _and?: InputMaybe<Array<RouteRouteBoolExp>>;
   _not?: InputMaybe<RouteRouteBoolExp>;
   _or?: InputMaybe<Array<RouteRouteBoolExp>>;
+  change_history?: InputMaybe<RouteLineChangeHistoryBoolExp>;
+  change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateBoolExp>;
   description_i18n?: InputMaybe<JsonbComparisonExp>;
   destination_name_i18n?: InputMaybe<JsonbComparisonExp>;
   destination_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
@@ -8366,6 +8392,7 @@ export type RouteRouteIncInput = {
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
+  change_history?: InputMaybe<RouteLineChangeHistoryArrRelInsertInput>;
   /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   destination_name_i18n: Scalars['localized_string']['input'];
@@ -8522,6 +8549,7 @@ export type RouteRouteOnConflict = {
 
 /** Ordering options when selecting data from "route.route". */
 export type RouteRouteOrderBy = {
+  change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateOrderBy>;
   description_i18n?: InputMaybe<OrderBy>;
   destination_name_i18n?: InputMaybe<OrderBy>;
   destination_short_name_i18n?: InputMaybe<OrderBy>;
