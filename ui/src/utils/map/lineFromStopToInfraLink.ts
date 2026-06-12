@@ -15,7 +15,11 @@ import { MapInstance } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { Point as JorePoint } from '../../types';
 import { notNullish } from '../misc';
-import { createGeometryLineBetweenPoints, removeLayer } from './mapUtils';
+import {
+  createGeometryLineBetweenPoints,
+  isMapStyleReady,
+  removeLayer,
+} from './mapUtils';
 
 type LineAndDistance = {
   readonly line: LineString;
@@ -117,7 +121,7 @@ export function addLineFromStopToInfraLink(
   map: MapInstance | undefined,
   geometry: Geometry,
 ) {
-  if (!map) {
+  if (!map || !isMapStyleReady(map)) {
     return;
   }
 
