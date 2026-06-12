@@ -79,3 +79,21 @@ export function parseStopRegistryTransportModeJsonArray(
     .map((it) => parseStopRegistryTransportMode(it, true))
     .sort();
 }
+
+const vehicleToTransportModeMap = {
+  [ReusableComponentsVehicleModeEnum.Bus]: StopRegistryTransportModeType.Bus,
+  [ReusableComponentsVehicleModeEnum.Ferry]:
+    StopRegistryTransportModeType.Water,
+  [ReusableComponentsVehicleModeEnum.Metro]:
+    StopRegistryTransportModeType.Metro,
+  [ReusableComponentsVehicleModeEnum.Train]: StopRegistryTransportModeType.Rail,
+  [ReusableComponentsVehicleModeEnum.Tram]: StopRegistryTransportModeType.Tram,
+} as const satisfies Readonly<
+  Record<ReusableComponentsVehicleModeEnum, StopRegistryTransportModeType>
+>;
+
+export function mapVehicleModeToTransportMode(
+  vehicleMode: ReusableComponentsVehicleModeEnum,
+): StopRegistryTransportModeType {
+  return vehicleToTransportModeMap[vehicleMode];
+}

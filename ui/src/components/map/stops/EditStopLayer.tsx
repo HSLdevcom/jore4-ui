@@ -21,7 +21,11 @@ import {
   toggleStopSelectionAction,
 } from '../../../redux';
 import { EnrichedStopPlace, Point } from '../../../types';
-import { parseVehicleMode, showSuccessToast } from '../../../utils';
+import {
+  mapVehicleModeToTransportMode,
+  parseVehicleMode,
+  showSuccessToast,
+} from '../../../utils';
 import { useMapDataLayerLoader } from '../../common/hooks';
 import {
   StopFormState,
@@ -279,7 +283,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
             latitude={draftLocation.latitude}
             mapStopViewState={mapStopViewState}
             selected
-            vehicleMode={draftVehicleMode}
+            activeTransportModes={[
+              mapVehicleModeToTransportMode(draftVehicleMode),
+            ]}
           />
         )}
 

@@ -1,7 +1,7 @@
 import type { PointLike } from 'maplibre-gl';
 import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
-import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
+import { StopRegistryTransportModeType } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { MapEntityEditorViewState } from '../../../redux';
 import { StopMarker } from '../markers';
@@ -12,6 +12,38 @@ const { colors } = theme;
 // Offset from the markers left edge, to the center of the circle icon.
 // Needed to align the stop correctly, when the stop label is or isn't shown.
 const offset: PointLike = [-13, 0];
+
+function determineTransportModeColor(
+  mode: StopRegistryTransportModeType,
+  isTrunkLineStop: boolean,
+  isSpeedTramStop: boolean,
+) {
+  if (mode === StopRegistryTransportModeType.Bus) {
+    return isTrunkLineStop ? colors.hslTrunkLineOrange : colors.tweakedBrand;
+  }
+
+  if (mode === StopRegistryTransportModeType.Tram) {
+    return isSpeedTramStop
+      ? colors.hslSpeedTramTurquoise
+      : colors.hslTramDarkGreen;
+  }
+
+  if (mode === StopRegistryTransportModeType.Metro) {
+    return colors.hslMetroOrange;
+  }
+
+  if (mode === StopRegistryTransportModeType.Water) {
+    return colors.hslFerryBlue;
+  }
+
+  if (mode === StopRegistryTransportModeType.Rail) {
+    return colors.hslFerryBlue;
+  }
+
+  throw new Error(
+    `No color specified for StopRegistryTransportModeType(${mode})!`,
+  );
+}
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
@@ -28,7 +60,9 @@ function determineBorderColor(
   asMemberStop: boolean,
   isSelected: boolean,
   isPlaceholder: boolean,
-  stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
+  activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
+  isTrunkLineStop: boolean,
+  isSpeedTramStop: boolean,
   inSelection: boolean,
 ) {
   if (inSelection) {
@@ -51,8 +85,13 @@ function determineBorderColor(
     return colors.selectedMapItem;
   }
 
-  if (stopVehicleMode) {
-    return colors.stops[stopVehicleMode] ?? colors.hslDark80;
+  const primaryMode = activeTransportModes.at(0);
+  if (primaryMode) {
+    return determineTransportModeColor(
+      primaryMode,
+      isTrunkLineStop,
+      isSpeedTramStop,
+    );
   }
 
   return colors.hslDark80;
@@ -63,16 +102,41 @@ function determineFillColor(
   isSelected: boolean,
   inSelection: boolean,
   shouldBeGray: boolean,
+  activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
 ) {
   if (isSelected || asMemberStop || inSelection) {
     return 'white';
   }
 
-  if (shouldBeGray) {
+  if (shouldBeGray || activeTransportModes.length === 0) {
     return colors.lightGrey;
   }
 
   return 'white';
+}
+
+function determineSecondaryFillColor(
+  asMemberStop: boolean,
+  isSelected: boolean,
+  inSelection: boolean,
+  activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
+  isTrunkLineStop: boolean,
+  isSpeedTramStop: boolean,
+) {
+  if (isSelected || asMemberStop || inSelection) {
+    return null;
+  }
+
+  if (activeTransportModes.length >= 2) {
+    const secondaryMode = activeTransportModes[1];
+    return determineTransportModeColor(
+      secondaryMode,
+      isTrunkLineStop,
+      isSpeedTramStop,
+    );
+  }
+
+  return null;
 }
 
 type BaseStopProps = {
@@ -84,7 +148,9 @@ type BaseStopProps = {
   readonly mapStopViewState: MapEntityEditorViewState;
   readonly selected?: boolean;
   readonly testId?: string;
-  readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
+  readonly activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>;
+  readonly isTrunkLineStop?: boolean;
+  readonly isSpeedTramStop?: boolean;
   readonly shouldBeGray?: boolean;
   readonly showLabel?: boolean;
 };
@@ -114,7 +180,9 @@ export const Stop: FC<StopProps> = ({
   mapStopViewState,
   selected = false,
   testId,
-  vehicleMode,
+  activeTransportModes,
+  isTrunkLineStop = false,
+  isSpeedTramStop = false,
   shouldBeGray = false,
   onClick,
   onResolveTitle,
@@ -130,7 +198,9 @@ export const Stop: FC<StopProps> = ({
     asMemberStop,
     selected,
     isPlaceholder,
-    vehicleMode,
+    activeTransportModes,
+    isTrunkLineStop,
+    isSpeedTramStop,
     inSelection,
   );
 
@@ -139,6 +209,16 @@ export const Stop: FC<StopProps> = ({
     selected,
     inSelection,
     shouldBeGray,
+    activeTransportModes,
+  );
+
+  const secondaryFillColor = determineSecondaryFillColor(
+    asMemberStop,
+    selected,
+    inSelection,
+    activeTransportModes,
+    isTrunkLineStop,
+    isSpeedTramStop,
   );
 
   return (
@@ -153,6 +233,7 @@ export const Stop: FC<StopProps> = ({
         testId={testId}
         borderColor={iconBorderColor}
         fillColor={iconFillColor}
+        secondaryFillColor={secondaryFillColor}
         borderWidth={3}
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}

@@ -116,12 +116,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
-  const { getStopVehicleMode, getStopHighlighted, getStopShouldBeGray } =
+  const { getStopHighlighted, getStopShouldBeGray } =
     useMapStops(displayedRouteIds);
-  const filterStopsByVehicleMode = useFilterStopsByVehicleMode(
-    getStopVehicleMode,
-    showRoute,
-  );
+  const filterStopsByVehicleMode = useFilterStopsByVehicleMode(showRoute);
 
   const { setLoadingState: setFetchStopsLoadingState } = useLoader(
     Operation.FetchStops,
@@ -253,7 +250,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
                 ? testIds.memberStop(item.label)
                 : testIds.stopMarker(item.label, item.priority)
             }
-            vehicleMode={getStopVehicleMode(item)}
+            activeTransportModes={item.active_transport_modes}
+            isTrunkLineStop={item.trunk_line_stop}
+            isSpeedTramStop={item.speed_tram_stop}
             shouldBeGray={getStopShouldBeGray(item)}
           />
         );

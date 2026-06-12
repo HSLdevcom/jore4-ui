@@ -19,6 +19,7 @@ type StopMarkerBaseProps = {
   readonly size?: number;
   readonly borderWidth?: number;
   readonly fillColor?: string;
+  readonly secondaryFillColor?: string | null;
   readonly borderColor?: string;
   readonly strokeDashArray?: number;
   readonly centerDot?: boolean;
@@ -47,6 +48,7 @@ type StopMarkerProps = PlaceholderStopMarkerProps | ExistingStopMarkerProps;
 export const StopMarker: FC<StopMarkerProps> = ({
   testId,
   fillColor = 'white',
+  secondaryFillColor = null,
   borderColor = 'black',
   strokeDashArray = 0,
   centerDot = false,
@@ -122,6 +124,11 @@ export const StopMarker: FC<StopMarkerProps> = ({
           strokeWidth={1}
           fill={fillColor}
         />
+
+        {secondaryFillColor && (
+          <path fill={secondaryFillColor} d="M 7 1 A 6 6 0 0 1 7 13 Z" />
+        )}
+
         {!inSelection && (centerDot || isMouseHovering) && (
           <circle cx={7} cy={7} r={3} fill={borderColor} />
         )}
