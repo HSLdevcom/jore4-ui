@@ -4,6 +4,7 @@ import { FC, useEffect } from 'react';
 import { MapInstance, useMap } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../../hooks';
 import { selectSelectedStopAreaId } from '../../../../redux';
+import { isMapStyleReady } from '../../../../utils/map';
 import { MapStop } from '../../types';
 import { CanvasRenderer } from './CanvasRenderer';
 import { pixelSize } from './constants';
@@ -24,7 +25,7 @@ function assertIsCanvasSource(source: unknown): asserts source is CanvasSource {
 // so we need to register the source and layer manually.
 function useMapSourceAndLayer(map: MapInstance | null) {
   useEffect(() => {
-    if (!map) {
+    if (!map || !isMapStyleReady(map)) {
       return noop();
     }
 

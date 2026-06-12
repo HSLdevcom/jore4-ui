@@ -17,8 +17,15 @@ const imageAssets: ReadonlyArray<ImageAsset> = [
   },
 ];
 
+/*
+ * Checks if the map style exists and that it has finished loading. This is needed before performing operations on the map, such as adding/manipulating layers or sources.
+ */
+export function isMapStyleReady(map: MapInstance) {
+  return !!map?.style && map.isStyleLoaded() === true;
+}
+
 export const removeLayer = (map: MapInstance, id: string) => {
-  if (map.getLayer(id)) {
+  if (isMapStyleReady(map) && map.getLayer(id)) {
     map.removeLayer(id);
   }
 };
@@ -68,7 +75,7 @@ export const getInteractiveLayerIds = (mapRef: RefObject<MapRef>) => {
 };
 
 export const removeRoute = (map: MapInstance | undefined, id: string) => {
-  if (!map) {
+  if (!map || !isMapStyleReady(map)) {
     return;
   }
   if (map.getLayer(id)) {
@@ -83,6 +90,10 @@ export const removeRoute = (map: MapInstance | undefined, id: string) => {
 };
 
 export const addRoute = (map: MapInstance, id: string, geometry: Geometry) => {
+  if (!isMapStyleReady(map)) {
+    return;
+  }
+
   // remove possible existing layers with same id
   removeRoute(map, id);
   map.addLayer({
