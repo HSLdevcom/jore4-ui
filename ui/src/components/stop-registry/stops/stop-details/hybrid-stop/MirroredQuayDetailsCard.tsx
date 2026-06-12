@@ -64,11 +64,15 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const { transportMode } = details.stopPlace;
-  const { stopState } = details.quay;
+  const { stopState, stopType } = details.quay;
   const isActive = !stopState || stopState === StopPlaceState.InOperation;
 
   const colors = isActive
-    ? getContainerColorsByTransportMode(transportMode)
+    ? getContainerColorsByTransportMode(
+        transportMode,
+        stopType.trunkLineStop,
+        stopType.speedTramStop,
+      )
     : inactiveInfoContainerColors;
 
   const infoContainerControls = useInfoContainerControls({

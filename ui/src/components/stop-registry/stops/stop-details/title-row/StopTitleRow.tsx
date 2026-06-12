@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
+import { StopPlaceState } from '../../../../../types/stop-registry';
 import { PageTitle } from '../../../../common';
 import { getTransportModeIcon } from '../../../utils/getTransportModeIcon';
 import { ExtraActions } from './ExtraActions';
@@ -31,16 +32,21 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({
 
   return (
     <div className="flex items-center gap-2">
-      {allModes.length > 0 ? (
-        allModes.map((mode) => (
-          <i
-            key={mode}
-            className={twJoin(getTransportModeIcon(mode), 'text-3xl')}
-          />
-        ))
-      ) : (
-        <i className="icon-bus-alt text-3xl text-tweaked-brand" />
-      )}
+      {allModes.map((mode) => (
+        <i
+          key={mode}
+          className={twJoin(
+            getTransportModeIcon(
+              mode,
+              (stopDetails?.quay?.stopState ?? StopPlaceState.InOperation) ===
+                StopPlaceState.InOperation,
+              stopDetails?.quay?.stopType.trunkLineStop,
+              stopDetails?.quay?.stopType.speedTramStop,
+            ),
+            'text-3xl',
+          )}
+        />
+      ))}
       <PageTitle.H1
         className="mr-2"
         testId={testIds.label}

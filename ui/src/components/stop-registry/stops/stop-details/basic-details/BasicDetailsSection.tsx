@@ -2,9 +2,13 @@ import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { StopPlaceState } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
-import { stopInfoContainerColors } from '../stopInfoContainerColors';
+import {
+  getContainerColorsByTransportMode,
+  inactiveInfoContainerColors,
+} from '../stopInfoContainerColors';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
 import { StopBasicDetailsForm } from './basic-details-form/StopBasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
@@ -78,9 +82,18 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
 
   return (
     <InfoContainer
-      colors={stopInfoContainerColors}
+      colors={
+        stop.quay?.stopState === StopPlaceState.InOperation
+          ? getContainerColorsByTransportMode(
+              stop.stop_place?.transportMode,
+              stop.quay?.stopType.trunkLineStop,
+              stop.quay?.stopType.speedTramStop,
+            )
+          : inactiveInfoContainerColors
+      }
       controls={infoContainerControls}
       title={title}
+      inverted
       testIdPrefix="BasicDetailsSection"
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (
