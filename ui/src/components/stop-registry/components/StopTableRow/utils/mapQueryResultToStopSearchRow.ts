@@ -18,6 +18,7 @@ import {
   getStopPlacesFromQueryResult,
   isValidGeoJSONPoint,
   log,
+  parseStopRegistryTransportModeJsonArray,
   requireValue,
 } from '../../../../../utils';
 import { parseStopRegistryTransportMode } from '../../../../../utils/stop-registry/transportMode';
@@ -141,7 +142,7 @@ function mapEquipmentDetails(
   | 'shelter'
   | 'accessibility'
 > {
-  const tiamatStopPlaces = quay.stop_place_newest_version?.TiamatStopPlace;
+  const tiamatStopPlaces = quay.stop_place?.TiamatStopPlace;
 
   const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(tiamatStopPlaces);
 
@@ -170,6 +171,14 @@ function mapQueryResultToStopSearchRowImpl(
     transportMode: parseStopRegistryTransportMode(
       quay.stop_place?.transport_mode,
     ),
+    transportModes: parseStopRegistryTransportModeJsonArray(
+      quay.transport_modes,
+    ),
+    activeTransportModes: parseStopRegistryTransportModeJsonArray(
+      quay.active_transport_modes,
+    ),
+    speedTramStop: !!quay.speed_tram_stop,
+    trunkLineStop: !!quay.trunk_line_stop,
 
     location: validateLocation(quay.centroid),
 
@@ -235,7 +244,21 @@ function mapSingleTiamatStopAreaQuayToStopSearchRow<
     location: validateLocation(quay.geometry),
     description: quay.description?.value ?? null,
 
-    transportMode: stopArea.transportMode ?? null,
+    ...(stopArea.transportMode
+      ? {
+          transportMode: stopArea.transportMode,
+          transportModes: [stopArea.transportMode],
+          activeTransportModes: [stopArea.transportMode],
+          speedTramStop: false,
+          trunkLineStop: false,
+        }
+      : {
+          transportMode: null,
+          transportModes: [],
+          activeTransportModes: [],
+          speedTramStop: false,
+          trunkLineStop: false,
+        }),
 
     validityStart: requireValue(
       findKeyValueParsed(quay, KnownValueKey.ValidityStart, parseDate),

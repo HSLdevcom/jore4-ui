@@ -5,9 +5,9 @@ import {
 
 const vehicleModeValues = Object.values(ReusableComponentsVehicleModeEnum);
 
-export const parseVehicleMode = (
+export function parseVehicleMode(
   transportMode?: string | null,
-): ReusableComponentsVehicleModeEnum | null => {
+): ReusableComponentsVehicleModeEnum | null {
   if (!transportMode) {
     return null;
   }
@@ -20,27 +20,62 @@ export const parseVehicleMode = (
   }
 
   return null;
-};
+}
 
 const stopRegistryTransportModeValues = Object.values(
   StopRegistryTransportModeType,
 );
 
-export const parseStopRegistryTransportMode = (
-  transportMode?: string | StopRegistryTransportModeType | null,
-): StopRegistryTransportModeType | null => {
+export function parseStopRegistryTransportMode(
+  transportMode: unknown,
+  strict: true,
+): StopRegistryTransportModeType;
+export function parseStopRegistryTransportMode(
+  transportMode: unknown,
+  strict?: boolean,
+): StopRegistryTransportModeType | null;
+export function parseStopRegistryTransportMode(
+  transportMode: unknown,
+  strict?: boolean,
+): StopRegistryTransportModeType | null {
   if (!transportMode) {
     return null;
   }
 
-  const normalizedTransportMode = transportMode.toLowerCase();
+  if (typeof transportMode !== 'string') {
+    throw new TypeError(
+      `Expected transportMode to be a string! But was: typeof(${typeof transportMode})`,
+    );
+  }
+
+  const normalized = transportMode.toLowerCase();
   if (
     stopRegistryTransportModeValues.includes(
-      normalizedTransportMode as StopRegistryTransportModeType,
+      normalized as StopRegistryTransportModeType,
     )
   ) {
-    return normalizedTransportMode as StopRegistryTransportModeType;
+    return normalized as StopRegistryTransportModeType;
+  }
+
+  if (strict) {
+    throw new TypeError(
+      `Expected transportMode to be a valid StopRegistryTransportModeType. transportMode(${transportMode}); normalized(${normalized}); StopRegistryTransportModeType(${stopRegistryTransportModeValues})`,
+    );
   }
 
   return null;
-};
+}
+
+export function parseStopRegistryTransportModeJsonArray(
+  transportModes: unknown,
+): Array<StopRegistryTransportModeType> {
+  if (!Array.isArray(transportModes)) {
+    throw new TypeError(
+      `Expected transportModes to be an array! But was: typeof(${typeof transportModes})`,
+    );
+  }
+
+  return transportModes
+    .map((it) => parseStopRegistryTransportMode(it, true))
+    .sort();
+}

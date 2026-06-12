@@ -23,20 +23,28 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
   stop,
 }) => {
   const { t } = useTranslation();
-  const transportModeIcon = getTransportModeIcon(stop.transportMode);
 
   return (
     <td className={className}>
       <Row className="items-center leading-none font-bold">
-        <i
-          className={twJoin(transportModeIcon, 'mr-1 text-xl')}
-          title={
-            stop.transportMode
-              ? mapStopRegistryTransportModeTypeToUiName(t, stop.transportMode)
-              : undefined
-          }
-        />
+        {stop.transportModes.map((mode) => (
+          <i
+            key={mode}
+            className={twJoin(
+              getTransportModeIcon(
+                mode,
+                stop.activeTransportModes.includes(mode),
+                stop.trunkLineStop,
+                stop.speedTramStop,
+              ),
+              'text-xl not-last-of-type:-mr-1',
+            )}
+            title={mapStopRegistryTransportModeTypeToUiName(t, mode)}
+          />
+        ))}
+
         <Link
+          className="ml-1"
           to={routeDetails[Path.stopDetails].getLink(stop.publicCode, {
             observationDate,
             priority: stop.priority,

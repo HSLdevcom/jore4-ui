@@ -21,6 +21,11 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
     centroid
     description_value
 
+    transport_modes
+    active_transport_modes
+    speed_tram_stop
+    trunk_line_stop
+
     stop_place {
       id
       name_value
@@ -33,10 +38,6 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
           name_value
         }
       }
-    }
-
-    stop_place_newest_version {
-      id
 
       TiamatStopPlace {
         ... on stop_registry_StopPlace {

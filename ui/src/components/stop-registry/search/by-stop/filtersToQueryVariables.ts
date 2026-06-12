@@ -98,11 +98,9 @@ function buildTransportationModeFilter({
   }
 
   return {
-    stop_place: {
-      transport_mode: {
-        _in: transportationMode.map(toTiamatDBEnumCase),
-      },
-    },
+    _or: transportationMode.map(toTiamatDBEnumCase).map((mode) => ({
+      transport_modes: { _contains: mode },
+    })),
   };
 }
 
@@ -310,9 +308,7 @@ export function filtersAndResultSelectionToQueryVariables(
   if (excluded.length) {
     return buildSearchStopsGqlQueryVariables(
       filters,
-      {
-        _not: { netex_id: { _in: excluded } },
-      },
+      { _not: { netex_id: { _in: excluded } } },
       ...extraConditions,
     );
   }

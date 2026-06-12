@@ -26,6 +26,11 @@ export type StopSearchRow = {
   readonly priority: Priority;
 
   readonly transportMode?: StopRegistryTransportModeType | null;
+  readonly transportModes: ReadonlyArray<StopRegistryTransportModeType>;
+  readonly activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>;
+  readonly speedTramStop: boolean;
+  readonly trunkLineStop: boolean;
+
   readonly replacesRailSign?: boolean;
   readonly electricity?: string | null;
   readonly shelter?: string | null;
