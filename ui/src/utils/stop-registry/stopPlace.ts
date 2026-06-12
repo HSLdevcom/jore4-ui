@@ -260,6 +260,7 @@ export const getQuayDetailsForEnrichment = <
       railReplacement:
         findKeyValue(quay, KnownValueKey.RailReplacement) === 'true',
       trunkLineStop: findKeyValue(quay, KnownValueKey.TrunkLineStop) === 'true',
+      speedTramStop: findKeyValue(quay, KnownValueKey.SpeedTramStop) === 'true',
     },
     validityStart: findKeyValue(quay, KnownValueKey.ValidityStart),
     validityEnd: findKeyValue(quay, KnownValueKey.ValidityEnd),

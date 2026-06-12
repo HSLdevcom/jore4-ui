@@ -12,6 +12,7 @@ describe('Stop registry utils', () => {
           railReplacement: true,
           virtual: false,
           trunkLineStop: false,
+          speedTramStop: false,
         },
       };
       const result = translateStopTypes(i18n.t, stopPlace);
@@ -24,6 +25,7 @@ describe('Stop registry utils', () => {
           railReplacement: true,
           virtual: true,
           trunkLineStop: true,
+          speedTramStop: false,
         },
       };
       const result = translateStopTypes(i18n.t, stopPlace);
@@ -38,6 +40,7 @@ describe('Stop registry utils', () => {
           railReplacement: false,
           virtual: false,
           trunkLineStop: false,
+          speedTramStop: false,
         },
       };
       const result = translateStopTypes(i18n.t, stopPlace);
