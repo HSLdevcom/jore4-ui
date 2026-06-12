@@ -84,7 +84,7 @@ function mapQuayToStopVersionInfoItem(
 function resolveActiveVersionId(
   rawQuays: ReadonlyArray<StopVersionInfoFragment>,
 ): number | null {
-  const today = DateTime.now().toISODate();
+  const today = DateTime.now().startOf('day');
 
   // prettier-ignore
   const quay = rawQuays.findLast((rawQuay) =>

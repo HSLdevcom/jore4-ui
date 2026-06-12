@@ -1,7 +1,7 @@
 import { gql, skipToken } from '@apollo/client';
 import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../../generated/graphql';
-import { mapToISODate } from '../../../../../../time';
 import { Priority } from '../../../../../../types/enums';
 import { StopSearchRow } from '../../types';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
@@ -11,8 +11,8 @@ const ABOUT_TO_END_THRESHOLD = 20;
 const GQL_DOES_STOP_HAVE_NEXT_VALID_ALTERNATIVE = gql`
   query DoesStopHaveNextValidAlternative(
     $publicCode: String!
-    $validAfter: String!
-    $validPriorities: [String!]!
+    $validAfter: date!
+    $validPriorities: [Int!]!
   ) {
     stops_database {
       quays: stops_database_quay_newest_version_aggregate(
@@ -37,7 +37,7 @@ const GQL_DOES_STOP_HAVE_NEXT_VALID_ALTERNATIVE = gql`
   }
 `;
 
-const validPriorities = [Priority.Standard, Priority.Temporary].map(String);
+const validPriorities = [Priority.Standard, Priority.Temporary];
 
 export function useStopPriorityVisualizationType({
   publicCode,
@@ -50,15 +50,12 @@ export function useStopPriorityVisualizationType({
     validityEnd.diff(DateTime.now().startOf('day'), 'days').get('days') <
       ABOUT_TO_END_THRESHOLD;
 
+  const today = useMemo(() => DateTime.now().startOf('day'), []);
+  const validAfter = validityEnd ?? today;
+
   const { data } = useDoesStopHaveNextValidAlternativeSuspenseQuery(
     isDraft || isEnding
-      ? {
-          variables: {
-            publicCode,
-            validAfter: mapToISODate(validityEnd ?? DateTime.now()),
-            validPriorities,
-          },
-        }
+      ? { variables: { publicCode, validAfter, validPriorities } }
       : skipToken,
   );
 

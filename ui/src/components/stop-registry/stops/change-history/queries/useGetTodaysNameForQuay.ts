@@ -11,8 +11,8 @@ import { TodaysName } from '../types';
 const GQL_GET_TODAYS_NAME_FOR_QUAY = gql`
   query GetTodaysNameForQuay(
     $publicCode: String!
-    $priority: String!
-    $today: String!
+    $priority: Int!
+    $today: date!
   ) {
     stopsDb: stops_database {
       stop: stops_database_quay_newest_version(
@@ -75,9 +75,9 @@ export function useGetTodaysNameForQuay(
   publicCode: string,
   priority: Priority,
 ) {
-  const today = DateTime.now().toISODate();
+  const today = useMemo(() => DateTime.now().startOf('day'), []);
   const { data, ...rest } = useGetTodaysNameForQuayQuery({
-    variables: { publicCode, today, priority: priority.toString() },
+    variables: { publicCode, today, priority },
   });
 
   const rawStopPlace = data?.stopsDb?.stop?.at(0)?.stopPlace;

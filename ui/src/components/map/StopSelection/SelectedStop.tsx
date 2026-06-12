@@ -6,7 +6,7 @@ import { CloseIconButton } from '../../../uiComponents';
 const testIds = {
   stop: (
     publicCode: string | null | undefined,
-    priority: string | null | undefined,
+    priority: Priority | null | undefined,
   ) =>
     `Map::StopSelection::Stop::${publicCode ?? ''}${priority ? `-${priority}` : ''}`,
   removeButton: 'Map::StopSelection::RemoveSelection',
@@ -20,7 +20,7 @@ const knownPriorityIconsClasses: Readonly<Record<string, string>> = {
   [Priority.Standard]: `${baseIconClasses} text-light-grey icon-placeholder-dot`,
 };
 
-function getPriorityIconClasses(rawPriority?: string | null): string {
+function getPriorityIconClasses(rawPriority?: Priority | null): string {
   if (rawPriority) {
     return knownPriorityIconsClasses[rawPriority] ?? baseIconClasses;
   }

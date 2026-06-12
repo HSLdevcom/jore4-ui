@@ -45,9 +45,7 @@ function buildSearchStopsQueryFilter(
 function buildElyNumberFilter(
   value: string,
 ): StopsDatabaseQuayNewestVersionBoolExp {
-  return {
-    ely_code: { _ilike: value },
-  };
+  return { ely_code: { _ilike: value } };
 }
 
 function buildSearchStopsMunicipalityFilter({
@@ -69,11 +67,10 @@ function buildSearchStopsMunicipalityFilter({
 function buildSearchStopsObservationDateFilter({
   observationDate,
 }: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
-  const dateString = observationDate.toISODate();
   return {
-    validity_start: { _lte: dateString },
+    validity_start: { _lte: observationDate },
     _or: [
-      { validity_end: { _gte: dateString } },
+      { validity_end: { _gte: observationDate } },
       { validity_end: { _is_null: true } },
     ],
   };
@@ -85,13 +82,12 @@ function buildSearchStopsPriorityFilter({
   const allSelected =
     knownPriorityValues.length === priorities.length &&
     knownPriorityValues.every((prio) => priorities.includes(prio));
+
   if (allSelected) {
     return {};
   }
 
-  return {
-    priority: { _in: priorities.map(String) },
-  };
+  return { priority: { _in: priorities } };
 }
 
 function buildTransportationModeFilter({

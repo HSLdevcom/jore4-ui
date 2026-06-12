@@ -40992,6 +40992,7 @@ export type StopsDatabaseQuayMutationResponse = {
 export type StopsDatabaseQuayNewestVersion = {
   __typename?: 'stops_database_quay_newest_version';
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
+  active_transport_modes?: Maybe<Scalars['jsonb']['output']>;
   all_areas_wheelchair_accessible?: Maybe<Scalars['Boolean']['output']>;
   centroid?: Maybe<Scalars['geometry']['output']>;
   changed?: Maybe<Scalars['timestamp']['output']>;
@@ -41005,7 +41006,7 @@ export type StopsDatabaseQuayNewestVersion = {
   /** An object relationship */
   equipments?: Maybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipment>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
-  functional_area?: Maybe<Scalars['String']['output']>;
+  functional_area?: Maybe<Scalars['float8']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   /** An array relationship */
   info_spot_locations: Array<StopsDatabaseInfoSpotLocation>;
@@ -41022,7 +41023,7 @@ export type StopsDatabaseQuayNewestVersion = {
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   postal_code?: Maybe<Scalars['String']['output']>;
-  priority?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['Int']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -41039,6 +41040,7 @@ export type StopsDatabaseQuayNewestVersion = {
   short_name_value?: Maybe<Scalars['String']['output']>;
   site_ref?: Maybe<Scalars['String']['output']>;
   site_ref_version?: Maybe<Scalars['String']['output']>;
+  speed_tram_stop?: Maybe<Scalars['Boolean']['output']>;
   /** An object relationship */
   stopPlaceParent?: Maybe<StopsDatabaseStopPlaceChildren>;
   stop_owner?: Maybe<Scalars['String']['output']>;
@@ -41054,10 +41056,18 @@ export type StopsDatabaseQuayNewestVersion = {
   timing_place?: Maybe<TimingPatternTimingPlace>;
   timing_place_id?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
-  validity_end?: Maybe<Scalars['String']['output']>;
-  validity_start?: Maybe<Scalars['String']['output']>;
+  transport_modes?: Maybe<Scalars['jsonb']['output']>;
+  trunk_line_stop?: Maybe<Scalars['Boolean']['output']>;
+  validity_end?: Maybe<Scalars['date']['output']>;
+  validity_start?: Maybe<Scalars['date']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionActiveTransportModesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -41120,6 +41130,12 @@ export type StopsDatabaseQuayNewestVersionQuayKeyValuesAggregateArgs = {
   where?: InputMaybe<StopsDatabaseQuayKeyValuesBoolExp>;
 };
 
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionTransportModesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** aggregated selection of "quay_newest_version" */
 export type StopsDatabaseQuayNewestVersionAggregate = {
   __typename?: 'stops_database_quay_newest_version_aggregate';
@@ -41156,9 +41172,11 @@ export type StopsDatabaseQuayNewestVersionAvgFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -41170,6 +41188,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   _not?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
   _or?: InputMaybe<Array<StopsDatabaseQuayNewestVersionBoolExp>>;
   accessibility_assessment_id?: InputMaybe<BigintComparisonExp>;
+  active_transport_modes?: InputMaybe<JsonbComparisonExp>;
   all_areas_wheelchair_accessible?: InputMaybe<BooleanComparisonExp>;
   centroid?: InputMaybe<GeometryComparisonExp>;
   changed?: InputMaybe<TimestampComparisonExp>;
@@ -41182,7 +41201,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   ely_code?: InputMaybe<StringComparisonExp>;
   equipments?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentBoolExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
-  functional_area?: InputMaybe<StringComparisonExp>;
+  functional_area?: InputMaybe<Float8ComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   info_spot_locations?: InputMaybe<StopsDatabaseInfoSpotLocationBoolExp>;
   info_spot_locations_aggregate?: InputMaybe<InfoSpotLocationAggregateBoolExp>;
@@ -41197,7 +41216,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   place_equipments_id?: InputMaybe<BigintComparisonExp>;
   polygon_id?: InputMaybe<BigintComparisonExp>;
   postal_code?: InputMaybe<StringComparisonExp>;
-  priority?: InputMaybe<StringComparisonExp>;
+  priority?: InputMaybe<IntComparisonExp>;
   private_code_type?: InputMaybe<StringComparisonExp>;
   private_code_value?: InputMaybe<StringComparisonExp>;
   public_code?: InputMaybe<StringComparisonExp>;
@@ -41209,6 +41228,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   short_name_value?: InputMaybe<StringComparisonExp>;
   site_ref?: InputMaybe<StringComparisonExp>;
   site_ref_version?: InputMaybe<StringComparisonExp>;
+  speed_tram_stop?: InputMaybe<BooleanComparisonExp>;
   stopPlaceParent?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
   stop_owner?: InputMaybe<StringComparisonExp>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
@@ -41220,8 +41240,10 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   street_address?: InputMaybe<StringComparisonExp>;
   timing_place_id?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
-  validity_end?: InputMaybe<StringComparisonExp>;
-  validity_start?: InputMaybe<StringComparisonExp>;
+  transport_modes?: InputMaybe<JsonbComparisonExp>;
+  trunk_line_stop?: InputMaybe<BooleanComparisonExp>;
+  validity_end?: InputMaybe<DateComparisonExp>;
+  validity_start?: InputMaybe<DateComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
 };
@@ -41239,7 +41261,7 @@ export type StopsDatabaseQuayNewestVersionMaxFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   ely_code?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
-  functional_area?: Maybe<Scalars['String']['output']>;
+  functional_area?: Maybe<Scalars['float8']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   label_lang?: Maybe<Scalars['String']['output']>;
   label_value?: Maybe<Scalars['String']['output']>;
@@ -41252,7 +41274,7 @@ export type StopsDatabaseQuayNewestVersionMaxFields = {
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   postal_code?: Maybe<Scalars['String']['output']>;
-  priority?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['Int']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -41268,8 +41290,8 @@ export type StopsDatabaseQuayNewestVersionMaxFields = {
   street_address?: Maybe<Scalars['String']['output']>;
   timing_place_id?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
-  validity_end?: Maybe<Scalars['String']['output']>;
-  validity_start?: Maybe<Scalars['String']['output']>;
+  validity_end?: Maybe<Scalars['date']['output']>;
+  validity_start?: Maybe<Scalars['date']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
 };
@@ -41287,7 +41309,7 @@ export type StopsDatabaseQuayNewestVersionMinFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   ely_code?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
-  functional_area?: Maybe<Scalars['String']['output']>;
+  functional_area?: Maybe<Scalars['float8']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   label_lang?: Maybe<Scalars['String']['output']>;
   label_value?: Maybe<Scalars['String']['output']>;
@@ -41300,7 +41322,7 @@ export type StopsDatabaseQuayNewestVersionMinFields = {
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   postal_code?: Maybe<Scalars['String']['output']>;
-  priority?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['Int']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -41316,8 +41338,8 @@ export type StopsDatabaseQuayNewestVersionMinFields = {
   street_address?: Maybe<Scalars['String']['output']>;
   timing_place_id?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
-  validity_end?: Maybe<Scalars['String']['output']>;
-  validity_start?: Maybe<Scalars['String']['output']>;
+  validity_end?: Maybe<Scalars['date']['output']>;
+  validity_start?: Maybe<Scalars['date']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
 };
@@ -41325,6 +41347,7 @@ export type StopsDatabaseQuayNewestVersionMinFields = {
 /** Ordering options when selecting data from "quay_newest_version". */
 export type StopsDatabaseQuayNewestVersionOrderBy = {
   accessibility_assessment_id?: InputMaybe<OrderBy>;
+  active_transport_modes?: InputMaybe<OrderBy>;
   all_areas_wheelchair_accessible?: InputMaybe<OrderBy>;
   centroid?: InputMaybe<OrderBy>;
   changed?: InputMaybe<OrderBy>;
@@ -41361,6 +41384,7 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
   short_name_value?: InputMaybe<OrderBy>;
   site_ref?: InputMaybe<OrderBy>;
   site_ref_version?: InputMaybe<OrderBy>;
+  speed_tram_stop?: InputMaybe<OrderBy>;
   stopPlaceParent?: InputMaybe<StopsDatabaseStopPlaceChildrenOrderBy>;
   stop_owner?: InputMaybe<OrderBy>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
@@ -41372,6 +41396,8 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
   street_address?: InputMaybe<OrderBy>;
   timing_place_id?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
+  transport_modes?: InputMaybe<OrderBy>;
+  trunk_line_stop?: InputMaybe<OrderBy>;
   validity_end?: InputMaybe<OrderBy>;
   validity_start?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
@@ -41382,6 +41408,8 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
 export enum StopsDatabaseQuayNewestVersionSelectColumn {
   /** column name */
   AccessibilityAssessmentId = 'accessibility_assessment_id',
+  /** column name */
+  ActiveTransportModes = 'active_transport_modes',
   /** column name */
   AllAreasWheelchairAccessible = 'all_areas_wheelchair_accessible',
   /** column name */
@@ -41447,6 +41475,8 @@ export enum StopsDatabaseQuayNewestVersionSelectColumn {
   /** column name */
   SiteRefVersion = 'site_ref_version',
   /** column name */
+  SpeedTramStop = 'speed_tram_stop',
+  /** column name */
   StopOwner = 'stop_owner',
   /** column name */
   StopPlaceId = 'stop_place_id',
@@ -41463,6 +41493,10 @@ export enum StopsDatabaseQuayNewestVersionSelectColumn {
   /** column name */
   ToDate = 'to_date',
   /** column name */
+  TransportModes = 'transport_modes',
+  /** column name */
+  TrunkLineStop = 'trunk_line_stop',
+  /** column name */
   ValidityEnd = 'validity_end',
   /** column name */
   ValidityStart = 'validity_start',
@@ -41478,9 +41512,11 @@ export type StopsDatabaseQuayNewestVersionStddevFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -41492,9 +41528,11 @@ export type StopsDatabaseQuayNewestVersionStddevPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -41506,9 +41544,11 @@ export type StopsDatabaseQuayNewestVersionStddevSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -41525,6 +41565,7 @@ export type StopsDatabaseQuayNewestVersionStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
+  active_transport_modes?: InputMaybe<Scalars['jsonb']['input']>;
   all_areas_wheelchair_accessible?: InputMaybe<Scalars['Boolean']['input']>;
   centroid?: InputMaybe<Scalars['geometry']['input']>;
   changed?: InputMaybe<Scalars['timestamp']['input']>;
@@ -41536,7 +41577,7 @@ export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   ely_code?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  functional_area?: InputMaybe<Scalars['String']['input']>;
+  functional_area?: InputMaybe<Scalars['float8']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   label_lang?: InputMaybe<Scalars['String']['input']>;
   label_value?: InputMaybe<Scalars['String']['input']>;
@@ -41549,7 +41590,7 @@ export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   postal_code?: InputMaybe<Scalars['String']['input']>;
-  priority?: InputMaybe<Scalars['String']['input']>;
+  priority?: InputMaybe<Scalars['Int']['input']>;
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
@@ -41557,6 +41598,7 @@ export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   short_name_value?: InputMaybe<Scalars['String']['input']>;
   site_ref?: InputMaybe<Scalars['String']['input']>;
   site_ref_version?: InputMaybe<Scalars['String']['input']>;
+  speed_tram_stop?: InputMaybe<Scalars['Boolean']['input']>;
   stop_owner?: InputMaybe<Scalars['String']['input']>;
   stop_place_id?: InputMaybe<Scalars['bigint']['input']>;
   stop_place_netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -41565,8 +41607,10 @@ export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   street_address?: InputMaybe<Scalars['String']['input']>;
   timing_place_id?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  validity_end?: InputMaybe<Scalars['String']['input']>;
-  validity_start?: InputMaybe<Scalars['String']['input']>;
+  transport_modes?: InputMaybe<Scalars['jsonb']['input']>;
+  trunk_line_stop?: InputMaybe<Scalars['Boolean']['input']>;
+  validity_end?: InputMaybe<Scalars['date']['input']>;
+  validity_start?: InputMaybe<Scalars['date']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
 };
@@ -41577,9 +41621,11 @@ export type StopsDatabaseQuayNewestVersionSumFields = {
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
+  functional_area?: Maybe<Scalars['float8']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  priority?: Maybe<Scalars['Int']['output']>;
   stop_place_id?: Maybe<Scalars['bigint']['output']>;
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
@@ -41591,9 +41637,11 @@ export type StopsDatabaseQuayNewestVersionVarPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -41605,9 +41653,11 @@ export type StopsDatabaseQuayNewestVersionVarSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -41619,9 +41669,11 @@ export type StopsDatabaseQuayNewestVersionVarianceFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
+  functional_area?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   stop_place_id?: Maybe<Scalars['Float']['output']>;
   stop_place_version?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
