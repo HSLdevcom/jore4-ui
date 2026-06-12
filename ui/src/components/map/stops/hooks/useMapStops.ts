@@ -14,7 +14,6 @@ import {
   selectSelectedStopId,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
-import { StopPlaceState } from '../../../../types/stop-registry';
 import {
   filterHighestPriorityCurrentStops,
   isCurrentEntity,
@@ -103,17 +102,9 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     [editedRouteIncludedStops, stopLabelToVehicleMode],
   );
 
-  const getStopVehicleMode = useCallback(
-    (stop: MapStop): ReusableComponentsVehicleModeEnum | undefined =>
-      stop.vehicle_mode ?? stopLabelToVehicleMode[stop.label],
-    [stopLabelToVehicleMode],
-  );
-
   const getStopShouldBeGray = useCallback(
     (stop: MapStop): boolean =>
       (!!selectedRouteId && !usedStopLabels.includes(stop.label)) ||
-      (stop.stop_state !== null &&
-        stop.stop_state !== StopPlaceState.InOperation) ||
       !isCurrentEntity(observationDate, stop),
     [selectedRouteId, observationDate, usedStopLabels],
   );
@@ -133,5 +124,5 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     [highlightedStopIds, selectedStopId, selectedStopAreaId],
   );
 
-  return { getStopVehicleMode, getStopHighlighted, getStopShouldBeGray };
+  return { getStopHighlighted, getStopShouldBeGray };
 };
