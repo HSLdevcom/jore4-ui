@@ -72,6 +72,7 @@ function makeStopVersion(info: StopVersionInfo): StopVersionOutput {
         key: KnownValueKey.ImportedId,
         values: [(importedId++).toString(10)],
       },
+      { key: KnownValueKey.StopState, values: ['InOperation'] },
     ]),
     versionComment: comment,
     geometry: {

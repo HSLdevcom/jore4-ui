@@ -7,6 +7,7 @@ import {
   StopRegistryGeoJsonInput,
   StopRegistryGeoJsonType,
   StopRegistryTransportModeType,
+  minimalQuayKeyValues,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
   buildInfraLinksAlongRoute,
@@ -54,6 +55,7 @@ function constructStopRegistryEntriesForBaseDbResourceStopPoints(
               privateCode: { value: label, type: 'HSL/TEST' },
               publicCode: label,
               geometry,
+              keyValues: minimalQuayKeyValues.slice(),
             },
           ],
         },

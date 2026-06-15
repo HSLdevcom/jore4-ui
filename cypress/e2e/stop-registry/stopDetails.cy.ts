@@ -13,6 +13,7 @@ import {
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  minimalQuayKeyValues,
   quayH2003,
   quayV1562,
   seedInfoSpots,
@@ -83,6 +84,7 @@ const stopAreaInput: Array<StopAreaInput> = [
       quays: [
         {
           publicCode: 'H1122',
+          keyValues: minimalQuayKeyValues.slice(),
         },
       ],
     },

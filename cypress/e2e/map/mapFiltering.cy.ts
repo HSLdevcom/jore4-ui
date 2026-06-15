@@ -168,6 +168,9 @@ describe('Filter map entities', { tags: [Tag.Map] }, () => {
     // Wait for map to load
     Map.waitForLoadToComplete();
 
+    // Make sure bus things are visible
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
     // Make sure stop area is visible
     Map.getStopAreaById('X0003').shouldBeVisible();
 

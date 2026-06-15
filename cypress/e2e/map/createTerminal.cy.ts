@@ -279,6 +279,8 @@ describe('Terminal creation tests', rootOpts, () => {
                         key: KnownValueKey.ValidityStart,
                         values: ['2020-03-20'],
                       },
+                      { key: KnownValueKey.Priority, values: ['10'] },
+                      { key: KnownValueKey.StopState, values: ['InOperation'] },
                     ],
                   },
                 ],

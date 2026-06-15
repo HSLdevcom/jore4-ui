@@ -2,6 +2,7 @@ import {
   KnownValueKey,
   StopAreaInput,
   StopRegistryGeoJsonType,
+  minimalQuayKeyValues,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { DateTime } from 'luxon';
 import {
@@ -76,9 +77,11 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         quays: [
           {
             publicCode: 'E2E001',
+            keyValues: minimalQuayKeyValues.slice(),
           },
           {
             publicCode: 'E2E009',
+            keyValues: minimalQuayKeyValues.slice(),
           },
         ],
       },
@@ -100,6 +103,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
           {
             publicCode: 'E2E003',
             keyValues: [
+              ...minimalQuayKeyValues,
               {
                 key: KnownValueKey.StreetAddress,
                 values: ['Kalevankatu 32'],
@@ -110,6 +114,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
           {
             publicCode: 'E2E006',
             keyValues: [
+              ...minimalQuayKeyValues,
               {
                 key: KnownValueKey.StreetAddress,
                 values: ['Kalevankatu 32'],
