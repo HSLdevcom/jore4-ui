@@ -589,7 +589,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       AlternativeNames.getAbbreviationEng().shouldHaveText('N.esplanade');
     });
 
-    it('should view and edit basic details text fields', {}, () => {
+    it('should view and edit basic details text fields', () => {
       StopDetailsPage.visit('H2003');
       StopDetailsPage.page().shouldBeVisible();
 
@@ -650,108 +650,102 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       BasicDetailsViewCard.getElyNumber().shouldHaveText('1234568');
     });
 
-    it(
-      'should view and edit basic details dropdowns and checkboxes',
-      {},
-      () => {
-        StopDetailsPage.visit('H2003');
-        StopDetailsPage.page().shouldBeVisible();
+    it('should view and edit basic details dropdowns and checkboxes', () => {
+      StopDetailsPage.visit('H2003');
+      StopDetailsPage.page().shouldBeVisible();
 
-        BasicDetailsViewCard.getContent().shouldBeVisible();
+      BasicDetailsViewCard.getContent().shouldBeVisible();
 
-        BasicDetailsViewCard.getLabel().shouldHaveText('H2003');
-        BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AURLA');
-        BasicDetailsViewCard.getStopType().shouldHaveText(
-          'Raideliikennettä korvaava',
-        );
-        BasicDetailsViewCard.getTransportMode().shouldHaveText('Bussi');
+      BasicDetailsViewCard.getLabel().shouldHaveText('H2003');
+      BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AURLA');
+      BasicDetailsViewCard.getStopType().shouldHaveText(
+        'Raideliikennettä korvaava',
+      );
+      BasicDetailsViewCard.getTransportMode().shouldHaveText('Bussi');
 
-        // Make sure header row reflects these
-        StopDetailsPage.headerSummaryRow
-          .stopTypes()
-          .should('have.text', 'Raideliikennettä korvaava');
+      // Make sure header row reflects these
+      StopDetailsPage.headerSummaryRow
+        .stopTypes()
+        .should('have.text', 'Raideliikennettä korvaava');
 
-        StopDetailsPage.basicDetails.getEditButton().click();
+      StopDetailsPage.basicDetails.getEditButton().click();
 
-        // Verify correct initial values.
-        BasicDetailsForm.getRailReplacementCheckbox().should('be.checked');
-        BasicDetailsForm.getVirtualCheckbox().should('not.be.checked');
-        BasicDetailsForm.getTrunkLineStopCheckbox().should('not.be.checked');
-        BasicDetailsForm.getTransportModeDropdownButton().shouldHaveText(
-          'Bussi',
-        );
-        BasicDetailsForm.getTimingPlaceDropdown().shouldHaveText(
-          '1AURLA (1AURLA)',
-        );
+      // Verify correct initial values.
+      BasicDetailsForm.getRailReplacementCheckbox().should('be.checked');
+      BasicDetailsForm.getVirtualCheckbox().should('not.be.checked');
+      BasicDetailsForm.getTrunkLineStopCheckbox().should('not.be.checked');
+      BasicDetailsForm.getTransportModeDropdownButton().shouldHaveText('Bussi');
+      BasicDetailsForm.getTimingPlaceDropdown().shouldHaveText(
+        '1AURLA (1AURLA)',
+      );
 
-        // Rail replacement is only available for transport mode: bus
-        BasicDetailsForm.getTransportModeDropdownButton().shouldBeDisabled();
-        BasicDetailsForm.getVirtualCheckbox().click();
-        BasicDetailsForm.getTrunkLineStopCheckbox().click();
+      // Rail replacement is only available for transport mode: bus
+      BasicDetailsForm.getTransportModeDropdownButton().shouldBeDisabled();
+      BasicDetailsForm.getVirtualCheckbox().click();
+      BasicDetailsForm.getTrunkLineStopCheckbox().click();
 
-        StopDetailsPage.basicDetails.getSaveButton().click();
+      StopDetailsPage.basicDetails.getSaveButton().click();
 
-        Toast.expectSuccessToast('Pysäkki muokattu');
+      Toast.expectSuccessToast('Pysäkki muokattu');
 
-        // Tiamat data model has some arrays that stores multiple types
-        // of data, so all these checks are here to make sure that
-        // the saves do not change other fields.
-        BasicDetailsViewCard.getLabel().shouldHaveText('H2003');
-        BasicDetailsViewCard.getPrivateCode().shouldHaveText('10003');
-        BasicDetailsViewCard.getLocationFin().shouldHaveText(
-          'Pohjoisesplanadi (sij.)',
-        );
-        BasicDetailsViewCard.getLocationSwe().shouldHaveText(
-          'Norraesplanaden (plats)',
-        );
-        BasicDetailsViewCard.getTransportMode().shouldHaveText('Bussi');
-        BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AURLA');
-        BasicDetailsViewCard.getStopType().shouldHaveText(
-          'Raideliikennettä korvaava, virtuaalipysäkki, runkolinjapysäkki',
-        );
-        BasicDetailsViewCard.getStopState().shouldHaveText('Pois käytöstä');
-        BasicDetailsViewCard.getElyNumber().shouldHaveText('1234567');
+      // Tiamat data model has some arrays that stores multiple types
+      // of data, so all these checks are here to make sure that
+      // the saves do not change other fields.
+      BasicDetailsViewCard.getLabel().shouldHaveText('H2003');
+      BasicDetailsViewCard.getPrivateCode().shouldHaveText('10003');
+      BasicDetailsViewCard.getLocationFin().shouldHaveText(
+        'Pohjoisesplanadi (sij.)',
+      );
+      BasicDetailsViewCard.getLocationSwe().shouldHaveText(
+        'Norraesplanaden (plats)',
+      );
+      BasicDetailsViewCard.getTransportMode().shouldHaveText('Bussi');
+      BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AURLA');
+      BasicDetailsViewCard.getStopType().shouldHaveText(
+        'Raideliikennettä korvaava, virtuaalipysäkki, runkolinjapysäkki',
+      );
+      BasicDetailsViewCard.getStopState().shouldHaveText('Pois käytöstä');
+      BasicDetailsViewCard.getElyNumber().shouldHaveText('1234567');
 
-        // Make sure header row reflects these
-        StopDetailsPage.headerSummaryRow
-          .stopTypes()
-          .should('have.text', 'Raideliikennettä korvaavaVirtuaalipysäkki');
-        StopDetailsPage.headerSummaryRow
-          .stopState()
-          .should('have.text', 'Pois käytöstä');
+      // Make sure header row reflects these
+      StopDetailsPage.headerSummaryRow
+        .stopTypes()
+        .should('have.text', 'Raideliikennettä korvaavaVirtuaalipysäkki');
+      StopDetailsPage.headerSummaryRow
+        .stopState()
+        .should('have.text', 'Pois käytöstä');
 
-        StopDetailsPage.basicDetails.getEditButton().click();
+      StopDetailsPage.basicDetails.getEditButton().click();
 
-        BasicDetailsForm.getRailReplacementCheckbox().click();
-        BasicDetailsForm.getTrunkLineStopCheckbox().click();
-        BasicDetailsForm.getTransportModeDropdownButton().click();
-        BasicDetailsForm.getTransportModeDropdownOptions()
-          .contains('Raitiovaunu')
-          .click();
+      BasicDetailsForm.getRailReplacementCheckbox().click();
+      BasicDetailsForm.getTrunkLineStopCheckbox().click();
+      BasicDetailsForm.getTransportModeDropdownButton().click();
+      BasicDetailsForm.getTransportModeDropdownOptions()
+        .contains('Raitiovaunu')
+        .click();
 
-        // Rail replacement & TrunkLine are only available for transport mode: bus
-        BasicDetailsForm.getRailReplacementCheckbox().shouldBeDisabled();
-        BasicDetailsForm.getTrunkLineStopCheckbox().shouldBeDisabled();
+      // Rail replacement & TrunkLine are only available for transport mode: bus
+      BasicDetailsForm.getRailReplacementCheckbox().shouldBeDisabled();
+      BasicDetailsForm.getTrunkLineStopCheckbox().shouldBeDisabled();
 
-        BasicDetailsForm.getStopPlaceStateDropdownButton().click();
-        BasicDetailsForm.getStopPlaceStateDropdownOptions()
-          .contains('Käytössä')
-          .click();
-        BasicDetailsForm.getTimingPlaceDropdown().type('1AACKT');
+      BasicDetailsForm.getStopPlaceStateDropdownButton().click();
+      BasicDetailsForm.getStopPlaceStateDropdownOptions()
+        .contains('Käytössä')
+        .click();
+      BasicDetailsForm.getTimingPlaceDropdown().type('1AACKT');
 
-        cy.get('[role="option"]').contains('1AACKT').click();
+      cy.get('[role="option"]').contains('1AACKT').click();
 
-        StopDetailsPage.basicDetails.getSaveButton().click();
-        Toast.expectSuccessToast('Pysäkki muokattu');
+      StopDetailsPage.basicDetails.getSaveButton().click();
+      Toast.expectSuccessToast('Pysäkki muokattu');
 
-        BasicDetailsViewCard.getTransportMode().shouldHaveText('Raitiovaunu');
-        BasicDetailsViewCard.getStopState().shouldHaveText('Käytössä');
-        BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AACKT');
+      BasicDetailsViewCard.getTransportMode().shouldHaveText('Raitiovaunu');
+      BasicDetailsViewCard.getStopState().shouldHaveText('Käytössä');
+      BasicDetailsViewCard.getTimingPlaceId().shouldHaveText('1AACKT');
 
-        // Make sure header row reflects these
-        StopDetailsPage.headerSummaryRow.stopState().should('not.exist');
-      },
-    );
+      // Make sure header row reflects these
+      StopDetailsPage.headerSummaryRow.stopState().should('not.exist');
+    });
 
     it('Should show character limit reached message for reason for change', () => {
       StopDetailsPage.visit('H2003');
@@ -875,7 +869,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
   });
 
   describe('location details', () => {
-    it('should view location details', {}, () => {
+    it('should view location details', () => {
       StopDetailsPage.visit('H2003');
       StopDetailsPage.page().shouldBeVisible();
 
@@ -2066,7 +2060,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       InfoSpotViewCard.getSectionContainers().shouldBeVisible();
     });
 
-    it('should view and edit info spot details', {}, () => {
+    it('should view and edit info spot details', () => {
       verifyInitialInfoSpots();
 
       const infoSpot = InfoSpotsForm.infoSpots;

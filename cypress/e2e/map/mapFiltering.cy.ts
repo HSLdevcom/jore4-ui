@@ -23,7 +23,7 @@ import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
 
-describe('Stop area details', { tags: [Tag.StopAreas, Tag.Map] }, () => {
+describe('Filter map entities', { tags: [Tag.Map] }, () => {
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -77,171 +77,165 @@ describe('Stop area details', { tags: [Tag.StopAreas, Tag.Map] }, () => {
     });
   });
 
-  describe('Filter map entities', { tags: [Tag.Map] }, () => {
-    function assertStopsAreVisible() {
-      Map.getStopByStopLabelAndPriority(
-        'E2E001',
-        Priority.Standard,
-      ).shouldBeVisible();
-      Map.getStopByStopLabelAndPriority(
-        'E2E009',
-        Priority.Standard,
-      ).shouldBeVisible();
-    }
+  function assertStopsAreVisible() {
+    Map.getStopByStopLabelAndPriority(
+      'E2E001',
+      Priority.Standard,
+    ).shouldBeVisible();
+    Map.getStopByStopLabelAndPriority(
+      'E2E009',
+      Priority.Standard,
+    ).shouldBeVisible();
+  }
 
-    function assertStopsAreNotOnMap() {
-      Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).should(
-        'not.exist',
+  function assertStopsAreNotOnMap() {
+    Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).should(
+      'not.exist',
+    );
+    Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).should(
+      'not.exist',
+    );
+  }
+
+  function assertStopLabelsAre(visible: 'visible' | 'hidden') {
+    if (visible === 'visible') {
+      Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).within(
+        () =>
+          Map.getStopMarkerLabel().shouldBeVisible().and('have.text', 'E2E001'),
       );
-      Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).should(
-        'not.exist',
+      Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).within(
+        () =>
+          Map.getStopMarkerLabel().shouldBeVisible().and('have.text', 'E2E009'),
+      );
+    } else {
+      Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).within(
+        () => Map.getStopMarkerLabel().should('not.exist'),
+      );
+      Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).within(
+        () => Map.getStopMarkerLabel().should('not.exist'),
       );
     }
+  }
 
-    function assertStopLabelsAre(visible: 'visible' | 'hidden') {
-      if (visible === 'visible') {
-        Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).within(
-          () =>
-            Map.getStopMarkerLabel()
-              .shouldBeVisible()
-              .and('have.text', 'E2E001'),
-        );
-        Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).within(
-          () =>
-            Map.getStopMarkerLabel()
-              .shouldBeVisible()
-              .and('have.text', 'E2E009'),
-        );
-      } else {
-        Map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).within(
-          () => Map.getStopMarkerLabel().should('not.exist'),
-        );
-        Map.getStopByStopLabelAndPriority('E2E009', Priority.Standard).within(
-          () => Map.getStopMarkerLabel().should('not.exist'),
-        );
-      }
-    }
+  it('should filter stops', { tags: [Tag.Smoke] }, () => {
+    // Wait for map to load
+    Map.waitForLoadToComplete();
 
-    it('should filter stops', { tags: [Tag.Smoke] }, () => {
-      // Wait for map to load
-      Map.waitForLoadToComplete();
+    // Make sure stops are visible
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    assertStopsAreVisible();
 
-      // Make sure stops are visible
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      assertStopsAreVisible();
-
-      // Set stops to be hidden
-      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.Stop]: false,
-      });
-      assertStopsAreNotOnMap();
-
-      // Set stops to be shown again
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.Stop]: true,
-      });
-      assertStopsAreVisible();
-
-      // Stops should be hidden if observation date does not match
-      MapObservationDateControl.setObservationDate('2000-01-01');
-      assertStopsAreNotOnMap();
-
-      // But should come back if we disable observation date filtering
-      // and enable future items.
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops]: false,
-        [KnownMapItemTypeFilters.ShowFutureStops]: true,
-      });
-      assertStopsAreVisible();
-
-      // Should hide if future stops are not shown
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.ShowFutureStops]: false,
-      });
-      assertStopsAreNotOnMap();
-
-      // Should hide if future stops are show but standard versions are disabled
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.ShowFutureStops]: true,
-        [KnownMapItemTypeFilters.ShowStandardStops]: false,
-      });
-      assertStopsAreNotOnMap();
+    // Set stops to be hidden
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.Stop]: false,
     });
+    assertStopsAreNotOnMap();
 
-    it('should filter stop areas', () => {
-      // Wait for map to load
-      Map.waitForLoadToComplete();
-
-      // Make sure stop area is visible
-      Map.getStopAreaById('X0003').shouldBeVisible();
-
-      // Set stop areas to be hidden
-      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.StopArea]: false,
-      });
-      Map.getStopAreaById('X0003').should('not.exist');
+    // Set stops to be shown again
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.Stop]: true,
     });
+    assertStopsAreVisible();
 
-    it('should filter terminals', () => {
-      // Wait for map to load
-      Map.waitForLoadToComplete();
+    // Stops should be hidden if observation date does not match
+    MapObservationDateControl.setObservationDate('2000-01-01');
+    assertStopsAreNotOnMap();
 
-      // Hide stop areas, no effect on the tests, but they do cover up the
-      // member stops. Also stops should be visible
-      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.StopArea]: false,
-      });
-      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      Map.waitForLoadToComplete();
-
-      // Make sure terminal is visible
-      Map.getTerminalById('T2').shouldBeVisible();
-
-      // All stops should also be visible
-      assertStopsAreVisible();
-
-      // But clicking the terminal infobox open, only members should be shown.
-      Map.getTerminalById('T2').click();
-      Map.waitForLoadToComplete();
-      assertStopsAreNotOnMap();
-      Map.getMemberStop('E2E008').shouldBeVisible();
-      Map.getMemberStop('E2E010').shouldBeVisible();
-
-      // Set terminals to be hidden
-      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.Terminal]: false,
-      });
-      Map.getTerminalById('T2').should('not.exist');
+    // But should come back if we disable observation date filtering
+    // and enable future items.
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops]: false,
+      [KnownMapItemTypeFilters.ShowFutureStops]: true,
     });
+    assertStopsAreVisible();
 
-    it('should show & hide stops labels', () => {
-      // Wait for map to load
-      Map.waitForLoadToComplete();
-
-      // Make sure stops are visible
-      FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      assertStopsAreVisible();
-
-      // Labels should off by default
-      assertStopLabelsAre('hidden');
-
-      // Set labels to be visible
-      MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.StopLabel]: true,
-      });
-      assertStopLabelsAre('visible');
-
-      // Toggle back to hidden
-      MapItemTypeFiltersOverlay.setFilters({
-        [KnownMapItemTypeFilters.StopLabel]: false,
-      });
-      assertStopLabelsAre('hidden');
+    // Should hide if future stops are not shown
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.ShowFutureStops]: false,
     });
+    assertStopsAreNotOnMap();
+
+    // Should hide if future stops are show but standard versions are disabled
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.ShowFutureStops]: true,
+      [KnownMapItemTypeFilters.ShowStandardStops]: false,
+    });
+    assertStopsAreNotOnMap();
+  });
+
+  it('should filter stop areas', () => {
+    // Wait for map to load
+    Map.waitForLoadToComplete();
+
+    // Make sure stop area is visible
+    Map.getStopAreaById('X0003').shouldBeVisible();
+
+    // Set stop areas to be hidden
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.StopArea]: false,
+    });
+    Map.getStopAreaById('X0003').should('not.exist');
+  });
+
+  it('should filter terminals', () => {
+    // Wait for map to load
+    Map.waitForLoadToComplete();
+
+    // Hide stop areas, no effect on the tests, but they do cover up the
+    // member stops. Also stops should be visible
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.StopArea]: false,
+    });
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    Map.waitForLoadToComplete();
+
+    // Make sure terminal is visible
+    Map.getTerminalById('T2').shouldBeVisible();
+
+    // All stops should also be visible
+    assertStopsAreVisible();
+
+    // But clicking the terminal infobox open, only members should be shown.
+    Map.getTerminalById('T2').click();
+    Map.waitForLoadToComplete();
+    assertStopsAreNotOnMap();
+    Map.getMemberStop('E2E008').shouldBeVisible();
+    Map.getMemberStop('E2E010').shouldBeVisible();
+
+    // Set terminals to be hidden
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.Terminal]: false,
+    });
+    Map.getTerminalById('T2').should('not.exist');
+  });
+
+  it('should show & hide stops labels', () => {
+    // Wait for map to load
+    Map.waitForLoadToComplete();
+
+    // Make sure stops are visible
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+    assertStopsAreVisible();
+
+    // Labels should off by default
+    assertStopLabelsAre('hidden');
+
+    // Set labels to be visible
+    MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.StopLabel]: true,
+    });
+    assertStopLabelsAre('visible');
+
+    // Toggle back to hidden
+    MapItemTypeFiltersOverlay.setFilters({
+      [KnownMapItemTypeFilters.StopLabel]: false,
+    });
+    assertStopLabelsAre('hidden');
   });
 });
