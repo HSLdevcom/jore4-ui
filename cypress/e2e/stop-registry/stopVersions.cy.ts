@@ -15,7 +15,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
-import { Tag } from '../../enums';
+import { StopPlaceState, Tag } from '../../enums';
 import { Map, MapObservationDateFiltersOverlay } from '../../pageObjects/map';
 import {
   StopDetailsPage,
@@ -72,6 +72,7 @@ function makeStopVersion(info: StopVersionInfo): StopVersionOutput {
         key: KnownValueKey.ImportedId,
         values: [(importedId++).toString(10)],
       },
+      { key: KnownValueKey.StopState, values: [StopPlaceState.InOperation] },
     ]),
     versionComment: comment,
     geometry: {

@@ -13,9 +13,11 @@ import {
   StopRegistryShelterType,
   StopRegistryTransportModeType,
   TerminalInput,
+  minimalQuayKeyValues,
   seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeep from 'lodash/cloneDeep';
+import { StopPlaceState } from '../enums';
 import { stopCoordinatesByLabel } from './base';
 
 const coordinatesToStopRegistryGeoJSON = (
@@ -67,6 +69,7 @@ const stopPlaceData: Array<StopAreaInput> = [
       privateCode: { type: 'HSL/TEST', value: 'X0003' },
       name: { lang: 'fin', value: 'Annankatu 15' },
       alternativeNames: Annankatu15AltNames,
+      transportMode: StopRegistryTransportModeType.Bus,
       keyValues: [
         { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
         { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
@@ -80,6 +83,7 @@ const stopPlaceData: Array<StopAreaInput> = [
           publicCode: 'E2E001',
           description: { lang: 'fin', value: 'Annankatu 15' },
           keyValues: [
+            ...minimalQuayKeyValues,
             { key: KnownValueKey.StreetAddress, values: ['Annankatu 15'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E001'] },
           ],
@@ -91,6 +95,7 @@ const stopPlaceData: Array<StopAreaInput> = [
           publicCode: 'E2E009',
           description: { lang: 'fin', value: 'Annankatu 15' },
           keyValues: [
+            ...minimalQuayKeyValues,
             { key: KnownValueKey.StreetAddress, values: ['Annankatu 15'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E009'] },
           ],
@@ -106,6 +111,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'X0004' },
       name: { lang: 'fin', value: 'Kalevankatu 32' },
+      transportMode: StopRegistryTransportModeType.Bus,
       keyValues: [
         { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
         { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
@@ -118,6 +124,7 @@ const stopPlaceData: Array<StopAreaInput> = [
         {
           publicCode: 'E2E003',
           keyValues: [
+            ...minimalQuayKeyValues,
             { key: KnownValueKey.StreetAddress, values: ['Kalevankatu 32'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E003'] },
           ],
@@ -128,6 +135,7 @@ const stopPlaceData: Array<StopAreaInput> = [
         {
           publicCode: 'E2E006',
           keyValues: [
+            ...minimalQuayKeyValues,
             { key: KnownValueKey.StreetAddress, values: ['Kalevankatu 32'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E006'] },
           ],
@@ -144,6 +152,7 @@ const stopPlaceData: Array<StopAreaInput> = [
       privateCode: { type: 'HSL/TEST', value: 'E2E002' },
       name: Annankatu20Name,
       alternativeNames: Annankatu20AltNames,
+      transportMode: StopRegistryTransportModeType.Bus,
       quays: [
         {
           publicCode: 'E2E002',
@@ -152,6 +161,7 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E002,
           ),
           keyValues: [
+            ...minimalQuayKeyValues,
             { key: KnownValueKey.StreetAddress, values: ['Annankatu 20'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E002'] },
           ],
@@ -165,6 +175,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2E004' },
       name: { lang: 'fin', value: 'Albertinkatu 38' },
+      transportMode: StopRegistryTransportModeType.Bus,
       alternativeNames: [
         {
           nameType: StopRegistryNameType.Translation,
@@ -186,6 +197,7 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E004,
           ),
           keyValues: [
+            ...minimalQuayKeyValues,
             {
               key: KnownValueKey.StreetAddress,
               values: ['Albertinkatu 38'],
@@ -202,6 +214,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2E005' },
       name: { lang: 'fin', value: 'Lönnrotinkatu 32' },
+      transportMode: StopRegistryTransportModeType.Bus,
       quays: [
         {
           publicCode: 'E2E005',
@@ -209,6 +222,7 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
+            ...minimalQuayKeyValues,
             {
               key: KnownValueKey.StreetAddress,
               values: ['Lönnrotinkatu 32'],
@@ -225,6 +239,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2E007' },
       name: { lang: 'fin', value: 'Kalevankatu 18' },
+      transportMode: StopRegistryTransportModeType.Bus,
       quays: [
         {
           publicCode: 'E2E007',
@@ -232,6 +247,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
             { key: KnownValueKey.StreetAddress, values: ['Kalevankatu 18'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E007'] },
             { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
@@ -246,6 +266,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2E008' },
       name: { lang: 'fin', value: 'Kuttulammentie' },
+      transportMode: StopRegistryTransportModeType.Bus,
       quays: [
         {
           publicCode: 'E2E008',
@@ -253,6 +274,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
             {
               key: KnownValueKey.StreetAddress,
               values: ['Kuttulammentie 15'],
@@ -299,6 +325,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2E010' },
       name: { lang: 'fin', value: 'Finnoonkartano' },
+      transportMode: StopRegistryTransportModeType.Bus,
       quays: [
         {
           publicCode: 'E2E010',
@@ -306,6 +333,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
             { key: KnownValueKey.StreetAddress, values: ['Finnoonkartano'] },
             { key: KnownValueKey.ElyNumber, values: ['E2E010'] },
             { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
@@ -320,6 +352,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2E011' },
       name: { lang: 'fin', value: 'Eteläinen Hesperiankatu' },
+      transportMode: StopRegistryTransportModeType.Bus,
       keyValues: [
         { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
         { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
@@ -339,6 +372,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             { key: KnownValueKey.ElyNumber, values: ['E2E011'] },
             { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
             { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
           ],
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E011,
@@ -352,6 +390,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2ENQ' },
       name: { lang: 'fin', value: 'No quays' },
+      transportMode: StopRegistryTransportModeType.Bus,
       quays: [],
       geometry: {
         coordinates: [60.16993495, 24.92596546],
@@ -362,9 +401,9 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      transportMode: StopRegistryTransportModeType.Tram,
       privateCode: { type: 'HSL/TEST', value: 'E2ER001' },
       name: { lang: 'fin', value: 'Tram stop area' },
+      transportMode: StopRegistryTransportModeType.Tram,
       quays: [
         {
           publicCode: 'E2ER001',
@@ -375,6 +414,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             { key: KnownValueKey.StreetAddress, values: ['Tram stop area'] },
             { key: KnownValueKey.ElyNumber, values: ['E2ER001'] },
             { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
           ],
         },
       ],
@@ -386,9 +430,9 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      transportMode: StopRegistryTransportModeType.Tram,
       privateCode: { type: 'HSL/TEST', value: 'E2ER002' },
       name: { lang: 'fin', value: 'Tram stop area 2' },
+      transportMode: StopRegistryTransportModeType.Tram,
       quays: [
         {
           publicCode: 'E2ER002',
@@ -399,6 +443,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             { key: KnownValueKey.StreetAddress, values: ['Tram stop area 2'] },
             { key: KnownValueKey.ElyNumber, values: ['E2ER002'] },
             { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
           ],
         },
       ],
@@ -410,9 +459,9 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      transportMode: StopRegistryTransportModeType.Tram,
       privateCode: { type: 'HSL/TEST', value: 'E2ER003' },
       name: { lang: 'fin', value: 'Tram stop area 3' },
+      transportMode: StopRegistryTransportModeType.Tram,
       quays: [
         {
           publicCode: 'E2ER003',
@@ -423,6 +472,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             { key: KnownValueKey.StreetAddress, values: ['Tram stop area 3'] },
             { key: KnownValueKey.ElyNumber, values: ['E2ER003'] },
             { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
+            { key: KnownValueKey.Priority, values: ['10'] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.InOperation],
+            },
           ],
         },
       ],

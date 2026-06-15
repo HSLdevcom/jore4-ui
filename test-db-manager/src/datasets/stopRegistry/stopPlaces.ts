@@ -1,3 +1,4 @@
+import compact from 'lodash/compact';
 import {
   StopRegistryAccessibilityLevel,
   StopRegistryAccessibilityLimitationsInput,
@@ -7,6 +8,7 @@ import {
   StopRegistryGeoJsonType,
   StopRegistryGuidanceType,
   StopRegistryHslAccessibilityProperties,
+  StopRegistryKeyValuesInput,
   StopRegistryLimitationStatusType,
   StopRegistryMapType,
   StopRegistryNameType,
@@ -46,8 +48,10 @@ export type StopPlaceQuaySeedData = {
   elyNumber?: string;
   stopState?: string /* See StopPlaceState */;
   stopType?: {
-    railReplacement: boolean;
-    virtual: boolean;
+    railReplacement?: boolean;
+    virtual?: boolean;
+    trunkLineStop?: boolean;
+    speedTramStop?: boolean;
   };
   locationLat: number;
   locationLong: number;
@@ -182,22 +186,38 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
 
       externalLinks: seedStopPlace.externalLinks,
 
-      keyValues: [
+      keyValues: compact([
         getKeyValue(KnownValueKey.ElyNumber, seedStopPlace.elyNumber),
         getKeyValue(KnownValueKey.StreetAddress, seedStopPlace.streetAddress),
         getKeyValue(KnownValueKey.PostalCode, seedStopPlace.postalCode),
         getKeyValue(KnownValueKey.FunctionalArea, seedStopPlace.functionalArea),
-        getKeyValue(KnownValueKey.StopState, seedStopPlace.stopState),
+        getKeyValue(
+          KnownValueKey.StopState,
+          seedStopPlace.stopState,
+          'InOperation',
+        ),
         getKeyValue(
           KnownValueKey.RailReplacement,
           seedStopPlace.stopType?.railReplacement,
         ),
         getKeyValue(KnownValueKey.Virtual, seedStopPlace.stopType?.virtual),
-        getKeyValue(KnownValueKey.Priority, seedStopPlace.priority),
-        getKeyValue(KnownValueKey.ValidityStart, seedStopPlace.validityStart),
+        getKeyValue(
+          KnownValueKey.SpeedTramStop,
+          seedStopPlace.stopType?.speedTramStop,
+        ),
+        getKeyValue(
+          KnownValueKey.TrunkLineStop,
+          seedStopPlace.stopType?.trunkLineStop,
+        ),
+        getKeyValue(KnownValueKey.Priority, seedStopPlace.priority, 10),
+        getKeyValue(
+          KnownValueKey.ValidityStart,
+          seedStopPlace.validityStart,
+          '1990-01-01',
+        ),
         getKeyValue(KnownValueKey.ValidityEnd, seedStopPlace.validityEnd),
         getKeyValue(KnownValueKey.StopOwner, seedStopPlace.stopOwner),
-      ],
+      ]),
     },
   };
 };
@@ -414,3 +434,9 @@ const seedData: Array<StopPlaceQuaySeedData> = [
 export const seedQuays: Array<QuayInput> = seedData.map(mapToQuayInput);
 export const quayH2003 = mapToQuayInput(H2003);
 export const quayV1562 = mapToQuayInput(route530Stops[0]);
+
+export const minimalQuayKeyValues: ReadonlyArray<StopRegistryKeyValuesInput> = [
+  { key: KnownValueKey.ValidityStart, values: ['1990-01-01'] },
+  { key: KnownValueKey.Priority, values: ['10'] },
+  { key: KnownValueKey.StopState, values: ['InOperation'] },
+];

@@ -1252,6 +1252,10 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
                   values: [stopPoint.validity_end?.toISODate() ?? null],
                 },
                 {
+                  key: KnownValueKey.StopState,
+                  values: [StopPlaceState.InOperation],
+                },
+                {
                   key: KnownValueKey.ImportedId,
                   values: [
                     `${stopPoint.label}-${stopPoint.validity_start}-${stopPoint.priority}`,

@@ -1,4 +1,5 @@
 import {
+  ReusableComponentsVehicleModeEnum,
   StopAreaInput,
   StopRegistryGeoJsonType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
@@ -13,6 +14,7 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   ConfirmationDialog,
+  FilterPanel,
   KnownMapItemTypeFilters,
   MapFooter,
   MapItemTypeFiltersOverlay,
@@ -92,6 +94,7 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       lng: 24.93858,
     });
 
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
     expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
     MapPage.map.waitForLoadToComplete();
   });
