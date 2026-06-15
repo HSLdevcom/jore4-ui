@@ -19,6 +19,7 @@ import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
 import { RequiredKeys } from '../../../types';
+import { StopPlaceState } from '../../../types/stop-registry';
 import {
   KnownValueKey,
   mapDateInputToValidityEnd,
@@ -106,6 +107,7 @@ function mapFormStateToQuayKeyValues(
           values: [state.validityEnd],
         }
       : undefined,
+    { key: KnownValueKey.StopState, values: [StopPlaceState.InOperation] },
   ]);
 }
 
