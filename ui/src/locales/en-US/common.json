@@ -258,7 +258,8 @@
   "stopPlaceTypes": {
     "railReplacement": "Rail replacement",
     "virtual": "Virtual",
-    "trunkLineStop": "Trunk line stop"
+    "trunkLineStop": "Trunk line stop",
+    "speedTramStop": "Speed tram stop"
   },
   "stopDetails": {
     "stopDetails": "Stop details",

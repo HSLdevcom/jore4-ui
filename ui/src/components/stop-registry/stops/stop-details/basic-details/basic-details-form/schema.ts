@@ -22,6 +22,7 @@ export const schema = z
       virtual: z.boolean(),
       railReplacement: z.boolean(),
       trunkLineStop: z.boolean(),
+      speedTramStop: z.boolean(),
     }),
     transportMode: z
       .nativeEnum(StopRegistryTransportModeType)

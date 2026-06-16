@@ -9,12 +9,15 @@ const testIds = {
   railReplacement: 'StopBasicDetailsForm::railReplacement',
   virtual: 'StopBasicDetailsForm::virtual',
   trunkLineStop: 'StopBasicDetailsForm::trunkLineStop',
+  speedTramStop: 'StopBasicDetailsForm::speedTramStop',
 };
 
 export const StopTypesFormRow: FC = () => {
   const { watch } = useFormContext();
-  const isBusTransportMode =
-    watch('transportMode') === StopRegistryTransportModeType.Bus;
+
+  const transportMode = watch('transportMode');
+  const isBusStop = transportMode === StopRegistryTransportModeType.Bus;
+  const isTramStop = transportMode === StopRegistryTransportModeType.Tram;
 
   return (
     <FormRow mdColumns={4}>
@@ -25,7 +28,7 @@ export const StopTypesFormRow: FC = () => {
           fieldPath="stopTypes.railReplacement"
           className="mr-3.5 h-6 w-6"
           testId={testIds.railReplacement}
-          disabled={!isBusTransportMode}
+          disabled={!isBusStop}
         />
         {t(($) => $.stopPlaceTypes.railReplacement)}
       </label>
@@ -46,9 +49,20 @@ export const StopTypesFormRow: FC = () => {
           fieldPath="stopTypes.trunkLineStop"
           className="mr-3.5 h-6 w-6"
           testId={testIds.trunkLineStop}
-          disabled={!isBusTransportMode}
+          disabled={!isBusStop}
         />
         {t(($) => $.stopPlaceTypes.trunkLineStop)}
+      </label>
+      <label htmlFor="speedTramStop" className="inline-flex font-normal">
+        <InputElement<StopBasicDetailsFormState>
+          type="checkbox"
+          id="speedTramStop"
+          fieldPath="stopTypes.speedTramStop"
+          className="mr-3.5 h-6 w-6"
+          testId={testIds.speedTramStop}
+          disabled={!isTramStop}
+        />
+        {t(($) => $.stopPlaceTypes.speedTramStop)}
       </label>
     </FormRow>
   );
