@@ -91,6 +91,8 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
 
   const defaultValues: Partial<MirroredQuayFormState> = {
     stopState: stopState ?? undefined,
+    trunkLineStop: details.quay.stopType.trunkLineStop,
+    speedTramStop: details.quay.stopType.speedTramStop,
     reasonForChange: '',
   };
 
@@ -138,6 +140,7 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
             onRemove={() => setShowRemoveDialog(true)}
             stop={pseudoStop}
             testIdPrefix="MirroredQuayDetails"
+            transportMode={transportMode}
           />
         ) : (
           <>

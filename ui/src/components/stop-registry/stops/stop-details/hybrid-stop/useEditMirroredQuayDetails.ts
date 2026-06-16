@@ -38,6 +38,14 @@ export function useEditMirroredQuayDetails() {
               key: KnownValueKey.StopState,
               values: state.stopState ? [state.stopState] : [],
             },
+            {
+              key: KnownValueKey.TrunkLineStop,
+              values: [state.trunkLineStop.toString()],
+            },
+            {
+              key: KnownValueKey.SpeedTramStop,
+              values: [state.speedTramStop.toString()],
+            },
           ]),
           versionComment: state.reasonForChange,
         },
