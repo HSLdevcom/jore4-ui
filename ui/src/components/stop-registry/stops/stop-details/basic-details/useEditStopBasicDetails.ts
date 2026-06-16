@@ -240,6 +240,12 @@ export const useEditStopBasicDetails = () => {
                 : [],
             },
             {
+              key: KnownValueKey.SpeedTramStop,
+              values: state.stopTypes.speedTramStop
+                ? [state.stopTypes.speedTramStop.toString()]
+                : [],
+            },
+            {
               key: KnownValueKey.ElyNumber,
               values: state.elyNumber ? [state.elyNumber] : [],
             },

@@ -258,7 +258,8 @@
   "stopPlaceTypes": {
     "railReplacement": "Raideliikennettä korvaava",
     "virtual": "Virtuaalipysäkki",
-    "trunkLineStop": "Runkolinjapysäkki"
+    "trunkLineStop": "Runkolinjapysäkki",
+    "speedTramStop": "Pikaratikkapysäkki"
   },
   "stopDetails": {
     "stopDetails": "Pysäkkitiedot",
