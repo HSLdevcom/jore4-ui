@@ -36,7 +36,15 @@ export function useEditMirroredQuayDetails() {
           keyValues: patchKeyValues(quay, [
             {
               key: KnownValueKey.StopState,
-              values: state.stopState ? [state.stopState] : [],
+              values: [state.stopState],
+            },
+            {
+              key: KnownValueKey.TrunkLineStop,
+              values: [state.trunkLineStop.toString()],
+            },
+            {
+              key: KnownValueKey.SpeedTramStop,
+              values: [state.speedTramStop.toString()],
             },
           ]),
           versionComment: state.reasonForChange,

@@ -5,6 +5,8 @@ import { reasonForChangeFormSchema } from '../../../../../forms/common';
 export const mirroredQuayFormSchema = z
   .object({
     stopState: z.nativeEnum(StopPlaceState),
+    trunkLineStop: z.boolean(),
+    speedTramStop: z.boolean(),
   })
   .merge(reasonForChangeFormSchema);
 
