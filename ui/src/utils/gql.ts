@@ -12,117 +12,115 @@ import { AllOptionEnum } from './enum';
 /** Builds an object for gql to filter out all
  * results which are not active on the given date
  */
-export const buildActiveDateGqlFilter = (date?: DateTime | null) => ({
-  _and: [
-    {
-      _or: [
-        { validity_start: { _lte: date } },
-        { validity_start: { _is_null: true } },
-      ],
-    },
-    {
-      _or: [
-        { validity_end: { _gte: date } },
-        { validity_end: { _is_null: true } },
-      ],
-    },
-  ],
-});
+export function buildActiveDateGqlFilter(date?: DateTime | null) {
+  return {
+    _and: [
+      {
+        _or: [
+          { validity_start: { _lte: date } },
+          { validity_start: { _is_null: true } },
+        ],
+      },
+      {
+        _or: [
+          { validity_end: { _gte: date } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+    ],
+  };
+}
 
 /**
  * Builds an object for gql to filter out all
  * results which are not active on the given date range
  */
-export const buildActiveDateRangeGqlFilter = (
+export function buildActiveDateRangeGqlFilter(
   startDate: DateTime,
   endDate: DateTime,
-) => ({
-  _or: [
-    {
-      _and: [
-        {
-          _or: [
-            { validity_start: { _lte: startDate } },
-            { validity_start: { _is_null: true } },
-          ],
-        },
-        {
-          _or: [
-            { validity_end: { _gte: startDate } },
-            { validity_end: { _is_null: true } },
-          ],
-        },
-      ],
-    },
-    {
-      _and: [
-        {
-          _or: [
-            { validity_start: { _lte: endDate } },
-            { validity_start: { _is_null: true } },
-          ],
-        },
-        {
-          _or: [
-            { validity_end: { _gte: startDate } },
-            { validity_end: { _is_null: true } },
-          ],
-        },
-      ],
-    },
-  ],
-});
+) {
+  return {
+    _or: [
+      {
+        _and: [
+          {
+            _or: [
+              { validity_start: { _lte: startDate } },
+              { validity_start: { _is_null: true } },
+            ],
+          },
+          {
+            _or: [
+              { validity_end: { _gte: startDate } },
+              { validity_end: { _is_null: true } },
+            ],
+          },
+        ],
+      },
+      {
+        _and: [
+          {
+            _or: [
+              { validity_start: { _lte: endDate } },
+              { validity_start: { _is_null: true } },
+            ],
+          },
+          {
+            _or: [
+              { validity_end: { _gte: startDate } },
+              { validity_end: { _is_null: true } },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+}
 
 /** Builds an object for gql to filter out all drafts if
  * the given priority is not draft itself
  */
-export const buildDraftPriorityGqlFilter = (priority?: Priority) => ({
-  priority: {
-    _nin: priority !== Priority.Draft ? [Priority.Draft] : [],
-  },
-});
+export function buildDraftPriorityGqlFilter(priority?: Priority) {
+  return {
+    priority: { _nin: priority !== Priority.Draft ? [Priority.Draft] : [] },
+  };
+}
 
 /** Builds an object for gql to filter out all but the given priority */
-export const buildPriorityEqualGqlFilter = (priority: Priority) => ({
-  priority: {
-    _eq: priority,
-  },
-});
+export function buildPriorityEqualGqlFilter(priority: Priority) {
+  return { priority: { _eq: priority } };
+}
 
 /** Builds an object for gql to filter out all but the given Priority */
-export const buildPriorityInGqlFilter = (
-  priorities: ReadonlyArray<Priority>,
-) => ({
-  priority: {
-    _in: priorities as Priority[],
-  },
-});
+export function buildPriorityInGqlFilter(priorities: ReadonlyArray<Priority>) {
+  return { priority: { _in: priorities } };
+}
 
 /** Builds an object for gql to filter by label */
-export const buildLabelGqlFilter = (label?: string | null) => ({
-  label: { _eq: label },
-});
+export function buildLabelGqlFilter(label?: string | null) {
+  return { label: { _eq: label } };
+}
 
 /** Builds an object for gql to filter by labels */
-export const buildLabelInGqlFilter = (labels?: ReadonlyArray<string>) => ({
-  label: { _in: labels },
-});
+export function buildLabelInGqlFilter(labels?: ReadonlyArray<string>) {
+  return { label: { _in: labels } };
+}
 
 /** Builds an object for gql to filter by label using the '_like' operator.
  * This will means that all the '%' in the label are considered as 'any'
  */
-export const buildLabelLikeGqlFilter = (label?: string) => ({
-  label: { _like: label },
-});
+export function buildLabelLikeGqlFilter(label?: string) {
+  return { label: { _like: label } };
+}
 
 /** Builds an object for gql to filter route by line label */
-export const buildRouteLineLabelGqlFilter = (label: string) => ({
-  route_line: buildLabelGqlFilter(label),
-});
+export function buildRouteLineLabelGqlFilter(label: string) {
+  return { route_line: buildLabelGqlFilter(label) };
+}
 
-export const buildWithinViewportGqlGeometryFilter = (
+export function buildWithinViewportGqlGeometryFilter(
   viewport: Viewport,
-): GeometryComparisonExp => {
+): GeometryComparisonExp {
   const [[west, south], [east, north]] = viewport.bounds;
 
   return {
@@ -139,14 +137,14 @@ export const buildWithinViewportGqlGeometryFilter = (
       ],
     },
   };
-};
+}
 
 /** Builds an object for gql to filter by primary_vehicle_mode */
-export const buildPrimaryVehicleModeGqlFilter = (
+export function buildPrimaryVehicleModeGqlFilter(
   primaryVehicleMode: ReadonlyArray<
     ReusableComponentsVehicleModeEnum | AllOptionEnum
   >,
-) => {
+) {
   if (primaryVehicleMode.includes(AllOptionEnum.All)) {
     return {};
   }
@@ -158,24 +156,18 @@ export const buildPrimaryVehicleModeGqlFilter = (
   );
 
   return { primary_vehicle_mode: { _in: filtered } };
-};
+}
 
 /** Builds an object for gql to filter by typeOfLine */
-export const buildTypeOfLineGqlFilter = (typeOfLine: RouteTypeOfLineEnum) => ({
-  type_of_line: {
-    _eq: typeOfLine,
-  },
-});
+export function buildTypeOfLineGqlFilter(typeOfLine: RouteTypeOfLineEnum) {
+  return { type_of_line: { _eq: typeOfLine } };
+}
 
-export const buildTiamatStopQuayPublicCodeLikeGqlFilter = (
+export function buildTiamatStopQuayPublicCodeLikeGqlFilter(
   label: string,
-): StopsDatabaseStopPlaceNewestVersionBoolExp => ({
-  stop_place_quays: {
-    quay: {
-      public_code: { _ilike: label },
-    },
-  },
-});
+): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  return { stop_place_quays: { quay: { public_code: { _ilike: label } } } };
+}
 
 enum LANG {
   SWE = 'swe',
@@ -188,60 +180,66 @@ enum NAME_TYPE {
   LABEL = 'LABEL',
 }
 
-const buildLanguageFilter = (
+function buildLanguageFilter(
   label: string,
   lang: LANG,
-): StopsDatabaseStopPlaceNewestVersionBoolExp => {
+): StopsDatabaseStopPlaceNewestVersionBoolExp {
   return {
     name_value: { _ilike: label },
     name_lang: { _eq: lang },
   };
-};
+}
 
-const buildAlternativeNameFilter = (
+function buildAlternativeNameFilter(
   label: string,
   nameType: NAME_TYPE,
   lang: LANG,
-): StopsDatabaseStopPlaceNewestVersionBoolExp => ({
-  stop_place_alternative_names: {
-    alternative_name: {
-      name_value: { _ilike: label },
-      name_type: { _eq: nameType },
-      name_lang: { _eq: lang },
+): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  return {
+    stop_place_alternative_names: {
+      alternative_name: {
+        name_value: { _ilike: label },
+        name_type: { _eq: nameType },
+        name_lang: { _eq: lang },
+      },
     },
-  },
-});
+  };
+}
 
-export const buildShortNameFilter = (
+export function buildShortNameFilter(
   label: string,
   nameType: NAME_TYPE,
   lang: LANG,
-): StopsDatabaseStopPlaceNewestVersionBoolExp => ({
-  stop_place_quays: {
-    quay: {
-      quay_alternative_names: {
-        alternative_name: {
-          name_value: { _ilike: label },
-          name_type: { _eq: nameType },
-          name_lang: { _eq: lang },
+): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  return {
+    stop_place_quays: {
+      quay: {
+        quay_alternative_names: {
+          alternative_name: {
+            name_value: { _ilike: label },
+            name_type: { _eq: nameType },
+            name_lang: { _eq: lang },
+          },
         },
       },
     },
-  },
-});
+  };
+}
 
-export const buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter = (
+export function buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter(
   label: string,
-) => ({
-  _or: [
-    buildTiamatStopQuayPublicCodeLikeGqlFilter(label),
-    buildLanguageFilter(label, LANG.FIN),
-    buildAlternativeNameFilter(label, NAME_TYPE.TRANSLATION, LANG.SWE),
-    buildAlternativeNameFilter(label, NAME_TYPE.ALIAS, LANG.FIN),
-    buildAlternativeNameFilter(label, NAME_TYPE.ALIAS, LANG.SWE),
-    buildAlternativeNameFilter(label, NAME_TYPE.LABEL, LANG.FIN),
-    buildAlternativeNameFilter(label, NAME_TYPE.LABEL, LANG.SWE),
-    buildShortNameFilter(label, NAME_TYPE.ALIAS, LANG.FIN),
-    buildShortNameFilter(label, NAME_TYPE.ALIAS, LANG.SWE),
-  ],
-});
+) {
+  return {
+    _or: [
+      buildTiamatStopQuayPublicCodeLikeGqlFilter(label),
+      buildLanguageFilter(label, LANG.FIN),
+      buildAlternativeNameFilter(label, NAME_TYPE.TRANSLATION, LANG.SWE),
+      buildAlternativeNameFilter(label, NAME_TYPE.ALIAS, LANG.FIN),
+      buildAlternativeNameFilter(label, NAME_TYPE.ALIAS, LANG.SWE),
+      buildAlternativeNameFilter(label, NAME_TYPE.LABEL, LANG.FIN),
+      buildAlternativeNameFilter(label, NAME_TYPE.LABEL, LANG.SWE),
+      buildShortNameFilter(label, NAME_TYPE.ALIAS, LANG.FIN),
+      buildShortNameFilter(label, NAME_TYPE.ALIAS, LANG.SWE),
+    ],
+  };
+}
