@@ -1,5 +1,4 @@
-import compact from 'lodash/compact';
-import { FC, useContext, useMemo, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Link } from 'react-router';
@@ -59,17 +58,12 @@ export const StopDetailsPage: FC = () => {
 
   const { stopDetails, loading, error, mirroredQuays } = useGetStopDetails();
 
-  const mirroredTransportModes = useMemo(
-    () => compact(mirroredQuays.map((mq) => mq.stopPlace.transportMode)),
-    [mirroredQuays],
-  );
-
   return (
     <Container testId={testIds.page}>
       <StopTitleRow
         stopDetails={stopDetails}
         label={label}
-        mirroredTransportModes={mirroredTransportModes}
+        mirroredQuays={mirroredQuays}
       />
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
       <StopDetailsVersion label={label} />

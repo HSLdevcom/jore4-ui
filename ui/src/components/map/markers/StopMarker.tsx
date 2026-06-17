@@ -1,4 +1,5 @@
 import { FC, MouseEventHandler, useEffect, useState } from 'react';
+import { StopRegistryTransportModeType } from '../../../generated/graphql';
 import { MapStop } from '../types';
 
 const testIds = {
@@ -25,6 +26,9 @@ type StopMarkerBaseProps = {
   readonly centerDot?: boolean;
   readonly inSelection?: boolean;
   readonly showLabel?: boolean;
+  readonly transportModes?: ReadonlyArray<StopRegistryTransportModeType>;
+  readonly trunkLine?: boolean;
+  readonly speedTram?: boolean;
 };
 
 type ExistingStopMarkerSpecialProps = {
@@ -57,6 +61,9 @@ export const StopMarker: FC<StopMarkerProps> = ({
   onResolveTitle,
   stop,
   showLabel = false,
+  transportModes = [],
+  trunkLine = false,
+  speedTram = false,
 }) => {
   const [isMouseHovering, setIsMouseHovering] = useState(false);
   const [promisedTitle, setPromisedTitle] = useState<PromisedTitle | null>(
@@ -107,6 +114,9 @@ export const StopMarker: FC<StopMarkerProps> = ({
       onClick={onClick ? () => onClick(stop) : undefined}
       aria-label={stop?.label}
       data-testid={testId}
+      data-transport-modes={transportModes.join(',')}
+      data-trunk-line={trunkLine}
+      data-speed-tram={speedTram}
     >
       <svg
         data-testid={testIds.icon}
