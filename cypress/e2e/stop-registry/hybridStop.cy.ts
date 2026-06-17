@@ -6,7 +6,14 @@ import {
   StopRegistryTransportModeType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../../enums';
-import { MapPage, StopDetailsPage, Toast } from '../../pageObjects';
+import {
+  FilterPanel,
+  MapPage,
+  StopDetailsPage,
+  StopSearchResultsPage,
+  Toast,
+} from '../../pageObjects';
+import { StopTransportModeIcon } from '../../pageObjects/stop-registry/StopTransportModeIcon';
 import { InsertedStopRegistryIds } from '../utils';
 
 // Test labels
@@ -134,96 +141,185 @@ describe(
     });
 
     it('Should change the stop state of a mirrored quay', () => {
-      // Step 1: Create a bus stop on the map
-      MapPage.map.visit({
-        zoom: 16,
-        lat: testCoordinates.lat,
-        lng: testCoordinates.lng,
+      cy.section('Create a bus stop on the map', () => {
+        MapPage.map.visit({
+          zoom: 16,
+          lat: testCoordinates.lat,
+          lng: testCoordinates.lng,
+        });
+
+        MapPage.createStopAtLocation({
+          stopFormInfo: {
+            publicCode: busStopLabel,
+            stopPlace: busAreaCode,
+            validityStartISODate: '2024-01-01',
+            priority: Priority.Standard,
+            reasonForChange: 'E2E test',
+          },
+          clickRelativePoint: {
+            xPercentage: 40,
+            yPercentage: 55,
+          },
+          vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
+        });
+
+        MapPage.gqlStopShouldBeCreatedSuccessfully();
+        MapPage.checkStopSubmitSuccessToast();
       });
 
-      MapPage.createStopAtLocation({
-        stopFormInfo: {
-          publicCode: busStopLabel,
-          stopPlace: busAreaCode,
-          validityStartISODate: '2024-01-01',
-          priority: Priority.Standard,
-          reasonForChange: 'E2E test',
-        },
-        clickRelativePoint: {
-          xPercentage: 40,
-          yPercentage: 55,
-        },
-        vehicleMode: ReusableComponentsVehicleModeEnum.Bus,
+      cy.section('Navigate to stop details and make it hybrid', () => {
+        StopDetailsPage.visit(busStopLabel);
+        StopDetailsPage.page().shouldBeVisible();
+
+        StopDetailsPage.titleRow.actionsMenuButton().click();
+        StopDetailsPage.titleRow.actionsMenuMakeHybridButton().click();
+
+        StopDetailsPage.makeHybridModal.modal().shouldBeVisible();
+        StopDetailsPage.makeHybridModal.transportModeDropdown().click();
+        cy.get('[role="option"]').contains('Raitiovaunu').click();
+
+        StopDetailsPage.makeHybridModal.stopAreaInput().type(tramAreaCode);
+        StopDetailsPage.makeHybridModal.stopAreaOption(tramAreaCode).click();
+        StopDetailsPage.makeHybridModal.confirmButton().click();
+
+        Toast.expectSuccessToast('Yhteiskäyttöpysäkki luotu onnistuneesti');
       });
 
-      MapPage.gqlStopShouldBeCreatedSuccessfully();
-      MapPage.checkStopSubmitSuccessToast();
+      cy.section(
+        'Verify the Details page lists correct Transport Mode icons',
+        () => {
+          StopTransportModeIcon.assertTransportModeIcons({
+            inUse: [
+              StopRegistryTransportModeType.Bus,
+              StopRegistryTransportModeType.Tram,
+            ],
+          });
+        },
+      );
 
-      // Step 2: Navigate to stop details and make it hybrid
-      StopDetailsPage.visit(busStopLabel);
-      StopDetailsPage.page().shouldBeVisible();
+      cy.section('Ensure the stop shows correctly on the map', () => {
+        StopDetailsPage.titleRow.openOnMapButton().click();
+        MapPage.map.waitForLoadToComplete();
 
-      StopDetailsPage.titleRow.actionsMenuButton().click();
-      StopDetailsPage.titleRow.actionsMenuMakeHybridButton().click();
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Bus, true);
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Tram, true);
+        MapPage.map
+          .getStopByStopLabelAndPriority(busStopLabel, Priority.Standard)
+          .shouldBeVisible()
+          .and('have.attr', 'data-transport-modes', 'bus,tram');
 
-      StopDetailsPage.makeHybridModal.modal().shouldBeVisible();
-      StopDetailsPage.makeHybridModal.transportModeDropdown().click();
-      cy.get('[role="option"]').contains('Raitiovaunu').click();
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Bus, false);
+        MapPage.map
+          .getStopByStopLabelAndPriority(busStopLabel, Priority.Standard)
+          .shouldBeVisible();
 
-      StopDetailsPage.makeHybridModal.stopAreaInput().type(tramAreaCode);
-      StopDetailsPage.makeHybridModal.stopAreaOption(tramAreaCode).click();
-      StopDetailsPage.makeHybridModal.confirmButton().click();
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Bus, true);
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Tram, false);
+        MapPage.map
+          .getStopByStopLabelAndPriority(busStopLabel, Priority.Standard)
+          .shouldBeVisible();
 
-      Toast.expectSuccessToast('Yhteiskäyttöpysäkki luotu onnistuneesti');
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Bus, false);
+        MapPage.map
+          .getStopByStopLabelAndPriority(busStopLabel, Priority.Standard)
+          .should('not.exist');
+      });
 
-      // Step 3: Open mirrored quay edit mode
-      StopDetailsPage.mirroredQuayDetails.cards().should('exist');
-      StopDetailsPage.mirroredQuayDetails
-        .cards()
-        .first()
-        .within(() => {
-          StopDetailsPage.mirroredQuayDetails.getEditButton().click();
+      cy.section('Mark the tram stop to be out of use', () => {
+        MapPage.getCloseButton().click();
+        StopDetailsPage.mirroredQuayDetails.cards().should('exist');
+        StopDetailsPage.mirroredQuayDetails
+          .cards()
+          .first()
+          .within(() => {
+            StopDetailsPage.mirroredQuayDetails.getEditButton().click();
+          });
+
+        StopDetailsPage.mirroredQuayDetails
+          .cards()
+          .first()
+          .within(() => {
+            StopDetailsPage.mirroredQuayDetails
+              .getStopStateDropdownButton()
+              .click();
+          });
+
+        StopDetailsPage.mirroredQuayDetails
+          .getStopStateDropdownOptions()
+          .contains('Pois käytöstä')
+          .click();
+
+        StopDetailsPage.mirroredQuayDetails
+          .cards()
+          .first()
+          .within(() => {
+            StopDetailsPage.mirroredQuayDetails.reasonForChange
+              .getReasonForChangeInput()
+              .type('E2E tilan muutos');
+
+            StopDetailsPage.mirroredQuayDetails.getSaveButton().click();
+          });
+
+        Toast.expectSuccessToast();
+      });
+
+      cy.section('Verify the stop state is updated on the page', () => {
+        StopDetailsPage.mirroredQuayDetails
+          .cards()
+          .first()
+          .within(() => {
+            cy.getByTestId('BasicDetailsSection::stopState').should(
+              'contain',
+              'Pois käytöstä',
+            );
+          });
+
+        StopTransportModeIcon.assertTransportModeIcons({
+          inUse: [StopRegistryTransportModeType.Bus],
+          outOfUse: [StopRegistryTransportModeType.Tram],
         });
+      });
 
-      // Step 4: Change stop state to "Pois käytöstä"
-      StopDetailsPage.mirroredQuayDetails
-        .cards()
-        .first()
-        .within(() => {
-          StopDetailsPage.mirroredQuayDetails
-            .getStopStateDropdownButton()
-            .click();
-        });
+      cy.section('Ensure the updated stop shows correctly on the map', () => {
+        StopDetailsPage.titleRow.openOnMapButton().click();
+        MapPage.map.waitForLoadToComplete();
 
-      StopDetailsPage.mirroredQuayDetails
-        .getStopStateDropdownOptions()
-        .contains('Pois käytöstä')
-        .click();
+        // Show as bus
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Bus, true);
+        MapPage.map
+          .getStopByStopLabelAndPriority(busStopLabel, Priority.Standard)
+          .shouldBeVisible()
+          .and('have.attr', 'data-transport-modes', 'bus');
 
-      // Step 5: Fill in reason for change and save
-      StopDetailsPage.mirroredQuayDetails
-        .cards()
-        .first()
-        .within(() => {
-          StopDetailsPage.mirroredQuayDetails.reasonForChange
-            .getReasonForChangeInput()
-            .type('E2E tilan muutos');
+        // Does still also show under tram stops (it's just out of use)
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Bus, false);
+        FilterPanel.setShowStops(ReusableComponentsVehicleModeEnum.Tram, true);
+        MapPage.map
+          .getStopByStopLabelAndPriority(busStopLabel, Priority.Standard)
+          .shouldBeVisible();
+      });
 
-          StopDetailsPage.mirroredQuayDetails.getSaveButton().click();
-        });
+      cy.section(
+        'Ensure the updated stop shows correctly on the search',
+        () => {
+          cy.visit({
+            url: '/stop-registry/search',
+            qs: { query: busStopLabel },
+          });
 
-      Toast.expectSuccessToast();
+          StopSearchResultsPage.getContainer().should('be.visible');
 
-      // Step 6: Verify the stop state is updated in the view card
-      StopDetailsPage.mirroredQuayDetails
-        .cards()
-        .first()
-        .within(() => {
-          cy.getByTestId('BasicDetailsSection::stopState').should(
-            'contain',
-            'Pois käytöstä',
-          );
-        });
+          // Ordered by label.
+          StopSearchResultsPage.getResultRows()
+            .first()
+            .within(() => {
+              StopTransportModeIcon.assertTransportModeIcons({
+                inUse: [StopRegistryTransportModeType.Bus],
+                outOfUse: [StopRegistryTransportModeType.Tram],
+              });
+            });
+        },
+      );
     });
   },
 );

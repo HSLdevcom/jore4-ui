@@ -8,7 +8,7 @@ export class StopTitleRow {
   }
 
   static openOnMapButton() {
-    return cy.getByTestId('StopTitleRow::StopTitleRow::openOnMapButton');
+    return cy.getByTestId('StopTitleRow::openOnMapButton');
   }
 
   static actionsMenuButton() {
