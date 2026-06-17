@@ -16,6 +16,7 @@ import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
 import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../types';
+import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
 import { hasSearchFilters } from '../utils/useIsInSearchResultMode';
 
@@ -53,24 +54,7 @@ const GQL_GET_MAP_STOPS = gql`
 function viewportToWhere(
   viewport: Viewport,
 ): StopsDatabaseQuayNewestVersionBoolExp {
-  const [[west, south], [east, north]] = viewport.bounds;
-
-  return {
-    centroid: {
-      _st_within: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [west, south],
-            [east, south],
-            [east, north],
-            [west, north],
-            [west, south],
-          ],
-        ],
-      },
-    },
-  };
+  return { centroid: buildWithinViewportGqlGeometryFilter(viewport) };
 }
 
 function whereSelectedTerminal(

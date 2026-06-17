@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 import { useGetStopAreasByLocationQuery } from '../../../generated/graphql';
 import { Operation } from '../../../redux';
 import { Viewport } from '../../../redux/types';
-import { buildWithinViewportGqlGeometryFilter } from '../../../utils';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks';
+import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';
 
 const GQL_QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
   query GetStopAreasByLocation($locationFilter: geometry_comparison_exp) {

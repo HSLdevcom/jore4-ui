@@ -1,11 +1,9 @@
 import { DateTime } from 'luxon';
 import {
-  GeometryComparisonExp,
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
   StopsDatabaseStopPlaceNewestVersionBoolExp,
 } from '../generated/graphql';
-import { Viewport } from '../redux/types/mapModal';
 import { Priority } from '../types/enums';
 import { AllOptionEnum } from './enum';
 
@@ -116,27 +114,6 @@ export function buildLabelLikeGqlFilter(label?: string) {
 /** Builds an object for gql to filter route by line label */
 export function buildRouteLineLabelGqlFilter(label: string) {
   return { route_line: buildLabelGqlFilter(label) };
-}
-
-export function buildWithinViewportGqlGeometryFilter(
-  viewport: Viewport,
-): GeometryComparisonExp {
-  const [[west, south], [east, north]] = viewport.bounds;
-
-  return {
-    _st_within: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [west, south],
-          [east, south],
-          [east, north],
-          [west, north],
-          [west, south],
-        ],
-      ],
-    },
-  };
 }
 
 /** Builds an object for gql to filter by primary_vehicle_mode */
