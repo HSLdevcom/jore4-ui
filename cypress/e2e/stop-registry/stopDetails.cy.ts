@@ -48,6 +48,7 @@ import {
   Toast,
 } from '../../pageObjects';
 import { StopVersionForm } from '../../pageObjects/stop-registry/stop-details/StopVersionForm';
+import { StopTransportModeIcon } from '../../pageObjects/stop-registry/StopTransportModeIcon';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -716,6 +717,9 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       StopDetailsPage.headerSummaryRow
         .stopState()
         .should('have.text', 'Pois käytöstä');
+      StopTransportModeIcon.assertTransportModeIcons({
+        outOfUse: ['TrunkLine'],
+      });
 
       StopDetailsPage.basicDetails.getEditButton().click();
 
