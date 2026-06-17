@@ -2,11 +2,9 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { twJoin } from 'tailwind-merge';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { Row } from '../../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { getTransportModeIcon } from '../../../utils/getTransportModeIcon';
+import { StopTransportModeIcon } from '../../StopTransportModeIcon';
 import { StopRowTdProps } from '../types';
 
 const testIds = {
@@ -28,18 +26,13 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
     <td className={className}>
       <Row className="items-center leading-none font-bold">
         {stop.transportModes.map((mode) => (
-          <i
+          <StopTransportModeIcon
             key={mode}
-            className={twJoin(
-              getTransportModeIcon(
-                mode,
-                stop.activeTransportModes.includes(mode),
-                stop.trunkLineStop,
-                stop.speedTramStop,
-              ),
-              'text-xl not-last-of-type:-mr-1',
-            )}
-            title={mapStopRegistryTransportModeTypeToUiName(t, mode)}
+            className="text-xl not-last-of-type:-mr-1"
+            mode={mode}
+            active={stop.activeTransportModes.includes(mode)}
+            trunkLine={stop.trunkLineStop}
+            speedTram={stop.speedTramStop}
           />
         ))}
 

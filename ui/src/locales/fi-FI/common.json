@@ -1695,7 +1695,20 @@
       "addExternalLink": "Lisää ulkoinen linkki",
       "openExternalLink": "Avaa ulkoinen linkki {{ linkTitle }}",
       "editStopValidity": "Muokkaa pysäkin {{ stopLabel }} versiota",
-      "stopTimetablesButton": "Näytä aikataulut pysäkille"
+      "stopTimetablesButton": "Näytä aikataulut pysäkille",
+      "transportMode": {
+        "unknownModeTitle": "Liikennemuotoa ei ole määritelty",
+        "stopIconTitle": "Pysäkin tyyppi: {{stopType}}. Pysäkin tila: {{stopTypeState}}",
+        "type_bus": "bussi",
+        "type_trunkLine": "runkolinja",
+        "type_tram": "raitiotie",
+        "type_speedTram": "pikaraitiotie",
+        "type_metro": "metro",
+        "type_rail": "juna",
+        "type_water": "lautta",
+        "status_inUse": "käytössä",
+        "status_outOfUse": "ei käytössä"
+      }
     },
     "stopAreas": {
       "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot"

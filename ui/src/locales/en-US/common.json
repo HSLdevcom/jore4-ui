@@ -1695,7 +1695,20 @@
       "addExternalLink": "Add external link",
       "openExternalLink": "Open external link {{ linkTitle }}",
       "editStopValidity": "Edit version for stop {{ stopLabel }}",
-      "stopTimetablesButton": "Show timetables for stop"
+      "stopTimetablesButton": "Show timetables for stop",
+      "transportMode": {
+        "unknownModeTitle": "Transport mode has not been defined",
+        "stopIconTitle": "Stop type: {{stopType}}. Stop status: {{stopTypeState}}",
+        "type_bus": "bus",
+        "type_trunkLine": "trunk line",
+        "type_tram": "tram",
+        "type_speedTram": "speed tram",
+        "type_metro": "metro",
+        "type_rail": "train",
+        "type_water": "ferry",
+        "status_inUse": "in use",
+        "status_outOfUse": "out of use"
+      }
     },
     "stopAreas": {
       "showStopAreaDetails": "Show details for stop area {{ areaLabel }}"

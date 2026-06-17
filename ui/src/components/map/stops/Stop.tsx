@@ -239,6 +239,9 @@ export const Stop: FC<StopProps> = ({
         centerDot={selected}
         inSelection={inSelection}
         showLabel={showLabel}
+        transportModes={activeTransportModes}
+        trunkLine={isTrunkLineStop}
+        speedTram={isSpeedTramStop}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...(stop
           ? ({
