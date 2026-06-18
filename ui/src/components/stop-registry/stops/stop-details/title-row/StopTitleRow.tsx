@@ -1,6 +1,5 @@
 import compact from 'lodash/compact';
 import sortBy from 'lodash/sortBy';
-import uniq from 'lodash/uniq';
 import { FC } from 'react';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
