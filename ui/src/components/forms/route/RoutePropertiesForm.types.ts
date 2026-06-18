@@ -17,6 +17,7 @@ export const namesSchema = z.object({
   shortName: localizedStringRequired,
 });
 
+// Keep in sync with: EditedRouteMetadata in ui/src/redux/slices/mapRouteEditor.ts
 export const routeFormSchema = z
   .object({
     label: requiredString,

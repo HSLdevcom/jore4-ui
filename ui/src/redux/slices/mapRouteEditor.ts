@@ -1,14 +1,36 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import uniq from 'lodash/uniq';
-import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
   InfrastructureLinkAllFieldsFragment,
   LineAllFieldsFragment,
+  RouteDirectionEnum,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
+import { Priority } from '../../types/enums';
 import { StoreType, mapToStoreType } from '../mappers/storeType';
 import { JourneyPattern } from '../types';
+
+type TravelTargetNames = {
+  readonly name: Required<LocalizedString>;
+  readonly shortName: Required<LocalizedString>;
+};
+
+// Keep in sync with: routeFormSchema in ui/src/components/forms/route/RoutePropertiesForm.types.ts
+export type EditedRouteMetadata = {
+  readonly label: string;
+  readonly priority: Priority;
+  readonly direction: RouteDirectionEnum;
+  readonly finnishName: string;
+  readonly onLineId: string;
+  readonly origin: TravelTargetNames;
+  readonly destination: TravelTargetNames;
+  readonly variant: number | null;
+  readonly versionComment?: string | undefined;
+  readonly validityStart: string;
+  readonly indefinite: boolean;
+  readonly validityEnd?: string | undefined;
+};
 
 export type EditedRouteData = {
   /**
@@ -33,8 +55,7 @@ export type EditedRouteData = {
   /**
    * Metadata of the created / edited route
    */
-  // TODO: Use RouteMetadataFragment
-  readonly metaData?: RouteFormState;
+  readonly metaData?: EditedRouteMetadata;
   /**
    * Route journey pattern
    */
@@ -187,7 +208,7 @@ const slice = createSlice({
     /**
      * Set created / edited route metadata.
      */
-    setRouteMetadata: (state, action: PayloadAction<RouteFormState>) => {
+    setRouteMetadata: (state, action: PayloadAction<EditedRouteMetadata>) => {
       state.editedRouteData.metaData = action.payload;
     },
     /**
@@ -195,7 +216,7 @@ const slice = createSlice({
      */
     finishRouteMetadataEditing: (
       state,
-      action: PayloadAction<RouteFormState>,
+      action: PayloadAction<EditedRouteMetadata>,
     ) => {
       state.editedRouteData = {
         ...state.editedRouteData,
