@@ -9,10 +9,17 @@ export class MapFooter {
     return cy.getByTestId('MapFooter::drawRouteButton');
   }
 
-  static createRoute() {
-    return MapFooter.getCreateRouteButton()
+  static createRoute(
+    vehicleMode: ReusableComponentsVehicleModeEnum = ReusableComponentsVehicleModeEnum.Bus,
+  ) {
+    MapFooter.getCreateRouteButton()
       .should('be.visible')
       .and('be.enabled')
+      .click();
+
+    return cy
+      .get(`[data-vehicle-mode="${vehicleMode}"]`)
+      .should('be.visible')
       .click();
   }
 
