@@ -42691,7 +42691,6 @@ export type StopsDatabaseStopPlaceTiamatStopPlaceArgs = {
   importedId?: InputMaybe<Scalars['String']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
   municipalityReference?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  onlyMonomodalStopPlaces?: InputMaybe<Scalars['Boolean']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
   pointInTime?: InputMaybe<Scalars['stop_registry_DateTime']['input']>;
   query?: InputMaybe<Scalars['String']['input']>;
