@@ -19,9 +19,7 @@ type CommonProps = {
 
 type EditButtonProps = CommonProps & (LinkProps | ButtonProps);
 
-const ButtonContent = () => (
-  <MdModeEdit aria-hidden className="text-2xl text-tweaked-brand" />
-);
+const ButtonContent = () => <MdModeEdit aria-hidden className="text-2xl" />;
 
 export const EditButton: FC<EditButtonProps> = (props) => {
   const { testId, tooltip, className } = props;
@@ -29,8 +27,8 @@ export const EditButton: FC<EditButtonProps> = (props) => {
   const onClick = (props as ButtonProps)?.onClick;
 
   const classNames = twMerge(
-    'ml-5 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white',
-    'hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand',
+    'ml-5 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey border-tweaked-brand bg-white text-tweaked-brand',
+    'hover:enabled:border-black hover:enabled:text-black enabled:hover:outline-tweaked-brand',
     className,
   );
 
