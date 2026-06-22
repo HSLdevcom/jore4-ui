@@ -93,6 +93,13 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
       )}
       data-testid={testIds.container(label, route.direction)}
     >
+      <div className="flex justify-center">
+        <AlertPopover
+          title={alertStatus.title}
+          description={alertStatus.description}
+          alertIcon={alertStyle.icon}
+        />
+      </div>
       <div
         id={directionAndLabelId}
         className="col-span-2 ml-2 flex h-full items-center justify-evenly"
@@ -103,60 +110,41 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
           <RouteLabel label={label} variant={route.variant} />
         </span>
       </div>
-      <span className="col-span-8 text-xl" data-testid={testIds.name}>
+      <span className="text-l col-span-8" data-testid={testIds.name}>
         {getLocalizedTextFromDbBlob(route.name_i18n)}
       </span>
-      <EditButton
-        href={routeDetails[Path.editRoute].getLink(route.route_id, {
-          observationDate: observationDate.toISODate(),
-        })}
-        testId={testIds.editRouteButton}
-        tooltip={t(($) => $.accessibility.routes.editRouteDirection, {
-          label,
-          directionNumber,
-        })}
-        className="ml-0"
-      />
       <Link
-        to={routeDetails[Path.routeVersions].getLink(
-          `${label}/${route.direction}`,
-        )}
-        state={makeBackNavigationIsSafeState()}
-        data-testid={testIds.versionsButton}
-        title={t(($) => $.accessibility.routes.viewVersions, {
-          label,
-          directionNumber,
-        })}
+        to={routeDetails[Path.lineChangeHistory].getLink(label)}
+        className="col-span-3 text-center text-sm text-brand hover:underline"
+        data-testid={testIds.lastEdited}
       >
-        <i
+        {mapToShortDateTime(DateTime.now())}
+        <MdHistory
           aria-hidden
-          className="icon-lista text-xl text-tweaked-brand hover:text-black"
+          className="ml-1 inline text-xl text-tweaked-brand"
         />
       </Link>
       <span
         data-testid={testIds.validityPeriod}
-        className="col-span-4 text-center md:text-sm lg:text-base"
+        className="col-span-5 text-center text-sm"
       >
         {t(($) => $.validity.validDuring, {
           startDate: mapToShortDate(route.validity_start ?? MIN_DATE),
           endDate: mapToShortDate(route.validity_end ?? MAX_DATE),
         })}
       </span>
-      <div className="flex justify-center">
-        <AlertPopover
-          title={alertStatus.title}
-          description={alertStatus.description}
-          alertIcon={alertStyle.icon}
+      <div className="col-span-4 flex h-full items-center justify-center gap-2 border-l-4 border-white">
+        <EditButton
+          href={routeDetails[Path.editRoute].getLink(route.route_id, {
+            observationDate: observationDate.toISODate(),
+          })}
+          testId={testIds.editRouteButton}
+          tooltip={t(($) => $.accessibility.routes.editRouteDirection, {
+            label,
+            directionNumber,
+          })}
+          className="ml-0 rounded-none border-none bg-transparent hover:text-black"
         />
-      </div>
-      <span className="col-span-4 text-center" data-testid={testIds.lastEdited}>
-        !{mapToShortDateTime(DateTime.now())}
-        <MdHistory
-          aria-hidden
-          className="ml-1 inline text-xl text-tweaked-brand"
-        />
-      </span>
-      <div className="col-span-2 flex h-full items-center justify-center border-l-4 border-white">
         <LocatorButton
           onClick={onClickShowRouteOnMap}
           disabled={
@@ -167,6 +155,27 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
             label,
             directionNumber,
           })}
+          className="ml-0 rounded-none border-none bg-transparent hover:text-black"
+        />
+        <Link
+          to={routeDetails[Path.routeVersions].getLink(
+            `${label}/${route.direction}`,
+          )}
+          state={makeBackNavigationIsSafeState()}
+          data-testid={testIds.versionsButton}
+          title={t(($) => $.accessibility.routes.viewVersions, {
+            label,
+            directionNumber,
+          })}
+        >
+          <i
+            aria-hidden
+            className="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
+          />
+        </Link>
+        <i
+          aria-hidden
+          className="icon-download disabled ml-2 text-3xl text-grey"
         />
       </div>
       <AccordionButton

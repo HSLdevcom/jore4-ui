@@ -44,6 +44,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
           data-testid="RouteRow::65x-outbound"
         >
           <div
+            class="flex justify-center"
+          />
+          <div
             class="col-span-2 ml-2 flex h-full items-center justify-evenly"
             id="direction-and-label-65x-null-outbound"
           >
@@ -70,63 +73,18 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             </span>
           </div>
           <span
-            class="col-span-8 text-xl"
+            class="text-l col-span-8"
             data-testid="RouteRow::name"
           >
             Reitti A - B FI
           </span>
           <a
-            class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
+            class="col-span-3 text-center text-sm text-brand hover:underline"
             data-discover="true"
-            data-testid="RouteRow::editRouteButton"
-            href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
-            title="Muokkaa reittiä 65x, suunta 1"
-          >
-            <svg
-              aria-hidden="true"
-              class="text-2xl text-tweaked-brand"
-              fill="currentColor"
-              height="1em"
-              stroke="currentColor"
-              stroke-width="0"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
-              <path
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-              />
-            </svg>
-          </a>
-          <a
-            data-discover="true"
-            data-testid="RouteRow::versionsButton"
-            href="/routes/65x/outbound/versions"
-            title="Näytä versiot reitille 65x, suunta 1"
-          >
-            <i
-              aria-hidden="true"
-              class="icon-lista text-xl text-tweaked-brand hover:text-black"
-            />
-          </a>
-          <span
-            class="col-span-4 text-center md:text-sm lg:text-base"
-            data-testid="RouteRow::validityPeriod"
-          >
-            Voimassa 1.1.2000 - 13.12.2050
-          </span>
-          <div
-            class="flex justify-center"
-          />
-          <span
-            class="col-span-4 text-center"
             data-testid="RouteRow::lastEdited"
+            href="/lines/65x/history"
           >
-            !14.2.2017 14.51
+            14.2.2017 14.51
             <svg
               aria-hidden="true"
               class="ml-1 inline text-xl text-tweaked-brand"
@@ -146,12 +104,45 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                 d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
               />
             </svg>
+          </a>
+          <span
+            class="col-span-5 text-center text-sm"
+            data-testid="RouteRow::validityPeriod"
+          >
+            Voimassa 1.1.2000 - 13.12.2050
           </span>
           <div
-            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
+            class="col-span-4 flex h-full items-center justify-center gap-2 border-l-4 border-white"
           >
+            <a
+              class="flex h-10 w-10 cursor-pointer items-center justify-center border border-tweaked-brand text-tweaked-brand hover:enabled:border-black hover:enabled:text-black enabled:hover:outline-tweaked-brand ml-0 rounded-none border-none bg-transparent hover:text-black"
+              data-discover="true"
+              data-testid="RouteRow::editRouteButton"
+              href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
+              title="Muokkaa reittiä 65x, suunta 1"
+            >
+              <svg
+                aria-hidden="true"
+                class="text-2xl"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                />
+              </svg>
+            </a>
             <button
-              class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+              class="text-center disabled:cursor-default h-10 w-10 border border-grey text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0 rounded-none border-none bg-transparent hover:text-black"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -176,6 +167,21 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                 />
               </svg>
             </button>
+            <a
+              data-discover="true"
+              data-testid="RouteRow::versionsButton"
+              href="/routes/65x/outbound/versions"
+              title="Näytä versiot reitille 65x, suunta 1"
+            >
+              <i
+                aria-hidden="true"
+                class="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
+              />
+            </a>
+            <i
+              aria-hidden="true"
+              class="icon-download disabled ml-2 text-3xl text-grey"
+            />
           </div>
           <button
             aria-controls="route-stop-list"
@@ -256,6 +262,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           data-testid="RouteRow::65x-outbound"
         >
           <div
+            class="flex justify-center"
+          />
+          <div
             class="col-span-2 ml-2 flex h-full items-center justify-evenly"
             id="direction-and-label-65x-null-outbound"
           >
@@ -282,63 +291,18 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             </span>
           </div>
           <span
-            class="col-span-8 text-xl"
+            class="text-l col-span-8"
             data-testid="RouteRow::name"
           >
             Reitti A - B FI
           </span>
           <a
-            class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
+            class="col-span-3 text-center text-sm text-brand hover:underline"
             data-discover="true"
-            data-testid="RouteRow::editRouteButton"
-            href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
-            title="Muokkaa reittiä 65x, suunta 1"
-          >
-            <svg
-              aria-hidden="true"
-              class="text-2xl text-tweaked-brand"
-              fill="currentColor"
-              height="1em"
-              stroke="currentColor"
-              stroke-width="0"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
-              <path
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-              />
-            </svg>
-          </a>
-          <a
-            data-discover="true"
-            data-testid="RouteRow::versionsButton"
-            href="/routes/65x/outbound/versions"
-            title="Näytä versiot reitille 65x, suunta 1"
-          >
-            <i
-              aria-hidden="true"
-              class="icon-lista text-xl text-tweaked-brand hover:text-black"
-            />
-          </a>
-          <span
-            class="col-span-4 text-center md:text-sm lg:text-base"
-            data-testid="RouteRow::validityPeriod"
-          >
-            Voimassa 1.1.2000 - 13.12.2050
-          </span>
-          <div
-            class="flex justify-center"
-          />
-          <span
-            class="col-span-4 text-center"
             data-testid="RouteRow::lastEdited"
+            href="/lines/65x/history"
           >
-            !14.2.2017 14.51
+            14.2.2017 14.51
             <svg
               aria-hidden="true"
               class="ml-1 inline text-xl text-tweaked-brand"
@@ -358,12 +322,45 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
               />
             </svg>
+          </a>
+          <span
+            class="col-span-5 text-center text-sm"
+            data-testid="RouteRow::validityPeriod"
+          >
+            Voimassa 1.1.2000 - 13.12.2050
           </span>
           <div
-            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
+            class="col-span-4 flex h-full items-center justify-center gap-2 border-l-4 border-white"
           >
+            <a
+              class="flex h-10 w-10 cursor-pointer items-center justify-center border border-tweaked-brand text-tweaked-brand hover:enabled:border-black hover:enabled:text-black enabled:hover:outline-tweaked-brand ml-0 rounded-none border-none bg-transparent hover:text-black"
+              data-discover="true"
+              data-testid="RouteRow::editRouteButton"
+              href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
+              title="Muokkaa reittiä 65x, suunta 1"
+            >
+              <svg
+                aria-hidden="true"
+                class="text-2xl"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                />
+              </svg>
+            </a>
             <button
-              class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+              class="text-center disabled:cursor-default h-10 w-10 border border-grey text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0 rounded-none border-none bg-transparent hover:text-black"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -388,6 +385,21 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 />
               </svg>
             </button>
+            <a
+              data-discover="true"
+              data-testid="RouteRow::versionsButton"
+              href="/routes/65x/outbound/versions"
+              title="Näytä versiot reitille 65x, suunta 1"
+            >
+              <i
+                aria-hidden="true"
+                class="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
+              />
+            </a>
+            <i
+              aria-hidden="true"
+              class="icon-download disabled ml-2 text-3xl text-grey"
+            />
           </div>
           <button
             aria-controls="route-stop-list"
@@ -692,6 +704,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           data-testid="RouteRow::65x-outbound"
         >
           <div
+            class="flex justify-center"
+          />
+          <div
             class="col-span-2 ml-2 flex h-full items-center justify-evenly"
             id="direction-and-label-65x-null-outbound"
           >
@@ -718,63 +733,18 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             </span>
           </div>
           <span
-            class="col-span-8 text-xl"
+            class="text-l col-span-8"
             data-testid="RouteRow::name"
           >
             Reitti A - B FI
           </span>
           <a
-            class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-grey bg-white hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0"
+            class="col-span-3 text-center text-sm text-brand hover:underline"
             data-discover="true"
-            data-testid="RouteRow::editRouteButton"
-            href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
-            title="Muokkaa reittiä 65x, suunta 1"
-          >
-            <svg
-              aria-hidden="true"
-              class="text-2xl text-tweaked-brand"
-              fill="currentColor"
-              height="1em"
-              stroke="currentColor"
-              stroke-width="0"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
-              <path
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-              />
-            </svg>
-          </a>
-          <a
-            data-discover="true"
-            data-testid="RouteRow::versionsButton"
-            href="/routes/65x/outbound/versions"
-            title="Näytä versiot reitille 65x, suunta 1"
-          >
-            <i
-              aria-hidden="true"
-              class="icon-lista text-xl text-tweaked-brand hover:text-black"
-            />
-          </a>
-          <span
-            class="col-span-4 text-center md:text-sm lg:text-base"
-            data-testid="RouteRow::validityPeriod"
-          >
-            Voimassa 1.1.2000 - 13.12.2050
-          </span>
-          <div
-            class="flex justify-center"
-          />
-          <span
-            class="col-span-4 text-center"
             data-testid="RouteRow::lastEdited"
+            href="/lines/65x/history"
           >
-            !14.2.2017 14.51
+            14.2.2017 14.51
             <svg
               aria-hidden="true"
               class="ml-1 inline text-xl text-tweaked-brand"
@@ -794,12 +764,45 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
               />
             </svg>
+          </a>
+          <span
+            class="col-span-5 text-center text-sm"
+            data-testid="RouteRow::validityPeriod"
+          >
+            Voimassa 1.1.2000 - 13.12.2050
           </span>
           <div
-            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
+            class="col-span-4 flex h-full items-center justify-center gap-2 border-l-4 border-white"
           >
+            <a
+              class="flex h-10 w-10 cursor-pointer items-center justify-center border border-tweaked-brand text-tweaked-brand hover:enabled:border-black hover:enabled:text-black enabled:hover:outline-tweaked-brand ml-0 rounded-none border-none bg-transparent hover:text-black"
+              data-discover="true"
+              data-testid="RouteRow::editRouteButton"
+              href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
+              title="Muokkaa reittiä 65x, suunta 1"
+            >
+              <svg
+                aria-hidden="true"
+                class="text-2xl"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                />
+              </svg>
+            </a>
             <button
-              class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+              class="text-center disabled:cursor-default h-10 w-10 border border-grey text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand ml-0 rounded-none border-none bg-transparent hover:text-black"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -824,6 +827,21 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 />
               </svg>
             </button>
+            <a
+              data-discover="true"
+              data-testid="RouteRow::versionsButton"
+              href="/routes/65x/outbound/versions"
+              title="Näytä versiot reitille 65x, suunta 1"
+            >
+              <i
+                aria-hidden="true"
+                class="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
+              />
+            </a>
+            <i
+              aria-hidden="true"
+              class="icon-download disabled ml-2 text-3xl text-grey"
+            />
           </div>
           <button
             aria-controls="route-stop-list"
