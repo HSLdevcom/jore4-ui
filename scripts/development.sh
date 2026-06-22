@@ -62,15 +62,31 @@ login() {
   fi
 }
 
+where_exists_table() {
+  echo "SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = '$1' AND tablename = '$2');"
+}
+
+where_exists_external_source() {
+  echo "SELECT EXISTS (SELECT FROM infrastructure_network.external_source WHERE value = '$1');"
+}
+
 wait_for_database() {
   SUCCESS=false
   while ! $SUCCESS; do
-    echo "$1: Checking if schema $2 and table $3 exist..."
-    if [[ $(docker exec "$1" psql $ROUTES_DB_CONNECTION_STRING -AXqtc "SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = '$2' AND tablename = '$3');" 2> /dev/null) = "t" ]]; then
+    echo "$1: Checking if SQL query is true: $2"
+    if [[ $(docker exec "$1" psql $ROUTES_DB_CONNECTION_STRING -AXqtc "$2" 2> /dev/null) = "t" ]]; then
         SUCCESS=true
     fi
     sleep 2
   done
+}
+
+wait_for_database_table() {
+  wait_for_database "$1" "$(where_exists_table "$2" "$3")"
+}
+
+wait_for_external_source() {
+  wait_for_database "$1" "$(where_exists_external_source "$2")"
 }
 
 download_bus_infralinks() {
@@ -101,7 +117,7 @@ seed_bus_infra_links() {
 
   echo "$1: Seeding Bus infrastructure links..."
 
-  wait_for_database "$1" infrastructure_network infrastructure_link
+  wait_for_database_table "$1" infrastructure_network infrastructure_link
 
   echo "$1: infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
@@ -114,7 +130,11 @@ seed_tram_infra_links() {
 
   echo "$1: Seeding Tram infrastructure links..."
 
-  wait_for_database "$1" infrastructure_network infrastructure_link
+  # hsl_tram eventually gets populated by Hasura migrations.
+  # We need to explicitly wait for the Hasura migration to happen before
+  # we can populate the dump in, as the Hasura migration breaks if there
+  # is already tram data in the table when it starts up.
+  wait_for_external_source "$1" hsl_tram
 
   echo "$1: tram_infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "tram_infraLinks.sql";
@@ -347,7 +367,7 @@ setup_environment() {
 
   start_docker_containers $DOCKER_TESTDB_IMAGE
 
-  wait_for_database testdb topology topology
+  wait_for_database_table testdb topology topology
   import_dump $DUMP_ROUTES_FILENAME jore4e2e
   import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
   import_dump $DUMP_STOPS_FILENAME stopdb
