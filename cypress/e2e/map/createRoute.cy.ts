@@ -1,5 +1,6 @@
 import {
   Priority,
+  ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
   StopAreaInput,
@@ -68,6 +69,34 @@ const rootOpts: Cypress.SuiteConfigOverrides = {
   tags: [Tag.Routes, Tag.Map],
   scrollBehavior: 'bottom',
 };
+
+function expectVisibleOptionsToMatchLineIds(
+  options: JQuery<HTMLElement>,
+  lineIds: string[],
+) {
+  const visibleOptionIds = [...options]
+    .map((option) => option.getAttribute('data-testid'))
+    .map((testId) => testId?.split('::option::')[1]);
+
+  expect(lineIds).to.include.members(visibleOptionIds);
+}
+
+function assertLineOptionsMatchVehicleMode(
+  vehicleMode: ReusableComponentsVehicleModeEnum,
+) {
+  const lineIds = baseDbResources.lines
+    .filter((line) => line.primary_vehicle_mode === vehicleMode)
+    .map((line) => line.line_id as string);
+
+  cy.getByTestId('RoutePropertiesFormComponent::chooseLineDropdown').click();
+
+  cy.get('[role="option"]').should(($options) => {
+    expectVisibleOptionsToMatchLineIds($options, lineIds);
+  });
+
+  cy.getByTestId('RoutePropertiesFormComponent::chooseLineDropdown').click();
+}
+
 describe('Route creation', rootOpts, () => {
   let dbResources: SupportedResources;
 
@@ -115,7 +144,7 @@ describe('Route creation', rootOpts, () => {
   });
 
   it(
-    'Should create a new route',
+    'Should create a new bus route',
     {
       tags: [Tag.Smoke, Tag.Network],
     },
@@ -125,7 +154,9 @@ describe('Route creation', rootOpts, () => {
       MapPage.map.visit(mapLocation);
       MapPage.map.waitForLoadToComplete();
 
-      MapFooter.getCreateRouteButton().click();
+      MapFooter.createRoute();
+      assertLineOptionsMatchVehicleMode(ReusableComponentsVehicleModeEnum.Bus);
+
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901Y',
@@ -224,6 +255,49 @@ describe('Route creation', rootOpts, () => {
     },
   );
 
+  it(
+    'Should create a new tram route',
+    {
+      tags: [Tag.Network],
+    },
+    () => {
+      const versionComment = 'E2E create tram route reason';
+
+      MapPage.map.visit(mapLocation);
+      MapPage.map.waitForLoadToComplete();
+
+      MapFooter.createRoute(ReusableComponentsVehicleModeEnum.Tram);
+      assertLineOptionsMatchVehicleMode(ReusableComponentsVehicleModeEnum.Tram);
+
+      MapPage.routePropertiesForm.fillRouteProperties({
+        finnishName: 'Test tram route',
+        label: '1112Y',
+        variant: '56',
+        line: '8543',
+        direction: RouteDirectionEnum.Outbound,
+        origin: {
+          finnishName: 'Test tram origin FIN',
+          finnishShortName: 'Test tram origin FIN shortName',
+          swedishName: 'Test tram origin SWE',
+          swedishShortName: 'Test tram origin SWE shortName',
+        },
+        destination: {
+          finnishName: 'Test tram destination FIN',
+          finnishShortName: 'Test tram destination FIN shortName',
+          swedishName: 'Test tram destination SWE',
+          swedishShortName: 'Test tram destination SWE shortName',
+        },
+        priority: Priority.Standard,
+        versionComment,
+        validityStartISODate: '2025-01-01',
+        validityEndISODate: '2030-12-01',
+      });
+
+      MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
+    },
+  );
+
   it('should cancel creating a new route', () => {
     MapPage.map.visit(mapLocation);
     MapPage.map.waitForLoadToComplete();
@@ -267,7 +341,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.map.visit(mapLocation);
 
       MapPage.map.waitForLoadToComplete();
-      MapFooter.getCreateRouteButton().click();
+      MapFooter.createRoute();
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901X',
@@ -372,7 +446,7 @@ describe('Route creation', rootOpts, () => {
 
       MapPage.map.waitForLoadToComplete();
 
-      MapFooter.getCreateRouteButton().click();
+      MapFooter.createRoute();
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Erronous route',
         label: '901F',
@@ -447,7 +521,7 @@ describe('Route creation', rootOpts, () => {
 
       MapPage.map.waitForLoadToComplete();
 
-      MapFooter.getCreateRouteButton().click();
+      MapFooter.createRoute();
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Indefinite end time route',
         label: '901I',
@@ -511,7 +585,7 @@ describe('Route creation', rootOpts, () => {
 
       MapPage.map.waitForLoadToComplete();
 
-      MapFooter.getCreateRouteButton().click();
+      MapFooter.createRoute();
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Based on template test route',
         label: '901T',
