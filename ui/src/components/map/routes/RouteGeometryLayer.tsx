@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
 import { theme } from '../../../generated/theme';
+import { useAppSelector } from '../../../hooks';
+import { selectMapRouteEditor } from '../../../redux';
 import { ArrowLayout, ArrowPaint, ArrowRenderLayer } from './ArrowRenderLayer';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import { LinePaint, LineRenderLayer } from './LineRenderLayer';
@@ -28,6 +30,7 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
   isHighlighted,
 }) => {
   const { current: map } = useMap();
+  const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const hasActiveLineStrokeLayer = !!map?.getLayer(ACTIVE_LINE_STROKE_ID);
   const beforeId =
     isHighlighted && hasActiveLineStrokeLayer
@@ -59,6 +62,34 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
   const arrowRenderLayerId = routeId
     ? mapRouteIdToArrowLayerId(routeId)
     : NEW_ROUTE_ARROWS_ID;
+
+  // Cursor handling for route geometry layer
+  useEffect(() => {
+    const mapInstance = map?.getMap();
+    if (!mapInstance || drawingMode !== undefined) {
+      return undefined;
+    }
+
+    const setPointerCursor = () => {
+      mapInstance.getCanvas().style.cursor = 'pointer';
+    };
+    const resetCursor = () => {
+      mapInstance.getCanvas().style.cursor = 'auto';
+    };
+
+    mapInstance.on('mouseenter', lineRenderLayerId, setPointerCursor);
+    mapInstance.on('mouseleave', lineRenderLayerId, resetCursor);
+    mapInstance.on('mouseenter', arrowRenderLayerId, setPointerCursor);
+    mapInstance.on('mouseleave', arrowRenderLayerId, resetCursor);
+
+    return () => {
+      mapInstance.off('mouseenter', lineRenderLayerId, setPointerCursor);
+      mapInstance.off('mouseleave', lineRenderLayerId, resetCursor);
+      mapInstance.off('mouseenter', arrowRenderLayerId, setPointerCursor);
+      mapInstance.off('mouseleave', arrowRenderLayerId, resetCursor);
+      resetCursor();
+    };
+  }, [arrowRenderLayerId, drawingMode, lineRenderLayerId, map]);
 
   return (
     <>

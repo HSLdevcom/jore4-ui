@@ -22,6 +22,7 @@ import {
   useSnappingLine,
 } from './hooks';
 import {
+  DRAW_VERTEX_LAYER_IDS,
   NEW_ROUTE_ARROWS_ID,
   NEW_ROUTE_LINE_ID,
   SNAPPING_LINE_LAYER_ID,
@@ -57,7 +58,9 @@ export const DrawRouteLayer: FC = () => {
   const isNewRouteDrawPhase =
     creatingNewRoute && !editedRouteData.geometry && drawingMode !== undefined;
 
-  setCursor(map, isNewRouteDrawPhase ? Mode.Draw : drawingMode);
+  useEffect(() => {
+    setCursor(map, isNewRouteDrawPhase ? Mode.Draw : drawingMode);
+  }, [drawingMode, isNewRouteDrawPhase, map]);
 
   const { templateRouteId } = editedRouteData;
   // Fetch existing route's stops and geometry in case editing existing route
@@ -202,6 +205,62 @@ export const DrawRouteLayer: FC = () => {
       setRouteDrawLoadingState(LoadingState.NotLoading);
     };
   }, [isNewRouteDrawPhase, map, setRouteDrawLoadingState]);
+
+  // Cursor handling for vertices and midpoints in edit mode
+  useEffect(() => {
+    const mapInstance = map?.getMap();
+    if (!mapInstance || drawingMode !== Mode.Edit) {
+      return undefined;
+    }
+
+    let isHoveringVertex = false;
+    let isDraggingVertex = false;
+
+    const setCursorStyle = (cursor: 'auto' | 'grab' | 'grabbing') => {
+      mapInstance.getCanvas().style.cursor = cursor;
+    };
+
+    const onVertexMouseEnter = () => {
+      isHoveringVertex = true;
+      setCursorStyle(isDraggingVertex ? 'grabbing' : 'grab');
+    };
+
+    const onVertexMouseLeave = () => {
+      isHoveringVertex = false;
+      if (!isDraggingVertex) {
+        setCursorStyle('auto');
+      }
+    };
+
+    const onVertexMouseDown = () => {
+      isDraggingVertex = true;
+      setCursorStyle('grabbing');
+    };
+
+    const onMouseUp = () => {
+      if (isDraggingVertex) {
+        isDraggingVertex = false;
+        setCursorStyle(isHoveringVertex ? 'grab' : 'auto');
+      }
+    };
+
+    DRAW_VERTEX_LAYER_IDS.forEach((layerId) => {
+      mapInstance.on('mouseenter', layerId, onVertexMouseEnter);
+      mapInstance.on('mouseleave', layerId, onVertexMouseLeave);
+      mapInstance.on('mousedown', layerId, onVertexMouseDown);
+    });
+    mapInstance.on('mouseup', onMouseUp);
+
+    return () => {
+      DRAW_VERTEX_LAYER_IDS.forEach((layerId) => {
+        mapInstance.off('mouseenter', layerId, onVertexMouseEnter);
+        mapInstance.off('mouseleave', layerId, onVertexMouseLeave);
+        mapInstance.off('mousedown', layerId, onVertexMouseDown);
+      });
+      mapInstance.off('mouseup', onMouseUp);
+      setCursorStyle('auto');
+    };
+  }, [drawingMode, map]);
 
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state
