@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Row } from '../../../layoutComponents';
+import { Row } from '../../common/LayoutComponents';
 import { requiredString } from './customZodSchemas';
 import { FormColumn } from './FormColumn';
 import { FormRow } from './FormRow';

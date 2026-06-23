@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { FC, KeyboardEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column } from '../../../layoutComponents';
 import { mapToISODate, parseDate } from '../../../time';
+import { Column } from '../../common/LayoutComponents';
 
 type ObservationDateInputProps = {
   readonly value: DateTime;

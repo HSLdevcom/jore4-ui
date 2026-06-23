@@ -16,7 +16,6 @@ import {
 } from '../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../graphql';
 import { useAppSelector } from '../../../hooks';
-import { Visible } from '../../../layoutComponents';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
 import { RequiredKeys } from '../../../types';
 import { StopPlaceState } from '../../../types/stop-registry';
@@ -29,6 +28,7 @@ import {
   patchKeyValues,
 } from '../../../utils';
 import { useLoader } from '../../common/hooks';
+import { Visible } from '../../common/LayoutComponents';
 import {
   CreateChanges,
   CreateStopPointInput,

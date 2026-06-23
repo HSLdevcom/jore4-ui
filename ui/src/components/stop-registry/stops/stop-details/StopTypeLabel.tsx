@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Visible } from '../../../../layoutComponents';
+import { Visible } from '../../../common/LayoutComponents';
 
 type StopTypeLabelProps = {
   readonly hasType: boolean;

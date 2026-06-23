@@ -7,7 +7,6 @@ import {
   ReusableComponentsVehicleModeEnum,
 } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
   resetMapRouteEditorStateAction,
   selectIsTimingSettingsModalOpen,
@@ -17,6 +16,7 @@ import {
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { isPastEntity } from '../../../utils';
+import { Column, Container, Row, Visible } from '../../common/LayoutComponents';
 import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { PageHeader } from '../common/PageHeader';
 import { LineLatestChanges } from '../line-change-history/components/latest-change-history/LineLatestChanges';

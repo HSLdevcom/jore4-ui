@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QueryParameterName, useTimeRangeQueryParams } from '../../hooks';
-import { Row } from '../../layoutComponents';
 import { ValidationError } from '../forms/common/ValidationErrorList';
 import { DateControl } from './DateControl';
+import { Row } from './LayoutComponents';
 
 type TimeRangeControlProps = {
   readonly className?: string;

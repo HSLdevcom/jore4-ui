@@ -6,8 +6,8 @@ import {
   JourneyPatternStopFragment,
   PassingTimeByStopFragment,
 } from '../../../generated/graphql';
-import { Column } from '../../../layoutComponents';
 import { filterHighestPriorityCurrentStops } from '../../../utils';
+import { Column } from '../../common/LayoutComponents';
 import { HighlightProps } from './PassingTimesByStopTableRowPassingMinute';
 import { PassingTimesByStopTableRowPassingTime } from './PassingTimesByStopTableRowPassingTime';
 

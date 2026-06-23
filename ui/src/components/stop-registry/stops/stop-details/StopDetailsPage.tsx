@@ -6,11 +6,11 @@ import {
   makeBackNavigationIsSafeState,
   useRequiredParams,
 } from '../../../../hooks';
-import { Container, Visible } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { mapToShortDate, mapToShortDateTime } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import { Container, Visible } from '../../../common/LayoutComponents';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
 import { HistoricalStopDataProvider } from '../change-history/components/HistoricalStopDataProvider';
 import { LatestStopChangeHistoryTable } from '../change-history/components/LatestStopChangeHistoryTable';

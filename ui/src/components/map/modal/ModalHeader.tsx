@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
+import { Row } from '../../common/LayoutComponents';
 
 const testIds = {
   closeButton: 'ModalHeader::closeButton',

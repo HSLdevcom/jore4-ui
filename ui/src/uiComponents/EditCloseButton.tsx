@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { MdClose, MdEdit } from 'react-icons/md';
-import { Visible } from '../layoutComponents';
+import { Visible } from '../components/common/LayoutComponents';
 import { IconButton } from './IconButton';
 
 type EditCloseButtonProps = {

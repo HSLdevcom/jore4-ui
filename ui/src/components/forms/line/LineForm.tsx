@@ -4,10 +4,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
-import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormState as ChangeValidityFormState,

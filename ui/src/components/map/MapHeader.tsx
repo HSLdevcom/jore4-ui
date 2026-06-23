@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../layoutComponents';
 import { CloseIconButton } from '../../uiComponents';
 import { PageTitle } from '../common';
+import { Row } from '../common/LayoutComponents';
 
 const testIds = {
   closeButton: 'MapHeader::closeButton',

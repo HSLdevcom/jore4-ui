@@ -4,9 +4,9 @@ import {
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
-import { Row } from '../../../../layoutComponents';
 import { mapDurationToShortTime } from '../../../../time';
 import { getRouteLabelVariantText } from '../../../../utils';
+import { Row } from '../../../common/LayoutComponents';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 
 const testIds = {

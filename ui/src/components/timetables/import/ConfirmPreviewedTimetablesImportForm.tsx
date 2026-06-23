@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Column, Row } from '../../../layoutComponents';
+import { Column, Row } from '../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
 import {

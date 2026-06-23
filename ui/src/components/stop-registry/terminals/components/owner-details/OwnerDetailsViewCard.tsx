@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column } from '../../../../../layoutComponents';
+import { Column } from '../../../../common/LayoutComponents';
 import { DetailRow } from '../../../stops/stop-details/layout';
 import { TerminalComponentProps } from '../../types';
 

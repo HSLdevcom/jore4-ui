@@ -5,13 +5,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { Row } from '../../../layoutComponents';
 import {
   selectEditedRouteData,
   selectMapRouteEditor,
   setTemplateRouteIdAction,
 } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
+import { Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormActionButtons,

@@ -4,8 +4,8 @@ import {
   ExternalLinksDetailsFragment,
   TerminalExternalLinksDetailsFragment,
 } from '../../../../generated/graphql';
-import { Row } from '../../../../layoutComponents';
 import { EditButton } from '../../../../uiComponents';
+import { Row } from '../../../common/LayoutComponents';
 import { ExternalLinksForm } from './ExternalLinksForm';
 import { ExternalLinksList } from './ExternalLinksList';
 import { ExternalLinksFormState } from './schema';

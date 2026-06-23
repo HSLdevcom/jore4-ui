@@ -3,9 +3,9 @@ import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
-import { Visible } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
 import { mapDurationToShortTime, padToTwoDigits } from '../../../time';
+import { Visible } from '../../common/LayoutComponents';
 import { VehicleJourneyPopover } from './VehicleJourneyPopover';
 
 /**

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Column, Row } from '../../../../../layoutComponents';
+import { Column, Row } from '../../../../common/LayoutComponents';
 import { StopRowTdProps } from '../types';
 
 export const NameTd: FC<StopRowTdProps> = ({ className, stop }) => (

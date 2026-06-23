@@ -17,7 +17,7 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { Visible } from '../../../../../layoutComponents';
+import { Visible } from '../../../../common/LayoutComponents';
 import {
   assertKnownIdsListingIsGrouped,
   unregisterSelectionGroups,

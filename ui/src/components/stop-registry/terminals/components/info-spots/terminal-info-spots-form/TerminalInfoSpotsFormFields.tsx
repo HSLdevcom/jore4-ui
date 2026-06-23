@@ -3,10 +3,10 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../../../layoutComponents';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
+import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
   EnumDropdown,
   InputField,

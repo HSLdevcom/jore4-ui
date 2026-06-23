@@ -4,9 +4,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { JourneyPatternScheduledStopPointInJourneyPattern } from '../../../generated/graphql';
-import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { defaultLocalizedString, submitFormByRef } from '../../../utils';
+import { Row } from '../../common/LayoutComponents';
 import { InputField, localizedStringRequired } from '../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 

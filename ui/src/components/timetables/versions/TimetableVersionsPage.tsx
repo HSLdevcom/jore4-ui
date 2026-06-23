@@ -7,7 +7,6 @@ import {
   useRequiredParams,
   useTimeRangeQueryParams,
 } from '../../../hooks';
-import { Container } from '../../../layoutComponents';
 import {
   closeChangeTimetableValidityModalAction,
   selectChangeTimetableValidityModal,
@@ -15,6 +14,7 @@ import {
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
 import { PageTitle, TimeRangeControl } from '../../common';
+import { Container } from '../../common/LayoutComponents';
 import { FormColumn, FormRow } from '../../forms/common';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { DeleteTimetableModal } from './DeleteTimetableModal';

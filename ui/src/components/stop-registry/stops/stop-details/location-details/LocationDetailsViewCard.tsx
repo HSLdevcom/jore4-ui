@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
-import { HorizontalSeparator } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
+import { HorizontalSeparator } from '../../../../common/LayoutComponents';
 import { DetailRow, LabeledDetail } from '../layout';
 
 const testIds = {

@@ -3,8 +3,8 @@ import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../../layoutComponents';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
+import { Column, Row } from '../../../../common/LayoutComponents';
 import {
   EnumDropdown,
   FormActionButtons,

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
+import { Row } from '../LayoutComponents';
 
 const testIds = {
   hideButton: (prefix: string) => `${prefix}::hideButton`,

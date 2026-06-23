@@ -20,7 +20,7 @@ import {
   Column,
   HorizontalSeparator,
   Row,
-} from '../../../../../layoutComponents';
+} from '../../../../common/LayoutComponents';
 import {
   EnumDropdown,
   FormActionButtons,

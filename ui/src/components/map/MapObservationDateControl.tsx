@@ -1,9 +1,9 @@
 import { FC, KeyboardEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../hooks';
-import { Column } from '../../layoutComponents/Column';
 import { selectHasChangesInProgress } from '../../redux';
 import { mapToISODate, parseDate } from '../../time';
+import { Column } from '../common/LayoutComponents/Column';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 
 const testIds = {

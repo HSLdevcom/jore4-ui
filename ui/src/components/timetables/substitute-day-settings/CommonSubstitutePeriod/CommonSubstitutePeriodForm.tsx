@@ -7,7 +7,6 @@ import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SubstituteOperatingPeriodSettingsInfoFragment } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
-import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
 import { DateRange } from '../../../../types';
@@ -18,6 +17,7 @@ import {
   parseSubstituteDayOfWeek,
   submitFormByRef,
 } from '../../../../utils';
+import { Row } from '../../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { commonSubstituteDayData } from '../common_substitute_day_data';
 import {

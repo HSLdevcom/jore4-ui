@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { ComponentType, FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Visible } from '../../../../../layoutComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { Visible } from '../../../../common/LayoutComponents';
 import { PgIdType, ResultSelection } from '../../types';
 import { BatchUpdateSelection } from '../../utils';
 import { LoadingStopsErrorRow } from '../LoadingStopsErrorRow';

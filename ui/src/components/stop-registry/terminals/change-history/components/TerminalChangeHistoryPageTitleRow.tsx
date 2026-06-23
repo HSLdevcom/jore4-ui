@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigateBackSafely } from '../../../../../hooks';
-import { Row } from '../../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { CloseIconButton } from '../../../../../uiComponents';
 import { PageTitle } from '../../../../common';
+import { Row } from '../../../../common/LayoutComponents';
 import { TodaysName } from '../../../stops/change-history/types';
 
 const testIds = {

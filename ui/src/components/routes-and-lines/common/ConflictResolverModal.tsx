@@ -9,7 +9,6 @@ import {
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
-import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/enums';
@@ -19,6 +18,7 @@ import {
   ModalBody,
   SimpleButton,
 } from '../../../uiComponents';
+import { Row } from '../../common/LayoutComponents';
 import { RouteLabel } from '../../common/RouteLabel';
 
 const testIds = {

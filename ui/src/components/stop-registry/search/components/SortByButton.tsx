@@ -3,8 +3,8 @@ import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
-import { Visible } from '../../../../layoutComponents';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
+import { Visible } from '../../../common/LayoutComponents';
 import { SortStopsBy, SortingInfo } from '../types';
 
 const testIds = {

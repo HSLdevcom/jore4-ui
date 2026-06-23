@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { twJoin } from 'tailwind-merge';
-import { Column, Row } from '../../layoutComponents';
+import { Column, Row } from '../common/LayoutComponents';
 
 type MapOverlayProps = {
   readonly className?: string;

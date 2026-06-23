@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Column, Row } from '../../../../../layoutComponents';
+import { Column, Row } from '../../../../common/LayoutComponents';
 import { StopRowTdProps } from '../types';
 import { Icons } from './Icons';
 

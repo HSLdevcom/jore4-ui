@@ -1,9 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { Container } from '../../../../layoutComponents';
 import { LoadingState, Operation } from '../../../../redux';
 import { useLoader } from '../../../common/hooks';
+import { Container } from '../../../common/LayoutComponents';
 import {
   StopAreaDetailsAndMap,
   StopAreaLatestChanges,

@@ -2,7 +2,7 @@ import pick from 'lodash/pick';
 import { FC } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Column } from '../../../../../../layoutComponents';
+import { Column } from '../../../../../common/LayoutComponents';
 import { EnumDropdown, InputLabel } from '../../../../../forms/common';
 import { SearchFor, StopSearchFilters, defaultFilters } from '../../../types';
 import { trSearchFor } from '../../../utils';

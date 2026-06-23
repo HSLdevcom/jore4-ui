@@ -3,12 +3,12 @@ import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
-import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { isDateInRange, mapToISODate, parseDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
+import { Column } from '../../../../common/LayoutComponents';
 import {
   FormActionButtons,
   FormColumn,

@@ -4,9 +4,9 @@ import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { Row } from '../../../layoutComponents';
 import { DateRange } from '../../../types';
 import { DateInput } from '../DateInput';
+import { Row } from '../LayoutComponents';
 
 const testIds = {
   startDate: 'ScheduledVersionsContainer::DateRangeInputs::startDate',

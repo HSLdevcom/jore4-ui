@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineDefaultFieldsFragment } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
-import { Row } from '../../../layoutComponents';
 import { DateLike, mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/enums';
+import { Row } from '../../common/LayoutComponents';
 
 const testIds = {
   validityPeriod: 'LineValidityPeriod::validityPeriod',

@@ -6,7 +6,6 @@ import {
   mapTimetablePriorityToUiName,
 } from '../../../i18n/uiNameMappings';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
-import { Visible } from '../../../layoutComponents';
 import {
   openDeleteTimetableModalAction,
   openVersionPanelAction,
@@ -18,6 +17,7 @@ import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../uiComponents';
+import { Visible } from '../../common/LayoutComponents';
 import { TimetableVersionRowData } from './hooks';
 
 const testIds = {

@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Row } from '../../../layoutComponents';
 import { defaultPagingInfo } from '../../../types';
 import { CloseIconButton } from '../../../uiComponents';
 import { areEqual } from '../../../utils';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';

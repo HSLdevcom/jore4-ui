@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated/graphql';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
-import { Row, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { AccordionButton } from '../../../../uiComponents';
 import { useToggle } from '../../../common/hooks';
+import { Row, Visible } from '../../../common/LayoutComponents';
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 
 const testIds = {

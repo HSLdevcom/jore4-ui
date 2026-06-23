@@ -2,7 +2,6 @@ import uniq from 'lodash/uniq';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../hooks';
-import { Visible } from '../../../layoutComponents';
 import {
   Mode,
   selectEditedRouteData,
@@ -10,6 +9,7 @@ import {
   selectMapRouteEditor,
   selectSelectedRouteId,
 } from '../../../redux';
+import { Visible } from '../../common/LayoutComponents';
 import { RouteEditorRef } from '../refTypes';
 import { DraftRouteGeometryLayer } from './DraftRouteGeometryLayer';
 import { DrawRouteLayer } from './DrawRouteLayer';

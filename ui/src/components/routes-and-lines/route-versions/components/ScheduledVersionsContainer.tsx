@@ -1,9 +1,9 @@
 import { Transition } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column } from '../../../../layoutComponents';
 import { ExpandButton } from '../../../../uiComponents';
 import { accordionClassNames } from '../../../common';
+import { Column } from '../../../common/LayoutComponents';
 import {
   DateRangeInputs,
   useFilterVersionsByDateRange,

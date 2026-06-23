@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { Row } from '../../../../../../layoutComponents';
+import { Row } from '../../../../../common/LayoutComponents';
 import { StopOwnerFilter } from './StopOwnerFilter';
 import { lgBasis, mdBasis, smBasis } from './StopPropertyFilters';
 

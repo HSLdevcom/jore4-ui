@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Row } from '../../layoutComponents';
+import { Row } from '../../components/common/LayoutComponents';
 
 const testIds = {
   modalFooter: 'ModalFooter',

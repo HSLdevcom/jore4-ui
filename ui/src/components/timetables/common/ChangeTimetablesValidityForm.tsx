@@ -3,9 +3,9 @@ import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Row, Visible } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { Row, Visible } from '../../common/LayoutComponents';
 import {
   FormColumn,
   FormRow,

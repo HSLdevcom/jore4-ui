@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { MdHistory } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
-import { Column, Row } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
+import { Column, Row } from '../../../common/LayoutComponents';
 import { getTimetableHeadingBgColor } from '../../vehicle-schedule-details';
 
 type TimetableHeadingProps = {

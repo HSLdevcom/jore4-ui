@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { SearchContainer } from '../../routes-and-lines/search/SearchContainer';
 
 const testIds = {

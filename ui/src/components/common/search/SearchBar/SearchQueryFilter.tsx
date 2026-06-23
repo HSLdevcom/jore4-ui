@@ -2,12 +2,12 @@ import { ReactElement } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../i18n';
-import { Column, Row } from '../../../../layoutComponents';
 import {
   InputElement,
   InputLabel,
   ValidationErrorList,
 } from '../../../forms/common';
+import { Column, Row } from '../../LayoutComponents';
 
 const testIds = {
   searchInput: (testIdPrefix: string) => `${testIdPrefix}::searchInput`,

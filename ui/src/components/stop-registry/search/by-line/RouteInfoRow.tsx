@@ -5,10 +5,10 @@ import {
   mapDirectionToLabel,
   mapDirectionToSymbol,
 } from '../../../../i18n/uiNameMappings';
-import { Row } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LocatorButton } from '../../../../uiComponents';
 import { useShowRoutesOnMap } from '../../../common/hooks';
+import { Row } from '../../../common/LayoutComponents';
 import { StopSearchRow } from '../../components';
 import { SelectAllCheckbox } from '../components/SelectAllCheckbox';
 import { ResultSelection } from '../types';

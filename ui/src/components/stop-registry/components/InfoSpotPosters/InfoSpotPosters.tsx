@@ -6,7 +6,7 @@ import {
   HorizontalSeparator,
   Row,
   Visible,
-} from '../../../../layoutComponents';
+} from '../../../common/LayoutComponents';
 import { formatSizedDbItem } from '../../stops/stop-details/info-spots/utils';
 import { DetailRow, LabeledDetail } from '../../stops/stop-details/layout';
 

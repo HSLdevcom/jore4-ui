@@ -1,8 +1,8 @@
 import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useController } from 'react-hook-form';
-import { Column } from '../../../../../../layoutComponents';
 import { AllOptionEnum } from '../../../../../../utils';
+import { Column } from '../../../../../common/LayoutComponents';
 import { InputLabel, ValidationErrorList } from '../../../../../forms/common';
 import {
   StopSearchFilters,

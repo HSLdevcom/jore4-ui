@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
 import { InfoContainerHeaderButtonsProps } from '../../../../common';
+import { Visible } from '../../../../common/LayoutComponents';
 
 const testIds = {
   toggle: (prefix: string) => `${prefix}::toggle`,

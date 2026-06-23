@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useController } from 'react-hook-form';
 import { mapStopOwnerToUiName } from '../../../../../../i18n/uiNameMappings';
-import { Column } from '../../../../../../layoutComponents';
 import { StopOwner } from '../../../../../../types/stop-registry';
 import { AllOptionEnum } from '../../../../../../utils';
+import { Column } from '../../../../../common/LayoutComponents';
 import { InputLabel, ValidationErrorList } from '../../../../../forms/common';
 import { StopSearchFilters } from '../../../types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';

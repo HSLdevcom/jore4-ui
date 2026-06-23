@@ -7,13 +7,13 @@ import {
   ExternalLinksDetailsFragment,
   TerminalExternalLinksDetailsFragment,
 } from '../../../../generated/graphql';
+import { SimpleButton } from '../../../../uiComponents';
+import { AddNewButton } from '../../../../uiComponents/AddNewButton';
 import {
   HorizontalSeparator,
   Row,
   Visible,
-} from '../../../../layoutComponents';
-import { SimpleButton } from '../../../../uiComponents';
-import { AddNewButton } from '../../../../uiComponents/AddNewButton';
+} from '../../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { ExternalLinksFormFields } from './ExternalLinksFormFields';
 import {

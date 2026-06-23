@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Row } from '../../layoutComponents';
 import {
   selectMapFilter,
   setShowMapEntityTypeFilterOverlayAction,
 } from '../../redux';
 import { IconButton, IconToggle } from '../../uiComponents';
+import { Row } from '../common/LayoutComponents';
 import { MapObservationDateControl } from './MapObservationDateControl';
 import { StopSelection } from './StopSelection';
 import { useIsInSearchResultMode } from './utils/useIsInSearchResultMode';

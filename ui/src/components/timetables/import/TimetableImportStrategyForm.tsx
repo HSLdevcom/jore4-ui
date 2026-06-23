@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { z } from 'zod';
-import { Row } from '../../../layoutComponents';
+import { Row } from '../../common/LayoutComponents';
 import { RadioButton } from '../../forms/common/RadioButton';
 
 const testIds = {

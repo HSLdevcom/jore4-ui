@@ -5,7 +5,6 @@ import {
   useAppSelector,
   useObservationDateQueryParam,
 } from '../../../hooks';
-import { Row, Visible } from '../../../layoutComponents';
 import {
   LoadingState,
   resetSelectedRowsAction,
@@ -20,6 +19,7 @@ import {
   isRouteActiveOnObservationDate,
   showDangerToast,
 } from '../../../utils';
+import { Row, Visible } from '../../common/LayoutComponents';
 import { useSearchResults } from '../../common/search/useSearchResults';
 import { useExportRoutes } from './useExportRoutes';
 

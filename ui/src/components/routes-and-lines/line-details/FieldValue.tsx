@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Column } from '../../../layoutComponents';
+import { Column } from '../../common/LayoutComponents';
 
 type FieldValueProps = {
   readonly className?: string;

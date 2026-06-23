@@ -4,8 +4,8 @@ import isEqual from 'lodash/isEqual';
 import { FC, useCallback, useMemo } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Column } from '../../../../../../layoutComponents';
 import { AllOptionEnum, NullOptionEnum, none } from '../../../../../../utils';
+import { Column } from '../../../../../common/LayoutComponents';
 import { InputLabel, ValidationErrorList } from '../../../../../forms/common';
 import { useGetInfoSpotSizes } from '../../../../stops/stop-details/info-spots/queries/useGetInfoSpotSizes';
 import {

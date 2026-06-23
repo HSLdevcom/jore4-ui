@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Row } from '../../../../layoutComponents';
 import { padToTwoDigits } from '../../../../time';
+import { Row } from '../../../common/LayoutComponents';
 
 export type VehicleServiceRowData = {
   readonly hours: number;

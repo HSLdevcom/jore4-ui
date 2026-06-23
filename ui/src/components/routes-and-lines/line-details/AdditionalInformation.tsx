@@ -6,9 +6,9 @@ import {
   mapTransportTargetToUiName,
   mapVehicleModeToUiName,
 } from '../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
+import { Column, Row } from '../../common/LayoutComponents';
 import { FieldValue } from './FieldValue';
 
 const testIds = {

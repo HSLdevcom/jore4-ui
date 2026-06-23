@@ -6,11 +6,11 @@ import {
   ReusableComponentsVehicleModeEnum,
 } from '../../../generated/graphql';
 import { mapInsertLineOneResult } from '../../../graphql';
-import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/enums';
 import { showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,

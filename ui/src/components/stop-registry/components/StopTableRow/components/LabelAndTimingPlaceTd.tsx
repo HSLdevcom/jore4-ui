@@ -2,8 +2,8 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { Row } from '../../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
+import { Row } from '../../../../common/LayoutComponents';
 import { StopTransportModeIcon } from '../../StopTransportModeIcon';
 import { StopRowTdProps } from '../types';
 

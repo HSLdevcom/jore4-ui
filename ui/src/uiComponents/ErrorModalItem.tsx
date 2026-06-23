@@ -1,7 +1,7 @@
 import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Visible } from '../layoutComponents';
+import { Visible } from '../components/common/LayoutComponents';
 
 const testIds = {
   modalItem: 'ErrorModalItem::modalItem',

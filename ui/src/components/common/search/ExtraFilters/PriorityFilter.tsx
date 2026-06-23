@@ -4,9 +4,9 @@ import { FieldValues, Path, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../i18n';
 import { mapPriorityToUiName } from '../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../layoutComponents';
 import { Priority, knownPriorityValues } from '../../../../types/enums';
 import { InputLabel, LabeledCheckbox } from '../../../forms/common';
+import { Column, Row } from '../../LayoutComponents';
 
 const testIds = {
   priorityCheckbox: (prefix: string, priority: Priority) =>

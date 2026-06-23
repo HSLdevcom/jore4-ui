@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Row } from '../../../../layoutComponents';
+import { Row } from '../../../common/LayoutComponents';
 import { ResultSelector } from '../../../common/search/ResultSelector';
 
 export const FiltersContainer: FC = () => (

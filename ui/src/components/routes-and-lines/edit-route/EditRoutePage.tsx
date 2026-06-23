@@ -6,11 +6,11 @@ import {
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
 import { useRequiredParams } from '../../../hooks';
-import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { ConfirmationDialog, FormContainer } from '../../../uiComponents';
 import { mapToVariables, showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { RedirectWithQuery } from '../../common/RedirectWithQuery';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';

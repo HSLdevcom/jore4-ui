@@ -4,9 +4,9 @@ import { FieldPathByValue, FieldValues, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../i18n/uiNameMappings';
-import { Row } from '../../../../layoutComponents';
 import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
 import { AllOptionEnum } from '../../../../utils';
+import { Row } from '../../LayoutComponents';
 import s from './TransportationModeFilter.module.css';
 
 const testIds = {

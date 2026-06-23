@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Column, Row } from '../../../../../../layoutComponents';
+import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
   ExtraFiltersToggle,
   SearchQueryFilter,

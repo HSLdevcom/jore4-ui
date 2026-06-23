@@ -6,10 +6,10 @@ import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
-import { Row } from '../../../layoutComponents';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
 import { IconButton } from '../../../uiComponents';
+import { Row } from '../../common/LayoutComponents';
 
 const testIds = {
   container: 'VehicleJourneyGroupInfo',

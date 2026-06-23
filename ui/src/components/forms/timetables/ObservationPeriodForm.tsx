@@ -8,13 +8,13 @@ import { MdWarning } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { useAppSelector } from '../../../hooks';
-import { Visible } from '../../../layoutComponents';
-import { Row } from '../../../layoutComponents/Row';
 import { selectTimetable } from '../../../redux';
 import { parseDate } from '../../../time';
 import { DateRange } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
 import { areEqual } from '../../../utils';
+import { Visible } from '../../common/LayoutComponents';
+import { Row } from '../../common/LayoutComponents/Row';
 import { InputField, requiredDate } from '../common';
 
 const testIds = {

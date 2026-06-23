@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeBackNavigationIsSafeState, useUrlQuery } from '../../../../hooks';
-import { Row } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../../uiComponents';
+import { Row } from '../../../common/LayoutComponents';
 import { ObservationDateControl } from '../../../common/ObservationDateControl';
 
 const testIds = {

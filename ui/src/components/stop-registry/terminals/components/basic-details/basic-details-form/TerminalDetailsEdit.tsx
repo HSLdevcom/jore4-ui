@@ -7,7 +7,6 @@ import {
   MemberStopQuayDetailsFragment,
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { Column } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
@@ -19,6 +18,7 @@ import {
   showSuccessToast,
 } from '../../../../../../utils';
 import { useLoader } from '../../../../../common/hooks/useLoader';
+import { Column } from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,
   FormColumn,

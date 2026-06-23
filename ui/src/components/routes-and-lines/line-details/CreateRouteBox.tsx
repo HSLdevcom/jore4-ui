@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { Column } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
+import { Column } from '../../common/LayoutComponents';
 
 type CreateRouteBoxProps = {
   readonly className?: string;

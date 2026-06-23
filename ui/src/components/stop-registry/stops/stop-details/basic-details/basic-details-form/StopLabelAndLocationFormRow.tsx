@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { mapStopPlaceStateToUiName } from '../../../../../../i18n/uiNameMappings';
-import { Column } from '../../../../../../layoutComponents';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
+import { Column } from '../../../../../common/LayoutComponents';
 import { EnumDropdown, FormRow, InputField } from '../../../../../forms/common';
 import { StopBasicDetailsFormState } from './schema';
 

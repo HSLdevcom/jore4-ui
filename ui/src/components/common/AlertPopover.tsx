@@ -1,8 +1,8 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import noop from 'lodash/noop';
 import { FC } from 'react';
-import { Visible } from '../../layoutComponents';
 import { CloseIconButton } from '../../uiComponents';
+import { Visible } from './LayoutComponents';
 
 const testIds = {
   closeButton: 'AlertPopover::closeButton',

@@ -6,7 +6,6 @@ import {
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
 import { useNavigateBackSafely, useRequiredParams } from '../../../hooks';
-import { Container } from '../../../layoutComponents';
 import { Operation } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
@@ -17,6 +16,7 @@ import {
 } from '../../../utils';
 import { PageTitle } from '../../common';
 import { useLoader } from '../../common/hooks';
+import { Container } from '../../common/LayoutComponents';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,

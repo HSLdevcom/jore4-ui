@@ -7,13 +7,13 @@ import {
   useDateQueryParam,
   useUrlQuery,
 } from '../../../hooks';
-import { Container, Row } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { DateRange } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { CloseIconButton } from '../../../uiComponents/CloseIconButton';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
 import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod/CommonSubstitutePeriodSection';
 import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';

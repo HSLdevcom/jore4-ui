@@ -4,14 +4,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../../../../hooks/redux';
 import {
-  HorizontalSeparator,
-  Visible,
-} from '../../../../../../layoutComponents';
-import {
   openTimingPlaceModalAction,
   selectIsTimingPlaceModalOpen,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
+import {
+  HorizontalSeparator,
+  Visible,
+} from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,
   FormColumn,

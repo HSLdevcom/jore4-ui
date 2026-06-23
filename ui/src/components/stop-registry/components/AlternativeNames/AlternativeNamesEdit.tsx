@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Column } from '../../../../layoutComponents';
+import { Column } from '../../../common/LayoutComponents';
 import { FormRow, InputField } from '../../../forms/common';
 import { AlternativeNamesSchema } from './schema';
 

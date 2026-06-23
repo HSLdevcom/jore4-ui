@@ -3,8 +3,8 @@ import { DateTime } from 'luxon';
 import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
+import { Column, Row } from '../../common/LayoutComponents';
 import {
   ObservationDateInput,
   PriorityForm,

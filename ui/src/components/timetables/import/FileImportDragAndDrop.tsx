@@ -1,9 +1,9 @@
 import { t } from 'i18next';
 import { ChangeEvent, DragEventHandler, FC, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { showDangerToast } from '../../../utils';
+import { Row } from '../../common/LayoutComponents';
 
 type DragZoneClassNames = {
   readonly dragZone: string;

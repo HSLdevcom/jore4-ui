@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { SearchContainer } from '../search/SearchContainer';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';

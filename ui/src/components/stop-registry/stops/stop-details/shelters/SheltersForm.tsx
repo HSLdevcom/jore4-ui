@@ -7,7 +7,10 @@ import {
   useRef,
 } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
-import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import {
+  HorizontalSeparator,
+  Visible,
+} from '../../../../common/LayoutComponents';
 import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SheltersFormState, sheltersFormSchema } from './schema';

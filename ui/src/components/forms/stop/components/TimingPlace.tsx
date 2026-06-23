@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../../hooks';
-import { Row } from '../../../../layoutComponents';
 import { openTimingPlaceModalAction } from '../../../../redux';
 import { SimpleButton } from '../../../../uiComponents';
+import { Row } from '../../../common/LayoutComponents';
 import { InputField } from '../../common';
 import { ChooseTimingPlaceDropdown } from '../ChooseTimingPlaceDropdown';
 

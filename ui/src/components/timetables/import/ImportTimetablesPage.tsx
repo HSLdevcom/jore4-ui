@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router';
 import { extractErrorType, getImportErrorBody } from '../../../api/hastus';
 import { useAppSelector } from '../../../hooks';
 import { mapHastusErrorTypeToErrorMessage } from '../../../i18n/hastusErrorMappings';
-import { Container, Row } from '../../../layoutComponents';
 import {
   ErrorListItem,
   openErrorListModalAction,
@@ -19,6 +18,7 @@ import {
 } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common';
+import { Container, Row } from '../../common/LayoutComponents';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
 import { FileImportDragAndDrop } from './FileImportDragAndDrop';

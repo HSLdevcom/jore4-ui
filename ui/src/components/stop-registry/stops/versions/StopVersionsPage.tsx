@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
-import { Container, Row } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { CloseIconButton } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../../common';
+import { Container, Row } from '../../../common/LayoutComponents';
 import { StopVersionContainers } from './components/StopVersionContainers';
 import { useGetStopVersionPageInfo } from './queries/useGetStopVersionPageInfo';
 

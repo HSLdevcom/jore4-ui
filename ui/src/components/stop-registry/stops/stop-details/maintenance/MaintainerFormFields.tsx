@@ -5,8 +5,8 @@ import {
   StopPlaceOrganisationFieldsFragment,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
-import { Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
+import { Visible } from '../../../../common/LayoutComponents';
 import { InputField } from '../../../../forms/common';
 import {
   CREATE_NEW_ORGANISATION_OPTION,

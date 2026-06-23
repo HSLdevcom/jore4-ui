@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { HorizontalSeparator } from '../../../layoutComponents';
+import { HorizontalSeparator } from '../../common/LayoutComponents';
 import { FilterRow } from './FilterRow';
 import { ClassNameProps } from './types';
 import { useTimeAndPriorityFilters } from './useTimeAndPriorityFilters';

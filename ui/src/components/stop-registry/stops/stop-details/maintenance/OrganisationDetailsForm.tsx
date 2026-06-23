@@ -3,9 +3,9 @@ import { t } from 'i18next';
 import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Row, Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
 import { submitFormByRef } from '../../../../../utils';
+import { Row, Visible } from '../../../../common/LayoutComponents';
 import { FormRow, InputField, requiredString } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 

@@ -9,8 +9,8 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../../../i18n';
-import { Column } from '../../../../../../layoutComponents';
 import { none } from '../../../../../../utils';
+import { Column } from '../../../../../common/LayoutComponents';
 import { InputField, InputLabel } from '../../../../../forms/common';
 import { useGetInfoSpotSizes } from '../queries/useGetInfoSpotSizes';
 import {

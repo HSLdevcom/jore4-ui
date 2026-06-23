@@ -7,12 +7,12 @@ import { Link } from 'react-router';
 import { twJoin } from 'tailwind-merge';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { makeBackNavigationIsSafeState, useGetUserNames } from '../../../hooks';
-import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDateTime } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
+import { Column, Row } from '../../common/LayoutComponents';
 import { LineValidityPeriod } from './LineValidityPeriod';
 import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
 

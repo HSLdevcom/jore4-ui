@@ -4,7 +4,7 @@ import {
   ExternalLinksDetailsFragment,
   TerminalExternalLinksDetailsFragment,
 } from '../../../../generated/graphql';
-import { Column, Row } from '../../../../layoutComponents';
+import { Column, Row } from '../../../common/LayoutComponents';
 
 const testIds = {
   linksContainer: 'ExternalLinks::linksContainer',

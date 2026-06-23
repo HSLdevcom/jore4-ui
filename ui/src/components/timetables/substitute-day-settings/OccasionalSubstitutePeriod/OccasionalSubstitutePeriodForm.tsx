@@ -12,7 +12,6 @@ import {
   SubstituteOperatingPeriodSettingsInfoFragment,
 } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
-import { Row, Visible } from '../../../../layoutComponents';
 import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
@@ -25,6 +24,7 @@ import {
   parseSubstituteDayOfWeek,
   submitFormByRef,
 } from '../../../../utils';
+import { Row, Visible } from '../../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   FormState,

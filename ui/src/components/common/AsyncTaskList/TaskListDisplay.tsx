@@ -1,5 +1,5 @@
 import { FC, Fragment } from 'react';
-import { HorizontalSeparator } from '../../../layoutComponents';
+import { HorizontalSeparator } from '../LayoutComponents';
 import { useAsyncTasks } from './AsyncTaskList';
 import { TaskWithProgressBar } from './TaskWithProgressBar';
 

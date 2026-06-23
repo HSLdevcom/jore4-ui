@@ -3,9 +3,9 @@ import uniq from 'lodash/uniq';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../generated/graphql';
-import { Row } from '../../../layoutComponents';
 import { Modal, ModalBody, SimpleButton } from '../../../uiComponents';
 import { StopsList } from '../../common/ChangeHistory';
+import { Row } from '../../common/LayoutComponents';
 import { StopMetaTypeUpdateInfo } from './useUpdateStopRegistryStopMetatype';
 
 const testIds = {

@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { Row } from '../../../../../../layoutComponents';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../../uiComponents';
+import { Row } from '../../../../../common/LayoutComponents';
 import {
   FormRow,
   ReasonForChangeForm,

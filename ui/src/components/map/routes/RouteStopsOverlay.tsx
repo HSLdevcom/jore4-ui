@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
-import { Row, Visible } from '../../../layoutComponents';
 import {
   selectHasChangesInProgress,
   selectMapRouteEditor,
@@ -15,6 +14,7 @@ import {
   filterDistinctConsecutiveStops,
   filterHighestPriorityCurrentStops,
 } from '../../../utils';
+import { Row, Visible } from '../../common/LayoutComponents';
 import { RouteLabel } from '../../common/RouteLabel';
 import { CustomOverlay } from '../CustomOverlay';
 import { MapOverlay, MapOverlayHeader } from '../MapOverlay';

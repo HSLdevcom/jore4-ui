@@ -1,6 +1,5 @@
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../../../../../layoutComponents';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import {
   CloseIconButton,
@@ -10,6 +9,7 @@ import {
 } from '../../../../../../uiComponents';
 import { Modal } from '../../../../../../uiComponents/modal/Modal';
 import { submitFormByRef } from '../../../../../../utils';
+import { Row } from '../../../../../common/LayoutComponents';
 import { useWrapInContextNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AddMemberStopsForm } from './AddMemberStopsForm';
 

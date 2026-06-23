@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column, Container } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
+import { Column, Container } from '../../common/LayoutComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormRow } from '../../forms/common';
 import { useRoutesAndLinesDraftReturnToQueryParam } from '../line-drafts/useRoutesAndLinesDraftReturnToQueryParam';

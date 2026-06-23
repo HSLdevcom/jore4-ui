@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { LoggedIn } from '../../layoutComponents/LoggedIn';
+import { LoggedIn } from '../common/LayoutComponents';
 import { BrandLogo } from './BrandLogo';
 import { LanguageDropdown } from './LanguageDropdown';
 import { NavLinks } from './NavLinks';

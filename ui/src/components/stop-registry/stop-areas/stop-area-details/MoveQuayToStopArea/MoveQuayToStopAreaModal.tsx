@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import { ChangeEventHandler, FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Column, Row } from '../../../../../layoutComponents';
 import {
   CloseIconButton,
   ModalBody,
@@ -10,6 +9,7 @@ import {
 } from '../../../../../uiComponents';
 import { Modal } from '../../../../../uiComponents/modal/Modal';
 import { showSuccessToast } from '../../../../../utils';
+import { Column, Row } from '../../../../common/LayoutComponents';
 import { SelectStopDropdown } from '../../../components/SelectMemberStops';
 import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
 import { useGetStopVersions } from '../../../stops/versions/queries/useGetStopVersions';

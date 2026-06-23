@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Column, Row, Visible } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
+import { Column, Row, Visible } from '../../common/LayoutComponents';
 import { LabeledRadioButton, ValidationErrorList } from '../../forms/common';
 
 export const timetablesImportPriorityFormSchema = z.object({

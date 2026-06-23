@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 import { TranslationKey } from '../../../i18n';
-import { Column } from '../../../layoutComponents';
+import { Column } from '../../common/LayoutComponents';
 import {
   ControlledElement,
   InputElementRenderProps,

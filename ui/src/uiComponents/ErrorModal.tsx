@@ -2,7 +2,7 @@ import { DialogTitle } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { Row } from '../layoutComponents';
+import { Row } from '../components/common/LayoutComponents';
 import { CloseIconButton } from './CloseIconButton';
 import { Modal, NewModalBody } from './modal';
 import { SimpleButton } from './SimpleButton';

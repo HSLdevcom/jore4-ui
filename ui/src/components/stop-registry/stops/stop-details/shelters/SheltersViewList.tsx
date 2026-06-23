@@ -1,6 +1,9 @@
 import { FC } from 'react';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
-import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import {
+  HorizontalSeparator,
+  Visible,
+} from '../../../../common/LayoutComponents';
 import { ShelterViewCard } from './ShelterViewCard';
 
 type SheltersViewListProps = {

@@ -2,7 +2,7 @@ import { FC, useId } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { Column } from '../../../../layoutComponents';
+import { Column } from '../../../common/LayoutComponents';
 import { LineTypeDropdown } from '../../../forms/line/LineTypeDropdown';
 import { RoutesAndLinesSearchFilters } from '../types';
 

@@ -1,9 +1,9 @@
 import { t } from 'i18next';
 import { DateTime } from 'luxon';
 import { FC } from 'react';
-import { Row } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { CloseIconButton } from '../../../../uiComponents';
+import { Row } from '../../../common/LayoutComponents';
 
 const testIds = {
   heading: 'TimetableVersionPanelHeading::heading',

@@ -1,8 +1,8 @@
 import { Field } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, Visible } from '../../../layoutComponents';
 import { Switch, SwitchLabel, TextButton } from '../../../uiComponents';
+import { Row, Visible } from '../../common/LayoutComponents';
 
 type ListHeaderProps = {
   readonly showOwnLines: boolean;

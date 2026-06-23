@@ -7,8 +7,8 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
-import { Row } from '../../../layoutComponents';
 import { AccordionButton } from '../../../uiComponents';
+import { Row } from '../../common/LayoutComponents';
 import {
   FormColumn,
   FormRow,

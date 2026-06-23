@@ -2,7 +2,6 @@ import { Field } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { Container, Row, Visible } from '../../../layoutComponents';
 import {
   closeChangeTimetableValidityModalAction,
   selectChangeTimetableValidityModal,
@@ -13,6 +12,7 @@ import {
   setShowArrivalTimesAction,
 } from '../../../redux/slices/timetable';
 import { SimpleButton, Switch, SwitchLabel } from '../../../uiComponents';
+import { Container, Row, Visible } from '../../common/LayoutComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
-import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { parseDate } from '../../../time';
 import { EnrichedParentStopPlace } from '../../../types';
@@ -13,6 +12,7 @@ import {
   getGeometryPoint,
   mapToValidityPeriod,
 } from '../../../utils';
+import { Column, Row } from '../../common/LayoutComponents';
 import { useMapObservationDate } from '../utils/mapUrlState';
 
 const testIds = {

@@ -1,8 +1,8 @@
 import { FieldValues, Path } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
-import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
+import { Row } from '../../common/LayoutComponents';
 import { FormRow } from './FormRow';
 import { InputField } from './InputField';
 import {

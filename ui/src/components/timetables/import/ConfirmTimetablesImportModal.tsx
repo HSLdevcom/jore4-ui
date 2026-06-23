@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Visible } from '../../../layoutComponents';
 import { Modal, NewModalBody, NewModalHeader } from '../../../uiComponents';
+import { Visible } from '../../common/LayoutComponents';
 import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
 import {

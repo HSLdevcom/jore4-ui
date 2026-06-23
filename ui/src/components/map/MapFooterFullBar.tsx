@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { useAppAction, useAppSelector } from '../../hooks';
-import { Row, Visible } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
   Mode,
@@ -16,6 +15,7 @@ import {
   setDraftVehicleModeAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
+import { Row, Visible } from '../common/LayoutComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { MapFooterAddStopDropdown } from './MapFooterAddStopDropdown';
 import { useMapViewState } from './utils/useMapViewState';

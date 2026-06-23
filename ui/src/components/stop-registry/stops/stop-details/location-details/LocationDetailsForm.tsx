@@ -4,12 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StopRegistrySignContentType } from '../../../../../generated/graphql';
 import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
+import { StopWithDetails } from '../../../../../types';
 import {
   Column,
   HorizontalSeparator,
   Row,
-} from '../../../../../layoutComponents';
-import { StopWithDetails } from '../../../../../types';
+} from '../../../../common/LayoutComponents';
 import {
   EnumDropdown,
   FormActionButtons,

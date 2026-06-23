@@ -1,9 +1,9 @@
 import { Transition } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../../../../layoutComponents';
 import { ExpandButton } from '../../../../../uiComponents';
 import { accordionClassNames } from '../../../../common';
+import { Row } from '../../../../common/LayoutComponents';
 import {
   useSortedVersions,
   useVersionContainerControls,
