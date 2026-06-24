@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { StopPlaceState } from '../../../../../types/stop-registry';
 import { useGetTimingPlaceLabel } from '../../queries/useGetTimingPlaceLabel';
+import { getEffectiveStopState } from '../getEffectiveStopState';
 import { DetailRow, LabeledDetail } from '../layout';
 import { translateStopTypes } from '../utils';
 
@@ -33,9 +36,15 @@ const testIds = {
 
 export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
+  const { observationDate } = useObservationDateQueryParam();
 
-  const stopState =
-    stop.quay?.stopState && mapStopPlaceStateToUiName(t, stop.quay.stopState);
+  const effectiveState = getEffectiveStopState(
+    stop.quay?.stopState,
+    stop.quay?.stopStateValidityStart,
+    stop.quay?.stopStateValidityEnd,
+    observationDate,
+  );
+  const stopState = mapStopPlaceStateToUiName(t, effectiveState);
 
   const transportMode =
     stop.stop_place?.transportMode &&

@@ -4,6 +4,7 @@ import {
   useUpdateStopPlaceMutation,
 } from '../../../../../generated/graphql';
 import { EnrichedQuay, EnrichedStopPlace } from '../../../../../types';
+import { StopPlaceState } from '../../../../../types/stop-registry';
 import {
   KnownValueKey,
   patchKeyValues,
@@ -37,6 +38,20 @@ export function useEditMirroredQuayDetails() {
             {
               key: KnownValueKey.StopState,
               values: [state.stopState],
+            },
+            {
+              key: KnownValueKey.StopStateValidityStart,
+              values:
+                state.stopState !== StopPlaceState.InOperation
+                  ? [state.stopStateValidityStart.toISODate()]
+                  : [],
+            },
+            {
+              key: KnownValueKey.StopStateValidityEnd,
+              values:
+                state.stopState !== StopPlaceState.InOperation
+                  ? [state.stopStateValidityEnd.toISODate()]
+                  : [],
             },
             {
               key: KnownValueKey.TrunkLineStop,

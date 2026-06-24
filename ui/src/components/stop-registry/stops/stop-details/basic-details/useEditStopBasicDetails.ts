@@ -17,6 +17,7 @@ import {
   mapStopResultToStop,
 } from '../../../../../graphql';
 import { StopWithDetails } from '../../../../../types';
+import { StopPlaceState } from '../../../../../types/stop-registry';
 import {
   InternalError,
   KnownValueKey,
@@ -252,6 +253,20 @@ export const useEditStopBasicDetails = () => {
             {
               key: KnownValueKey.StopState,
               values: state.stopState ? [state.stopState] : [],
+            },
+            {
+              key: KnownValueKey.StopStateValidityStart,
+              values:
+                state.stopState !== StopPlaceState.InOperation
+                  ? [state.stopStateValidityStart.toISODate()]
+                  : [],
+            },
+            {
+              key: KnownValueKey.StopStateValidityEnd,
+              values:
+                state.stopState !== StopPlaceState.InOperation
+                  ? [state.stopStateValidityEnd.toISODate()]
+                  : [],
             },
             {
               key: KnownValueKey.TimingPlaceId,

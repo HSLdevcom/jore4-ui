@@ -289,6 +289,9 @@
       "transportMode": "Transport type",
       "stopType": "Stop type",
       "stopState": "Stop state",
+      "stopStateValidityStart": "State valid from",
+      "stopStateValidityEnd": "State valid until",
+      "stateChangesOn": "State changes on {{ date }}",
       "elyNumber": "ELY number",
       "stopInformation": "Stop-specific information"
     },
@@ -935,6 +938,13 @@
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versions)",
     "confirmText": "OK"
   },
+  "confirmStopStateChangeDialog": {
+    "title": "Confirm status change",
+    "description": "The status of stop {{ stopLabel }} will be changed.",
+    "affectedRoutes": "This change affects the following routes:",
+    "routesNotModified": "The stop will not be available on routes during the selected period. Routes will not be modified.",
+    "confirmText": "Confirm"
+  },
   "confirmAutoUpdateStops": {
     "title": "Changes to Stop details",
     "bodySpeedTram": "Saving this route will mark the associated Stops as Speed Tram Stops. You can refine this on the Stops details page.",
@@ -1171,7 +1181,8 @@
     "invalidValidityStartDate": "Invalid validity start date",
     "validityEndDateBeforeStartDate": "Validity end date cannot be before start date",
     "nameValueTooLong": "Name has over 21 characters.",
-    "invalidLineType": "Line type must match with it's vehicle mode"
+    "invalidLineType": "Line type must match with it's vehicle mode",
+    "stopStateEndBeforeStart": "State validity end date must be after start date"
   },
   "errors": {
     "deleteFailed": "Deletion failed",

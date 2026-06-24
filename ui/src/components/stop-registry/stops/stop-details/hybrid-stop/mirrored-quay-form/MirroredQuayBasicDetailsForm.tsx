@@ -7,6 +7,7 @@ import { mapStopPlaceStateToUiName } from '../../../../../../i18n/uiNameMappings
 import { StopWithDetails } from '../../../../../../types';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
 import {
+  DateInputField,
   EnumDropdown,
   FormActionButtons,
   FormColumn,
@@ -21,6 +22,8 @@ import { MirroredQuayFormState, mirroredQuayFormSchema } from './schema';
 
 const testIds = {
   stopPlaceState: 'MirroredQuayForm::stopPlaceState',
+  stopStateValidityStart: 'MirroredQuayForm::stopStateValidityStart',
+  stopStateValidityEnd: 'MirroredQuayForm::stopStateValidityEnd',
   trunkLineStop: 'StopBasicDetailsForm::trunkLineStop',
   speedTramStop: 'StopBasicDetailsForm::speedTramStop',
 };
@@ -61,6 +64,8 @@ const MirroredQuayBasicDetailsFormComponent: ForwardRefRenderFunction<
 
   const isBusStop = transportMode === StopRegistryTransportModeType.Bus;
   const isTramStop = transportMode === StopRegistryTransportModeType.Tram;
+  const stopState = methods.watch('stopState');
+  const showValidityPeriod = stopState !== StopPlaceState.InOperation;
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -123,6 +128,26 @@ const MirroredQuayBasicDetailsFormComponent: ForwardRefRenderFunction<
               </label>
             </FormColumn>
           </FormRow>
+          {showValidityPeriod && (
+            <FormRow mdColumns={4}>
+              <FormColumn>
+                <DateInputField<MirroredQuayFormState>
+                  translationPrefix="stopDetails.basicDetails"
+                  fieldPath="stopStateValidityStart"
+                  testId={testIds.stopStateValidityStart}
+                  required
+                />
+              </FormColumn>
+              <FormColumn>
+                <DateInputField<MirroredQuayFormState>
+                  translationPrefix="stopDetails.basicDetails"
+                  fieldPath="stopStateValidityEnd"
+                  testId={testIds.stopStateValidityEnd}
+                  required
+                />
+              </FormColumn>
+            </FormRow>
+          )}
           <ReasonForChangeForm />
         </FormColumn>
         <FormActionButtons

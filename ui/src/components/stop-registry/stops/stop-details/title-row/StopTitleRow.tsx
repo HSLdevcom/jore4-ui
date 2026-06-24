@@ -1,11 +1,14 @@
 import compact from 'lodash/compact';
 import sortBy from 'lodash/sortBy';
+import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import { PageTitle } from '../../../../common';
 import { StopTransportModeIcon } from '../../../components';
+import { getEffectiveStopState } from '../getEffectiveStopState';
 import { MirroredQuayDetails } from '../useGetStopDetails';
 import { ExtraActions } from './ExtraActions';
 import { OpenOnMapButton } from './OpenOnMapButton';
@@ -25,12 +28,20 @@ type ModeStatus = {
 
 function getModeStatus(
   stop: MirroredQuayDetails | StopWithDetails,
+  observationDate: DateTime,
 ): ModeStatus {
   const stopPlace = 'stopPlace' in stop ? stop.stopPlace : stop.stop_place;
 
+  const effectiveState = getEffectiveStopState(
+    stop.quay?.stopState,
+    stop.quay?.stopStateValidityStart,
+    stop.quay?.stopStateValidityEnd,
+    observationDate,
+  );
+
   return {
     mode: stopPlace?.transportMode ?? null,
-    active: stop.quay?.stopState === StopPlaceState.InOperation,
+    active: effectiveState === StopPlaceState.InOperation,
     trunkLine: !!stop.quay?.stopType.trunkLineStop,
     speedTram: !!stop.quay?.stopType.speedTramStop,
   };
@@ -39,13 +50,17 @@ function getModeStatus(
 function resolveModes(
   stopDetails: StopWithDetails | null,
   mirroredQuays: ReadonlyArray<MirroredQuayDetails>,
+  observationDate: DateTime,
 ): Array<ModeStatus> {
   if (!stopDetails) {
     return [];
   }
 
   return sortBy(
-    [getModeStatus(stopDetails), ...mirroredQuays.map(getModeStatus)],
+    [
+      getModeStatus(stopDetails, observationDate),
+      ...mirroredQuays.map((q) => getModeStatus(q, observationDate)),
+    ],
     (status) => status.mode,
   );
 }
@@ -61,9 +76,11 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({
   label,
   mirroredQuays,
 }) => {
+  const { observationDate } = useObservationDateQueryParam();
+
   return (
     <div className="flex items-center gap-2">
-      {resolveModes(stopDetails, mirroredQuays).map(
+      {resolveModes(stopDetails, mirroredQuays, observationDate).map(
         ({ mode, active, trunkLine, speedTram }) => (
           <StopTransportModeIcon
             key={mode}

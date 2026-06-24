@@ -26,4 +26,6 @@ export enum KnownValueKey {
   SpeedTramStop = 'speedTramStop',
   TrunkLineStop = 'trunkLineStop',
   Mirrors = 'mirrors',
+  StopStateValidityStart = 'stopStateValidityStart',
+  StopStateValidityEnd = 'stopStateValidityEnd',
 }

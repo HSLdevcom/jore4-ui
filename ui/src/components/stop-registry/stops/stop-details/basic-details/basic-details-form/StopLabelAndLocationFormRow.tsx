@@ -1,8 +1,14 @@
+import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopPlaceStateToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Column } from '../../../../../../layoutComponents';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
-import { EnumDropdown, FormRow, InputField } from '../../../../../forms/common';
+import {
+  DateInputField,
+  EnumDropdown,
+  FormRow,
+  InputField,
+} from '../../../../../forms/common';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {
@@ -11,10 +17,16 @@ const testIds = {
   locationFin: 'StopBasicDetailsForm::locationFin',
   locationSwe: 'StopBasicDetailsForm::locationSwe',
   stopPlaceState: 'StopBasicDetailsForm::stopPlaceState',
+  stopStateValidityStart: 'StopBasicDetailsForm::stopStateValidityStart',
+  stopStateValidityEnd: 'StopBasicDetailsForm::stopStateValidityEnd',
 };
 
 export const StopLabelAndLocationFormRow = () => {
   const { t } = useTranslation();
+  const { watch } = useFormContext<StopBasicDetailsFormState>();
+  const stopState = watch('stopState');
+  const showValidityPeriod = stopState !== StopPlaceState.InOperation;
+
   return (
     <>
       <h3>{t(($) => $.stopDetails.basicDetails.stopInformation)}</h3>
@@ -55,8 +67,6 @@ export const StopLabelAndLocationFormRow = () => {
           />
         </Column>
         <Column>
-          {/* TODO: Currently we can only have one transportMode, so we use dropdown for it.
-               Later we need custom icon checkbox inputs here for the transportModes */}
           <InputField<StopBasicDetailsFormState>
             translationPrefix="stopDetails.basicDetails"
             fieldPath="stopState"
@@ -74,6 +84,26 @@ export const StopLabelAndLocationFormRow = () => {
           />
         </Column>
       </FormRow>
+      {showValidityPeriod && (
+        <FormRow mdColumns={5}>
+          <Column>
+            <DateInputField<StopBasicDetailsFormState>
+              translationPrefix="stopDetails.basicDetails"
+              fieldPath="stopStateValidityStart"
+              testId={testIds.stopStateValidityStart}
+              required
+            />
+          </Column>
+          <Column>
+            <DateInputField<StopBasicDetailsFormState>
+              translationPrefix="stopDetails.basicDetails"
+              fieldPath="stopStateValidityEnd"
+              testId={testIds.stopStateValidityEnd}
+              required
+            />
+          </Column>
+        </FormRow>
+      )}
     </>
   );
 };

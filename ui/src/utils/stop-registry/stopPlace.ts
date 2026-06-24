@@ -250,6 +250,14 @@ export const getQuayDetailsForEnrichment = <
     platformNumber:
       quay.placeEquipments?.generalSign?.[0]?.content?.value ?? null,
     stopState: findKeyValue(quay, KnownValueKey.StopState) as StopPlaceState,
+    stopStateValidityStart: findKeyValue(
+      quay,
+      KnownValueKey.StopStateValidityStart,
+    ),
+    stopStateValidityEnd: findKeyValue(
+      quay,
+      KnownValueKey.StopStateValidityEnd,
+    ),
     accessibilityLevel:
       quay.accessibilityAssessment?.hslAccessibilityProperties
         ?.accessibilityLevel ??
