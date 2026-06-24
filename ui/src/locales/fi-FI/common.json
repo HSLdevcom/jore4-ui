@@ -948,6 +948,13 @@
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versiota)",
     "confirmText": "OK"
   },
+  "confirmStopStateChangeDialog": {
+    "title": "Vahvista tilamuutos",
+    "description": "Pysäkin {{ stopLabel }} tila muutetaan.",
+    "affectedRoutes": "Muutos vaikuttaa seuraaviin reitteihin:",
+    "routesNotModified": "Pysäkki ei ole reittien käytössä valittuna aikana. Reittejä ei muuteta.",
+    "confirmText": "Vahvista"
+  },
   "confirmAutoUpdateStops": {
     "title": "Muutoksia pysäkkien tietoihin",
     "bodySpeedTram": "Reitin tallennus merkitsee seuraavat pysäkit pikaratikkapysäkeiksi. Voit tarkentaa tätä valintaa pysäkin perustiedoissa.",
