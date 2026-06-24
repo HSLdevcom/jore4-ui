@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { z } from 'zod';
 import { StopRegistryTransportModeType } from '../../../../../../generated/graphql';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
@@ -5,6 +6,11 @@ import {
   reasonForChangeFormSchema,
   requiredString,
 } from '../../../../../forms/common';
+
+const stopStateValiditySchema = z.object({
+  stopStateValidityStart: z.custom<DateTime>(),
+  stopStateValidityEnd: z.custom<DateTime>(),
+});
 
 export const schema = z
   .object({
@@ -32,6 +38,19 @@ export const schema = z
     timingPlaceId: z.string().uuid().nullable(),
     stopState: z.nativeEnum(StopPlaceState),
   })
-  .merge(reasonForChangeFormSchema);
+  .merge(stopStateValiditySchema)
+  .merge(reasonForChangeFormSchema)
+  .refine(
+    (data) => {
+      if (data.stopState === StopPlaceState.InOperation) {
+        return true;
+      }
+      return data.stopStateValidityStart < data.stopStateValidityEnd;
+    },
+    {
+      path: ['stopStateValidityEnd'],
+      message: 'stopStateEndBeforeStart',
+    },
+  );
 
 export type StopBasicDetailsFormState = z.infer<typeof schema>;

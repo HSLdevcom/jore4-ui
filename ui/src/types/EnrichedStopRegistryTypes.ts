@@ -59,6 +59,8 @@ export type QuayEnrichmentProperties = {
   readonly postalCode: string | null;
   readonly functionalArea: number | null;
   readonly stopState: StopPlaceState | null;
+  readonly stopStateValidityStart: string | null;
+  readonly stopStateValidityEnd: string | null;
   readonly accessibilityLevel: StopRegistryAccessibilityLevel;
   readonly platformNumber: string | null;
   readonly stopType: {

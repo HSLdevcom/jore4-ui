@@ -289,6 +289,9 @@
       "transportMode": "Joukkoliikennetyyppi",
       "stopType": "Pysäkkityyppi",
       "stopState": "Pysäkin tila",
+      "stopStateValidityStart": "Tila voimassa alkaen",
+      "stopStateValidityEnd": "Tila voimassa asti",
+      "stateChangesOn": "Tila vaihtuu {{ date }}",
       "elyNumber": "ELY-numero",
       "stopInformation": "Pysäkkikohtaiset tiedot"
     },
@@ -935,6 +938,13 @@
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versiota)",
     "confirmText": "OK"
   },
+  "confirmStopStateChangeDialog": {
+    "title": "Vahvista tilamuutos",
+    "description": "Pysäkin {{ stopLabel }} tila muutetaan.",
+    "affectedRoutes": "Muutos vaikuttaa seuraaviin reitteihin:",
+    "routesNotModified": "Pysäkki ei ole reittien käytössä valittuna aikana. Reittejä ei muuteta.",
+    "confirmText": "Vahvista"
+  },
   "confirmAutoUpdateStops": {
     "title": "Muutoksia pysäkkien tietoihin",
     "bodySpeedTram": "Reitin tallennus merkitsee seuraavat pysäkit pikaratikkapysäkeiksi. Voit tarkentaa tätä valintaa pysäkin perustiedoissa.",
@@ -1171,7 +1181,8 @@
     "invalidValidityStartDate": "Alkupäivämäärä on virheellinen",
     "validityEndDateBeforeStartDate": "Päättymispäivämäärä ei voi olla ennen alkamispäivämäärää",
     "nameValueTooLong": "Nimessä on yli 21 merkkiä.",
-    "invalidLineType": "Linjan tyyppi ei vastaa sen kulkumuotoa"
+    "invalidLineType": "Linjan tyyppi ei vastaa sen kulkumuotoa",
+    "stopStateEndBeforeStart": "Tilan voimassaolon päättymispäivän tulee olla alkamispäivän jälkeen"
   },
   "errors": {
     "deleteFailed": "Poistaminen epäonnistui",

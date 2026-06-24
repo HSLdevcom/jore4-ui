@@ -26,6 +26,8 @@ export enum KnownValueKey {
   SpeedTramStop = 'speedTramStop',
   TrunkLineStop = 'trunkLineStop',
   Mirrors = 'mirrors',
+  StopStateValidityStart = 'stopStateValidityStart',
+  StopStateValidityEnd = 'stopStateValidityEnd',
 }
 
 // Represents the values of hsl_municipality in LegacyHslMunicipalityCode table.

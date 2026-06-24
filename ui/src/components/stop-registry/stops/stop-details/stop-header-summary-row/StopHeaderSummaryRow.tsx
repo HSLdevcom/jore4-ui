@@ -2,10 +2,12 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import { mapStopPlaceStateToUiName } from '../../../../../i18n/uiNameMappings';
 import { Visible } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
+import { getEffectiveStopState } from '../getEffectiveStopState';
 import { StopTypeLabel } from '../StopTypeLabel';
 import { NumberDetailItem } from './NumberDetailItem';
 import { useGetUniqueLineCountForStopOnDate } from './useGetUniqueLineCountForStopOnDate';
@@ -28,6 +30,7 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const { observationDate } = useObservationDateQueryParam();
 
   const { lineCount } = useGetUniqueLineCountForStopOnDate(
     stopDetails?.scheduled_stop_point_id,
@@ -38,8 +41,13 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
     accessibilityLevel === StopRegistryAccessibilityLevel.FullyAccessible;
   const anyIconsShown = isAccessible;
 
-  const stopState = stopDetails?.quay?.stopState;
-  const showStopState = !!stopState && stopState !== StopPlaceState.InOperation;
+  const effectiveStopState = getEffectiveStopState(
+    stopDetails?.quay?.stopState,
+    stopDetails?.quay?.stopStateValidityStart,
+    stopDetails?.quay?.stopStateValidityEnd,
+    observationDate,
+  );
+  const showStopState = effectiveStopState !== StopPlaceState.InOperation;
   const stopType = stopDetails?.quay?.stopType;
   const showStopType =
     !!stopType && (stopType.railReplacement || stopType.virtual);
@@ -88,7 +96,7 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
             className="rounded-md bg-dark-grey px-4 py-1 text-center text-sm leading-normal text-white uppercase"
             data-testid={testIds.stopState}
           >
-            {mapStopPlaceStateToUiName(t, stopState)}
+            {mapStopPlaceStateToUiName(t, effectiveStopState)}
           </div>
         )}
       </Visible>

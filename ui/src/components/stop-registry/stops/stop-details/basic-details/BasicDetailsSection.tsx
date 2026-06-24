@@ -1,17 +1,22 @@
+import { DateTime } from 'luxon';
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { getEffectiveStopState } from '../getEffectiveStopState';
 import {
   getContainerColorsByTransportMode,
   inactiveInfoContainerColors,
 } from '../stopInfoContainerColors';
+import { useStopStateChangeConfirmation } from '../useStopStateChangeConfirmation';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
 import { StopBasicDetailsForm } from './basic-details-form/StopBasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
+import { StopStateChangeConfirmationDialog } from './StopStateChangeConfirmationDialog';
 import { useEditStopBasicDetails } from './useEditStopBasicDetails';
 
 const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
@@ -30,6 +35,12 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
     elyNumber: stop.quay?.elyNumber ?? undefined,
     timingPlaceId: stop.quay?.timingPlaceId ?? stop.timing_place_id ?? null,
     stopState: stop.quay?.stopState ?? undefined,
+    stopStateValidityStart: stop.quay?.stopStateValidityStart
+      ? DateTime.fromISO(stop.quay.stopStateValidityStart)
+      : DateTime.now(),
+    stopStateValidityEnd: stop.quay?.stopStateValidityEnd
+      ? DateTime.fromISO(stop.quay.stopStateValidityEnd)
+      : DateTime.now().plus({ days: 1 }),
     stopTypes: stop.quay?.stopType,
     reasonForChange: '',
   };
@@ -46,6 +57,14 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
   isHybrid,
 }) => {
   const { t } = useTranslation();
+  const { observationDate } = useObservationDateQueryParam();
+
+  const effectiveStopState = getEffectiveStopState(
+    stop.quay?.stopState,
+    stop.quay?.stopStateValidityStart,
+    stop.quay?.stopStateValidityEnd,
+    observationDate,
+  );
 
   const { saveStopPlaceDetails, defaultErrorHandler } =
     useEditStopBasicDetails();
@@ -57,16 +76,18 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
     onSave: () => submitFormByRef(formRef),
   });
 
-  const onSubmit = async (state: StopBasicDetailsFormState) => {
-    try {
-      await saveStopPlaceDetails({ state, stop });
-
-      showSuccessToast(t(($) => $.stops.editSuccess));
-      infoContainerControls.setIsInEditMode(false);
-    } catch (err) {
-      defaultErrorHandler(err as Error);
-    }
-  };
+  const { onSubmit, confirmationDialogProps } =
+    useStopStateChangeConfirmation<StopBasicDetailsFormState>({
+      currentStopState: stop.quay?.stopState,
+      stopPlaceRef: stop.stop_place_ref ?? '',
+      scheduledStopPointId: stop.scheduled_stop_point_id,
+      doSave: (state) => saveStopPlaceDetails({ state, stop }),
+      onSuccess: () => {
+        showSuccessToast(t(($) => $.stops.editSuccess));
+        infoContainerControls.setIsInEditMode(false);
+      },
+      defaultErrorHandler,
+    });
 
   const defaultValues = mapStopBasicDetailsDataToFormState(stop);
 
@@ -83,7 +104,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
   return (
     <InfoContainer
       colors={
-        stop.quay?.stopState === StopPlaceState.InOperation
+        effectiveStopState === StopPlaceState.InOperation
           ? getContainerColorsByTransportMode(
               stop.stop_place?.transportMode,
               stop.quay?.stopType.trunkLineStop,
@@ -109,6 +130,13 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
       ) : (
         <BasicDetailsViewCard stop={stop} />
       )}
+      <StopStateChangeConfirmationDialog
+        isOpen={confirmationDialogProps.isOpen}
+        onConfirm={confirmationDialogProps.onConfirm}
+        onCancel={confirmationDialogProps.onCancel}
+        stopLabel={stop.label ?? ''}
+        affectedRoutes={confirmationDialogProps.affectedRoutes}
+      />
     </InfoContainer>
   );
 };
