@@ -12,17 +12,21 @@ type RouteBody = {
   readonly linkSearchRadius?: number;
 };
 
-const positionToLatLng = (pos: GeoJSON.Position): LatLng => {
+function positionToLatLng(pos: GeoJSON.Position): LatLng {
   return { lng: pos[0], lat: pos[1] };
-};
+}
 
 const apiClient = axios.create({
   baseURL: '/api/mapmatching/api/route/v1',
 });
 
-const getBus = (coordinates: RouteBody) => apiClient.post('/bus', coordinates);
-const getTram = (coordinates: RouteBody) =>
-  apiClient.post('/tram', coordinates);
+function getBus(coordinates: RouteBody) {
+  return apiClient.post('/bus', coordinates);
+}
+
+function getTram(coordinates: RouteBody) {
+  return apiClient.post('/tram', coordinates);
+}
 
 export type BusRouteResponse = {
   readonly code: 'Ok';
@@ -67,20 +71,20 @@ async function getRouteByVehicleMode(
   return response.data as BusRouteResponse;
 }
 
-export const getBusRoute = async (
+export async function getBusRoute(
   coordinates: ReadonlyArray<GeoJSON.Position>,
-) => {
+) {
   return getRouteByVehicleMode(
     coordinates,
     ReusableComponentsVehicleModeEnum.Bus,
   );
-};
+}
 
-export const getTramRoute = async (
+export async function getTramRoute(
   coordinates: ReadonlyArray<GeoJSON.Position>,
-) => {
+) {
   return getRouteByVehicleMode(
     coordinates,
     ReusableComponentsVehicleModeEnum.Tram,
   );
-};
+}
