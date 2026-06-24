@@ -13,16 +13,15 @@ import {
   ExtraFiltersToggle,
   SearchQueryFilter,
 } from '../../common/search/SearchBar';
-import { useSearch } from '../../common/search/useSearch';
-import {
-  mapFiltersToSearchConditions,
-  mapSearchConditionsToFilters,
-} from '../../common/search/utils';
 import { DateInputField } from '../../forms/common';
 import { LineTypeFilter } from './filters/LineTypeFilter';
 import { routesAndLinesTestIds } from './routesAndLinesTestIds';
-import { RoutesAndLinesSearchFilters } from './types';
-import { SearchNavigationState } from './types/SearchNavigationState';
+import { RoutesAndLinesSearchFilters, SearchNavigationState } from './types';
+import { useSearch } from './useSearch';
+import {
+  mapFiltersToSearchConditions,
+  mapSearchConditionsToFilters,
+} from './utils';
 
 const generateNavigationState = (
   isExpanded: boolean,

@@ -10,14 +10,14 @@ import {
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../common';
 import { Container, Row, Visible } from '../../common/LayoutComponents';
-import { RouteLineTableRowVariant } from '../../common/RouteLineTableRow';
-import { ResultList } from '../../common/search/ResultList';
-import { useBasePath } from '../../common/search/useBasePath';
-import { useSearch } from '../../common/search/useSearch';
-import { useSearchResults } from '../../common/search/useSearchResults';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
+import { ResultList } from './ResultList';
 import { SearchContainer } from './SearchContainer';
+import { RouteLineTableRowVariant } from './types';
+import { useBasePath } from './useBasePath';
+import { useSearch } from './useSearch';
+import { useSearchResults } from './useSearchResults';
 
 export const SearchResultPage: FC = () => {
   const { handleClose, queryParameters } = useSearch();

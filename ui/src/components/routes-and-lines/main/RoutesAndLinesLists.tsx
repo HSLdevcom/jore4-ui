@@ -5,9 +5,7 @@ import {
   useListChangingRoutesQuery,
   useListOwnLinesQuery,
 } from '../../../generated/graphql';
-import { RouteLineTableRowVariant } from '../../common';
-import { LinesList } from '../../common/search/LinesList';
-import { RoutesList } from '../../common/search/RoutesList';
+import { LinesList, RouteLineTableRowVariant, RoutesList } from '../search';
 import { ListHeader } from './ListHeader';
 
 // TODO: This list is currently only for visual purpose and will be so until

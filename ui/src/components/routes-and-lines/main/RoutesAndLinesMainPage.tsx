@@ -5,7 +5,7 @@ import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { Container, Row } from '../../common/LayoutComponents';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
-import { SearchContainer } from '../search/SearchContainer';
+import { SearchContainer } from '../search';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 
 const testIds = {

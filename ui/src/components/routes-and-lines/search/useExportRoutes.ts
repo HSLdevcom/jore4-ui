@@ -17,7 +17,7 @@ import {
   extractJourneyPatternLastStop,
 } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
-import { useSearchQueryParser } from '../../common/search/useSearchQueryParser';
+import { useSearchQueryParser } from './useSearchQueryParser';
 
 export const useExportRoutes = () => {
   const { observationDate } = useObservationDateQueryParam();

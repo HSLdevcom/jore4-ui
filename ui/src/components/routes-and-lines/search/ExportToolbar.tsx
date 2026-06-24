@@ -20,8 +20,8 @@ import {
   showDangerToast,
 } from '../../../utils';
 import { Row, Visible } from '../../common/LayoutComponents';
-import { useSearchResults } from '../../common/search/useSearchResults';
 import { useExportRoutes } from './useExportRoutes';
+import { useSearchResults } from './useSearchResults';
 
 const testIds = {
   toggleSelectingButton: 'ExportToolBar::toggleSelectingButton',

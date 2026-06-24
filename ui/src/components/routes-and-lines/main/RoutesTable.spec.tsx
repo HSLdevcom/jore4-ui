@@ -6,9 +6,17 @@ import {
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
-import { RouteLineTableRowVariant, RouteTableRow } from '../../common';
-import { LineTableRow } from '../../common/LineTableRow';
+import {
+  LineTableRow,
+  RouteLineTableRowVariant,
+  RouteTableRow,
+} from '../search';
 import { RoutesTable } from './RoutesTable';
+
+jest.mock(
+  '../../common/search/ExtraFilters/TransportationModeFilter.module.css',
+  () => ({ '.noIconMargins': '.noIconMargins' }),
+);
 
 describe(`<${RoutesTable.name} />`, () => {
   const testId = 'routesTable1';
