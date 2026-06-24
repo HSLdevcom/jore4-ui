@@ -19,6 +19,7 @@ import {
   RouteStopFieldsFragment,
   RouteValidityFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
+  ScheduledStopPointAllFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
   useGetLinksWithStopsByExternalLinkIdsLazyQuery,
@@ -29,6 +30,7 @@ import { selectEditedRouteData } from '../../../../redux';
 import { areValidityPeriodsOverlapping } from '../../../../time';
 import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
+import { StopPlaceState } from '../../../../types/stop-registry';
 import {
   mapGeoJSONtoFeature,
   sortStopsOnInfraLinkComparator,
@@ -124,6 +126,10 @@ const isStopValidDuringRouteValidity = (
   stop: ScheduledStopPointDefaultFieldsFragment,
   routeValidity: RouteValidityFragment,
 ) => areValidityPeriodsOverlapping(routeValidity, stop);
+
+const isStopActive = (stop: ScheduledStopPointAllFieldsFragment) =>
+  !stop.newest_quay?.stop_state ||
+  stop.newest_quay.stop_state === StopPlaceState.InOperation;
 
 /**
  * Checks whether a stop instance is along a route's geometry and its traversal is compatible
@@ -229,7 +235,8 @@ export const extractJourneyPatternCandidateStops = (
       .filter(
         (stop) =>
           isStopTraversalCompatible(stop, isTraversalForwards) &&
-          isStopValidDuringRouteValidity(stop, routeMetadata),
+          isStopValidDuringRouteValidity(stop, routeMetadata) &&
+          isStopActive(stop),
       )
       .sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
   });

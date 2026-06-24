@@ -27,9 +27,11 @@ function getModeStatus(
 ): ModeStatus {
   const stopPlace = 'stopPlace' in stop ? stop.stopPlace : stop.stop_place;
 
+  const stopState = stop.quay?.stopState;
+
   return {
     mode: stopPlace?.transportMode ?? null,
-    active: stop.quay?.stopState === StopPlaceState.InOperation,
+    active: !stopState || stopState === StopPlaceState.InOperation,
     trunkLine: !!stop.quay?.stopType.trunkLineStop,
     speedTram: !!stop.quay?.stopType.speedTramStop,
   };
@@ -44,7 +46,10 @@ function resolveModes(
   }
 
   return sortBy(
-    [getModeStatus(stopDetails), ...mirroredQuays.map(getModeStatus)],
+    [
+      getModeStatus(stopDetails),
+      ...mirroredQuays.map((q) => getModeStatus(q)),
+    ],
     (status) => status.mode,
   );
 }

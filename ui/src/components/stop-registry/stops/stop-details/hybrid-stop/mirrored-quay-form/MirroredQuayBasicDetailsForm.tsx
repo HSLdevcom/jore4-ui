@@ -7,7 +7,10 @@ import { StopWithDetails } from '../../../../../../types';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
 import { mapStopPlaceStateToUiName } from '../../../../../../utils/i18n';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
-import { InputElement, InputField } from '../../../../../common/Inputs';
+import {
+  InputElement,
+  InputField,
+} from '../../../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,

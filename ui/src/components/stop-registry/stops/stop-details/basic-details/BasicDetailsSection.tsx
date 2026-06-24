@@ -12,9 +12,11 @@ import {
   getContainerColorsByTransportMode,
   inactiveInfoContainerColors,
 } from '../stopInfoContainerColors';
+import { useStopStateChangeConfirmation } from '../useStopStateChangeConfirmation';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
 import { StopBasicDetailsForm } from './basic-details-form/StopBasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
+import { StopStateChangeConfirmationDialog } from './StopStateChangeConfirmationDialog';
 import { useEditStopBasicDetails } from './useEditStopBasicDetails';
 
 const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
@@ -50,6 +52,8 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const stopState = stop.quay?.stopState;
+
   const { saveStopPlaceDetails, defaultErrorHandler } =
     useEditStopBasicDetails();
 
@@ -60,16 +64,18 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
     onSave: () => submitFormByRef(formRef),
   });
 
-  const onSubmit = async (state: StopBasicDetailsFormState) => {
-    try {
-      await saveStopPlaceDetails({ state, stop });
-
-      showSuccessToast(t(($) => $.stops.editSuccess));
-      infoContainerControls.setIsInEditMode(false);
-    } catch (err) {
-      defaultErrorHandler(err as Error);
-    }
-  };
+  const { onSubmit, confirmationDialogProps } =
+    useStopStateChangeConfirmation<StopBasicDetailsFormState>({
+      currentStopState: stop.quay?.stopState ?? StopPlaceState.InOperation,
+      quayNetexId: stop.quay?.id ?? '',
+      scheduledStopPointId: stop.scheduled_stop_point_id,
+      doSave: (state) => saveStopPlaceDetails({ state, stop }),
+      onSuccess: () => {
+        showSuccessToast(t(($) => $.stops.editSuccess));
+        infoContainerControls.setIsInEditMode(false);
+      },
+      defaultErrorHandler,
+    });
 
   const defaultValues = mapStopBasicDetailsDataToFormState(stop);
 
@@ -86,7 +92,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
   return (
     <InfoContainer
       colors={
-        stop.quay?.stopState === StopPlaceState.InOperation
+        !stopState || stopState === StopPlaceState.InOperation
           ? getContainerColorsByTransportMode(
               stop.stop_place?.transportMode,
               stop.quay?.stopType.trunkLineStop,
@@ -113,6 +119,13 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
       ) : (
         <BasicDetailsViewCard stop={stop} />
       )}
+      <StopStateChangeConfirmationDialog
+        isOpen={confirmationDialogProps.isOpen}
+        onConfirm={confirmationDialogProps.onConfirm}
+        onCancel={confirmationDialogProps.onCancel}
+        stopLabel={stop.label ?? ''}
+        affectedRoutes={confirmationDialogProps.affectedRoutes}
+      />
     </InfoContainer>
   );
 };
