@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
-import { useUrlQuery } from '../../hooks';
-import { render } from '../../utils/test-utils';
+import { useUrlQuery } from '../../../hooks';
+import { render } from '../../../utils/test-utils';
 import { CompatPagination } from './CompatPagination';
 
-jest.mock('../../hooks/urlQuery/useUrlQuery', () => ({
+jest.mock('../../../hooks/urlQuery/useUrlQuery', () => ({
   useUrlQuery: jest.fn().mockReturnValue({}),
 }));
 const urlQueryMock = useUrlQuery as jest.Mock;

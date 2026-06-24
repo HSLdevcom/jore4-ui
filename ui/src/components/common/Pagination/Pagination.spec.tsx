@@ -1,8 +1,8 @@
 import { act, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
 import { useState } from 'react';
-import { PagingInfo } from '../../types';
-import { render } from '../../utils/test-utils';
+import { PagingInfo } from '../../../types';
+import { render } from '../../../utils/test-utils';
 import { Pagination } from './Pagination';
 
 const ButtonClickTestComponent = () => {

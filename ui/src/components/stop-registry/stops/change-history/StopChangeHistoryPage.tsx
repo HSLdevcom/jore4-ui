@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useGetUserNames, useRequiredParams } from '../../../../hooks';
-import { Pagination } from '../../../../uiComponents';
 import {
   DateRangeFilter,
   useChangeHistoryPageRouterState,
 } from '../../../common/ChangeHistory';
 import { Container } from '../../../common/LayoutComponents';
+import { Pagination } from '../../../common/Pagination';
 import {
   HistoricalStopDataProvider,
   StopChangeHistoryNames,

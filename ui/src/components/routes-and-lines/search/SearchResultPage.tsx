@@ -2,14 +2,11 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { Path } from '../../../router/routeDetails';
-import {
-  CloseIconButton,
-  CompatPagination,
-  usePagination,
-} from '../../../uiComponents';
+import { CloseIconButton } from '../../../uiComponents';
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../common';
 import { Container, Row, Visible } from '../../common/LayoutComponents';
+import { CompatPagination, usePagination } from '../../common/Pagination';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
 import { ResultList } from './ResultList';

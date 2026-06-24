@@ -1,8 +1,8 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pagination } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
 import { Visible } from '../../../../common/LayoutComponents';
+import { Pagination } from '../../../../common/Pagination';
 import { SortStopsBy } from '../../types';
 import { useResultSelection, useStopSearchRouterState } from '../../utils';
 import { LoadingStopsErrorRow } from '../LoadingStopsErrorRow';

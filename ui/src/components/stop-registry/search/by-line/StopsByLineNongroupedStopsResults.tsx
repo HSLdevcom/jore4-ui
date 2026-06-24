@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { Visible } from '../../../common/LayoutComponents';
+import { Pagination } from '../../../common/Pagination';
 import {
   LoadingStopsErrorRow,
   SelectableStopSearchResultStopsTable,

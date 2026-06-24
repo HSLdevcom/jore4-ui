@@ -3,9 +3,9 @@ import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { PagingInfo } from '../../types';
-import { areEqual } from '../../utils';
-import { IconButton } from '../IconButton';
+import { PagingInfo } from '../../../types';
+import { IconButton } from '../../../uiComponents';
+import { areEqual } from '../../../utils';
 import { getDisplayedPageNumberList, getRenderedPageNumber } from './utils';
 
 const testId = {

@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react';
-import { useUrlQuery } from '../../hooks';
+import { useUrlQuery } from '../../../hooks';
 import { usePagination } from './usePagination';
 
-jest.mock('../../hooks/urlQuery/useUrlQuery', () => ({
+jest.mock('../../../hooks/urlQuery/useUrlQuery', () => ({
   useUrlQuery: jest.fn().mockReturnValue({}),
 }));
 
