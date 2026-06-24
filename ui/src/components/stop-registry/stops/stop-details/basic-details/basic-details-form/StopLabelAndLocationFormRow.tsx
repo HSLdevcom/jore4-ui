@@ -16,6 +16,7 @@ const testIds = {
 
 export const StopLabelAndLocationFormRow = () => {
   const { t } = useTranslation();
+
   return (
     <>
       <h3>{t(($) => $.stopDetails.basicDetails.stopInformation)}</h3>
@@ -56,8 +57,6 @@ export const StopLabelAndLocationFormRow = () => {
           />
         </Column>
         <Column>
-          {/* TODO: Currently we can only have one transportMode, so we use dropdown for it.
-               Later we need custom icon checkbox inputs here for the transportModes */}
           <InputField<StopBasicDetailsFormState>
             translationPrefix="stopDetails.basicDetails"
             fieldPath="stopState"

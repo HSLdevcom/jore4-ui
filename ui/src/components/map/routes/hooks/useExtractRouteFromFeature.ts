@@ -17,9 +17,9 @@ import {
   GetStopsAlongInfrastructureLinksDocument,
   GetStopsAlongInfrastructureLinksQuery,
   GetStopsAlongInfrastructureLinksQueryVariables,
+  InfraLinkAlongRouteWithStopsFragment,
   InfraLinkMatchingFieldsFragment,
   InfrastructureLinkAllFieldsFragment,
-  InfrastructureLinkWithStopsFragment,
   InfrastructureNetworkDirectionEnum,
   ReusableComponentsVehicleModeEnum,
   RouteStopFieldsFragment,
@@ -33,6 +33,7 @@ import { selectEditedRouteData } from '../../../../redux';
 import { areValidityPeriodsOverlapping } from '../../../../time';
 import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
+import { StopPlaceState } from '../../../../types/stop-registry';
 import {
   mapGeoJSONtoFeature,
   sortStopsOnInfraLinkComparator,
@@ -129,6 +130,13 @@ const isStopValidDuringRouteValidity = (
   routeValidity: RouteValidityFragment,
 ) => areValidityPeriodsOverlapping(routeValidity, stop);
 
+function isStopActive(stop: RouteStopFieldsFragment) {
+  return (
+    !stop.newest_quay?.stop_state ||
+    stop.newest_quay.stop_state === StopPlaceState.InOperation
+  );
+}
+
 /**
  * Checks whether a stop instance is along a route's geometry and its traversal is compatible
  * @param stop stop instance
@@ -218,7 +226,7 @@ const validateStopInstancesAlongGeometry = (
  */
 export const extractJourneyPatternCandidateStops = (
   infraLinksWithStops: ReadonlyArray<
-    RouteInfraLink<InfrastructureLinkWithStopsFragment>
+    RouteInfraLink<InfraLinkAlongRouteWithStopsFragment['infrastructure_link']>
   >,
   routeMetadata: RouteValidityFragment,
 ) => {
@@ -233,7 +241,8 @@ export const extractJourneyPatternCandidateStops = (
       .filter(
         (stop) =>
           isStopTraversalCompatible(stop, isTraversalForwards) &&
-          isStopValidDuringRouteValidity(stop, routeMetadata),
+          isStopValidDuringRouteValidity(stop, routeMetadata) &&
+          isStopActive(stop),
       )
       .sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
   });
