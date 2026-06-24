@@ -37,28 +37,34 @@ type RouteStopsOverlayProps = {
   readonly className?: string;
 };
 
-const getVehicleModeIcon: Readonly<
-  Record<ReusableComponentsVehicleModeEnum, string>
-> = {
-  [ReusableComponentsVehicleModeEnum.Bus]: 'icon-bus-alt text-tweaked-brand',
-  [ReusableComponentsVehicleModeEnum.Tram]:
-    'icon-tram-filled text-hsl-tram-dark-green',
-  [ReusableComponentsVehicleModeEnum.Metro]:
-    'icon-metro-filled text-hsl-metro-orange',
-  [ReusableComponentsVehicleModeEnum.Train]:
-    'icon-train-filled text-hsl-train-purple',
-  [ReusableComponentsVehicleModeEnum.Ferry]:
-    'icon-ferry-filled text-hsl-ferry-blue',
+type VehicleModeStyles = {
+  readonly icon: string;
+  readonly backgroundColor: string;
 };
 
-const getVehicleModeBackgroundColor: Readonly<
-  Record<ReusableComponentsVehicleModeEnum, string>
+const vehicleModeStylesMap: Readonly<
+  Record<ReusableComponentsVehicleModeEnum, VehicleModeStyles>
 > = {
-  [ReusableComponentsVehicleModeEnum.Bus]: 'bg-tweaked-brand',
-  [ReusableComponentsVehicleModeEnum.Tram]: 'bg-hsl-tram-dark-green',
-  [ReusableComponentsVehicleModeEnum.Metro]: 'bg-hsl-metro-orange',
-  [ReusableComponentsVehicleModeEnum.Train]: 'bg-hsl-train-purple',
-  [ReusableComponentsVehicleModeEnum.Ferry]: 'bg-hsl-ferry-blue',
+  [ReusableComponentsVehicleModeEnum.Bus]: {
+    icon: 'icon-bus-alt text-tweaked-brand',
+    backgroundColor: 'bg-tweaked-brand',
+  },
+  [ReusableComponentsVehicleModeEnum.Tram]: {
+    icon: 'icon-tram-filled text-hsl-tram-dark-green',
+    backgroundColor: 'bg-hsl-tram-dark-green',
+  },
+  [ReusableComponentsVehicleModeEnum.Metro]: {
+    icon: 'icon-metro-filled text-hsl-metro-orange',
+    backgroundColor: 'bg-hsl-metro-orange',
+  },
+  [ReusableComponentsVehicleModeEnum.Train]: {
+    icon: 'icon-train-filled text-hsl-train-purple',
+    backgroundColor: 'bg-hsl-train-purple',
+  },
+  [ReusableComponentsVehicleModeEnum.Ferry]: {
+    icon: 'icon-ferry-filled text-hsl-ferry-blue',
+    backgroundColor: 'bg-hsl-ferry-blue',
+  },
 };
 
 export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
@@ -84,6 +90,8 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
     return null;
   }
 
+  const vehicleModeStyles = vehicleModeStylesMap[routeVehicleMode];
+
   const highestPriorityCurrentStops = filterHighestPriorityCurrentStops(
     stopsEligibleForJourneyPattern,
     observationDate,
@@ -107,12 +115,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
     <CustomOverlay position="top-left">
       <MapOverlay className={className}>
         <MapOverlayHeader testId={testIds.mapOverlayHeader}>
-          <i
-            className={twJoin(
-              getVehicleModeIcon[routeVehicleMode],
-              'mt-1 text-xl',
-            )}
-          />
+          <i className={twJoin(vehicleModeStyles.icon, 'mt-1 text-xl')} />
 
           <div>
             <p className="text-base text-tweaked-brand">
@@ -136,7 +139,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
           <div
             className={twJoin(
               'mt-1 ml-1 flex h-6 w-6 items-center justify-center rounded-xs font-bold text-white',
-              getVehicleModeBackgroundColor[routeVehicleMode],
+              vehicleModeStyles.backgroundColor,
             )}
           >
             {mapDirectionToSymbol(t, routeMetadata.direction)}
