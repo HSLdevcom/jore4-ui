@@ -1,15 +1,10 @@
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import {
-  CloseIconButton,
-  ModalBody,
-  NewModalFooter,
-  SimpleButton,
-} from '../../../../../../uiComponents';
-import { Modal } from '../../../../../../uiComponents/modal/Modal';
+import { CloseIconButton, SimpleButton } from '../../../../../../uiComponents';
 import { submitFormByRef } from '../../../../../../utils';
 import { Row } from '../../../../../common/LayoutComponents';
+import { Modal, ModalBody, NewModalFooter } from '../../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AddMemberStopsForm } from './AddMemberStopsForm';
 

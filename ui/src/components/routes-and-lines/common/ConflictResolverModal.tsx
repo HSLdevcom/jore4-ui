@@ -12,13 +12,9 @@ import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/enums';
-import {
-  CloseIconButton,
-  Modal,
-  ModalBody,
-  SimpleButton,
-} from '../../../uiComponents';
+import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { Row } from '../../common/LayoutComponents';
+import { Modal, ModalBody } from '../../common/Modals';
 import { RouteLabel } from '../../common/RouteLabel';
 
 const testIds = {

@@ -8,8 +8,8 @@ import {
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectTimingSettingsModal } from '../../../redux';
 import { closeTimingSettingsModalAction } from '../../../redux/slices/modals';
-import { Modal, ModalHeader } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { Modal, ModalHeader } from '../../common/Modals';
 import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import {
   FormState,

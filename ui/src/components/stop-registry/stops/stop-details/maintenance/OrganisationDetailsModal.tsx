@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
-import { Modal, ModalBody, ModalHeader } from '../../../../../uiComponents';
+import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import {
   OrganisationDetailsForm,

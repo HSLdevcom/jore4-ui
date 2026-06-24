@@ -2,7 +2,7 @@ import { DialogTitle } from '@headlessui/react';
 import { FC, PropsWithChildren } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { Row } from '../components/common/LayoutComponents';
-import { Modal, NewModalBody } from './modal';
+import { Modal, NewModalBody } from '../components/common/Modals';
 import { SimpleButton } from './SimpleButton';
 
 type ConfirmModalProps = {

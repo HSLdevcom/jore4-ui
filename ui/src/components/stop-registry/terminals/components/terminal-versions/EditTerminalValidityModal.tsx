@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { isDateInRange } from '../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../types';
-import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
-import { ModalBody } from '../../../../map/modal';
 import { EditTerminalValidityResult } from '../../types';
 import { EditTerminalValidityForm } from './EditTerminalValidityForm';
 
@@ -60,7 +59,7 @@ export const EditTerminalValidityModal: FC<EditTerminalValidityModalProps> = ({
       />
       <LoadingWrapper testId={testIds.loading} loading={!terminal}>
         {terminal && (
-          <ModalBody className="border-x-0">
+          <ModalBody>
             <EditTerminalValidityForm
               className="mt-4 border-x-0"
               terminal={terminal}

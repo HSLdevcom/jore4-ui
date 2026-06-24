@@ -8,8 +8,8 @@ import { mapGetScheduledStopPointWithViaInfo as mapGetScheduledStopPointWithViaI
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
-import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { Modal, ModalBody, ModalHeader } from '../../common/Modals';
 import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import { useEditViaInfo } from './useEditViaInfo';
 import { useRemoveViaInfo } from './useRemoveViaInfo';

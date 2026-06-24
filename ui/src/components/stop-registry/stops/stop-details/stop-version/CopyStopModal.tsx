@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
-import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
-import { ModalBody } from '../../../../map/modal';
 import { CopyStopBoilerPlate } from './CopyStopBoilerPlate';
 import { CopyStopForm } from './CopyStopForm';
 import { CreateStopVersionResult } from './types';
@@ -63,7 +62,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
         loading={!originalStop || loadingExistingValidityRanges}
       >
         {originalStop && (
-          <ModalBody>
+          <ModalBody className="border-x border-light-grey">
             <CopyStopBoilerPlate originalStop={originalStop} />
             <h4 className="mt-4">
               {t(($) => $.stopDetails.version.title.copySubTitle)}

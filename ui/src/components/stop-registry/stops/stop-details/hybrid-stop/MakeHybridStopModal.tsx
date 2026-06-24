@@ -6,10 +6,6 @@ import { StopWithDetails } from '../../../../../types';
 import {
   JoreListbox,
   ListboxOptionItem,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  NewModalFooter,
   SimpleButton,
 } from '../../../../../uiComponents';
 import { parseVehicleMode } from '../../../../../utils';
@@ -17,6 +13,12 @@ import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../../utils/toastService';
+import {
+  Modal,
+  ModalBody,
+  ModalHeader,
+  NewModalFooter,
+} from '../../../../common/Modals';
 import { StopModalStopAreaFormSchema } from '../../../../forms/stop/types';
 import { StopAreaSearchCombobox } from './StopAreaSearchCombobox';
 import { useCreateMirrorQuay } from './useCreateMirrorQuay';

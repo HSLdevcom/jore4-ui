@@ -3,8 +3,8 @@ import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { Row } from '../components/common/LayoutComponents';
+import { Modal, NewModalBody } from '../components/common/Modals';
 import { CloseIconButton } from './CloseIconButton';
-import { Modal, NewModalBody } from './modal';
 import { SimpleButton } from './SimpleButton';
 
 type ErrorModalProps = {

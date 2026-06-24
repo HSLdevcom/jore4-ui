@@ -9,7 +9,7 @@ type ModalBodyProps = {
 export const ModalBody: FC<ModalBodyProps> = ({ className, children }) => {
   return (
     <div
-      className={twMerge(`mx-12 my-8 border-x border-light-grey`, className)}
+      className={twMerge('mx-12 my-8 border-x border-light-grey', className)}
     >
       {children}
     </div>

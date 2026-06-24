@@ -27,4 +27,3 @@ export * from './TextButton';
 export * from './Toast';
 export * from './ToastTransition';
 export * from './headlessHelpers';
-export * from './modal';

@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
-import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
-import { ModalBody } from '../../../../map/modal';
 import { EditStopForm } from './EditStopForm';
 import { EditStopVersionResult } from './types/EditStopVersionResult';
 import { useResolveExistingStopValidityRanges } from './utils';
@@ -80,7 +79,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
         }
       >
         {originalStop && (
-          <ModalBody className="border-x-0">
+          <ModalBody>
             <EditStopForm
               className="mt-4 border-x-0"
               existingValidityRanges={ranges}

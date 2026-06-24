@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Row } from '../../components/common/LayoutComponents';
-import { CloseIconButton } from '../CloseIconButton';
+import { CloseIconButton } from '../../../uiComponents';
+import { Row } from '../LayoutComponents';
 
 const testIds = {
   closeButton: 'ModalHeader::closeButton',

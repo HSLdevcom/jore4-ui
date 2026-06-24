@@ -2,8 +2,8 @@ import { Dialog } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
-import { NewModalBody, NewModalHeader } from '../../../../../uiComponents';
 import { Column, Row } from '../../../../common/LayoutComponents';
+import { NewModalBody, NewModalHeader } from '../../../../common/Modals';
 import {
   AccessibilityLevelIcon,
   AccessibilityLevelWithIcon,

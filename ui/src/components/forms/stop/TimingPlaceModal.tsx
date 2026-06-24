@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks/redux';
 import { closeTimingPlaceModalAction } from '../../../redux/slices/modals';
-import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
+import { Modal, ModalBody, ModalHeader } from '../../common/Modals';
 import { useWrapInContextNavigation } from '../common/NavigationBlocker';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 

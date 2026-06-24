@@ -6,11 +6,11 @@ import {
   setChangeTimetableValidityModalSuccessResultAction,
 } from '../../../redux';
 import { mapToISODate } from '../../../time';
-import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../utils/toastService';
+import { Modal, ModalBody, ModalHeader } from '../../common/Modals';
 import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import {
   ChangeTimetablesValidityForm,
