@@ -949,6 +949,13 @@
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versions)",
     "confirmText": "OK"
   },
+  "confirmStopStateChangeDialog": {
+    "title": "Confirm status change",
+    "description": "The status of stop {{ stopLabel }} will be changed.",
+    "affectedRoutes": "This change affects the following routes:",
+    "routesNotModified": "The stop will not be available on routes during the selected period. Routes will not be modified.",
+    "confirmText": "Confirm"
+  },
   "confirmAutoUpdateStops": {
     "title": "Changes to Stop details",
     "bodySpeedTram": "Saving this route will mark the associated Stops as Speed Tram Stops. You can refine this on the Stops details page.",

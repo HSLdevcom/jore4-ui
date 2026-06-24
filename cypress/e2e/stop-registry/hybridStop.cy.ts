@@ -260,6 +260,10 @@ describe(
             StopDetailsPage.mirroredQuayDetails.getSaveButton().click();
           });
 
+        StopDetailsPage.mirroredQuayDetails.confirmationDialog
+          .getConfirmButton()
+          .click();
+
         Toast.expectSuccessToast();
       });
 
