@@ -80,17 +80,8 @@ const GQL_EDIT_STOP = gql`
     $stop_patch: service_pattern_scheduled_stop_point_set_input!
     $delete_from_journey_pattern_ids: [uuid!]!
   ) {
-    # edit the stop itself
-    update_service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $stop_id } }
-      _set: $stop_patch
-    ) {
-      returning {
-        ...ScheduledStopPointAllFields
-      }
-    }
-
-    # delete the stop from the following journey patterns
+    # delete the stop from the journey patterns BEFORE editing the stop itself,
+    # because Hasura checks deferred constraints after each root mutation
     delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
       where: {
         _and: {
@@ -100,7 +91,47 @@ const GQL_EDIT_STOP = gql`
       }
     ) {
       returning {
-        ...ScheduledStopPointInJourneyPatternAllFields
+        journey_pattern_id
+        scheduled_stop_point_label
+        scheduled_stop_point_sequence
+        is_used_as_timing_point
+        is_regulated_timing_point
+        is_loading_time_allowed
+        is_via_point
+        via_point_name_i18n
+        via_point_short_name_i18n
+        journey_pattern {
+          journey_pattern_id
+          on_route_id
+        }
+      }
+    }
+
+    # edit the stop itself
+    update_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+      _set: $stop_patch
+    ) {
+      returning {
+        priority
+        direction
+        scheduled_stop_point_id
+        label
+        timing_place_id
+        timing_place {
+          timing_place_id
+          label
+        }
+        validity_start
+        validity_end
+        located_on_infrastructure_link_id
+        stop_place_ref
+        measured_location
+        relative_distance_from_infrastructure_link_start
+        closest_point_on_infrastructure_link
+        vehicle_mode_on_scheduled_stop_point {
+          vehicle_mode
+        }
       }
     }
   }

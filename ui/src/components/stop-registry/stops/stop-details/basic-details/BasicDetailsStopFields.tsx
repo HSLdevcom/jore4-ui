@@ -34,8 +34,9 @@ const testIds = {
 export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
-  const stopState =
-    stop.quay?.stopState && mapStopPlaceStateToUiName(t, stop.quay.stopState);
+  const stopState = stop.quay?.stopState
+    ? mapStopPlaceStateToUiName(t, stop.quay.stopState)
+    : '';
 
   const transportMode =
     stop.stop_place?.transportMode &&

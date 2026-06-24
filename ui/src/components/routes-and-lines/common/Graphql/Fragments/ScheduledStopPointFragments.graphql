@@ -17,6 +17,10 @@ fragment ScheduledStopPointDefaultFields on service_pattern_scheduled_stop_point
 fragment ScheduledStopPointAllFields on service_pattern_scheduled_stop_point {
   ...ScheduledStopPointDefaultFields
 
+  newest_quay {
+    netex_id
+    stop_state
+  }
   measured_location
   relative_distance_from_infrastructure_link_start
   closest_point_on_infrastructure_link
