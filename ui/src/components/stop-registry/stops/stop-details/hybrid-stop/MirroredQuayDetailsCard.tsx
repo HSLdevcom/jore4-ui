@@ -13,11 +13,13 @@ import {
 import { ConfirmationDialog } from '../../../../common/Modals';
 import { StopAreaDetailsSection } from '../basic-details/BasicDetailsStopAreaFields';
 import { StopDetailsSection } from '../basic-details/BasicDetailsStopFields';
+import { StopStateChangeConfirmationDialog } from '../basic-details/StopStateChangeConfirmationDialog';
 import {
   getContainerColorsByTransportMode,
   inactiveInfoContainerColors,
 } from '../stopInfoContainerColors';
 import { MirroredQuayDetails } from '../useGetStopDetails';
+import { useStopStateChangeConfirmation } from '../useStopStateChangeConfirmation';
 import { MirroredQuayBasicDetailsForm } from './mirrored-quay-form/MirroredQuayBasicDetailsForm';
 import { MirroredQuayFormState } from './mirrored-quay-form/schema';
 import { useEditMirroredQuayDetails } from './useEditMirroredQuayDetails';
@@ -84,6 +86,23 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
     onSave: () => submitFormByRef(formRef),
   });
 
+  const { onSubmit, confirmationDialogProps } =
+    useStopStateChangeConfirmation<MirroredQuayFormState>({
+      currentStopState: details.quay.stopState ?? StopPlaceState.InOperation,
+      quayNetexId: details.quay.id ?? '',
+      doSave: (state) =>
+        saveMirroredQuayDetails({
+          state,
+          quay: details.quay,
+          stopPlace: details.stopPlace,
+        }),
+      onSuccess: () => {
+        showSuccessToast(t(($) => $.stops.editSuccess));
+        infoContainerControls.setIsInEditMode(false);
+      },
+      defaultErrorHandler,
+    });
+
   const transportModeName = transportMode
     ? mapTransportModeToStopTypeName(t, transportMode)
     : '';
@@ -97,21 +116,6 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
     trunkLineStop: details.quay.stopType.trunkLineStop,
     speedTramStop: details.quay.stopType.speedTramStop,
     reasonForChange: '',
-  };
-
-  const onSubmit = async (state: MirroredQuayFormState) => {
-    try {
-      await saveMirroredQuayDetails({
-        state,
-        quay: details.quay,
-        stopPlace: details.stopPlace,
-      });
-
-      showSuccessToast(t(($) => $.stops.editSuccess));
-      infoContainerControls.setIsInEditMode(false);
-    } catch (err) {
-      defaultErrorHandler(err as Error);
-    }
   };
 
   const handleRemove = async () => {
@@ -162,6 +166,13 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
         confirmText={t(($) => $.stopDetails.hybrid.removeConfirm)}
         cancelText={t(($) => $.stopDetails.hybrid.removeCancel)}
         isConfirming={removing}
+      />
+      <StopStateChangeConfirmationDialog
+        isOpen={confirmationDialogProps.isOpen}
+        onConfirm={confirmationDialogProps.onConfirm}
+        onCancel={confirmationDialogProps.onCancel}
+        stopLabel={details.quay.publicCode ?? ''}
+        affectedRoutes={confirmationDialogProps.affectedRoutes}
       />
     </>
   );
