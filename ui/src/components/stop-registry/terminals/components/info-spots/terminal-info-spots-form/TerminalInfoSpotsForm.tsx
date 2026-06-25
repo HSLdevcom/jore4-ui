@@ -5,7 +5,6 @@ import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { PosterState } from '../../../../stops/stop-details/info-spots/types';
 import { TerminalInfoSpotFormState, terminalInfoSpotSchema } from '../types';
 import { TerminalInfoSpotFormFields } from './TerminalInfoSpotsFormFields';
 
@@ -50,22 +49,6 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
   useDirtyFormBlockNavigation(formState, 'TerminalInfoSpotsForm');
   const { isDirty } = formState;
 
-  const addNewPoster = () => {
-    const newPoster: PosterState = {
-      size: {
-        uiState: 'UNKNOWN',
-        width: null,
-        height: null,
-      },
-      label: '',
-      lines: '',
-      toBeDeletedPoster: false,
-      id: crypto.randomUUID(),
-    };
-
-    setValue('poster', [...(getValues('poster') ?? []), newPoster]);
-  };
-
   const onRemoveInfoSpot = () => {
     if (!getValues('infoSpotId')) {
       return;
@@ -93,7 +76,6 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
             infoSpot={infoSpot}
             terminal={terminal}
             onRemove={onRemoveInfoSpot}
-            addPoster={addNewPoster}
           />
         </div>
         <FormActionButtons

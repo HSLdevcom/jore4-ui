@@ -956,7 +956,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotsViewList.getLabelSortButton().shouldBeVisible();
         TerminalInfoSpotsViewList.getStopSortButton().shouldBeVisible();
         TerminalInfoSpotsViewList.getShelterSortButton().shouldBeVisible();
-        TerminalInfoSpotsViewList.getPurposeSortButton().shouldBeVisible();
+        TerminalInfoSpotsViewList.getIntendedUserSortButton().shouldBeVisible();
         TerminalInfoSpotsViewList.getSizeSortButton().shouldBeVisible();
         TerminalInfoSpotsViewList.getDescriptionSortButton().shouldBeVisible();
       },
@@ -975,7 +975,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
           TerminalInfoSpotRow.getLabelCell().shouldHaveText('E2E_INFO_001');
           TerminalInfoSpotRow.getQuayPublicCodeCell().shouldHaveText('E2E008');
           TerminalInfoSpotRow.getShelterNumberCell().shouldHaveText('1');
-          TerminalInfoSpotRow.getPurposeCell().shouldHaveText('Tiedotteet');
+          TerminalInfoSpotRow.getIntendedUserCell().shouldHaveText('VR');
           TerminalInfoSpotRow.getSizeCell().shouldHaveText('80 × 120 cm');
           TerminalInfoSpotRow.getDescriptionCell().shouldHaveText(
             'Terminaalin infopiste',
@@ -990,7 +990,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         });
         TerminalInfoSpotsViewCard.getContainer().shouldBeVisible();
         TerminalInfoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_001');
-        TerminalInfoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
+        TerminalInfoSpotsViewCard.getIntendedUser().shouldHaveText('VR');
         TerminalInfoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
         TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
         TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
@@ -1002,7 +1002,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotsViewCard.getPosterSize().shouldHaveText(
           'A4 (21.0 × 29.7 cm)',
         );
-        TerminalInfoSpotsViewCard.getPosterLabel().shouldHaveText(
+        TerminalInfoSpotsViewCard.getPosterPurpose().shouldHaveText(
           'E2E_POSTER_001',
         );
         TerminalInfoSpotsViewCard.getPosterLines().shouldHaveText('1, 2, 3');
@@ -1081,10 +1081,12 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotsSection.form.formFields
           .getLabel()
           .clearAndType('E2E_INFO_002');
-        TerminalInfoSpotsSection.form.formFields.getPurposeButton().click();
         TerminalInfoSpotsSection.form.formFields
-          .getPurposeOptions()
-          .contains('Tiedotteet')
+          .getIntendedUserButton()
+          .click();
+        TerminalInfoSpotsSection.form.formFields
+          .getIntendedUserOptions()
+          .contains('Matkatieto')
           .click();
         TerminalInfoSpotsSection.form.formFields
           .getSizeSelectorButton()
@@ -1142,9 +1144,13 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
                 .click(),
             );
 
-            TerminalInfoSpotsSection.form.formFields
-              .getPosterLabel()
-              .clearAndType('E2E_002_POSTER_001');
+            TerminalInfoSpotsSection.form.formFields.getPurposeButton().click();
+            cy.withinHeadlessPortal(() =>
+              TerminalInfoSpotsSection.form.formFields
+                .getPurposeOptions()
+                .contains('Tiedotteet')
+                .click(),
+            );
             TerminalInfoSpotsSection.form.formFields
               .getPosterDetails()
               .clearAndType('Kartta');
@@ -1164,7 +1170,9 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
 
         TerminalInfoSpotsViewCard.getContainer().shouldBeVisible();
         TerminalInfoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_002');
-        TerminalInfoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
+        TerminalInfoSpotsViewCard.getIntendedUser().shouldHaveText(
+          'Matkatieto',
+        );
         TerminalInfoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
         TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
         TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
@@ -1174,8 +1182,8 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
           'Toinen terminaalin infopiste',
         );
         TerminalInfoSpotsViewCard.getPosterSize().shouldHaveText('80 × 120 cm');
-        TerminalInfoSpotsViewCard.getPosterLabel().shouldHaveText(
-          'E2E_002_POSTER_001',
+        TerminalInfoSpotsViewCard.getPosterPurpose().shouldHaveText(
+          'Tiedotteet',
         );
         TerminalInfoSpotsViewCard.getPosterLines().shouldHaveText('Kartta');
       },
@@ -1269,8 +1277,15 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
                 .click(),
             );
 
+            TerminalInfoSpotsSection.form.formFields.getPurposeButton().click();
+            cy.withinHeadlessPortal(() =>
+              TerminalInfoSpotsSection.form.formFields
+                .getPurposeOptions()
+                .contains('Muu käyttötarkoitus')
+                .click(),
+            );
             TerminalInfoSpotsSection.form.formFields
-              .getPosterLabel()
+              .getPurposeCustom()
               .clearAndType('E2E_POSTER_002');
             TerminalInfoSpotsSection.form.formFields
               .getPosterDetails()
@@ -1298,7 +1313,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotsViewCard.getPosterContainer().each(
           (posterContainer: JQuery<HTMLElement>) => {
             cy.wrap(posterContainer).within(() => {
-              TerminalInfoSpotsViewCard.getPosterLabel()
+              TerminalInfoSpotsViewCard.getPosterPurpose()
                 .invoke('text')
                 .then((labelText: string) => {
                   const poster = expectedPosters.find(

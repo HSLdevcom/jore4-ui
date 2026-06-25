@@ -473,12 +473,12 @@
       "infoSpotType": "Julistepaikan tyyppi",
       "displayType": "Näytön tyyppi",
       "speechProperty": "Puheominaisuus",
-      "purpose": "Käyttötarkoitus",
+      "intendedUser": "Käyttäjä",
       "railInformation": "Raidetieto",
       "zoneLabel": "Vyöhyketunnus",
       "stops": "Pysäkit",
       "terminals": "Terminaalit",
-      "posterLabel": "Painotuote",
+      "posterPurpose": "Käyttötarkoitus",
       "posterSize": "Infotuotteen koko",
       "posterLines": "Lisätieto",
       "shelterTypeSubtitle": "Katos {{index}} | {{shelterType}}",
@@ -508,11 +508,18 @@
         "announcement": "Tiedotteet",
         "other": "Muu käyttötarkoitus"
       },
+      "intendedUsers": {
+        "null": "Ei käyttäjää",
+        "matkatieto": "Matkatieto",
+        "markkinointi": "Markkinointi",
+        "vr": "VR",
+        "muu": "Muu"
+      },
       "equipmentReport": {
         "title": {
           "metaHeader": "Infopaikat katos {{shelterNumber}}",
           "label": "Tunnus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
-          "purpose": "Käyttötarkoitus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "intendedUser": "Käyttäjä - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "size": "Koko - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "backlight": "Taustavalo - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "latitude": "Leveysaste - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
@@ -522,14 +529,14 @@
           "floor": "Kerros - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "description": "Kuvaus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "productSize": "Koko - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
-          "posterLabel": "Painotuote - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
+          "posterPurpose": "Käyttötarkoitus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
           "posterLines": "Lisätieto - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}"
         }
       },
       "infoSpotReport": {
         "title": {
           "productSize": "Infotuotteen {{posterNumber}} koko",
-          "posterLabel": "Infotuote {{posterNumber}}",
+          "posterPurpose": "Infotuote {{posterNumber}}",
           "posterLines": "Infotuotteen {{posterNumber}} lisätieto"
         }
       }
@@ -696,7 +703,7 @@
       "label": "Tunnus",
       "stop": "Pysäkki",
       "shelter": "Katos",
-      "purpose": "Käyttö",
+      "intendedUser": "Käyttäjä",
       "size": "Koko",
       "description": "Kuvaus",
       "openDetails": "Avaa infopaikan tiedot",

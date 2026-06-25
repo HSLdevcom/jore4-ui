@@ -473,12 +473,12 @@
       "infoSpotType": "Poster Place Type",
       "displayType": "Display Type",
       "speechProperty": "Speech Property",
-      "purpose": "Purpose",
+      "intendedUser": "Intended User",
       "railInformation": "Rail Information",
       "zoneLabel": "Zone Label",
       "stops": "Stops",
       "terminals": "Terminals",
-      "posterLabel": "Label",
+      "posterPurpose": "Purpose",
       "posterSize": "Size",
       "posterLines": "Additional information",
       "shelterTypeSubtitle": "Shelter {{index}} | {{shelterType}}",
@@ -508,11 +508,18 @@
         "announcement": "Announcement",
         "other": "Other purpose"
       },
+      "intendedUsers": {
+        "null": "No intended user",
+        "matkatieto": "Matkatieto",
+        "markkinointi": "Marketing",
+        "vr": "VR",
+        "muu": "Other"
+      },
       "equipmentReport": {
         "title": {
           "metaHeader": "Info Spots Shelter {{shelterNumber}}",
           "label": "Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
-          "purpose": "Purpose - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "intendedUser": "Intended User - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "size": "Size - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "backlight": "Backlight - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "latitude": "Latitutde - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
@@ -522,14 +529,14 @@
           "floor": "Floor - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "description": "Description - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "productSize": "Size - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
-          "posterLabel": "Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
+          "posterPurpose": "Purpose - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
           "posterLines": "Additional information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}"
         }
       },
       "infoSpotReport": {
         "title": {
           "productSize": "Poster {{posterNumber}} size",
-          "posterLabel": "Poster {{posterNumber}}",
+          "posterPurpose": "Poster {{posterNumber}}",
           "posterLines": "Poster {{posterNumber}} additional information"
         }
       }
@@ -696,7 +703,7 @@
       "label": "Label",
       "stop": "Stop",
       "shelter": "Shelter",
-      "purpose": "Purpose",
+      "intendedUser": "Intended User",
       "size": "Size",
       "description": "Description",
       "openDetails": "Open info spot details",

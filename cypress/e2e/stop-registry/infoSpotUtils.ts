@@ -8,7 +8,7 @@ type StringTuple = readonly [string, string];
 
 export type InfoSpotData = {
   readonly label: StringTuple;
-  readonly purpose: StringTuple;
+  readonly intendedUser: StringTuple;
   readonly size?: StringTuple;
   readonly backlight?: StringTuple;
   readonly floor?: StringTuple;
@@ -37,8 +37,8 @@ export function assertInfoSpot(
   infoSpotDetails.getLabel().within(assertLabel);
 
   infoSpotDetails
-    .getPurpose()
-    .within(assertChangedValues(infoSpotData.purpose));
+    .getIntendedUser()
+    .within(assertChangedValues(infoSpotData.intendedUser));
 
   if (infoSpotData.size) {
     infoSpotDetails.getSize().within(assertChangedValues(infoSpotData.size));

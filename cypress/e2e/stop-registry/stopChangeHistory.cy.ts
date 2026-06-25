@@ -976,12 +976,12 @@ describe('Stop Change History', { tags }, () => {
     const changedInfoSpot = {
       addedFirstInfoSpot: {
         label: ['', 'Test Label'],
-        purpose: ['', 'Pysäkkijuliste'],
+        intendedUser: ['', 'Matkatieto'],
         size: ['', 'A3 (29.7 × 42.0 cm)'],
       },
       updatedInfoSpot: {
         label: ['Test Label', 'Updated Label'],
-        purpose: ['Pysäkkijuliste', 'Kartta'],
+        intendedUser: ['Matkatieto', 'Markkinointi'],
         size: ['A3 (29.7 × 42.0 cm)', '100 × 140 cm'],
         backlight: ['-', 'Kyllä'],
         floor: ['-', '2'],
@@ -990,11 +990,11 @@ describe('Stop Change History', { tags }, () => {
       },
       addedSecondInfoSpot: {
         label: ['', 'Second Info Spot'],
-        purpose: ['', 'Tiedotteet'],
+        intendedUser: ['', 'Markkinointi'],
       },
       removedInfoSpot: {
         label: ['Second Info Spot', ''],
-        purpose: ['Tiedotteet', ''],
+        intendedUser: ['Markkinointi', ''],
       },
     } as const satisfies Readonly<Record<string, InfoSpotData>>;
 
@@ -1013,11 +1013,11 @@ describe('Stop Change History', { tags }, () => {
             .getLabel()
             .clearAndType(changedInfoSpot.addedFirstInfoSpot.label[1]);
 
-          InfoSpotsForm.infoSpots.getPurposeButton().click();
+          InfoSpotsForm.infoSpots.getIntendedUserButton().click();
           cy.withinHeadlessPortal(() =>
             InfoSpotsForm.infoSpots
-              .getPurposeOptions()
-              .contains(changedInfoSpot.addedFirstInfoSpot.purpose[1])
+              .getIntendedUserOptions()
+              .contains(changedInfoSpot.addedFirstInfoSpot.intendedUser[1])
               .click(),
           );
 
@@ -1050,11 +1050,11 @@ describe('Stop Change History', { tags }, () => {
             .getLabel()
             .clearAndType(changedInfoSpot.updatedInfoSpot.label[1]);
 
-          InfoSpotsForm.infoSpots.getPurposeButton().click();
+          InfoSpotsForm.infoSpots.getIntendedUserButton().click();
           cy.withinHeadlessPortal(() =>
             InfoSpotsForm.infoSpots
-              .getPurposeOptions()
-              .contains(changedInfoSpot.updatedInfoSpot.purpose[1])
+              .getIntendedUserOptions()
+              .contains(changedInfoSpot.updatedInfoSpot.intendedUser[1])
               .click(),
           );
 
@@ -1113,11 +1113,11 @@ describe('Stop Change History', { tags }, () => {
             .getLabel()
             .clearAndType(changedInfoSpot.addedSecondInfoSpot.label[1]);
 
-          InfoSpotsForm.infoSpots.getPurposeButton().click();
+          InfoSpotsForm.infoSpots.getIntendedUserButton().click();
           cy.withinHeadlessPortal(() =>
             InfoSpotsForm.infoSpots
-              .getPurposeOptions()
-              .contains(changedInfoSpot.addedSecondInfoSpot.purpose[1])
+              .getIntendedUserOptions()
+              .contains(changedInfoSpot.addedSecondInfoSpot.intendedUser[1])
               .click(),
           );
         });

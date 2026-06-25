@@ -31,14 +31,13 @@ export function mapInfoSpotDataToFormState(
     size: determineItemSize(infoSpot),
     infoSpotLocations: compact(infoSpot.infoSpotLocations),
     infoSpotType: infoSpot.infoSpotType ?? null,
-    purpose: mapStringToPurpose(infoSpot.purpose),
+    intendedUser: infoSpot.intendedUser ?? null,
     railInformation: infoSpot.railInformation ?? null,
     speechProperty: infoSpot.speechProperty ?? null,
     zoneLabel: normalizeZoneLabel(infoSpot.zoneLabel),
     poster: compact(infoSpot.poster).map((poster) => ({
-      // Just use random ID to use as key for poster components
-      id: poster.id ?? crypto.randomUUID(),
-      label: poster.label ?? null,
+      id: poster.id ?? null,
+      label: mapStringToPurpose(poster.label),
       lines: poster.lines ?? null,
       size: determineItemSize(poster),
       toBeDeletedPoster: false,

@@ -5,14 +5,13 @@ import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { Row } from '../../../../../common/LayoutComponents';
 import { InputField } from '../../../../../forms/common';
 import { InfoSpotsFormState } from '../types';
-import { usePosterNames } from './InfoSpotsPosterNames';
+import { PurposeFormFragment } from './PurposeFormFragment';
 import { SizeFormFragment } from './SizeFormFragment';
 
 const testIds = {
   addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
   posterContainer: 'InfoSpotPosterFormFields::container',
   posterSize: 'InfoSpotPosterFormFields::posterSize',
-  posterLabel: 'InfoSpotPosterFormFields::posterLabel',
   posterLines: 'InfoSpotPosterFormFields::posterLines',
   deleteInfoSpotPoster: 'InfoSpotFormFields::deleteInfoSpotPoster',
 };
@@ -21,7 +20,7 @@ type InfoSpotsFormPostersProps = {
   readonly infoSpotIndex: number;
   readonly posterIndex: number;
   readonly infoSpotToBeDeleted?: boolean;
-  readonly addPoster: (index: number) => void;
+  readonly addPoster: () => void;
   readonly onRemovePoster: (index: number, posterIndex: number) => void;
 };
 
@@ -40,8 +39,6 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
   const posters = watch(`infoSpots.${infoSpotIndex}.poster`) ?? [];
   const isLastPoster = posterIndex === posters.length - 1;
 
-  const posterOptions = usePosterNames();
-
   return (
     <div data-testid={testIds.posterContainer}>
       <Row className="my-5 flex-wrap items-end gap-4 px-10">
@@ -51,22 +48,11 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
           disabled={toBeDeletedPoster || infoSpotToBeDeleted}
         />
 
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.label`}
-          customTitlePath="stopDetails.infoSpots.posterLabel"
-          testId={testIds.posterLabel}
+        <PurposeFormFragment<InfoSpotsFormState>
+          purposeStatePath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.label`}
+          titlePath="stopDetails.infoSpots.posterPurpose"
           disabled={toBeDeletedPoster || infoSpotToBeDeleted}
-          list="posternames-data-list"
         />
-        <datalist id="posternames-data-list">
-          {posterOptions.map(({ label }) => (
-            <option key={label} value={label ?? ''}>
-              {label}
-            </option>
-          ))}
-        </datalist>
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
@@ -94,7 +80,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
           <AddNewButton
             testId={testIds.addInfoSpotPoster}
             label={t(($) => $.stopDetails.infoSpots.addInfoSpotPoster)}
-            onClick={() => addPoster(infoSpotIndex)}
+            onClick={addPoster}
             className="ml-auto"
           />
         )}

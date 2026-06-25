@@ -13,8 +13,8 @@ export class TerminalInfoSpotRow {
   static getShelterNumberCell = () =>
     cy.getByTestId('TerminalInfoSpotRow::shelterNumberCell');
 
-  static getPurposeCell = () =>
-    cy.getByTestId('TerminalInfoSpotRow::purposeCell');
+  static getIntendedUserCell = () =>
+    cy.getByTestId('TerminalInfoSpotRow::intendedUserCell');
 
   static getSizeCell = () => cy.getByTestId('TerminalInfoSpotRow::sizeCell');
 

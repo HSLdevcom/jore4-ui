@@ -11,7 +11,7 @@ import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { InfoSpotsFormSchema, InfoSpotsFormState, PosterState } from '../types';
+import { InfoSpotsFormSchema, InfoSpotsFormState } from '../types';
 import { mapInfoSpotDataToFormState } from '../utils';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
 
@@ -92,26 +92,6 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     },
   }));
 
-  const addNewPoster = (infoSpotIndex: number) => {
-    const newPoster: PosterState = {
-      size: {
-        uiState: 'UNKNOWN',
-        width: null,
-        height: null,
-      },
-      label: '',
-      lines: '',
-      toBeDeletedPoster: false,
-      // Random unique ID for new posters as it is used as key, it is not sent to the backend
-      id: crypto.randomUUID(),
-    };
-
-    setValue(`infoSpots.${infoSpotIndex}.poster`, [
-      ...(getValues(`infoSpots.${infoSpotIndex}.poster`) ?? []),
-      newPoster,
-    ]);
-  };
-
   const onRemoveInfoSpot = (idx: number) => {
     const infoSpot = infoSpots[idx];
     if (!infoSpot.infoSpotId) {
@@ -150,7 +130,6 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
               infoSpotIndex={idx}
               infoSpotsData={infoSpotsData}
               onRemove={onRemoveInfoSpot}
-              addPoster={addNewPoster}
             />
           </div>
         ))}
