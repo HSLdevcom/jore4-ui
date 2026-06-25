@@ -50,6 +50,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               direction: RouteDirectionEnum.Outbound,
               route_shape: null,
               on_line_id: 'line_id',
+              version_comment: null,
             },
             {
               ...buildRoute({ label: '456' }),
@@ -61,6 +62,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               direction: RouteDirectionEnum.Outbound,
               route_shape: null,
               on_line_id: 'line_id',
+              version_comment: null,
             },
           ],
         },
@@ -89,6 +91,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               direction: RouteDirectionEnum.Outbound,
               route_shape: null,
               on_line_id: 'line_id',
+              version_comment: null,
             },
           ],
         },

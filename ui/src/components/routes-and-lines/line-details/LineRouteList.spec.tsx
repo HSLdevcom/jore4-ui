@@ -55,6 +55,7 @@ describe(`<${LineRouteList.name} />`, () => {
               fi_FI: 'B short FI',
               sv_FI: 'B short SV',
             },
+            version_comment: null,
             on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
             route_shape: {
               type: 'LineString',
@@ -85,6 +86,7 @@ describe(`<${LineRouteList.name} />`, () => {
               type_of_line: RouteTypeOfLineEnum.RegionalBusService,
               transport_target:
                 HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
+              version_comment: null,
             },
             infrastructure_links_along_route: [
               {
