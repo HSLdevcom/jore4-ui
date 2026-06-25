@@ -54,7 +54,6 @@ const GQL_LINE_FOR_COMBOBOX = gql`
 export const useChooseLineDropdown = (
   query: string,
   lineId?: string,
-  observationDate?: DateTime,
   vehicleMode?: ReusableComponentsVehicleModeEnum,
 ): {
   lines: ReadonlyArray<LineForComboboxFragment>;
@@ -70,7 +69,7 @@ export const useChooseLineDropdown = (
   const linesResult = useGetLinesForComboboxQuery(
     mapToVariables({
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
-      date: observationDate ?? today.toISO(),
+      date: today.toISO(),
       primary_vehicle_mode: vehicleMode,
     }),
   );
