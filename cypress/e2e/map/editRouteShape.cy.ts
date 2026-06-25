@@ -136,7 +136,7 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
         lng: mapLocation.lng,
       });
 
-      MapFooter.getCreateRouteButton().click();
+      MapFooter.createRoute();
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Template route',
         label: '902',
