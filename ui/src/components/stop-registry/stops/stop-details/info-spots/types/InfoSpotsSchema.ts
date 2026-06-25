@@ -2,6 +2,7 @@ import { z } from 'zod';
 import {
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
+  StopRegistryIntendedUser,
 } from '../../../../../../generated/graphql';
 import {
   createNullableEnum,
@@ -21,17 +22,17 @@ export const itemSizeSchema = z.object({
   height: z.number().min(0).nullable(),
 });
 
-export const posterSchema = z.object({
-  id: z.string().nullable(),
-  label: z.string().nullable(),
-  lines: z.string().nullable(),
-  size: itemSizeSchema,
-  toBeDeletedPoster: z.boolean(),
-});
-
 export const infoSpotPurposeSchema = z.object({
   purposeType: z.nativeEnum(InfoSpotPurposeEnum),
   customPurpose: z.string().nullable(),
+});
+
+export const posterSchema = z.object({
+  id: z.string().nullable(),
+  label: infoSpotPurposeSchema,
+  lines: z.string().nullable(),
+  size: itemSizeSchema,
+  toBeDeletedPoster: z.boolean(),
 });
 
 export const infoSpotSchema = z.object({
@@ -46,7 +47,7 @@ export const infoSpotSchema = z.object({
   label: z.string().nullable(),
   infoSpotLocations: z.array(z.string().nullable()).nullable(),
   infoSpotType: createNullableEnum<StopRegistryInfoSpotType>(),
-  purpose: infoSpotPurposeSchema,
+  intendedUser: createNullableEnum<StopRegistryIntendedUser>(),
   railInformation: z.string().nullable(),
   speechProperty: nullableBoolean,
   zoneLabel: z.string().nullable(),

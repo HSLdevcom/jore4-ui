@@ -152,8 +152,8 @@ function getSortValue(
       return getDisplayValue(resolveQuayPublicCode(infoSpot, terminal));
     case 'shelter':
       return getDisplayValue(resolveShelterNumber(infoSpot, terminal));
-    case 'purpose':
-      return getDisplayValue(infoSpot.purpose);
+    case 'intendedUser':
+      return getDisplayValue(infoSpot.intendedUser);
     case 'size':
       return getDisplayValue(formatSizedDbItem(t, infoSpot));
     case 'description':

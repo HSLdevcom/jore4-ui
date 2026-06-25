@@ -6,6 +6,7 @@ import { EnrichedParentStopPlace } from '../../../../../../types';
 import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { PosterState } from '../../../../stops/stop-details/info-spots/types';
+import { mapStringToPurpose } from '../../../../stops/stop-details/info-spots/utils';
 import { TerminalInfoSpotFormState, terminalInfoSpotSchema } from '../types';
 import { TerminalInfoSpotFormFields } from './TerminalInfoSpotsFormFields';
 
@@ -57,10 +58,10 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
         width: null,
         height: null,
       },
-      label: '',
+      label: mapStringToPurpose(''),
       lines: '',
       toBeDeletedPoster: false,
-      id: crypto.randomUUID(),
+      id: null,
     };
 
     setValue('poster', [...(getValues('poster') ?? []), newPoster]);

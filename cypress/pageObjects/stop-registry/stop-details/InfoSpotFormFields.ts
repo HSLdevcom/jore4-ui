@@ -10,14 +10,11 @@ export class InfoSpotFormFields {
   static getInfoSpotTypeOptions = () =>
     cy.getByTestId('InfoSpotFormFields::infoSpotType::ListboxOptions');
 
-  static getPurposeButton = () =>
-    cy.getByTestId('InfoSpotFormFields::purpose::ListboxButton');
+  static getIntendedUserButton = () =>
+    cy.getByTestId('InfoSpotFormFields::intendedUser::ListboxButton');
 
-  static getPurposeOptions = () =>
-    cy.getByTestId('InfoSpotFormFields::purpose::ListboxOptions');
-
-  static getPurposeCustom = () =>
-    cy.getByTestId('InfoSpotFormFields::purpose::customInput');
+  static getIntendedUserOptions = () =>
+    cy.getByTestId('InfoSpotFormFields::intendedUser::ListboxOptions');
 
   static getBacklightButton = () =>
     cy.getByTestId('InfoSpotFormFields::backlight::ListboxButton');
@@ -74,11 +71,17 @@ export class InfoSpotFormFields {
   static getNthPosterContainer = (index: number) =>
     InfoSpotFormFields.getPosterContainers().eq(index);
 
-  static getPosterLabel = () =>
-    cy.getByTestId('InfoSpotPosterFormFields::posterLabel');
-
   static getPosterLines = () =>
     cy.getByTestId('InfoSpotPosterFormFields::posterLines');
+
+  static getPurposeButton = () =>
+    cy.getByTestId('InfoSpotPosterFormFields::purpose::ListboxButton');
+
+  static getPurposeOptions = () =>
+    cy.getByTestId('InfoSpotPosterFormFields::purpose::ListboxOptions');
+
+  static getPurposeCustom = () =>
+    cy.getByTestId('InfoSpotPosterFormFields::purpose::customInput');
 
   static getAddPosterButton = () =>
     cy.getByTestId('InfoSpotFormFields::addInfoSpotPoster');

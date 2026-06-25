@@ -8,12 +8,13 @@ import {
   Visible,
 } from '../../../common/LayoutComponents';
 import { formatSizedDbItem } from '../../stops/stop-details/info-spots/utils';
+import { formatPurposeForDisplay } from '../../stops/stop-details/info-spots/utils/infoSpotPurposeUtils';
 import { DetailRow, LabeledDetail } from '../../stops/stop-details/layout';
 
 const testIds = {
   posterContainer: 'InfoSpotPosterDetails::container',
   posterSize: 'InfoSpotPosterDetails::posterSize',
-  posterLabel: 'InfoSpotPosterDetails::posterLabel',
+  posterPurpose: 'InfoSpotPosterDetails::posterPurpose',
   posterLines: 'InfoSpotPosterDetails::posterLines',
   noPosters: 'InfoSpotPosterDetails::noPosters',
 };
@@ -51,9 +52,9 @@ export const InfoSpotPosters: FC<InfoSpotPostersProps> = ({ infoSpot }) => {
               testId={testIds.posterSize}
             />
             <LabeledDetail
-              title={t(($) => $.stopDetails.infoSpots.posterLabel)}
-              detail={poster.label}
-              testId={testIds.posterLabel}
+              title={t(($) => $.stopDetails.infoSpots.posterPurpose)}
+              detail={formatPurposeForDisplay(t, poster.label)}
+              testId={testIds.posterPurpose}
             />
             <LabeledDetail
               title={t(($) => $.stopDetails.infoSpots.posterLines)}

@@ -2,13 +2,17 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { ReactNode } from 'react';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
-import { mapZoneLabelToUiName } from '../../../../../i18n/uiNameMappings';
+import {
+  mapIntendedUserToUiName,
+  mapZoneLabelToUiName,
+} from '../../../../../i18n/uiNameMappings';
 import { getGeometryPoint } from '../../../../../utils';
 import {
   ChangedValue,
   EmptyCell,
   KeyedChangedValue,
   diffKeyedValues,
+  mapNullable,
 } from '../../../../common/ChangeHistory';
 import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
 import { formatPurposeForDisplay } from '../../../stops/stop-details/info-spots/utils/infoSpotPurposeUtils';
@@ -30,7 +34,7 @@ function preparePosters(
   infoSpot: InfoSpotDetailsFragment,
 ): Array<PosterInfo> {
   return compact(infoSpot.poster)
-    .sort((a, b) => (a.id ?? '')?.localeCompare(b.id ?? ''))
+    .sort((a, b) => (a.id ?? '').localeCompare(b.id ?? ''))
     .map((poster) => ({
       id: poster.id ?? '',
       fieldValues: [
@@ -39,8 +43,8 @@ function preparePosters(
           formatSizedDbItem(t, poster),
         ),
         fv(
-          t(($) => $.stopDetails.infoSpots.posterLabel),
-          poster.label,
+          t(($) => $.stopDetails.infoSpots.posterPurpose),
+          formatPurposeForDisplay(t, poster.label),
         ),
         fv(
           t(($) => $.stopDetails.infoSpots.posterLines),
@@ -86,11 +90,11 @@ export function diffInfoSpotVersions(
       newValue: current?.label,
     }),
     diffKeyedValues({
-      key: 'Purpose',
-      field: t(($) => $.stopDetails.infoSpots.purpose),
-      oldValue: previous?.purpose,
-      newValue: current?.purpose,
-      mapper: (v) => formatPurposeForDisplay(t, v),
+      key: 'IntendedUser',
+      field: t(($) => $.stopDetails.infoSpots.intendedUser),
+      oldValue: previous?.intendedUser,
+      newValue: current?.intendedUser,
+      mapper: mapNullable((v) => mapIntendedUserToUiName(t, v)),
     }),
     diffKeyedValues({
       key: 'Size',

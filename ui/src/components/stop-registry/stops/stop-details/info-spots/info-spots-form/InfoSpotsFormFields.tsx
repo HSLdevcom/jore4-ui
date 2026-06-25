@@ -1,8 +1,14 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
-import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
+import {
+  InfoSpotDetailsFragment,
+  StopRegistryIntendedUser,
+} from '../../../../../../generated/graphql';
+import {
+  mapIntendedUserToUiName,
+  mapZoneLabelToUiName,
+} from '../../../../../../i18n/uiNameMappings';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
@@ -13,13 +19,12 @@ import {
 import { ZoneLabel } from '../../../../types';
 import { InfoSpotsFormState } from '../types';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
-import { PurposeFormFragment } from './PurposeFormFragment';
 import { SizeFormFragment } from './SizeFormFragment';
 
 const testIds = {
   description: 'InfoSpotFormFields::description',
   label: 'InfoSpotFormFields::label',
-  purpose: 'InfoSpotFormFields::purpose',
+  intendedUser: 'InfoSpotFormFields::intendedUser',
   latitude: 'InfoSpotFormFields::latitude',
   longitude: 'InfoSpotFormFields::longitude',
   backlight: 'InfoSpotFormFields::backlight',
@@ -29,7 +34,6 @@ const testIds = {
   terminals: 'InfoSpotFormFields::terminals',
   zoneLabel: 'InfoSpotFormFields::zoneLabel',
   posterSize: 'InfoSpotPosterFormFields::posterSize',
-  posterLabel: 'InfoSpotPosterFormFields::posterLabel',
   posterLines: 'InfoSpotPosterFormFields::posterLines',
   deleteInfoSpot: 'InfoSpotFormFields::deleteInfoSpot',
   addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
@@ -90,10 +94,23 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <PurposeFormFragment<InfoSpotsFormState>
-            purposeStatePath={`infoSpots.${infoSpotIndex}.purpose`}
-            titlePath="stopDetails.infoSpots.purpose"
-            disabled={toBeDeleted}
+          <InputField<InfoSpotsFormState>
+            translationPrefix="stopDetails"
+            fieldPath={`infoSpots.${infoSpotIndex}.intendedUser`}
+            testId={testIds.intendedUser}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<StopRegistryIntendedUser>
+                enumType={StopRegistryIntendedUser}
+                placeholder={t(($) => $.unknown)}
+                uiNameMapper={(val) => mapIntendedUserToUiName(t, val)}
+                buttonClassName="min-w-32"
+                includeNullOption
+                disabled={toBeDeleted}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
           />
 
           <SizeFormFragment<InfoSpotsFormState>
@@ -181,7 +198,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
       {posters?.length ? (
         posters.map((poster, posterIndex) => (
           <InfoSpotsFormPosters
-            key={poster.id}
+            key={poster.id ?? `new-${posterIndex}`}
             infoSpotIndex={infoSpotIndex}
             posterIndex={posterIndex}
             addPoster={addPoster}

@@ -1,8 +1,14 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
-import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
+import {
+  InfoSpotDetailsFragment,
+  StopRegistryIntendedUser,
+} from '../../../../../../generated/graphql';
+import {
+  mapIntendedUserToUiName,
+  mapZoneLabelToUiName,
+} from '../../../../../../i18n/uiNameMappings';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { Column, Row } from '../../../../../common/LayoutComponents';
@@ -11,7 +17,6 @@ import {
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
-import { PurposeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/PurposeFormFragment';
 import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
 import { ZoneLabel } from '../../../../types';
 import { TerminalInfoSpotFormState } from '../types';
@@ -21,7 +26,7 @@ import { TerminalInfoSpotsFormPosters } from './TerminalInfoSpotsFormPosters';
 const testIds = {
   description: 'TerminalInfoSpotFormFields::description',
   label: 'TerminalInfoSpotFormFields::label',
-  purpose: 'TerminalInfoSpotFormFields::purpose',
+  intendedUser: 'TerminalInfoSpotFormFields::intendedUser',
   latitude: 'TerminalInfoSpotFormFields::latitude',
   longitude: 'TerminalInfoSpotFormFields::longitude',
   backlight: 'TerminalInfoSpotFormFields::backlight',
@@ -74,10 +79,23 @@ export const TerminalInfoSpotFormFields: FC<
             disabled={toBeDeleted}
           />
 
-          <PurposeFormFragment<TerminalInfoSpotFormState>
-            purposeStatePath="purpose"
-            titlePath="stopDetails.infoSpots.purpose"
-            disabled={toBeDeleted}
+          <InputField<TerminalInfoSpotFormState>
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="intendedUser"
+            testId={testIds.intendedUser}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<StopRegistryIntendedUser>
+                enumType={StopRegistryIntendedUser}
+                placeholder={t(($) => $.unknown)}
+                uiNameMapper={(val) => mapIntendedUserToUiName(t, val)}
+                buttonClassName="min-w-32"
+                includeNullOption
+                disabled={toBeDeleted}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
           />
 
           <SizeFormFragment<TerminalInfoSpotFormState>
@@ -187,7 +205,7 @@ export const TerminalInfoSpotFormFields: FC<
       {posters?.length ? (
         posters.map((poster, posterIndex) => (
           <TerminalInfoSpotsFormPosters
-            key={poster.id}
+            key={poster.id ?? `new-${posterIndex}`}
             posterIndex={posterIndex}
             addPoster={addPoster}
             onRemovePoster={onRemovePoster}

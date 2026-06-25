@@ -451,13 +451,13 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       .getDescription()
       .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
     infoSpotView.getLabel().shouldHaveText('JP1234568');
-    infoSpotView.getPurpose().shouldHaveText('Tiedotteet');
+    infoSpotView.getIntendedUser().shouldHaveText('Ei tiedossa');
     infoSpotView.getLatitude().shouldHaveText(expectedLocation.lat);
     infoSpotView.getLongitude().shouldHaveText(expectedLocation.lon);
     infoSpotView.getBacklight().shouldHaveText('Kyllä');
     infoSpotView.getSize().shouldHaveText('80 × 120 cm');
     infoSpotView.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
-    infoSpotView.getPosterLabel().shouldHaveText('PT1234');
+    infoSpotView.getPosterPurpose().shouldHaveText('PT1234');
     infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
     infoSpotView.getFloor().shouldHaveText('1');
     infoSpotView.getRailInformation().shouldHaveText('7');
@@ -482,7 +482,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         .getDescription()
         .shouldHaveText('Ensimmäinen kerros, portaiden takana');
       infoSpotView.getLabel().shouldHaveText('JP1234567');
-      infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
+      infoSpotView.getIntendedUser().shouldHaveText('VR');
       infoSpotView.getLatitude().shouldHaveText('60.16490775');
       infoSpotView.getLongitude().shouldHaveText('24.92904198');
       infoSpotView.getBacklight().shouldHaveText('-');
@@ -498,7 +498,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
     infoSpotView.getNthSectionContainer(2).within(() => {
       infoSpotView.getDescription().shouldHaveText('Tolpassa');
       infoSpotView.getLabel().shouldHaveText('JP1234569');
-      infoSpotView.getPurpose().shouldHaveText('Infopaikan käyttötarkoitus');
+      infoSpotView.getIntendedUser().shouldHaveText('Ei tiedossa');
       infoSpotView.getLatitude().shouldHaveText('60.16490775');
       infoSpotView.getLongitude().shouldHaveText('24.92904198');
       infoSpotView.getBacklight().shouldHaveText('-');
@@ -2080,7 +2080,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           .getDescription()
           .should('have.value', 'Ensimmäinen kerros, portaiden vieressä');
         infoSpot.getLabel().should('have.value', 'JP1234568');
-        infoSpot.getPurposeButton().should('have.text', 'Tiedotteet');
+        infoSpot.getIntendedUserButton().should('have.text', 'Ei tiedossa');
         infoSpot.getBacklightButton().should('have.text', 'Kyllä');
         infoSpot.getSizeSelectorButton().should('have.text', '80 × 120 cm');
         infoSpot.getFloor().should('have.value', '1');
@@ -2090,19 +2090,17 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           infoSpot
             .getSizeSelectorButton()
             .should('have.text', 'A4 (21.0 × 29.7 cm)');
-          infoSpot.getPosterLabel().should('have.value', 'PT1234');
+          infoSpot.getPurposeButton().should('have.text', 'PT1234');
           infoSpot.getPosterLines().should('have.value', '1, 6, 17');
         });
         infoSpot.getNoPostersLabel().should('not.exist');
 
         // Change everything
         infoSpot.getLabel().clearAndType('IP98765432');
-        infoSpot.getPurposeButton().click();
+        infoSpot.getIntendedUserButton().click();
         cy.withinHeadlessPortal(() =>
-          infoSpot.getPurposeOptions().contains('Muu käyttötarkoitus').click(),
+          infoSpot.getIntendedUserOptions().contains('Matkatieto').click(),
         );
-        infoSpot.getPurposeCustom().shouldBeVisible();
-        infoSpot.getPurposeCustom().clearAndType('Custom käyttötarkoitus');
         infoSpot.getSizeSelectorButton().click();
         cy.withinHeadlessPortal(() =>
           infoSpot
@@ -2122,7 +2120,14 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         infoSpot.getRailInformation().clearAndType('8');
         infoSpot.getFloor().clearAndType('2');
         infoSpot.getNthPosterContainer(0).within(() => {
-          infoSpot.getPosterLabel().clearAndType('PT1235');
+          infoSpot.getPurposeButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot
+              .getPurposeOptions()
+              .contains('Muu käyttötarkoitus')
+              .click(),
+          );
+          infoSpot.getPurposeCustom().clearAndType('PT1235');
           infoSpot.getSizeSelectorButton().click();
           cy.withinHeadlessPortal(() =>
             infoSpot
@@ -2144,7 +2149,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           'Infopaikan uusi kuvaus',
         );
         InfoSpotViewCard.getLabel().shouldHaveText('IP98765432');
-        InfoSpotViewCard.getPurpose().shouldHaveText('Custom käyttötarkoitus');
+        InfoSpotViewCard.getIntendedUser().shouldHaveText('Matkatieto');
         InfoSpotViewCard.getBacklight().shouldHaveText('Ei');
         InfoSpotViewCard.getSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
         InfoSpotViewCard.getFloor().shouldHaveText('2');
@@ -2154,7 +2159,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           InfoSpotViewCard.getPosterSize().shouldHaveText(
             'A3 (29.7 × 42.0 cm)',
           );
-          InfoSpotViewCard.getPosterLabel().shouldHaveText('PT1235');
+          InfoSpotViewCard.getPosterPurpose().shouldHaveText('PT1235');
           InfoSpotViewCard.getPosterLines().shouldHaveText('2, 7, 18');
         });
         InfoSpotViewCard.getNoPosters().should('not.exist');
@@ -2169,7 +2174,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           .getDescription()
           .should('have.value', 'Ensimmäinen kerros, portaiden takana');
         infoSpot.getLabel().should('have.value', 'JP1234567');
-        infoSpot.getPurposeButton().should('have.text', 'Dynaaminen näyttö');
+        infoSpot.getIntendedUserButton().should('have.text', 'VR');
         infoSpot.getFloor().should('have.value', '1');
         infoSpot.getRailInformation().should('have.value', '8');
         infoSpot.getZoneLabelButton().should('have.text', 'Ei');
@@ -2177,11 +2182,10 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
         // Change everything
         infoSpot.getLabel().clearAndType('IP2345678');
-        infoSpot.getPurposeButton().click();
+        infoSpot.getIntendedUserButton().click();
         cy.withinHeadlessPortal(() =>
-          infoSpot.getPurposeOptions().contains('Pysäkkijuliste').click(),
+          infoSpot.getIntendedUserOptions().contains('Matkatieto').click(),
         );
-        infoSpot.getPurposeCustom().should('not.exist');
         infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
         infoSpot.getZoneLabelButton().click();
         cy.withinHeadlessPortal(() =>
@@ -2199,7 +2203,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       InfoSpotViewCard.getNthSectionContainer(1).within(() => {
         InfoSpotViewCard.getDescription().shouldHaveText('Dynaaminen kuvaus');
         InfoSpotViewCard.getLabel().shouldHaveText('IP2345678');
-        InfoSpotViewCard.getPurpose().shouldHaveText('Pysäkkijuliste');
+        InfoSpotViewCard.getIntendedUser().shouldHaveText('Matkatieto');
         InfoSpotViewCard.getBacklight().shouldHaveText('-');
         InfoSpotViewCard.getSize().shouldHaveText('-');
         InfoSpotViewCard.getLatitude().shouldHaveText('60.16490775');
@@ -2264,9 +2268,9 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         const infoSpot = InfoSpotsForm.infoSpots;
         InfoSpotsForm.getNthInfoSpot(0).within(() => {
           infoSpot.getLabel().clearAndType('IP123');
-          infoSpot.getPurposeButton().click();
+          infoSpot.getIntendedUserButton().click();
           cy.withinHeadlessPortal(() =>
-            infoSpot.getPurposeOptions().contains('Kartta').click(),
+            infoSpot.getIntendedUserOptions().contains('Matkatieto').click(),
           );
           infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
           infoSpot.getZoneLabelButton().click();
@@ -2283,9 +2287,9 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
         InfoSpotsForm.getNthInfoSpot(1).within(() => {
           infoSpot.getLabel().clearAndType('IP125');
-          infoSpot.getPurposeButton().click();
+          infoSpot.getIntendedUserButton().click();
           cy.withinHeadlessPortal(() =>
-            infoSpot.getPurposeOptions().contains('Lähialuekartta').click(),
+            infoSpot.getIntendedUserOptions().contains('Matkatieto').click(),
           );
           infoSpot.getSizeSelectorButton().click();
           cy.withinHeadlessPortal(() =>
@@ -2301,7 +2305,14 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           infoSpot.getDescription().clearAndType('Staattisen kuvaus');
           infoSpot.getAddPosterButton().click();
           infoSpot.getNthPosterContainer(0).within(() => {
-            infoSpot.getPosterLabel().clearAndType('PT1236');
+            infoSpot.getPurposeButton().click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot
+                .getPurposeOptions()
+                .contains('Muu käyttötarkoitus')
+                .click(),
+            );
+            infoSpot.getPurposeCustom().clearAndType('PT1236');
             infoSpot.getSizeSelectorButton().click();
             cy.withinHeadlessPortal(() =>
               infoSpot
@@ -2313,7 +2324,14 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           });
           infoSpot.getAddPosterButton().click();
           infoSpot.getNthPosterContainer(1).within(() => {
-            infoSpot.getPosterLabel().clearAndType('PT1237');
+            infoSpot.getPurposeButton().click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot
+                .getPurposeOptions()
+                .contains('Muu käyttötarkoitus')
+                .click(),
+            );
+            infoSpot.getPurposeCustom().clearAndType('PT1237');
             infoSpot.getSizeSelectorButton().click();
             cy.withinHeadlessPortal(() =>
               infoSpot
@@ -2342,7 +2360,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       InfoSpotViewCard.getNthViewCardContainer(0).within(() => {
         InfoSpotViewCard.getDescription().shouldHaveText('Dynaamisen kuvaus');
         InfoSpotViewCard.getLabel().shouldHaveText('IP123');
-        InfoSpotViewCard.getPurpose().shouldHaveText('Kartta');
+        InfoSpotViewCard.getIntendedUser().shouldHaveText('Matkatieto');
         InfoSpotViewCard.getLatitude().shouldHaveText('60.16490775');
         InfoSpotViewCard.getLongitude().shouldHaveText('24.92904198');
         InfoSpotViewCard.getFloor().shouldHaveText('3');
@@ -2362,17 +2380,17 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           InfoSpotViewCard.getPosterSize().shouldHaveText(
             'A4 (21.0 × 29.7 cm)',
           );
-          InfoSpotViewCard.getPosterLabel().shouldHaveText('PT1237');
+          InfoSpotViewCard.getPosterPurpose().shouldHaveText('PT1237');
           InfoSpotViewCard.getPosterLines().shouldHaveText('2');
         });
         InfoSpotViewCard.getNthPosterContainer(0).within(() => {
           InfoSpotViewCard.getPosterSize().shouldHaveText(
             'A3 (29.7 × 42.0 cm)',
           );
-          InfoSpotViewCard.getPosterLabel().shouldHaveText('PT1236');
+          InfoSpotViewCard.getPosterPurpose().shouldHaveText('PT1236');
           InfoSpotViewCard.getPosterLines().shouldHaveText('2, 7, 1');
         });
-        InfoSpotViewCard.getPurpose().shouldHaveText('Lähialuekartta');
+        InfoSpotViewCard.getIntendedUser().shouldHaveText('Matkatieto');
         InfoSpotViewCard.getLatitude().shouldHaveText('60.16490775');
         InfoSpotViewCard.getLongitude().shouldHaveText('24.92904198');
         InfoSpotViewCard.getFloor().shouldHaveText('2');
@@ -2391,21 +2409,21 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         const infoSpot = InfoSpotsForm.infoSpots;
         InfoSpotsForm.getNthInfoSpot(1).within(() => {
           infoSpot.getLabel().should('have.value', 'IP125');
-          infoSpot.getPurposeButton().should('have.text', 'Lähialuekartta');
+          infoSpot.getIntendedUserButton().should('have.text', 'Matkatieto');
           infoSpot
             .getSizeSelectorButton()
             .should('have.text', 'A3 (29.7 × 42.0 cm)');
           infoSpot.getBacklightButton().should('have.text', 'Kyllä');
           infoSpot.getDescription().should('have.value', 'Staattisen kuvaus');
           infoSpot.getNthPosterContainer(0).within(() => {
-            infoSpot.getPosterLabel().should('have.value', 'PT1236');
+            infoSpot.getPurposeButton().should('have.text', 'PT1236');
             infoSpot
               .getSizeSelectorButton()
               .should('have.text', 'A3 (29.7 × 42.0 cm)');
             infoSpot.getPosterLines().should('have.value', '2, 7, 1');
           });
           infoSpot.getNthPosterContainer(1).within(() => {
-            infoSpot.getPosterLabel().should('have.value', 'PT1237');
+            infoSpot.getPurposeButton().should('have.text', 'PT1237');
             infoSpot
               .getSizeSelectorButton()
               .should('have.text', 'A4 (21.0 × 29.7 cm)');
@@ -2442,10 +2460,10 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           InfoSpotViewCard.getPosterSize().shouldHaveText(
             'A3 (29.7 × 42.0 cm)',
           );
-          InfoSpotViewCard.getPosterLabel().shouldHaveText('PT1236');
+          InfoSpotViewCard.getPosterPurpose().shouldHaveText('PT1236');
           InfoSpotViewCard.getPosterLines().shouldHaveText('2, 7, 1');
         });
-        InfoSpotViewCard.getPurpose().shouldHaveText('Lähialuekartta');
+        InfoSpotViewCard.getIntendedUser().shouldHaveText('Matkatieto');
         InfoSpotViewCard.getLatitude().shouldHaveText('60.16490775');
         InfoSpotViewCard.getLongitude().shouldHaveText('24.92904198');
         InfoSpotViewCard.getFloor().shouldHaveText('2');

@@ -2,6 +2,7 @@ import {
   StopRegistryDisplayType,
   StopRegistryInfoSpotInput,
   StopRegistryInfoSpotType,
+  StopRegistryIntendedUser,
 } from '../../generated/graphql';
 
 export type InfoSpotInput = {
@@ -24,7 +25,7 @@ const infoSpotJP1234568: StopRegistryInfoSpotInput = {
   label: 'JP1234568',
   maintenance: 'Huoltotietojen tekstit tähän...',
   infoSpotType: StopRegistryInfoSpotType.Static,
-  purpose: 'Announcement',
+  intendedUser: null,
   railInformation: '7',
   zoneLabel: 'YES',
   displayType: null, // Only set if posterPlaceType = Dynamic
@@ -51,7 +52,7 @@ const infoSpotJP1234567: StopRegistryInfoSpotInput = {
   floor: '1',
   label: 'JP1234567',
   maintenance: 'Huoltotietojen tekstit tähän...',
-  purpose: 'Dynaaminen näyttö',
+  intendedUser: StopRegistryIntendedUser.Vr,
   railInformation: '8',
   zoneLabel: 'NO',
   infoSpotType: StopRegistryInfoSpotType.Dynamic,
@@ -72,7 +73,7 @@ const infoSpotJP1234569: StopRegistryInfoSpotInput = {
   floor: '1',
   label: 'JP1234569',
   maintenance: 'Huoltotietojen tekstit tähän...',
-  purpose: 'Infopaikan käyttötarkoitus',
+  intendedUser: null,
   railInformation: '9',
   zoneLabel: 'UNKNOWN',
   displayType: null, // Only set if posterPlaceType = Dynamic

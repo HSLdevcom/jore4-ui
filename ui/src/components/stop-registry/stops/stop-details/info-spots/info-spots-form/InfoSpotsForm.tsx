@@ -12,7 +12,7 @@ import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { InfoSpotsFormSchema, InfoSpotsFormState, PosterState } from '../types';
-import { mapInfoSpotDataToFormState } from '../utils';
+import { mapInfoSpotDataToFormState, mapStringToPurpose } from '../utils';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
 
 const testIds = {
@@ -99,11 +99,10 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
         width: null,
         height: null,
       },
-      label: '',
+      label: mapStringToPurpose(''),
       lines: '',
       toBeDeletedPoster: false,
-      // Random unique ID for new posters as it is used as key, it is not sent to the backend
-      id: crypto.randomUUID(),
+      id: null,
     };
 
     setValue(`infoSpots.${infoSpotIndex}.poster`, [

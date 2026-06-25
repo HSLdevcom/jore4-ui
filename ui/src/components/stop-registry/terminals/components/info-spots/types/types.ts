@@ -7,7 +7,7 @@ export type SortField =
   | 'label'
   | 'stop'
   | 'shelter'
-  | 'purpose'
+  | 'intendedUser'
   | 'size'
   | 'description';
 

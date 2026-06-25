@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { Row } from '../../../../../common/LayoutComponents';
 import { InputField } from '../../../../../forms/common';
-import { usePosterNames } from '../../../../stops/stop-details/info-spots/info-spots-form/InfoSpotsPosterNames';
+import { PurposeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/PurposeFormFragment';
 import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
 import { TerminalInfoSpotFormState } from '../types';
 
@@ -12,7 +12,6 @@ const testIds = {
   addInfoSpotPoster: 'TerminalInfoSpotFormFields::addInfoSpotPoster',
   posterContainer: 'TerminalInfoSpotPosterFormFields::container',
   posterSize: 'TerminalInfoSpotPosterFormFields::posterSize',
-  posterLabel: 'TerminalInfoSpotPosterFormFields::posterLabel',
   posterDetails: 'TerminalInfoSpotPosterFormFields::posterDetails',
   deleteInfoSpotPoster: 'TerminalInfoSpotFormFields::deleteInfoSpotPoster',
 };
@@ -32,8 +31,6 @@ export const TerminalInfoSpotsFormPosters: FC<
   const posters = watch('poster') ?? [];
   const isLastPoster = posterIndex === posters.length - 1;
 
-  const posterOptions = usePosterNames();
-
   return (
     <div data-testid={testIds.posterContainer}>
       <Row className="my-5 flex-wrap items-end gap-4 px-10">
@@ -43,22 +40,11 @@ export const TerminalInfoSpotsFormPosters: FC<
           disabled={toBeDeletedPoster}
         />
 
-        <InputField<TerminalInfoSpotFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`poster.${posterIndex}.label`}
-          customTitlePath="stopDetails.infoSpots.posterLabel"
-          testId={testIds.posterLabel}
+        <PurposeFormFragment<TerminalInfoSpotFormState>
+          purposeStatePath={`poster.${posterIndex}.label`}
+          titlePath="stopDetails.infoSpots.posterPurpose"
           disabled={toBeDeletedPoster}
-          list="posternames-data-list"
         />
-        <datalist id="posternames-data-list">
-          {posterOptions.map(({ label }) => (
-            <option key={label} value={label ?? ''}>
-              {label}
-            </option>
-          ))}
-        </datalist>
         <InputField<TerminalInfoSpotFormState>
           type="text"
           translationPrefix="terminalDetails"

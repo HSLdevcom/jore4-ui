@@ -576,12 +576,12 @@ describe('Terminal Change History', { tags }, () => {
   const changedInfoSpot = {
     addedFirstInfoSpot: {
       label: ['', 'Test Label'],
-      purpose: ['', 'Pysäkkijuliste'],
+      intendedUser: ['', 'Matkatieto'],
       size: ['', 'A3 (29.7 × 42.0 cm)'],
     },
     updatedInfoSpot: {
       label: ['Test Label', 'Updated Label'],
-      purpose: ['Pysäkkijuliste', 'Kartta'],
+      intendedUser: ['Matkatieto', 'Markkinointi'],
       size: ['A3 (29.7 × 42.0 cm)', '100 × 140 cm'],
       backlight: ['-', 'Kyllä'],
       floor: ['-', '2'],
@@ -590,7 +590,7 @@ describe('Terminal Change History', { tags }, () => {
     },
     removedInfoSpot: {
       label: ['Updated Label', ''],
-      purpose: ['Kartta', ''],
+      intendedUser: ['Markkinointi', ''],
       size: ['100 × 140 cm', ''],
       backlight: ['Kyllä', ''],
       floor: ['2', ''],
@@ -613,12 +613,12 @@ describe('Terminal Change History', { tags }, () => {
           .clearAndType(changedInfoSpot.addedFirstInfoSpot.label[1]);
 
         TerminalDetailsPage.infoSpots.form.formFields
-          .getPurposeButton()
+          .getIntendedUserButton()
           .click();
         cy.withinHeadlessPortal(() =>
           TerminalDetailsPage.infoSpots.form.formFields
-            .getPurposeOptions()
-            .contains(changedInfoSpot.addedFirstInfoSpot.purpose[1])
+            .getIntendedUserOptions()
+            .contains(changedInfoSpot.addedFirstInfoSpot.intendedUser[1])
             .click(),
         );
 
@@ -646,12 +646,12 @@ describe('Terminal Change History', { tags }, () => {
           .clearAndType(changedInfoSpot.updatedInfoSpot.label[1]);
 
         TerminalDetailsPage.infoSpots.form.formFields
-          .getPurposeButton()
+          .getIntendedUserButton()
           .click();
         cy.withinHeadlessPortal(() =>
           TerminalDetailsPage.infoSpots.form.formFields
-            .getPurposeOptions()
-            .contains(changedInfoSpot.updatedInfoSpot.purpose[1])
+            .getIntendedUserOptions()
+            .contains(changedInfoSpot.updatedInfoSpot.intendedUser[1])
             .click(),
         );
 
@@ -767,9 +767,9 @@ describe('Terminal Change History', { tags }, () => {
             .within(assertValueChanged(changedInfoSpot.updatedInfoSpot.label));
 
           infoSpotDetails
-            .getPurpose()
+            .getIntendedUser()
             .within(
-              assertValueChanged(changedInfoSpot.updatedInfoSpot.purpose),
+              assertValueChanged(changedInfoSpot.updatedInfoSpot.intendedUser),
             );
 
           infoSpotDetails
@@ -819,9 +819,11 @@ describe('Terminal Change History', { tags }, () => {
             );
 
           infoSpotDetails
-            .getPurpose()
+            .getIntendedUser()
             .within(
-              assertValueChanged(changedInfoSpot.addedFirstInfoSpot.purpose),
+              assertValueChanged(
+                changedInfoSpot.addedFirstInfoSpot.intendedUser,
+              ),
             );
 
           infoSpotDetails

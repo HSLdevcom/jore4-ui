@@ -12252,6 +12252,7 @@ export type StopRegistryPoster = {
 
 export type StopRegistryPosterInput = {
   height?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   lines?: InputMaybe<Scalars['String']['input']>;
   posterSize?: InputMaybe<StopRegistryPosterPlaceSize>;

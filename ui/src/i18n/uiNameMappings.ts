@@ -9,6 +9,7 @@ import {
   RouteTypeOfLineEnum,
   StopRegistryAccessibilityLevel,
   StopRegistryGuidanceType,
+  StopRegistryIntendedUser,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
   StopRegistryShelterCondition,
@@ -500,6 +501,20 @@ export const mapZoneLabelToUiName = genTranslationMapper<ZoneLabel, string>(
   // This field was previously a text input, so existing data may contain incorrect values. Fallback to unknown.
   (t) => t(($) => $.unknown),
 );
+
+export const mapIntendedUserToUiName = genTranslationMapper<
+  StopRegistryIntendedUser | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t(($) => $.unknown),
+  [StopRegistryIntendedUser.Matkatieto]: (t) =>
+    t(($) => $.stopDetails.infoSpots.intendedUsers.matkatieto),
+  [StopRegistryIntendedUser.Markkinointi]: (t) =>
+    t(($) => $.stopDetails.infoSpots.intendedUsers.markkinointi),
+  [StopRegistryIntendedUser.Vr]: (t) =>
+    t(($) => $.stopDetails.infoSpots.intendedUsers.vr),
+  [StopRegistryIntendedUser.Muu]: (t) =>
+    t(($) => $.stopDetails.infoSpots.intendedUsers.muu),
+});
 
 export const mapInfoSpotPurposeToUiName =
   genTranslationMapper<InfoSpotPurposeEnum>({

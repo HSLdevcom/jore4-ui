@@ -46,7 +46,10 @@ const infoSpotHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
   (t, context) =>
     t(($) => $.stopDetails.infoSpots.equipmentReport.title.label, context),
   (t, context) =>
-    t(($) => $.stopDetails.infoSpots.equipmentReport.title.purpose, context),
+    t(
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.intendedUser,
+      context,
+    ),
   (t, context) =>
     t(($) => $.stopDetails.infoSpots.equipmentReport.title.size, context),
   (t, context) =>
@@ -73,7 +76,7 @@ const infoSpotHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
 
 const singleInfoSpotHeaders: ReadonlyArray<(t: TFunction) => string> = [
   (t) => t(($) => $.stopDetails.infoSpots.label),
-  (t) => t(($) => $.stopDetails.infoSpots.purpose),
+  (t) => t(($) => $.stopDetails.infoSpots.intendedUser),
   (t) => t(($) => $.stopDetails.infoSpots.size),
   (t) => t(($) => $.stopDetails.infoSpots.backlight),
   (t) => t(($) => $.stopDetails.location.latitude),
@@ -92,7 +95,7 @@ const posterHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
     ),
   (t, context) =>
     t(
-      ($) => $.stopDetails.infoSpots.equipmentReport.title.posterLabel,
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.posterPurpose,
       context,
     ),
   (t, context) =>
@@ -110,7 +113,7 @@ const singleInfoSpotPosterHeaders: ReadonlyArray<
       posterNumber,
     }),
   (t, posterNumber) =>
-    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.posterLabel, {
+    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.posterPurpose, {
       posterNumber,
     }),
   (t, posterNumber) =>
@@ -276,7 +279,7 @@ function writeInfoSpotFields(
   const position = getPointPosition(infoSpot.geometry);
 
   writer.writeTextField(infoSpot.label);
-  writer.writeTextField(infoSpot.purpose);
+  writer.writeTextField(infoSpot.intendedUser);
   writer.writeTextField(formatSizedDbItem(t, infoSpot));
   writer.writeBooleanField(
     infoSpot.backlight,

@@ -1,19 +1,20 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import { mapIntendedUserToUiName } from '../../../../../i18n/uiNameMappings';
 import { Point } from '../../../../../types';
+import { NullOptionEnum } from '../../../../../utils';
 import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
 import { DetailRow, LabeledDetail } from '../layout';
 import { InfoSpotDetails } from './InfoSpotDetails';
 import { InfoSpotZoneDetails } from './InfoSpotZoneDetails';
-import { formatPurposeForDisplay } from './utils/infoSpotPurposeUtils';
 
 const testIds = {
   container: 'InfoSpotsViewCard::container',
   description: 'InfoSpotsViewCard::description',
   label: 'InfoSpotsViewCard::label',
   infoSpotType: 'InfoSpotsViewCard::infoSpotType',
-  purpose: 'InfoSpotsViewCard::purpose',
+  intendedUser: 'InfoSpotsViewCard::intendedUser',
   latitude: 'InfoSpotsViewCard::latitude',
   longitude: 'InfoSpotsViewCard::longitude',
 };
@@ -41,9 +42,12 @@ export const InfoSpotsViewCard: FC<InfoSpotsViewCardProps> = ({
             testId={testIds.label}
           />
           <LabeledDetail
-            title={t(($) => $.stopDetails.infoSpots.purpose)}
-            detail={formatPurposeForDisplay(t, infoSpot.purpose)}
-            testId={testIds.purpose}
+            title={t(($) => $.stopDetails.infoSpots.intendedUser)}
+            detail={mapIntendedUserToUiName(
+              t,
+              infoSpot.intendedUser ?? NullOptionEnum.Null,
+            )}
+            testId={testIds.intendedUser}
           />
           <InfoSpotDetails infoSpot={infoSpot} />
           <LabeledDetail

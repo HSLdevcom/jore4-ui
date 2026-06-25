@@ -9,11 +9,11 @@ import { stringToInfoSpotPurposeEnum } from '../utils/infoSpotPurposeUtils';
 const GQL_GET_INFO_SPOT_PURPOSES = gql`
   query GetInfoSpotPurposes {
     stopsDb: stops_database {
-      latestInfoSpots: stops_database_info_spot(
+      latestInfoSpotPosters: stops_database_info_spot_poster(
         distinct_on: netex_id
         order_by: [{ netex_id: asc }, { version: desc }]
       ) {
-        purpose
+        label
       }
     }
   }
@@ -33,13 +33,13 @@ export function useGetInfoSpotPurposes() {
       return [];
     }
 
-    // Collect purposes from latest version of each info spot,
-    // so that unused purposes are not included in the dropdown
+    // Collect labels from latest version of each info spot poster,
+    // so that unused labels are not included in the dropdown
     const inDB = compact(
-      data.stopsDb?.latestInfoSpots?.map((it) => it.purpose),
+      data.stopsDb?.latestInfoSpotPosters?.map((poster) => poster.label),
     );
     const withoutEnums = inDB.filter(
-      (purpose) => !stringToInfoSpotPurposeEnum(purpose),
+      (label) => !stringToInfoSpotPurposeEnum(label),
     );
 
     return uniq(withoutEnums).sort(collator.compare.bind(collator));

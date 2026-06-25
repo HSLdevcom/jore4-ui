@@ -208,7 +208,7 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
       .shouldHaveText('E2E_INFO_001');
     StopDetailsPage.infoSpots.viewCard.getNthPosterContainer(0).within(() => {
       StopDetailsPage.infoSpots.viewCard
-        .getPosterLabel()
+        .getPosterPurpose()
         .shouldHaveText('E2E_POSTER_001');
     });
   });

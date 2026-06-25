@@ -17,8 +17,8 @@ import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
 import { PurposeOption, PurposeSelector } from './PurposeSelector';
 
 const testIds = {
-  selector: 'InfoSpotFormFields::purpose',
-  customInput: 'InfoSpotFormFields::purpose::customInput',
+  selector: 'InfoSpotPosterFormFields::purpose',
+  customInput: 'InfoSpotPosterFormFields::purpose::customInput',
 };
 
 type PurposeFormFragmentProps<FormState extends FieldValues> = {
