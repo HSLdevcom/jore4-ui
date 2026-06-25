@@ -10,8 +10,8 @@ export class TerminalInfoSpotsViewCard {
   static getInfoSpotType = () =>
     cy.getByTestId('TerminalInfoSpotsViewCard::infoSpotType');
 
-  static getPurpose = () =>
-    cy.getByTestId('TerminalInfoSpotsViewCard::purpose');
+  static getIntendedUser = () =>
+    cy.getByTestId('TerminalInfoSpotsViewCard::intendedUser');
 
   static getLatitude = () =>
     cy.getByTestId('TerminalInfoSpotsViewCard::latitude');
@@ -38,8 +38,8 @@ export class TerminalInfoSpotsViewCard {
   static getPosterSize = () =>
     cy.getByTestId('InfoSpotPosterDetails::posterSize');
 
-  static getPosterLabel = () =>
-    cy.getByTestId('InfoSpotPosterDetails::posterLabel');
+  static getPosterPurpose = () =>
+    cy.getByTestId('InfoSpotPosterDetails::posterPurpose');
 
   static getPosterLines = () =>
     cy.getByTestId('InfoSpotPosterDetails::posterLines');

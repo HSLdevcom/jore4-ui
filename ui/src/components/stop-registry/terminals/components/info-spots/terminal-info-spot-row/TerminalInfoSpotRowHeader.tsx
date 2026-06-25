@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapIntendedUserToUiName } from '../../../../../../i18n/uiNameMappings';
+import { NullOptionEnum } from '../../../../../../utils';
 import {
   AccordionButton,
   CloseIconButton,
   SimpleButton,
 } from '../../../../../common/Buttons';
-import {
-  formatPurposeForDisplay,
-  formatSizedDbItem,
-} from '../../../../stops/stop-details/info-spots/utils';
+import { formatSizedDbItem } from '../../../../stops/stop-details/info-spots/utils';
 import { TerminalInfoSpotRowHeaderProps } from '../types';
 import {
   CSS_CLASSES,
@@ -25,7 +24,7 @@ const testIds = {
   labelCell: 'TerminalInfoSpotRow::labelCell',
   quayPublicCodeCell: 'TerminalInfoSpotRow::quayPublicCodeCell',
   shelterNumberCell: 'TerminalInfoSpotRow::shelterNumberCell',
-  purposeCell: 'TerminalInfoSpotRow::purposeCell',
+  intendedUserCell: 'TerminalInfoSpotRow::intendedUserCell',
   sizeCell: 'TerminalInfoSpotRow::sizeCell',
   descriptionCell: 'TerminalInfoSpotRow::descriptionCell',
   actionCell: 'TerminalInfoSpotRow::actionCell',
@@ -132,9 +131,12 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
           </td>
           <td
             className={CSS_CLASSES.tableCell}
-            data-testid={testIds.purposeCell}
+            data-testid={testIds.intendedUserCell}
           >
-            {formatPurposeForDisplay(t, infoSpot.purpose)}
+            {mapIntendedUserToUiName(
+              t,
+              infoSpot.intendedUser ?? NullOptionEnum.Null,
+            )}
           </td>
           <td className={CSS_CLASSES.tableCell} data-testid={testIds.sizeCell}>
             {formatSizedDbItem(t, infoSpot)}

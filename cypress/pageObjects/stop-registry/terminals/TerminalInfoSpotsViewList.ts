@@ -16,8 +16,8 @@ export class TerminalInfoSpotsViewList {
   static getShelterSortButton = () =>
     TerminalInfoSpotsViewList.getSortButton('shelter');
 
-  static getPurposeSortButton = () =>
-    TerminalInfoSpotsViewList.getSortButton('purpose');
+  static getIntendedUserSortButton = () =>
+    TerminalInfoSpotsViewList.getSortButton('intendedUser');
 
   static getSizeSortButton = () =>
     TerminalInfoSpotsViewList.getSortButton('size');

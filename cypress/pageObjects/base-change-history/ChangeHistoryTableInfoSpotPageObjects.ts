@@ -13,7 +13,7 @@ export const ChangeHistoryTableInfoSpotChangedValues =
       'ChangeHistory::ChangedValues::InfoSpotDetails::Updated',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Removed',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Label',
-      'ChangeHistory::ChangedValues::InfoSpotDetails::Purpose',
+      'ChangeHistory::ChangedValues::InfoSpotDetails::IntendedUser',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Size',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Backlight',
       'ChangeHistory::ChangedValues::InfoSpotDetails::Floor',

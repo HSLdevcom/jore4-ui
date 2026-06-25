@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapZoneLabelToUiName } from '../../../../../i18n/uiNameMappings';
-import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
 import {
-  formatPurposeForDisplay,
-  formatSizedDbItem,
-} from '../../../stops/stop-details/info-spots/utils';
+  mapIntendedUserToUiName,
+  mapZoneLabelToUiName,
+} from '../../../../../i18n/uiNameMappings';
+import { NullOptionEnum } from '../../../../../utils';
+import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
+import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { optionalBooleanToUiText } from '../../../stops/stop-details/utils';
 import { normalizeZoneLabel } from '../../../types/utils';
@@ -16,8 +17,8 @@ const testIds = {
   container: 'TerminalInfoSpotsViewCard::container',
   description: 'TerminalInfoSpotsViewCard::description',
   label: 'TerminalInfoSpotsViewCard::label',
+  intendedUser: 'TerminalInfoSpotsViewCard::intendedUser',
   infoSpotType: 'TerminalInfoSpotsViewCard::infoSpotType',
-  purpose: 'TerminalInfoSpotsViewCard::purpose',
   latitude: 'TerminalInfoSpotsViewCard::latitude',
   longitude: 'TerminalInfoSpotsViewCard::longitude',
   backlight: 'TerminalInfoSpotsViewCard::backlight',
@@ -44,9 +45,12 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
             testId={testIds.label}
           />
           <LabeledDetail
-            title={t(($) => $.stopDetails.infoSpots.purpose)}
-            detail={formatPurposeForDisplay(t, infoSpot.purpose)}
-            testId={testIds.purpose}
+            title={t(($) => $.stopDetails.infoSpots.intendedUser)}
+            detail={mapIntendedUserToUiName(
+              t,
+              infoSpot.intendedUser ?? NullOptionEnum.Null,
+            )}
+            testId={testIds.intendedUser}
           />
           <LabeledDetail
             title={t(($) => $.stopDetails.infoSpots.size)}

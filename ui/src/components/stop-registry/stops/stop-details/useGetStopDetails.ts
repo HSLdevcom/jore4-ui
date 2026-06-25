@@ -307,7 +307,7 @@ const GQL_INFO_SPOT_DETAILS = gql`
     height
     infoSpotLocations
     infoSpotType
-    purpose
+    intendedUser
     railInformation
     speechProperty
     zoneLabel

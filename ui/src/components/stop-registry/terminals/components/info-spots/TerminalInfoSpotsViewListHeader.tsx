@@ -78,12 +78,12 @@ export const TerminalInfoSpotsViewListHeader: FC<
           {t(($) => $.terminalDetails.infoSpots.shelter)}
         </SortableHeader>
         <SortableHeader
-          field="purpose"
+          field="intendedUser"
           onSort={handleSort}
           getSortIcon={getSortIcon}
           getSortIconTransform={getSortIconTransform}
         >
-          {t(($) => $.terminalDetails.infoSpots.purpose)}
+          {t(($) => $.terminalDetails.infoSpots.intendedUser)}
         </SortableHeader>
         <SortableHeader
           field="size"

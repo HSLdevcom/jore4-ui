@@ -30,8 +30,9 @@ function mapPosterInput(
   }
 
   return poster.map(
-    ({ label, size, lines }): StopRegistryPosterInput => ({
-      label,
+    ({ id, label, size, lines }): StopRegistryPosterInput => ({
+      id,
+      label: mapPurposeToString(label),
       width: size.width,
       height: size.height,
       lines,
@@ -57,7 +58,7 @@ function mapTerminalInfoSpotFormToInput(
     height: infoSpot.size.height,
     infoSpotLocations: infoSpot.infoSpotLocations,
     infoSpotType: mapNullEnumOption(infoSpot.infoSpotType),
-    purpose: mapPurposeToString(infoSpot.purpose),
+    intendedUser: mapNullEnumOption(infoSpot.intendedUser),
     railInformation: infoSpot.railInformation,
     speechProperty: infoSpot.speechProperty,
     zoneLabel: infoSpot.zoneLabel,
