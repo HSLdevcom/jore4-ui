@@ -45,7 +45,6 @@ export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
   const { lines, selectedLine } = useChooseLineDropdown(
     query,
     value,
-    undefined,
     vehicleMode,
   );
 
