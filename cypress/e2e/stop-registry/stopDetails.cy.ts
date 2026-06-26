@@ -2768,6 +2768,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       copyModal.modal().should('not.exist');
       StopDetailsPage.loadingStopDetails().should('not.exist');
       StopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-1.4.2020');
+      StopDetailsPage.validityPeriod().should('contain', 'Luonnos');
 
       // Reopen Temp version
       cy.visit(
