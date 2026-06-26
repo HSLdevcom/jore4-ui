@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { mapToShortDate } from '../../../../time';
-import { CloseIconButton } from '../../../../uiComponents';
+import { CloseIconButton } from '../../../common/Buttons';
 import { Row } from '../../../common/LayoutComponents';
 
 const testIds = {

@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { CloseIconButton } from './CloseIconButton';
+import { CloseIconButton } from '../components/common/Buttons';
 
 const testIds = {
   closeButton: 'Popover::closeButton',

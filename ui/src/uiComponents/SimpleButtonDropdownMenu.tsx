@@ -2,7 +2,10 @@ import { Menu, MenuButton } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { SimpleButtonShape, getSimpleButtonClassNames } from './SimpleButton';
+import {
+  SimpleButtonShape,
+  getSimpleButtonClassNames,
+} from '../components/common/Buttons';
 import { SimpleDropdownMenuItems } from './SimpleDropdownMenuItems';
 
 type SimpleButtonDropdownShape = Extract<SimpleButtonShape, 'normal' | 'slim'>;

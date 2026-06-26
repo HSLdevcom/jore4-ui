@@ -4,13 +4,13 @@ import { Popup } from 'react-map-gl/maplibre';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { parseDate } from '../../../time';
 import { EnrichedStopPlace } from '../../../types';
-import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import {
   KnownValueKey,
   findKeyValueParsed,
   getGeometryPoint,
   mapToValidityPeriod,
 } from '../../../utils';
+import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { Column, Row } from '../../common/LayoutComponents';
 import { useMapObservationDate } from '../utils/mapUrlState';
 

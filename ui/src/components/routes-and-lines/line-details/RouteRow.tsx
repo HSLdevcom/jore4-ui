@@ -18,12 +18,12 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../time';
+import { AlertPopover } from '../../common/AlertPopover';
 import {
   AccordionButton,
   EditButton,
   LocatorButton,
-} from '../../../uiComponents';
-import { AlertPopover } from '../../common/AlertPopover';
+} from '../../common/Buttons';
 import { useAlertsAndHighLights, useShowRoutesOnMap } from '../../common/hooks';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';

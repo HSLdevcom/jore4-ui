@@ -2,8 +2,8 @@ import { Transition } from '@headlessui/react';
 import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { ExpandButton } from '../../../uiComponents';
 import { accordionClassNames } from '../../common';
+import { ExpandButton } from '../../common/Buttons';
 import { FormRow, InputField } from '../../forms/common';
 import { StopAreaFormState } from '../../forms/stop-area';
 

@@ -6,7 +6,7 @@ import {
   mapDirectionToSymbol,
 } from '../../../../i18n/uiNameMappings';
 import { mapToShortDate } from '../../../../time';
-import { LocatorButton } from '../../../../uiComponents';
+import { LocatorButton } from '../../../common/Buttons';
 import { useShowRoutesOnMap } from '../../../common/hooks';
 import { Row } from '../../../common/LayoutComponents';
 import { StopSearchRow } from '../../components';

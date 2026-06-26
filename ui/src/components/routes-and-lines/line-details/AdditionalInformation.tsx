@@ -7,7 +7,7 @@ import {
   mapVehicleModeToUiName,
 } from '../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton } from '../../common/Buttons';
 import { Column, Row } from '../../common/LayoutComponents';
 import { FieldValue } from './FieldValue';
 

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton } from '../Buttons';
 import { Row } from '../LayoutComponents';
 
 const testIds = {

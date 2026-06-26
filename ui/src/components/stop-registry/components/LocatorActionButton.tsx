@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LocatorButton } from '../../../uiComponents';
+import { LocatorButton } from '../../common/Buttons';
 import { LocatableStopWithObservationDateProps } from '../types';
 import { useShowStopOnMap } from '../utils/useShowStopOnMap';
 

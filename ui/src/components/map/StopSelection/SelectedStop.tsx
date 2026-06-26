@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { StopSelectionInfoFragment as StopSelectionInfo } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton } from '../../common/Buttons';
 
 const testIds = {
   stop: (

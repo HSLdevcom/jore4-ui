@@ -13,12 +13,12 @@ import {
   selectRowsAction,
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
-import { SimpleButton } from '../../../uiComponents';
 import {
   DisplayedSearchResultType,
   isRouteActiveOnObservationDate,
   showDangerToast,
 } from '../../../utils';
+import { SimpleButton } from '../../common/Buttons';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { useExportRoutes } from './useExportRoutes';
 import { useSearchResults } from './useSearchResults';

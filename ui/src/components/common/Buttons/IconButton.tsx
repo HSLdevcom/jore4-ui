@@ -5,7 +5,7 @@ import {
   isValidElement,
 } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { addClassName } from '../utils/components';
+import { addClassName } from '../../../utils/components';
 
 type IconButtonProps = {
   readonly testId?: string;

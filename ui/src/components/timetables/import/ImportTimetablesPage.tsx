@@ -11,13 +11,10 @@ import {
   selectIsJoreOperationLoading,
 } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
-import {
-  CloseIconButton,
-  ConfirmationDialog,
-  SimpleButton,
-} from '../../../uiComponents';
+import { ConfirmationDialog } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common';
+import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { Container, Row } from '../../common/LayoutComponents';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';

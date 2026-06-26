@@ -11,7 +11,7 @@ import {
   mapStopRegistryShelterElectricityEnumToUiName,
   mapStopRegistryShelterTypeEnumToUiName,
 } from '../../../../../i18n/uiNameMappings';
-import { SimpleButton } from '../../../../../uiComponents';
+import { SimpleButton } from '../../../../common/Buttons';
 import { Column, Row } from '../../../../common/LayoutComponents';
 import {
   EnumDropdown,

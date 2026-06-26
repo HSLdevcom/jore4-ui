@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../hooks';
 import { FilterType, resetMapState, setStopFilterAction } from '../../redux';
-import { SimpleButton } from '../../uiComponents';
 import { useNavigateToMap } from '../map/utils/useNavigateToMap';
+import { SimpleButton } from './Buttons';
 
 type OpenDefaultMapButtonProps = {
   readonly className?: string;

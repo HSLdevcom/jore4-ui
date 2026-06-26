@@ -1,7 +1,8 @@
 import { FC, ReactNode, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { CloseIconButton, ConfirmationDialog } from '../../../uiComponents';
+import { ConfirmationDialog } from '../../../uiComponents';
+import { CloseIconButton } from '../Buttons';
 import s from './TaskWithProgressBar.module.css';
 import { ConfirmProps, Progress } from './types';
 

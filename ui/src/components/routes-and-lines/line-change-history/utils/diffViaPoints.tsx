@@ -2,7 +2,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { TFunction } from 'i18next';
 import noop from 'lodash/noop';
 import { FC, ReactNode } from 'react';
-import { CloseIconButton } from '../../../../uiComponents';
+import { CloseIconButton } from '../../../common/Buttons';
 import {
   KeyedChangedValue,
   areEqualish,

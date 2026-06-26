@@ -4,7 +4,7 @@ import {
   AccordionButton,
   CloseIconButton,
   SimpleButton,
-} from '../../../../../../uiComponents';
+} from '../../../../../common/Buttons';
 import {
   formatPurposeForDisplay,
   formatSizedDbItem,

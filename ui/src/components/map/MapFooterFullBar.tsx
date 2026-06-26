@@ -14,7 +14,7 @@ import {
   selectMapRouteEditor,
   setDraftVehicleModeAction,
 } from '../../redux';
-import { SimpleButton } from '../../uiComponents';
+import { SimpleButton } from '../common/Buttons';
 import { Row, Visible } from '../common/LayoutComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { MapFooterAddRouteDropdown } from './MapFooterAddRouteDropdown';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { MdClose, MdEdit } from 'react-icons/md';
-import { Visible } from '../components/common/LayoutComponents';
-import { IconButton } from './IconButton';
+import { IconButton } from '../../../common/Buttons';
+import { Visible } from '../../../common/LayoutComponents';
 
 type EditCloseButtonProps = {
   readonly titleEdit: string;

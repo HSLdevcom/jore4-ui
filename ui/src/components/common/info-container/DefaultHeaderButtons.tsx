@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton } from '../Buttons';
 import { Visible } from '../LayoutComponents';
 import { InfoContainerHeaderButtonsProps } from './InfoContainerHeaderButtonsProps';
 

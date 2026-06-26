@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdClose } from 'react-icons/md';
-import { IconButton } from '../../../../uiComponents';
+import { IconButton } from '../../../common/Buttons';
 import {
   VehicleScheduleFrameInfo,
   useMissingRouteDeviationsSort,

@@ -5,7 +5,7 @@ import { MdList } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectMapStopSelection, setStopSelectionAction } from '../../../redux';
-import { IconButton } from '../../../uiComponents';
+import { IconButton } from '../../common/Buttons';
 import { hasMeaningfulFilters } from '../../stop-registry';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
 import { StopSelectionPanel } from './StopSelectionPanel';

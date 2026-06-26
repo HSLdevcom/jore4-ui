@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { LocatorButton } from '../../../../uiComponents';
+import { LocatorButton } from '../../../common/Buttons';
 import { useShowRoutesOnMap } from '../../../common/hooks';
 import { VersionRowCells } from '../../../common/versions';
 import { RouteVersion } from '../types';

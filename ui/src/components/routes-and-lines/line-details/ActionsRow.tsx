@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton } from '../../common/Buttons';
 import { Column, Container } from '../../common/LayoutComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormRow } from '../../forms/common';

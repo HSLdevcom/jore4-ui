@@ -3,8 +3,8 @@ import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { SimpleButton } from '../../common/Buttons';
 import { Row, Visible } from '../../common/LayoutComponents';
 import {
   FormColumn,

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { defaultPagingInfo } from '../../../types';
-import { CloseIconButton } from '../../../uiComponents';
 import { areEqual } from '../../../utils';
 import { PageTitle } from '../../common';
+import { CloseIconButton } from '../../common/Buttons';
 import { Container, Row } from '../../common/LayoutComponents';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { StopsByLineSearchResults } from './by-line';

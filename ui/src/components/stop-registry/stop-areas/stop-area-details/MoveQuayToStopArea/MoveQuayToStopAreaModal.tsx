@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { ChangeEventHandler, FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CloseIconButton, SimpleButton } from '../../../../../uiComponents';
 import { showSuccessToast } from '../../../../../utils';
+import { CloseIconButton, SimpleButton } from '../../../../common/Buttons';
 import { Column, Row } from '../../../../common/LayoutComponents';
 import { Modal, ModalBody, NewModalFooter } from '../../../../common/Modals';
 import { SelectStopDropdown } from '../../../components/SelectMemberStops';

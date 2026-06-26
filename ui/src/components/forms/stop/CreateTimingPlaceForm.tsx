@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { Operation } from '../../../redux';
-import { SimpleButton } from '../../../uiComponents';
 import {
   showDangerToast,
   showSuccessToast,
   submitFormByRef,
 } from '../../../utils';
+import { SimpleButton } from '../../common/Buttons';
 import { useLoader } from '../../common/hooks';
 import { Row } from '../../common/LayoutComponents';
 import {

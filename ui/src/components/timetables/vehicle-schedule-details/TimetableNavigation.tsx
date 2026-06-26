@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 
 const testIds = {

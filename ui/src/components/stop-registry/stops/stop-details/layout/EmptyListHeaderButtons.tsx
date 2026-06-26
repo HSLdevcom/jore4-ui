@@ -1,7 +1,7 @@
 import noop from 'lodash/noop';
 import { FC } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
-import { SimpleButton } from '../../../../../uiComponents';
+import { SimpleButton } from '../../../../common/Buttons';
 
 type EmptyListHeaderButtonsProps = {
   readonly addNewItemText: string;

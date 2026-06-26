@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SimpleButton } from '../../../../../uiComponents';
 import { mapLngLatToPoint } from '../../../../../utils';
+import { SimpleButton } from '../../../../common/Buttons';
 import { useShowStopAreaOnMap } from '../../../utils';
 // Don't forget to remove the image from the repo!
 import placeholderBg from '../PlaceholderMapFragment.png';

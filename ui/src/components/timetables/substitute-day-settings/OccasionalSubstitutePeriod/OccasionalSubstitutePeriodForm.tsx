@@ -15,8 +15,7 @@ import { useAppDispatch } from '../../../../hooks';
 import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
-import { ConfirmationDialog, SimpleButton } from '../../../../uiComponents';
-import { TextAndIconButton } from '../../../../uiComponents/TextAndIconButton';
+import { ConfirmationDialog } from '../../../../uiComponents';
 import {
   generateLineTypes,
   mapDateTimeToFormState,
@@ -24,6 +23,7 @@ import {
   parseSubstituteDayOfWeek,
   submitFormByRef,
 } from '../../../../utils';
+import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
 import { Row, Visible } from '../../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {

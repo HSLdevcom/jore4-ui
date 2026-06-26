@@ -5,7 +5,7 @@ import {
   StopPlaceOrganisationFieldsFragment,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
-import { SimpleButton } from '../../../../../uiComponents';
+import { SimpleButton } from '../../../../common/Buttons';
 import { Visible } from '../../../../common/LayoutComponents';
 import { InputField } from '../../../../forms/common';
 import {

@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopWithDetails } from '../../../../../types';
-import { LocatorButton } from '../../../../../uiComponents';
 import { getGeometryPoint } from '../../../../../utils';
+import { LocatorButton } from '../../../../common/Buttons';
 import { useShowStopOnMap } from '../../../utils/useShowStopOnMap';
 
 const testIds = {

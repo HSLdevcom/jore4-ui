@@ -19,7 +19,7 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BlockerFunction, useBlocker } from 'react-router';
-import { CloseIconButton, SimpleButtonButton } from '../../../uiComponents';
+import { CloseIconButton, SimpleButtonButton } from '../../common/Buttons';
 
 const testIds = {
   dialog: 'NavigationBlockedDialog',

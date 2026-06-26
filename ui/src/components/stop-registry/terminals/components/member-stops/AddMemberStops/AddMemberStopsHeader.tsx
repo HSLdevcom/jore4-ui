@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { SimpleButton } from '../../../../../../uiComponents';
+import { SimpleButton } from '../../../../../common/Buttons';
 import { AddMemberStopsModal } from './AddMemberStopsModal';
 
 const testIds = {

@@ -13,10 +13,10 @@ import {
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 import {
-  IconButton,
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../uiComponents';
+import { IconButton } from '../../common/Buttons';
 import { Visible } from '../../common/LayoutComponents';
 import { TimetableVersionRowData } from './hooks';
 

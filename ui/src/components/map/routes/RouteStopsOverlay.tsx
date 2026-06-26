@@ -10,13 +10,13 @@ import {
   setRouteMetadataFormOpenAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import { EditButton } from '../../../uiComponents';
 import {
   filterDistinctConsecutiveStops,
   filterHighestPriorityCurrentStops,
   mapVehicleModeToRouteColor,
   vehicleModeIconMapping,
 } from '../../../utils';
+import { EditButton } from '../../common/Buttons';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { RouteLabel } from '../../common/RouteLabel';
 import { CustomOverlay } from '../CustomOverlay';

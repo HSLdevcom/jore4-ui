@@ -3,8 +3,7 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { mapZoneLabelToUiName } from '../../../../../../i18n/uiNameMappings';
-import { SimpleButton } from '../../../../../../uiComponents';
-import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
+import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
   EnumDropdown,

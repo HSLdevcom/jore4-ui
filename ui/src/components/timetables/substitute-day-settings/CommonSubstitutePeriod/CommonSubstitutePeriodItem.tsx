@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../time';
-import { EditCloseButton } from '../../../../uiComponents/EditCloseButton';
 import { InputField } from '../../../forms/common';
 import { LineTypeMultiSelectDropdown } from '../../../forms/timetables/LineTypeMultiSelectDropdown';
 import { SubstituteDayOfWeekDropdown } from '../../../forms/timetables/SubstituteDayOfWeekDropdown';
@@ -11,6 +10,7 @@ import {
   FormState,
   UpdateField,
 } from './CommonSubstitutePeriodForm.types';
+import { EditCloseButton } from './EditCloseButton';
 
 const testIds = {
   periodContainer: (periodName: string) =>

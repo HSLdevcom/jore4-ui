@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { useAppDispatch } from '../../../hooks';
 import { setShowMapEntityTypeFilterOverlayAction } from '../../../redux';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton } from '../../common/Buttons';
 import { MapOverlay, MapOverlayHeader } from '../MapOverlay';
 import { MapEntityTypeFilters } from './MapEntityTypeFilters';
 import { TimeAndPriorityFilters } from './TimeAndPriorityFilters';

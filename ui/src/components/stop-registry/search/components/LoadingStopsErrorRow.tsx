@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SimpleButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../common/Buttons';
 
 const testIds = {
   reason: 'StopSearch::GroupedStops::failedToLoadReason',

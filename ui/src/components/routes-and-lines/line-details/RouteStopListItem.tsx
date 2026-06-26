@@ -18,8 +18,8 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../time';
-import { IconButton } from '../../../uiComponents';
 import { AlertPopover } from '../../common/AlertPopover';
+import { IconButton } from '../../common/Buttons';
 import { useAlertsAndHighLights } from '../../common/hooks';
 import { Visible } from '../../common/LayoutComponents';
 import { HastusCode } from './HastusCode';

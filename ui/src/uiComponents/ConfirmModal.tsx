@@ -1,9 +1,9 @@
 import { DialogTitle } from '@headlessui/react';
 import { FC, PropsWithChildren } from 'react';
 import { twJoin } from 'tailwind-merge';
+import { SimpleButton } from '../components/common/Buttons';
 import { Row } from '../components/common/LayoutComponents';
 import { Modal, NewModalBody } from '../components/common/Modals';
-import { SimpleButton } from './SimpleButton';
 
 type ConfirmModalProps = {
   readonly heading: string;

@@ -2,7 +2,7 @@ import { FC, FormEventHandler } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SimpleButton } from '../../../../../uiComponents';
+import { SimpleButton } from '../../../../common/Buttons';
 import { Row } from '../../../../common/LayoutComponents';
 import {
   FormRow,

@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { CloseIconButton } from '../../uiComponents';
+import { CloseIconButton } from '../common/Buttons';
 
 type FloatingFooterProps = {
   readonly className?: string;

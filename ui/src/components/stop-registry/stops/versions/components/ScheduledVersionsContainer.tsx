@@ -1,8 +1,8 @@
 import { Transition } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExpandButton } from '../../../../../uiComponents';
 import { accordionClassNames } from '../../../../common';
+import { ExpandButton } from '../../../../common/Buttons';
 import { Column } from '../../../../common/LayoutComponents';
 import {
   DateRangeInputs,

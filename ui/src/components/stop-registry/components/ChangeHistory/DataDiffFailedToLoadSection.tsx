@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GetUserNameById } from '../../../../hooks';
-import { SimpleButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../common/Buttons';
 import {
   BaseChangeHistoryItemDetails,
   ChangeHistoryItemSectionHeaderRow,

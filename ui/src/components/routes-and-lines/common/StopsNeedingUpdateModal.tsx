@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../generated/graphql';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton } from '../../common/Buttons';
 import { StopsList } from '../../common/ChangeHistory';
 import { Row } from '../../common/LayoutComponents';
 import { Modal, ModalBody } from '../../common/Modals';

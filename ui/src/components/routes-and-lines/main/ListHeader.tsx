@@ -1,7 +1,8 @@
 import { Field } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Switch, SwitchLabel, TextButton } from '../../../uiComponents';
+import { Switch, SwitchLabel } from '../../../uiComponents';
+import { TextButton } from '../../common/Buttons';
 import { Row, Visible } from '../../common/LayoutComponents';
 
 type ListHeaderProps = {

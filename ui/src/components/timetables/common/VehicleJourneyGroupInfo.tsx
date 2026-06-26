@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
-import { IconButton } from '../../../uiComponents';
+import { IconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 
 const testIds = {

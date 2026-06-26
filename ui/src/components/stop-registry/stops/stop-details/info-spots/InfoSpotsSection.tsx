@@ -6,13 +6,13 @@ import {
 } from '../../../../../generated/graphql';
 import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
-import { AddNewButton } from '../../../../../uiComponents/AddNewButton';
 import {
   NullOptionEnum,
   showSuccessToast,
   submitFormByRef,
 } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { AddNewButton } from '../../../../common/Buttons';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import {

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { SimpleButton } from '../../../../../uiComponents';
 import { InfoContainerHeaderButtonsProps } from '../../../../common';
+import { SimpleButton } from '../../../../common/Buttons';
 import { Visible } from '../../../../common/LayoutComponents';
 
 const testIds = {

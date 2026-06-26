@@ -1,8 +1,7 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { SimpleButton } from '../../../../../../uiComponents';
-import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
+import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { Row } from '../../../../../common/LayoutComponents';
 import { InputField } from '../../../../../forms/common';
 import { usePosterNames } from '../../../../stops/stop-details/info-spots/info-spots-form/InfoSpotsPosterNames';

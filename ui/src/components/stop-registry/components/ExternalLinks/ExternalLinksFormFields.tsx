@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { SimpleButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../common/Buttons';
 import { Column, Row } from '../../../common/LayoutComponents';
 import { InputField } from '../../../forms/common';
 import { ExternalLinksFormState } from './schema';

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { IconButton } from '../../../uiComponents';
+import { IconButton } from '../../common/Buttons';
 
 const testIds = {
   button: 'LocatorButton::button',

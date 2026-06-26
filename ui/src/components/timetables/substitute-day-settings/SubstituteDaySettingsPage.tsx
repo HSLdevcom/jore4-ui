@@ -11,11 +11,11 @@ import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { DateRange } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
-import { CloseIconButton } from '../../../uiComponents/CloseIconButton';
 import { PageTitle } from '../../common';
+import { CloseIconButton } from '../../common/Buttons';
 import { Container, Row } from '../../common/LayoutComponents';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
-import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod/CommonSubstitutePeriodSection';
+import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod';
 import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';
 
 const testIds = {

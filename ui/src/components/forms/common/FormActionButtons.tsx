@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SimpleButton, TextButton } from '../../../uiComponents';
+import { SimpleButton, TextButton } from '../../common/Buttons';
 
 const baseStyles = 'flex items-center gap-2 px-4 py-2';
 

@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n/uiNameMappings';
 import { JoreStopRegistryTransportModeType } from '../../../../../../types/stop-registry';
-import { SimpleButton } from '../../../../../../uiComponents';
+import { SimpleButton } from '../../../../../common/Buttons';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import { EnumDropdown, FormRow, InputField } from '../../../../../forms/common';
 import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/ChooseTimingPlaceDropdown';

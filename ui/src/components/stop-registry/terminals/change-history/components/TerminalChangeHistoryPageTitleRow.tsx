@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigateBackSafely } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { CloseIconButton } from '../../../../../uiComponents';
 import { PageTitle } from '../../../../common';
+import { CloseIconButton } from '../../../../common/Buttons';
 import { Row } from '../../../../common/LayoutComponents';
 import { TodaysName } from '../../../stops/change-history/types';
 

@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 
 const testIds = {

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRequiredParams } from '../../../hooks';
-import { CloseIconButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
+import { CloseIconButton } from '../../common/Buttons';
 import { Column, Container, Row } from '../../common/LayoutComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { LineRouteList } from '../line-details/LineRouteList';

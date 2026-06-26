@@ -7,8 +7,7 @@ import {
   ExternalLinksDetailsFragment,
   TerminalExternalLinksDetailsFragment,
 } from '../../../../generated/graphql';
-import { SimpleButton } from '../../../../uiComponents';
-import { AddNewButton } from '../../../../uiComponents/AddNewButton';
+import { AddNewButton, SimpleButton } from '../../../common/Buttons';
 import {
   HorizontalSeparator,
   Row,

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdUndo } from 'react-icons/md';
-import { SimpleButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../common/Buttons';
 import { Column, Visible } from '../../../common/LayoutComponents';
 import { FormColumn, FormRow, InputField } from '../../../forms/common';
 import { LineTypeMultiSelectDropdown } from '../../../forms/timetables/LineTypeMultiSelectDropdown';

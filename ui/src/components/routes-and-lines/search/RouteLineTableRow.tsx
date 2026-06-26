@@ -10,10 +10,10 @@ import {
 import { isRoute } from '../../../graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../time';
-import { LocatorButton } from '../../../uiComponents';
 import { TimetableIcon } from '../../../uiComponents/TimetableIcon';
 import { VehicleIcon } from '../../../uiComponents/VehicleIcon';
 import { AlertPopover } from '../../common/AlertPopover';
+import { LocatorButton } from '../../common/Buttons';
 import { useAlertsAndHighLights } from '../../common/hooks';
 import { Column, Row, Visible } from '../../common/LayoutComponents';
 import { RouteLabel } from '../../common/RouteLabel';

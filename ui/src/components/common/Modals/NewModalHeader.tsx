@@ -1,7 +1,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { CloseIconButton } from '../../../uiComponents';
+import { CloseIconButton } from '../Buttons';
 import { Row } from '../LayoutComponents';
 
 const testIds = {

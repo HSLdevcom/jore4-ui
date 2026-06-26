@@ -3,7 +3,7 @@ import { AriaAttributes, Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { SortOrder } from '../../../types';
-import { ExpandButton } from '../../../uiComponents';
+import { ExpandButton } from '../Buttons';
 import { VersionTableSortingInfo } from './useVersionContainerControls';
 import { VersionTableColumn } from './VersionTableColumn';
 

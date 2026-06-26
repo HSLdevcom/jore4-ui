@@ -5,7 +5,7 @@ import noop from 'lodash/noop';
 import { FC } from 'react';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../../generated/graphql';
 import { mapStopOwnerToUiName } from '../../../../../../i18n/uiNameMappings';
-import { CloseIconButton } from '../../../../../../uiComponents';
+import { CloseIconButton } from '../../../../../common/Buttons';
 import {
   ChangedValue,
   diffKeyedValues,

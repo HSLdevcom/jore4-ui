@@ -12,7 +12,7 @@ import {
   toggleStopSelectionAction,
 } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton } from '../../common/Buttons';
 import { useMapObservationDate } from '../utils/mapUrlState';
 import { SelectedStop } from './SelectedStop';
 import { useSelectedStopsInfo } from './useSelectedStopsInfo';

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { SimpleButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../common/Buttons';
 
 type DetailTabProps = {
   readonly id: string;

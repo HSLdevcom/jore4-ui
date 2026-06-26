@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleButton } from '../../../uiComponents';
+import { SimpleButton } from '../Buttons';
 
 const testIds = {
   failedToLoad: 'ChangeHistoryPage::FailedToLoad',

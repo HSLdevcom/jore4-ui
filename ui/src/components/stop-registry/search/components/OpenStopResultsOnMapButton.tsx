@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { twJoin } from 'tailwind-merge';
 import { theme } from '../../../../generated/theme';
-import { SimpleButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../common/Buttons';
 import {
   OpenStopResultsOnMapParams,
   useOpenStopResultsOnMap,

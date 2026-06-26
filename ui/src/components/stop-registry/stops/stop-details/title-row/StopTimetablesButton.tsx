@@ -2,7 +2,7 @@ import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { SimpleButton } from '../../../../../uiComponents';
+import { SimpleButton } from '../../../../common/Buttons';
 
 const testIds = {
   button: 'StopTitleRow::stopTimetablesButton',

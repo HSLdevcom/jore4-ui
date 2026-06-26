@@ -11,7 +11,8 @@ import {
   setShowAllValidAction,
   setShowArrivalTimesAction,
 } from '../../../redux/slices/timetable';
-import { SimpleButton, Switch, SwitchLabel } from '../../../uiComponents';
+import { Switch, SwitchLabel } from '../../../uiComponents';
+import { SimpleButton } from '../../common/Buttons';
 import { Container, Row, Visible } from '../../common/LayoutComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';

@@ -2,8 +2,11 @@ import { Menu, MenuButton } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 import { twJoin, twMerge } from 'tailwind-merge';
+import {
+  SimpleButtonShape,
+  getSimpleButtonClassNames,
+} from '../components/common/Buttons';
 import { AnchorProps, dropdownMenuStyles } from './headlessHelpers';
-import { SimpleButtonShape, getSimpleButtonClassNames } from './SimpleButton';
 import { SimpleDropdownMenuItems } from './SimpleDropdownMenuItems';
 
 function resolveAnchor(anchorItems: AnchorProps): string {

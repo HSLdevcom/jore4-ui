@@ -2,8 +2,8 @@ import { ForwardRefRenderFunction, ReactNode, forwardRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
+import { IconButton } from '../components/common/Buttons';
 import { Row } from '../components/common/LayoutComponents/Row';
-import { IconButton } from './IconButton';
 
 const testIds = { closeButton: 'Toast::closeButton' };
 

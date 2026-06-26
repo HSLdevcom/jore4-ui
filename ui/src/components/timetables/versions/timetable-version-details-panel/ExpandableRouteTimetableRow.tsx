@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
-import { AccordionButton } from '../../../../uiComponents';
+import { AccordionButton } from '../../../common/Buttons';
 import { Row, Visible } from '../../../common/LayoutComponents';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 

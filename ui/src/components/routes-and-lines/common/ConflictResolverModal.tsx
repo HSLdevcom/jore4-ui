@@ -12,7 +12,7 @@ import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/enums';
-import { CloseIconButton, SimpleButton } from '../../../uiComponents';
+import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 import { Modal, ModalBody } from '../../common/Modals';
 import { RouteLabel } from '../../common/RouteLabel';

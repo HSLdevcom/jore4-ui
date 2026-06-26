@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { PathValue, routeDetails } from '../../../../../router/routeDetails';
-import { LocatorButton } from '../../../../../uiComponents';
+import { LocatorButton } from '../../../../common/Buttons';
 import { ResultSelection } from '../../types';
 import { BatchUpdateSelection, areAllStopsSelected } from '../../utils';
 import { SelectAllCheckbox } from '../SelectAllCheckbox';
