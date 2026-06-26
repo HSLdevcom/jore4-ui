@@ -115,6 +115,16 @@
   .border-l-dashed {
     border-left-style: dashed;
   }
+
+  .draft-divider {
+    height: 0.25rem;
+    color: #cccccc;
+    background-image: repeating-linear-gradient(
+      -65deg,
+      currentColor 0px 6px,
+      transparent 6px 9px
+    );
+  }
 }
 
 .maplibregl-ctrl-bottom-right {

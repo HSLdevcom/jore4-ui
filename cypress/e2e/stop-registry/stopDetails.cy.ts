@@ -2767,7 +2767,9 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       Toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
       copyModal.modal().should('not.exist');
       StopDetailsPage.loadingStopDetails().should('not.exist');
-      StopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-1.4.2020');
+      StopDetailsPage.validityPeriod().shouldHaveText(
+        'Luonnos|20.3.2020-1.4.2020',
+      );
 
       // Reopen Temp version
       cy.visit(

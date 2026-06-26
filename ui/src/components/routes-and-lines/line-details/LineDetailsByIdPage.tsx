@@ -52,16 +52,6 @@ export const LineDetailsByIdPage: FC = () => {
     selectIsTimingSettingsModalOpen,
   );
 
-  const getHeaderBorderClassName = () => {
-    if (line?.priority === Priority.Draft) {
-      return 'border-b-4 border-medium-grey border-dashed';
-    }
-    if (line?.priority === Priority.Temporary) {
-      return 'border-b-4 border-city-bicycle-yellow';
-    }
-    return '';
-  };
-
   const isRouteCreationAllowed = line && !isPastEntity(DateTime.now(), line);
   const onCreateRoute = isRouteCreationAllowed
     ? () => createRoute(line)
@@ -72,9 +62,14 @@ export const LineDetailsByIdPage: FC = () => {
       displayedRouteLabels?.includes(route.label),
     ) ?? [];
 
+  const isDraft = line?.priority === Priority.Draft;
+
   return (
     <div>
-      <PageHeader className={getHeaderBorderClassName()}>
+      <PageHeader
+        // Remove border because draft-divider handles separation in draft mode
+        className={isDraft ? 'border-0' : ''}
+      >
         <Row>
           {line?.primary_vehicle_mode && (
             <i
@@ -87,6 +82,7 @@ export const LineDetailsByIdPage: FC = () => {
           {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
         </Row>
       </PageHeader>
+      {isDraft && <div className="draft-divider" />}
       <ActionsRow className="pt-4 pb-0" />
       <Container className="pt-10">
         {line ? (
