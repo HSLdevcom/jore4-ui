@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import {
   LineAllFieldsFragment,
   useGetLineDetailsByIdQuery,
@@ -13,6 +14,7 @@ import {
   defaultLocalizedString,
   mapToVariables,
   showSuccessToast,
+  vehicleModeIconMapping,
 } from '../../../utils';
 import { PageTitle } from '../../common';
 import { useLoader } from '../../common/hooks';
@@ -26,7 +28,6 @@ import { PageHeader } from '../common/PageHeader';
 import { getBlockers, hasBlockers } from '../common/SaveBlockers';
 import { StopsNeedingUpdateModal } from '../common/StopsNeedingUpdateModal';
 import { useUpdateStopRegistryStopMetatype } from '../common/useUpdateStopRegistryStopMetatype';
-import { showIconForVehicleMode } from '../line-details/LineDetailsByIdPage';
 import { EditLineChanges, useEditLine } from './useEditLine';
 
 function mapLineToFormState(line: LineAllFieldsFragment): FormState {
@@ -148,9 +149,13 @@ export const EditLinePage: FC = () => {
 
       <PageHeader>
         <div className="flex items-center">
-          {showIconForVehicleMode(
-            line?.primary_vehicle_mode ?? null,
-            'text-5xl',
+          {line?.primary_vehicle_mode && (
+            <i
+              className={twJoin(
+                vehicleModeIconMapping[line.primary_vehicle_mode],
+                'text-5xl',
+              )}
+            />
           )}
           <PageTitle.H1 titleText={pageTitleText}>{pageTitleText}</PageTitle.H1>
         </div>
