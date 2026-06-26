@@ -12154,6 +12154,7 @@ export type StopRegistryInfoSpot = {
   /** List of location NetEx IDs (simple string format) */
   infoSpotLocations?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpotType?: Maybe<StopRegistryInfoSpotType>;
+  intendedUser?: Maybe<StopRegistryIntendedUser>;
   label?: Maybe<Scalars['String']['output']>;
   /** Version-aware references to locations showing which version was referenced */
   locationRefs?: Maybe<Array<Maybe<StopRegistryLocationRef>>>;
@@ -12180,6 +12181,7 @@ export type StopRegistryInfoSpotInput = {
   /** List of location NetEx IDs - backend auto-resolves to current version */
   infoSpotLocations?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   infoSpotType?: InputMaybe<StopRegistryInfoSpotType>;
+  intendedUser?: InputMaybe<StopRegistryIntendedUser>;
   label?: InputMaybe<Scalars['String']['input']>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
   poster?: InputMaybe<Array<InputMaybe<StopRegistryPosterInput>>>;
@@ -12195,6 +12197,13 @@ export enum StopRegistryInfoSpotType {
   Dynamic = 'dynamic',
   SoundBeacon = 'sound_beacon',
   Static = 'static'
+}
+
+export enum StopRegistryIntendedUser {
+  Markkinointi = 'MARKKINOINTI',
+  Matkatieto = 'MATKATIETO',
+  Muu = 'MUU',
+  Vr = 'VR'
 }
 
 export enum StopRegistryMapType {
@@ -26001,6 +26010,7 @@ export type StopsDatabaseInfoSpot = {
   id: Scalars['bigint']['output'];
   info_spot_location?: Maybe<Scalars['String']['output']>;
   info_spot_type?: Maybe<Scalars['String']['output']>;
+  intended_user?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
   locations: Array<StopsDatabaseInfoSpotLocation>;
@@ -26102,6 +26112,7 @@ export type StopsDatabaseInfoSpotBoolExp = {
   id?: InputMaybe<BigintComparisonExp>;
   info_spot_location?: InputMaybe<StringComparisonExp>;
   info_spot_type?: InputMaybe<StringComparisonExp>;
+  intended_user?: InputMaybe<StringComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   locations?: InputMaybe<StopsDatabaseInfoSpotLocationBoolExp>;
   locations_aggregate?: InputMaybe<InfoSpotLocationAggregateBoolExp>;
@@ -26153,6 +26164,7 @@ export type StopsDatabaseInfoSpotInsertInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   info_spot_location?: InputMaybe<Scalars['String']['input']>;
   info_spot_type?: InputMaybe<Scalars['String']['input']>;
+  intended_user?: InputMaybe<Scalars['String']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   locations?: InputMaybe<StopsDatabaseInfoSpotLocationArrRelInsertInput>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
@@ -26447,6 +26459,7 @@ export type StopsDatabaseInfoSpotMaxFields = {
   id?: Maybe<Scalars['bigint']['output']>;
   info_spot_location?: Maybe<Scalars['String']['output']>;
   info_spot_type?: Maybe<Scalars['String']['output']>;
+  intended_user?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   maintenance?: Maybe<Scalars['String']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
@@ -26479,6 +26492,7 @@ export type StopsDatabaseInfoSpotMinFields = {
   id?: Maybe<Scalars['bigint']['output']>;
   info_spot_location?: Maybe<Scalars['String']['output']>;
   info_spot_type?: Maybe<Scalars['String']['output']>;
+  intended_user?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   maintenance?: Maybe<Scalars['String']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
@@ -26535,6 +26549,7 @@ export type StopsDatabaseInfoSpotOrderBy = {
   id?: InputMaybe<OrderBy>;
   info_spot_location?: InputMaybe<OrderBy>;
   info_spot_type?: InputMaybe<OrderBy>;
+  intended_user?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   locations_aggregate?: InputMaybe<StopsDatabaseInfoSpotLocationAggregateOrderBy>;
   maintenance?: InputMaybe<OrderBy>;
@@ -26946,6 +26961,8 @@ export enum StopsDatabaseInfoSpotSelectColumn {
   /** column name */
   InfoSpotType = 'info_spot_type',
   /** column name */
+  IntendedUser = 'intended_user',
+  /** column name */
   Label = 'label',
   /** column name */
   Maintenance = 'maintenance',
@@ -26995,6 +27012,7 @@ export type StopsDatabaseInfoSpotSetInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   info_spot_location?: InputMaybe<Scalars['String']['input']>;
   info_spot_type?: InputMaybe<Scalars['String']['input']>;
+  intended_user?: InputMaybe<Scalars['String']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
@@ -27067,6 +27085,7 @@ export type StopsDatabaseInfoSpotStreamCursorValueInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   info_spot_location?: InputMaybe<Scalars['String']['input']>;
   info_spot_type?: InputMaybe<Scalars['String']['input']>;
+  intended_user?: InputMaybe<Scalars['String']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
@@ -27125,6 +27144,8 @@ export enum StopsDatabaseInfoSpotUpdateColumn {
   InfoSpotLocation = 'info_spot_location',
   /** column name */
   InfoSpotType = 'info_spot_type',
+  /** column name */
+  IntendedUser = 'intended_user',
   /** column name */
   Label = 'label',
   /** column name */
