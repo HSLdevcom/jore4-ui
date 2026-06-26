@@ -58,6 +58,12 @@ export const StopDetailsPage: FC = () => {
 
   const { stopDetails, loading, error, mirroredQuays } = useGetStopDetails();
 
+  const isDraft = stopDetails?.priority === Priority.Draft;
+
+  const headerDividerClassName = isDraft
+    ? 'my-4 draft-divider'
+    : 'my-4 h-px bg-light-grey opacity-30';
+
   return (
     <Container testId={testIds.page}>
       <StopTitleRow
@@ -67,7 +73,7 @@ export const StopDetailsPage: FC = () => {
       />
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
       <StopDetailsVersion label={label} />
-      <hr className="my-4" />
+      <div className={headerDividerClassName} />
       <div className="my-4 flex">
         <div className="flex items-center gap-2">
           <h2>{t(($) => $.stopDetails.stopDetails)}</h2>
@@ -82,6 +88,10 @@ export const StopDetailsPage: FC = () => {
                 title={t(($) => $.priority.temporary)}
               />
             )}
+            {isDraft && (
+              <span className="font-bold">{t(($) => $.priority.draft)}</span>
+            )}
+            {isDraft && <span className="mx-1">|</span>}
             {mapToShortDate(stopDetails?.validity_start)}
             <span className="mx-1">-</span>
             {mapToShortDate(stopDetails?.validity_end)}
