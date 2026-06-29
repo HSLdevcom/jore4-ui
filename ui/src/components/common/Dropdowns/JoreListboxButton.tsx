@@ -1,7 +1,7 @@
 import { ListboxButton, ListboxButtonProps } from '@headlessui/react';
 import { ReactNode, forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { listboxStyles } from './headlessStyles';
+import { listboxStyles } from './headlessHelpers';
 
 const buttonErrorStyles = 'border-hsl-red bg-hsl-red/5 border-2 text-hsl-red';
 

@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
-import { dropdownMenuStyles } from '../../uiComponents';
+import { dropdownMenuStyles } from '../common/Dropdowns';
 
 type NavigationDropdownMenuProps = {
   readonly buttonContent: ReactNode;

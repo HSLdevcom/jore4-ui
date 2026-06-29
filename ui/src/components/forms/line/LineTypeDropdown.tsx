@@ -6,8 +6,8 @@ import {
   RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
 import { mapLineTypeToUiName } from '../../../i18n/uiNameMappings';
-import { FormInputProps } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
+import { FormInputProps } from '../../common';
 import { EnumDropdown } from '../common';
 
 type LineTypesByVehicleMode = Record<

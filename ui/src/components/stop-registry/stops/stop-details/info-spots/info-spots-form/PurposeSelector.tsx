@@ -3,7 +3,7 @@ import { FC } from 'react';
 import {
   JoreListboxButton,
   listboxStyles,
-} from '../../../../../../uiComponents';
+} from '../../../../../common/Dropdowns';
 import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
 
 export type PurposeOption = {

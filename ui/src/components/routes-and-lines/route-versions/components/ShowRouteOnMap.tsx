@@ -1,6 +1,6 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenuItem } from '../../../../uiComponents';
+import { SimpleDropdownMenuItem } from '../../../common/Dropdowns';
 import { useShowRoutesOnMap } from '../../../common/hooks';
 import { RouteVersion } from '../types';
 

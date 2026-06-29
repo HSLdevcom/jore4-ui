@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { SimpleDropdownMenuItem } from '../../../../../../uiComponents';
+import { SimpleDropdownMenuItem } from '../../../../../common/Dropdowns';
 
 type ShowOnMapProps = {
   readonly className?: string;

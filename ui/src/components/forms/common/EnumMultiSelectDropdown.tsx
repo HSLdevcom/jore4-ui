@@ -3,8 +3,8 @@ import isUndefined from 'lodash/isUndefined';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCheck } from 'react-icons/md';
-import { ListboxOptionItem, MultiSelectListbox } from '../../../uiComponents';
 import { AllOptionEnum, getEnumValues } from '../../../utils';
+import { ListboxOptionItem, MultiSelectListbox } from '../../common/Dropdowns';
 import { EnumDropdownProps } from './EnumDropdown';
 
 const testIds = {

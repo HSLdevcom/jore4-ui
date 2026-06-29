@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { JoreListbox, ListboxOptionItem, ValueFn } from '../../../uiComponents';
+import { ValueFn } from '../../common';
+import { JoreListbox, ListboxOptionItem } from '../../common/Dropdowns';
 
 const testIds = {
   dropdown: 'DayTypeDropdown',

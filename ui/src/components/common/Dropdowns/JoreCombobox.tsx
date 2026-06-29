@@ -6,7 +6,8 @@ import {
 } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
-import { JoreComboboxButton, comboboxStyles } from './headlessHelpers';
+import { comboboxStyles } from './headlessHelpers';
+import { JoreComboboxButton } from './JoreComboboxButton';
 import { ListboxOptionItem } from './JoreListboxOptions';
 
 export const testIds = {

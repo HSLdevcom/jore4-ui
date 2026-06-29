@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenu } from '../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../common/Dropdowns';
 import { RouteVersion } from '../types';
 import { ShowRouteOnMap } from './ShowRouteOnMap';
 

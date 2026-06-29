@@ -1,28 +1,9 @@
 import { Listbox } from '@headlessui/react';
 import { ReactElement, ReactNode, Ref, forwardRef } from 'react';
-import { ControllerFieldState, Noop } from 'react-hook-form';
-import { JoreListboxButton, listboxStyles } from './headlessHelpers';
+import { TypedFormInputProps } from '../FormInputTypes';
+import { listboxStyles } from './headlessHelpers';
+import { JoreListboxButton } from './JoreListboxButton';
 import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';
-
-// copied from HeadlessUI Listbox as it's not exported
-export type ValueFn = (...event: ExplicitAny[]) => void;
-
-// TODO: Move and/or inline these into a proper/better place
-export type BaseFormInputProps = {
-  readonly onBlur?: Noop;
-  readonly fieldState?: ControllerFieldState;
-  readonly disabled?: boolean;
-};
-
-export type FormInputProps = BaseFormInputProps & {
-  readonly value?: string;
-  readonly onChange: ValueFn;
-};
-
-export type TypedFormInputProps<ValueType> = BaseFormInputProps & {
-  readonly value?: ValueType;
-  readonly onChange: (newValue: ValueType) => void;
-};
 
 type JoreListboxProps<ValueType> = TypedFormInputProps<ValueType> & {
   readonly id?: string;

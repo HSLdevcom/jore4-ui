@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
-import { JoreListbox, ListboxOptionItem } from '../../../../../uiComponents';
 import { parseVehicleMode } from '../../../../../utils';
 import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../../utils/toastService';
 import { SimpleButton } from '../../../../common/Buttons';
+import { JoreListbox, ListboxOptionItem } from '../../../../common/Dropdowns';
 import {
   Modal,
   ModalBody,

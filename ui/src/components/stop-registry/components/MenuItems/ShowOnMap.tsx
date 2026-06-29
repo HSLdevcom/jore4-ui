@@ -1,6 +1,6 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenuItem } from '../../../../uiComponents';
+import { SimpleDropdownMenuItem } from '../../../common/Dropdowns';
 import { LocatableStopWithObservationDateProps } from '../../types';
 import { useShowStopOnMap } from '../../utils/useShowStopOnMap';
 

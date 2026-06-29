@@ -1,6 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenu, SimpleDropdownMenuItem } from '../../uiComponents';
+import {
+  SimpleDropdownMenu,
+  SimpleDropdownMenuItem,
+} from '../common/Dropdowns';
 
 const testIds = {
   menu: 'MapFooterActionsDropdown::menu',

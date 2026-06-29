@@ -1,7 +1,7 @@
 import { ComboboxOption } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { comboboxStyles } from '../../../../../uiComponents';
+import { comboboxStyles } from '../../../../common/Dropdowns';
 import { SelectedStop } from './schema';
 
 export const FETCH_MORE_OPTION: SelectedStop = {

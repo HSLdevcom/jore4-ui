@@ -8,11 +8,11 @@ import {
   openViaModalAction,
   selectIsJoreOperationLoading,
 } from '../../../redux';
+import { showDangerToast, showSuccessToast } from '../../../utils';
 import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
-} from '../../../uiComponents';
-import { showDangerToast, showSuccessToast } from '../../../utils';
+} from '../../common/Dropdowns';
 import { useLoader } from '../../common/hooks/useLoader';
 import { StopsNeedingUpdateModal } from '../common/StopsNeedingUpdateModal';
 import {

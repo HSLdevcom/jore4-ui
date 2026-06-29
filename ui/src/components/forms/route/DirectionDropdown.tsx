@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapDirectionToUiName } from '../../../i18n/uiNameMappings';
 import { RouteDirection } from '../../../types/RouteDirection';
-import { FormInputProps } from '../../../uiComponents';
+import { FormInputProps } from '../../common';
 import { EnumDropdown } from '../common/EnumDropdown';
 
 type DirectionDropdownProps = FormInputProps & {

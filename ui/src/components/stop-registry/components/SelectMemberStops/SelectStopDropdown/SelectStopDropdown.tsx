@@ -1,11 +1,11 @@
 import { Combobox, ComboboxInput, ComboboxOptions } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
 import { mapToShortDate } from '../../../../../time';
+import { log } from '../../../../../utils';
 import {
   JoreComboboxButton,
   comboboxStyles,
-} from '../../../../../uiComponents';
-import { log } from '../../../../../utils';
+} from '../../../../common/Dropdowns';
 import {
   FETCH_MORE_OPTION,
   MemberStopOptions,

@@ -10,7 +10,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
 import { ReusableComponentsVehicleModeEnum } from '../../../../../generated/graphql';
-import { comboboxStyles } from '../../../../../uiComponents';
+import { comboboxStyles } from '../../../../common/Dropdowns';
 import { StopModalStopAreaFormSchema } from '../../../../forms/stop/types';
 import {
   formatIsoDateString,

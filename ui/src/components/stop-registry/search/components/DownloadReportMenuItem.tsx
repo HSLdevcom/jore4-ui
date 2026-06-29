@@ -1,6 +1,5 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { SimpleDropdownMenuItem } from '../../../../uiComponents';
 import {
   AsyncTaskCancelledError,
   showDangerToastWithError,
@@ -11,6 +10,7 @@ import {
   ConfirmCancellation,
   useRegisterAsyncTask,
 } from '../../../common/AsyncTaskList';
+import { SimpleDropdownMenuItem } from '../../../common/Dropdowns';
 import { GenerateReport } from '../csv-export/types';
 import { ResultSelection, StopSearchFilters } from '../types';
 

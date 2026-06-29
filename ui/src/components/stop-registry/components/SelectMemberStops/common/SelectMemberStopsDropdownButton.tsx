@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { JoreComboboxButton } from '../../../../../uiComponents';
+import { JoreComboboxButton } from '../../../../common/Dropdowns';
 import { SelectedStop } from './schema';
 
 const testIds = {

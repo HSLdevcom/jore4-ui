@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { SimpleDropdownMenuItem } from '../../uiComponents';
-import { SimpleButtonDropdownMenu } from '../../uiComponents/SimpleButtonDropdownMenu';
+import {
+  SimpleButtonDropdownMenu,
+  SimpleDropdownMenuItem,
+} from '../common/Dropdowns';
 
 const testIds: Readonly<Record<string, string>> = {
   addBusStop: 'AddStopDropdownOption::addBusStop',

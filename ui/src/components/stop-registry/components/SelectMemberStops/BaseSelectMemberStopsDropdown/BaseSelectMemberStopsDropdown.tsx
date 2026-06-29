@@ -1,7 +1,7 @@
 import { Combobox, ComboboxInput, ComboboxOptions } from '@headlessui/react';
 import { FC, ReactNode, useMemo, useState } from 'react';
-import { comboboxStyles } from '../../../../../uiComponents';
 import { log } from '../../../../../utils';
+import { comboboxStyles } from '../../../../common/Dropdowns';
 import {
   FETCH_MORE_OPTION,
   MemberStopOptions,
