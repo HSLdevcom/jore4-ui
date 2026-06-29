@@ -18,6 +18,7 @@ import {
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { TaskListDisplay } from '../components/common/AsyncTaskList';
+import { JoreErrorModal } from '../components/common/Modals';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
 import { MapPage } from '../components/map';
@@ -55,7 +56,6 @@ import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 import { mapToShortDateTime } from '../time';
 import { Spinner } from '../uiComponents';
-import { JoreErrorModal } from '../uiComponents/JoreErrorModal';
 import { showDangerToast } from '../utils';
 import { Path, PathValue } from './routeDetails';
 

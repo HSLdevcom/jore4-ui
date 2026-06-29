@@ -6,7 +6,7 @@ import {
   closeCutStopVersionValidityModalAction,
   selectCutStopVersionValidityModal,
 } from '../../../../../redux';
-import { ConfirmModal } from '../../../../../uiComponents/ConfirmModal';
+import { ConfirmModal } from '../../../../common/Modals';
 
 const testIds = {
   modal: 'OverlappingVersionCutConfirmationModal::modal',
