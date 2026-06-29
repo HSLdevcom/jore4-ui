@@ -3,17 +3,11 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { z } from 'zod';
 import { Priority } from '../../../types/enums';
 import { Column, Row } from '../../common/LayoutComponents';
 import { LabeledRadioButton } from './LabeledRadioButton';
+import { PriorityFormState } from './PriorityForm.schema';
 import { ValidationErrorList } from './ValidationErrorList';
-
-export const priorityFormSchema = z.object({
-  priority: z.nativeEnum(Priority),
-});
-
-export type PriorityFormState = z.infer<typeof priorityFormSchema>;
 
 const testIds = {
   priorityButton: (testIdPrefix: string) =>

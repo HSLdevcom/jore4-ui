@@ -1,16 +1,16 @@
 import { z } from 'zod';
 import { RouteDirection } from '../../../types/RouteDirection';
 import {
-  localizedStringRequired,
-  nullablePositiveNumber,
-  refineValidityPeriodSchema,
-  requiredString,
-  requiredUuid,
-} from '../common';
-import {
   FormState as ChangeValidityFormFormState,
   schema as changeValidityFormSchema,
-} from '../common/ChangeValidityForm';
+} from '../common/ChangeValidityForm.schema';
+import {
+  localizedStringRequired,
+  nullablePositiveNumber,
+  requiredString,
+  requiredUuid,
+} from '../common/customZodSchemas';
+import { refineValidityPeriodSchema } from '../common/ValidityPeriodForm.schema';
 
 export const namesSchema = z.object({
   name: localizedStringRequired,

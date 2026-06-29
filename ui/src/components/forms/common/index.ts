@@ -1,5 +1,6 @@
 export * from './AutomaticallyResizingTextArea';
 export * from './ChangeValidityForm';
+export * from './ChangeValidityForm.schema';
 export * from './customZodSchemas';
 export * from './dirtyFields';
 export * from './DateInputField';
@@ -16,6 +17,8 @@ export * from './LabeledRadioButton';
 export * from './NullableBooleanDropdown';
 export * from './ObservationDateInput';
 export * from './PriorityForm';
+export * from './PriorityForm.schema';
 export * from './ReasonForChangeForm';
 export * from './ValidationErrorList';
 export * from './ValidityPeriodForm';
+export * from './ValidityPeriodForm.schema';

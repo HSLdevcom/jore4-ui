@@ -3,22 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
 import { Priority } from '../../../types/enums';
 import { Row } from '../../common/LayoutComponents';
+import { FormState } from './ChangeValidityForm.schema';
 import { FormRow } from './FormRow';
 import { InputField } from './InputField';
-import {
-  PriorityForm,
-  PriorityFormState,
-  priorityFormSchema,
-} from './PriorityForm';
-import {
-  ValidityPeriodForm,
-  ValidityPeriodFormState,
-  validityPeriodFormSchema,
-} from './ValidityPeriodForm';
-
-export const schema = validityPeriodFormSchema.merge(priorityFormSchema);
-
-export type FormState = ValidityPeriodFormState & PriorityFormState;
+import { PriorityForm } from './PriorityForm';
+import { ValidityPeriodForm } from './ValidityPeriodForm';
 
 type VersionCommentFieldProps = {
   readonly translationPrefix: TranslationKey;

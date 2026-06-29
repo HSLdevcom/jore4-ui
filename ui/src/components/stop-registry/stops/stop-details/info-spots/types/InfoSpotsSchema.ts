@@ -6,7 +6,7 @@ import {
 import {
   createNullableEnum,
   nullableBoolean,
-} from '../../../../../forms/common';
+} from '../../../../../forms/common/customZodSchemas';
 import { InfoSpotPurposeEnum } from './InfoSpotPurpose';
 
 export const itemSizeUiState = z.enum([
