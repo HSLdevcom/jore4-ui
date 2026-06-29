@@ -6,7 +6,7 @@ import {
   closeDeleteTimetableModalAction,
   selectDeleteTimetableModal,
 } from '../../../redux';
-import { ConfirmModal } from '../../../uiComponents/ConfirmModal';
+import { ConfirmModal } from '../../common/Modals';
 import { AffectedRouteLabels } from '../common/AffectedRouteLabels';
 import { useVehicleScheduleFrameValidity } from '../common/useVehicleScheduleFrameValidity';
 import { useDeleteVehicleScheduleFrame } from './hooks';

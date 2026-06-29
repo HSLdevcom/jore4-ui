@@ -2,9 +2,10 @@ import { DialogTitle } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { CloseIconButton, SimpleButton } from '../components/common/Buttons';
-import { Row } from '../components/common/LayoutComponents';
-import { Modal, NewModalBody } from '../components/common/Modals';
+import { CloseIconButton, SimpleButton } from '../Buttons';
+import { Row } from '../LayoutComponents';
+import { Modal } from './Modal';
+import { NewModalBody } from './NewModalBody';
 
 type ErrorModalProps = {
   readonly heading: string;

@@ -2,7 +2,7 @@ import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate, parseDate } from '../../../../../../time';
-import { ConfirmModal } from '../../../../../../uiComponents/ConfirmModal';
+import { ConfirmModal } from '../../../../../common/Modals';
 import { CopyStopAreaCutConfirmationModalState } from '../types';
 
 const testIds = {

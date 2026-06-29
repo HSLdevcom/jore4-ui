@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../hooks';
-import { closeErrorModalAction, selectErrorModal } from '../redux';
+import { useAppSelector } from '../../../hooks';
+import { closeErrorModalAction, selectErrorModal } from '../../../redux';
 import { ErrorModal } from './ErrorModal';
 import { ErrorModalItem } from './ErrorModalItem';
 
