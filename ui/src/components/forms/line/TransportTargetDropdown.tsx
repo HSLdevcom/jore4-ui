@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HslRouteTransportTargetEnum } from '../../../generated/graphql';
 import { mapTransportTargetToUiName } from '../../../i18n/uiNameMappings';
-import { FormInputProps } from '../../../uiComponents';
+import { FormInputProps } from '../../common';
 import { EnumDropdown } from '../common/EnumDropdown';
 
 type TransportTargetDropdownProps = FormInputProps & {

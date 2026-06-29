@@ -1,11 +1,8 @@
 import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  BaseFormInputProps,
-  JoreListbox,
-  ListboxOptionItem,
-} from '../../../uiComponents';
+import { BaseFormInputProps } from '../../common';
+import { JoreListbox, ListboxOptionItem } from '../../common/Dropdowns';
 
 const testIds = {
   dropdown: 'NullableBooleanDropdown::button',

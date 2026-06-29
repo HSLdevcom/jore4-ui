@@ -1,10 +1,7 @@
 import { ReactElement, Ref, forwardRef } from 'react';
-import {
-  BaseFormInputProps,
-  JoreListbox,
-  ListboxOptionItem,
-} from '../../../uiComponents';
 import { AllOptionEnum, NullOptionEnum } from '../../../utils';
+import { BaseFormInputProps } from '../../common';
+import { JoreListbox, ListboxOptionItem } from '../../common/Dropdowns';
 
 const testIds = {
   enumDropdown: 'EnumDropdown::button',

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { Priority } from '../../../../types/enums';
-import { SimpleDropdownMenuItem } from '../../../../uiComponents';
+import { SimpleDropdownMenuItem } from '../../../common/Dropdowns';
 import { LocatableStopWithObservationDateProps } from '../../types';
 
 const testIds = {

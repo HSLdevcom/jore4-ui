@@ -4,7 +4,7 @@ import { StopWithDetails } from '../../../../../types';
 import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
-} from '../../../../../uiComponents';
+} from '../../../../common/Dropdowns';
 import { isMirrorChild } from '../../../utils/mirrorRelation';
 import { MakeHybridStopModal } from '../hybrid-stop';
 import { CopyStopModal } from '../stop-version';

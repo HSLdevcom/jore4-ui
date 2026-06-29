@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { EnrichedStopPlace } from '../../../../../types';
+import { showSuccessToast } from '../../../../../utils';
 import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
-} from '../../../../../uiComponents';
-import { showSuccessToast } from '../../../../../utils';
+} from '../../../../common/Dropdowns';
 import { useUpsertStopArea } from '../../../../forms/stop-area';
 import { ShowOnMap } from '../../../search/components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
 import { CopyStopAreaModal } from '../../versions/copy-stop-area';

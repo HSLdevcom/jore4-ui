@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenu } from '../../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../../common/Dropdowns';
 
 const testIds = {
   actionMenu: 'StopTableRow::actionMenu',

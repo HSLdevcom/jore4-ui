@@ -2,11 +2,11 @@ import { Listbox, ListboxOption, ListboxOptions } from '@headlessui/react';
 import { FocusEventHandler, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCheck } from 'react-icons/md';
+import { areEqual } from '../../../../../../utils';
 import {
   JoreListboxButton,
   multiselectListboxStyles,
-} from '../../../../../../uiComponents';
-import { areEqual } from '../../../../../../utils';
+} from '../../../../../common/Dropdowns';
 
 type LabellessMenuGroup<OptionT> = {
   readonly key: string;

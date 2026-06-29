@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   JoreListboxButton,
   listboxStyles,
-} from '../../../../../../uiComponents';
+} from '../../../../../common/Dropdowns';
 import { ItemSizeState, PosterSizeSubMenu } from '../types';
 import { formatOption } from '../utils';
 

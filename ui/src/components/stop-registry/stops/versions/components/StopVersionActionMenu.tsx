@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenu } from '../../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../../common/Dropdowns';
 import { OpenDetailsPage, ShowOnMap } from '../../../components';
 import { ActionMenuStop } from '../types/ActionMenuStop';
 

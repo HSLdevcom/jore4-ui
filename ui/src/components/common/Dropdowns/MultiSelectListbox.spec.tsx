@@ -1,9 +1,9 @@
 import { screen, waitFor } from '@testing-library/react';
-import { fireFullMouseClickSequence, render } from '../utils/test-utils';
-import { JoreListbox } from './JoreListbox';
+import { fireFullMouseClickSequence, render } from '../../../utils/test-utils';
+import { MultiSelectListbox } from './MultiSelectListbox';
 
-describe('<JoreListbox />', () => {
-  const testId = 'listbox1';
+describe('<MultiSelectListbox />', () => {
+  const testId = 'multiselectlistbox';
   const buttonContent = `button`;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onChange = () => {};
@@ -16,7 +16,7 @@ describe('<JoreListbox />', () => {
 
   test('Opens dropdown when clicked', async () => {
     render(
-      <JoreListbox
+      <MultiSelectListbox
         testId={testId}
         buttonContent={buttonContent}
         onChange={onChange}
@@ -46,4 +46,5 @@ describe('<JoreListbox />', () => {
       ).not.toBeInTheDocument(),
     );
   });
+  // TODO: Add at least a test for selecting a value
 });

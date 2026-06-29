@@ -9,7 +9,7 @@ import {
 import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
-} from '../../../uiComponents';
+} from '../../common/Dropdowns';
 import { PriorityBadge } from '../PriorityBadge';
 
 type RouteStopsOverlayRowProps = {

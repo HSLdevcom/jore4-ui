@@ -11,7 +11,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
-import { comboboxStyles } from '../../../../uiComponents';
+import { comboboxStyles } from '../../../common/Dropdowns';
 import { ValidationErrorList } from '../../common';
 import { StopFormState, StopModalStopAreaFormSchema } from '../types';
 import { formatIsoDateString, useFindStopAreas } from '../utils';

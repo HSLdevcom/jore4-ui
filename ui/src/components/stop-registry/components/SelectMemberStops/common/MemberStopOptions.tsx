@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineAddCircle } from 'react-icons/md';
 import { mapToShortDate } from '../../../../../time';
-import { comboboxStyles } from '../../../../../uiComponents';
+import { comboboxStyles } from '../../../../common/Dropdowns';
 import { SelectedStop } from './schema';
 
 const testIds = {

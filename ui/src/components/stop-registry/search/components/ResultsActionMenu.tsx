@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { SimpleDropdownMenu } from '../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../common/Dropdowns';
 import { ResultSelection, StopSearchFilters } from '../types';
 import {
   EquipmentReportMenuItem,

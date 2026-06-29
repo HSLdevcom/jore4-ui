@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { fireFullMouseClickSequence, render } from '../utils/test-utils';
+import { fireFullMouseClickSequence, render } from '../../../utils/test-utils';
 import { JoreCombobox, testIds } from './JoreCombobox';
 
 describe('<JoreCombobox />', () => {

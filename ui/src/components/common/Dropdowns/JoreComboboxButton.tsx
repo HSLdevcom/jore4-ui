@@ -1,7 +1,7 @@
 import { ComboboxButton, ComboboxButtonProps } from '@headlessui/react';
 import { ReactNode, forwardRef } from 'react';
 import { MdSearch } from 'react-icons/md';
-import { comboboxStyles } from './headlessStyles';
+import { comboboxStyles } from './headlessHelpers';
 
 type JoreComboboxButtonProps = Omit<
   ComboboxButtonProps,

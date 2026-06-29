@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapTerminalTypeToUiName } from '../../../../i18n/uiNameMappings';
-import { FormInputProps } from '../../../../uiComponents';
+import { FormInputProps } from '../../../common';
 import { EnumDropdown } from '../../../forms/common';
 import { TerminalType } from '../../types/TerminalType';
 

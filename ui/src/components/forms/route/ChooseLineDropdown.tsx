@@ -8,7 +8,7 @@ import {
   ComboboxInputProps,
   ComboboxOptionItem,
   SearchableDropdown,
-} from '../../../uiComponents';
+} from '../../common/Dropdowns';
 import { DateRange } from '../common';
 import { useChooseLineDropdown } from './useChooseLineDropdown';
 
