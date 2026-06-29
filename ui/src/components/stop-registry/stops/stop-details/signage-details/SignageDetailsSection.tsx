@@ -3,7 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { SignageDetailsFormState } from './schema';
 import { SignageDetailsForm } from './SignageDetailsForm';

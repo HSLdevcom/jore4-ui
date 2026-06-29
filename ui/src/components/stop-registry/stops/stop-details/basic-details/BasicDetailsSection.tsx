@@ -4,7 +4,10 @@ import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappin
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import {
   getContainerColorsByTransportMode,
   inactiveInfoContainerColors,

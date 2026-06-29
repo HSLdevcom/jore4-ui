@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { InfoContainerControls } from '../../../../../common';
+import { InfoContainerControls } from '../../../../../common/InfoContainer';
 
 export type SortField =
   | 'label'

@@ -11,8 +11,11 @@ import {
   showSuccessToast,
   submitFormByRef,
 } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { AddNewButton } from '../../../../common/Buttons';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import {
