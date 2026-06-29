@@ -64,7 +64,7 @@ export function getHoverStyles(inverted: boolean, disabled: boolean) {
     return 'hover:outline-brand hover:border-brand';
   }
 
-  return 'hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-brand/50';
+  return 'hover:bg-tweaked-brand hover:border-tweaked-brand-darker30';
 }
 
 function getCommonClassNames(
