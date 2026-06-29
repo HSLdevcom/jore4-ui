@@ -4,7 +4,10 @@ import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import { getMaintainers } from '../../utils';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { MaintenanceDetailsForm } from './MaintenanceDetailsForm';

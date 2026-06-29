@@ -2,7 +2,10 @@ import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { LocationDetailsForm } from './LocationDetailsForm';
 import { LocationDetailsViewCard } from './LocationDetailsViewCard';

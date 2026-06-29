@@ -4,8 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { AddNewButton } from '../../../../common/Buttons';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { SheltersFormState, mapShelterDataToFormState } from './schema';

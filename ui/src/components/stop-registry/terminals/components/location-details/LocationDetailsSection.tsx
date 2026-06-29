@@ -5,7 +5,7 @@ import {
   InfoContainer,
   InfoContainerControls,
   useInfoContainerControls,
-} from '../../../../common';
+} from '../../../../common/InfoContainer';
 import { terminalInfoContainerColors } from '../../terminalInfoContainerColors';
 import { TerminalComponentProps } from '../../types';
 import { TerminalLocationDetailsEdit } from './location-details-form/LocationDetailsEdit';

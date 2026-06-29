@@ -9,7 +9,10 @@ import {
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import {
+  InfoContainer,
+  useInfoContainerControls,
+} from '../../../../common/InfoContainer';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { extractRelevantAccessibilityAssessment } from '../utils';
 import { AccessibilityLevelInfo } from './AccessibilityLevelInfo';

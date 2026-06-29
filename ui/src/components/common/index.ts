@@ -6,5 +6,4 @@ export * from './RedirectWithQuery';
 export * from './TimeRangeControl';
 export * from './versions';
 export * from './search';
-export * from './info-container';
 export * from './accordionClassNames';

@@ -1,6 +1,6 @@
 import { StopRegistryTransportModeType } from '../../../../generated/graphql';
 import { theme } from '../../../../generated/theme';
-import { InfoContainerColors } from '../../../common';
+import { InfoContainerColors } from '../../../common/InfoContainer';
 
 export const stopInfoContainerColors: InfoContainerColors = {
   backgroundColor: theme.colors.hslNeutralBlue,

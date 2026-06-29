@@ -1,4 +1,3 @@
-export * from './DefaultHeaderButtons';
 export * from './InfoContainer';
 export * from './InfoContainerColors';
 export * from './InfoContainerControls';

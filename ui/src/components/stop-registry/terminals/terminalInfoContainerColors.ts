@@ -1,5 +1,5 @@
 import { theme } from '../../../generated/theme';
-import { InfoContainerColors } from '../../common';
+import { InfoContainerColors } from '../../common/InfoContainer';
 
 export const terminalInfoContainerColors: InfoContainerColors = {
   backgroundColor: theme.colors.hslLightPurple,

@@ -8,7 +8,7 @@ import {
   InfoContainer,
   InfoContainerControls,
   useInfoContainerControls,
-} from '../../../../common';
+} from '../../../../common/InfoContainer';
 import { StopAreaComponentProps } from '../types';
 import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
 import { StopAreaDetailsView } from './StopAreaDetailsView';
