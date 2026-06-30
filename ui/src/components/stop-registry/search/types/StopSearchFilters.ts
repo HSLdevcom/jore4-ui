@@ -12,7 +12,10 @@ import {
   StopPlaceState,
 } from '../../../../types/stop-registry';
 import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
-import { instanceOfDateTime, requiredString } from '../../../forms/common';
+import {
+  instanceOfDateTime,
+  requiredString,
+} from '../../../forms/common/customZodSchemas';
 import { SearchBy } from './SearchBy';
 import { SearchFor } from './SearchFor';
 import { knownMunicipalities } from './StringMunicipality';

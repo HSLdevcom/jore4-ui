@@ -1,9 +1,7 @@
-import { FC, KeyboardEvent, useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { FC } from 'react';
 import { useAppSelector } from '../../hooks';
 import { selectHasChangesInProgress } from '../../redux';
-import { mapToISODate, parseDate } from '../../time';
-import { Column } from '../common/LayoutComponents/Column';
+import { ObservationDateInput } from '../forms/common';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 
 const testIds = {
@@ -19,11 +17,10 @@ type MapObservationDateControlProps = {
 
 export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
   className,
-  containerClassName = className,
-  inputClassName = className,
+  containerClassName,
+  inputClassName,
   disabled = false,
 }) => {
-  const { t } = useTranslation();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
 
   const {
@@ -33,57 +30,22 @@ export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
     setFilters,
   } = useMapUrlStateContext();
 
-  const [localDateValue, setLocalDateValue] = useState(observationDate);
-
-  useEffect(() => {
-    if (observationDate.isValid) {
-      setLocalDateValue(observationDate);
-    }
-  }, [observationDate]);
-
-  const updateUrlState = useCallback(() => {
-    const newDate = parseDate(localDateValue);
-
-    if (!newDate.isValid) {
-      setLocalDateValue(observationDate);
-      return;
-    }
-
-    if (!newDate.equals(observationDate)) {
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        observationDate: newDate,
-      }));
-    }
-  }, [localDateValue, setFilters, observationDate]);
-
-  const handleKeyUp = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        updateUrlState();
-      }
-    },
-    [updateUrlState],
-  );
-
-  const dateInputId = 'map-observation-date-input';
-  const isDisabled = disabled || hasChangesInProgress;
-
   return (
-    <Column className={containerClassName}>
-      <label htmlFor={dateInputId}>{t(($) => $.filters.observationDate)}</label>
-      <input
-        type="date"
-        value={mapToISODate(localDateValue)}
-        onChange={(e) => setLocalDateValue(parseDate(e.target.value))}
-        onBlur={updateUrlState}
-        onKeyUp={handleKeyUp}
-        id={dateInputId}
-        className={inputClassName}
-        data-testid={testIds.observationDateInput}
-        required
-        disabled={isDisabled}
-      />
-    </Column>
+    <ObservationDateInput
+      id="map-observation-date-input"
+      className={className}
+      containerClassName={containerClassName}
+      inputClassName={inputClassName}
+      value={observationDate}
+      onChange={(newDate) =>
+        setFilters((prevFilters) => ({
+          ...prevFilters,
+          observationDate: newDate,
+        }))
+      }
+      testId={testIds.observationDateInput}
+      required
+      disabled={disabled || hasChangesInProgress}
+    />
   );
 };

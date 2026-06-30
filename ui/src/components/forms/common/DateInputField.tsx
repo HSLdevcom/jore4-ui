@@ -3,7 +3,7 @@ import { DetailedHTMLProps, InputHTMLAttributes, ReactElement } from 'react';
 import { FieldPathByValue, FieldValues, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { TranslationKey } from '../../../i18n';
-import { parseDate } from '../../../time';
+import { BaseDateInput } from '../../common/BaseDateInput';
 import { Column } from '../../common/LayoutComponents';
 import { inputErrorStyles } from './InputElement';
 import { InputLabel } from './InputLabel';
@@ -37,14 +37,17 @@ export const DateInputField = <FormState extends FieldValues>({
   return (
     <Column className={className}>
       <InputLabel fieldPath={fieldPath} translationPrefix={translationPrefix} />
-      <input
+      <BaseDateInput
+        parsed
+        nullable
         id={id}
         data-testid={testId}
         className={twMerge(inputClassName, invalid ? inputErrorStyles : '')}
-        onChange={(e) => onChange(parseDate(e.target.value))}
-        type="date"
-        value={value?.toISODate()}
+        onChange={onChange}
+        value={value}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...inputProps}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...fieldProps}
       />
     </Column>

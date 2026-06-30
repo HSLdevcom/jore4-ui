@@ -1,3 +1,4 @@
+export * from './BaseDateInput';
 export * from './DateControl';
 export * from './DateInput';
 export * from './FormInputTypes';

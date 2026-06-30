@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon';
-import { FC, KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { FC, KeyboardEventHandler, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToISODate, parseDate } from '../../../time';
+import { BaseDateInput } from '../../common/BaseDateInput';
 import { Column } from '../../common/LayoutComponents';
 
 type ObservationDateInputProps = {
+  readonly id?: string;
   readonly value: DateTime;
   readonly onChange: (value: DateTime) => void;
   readonly className?: string;
@@ -16,8 +17,10 @@ type ObservationDateInputProps = {
 };
 
 export const ObservationDateInput: FC<ObservationDateInputProps> = ({
+  id = 'observation-date-input',
   value,
   onChange,
+  // TODO: Check and fix this class bs
   className,
   containerClassName = className,
   inputClassName = className,
@@ -26,46 +29,32 @@ export const ObservationDateInput: FC<ObservationDateInputProps> = ({
   disabled = false,
 }) => {
   const { t } = useTranslation();
-  const dateInputId = 'observation-date-input';
 
-  const [localDateValue, setLocalDateValue] = useState(value);
+  const [localValue, setLocalValue] = useState(value);
+  useEffect(() => setLocalValue(value), [value]);
 
-  useEffect(() => {
-    if (value.isValid) {
-      setLocalDateValue(value);
+  const submitChangedValue = () => {
+    if (!value.equals(localValue)) {
+      onChange(localValue);
     }
-  }, [value]);
+  };
 
-  const updateUrlState = useCallback(() => {
-    if (!localDateValue.isValid) {
-      setLocalDateValue(value);
-      return;
+  const submitOnEnter: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === 'Enter') {
+      submitChangedValue();
     }
-
-    if (!localDateValue.equals(value)) {
-      onChange(localDateValue);
-    }
-  }, [localDateValue, value, onChange]);
-
-  const handleKeyUp = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        updateUrlState();
-      }
-    },
-    [updateUrlState],
-  );
+  };
 
   return (
     <Column className={containerClassName}>
-      <label htmlFor={dateInputId}>{t(($) => $.filters.observationDate)}</label>
-      <input
-        type="date"
-        value={mapToISODate(localDateValue)}
-        onChange={(e) => setLocalDateValue(parseDate(e.target.value))}
-        onBlur={updateUrlState}
-        onKeyUp={handleKeyUp}
-        id={dateInputId}
+      <label htmlFor={id}>{t(($) => $.filters.observationDate)}</label>
+      <BaseDateInput
+        parsed
+        value={value}
+        onBlur={submitChangedValue}
+        onChange={onChange}
+        onKeyUp={submitOnEnter}
+        id={id}
         className={inputClassName}
         data-testid={testId}
         required={required}

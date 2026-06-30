@@ -5,8 +5,14 @@ import {
   ReactElement,
   TextareaHTMLAttributes,
 } from 'react';
-import { FieldValues, Path, useFormContext } from 'react-hook-form';
+import {
+  FieldValues,
+  Path,
+  useController,
+  useFormContext,
+} from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
+import { CompatBaseDateInput } from '../../common';
 
 export type InputElementDefaultProps = InputHTMLAttributes<HTMLInputElement> & {
   readonly id: string;
@@ -34,7 +40,7 @@ type InputElementProps<FormState extends FieldValues> =
 
 export const inputErrorStyles = 'border-hsl-red bg-hsl-red/5 border-2';
 
-export const InputElement = <FormState extends FieldValues>({
+export const RawInputElement = <FormState extends FieldValues>({
   className,
   fieldPath,
   testId,
@@ -63,6 +69,7 @@ export const InputElement = <FormState extends FieldValues>({
   }
 
   const inputProps = elementProps as HTMLInputProps;
+
   return (
     <input
       {...inputProps}
@@ -72,4 +79,42 @@ export const InputElement = <FormState extends FieldValues>({
       type={type}
     />
   );
+};
+
+export const DateInputElement = <FormState extends FieldValues>({
+  className,
+  fieldPath,
+  testId,
+  ...elementProps
+}: InputElementProps<FormState>): ReactElement => {
+  const {
+    field,
+    fieldState: { error },
+  } = useController<FormState, typeof fieldPath>({ name: fieldPath });
+
+  const inputProps = elementProps as HTMLInputProps;
+
+  return (
+    <CompatBaseDateInput
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...inputProps}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...field}
+      className={twMerge(className, error ? inputErrorStyles : '')}
+      data-testid={testId}
+    />
+  );
+};
+
+export const InputElement = <FormState extends FieldValues>(
+  props: InputElementProps<FormState>,
+): ReactElement => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.type === 'date') {
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <DateInputElement {...props} />;
+  }
+
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <RawInputElement {...props} />;
 };

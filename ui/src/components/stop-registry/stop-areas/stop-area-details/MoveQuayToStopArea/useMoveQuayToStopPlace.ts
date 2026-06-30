@@ -14,8 +14,6 @@ import {
   extractQuayValidityEnd,
   extractStopPlaceQuays,
   fetchExistingStopPoints,
-  getPreviousDay,
-  isSameDate,
   updateStopPointValidity,
 } from './utils/helpers';
 import { MoveQuayParams, QuayInfo } from './utils/types';
@@ -63,7 +61,7 @@ export const useMoveQuayToStopPlace = () => {
     const stopPointNeedingUpdate = existingStopPoints.find((stopPoint) => {
       const isMovingFromValidityStart =
         stopPoint.validity_start &&
-        isSameDate(stopPoint.validity_start, params.moveQuayFromDate);
+        stopPoint.validity_start.equals(params.moveQuayFromDate);
       return !isMovingFromValidityStart;
     });
 
@@ -107,7 +105,7 @@ export const useMoveQuayToStopPlace = () => {
       );
 
       // Update the original stop point
-      const validityEndDate = getPreviousDay(params.moveQuayFromDate);
+      const validityEndDate = params.moveQuayFromDate.minus({ day: 1 });
       await updateStopPointValidity(
         stopPointNeedingUpdate.scheduled_stop_point_id,
         validityEndDate,
