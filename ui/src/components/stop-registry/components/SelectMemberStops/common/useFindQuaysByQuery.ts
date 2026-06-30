@@ -57,8 +57,8 @@ export function useFindQuaysByQuery(query: string) {
 
     const matchingStops = parsedStops.filter(
       (stop) =>
-        stop.publicCode?.toLowerCase().includes(query.toLowerCase()) ||
-        stop.name?.toLowerCase().includes(query.toLowerCase()),
+        !!stop.publicCode?.toLowerCase().includes(query.toLowerCase()) ||
+        !!stop.name?.toLowerCase().includes(query.toLowerCase()),
     );
 
     return { options: matchingStops, allQueryResults: parsedStops };

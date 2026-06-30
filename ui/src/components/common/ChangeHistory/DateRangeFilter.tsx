@@ -1,14 +1,7 @@
-import {
-  ChangeEventHandler,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useId,
-  useState,
-} from 'react';
+import { DateTime } from 'luxon';
+import { Dispatch, FC, SetStateAction, useId } from 'react';
 import { useTranslation } from 'react-i18next';
-import { parseDate } from '../../../time';
+import { BaseDateInput } from '../BaseDateInput';
 import { ChangeHistoryFilters } from './types';
 
 const testIds = {
@@ -31,27 +24,8 @@ export const DateRangeFilter: FC<DateRangeFilterProps> = ({
 
   const id = useId();
 
-  const filterFromDateStr = from.toISODate();
-  const filterToDateStr = to.toISODate();
-
-  const [fromDateStr, setFromDateStr] = useState<string>(filterFromDateStr);
-  const [toDateStr, setToDateStr] = useState<string>(filterToDateStr);
-
-  useEffect(() => {
-    setFromDateStr(filterFromDateStr);
-    setToDateStr(filterToDateStr);
-  }, [filterFromDateStr, filterToDateStr]);
-
-  const onFromChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const str = e.target.value;
-    setFromDateStr(str);
-
-    const parsed = parseDate(str);
-    if (!parsed) {
-      return;
-    }
-
-    const newFromDate = parsed.startOf('day');
+  const onFromChange = (newDate: DateTime) => {
+    const newFromDate = newDate.startOf('day');
 
     setFilters((p) => {
       const currentToDate = p.to.startOf('day');
@@ -68,15 +42,8 @@ export const DateRangeFilter: FC<DateRangeFilterProps> = ({
     });
   };
 
-  const onToChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const str = e.target.value;
-    setToDateStr(str);
-
-    const parsed = parseDate(str);
-    if (!parsed) {
-      return;
-    }
-    const newToDate = parsed.endOf('day');
+  const onToChange = (newDate: DateTime) => {
+    const newToDate = newDate.endOf('day');
 
     setFilters((p) => {
       const currentFromDate = p.from.endOf('day');
@@ -99,20 +66,20 @@ export const DateRangeFilter: FC<DateRangeFilterProps> = ({
         {t(($) => $.changeHistory.tableHeaders.changed)}
       </label>
       <fieldset aria-labelledby={id} className="flex gap-4">
-        <input
+        <BaseDateInput
           data-testid={testIds.fromDate}
           id={`${id}from`}
+          parsed
+          value={from}
           onChange={onFromChange}
-          type="date"
-          value={fromDateStr}
         />
-        <input
+
+        <BaseDateInput
           data-testid={testIds.toDate}
           id={`${id}to`}
-          className="invalid:border-hsl-red"
+          parsed
+          value={to}
           onChange={onToChange}
-          type="date"
-          value={toDateStr}
         />
       </fieldset>
     </div>

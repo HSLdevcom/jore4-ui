@@ -14,14 +14,8 @@ import { Maybe, ValidityPeriod } from './generated/graphql';
 const helsinkiTimeZone = IANAZone.create('Europe/Helsinki');
 Settings.defaultZone = helsinkiTimeZone;
 
-// This is in fact false at the moment.
-// Previous versions of the luxon typings did not care about validity.
-// Currently, our code base can produce NPEs when working with Luxon classes.
-// Settings.throwOnInvalid = true; should be set next to defaultZone.
-// Setting this to true, breaks half of the code base as they rely on
-// parsing and creating invalid dates.
-// TODO: Set the throwOnInvalid setting or fix the codebase to deal with nulls produced by Luxon.
-Settings.throwOnInvalid = false;
+// Throw instead of returning invalid dates.
+Settings.throwOnInvalid = true;
 declare module 'luxon' {
   interface TSSettings {
     throwOnInvalid: true;
@@ -64,12 +58,17 @@ export function parseDate(date?: DateLike | null) {
   }
 
   // It is a date string
-  const dt = parseActualStringToDateTime(date);
-  if (dt.isValid) {
-    return dt;
-  }
+  return parseActualStringToDateTime(date);
+}
 
-  throw new Error(`Invalid date input: ${date}`);
+export function tryToParseDate(
+  date: DateLike | null | undefined,
+): DateTime | undefined {
+  try {
+    return parseDate(date);
+  } catch {
+    return undefined;
+  }
 }
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets

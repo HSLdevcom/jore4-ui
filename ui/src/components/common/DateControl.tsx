@@ -1,7 +1,6 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
-import { QueryParameterName } from '../../hooks';
 import { useDateQueryParam } from '../../hooks/urlQuery/useDateQueryParam';
+import { QueryParameterName } from '../../hooks/urlQuery/useUrlQuery';
 import { DateInput } from './DateInput';
 
 type DateControlProps = {
@@ -31,20 +30,12 @@ export const DateControl: FC<DateControlProps> = ({
     queryParamName,
     initialize,
   });
-  const onDateChange = (newDate: DateTime) => {
-    // Do not allow setting empty value to date
-    if (!date.isValid) {
-      return;
-    }
-
-    setDateToUrl(newDate);
-  };
 
   return (
     <DateInput
       label={label}
       value={date}
-      onChange={onDateChange}
+      onChange={setDateToUrl}
       className={className}
       required
       disabled={disabled}

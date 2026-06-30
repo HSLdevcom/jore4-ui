@@ -7,24 +7,14 @@ import {
   useUpdateStopPointMutation,
 } from '../../../../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../../../../graphql';
-import { KnownValueKey, findKeyValue } from '../../../../../../utils';
+import { tryToParseDate } from '../../../../../../time';
+import { KnownValueKey, areEqual, findKeyValue } from '../../../../../../utils';
 import {
   MoveQuayParams,
   MoveStopPlace,
   QuayInfo,
   StopPointInfo,
 } from './types';
-
-export function getPreviousDay(dateString: string): string {
-  const date = new Date(dateString);
-  date.setDate(date.getDate() - 1);
-  return date.toISOString().split('T')[0];
-}
-
-export function isSameDate(date1: string | DateTime, date2: string): boolean {
-  const dateStr1 = typeof date1 === 'string' ? date1 : date1.toISODate();
-  return dateStr1 === date2;
-}
 
 export function extractStopPlaceQuays(
   stopPlace: MoveStopPlace | null | undefined,
@@ -43,8 +33,9 @@ export function extractStopPlaceQuays(
     .map((quay) => ({
       id: quay.id ?? '',
       publicCode: quay.publicCode ?? '',
-      validityStart:
-        findKeyValue(quay, KnownValueKey.ValidityStart) ?? undefined,
+      validityStart: tryToParseDate(
+        findKeyValue(quay, KnownValueKey.ValidityStart),
+      ),
     }))
     .filter((quay) => quay.id && quay.publicCode);
 }
@@ -52,7 +43,7 @@ export function extractStopPlaceQuays(
 export function extractQuayValidityEnd(
   stopPlace: MoveStopPlace | null | undefined,
   quayId: string,
-): string | null | undefined {
+): DateTime | null | undefined {
   // eslint-disable-next-line no-underscore-dangle
   if (stopPlace?.__typename !== 'stop_registry_StopPlace') {
     return undefined;
@@ -68,14 +59,14 @@ export function extractQuayValidityEnd(
   }
 
   const validityEnd = findKeyValue(quay, KnownValueKey.ValidityEnd);
-  return validityEnd ?? null;
+  return tryToParseDate(validityEnd);
 }
 
 export function createQuayMappingForCopiedQuay(
   originalQuays: ReadonlyArray<QuayInfo>,
   newQuays: ReadonlyArray<QuayInfo>,
-  moveQuayFromDate: string,
-): Map<string, string> {
+  moveQuayFromDate: DateTime,
+): ReadonlyMap<string, string> {
   const mapping = new Map<string, string>();
 
   originalQuays.forEach((originalQuay) => {
@@ -86,7 +77,7 @@ export function createQuayMappingForCopiedQuay(
     const matchingNewQuay = newQuays.find(
       (newQuay) =>
         newQuay.publicCode === originalQuay.publicCode &&
-        newQuay.validityStart === moveQuayFromDate,
+        areEqual(newQuay.validityStart, moveQuayFromDate),
     );
 
     if (matchingNewQuay?.id) {
@@ -132,11 +123,11 @@ export async function executeQuayMove(
 
 export async function updateStopPointValidity(
   stopPointId: string,
-  validityEnd: string,
+  validityEnd: DateTime,
   updateStopPointMutation: ReturnType<typeof useUpdateStopPointMutation>[0],
 ): Promise<void> {
   const updateChanges: PartialScheduledStopPointSetInput = {
-    validity_end: DateTime.fromISO(validityEnd),
+    validity_end: validityEnd,
   };
 
   const result = await updateStopPointMutation({
@@ -160,8 +151,8 @@ export async function updateStopPointValidity(
 export async function createAndInsertStopPoint(
   originalStopPoint: StopPointInfo,
   newQuayId: string,
-  moveFromDate: string,
-  validityEnd: string | null | undefined,
+  moveFromDate: DateTime,
+  validityEnd: DateTime | null | undefined,
   insertStopPointMutation: ReturnType<typeof useInsertStopPointMutation>[0],
 ) {
   const baseStopPoint: ServicePatternScheduledStopPointInsertInput = {
@@ -169,8 +160,8 @@ export async function createAndInsertStopPoint(
     direction: originalStopPoint.direction,
     label: originalStopPoint.label,
     timing_place_id: originalStopPoint.timing_place_id,
-    validity_start: DateTime.fromISO(moveFromDate),
-    validity_end: validityEnd ? DateTime.fromISO(validityEnd) : null,
+    validity_start: moveFromDate,
+    validity_end: validityEnd ?? null,
     located_on_infrastructure_link_id:
       originalStopPoint.located_on_infrastructure_link_id,
     stop_place_ref: newQuayId,

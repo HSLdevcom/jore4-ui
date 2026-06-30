@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon';
-import { ChangeEventHandler, FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { showSuccessToast } from '../../../../../utils';
+import { DateInput } from '../../../../common';
 import { CloseIconButton, SimpleButton } from '../../../../common/Buttons';
-import { Column, Row } from '../../../../common/LayoutComponents';
+import { Row } from '../../../../common/LayoutComponents';
 import { Modal, ModalBody, NewModalFooter } from '../../../../common/Modals';
 import { SelectStopDropdown } from '../../../components/SelectMemberStops';
 import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
@@ -34,31 +35,30 @@ type MoveQuayToStopAreaModalProps = {
 
 type ModalState = {
   readonly selectedStop: SelectedStop | null;
-  readonly selectedDate: string;
+  readonly selectedDate: DateTime;
   readonly showVersions: boolean;
 };
 
 const initialState: ModalState = {
   selectedStop: null,
-  selectedDate: new Date().toISOString().split('T')[0],
+  selectedDate: DateTime.now().startOf('day'),
   showVersions: false,
 };
 
 const useFilteredStopVersions = (
   stopVersions: ReadonlyArray<StopVersion> | null | undefined,
-  selectedDate: Readonly<string>,
+  selectedDate: DateTime,
 ): ReadonlyArray<StopVersion> | null | undefined => {
   return useMemo(() => {
     if (!stopVersions || !selectedDate) {
       return stopVersions;
     }
 
-    const filterDate = DateTime.fromISO(selectedDate);
     return stopVersions.filter((version: StopVersion) => {
       const isValidOnDate =
-        version.validity_start <= filterDate &&
-        (version.validity_end === null || version.validity_end >= filterDate);
-      const isFutureVersion = version.validity_start > filterDate;
+        version.validity_start <= selectedDate &&
+        (version.validity_end === null || version.validity_end >= selectedDate);
+      const isFutureVersion = version.validity_start > selectedDate;
       return isValidOnDate ?? isFutureVersion;
     });
   }, [stopVersions, selectedDate]);
@@ -67,17 +67,16 @@ const useFilteredStopVersions = (
 // Remove versions that end before the selected date
 const useRemovePastStopAreaVersions = (
   stopAreaVersions: ReadonlyArray<StopAreaVersion> | null | undefined,
-  selectedDate: Readonly<string>,
+  selectedDate: DateTime,
 ): ReadonlyArray<StopAreaVersion> | null | undefined => {
   return useMemo(() => {
     if (!stopAreaVersions || !selectedDate) {
       return stopAreaVersions;
     }
 
-    const filterDate = DateTime.fromISO(selectedDate).startOf('day');
     return stopAreaVersions?.filter(
       (version) =>
-        version.validity_end === null || version.validity_end >= filterDate,
+        version.validity_end === null || version.validity_end >= selectedDate,
     );
   }, [selectedDate, stopAreaVersions]);
 };
@@ -177,9 +176,8 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
     [updateState],
   );
 
-  const handleDateChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    updateState({ selectedDate: event.target.value });
-  };
+  const onDateChange = (newDate: DateTime) =>
+    updateState({ selectedDate: newDate });
 
   const handleGetStopVersions = () => {
     if (selectedStop?.publicCode) {
@@ -232,18 +230,13 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
         {hasSelection && (
           <div className="items-center border-t border-light-grey bg-background px-8 py-8">
             <Row className="items-end gap-5">
-              <Column>
-                <label className="block" htmlFor="observation-date-input">
-                  {t(($) => $.stopAreaDetails.memberStops.transferDate)}
-                </label>
-                <input
-                  type="date"
-                  id="observation-date-input"
-                  data-testid={testIds.transferDateInput}
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                />
-              </Column>
+              <DateInput
+                value={selectedDate}
+                label={t(($) => $.stopAreaDetails.memberStops.transferDate)}
+                onChange={onDateChange}
+                testId={testIds.transferDateInput}
+                dateInputId="observation-date-input"
+              />
 
               <SimpleButton
                 inverted
