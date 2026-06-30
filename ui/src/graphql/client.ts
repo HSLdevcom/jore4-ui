@@ -33,6 +33,18 @@ function parseDateTime(raw: unknown) {
 }
 
 const buildScalarMappingLink = () => {
+  const dateMapper: ParsingFunctionsObject<DateTime, unknown> = {
+    serialize: (parsed: unknown) => {
+      if (DateTime.isDateTime(parsed)) {
+        return parsed.toISODate();
+      }
+
+      return parsed;
+    },
+
+    parseValue: parseDateTime,
+  };
+
   const dateTimeMapper: ParsingFunctionsObject<DateTime, unknown> = {
     serialize: (parsed: unknown) => {
       if (DateTime.isDateTime(parsed)) {
@@ -47,17 +59,7 @@ const buildScalarMappingLink = () => {
 
   const typesMap: FunctionsMap = {
     // automatically (de)serializing between graphql date <-> luxon.DateTime types
-    date: {
-      serialize: (parsed: unknown) => {
-        // if it's a luxon DateTime, serialize it to ISO date string
-        if (DateTime.isDateTime(parsed)) {
-          return parsed.toISODate();
-        }
-        // otherwise (string, null, undefined) just pass it on as is
-        return parsed;
-      },
-      parseValue: parseDateTime,
-    },
+    date: dateMapper,
     // automatically (de)serializing between graphql interval <-> luxon.Duration types
     interval: {
       serialize: (parsed: unknown) => {
@@ -77,6 +79,7 @@ const buildScalarMappingLink = () => {
       },
     },
     stop_registry_DateTime: dateTimeMapper,
+    stop_registry_LocalDate: dateMapper,
     timestamptz: dateTimeMapper,
   };
 

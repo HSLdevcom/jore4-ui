@@ -38,7 +38,7 @@ export type Scalars = {
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
   stop_registry_DateTime: { input: luxon.DateTime; output: luxon.DateTime; }
   /** Date using the format: yyyy-MM-dd. Example: 2025-04-23 */
-  stop_registry_LocalDate: { input: any; output: any; }
+  stop_registry_LocalDate: { input: luxon.DateTime; output: luxon.DateTime; }
   /** Legacy GeoJSON Coordinates */
   stop_registry_legacyCoordinates: { input: any; output: any; }
   timestamp: { input: any; output: any; }
