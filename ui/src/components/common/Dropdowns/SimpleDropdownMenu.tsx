@@ -53,6 +53,7 @@ type SimpleDropdownMenuProps = {
   readonly className?: string;
   readonly disabled?: boolean;
   readonly children: ReactNode;
+  readonly icon?: string;
   readonly testId?: string;
   readonly tooltip: string;
 };
@@ -64,6 +65,7 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
   className,
   children,
   disabled,
+  icon,
   testId,
   tooltip,
 }) => {
@@ -77,7 +79,7 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
         aria-label={tooltip}
         title={tooltip}
       >
-        <MdMoreVert aria-hidden />
+        {icon ? <i aria-hidden className={icon} /> : <MdMoreVert aria-hidden />}
       </MenuButton>
 
       <SimpleDropdownMenuItems anchor={anchorItems}>
