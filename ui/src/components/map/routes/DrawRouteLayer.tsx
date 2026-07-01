@@ -178,38 +178,36 @@ export const DrawRouteLayer: FC = () => {
   // Check that draw is ready before removing loader in new route draw phase and allowing user to start drawing
   useEffect(() => {
     const mapInstance = map?.getMap();
-    const handleDrawLoadingState = () => {
+
+    const isDrawReady = (): boolean => {
       const hasDrawRef = !!drawRef.current;
       const hasDrawHotSource = !!mapInstance?.getSource('mapbox-gl-draw-hot');
       const hasDrawColdSource = !!mapInstance?.getSource('mapbox-gl-draw-cold');
 
-      const isDrawReady = hasDrawRef && hasDrawHotSource && hasDrawColdSource;
-
-      setRouteDrawLoadingState(
-        isDrawReady ? LoadingState.NotLoading : LoadingState.HighPriority,
-      );
+      return hasDrawRef && hasDrawHotSource && hasDrawColdSource;
     };
 
-    if (isNewRouteDrawPhase) {
-      setRouteDrawLoadingState(LoadingState.HighPriority);
-      if (mapInstance) {
-        // Check if drawing is ready
-        handleDrawLoadingState();
-
-        // Re-check readiness when the map receives new data.
-        mapInstance.on('sourcedata', handleDrawLoadingState);
-
-        // Re-check readiness after the map has finished updating.
-        mapInstance.on('idle', handleDrawLoadingState);
+    const handleDrawLoadingState = () => {
+      if (isDrawReady()) {
+        setRouteDrawLoadingState(LoadingState.NotLoading);
+        mapInstance?.off('sourcedata', handleDrawLoadingState);
+        mapInstance?.off('idle', handleDrawLoadingState);
+      } else {
+        setRouteDrawLoadingState(LoadingState.HighPriority);
       }
+    };
+
+    if (isDrawReady()) {
+      return undefined;
     }
 
+    setRouteDrawLoadingState(LoadingState.HighPriority);
+    mapInstance?.on('sourcedata', handleDrawLoadingState);
+    mapInstance?.on('idle', handleDrawLoadingState);
+
     return () => {
-      if (mapInstance) {
-        mapInstance.off('sourcedata', handleDrawLoadingState);
-        mapInstance.off('idle', handleDrawLoadingState);
-      }
-      setRouteDrawLoadingState(LoadingState.NotLoading);
+      mapInstance?.off('sourcedata', handleDrawLoadingState);
+      mapInstance?.off('idle', handleDrawLoadingState);
     };
   }, [isNewRouteDrawPhase, map, setRouteDrawLoadingState]);
 
