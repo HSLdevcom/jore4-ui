@@ -178,29 +178,38 @@ export const DrawRouteLayer: FC = () => {
   // Check that draw is ready before removing loader in new route draw phase and allowing user to start drawing
   useEffect(() => {
     const mapInstance = map?.getMap();
-    const handleDrawLoadingState = () => {
+    const handleDrawLoadingState = (): boolean => {
       const hasDrawRef = !!drawRef.current;
       const hasDrawHotSource = !!mapInstance?.getSource('mapbox-gl-draw-hot');
       const hasDrawColdSource = !!mapInstance?.getSource('mapbox-gl-draw-cold');
 
-      const isDrawReady = hasDrawRef && hasDrawHotSource && hasDrawColdSource;
+      const isDrawReady =
+        !!mapInstance && hasDrawRef && hasDrawHotSource && hasDrawColdSource;
 
       setRouteDrawLoadingState(
         isDrawReady ? LoadingState.NotLoading : LoadingState.HighPriority,
       );
+
+      // once draw is ready, it is no longer necessary to listen to the events
+      if (isDrawReady) {
+        mapInstance.off('sourcedata', handleDrawLoadingState);
+        mapInstance.off('idle', handleDrawLoadingState);
+      }
+
+      return isDrawReady;
     };
 
     if (isNewRouteDrawPhase) {
       setRouteDrawLoadingState(LoadingState.HighPriority);
       if (mapInstance) {
-        // Check if drawing is ready
-        handleDrawLoadingState();
+        // Initial loader set up
+        const isDrawReady = handleDrawLoadingState();
 
-        // Re-check readiness when the map receives new data.
-        mapInstance.on('sourcedata', handleDrawLoadingState);
-
-        // Re-check readiness after the map has finished updating.
-        mapInstance.on('idle', handleDrawLoadingState);
+        // Listen to sourcedata and idle events if drawing is not ready
+        if (!isDrawReady) {
+          mapInstance.on('sourcedata', handleDrawLoadingState);
+          mapInstance.on('idle', handleDrawLoadingState);
+        }
       }
     }
 
