@@ -70,6 +70,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     append,
     fields: infoSpots,
     remove,
+    move,
   } = useFieldArray({
     control,
     name: 'infoSpots',
@@ -106,6 +107,18 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     });
   };
 
+  const onMoveInfoSpotUp = (idx: number) => {
+    if (idx > 0) {
+      move(idx, idx - 1);
+    }
+  };
+
+  const onMoveInfoSpotDown = (idx: number) => {
+    if (idx < infoSpots.length - 1) {
+      move(idx, idx + 1);
+    }
+  };
+
   useEffect(() => {
     if (setFormIsDirty) {
       setFormIsDirty(isDirty);
@@ -130,6 +143,11 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
               infoSpotIndex={idx}
               infoSpotsData={infoSpotsData}
               onRemove={onRemoveInfoSpot}
+              onMoveUp={onMoveInfoSpotUp}
+              onMoveDown={onMoveInfoSpotDown}
+              isFirst={idx === 0}
+              isLast={idx === infoSpots.length - 1}
+              totalCount={infoSpots.length}
             />
           </div>
         ))}
