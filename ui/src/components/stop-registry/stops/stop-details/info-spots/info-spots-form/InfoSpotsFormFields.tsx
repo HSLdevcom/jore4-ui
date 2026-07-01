@@ -1,6 +1,7 @@
 import { t } from 'i18next';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { twJoin } from 'tailwind-merge';
 import {
   InfoSpotDetailsFragment,
   StopRegistryIntendedUser,
@@ -37,6 +38,9 @@ const testIds = {
   posterSize: 'InfoSpotPosterFormFields::posterSize',
   posterLines: 'InfoSpotPosterFormFields::posterLines',
   deleteInfoSpot: 'InfoSpotFormFields::deleteInfoSpot',
+  moveUpInfoSpot: 'InfoSpotFormFields::moveUpInfoSpot',
+  moveDownInfoSpot: 'InfoSpotFormFields::moveDownInfoSpot',
+  positionIndicator: 'InfoSpotFormFields::positionIndicator',
   addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
   noPosters: 'InfoSpotFormFields::noPosters',
 };
@@ -45,16 +49,27 @@ type InfoSpotFormFieldsProps = {
   readonly infoSpotIndex: number;
   readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
   readonly onRemove: (index: number) => void;
+  readonly onMoveUp: (index: number) => void;
+  readonly onMoveDown: (index: number) => void;
+  readonly isFirst: boolean;
+  readonly isLast: boolean;
+  readonly totalCount: number;
 };
 
 export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
   infoSpotIndex,
   infoSpotsData,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
+  totalCount,
 }) => {
   const { register, watch, getValues, setValue, control } =
     useFormContext<InfoSpotsFormState>();
   const toBeDeleted = watch(`infoSpots.${infoSpotIndex}.toBeDeleted`);
+  const [justMoved, setJustMoved] = useState(false);
 
   const { fields: posters, append: appendPoster } = useFieldArray({
     control,
@@ -90,6 +105,28 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
       },
     );
   };
+
+  const handleMoveUp = () => {
+    onMoveUp(infoSpotIndex);
+    setJustMoved(true);
+  };
+
+  const handleMoveDown = () => {
+    onMoveDown(infoSpotIndex);
+    setJustMoved(true);
+  };
+
+  useEffect(() => {
+    if (!justMoved) {
+      return undefined;
+    }
+
+    const timer = setTimeout(() => {
+      setJustMoved(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [justMoved]);
 
   return (
     <Column>
@@ -200,17 +237,51 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <SimpleButton
-            className="self-start"
-            shape="slim"
-            testId={testIds.deleteInfoSpot}
-            onClick={() => onRemove(infoSpotIndex)}
-            inverted
-          >
-            {toBeDeleted
-              ? t(($) => $.stopDetails.infoSpots.cancelDeleteInfoSpot)
-              : t(($) => $.stopDetails.infoSpots.deleteInfoSpot)}
-          </SimpleButton>
+          <Row className="justify-between gap-2">
+            <SimpleButton
+              shape="slim"
+              testId={testIds.deleteInfoSpot}
+              onClick={() => onRemove(infoSpotIndex)}
+              inverted
+            >
+              {toBeDeleted
+                ? t(($) => $.stopDetails.infoSpots.cancelDeleteInfoSpot)
+                : t(($) => $.stopDetails.infoSpots.deleteInfoSpot)}
+            </SimpleButton>
+            <Row className="gap-2">
+              <span
+                data-testid={testIds.positionIndicator}
+                className={twJoin(
+                  'flex items-center rounded-sm p-2 transition-colors',
+                  justMoved
+                    ? 'bg-hsl-light-green'
+                    : 'bg-gray-300 duration-3000',
+                )}
+              >
+                {infoSpotIndex + 1}/{totalCount}
+              </span>
+              <SimpleButton
+                className="rounded-sm px-2"
+                shape="slim"
+                testId={testIds.moveUpInfoSpot}
+                onClick={handleMoveUp}
+                disabled={isFirst || toBeDeleted}
+                inverted
+              >
+                <i className="icon-arrow rotate-180" />
+              </SimpleButton>
+              <SimpleButton
+                className="rounded-sm px-2"
+                shape="slim"
+                testId={testIds.moveDownInfoSpot}
+                onClick={handleMoveDown}
+                disabled={isLast || toBeDeleted}
+                inverted
+              >
+                <i className="icon-arrow" />
+              </SimpleButton>
+            </Row>
+          </Row>
         </Column>
       </div>
       {posters?.length ? (

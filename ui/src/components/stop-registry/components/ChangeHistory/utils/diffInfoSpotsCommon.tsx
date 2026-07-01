@@ -6,6 +6,7 @@ import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
 } from '../../../../../i18n/uiNameMappings';
+import { StopPlaceInfoSpots } from '../../../../../types';
 import { getGeometryPoint } from '../../../../../utils';
 import {
   ChangedValue,
@@ -76,8 +77,8 @@ function mapInfoPosters(info: ReadonlyArray<PosterInfo> | null): ReactNode {
 
 export function diffInfoSpotVersions(
   t: TFunction,
-  previous: InfoSpotDetailsFragment | null,
-  current: InfoSpotDetailsFragment | null,
+  previous: StopPlaceInfoSpots | null,
+  current: StopPlaceInfoSpots | null,
 ): Array<KeyedChangedValue> {
   const previousPoint = getGeometryPoint(previous?.geometry);
   const currentPoint = getGeometryPoint(current?.geometry);
@@ -147,6 +148,15 @@ export function diffInfoSpotVersions(
       field: t(($) => $.stopDetails.infoSpots.description),
       oldValue: previous?.description?.value,
       newValue: current?.description?.value,
+    }),
+
+    diffKeyedValues({
+      key: 'SortOrder',
+      field: t(($) => $.stopDetails.infoSpots.sortOrder, {
+        label: current?.label,
+      }),
+      oldValue: previous?.sortOrder,
+      newValue: current?.sortOrder,
     }),
 
     diffKeyedValues({

@@ -42,6 +42,7 @@ const theme = {
     lightGrey: '#CCCCCC',
     lighterGrey: '#FBFCFD',
     darkGrey: '#666666',
+    hslLightGreen: '#64BE1E',
     hslDarkGreen: '#3B7F00',
     hslTramGreen: '#00985F',
     hslTramDarkGreen: '#008151',

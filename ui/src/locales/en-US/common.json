@@ -464,6 +464,7 @@
       "title": "Info spots",
       "titleNoInfoSpots": "No info spots",
       "infoSpot": "Info spot {{infoSpot}}",
+      "sortOrder": "Info spot {{ label }} sort order",
       "backlight": "Backlight",
       "description": "Description",
       "floor": "Floor",

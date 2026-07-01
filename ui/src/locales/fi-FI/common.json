@@ -464,6 +464,7 @@
       "title": "Infopaikat",
       "titleNoInfoSpots": "Ei infopaikkoja",
       "infoSpot": "Infopaikka {{infoSpot}}",
+      "sortOrder": "Infopaikan {{ label }} järjestys",
       "backlight": "Taustavalo",
       "description": "Kuvaus",
       "floor": "Kerros",
