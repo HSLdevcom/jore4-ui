@@ -1,10 +1,11 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import noop from 'lodash/noop';
 import type { Map as MapBoxMap } from 'mapbox-gl';
 import {
   ForwardRefRenderFunction,
   forwardRef,
   useImperativeHandle,
+  useMemo,
+  useRef,
 } from 'react';
 import { ControlPosition, IControl, useControl } from 'react-map-gl/maplibre';
 import { styles } from './routes/editorStyles';
@@ -27,27 +28,43 @@ declare class MapLibreMapboxDraw extends MapboxDraw implements IControl {
   getDefaultPosition: () => ControlPosition;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+function useMutableFunction<T extends Function>(fn: T): T {
+  const fnRef = useRef(fn);
+  fnRef.current = fn;
+
+  return useMemo<T>(
+    () => ((...args: unknown[]) => fnRef.current(...args)) as unknown as T,
+    [],
+  );
+}
+
 const DrawControlComponent: ForwardRefRenderFunction<
   MapboxDraw,
   DrawControlProps
-> = (props, ref) => {
-  const { onCreate, onModeChange, onUpdate, position } = props;
+> = ({ onCreate, onModeChange, onUpdate, position, ...drawOptions }, ref) => {
+  const internalOnCreate = useMutableFunction(onCreate);
+  const internalOnUpdate = useMutableFunction(onUpdate);
+  const internalOnModeChange = useMutableFunction(onModeChange);
+
   const drawRef = useControl<MapLibreMapboxDraw>(
     () =>
       new MapboxDraw({
         styles,
-        ...props,
+        ...drawOptions,
         modes: joreDrawModes,
       }) as MapLibreMapboxDraw,
     ({ map }) => {
-      map.on('draw.create', onCreate);
-      map.on('draw.update', onUpdate);
-      map.on('draw.modechange', onModeChange);
+      map.on('draw.create', internalOnCreate);
+      map.on('draw.update', internalOnUpdate);
+      map.on('draw.modechange', internalOnModeChange);
     },
-    noop,
-    {
-      position,
+    ({ map }) => {
+      map.off('draw.create', internalOnCreate);
+      map.off('draw.update', internalOnUpdate);
+      map.off('draw.modechange', internalOnModeChange);
     },
+    { position },
   );
   useImperativeHandle(ref, () => drawRef, [drawRef]);
 
