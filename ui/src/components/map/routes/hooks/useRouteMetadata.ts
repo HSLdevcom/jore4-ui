@@ -11,12 +11,9 @@ export const useRouteMetadata = () => {
       return undefined;
     }
 
-    const { validityStart, validityEnd, priority } = editedRouteData.metaData;
-    if (
-      validityStart === undefined ||
-      validityEnd === undefined ||
-      priority === undefined
-    ) {
+    const { validityStart, validityEnd, indefinite, priority } =
+      editedRouteData.metaData;
+    if (!validityStart || !(validityEnd || indefinite) || !priority) {
       return undefined;
     }
 
