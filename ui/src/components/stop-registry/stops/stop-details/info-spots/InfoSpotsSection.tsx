@@ -119,7 +119,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
 
   const onSubmit = async (state: InfoSpotsFormState) => {
     try {
-      await saveStopPlaceInfoSpots({ state });
+      await saveStopPlaceInfoSpots({ state, infoSpots });
 
       showSuccessToast(t(($) => $.stops.editSuccess));
       infoContainerControls.setIsInEditMode(false);

@@ -34,6 +34,7 @@ module.exports = {
           'hsl-pink': colors.background.hslPink,
           'hsl-speed-tram-turquoise': colors.background.hslSpeedTramTurquoise,
           'hsl-tram-green': colors.background.hslTramGreen,
+          'hsl-light-green': colors.hslLightGreen,
           'hsl-button-selected': colors.background.hslButtonSelected,
         },
         border: {
@@ -56,6 +57,7 @@ module.exports = {
         'light-grey': colors.lightGrey,
         'lighter-grey': colors.lighterGrey,
         'dark-grey': colors.darkGrey,
+        'hsl-light-green': colors.hslLightGreen,
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-tram-green': colors.hslTramGreen,
         'hsl-tram-dark-green': colors.hslTramDarkGreen,

@@ -6,6 +6,7 @@ import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
 } from '../../../../../i18n/uiNameMappings';
+import { StopPlaceInfoSpots } from '../../../../../types';
 import { getGeometryPoint } from '../../../../../utils';
 import {
   ChangedValue,
@@ -147,6 +148,15 @@ export function diffInfoSpotVersions(
       field: t(($) => $.stopDetails.infoSpots.description),
       oldValue: previous?.description?.value,
       newValue: current?.description?.value,
+    }),
+
+    diffKeyedValues({
+      key: 'SortOrder',
+      field: t(($) => $.stopDetails.infoSpots.sortOrder, {
+        label: current?.label,
+      }),
+      oldValue: (previous as StopPlaceInfoSpots)?.sortOrder,
+      newValue: (current as StopPlaceInfoSpots)?.sortOrder,
     }),
 
     diffKeyedValues({
