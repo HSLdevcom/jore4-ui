@@ -6,13 +6,13 @@ import {
   useObservationDateQueryParam,
 } from '../../../hooks';
 import {
-  LoadingState,
   resetSelectedRowsAction,
   selectExport,
   selectLoader,
   selectRowsAction,
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
+import { LoadingState } from '../../../types';
 import {
   DisplayedSearchResultType,
   isRouteActiveOnObservationDate,

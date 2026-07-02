@@ -1,7 +1,7 @@
 import { SelectorParam } from 'i18next';
 import { ComponentType, FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { LoadingWrapper } from '../../../../common/Loaders';
 import { SortStopsBy } from '../../types';
 import { useStopSearchRouterState } from '../../utils';
 import { SearchGroupedStopsResults } from './GroupedStopsResults';

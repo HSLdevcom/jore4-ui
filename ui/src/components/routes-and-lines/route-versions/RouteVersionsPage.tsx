@@ -4,10 +4,10 @@ import { TimetablesRouteDirectionEnum } from '../../../generated/graphql';
 import { useNavigateBackSafely, useRequiredParams } from '../../../hooks';
 import { mapDirectionToUiName } from '../../../i18n/uiNameMappings';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
 import { Container, Row } from '../../common/LayoutComponents';
+import { LoadingWrapper } from '../../common/Loaders';
 import { RouteVersionContainers } from './components/RouteVersionContainers';
 import { useGetRouteVersionPageInfo } from './queries';
 

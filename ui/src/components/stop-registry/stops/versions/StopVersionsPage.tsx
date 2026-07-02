@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../../common';
 import { CloseIconButton } from '../../../common/Buttons';
 import { Container, Row } from '../../../common/LayoutComponents';
+import { LoadingWrapper } from '../../../common/Loaders';
 import { StopVersionContainers } from './components/StopVersionContainers';
 import { useGetStopVersionPageInfo } from './queries/useGetStopVersionPageInfo';
 

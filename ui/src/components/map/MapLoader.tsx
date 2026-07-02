@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useAppSelector } from '../../hooks';
 import { selectMapOperationLoadingState } from '../../redux';
-import { LoadingOverlay } from '../../uiComponents';
+import { LoadingOverlay } from '../common/Loaders';
 
 const testIds = {
   loader: 'MapLoader::loader',

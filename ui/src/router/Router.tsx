@@ -23,7 +23,6 @@ import { Navbar } from '../components/common/Navbar';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
 import { MapPage } from '../components/map';
-import { JoreLoader } from '../components/map/JoreLoader';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
 import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLinePage';
 import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRoutePage';
@@ -55,9 +54,10 @@ import { joreConfig } from '../config';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 import { mapToShortDateTime } from '../time';
-import { Spinner } from '../uiComponents';
 import { showDangerToast } from '../utils';
+import { JoreLoader } from './JoreLoader';
 import { Path, PathValue } from './routeDetails';
+import { Spinner } from './Spinner';
 
 const FallbackRoute: FC = () => {
   return (

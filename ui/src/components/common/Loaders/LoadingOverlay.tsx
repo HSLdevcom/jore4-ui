@@ -1,10 +1,8 @@
 import { Portal } from '@headlessui/react';
 import { FC, useEffect, useRef, useState } from 'react';
 import PulseLoader from 'react-spinners/PulseLoader';
-import { theme } from '../generated/theme';
-// The index.ts can, and do here, cause a massive cyclic dependency loop.
-// Use direct import
-import { LoadingState } from '../redux/slices/loader';
+import { theme } from '../../../generated/theme';
+import { LoadingState } from '../../../types';
 
 // Make sure the loader doesn't simply flash on the screen for 1 frame.
 // See also resolveTransitionTimeout fn down below

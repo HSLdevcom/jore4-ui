@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
-import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { LoadingWrapper } from '../../../../common/Loaders';
 import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { CopyStopBoilerPlate } from './CopyStopBoilerPlate';

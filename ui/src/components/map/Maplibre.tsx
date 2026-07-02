@@ -18,12 +18,8 @@ import MapGL, {
 } from 'react-map-gl/maplibre';
 import { joreConfig } from '../../config';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  LoadingState,
-  Operation,
-  selectMapViewport,
-  setViewPortAction,
-} from '../../redux';
+import { Operation, selectMapViewport, setViewPortAction } from '../../redux';
+import { LoadingState } from '../../types';
 import { log, showWarningToast } from '../../utils';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 import { useLoader } from '../common/hooks/useLoader';

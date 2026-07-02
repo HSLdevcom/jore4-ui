@@ -2,11 +2,11 @@ import { QueryResult } from '@apollo/client';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  LoadingState,
   Operation,
   setLoadingAction,
   setLoadingStateAction,
 } from '../../../redux';
+import { LoadingState } from '../../../types';
 
 type LoaderOptions = {
   readonly initialState?: LoadingState;

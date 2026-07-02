@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { LoadingState } from '../../types';
 import {
-  LoadingState,
   Operation,
   getHighestLoadingState,
   joreOperations,
