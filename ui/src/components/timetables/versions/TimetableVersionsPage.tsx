@@ -12,7 +12,7 @@ import {
   selectChangeTimetableValidityModal,
 } from '../../../redux';
 import { TimetablePriority } from '../../../types/enums';
-import { PageTitle, TimeRangeControl } from '../../common';
+import { PageTitle } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
 import { Container, FormColumn, FormRow } from '../../common/LayoutComponents';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
@@ -23,7 +23,8 @@ import {
   useGetTimetableVersions,
   useTimetableVersionsReturnToQueryParam,
 } from './hooks';
-import { TimetableVersionDetailsPanel } from './timetable-version-details-panel/TimetableVersionDetailsPanel';
+import { TimeRangeControl } from './TimeRangeControl';
+import { TimetableVersionDetailsPanel } from './timetable-version-details-panel';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
 const testIds = {

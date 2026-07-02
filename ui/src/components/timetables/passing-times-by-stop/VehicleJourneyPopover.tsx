@@ -1,7 +1,7 @@
 import { Duration } from 'luxon';
 import { FC } from 'react';
 import { mapDurationToShortTime } from '../../../time';
-import { Popover } from '../../../uiComponents';
+import { Popover } from './Popover';
 
 type VehicleJourneyPopoverProps = {
   readonly passingTime: Duration;

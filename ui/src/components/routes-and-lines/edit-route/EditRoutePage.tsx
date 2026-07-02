@@ -11,7 +11,6 @@ import { ConfirmationDialog } from '../../../uiComponents';
 import { mapToVariables, showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common';
 import { Container, FormContainer, Row } from '../../common/LayoutComponents';
-import { RedirectWithQuery } from '../../common/RedirectWithQuery';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
@@ -25,6 +24,7 @@ import {
   mapRouteToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
+import { RedirectWithQuery } from './RedirectWithQuery';
 import { useEditRouteJourneyPattern } from './useEditRouteJourneyPattern';
 
 export const EditRoutePage: FC = () => {

@@ -18,7 +18,6 @@ import {
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { TaskListDisplay } from '../components/common/AsyncTaskList';
-import { JoreErrorModal } from '../components/common/Modals';
 import { Navbar } from '../components/common/Navbar';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
@@ -55,9 +54,10 @@ import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 import { mapToShortDateTime } from '../time';
 import { showDangerToast } from '../utils';
-import { JoreLoader } from './JoreLoader';
+import { JoreErrorModal } from './Components/JoreErrorModal';
+import { JoreLoader } from './Components/JoreLoader';
+import { Spinner } from './Components/Spinner';
 import { Path, PathValue } from './routeDetails';
-import { Spinner } from './Spinner';
 
 const FallbackRoute: FC = () => {
   return (
