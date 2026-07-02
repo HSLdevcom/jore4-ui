@@ -2,8 +2,8 @@ import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
 import { EnrichedParentStopPlace } from '../../../types';
-import { ConfirmationDialog } from '../../../uiComponents';
 import { getGeometryPoint } from '../../../utils';
+import { ConfirmationDialog } from '../../common/Modals';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useTerminalEdit } from './useTerminalEdit';
 

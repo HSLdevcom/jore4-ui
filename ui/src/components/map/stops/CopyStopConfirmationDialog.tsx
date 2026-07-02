@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ConfirmationDialog } from '../../../uiComponents';
+import { ConfirmationDialog } from '../../common/Modals';
 
 type CopyStopConfirmationDialogProps = {
   readonly isOpen: boolean;

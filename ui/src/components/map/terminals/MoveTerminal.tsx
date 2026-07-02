@@ -7,8 +7,8 @@ import {
   setMapTerminalViewStateAction,
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
-import { ConfirmationDialog } from '../../../uiComponents';
 import { mapPointToStopRegistryGeoJSON } from '../../../utils';
+import { ConfirmationDialog } from '../../common/Modals';
 import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
 import { useTerminalEdit } from './useTerminalEdit';
 

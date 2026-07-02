@@ -1,7 +1,7 @@
 import { Description, Dialog, DialogTitle } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { CloseIconButton, SimpleButton } from '../components/common/Buttons';
+import { CloseIconButton, SimpleButton } from '../Buttons';
 
 const testIds = {
   closeButton: 'DialogWithButtons::closeButton',

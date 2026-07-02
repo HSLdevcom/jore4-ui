@@ -1,4 +1,6 @@
+export * from './ConfirmationDialog';
 export * from './ConfirmModal';
+export * from './DialogWithButtons';
 export * from './Modal';
 export * from './ModalBody';
 export * from './ModalHeader';

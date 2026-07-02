@@ -10,10 +10,10 @@ import {
 import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { DateRange } from '../../../types';
-import { ConfirmationDialog } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
 import { Container, Row } from '../../common/LayoutComponents';
+import { ConfirmationDialog } from '../../common/Modals';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
 import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod';
 import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';

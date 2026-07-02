@@ -10,9 +10,9 @@ import {
   setSelectedTerminalIdAction,
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
-import { ConfirmationDialog } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
+import { ConfirmationDialog } from '../../common/Modals';
 import { useEditMembersOfTerminal } from '../../stop-registry/terminals/components/location-details/location-details-form/useEditMembersOfTerminal';
 import { useDeleteTerminal } from '../../stop-registry/terminals/hooks';
 

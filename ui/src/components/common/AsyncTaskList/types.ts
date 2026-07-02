@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ConfirmationDialogProps } from '../../../uiComponents';
+import { ConfirmationDialogProps } from '../Modals';
 
 export type Progress =
   | { readonly indeterminate: true; readonly progress?: never }

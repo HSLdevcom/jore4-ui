@@ -32,7 +32,6 @@ import {
 } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';
-import { ConfirmationDialog } from '../../../uiComponents';
 import {
   showDangerToastWithError,
   showSuccessToast,
@@ -41,6 +40,7 @@ import {
 } from '../../../utils';
 import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
+import { ConfirmationDialog } from '../../common/Modals';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
