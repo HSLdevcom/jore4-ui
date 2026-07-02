@@ -18,7 +18,6 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../time';
-import { AlertPopover } from '../../common/AlertPopover';
 import {
   AccordionButton,
   EditButton,
@@ -26,6 +25,7 @@ import {
 } from '../../common/Buttons';
 import { useAlertsAndHighLights, useShowRoutesOnMap } from '../../common/hooks';
 import { RouteLabel } from '../../common/RouteLabel';
+import { AlertPopover } from '../common/AlertPopover';
 import { DirectionBadge } from './DirectionBadge';
 
 const testIds = {

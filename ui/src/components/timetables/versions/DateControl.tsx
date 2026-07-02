@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { useDateQueryParam } from '../../hooks/urlQuery/useDateQueryParam';
-import { QueryParameterName } from '../../hooks/urlQuery/useUrlQuery';
-import { DateInput } from './DateInput';
+import { useDateQueryParam } from '../../../hooks/urlQuery/useDateQueryParam';
+import { QueryParameterName } from '../../../hooks/urlQuery/useUrlQuery';
+import { DateInput } from '../../common/DateInput';
 
 type DateControlProps = {
   readonly label: string;

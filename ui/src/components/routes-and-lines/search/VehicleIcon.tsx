@@ -4,8 +4,8 @@ import {
   LineTableRowFragment,
   RouteTableRowFragment,
   ReusableComponentsVehicleModeEnum as VehicleMode,
-} from '../generated/graphql';
-import { isLine } from '../graphql';
+} from '../../../generated/graphql';
+import { isLine } from '../../../graphql';
 
 type RowItem = LineTableRowFragment | RouteTableRowFragment;
 

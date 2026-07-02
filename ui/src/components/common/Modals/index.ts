@@ -1,7 +1,4 @@
 export * from './ConfirmModal';
-export * from './ErrorModal';
-export * from './ErrorModalItem';
-export * from './JoreErrorModal';
 export * from './Modal';
 export * from './ModalBody';
 export * from './ModalHeader';

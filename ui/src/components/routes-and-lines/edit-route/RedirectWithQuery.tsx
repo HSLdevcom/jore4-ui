@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { FC } from 'react';
 import { Navigate, NavigateProps } from 'react-router';
-import { useUrlQuery } from '../../hooks';
+import { useUrlQuery } from '../../../hooks';
 
 export const RedirectWithQuery: FC<NavigateProps> = ({
   to,

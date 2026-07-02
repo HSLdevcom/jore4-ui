@@ -18,10 +18,10 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../time';
-import { AlertPopover } from '../../common/AlertPopover';
 import { IconButton } from '../../common/Buttons';
 import { useAlertsAndHighLights } from '../../common/hooks';
 import { Visible } from '../../common/LayoutComponents';
+import { AlertPopover } from '../common/AlertPopover';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 

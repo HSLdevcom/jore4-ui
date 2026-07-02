@@ -10,8 +10,8 @@ import { theme } from '../generated/theme';
 import { ApolloProvider } from '../graphql';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
-import { CypressCoordinatesHelper } from '../uiComponents/CypressCoordinatesHelper';
 import { reactPlugin } from '../utils/applicationInsights';
+import { CypressCoordinatesHelper } from './CypressCoordinatesHelper';
 
 const enableCypressCoordinateHelper = false;
 

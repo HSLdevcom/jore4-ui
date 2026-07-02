@@ -8,9 +8,9 @@ import {
   selectMapFilter,
   setShowMapEntityTypeFilterOverlayAction,
 } from '../../redux';
-import { IconToggle } from '../../uiComponents';
 import { IconButton } from '../common/Buttons';
 import { Row } from '../common/LayoutComponents';
+import { IconToggle } from './IconToggle';
 import { MapObservationDateControl } from './MapObservationDateControl';
 import { StopSelection } from './StopSelection';
 import { useIsInSearchResultMode } from './utils/useIsInSearchResultMode';
