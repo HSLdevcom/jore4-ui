@@ -6,7 +6,6 @@ export * from './dirtyFields';
 export * from './DateInputField';
 export * from './FormActionButtons';
 export * from './DateRange';
-export * from './EnumDropdown';
 export * from './FormColumn';
 export * from './FormRow';
 export * from './InputElement';

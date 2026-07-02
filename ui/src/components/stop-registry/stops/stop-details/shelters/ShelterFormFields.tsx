@@ -12,9 +12,9 @@ import {
   mapStopRegistryShelterTypeEnumToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { SimpleButton } from '../../../../common/Buttons';
+import { EnumDropdown } from '../../../../common/Dropdowns';
 import { Column, Row } from '../../../../common/LayoutComponents';
 import {
-  EnumDropdown,
   InputElement,
   InputField,
   NullableBooleanDropdown,

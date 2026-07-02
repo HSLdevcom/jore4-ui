@@ -1,4 +1,6 @@
 export * from './headlessHelpers';
+export * from './EnumDropdown';
+export * from './EnumMultiSelectDropdown';
 export * from './JoreCombobox';
 export * from './JoreComboboxButton';
 export * from './JoreListbox';

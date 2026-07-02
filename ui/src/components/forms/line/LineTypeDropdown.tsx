@@ -8,7 +8,7 @@ import {
 import { mapLineTypeToUiName } from '../../../i18n/uiNameMappings';
 import { AllOptionEnum } from '../../../utils';
 import { FormInputProps } from '../../common';
-import { EnumDropdown } from '../common';
+import { EnumDropdown } from '../../common/Dropdowns';
 
 type LineTypesByVehicleMode = Record<
   ReusableComponentsVehicleModeEnum,

@@ -3,7 +3,7 @@ import { Control, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopOwnerToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopOwner } from '../../../../../types/stop-registry';
-import { EnumDropdown } from '../../../../forms/common/EnumDropdown';
+import { EnumDropdown } from '../../../../common/Dropdowns';
 import { MaintenanceDetailsFormState } from './schema';
 
 const testIds = {

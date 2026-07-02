@@ -22,7 +22,7 @@ import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopLabelAndLocationFormRow } from './StopLabelAndLocationFormRow';
-import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
+import StopOtherDetailsFormRow from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
 type StopBasicDetailsFormComponentProps = {

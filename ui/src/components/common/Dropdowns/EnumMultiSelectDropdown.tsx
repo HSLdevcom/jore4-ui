@@ -4,8 +4,9 @@ import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCheck } from 'react-icons/md';
 import { AllOptionEnum, getEnumValues } from '../../../utils';
-import { ListboxOptionItem, MultiSelectListbox } from '../../common/Dropdowns';
 import { EnumDropdownProps } from './EnumDropdown';
+import { ListboxOptionItem } from './JoreListboxOptions';
+import { MultiSelectListbox } from './MultiSelectListbox';
 
 const testIds = {
   enumDropdown: 'EnumDropdown',

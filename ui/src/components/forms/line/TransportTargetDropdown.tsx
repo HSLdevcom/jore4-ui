@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { HslRouteTransportTargetEnum } from '../../../generated/graphql';
 import { mapTransportTargetToUiName } from '../../../i18n/uiNameMappings';
 import { FormInputProps } from '../../common';
-import { EnumDropdown } from '../common/EnumDropdown';
+import { EnumDropdown } from '../../common/Dropdowns';
 
 type TransportTargetDropdownProps = FormInputProps & {
   readonly testId?: string;

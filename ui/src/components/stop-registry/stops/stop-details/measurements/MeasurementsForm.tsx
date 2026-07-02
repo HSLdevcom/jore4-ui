@@ -16,13 +16,13 @@ import {
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
+import { EnumDropdown } from '../../../../common/Dropdowns';
 import {
   Column,
   HorizontalSeparator,
   Row,
 } from '../../../../common/LayoutComponents';
 import {
-  EnumDropdown,
   FormActionButtons,
   InputElement,
   InputField,

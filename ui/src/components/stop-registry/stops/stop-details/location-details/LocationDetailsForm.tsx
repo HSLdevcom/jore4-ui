@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { StopRegistrySignContentType } from '../../../../../generated/graphql';
 import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { EnumDropdown } from '../../../../common/Dropdowns';
 import {
   Column,
   HorizontalSeparator,
   Row,
 } from '../../../../common/LayoutComponents';
 import {
-  EnumDropdown,
   FormActionButtons,
   FormColumn,
   InputField,

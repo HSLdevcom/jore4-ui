@@ -4,9 +4,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
+import { EnumDropdown } from '../../../../common/Dropdowns';
 import { Column, Row } from '../../../../common/LayoutComponents';
 import {
-  EnumDropdown,
   FormActionButtons,
   InputElement,
   InputField,

@@ -10,9 +10,9 @@ import {
   mapZoneLabelToUiName,
 } from '../../../../../../i18n/uiNameMappings';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
+import { EnumDropdown } from '../../../../../common/Dropdowns';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
-  EnumDropdown,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';

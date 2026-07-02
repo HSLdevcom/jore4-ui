@@ -6,8 +6,8 @@ import { StopRegistryTransportModeType } from '../../../../../../generated/graph
 import { mapStopPlaceStateToUiName } from '../../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../../types';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
+import { EnumDropdown } from '../../../../../common/Dropdowns';
 import {
-  EnumDropdown,
   FormActionButtons,
   FormColumn,
   FormRow,

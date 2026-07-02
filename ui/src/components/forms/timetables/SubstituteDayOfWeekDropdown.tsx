@@ -4,7 +4,7 @@ import { mapSubstituteDayOfWeekToUiName } from '../../../i18n/uiNameMappings';
 import { SubstituteDayOfWeek } from '../../../types/enums';
 import { AllOptionEnum } from '../../../utils';
 import { FormInputProps } from '../../common';
-import { EnumDropdown } from '../common';
+import { EnumDropdown } from '../../common/Dropdowns';
 
 type SubstituteDayOfWeekDropdownProps = FormInputProps & {
   readonly id?: string;

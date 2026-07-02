@@ -4,7 +4,7 @@ import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { mapVehicleModeToUiName } from '../../../i18n/uiNameMappings';
 import { AllOptionEnum } from '../../../utils';
 import { FormInputProps } from '../../common';
-import { EnumDropdown } from '../common/EnumDropdown';
+import { EnumDropdown } from '../../common/Dropdowns';
 
 type VehicleModeDropdownProps = FormInputProps & {
   readonly id?: string;

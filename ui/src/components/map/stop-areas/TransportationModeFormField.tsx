@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { StopRegistryTransportModeType } from '../../../generated/graphql';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../i18n/uiNameMappings';
 import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
-import { EnumDropdown, InputField } from '../../forms/common';
+import { EnumDropdown } from '../../common/Dropdowns';
+import { InputField } from '../../forms/common';
 import { StopAreaFormState } from '../../forms/stop-area/stopAreaFormSchema';
 
 const testId = 'StopAreaFormComponent::transportMode';
