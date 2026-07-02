@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DialogWithButtons } from '../../../uiComponents';
+import { DialogWithButtons } from '../../common/Modals';
 
 type RouteDraftStopsConfirmationDialogProps = {
   readonly isOpen: boolean;

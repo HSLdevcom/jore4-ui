@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { EnrichedStopPlace } from '../../../types';
-import { DialogWithButtons } from '../../../uiComponents';
+import { DialogWithButtons } from '../../common/Modals';
 
 const testIds = {
   // Reuse generic ConformDialog testIds, to minimize test changes.

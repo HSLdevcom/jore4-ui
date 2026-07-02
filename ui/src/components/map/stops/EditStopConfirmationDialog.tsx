@@ -3,7 +3,7 @@ import countBy from 'lodash/countBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
-import { ConfirmationDialog } from '../../../uiComponents';
+import { ConfirmationDialog } from '../../common/Modals';
 import { EditChanges } from './hooks';
 
 type EditStopConfirmationDialogProps = {

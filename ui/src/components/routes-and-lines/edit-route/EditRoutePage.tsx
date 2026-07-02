@@ -7,10 +7,10 @@ import {
 } from '../../../generated/graphql';
 import { useRequiredParams } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { ConfirmationDialog } from '../../../uiComponents';
 import { mapToVariables, showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common';
 import { Container, FormContainer, Row } from '../../common/LayoutComponents';
+import { ConfirmationDialog } from '../../common/Modals';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';

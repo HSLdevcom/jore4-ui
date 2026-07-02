@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { ConfirmationDialog } from '../../../../../uiComponents';
 import { getGeometryPoint } from '../../../../../utils';
 import { IconButton } from '../../../../common/Buttons';
+import { ConfirmationDialog } from '../../../../common/Modals';
 import {
   LocatorActionButton,
   OpenDetailsPage,

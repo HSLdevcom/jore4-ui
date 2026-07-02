@@ -5,12 +5,12 @@ import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappin
 import { StopWithDetails } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { StopPlaceState } from '../../../../../types/stop-registry';
-import { ConfirmationDialog } from '../../../../../uiComponents';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import {
   InfoContainer,
   useInfoContainerControls,
 } from '../../../../common/InfoContainer';
+import { ConfirmationDialog } from '../../../../common/Modals';
 import { StopAreaDetailsSection } from '../basic-details/BasicDetailsStopAreaFields';
 import { StopDetailsSection } from '../basic-details/BasicDetailsStopFields';
 import {
