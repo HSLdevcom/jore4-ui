@@ -11,12 +11,10 @@ import {
   setTemplateRouteIdAction,
 } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
-import { Row } from '../../common/LayoutComponents';
+import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormActionButtons,
-  FormColumn,
-  FormRow,
   InputField,
   hasSavableDirtyFields,
 } from '../common';

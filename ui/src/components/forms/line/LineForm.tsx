@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { Priority } from '../../../types/enums';
-import { FormContainer } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
-import { Row } from '../../common/LayoutComponents';
+import { FormContainer, Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormState as ChangeValidityFormState,

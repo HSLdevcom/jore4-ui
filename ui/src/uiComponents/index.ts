@@ -1,6 +1,5 @@
 export * from './ConfirmationDialog';
 export * from './DialogWithButtons';
-export * from './FormContainer';
 export * from './IconToggle';
 export * from './LoadingOverlay';
 export * from './Popover';

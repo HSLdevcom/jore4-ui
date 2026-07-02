@@ -8,14 +8,8 @@ import {
   RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
 import { AccordionButton } from '../../common/Buttons';
-import { Row } from '../../common/LayoutComponents';
-import {
-  FormColumn,
-  FormRow,
-  InputField,
-  localizedStringRequired,
-  requiredString,
-} from '../common';
+import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
+import { InputField, localizedStringRequired, requiredString } from '../common';
 import { LineTypeDropdown } from './LineTypeDropdown';
 import { TransportTargetDropdown } from './TransportTargetDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';

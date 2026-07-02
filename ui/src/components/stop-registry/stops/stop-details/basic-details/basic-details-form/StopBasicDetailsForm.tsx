@@ -9,12 +9,12 @@ import {
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import {
+  FormColumn,
   HorizontalSeparator,
   Visible,
 } from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,
-  FormColumn,
   ReasonForChangeForm,
 } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
@@ -22,7 +22,7 @@ import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopLabelAndLocationFormRow } from './StopLabelAndLocationFormRow';
-import StopOtherDetailsFormRow from './StopOtherDetailsFormRow';
+import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
 type StopBasicDetailsFormComponentProps = {

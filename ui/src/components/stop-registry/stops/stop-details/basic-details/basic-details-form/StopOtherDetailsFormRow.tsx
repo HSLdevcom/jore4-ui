@@ -5,8 +5,8 @@ import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n
 import { JoreStopRegistryTransportModeType } from '../../../../../../types/stop-registry';
 import { SimpleButton } from '../../../../../common/Buttons';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
-import { Column, Row } from '../../../../../common/LayoutComponents';
-import { FormRow, InputField } from '../../../../../forms/common';
+import { Column, FormRow, Row } from '../../../../../common/LayoutComponents';
+import { InputField } from '../../../../../forms/common';
 import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/ChooseTimingPlaceDropdown';
 import { StopBasicDetailsFormState } from './schema';
 
@@ -93,4 +93,3 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
     </FormRow>
   );
 };
-export default StopOtherDetailsFormRow;

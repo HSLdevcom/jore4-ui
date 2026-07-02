@@ -6,10 +6,9 @@ import { mapToISODate } from '../../../time';
 import { EnrichedStopPlace } from '../../../types';
 import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
 import { mapLngLatToPoint } from '../../../utils';
+import { FormColumn, FormRow } from '../../common/LayoutComponents';
 import {
   FormActionButtons,
-  FormColumn,
-  FormRow,
   InputField,
   ValidityPeriodForm,
 } from '../../forms/common';

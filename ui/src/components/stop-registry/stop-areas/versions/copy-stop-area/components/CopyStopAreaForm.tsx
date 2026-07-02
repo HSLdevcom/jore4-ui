@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../common/Buttons';
-import { Row } from '../../../../../common/LayoutComponents';
+import { FormRow, Row } from '../../../../../common/LayoutComponents';
 import {
-  FormRow,
   ReasonForChangeForm,
   ValidityPeriodForm,
 } from '../../../../../forms/common';

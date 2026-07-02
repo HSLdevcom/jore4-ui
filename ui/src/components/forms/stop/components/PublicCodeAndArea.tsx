@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { FormColumn } from '../../common';
+import { FormColumn } from '../../../common/LayoutComponents';
 import { FindStopArea } from './FindStopArea';
 import { PublicCode } from './PublicCode';
 import { PublicCodePrefixMissmatchWarning } from './PublicCodePrefixMissmatchWarning';

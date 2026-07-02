@@ -3,10 +3,9 @@ import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { FormColumn, FormRow } from '../../common/LayoutComponents';
 import {
   FormActionButtons,
-  FormColumn,
-  FormRow,
   InputField,
   ValidityPeriodForm,
 } from '../../forms/common';

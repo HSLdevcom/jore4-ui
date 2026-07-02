@@ -8,12 +8,12 @@ import { StopWithDetails } from '../../../../../types';
 import { EnumDropdown } from '../../../../common/Dropdowns';
 import {
   Column,
+  FormColumn,
   HorizontalSeparator,
   Row,
 } from '../../../../common/LayoutComponents';
 import {
   FormActionButtons,
-  FormColumn,
   InputField,
   InputLabel,
   ReasonForChangeForm,

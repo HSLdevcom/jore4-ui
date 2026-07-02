@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { twJoin } from 'tailwind-merge';
-import { Column } from '../../common/LayoutComponents';
+import { Column } from './Column';
 
 type FormColumnProps = {
   readonly className?: string;

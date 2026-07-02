@@ -16,10 +16,13 @@ import {
   showSuccessToast,
 } from '../../../../../../utils';
 import { useLoader } from '../../../../../common/hooks/useLoader';
-import { Column, Row } from '../../../../../common/LayoutComponents';
+import {
+  Column,
+  FormColumn,
+  Row,
+} from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,
-  FormColumn,
   InputField,
   InputLabel,
 } from '../../../../../forms/common';

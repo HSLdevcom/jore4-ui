@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FormColumn, FormRow } from '../../../common/LayoutComponents';
 import {
-  FormColumn,
-  FormRow,
   PriorityForm,
   ReasonForChangeForm,
   ValidityPeriodForm,

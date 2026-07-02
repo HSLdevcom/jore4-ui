@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../common/LayoutComponents';
-import { FormColumn } from './FormColumn';
-import { FormRow } from './FormRow';
+import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
 import { InputField } from './InputField';
 import { ValidityPeriodFormState } from './ValidityPeriodForm.schema';
 

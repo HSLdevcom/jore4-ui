@@ -14,8 +14,7 @@ import {
 import { TimetablePriority } from '../../../types/enums';
 import { PageTitle, TimeRangeControl } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
-import { Container } from '../../common/LayoutComponents';
-import { FormColumn, FormRow } from '../../forms/common';
+import { Container, FormColumn, FormRow } from '../../common/LayoutComponents';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { DeleteTimetableModal } from './DeleteTimetableModal';
 import {

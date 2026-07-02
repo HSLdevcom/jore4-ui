@@ -12,13 +12,8 @@ import {
 } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
 import { useLoader } from '../../common/hooks';
-import { Row } from '../../common/LayoutComponents';
-import {
-  FormRow,
-  InputField,
-  localizedStringOptional,
-  requiredString,
-} from '../common';
+import { FormRow, Row } from '../../common/LayoutComponents';
+import { InputField, localizedStringOptional, requiredString } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { useCreateTimingPlace } from './utils/useCreateTimingPlace';
 

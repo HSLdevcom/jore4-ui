@@ -13,9 +13,14 @@ import {
 } from '../../../redux/slices/timetable';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { SimpleButton } from '../../common/Buttons';
-import { Container, Row, Visible } from '../../common/LayoutComponents';
+import {
+  Container,
+  FormColumn,
+  FormRow,
+  Row,
+  Visible,
+} from '../../common/LayoutComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
-import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
 import { useGetLineDetails } from '../../routes-and-lines/line-details/useGetLineDetails';

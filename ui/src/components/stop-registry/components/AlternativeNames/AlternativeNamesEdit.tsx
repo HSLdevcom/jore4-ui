@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Column } from '../../../common/LayoutComponents';
-import { FormRow, InputField } from '../../../forms/common';
+import { Column, FormRow } from '../../../common/LayoutComponents';
+import { InputField } from '../../../forms/common';
 import { AlternativeNamesSchema } from './schema';
 
 const testIds = {

@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { mapStopPlaceStateToUiName } from '../../../../../../i18n/uiNameMappings';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
-import { Column } from '../../../../../common/LayoutComponents';
-import { FormRow, InputField } from '../../../../../forms/common';
+import { Column, FormRow } from '../../../../../common/LayoutComponents';
+import { InputField } from '../../../../../forms/common';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {
