@@ -1705,7 +1705,6 @@
       "addExternalLink": "Lisää ulkoinen linkki",
       "openExternalLink": "Avaa ulkoinen linkki {{ linkTitle }}",
       "editStopValidity": "Muokkaa pysäkin {{ stopLabel }} versiota",
-      "stopTimetablesButton": "Näytä aikataulut pysäkille",
       "transportMode": {
         "unknownModeTitle": "Liikennemuotoa ei ole määritelty",
         "stopIconTitle": "Pysäkin tyyppi: {{stopType}}. Pysäkin tila: {{stopTypeState}}",

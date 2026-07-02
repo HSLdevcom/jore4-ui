@@ -1705,7 +1705,6 @@
       "addExternalLink": "Add external link",
       "openExternalLink": "Open external link {{ linkTitle }}",
       "editStopValidity": "Edit version for stop {{ stopLabel }}",
-      "stopTimetablesButton": "Show timetables for stop",
       "transportMode": {
         "unknownModeTitle": "Transport mode has not been defined",
         "stopIconTitle": "Stop type: {{stopType}}. Stop status: {{stopTypeState}}",
