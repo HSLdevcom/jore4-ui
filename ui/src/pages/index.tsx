@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { UserProvider } from '../auth/UserProvider';
 import { AsyncTaskListProvider } from '../components/common/AsyncTaskList';
+import { Toaster } from '../components/common/Toast/Toaster';
 import { theme } from '../generated/theme';
 import { ApolloProvider } from '../graphql';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
 import { CypressCoordinatesHelper } from '../uiComponents/CypressCoordinatesHelper';
-import { Toaster } from '../uiComponents/Toaster';
 import { reactPlugin } from '../utils/applicationInsights';
 
 const enableCypressCoordinateHelper = false;

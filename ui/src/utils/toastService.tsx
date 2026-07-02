@@ -4,8 +4,8 @@ import { toast } from 'react-hot-toast';
 // These need full path imports to avoid cyclic imports.
 // Proper fix would be to do s bigger refactoring and include all Toast
 // related files in the same directory.
-import { Toast, ToastType } from '../uiComponents/Toast';
-import { ToastTransition } from '../uiComponents/ToastTransition';
+import { Toast, ToastType } from '../components/common/Toast/Toast';
+import { ToastTransition } from '../components/common/Toast/ToastTransition';
 import { getApolloErrorMessage } from './apolloErrors';
 
 type ToastOptions = {

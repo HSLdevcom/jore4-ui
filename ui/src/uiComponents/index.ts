@@ -6,5 +6,3 @@ export * from './LoadingOverlay';
 export * from './Popover';
 export * from './Spinner';
 export * from './Switch';
-export * from './Toast';
-export * from './ToastTransition';
