@@ -1,7 +1,7 @@
 import { CSSProperties, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { Path, routeDetails } from '../../router/routeDetails';
+import { Path, routeDetails } from '../../../router/routeDetails';
 
 type BrandLogoProps = {
   readonly className?: string;

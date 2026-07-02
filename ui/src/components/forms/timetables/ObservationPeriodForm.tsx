@@ -13,8 +13,7 @@ import { parseDate } from '../../../time';
 import { DateRange } from '../../../types';
 import { areEqual } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
-import { Visible } from '../../common/LayoutComponents';
-import { Row } from '../../common/LayoutComponents/Row';
+import { Row, Visible } from '../../common/LayoutComponents';
 import { InputField, requiredDate } from '../common';
 
 const testIds = {

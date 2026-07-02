@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { IconButton } from '../Buttons';
-import { Row } from '../LayoutComponents/Row';
+import { Row } from '../LayoutComponents';
 
 const testIds = { closeButton: 'Toast::closeButton' };
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { LoggedIn } from '../common/LayoutComponents';
 import { BrandLogo } from './BrandLogo';
 import { LanguageDropdown } from './LanguageDropdown';
+import { LoggedIn } from './LoggedIn';
 import { NavLinks } from './NavLinks';
 import { UserNavMenu } from './UserNavMenu';
 

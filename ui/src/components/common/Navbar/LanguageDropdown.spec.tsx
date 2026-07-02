@@ -2,8 +2,8 @@ import { fireEvent, screen } from '@testing-library/react';
 // i18n does export a TYPE called i18n, wich throws the import plugin off.
 // eslint-disable-next-line import-x/no-named-as-default
 import i18n from 'i18next';
-import { render } from '../../utils/test-utils';
-import '../../i18n';
+import { render } from '../../../utils/test-utils';
+import '../../../i18n';
 import { LanguageDropdown, testIds } from './LanguageDropdown';
 
 describe('<LanguageDropdown />', () => {

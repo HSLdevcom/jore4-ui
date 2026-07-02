@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { LOGIN_URL, LOGOUT_URL } from '../../api/user';
-import { useAppSelector } from '../../hooks';
-import { selectUser } from '../../redux';
+import { LOGIN_URL, LOGOUT_URL } from '../../../api/user';
+import { useAppSelector } from '../../../hooks';
+import { selectUser } from '../../../redux';
 import { NavigationDropdownMenu } from './NavigationDropdownMenu';
 import { NavigationDropdownMenuLinkOut } from './NavigationDropdownMenuItem';
 
