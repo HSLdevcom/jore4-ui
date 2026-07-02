@@ -9,7 +9,6 @@ import { StopTransportModeIcon } from '../../../components';
 import { MirroredQuayDetails } from '../useGetStopDetails';
 import { ExtraActions } from './ExtraActions';
 import { OpenOnMapButton } from './OpenOnMapButton';
-import { StopTimetablesButton } from './StopTimetablesButton';
 
 const testIds = {
   label: 'StopTitleRow::label',
@@ -100,7 +99,6 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({
 
       <div className="grow" />
 
-      <StopTimetablesButton />
       <OpenOnMapButton label={label} stop={stopDetails} />
       <ExtraActions stop={stopDetails} />
     </div>
