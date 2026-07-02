@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { useToggle } from '../../common/hooks/useToggle';
 import { Row, Visible } from '../../common/LayoutComponents';
-import { ExpandedSearchButtons } from '../../common/search';
+import { ExpandedSearchButtons } from '../../common/Search';
 import {
   PriorityFilter,
   TransportationModeFilter,
-} from '../../common/search/ExtraFilters';
+} from '../../common/Search/ExtraFilters';
 import {
   ExtraFiltersToggle,
   SearchQueryFilter,
-} from '../../common/search/SearchBar';
+} from '../../common/Search/SearchBar';
 import { DateInputField } from '../../forms/common';
 import { LineTypeFilter } from './filters/LineTypeFilter';
 import { routesAndLinesTestIds } from './routesAndLinesTestIds';

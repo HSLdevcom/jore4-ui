@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { ExpandedSearchButtons } from '../../../../../common';
 import { Row, Visible } from '../../../../../common/LayoutComponents';
+import { ExpandedSearchButtons } from '../../../../../common/Search';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { MetaFilters } from './MetaFilters';
 import { StopPropertyFilters } from './StopPropertyFilters';

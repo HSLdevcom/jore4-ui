@@ -4,7 +4,7 @@ import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
   ExtraFiltersToggle,
   SearchQueryFilter,
-} from '../../../../../common/search/SearchBar';
+} from '../../../../../common/Search/SearchBar';
 import { StopSearchFilters } from '../../../types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { ObservationDateFilter } from './ObservationDateFilter';

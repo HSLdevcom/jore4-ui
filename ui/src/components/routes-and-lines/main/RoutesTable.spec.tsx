@@ -14,7 +14,7 @@ import {
 import { RoutesTable } from './RoutesTable';
 
 jest.mock(
-  '../../common/search/ExtraFilters/TransportationModeFilter.module.css',
+  '../../common/Search/ExtraFilters/TransportationModeFilter.module.css',
   () => ({ '.noIconMargins': '.noIconMargins' }),
 );
 
