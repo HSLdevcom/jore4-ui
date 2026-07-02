@@ -5,13 +5,13 @@ import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
-  LoadingState,
   Mode,
   Operation,
   selectEditedRouteData,
   selectMapRouteEditor,
   stopRouteEditingAction,
 } from '../../../redux';
+import { LoadingState } from '../../../types';
 import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { DrawControl } from '../DrawControl';

@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useAppSelector } from '../../../hooks';
 import {
-  LoadingState,
   MapEntityType,
   Operation,
   selectMapViewport,
@@ -9,6 +8,7 @@ import {
   selectSelectedTerminalId,
   selectShowMapEntityTypes,
 } from '../../../redux';
+import { LoadingState } from '../../../types';
 import { useLoader } from '../../common/hooks';
 import { useFilterStopAreas } from '../stop-areas';
 import { useFilterStops, useGetRoutesDisplayedInMap } from '../stops/hooks';

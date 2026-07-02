@@ -2,7 +2,7 @@ import noop from 'lodash/noop';
 import { FC, PropsWithChildren, ReactNode, Suspense } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { twJoin } from 'tailwind-merge';
-import { theme } from '../generated/theme';
+import { theme } from '../../../generated/theme';
 
 type LoadingWrapperProps = {
   readonly testId: string;

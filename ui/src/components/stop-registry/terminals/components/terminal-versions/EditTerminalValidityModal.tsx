@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { isDateInRange } from '../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../types';
-import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { LoadingWrapper } from '../../../../common/Loaders';
 import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { EditTerminalValidityResult } from '../../types';

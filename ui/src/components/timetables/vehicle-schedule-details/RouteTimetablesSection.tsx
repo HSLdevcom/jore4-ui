@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
-import { LoadingState, selectLoader, selectTimetable } from '../../../redux';
+import { selectLoader, selectTimetable } from '../../../redux';
+import { LoadingState } from '../../../types';
 import { DayType } from '../../../types/enums';
-import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { AccordionButton } from '../../common/Buttons';
 import { useToggle } from '../../common/hooks/useToggle';
 import { Row, Visible } from '../../common/LayoutComponents';
+import { LoadingWrapper } from '../../common/Loaders';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
 import {

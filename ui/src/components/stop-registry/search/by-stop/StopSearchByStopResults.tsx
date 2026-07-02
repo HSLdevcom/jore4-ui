@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { Visible } from '../../../common/LayoutComponents';
+import { LoadingWrapper } from '../../../common/Loaders';
 import { Pagination } from '../../../common/Pagination';
 import {
   LoadingStopsErrorRow,

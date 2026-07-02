@@ -8,7 +8,6 @@ import {
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useAppAction, useAppSelector } from '../../../hooks';
 import {
-  LoadingState,
   MapEntityEditorViewState,
   Operation,
   isEditorOpen,
@@ -20,6 +19,7 @@ import {
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
 } from '../../../redux';
+import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
 import { useLoader } from '../../common/hooks';
 import { useUpsertStopArea } from '../../forms/stop-area';

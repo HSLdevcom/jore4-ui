@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { Visible } from '../../../common/LayoutComponents';
+import { LoadingWrapper } from '../../../common/Loaders';
 import {
   LoadingStopsErrorRow,
   SelectableStopSearchResultStopsTable,
