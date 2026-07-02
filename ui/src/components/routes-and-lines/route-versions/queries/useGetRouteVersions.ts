@@ -14,7 +14,7 @@ import {
   VersionStatus,
   mapPriorityToVersionStatus,
   parsePriority,
-} from '../../../common';
+} from '../../../common/Versions';
 import { RouteVersion } from '../types';
 
 const GQL_GET_ROUTE_VERSIONS = gql`

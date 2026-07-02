@@ -13,7 +13,7 @@ import {
   VersionStatus,
   mapPriorityToVersionStatus,
   parsePriority,
-} from '../../../../common';
+} from '../../../../common/Versions';
 import { StopVersion } from '../types';
 
 const GQL_GET_QUAY_VERSIONS = gql`

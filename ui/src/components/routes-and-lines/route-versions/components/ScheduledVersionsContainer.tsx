@@ -9,7 +9,7 @@ import {
   useFilterVersionsByDateRange,
   useSortedVersions,
   useVersionContainerControls,
-} from '../../../common/versions';
+} from '../../../common/Versions';
 import { RouteVersion } from '../types';
 import { RouteVersionTable } from './RouteVersionTable';
 

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { VersionRowCells } from '../../../../common/versions';
+import { VersionRowCells } from '../../../../common/Versions';
 import { LocatorActionButton } from '../../../components';
 import { StopVersion } from '../types';
 import { ActionMenuStop } from '../types/ActionMenuStop';

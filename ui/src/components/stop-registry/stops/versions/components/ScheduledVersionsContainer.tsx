@@ -9,7 +9,7 @@ import {
   useFilterVersionsByDateRange,
   useSortedVersions,
   useVersionContainerControls,
-} from '../../../../common/versions';
+} from '../../../../common/Versions';
 import { StopVersion } from '../types';
 import { StopVersionTable } from './StopVersionTable';
 

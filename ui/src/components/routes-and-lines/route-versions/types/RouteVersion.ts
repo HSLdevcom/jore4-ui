@@ -2,7 +2,7 @@ import { LineString } from 'geojson';
 import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { Priority } from '../../../../types/enums';
-import { VersionStatus } from '../../../common';
+import { VersionStatus } from '../../../common/Versions';
 
 export type RouteVersion = {
   readonly route_id: UUID;

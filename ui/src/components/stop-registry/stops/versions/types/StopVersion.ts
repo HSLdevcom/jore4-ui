@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { Point } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
-import { VersionStatus } from '../../../../common';
+import { VersionStatus } from '../../../../common/Versions';
 
 export type StopVersion = {
   readonly id: number;

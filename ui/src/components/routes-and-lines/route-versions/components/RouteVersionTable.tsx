@@ -2,9 +2,9 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
   NoVersionRow,
+  VersionTableHeader,
   VersionTableSortingInfo,
-} from '../../../common/versions';
-import { VersionTableHeader } from '../../../common/versions/VersionTableHeader';
+} from '../../../common/Versions';
 import { RouteVersion } from '../types';
 import { RouteVersionRow } from './RouteVersionRow';
 

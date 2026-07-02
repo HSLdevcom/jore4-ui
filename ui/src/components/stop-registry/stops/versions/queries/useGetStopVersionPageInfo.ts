@@ -1,4 +1,4 @@
-import { VersionStatus } from '../../../../common';
+import { VersionStatus } from '../../../../common/Versions';
 import { StopPlaceName, StopVersion } from '../types';
 import { useGetStopPlaceName } from './useGetStopPlaceName';
 import { useGetStopVersions } from './useGetStopVersions';
