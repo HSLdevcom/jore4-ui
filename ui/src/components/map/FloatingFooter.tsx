@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { CloseIconButton } from '../common/Buttons';
 
@@ -15,6 +16,8 @@ export const FloatingFooter: FC<FloatingFooterProps> = ({
   testId,
   onClose,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={twMerge(
@@ -36,6 +39,7 @@ export const FloatingFooter: FC<FloatingFooterProps> = ({
       <div className="grow" />
 
       <CloseIconButton
+        ariaLabel={t(($) => $.cancel)}
         className="flex h-14 w-16 items-center justify-center"
         onClick={onClose}
         testId={`${testId}::closeButton`}
