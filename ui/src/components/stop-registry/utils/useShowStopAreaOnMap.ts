@@ -6,8 +6,8 @@ import {
   setSelectedMapStopAreaIdAction,
 } from '../../../redux';
 import { Point } from '../../../types';
+import { useNavigateToMap } from '../../common/hooks';
 import { useEnsureStopVehicleModeVisible } from '../../map/utils/useEnsureStopVehicleModeVisible';
-import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 
 export function useShowStopAreaOnMap() {
   const dispatch = useAppDispatch();

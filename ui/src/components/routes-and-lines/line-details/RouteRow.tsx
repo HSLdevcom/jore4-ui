@@ -24,8 +24,8 @@ import {
   LocatorButton,
 } from '../../common/Buttons';
 import { useAlertsAndHighLights, useShowRoutesOnMap } from '../../common/hooks';
-import { RouteLabel } from '../../common/RouteLabel';
 import { AlertPopover } from '../common/AlertPopover';
+import { RouteLabel } from '../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
 const testIds = {

@@ -8,7 +8,7 @@ import {
 import { useRequiredParams } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToVariables, showSuccessToast } from '../../../utils';
-import { PageTitle } from '../../common';
+import { PageTitle } from '../../common/Jore';
 import { Container, FormContainer, Row } from '../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../common/Modals';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';

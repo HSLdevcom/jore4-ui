@@ -29,11 +29,11 @@ import {
 } from '../../../../redux';
 import { Viewport as ReduxViewPort } from '../../../../redux/types';
 import { ValidGeoJsonPoint, isValidGeoJSONPoint, log } from '../../../../utils';
+import { useNavigateToMap } from '../../../common/hooks';
 import {
   ViewPortParams as UrlViewPort,
   defaultViewPortParams as defaultUrlViewPortParams,
 } from '../../../map/types';
-import { useNavigateToMap } from '../../../map/utils/useNavigateToMap';
 import { StopSearchRow } from '../../components';
 import { mapCompactOrNull } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';

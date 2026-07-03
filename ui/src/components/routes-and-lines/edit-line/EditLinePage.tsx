@@ -16,8 +16,8 @@ import {
   showSuccessToast,
   vehicleModeIconMapping,
 } from '../../../utils';
-import { PageTitle } from '../../common';
 import { useLoader } from '../../common/hooks';
+import { PageTitle } from '../../common/Jore';
 import { Container } from '../../common/LayoutComponents';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {

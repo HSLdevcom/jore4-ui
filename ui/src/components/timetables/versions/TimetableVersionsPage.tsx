@@ -12,8 +12,8 @@ import {
   selectChangeTimetableValidityModal,
 } from '../../../redux';
 import { TimetablePriority } from '../../../types/enums';
-import { PageTitle } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
+import { PageTitle } from '../../common/Jore';
 import { Container, FormColumn, FormRow } from '../../common/LayoutComponents';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { DeleteTimetableModal } from './DeleteTimetableModal';

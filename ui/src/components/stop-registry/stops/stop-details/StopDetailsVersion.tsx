@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { makeBackNavigationIsSafeState, useUrlQuery } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../common/Buttons';
+import { ObservationDateControl } from '../../../common/Jore';
 import { Row } from '../../../common/LayoutComponents';
-import { ObservationDateControl } from '../../../common/ObservationDateControl';
 
 const testIds = {
   returnToDateBasedVersionSelection:

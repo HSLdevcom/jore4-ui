@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRequiredParams } from '../../../hooks';
-import { PageTitle } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
+import { ObservationDateControl, PageTitle } from '../../common/Jore';
 import { Column, Container, Row } from '../../common/LayoutComponents';
-import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { LineRouteList } from '../line-details/LineRouteList';
 import { useGetLineDraftDetails } from './useGetLineDraftDetails';
 import { useRoutesAndLinesDraftReturnToQueryParam } from './useRoutesAndLinesDraftReturnToQueryParam';

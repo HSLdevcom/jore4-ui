@@ -12,7 +12,7 @@ import { AccordionButton } from '../../common/Buttons';
 import { useToggle } from '../../common/hooks/useToggle';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { LoadingWrapper } from '../../common/Loaders';
-import { RouteLabel } from '../../common/RouteLabel';
+import { RouteLabel } from '../../routes-and-lines/common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
 import {
   TimetablesView,

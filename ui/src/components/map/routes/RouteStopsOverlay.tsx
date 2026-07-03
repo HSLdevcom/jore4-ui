@@ -18,7 +18,7 @@ import {
 } from '../../../utils';
 import { EditButton } from '../../common/Buttons';
 import { Row, Visible } from '../../common/LayoutComponents';
-import { RouteLabel } from '../../common/RouteLabel';
+import { RouteLabel } from '../../routes-and-lines/common/RouteLabel';
 import { CustomOverlay } from '../CustomOverlay';
 import { MapOverlay, MapOverlayHeader } from '../MapOverlay';
 import { PriorityBadge } from '../PriorityBadge';

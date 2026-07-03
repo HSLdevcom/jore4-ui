@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Visible } from './LayoutComponents';
+import { Visible } from '../../common/LayoutComponents';
 
 type RouteLabelProps = {
   readonly label: string;

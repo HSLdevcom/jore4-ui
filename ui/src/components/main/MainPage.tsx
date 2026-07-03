@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { LOGIN_URL } from '../../api/user';
 import { useAppSelector } from '../../hooks';
 import { selectUser } from '../../redux';
-import { PageTitle } from '../common';
 import { SimpleButton } from '../common/Buttons';
+import { PageTitle } from '../common/Jore';
 
 const testIds = {
   main: 'Main',

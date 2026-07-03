@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
-import { PageTitle } from '../../../../common';
+import { PageTitle } from '../../../../common/Jore';
 import { StopTransportModeIcon } from '../../../components';
 import { MirroredQuayDetails } from '../useGetStopDetails';
 import { ExtraActions } from './ExtraActions';

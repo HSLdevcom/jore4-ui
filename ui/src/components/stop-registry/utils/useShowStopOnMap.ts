@@ -6,9 +6,9 @@ import {
   setMapStopViewStateAction,
   setSelectedStopIdAction,
 } from '../../../redux';
+import { useNavigateToMap } from '../../common/hooks';
 import { useUpdateStopPriorityFilterIfNeeded } from '../../map/stops/hooks/useUpdateStopPriorityFilterIfNeeded';
 import { useEnsureStopVehicleModeVisible } from '../../map/utils/useEnsureStopVehicleModeVisible';
-import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { LocatableStop } from '../types';
 
 export function useShowStopOnMap() {

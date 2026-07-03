@@ -15,7 +15,7 @@ import { Priority } from '../../../types/enums';
 import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 import { Modal, ModalBody } from '../../common/Modals';
-import { RouteLabel } from '../../common/RouteLabel';
+import { RouteLabel } from './RouteLabel';
 
 const testIds = {
   closeButton: 'ConflictResolverModal::closeButton',

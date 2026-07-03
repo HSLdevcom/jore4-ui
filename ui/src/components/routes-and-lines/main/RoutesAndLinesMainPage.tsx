@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { PageTitle } from '../../common';
 import { SimpleButton } from '../../common/Buttons';
+import { OpenDefaultMapButton, PageTitle } from '../../common/Jore';
 import { Container, Row } from '../../common/LayoutComponents';
-import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { SearchContainer } from '../search';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 

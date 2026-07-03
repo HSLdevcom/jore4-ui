@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PageTitle } from '../common';
 import { CloseIconButton } from '../common/Buttons';
+import { PageTitle } from '../common/Jore';
 import { Row } from '../common/LayoutComponents';
 
 const testIds = {
