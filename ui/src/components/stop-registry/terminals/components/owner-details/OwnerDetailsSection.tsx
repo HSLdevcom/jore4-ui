@@ -33,6 +33,7 @@ export const OwnerDetailsSection: FC<TerminalComponentProps> = ({
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
       title={t(($) => $.terminalDetails.owner.title)}
+      ariaLabel={t(($) => $.terminalDetails.owner.title)}
       testIdPrefix="TerminalOwnerDetailsSection"
     >
       {infoContainerControls.isInEditMode ? (

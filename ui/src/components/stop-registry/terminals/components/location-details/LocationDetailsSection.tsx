@@ -31,6 +31,7 @@ export const LocationDetails: FC<TerminalComponentProps> = ({ terminal }) => {
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
       title={t(($) => $.terminalDetails.location.title)}
+      ariaLabel={t(($) => $.terminalDetails.location.title)}
       testIdPrefix="TerminalLocationDetailsSection"
     >
       {infoContainerControls.isInEditMode ? (

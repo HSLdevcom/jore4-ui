@@ -64,6 +64,7 @@ export const SignageDetailsSection: FC<SignageDetailsSectionProps> = ({
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
       title={t(($) => $.stopDetails.signs.title)}
+      ariaLabel={t(($) => $.stopDetails.signs.title)}
       testIdPrefix="SignageDetailsSection"
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (

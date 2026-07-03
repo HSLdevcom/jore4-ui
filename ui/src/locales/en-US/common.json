@@ -1454,6 +1454,7 @@
   "loading": "Loading",
   "cancel": "Cancel",
   "close": "Close",
+  "show": "Show",
   "cut": "Cut",
   "version": "Version: {{ gitHash }}, build: {{buildTime}}",
   "hide": "Hide",

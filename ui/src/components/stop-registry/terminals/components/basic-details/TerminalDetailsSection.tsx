@@ -34,6 +34,7 @@ export const TerminalDetails: FC<TerminalComponentProps> = ({
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
       title={t(($) => $.terminalDetails.basicDetails.title)}
+      ariaLabel={t(($) => $.terminalDetails.basicDetails.title)}
       testIdPrefix="TerminalDetailsSection"
     >
       {infoContainerControls.isInEditMode ? (

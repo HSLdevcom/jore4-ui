@@ -61,6 +61,7 @@ export const StopAreaDetails: FC<StopAreaComponentProps> = ({
       colors={containerColors}
       controls={infoContainerControls}
       title={t(($) => $.stopAreaDetails.basicDetails.title)}
+      ariaLabel={t(($) => $.stopAreaDetails.basicDetails.title)}
       testIdPrefix={
         infoContainerControls.isInEditMode ? testIds.editPrefix : testIds.prefix
       }

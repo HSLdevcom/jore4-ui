@@ -1454,6 +1454,7 @@
   "loading": "Ladataan",
   "cancel": "Peruuta",
   "close": "Sulje",
+  "show": "Näytä",
   "cut": "Leikkaa",
   "version": "Versio: {{ gitHash }}, käännetty: {{buildTime}}",
   "hide": "Piilota",

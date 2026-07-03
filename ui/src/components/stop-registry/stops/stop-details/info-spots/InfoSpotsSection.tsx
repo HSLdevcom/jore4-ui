@@ -158,6 +158,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           shelterNumber={shelterNumber}
         />
       }
+      ariaLabel={t(($) => $.stopDetails.infoSpots.title)}
       testIdPrefix="InfoSpotsSection"
     >
       {infoContainerControls.isInEditMode ? (

@@ -131,6 +131,7 @@ export const MirroredQuayDetailsCard: FC<MirroredQuayDetailsCardProps> = ({
         colors={colors}
         controls={infoContainerControls}
         title={title}
+        ariaLabel={title}
         inverted
         testIdPrefix="MirroredQuayDetails"
       >

@@ -69,6 +69,7 @@ export const LocationDetailsSection: FC<LocationDetailsSectionProps> = ({
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
       title={t(($) => $.stopDetails.location.title)}
+      ariaLabel={t(($) => $.stopDetails.location.title)}
       testIdPrefix="LocationDetailsSection"
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (

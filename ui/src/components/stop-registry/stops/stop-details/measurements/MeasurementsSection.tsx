@@ -117,6 +117,7 @@ export const MeasurementsSection: FC<MeasurementsSectionProps> = ({ stop }) => {
           <AccessibilityLevelInfo stop={stop} />
         </div>
       }
+      ariaLabel={t(($) => $.stopDetails.measurements.title)}
       testIdPrefix={testIds.prefix}
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (

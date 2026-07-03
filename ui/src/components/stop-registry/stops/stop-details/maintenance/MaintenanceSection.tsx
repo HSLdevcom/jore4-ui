@@ -90,6 +90,7 @@ export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
       title={t(($) => $.stopDetails.maintenance.title)}
+      ariaLabel={t(($) => $.stopDetails.maintenance.title)}
       testIdPrefix={testIds.prefix}
     >
       {infoContainerControls.isInEditMode ? (

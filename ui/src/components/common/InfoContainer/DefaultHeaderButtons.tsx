@@ -20,9 +20,16 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
     setIsInEditMode,
   },
   testIdPrefix,
+  ariaLabel,
   inverted,
 }) => {
   const { t } = useTranslation();
+
+  const getToggleAriaLabel = () => {
+    const action = isExpanded ? t(($) => $.close) : t(($) => $.show);
+    return ariaLabel ? `${action} ${ariaLabel.toLocaleLowerCase()}` : action;
+  };
+
   return (
     <div className="flex gap-2">
       <Visible visible={isEditable && !isInEditMode}>
@@ -44,6 +51,7 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
           onClick={() => setIsExpanded((expanded) => !expanded)}
           inverted={inverted ?? !isExpanded}
           testId={testIds.toggle(testIdPrefix)}
+          tooltip={getToggleAriaLabel()}
         >
           {isExpanded ? (
             <FaChevronUp
