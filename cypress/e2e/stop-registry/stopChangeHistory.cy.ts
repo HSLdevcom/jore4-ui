@@ -1132,7 +1132,7 @@ describe('Stop Change History', { tags }, () => {
       cy.section('Remove second info spot', () => {
         StopDetailsPage.infoSpots.getEditButton().click();
 
-        InfoSpotsForm.getNthInfoSpot(0).within(() =>
+        InfoSpotsForm.getNthInfoSpot(1).within(() =>
           InfoSpotsForm.infoSpots.getDeleteInfoSpotButton().click(),
         );
 
@@ -1173,7 +1173,7 @@ describe('Stop Change History', { tags }, () => {
       cy.section('Check added second info spot history', () => {
         StopChangeHistoryPage.changeHistoryTable.group
           .getAllGroupElements()
-          .eq(1)
+          .eq(2)
           .within(() =>
             assertInfoSpot(
               () =>
@@ -1191,7 +1191,7 @@ describe('Stop Change History', { tags }, () => {
       cy.section('Check updated info spot history', () => {
         StopChangeHistoryPage.changeHistoryTable.group
           .getAllGroupElements()
-          .eq(2)
+          .eq(4)
           .within(() =>
             assertInfoSpot(
               () =>
@@ -1209,7 +1209,7 @@ describe('Stop Change History', { tags }, () => {
       cy.section('Check added first info spot history', () => {
         StopChangeHistoryPage.changeHistoryTable.group
           .getAllGroupElements()
-          .eq(3)
+          .eq(5)
           .within(() =>
             assertInfoSpot(
               () =>

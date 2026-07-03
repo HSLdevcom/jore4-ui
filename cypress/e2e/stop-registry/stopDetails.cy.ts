@@ -2553,6 +2553,97 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           'Ei infopaikkoja. Mene Tekniset ominaisuudet -välilehdelle ja lisää ensin katostyyppi.',
         );
     });
+
+    it('should be able to reorder info spots', () => {
+      verifyInitialInfoSpots();
+
+      InfoSpotViewCard.getNthSectionContainer(0).within(() => {
+        StopDetailsPage.infoSpots.getEditButton().click();
+        InfoSpotViewCard.getSectionContainers().should('not.exist');
+
+        const infoSpot = InfoSpotsForm.infoSpots;
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP1234568');
+          infoSpot.getPositionIndicator().should('contain', '1/1');
+          infoSpot.getMoveUpInfoSpotButton().should('be.disabled');
+          infoSpot.getMoveDownInfoSpotButton().should('be.disabled');
+        });
+
+        StopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
+        InfoSpotsForm.getInfoSpots().should('have.length', 2);
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getLabel().clearAndType('JP9999999');
+          infoSpot.getIntendedUserButton().click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getIntendedUserOptions().contains('Matkatieto').click(),
+          );
+        });
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP1234568');
+          infoSpot.getPositionIndicator().should('contain', '1/2');
+          infoSpot.getMoveUpInfoSpotButton().should('be.disabled');
+          infoSpot.getMoveDownInfoSpotButton().should('not.be.disabled');
+        });
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP9999999');
+          infoSpot.getPositionIndicator().should('contain', '2/2');
+          infoSpot.getMoveUpInfoSpotButton().should('not.be.disabled');
+          infoSpot.getMoveDownInfoSpotButton().should('be.disabled');
+        });
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getMoveUpInfoSpotButton().click();
+        });
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP9999999');
+          infoSpot.getPositionIndicator().should('contain', '1/2');
+          infoSpot.getMoveUpInfoSpotButton().should('be.disabled');
+          infoSpot.getMoveDownInfoSpotButton().should('not.be.disabled');
+        });
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP1234568');
+          infoSpot.getPositionIndicator().should('contain', '2/2');
+          infoSpot.getMoveUpInfoSpotButton().should('not.be.disabled');
+          infoSpot.getMoveDownInfoSpotButton().should('be.disabled');
+        });
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getMoveDownInfoSpotButton().click();
+        });
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP1234568');
+          infoSpot.getPositionIndicator().should('contain', '1/2');
+        });
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getLabel().should('have.value', 'JP9999999');
+          infoSpot.getPositionIndicator().should('contain', '2/2');
+        });
+
+        InfoSpotsForm.getNthInfoSpot(1).within(() => {
+          infoSpot.getMoveUpInfoSpotButton().click();
+        });
+      });
+
+      StopDetailsPage.infoSpots.getSaveButton().click();
+      Toast.expectSuccessToast('Pysäkki muokattu');
+      InfoSpotViewCard.getSectionContainers().shouldBeVisible();
+
+      InfoSpotViewCard.getNthViewCardContainer(0).within(() => {
+        InfoSpotViewCard.getLabel().shouldHaveText('JP9999999');
+      });
+
+      InfoSpotViewCard.getNthViewCardContainer(1).within(() => {
+        InfoSpotViewCard.getLabel().shouldHaveText('JP1234568');
+      });
+    });
   });
 
   describe('version and copies', () => {
