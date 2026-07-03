@@ -6,8 +6,9 @@ import { Operation } from '../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
+import { InputField } from '../../../../common/Inputs';
 import { Column, FormRow } from '../../../../common/LayoutComponents';
-import { FormActionButtons, InputField } from '../../../../forms/common';
+import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { OwnerOrganizationFields } from './OwnerOrganisationFields';
 import {

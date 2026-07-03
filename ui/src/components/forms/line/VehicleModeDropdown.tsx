@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { mapVehicleModeToUiName } from '../../../i18n/uiNameMappings';
 import { AllOptionEnum } from '../../../utils';
-import { FormInputProps } from '../../common';
 import { EnumDropdown } from '../../common/Dropdowns';
+import { FormInputProps } from '../../common/Inputs';
 
 type VehicleModeDropdownProps = FormInputProps & {
   readonly id?: string;

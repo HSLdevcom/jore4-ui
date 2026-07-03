@@ -3,11 +3,11 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../../generated/graphql';
-import { FormInputProps as ListboxInputProps } from '../../../../../common';
 import {
   ComboboxOptionItem,
   SearchableDropdown,
 } from '../../../../../common/Dropdowns';
+import { FormInputProps as ListboxInputProps } from '../../../../../common/Inputs';
 import { useChooseOrganisationDropdown } from './useChooseOrganisationDropdown';
 
 export const CREATE_NEW_ORGANISATION_OPTION = 'createNewOrganisation';

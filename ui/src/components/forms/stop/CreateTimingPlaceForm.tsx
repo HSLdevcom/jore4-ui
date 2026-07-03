@@ -6,14 +6,16 @@ import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { Operation } from '../../../redux';
 import {
+  localizedStringOptional,
+  requiredString,
   showDangerToast,
   showSuccessToast,
   submitFormByRef,
 } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
 import { useLoader } from '../../common/hooks';
+import { InputField } from '../../common/Inputs';
 import { FormRow, Row } from '../../common/LayoutComponents';
-import { InputField, localizedStringOptional, requiredString } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { useCreateTimingPlace } from './utils/useCreateTimingPlace';
 

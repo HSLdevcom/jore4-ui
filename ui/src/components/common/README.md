@@ -12,6 +12,7 @@ from directories higher in the list):
 - `LayoutComponents`
 - `Buttons`
 - `Loaders`
+- `Inputs`
 - `Dropdowns`
 - `Modals`
 - `Pagination`

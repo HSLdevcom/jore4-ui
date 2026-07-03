@@ -10,12 +10,12 @@ import {
   selectMapRouteEditor,
   setTemplateRouteIdAction,
 } from '../../../redux';
+import { InputField } from '../../common/Inputs';
 import { Switch, SwitchLabel } from '../../common/Jore';
 import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormActionButtons,
-  InputField,
   hasSavableDirtyFields,
 } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';

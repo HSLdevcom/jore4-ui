@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import { z } from 'zod';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
-import { requiredDate } from '../../../forms/common/customZodSchemas';
+import { requiredDate } from '../../../../utils';
 
 type CommonDay = {
   readonly created: boolean;

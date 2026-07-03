@@ -1,6 +1,6 @@
 import { FC } from 'react';
+import { InputField } from '../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../common/LayoutComponents';
-import { InputField } from '../../common';
 import { StopFormState } from '../types';
 import { TimingPlace } from './TimingPlace';
 

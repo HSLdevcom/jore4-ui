@@ -12,7 +12,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
 import { comboboxStyles } from '../../../common/Dropdowns';
-import { ValidationErrorList } from '../../common';
+import { ValidationErrorList } from '../../../common/Inputs';
 import { StopFormState, StopModalStopAreaFormSchema } from '../types';
 import { formatIsoDateString, useFindStopAreas } from '../utils';
 

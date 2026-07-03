@@ -10,7 +10,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { DateLike, mapToShortDate, tryToParseDate } from '../../time';
+import { DateLike, mapToShortDate, tryToParseDate } from '../../../time';
 
 type ParsedNotNull = {
   readonly parsed: true;

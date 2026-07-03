@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { z } from 'zod';
-import { NullOptionEnum } from '../../../utils/enum';
+import { NullOptionEnum } from './enum';
 
 export const REQUIRED_FIELD_ERROR_MESSAGE = 'Required';
 

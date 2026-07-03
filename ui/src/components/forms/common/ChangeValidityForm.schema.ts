@@ -4,6 +4,8 @@ import {
   validityPeriodFormSchema,
 } from './ValidityPeriodForm.schema';
 
-export const schema = validityPeriodFormSchema.merge(priorityFormSchema);
+export const changeValidityFormSchema =
+  validityPeriodFormSchema.merge(priorityFormSchema);
 
-export type FormState = ValidityPeriodFormState & PriorityFormState;
+export type ChangeValidityFormState = ValidityPeriodFormState &
+  PriorityFormState;

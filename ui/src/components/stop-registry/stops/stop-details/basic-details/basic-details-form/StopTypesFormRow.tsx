@@ -2,8 +2,8 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { StopRegistryTransportModeType } from '../../../../../../generated/graphql';
+import { InputElement } from '../../../../../common/Inputs';
 import { FormRow } from '../../../../../common/LayoutComponents';
-import { InputElement } from '../../../../../forms/common';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {

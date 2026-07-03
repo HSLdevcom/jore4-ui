@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { useToggle } from '../../common/hooks/useToggle';
+import { DateInputField } from '../../common/Inputs';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { ExpandedSearchButtons } from '../../common/Search';
 import {
@@ -13,7 +14,6 @@ import {
   ExtraFiltersToggle,
   SearchQueryFilter,
 } from '../../common/Search/SearchBar';
-import { DateInputField } from '../../forms/common';
 import { LineTypeFilter } from './filters/LineTypeFilter';
 import { routesAndLinesTestIds } from './routesAndLinesTestIds';
 import { RoutesAndLinesSearchFilters, SearchNavigationState } from './types';

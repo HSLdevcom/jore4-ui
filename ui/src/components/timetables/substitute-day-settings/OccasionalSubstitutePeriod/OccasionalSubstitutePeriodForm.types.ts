@@ -4,7 +4,7 @@ import {
   requiredDate,
   requiredInterval,
   requiredString,
-} from '../../../forms/common/customZodSchemas';
+} from '../../../../utils';
 
 const periodSchema = z.object({
   periodId: z.string().optional(),

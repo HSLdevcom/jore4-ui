@@ -8,8 +8,8 @@ import { useAppDispatch } from '../../../hooks/redux';
 import { openTimingPlaceModalAction } from '../../../redux';
 import { submitFormByRef } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
+import { InputElement, InputField } from '../../common/Inputs';
 import { Row } from '../../common/LayoutComponents';
-import { InputElement, InputField } from '../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { ChooseTimingPlaceDropdown } from '../../forms/stop/ChooseTimingPlaceDropdown';
 

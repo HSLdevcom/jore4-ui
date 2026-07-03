@@ -1,6 +1,7 @@
 export * from './areEqual';
 export * from './colors';
 export * from './components';
+export * from './customZodSchemas';
 export * from './download';
 export * from './enum';
 export * from './errors';

@@ -4,10 +4,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { JourneyPatternScheduledStopPointInJourneyPattern } from '../../../generated/graphql';
-import { defaultLocalizedString, submitFormByRef } from '../../../utils';
+import {
+  defaultLocalizedString,
+  localizedStringRequired,
+  submitFormByRef,
+} from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
+import { InputField } from '../../common/Inputs';
 import { Row } from '../../common/LayoutComponents';
-import { InputField, localizedStringRequired } from '../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 
 export const schema = z.object({

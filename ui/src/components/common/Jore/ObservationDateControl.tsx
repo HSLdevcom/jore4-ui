@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useObservationDateQueryParam } from '../../../hooks';
-import { ObservationDateInput } from '../../forms/common';
+import { ObservationDateInput } from '../Inputs';
 
 const testIds = {
   observationDateInput: 'ObservationDateControl::dateInput',

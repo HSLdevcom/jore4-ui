@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction, useId } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BaseDateInput } from '../BaseDateInput';
+import { BaseDateInput } from '../Inputs';
 import { ChangeHistoryFilters } from './types';
 
 const testIds = {

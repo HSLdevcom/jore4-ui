@@ -3,7 +3,7 @@ import first from 'lodash/first';
 import { FC, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { AllOptionEnum } from '../../../utils/enum';
-import { ValueFn } from '../FormInputTypes';
+import { ValueFn } from '../Inputs';
 import { multiselectListboxStyles } from './headlessHelpers';
 import { JoreListboxButton } from './JoreListboxButton';
 import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';

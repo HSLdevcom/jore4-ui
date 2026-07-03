@@ -10,8 +10,8 @@ import { SimpleButton } from '../../common/Buttons';
 import { FormContainer, Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,
-  FormState as ChangeValidityFormState,
-  schema as changeValidityFormSaveFormSchema,
+  ChangeValidityFormState,
+  changeValidityFormSchema,
   hasSavableDirtyFields,
   refineValidityPeriodSchema,
 } from '../common';
@@ -37,7 +37,7 @@ const testIds = {
 const INVALID_LINE_TYPE = 'invalidLineType';
 
 const formSchema = linePropertiesFormSchema
-  .merge(changeValidityFormSaveFormSchema)
+  .merge(changeValidityFormSchema)
   .merge(
     z.object({
       versionComment: z.string().optional(),

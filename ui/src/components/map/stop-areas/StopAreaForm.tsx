@@ -6,12 +6,9 @@ import { mapToISODate } from '../../../time';
 import { EnrichedStopPlace } from '../../../types';
 import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
 import { mapLngLatToPoint } from '../../../utils';
+import { InputField } from '../../common/Inputs';
 import { FormColumn, FormRow } from '../../common/LayoutComponents';
-import {
-  FormActionButtons,
-  InputField,
-  ValidityPeriodForm,
-} from '../../forms/common';
+import { FormActionButtons, ValidityPeriodForm } from '../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import {
   StopAreaFormState,

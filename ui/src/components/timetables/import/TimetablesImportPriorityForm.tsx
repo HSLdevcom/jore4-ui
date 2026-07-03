@@ -4,8 +4,8 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { TimetablePriority } from '../../../types/enums';
+import { LabeledRadioButton, ValidationErrorList } from '../../common/Inputs';
 import { Column, Row, Visible } from '../../common/LayoutComponents';
-import { LabeledRadioButton, ValidationErrorList } from '../../forms/common';
 
 export const timetablesImportPriorityFormSchema = z.object({
   priority: z.nativeEnum(TimetablePriority),

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { ValidationError } from '../../../common/Inputs';
 import { Column } from '../../../common/LayoutComponents';
-import { ValidationError } from '../../common';
 import { StopFormState, StopPublicCodeState } from '../types';
 
 function selectedCodeHasValidPrefix({

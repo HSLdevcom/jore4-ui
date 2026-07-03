@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../i18n';
 import { mapPriorityToUiName } from '../../../../i18n/uiNameMappings';
 import { Priority, knownPriorityValues } from '../../../../types/enums';
-import { InputLabel, LabeledCheckbox } from '../../../forms/common';
+import { InputLabel, LabeledCheckbox } from '../../Inputs';
 import { Column, Row } from '../../LayoutComponents';
 
 const testIds = {

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { InputField } from '../../../../../forms/common';
+import { InputField } from '../../../../../common/Inputs';
 import { StopSearchFilters } from '../../../types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';

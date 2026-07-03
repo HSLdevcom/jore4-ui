@@ -1,7 +1,7 @@
 import { FC, useEffect, useId } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { InputField } from '../../common';
+import { InputField } from '../../../common/Inputs';
 import { StopFormState } from '../types';
 import { useGetPublicCodeCandidates } from '../utils/useGetPublicCodeCanditates';
 

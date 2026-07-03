@@ -10,12 +10,12 @@ import {
   mapZoneLabelToUiName,
 } from '../../../../../../i18n/uiNameMappings';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
-import { EnumDropdown } from '../../../../../common/Dropdowns';
-import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
-  InputField,
+  EnumDropdown,
   NullableBooleanDropdown,
-} from '../../../../../forms/common';
+} from '../../../../../common/Dropdowns';
+import { InputField } from '../../../../../common/Inputs';
+import { Column, Row } from '../../../../../common/LayoutComponents';
 import { ZoneLabel } from '../../../../types';
 import { InfoSpotsFormState, PosterState } from '../types';
 import { mapStringToPurpose } from '../utils';

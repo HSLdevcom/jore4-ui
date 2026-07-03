@@ -18,12 +18,13 @@ import {
   showSuccessToast,
 } from '../../../../../../utils';
 import { useLoader } from '../../../../../common/hooks/useLoader';
+import { InputField } from '../../../../../common/Inputs';
 import {
   Column,
   FormColumn,
   FormRow,
 } from '../../../../../common/LayoutComponents';
-import { FormActionButtons, InputField } from '../../../../../forms/common';
+import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
 import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';

@@ -1,16 +1,16 @@
 import { z } from 'zod';
 import { RouteDirection } from '../../../types/RouteDirection';
 import {
-  FormState as ChangeValidityFormFormState,
-  schema as changeValidityFormSchema,
-} from '../common/ChangeValidityForm.schema';
-import {
   localizedStringRequired,
   nullablePositiveNumber,
   requiredString,
   requiredUuid,
-} from '../common/customZodSchemas';
-import { refineValidityPeriodSchema } from '../common/ValidityPeriodForm.schema';
+} from '../../../utils';
+import {
+  ChangeValidityFormState,
+  changeValidityFormSchema,
+  refineValidityPeriodSchema,
+} from '../common';
 
 export const namesSchema = z.object({
   name: localizedStringRequired,
@@ -33,4 +33,4 @@ export const routeFormSchema = z
   .superRefine(refineValidityPeriodSchema);
 
 export type RouteFormState = z.infer<typeof routeFormSchema> &
-  ChangeValidityFormFormState;
+  ChangeValidityFormState;

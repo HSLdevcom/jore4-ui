@@ -6,6 +6,7 @@ import { StopRegistrySignContentType } from '../../../../../generated/graphql';
 import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { EnumDropdown } from '../../../../common/Dropdowns';
+import { InputField, InputLabel } from '../../../../common/Inputs';
 import {
   Column,
   FormColumn,
@@ -14,8 +15,6 @@ import {
 } from '../../../../common/LayoutComponents';
 import {
   FormActionButtons,
-  InputField,
-  InputLabel,
   ReasonForChangeForm,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';

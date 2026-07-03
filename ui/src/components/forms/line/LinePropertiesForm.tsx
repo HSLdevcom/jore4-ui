@@ -7,9 +7,10 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
+import { localizedStringRequired, requiredString } from '../../../utils';
 import { AccordionButton } from '../../common/Buttons';
+import { InputField } from '../../common/Inputs';
 import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
-import { InputField, localizedStringRequired, requiredString } from '../common';
 import { LineTypeDropdown } from './LineTypeDropdown';
 import { TransportTargetDropdown } from './TransportTargetDropdown';
 import { VehicleModeDropdown } from './VehicleModeDropdown';

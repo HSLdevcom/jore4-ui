@@ -28,6 +28,7 @@ import {
   patchKeyValues,
 } from '../../../utils';
 import { useLoader } from '../../common/hooks';
+import { ValidationError } from '../../common/Inputs';
 import { Visible } from '../../common/LayoutComponents';
 import {
   CreateChanges,
@@ -39,7 +40,7 @@ import {
   useDefaultErrorHandler,
   usePrepareEdit,
 } from '../../map/stops/hooks/useEditStop';
-import { FormActionButtons, ValidationError } from '../common';
+import { FormActionButtons } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { Location, PublicCodeAndArea, VersionInfo } from './components';
 import { TimingPlaceModal } from './TimingPlaceModal';

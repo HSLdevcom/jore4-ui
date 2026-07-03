@@ -7,8 +7,8 @@ import {
   useGetOrganisationsQuery,
 } from '../../../../../generated/graphql';
 import { SimpleButton } from '../../../../common/Buttons';
+import { InputField } from '../../../../common/Inputs';
 import { Column, Visible } from '../../../../common/LayoutComponents';
-import { InputField } from '../../../../forms/common';
 import {
   CREATE_NEW_ORGANISATION_OPTION,
   ChooseOrganisationDropdown,

@@ -8,6 +8,7 @@ import { isDateInRange, mapToISODate, parseDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
+import { InputField } from '../../../../common/Inputs';
 import {
   Column,
   FormColumn,
@@ -15,7 +16,6 @@ import {
 } from '../../../../common/LayoutComponents';
 import {
   FormActionButtons,
-  InputField,
   ValidityPeriodForm,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';

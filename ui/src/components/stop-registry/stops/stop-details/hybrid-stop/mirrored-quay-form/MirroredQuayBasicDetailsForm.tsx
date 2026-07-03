@@ -7,11 +7,10 @@ import { mapStopPlaceStateToUiName } from '../../../../../../i18n/uiNameMappings
 import { StopWithDetails } from '../../../../../../types';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
+import { InputElement, InputField } from '../../../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,
-  InputElement,
-  InputField,
   ReasonForChangeForm,
 } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
