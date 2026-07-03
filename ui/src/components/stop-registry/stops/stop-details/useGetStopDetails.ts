@@ -311,6 +311,10 @@ const GQL_INFO_SPOT_DETAILS = gql`
     railInformation
     speechProperty
     zoneLabel
+    keyValues {
+      key
+      values
+    }
     poster {
       id
       version
