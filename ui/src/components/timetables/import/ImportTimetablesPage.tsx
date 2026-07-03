@@ -12,8 +12,8 @@ import {
 } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
-import { PageTitle } from '../../common';
 import { CloseIconButton, SimpleButton } from '../../common/Buttons';
+import { PageTitle } from '../../common/Jore';
 import { Container, FormRow, Row } from '../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../common/Modals';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';

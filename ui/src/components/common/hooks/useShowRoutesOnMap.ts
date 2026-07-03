@@ -16,7 +16,7 @@ import {
   OpenMapViewPortParams,
   defaultDisplayedRouteParams,
 } from '../../map/types';
-import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
+import { useNavigateToMap } from './useNavigateToMap';
 
 const GQL_ROUTE_MAP_PARAMS = gql`
   fragment route_map_params on route_route {

@@ -10,8 +10,8 @@ import {
 import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { DateRange } from '../../../types';
-import { PageTitle } from '../../common';
 import { CloseIconButton } from '../../common/Buttons';
+import { PageTitle } from '../../common/Jore';
 import { Container, Row } from '../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../common/Modals';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';

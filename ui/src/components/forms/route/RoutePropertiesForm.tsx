@@ -10,7 +10,7 @@ import {
   selectMapRouteEditor,
   setTemplateRouteIdAction,
 } from '../../../redux';
-import { Switch, SwitchLabel } from '../../../uiComponents';
+import { Switch, SwitchLabel } from '../../common/Jore';
 import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
 import {
   ChangeValidityForm,

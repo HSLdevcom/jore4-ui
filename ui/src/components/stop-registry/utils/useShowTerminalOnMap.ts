@@ -8,7 +8,7 @@ import {
   setStopFilterAction,
 } from '../../../redux';
 import { Point } from '../../../types';
-import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
+import { useNavigateToMap } from '../../common/hooks';
 
 export function useShowTerminalOnMap() {
   const dispatch = useAppDispatch();

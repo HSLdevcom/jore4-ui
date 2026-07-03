@@ -16,8 +16,8 @@ import {
   useLocation,
 } from 'react-router';
 import { getUserInfo } from '../api/user';
-import { PageTitle } from '../components/common';
 import { TaskListDisplay } from '../components/common/AsyncTaskList';
+import { PageTitle } from '../components/common/Jore';
 import { Navbar } from '../components/common/Navbar';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';

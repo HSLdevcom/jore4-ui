@@ -13,8 +13,8 @@ import {
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { isPastEntity, vehicleModeIconMapping } from '../../../utils';
+import { useNavigateToMap } from '../../common/hooks';
 import { Column, Container, Row, Visible } from '../../common/LayoutComponents';
-import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { PageHeader } from '../common/PageHeader';
 import { LineLatestChanges } from '../line-change-history/components/latest-change-history/LineLatestChanges';
 import { TimingSettingsModal } from '../stop-timing-settings/TimingSettingsModal';
