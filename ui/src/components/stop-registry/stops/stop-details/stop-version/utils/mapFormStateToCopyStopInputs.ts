@@ -19,7 +19,6 @@ import {
 import { StopFormState } from '../../../../../forms/stop';
 import {
   mapAlternativeNames,
-  mapCompactOrNull,
   mapInfoSpotToInput,
   mapQuayToInput,
 } from '../../../../utils';
@@ -188,8 +187,18 @@ function mapInfoSpotsToInputs(
   originalStop: StopWithDetails,
 ): ReadonlyArray<InfoSpotInputHelper> | null {
   const shelters = originalStop.quay?.placeEquipments?.shelterEquipment;
+  const infoSpots = originalStop.quay?.infoSpots;
 
-  return mapCompactOrNull(originalStop.quay?.infoSpots, (infoSpot) => {
+  if (!infoSpots) {
+    return null;
+  }
+
+  const compactedInfoSpots = compact(infoSpots);
+  if (compactedInfoSpots.length === 0) {
+    return null;
+  }
+
+  return compactedInfoSpots.map((infoSpot, index) => {
     const originalShelter =
       shelters?.find(
         (shelter) =>
@@ -209,7 +218,7 @@ function mapInfoSpotsToInputs(
     return {
       originalShelter,
       originalShelterIndex,
-      infoSpotInput: mapInfoSpotToInput(infoSpot),
+      infoSpotInput: mapInfoSpotToInput(infoSpot, index),
     };
   });
 }

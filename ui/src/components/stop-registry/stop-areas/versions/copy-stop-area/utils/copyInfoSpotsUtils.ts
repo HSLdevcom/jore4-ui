@@ -2,7 +2,7 @@ import compact from 'lodash/compact';
 import { QuayDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { FailedToResolveExistingShelter } from '../../../../stops/stop-details/stop-version/errors';
-import { mapCompactOrNull, mapInfoSpotToInput } from '../../../../utils';
+import { mapInfoSpotToInput } from '../../../../utils';
 import { BidirectionalQuayMap, InfoSpotInput } from '../types';
 
 function mapQuayToInfoSpotInput(
@@ -20,7 +20,18 @@ function mapQuayToInfoSpotInput(
   }
 
   const shelters = quay?.placeEquipments?.shelterEquipment;
-  const infoSpots = mapCompactOrNull(quay?.infoSpots, (infoSpot) => {
+  const infoSpotsArray = quay?.infoSpots;
+
+  if (!infoSpotsArray) {
+    return null;
+  }
+
+  const compactedInfoSpots = compact(infoSpotsArray);
+  if (compactedInfoSpots.length === 0) {
+    return null;
+  }
+
+  const infoSpots = compactedInfoSpots.map((infoSpot, index) => {
     const originalShelter =
       shelters?.find(
         (shelter) =>
@@ -40,11 +51,11 @@ function mapQuayToInfoSpotInput(
     return {
       originalShelter,
       originalShelterIndex,
-      infoSpotInput: mapInfoSpotToInput(infoSpot),
+      infoSpotInput: mapInfoSpotToInput(infoSpot, index),
     };
   });
 
-  if (infoSpots === null) {
+  if (infoSpots.length === 0) {
     return null;
   }
 

@@ -5,15 +5,11 @@ import {
   StopRegistryPosterInput,
 } from '../../../generated/graphql';
 import { EnrichedQuay, Quay, StopPlaceInfoSpots } from '../../../types';
-import { getQuayDetailsForEnrichment } from '../../../utils';
-
-function sortInfoSpots(
-  infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
-): Array<StopPlaceInfoSpots> {
-  return compact(infoSpots).sort((a, b) =>
-    (a.label ?? '').localeCompare(b.label ?? ''),
-  );
-}
+import {
+  KnownValueKey,
+  findKeyValueParsed,
+  getQuayDetailsForEnrichment,
+} from '../../../utils';
 
 function sortPosters(
   posters: ReadonlyArray<StopRegistryPosterInput | null> | undefined | null,
@@ -21,6 +17,27 @@ function sortPosters(
   return compact(posters).sort((a, b) =>
     (a.label ?? '').localeCompare(b.label ?? ''),
   );
+}
+
+function enrichInfoSpot(infoSpot: InfoSpotDetailsFragment): StopPlaceInfoSpots {
+  const sortOrder = findKeyValueParsed(
+    infoSpot,
+    KnownValueKey.SortOrder,
+    parseInt,
+  );
+  return {
+    ...infoSpot,
+    sortOrder,
+    poster: sortPosters(infoSpot.poster),
+  };
+}
+
+function sortInfoSpots(
+  infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
+): Array<StopPlaceInfoSpots> {
+  return compact(infoSpots)
+    .map(enrichInfoSpot)
+    .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
 }
 
 export function mapToEnrichedQuay(
@@ -41,9 +58,6 @@ export function mapToEnrichedQuay(
     ...getQuayDetailsForEnrichment(quay, accessibilityAssessment),
     changed,
     changedByUserName,
-    infoSpots: sortInfoSpots(quay.infoSpots).map((infoSpot) => ({
-      ...infoSpot,
-      poster: sortPosters(infoSpot.poster),
-    })),
+    infoSpots: sortInfoSpots(quay.infoSpots),
   };
 }

@@ -229,7 +229,7 @@ export function mapTerminalInfoSpotDataToFormState(
   const location = getTerminalInfoSpotLocation(infoSpot, terminal);
 
   return {
-    ...mapInfoSpotDataToFormState(infoSpot),
+    ...mapInfoSpotDataToFormState({ ...infoSpot }),
     latitude: location?.latitude ?? 0,
     longitude: location?.longitude ?? 0,
   };

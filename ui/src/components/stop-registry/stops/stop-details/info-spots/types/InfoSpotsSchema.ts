@@ -53,6 +53,7 @@ export const infoSpotSchema = z.object({
   zoneLabel: z.string().nullable(),
   poster: posterSchema.array().nullable(),
   size: itemSizeSchema,
+  sortOrder: z.number().nullable(),
   toBeDeleted: z.boolean(),
 });
 
