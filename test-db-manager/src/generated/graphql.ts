@@ -12155,6 +12155,7 @@ export type StopRegistryInfoSpot = {
   infoSpotLocations?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpotType?: Maybe<StopRegistryInfoSpotType>;
   intendedUser?: Maybe<StopRegistryIntendedUser>;
+  keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   label?: Maybe<Scalars['String']['output']>;
   /** Version-aware references to locations showing which version was referenced */
   locationRefs?: Maybe<Array<Maybe<StopRegistryLocationRef>>>;
@@ -12182,6 +12183,7 @@ export type StopRegistryInfoSpotInput = {
   infoSpotLocations?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   infoSpotType?: InputMaybe<StopRegistryInfoSpotType>;
   intendedUser?: InputMaybe<StopRegistryIntendedUser>;
+  keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
   label?: InputMaybe<Scalars['String']['input']>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
   poster?: InputMaybe<Array<InputMaybe<StopRegistryPosterInput>>>;
@@ -12243,6 +12245,7 @@ export type StopRegistryPoster = {
   __typename?: 'stop_registry_poster';
   height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   label?: Maybe<Scalars['String']['output']>;
   lines?: Maybe<Scalars['String']['output']>;
   posterSize?: Maybe<StopRegistryPosterPlaceSize>;
@@ -12253,6 +12256,7 @@ export type StopRegistryPoster = {
 export type StopRegistryPosterInput = {
   height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
   label?: InputMaybe<Scalars['String']['input']>;
   lines?: InputMaybe<Scalars['String']['input']>;
   posterSize?: InputMaybe<StopRegistryPosterPlaceSize>;
