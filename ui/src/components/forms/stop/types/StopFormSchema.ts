@@ -2,11 +2,13 @@ import { z } from 'zod';
 import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
 import {
   REQUIRED_FIELD_ERROR_MESSAGE,
-  schema as changeValidityFormSchema,
-  reasonForChangeFormSchema,
-  refineValidityPeriodSchema,
   requiredNumber,
   requiredString,
+} from '../../../../utils';
+import {
+  changeValidityFormSchema,
+  reasonForChangeFormSchema,
+  refineValidityPeriodSchema,
 } from '../../common';
 import { stopModalStopAreaFormSchema } from './StopModalStopAreaFormSchema';
 

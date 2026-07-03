@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { requiredString } from './customZodSchemas';
+import { requiredString } from '../../../utils';
 
 // Allow only dates between year 1000 and 2999
 export const dateRegex = /^[12][0-9]{3}-[0-9]{2}-[0-9]{2}$/;

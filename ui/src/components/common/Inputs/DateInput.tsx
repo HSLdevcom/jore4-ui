@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { FC, MouseEventHandler } from 'react';
+import { Column } from '../LayoutComponents';
 import { BaseDateInput } from './BaseDateInput';
-import { Column } from './LayoutComponents';
 
 type DateInputProps = {
   readonly value: DateTime;

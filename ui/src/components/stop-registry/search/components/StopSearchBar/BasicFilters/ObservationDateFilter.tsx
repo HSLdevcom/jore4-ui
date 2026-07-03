@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { DateInputField } from '../../../../../forms/common';
+import { DateInputField } from '../../../../../common/Inputs';
 import { StopSearchFilters } from '../../../types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { ClassNameProps } from '../Types/ClassNameProps';

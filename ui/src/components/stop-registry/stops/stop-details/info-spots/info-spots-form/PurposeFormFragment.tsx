@@ -9,8 +9,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../../../i18n';
 import { mapInfoSpotPurposeToUiName } from '../../../../../../i18n/uiNameMappings';
+import { InputField, InputLabel } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
-import { InputField, InputLabel } from '../../../../../forms/common';
 import { useGetInfoSpotPurposes } from '../queries/useGetInfoSpotPurposes';
 import { InfoSpotPurposeState } from '../types';
 import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';

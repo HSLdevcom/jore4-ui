@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
-import { nullablePositiveNumber } from '../../../../forms/common';
+import { nullablePositiveNumber } from '../../../../../utils';
 
 export const signageDetailsFormSchema = z.object({
   signType: z.nativeEnum(StopPlaceSignType).optional().nullable(),

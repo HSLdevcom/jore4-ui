@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { InputField } from '../../common/Inputs';
 import { FormColumn, FormRow } from '../../common/LayoutComponents';
-import { InputField } from '../common';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
 const testIds = {

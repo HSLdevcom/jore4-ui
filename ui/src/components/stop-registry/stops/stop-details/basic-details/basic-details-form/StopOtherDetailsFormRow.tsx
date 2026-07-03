@@ -5,8 +5,8 @@ import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n
 import { JoreStopRegistryTransportModeType } from '../../../../../../types/stop-registry';
 import { SimpleButton } from '../../../../../common/Buttons';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
+import { InputField } from '../../../../../common/Inputs';
 import { Column, FormRow, Row } from '../../../../../common/LayoutComponents';
-import { InputField } from '../../../../../forms/common';
 import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/ChooseTimingPlaceDropdown';
 import { StopBasicDetailsFormState } from './schema';
 

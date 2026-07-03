@@ -1,9 +1,8 @@
 import { z } from 'zod';
+import { requiredNumber, requiredString } from '../../../../../../utils';
 import {
   ValidityPeriodFormState,
   refineValidityPeriodSchema,
-  requiredNumber,
-  requiredString,
   validityPeriodFormSchema,
 } from '../../../../../forms/common';
 import { selectedStopSchema } from '../../../../components/SelectMemberStops/common/schema';

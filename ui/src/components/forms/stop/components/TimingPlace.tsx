@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../../hooks';
 import { openTimingPlaceModalAction } from '../../../../redux';
 import { SimpleButton } from '../../../common/Buttons';
+import { InputField } from '../../../common/Inputs';
 import { Row } from '../../../common/LayoutComponents';
-import { InputField } from '../../common';
 import { ChooseTimingPlaceDropdown } from '../ChooseTimingPlaceDropdown';
 
 const testIds = {

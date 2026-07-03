@@ -12,7 +12,7 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
-import { CompatBaseDateInput } from '../../common';
+import { CompatBaseDateInput } from './BaseDateInput';
 
 export type InputElementDefaultProps = InputHTMLAttributes<HTMLInputElement> & {
   readonly id: string;
@@ -40,7 +40,7 @@ type InputElementProps<FormState extends FieldValues> =
 
 export const inputErrorStyles = 'border-hsl-red bg-hsl-red/5 border-2';
 
-export const RawInputElement = <FormState extends FieldValues>({
+const RawInputElement = <FormState extends FieldValues>({
   className,
   fieldPath,
   testId,
@@ -81,7 +81,7 @@ export const RawInputElement = <FormState extends FieldValues>({
   );
 };
 
-export const DateInputElement = <FormState extends FieldValues>({
+const DateInputElement = <FormState extends FieldValues>({
   className,
   fieldPath,
   testId,

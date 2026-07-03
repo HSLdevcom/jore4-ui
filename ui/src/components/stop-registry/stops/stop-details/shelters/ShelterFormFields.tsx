@@ -12,13 +12,12 @@ import {
   mapStopRegistryShelterTypeEnumToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { SimpleButton } from '../../../../common/Buttons';
-import { EnumDropdown } from '../../../../common/Dropdowns';
-import { Column, Row } from '../../../../common/LayoutComponents';
 import {
-  InputElement,
-  InputField,
+  EnumDropdown,
   NullableBooleanDropdown,
-} from '../../../../forms/common';
+} from '../../../../common/Dropdowns';
+import { InputElement, InputField } from '../../../../common/Inputs';
+import { Column, Row } from '../../../../common/LayoutComponents';
 import { SheltersFormState } from './schema';
 
 const testIds = {

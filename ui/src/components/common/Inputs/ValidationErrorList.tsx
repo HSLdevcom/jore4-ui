@@ -8,8 +8,8 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { Column, Row } from '../../common/LayoutComponents';
-import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
+import { REQUIRED_FIELD_ERROR_MESSAGE } from '../../../utils';
+import { Column, Row } from '../LayoutComponents';
 import { useTranslateStringKey } from './useTranslateStringKey';
 
 const testIds = {

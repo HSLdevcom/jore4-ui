@@ -11,10 +11,10 @@ import { useAppSelector } from '../../../hooks';
 import { selectTimetable } from '../../../redux';
 import { parseDate } from '../../../time';
 import { DateRange } from '../../../types';
-import { areEqual } from '../../../utils';
+import { areEqual, requiredDate } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
+import { InputField } from '../../common/Inputs';
 import { Row, Visible } from '../../common/LayoutComponents';
-import { InputField, requiredDate } from '../common';
 
 const testIds = {
   startDate: 'ObservationPeriodForm::startDate',

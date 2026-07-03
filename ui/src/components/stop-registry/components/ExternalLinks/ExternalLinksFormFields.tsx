@@ -2,8 +2,8 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { SimpleButton } from '../../../common/Buttons';
+import { InputField } from '../../../common/Inputs';
 import { Column, Row } from '../../../common/LayoutComponents';
-import { InputField } from '../../../forms/common';
 import { ExternalLinksFormState } from './schema';
 
 const testIds = {

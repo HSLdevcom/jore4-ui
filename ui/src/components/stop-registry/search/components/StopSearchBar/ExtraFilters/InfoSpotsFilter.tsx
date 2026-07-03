@@ -5,8 +5,8 @@ import { FC, useCallback, useMemo } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { AllOptionEnum, NullOptionEnum, none } from '../../../../../../utils';
+import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
-import { InputLabel, ValidationErrorList } from '../../../../../forms/common';
 import { useGetInfoSpotSizes } from '../../../../stops/stop-details/info-spots/queries/useGetInfoSpotSizes';
 import {
   PosterSize,

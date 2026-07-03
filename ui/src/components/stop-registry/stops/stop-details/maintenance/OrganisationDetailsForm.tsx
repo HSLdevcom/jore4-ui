@@ -3,10 +3,10 @@ import { t } from 'i18next';
 import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { submitFormByRef } from '../../../../../utils';
+import { requiredString, submitFormByRef } from '../../../../../utils';
 import { SimpleButton } from '../../../../common/Buttons';
+import { InputField } from '../../../../common/Inputs';
 import { FormRow, Row, Visible } from '../../../../common/LayoutComponents';
-import { InputField, requiredString } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 
 const testIds = {

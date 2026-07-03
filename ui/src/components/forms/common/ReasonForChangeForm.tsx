@@ -2,10 +2,9 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { InputLabel, ValidationErrorList } from '../../common/Inputs';
 import { Column } from '../../common/LayoutComponents';
 import { AutomaticallyResizingTextArea } from './AutomaticallyResizingTextArea';
-import { InputLabel } from './InputLabel';
-import { ValidationErrorList } from './ValidationErrorList';
 
 export const reasonForChangeFormSchema = z.object({
   reasonForChange: z.string().max(254).nullable().optional(),

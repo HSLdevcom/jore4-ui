@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, ReactElement } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
-import { InputElement } from './InputElement';
+import { InputElement } from '../../common/Inputs';
 
 export type InputElementDefaultProps = InputHTMLAttributes<Element> & {
   readonly className?: string;

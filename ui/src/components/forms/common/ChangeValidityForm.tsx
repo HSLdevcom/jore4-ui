@@ -2,9 +2,9 @@ import { FieldValues, Path } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
 import { Priority } from '../../../types/enums';
+import { InputField } from '../../common/Inputs';
 import { FormRow, Row } from '../../common/LayoutComponents';
-import { FormState } from './ChangeValidityForm.schema';
-import { InputField } from './InputField';
+import { ChangeValidityFormState } from './ChangeValidityForm.schema';
 import { PriorityForm } from './PriorityForm';
 import { ValidityPeriodForm } from './ValidityPeriodForm';
 
@@ -29,7 +29,9 @@ type ChangeValidityFormProps = {
  * Component for selecting priority and validity period for an entity (e.g. line, route, stop).
  * Can be merged with other forms.
  */
-export const ChangeValidityForm = <TFormState extends FieldValues = FormState>({
+export const ChangeValidityForm = <
+  TFormState extends FieldValues = ChangeValidityFormState,
+>({
   className,
   hiddenPriorities,
   dateInputRowClassName,

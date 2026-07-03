@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { mapSubstituteDayOfWeekToUiName } from '../../../i18n/uiNameMappings';
 import { SubstituteDayOfWeek } from '../../../types/enums';
 import { AllOptionEnum } from '../../../utils';
-import { FormInputProps } from '../../common';
 import { EnumDropdown } from '../../common/Dropdowns';
+import { FormInputProps } from '../../common/Inputs';
 
 type SubstituteDayOfWeekDropdownProps = FormInputProps & {
   readonly id?: string;

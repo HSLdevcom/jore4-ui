@@ -2,8 +2,11 @@ import { EnumLike, z } from 'zod';
 import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
 import { Priority } from '../../../../types/enums';
 import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
-import { AllOptionEnum } from '../../../../utils';
-import { instanceOfDateTime, requiredString } from '../../../forms/common';
+import {
+  AllOptionEnum,
+  instanceOfDateTime,
+  requiredString,
+} from '../../../../utils';
 
 const allEnum = z.nativeEnum(AllOptionEnum);
 

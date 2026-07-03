@@ -4,13 +4,9 @@ import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Priority } from '../../../types/enums';
+import { ObservationDateInput } from '../../common/Inputs';
 import { Column, Row } from '../../common/LayoutComponents';
-import {
-  ObservationDateInput,
-  PriorityForm,
-  PriorityFormState,
-  priorityFormSchema,
-} from '../common';
+import { PriorityForm, PriorityFormState, priorityFormSchema } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 

@@ -16,18 +16,17 @@ import {
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
-import { EnumDropdown } from '../../../../common/Dropdowns';
+import {
+  EnumDropdown,
+  NullableBooleanDropdown,
+} from '../../../../common/Dropdowns';
+import { InputElement, InputField } from '../../../../common/Inputs';
 import {
   Column,
   HorizontalSeparator,
   Row,
 } from '../../../../common/LayoutComponents';
-import {
-  FormActionButtons,
-  InputElement,
-  InputField,
-  NullableBooleanDropdown,
-} from '../../../../forms/common';
+import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { MeasurementsFormState, measurementsFormSchema } from './schema';
 

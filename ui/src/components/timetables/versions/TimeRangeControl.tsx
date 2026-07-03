@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QueryParameterName, useTimeRangeQueryParams } from '../../../hooks';
+import { ValidationError } from '../../common/Inputs';
 import { Row } from '../../common/LayoutComponents';
-import { ValidationError } from '../../forms/common/ValidationErrorList';
 import { DateControl } from './DateControl';
 
 type TimeRangeControlProps = {

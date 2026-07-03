@@ -5,7 +5,7 @@ import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { ComboboxInputProps, SearchableDropdown } from '../../common/Dropdowns';
-import { DateRange } from '../common/DateRange';
+import { DateRange } from '../common';
 import { useChooseRouteDropdown } from './useChooseRouteDropdown';
 
 type ChooseRouteDropdownProps = Omit<ComboboxInputProps, 'onChange'> & {

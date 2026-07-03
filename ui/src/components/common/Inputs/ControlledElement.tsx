@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { FormInputProps } from '../../common';
+import { FormInputProps } from './FormInputTypes';
 import { InputElementDefaultProps } from './InputElement';
 
 // Note: this does not contain 'fieldPath'

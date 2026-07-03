@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { z } from 'zod';
 import { Row } from '../../common/LayoutComponents';
-import { RadioButton } from '../../forms/common/RadioButton';
+import { RadioButton } from './RadioButton';
 
 const testIds = {
   combineRadioButton: (prefix: string) => `${prefix}::combineRadioButton`,

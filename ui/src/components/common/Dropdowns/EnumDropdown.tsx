@@ -1,6 +1,6 @@
 import { ReactElement, Ref, forwardRef } from 'react';
 import { AllOptionEnum, NullOptionEnum } from '../../../utils';
-import { BaseFormInputProps } from '../FormInputTypes';
+import { BaseFormInputProps } from '../Inputs';
 import { JoreListbox } from './JoreListbox';
 import { ListboxOptionItem } from './JoreListboxOptions';
 

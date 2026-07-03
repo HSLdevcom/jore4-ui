@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapTerminalTypeToUiName } from '../../../../i18n/uiNameMappings';
-import { FormInputProps } from '../../../common';
 import { EnumDropdown } from '../../../common/Dropdowns';
+import { FormInputProps } from '../../../common/Inputs';
 import { TerminalType } from '../../types/TerminalType';
 
 type TerminalTypeDropdownProps = FormInputProps;

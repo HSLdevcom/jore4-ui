@@ -1,6 +1,6 @@
 import { Listbox } from '@headlessui/react';
 import { ReactElement, ReactNode, Ref, forwardRef } from 'react';
-import { TypedFormInputProps } from '../FormInputTypes';
+import { TypedFormInputProps } from '../Inputs';
 import { listboxStyles } from './headlessHelpers';
 import { JoreListboxButton } from './JoreListboxButton';
 import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';

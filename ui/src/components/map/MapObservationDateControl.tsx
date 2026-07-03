@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useAppSelector } from '../../hooks';
 import { selectHasChangesInProgress } from '../../redux';
-import { ObservationDateInput } from '../forms/common';
+import { ObservationDateInput } from '../common/Inputs';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 
 const testIds = {

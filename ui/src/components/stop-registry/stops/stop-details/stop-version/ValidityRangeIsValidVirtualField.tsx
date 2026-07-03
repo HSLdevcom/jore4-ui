@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
-import { ValidationErrorList } from '../../../../forms/common';
+import { ValidationErrorList } from '../../../../common/Inputs';
 import { ExistingStopValidityRange, StopVersionFormState } from './types';
 
 // ISO date strings can be compared as strings.

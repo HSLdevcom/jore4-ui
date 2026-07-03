@@ -5,12 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { EnumDropdown } from '../../../../common/Dropdowns';
+import { InputElement, InputField } from '../../../../common/Inputs';
 import { Column, Row } from '../../../../common/LayoutComponents';
-import {
-  FormActionButtons,
-  InputElement,
-  InputField,
-} from '../../../../forms/common';
+import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
 

@@ -3,8 +3,8 @@ import { DetailedHTMLProps, InputHTMLAttributes, ReactElement } from 'react';
 import { FieldPathByValue, FieldValues, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { TranslationKey } from '../../../i18n';
-import { BaseDateInput } from '../../common/BaseDateInput';
-import { Column } from '../../common/LayoutComponents';
+import { Column } from '../LayoutComponents';
+import { BaseDateInput } from './BaseDateInput';
 import { inputErrorStyles } from './InputElement';
 import { InputLabel } from './InputLabel';
 

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../time';
-import { InputField } from '../../../forms/common';
+import { InputField } from '../../../common/Inputs';
 import { LineTypeMultiSelectDropdown } from '../../../forms/timetables/LineTypeMultiSelectDropdown';
 import { SubstituteDayOfWeekDropdown } from '../../../forms/timetables/SubstituteDayOfWeekDropdown';
 import {
