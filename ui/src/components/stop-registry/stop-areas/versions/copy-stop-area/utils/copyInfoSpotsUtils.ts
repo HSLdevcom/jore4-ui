@@ -18,9 +18,8 @@ function mapQuayToInfoSpotInput(
     // No matching quay found in the copied quays, skip this quay
     return null;
   }
-
   const shelters = quay?.placeEquipments?.shelterEquipment;
-  const infoSpots = mapCompactOrNull(quay?.infoSpots, (infoSpot) => {
+  const infoSpots = mapCompactOrNull(quay?.infoSpots, (infoSpot, index) => {
     const originalShelter =
       shelters?.find(
         (shelter) =>
@@ -40,11 +39,11 @@ function mapQuayToInfoSpotInput(
     return {
       originalShelter,
       originalShelterIndex,
-      infoSpotInput: mapInfoSpotToInput(infoSpot),
+      infoSpotInput: mapInfoSpotToInput(infoSpot, index),
     };
   });
 
-  if (infoSpots === null) {
+  if (!infoSpots?.length) {
     return null;
   }
 

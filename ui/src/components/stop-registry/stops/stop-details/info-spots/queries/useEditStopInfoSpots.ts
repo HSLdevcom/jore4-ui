@@ -2,11 +2,17 @@ import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
   GetStopDetailsDocument,
+  InfoSpotDetailsFragment,
   StopRegistryInfoSpotInput,
   StopRegistryPosterInput,
   useUpdateInfoSpotMutation,
 } from '../../../../../../generated/graphql';
-import { NullOptionEnum, showDangerToast } from '../../../../../../utils';
+import {
+  KnownValueKey,
+  NullOptionEnum,
+  patchKeyValues,
+  showDangerToast,
+} from '../../../../../../utils';
 import { InfoSpotState, InfoSpotsFormState } from '../types';
 import { mapPurposeToString } from '../utils';
 
@@ -50,6 +56,8 @@ function mapPosterInput(
 
 function mapInfoSpotFormToInput(
   infoSpot: InfoSpotState,
+  index: number,
+  originalInfoSpot: InfoSpotDetailsFragment | undefined,
 ): StopRegistryInfoSpotInput {
   return {
     id: infoSpot.infoSpotId,
@@ -69,6 +77,9 @@ function mapInfoSpotFormToInput(
     railInformation: infoSpot.railInformation,
     speechProperty: infoSpot.speechProperty,
     zoneLabel: infoSpot.zoneLabel,
+    keyValues: patchKeyValues(originalInfoSpot ?? null, [
+      { key: KnownValueKey.SortOrder, values: [index.toString()] },
+    ]),
     poster: mapPosterInput(infoSpot.poster),
   };
 }
@@ -95,11 +106,21 @@ export const useEditStopInfoSpots = () => {
 
   const saveStopPlaceInfoSpots = async (params: {
     state: InfoSpotsFormState;
+    infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
   }) => {
+    const originalInfoSpotsById = new Map(
+      params.infoSpots.map((spot) => [spot.id, spot]),
+    );
+
     await updateInfoSpotMutation({
       variables: {
         input: handleDeletions(params.state.infoSpots).map(
-          mapInfoSpotFormToInput,
+          (infoSpot, index) => {
+            const originalInfoSpot = infoSpot.infoSpotId
+              ? originalInfoSpotsById.get(infoSpot.infoSpotId)
+              : undefined;
+            return mapInfoSpotFormToInput(infoSpot, index, originalInfoSpot);
+          },
         ),
       },
     });
