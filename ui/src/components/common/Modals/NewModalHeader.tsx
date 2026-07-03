@@ -1,5 +1,6 @@
 import { DialogTitle } from '@headlessui/react';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { CloseIconButton } from '../Buttons';
 import { Row } from '../LayoutComponents';
@@ -19,6 +20,8 @@ export const NewModalHeader: FC<NewModalHeaderProps> = ({
   heading,
   className,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Row
       className={twMerge(
@@ -27,7 +30,11 @@ export const NewModalHeader: FC<NewModalHeaderProps> = ({
       )}
     >
       <DialogTitle>{heading}</DialogTitle>
-      <CloseIconButton onClick={onClose} testId={testIds.closeButton} />
+      <CloseIconButton
+        ariaLabel={t(($) => $.close)}
+        onClick={onClose}
+        testId={testIds.closeButton}
+      />
     </Row>
   );
 };
