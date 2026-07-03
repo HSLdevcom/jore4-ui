@@ -92,6 +92,15 @@ export class InfoSpotFormFields {
   static getDeleteInfoSpotButton = () =>
     cy.getByTestId('InfoSpotFormFields::deleteInfoSpot');
 
+  static getMoveUpInfoSpotButton = () =>
+    cy.getByTestId('InfoSpotFormFields::moveUpInfoSpot');
+
+  static getMoveDownInfoSpotButton = () =>
+    cy.getByTestId('InfoSpotFormFields::moveDownInfoSpot');
+
+  static getPositionIndicator = () =>
+    cy.getByTestId('InfoSpotFormFields::positionIndicator');
+
   static getNoPostersLabel = () =>
     cy.getByTestId('InfoSpotFormFields::noPosters');
 }
