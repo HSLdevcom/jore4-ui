@@ -96,6 +96,7 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({
       }
       controls={infoContainerControls}
       title={title}
+      ariaLabel={title}
       inverted
       testIdPrefix="BasicDetailsSection"
     >

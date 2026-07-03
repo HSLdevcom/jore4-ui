@@ -116,6 +116,7 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
         ) : undefined
       }
       title={sectionTitle}
+      ariaLabel={sectionTitle}
       testIdPrefix="SheltersSection"
     >
       {isInEditMode ? (

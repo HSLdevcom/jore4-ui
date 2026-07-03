@@ -74,6 +74,10 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
     }
   }, [infoContainerControls.isExpanded]);
 
+  const title = isInEditMode
+    ? t(($) => $.terminalDetails.infoSpots.addTerminalInfoSpot)
+    : t(($) => $.terminalDetails.infoSpots.title);
+
   return (
     <InfoContainer
       colors={terminalInfoContainerColors}
@@ -85,11 +89,8 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
           testIdPrefix="TerminalInfoSpotsSection"
         />
       }
-      title={
-        isInEditMode
-          ? t(($) => $.terminalDetails.infoSpots.addTerminalInfoSpot)
-          : t(($) => $.terminalDetails.infoSpots.title)
-      }
+      title={title}
+      ariaLabel={title}
       testIdPrefix="TerminalInfoSpotsSection"
     >
       {isInEditMode ? (

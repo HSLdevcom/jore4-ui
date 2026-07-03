@@ -50,6 +50,7 @@ type InfoContainerProps = {
    */
   readonly controls: InfoContainerControls;
   readonly testIdPrefix?: string;
+  readonly ariaLabel?: string;
   /**
    * Title shown on the title bar.
    * String gets wrapped in a <h4>-tags.
@@ -79,6 +80,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   controls,
   headerButtons: HeaderButtons = DefaultHeaderButtons,
   testIdPrefix = '',
+  ariaLabel,
   title,
   bodyClassName,
   inverted,
@@ -115,6 +117,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
           <HeaderButtons
             controls={controls}
             testIdPrefix={testIdPrefix}
+            ariaLabel={ariaLabel}
             inverted={inverted}
           />
         ) : (
