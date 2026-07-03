@@ -73,7 +73,7 @@ export function mapGeoJsonToInput(
  */
 export function mapCompactOrNull<T, R>(
   array: ReadonlyArray<T | null | undefined> | null | undefined,
-  mapper: (item: T) => R | null,
+  mapper: (item: T, index: number) => R | null,
 ): Array<R> | null {
   if (!array) {
     return null;

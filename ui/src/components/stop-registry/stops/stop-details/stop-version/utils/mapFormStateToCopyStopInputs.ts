@@ -189,7 +189,7 @@ function mapInfoSpotsToInputs(
 ): ReadonlyArray<InfoSpotInputHelper> | null {
   const shelters = originalStop.quay?.placeEquipments?.shelterEquipment;
 
-  return mapCompactOrNull(originalStop.quay?.infoSpots, (infoSpot) => {
+  return mapCompactOrNull(originalStop.quay?.infoSpots, (infoSpot, index) => {
     const originalShelter =
       shelters?.find(
         (shelter) =>
@@ -209,7 +209,7 @@ function mapInfoSpotsToInputs(
     return {
       originalShelter,
       originalShelterIndex,
-      infoSpotInput: mapInfoSpotToInput(infoSpot),
+      infoSpotInput: mapInfoSpotToInput(infoSpot, index),
     };
   });
 }

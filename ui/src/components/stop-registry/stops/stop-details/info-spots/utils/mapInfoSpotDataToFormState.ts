@@ -1,5 +1,5 @@
 import compact from 'lodash/compact';
-import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { StopPlaceInfoSpots } from '../../../../../../types';
 import { normalizeZoneLabel } from '../../../../types/utils';
 import { InfoSpotState, ItemSizeState, SizedDbItem } from '../types';
 import { mapStringToPurpose } from './infoSpotPurposeUtils';
@@ -16,7 +16,7 @@ function determineItemSize({
 }
 
 export function mapInfoSpotDataToFormState(
-  infoSpot: InfoSpotDetailsFragment,
+  infoSpot: StopPlaceInfoSpots,
 ): InfoSpotState {
   return {
     infoSpotId: infoSpot.id ?? null,
@@ -42,6 +42,7 @@ export function mapInfoSpotDataToFormState(
       size: determineItemSize(poster),
       toBeDeletedPoster: false,
     })),
+    sortOrder: infoSpot.sortOrder ?? null,
     toBeDeleted: false,
   };
 }

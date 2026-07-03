@@ -77,7 +77,9 @@ export type QuayEnrichmentProperties = {
 };
 
 export type StopPlace = StopPlaceDetailsFragment;
-export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
+export type StopPlaceInfoSpots = InfoSpotDetailsFragment & {
+  readonly sortOrder?: number | null;
+};
 export type EnrichedStopPlace = Omit<StopPlace, 'name'> &
   SharedEnrichmentProperties;
 export type Quay = QuayDetailsFragment;
