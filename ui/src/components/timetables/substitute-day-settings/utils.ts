@@ -1,16 +1,16 @@
 import { DateTime, Duration } from 'luxon';
 import {
-  CommonSubstitutePeriodType,
-  PeriodType,
-} from '../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
-import {
   Maybe,
   RouteTypeOfLineEnum,
   TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput,
-} from '../generated/graphql';
-import { mapToISODate, parseDate } from '../time';
-import { SubstituteDayOfWeek } from '../types/enums';
-import { AllOptionEnum } from './enum';
+} from '../../../generated/graphql';
+import { mapToISODate, parseDate } from '../../../time';
+import { SubstituteDayOfWeek } from '../../../types/enums';
+import { AllOptionEnum } from '../../../utils';
+import {
+  CommonSubstitutePeriodType,
+  PeriodType,
+} from './OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
 const mapSubstituteDayOfWeekToNumber = (
   substituteDayOfWeek: SubstituteDayOfWeek,

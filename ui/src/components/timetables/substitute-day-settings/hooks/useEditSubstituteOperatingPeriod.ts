@@ -6,11 +6,11 @@ import {
   useEditSubstituteOperatingPeriodsMutation,
 } from '../../../../generated/graphql';
 import { MutationHook, extendHook } from '../../../../hooks';
-import { mapPeriodsToDayByLineTypes } from '../../../../utils';
 import {
   CommonSubstitutePeriodType,
   PeriodType,
 } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
+import { mapPeriodsToDayByLineTypes } from '../utils';
 
 // Hasura doesn't support updating nested objects in one mutation
 // https://hasura.io/docs/latest/mutations/postgres/update/

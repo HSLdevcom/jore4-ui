@@ -25,7 +25,6 @@ export * from './search';
 export * from './sort';
 export * from './stop-registry';
 export * from './stops';
-export * from './substituteOperatingPeriod';
 export * from './toastService';
 export * from './url';
 export * from './useViewState';
