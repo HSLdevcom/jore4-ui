@@ -15,17 +15,17 @@ import { useAppDispatch } from '../../../../hooks';
 import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
+import { submitFormByRef } from '../../../../utils';
+import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
+import { Row, Visible } from '../../../common/LayoutComponents';
+import { ConfirmationDialog } from '../../../common/Modals';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   generateLineTypes,
   mapDateTimeToFormState,
   mapLineTypes,
   parseSubstituteDayOfWeek,
-  submitFormByRef,
-} from '../../../../utils';
-import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
-import { Row, Visible } from '../../../common/LayoutComponents';
-import { ConfirmationDialog } from '../../../common/Modals';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
+} from '../utils';
 import {
   FormState,
   PeriodType,

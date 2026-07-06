@@ -4,11 +4,12 @@ import {
   useCreateSubstituteOperatingPeriodMutation,
 } from '../../../../generated/graphql';
 import { MutationHook, extendHook } from '../../../../hooks';
-import { mapPeriodsToDayByLineTypes, mapToData } from '../../../../utils';
+import { mapToData } from '../../../../utils';
 import {
   CommonSubstitutePeriodType,
   PeriodType,
 } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
+import { mapPeriodsToDayByLineTypes } from '../utils';
 
 const GQL_CREATE_SUBSTITUTE_OPERATING_PERIOD = gql`
   mutation CreateSubstituteOperatingPeriod(

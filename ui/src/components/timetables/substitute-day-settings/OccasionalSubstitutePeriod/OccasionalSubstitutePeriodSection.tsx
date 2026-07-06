@@ -6,10 +6,12 @@ import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../utils/toastService';
-import { useCreateSubstituteOperatingPeriod } from '../hooks/useCreateSubstituteOperatingPeriod';
-import { useDeleteSubstituteOperatingPeriod } from '../hooks/useDeleteSubstituteOperatingPeriod';
-import { useEditSubstituteOperatingPeriod } from '../hooks/useEditSubstituteOperatingPeriod';
-import { useGetOccasionalSubstituteOperatingPeriods } from '../hooks/useGetSubstituteOperatingPeriod';
+import {
+  useCreateSubstituteOperatingPeriod,
+  useDeleteSubstituteOperatingPeriod,
+  useEditSubstituteOperatingPeriod,
+  useGetOccasionalSubstituteOperatingPeriods,
+} from '../hooks';
 import {
   OccasionalSubstitutePeriodForm,
   findEarliestDate,

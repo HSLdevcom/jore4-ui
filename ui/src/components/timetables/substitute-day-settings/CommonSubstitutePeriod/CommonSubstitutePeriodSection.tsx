@@ -4,10 +4,12 @@ import { DateRange } from '../../../../types';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
 import { LoadingWrapper } from '../../../common/Loaders';
-import { useCreateSubstituteOperatingPeriod } from '../hooks/useCreateSubstituteOperatingPeriod';
-import { useDeleteSubstituteOperatingPeriod } from '../hooks/useDeleteSubstituteOperatingPeriod';
-import { useEditSubstituteOperatingPeriod } from '../hooks/useEditSubstituteOperatingPeriod';
-import { useGetCommonSubstituteOperatingPeriods } from '../hooks/useGetSubstituteOperatingPeriod';
+import {
+  useCreateSubstituteOperatingPeriod,
+  useDeleteSubstituteOperatingPeriod,
+  useEditSubstituteOperatingPeriod,
+  useGetCommonSubstituteOperatingPeriods,
+} from '../hooks';
 import { CommonSubstitutePeriodType } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 import {
   CommonSubstitutePeriodForm,
