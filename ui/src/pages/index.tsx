@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { UserProvider } from '../auth/UserProvider';
 import { AsyncTaskListProvider } from '../components/common/AsyncTaskList';
+import { CypressCoordinatesHelper } from '../components/common/Jore';
 import { Toaster } from '../components/common/Toast/Toaster';
 import { theme } from '../generated/theme';
 import { ApolloProvider } from '../graphql';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
 import { reactPlugin } from '../utils/applicationInsights';
-import { CypressCoordinatesHelper } from './CypressCoordinatesHelper';
 
 const enableCypressCoordinateHelper = false;
 
