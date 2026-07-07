@@ -19,7 +19,7 @@ export const AddNewButton: FC<AddNewButtonProps> = ({
   return (
     <TextAndIconButton
       className={twJoin(
-        'gap-4 font-bold text-brand hover:text-black',
+        'gap-1.5 font-bold text-brand hover:text-black',
         className,
       )}
       data-testid={testId}
