@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StopWithDetails } from '../../../../../types';
 import {
   mapStopRegistryGuidanceTypeToUiName,
   mapStopRegistryMapTypeToUiName,
   mapStopRegistryPedestrianCrossingRampTypeToUiName,
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
-} from '../../../../../i18n/uiNameMappings';
-import { StopWithDetails } from '../../../../../types';
+} from '../../../../../utils/i18n';
 import { DetailRow, LabeledDetail } from '../layout';
 import {
   extractRelevantAccessibilityAssessment,

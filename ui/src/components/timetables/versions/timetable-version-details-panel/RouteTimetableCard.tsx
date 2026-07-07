@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
-import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { RouteTimetableRowInfo } from '../../common/useVehicleScheduleFrameSchedules';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
 import { VehicleServiceRow } from '../../vehicle-schedule-details';

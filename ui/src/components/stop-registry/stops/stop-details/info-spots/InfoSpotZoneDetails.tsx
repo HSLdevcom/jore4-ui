@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
-import { mapZoneLabelToUiName } from '../../../../../i18n/uiNameMappings';
+import { mapZoneLabelToUiName } from '../../../../../utils/i18n';
 import { normalizeZoneLabel } from '../../../types/utils';
 import { DetailRow, LabeledDetail } from '../layout';
 

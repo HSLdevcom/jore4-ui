@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import { mapStopPlaceSignTypeToUiName } from '../../../../../../i18n/uiNameMappings';
 import { StopPlaceSignType } from '../../../../../../types/stop-registry';
+import { mapStopPlaceSignTypeToUiName } from '../../../../../../utils/i18n';
 import {
   ChangedValue,
   diffKeyedValues,

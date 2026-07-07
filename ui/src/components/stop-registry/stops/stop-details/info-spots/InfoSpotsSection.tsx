@@ -4,13 +4,13 @@ import {
   InfoSpotDetailsFragment,
   ShelterEquipmentDetailsFragment,
 } from '../../../../../generated/graphql';
-import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import {
   NullOptionEnum,
   showSuccessToast,
   submitFormByRef,
 } from '../../../../../utils';
+import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../utils/i18n';
 import { AddNewButton } from '../../../../common/Buttons';
 import {
   InfoContainer,

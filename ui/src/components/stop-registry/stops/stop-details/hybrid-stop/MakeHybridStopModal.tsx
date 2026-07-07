@@ -1,9 +1,9 @@
 import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { parseVehicleMode } from '../../../../../utils';
+import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../utils/i18n';
 import {
   showDangerToastWithError,
   showSuccessToast,

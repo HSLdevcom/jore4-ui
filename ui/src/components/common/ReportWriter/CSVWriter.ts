@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { TFunction } from 'i18next';
-import { Translatable, TranslationMapper } from '../../../i18n/uiNameMappings';
 import { DateLike, mapToShortDate } from '../../../time';
+import { Translatable, TranslationMapper } from '../../../utils/i18n';
 
 // Excel requires BOM to recognize the data as UTF-8, and not try
 // to interpret it as windows-1252 data.

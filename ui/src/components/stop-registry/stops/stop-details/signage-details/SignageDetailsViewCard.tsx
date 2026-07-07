@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
+import { mapStopPlaceSignTypeToUiName } from '../../../../../utils/i18n';
 import { DetailRow, LabeledDetail } from '../layout';
 import { optionalBooleanToUiText } from '../utils';
 

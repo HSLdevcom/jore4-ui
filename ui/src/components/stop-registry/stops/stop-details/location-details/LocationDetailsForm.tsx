@@ -3,8 +3,8 @@ import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StopRegistrySignContentType } from '../../../../../generated/graphql';
-import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { mapSignContentTypeToUiName } from '../../../../../utils/i18n';
 import { EnumDropdown } from '../../../../common/Dropdowns';
 import { InputField, InputLabel } from '../../../../common/Inputs';
 import {

@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { mapInfoSpotPurposeToUiName } from '../../../../../../i18n/uiNameMappings';
+import { mapInfoSpotPurposeToUiName } from '../../../../../../utils/i18n';
 import { InfoSpotPurposeState } from '../types';
 import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
 

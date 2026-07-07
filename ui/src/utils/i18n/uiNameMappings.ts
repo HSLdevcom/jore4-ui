@@ -1,7 +1,8 @@
 import { TFunction } from 'i18next';
-import { InfoSpotPurposeEnum } from '../components/stop-registry/stops/stop-details/info-spots/types';
-import { TerminalType } from '../components/stop-registry/types/TerminalType';
-import { ZoneLabel } from '../components/stop-registry/types/ZoneLabel';
+import { AllOptionEnum, NullOptionEnum } from '..';
+import { InfoSpotPurposeEnum } from '../../components/stop-registry/stops/stop-details/info-spots/types';
+import { TerminalType } from '../../components/stop-registry/types/TerminalType';
+import { ZoneLabel } from '../../components/stop-registry/types/ZoneLabel';
 import {
   HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
@@ -19,20 +20,19 @@ import {
   StopRegistrySignContentType,
   StopRegistryStopType,
   StopRegistryTransportModeType,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import {
   DayOfWeek,
   Priority,
   SubstituteDayOfWeek,
   TimetablePriority,
-} from '../types/enums';
+} from '../../types/enums';
 import {
   JoreStopRegistryTransportModeType,
   StopOwner,
   StopPlaceSignType,
   StopPlaceState,
-} from '../types/stop-registry';
-import { AllOptionEnum, NullOptionEnum } from '../utils';
+} from '../../types/stop-registry';
 
 class UnknownTranslationRequestedError extends Error {
   constructor(value: unknown) {

@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { HastusApiErrorType } from '../api/hastus';
+import { HastusApiErrorType } from '../../api/hastus';
 
 export const mapHastusErrorTypeToErrorMessage = (
   t: TFunction,

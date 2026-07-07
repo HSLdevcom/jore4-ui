@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { mapDurationToShortTime, mapToShortDate } from '../../../../time';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { VehicleJourneyInfo } from '../hooks';
 
 type VehicleJourneyRowProps = {

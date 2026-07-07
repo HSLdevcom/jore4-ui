@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { mapSignContentTypeToUiName } from '../../../../../utils/i18n';
 import { HorizontalSeparator } from '../../../../common/LayoutComponents';
 import { DetailRow, LabeledDetail } from '../layout';
 

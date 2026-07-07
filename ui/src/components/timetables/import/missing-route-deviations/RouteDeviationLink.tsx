@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router';
-import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { routeDetails } from '../../../../router/routeDetails';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 import { VehicleScheduleFrameInfo } from '../hooks';
 

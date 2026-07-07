@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useController } from 'react-hook-form';
 import { StopRegistryShelterElectricity } from '../../../../../../generated/graphql';
-import { mapStopRegistryShelterElectricityEnumToUiName } from '../../../../../../i18n/uiNameMappings';
 import { AllOptionEnum, NullOptionEnum } from '../../../../../../utils';
+import { mapStopRegistryShelterElectricityEnumToUiName } from '../../../../../../utils/i18n';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
 import { StopSearchFilters } from '../../../types';

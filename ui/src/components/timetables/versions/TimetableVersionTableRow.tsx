@@ -2,16 +2,16 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks';
 import {
-  mapDayOfWeekToUiName,
-  mapTimetablePriorityToUiName,
-} from '../../../i18n/uiNameMappings';
-import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
-import {
   openDeleteTimetableModalAction,
   openVersionPanelAction,
 } from '../../../redux';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
+import {
+  mapDayOfWeekToUiName,
+  mapTimetablePriorityToUiName,
+  useGetLocalizedTextFromDbBlob,
+} from '../../../utils/i18n';
 import { IconButton } from '../../common/Buttons';
 import {
   SimpleDropdownMenu,

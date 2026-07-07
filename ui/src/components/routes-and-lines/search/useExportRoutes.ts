@@ -8,14 +8,16 @@ import {
 } from '../../../api/hastus';
 import { RouteTableRowFragment } from '../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../hooks';
-import { mapHastusErrorTypeToErrorMessage } from '../../../i18n/hastusErrorMappings';
-import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Operation, openSingleErrorModalAction } from '../../../redux';
 import {
   downloadFile,
   extractJourneyPatternFirstStop,
   extractJourneyPatternLastStop,
 } from '../../../utils';
+import {
+  mapHastusErrorTypeToErrorMessage,
+  mapPriorityToUiName,
+} from '../../../utils/i18n';
 import { useLoader } from '../../common/hooks/useLoader';
 import { useSearchQueryParser } from './useSearchQueryParser';
 

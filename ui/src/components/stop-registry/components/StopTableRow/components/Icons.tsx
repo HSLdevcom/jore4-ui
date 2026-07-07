@@ -10,7 +10,7 @@ import {
   mapStopAccessibilityLevelToUiName,
   mapStopRegistryShelterElectricityEnumToUiName,
   mapStopRegistryShelterTypeEnumToUiName,
-} from '../../../../../i18n/uiNameMappings';
+} from '../../../../../utils/i18n';
 import { StopSearchRow } from '../types';
 
 const placeholderIcon = 'icon-placeholder-dot text-light-grey';

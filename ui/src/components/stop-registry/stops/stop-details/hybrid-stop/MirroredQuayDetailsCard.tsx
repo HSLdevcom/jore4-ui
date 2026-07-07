@@ -1,11 +1,11 @@
 import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfrastructureNetworkDirectionEnum } from '../../../../../generated/graphql';
-import { mapTransportModeToStopTypeName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { mapTransportModeToStopTypeName } from '../../../../../utils/i18n';
 import {
   InfoContainer,
   useInfoContainerControls,

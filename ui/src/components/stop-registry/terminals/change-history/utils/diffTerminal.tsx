@@ -5,7 +5,6 @@ import {
   StopRegistryNameType,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
-import { mapTerminalTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { mapToShortDate } from '../../../../../time';
 import {
   KnownValueKey,
@@ -13,6 +12,7 @@ import {
   findKeyValue,
   getGeometryPoint,
 } from '../../../../../utils';
+import { mapTerminalTypeToUiName } from '../../../../../utils/i18n';
 import {
   ChangedValue,
   StopsList,

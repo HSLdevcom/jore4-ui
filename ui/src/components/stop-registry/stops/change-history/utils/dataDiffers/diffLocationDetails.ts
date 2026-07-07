@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import { mapSignContentTypeToUiName } from '../../../../../../i18n/uiNameMappings';
 import { getGeometryPoint } from '../../../../../../utils';
+import { mapSignContentTypeToUiName } from '../../../../../../utils/i18n';
 import {
   ChangedValue,
   diffKeyedValues,

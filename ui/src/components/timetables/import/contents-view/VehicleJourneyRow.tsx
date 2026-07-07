@@ -3,9 +3,9 @@ import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
-import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { mapDurationToShortTime } from '../../../../time';
 import { getRouteLabelVariantText } from '../../../../utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { Row } from '../../../common/LayoutComponents';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 

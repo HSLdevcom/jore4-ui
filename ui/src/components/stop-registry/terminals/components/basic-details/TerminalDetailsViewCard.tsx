@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapTerminalTypeToUiName } from '../../../../../i18n/uiNameMappings';
+import { mapTerminalTypeToUiName } from '../../../../../utils/i18n';
 import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { parseTerminalType } from '../../../utils';

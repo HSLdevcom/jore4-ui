@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
-} from '../../../../../i18n/uiNameMappings';
+} from '../../../../../utils/i18n';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails } from '../types';
 import { dynamicSection, writeHeaderArray } from './utils';
