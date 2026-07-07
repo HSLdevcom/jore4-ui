@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StopWithDetails } from '../../../../../types';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
-} from '../../../../../i18n/uiNameMappings';
-import { StopWithDetails } from '../../../../../types';
+} from '../../../../../utils/i18n';
 import { useGetTimingPlaceLabel } from '../../queries/useGetTimingPlaceLabel';
 import { DetailRow, LabeledDetail } from '../layout';
 import { translateStopTypes } from '../utils';

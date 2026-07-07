@@ -2,9 +2,9 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { MdHistory } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
-import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { Column, Row } from '../../../common/LayoutComponents';
 import { getTimetableHeadingBgColor } from '../../vehicle-schedule-details';
 

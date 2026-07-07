@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
-import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { getPointPosition } from '../../../../../utils';
+import { mapSignContentTypeToUiName } from '../../../../../utils/i18n';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';

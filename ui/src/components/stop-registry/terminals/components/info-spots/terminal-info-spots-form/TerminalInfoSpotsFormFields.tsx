@@ -5,11 +5,11 @@ import {
   InfoSpotDetailsFragment,
   StopRegistryIntendedUser,
 } from '../../../../../../generated/graphql';
+import { EnrichedParentStopPlace } from '../../../../../../types';
 import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
-} from '../../../../../../i18n/uiNameMappings';
-import { EnrichedParentStopPlace } from '../../../../../../types';
+} from '../../../../../../utils/i18n';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import {
   EnumDropdown,

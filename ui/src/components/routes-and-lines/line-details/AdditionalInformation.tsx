@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import {
   mapLineTypeToUiName,
   mapTransportTargetToUiName,
   mapVehicleModeToUiName,
-} from '../../../i18n/uiNameMappings';
-import { Path, routeDetails } from '../../../router/routeDetails';
+} from '../../../utils/i18n';
 import { SimpleButton } from '../../common/Buttons';
 import { Column, Row } from '../../common/LayoutComponents';
 import { FieldValue } from './FieldValue';

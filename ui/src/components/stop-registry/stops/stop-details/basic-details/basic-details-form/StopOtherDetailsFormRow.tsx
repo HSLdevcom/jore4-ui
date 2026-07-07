@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n/uiNameMappings';
 import { JoreStopRegistryTransportModeType } from '../../../../../../types/stop-registry';
+import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../utils/i18n';
 import { SimpleButton } from '../../../../../common/Buttons';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
 import { InputField } from '../../../../../common/Inputs';

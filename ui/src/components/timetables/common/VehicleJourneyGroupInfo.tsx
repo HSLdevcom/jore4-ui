@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
-import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
+import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { IconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 

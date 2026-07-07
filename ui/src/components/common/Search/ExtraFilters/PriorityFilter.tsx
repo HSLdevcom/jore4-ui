@@ -3,8 +3,8 @@ import { ReactElement } from 'react';
 import { FieldValues, Path, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../i18n';
-import { mapPriorityToUiName } from '../../../../i18n/uiNameMappings';
 import { Priority, knownPriorityValues } from '../../../../types/enums';
+import { mapPriorityToUiName } from '../../../../utils/i18n';
 import { InputLabel, LabeledCheckbox } from '../../Inputs';
 import { Column, Row } from '../../LayoutComponents';
 

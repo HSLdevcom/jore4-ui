@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useController } from 'react-hook-form';
-import { mapStopOwnerToUiName } from '../../../../../../i18n/uiNameMappings';
 import { StopOwner } from '../../../../../../types/stop-registry';
 import { AllOptionEnum } from '../../../../../../utils';
+import { mapStopOwnerToUiName } from '../../../../../../utils/i18n';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
 import { StopSearchFilters } from '../../../types';

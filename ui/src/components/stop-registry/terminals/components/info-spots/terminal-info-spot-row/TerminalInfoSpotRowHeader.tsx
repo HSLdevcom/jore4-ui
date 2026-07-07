@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapIntendedUserToUiName } from '../../../../../../i18n/uiNameMappings';
 import { NullOptionEnum } from '../../../../../../utils';
+import { mapIntendedUserToUiName } from '../../../../../../utils/i18n';
 import {
   AccordionButton,
   CloseIconButton,

@@ -5,7 +5,7 @@ import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
-import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { AccordionButton } from '../../../common/Buttons';
 import { useToggle } from '../../../common/hooks';
 import { Row, Visible } from '../../../common/LayoutComponents';

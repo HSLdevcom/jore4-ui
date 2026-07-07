@@ -9,8 +9,6 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { makeBackNavigationIsSafeState } from '../../../hooks';
-import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
-import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
   MAX_DATE,
@@ -18,6 +16,10 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../time';
+import {
+  mapDirectionToSymbol,
+  useGetLocalizedTextFromDbBlob,
+} from '../../../utils/i18n';
 import {
   AccordionButton,
   EditButton,

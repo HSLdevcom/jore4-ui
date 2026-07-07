@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { extractErrorType, getImportErrorBody } from '../../../api/hastus';
 import { useAppSelector } from '../../../hooks';
-import { mapHastusErrorTypeToErrorMessage } from '../../../i18n/hastusErrorMappings';
 import {
   ErrorListItem,
   openErrorListModalAction,
@@ -12,6 +11,7 @@ import {
 } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { mapHastusErrorTypeToErrorMessage } from '../../../utils/i18n';
 import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { PageTitle } from '../../common/Jore';
 import { Container, FormRow, Row } from '../../common/LayoutComponents';

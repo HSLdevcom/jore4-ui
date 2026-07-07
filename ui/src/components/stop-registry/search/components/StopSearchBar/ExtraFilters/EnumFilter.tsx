@@ -1,8 +1,8 @@
 import without from 'lodash/without';
 import { FocusEventHandler, ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TranslationMapper } from '../../../../../../i18n/uiNameMappings';
 import { AllOptionEnum, NullOptionEnum } from '../../../../../../utils';
+import { TranslationMapper } from '../../../../../../utils/i18n';
 import { MultiselectDropdownFilter } from './MultiselectDropdownFilter';
 import {
   AugmentedOnChangeHandlerMetaData,

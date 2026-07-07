@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { NullOptionEnum } from '../../../../../utils';
 import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
-} from '../../../../../i18n/uiNameMappings';
-import { NullOptionEnum } from '../../../../../utils';
+} from '../../../../../utils/i18n';
 import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
 import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';

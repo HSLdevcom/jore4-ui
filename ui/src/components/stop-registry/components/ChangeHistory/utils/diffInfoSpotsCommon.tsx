@@ -2,12 +2,12 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { ReactNode } from 'react';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import { StopPlaceInfoSpots } from '../../../../../types';
+import { getGeometryPoint } from '../../../../../utils';
 import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
-} from '../../../../../i18n/uiNameMappings';
-import { StopPlaceInfoSpots } from '../../../../../types';
-import { getGeometryPoint } from '../../../../../utils';
+} from '../../../../../utils/i18n';
 import {
   ChangedValue,
   EmptyCell,

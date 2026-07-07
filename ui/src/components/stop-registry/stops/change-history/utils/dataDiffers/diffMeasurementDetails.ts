@@ -6,7 +6,7 @@ import {
   mapStopRegistryPedestrianCrossingRampTypeToUiName,
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
-} from '../../../../../../i18n/uiNameMappings';
+} from '../../../../../../utils/i18n';
 import {
   ChangedValue,
   diffKeyedValues,

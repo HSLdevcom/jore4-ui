@@ -6,7 +6,7 @@ import {
   mapStopRegistryShelterConditionEnumToUiName,
   mapStopRegistryShelterElectricityEnumToUiName,
   mapStopRegistryShelterTypeEnumToUiName,
-} from '../../../../../i18n/uiNameMappings';
+} from '../../../../../utils/i18n';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import {
   EnrichedStopDetails,

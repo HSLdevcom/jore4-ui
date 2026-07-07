@@ -1,12 +1,12 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
+import { mapToShortDate } from '../../../../time';
 import {
   mapLineTypeToUiName,
   mapPriorityToUiName,
   mapTransportTargetToUiName,
   mapVehicleModeToUiName,
-} from '../../../../i18n/uiNameMappings';
-import { mapToShortDate } from '../../../../time';
+} from '../../../../utils/i18n';
 import { ChangedValue, diffKeyedValues } from '../../../common/ChangeHistory';
 import { LineData } from '../types';
 

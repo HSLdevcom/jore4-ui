@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
-import { mapIntendedUserToUiName } from '../../../../../i18n/uiNameMappings';
 import { Point } from '../../../../../types';
 import { NullOptionEnum } from '../../../../../utils';
+import { mapIntendedUserToUiName } from '../../../../../utils/i18n';
 import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
 import { DetailRow, LabeledDetail } from '../layout';
 import { InfoSpotDetails } from './InfoSpotDetails';

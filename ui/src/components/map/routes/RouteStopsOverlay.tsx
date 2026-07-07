@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { RouteDirectionEnum } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import {
   selectHasChangesInProgress,
   selectMapRouteEditor,
@@ -16,6 +15,7 @@ import {
   mapVehicleModeToRouteColor,
   vehicleModeIconMapping,
 } from '../../../utils';
+import { mapDirectionToSymbol } from '../../../utils/i18n';
 import { EditButton } from '../../common/Buttons';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { RouteLabel } from '../../routes-and-lines/common/RouteLabel';

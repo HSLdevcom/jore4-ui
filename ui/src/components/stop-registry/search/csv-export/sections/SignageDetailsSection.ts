@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
-import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
+import { mapStopPlaceSignTypeToUiName } from '../../../../../utils/i18n';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';

@@ -4,7 +4,7 @@ import compact from 'lodash/compact';
 import noop from 'lodash/noop';
 import { FC } from 'react';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../../generated/graphql';
-import { mapStopOwnerToUiName } from '../../../../../../i18n/uiNameMappings';
+import { mapStopOwnerToUiName } from '../../../../../../utils/i18n';
 import { CloseIconButton } from '../../../../../common/Buttons';
 import {
   ChangedValue,

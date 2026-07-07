@@ -5,7 +5,7 @@ import { RouteDirectionEnum } from '../../../generated/graphql';
 import {
   mapDirectionToSymbol,
   mapDirectionToUiName,
-} from '../../../i18n/uiNameMappings';
+} from '../../../utils/i18n';
 
 const testIds = {
   container: 'DirectionBadge',
