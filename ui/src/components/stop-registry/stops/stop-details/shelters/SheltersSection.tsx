@@ -131,7 +131,11 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
           addNewButton={
             <AddNewButton
               onClick={handleAddNewShelter}
-              label={t(($) => $.stopDetails.shelters.addNewShelter)}
+              label={
+                <span className="text-hsl-dark-80">
+                  {t(($) => $.stopDetails.shelters.addNewShelter)}
+                </span>
+              }
               testId={testIds.addShelter}
             />
           }
