@@ -175,7 +175,11 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           addNewButton={
             <AddNewButton
               onClick={handleAddNewInfoSpot}
-              label={t(($) => $.stopDetails.infoSpots.addInfoSpot)}
+              label={
+                <span className="text-hsl-dark-80">
+                  {t(($) => $.stopDetails.infoSpots.addInfoSpot)}
+                </span>
+              }
               testId={testIds.addInfoSpot}
             />
           }
