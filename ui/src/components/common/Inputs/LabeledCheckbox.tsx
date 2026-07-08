@@ -1,4 +1,5 @@
 import { FocusEventHandler, ForwardRefRenderFunction, forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 import {
   LabeledContainer,
   labeledContainerInputStyles,
@@ -6,7 +7,7 @@ import {
 
 type LabeledCheckboxProps = {
   readonly label: string;
-  readonly onBlur?: FocusEventHandler<HTMLButtonElement> | undefined;
+  readonly onBlur?: FocusEventHandler<HTMLInputElement> | undefined;
   readonly onClick: () => void;
   readonly className?: string;
   readonly tooltip?: string;
@@ -39,10 +40,7 @@ const LabeledCheckboxImpl: ForwardRefRenderFunction<
 ) => {
   return (
     <LabeledContainer
-      onBlur={onBlur}
-      onClick={onClick}
       label={label}
-      role="checkbox"
       tooltip={tooltip}
       className={className}
       disabledTooltip={disabledTooltip}
@@ -52,18 +50,19 @@ const LabeledCheckboxImpl: ForwardRefRenderFunction<
     >
       <input
         id={id}
-        tabIndex={-1} // Focus the button instead.
         data-testid={testId}
-        className={`icon-check appearance-none text-[18px] ${
+        className={twMerge(
+          'icon-check appearance-none text-[18px]',
+          'focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-solid',
           selected
             ? labeledContainerInputStyles.selected
-            : labeledContainerInputStyles.unselected
-        } `}
+            : labeledContainerInputStyles.unselected,
+        )}
         type="checkbox"
         onChange={onClick}
+        onBlur={onBlur}
         checked={selected}
         disabled={disabled}
-        aria-hidden
         ref={ref}
       />
     </LabeledContainer>

@@ -1,11 +1,8 @@
-import { FC, FocusEventHandler, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type LabeledContainerProps = {
   readonly label: string;
-  readonly onBlur?: FocusEventHandler<HTMLButtonElement> | undefined;
-  readonly onClick: () => void;
-  readonly role: string;
   readonly className?: string;
   readonly tooltip?: string;
   readonly selected?: boolean;
@@ -31,9 +28,6 @@ export const labeledContainerInputStyles = {
 
 export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
   label,
-  onBlur,
-  onClick,
-  role,
   className,
   tooltip,
   selected,
@@ -64,27 +58,19 @@ export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
       : `${containerThinBorders} ${containerThickBordersHover}`;
 
   return (
-    // Using button instead of label because button can have focus and label can't.
-    // With label we would have to rely on the input's focus, and some styling wouldn't be possible,
-    // eg. styling the label based on input:focus-visible.
-    <button
-      type="button"
+    <label
       className={twMerge(
-        'group inline-flex items-center gap-2 rounded-[5px] border-solid text-sm font-bold select-none focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-solid disabled:cursor-not-allowed disabled:opacity-70',
+        'group inline-flex items-center gap-2 rounded-[5px] border-solid text-sm font-bold select-none',
         containerStyleSelectedStatus,
         containerStyleErrorStatus,
         containerBorderSizeStyles,
+        disabled ? 'cursor-not-allowed opacity-70' : 'cursor-pointer',
         className,
       )}
-      onBlur={onBlur}
-      onClick={onClick}
-      role={role}
-      aria-checked={selected}
-      disabled={disabled}
       title={disabled ? disabledTooltip : tooltip}
     >
       {children}
       <span>{label}</span>
-    </button>
+    </label>
   );
 };
