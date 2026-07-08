@@ -22,6 +22,7 @@ module.exports = {
         stop: colors.stop,
         background: {
           DEFAULT: colors.background.grey,
+          'hover-grey': colors.background.hoverGrey,
           'hsl-blue': colors.background.hslBlue,
           'hsl-city-bike-yellow': colors.background.hslCityBikeYellow,
           'hsl-commuter-train-purple': colors.background.hslCommuterTrainPurple,
