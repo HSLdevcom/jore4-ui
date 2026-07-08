@@ -7,6 +7,7 @@ export const theme = {
     stop: "#004B7B",
     background: {
       grey: "#F2F5F7",
+      hoverGrey: "#D9D9D9",
       hslBlue: "#BFDEF1",
       hslCityBikeYellow: "#FFF3BF",
       hslCommuterTrainPurple: "#E2D1E5",
