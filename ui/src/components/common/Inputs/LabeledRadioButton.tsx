@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { twMerge } from 'tailwind-merge';
 import {
   LabeledContainer,
   labeledContainerInputStyles,
@@ -35,9 +36,7 @@ export const LabeledRadioButton: FC<LabeledRadioButtonProps> = ({
 }) => {
   return (
     <LabeledContainer
-      onClick={onClick}
       label={label}
-      role="radio"
       tooltip={tooltip}
       className={className}
       disabledTooltip={disabledTooltip}
@@ -50,17 +49,19 @@ export const LabeledRadioButton: FC<LabeledRadioButtonProps> = ({
         name={fieldPath}
         type="radio"
         value={value}
-        tabIndex={-1} // Focus the button instead.
         data-testid={testId}
-        className={`appearance-none rounded-full before:h-[14px] before:w-[14px] before:rounded-full before:bg-tweaked-brand [.has-error>&]:before:bg-hsl-red ${
+        className={twMerge(
+          'appearance-none rounded-full',
+          'before:h-3.5 before:w-3.5 before:rounded-full before:bg-tweaked-brand',
+          'focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-solid',
+          '[.has-error>&]:before:bg-hsl-red',
           selected
             ? labeledContainerInputStyles.selected
-            : labeledContainerInputStyles.unselected
-        }`}
+            : labeledContainerInputStyles.unselected,
+        )}
         onChange={onClick}
         checked={selected}
         disabled={disabled}
-        aria-hidden
       />
     </LabeledContainer>
   );
