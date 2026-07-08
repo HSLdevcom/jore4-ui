@@ -31,8 +31,8 @@ export const EditCloseButton: FC<EditCloseButtonProps> = ({
       <Visible visible={!showEdit}>
         <IconButton
           tooltip={titleClose}
-          className="text-base font-bold text-brand"
-          icon={<MdClose aria-hidden />}
+          className="inline-flex h-7.5 w-7.5 items-center justify-center rounded-full text-brand hover:bg-background-hover-grey"
+          icon={<MdClose size={18} aria-hidden />}
           onClick={onClose}
           testId={testId}
         />
@@ -40,8 +40,8 @@ export const EditCloseButton: FC<EditCloseButtonProps> = ({
       <Visible visible={showEdit}>
         <IconButton
           tooltip={titleEdit}
-          className="text-base font-bold text-brand"
-          icon={<MdEdit aria-hidden />}
+          className="inline-flex h-7.5 w-7.5 items-center justify-center rounded-full text-brand hover:bg-background-hover-grey"
+          icon={<MdEdit size={18} aria-hidden />}
           onClick={onEdit}
           testId={testId}
         />
