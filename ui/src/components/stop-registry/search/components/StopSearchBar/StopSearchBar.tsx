@@ -56,7 +56,6 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
           id={extraFiltersId}
           notForStops={notForStops}
           searchIsExpanded={searchIsExpanded}
-          toggleExpanded={toggleSearchIsExpanded}
         />
       </form>
     </FormProvider>

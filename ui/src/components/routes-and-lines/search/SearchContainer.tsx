@@ -123,7 +123,6 @@ export const SearchContainer: FC<SearchContainerProps> = ({
           </div>
           <ExpandedSearchButtons
             testIdPrefix="SearchContainer"
-            toggleExpand={toggleExpand}
             searchButtonType="submit"
           />
         </Visible>

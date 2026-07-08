@@ -4,13 +4,11 @@ import { SimpleButton } from '../Buttons';
 import { Row } from '../LayoutComponents';
 
 const testIds = {
-  hideButton: (prefix: string) => `${prefix}::hideButton`,
   searchButton: (prefix: string) => `${prefix}::expandedSearchButton`,
 };
 
 type ExpandedSearchButtonsProps = {
   readonly testIdPrefix: string;
-  readonly toggleExpand: () => void;
 } & (
   | {
       readonly searchButtonType: 'button';
@@ -26,20 +24,11 @@ export const ExpandedSearchButtons: FC<ExpandedSearchButtonsProps> = ({
   testIdPrefix,
   searchButtonType,
   onSearch,
-  toggleExpand,
 }) => {
   const { t } = useTranslation();
 
   return (
     <Row className="justify-end gap-4 bg-background px-10 py-4">
-      <SimpleButton
-        className="w-32"
-        inverted
-        testId={testIds.hideButton(testIdPrefix)}
-        onClick={toggleExpand}
-      >
-        {t(($) => $.hide)}
-      </SimpleButton>
       <SimpleButton
         className="w-32"
         type={searchButtonType}

@@ -12,7 +12,6 @@ type ExtraFiltersProps = {
   readonly id: string;
   readonly notForStops: boolean;
   readonly searchIsExpanded: boolean;
-  readonly toggleExpanded: () => void;
 };
 
 export const ExtraFilters: FC<ExtraFiltersProps> = ({
@@ -20,7 +19,6 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
   id,
   notForStops,
   searchIsExpanded,
-  toggleExpanded,
 }) => {
   const { t } = useTranslation();
 
@@ -50,7 +48,6 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
       <ExpandedSearchButtons
         testIdPrefix={stopSearchBarTestIds.prefix}
         searchButtonType="submit"
-        toggleExpand={toggleExpanded}
         onSearch={undefined}
       />
     </Visible>
