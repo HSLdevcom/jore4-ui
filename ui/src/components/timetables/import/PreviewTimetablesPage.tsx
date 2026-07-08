@@ -122,7 +122,6 @@ export const PreviewTimetablesPage: FC = () => {
             <label
               htmlFor="timetablesPreviewToggle"
               className="my-0 cursor-pointer text-base"
-              aria-hidden
             >
               {showStagingTimetables
                 ? t(($) => $.timetablesPreview.closeContent)
