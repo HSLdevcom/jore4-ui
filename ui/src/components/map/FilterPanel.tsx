@@ -92,7 +92,8 @@ export const FilterPanel: FC<FilterPanelProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
-  const headingClassName = 'text-sm font-bold';
+  // Legend has bottom margin by default so it needs to be removed with mb-0
+  const headingClassName = 'text-sm font-bold float-left mb-0';
   const dispatch = useAppDispatch();
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
   const isInSearchResultMode = useIsInSearchResultMode();
@@ -112,15 +113,19 @@ export const FilterPanel: FC<FilterPanelProps> = ({
         <>
           <MapObservationDateControl />
 
-          <div className="flex items-center gap-4 rounded-md border border-grey p-2">
-            <h6 className={headingClassName}>{t(($) => $.map.showStops)}</h6>
+          <fieldset className="flex items-center gap-4 rounded-md border border-grey p-2">
+            <legend className={`${headingClassName}`}>
+              {t(($) => $.map.showStops)}
+            </legend>
             <ToggleRow toggles={stops} />
-          </div>
+          </fieldset>
 
-          <div className="flex items-center gap-4 rounded-md border border-grey p-2">
-            <h6 className={headingClassName}>{t(($) => $.map.showRoutes)}</h6>
+          <fieldset className="flex items-center gap-4 rounded-md border border-grey p-2">
+            <legend className={`${headingClassName}`}>
+              {t(($) => $.map.showRoutes)}
+            </legend>
             <ToggleRow toggles={routes} />
-          </div>
+          </fieldset>
 
           <IconButton
             tooltip={t(($) => $.accessibility.map.showFilters)}
