@@ -47,6 +47,8 @@
     "showOwnLines": "Näytä vain omat linjat",
     "showLimit": "Näytä",
     "showAll": "Näytä kaikki",
+    "showLimitOption": "Näytä {{count}} reittiä",
+    "showLimitOptionActive": "{{count}} reittiä näytetään",
     "showUnusedStops": "Näytä reittiin kuulumattomat pysäkit",
     "useTemplateRoute": "Käytä pohjareittiä",
     "searchTemplate": "Hae pohjareitti",

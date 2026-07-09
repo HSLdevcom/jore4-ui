@@ -44,6 +44,16 @@ export const ListHeader: FC<ListHeaderProps> = ({
               active={limit === item}
               onClick={() => onLimitChange(item)}
               className="mx-1"
+              ariaLabel={
+                limit === item
+                  ? t(($) => $.routes.showLimitOptionActive, { count: item })
+                  : t(($) => $.routes.showLimitOption, { count: item })
+              }
+              title={
+                limit === item
+                  ? t(($) => $.routes.showLimitOptionActive, { count: item })
+                  : t(($) => $.routes.showLimitOption, { count: item })
+              }
             >
               {item}
             </TextButton>
