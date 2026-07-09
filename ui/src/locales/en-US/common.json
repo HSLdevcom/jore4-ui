@@ -47,6 +47,8 @@
     "showOwnLines": "Only show own lines",
     "showLimit": "Limit",
     "showAll": "Show all",
+    "showLimitOption": "Show {{count}} routes",
+    "showLimitOptionActive": "{{count}} routes are showing",
     "showUnusedStops": "Show unused stops",
     "useTemplateRoute": "Use template route",
     "searchTemplate": "Search for template route",
