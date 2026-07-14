@@ -1933,6 +1933,58 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         .forEach((row) => row.within(stopShouldNotBeSelected));
     });
 
+    it('Should update selected count when selection changes', () => {
+      setupTestsAndNavigateToPage({ pageSize: 100 });
+
+      const totalStops = Object.values(testStops.tagToPublicCode).length;
+
+      function shouldShowSelectedCount(count: number) {
+        StopSearchResultsPage.getContainer()
+          .contains(`${count} valittu`)
+          .shouldBeVisible();
+      }
+
+      // Find some stops
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.shelters.openDropdown();
+      StopSearchBar.shelters.toggleOption(StopRegistryShelterType.Urban);
+      StopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+      cy.closeDropdown();
+
+      StopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      // Default state: ALL_SELECTED.
+      shouldShowSelectedCount(totalStops);
+
+      // Unselect one row
+      unselectedSelectedRow(testStops.tagToPublicCode.postEspoo);
+      shouldShowSelectedCount(totalStops - 1);
+
+      // From partial selection, select-all toggles to ALL_SELECTED.
+      StopSearchResultsPage.getSelectAllButton().click().and('be.checked');
+      shouldShowSelectedCount(totalStops);
+
+      // Toggle again -> NONE_SELECTED.
+      StopSearchResultsPage.getSelectAllButton().click().and('not.be.checked');
+      shouldShowSelectedCount(0);
+
+      // From NONE_SELECTED, select two rows.
+      selectUnselectedRow(testStops.tagToPublicCode.postEspoo);
+      selectUnselectedRow(testStops.tagToPublicCode.postVantaa);
+
+      shouldShowSelectedCount(2);
+      StopSearchResultsPage.getSelectAllButton()
+        .shouldBeVisible()
+        .and('not.be.checked');
+      StopSearchResultsPage.getRowByLabel(
+        testStops.tagToPublicCode.postEspoo,
+      ).within(stopShouldBeSelected);
+      StopSearchResultsPage.getRowByLabel(
+        testStops.tagToPublicCode.postVantaa,
+      ).within(stopShouldBeSelected);
+    });
+
     it('Should handle partial selections of Stop Areas', () => {
       setupTestsAndNavigateToPage({});
 
