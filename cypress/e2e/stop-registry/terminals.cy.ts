@@ -1078,24 +1078,6 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
         TerminalInfoSpotsSection.getAddNewButton().click();
 
-        TerminalInfoSpotsSection.form.formFields
-          .getLabel()
-          .clearAndType('E2E_INFO_002');
-        TerminalInfoSpotsSection.form.formFields
-          .getIntendedUserButton()
-          .click();
-        TerminalInfoSpotsSection.form.formFields
-          .getIntendedUserOptions()
-          .contains('Matkatieto')
-          .click();
-        TerminalInfoSpotsSection.form.formFields
-          .getSizeSelectorButton()
-          .click();
-        TerminalInfoSpotsSection.form.formFields
-          .getSizeSelectorOptions()
-          .contains('80 × 120 cm')
-          .click();
-
         TerminalInfoSpotsSection.form.formFields.getBacklightButton().click();
         TerminalInfoSpotsSection.form.formFields
           .getBacklightOptions()
@@ -1130,20 +1112,9 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
           .getDescription()
           .clearAndType('Toinen terminaalin infopiste');
 
-        TerminalInfoSpotsSection.form.formFields.getAddPosterButton().click();
         TerminalInfoSpotsSection.form.formFields
           .getNthPosterContainer(0)
           .within(() => {
-            TerminalInfoSpotsSection.form.formFields
-              .getSizeSelectorButton()
-              .click();
-            cy.withinHeadlessPortal(() =>
-              TerminalInfoSpotsSection.form.formFields
-                .getSizeSelectorOptions()
-                .contains('80 × 120 cm')
-                .click(),
-            );
-
             TerminalInfoSpotsSection.form.formFields.getPurposeButton().click();
             cy.withinHeadlessPortal(() =>
               TerminalInfoSpotsSection.form.formFields
@@ -1164,15 +1135,13 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotRow.getNthDetailsRow(1).shouldBeVisible();
         TerminalInfoSpotRow.getNthDetailsRow(1).within(() => {
           TerminalInfoSpotRow.getIdAndQuayCell().shouldHaveText(
-            'Infopaikka E2E_INFO_002',
+            'Infopaikka T2_1',
           );
         });
 
         TerminalInfoSpotsViewCard.getContainer().shouldBeVisible();
-        TerminalInfoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_002');
-        TerminalInfoSpotsViewCard.getIntendedUser().shouldHaveText(
-          'Matkatieto',
-        );
+        TerminalInfoSpotsViewCard.getLabel().shouldHaveText('T2_1');
+        TerminalInfoSpotsViewCard.getIntendedUser().shouldHaveText('Muu');
         TerminalInfoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
         TerminalInfoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
         TerminalInfoSpotsViewCard.getFloor().shouldHaveText('1');
