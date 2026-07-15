@@ -2279,7 +2279,13 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
           );
           infoSpot.getRailInformation().clearAndType('1');
           infoSpot.getFloor().clearAndType('3');
-          infoSpot.getNoPostersLabel().shouldHaveText('Ei infotuotetta');
+
+          // Mark the initial default poster for deletion
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getDeletePosterButton().shouldHaveText('Poista infotuote');
+            infoSpot.getDeletePosterButton().click();
+            infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
+          });
         });
 
         StopDetailsPage.infoSpots.getAddNewInfoSpotButton().click();
@@ -2303,7 +2309,6 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
             infoSpot.getBacklightOptions().contains('Kyllä').click(),
           );
           infoSpot.getDescription().clearAndType('Staattisen kuvaus');
-          infoSpot.getAddPosterButton().click();
           infoSpot.getNthPosterContainer(0).within(() => {
             infoSpot.getPurposeButton().click();
             cy.withinHeadlessPortal(() =>
