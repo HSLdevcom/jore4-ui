@@ -25,7 +25,11 @@ import {
 import { InfoSpotsViewList } from './InfoSpotsViewList';
 import { useEditStopInfoSpots } from './queries';
 import { InfoSpotsFormState } from './types';
-import { mapInfoSpotDataToFormState } from './utils';
+import {
+  defaultInfoSpotValues,
+  getInfoSpotLabel,
+  mapInfoSpotDataToFormState,
+} from './utils';
 
 const testIds = {
   addInfoSpot: 'InfoSpotsSection::addInfoSpot',
@@ -53,8 +57,16 @@ export const useInfoSpotFormDefaultValues = (
       return { infoSpots: infoSpots.map(mapInfoSpotDataToFormState) };
     }
 
-    return { infoSpots: [mapInfoSpotDataToFormState({ infoSpotLocations })] };
-  }, [infoSpots, infoSpotLocations]);
+    return {
+      infoSpots: [
+        mapInfoSpotDataToFormState({
+          infoSpotLocations,
+          label: getInfoSpotLabel(stop.label, infoSpots.length),
+          ...defaultInfoSpotValues,
+        }),
+      ],
+    };
+  }, [infoSpots, infoSpotLocations, stop.label]);
 
   return { infoSpotsFormDefaultValues, infoSpotLocations };
 };
@@ -163,6 +175,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
     >
       {infoContainerControls.isInEditMode ? (
         <InfoSpotsForm
+          stopLabel={stop.label}
           defaultValues={infoSpotsFormDefaultValues}
           infoSpotsData={infoSpots}
           formRef={formRef}
