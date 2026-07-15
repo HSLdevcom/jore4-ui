@@ -15,7 +15,12 @@ import {
   TerminalInfoSpotFormState,
   TerminalInfoSpotsSectionProps,
 } from './types';
-import { mapTerminalInfoSpotDataToFormState } from './utils';
+import {
+  defaultTerminalInfoSpotValues,
+  getDefaultIntendedUser,
+  getTerminalInfoSpotLabel,
+  mapTerminalInfoSpotDataToFormState,
+} from './utils';
 
 const useNewInfoSpotFormDefaultValues = (
   terminal: Readonly<EnrichedParentStopPlace>,
@@ -23,7 +28,12 @@ const useNewInfoSpotFormDefaultValues = (
   const terminalInfoSpotsFormDefaultValues = useMemo(
     () =>
       mapTerminalInfoSpotDataToFormState(
-        { infoSpotLocations: [terminal.id ?? null] },
+        {
+          infoSpotLocations: [terminal.id ?? null],
+          label: getTerminalInfoSpotLabel(terminal),
+          intendedUser: getDefaultIntendedUser(terminal),
+          ...defaultTerminalInfoSpotValues,
+        },
         terminal,
       ),
     [terminal],

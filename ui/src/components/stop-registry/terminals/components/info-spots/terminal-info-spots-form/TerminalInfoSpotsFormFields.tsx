@@ -22,7 +22,10 @@ import { PosterState } from '../../../../stops/stop-details/info-spots/types';
 import { mapStringToPurpose } from '../../../../stops/stop-details/info-spots/utils';
 import { ZoneLabel } from '../../../../types';
 import { TerminalInfoSpotFormState } from '../types';
-import { resolveQuayPublicCode } from '../utils';
+import {
+  defaultTerminalInfoSpotPosterValues,
+  resolveQuayPublicCode,
+} from '../utils';
 import { TerminalInfoSpotsFormPosters } from './TerminalInfoSpotsFormPosters';
 
 const testIds = {
@@ -61,11 +64,11 @@ export const TerminalInfoSpotFormFields: FC<
   const addPoster = () => {
     const newPoster: PosterState = {
       size: {
-        uiState: 'UNKNOWN',
-        width: null,
-        height: null,
+        uiState: 'EXISTING',
+        width: defaultTerminalInfoSpotPosterValues.width,
+        height: defaultTerminalInfoSpotPosterValues.height,
       },
-      label: mapStringToPurpose(''),
+      label: mapStringToPurpose(defaultTerminalInfoSpotPosterValues.label),
       lines: '',
       toBeDeletedPoster: false,
       id: null,
