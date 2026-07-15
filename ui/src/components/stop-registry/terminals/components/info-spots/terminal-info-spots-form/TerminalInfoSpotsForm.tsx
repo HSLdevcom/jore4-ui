@@ -49,6 +49,9 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
   useDirtyFormBlockNavigation(formState, 'TerminalInfoSpotsForm');
   const { isDirty } = formState;
 
+  const isNewInfoSpot = !getValues('infoSpotId');
+  const hasChanges = isDirty || isNewInfoSpot;
+
   const onRemoveInfoSpot = () => {
     if (!getValues('infoSpotId')) {
       return;
@@ -81,9 +84,7 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
         <FormActionButtons
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
-          isDisabled={
-            !methods.formState.isDirty || methods.formState.isSubmitting
-          }
+          isDisabled={!hasChanges || methods.formState.isSubmitting}
           isSubmitting={methods.formState.isSubmitting}
           addNewButton={addNewButton}
           variant="infoContainer"

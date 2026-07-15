@@ -1,13 +1,18 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { useState } from 'react';
-import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import {
+  InfoSpotDetailsFragment,
+  StopRegistryIntendedUser,
+} from '../../../../../generated/graphql';
 import { EnrichedParentStopPlace, Point } from '../../../../../types';
 import { getGeometryPoint } from '../../../../../utils';
+import { InfoSpotPurposeEnum } from '../../../stops/stop-details/info-spots/types/InfoSpotPurpose';
 import {
   formatSizedDbItem,
   mapInfoSpotDataToFormState,
 } from '../../../stops/stop-details/info-spots/utils';
+import { mapPurposeToString } from '../../../stops/stop-details/info-spots/utils/infoSpotPurposeUtils';
 import { SortConfig, SortField, TerminalInfoSpotFormState } from './types';
 
 export const CSS_CLASSES = {
@@ -234,3 +239,41 @@ export function mapTerminalInfoSpotDataToFormState(
     longitude: location?.longitude ?? 0,
   };
 }
+
+export function getDefaultIntendedUser(
+  terminal: EnrichedParentStopPlace,
+): StopRegistryIntendedUser {
+  const ownerName = terminal.owner?.name?.trim().toUpperCase();
+  if (!ownerName) {
+    return StopRegistryIntendedUser.Matkatieto;
+  }
+
+  const matchedIntendedUser = Object.values(StopRegistryIntendedUser).find(
+    (intendedUser) => intendedUser === ownerName,
+  );
+
+  return matchedIntendedUser ?? StopRegistryIntendedUser.Muu;
+}
+
+export function getTerminalInfoSpotLabel(
+  terminal: EnrichedParentStopPlace,
+): string {
+  const terminalCode = terminal.privateCode?.value ?? '';
+  const orderNumber = (terminal.infoSpots?.length ?? 0) + 1;
+  return terminalCode ? `${terminalCode}_${orderNumber}` : `${orderNumber}`;
+}
+
+export const defaultTerminalInfoSpotPosterValues = {
+  label: mapPurposeToString({
+    purposeType: InfoSpotPurposeEnum.POSTER,
+    customPurpose: null,
+  }),
+  width: 800,
+  height: 1200,
+};
+
+export const defaultTerminalInfoSpotValues = {
+  width: 800,
+  height: 1200,
+  poster: [defaultTerminalInfoSpotPosterValues],
+};
