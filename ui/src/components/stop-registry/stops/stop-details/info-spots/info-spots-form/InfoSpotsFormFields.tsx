@@ -19,7 +19,7 @@ import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import { ZoneLabel } from '../../../../types';
 import { InfoSpotsFormState, PosterState } from '../types';
-import { mapStringToPurpose } from '../utils';
+import { defaultInfoSpotPosterValues, mapStringToPurpose } from '../utils';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
 import { SizeFormFragment } from './SizeFormFragment';
 
@@ -79,11 +79,11 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
   const addPoster = () => {
     const newPoster: PosterState = {
       size: {
-        uiState: 'UNKNOWN',
-        width: null,
-        height: null,
+        uiState: 'EXISTING',
+        width: defaultInfoSpotPosterValues.width,
+        height: defaultInfoSpotPosterValues.height,
       },
-      label: mapStringToPurpose(''),
+      label: mapStringToPurpose(defaultInfoSpotPosterValues.label),
       lines: '',
       toBeDeletedPoster: false,
       id: null,
