@@ -12,7 +12,11 @@ import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { InfoSpotsFormSchema, InfoSpotsFormState } from '../types';
-import { mapInfoSpotDataToFormState } from '../utils';
+import {
+  defaultInfoSpotValues,
+  getInfoSpotLabel,
+  mapInfoSpotDataToFormState,
+} from '../utils';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
 
 const testIds = {
@@ -23,6 +27,7 @@ const testIds = {
 
 type InfoSpotsFormProps = {
   readonly className?: string;
+  readonly stopLabel: string;
   readonly defaultValues: InfoSpotsFormState;
   readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
   readonly formRef: RefObject<HTMLFormElement>;
@@ -44,6 +49,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
 > = (
   {
     className,
+    stopLabel,
     defaultValues,
     infoSpotsData,
     infoSpotLocations,
@@ -80,6 +86,8 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     append(
       mapInfoSpotDataToFormState({
         infoSpotLocations,
+        label: getInfoSpotLabel(stopLabel, infoSpots.length),
+        ...defaultInfoSpotValues,
       }),
     );
   };
@@ -125,6 +133,13 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     }
   }, [isDirty, setFormIsDirty]);
 
+  const hasNewInfoSpot = getValues('infoSpots').some(
+    (infoSpot) => !infoSpot.infoSpotId,
+  );
+
+  // Form is considered dirty if there are unsaved changes or if a new info spot has been added
+  const hasChanges = isDirty || hasNewInfoSpot;
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
@@ -154,9 +169,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
         <FormActionButtons
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
-          isDisabled={
-            !methods.formState.isDirty || methods.formState.isSubmitting
-          }
+          isDisabled={!hasChanges || methods.formState.isSubmitting}
           isSubmitting={methods.formState.isSubmitting}
           addNewButton={addNewButton}
           variant="infoContainer"
