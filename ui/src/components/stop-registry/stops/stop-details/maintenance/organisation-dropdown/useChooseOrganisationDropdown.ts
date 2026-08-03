@@ -36,7 +36,6 @@ export const useChooseOrganisationDropdown = (
     organisations:
       sortedAndLimitedOrganisations as ReadonlyArray<StopPlaceOrganisationFieldsFragment>,
     selectedOrganisation: selectedOrganisation as
-      | StopPlaceOrganisationFieldsFragment
-      | undefined,
+      StopPlaceOrganisationFieldsFragment | undefined,
   };
 };

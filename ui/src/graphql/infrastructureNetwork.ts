@@ -142,8 +142,7 @@ export const mapClosestLinkResult = (
   result: GqlQueryResult<QueryClosestLinkQuery>,
 ) =>
   result.data?.infrastructure_network_resolve_point_to_closest_link[0] as
-    | InfrastructureNetworkInfrastructureLink
-    | undefined;
+    InfrastructureNetworkInfrastructureLink | undefined;
 
 export const mapAnyClosestLinkResult = (
   result: GqlQueryResult<QueryAnyClosestLinkQuery>,
@@ -177,8 +176,7 @@ export const mapInfraLinkWithStopsResult = (
   result: GqlQueryResult<GetLinksWithStopsByExternalLinkIdsQuery>,
 ) =>
   result.data?.infrastructure_network_infrastructure_link as
-    | ReadonlyArray<InfrastructureNetworkInfrastructureLink>
-    | [];
+    ReadonlyArray<InfrastructureNetworkInfrastructureLink> | [];
 
 const GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
   query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {

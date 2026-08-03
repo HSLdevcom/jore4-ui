@@ -71,8 +71,7 @@ export const useChooseTimingPlaceDropdown = (
 
   const selectedTimingPlace = selectedTimingPlaceResults.data
     ?.timing_pattern_timing_place_by_pk as
-    | TimingPlaceForComboboxFragment
-    | undefined;
+    TimingPlaceForComboboxFragment | undefined;
 
   // While fetching the selected timingplace, we can use the data from timingPlaces
   const displayedSelectedTimingPlace = selectedTimingPlaceResults.loading

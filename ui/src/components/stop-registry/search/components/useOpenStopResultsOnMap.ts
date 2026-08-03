@@ -233,8 +233,7 @@ export type OpenStopResultsOnMapParams = {
   readonly filters: StopSearchFilters;
   readonly resultSelection: ResultSelection;
 } & (
-  | ByStopResultParams
-  | { readonly [key in keyof ByStopResultParams]?: never }
+  ByStopResultParams | { readonly [key in keyof ByStopResultParams]?: never }
 );
 
 type ResultInfo = {

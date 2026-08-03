@@ -4,12 +4,7 @@ import { EnrichedParentStopPlace } from '../../../../../../types';
 import { InfoContainerControls } from '../../../../../common/InfoContainer';
 
 export type SortField =
-  | 'label'
-  | 'stop'
-  | 'shelter'
-  | 'intendedUser'
-  | 'size'
-  | 'description';
+  'label' | 'stop' | 'shelter' | 'intendedUser' | 'size' | 'description';
 
 export type SortDirection = 'asc' | 'desc';
 

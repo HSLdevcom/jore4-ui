@@ -21,8 +21,7 @@ type LabelledMenuGroup<OptionT> = {
 };
 
 export type MenuGroup<OptionT> =
-  | LabellessMenuGroup<OptionT>
-  | LabelledMenuGroup<OptionT>;
+  LabellessMenuGroup<OptionT> | LabelledMenuGroup<OptionT>;
 
 type MultiselectDropdownOptionsProps<OptionT> = {
   readonly formatOption: (option: OptionT) => ReactNode;

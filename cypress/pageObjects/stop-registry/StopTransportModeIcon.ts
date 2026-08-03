@@ -3,9 +3,7 @@ import { StopRegistryTransportModeType } from '@hsl/jore4-test-db-manager/dist/C
 const knownModes = Object.values(StopRegistryTransportModeType).sort();
 
 type ExtendedTransportMode =
-  | StopRegistryTransportModeType
-  | 'TrunkLine'
-  | 'SpeedTram';
+  StopRegistryTransportModeType | 'TrunkLine' | 'SpeedTram';
 
 type ModesByStatus = {
   readonly inUse?: ReadonlyArray<ExtendedTransportMode>;

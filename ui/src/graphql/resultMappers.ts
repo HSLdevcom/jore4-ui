@@ -20,8 +20,7 @@ type StopQueryResult = QueryRootLike<{
 
 export const mapStopResultToStop = (result: GqlQueryResult<StopQueryResult>) =>
   result.data?.service_pattern_scheduled_stop_point?.[0] as
-    | ServicePatternScheduledStopPoint
-    | undefined;
+    ServicePatternScheduledStopPoint | undefined;
 
 export const mapStopResultToStops = (result: GqlQueryResult<StopQueryResult>) =>
   (result.data?.service_pattern_scheduled_stop_point ??

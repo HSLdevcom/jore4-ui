@@ -13,8 +13,7 @@ type GetRouteVersionPageInfoLoaded = {
 };
 
 type GetRouteVersionPageInfo =
-  | GetRouteVersionPageInfoLoading
-  | GetRouteVersionPageInfoLoaded;
+  GetRouteVersionPageInfoLoading | GetRouteVersionPageInfoLoaded;
 
 export function useGetRouteVersionPageInfo(
   label: string,

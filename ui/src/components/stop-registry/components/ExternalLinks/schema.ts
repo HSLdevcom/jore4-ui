@@ -21,8 +21,7 @@ export type ExternalLinksFormState = z.infer<typeof externalLinksFormSchema>;
 
 export const mapExternalLinkDataToFormState = (
   externalLink:
-    | ExternalLinksDetailsFragment
-    | TerminalExternalLinksDetailsFragment,
+    ExternalLinksDetailsFragment | TerminalExternalLinksDetailsFragment,
 ): ExternalLinksState => {
   return {
     name: externalLink.name ?? '',

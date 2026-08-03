@@ -40,8 +40,7 @@ type InfoContainerProps = {
    * - --borderColor
    */
   readonly headerButtons?:
-    | JSXElementConstructor<InfoContainerHeaderButtonsProps>
-    | ReactNode;
+    JSXElementConstructor<InfoContainerHeaderButtonsProps> | ReactNode;
   /**
    * Encapsulated state and functions to control the state of the
    * InfoContainer. Preferably this info should've been defined within

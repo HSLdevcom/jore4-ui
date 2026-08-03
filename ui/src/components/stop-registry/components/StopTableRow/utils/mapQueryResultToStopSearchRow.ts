@@ -74,9 +74,7 @@ function findSwedishNameFromTiamatResponse(
 
 function mapStopPointDetails(
   scheduledStopPoint:
-    | StopTableRowScheduledStopPointDetailsFragment
-    | null
-    | undefined,
+    StopTableRowScheduledStopPointDetailsFragment | null | undefined,
 ): Pick<StopSearchRow, 'scheduledStopPointId' | 'timingPlace'> {
   return {
     scheduledStopPointId: scheduledStopPoint?.scheduled_stop_point_id ?? null,
@@ -154,9 +152,7 @@ function mapEquipmentDetails(
 function mapQueryResultToStopSearchRowImpl(
   quay: StopTableRowQuayDetailsFragment,
   scheduledStopPoint:
-    | StopTableRowScheduledStopPointDetailsFragment
-    | null
-    | undefined,
+    StopTableRowScheduledStopPointDetailsFragment | null | undefined,
 ): StopSearchRow {
   return {
     // Raw DB row id → Bigint -> Parsed as json number → convert to tring
@@ -194,9 +190,7 @@ function mapQueryResultToStopSearchRowImpl(
 export function mapQueryResultToStopSearchRow(
   quay: StopTableRowQuayDetailsFragment | null | undefined,
   scheduledStopPoint:
-    | StopTableRowScheduledStopPointDetailsFragment
-    | null
-    | undefined,
+    StopTableRowScheduledStopPointDetailsFragment | null | undefined,
 ): StopSearchRow | null {
   if (!quay) {
     return null;

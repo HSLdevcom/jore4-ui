@@ -119,5 +119,4 @@ export const mapGetScheduledStopPointWithViaInfo = (
   result: GqlQueryResult<GetScheduledStopPointWithViaInfoQuery>,
 ) =>
   result.data?.journey_pattern_scheduled_stop_point_in_journey_pattern[0] as
-    | JourneyPatternScheduledStopPointInJourneyPattern
-    | undefined;
+    JourneyPatternScheduledStopPointInJourneyPattern | undefined;

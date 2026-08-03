@@ -41,8 +41,7 @@ export const defaultViewPortParams: ViewPortParams = {
 };
 
 export type OpenMapViewPortParams =
-  | ViewPortParams
-  | Pick<ViewPortParams, 'latitude' | 'longitude'>;
+  ViewPortParams | Pick<ViewPortParams, 'latitude' | 'longitude'>;
 
 export type OpenMapUrlState = {
   // Either all details or none

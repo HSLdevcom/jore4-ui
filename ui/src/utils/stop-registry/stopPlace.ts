@@ -38,11 +38,9 @@ const isStopPlace = <T extends StopPlaceType>(
   stopPlaceResult: unknown,
 ): stopPlaceResult is T => {
   return !!(
-    (
-      hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
-      // eslint-disable-next-line no-underscore-dangle
-      stopPlaceResult.__typename === 'stop_registry_StopPlace'
-    ) // For parent type this would be stop_registry_ParentStopPlace
+    hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
+    // eslint-disable-next-line no-underscore-dangle
+    stopPlaceResult.__typename === 'stop_registry_StopPlace' // For parent type this would be stop_registry_ParentStopPlace
   );
 };
 
@@ -62,9 +60,7 @@ const isParentStopPlace = <T extends ParentStopPlaceType>(
  */
 export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
   stopPlaceResult:
-    | ReadonlyArray<T | ParentStopPlaceType | null>
-    | undefined
-    | null,
+    ReadonlyArray<T | ParentStopPlaceType | null> | undefined | null,
 ): Array<T> => {
   const stopPlaces = stopPlaceResult ?? [];
   return stopPlaces.filter(isStopPlace<T>);
@@ -74,9 +70,7 @@ export const getParentStopPlacesFromQueryResult = <
   T extends ParentStopPlaceType,
 >(
   parentStopPlaceResult:
-    | ReadonlyArray<T | StopPlaceType | null>
-    | undefined
-    | null,
+    ReadonlyArray<T | StopPlaceType | null> | undefined | null,
 ): Array<T> => {
   const parentStopPlaces = parentStopPlaceResult ?? [];
   return parentStopPlaces.filter(isParentStopPlace<T>);
@@ -87,8 +81,7 @@ export const defaultAccessibilityLevel = StopRegistryAccessibilityLevel.Unknown;
 
 export const setAlternativeName = (
   initialAlternativeNames:
-    | ReadonlyArray<StopRegistryAlternativeName | null>
-    | undefined,
+    ReadonlyArray<StopRegistryAlternativeName | null> | undefined,
   newAlternativeName: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
@@ -113,8 +106,7 @@ export const setAlternativeName = (
 
 export const setMultipleAlternativeNames = (
   initialAlternativeNames:
-    | ReadonlyArray<StopRegistryAlternativeName | null>
-    | undefined,
+    ReadonlyArray<StopRegistryAlternativeName | null> | undefined,
   updates: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
@@ -227,9 +219,7 @@ export const getQuayDetailsForEnrichment = <
 >(
   quay: T,
   accessibilityAssessment:
-    | AccessibilityAssessmentDetailsFragment
-    | null
-    | undefined,
+    AccessibilityAssessmentDetailsFragment | null | undefined,
 ): QuayEnrichmentProperties => {
   const rawPriorityNumber = Number(findKeyValue(quay, KnownValueKey.Priority));
 
@@ -288,11 +278,15 @@ const findCoordinate = (
 
 // Mark all keys as required, but allow undefined as value.
 type ObjectWithAllKeyosOfStopPlaceEnrichmentProperties = {
-  [K in keyof Required<SharedEnrichmentProperties>]: SharedEnrichmentProperties[K];
+  [
+    K in keyof Required<SharedEnrichmentProperties>
+  ]: SharedEnrichmentProperties[K];
 };
 
 type ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties = {
-  [K in keyof Required<ParentStopPlaceEnrichmentProperties>]: ParentStopPlaceEnrichmentProperties[K];
+  [
+    K in keyof Required<ParentStopPlaceEnrichmentProperties>
+  ]: ParentStopPlaceEnrichmentProperties[K];
 };
 
 const extractSharedStopPlaceDetails = (stopPlace: {

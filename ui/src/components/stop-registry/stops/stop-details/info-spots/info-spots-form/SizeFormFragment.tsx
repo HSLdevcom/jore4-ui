@@ -54,12 +54,10 @@ function usePosterSizeMenu() {
                 standardPosterSizes,
               ),
             )
-            .map(
-              (size): ItemSizeState => ({
-                uiState: 'EXISTING',
-                ...size,
-              }),
-            ),
+            .map((size): ItemSizeState => ({
+              uiState: 'EXISTING',
+              ...size,
+            })),
         ],
       },
     ],

@@ -10,8 +10,7 @@ export enum MapEntityEditorViewState {
 }
 
 type NonEditingViewState =
-  | MapEntityEditorViewState.NONE
-  | MapEntityEditorViewState.POPUP;
+  MapEntityEditorViewState.NONE | MapEntityEditorViewState.POPUP;
 
 type MoveOrPlaceViewState =
   | MapEntityEditorViewState.PLACE
@@ -19,8 +18,7 @@ type MoveOrPlaceViewState =
   | MapEntityEditorViewState.PLACECOPY;
 
 type ModalOpenViewState =
-  | MapEntityEditorViewState.CREATE
-  | MapEntityEditorViewState.EDIT;
+  MapEntityEditorViewState.CREATE | MapEntityEditorViewState.EDIT;
 
 type EditingViewState = MoveOrPlaceViewState | ModalOpenViewState;
 type StaticPositionViewState = NonEditingViewState | ModalOpenViewState;

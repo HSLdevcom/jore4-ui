@@ -58,8 +58,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
 type StopAreaFormProps = {
   readonly className?: string;
   readonly defaultValues:
-    | StopAreaFormState
-    | (() => Promise<StopAreaFormState>);
+    StopAreaFormState | (() => Promise<StopAreaFormState>);
   readonly onCancel: () => void;
   readonly onSubmit: (changes: StopAreaFormState) => void;
   readonly testIdPrefix: string;

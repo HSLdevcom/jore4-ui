@@ -43,9 +43,7 @@ function sortInfoSpots(
 export function mapToEnrichedQuay(
   quay: Quay | null | undefined,
   accessibilityAssessment:
-    | AccessibilityAssessmentDetailsFragment
-    | null
-    | undefined,
+    AccessibilityAssessmentDetailsFragment | null | undefined,
   changed?: string | null,
   changedByUserName?: string | null,
 ): EnrichedQuay | null {

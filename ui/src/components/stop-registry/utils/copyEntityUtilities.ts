@@ -88,9 +88,7 @@ export function mapCompactOrNull<T, R>(
 
 export function mapAlternativeNames(
   alternativeNames:
-    | ReadonlyArray<Maybe<StopRegistryAlternativeName>>
-    | null
-    | undefined,
+    ReadonlyArray<Maybe<StopRegistryAlternativeName>> | null | undefined,
 ): Array<StopRegistryAlternativeNameInput> | null {
   return mapCompactOrNull(alternativeNames, (alt) => ({
     name: { lang: alt.name.lang, value: alt.name.value },
@@ -100,9 +98,7 @@ export function mapAlternativeNames(
 
 export function mapAccessibilityAssessmentToInput(
   originalAccessibilityAssessment:
-    | StopRegistryAccessibilityAssessment
-    | null
-    | undefined,
+    StopRegistryAccessibilityAssessment | null | undefined,
 ): InputMaybe<StopRegistryAccessibilityAssessmentInput> {
   if (!originalAccessibilityAssessment) {
     return null;
@@ -204,9 +200,7 @@ export function mapPlaceEquipmentsToInput(
 
 export function mapExternalLinks(
   externalLinks:
-    | ReadonlyArray<Maybe<StopRegistryExternalLink>>
-    | null
-    | undefined,
+    ReadonlyArray<Maybe<StopRegistryExternalLink>> | null | undefined,
 ): Array<StopRegistryExternalLinkInput> | null {
   return mapCompactOrNull(externalLinks, (link) => ({
     name: link.name,

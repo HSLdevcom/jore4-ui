@@ -65,8 +65,7 @@ export const buildPassingTimeSequence = (
 };
 
 export type TimeSequenceParams =
-  | RandomTimeSequenceParams
-  | RegularTimeSequenceParams;
+  RandomTimeSequenceParams | RegularTimeSequenceParams;
 
 export function isRandomTimeSequenceBuilder(
   tsBuilder: TimeSequenceParams,

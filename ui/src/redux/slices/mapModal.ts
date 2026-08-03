@@ -19,8 +19,7 @@ type MapStopSelectionByIds = {
 };
 
 export type MapStopSelection =
-  | MapStopSelectionByResultSelection
-  | MapStopSelectionByIds;
+  MapStopSelectionByResultSelection | MapStopSelectionByIds;
 
 type MapModalState = {
   readonly isOpen: boolean;
