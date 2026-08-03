@@ -140,8 +140,7 @@ const stopAreaInput: StopAreaInput = {
           return it;
         }),
         organisations: quayH2003.organisations as
-          | StopRegistryStopPlaceOrganisationRefInput[]
-          | null,
+          StopRegistryStopPlaceOrganisationRefInput[] | null,
         externalLinks: [
           {
             name: externalLinksTestData.initialLink.name,
@@ -1274,10 +1273,7 @@ describe('Stop Change History', { tags }, () => {
 
   describe('Sorting', () => {
     type SortChangeHistoryBy =
-      | 'ValidityStart'
-      | 'ValidityEnd'
-      | 'Changed'
-      | 'ChangedBy';
+      'ValidityStart' | 'ValidityEnd' | 'Changed' | 'ChangedBy';
     type SortOrder = 'asc' | 'desc';
 
     function assertSortButtonState(by: SortChangeHistoryBy, order: SortOrder) {

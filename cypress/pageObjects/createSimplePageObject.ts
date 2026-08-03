@@ -10,19 +10,27 @@ type MutablePageObjectFragment = {
 type TestIdToPageObjectFragment<TestId extends string> =
   TestId extends `${infer Prefix}::${infer Rest}`
     ? {
-        readonly [Key in Uncapitalize<Prefix>]: TestIdToPageObjectFragment<Rest>;
+        readonly [
+          Key in Uncapitalize<Prefix>
+        ]: TestIdToPageObjectFragment<Rest>;
       }
     : {
-        readonly [Key in `get${Capitalize<TestId>}`]: () => Cypress.Chainable<JQuery>;
+        readonly [
+          Key in `get${Capitalize<TestId>}`
+        ]: () => Cypress.Chainable<JQuery>;
       };
 
 type TestIdToPageObjectWithIdFragment<TestId extends string> =
   TestId extends `${infer Prefix}::${infer Rest}`
     ? {
-        readonly [Key in Uncapitalize<Prefix>]: TestIdToPageObjectFragment<Rest>;
+        readonly [
+          Key in Uncapitalize<Prefix>
+        ]: TestIdToPageObjectFragment<Rest>;
       }
     : {
-        readonly [Key in `getAll${Capitalize<TestId>}Elements`]: () => Cypress.Chainable<JQuery>;
+        readonly [
+          Key in `getAll${Capitalize<TestId>}Elements`
+        ]: () => Cypress.Chainable<JQuery>;
       } & {
         readonly [Key in `get${Capitalize<TestId>}`]: (
           id?: string,

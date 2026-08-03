@@ -42,16 +42,14 @@ function addedItemsToChangedValueSets<ItemT extends HopefullyHasId>(
   return addedIds
     .map((id) => currentItems.find((item) => item.id === id))
     .filter(notNullish)
-    .map(
-      (item): ChangeValueSet => ({
-        heading: getHeading.added(t, item),
-        fields: diffItemVersions(t, null, item).map((field) => ({
-          ...field,
-          key: `${field.key}::${item.id}`,
-          oldValue: <EmptyCell />,
-        })),
-      }),
-    );
+    .map((item): ChangeValueSet => ({
+      heading: getHeading.added(t, item),
+      fields: diffItemVersions(t, null, item).map((field) => ({
+        ...field,
+        key: `${field.key}::${item.id}`,
+        oldValue: <EmptyCell />,
+      })),
+    }));
 }
 
 function updatedItemsToChangedValueSets<ItemT extends HopefullyHasId>(
@@ -95,16 +93,14 @@ function removedItemsToChangedValueSets<ItemT extends HopefullyHasId>(
   return removedIds
     .map((id) => previousItems.find((item) => item.id === id))
     .filter(notNullish)
-    .map(
-      (item): ChangeValueSet => ({
-        heading: getHeading.removed(t, item),
-        fields: diffItemVersions(t, item, null).map((field) => ({
-          ...field,
-          key: `${field.key}::${item.id}`,
-          newValue: <EmptyCell />,
-        })),
-      }),
-    );
+    .map((item): ChangeValueSet => ({
+      heading: getHeading.removed(t, item),
+      fields: diffItemVersions(t, item, null).map((field) => ({
+        ...field,
+        key: `${field.key}::${item.id}`,
+        newValue: <EmptyCell />,
+      })),
+    }));
 }
 
 type DiffNestedItemsOptions<ItemT> = {

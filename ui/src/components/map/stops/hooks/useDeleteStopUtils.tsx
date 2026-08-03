@@ -23,8 +23,7 @@ type DeleteUtilsDeleteInactive = {
 };
 
 type UseDeleteStopUtilsReturn =
-  | DeleteUtilsDeleteActive
-  | DeleteUtilsDeleteInactive;
+  DeleteUtilsDeleteActive | DeleteUtilsDeleteInactive;
 
 export function useDeleteStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,

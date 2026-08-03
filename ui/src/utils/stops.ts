@@ -77,10 +77,9 @@ export const filterHighestPriorityCurrentStops = <
   const stopsGroupedByLabel = groupBy(currentStops, (stop) => stop.label);
 
   // Map out the highest priority stop instance from each group
-  return Object.values(stopsGroupedByLabel).map(
-    (sameLabelStopInstances) =>
-      // Non empty array always contains an element
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      maxBy(sameLabelStopInstances, 'priority')!,
+  return Object.values(stopsGroupedByLabel).map((sameLabelStopInstances) =>
+    // Non empty array always contains an element
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    maxBy(sameLabelStopInstances, 'priority')!,
   );
 };

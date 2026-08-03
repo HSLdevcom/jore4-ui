@@ -14,20 +14,20 @@
   },
   "dependencies": {
     "@4tw/cypress-drag-drop": "^2.3.1",
-    "@cypress/grep": "^6.0.0",
+    "@cypress/grep": "^6.0.2",
     "@hsl/jore4-test-db-manager": "1.0.0",
     "@hsl/timetables-data-inserter": "1.0.0",
-    "cypress": "^15.14.1",
+    "cypress": "^15.19.0",
     "cypress-ctrf-json-reporter": "^0.0.14",
-    "cypress-split": "^1.24.31",
+    "cypress-split": "^1.25.0",
     "lodash": "^4.18.1",
     "luxon": "^3.7.2",
-    "qs": "^6.15.1"
+    "qs": "^6.15.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.24",
-    "@types/luxon": "^3.7.1",
-    "@types/qs": "^6.15.0",
+    "@types/lodash": "^4.17.25",
+    "@types/luxon": "^3.7.3",
+    "@types/qs": "^6.15.1",
     "find-test-names": "^1.29.19"
   }
 }

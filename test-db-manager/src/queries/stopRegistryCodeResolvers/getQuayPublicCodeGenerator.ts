@@ -1,4 +1,3 @@
-// eslint-disable-next-line n/no-extraneous-import
 import type { Point } from 'geojson';
 import { gql } from 'graphql-tag';
 import compact from 'lodash/compact';

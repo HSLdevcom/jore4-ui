@@ -29,9 +29,7 @@ function mapApolloErrorToTranslationKey(
 export function useTerminalApolloErrorHandler(): (
   error: ApolloError,
   details?:
-    | TerminalFormState
-    | TerminalValidityFormState
-    | TerminalOwnerFormState,
+    TerminalFormState | TerminalValidityFormState | TerminalOwnerFormState,
 ) => boolean {
   const { t } = useTranslation();
 
@@ -39,9 +37,7 @@ export function useTerminalApolloErrorHandler(): (
     (
       error: ApolloError,
       details?:
-        | TerminalFormState
-        | TerminalValidityFormState
-        | TerminalOwnerFormState,
+        TerminalFormState | TerminalValidityFormState | TerminalOwnerFormState,
     ): boolean => {
       const translationKey = mapApolloErrorToTranslationKey(error);
       if (translationKey) {

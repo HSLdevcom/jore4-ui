@@ -2,8 +2,7 @@ import { EnrichedStopPlace } from '../../../../../types';
 import { CutDirection } from '../cut-stop-area-validity';
 
 export type CopyStopAreaResult =
-  | CopyStopAreaSuccessResult
-  | CopyStopAreaRequireConfirmationResult;
+  CopyStopAreaSuccessResult | CopyStopAreaRequireConfirmationResult;
 
 export type CopyStopAreaSuccessResult = {
   readonly mutationResult: EnrichedStopPlace;

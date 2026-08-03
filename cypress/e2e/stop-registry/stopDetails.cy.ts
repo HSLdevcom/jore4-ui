@@ -136,8 +136,7 @@ const stopAreaInput: Array<StopAreaInput> = [
         {
           ...quayH2003.quay,
           organisations: quayH2003.organisations as
-            | StopRegistryStopPlaceOrganisationRefInput[]
-            | null,
+            StopRegistryStopPlaceOrganisationRefInput[] | null,
         },
       ],
     },

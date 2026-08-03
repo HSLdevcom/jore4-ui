@@ -84,8 +84,7 @@ export const useChooseRouteDropdown = ({
   }
 
   const selectedRoute = selectedRouteResult.data?.route_route_by_pk as
-    | RouteAllFieldsFragment
-    | undefined;
+    RouteAllFieldsFragment | undefined;
 
   // While fetching the selected route, we can use the data from routes
   const displayedSelectedRoute = selectedRouteResult.loading

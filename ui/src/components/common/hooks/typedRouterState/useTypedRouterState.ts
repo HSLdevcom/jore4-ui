@@ -61,8 +61,7 @@ function useSetters<
   const setSearchState = useCallback(
     (
       newSearchState:
-        | SearchStateT
-        | ((previousState: SearchStateT) => SearchStateT),
+        SearchStateT | ((previousState: SearchStateT) => SearchStateT),
     ) => {
       setState((prevState) => {
         const nextSearch =
@@ -79,8 +78,7 @@ function useSetters<
   const setHistoryState = useCallback(
     (
       newHistoryState:
-        | HistoryStateT
-        | ((previousState: HistoryStateT) => HistoryStateT),
+        HistoryStateT | ((previousState: HistoryStateT) => HistoryStateT),
     ) => {
       setState((prevState) => {
         const nextHistoryState =

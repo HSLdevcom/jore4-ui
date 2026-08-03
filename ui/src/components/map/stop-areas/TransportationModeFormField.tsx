@@ -12,8 +12,7 @@ const testId = 'StopAreaFormComponent::transportMode';
 
 type TransportationModeFieldProps = {
   readonly availableTransportModes:
-    | readonly JoreStopRegistryTransportModeType[]
-    | null;
+    readonly JoreStopRegistryTransportModeType[] | null;
   readonly loadingTransportModes?: boolean;
   readonly enableAutoSelect?: boolean;
 };

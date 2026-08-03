@@ -2,10 +2,7 @@ import { DateTime } from 'luxon';
 import Chainable = Cypress.Chainable;
 
 export type TranslatedStatus =
-  | 'Voimassa'
-  | 'Perusversio'
-  | 'Väliaikainen'
-  | 'Luonnos';
+  'Voimassa' | 'Perusversio' | 'Väliaikainen' | 'Luonnos';
 
 export type VersionRowValues = {
   readonly status?: TranslatedStatus;

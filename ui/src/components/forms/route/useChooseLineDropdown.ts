@@ -83,8 +83,7 @@ export const useChooseLineDropdown = (
   });
 
   const selectedLine = selectedLineResult.data?.route_line_by_pk as
-    | LineForComboboxFragment
-    | undefined;
+    LineForComboboxFragment | undefined;
 
   if (
     !linesResult.loading &&

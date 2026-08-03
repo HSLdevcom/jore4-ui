@@ -43,15 +43,13 @@ function mapPosterInput(
     return null;
   }
 
-  return poster.map(
-    ({ id, label, size, lines }): StopRegistryPosterInput => ({
-      id,
-      label: mapPurposeToString(label),
-      width: size.width,
-      height: size.height,
-      lines,
-    }),
-  );
+  return poster.map(({ id, label, size, lines }): StopRegistryPosterInput => ({
+    id,
+    label: mapPurposeToString(label),
+    width: size.width,
+    height: size.height,
+    lines,
+  }));
 }
 
 function mapInfoSpotFormToInput(

@@ -60,15 +60,13 @@ export const CommonSubstitutePeriodSection: FC<
     // occasional substitute operating periods form type
     const periods = form.commonDays
       .filter((day) => day.created || day.fromDatabase)
-      .map(
-        (d): CommonSubstitutePeriodType => ({
-          ...d,
-          substituteDayOfWeek: d.substituteDayOfWeek as SubstituteDayOfWeek,
-          beginDate: d.supersededDate,
-          endDate: d.supersededDate,
-          toBeDeleted: d.toBeDeleted ?? false,
-        }),
-      );
+      .map((d): CommonSubstitutePeriodType => ({
+        ...d,
+        substituteDayOfWeek: d.substituteDayOfWeek as SubstituteDayOfWeek,
+        beginDate: d.supersededDate,
+        endDate: d.supersededDate,
+        toBeDeleted: d.toBeDeleted ?? false,
+      }));
 
     try {
       await deleteSubstituteOperatingPeriod({ periods });

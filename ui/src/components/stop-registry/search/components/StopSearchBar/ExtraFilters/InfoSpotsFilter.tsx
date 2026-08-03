@@ -26,9 +26,7 @@ import {
 } from './useAugmentOnChangeHandlerWithMetaOptions';
 
 type InfoSpotFilterMenuOption =
-  | AllOptionEnum.All
-  | NullOptionEnum.Null
-  | PosterSize;
+  AllOptionEnum.All | NullOptionEnum.Null | PosterSize;
 
 const metaOptionGroupKey = 'metaOptions';
 const defaultValue: ReadonlyArray<InfoSpotFilterMenuOption> = [

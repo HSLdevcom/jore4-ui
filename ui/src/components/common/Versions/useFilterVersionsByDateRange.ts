@@ -22,7 +22,7 @@ export function useFilterVersionsByDateRange<T extends VersionWithValidity>(
 
       return !(
         // End before range start
-        (versionTo < from || versionFrom > to) // Starts after range end
+        versionTo < from || versionFrom > to // Starts after range end
       );
     });
   }, [versions, from, to]);

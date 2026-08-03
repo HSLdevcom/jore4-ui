@@ -17,11 +17,7 @@ import { twJoin, twMerge } from 'tailwind-merge';
  * round: Circular button for a single icon
  */
 export type SimpleButtonShape =
-  | 'normal'
-  | 'slim'
-  | 'square'
-  | 'compact'
-  | 'round';
+  'normal' | 'slim' | 'square' | 'compact' | 'round';
 
 function getShapeClassNames(shape: SimpleButtonShape) {
   switch (shape) {

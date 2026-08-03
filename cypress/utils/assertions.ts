@@ -121,7 +121,7 @@ function assertAndGetValidGraphGLBody(
   return body;
 }
 
-export function expectGraphQLCallToSucceed(alias: string) {
+export function expectGraphQLCallToSucceed(alias: `@${string}`) {
   return cy
     .wait(alias)
     .then((interceptedCall): SuccessfulGraphQLInterception => {
@@ -139,7 +139,7 @@ export function expectGraphQLCallToSucceed(alias: string) {
  * and intermediate requests may get cancelled in CI.
  */
 export function waitForSuccessfulGraphQLCall(
-  alias: string,
+  alias: `@${string}`,
 ): Cypress.Chainable<SuccessfulGraphQLInterception> {
   return cy
     .wait(alias)
@@ -157,7 +157,7 @@ export function waitForSuccessfulGraphQLCall(
     );
 }
 
-export function expectGraphQLCallToReturnError(alias: string) {
+export function expectGraphQLCallToReturnError(alias: `@${string}`) {
   return cy
     .wait(alias)
     .then((interceptedCall): SuccessfulGraphQLInterception => {

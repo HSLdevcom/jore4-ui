@@ -52,9 +52,7 @@ export const useUpdateTerminal = () => {
     (
       err: unknown,
       details?:
-        | TerminalFormState
-        | TerminalValidityFormState
-        | TerminalOwnerFormState,
+        TerminalFormState | TerminalValidityFormState | TerminalOwnerFormState,
     ) => {
       if (err instanceof ApolloError) {
         const isKnownError = tryHandleApolloError(err, details);

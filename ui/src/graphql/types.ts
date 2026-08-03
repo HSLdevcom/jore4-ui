@@ -23,9 +23,7 @@ export type GqlScalar =
   | LocalizedString;
 
 type StopRegistryEntities = (typeof versionedTiamatEntities)[
-  | 'typesWithVersion'
-  | 'typesWithId'
-  | 'embeddedTypes'][number];
+  'typesWithVersion' | 'typesWithId' | 'embeddedTypes'][number];
 
 // this actually includes more than just the entity types, but at least is updated automatically by graphql-codegen
 // Note: this does NOT include eg. timetables and stop registry DBs.

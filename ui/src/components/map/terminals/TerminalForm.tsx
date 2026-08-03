@@ -29,8 +29,7 @@ const testIds = {
 type TerminalFormProps = {
   readonly className?: string;
   readonly defaultValues:
-    | TerminalFormState
-    | (() => Promise<TerminalFormState>);
+    TerminalFormState | (() => Promise<TerminalFormState>);
   readonly onSubmit: (changes: TerminalFormState) => void;
   readonly onCancel: () => void;
   readonly testIdPrefix: string;

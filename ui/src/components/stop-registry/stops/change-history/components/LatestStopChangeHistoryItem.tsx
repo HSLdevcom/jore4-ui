@@ -18,8 +18,7 @@ const testIds = {
 type LatestStopChangeHistoryItemProps = {
   readonly historyItem: QuayChangeHistoryItem;
   readonly previousHistoryItem:
-    | QuayChangeHistoryItem
-    | typeof NoEarlierVersionExists;
+    QuayChangeHistoryItem | typeof NoEarlierVersionExists;
   readonly publicCode: string;
   readonly priority: Priority;
 };
