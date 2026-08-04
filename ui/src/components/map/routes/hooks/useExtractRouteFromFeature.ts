@@ -24,21 +24,17 @@ import {
   useGetLinksWithStopsByExternalLinkIdsLazyQuery,
   useGetStopsAlongInfrastructureLinksLazyQuery,
 } from '../../../../generated/graphql';
-import {
-  RouteInfraLink,
-  getRouteStopLabels,
-  mapRouteToInfraLinksAlongRoute,
-  mapStopResultToStops,
-  orderInfraLinksByExternalLinkId,
-} from '../../../../graphql';
 import { useAppSelector } from '../../../../hooks';
 import { selectEditedRouteData } from '../../../../redux';
 import { areValidityPeriodsOverlapping } from '../../../../time';
+import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import {
   mapGeoJSONtoFeature,
   sortStopsOnInfraLinkComparator,
 } from '../../../../utils';
+import { getRouteStopLabels } from '../../../routes-and-lines/common/utils';
+import { mapRouteToInfraLinksAlongRoute } from './utils';
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;
 
@@ -51,7 +47,23 @@ const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
     infrastructure_network_infrastructure_link(
       where: { external_link_id: { _in: $externalLinkIds } }
     ) {
-      ...route_infra_link_fields
+      ...infra_link_matching_fields
+      external_link_source
+      scheduled_stop_points_located_on_infrastructure_link {
+        ...route_stop_fields
+      }
+    }
+  }
+`;
+
+const GQL_GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
+  query GetStopsAlongInfrastructureLinks($infrastructure_link_ids: [uuid!]) {
+    service_pattern_scheduled_stop_point(
+      where: {
+        located_on_infrastructure_link_id: { _in: $infrastructure_link_ids }
+      }
+    ) {
+      ...scheduled_stop_point_all_fields
     }
   }
 `;
@@ -415,6 +427,31 @@ export const getOldRouteGeometryVariables = (
   };
 };
 
+// Order the given infra links to match the order of the given external ids. Throws if there is no infra link
+// present for a given external link id.
+// NB: We cannot use sort on the infra link array, because some links might be traversed multiple times and thus
+// have to be duplicated.
+function orderInfraLinksByExternalLinkId<
+  TLink extends InfraLinkMatchingFieldsFragment,
+>(
+  infraLinksWithStops: ReadonlyArray<TLink>,
+  externalLinkIds: ReadonlyArray<string>,
+) {
+  return externalLinkIds.map((externalLinkId) => {
+    const infraLinkWithStop = infraLinksWithStops.find(
+      (link) => link.external_link_id === externalLinkId,
+    );
+
+    if (!infraLinkWithStop) {
+      throw new Error(
+        `Could not find link with stop for external link id ${externalLinkId}`,
+      );
+    }
+
+    return infraLinkWithStop;
+  });
+}
+
 export const useExtractRouteFromFeature = () => {
   const { lineInfo, vehicleMode } = useAppSelector(selectEditedRouteData);
 
@@ -507,9 +544,11 @@ export const useExtractRouteFromFeature = () => {
         },
       });
 
-      return mapStopResultToStops(stopsResult)
-        .map((item) => item.label)
-        .filter((stop) => !currentStopLabels.includes(stop));
+      return (
+        stopsResult.data?.service_pattern_scheduled_stop_point
+          ?.map((item) => item.label)
+          .filter((stop) => !currentStopLabels.includes(stop)) ?? []
+      );
     },
 
     [fetchStopsAlongInfrastructureLinks],

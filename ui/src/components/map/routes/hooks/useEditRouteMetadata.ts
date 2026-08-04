@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
   PatchRouteMutationVariables,
@@ -20,6 +21,31 @@ import {
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import { useValidateRoute } from './useValidateRoute';
+
+const GQL_UPDATE_ROUTE = gql`
+  mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
+    update_route_route(where: { route_id: { _eq: $route_id } }, _set: $object) {
+      returning {
+        ...route_all_fields
+      }
+    }
+  }
+`;
+
+const GQL_GET_SCHEDULED_STOPS_ON_ROUTE = gql`
+  query GetScheduledStopsOnRoute($routeId: uuid!) {
+    journey_pattern_journey_pattern(where: { on_route_id: { _eq: $routeId } }) {
+      journey_pattern_id
+      scheduled_stop_point_in_journey_patterns {
+        journey_pattern_id
+        scheduled_stop_point_sequence
+        scheduled_stop_points {
+          ...scheduled_stop_point_default_fields
+        }
+      }
+    }
+  }
+`;
 
 type EditParams = {
   readonly routeId: UUID;

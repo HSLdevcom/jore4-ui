@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import {
   InfrastructureLinkAllFieldsFragment,
   InsertRouteOneMutationVariables,
@@ -8,11 +8,8 @@ import {
   RouteTypeOfLineEnum,
   useInsertRouteOneMutation,
 } from '../../../../generated/graphql';
-import {
-  RouteInfraLink,
-  mapInfraLinksAlongRouteToGraphQL,
-} from '../../../../graphql';
 import { MIN_DATE } from '../../../../time';
+import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import {
   buildJourneyPatternStopSequence,
@@ -28,6 +25,15 @@ import {
 } from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { useValidateRoute } from './useValidateRoute';
+import { mapInfraLinksAlongRouteToGraphQL } from './utils';
+
+const GQL_INSERT_ROUTE = gql`
+  mutation InsertRouteOne($object: route_route_insert_input!) {
+    insert_route_route_one(object: $object) {
+      ...route_all_fields
+    }
+  }
+`;
 
 type CreateParams = {
   readonly form: RouteFormState;

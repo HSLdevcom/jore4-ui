@@ -5,5 +5,6 @@ export * from './GeoHelpers';
 export * from './KeyHelpers';
 export * from './LoadingState';
 export * from './PagingInfo';
+export * from './RouteInfraLink';
 export * from './SortOrder';
 export * from './StopSearchConditions';

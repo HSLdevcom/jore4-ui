@@ -3,9 +3,8 @@ import { useCallback, useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteWithJourneyPatternStopsFragment,
-  useGetRouteDetailsByIdsQuery,
+  useGetRoutesWithStopsQuery,
 } from '../../../../generated/graphql';
-import { getRouteStopLabels } from '../../../../graphql';
 import { useAppSelector } from '../../../../hooks/redux';
 import {
   selectEditedRouteIncludedStops,
@@ -17,8 +16,8 @@ import { Priority } from '../../../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
   isCurrentEntity,
-  mapToVariables,
 } from '../../../../utils';
+import { getRouteStopLabels } from '../../../routes-and-lines/common/utils';
 import { MapStop } from '../../types';
 import { useMapObservationDate } from '../../utils/mapUrlState';
 
@@ -50,9 +49,9 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     selectEditedRouteIncludedStops,
   );
 
-  const displayedRoutesResult = useGetRouteDetailsByIdsQuery(
-    mapToVariables({ route_ids: displayedRouteIds }),
-  );
+  const displayedRoutesResult = useGetRoutesWithStopsQuery({
+    variables: { routeFilters: { route_id: { _in: displayedRouteIds } } },
+  });
 
   const displayedRoutes = useMemo(
     () => displayedRoutesResult.data?.route_route ?? [],

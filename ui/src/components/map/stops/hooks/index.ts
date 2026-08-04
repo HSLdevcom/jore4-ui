@@ -13,4 +13,3 @@ export * from './useMapStops';
 export * from './useUpdateStopPriorityFilterIfNeeded';
 export * from './useValidateTimingSettings';
 export * from './useVisibleRouteStops';
-export * from './utils';

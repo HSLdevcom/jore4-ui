@@ -2,7 +2,6 @@ import isEmpty from 'lodash/isEmpty';
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
-import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Mode,
@@ -21,6 +20,7 @@ import {
   mapInfraLinksToFeature,
   useSnappingLine,
 } from './hooks';
+import { mapRouteToInfraLinksAlongRoute } from './hooks/utils';
 import {
   DRAW_VERTEX_LAYER_IDS,
   NEW_ROUTE_ARROWS_ID,

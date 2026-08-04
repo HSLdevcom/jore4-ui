@@ -1,0 +1,15 @@
+fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
+  journey_pattern_id
+  scheduled_stop_point_label
+  scheduled_stop_point_sequence
+  is_used_as_timing_point
+  is_regulated_timing_point
+  is_loading_time_allowed
+  is_via_point
+  via_point_name_i18n
+  via_point_short_name_i18n
+  journey_pattern {
+    journey_pattern_id
+    on_route_id
+  }
+}

@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import {
   RouteDefaultFieldsFragment,
   ServicePatternScheduledStopPoint,
-  useGetRouteDetailsByIdsQuery,
+  useGetRouteDetailsByIdQuery,
 } from '../../../generated/graphql';
 import { useRequiredParams } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToVariables, showSuccessToast } from '../../../utils';
+import { showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common/Jore';
 import { Container, FormContainer, Row } from '../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../common/Modals';
@@ -53,10 +53,10 @@ export const EditRoutePage: FC = () => {
   >([]);
   const { id } = useRequiredParams<{ id: string }>();
 
-  const routeDetailsResult = useGetRouteDetailsByIdsQuery({
-    ...mapToVariables({ route_ids: [id] }),
+  const routeDetailsResult = useGetRouteDetailsByIdQuery({
+    variables: { routeId: id },
   });
-  const route = routeDetailsResult.data?.route_route?.[0] ?? undefined;
+  const route = routeDetailsResult.data?.route_route_by_pk;
   const { t } = useTranslation();
 
   const onCancel = () => {

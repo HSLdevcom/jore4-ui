@@ -1,6 +1,17 @@
+import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useDeleteRouteMutation } from '../../../../generated/graphql';
 import { mapToVariables, showDangerToastWithError } from '../../../../utils';
+
+const GQL_DELETE_ROUTE = gql`
+  mutation DeleteRoute($route_id: uuid!) {
+    delete_route_route(where: { route_id: { _eq: $route_id } }) {
+      returning {
+        route_id
+      }
+    }
+  }
+`;
 
 export const useDeleteRoute = () => {
   const { t } = useTranslation();

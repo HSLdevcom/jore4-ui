@@ -7,9 +7,9 @@ import {
   RouteTableRowFragment,
   ReusableComponentsVehicleModeEnum as VehicleMode,
 } from '../../../generated/graphql';
-import { isRoute } from '../../../graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../time';
+import { isRoute } from '../../../utils';
 import { LocatorButton } from '../../common/Buttons';
 import { useAlertsAndHighLights } from '../../common/hooks';
 import { Column, Row, Visible } from '../../common/LayoutComponents';

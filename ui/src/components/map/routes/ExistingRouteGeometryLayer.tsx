@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { FC } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
@@ -6,6 +7,19 @@ import {
 import { mapToVariables } from '../../../utils';
 import { mapVehicleModeToRouteColor } from '../../../utils/colors';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
+
+const GQL_GET_ROUTE_RENDER_INFO_BY_ID = gql`
+  query GetRouteRenderInfoById($routeId: uuid!) {
+    route_route_by_pk(route_id: $routeId) {
+      route_id
+      route_shape
+      route_line {
+        line_id
+        primary_vehicle_mode
+      }
+    }
+  }
+`;
 
 type ExistingRouteGeometryLayerProps = {
   readonly routeId: string;

@@ -1,0 +1,6 @@
+query GetLineDetailsById($line_id: uuid!) {
+  route_line_by_pk(line_id: $line_id) {
+    ...line_all_fields
+    ...LineLatestChangeInfo
+  }
+}

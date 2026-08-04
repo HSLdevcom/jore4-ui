@@ -5,7 +5,6 @@ import {
   LineAllFieldsFragment,
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
-import { mapLineDetailsResult } from '../../../graphql';
 import { useNavigateBackSafely, useRequiredParams } from '../../../hooks';
 import { Operation } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -28,6 +27,7 @@ import { PageHeader } from '../common/PageHeader';
 import { getBlockers, hasBlockers } from '../common/SaveBlockers';
 import { StopsNeedingUpdateModal } from '../common/StopsNeedingUpdateModal';
 import { useUpdateStopRegistryStopMetatype } from '../common/useUpdateStopRegistryStopMetatype';
+import { mapLineDetailsResult } from '../common/utils';
 import { EditLineChanges, useEditLine } from './useEditLine';
 
 function mapLineToFormState(line: LineAllFieldsFragment): FormState {
@@ -71,7 +71,7 @@ export const EditLinePage: FC = () => {
 
   const line = mapLineDetailsResult(
     // Instead of subscribing to cache changes, we should only fetch the data once.
-    useGetLineDetailsByIdQuery(mapToVariables({ line_id: id })),
+    useGetLineDetailsByIdQuery(mapToVariables({ line_id: id })).data,
   );
 
   const onCommitEditChanges = async (changes: EditLineChanges) => {

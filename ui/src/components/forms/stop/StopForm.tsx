@@ -11,13 +11,13 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import {
   ReusableComponentsVehicleModeEnum,
+  ServicePatternScheduledStopPointInsertInput,
+  ServicePatternScheduledStopPointSetInput,
   StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../generated/graphql';
-import { PartialScheduledStopPointSetInput } from '../../../graphql';
 import { useAppSelector } from '../../../hooks';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
-import { RequiredKeys } from '../../../types';
 import { StopPlaceState } from '../../../types/stop-registry';
 import {
   KnownValueKey,
@@ -46,14 +46,9 @@ import { Location, PublicCodeAndArea, VersionInfo } from './components';
 import { TimingPlaceModal } from './TimingPlaceModal';
 import { MISSING_ID, StopFormState, stopFormSchema } from './types';
 
-type StopFormStateStopPointMappedSetInput = RequiredKeys<
-  PartialScheduledStopPointSetInput,
-  | 'measured_location'
-  | 'label'
-  | 'priority'
-  | 'validity_start'
-  | 'validity_end'
-  | 'timing_place_id'
+type StopFormStateStopPointMappedSetInput = Omit<
+  ServicePatternScheduledStopPointInsertInput,
+  'located_on_infrastructure_link_id' | 'direction'
 >;
 
 function mapFormStateToStopPointSetInput(
@@ -132,9 +127,9 @@ function mapFormStateToQuayInput(state: StopFormState): StopRegistryQuayInput {
 }
 
 const isDirtyMap: {
-  readonly [key in keyof PartialScheduledStopPointSetInput]: ReadonlyArray<
-    keyof StopFormState
-  >;
+  readonly [
+    key in keyof ServicePatternScheduledStopPointSetInput
+  ]: ReadonlyArray<keyof StopFormState>;
 } = {
   measured_location: ['latitude', 'longitude'],
   priority: ['priority'],
@@ -146,11 +141,12 @@ const isDirtyMap: {
 // Only pick changed fields, needed to keep Tiamat happy when updating fields,
 // not in Tiamat.
 function pickChangedFieldsForPatch(
-  input: PartialScheduledStopPointSetInput,
+  input: ServicePatternScheduledStopPointSetInput,
   dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<StopFormState>>>,
-): PartialScheduledStopPointSetInput {
+): ServicePatternScheduledStopPointSetInput {
   const dirty = Object.entries(input).filter(([key]) => {
-    const formKeys = isDirtyMap[key as keyof PartialScheduledStopPointSetInput];
+    const formKeys =
+      isDirtyMap[key as keyof ServicePatternScheduledStopPointSetInput];
     if (formKeys) {
       return formKeys.some((formKey) => dirtyFields[formKey]);
     }

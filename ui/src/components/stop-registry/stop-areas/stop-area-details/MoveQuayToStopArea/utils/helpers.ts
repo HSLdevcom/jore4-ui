@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon';
 import {
   ServicePatternScheduledStopPointInsertInput,
+  ServicePatternScheduledStopPointSetInput,
   useGetStopPointsByQuayIdLazyQuery,
   useInsertStopPointMutation,
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
 } from '../../../../../../generated/graphql';
-import { PartialScheduledStopPointSetInput } from '../../../../../../graphql';
 import { tryToParseDate } from '../../../../../../time';
 import { KnownValueKey, areEqual, findKeyValue } from '../../../../../../utils';
 import {
@@ -126,7 +126,7 @@ export async function updateStopPointValidity(
   validityEnd: DateTime,
   updateStopPointMutation: ReturnType<typeof useUpdateStopPointMutation>[0],
 ): Promise<void> {
-  const updateChanges: PartialScheduledStopPointSetInput = {
+  const updateChanges: ServicePatternScheduledStopPointSetInput = {
     validity_end: validityEnd,
   };
 

@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
-import { mapLineDetailsResult } from '../../../../graphql';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
+import { mapLineDetailsResult } from '../../../routes-and-lines/common/utils';
 import { useValidateRoute } from './useValidateRoute';
 
 jest.mock('@apollo/client', () => ({
@@ -29,7 +29,7 @@ jest.mock('../../../../generated/graphql', () => ({
   useGetLineDetailsByIdLazyQuery: jest.fn(() => [jest.fn()]),
 }));
 
-jest.mock('../../../../graphql', () => ({
+jest.mock('../../../routes-and-lines/common/utils', () => ({
   mapLineDetailsResult: jest.fn(),
 }));
 

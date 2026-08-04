@@ -1,7 +1,7 @@
 // Can be used to provide context for react hooks in integration tests
 
 import { ReactNode } from 'react';
-import { ApolloProvider } from '../../../graphql';
+import { ApolloProvider } from '../../../components/common/Apollo';
 
 // https://react-hooks-testing-library.com/usage/advanced-hooks
 export const hookWrapper = ({ children }: { children: ReactNode }) => (

@@ -7,7 +7,7 @@ import {
   RouteDirectionEnum,
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
-import { RouteInfraLink } from '../../graphql';
+import { RouteInfraLink } from '../../types';
 import { Priority } from '../../types/enums';
 import { StoreType, mapToStoreType } from '../mappers/storeType';
 import { JourneyPattern } from '../types';

@@ -1,0 +1,22 @@
+fragment line_all_fields on route_line {
+  line_id
+  label
+  description
+  version_comment
+  name_i18n
+  short_name_i18n
+  validity_start
+  validity_end
+  priority
+  primary_vehicle_mode
+  type_of_line
+  transport_target
+}
+
+fragment LineLatestChangeInfo on route_line {
+  change_history(order_by: [{ changed: desc }], limit: 1) {
+    id
+    changed
+    changed_by
+  }
+}

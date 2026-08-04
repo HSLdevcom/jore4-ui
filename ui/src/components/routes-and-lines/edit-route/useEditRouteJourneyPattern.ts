@@ -7,10 +7,6 @@ import {
   RouteWithInfrastructureLinksWithStopsFragment,
   useUpdateRouteJourneyPatternMutation,
 } from '../../../generated/graphql';
-import {
-  mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-  stopBelongsToJourneyPattern,
-} from '../../../graphql';
 import { Priority } from '../../../types/enums';
 import {
   addOrRemoveStopLabelsFromIncludedStops,
@@ -27,6 +23,10 @@ import {
   resolveStopInfoByPublicCodes,
   useUpdateStopRegistryStopMetatype,
 } from '../common/useUpdateStopRegistryStopMetatype';
+import {
+  mapInfrastructureLinksAlongRouteToRouteInfraLinks,
+  stopBelongsToJourneyPattern,
+} from '../common/utils';
 
 const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
   mutation UpdateRouteJourneyPattern(

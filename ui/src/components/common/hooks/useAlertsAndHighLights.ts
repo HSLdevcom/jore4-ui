@@ -1,11 +1,6 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import {
-  LineTableRowFragment,
-  RouteValidityFragment,
-  ScheduledStopPointDefaultFieldsFragment,
-} from '../../../generated/graphql';
-import { parseDate } from '../../../time';
+import { DateLike, parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 
 enum AlertLevel {
@@ -21,15 +16,15 @@ export type AlertStatus = {
   readonly description: string;
 };
 
+type AlertStatusInput = {
+  readonly priority: Priority;
+  readonly validity_end?: DateLike | null | undefined;
+};
+
 export const useAlertsAndHighLights = () => {
   const { t } = useTranslation();
 
-  const getAlertStatus = (
-    input:
-      | RouteValidityFragment
-      | LineTableRowFragment
-      | ScheduledStopPointDefaultFieldsFragment,
-  ): AlertStatus => {
+  const getAlertStatus = (input: AlertStatusInput): AlertStatus => {
     // TODO: this logic is actually pretty far from the desired functionality, but at least
     // will let us demo the different highlighting
 

@@ -1,7 +1,8 @@
+import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
   InsertLineOneMutationVariables,
-  LineDefaultFieldsFragment,
+  LineAllFieldsFragment,
   ReusableComponentsVehicleModeEnum,
   RouteLineInsertInput,
   RouteTypeOfLineEnum,
@@ -15,12 +16,20 @@ import {
 import { useCheckValidityAndPriorityConflicts } from '../../common/hooks/useCheckValidityAndPriorityConflicts';
 import { FormState } from '../../forms/line/LineForm';
 
+const GQL_INSERT_LINE = gql`
+  mutation InsertLineOne($object: route_line_insert_input!) {
+    insert_route_line_one(object: $object) {
+      ...line_all_fields
+    }
+  }
+`;
+
 type CreateParams = {
   readonly form: FormState;
 };
 type CreateChanges = {
   readonly input: RouteLineInsertInput;
-  readonly conflicts?: ReadonlyArray<LineDefaultFieldsFragment>;
+  readonly conflicts?: ReadonlyArray<LineAllFieldsFragment>;
 };
 
 export const mapFormToInput = (state: FormState) => {

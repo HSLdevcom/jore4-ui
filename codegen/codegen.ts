@@ -67,7 +67,11 @@ const config: CodegenConfig = {
   overwrite: true,
   generates: {
     '../ui/src/generated/graphql.tsx': {
-      documents: ['../ui/src/**/*.tsx', '../ui/src/**/*.ts'],
+      documents: [
+        '../ui/src/**/*.tsx',
+        '../ui/src/**/*.ts',
+        '../ui/src/**/*.graphql',
+      ],
       plugins: [
         luxonImportPlugin,
         'typescript',

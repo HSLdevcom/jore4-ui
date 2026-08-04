@@ -1,5 +1,6 @@
 import {
   ApolloClient,
+  ApolloLink,
   HttpLink,
   InMemoryCache,
   UriFunction,
@@ -15,12 +16,12 @@ import { IntrospectionQuery, buildClientSchema } from 'graphql';
 import { createClient as createWsClient } from 'graphql-ws';
 import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
-import introspectionResult from '../../graphql.schema.json';
-import { joreConfig } from '../config';
-import tiamatTypeInfo from '../generated/versionedTiamatEntities';
-import { isDateLike, parseDate } from '../time';
-import { mapHttpToWs } from '../utils/url';
-import { authRoleMiddleware, roleHeaderMap, userHasuraRole } from './auth';
+import introspectionResult from '../../../../graphql.schema.json';
+import { joreConfig } from '../../../config';
+import tiamatTypeInfo from '../../../generated/versionedTiamatEntities';
+import { isDateLike, parseDate } from '../../../time';
+import { mapHttpToWs } from '../../../utils';
+import { roleHeaderMap, userHasuraRole } from './auth';
 
 const { embeddedTypes, typesWithId, typesWithVersion } = tiamatTypeInfo;
 
@@ -334,26 +335,38 @@ const buildCacheDefinition = () => {
   return cacheDefinition;
 };
 
+function buildAuthLink() {
+  return new ApolloLink((operation, forward) => {
+    // const { role } = operation.variables;
+
+    // add the requested authorization role to the headers if it is specified
+    operation.setContext(({ headers = {} }) => ({
+      headers: {
+        ...headers,
+        ...(userHasuraRole && roleHeaderMap(userHasuraRole)),
+      },
+    }));
+
+    return forward(operation);
+  });
+}
+
 export const createGraphqlClient = () => {
   // jest and most testing frameworks set NODE_ENV to 'test' automatically
   const isTesting = process.env.NODE_ENV === 'test';
 
   const scalarMappingLink = buildScalarMappingLink();
+  const authLink = buildAuthLink();
   const connectionLink = buildConnectionLink(
     typeof window === 'object' && window !== null,
     isTesting,
   );
 
-  const link = from([
-    errorLink,
-    scalarMappingLink,
-    authRoleMiddleware,
-    connectionLink,
-  ]);
+  const link = from([errorLink, scalarMappingLink, authLink, connectionLink]);
 
   const cache = buildCacheDefinition();
 
-  const client = new ApolloClient({
+  return new ApolloClient({
     link,
     cache,
     defaultOptions: {
@@ -364,6 +377,4 @@ export const createGraphqlClient = () => {
       },
     },
   });
-
-  return client;
 };

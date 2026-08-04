@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LineDefaultFieldsFragment } from '../../../generated/graphql';
+import { LineAllFieldsFragment } from '../../../generated/graphql';
 import { DateLike, mapToShortDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { mapPriorityToUiName } from '../../../utils/i18n';
@@ -13,7 +13,7 @@ const testIds = {
 
 type LineValidityPeriodProps = {
   readonly className?: string;
-  readonly line: LineDefaultFieldsFragment;
+  readonly line: LineAllFieldsFragment;
 };
 
 export const LineValidityPeriod: FC<LineValidityPeriodProps> = ({

@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import {
+  ServicePatternScheduledStopPointInsertInput,
   StopRegistryInfoSpotInput,
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
   useUpdateInfoSpotMutation,
 } from '../../../../../../generated/graphql';
-import { ScheduledStopPointSetInput } from '../../../../../../graphql';
 import { KnownValueKey, findKeyValue } from '../../../../../../utils';
 import { useDeleteQuay } from '../../../queries/useDeleteQuay';
 import {
@@ -107,7 +107,7 @@ function useInsertStopPoint() {
 
   return useCallback(
     async (
-      stopPointInput: ScheduledStopPointSetInput,
+      stopPointInput: ServicePatternScheduledStopPointInsertInput,
       stopPlaceId: string,
       quayId: string,
     ): Promise<UUID> => {
@@ -194,7 +194,7 @@ function useInsertInfoSpots() {
 export type CopyStopInputs = {
   readonly originalStopPlaceId: string;
   readonly quayInput: StopRegistryQuayCopyInput;
-  readonly stopPointInput: ScheduledStopPointSetInput;
+  readonly stopPointInput: ServicePatternScheduledStopPointInsertInput;
   readonly infoSpotInputs: ReadonlyArray<InfoSpotInputHelper> | null;
 };
 

@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
+import * as luxon from 'luxon';
 import {
   RouteAllFieldsFragment,
   RouteTableRowFragment,
-  RouteValidityFragment,
 } from '../generated/graphql';
 import { isDateInRange } from '../time';
 
@@ -46,6 +46,9 @@ export const getRouteLabelVariantText = (route: RouteWithLabel) =>
   `${route.label}${hasRouteVariant(route) ? ` ${route.variant}` : ''}`;
 
 export const isRouteActiveOnObservationDate = (
-  route: Pick<RouteValidityFragment, 'validity_start' | 'validity_end'>,
+  route: {
+    readonly validity_start?: luxon.DateTime | null;
+    readonly validity_end?: luxon.DateTime | null;
+  },
   observationDate: DateTime,
 ) => isDateInRange(observationDate, route.validity_start, route.validity_end);

@@ -6,16 +6,16 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   useGetRouteWithInfrastructureLinksWithStopsQuery,
 } from '../../../../generated/graphql';
-import {
-  getRouteStopLabels,
-  mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-} from '../../../../graphql';
 import { useAppSelector } from '../../../../hooks';
 import {
   EditedRouteData,
   selectEditedRouteData,
   selectHasChangesInProgress,
 } from '../../../../redux';
+import {
+  getRouteStopLabels,
+  mapInfrastructureLinksAlongRouteToRouteInfraLinks,
+} from '../../../routes-and-lines/common/utils';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 

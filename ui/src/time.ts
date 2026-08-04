@@ -8,7 +8,7 @@ import {
   Interval,
   Settings,
 } from 'luxon';
-import { Maybe, ValidityPeriod } from './generated/graphql';
+import { ValidityPeriod } from './generated/graphql';
 
 // Use Helsinki as the time default time zone.
 const helsinkiTimeZone = IANAZone.create('Europe/Helsinki');
@@ -112,13 +112,10 @@ export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');
 
 export const isDateInRange = (
   date: DateTime,
-  startDate?: Maybe<DateTime>,
-  endDate?: Maybe<DateTime>,
+  startDate: DateTime | null | undefined,
+  endDate: DateTime | null | undefined,
 ) => {
-  return (
-    (!startDate?.isValid || date >= startDate) &&
-    (!endDate?.isValid || date <= endDate)
-  );
+  return (!startDate || date >= startDate) && (!endDate || date <= endDate);
 };
 
 // The luxon Interval does not handle infinite start/end, so using MIN_DATE and MAX_DATE instead

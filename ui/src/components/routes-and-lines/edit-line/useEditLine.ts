@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
   LineAllFieldsFragment,
@@ -19,6 +19,14 @@ import {
 } from '../common/useUpdateStopRegistryStopMetatype';
 import { mapFormToInput } from '../create-line/useCreateLine';
 import { useValidateLine } from './useValidateLine';
+
+const GQL_UPDATE_LINE = gql`
+  mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
+    update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
+      ...line_all_fields
+    }
+  }
+`;
 
 type EditParams = {
   readonly lineId: UUID;

@@ -9,7 +9,6 @@ import {
   useInsertStopPointMutation,
   useQueryAnyClosestLinkLazyQuery,
 } from '../../../../generated/graphql';
-import { mapAnyClosestLinkResult } from '../../../../graphql';
 import { OptionalKeys } from '../../../../types';
 import {
   IncompatibleWithExistingRoutesError,
@@ -25,6 +24,18 @@ import {
 } from './useEditStop';
 import { useGetNextQuayPrivateCode } from './useGetNextQuayPrivateCode';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
+
+const GQL_QUERY_ANY_CLOSEST_LINK = gql`
+  query QueryAnyClosestLink($point: geography!) {
+    infrastructure_network_infrastructure_link(
+      where: { shape: { _st_d_within: { distance: 100, from: $point } } }
+      order_by: []
+      limit: 1
+    ) {
+      infrastructure_link_id
+    }
+  }
+`;
 
 // the input does not need to contain all the fields
 export type CreateStopPointInput = OptionalKeys<
@@ -161,7 +172,7 @@ export function useCheckIsLocationValidForStop() {
     const result = await fetchAnyClosestLink({
       variables: { point: stopLocation },
     });
-    if (!mapAnyClosestLinkResult(result)) {
+    if (!result.data?.infrastructure_network_infrastructure_link.length) {
       throw new LinkNotResolvedError(
         result.error,
         `Could not resolve closest link to point ${stopLocation}`,

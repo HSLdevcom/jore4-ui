@@ -1,19 +1,33 @@
+import { gql } from '@apollo/client';
+import uniqBy from 'lodash/uniqBy';
 import { useTranslation } from 'react-i18next';
 import {
+  JourneyPatternJourneyPattern,
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   useGetStopWithRouteGraphDataByIdLazyQuery,
   useRemoveStopMutation,
 } from '../../../../generated/graphql';
-import { mapStopResultToStop } from '../../../../graphql';
 import {
   EditRouteTerminalStopsError,
   InternalError,
+  illegalOptionalCast,
   showDangerToast,
   showDangerToastWithError,
 } from '../../../../utils';
 import { useDeleteQuay } from '../../../stop-registry/stops/queries/useDeleteQuay';
-import { getRoutesOfJourneyPatterns } from './utils';
+
+const GQL_REMOVE_STOP = gql`
+  mutation RemoveStop($stop_id: uuid!) {
+    delete_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+    ) {
+      returning {
+        scheduled_stop_point_id
+      }
+    }
+  }
+`;
 
 type DeleteParams = {
   readonly stopPointId: UUID;
@@ -25,6 +39,19 @@ export type DeleteChanges = DeleteParams & {
   readonly deletedStopPoint: ServicePatternScheduledStopPoint;
   readonly deleteStopFromRoutes: ReadonlyArray<RouteUniqueFieldsFragment>;
 };
+
+// gets the unique list of parent routes for the input journey patterns
+function getRoutesOfJourneyPatterns(
+  journeyPatterns: ReadonlyArray<JourneyPatternJourneyPattern>,
+) {
+  const allRoutes = journeyPatterns
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    .map((item) => item.journey_pattern_route!);
+
+  // in the future, multiple journey patterns may have the same route,
+  // so let's make sure we only return unique results
+  return uniqBy(allRoutes, (route) => route.route_id);
+}
 
 // Find all journey patterns from which this stop will be removed
 function getJourneyPatternsToDeleteStopFrom(
@@ -52,7 +79,10 @@ function usePrepareDelete() {
     const stopWithRoutesResult = await getStopWithRouteGraphData({
       variables: { stopId: stopPointId },
     });
-    const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
+    const stopWithRouteGraphData =
+      illegalOptionalCast<ServicePatternScheduledStopPoint>(
+        stopWithRoutesResult.data?.service_pattern_scheduled_stop_point.at(0),
+      );
 
     if (!stopWithRouteGraphData) {
       throw new InternalError(

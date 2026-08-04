@@ -1,24 +1,22 @@
 import isArray from 'lodash/isArray';
 import { DateTime } from 'luxon';
-import {
-  isChangeHistory,
-  isLine,
-  isRoute,
-  isStop,
-  isValidBetween,
-} from '../../graphql';
 import { isDateLike, parseDate } from '../../time';
 import {
   PlainObject,
   assertIsPlainObject,
   getObjectStringKeys,
+  isLine,
   isPlainObject,
-} from '../../utils/object';
+  isRoute,
+  isRouteLineChangeHistory,
+  isScheduledStopPoint,
+  isValidBetween,
+} from '../../utils';
 
 // types that must be serialized
 type SerializedTypes = DateTime;
 
-// recusively replaces DateTime property types with strings within the input type
+// recursively replaces DateTime property types with strings within the input type
 export type StoreType<T> = T extends SerializedTypes // serializable property -> convert to string
   ? string
   : T extends Array<infer U> // array -> recurse
@@ -52,11 +50,11 @@ const defaultSerializer: SerializerFunction = <
   parentObject: T,
 ) => {
   if (
-    (isStop(parentObject) ||
+    (isScheduledStopPoint(parentObject) ||
       isRoute(parentObject) ||
       isLine(parentObject) ||
       isValidBetween(parentObject) ||
-      isChangeHistory(parentObject)) &&
+      isRouteLineChangeHistory(parentObject)) &&
     [
       'validity_start',
       'validity_end',
@@ -81,7 +79,9 @@ const defaultDeserializer: DeserializerFunction = <
   parentObject: T,
 ) => {
   if (
-    (isStop(parentObject) || isRoute(parentObject) || isLine(parentObject)) &&
+    (isScheduledStopPoint(parentObject) ||
+      isRoute(parentObject) ||
+      isLine(parentObject)) &&
     ['validity_start', 'validity_end'].includes(key) &&
     isDateLike(value)
   ) {

@@ -4,12 +4,12 @@ import {
   Maybe,
   useGetLineDetailsByIdLazyQuery,
 } from '../../../../generated/graphql';
-import { mapLineDetailsResult } from '../../../../graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
 } from '../../../../utils';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
+import { mapLineDetailsResult } from '../../../routes-and-lines/common/utils';
 
 type ValidityPeriodParams = {
   readonly validity_start?: Maybe<DateTime>;
@@ -77,7 +77,7 @@ export const useValidateRoute = () => {
         line_id: routeMetadata.onLineId,
       },
     });
-    const line = mapLineDetailsResult(lineResult);
+    const line = mapLineDetailsResult(lineResult.data);
 
     const routeValidityStart = mapDateInputToValidityStart(
       routeMetadata.validityStart,

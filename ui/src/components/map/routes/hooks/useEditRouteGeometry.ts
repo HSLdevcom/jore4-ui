@@ -10,10 +10,7 @@ import {
   RouteTypeOfLineEnum,
   useUpdateRouteGeometryMutation,
 } from '../../../../generated/graphql';
-import {
-  RouteInfraLink,
-  mapInfraLinksAlongRouteToGraphQL,
-} from '../../../../graphql';
+import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { buildJourneyPatternStopSequence } from '../../../../utils';
 import {
@@ -24,6 +21,7 @@ import {
   updateStopRegistryStopMetatype,
 } from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
 import { useValidateRoute } from './useValidateRoute';
+import { mapInfraLinksAlongRouteToGraphQL } from './utils';
 
 const GQL_UPDATE_ROUTE_GEOMETRY = gql`
   mutation UpdateRouteGeometry(

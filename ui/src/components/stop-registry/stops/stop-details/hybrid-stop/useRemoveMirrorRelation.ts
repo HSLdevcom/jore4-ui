@@ -1,9 +1,19 @@
+import { gql } from '@apollo/client';
 import { useCallback, useState } from 'react';
-import {
-  useGetStopPointsByQuayIdLazyQuery,
-  useRemoveStopMutation,
-} from '../../../../../generated/graphql';
+import { useRemoveStopPointsByQuayRefMutation } from '../../../../../generated/graphql';
 import { useDeleteQuay } from '../../queries/useDeleteQuay';
+
+const GQL_REMOVE_STOP = gql`
+  mutation RemoveStopPointsByQuayRef($ref: String!) {
+    delete_service_pattern_scheduled_stop_point(
+      where: { stop_place_ref: { _eq: $ref } }
+    ) {
+      returning {
+        scheduled_stop_point_id
+      }
+    }
+  }
+`;
 
 type RemoveMirrorRelationParams = {
   readonly childQuayId: string;
@@ -13,8 +23,7 @@ type RemoveMirrorRelationParams = {
 export function useRemoveMirrorRelation() {
   const [loading, setLoading] = useState(false);
 
-  const [getStopPointsByQuayId] = useGetStopPointsByQuayIdLazyQuery();
-  const [removeStopMutation] = useRemoveStopMutation();
+  const [removeStopPoints] = useRemoveStopPointsByQuayRefMutation();
   const deleteQuay = useDeleteQuay();
 
   const removeMirrorRelation = useCallback(
@@ -22,18 +31,7 @@ export function useRemoveMirrorRelation() {
       setLoading(true);
       try {
         // 1. Remove the child's SSP (scheduled stop point)
-        const sspResult = await getStopPointsByQuayId({
-          variables: { quayIds: [childQuayId] },
-        });
-        const childStopPoints =
-          sspResult.data?.service_pattern_scheduled_stop_point ?? [];
-        await Promise.all(
-          childStopPoints.map((ssp) =>
-            removeStopMutation({
-              variables: { stop_id: ssp.scheduled_stop_point_id },
-            }),
-          ),
-        );
+        await removeStopPoints({ variables: { ref: childQuayId } });
 
         // 2. Delete the child quay from Tiamat
         await deleteQuay(childStopPlaceId, childQuayId);
@@ -43,7 +41,7 @@ export function useRemoveMirrorRelation() {
         setLoading(false);
       }
     },
-    [getStopPointsByQuayId, removeStopMutation, deleteQuay],
+    [removeStopPoints, deleteQuay],
   );
 
   return { removeMirrorRelation, loading };

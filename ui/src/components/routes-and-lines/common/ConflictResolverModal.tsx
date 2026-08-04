@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import {
-  LineDefaultFieldsFragment,
+  LineAllFieldsFragment,
   RouteUniqueFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
@@ -46,7 +46,7 @@ export function mapRouteToCommonConflictItem(
 }
 
 export function mapLineToCommonConflictItem(
-  line: LineDefaultFieldsFragment,
+  line: LineAllFieldsFragment,
 ): CommonConflictItem {
   return {
     validityStart: line.validity_start ?? undefined,

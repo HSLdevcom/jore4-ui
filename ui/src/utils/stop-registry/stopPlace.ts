@@ -14,7 +14,6 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType,
   StopRegistryTopographicPlaceType,
 } from '../../generated/graphql';
-import { hasTypeName } from '../../graphql';
 import {
   ParentStopPlaceEnrichmentProperties,
   ParentStopPlaceOwner,
@@ -25,6 +24,7 @@ import { Priority, knownPriorityValues } from '../../types/enums';
 import { StopOwner, StopPlaceState } from '../../types/stop-registry';
 import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
 import { mapLngLatToPoint } from '../gis';
+import { hasTypeName } from '../graphql';
 import { KnownValueKey } from '../knownValueKey';
 import { findAlternativeName } from './alternativeNames';
 
@@ -37,21 +37,14 @@ type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
 const isStopPlace = <T extends StopPlaceType>(
   stopPlaceResult: unknown,
 ): stopPlaceResult is T => {
-  return !!(
-    hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
-    // eslint-disable-next-line no-underscore-dangle
-    stopPlaceResult.__typename === 'stop_registry_StopPlace' // For parent type this would be stop_registry_ParentStopPlace
-  );
+  // For parent type this would be stop_registry_ParentStopPlace
+  return hasTypeName(stopPlaceResult, 'stop_registry_StopPlace');
 };
 
 const isParentStopPlace = <T extends ParentStopPlaceType>(
   stopPlaceResult: unknown,
 ): stopPlaceResult is T => {
-  return !!(
-    hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
-    // eslint-disable-next-line no-underscore-dangle
-    stopPlaceResult.__typename === 'stop_registry_ParentStopPlace'
-  );
+  return hasTypeName(stopPlaceResult, 'stop_registry_ParentStopPlace');
 };
 
 /**

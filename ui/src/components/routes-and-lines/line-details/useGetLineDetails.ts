@@ -4,16 +4,15 @@ import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import {
-  LineDefaultFieldsFragment,
+  LineAllFieldsFragment,
   LineWithRoutesUniqueFieldsFragment,
   RouteDirectionEnum,
+  RouteLine,
   RouteUniqueFieldsFragment,
-  RouteValidityFragment,
   useGetHighestPriorityLineDetailsWithRoutesLazyQuery,
   useGetLineDetailsByIdQuery,
   useGetLineValidityPeriodByIdLazyQuery,
 } from '../../../generated/graphql';
-import { mapLineValidityPeriod } from '../../../graphql';
 import {
   useObservationDateQueryParam,
   useRequiredParams,
@@ -23,7 +22,18 @@ import {
   buildDraftPriorityGqlFilter,
   buildLabelGqlFilter,
   getRouteLabelVariantText,
+  illegalOptionalCast,
 } from '../../../utils';
+
+const GQL_GET_LINE_VALIDITY_PERIOD_BY_ID = gql`
+  query GetLineValidityPeriodById($line_id: uuid!) {
+    route_line_by_pk(line_id: $line_id) {
+      line_id
+      validity_start
+      validity_end
+    }
+  }
+`;
 
 const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
   fragment infrastructure_link_with_stops on infrastructure_network_infrastructure_link {
@@ -67,7 +77,7 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
   }
 `;
 
-const findHighestPriorityRoute = <TRoute extends RouteValidityFragment>(
+const findHighestPriorityRoute = <TRoute extends RouteUniqueFieldsFragment>(
   routes: ReadonlyArray<TRoute>,
 ) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
@@ -142,7 +152,7 @@ const getInitialDate = (
 };
 
 const buildLineDetailsGqlFilters = (
-  line?: LineDefaultFieldsFragment,
+  line?: LineAllFieldsFragment,
   observationDate?: DateTime | null,
 ) => {
   const lineFilters = {
@@ -196,7 +206,9 @@ export const useGetLineDetails = () => {
       const result = await getLineValidityPeriodByIdQuery({
         variables: { line_id: id },
       });
-      const lineDetails = mapLineValidityPeriod(result);
+      const lineDetails = illegalOptionalCast<RouteLine>(
+        result.data?.route_line_by_pk,
+      );
       if (lineDetails) {
         const initialDate = getInitialDate(
           lineDetails?.validity_start,

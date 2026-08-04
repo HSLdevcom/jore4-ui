@@ -1,14 +1,18 @@
+import { gql } from '@apollo/client';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   JourneyPatternScheduledStopPointInJourneyPattern,
   useGetScheduledStopPointWithViaInfoQuery,
 } from '../../../generated/graphql';
-import { mapGetScheduledStopPointWithViaInfo as mapGetScheduledStopPointWithViaInfoResult } from '../../../graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
-import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import {
+  illegalOptionalCast,
+  showDangerToastWithError,
+  showSuccessToast,
+} from '../../../utils';
 import { Modal, ModalBody, ModalHeader } from '../../common/Modals';
 import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import { useEditViaInfo } from './useEditViaInfo';
@@ -18,6 +22,29 @@ import {
   ViaForm,
   mapStopJourneyPatternToFormState,
 } from './ViaForm';
+
+const GQL_GET_SCHEDULED_STOP_POINT_WITH_VIA_INFO = gql`
+  query GetScheduledStopPointWithViaInfo(
+    $journeyPatternId: uuid!
+    $stopLabel: String!
+  ) {
+    journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        journey_pattern_id: { _eq: $journeyPatternId }
+        scheduled_stop_point_label: { _eq: $stopLabel }
+      }
+    ) {
+      ...scheduled_stop_point_in_journey_pattern_all_fields
+      journey_pattern {
+        journey_pattern_id
+        journey_pattern_route {
+          route_id
+          label
+        }
+      }
+    }
+  }
+`;
 
 type ViaModalProps = {
   readonly className?: string;
@@ -44,7 +71,11 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
     },
   });
   const stopInfo =
-    mapGetScheduledStopPointWithViaInfoResult(scheduledStopResult);
+    illegalOptionalCast<JourneyPatternScheduledStopPointInJourneyPattern>(
+      scheduledStopResult.data?.journey_pattern_scheduled_stop_point_in_journey_pattern.at(
+        0,
+      ),
+    );
 
   const onSubmit = async (
     form: FormState,

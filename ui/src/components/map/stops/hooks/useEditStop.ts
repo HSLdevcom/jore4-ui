@@ -12,6 +12,7 @@ import {
   RouteUniqueFieldsFragment,
   ScheduledStopPointAllFieldsFragment,
   ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointSetInput,
   StopRegistryQuay,
   StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
@@ -20,11 +21,6 @@ import {
   useGetRoutesBrokenByStopChangeLazyQuery,
   useGetStopWithRouteGraphDataByIdLazyQuery,
 } from '../../../../generated/graphql';
-import {
-  PartialScheduledStopPointSetInput,
-  mapGetRoutesBrokenByStopChangeResult,
-  mapStopResultToStop,
-} from '../../../../graphql';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -36,6 +32,7 @@ import {
   TiamatUpdateFailedError,
   TimingPlaceRequiredError,
   defaultTo,
+  illegalCast,
   showDangerToast,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
@@ -136,7 +133,7 @@ const GQL_EDIT_STOP_PLACE = gql`
 type EditParams = {
   readonly stopLabel: string;
   readonly stopId: UUID;
-  readonly stopPointPatch: PartialScheduledStopPointSetInput;
+  readonly stopPointPatch: ServicePatternScheduledStopPointSetInput;
   readonly stopPlaceId: string;
   readonly quayId: string;
   readonly quayPatch: StopRegistryQuayInput;
@@ -145,7 +142,7 @@ type EditParams = {
 export type EditChanges = {
   readonly stopId: UUID;
   readonly stopLabel: string;
-  readonly stopPointPatch: PartialScheduledStopPointSetInput | null;
+  readonly stopPointPatch: ServicePatternScheduledStopPointSetInput | null;
   readonly stopPlacePatch: StopRegistryStopPlaceInput | null;
   readonly editedStop: ScheduledStopPointAllFieldsFragment;
   readonly deleteStopFromRoutes: ReadonlyArray<RouteUniqueFieldsFragment>;
@@ -158,7 +155,7 @@ export type EditChanges = {
 export type BrokenRouteCheckParams = {
   readonly newLink: InfrastructureNetworkInfrastructureLink;
   readonly newDirection: InfrastructureNetworkDirectionEnum;
-  readonly newStop: PartialScheduledStopPointSetInput;
+  readonly newStop: ServicePatternScheduledStopPointSetInput;
   readonly label: string;
   readonly priority: number;
   readonly stopId: UUID | null;
@@ -243,13 +240,15 @@ export function useGetRoutesBrokenByStopChange() {
     });
 
     const brokenRouteList =
-      mapGetRoutesBrokenByStopChangeResult(brokenRoutesResult);
+      brokenRoutesResult.data
+        ?.journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point ??
+      [];
 
     const brokenJourneyPatternIds = brokenRouteList.map(
       (route) => route.journey_pattern_id,
     );
-    const brokenRoutes = brokenRouteList.map(
-      (route) => route.journey_pattern_route as RouteAllFieldsFragment,
+    const brokenRoutes = brokenRouteList.map((route) =>
+      illegalCast<RouteAllFieldsFragment>(route.journey_pattern_route),
     );
 
     return { brokenJourneyPatternIds, brokenRoutes };
@@ -257,7 +256,7 @@ export function useGetRoutesBrokenByStopChange() {
 }
 
 function hasStopPointFieldChanged(
-  patch: PartialScheduledStopPointSetInput,
+  patch: ServicePatternScheduledStopPointSetInput,
   existing: ServicePatternScheduledStopPoint,
   field: 'priority' | 'validity_start' | 'validity_end',
 ) {
@@ -274,7 +273,7 @@ function useGetConflictingStops() {
   return async (
     stopId: string,
     label: string,
-    patch: PartialScheduledStopPointSetInput,
+    patch: ServicePatternScheduledStopPointSetInput,
     existing: ServicePatternScheduledStopPoint,
   ) => {
     const hasEditedValidity =
@@ -289,7 +288,7 @@ function useGetConflictingStops() {
     return getConflictingStops(
       {
         label,
-        priority: defaultTo(patch.priority, existing.priority),
+        priority: patch.priority ?? existing.priority,
         validityStart:
           defaultTo(patch.validity_start, existing.validity_start) ?? undefined,
         validityEnd:
@@ -311,7 +310,7 @@ function useOnStopLocationChanged() {
 
   return async (
     oldStop: ScheduledStopPointAllFieldsFragment,
-    newStop: PartialScheduledStopPointSetInput,
+    newStop: ServicePatternScheduledStopPointSetInput,
     stopId: UUID,
   ): Promise<OnStopLocationChangedResult> => {
     // if we modified the location of the stop, have to also fetch the new infra link and direction
@@ -353,7 +352,7 @@ function useGetLocationChanges() {
 
   return async (
     stopId: string,
-    patch: PartialScheduledStopPointSetInput,
+    patch: ServicePatternScheduledStopPointSetInput,
     stopWithRouteGraphData: ServicePatternScheduledStopPoint,
   ): Promise<Partial<OnStopLocationChangedResult>> => {
     const newLocation = patch.measured_location;
@@ -375,7 +374,7 @@ function useValidateTimingPlaceChanges() {
 
   return async (
     stopLabel: string,
-    patch: PartialScheduledStopPointSetInput,
+    patch: ServicePatternScheduledStopPointSetInput,
     stopWithRouteGraphData: ServicePatternScheduledStopPoint,
   ) => {
     if (patch.timing_place_id === undefined) {
@@ -421,7 +420,9 @@ export function usePrepareEdit() {
       variables: { stopId },
     });
 
-    const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
+    const stopWithRouteGraphData =
+      stopWithRoutesResult.data?.service_pattern_scheduled_stop_point.at(0) as
+        ServicePatternScheduledStopPoint | undefined;
 
     if (!stopWithRouteGraphData) {
       throw new InternalError(`Could not find stop with id ${stopId}`);

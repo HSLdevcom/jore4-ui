@@ -2,12 +2,12 @@ import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import {
   GetStopPlaceDetailsDocument,
+  ServicePatternScheduledStopPointInsertInput,
   StopRegistryInfoSpotInput,
   useInsertMultipleStopPointsMutation,
   useUpdateInfoSpotMutation,
   useUpsertStopAreaMutation,
 } from '../../../../../../generated/graphql';
-import { ScheduledStopPointSetInput } from '../../../../../../graphql';
 import { EnrichedStopPlace } from '../../../../../../types';
 import {
   FailedToResolveNewShelters,
@@ -39,7 +39,7 @@ function useInsertStopPoints() {
 
   return useCallback(
     async (
-      stopPointsInput: ReadonlyArray<ScheduledStopPointSetInput>,
+      stopPointsInput: ReadonlyArray<ServicePatternScheduledStopPointInsertInput>,
     ): Promise<ReadonlyArray<string>> => {
       if (stopPointsInput.length === 0) {
         return [];

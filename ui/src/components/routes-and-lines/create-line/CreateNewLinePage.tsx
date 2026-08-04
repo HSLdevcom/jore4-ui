@@ -2,13 +2,13 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 import {
-  LineDefaultFieldsFragment,
+  LineAllFieldsFragment,
   ReusableComponentsVehicleModeEnum,
+  RouteLine,
 } from '../../../generated/graphql';
-import { mapInsertLineOneResult } from '../../../graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/enums';
-import { showSuccessToast } from '../../../utils';
+import { illegalOptionalCast, showSuccessToast } from '../../../utils';
 import { PageTitle } from '../../common/Jore';
 import { Container, Row } from '../../common/LayoutComponents';
 import { FormState, LineForm } from '../../forms/line/LineForm';
@@ -26,7 +26,7 @@ export const CreateNewLinePage: FC = () => {
     defaultErrorHandler,
   } = useCreateLine();
   const [conflicts, setConflicts] = useState<
-    ReadonlyArray<LineDefaultFieldsFragment>
+    ReadonlyArray<LineAllFieldsFragment>
   >([]);
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
@@ -45,7 +45,9 @@ export const CreateNewLinePage: FC = () => {
       }
       const variables = mapCreateChangesToVariables(changes);
       const result = await insertLineMutation({ variables });
-      const createdLine = mapInsertLineOneResult(result);
+      const createdLine = illegalOptionalCast<RouteLine>(
+        result.data?.insert_route_line_one,
+      );
       setCreatedLineId(createdLine?.line_id);
       showSuccessToast(t(($) => $.lines.saveSuccess));
     } catch (err) {

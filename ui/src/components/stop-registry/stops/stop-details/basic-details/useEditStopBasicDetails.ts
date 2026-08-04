@@ -6,22 +6,20 @@ import {
   EditStopMutationVariables,
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
+  ServicePatternScheduledStopPointSetInput,
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
   useEditStopMutation,
   useGetStopWithRouteGraphDataByIdLazyQuery,
   useUpdateStopPlaceMutation,
 } from '../../../../../generated/graphql';
-import {
-  PartialScheduledStopPointSetInput,
-  mapStopResultToStop,
-} from '../../../../../graphql';
 import { StopWithDetails } from '../../../../../types';
 import {
   InternalError,
   KnownValueKey,
   TimingPlaceRequiredError,
   defaultTo,
+  illegalOptionalCast,
   patchAlternativeNames,
   patchKeyValues,
   showDangerToast,
@@ -41,7 +39,7 @@ type EditRoutesAndLinesParams = {
 type EditRoutesAndLinesChanges = {
   readonly stopId: UUID;
   readonly stopLabel: string;
-  readonly patch: PartialScheduledStopPointSetInput;
+  readonly patch: ServicePatternScheduledStopPointSetInput;
   readonly editedStop: ServicePatternScheduledStopPoint;
   readonly deleteStopFromRoutes: ReadonlyArray<RouteUniqueFieldsFragment>;
   readonly deleteStopFromJourneyPatternIds?: ReadonlyArray<UUID>;
@@ -91,7 +89,10 @@ export const useEditStopBasicDetails = () => {
     const stopWithRoutesResult = await getStopWithRouteGraphData({
       variables: { stopId },
     });
-    const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
+    const stopWithRouteGraphData =
+      illegalOptionalCast<ServicePatternScheduledStopPoint>(
+        stopWithRoutesResult.data?.service_pattern_scheduled_stop_point.at(0),
+      );
 
     // data model and form validation should ensure that
     // label always exists

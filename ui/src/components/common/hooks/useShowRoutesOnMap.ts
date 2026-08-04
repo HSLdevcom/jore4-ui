@@ -4,7 +4,6 @@ import { DateTime } from 'luxon';
 import {
   LineTableRowFragment,
   RouteMapParamsFragment,
-  RouteValidityFragment,
 } from '../../../generated/graphql';
 import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import { resetMapState, setSelectedRouteIdAction } from '../../../redux';
@@ -25,6 +24,7 @@ const GQL_ROUTE_MAP_PARAMS = gql`
     route_shape
     validity_start
     validity_end
+    priority
   }
 `;
 
@@ -154,9 +154,7 @@ export const useShowRoutesOnMap = () => {
    * Shows the route on map by id if it is a draft route. Otherwise shows the route
    * by label (both directions).
    */
-  const showRouteOnMap = (
-    route: RouteMapParamsFragment & RouteValidityFragment,
-  ) => {
+  const showRouteOnMap = (route: RouteMapParamsFragment) => {
     if (route.priority === Priority.Draft) {
       showRouteOnMapById(route);
     } else {

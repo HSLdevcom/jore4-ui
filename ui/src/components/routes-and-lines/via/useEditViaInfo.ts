@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import {
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,
   PatchScheduledStopPointViaInfoMutationVariables,
@@ -5,6 +6,26 @@ import {
 } from '../../../generated/graphql';
 import { MutationHook, extendHook } from '../../../hooks';
 import { FormState } from './ViaForm';
+
+const GQL_PATCH_SCHEDULED_STOP_POINT_VIA_INFO = gql`
+  mutation PatchScheduledStopPointViaInfo(
+    $stopLabel: String!
+    $journeyPatternId: uuid!
+    $patch: journey_pattern_scheduled_stop_point_in_journey_pattern_set_input!
+  ) {
+    update_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        scheduled_stop_point_label: { _eq: $stopLabel }
+        journey_pattern_id: { _eq: $journeyPatternId }
+      }
+      _set: $patch
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+      }
+    }
+  }
+`;
 
 type ViaInfoPatch = Pick<
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,

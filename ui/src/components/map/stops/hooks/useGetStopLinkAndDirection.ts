@@ -1,19 +1,46 @@
+import { gql } from '@apollo/client';
 import {
   InfrastructureNetworkDirectionEnum,
+  InfrastructureNetworkInfrastructureLink,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
   useQueryClosestLinkLazyQuery,
   useQueryPointDirectionOnLinkLazyQuery,
 } from '../../../../generated/graphql';
 import {
-  mapClosestLinkResult,
-  mapGetPointDirectionOnLinkResult,
-} from '../../../../graphql';
-import {
   DirectionNotResolvedError,
   IncompatibleDirectionsError,
   LinkNotResolvedError,
+  illegalOptionalCast,
 } from '../../../../utils';
+
+const GQL_QUERY_CLOSEST_LINK = gql`
+  query QueryClosestLink($point: geography!, $filter_vehicle_submode: String) {
+    infrastructure_network_resolve_point_to_closest_link(
+      args: { geog: $point, filter_vehicle_submode: $filter_vehicle_submode }
+    ) {
+      ...infrastructure_link_all_fields
+    }
+  }
+`;
+
+const GQL_QUERY_POINT_DIRECTION = gql`
+  query QueryPointDirectionOnLink(
+    $point_of_interest: geography
+    $infrastructure_link_uuid: uuid
+    $point_max_distance_in_meters: float8
+  ) {
+    infrastructure_network_find_point_direction_on_link(
+      args: {
+        point_of_interest: $point_of_interest
+        infrastructure_link_uuid: $infrastructure_link_uuid
+        point_max_distance_in_meters: $point_max_distance_in_meters
+      }
+    ) {
+      value
+    }
+  }
+`;
 
 const vehicleModeToSubmode: Record<
   ReusableComponentsVehicleModeEnum,
@@ -68,7 +95,12 @@ export const useGetStopLinkAndDirection = () => {
         filter_vehicle_submode: vehicleModeToSubmode[vehicleMode],
       },
     });
-    const closestLink = mapClosestLinkResult(closestLinkResult);
+    const closestLink =
+      illegalOptionalCast<InfrastructureNetworkInfrastructureLink>(
+        closestLinkResult.data?.infrastructure_network_resolve_point_to_closest_link.at(
+          0,
+        ),
+      );
 
     if (!closestLink) {
       throw new LinkNotResolvedError(
@@ -85,7 +117,10 @@ export const useGetStopLinkAndDirection = () => {
         point_max_distance_in_meters: maxSearchDistance,
       },
     });
-    const direction = mapGetPointDirectionOnLinkResult(stopDirectionResult);
+    const direction =
+      stopDirectionResult.data?.infrastructure_network_find_point_direction_on_link.at(
+        0,
+      )?.value;
 
     if (!direction) {
       throw new DirectionNotResolvedError(

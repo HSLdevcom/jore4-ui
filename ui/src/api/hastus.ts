@@ -1,6 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import { DateTime } from 'luxon';
-import { roleHeaderMap, userHasuraRole } from '../graphql/auth';
+import {
+  roleHeaderMap,
+  userHasuraRole,
+} from '../components/common/Apollo/auth';
 import { Priority } from '../types/enums';
 
 type CommonExportParams = {
