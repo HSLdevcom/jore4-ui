@@ -8,6 +8,7 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
+import { areEqual } from '../../../utils';
 import {
   fireFullMouseClickSequence,
   render,
@@ -29,14 +30,13 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     MockedResponse<GetRouteDetailsByLabelWildcardQuery>
   > = [
     {
-      request: {
-        query: GetRouteDetailsByLabelWildcardDocument,
-        variables: {
+      request: { query: GetRouteDetailsByLabelWildcardDocument },
+      variableMatcher: (args) =>
+        areEqual(args, {
           labelPattern: '%',
-          date: '2022-03-23T00:00:00.000+02:00',
+          date: DateTime.fromISO('2022-03-23T00:00:00.000+02:00'),
           priorities: [10],
-        },
-      },
+        }),
       result: {
         data: {
           route_route: [
@@ -69,14 +69,13 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
       },
     },
     {
-      request: {
-        query: GetRouteDetailsByLabelWildcardDocument,
-        variables: {
+      request: { query: GetRouteDetailsByLabelWildcardDocument },
+      variableMatcher: (args) =>
+        areEqual(args, {
           labelPattern: '1%',
-          date: '2022-03-23T00:00:00.000+02:00',
+          date: DateTime.fromISO('2022-03-23T00:00:00.000+02:00'),
           priorities: [10],
-        },
-      },
+        }),
       result: {
         data: {
           route_route: [

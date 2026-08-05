@@ -11,7 +11,7 @@ import {
 } from '../../../../generated/graphql';
 import { Operation } from '../../../../redux';
 import { TimetablePriority } from '../../../../types/enums';
-import { mapToVariables, showSuccessToast } from '../../../../utils';
+import { showSuccessToast } from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
@@ -177,12 +177,12 @@ export const useTimetablesImport = () => {
     priority: TimetablePriority,
   ) => {
     setIsImportLoading(true);
-    await combineTimetables(
-      mapToVariables({
+    await combineTimetables({
+      variables: {
         stagingVehicleScheduleFrameIds: stagingVehicleScheduleFrameIdsToCombine,
         targetPriority: priority,
-      }),
-    );
+      },
+    });
 
     await importedVehicleScheduleFramesResult.refetch();
     setIsImportLoading(false);
@@ -193,13 +193,13 @@ export const useTimetablesImport = () => {
     priority: TimetablePriority,
   ) => {
     setIsImportLoading(true);
-    await replaceTimetables(
-      mapToVariables({
+    await replaceTimetables({
+      variables: {
         stagingVehicleScheduleFrameIds:
           stagingVehicleScheduleFrameIdsForReplace,
         targetPriority: priority,
-      }),
-    );
+      },
+    });
 
     await importedVehicleScheduleFramesResult.refetch();
     setIsImportLoading(false);
@@ -210,11 +210,9 @@ export const useTimetablesImport = () => {
   ) => {
     // Note: this also deletes all the children of the staging frames, because of cascade delete.
     setIsAbortLoading(true);
-    await deleteStagingTimetables(
-      mapToVariables({
-        stagingVehicleScheduleFrameIds: stagingFrameIdsToDelete,
-      }),
-    );
+    await deleteStagingTimetables({
+      variables: { stagingVehicleScheduleFrameIds: stagingFrameIdsToDelete },
+    });
     // All staging frames have been deleted -> refetch them to update view.
     await importedVehicleScheduleFramesResult.refetch();
     setIsAbortLoading(false);

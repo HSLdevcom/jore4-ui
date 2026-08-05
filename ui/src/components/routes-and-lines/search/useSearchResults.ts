@@ -8,7 +8,6 @@ import {
 import {
   DisplayedSearchResultType,
   buildSearchLinesAndRoutesGqlQueryVariables,
-  mapToVariables,
 } from '../../../utils';
 import { useSearchQueryParser } from './useSearchQueryParser';
 
@@ -39,17 +38,14 @@ export const useSearchResults = (): {
 } => {
   const parsedSearchQueryParameters = useSearchQueryParser();
 
-  const searchQueryVariables = buildSearchLinesAndRoutesGqlQueryVariables(
-    parsedSearchQueryParameters.search,
-  );
+  const { data, loading } = useSearchLinesAndRoutesQuery({
+    variables: buildSearchLinesAndRoutesGqlQueryVariables(
+      parsedSearchQueryParameters.search,
+    ),
+  });
 
-  const result = useSearchLinesAndRoutesQuery(
-    mapToVariables(searchQueryVariables),
-  );
-  const { loading } = result;
-
-  const lines = result.data?.route_line ?? [];
-  const routes = result.data?.route_route ?? [];
+  const lines = data?.route_line ?? [];
+  const routes = data?.route_route ?? [];
 
   // Reduce routes to only have the 'Outbound' versions of the routes if there are two
   // versions of the route

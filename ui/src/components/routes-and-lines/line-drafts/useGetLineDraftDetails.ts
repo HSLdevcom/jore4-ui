@@ -8,7 +8,6 @@ import {
   buildPriorityEqualGqlFilter,
   buildRouteLineLabelGqlFilter,
   isRouteActiveOnObservationDate,
-  mapToVariables,
 } from '../../../utils';
 
 export const useGetLineDraftDetails = () => {
@@ -22,7 +21,7 @@ export const useGetLineDraftDetails = () => {
     ...buildPriorityEqualGqlFilter(Priority.Draft),
   };
 
-  const result = useGetRoutesWithStopsQuery(mapToVariables({ routeFilters }));
+  const result = useGetRoutesWithStopsQuery({ variables: { routeFilters } });
 
   const routes = result.data?.route_route ?? [];
 

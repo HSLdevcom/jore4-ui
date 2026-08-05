@@ -2,7 +2,6 @@ import { renderHook } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { mapLineDetailsResult } from '../../../routes-and-lines/common/utils';
 import { useValidateRoute } from './useValidateRoute';
 
 jest.mock('@apollo/client', () => ({
@@ -24,13 +23,28 @@ jest.mock('react-i18next', () => ({
   }),
 }));
 
+type GetLineDetailsByIdMockData = {
+  readonly validity_start: DateTime;
+  readonly validity_end: DateTime;
+};
+
+type GetLineDetailsByIdMockResponse = {
+  readonly data: {
+    readonly route_line_by_pk: GetLineDetailsByIdMockData;
+  };
+};
+
+const mockedGetLineDetailsByIdLazyQuery = jest.fn<
+  Promise<GetLineDetailsByIdMockResponse>,
+  unknown[],
+  unknown
+>(() => Promise.reject(new Error('Not mocked!')));
+
 jest.mock('../../../../generated/graphql', () => ({
   ...jest.requireActual('../../../../generated/graphql'),
-  useGetLineDetailsByIdLazyQuery: jest.fn(() => [jest.fn()]),
-}));
-
-jest.mock('../../../routes-and-lines/common/utils', () => ({
-  mapLineDetailsResult: jest.fn(),
+  useGetLineDetailsByIdLazyQuery: jest.fn(() => [
+    mockedGetLineDetailsByIdLazyQuery,
+  ]),
 }));
 
 const defaultRouteParams: Partial<RouteFormState> = {
@@ -49,22 +63,16 @@ const defaultRouteParams: Partial<RouteFormState> = {
   variant: 1,
 };
 
+function mockGetLineDetailsByIdResult(
+  line: GetLineDetailsByIdMockData,
+): Promise<GetLineDetailsByIdMockResponse> {
+  return Promise.resolve({ data: { route_line_by_pk: line } });
+}
+
 describe('useValidateRoute', () => {
   const { result } = renderHook(() => useValidateRoute());
-  const mockedGetLineDetailsByIdLazyQuery = jest.fn();
 
-  jest
-    .requireMock('../../../../generated/graphql')
-    .useGetLineDetailsByIdLazyQuery.mockImplementation(() => {
-      return [jest.fn(), jest.fn()];
-    });
-
-  mockedGetLineDetailsByIdLazyQuery.mockImplementation(() => [jest.fn()]);
-  const mockedMapLineDetailsResult = mapLineDetailsResult as jest.Mock;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(() => mockedGetLineDetailsByIdLazyQuery.mockClear());
 
   describe('validateStopCount', () => {
     test('should throw an error if there are fewer than 2 stops', () => {
@@ -160,13 +168,9 @@ describe('useValidateRoute', () => {
         validity_end: DateTime.local().plus({ days: 1 }),
       };
 
-      jest
-        .requireMock('../../../../generated/graphql')
-        .useGetLineDetailsByIdLazyQuery.mockReturnValue(() => {
-          return [jest.fn(() => lineMock)];
-        });
-
-      mockedMapLineDetailsResult.mockReturnValue(lineMock);
+      mockedGetLineDetailsByIdLazyQuery.mockReturnValueOnce(
+        mockGetLineDetailsByIdResult(lineMock),
+      );
 
       const routeMetadata: Partial<RouteFormState> = {
         ...defaultRouteParams,
@@ -187,16 +191,9 @@ describe('useValidateRoute', () => {
         validity_end: DateTime.local().plus({ days: 1 }),
       };
 
-      mockedGetLineDetailsByIdLazyQuery.mockReturnValue([
-        () => Promise.resolve(lineMock),
-      ]);
-
-      jest
-        .requireMock('../../../../generated/graphql')
-        .useGetLineDetailsByIdLazyQuery.mockImplementation(() => {
-          return [mockedMapLineDetailsResult];
-        });
-      mockedMapLineDetailsResult.mockReturnValue(lineMock);
+      mockedGetLineDetailsByIdLazyQuery.mockReturnValueOnce(
+        mockGetLineDetailsByIdResult(lineMock),
+      );
 
       const routeMetadata: Partial<RouteFormState> = {
         ...defaultRouteParams,

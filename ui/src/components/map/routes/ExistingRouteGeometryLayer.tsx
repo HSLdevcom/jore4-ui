@@ -4,7 +4,6 @@ import {
   ReusableComponentsVehicleModeEnum,
   useGetRouteRenderInfoByIdQuery,
 } from '../../../generated/graphql';
-import { mapToVariables } from '../../../utils';
 import { mapVehicleModeToRouteColor } from '../../../utils/colors';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
 
@@ -30,9 +29,9 @@ type ExistingRouteGeometryLayerProps = {
 export const ExistingRouteGeometryLayer: FC<
   ExistingRouteGeometryLayerProps
 > = ({ routeId, isSelected }) => {
-  const routeRenderInfoResult = useGetRouteRenderInfoByIdQuery(
-    mapToVariables({ routeId }),
-  );
+  const routeRenderInfoResult = useGetRouteRenderInfoByIdQuery({
+    variables: { routeId },
+  });
   const routeRenderInfo =
     routeRenderInfoResult.data?.route_route_by_pk ?? undefined;
 

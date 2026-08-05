@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useDeleteRouteMutation } from '../../../../generated/graphql';
-import { mapToVariables, showDangerToastWithError } from '../../../../utils';
+import { showDangerToastWithError } from '../../../../utils';
 
 const GQL_DELETE_ROUTE = gql`
   mutation DeleteRoute($route_id: uuid!) {
@@ -15,17 +15,14 @@ const GQL_DELETE_ROUTE = gql`
 
 export const useDeleteRoute = () => {
   const { t } = useTranslation();
-  const [mutateFunction] = useDeleteRouteMutation();
+  const [deleteRouteMutation] = useDeleteRouteMutation();
 
   const deleteRoute = async (routeId?: UUID) => {
     if (!routeId) {
       throw new Error('Missing routeId');
     }
 
-    const result = await mutateFunction({
-      ...mapToVariables({ route_id: routeId }),
-    });
-    return result;
+    return deleteRouteMutation({ variables: { route_id: routeId } });
   };
 
   // default handler that can be used to show error messages as toast

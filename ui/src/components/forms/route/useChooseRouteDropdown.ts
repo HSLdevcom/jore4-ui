@@ -8,7 +8,7 @@ import {
 } from '../../../generated/graphql';
 import { useDebouncedString } from '../../../hooks';
 import { Priority } from '../../../types/enums';
-import { mapToSqlLikeValue, mapToVariables } from '../../../utils';
+import { mapToSqlLikeValue } from '../../../utils';
 
 const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
   query GetRouteDetailsByLabelWildcard(
@@ -59,13 +59,13 @@ export const useChooseRouteDropdown = ({
 
   const [routes, setRoutes] =
     useState<ReadonlyArray<RouteAllFieldsFragment>>(Array);
-  const routesResult = useGetRouteDetailsByLabelWildcardQuery(
-    mapToVariables({
+  const routesResult = useGetRouteDetailsByLabelWildcardQuery({
+    variables: {
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
-      date: observationDate.toISO(),
+      date: observationDate,
       priorities,
-    }),
-  );
+    },
+  });
 
   // It is possible that the selected line is not in the line search results,
   // fetch it separately by id here.

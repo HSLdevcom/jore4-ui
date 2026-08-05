@@ -6,7 +6,7 @@ import {
   useGetTimingPlacesForComboboxQuery,
 } from '../../../../generated/graphql';
 import { useDebouncedString } from '../../../../hooks';
-import { mapToSqlLikeValue, mapToVariables } from '../../../../utils';
+import { mapToSqlLikeValue } from '../../../../utils';
 
 const GQL_GET_TIMING_PLACES_FOR_COMBOBOX = gql`
   query GetTimingPlacesForCombobox($labelPattern: String!) {
@@ -47,11 +47,9 @@ export const useChooseTimingPlaceDropdown = (
 
   const [timingPlaces, setTimingPlaces] =
     useState<ReadonlyArray<TimingPlaceForComboboxFragment>>(Array);
-  const timingPlacesResult = useGetTimingPlacesForComboboxQuery(
-    mapToVariables({
-      labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
-    }),
-  );
+  const timingPlacesResult = useGetTimingPlacesForComboboxQuery({
+    variables: { labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%` },
+  });
 
   // It is possible that the selected timing place is not in the timing place search results,
   // fetch it separately by id here.

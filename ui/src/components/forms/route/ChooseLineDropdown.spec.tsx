@@ -6,6 +6,7 @@ import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
 } from '../../../generated/graphql';
+import { areEqual } from '../../../utils';
 import {
   fireFullMouseClickSequence,
   render,
@@ -24,10 +25,13 @@ describe('<ChooseLineDropdown />', () => {
 
   const mocks: ReadonlyArray<MockedResponse> = [
     {
-      request: {
-        query: GetLinesForComboboxDocument,
-        variables: { labelPattern: '%', date: DateTime.now().toISO() },
-      },
+      request: { query: GetLinesForComboboxDocument },
+      variableMatcher: (args) =>
+        areEqual(args, {
+          labelPattern: '%',
+          date: DateTime.now().startOf('day'),
+          primary_vehicle_mode: undefined,
+        }),
       result: {
         data: {
           route_line: [

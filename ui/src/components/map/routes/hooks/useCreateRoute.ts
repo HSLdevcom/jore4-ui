@@ -11,10 +11,7 @@ import {
 import { MIN_DATE } from '../../../../time';
 import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
-import {
-  buildJourneyPatternStopSequence,
-  mapToObject,
-} from '../../../../utils';
+import { buildJourneyPatternStopSequence } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import {
@@ -59,24 +56,28 @@ function mapRouteDetailsToInsertMutationVariables({
   includedStopLabels,
   journeyPatternStops,
 }: CreateParams): InsertRouteOneMutationVariables {
-  return mapToObject({
-    ...mapRouteFormToInput(form),
-    // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
-    infrastructure_links_along_route: {
-      data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
-    },
-    route_journey_patterns: {
-      data: {
-        scheduled_stop_point_in_journey_patterns: {
-          data: buildJourneyPatternStopSequence({
-            stopsEligibleForJourneyPattern,
-            includedStopLabels,
-            journeyPatternStops,
-          }),
-        },
+  return {
+    object: {
+      ...mapRouteFormToInput(form),
+      // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
+      infrastructure_links_along_route: {
+        data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
+      },
+      route_journey_patterns: {
+        data: [
+          {
+            scheduled_stop_point_in_journey_patterns: {
+              data: buildJourneyPatternStopSequence({
+                stopsEligibleForJourneyPattern,
+                includedStopLabels,
+                journeyPatternStops,
+              }),
+            },
+          },
+        ],
       },
     },
-  });
+  };
 }
 
 export const useCreateRoute = () => {

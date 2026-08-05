@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   LineForComboboxFragment,
   ReusableComponentsVehicleModeEnum,
@@ -8,7 +8,7 @@ import {
   useGetSelectedLineDetailsByIdQuery,
 } from '../../../generated/graphql';
 import { useDebouncedString } from '../../../hooks';
-import { mapToSqlLikeValue, mapToVariables } from '../../../utils';
+import { mapToSqlLikeValue } from '../../../utils';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
   query GetLinesForCombobox(
@@ -59,20 +59,20 @@ export const useChooseLineDropdown = (
   lines: ReadonlyArray<LineForComboboxFragment>;
   selectedLine?: LineForComboboxFragment;
 } => {
-  const [today] = useState(DateTime.now());
+  const today = useMemo(() => DateTime.now().startOf('day'), []);
 
   const [debouncedQuery] = useDebouncedString(query, 300);
 
   const [lines, setLines] =
     useState<ReadonlyArray<LineForComboboxFragment>>(Array);
 
-  const linesResult = useGetLinesForComboboxQuery(
-    mapToVariables({
+  const linesResult = useGetLinesForComboboxQuery({
+    variables: {
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
-      date: today.toISO(),
+      date: today,
       primary_vehicle_mode: vehicleMode,
-    }),
-  );
+    },
+  });
 
   // It is possible that the selected line is not in the line search results,
   // fetch it separately by id here.

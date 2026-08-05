@@ -11,7 +11,6 @@ import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
 import {
   defaultLocalizedString,
-  mapToVariables,
   showSuccessToast,
   vehicleModeIconMapping,
 } from '../../../utils';
@@ -71,7 +70,7 @@ export const EditLinePage: FC = () => {
 
   const line = mapLineDetailsResult(
     // Instead of subscribing to cache changes, we should only fetch the data once.
-    useGetLineDetailsByIdQuery(mapToVariables({ line_id: id })).data,
+    useGetLineDetailsByIdQuery({ variables: { line_id: id } }).data,
   );
 
   const onCommitEditChanges = async (changes: EditLineChanges) => {

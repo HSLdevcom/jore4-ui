@@ -4,7 +4,6 @@ import {
   useCreateSubstituteOperatingPeriodMutation,
 } from '../../../../generated/graphql';
 import { MutationHook, extendHook } from '../../../../hooks';
-import { mapToData } from '../../../../utils';
 import {
   CommonSubstitutePeriodType,
   PeriodType,
@@ -75,25 +74,17 @@ const useCreateSubstituteOperatingPeriodHook: MutationHook<
         },
       };
     });
-    return mapToData(data);
+
+    return { data };
   };
 
-  const prepare = (params: CreateParams): CreateChanges => {
-    const input = mapSubstituteOperatingPeriodsToMutationVariables(params);
-    const changes: CreateChanges = {
-      input,
-    };
-    return changes;
-  };
+  const prepare = (params: CreateParams): CreateChanges => ({
+    input: mapSubstituteOperatingPeriodsToMutationVariables(params),
+  });
 
   const mapChangesToVariables = (
     changes: CreateChanges,
-  ): CreateSubstituteOperatingPeriodMutationVariables => {
-    const variables: CreateSubstituteOperatingPeriodMutationVariables = {
-      ...changes.input,
-    };
-    return variables;
-  };
+  ): CreateSubstituteOperatingPeriodMutationVariables => changes.input;
 
   return {
     prepare,
