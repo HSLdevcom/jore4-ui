@@ -18,7 +18,7 @@ import {
 import { useNavigateToMap } from './useNavigateToMap';
 
 const GQL_ROUTE_MAP_PARAMS = gql`
-  fragment route_map_params on route_route {
+  fragment RouteMapParams on route_route {
     route_id
     label
     route_shape
@@ -29,7 +29,7 @@ const GQL_ROUTE_MAP_PARAMS = gql`
 `;
 
 const GQL_LINE_MAP_PARAMS = gql`
-  fragment line_map_params on route_line {
+  fragment LineMapParams on route_line {
     line_id
     label
     validity_start

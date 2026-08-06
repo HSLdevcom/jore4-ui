@@ -25,7 +25,7 @@ const GQL_CREATE_TERMINAL = gql`
   ) {
     stop_registry {
       createMultiModalStopPlace(input: $input) {
-        ...parent_stop_place_details
+        ...ParentStopPlaceDetails
       }
     }
   }

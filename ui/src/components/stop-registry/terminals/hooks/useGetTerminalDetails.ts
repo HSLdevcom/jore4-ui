@@ -27,13 +27,13 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       newestVersion: stops_database_stop_place_newest_version(where: $where) {
         id
         TiamatStopPlace {
-          ...parent_stop_place_details
+          ...ParentStopPlaceDetails
         }
       }
     }
   }
 
-  fragment parent_stop_place_details on stop_registry_ParentStopPlace {
+  fragment ParentStopPlaceDetails on stop_registry_ParentStopPlace {
     id
     version
 
@@ -89,27 +89,27 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     }
 
     infoSpots {
-      ...info_spot_details
+      ...InfoSpotDetails
     }
 
     accessibilityAssessment {
-      ...accessibility_assessment_details
+      ...AccessibilityAssessmentDetails
     }
 
     children {
-      ...member_stop_stop_place_details
+      ...MemberStopStopPlaceDetails
     }
 
     externalLinks {
-      ...terminal_external_links_details
+      ...TerminalExternalLinksDetails
     }
 
     organisations {
-      ...terminal_organization_ref
+      ...TerminalOrganizationRef
     }
   }
 
-  fragment member_stop_stop_place_details on stop_registry_StopPlace {
+  fragment MemberStopStopPlaceDetails on stop_registry_StopPlace {
     id
     version
 
@@ -120,14 +120,14 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       value
     }
     quays {
-      ...member_stop_quay_details
+      ...MemberStopQuayDetails
     }
 
     # Make sure we have all the details needed to display the member rows.
-    ...StopTableRow_StopArea_Details
+    ...StopTableRowStopAreaDetails
   }
 
-  fragment member_stop_quay_details on stop_registry_Quay {
+  fragment MemberStopQuayDetails on stop_registry_Quay {
     id
     version
 
@@ -137,14 +137,14 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       value
     }
     scheduled_stop_point {
-      ...scheduled_stop_point_detail_fields
+      ...ScheduledStopPointDetailFields
     }
     keyValues {
       key
       values
     }
     infoSpots {
-      ...info_spot_details
+      ...InfoSpotDetails
     }
     geometry {
       type
@@ -169,18 +169,18 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     }
   }
 
-  fragment terminal_external_links_details on stop_registry_stopPlaceExternalLink {
+  fragment TerminalExternalLinksDetails on stop_registry_stopPlaceExternalLink {
     stopPlaceId
     orderNum
     name
     location
   }
 
-  fragment terminal_organization_ref on stop_registry_StopPlaceOrganisationRef {
+  fragment TerminalOrganizationRef on stop_registry_StopPlaceOrganisationRef {
     organisationRef
     relationshipType
     organisation {
-      ...stop_place_organisation_fields
+      ...StopPlaceOrganisationFields
     }
   }
 `;

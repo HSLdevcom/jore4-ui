@@ -19,7 +19,7 @@ const GQL_GET_STOPS_BY_ID = gql`
         }
         order_by: [{ public_code: asc }]
       ) {
-        ...stop_table_row_quay
+        ...StopTableRowQuay
       }
     }
   }

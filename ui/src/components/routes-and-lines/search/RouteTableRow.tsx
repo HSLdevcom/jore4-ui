@@ -13,8 +13,8 @@ import { RouteLineTableRow } from './RouteLineTableRow';
 import { RouteLineTableRowVariant } from './types';
 
 const GQL_ROUTE_TABLE_ROW = gql`
-  fragment route_table_row on route_route {
-    ...route_map_params
+  fragment RouteTableRow on route_route {
+    ...RouteMapParams
     name_i18n
     direction
     priority

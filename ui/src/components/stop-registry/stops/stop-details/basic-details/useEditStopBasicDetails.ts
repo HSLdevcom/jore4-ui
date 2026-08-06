@@ -55,7 +55,7 @@ const GQL_UPDATE_STOP_PLACE = gql`
   mutation UpdateStopPlace($input: stop_registry_StopPlaceInput!) {
     stop_registry {
       mutateStopPlace(StopPlace: $input) {
-        ...stop_place_details
+        ...StopPlaceDetails
       }
     }
   }

@@ -16,7 +16,7 @@ import {
 } from '../../../../utils';
 
 const GQL_ROUTE_INFO_FOR_TIMETABLE_VERSION_FRAGMENT = gql`
-  fragment route_info_for_timetable_version on route_route {
+  fragment RouteInfoForTimetableVersion on route_route {
     route_id
     label
     variant
@@ -32,7 +32,7 @@ const GQL_ROUTE_INFO_FOR_TIMETABLE_VERSION_FRAGMENT = gql`
 const GQL_GET_ROUTE_INFO_FOR_TIMETABLE_VERSIONS = gql`
   query GetRouteInfoForTimetableVersions($routeFilters: route_route_bool_exp) {
     route_route(where: $routeFilters) {
-      ...route_info_for_timetable_version
+      ...RouteInfoForTimetableVersion
     }
   }
 `;

@@ -22,7 +22,7 @@ const GQL_GET_ORGANISATIONS = gql`
   query GetOrganisations {
     stop_registry {
       organisation {
-        ...stop_place_organisation_fields
+        ...StopPlaceOrganisationFields
       }
     }
   }

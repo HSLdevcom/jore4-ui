@@ -6,7 +6,7 @@ import {
 import { RouteInfraLink } from '../../../../types';
 
 const GQL_INFRASTRUCTURE_LINK_ALL_FIELDS = gql`
-  fragment infrastructure_link_all_fields on infrastructure_network_infrastructure_link {
+  fragment InfrastructureLinkAllFields on infrastructure_network_infrastructure_link {
     infrastructure_link_id
     direction
     shape
@@ -17,7 +17,7 @@ const GQL_INFRASTRUCTURE_LINK_ALL_FIELDS = gql`
 `;
 
 const GQL_INFRA_LINK_MATCHING_FIELDS = gql`
-  fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
+  fragment InfraLinkMatchingFields on infrastructure_network_infrastructure_link {
     external_link_id
     infrastructure_link_id
     shape

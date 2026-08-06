@@ -1,5 +1,5 @@
 query GetRouteDetailsById($routeId: uuid!) {
   route_route_by_pk(route_id: $routeId) {
-    ...route_with_infrastructure_links_with_stops_and_jps
+    ...RouteWithInfrastructureLinksWithStopsAndJps
   }
 }

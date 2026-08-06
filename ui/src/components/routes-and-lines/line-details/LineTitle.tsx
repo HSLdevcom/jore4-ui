@@ -32,11 +32,11 @@ type LineTitleProps = {
 };
 
 const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
-  fragment line_with_routes_unique_fields on route_line {
-    ...line_all_fields
+  fragment LineWithRoutesUniqueFields on route_line {
+    ...LineAllFields
     ...LineLatestChangeInfo
     line_routes(where: $lineRouteFilters) {
-      ...route_unique_fields
+      ...RouteUniqueFields
     }
   }
 `;

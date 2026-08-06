@@ -25,7 +25,7 @@ const GQL_SEARCH_STOPS = gql`
         offset: $offset
         limit: $limit
       ) {
-        ...stop_table_row_quay
+        ...StopTableRowQuay
       }
 
       resultCount: stops_database_quay_newest_version_aggregate(where: $where) {
@@ -36,11 +36,11 @@ const GQL_SEARCH_STOPS = gql`
     }
   }
 
-  fragment stop_table_row_quay on stops_database_quay_newest_version {
-    ...StopTableRow_Quay_Details
+  fragment StopTableRowQuay on stops_database_quay_newest_version {
+    ...StopTableRowQuayDetails
 
     scheduled_stop_point_instance {
-      ...StopTableRow_ScheduledStopPoint_Details
+      ...StopTableRowScheduledStopPointDetails
     }
   }
 `;

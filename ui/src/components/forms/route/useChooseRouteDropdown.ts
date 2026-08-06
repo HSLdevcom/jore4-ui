@@ -29,7 +29,7 @@ const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
       }
       order_by: { label: asc }
     ) {
-      ...route_all_fields
+      ...RouteAllFields
     }
   }
 `;
@@ -37,7 +37,7 @@ const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
 const GQL_GET_SELECTED_ROUTE_DETAILS_BY_ID = gql`
   query GetSelectedRouteDetailsById($routeId: uuid!) {
     route_route_by_pk(route_id: $routeId) {
-      ...route_all_fields
+      ...RouteAllFields
     }
   }
 `;

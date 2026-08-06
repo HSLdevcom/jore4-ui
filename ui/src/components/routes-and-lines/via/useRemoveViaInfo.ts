@@ -22,7 +22,7 @@ const GQL_REMOVE_SCHEDULED_STOP_POINT_VIA_INFO = gql`
       }
     ) {
       returning {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
+        ...ScheduledStopPointInJourneyPatternAllFields
       }
     }
   }

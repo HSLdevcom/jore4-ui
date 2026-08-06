@@ -11,7 +11,7 @@ const GQL_GET_TERMINAL_DETAILS_BY_NETEX_ID = gql`
   query GetTerminalDetailsByNetexId($netexId: String!) {
     stop_registry {
       stopPlace(id: $netexId) {
-        ...parent_stop_place_details
+        ...ParentStopPlaceDetails
       }
     }
   }

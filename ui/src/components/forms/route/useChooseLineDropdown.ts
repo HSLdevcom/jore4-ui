@@ -28,7 +28,7 @@ const GQL_GET_LINES_FOR_COMBOBOX = gql`
       }
       order_by: [{ label: asc }, { validity_start: asc }]
     ) {
-      ...line_for_combobox
+      ...LineForCombobox
     }
   }
 `;
@@ -36,13 +36,13 @@ const GQL_GET_LINES_FOR_COMBOBOX = gql`
 const GQL_GET_SELECTED_LINE_DETAILS_BY_ID = gql`
   query GetSelectedLineDetailsById($line_id: uuid!) {
     route_line_by_pk(line_id: $line_id) {
-      ...line_for_combobox
+      ...LineForCombobox
     }
   }
 `;
 
 const GQL_LINE_FOR_COMBOBOX = gql`
-  fragment line_for_combobox on route_line {
+  fragment LineForCombobox on route_line {
     line_id
     name_i18n
     label

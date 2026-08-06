@@ -27,13 +27,13 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       newestVersion: stops_database_stop_place_newest_version(where: $where) {
         id
         TiamatStopPlace {
-          ...stop_place_details
+          ...StopPlaceDetails
         }
       }
     }
   }
 
-  fragment stop_place_details on stop_registry_StopPlace {
+  fragment StopPlaceDetails on stop_registry_StopPlace {
     id
     version
 
@@ -59,7 +59,7 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       relationshipType
       organisationRef
       organisation {
-        ...stop_place_organisation_fields
+        ...StopPlaceOrganisationFields
       }
     }
 
@@ -74,30 +74,30 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
     }
 
     quays {
-      ...quay_details
+      ...QuayDetails
     }
 
     parentStopPlace {
-      ...terminal_details
+      ...TerminalDetails
     }
 
     accessibilityAssessment {
-      ...accessibility_assessment_details
+      ...AccessibilityAssessmentDetails
     }
 
     transportMode
     topographicPlace {
-      ...topographic_place_details
+      ...TopographicPlaceDetails
     }
     fareZones {
-      ...fare_zone_details
+      ...FareZoneDetails
     }
 
     # Make sure we have all the details needed to display the member rows.
-    ...StopTableRow_StopArea_Details
+    ...StopTableRowStopAreaDetails
   }
 
-  fragment terminal_details on stop_registry_ParentStopPlace {
+  fragment TerminalDetails on stop_registry_ParentStopPlace {
     id
     version
 
@@ -110,7 +110,7 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       type
     }
     children {
-      ...member_stop_stop_place_details
+      ...MemberStopStopPlaceDetails
     }
   }
 `;

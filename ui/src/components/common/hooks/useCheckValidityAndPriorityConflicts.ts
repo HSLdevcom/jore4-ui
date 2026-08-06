@@ -15,7 +15,7 @@ import { Priority } from '../../../types/enums';
 const GQL_GET_LINES_BY_VALIDITY = gql`
   query GetLinesByValidity($filter: route_line_bool_exp) {
     route_line(where: $filter) {
-      ...line_all_fields
+      ...LineAllFields
     }
   }
 `;
@@ -23,7 +23,7 @@ const GQL_GET_LINES_BY_VALIDITY = gql`
 const GQL_GET_ROUTES_BY_VALIDITY = gql`
   query GetRoutesByValidity($filter: route_route_bool_exp) {
     route_route(where: $filter) {
-      ...route_default_fields
+      ...RouteDefaultFields
     }
   }
 `;
@@ -33,7 +33,7 @@ const GQL_GET_STOPS_BY_VALIDITY = gql`
     $filter: service_pattern_scheduled_stop_point_bool_exp
   ) {
     service_pattern_scheduled_stop_point(where: $filter) {
-      ...scheduled_stop_point_all_fields
+      ...ScheduledStopPointAllFields
     }
   }
 `;

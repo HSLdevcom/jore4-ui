@@ -27,7 +27,7 @@ import { mapInfraLinksAlongRouteToGraphQL } from './utils';
 const GQL_INSERT_ROUTE = gql`
   mutation InsertRouteOne($object: route_route_insert_input!) {
     insert_route_route_one(object: $object) {
-      ...route_all_fields
+      ...RouteAllFields
     }
   }
 `;

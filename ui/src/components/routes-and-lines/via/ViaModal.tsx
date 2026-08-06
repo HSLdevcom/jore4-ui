@@ -34,7 +34,7 @@ const GQL_GET_SCHEDULED_STOP_POINT_WITH_VIA_INFO = gql`
         scheduled_stop_point_label: { _eq: $stopLabel }
       }
     ) {
-      ...scheduled_stop_point_in_journey_pattern_all_fields
+      ...ScheduledStopPointInJourneyPatternAllFields
       journey_pattern {
         journey_pattern_id
         journey_pattern_route {

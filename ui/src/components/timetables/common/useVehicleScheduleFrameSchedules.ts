@@ -30,7 +30,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_SCHEDULES = gql`
           blocks {
             block_id
             vehicle_journeys {
-              ...vehicle_journey_with_start_time_info
+              ...VehicleJourneyWithStartTimeInfo
             }
           }
         }
@@ -40,7 +40,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_SCHEDULES = gql`
 `;
 
 const GQL_VEHICLE_JOURNEY_WITH_START_TIME_INFO = gql`
-  fragment vehicle_journey_with_start_time_info on timetables_vehicle_journey_vehicle_journey {
+  fragment VehicleJourneyWithStartTimeInfo on timetables_vehicle_journey_vehicle_journey {
     vehicle_journey_id
     start_time
     journey_pattern_ref {

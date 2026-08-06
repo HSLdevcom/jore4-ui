@@ -1,5 +1,5 @@
 query GetRoutesWithStops($routeFilters: route_route_bool_exp) {
   route_route(where: $routeFilters) {
-    ...route_with_infrastructure_links_with_stops_and_jps
+    ...RouteWithInfrastructureLinksWithStopsAndJps
   }
 }

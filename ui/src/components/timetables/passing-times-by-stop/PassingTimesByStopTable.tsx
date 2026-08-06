@@ -15,9 +15,9 @@ const testIds = {
 };
 
 const GQL_VEHICLE_JOURNEY = gql`
-  fragment vehicle_journey_by_stop on timetables_vehicle_journey_vehicle_journey {
+  fragment VehicleJourneyByStop on timetables_vehicle_journey_vehicle_journey {
     timetabled_passing_times {
-      ...passing_time_by_stop
+      ...PassingTimeByStop
     }
     journey_pattern_ref_id
     vehicle_journey_id

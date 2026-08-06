@@ -57,7 +57,7 @@ const GQL_GET_STOP_PLACE_AND_RELATED_QUAYS = gql`
   query GetStopPlaceAndRelatedQuays($stopPlaceNetexId: String!) {
     stopRegistry: stop_registry {
       stopPlace(id: $stopPlaceNetexId, onlyMonomodalStopPlaces: true) {
-        ...stop_place_details
+        ...StopPlaceDetails
 
         ... on stop_registry_StopPlace {
           quays {

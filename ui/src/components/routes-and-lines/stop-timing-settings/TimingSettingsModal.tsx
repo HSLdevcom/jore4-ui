@@ -19,8 +19,8 @@ import {
 import { useEditStopTimingSetting } from './useEditStopTimingSettings';
 
 const GQL_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
-  fragment scheduled_stop_point_with_timing_settings on journey_pattern_scheduled_stop_point_in_journey_pattern {
-    ...scheduled_stop_point_in_journey_pattern_all_fields
+  fragment ScheduledStopPointWithTimingSettings on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    ...ScheduledStopPointInJourneyPatternAllFields
     journey_pattern {
       journey_pattern_id
       journey_pattern_route {
@@ -48,7 +48,7 @@ const GQL_GET_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
         scheduled_stop_point_sequence: { _eq: $sequence }
       }
     ) {
-      ...scheduled_stop_point_with_timing_settings
+      ...ScheduledStopPointWithTimingSettings
     }
   }
 `;

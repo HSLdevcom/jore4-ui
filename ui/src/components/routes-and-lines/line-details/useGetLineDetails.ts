@@ -36,17 +36,17 @@ const GQL_GET_LINE_VALIDITY_PERIOD_BY_ID = gql`
 `;
 
 const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
-  fragment infrastructure_link_with_stops on infrastructure_network_infrastructure_link {
-    ...infrastructure_link_all_fields
+  fragment InfrastructureLinkWithStops on infrastructure_network_infrastructure_link {
+    ...InfrastructureLinkAllFields
     scheduled_stop_points_located_on_infrastructure_link(
       where: $routeStopFilters
     ) {
-      ...scheduled_stop_point_all_fields
+      ...ScheduledStopPointAllFields
       other_label_instances {
-        ...scheduled_stop_point_default_fields
+        ...ScheduledStopPointDefaultFields
       }
       scheduled_stop_point_in_journey_patterns {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
+        ...ScheduledStopPointInJourneyPatternAllFields
         journey_pattern {
           journey_pattern_id
           on_route_id
@@ -57,10 +57,10 @@ const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
 `;
 
 const GQL_LINE_WITH_ROUTES_FRAGMENT = gql`
-  fragment line_with_routes on route_line {
-    ...line_all_fields
+  fragment LineWithRoutes on route_line {
+    ...LineAllFields
     line_routes(where: $lineRouteFilters) {
-      ...route_with_infrastructure_links_with_stops_and_jps
+      ...RouteWithInfrastructureLinksWithStopsAndJps
     }
   }
 `;
@@ -72,7 +72,7 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
     $routeStopFilters: service_pattern_scheduled_stop_point_bool_exp
   ) {
     route_line(where: $lineFilters, order_by: { priority: desc }, limit: 1) {
-      ...line_with_routes_unique_fields
+      ...LineWithRoutesUniqueFields
     }
   }
 `;

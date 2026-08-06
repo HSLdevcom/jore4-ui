@@ -14,7 +14,7 @@ import { TimetablePriority } from '../../../types/enums';
 import { useLoader } from '../../common/hooks';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
-  fragment day_type_all_fields on timetables_service_calendar_day_type {
+  fragment DayTypeAllFields on timetables_service_calendar_day_type {
     day_type_id
     label
     name_i18n
@@ -22,7 +22,7 @@ const GQL_DAY_TYPE_FRAGMENT = gql`
 `;
 
 const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
-  fragment vehicle_journey_with_service on timetables_vehicle_journey_vehicle_journey {
+  fragment VehicleJourneyWithService on timetables_vehicle_journey_vehicle_journey {
     vehicle_journey_id
     start_time
     end_time
@@ -45,21 +45,21 @@ const GQL_VEHICLE_JOURNEY_WITH_SERVICE_FRAGMENT = gql`
         vehicle_service_id
         day_type_id
         day_type {
-          ...day_type_all_fields
+          ...DayTypeAllFields
         }
       }
     }
-    ...vehicle_journey_by_stop
+    ...VehicleJourneyByStop
   }
 `;
 
 const GQL_VEHICLE_SCHEDULES_FRAGMENT = gql`
-  fragment vehicle_schedule on timetables_return_value_vehicle_schedule {
+  fragment VehicleSchedule on timetables_return_value_vehicle_schedule {
     vehicle_journey {
-      ...vehicle_journey_with_service
+      ...VehicleJourneyWithService
     }
     day_type {
-      ...day_type_all_fields
+      ...DayTypeAllFields
     }
     priority
     validity_start
@@ -81,7 +81,7 @@ const GQL_GET_VEHICLE_SCHEDULES_FOR_DATE = gql`
           observation_date: $observation_date
         }
       ) {
-        ...vehicle_schedule
+        ...VehicleSchedule
       }
       timetables_service_calendar_get_active_day_types_for_date(
         args: { observation_date: $observation_date }

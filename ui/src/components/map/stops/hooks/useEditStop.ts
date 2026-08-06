@@ -67,7 +67,7 @@ const GQL_GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
     ) {
       journey_pattern_id
       journey_pattern_route {
-        ...route_all_fields
+        ...RouteAllFields
       }
     }
   }
@@ -86,7 +86,7 @@ const GQL_EDIT_STOP = gql`
       _set: $stop_patch
     ) {
       returning {
-        ...scheduled_stop_point_all_fields
+        ...ScheduledStopPointAllFields
       }
     }
 
@@ -100,7 +100,7 @@ const GQL_EDIT_STOP = gql`
       }
     ) {
       returning {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
+        ...ScheduledStopPointInJourneyPatternAllFields
       }
     }
   }

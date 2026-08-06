@@ -24,7 +24,7 @@ const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
     route_line(where: $lineFilters) {
       line_id
       line_routes(where: $lineRouteFilters) {
-        ...displayed_route
+        ...DisplayedRoute
       }
     }
   }
@@ -33,13 +33,13 @@ const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
 const GQL_GET_ROUTE_BY_FILTERS = gql`
   query GetRouteByFilters($routeFilters: route_route_bool_exp) {
     route_route(where: $routeFilters) {
-      ...displayed_route
+      ...DisplayedRoute
     }
   }
 `;
 
 const GQL_DISPLAYED_ROUTE = gql`
-  fragment displayed_route on route_route {
+  fragment DisplayedRoute on route_route {
     route_id
     label
     variant

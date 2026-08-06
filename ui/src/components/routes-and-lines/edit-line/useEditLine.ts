@@ -23,7 +23,7 @@ import { useValidateLine } from './useValidateLine';
 const GQL_UPDATE_LINE = gql`
   mutation PatchLine($line_id: uuid!, $object: route_line_set_input!) {
     update_route_line_by_pk(pk_columns: { line_id: $line_id }, _set: $object) {
-      ...line_all_fields
+      ...LineAllFields
     }
   }
 `;

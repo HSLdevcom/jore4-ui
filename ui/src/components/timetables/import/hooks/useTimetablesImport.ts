@@ -15,7 +15,7 @@ import { showSuccessToast } from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
-  fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {
+  fragment VehicleJourneyWithRouteInfo on timetables_vehicle_journey_vehicle_journey {
     start_time
     end_time
     contract_number
@@ -25,7 +25,7 @@ const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
       journey_pattern_instance {
         journey_pattern_id
         journey_pattern_route {
-          ...route_default_fields
+          ...RouteDefaultFields
           direction
         }
       }
@@ -34,16 +34,16 @@ const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
 `;
 
 const GQL_VEHICLE_SERVICE_WITH_JOURNEYS_FRAGMENT = gql`
-  fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
+  fragment VehicleServiceWithJourneys on timetables_vehicle_service_vehicle_service {
     vehicle_service_id
     name_i18n
     day_type {
-      ...day_type_all_fields
+      ...DayTypeAllFields
     }
     blocks {
       block_id
       vehicle_journeys {
-        ...vehicle_journey_with_route_info
+        ...VehicleJourneyWithRouteInfo
       }
       vehicle_type {
         vehicle_type_id
@@ -54,7 +54,7 @@ const GQL_VEHICLE_SERVICE_WITH_JOURNEYS_FRAGMENT = gql`
 `;
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_INFO = gql`
-  fragment vehicle_schedule_frame_with_route_info on timetables_vehicle_schedule_vehicle_schedule_frame {
+  fragment VehicleScheduleFrameWithRouteInfo on timetables_vehicle_schedule_vehicle_schedule_frame {
     label
     validity_end
     validity_start
@@ -62,7 +62,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_INFO = gql`
     vehicle_schedule_frame_id
     priority
     vehicle_services {
-      ...vehicle_service_with_journeys
+      ...VehicleServiceWithJourneys
     }
   }
 `;
@@ -73,7 +73,7 @@ const GQL_GET_STAGING_VEHICLE_SCHEDULE_FRAMES = gql`
       timetables_vehicle_schedule_vehicle_schedule_frame(
         where: { priority: { _eq: 40 } }
       ) {
-        ...vehicle_schedule_frame_with_route_info
+        ...VehicleScheduleFrameWithRouteInfo
       }
     }
   }

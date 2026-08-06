@@ -26,7 +26,7 @@ const GQL_UPDATE_ROUTE = gql`
   mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
     update_route_route(where: { route_id: { _eq: $route_id } }, _set: $object) {
       returning {
-        ...route_all_fields
+        ...RouteAllFields
       }
     }
   }
@@ -40,7 +40,7 @@ const GQL_GET_SCHEDULED_STOPS_ON_ROUTE = gql`
         journey_pattern_id
         scheduled_stop_point_sequence
         scheduled_stop_points {
-          ...scheduled_stop_point_default_fields
+          ...ScheduledStopPointDefaultFields
         }
       }
     }

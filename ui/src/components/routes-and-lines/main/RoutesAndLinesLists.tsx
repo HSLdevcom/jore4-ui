@@ -16,7 +16,7 @@ const GQL_LIST_CHANGING_ROUTES = gql`
       limit: $limit
       order_by: [{ label: asc }, { validity_start: asc }]
     ) {
-      ...route_table_row
+      ...RouteTableRow
     }
   }
 `;
@@ -29,7 +29,7 @@ const GQL_LIST_OWN_LINES = gql`
       limit: $limit
       order_by: [{ label: asc }, { validity_start: asc }]
     ) {
-      ...line_table_row
+      ...LineTableRow
     }
   }
 `;

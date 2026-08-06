@@ -1,4 +1,4 @@
-fragment infra_link_along_route_default_fields on route_infrastructure_link_along_route {
+fragment InfraLinkAlongRouteDefaultFields on route_infrastructure_link_along_route {
   infrastructure_link_id
   infrastructure_link {
     infrastructure_link_id

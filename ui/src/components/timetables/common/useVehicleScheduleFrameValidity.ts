@@ -7,7 +7,7 @@ import {
 } from '../../../generated/graphql';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
-  fragment vehicle_schedule_frame_with_routes on timetables_vehicle_schedule_vehicle_schedule_frame {
+  fragment VehicleScheduleFrameWithRoutes on timetables_vehicle_schedule_vehicle_schedule_frame {
     vehicle_schedule_frame_id
     validity_start
     validity_end
@@ -34,7 +34,7 @@ const GQL_GET_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
           vehicle_schedule_frame_id: { _eq: $vehicle_schedule_frame_id }
         }
       ) {
-        ...vehicle_schedule_frame_with_routes
+        ...VehicleScheduleFrameWithRoutes
       }
     }
   }

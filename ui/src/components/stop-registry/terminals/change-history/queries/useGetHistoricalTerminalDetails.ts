@@ -76,14 +76,14 @@ const GQL_GET_HISTORICAL_TERMINAL_DETAILS = gql`
     }
 
     infoSpots {
-      ...info_spot_details
+      ...InfoSpotDetails
     }
 
     organisations {
       organisationRef
       relationshipType
       organisation {
-        ...stop_place_organisation_fields
+        ...StopPlaceOrganisationFields
       }
     }
 

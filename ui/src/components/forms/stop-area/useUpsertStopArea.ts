@@ -24,7 +24,7 @@ const GQL_UPSERT_STOP_AREA = gql`
   mutation UpsertStopArea($input: stop_registry_StopPlaceInput!) {
     stop_registry {
       mutateStopPlace(StopPlace: $input) {
-        ...stop_place_details
+        ...StopPlaceDetails
       }
     }
   }

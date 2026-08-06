@@ -15,7 +15,7 @@ const GQL_GET_TIMING_PLACES_FOR_COMBOBOX = gql`
       where: { label: { _ilike: $labelPattern } }
       order_by: [{ label: asc }]
     ) {
-      ...timing_place_for_combobox
+      ...TimingPlaceForCombobox
     }
   }
 `;
@@ -23,13 +23,13 @@ const GQL_GET_TIMING_PLACES_FOR_COMBOBOX = gql`
 const GQL_GET_SELECTED_TIMING_PLACE_DETAILS_BY_ID = gql`
   query GetSelectedTimingPlaceDetailsById($timing_place_id: uuid!) {
     timing_pattern_timing_place_by_pk(timing_place_id: $timing_place_id) {
-      ...timing_place_for_combobox
+      ...TimingPlaceForCombobox
     }
   }
 `;
 
 const GQL_TIMING_PLACE_FOR_COMBOBOX = gql`
-  fragment timing_place_for_combobox on timing_pattern_timing_place {
+  fragment TimingPlaceForCombobox on timing_pattern_timing_place {
     timing_place_id
     label
     description

@@ -40,7 +40,7 @@ import { getMirrorParentId, isMirrorChild } from '../../utils/mirrorRelation';
 import { useGetLatestQuayChange } from '../queries/useGetQuayChangeHistory';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
-  fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
+  fragment ScheduledStopPointDetailFields on service_pattern_scheduled_stop_point {
     priority
     direction
     scheduled_stop_point_id
@@ -69,10 +69,10 @@ const GQL_GET_STOP_DETAILS = gql`
       newestVersion: stops_database_stop_place_newest_version(where: $where) {
         id
         TiamatStopPlace {
-          ...stop_place_details
+          ...StopPlaceDetails
           ... on stop_registry_StopPlace {
             quays {
-              ...quay_details
+              ...QuayDetails
             }
           }
         }
@@ -82,7 +82,7 @@ const GQL_GET_STOP_DETAILS = gql`
 `;
 
 const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
-  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
+  fragment ShelterEquipmentDetails on stop_registry_ShelterEquipment {
     id
     version
 
@@ -105,12 +105,12 @@ const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
 `;
 
 const GQL_HSL_ACCESSIBILITY_ASSESSMENT_DETAILS = gql`
-  fragment accessibility_assessment_details on stop_registry_AccessibilityAssessment {
+  fragment AccessibilityAssessmentDetails on stop_registry_AccessibilityAssessment {
     id
     version
 
     hslAccessibilityProperties {
-      ...hsl_accessibility_properties_details
+      ...HslAccessibilityPropertiesDetails
     }
     limitations {
       id
@@ -126,7 +126,7 @@ const GQL_HSL_ACCESSIBILITY_ASSESSMENT_DETAILS = gql`
 `;
 
 const GQL_QUAY_DETAILS = gql`
-  fragment quay_details on stop_registry_Quay {
+  fragment QuayDetails on stop_registry_Quay {
     id
     version
 
@@ -151,19 +151,19 @@ const GQL_QUAY_DETAILS = gql`
       type
     }
     accessibilityAssessment {
-      ...accessibility_assessment_details
+      ...AccessibilityAssessmentDetails
     }
     keyValues {
       key
       values
     }
     infoSpots {
-      ...info_spot_details
+      ...InfoSpotDetails
     }
     placeEquipments {
       id
       shelterEquipment {
-        ...shelter_equipment_details
+        ...ShelterEquipmentDetails
       }
       cycleStorageEquipment {
         id
@@ -192,23 +192,23 @@ const GQL_QUAY_DETAILS = gql`
       }
     }
     scheduled_stop_point {
-      ...scheduled_stop_point_detail_fields
+      ...ScheduledStopPointDetailFields
     }
     externalLinks {
-      ...external_links_details
+      ...ExternalLinksDetails
     }
     organisations {
       relationshipType
       organisationRef
       organisation {
-        ...stop_place_organisation_fields
+        ...StopPlaceOrganisationFields
       }
     }
   }
 `;
 
 const GQL_EXTERNAL_LINKS_DETAILS = gql`
-  fragment external_links_details on stop_registry_externalLink {
+  fragment ExternalLinksDetails on stop_registry_externalLink {
     quayId
     orderNum
     name
@@ -217,7 +217,7 @@ const GQL_EXTERNAL_LINKS_DETAILS = gql`
 `;
 
 const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
-  fragment topographic_place_details on stop_registry_TopographicPlace {
+  fragment TopographicPlaceDetails on stop_registry_TopographicPlace {
     id
     version
 
@@ -230,7 +230,7 @@ const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
 `;
 
 const GQL_FARE_ZONE_DETAILS = gql`
-  fragment fare_zone_details on stop_registry_FareZone {
+  fragment FareZoneDetails on stop_registry_FareZone {
     id
     version
 
@@ -242,7 +242,7 @@ const GQL_FARE_ZONE_DETAILS = gql`
 `;
 
 const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
-  fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
+  fragment HslAccessibilityPropertiesDetails on stop_registry_HslAccessibilityProperties {
     id
     version
 
@@ -275,7 +275,7 @@ const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
 `;
 
 const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
-  fragment stop_place_organisation_fields on stop_registry_Organisation {
+  fragment StopPlaceOrganisationFields on stop_registry_Organisation {
     id
     version
 
@@ -291,7 +291,7 @@ const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
 `;
 
 const GQL_INFO_SPOT_DETAILS = gql`
-  fragment info_spot_details on stop_registry_infoSpot {
+  fragment InfoSpotDetails on stop_registry_infoSpot {
     id
     version
 

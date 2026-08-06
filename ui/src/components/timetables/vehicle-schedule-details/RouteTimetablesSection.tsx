@@ -25,7 +25,7 @@ import { VehicleServiceTable } from './vehicle-service-table';
 const GQL_GET_ROUTE_WITH_JOURNEY_PATTERN = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {
     route_route_by_pk(route_id: $routeId) {
-      ...route_with_journey_pattern_stops
+      ...RouteWithJourneyPatternStops
     }
   }
 `;

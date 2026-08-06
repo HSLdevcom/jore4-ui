@@ -19,10 +19,10 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
     $routeOrderBy: [route_route_order_by!]
   ) {
     route_line(where: $lineFilter, order_by: $lineOrderBy) {
-      ...line_table_row
+      ...LineTableRow
     }
     route_route(where: $routeFilter, order_by: $routeOrderBy) {
-      ...route_table_row
+      ...RouteTableRow
     }
   }
 `;

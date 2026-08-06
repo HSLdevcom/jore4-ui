@@ -21,14 +21,14 @@ type CreateChanges = {
 };
 
 const GQL_NEW_TIMING_PLACE = gql`
-  fragment new_timing_place on timing_pattern_timing_place {
+  fragment NewTimingPlace on timing_pattern_timing_place {
     label
     description
   }
 `;
 
 const GQL_CREATED_TIMING_PLACE = gql`
-  fragment created_timing_place on timing_pattern_timing_place {
+  fragment CreatedTimingPlace on timing_pattern_timing_place {
     timing_place_id
     label
     description
@@ -40,7 +40,7 @@ const GQL_INSERT_TIMING_PLACE = gql`
     $object: timing_pattern_timing_place_insert_input!
   ) {
     insert_timing_pattern_timing_place_one(object: $object) {
-      ...created_timing_place
+      ...CreatedTimingPlace
     }
   }
 `;
@@ -48,7 +48,7 @@ const GQL_INSERT_TIMING_PLACE = gql`
 const GQL_GET_TIMING_PLACES_BY_LABEL = gql`
   query GetTimingPlacesByLabel($label: String!) {
     timing_pattern_timing_place(where: { label: { _eq: $label } }) {
-      ...created_timing_place
+      ...CreatedTimingPlace
     }
   }
 `;

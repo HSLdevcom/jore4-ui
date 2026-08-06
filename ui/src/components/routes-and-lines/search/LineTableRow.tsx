@@ -20,15 +20,15 @@ type LineTableRowProps = {
 };
 
 const GQL_LINE_TABLE_ROW = gql`
-  fragment line_table_row on route_line {
+  fragment LineTableRow on route_line {
     name_i18n
     short_name_i18n
     validity_start
     validity_end
     priority
-    ...line_map_params
+    ...LineMapParams
     line_routes {
-      ...route_map_params
+      ...RouteMapParams
       unique_label
       direction
       route_journey_patterns {

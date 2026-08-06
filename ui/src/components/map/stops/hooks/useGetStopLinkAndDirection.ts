@@ -19,7 +19,7 @@ const GQL_QUERY_CLOSEST_LINK = gql`
     infrastructure_network_resolve_point_to_closest_link(
       args: { geog: $point, filter_vehicle_submode: $filter_vehicle_submode }
     ) {
-      ...infrastructure_link_all_fields
+      ...InfrastructureLinkAllFields
     }
   }
 `;

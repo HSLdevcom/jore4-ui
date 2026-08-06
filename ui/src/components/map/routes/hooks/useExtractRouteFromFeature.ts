@@ -47,10 +47,10 @@ const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
     infrastructure_network_infrastructure_link(
       where: { external_link_id: { _in: $externalLinkIds } }
     ) {
-      ...infra_link_matching_fields
+      ...InfraLinkMatchingFields
       external_link_source
       scheduled_stop_points_located_on_infrastructure_link {
-        ...route_stop_fields
+        ...RouteStopFields
       }
     }
   }
@@ -63,7 +63,7 @@ const GQL_GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
         located_on_infrastructure_link_id: { _in: $infrastructure_link_ids }
       }
     ) {
-      ...scheduled_stop_point_all_fields
+      ...ScheduledStopPointAllFields
     }
   }
 `;

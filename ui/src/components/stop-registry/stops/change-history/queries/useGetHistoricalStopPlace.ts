@@ -28,9 +28,9 @@ const GQL_GET_VERSIONED_STOP_PLACE_AND_QUAYS = gql`
   }
 
   fragment DetailsForHistoricalStopVersion on stop_registry_StopPlace {
-    ...stop_place_details
+    ...StopPlaceDetails
     quays {
-      ...quay_details
+      ...QuayDetails
     }
   }
 `;

@@ -1,4 +1,4 @@
-fragment scheduled_stop_point_in_journey_pattern_all_fields on journey_pattern_scheduled_stop_point_in_journey_pattern {
+fragment ScheduledStopPointInJourneyPatternAllFields on journey_pattern_scheduled_stop_point_in_journey_pattern {
   journey_pattern_id
   scheduled_stop_point_label
   scheduled_stop_point_sequence

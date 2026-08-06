@@ -22,10 +22,10 @@ const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
   }
 
   fragment GetStopByRouteIdSearchResult on service_pattern_scheduled_stop_point {
-    ...StopTableRow_ScheduledStopPoint_Details
+    ...StopTableRowScheduledStopPointDetails
 
     quay: newest_quay {
-      ...StopTableRow_Quay_Details
+      ...StopTableRowQuayDetails
     }
 
     journeyPatterns: scheduled_stop_point_in_journey_patterns(

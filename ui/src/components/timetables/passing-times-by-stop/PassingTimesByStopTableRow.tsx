@@ -12,7 +12,7 @@ import { HighlightProps } from './PassingTimesByStopTableRowPassingMinute';
 import { PassingTimesByStopTableRowPassingTime } from './PassingTimesByStopTableRowPassingTime';
 
 const GQL_PASSING_TIME = gql`
-  fragment passing_time_by_stop on timetables_passing_times_timetabled_passing_time {
+  fragment PassingTimeByStop on timetables_passing_times_timetabled_passing_time {
     arrival_time
     departure_time
     passing_time
@@ -27,7 +27,7 @@ const GQL_PASSING_TIME = gql`
       scheduled_stop_point_in_journey_pattern_ref_id
       scheduled_stop_point_label
       scheduled_stop_point_instances {
-        ...scheduled_stop_point_default_fields
+        ...ScheduledStopPointDefaultFields
         timing_place {
           label
           timing_place_id

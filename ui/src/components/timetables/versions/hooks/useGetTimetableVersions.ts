@@ -9,7 +9,7 @@ import { DayOfWeek, TimetablePriority } from '../../../../types/enums';
 import { convertArrayTypeForHasura } from '../../../../utils';
 
 const GQL_TIMETABLE_VERSIONS_FRAGMENT = gql`
-  fragment timetable_version on timetables_return_value_timetable_version {
+  fragment TimetableVersion on timetables_return_value_timetable_version {
     day_type {
       day_type_id
       name_i18n
@@ -47,7 +47,7 @@ const GQL_GET_TIMETABLE_VERSIONS_BY_JOURNEY_PARTTERN_IDS = gql`
           observation_date: $observation_date
         }
       ) {
-        ...timetable_version
+        ...TimetableVersion
       }
     }
   }

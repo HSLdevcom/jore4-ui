@@ -20,7 +20,7 @@ import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 
 const GQL_ROUTE_METADATA = gql`
-  fragment route_metadata on route_route {
+  fragment RouteMetadata on route_route {
     name_i18n
     label
     priority
@@ -32,34 +32,34 @@ const GQL_ROUTE_METADATA = gql`
 `;
 
 const GQL_ROUTES_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
-  fragment route_with_infrastructure_links_with_stops on route_route {
-    ...route_all_fields
+  fragment RouteWithInfrastructureLinksWithStops on route_route {
+    ...RouteAllFields
     route_line {
-      ...line_all_fields
+      ...LineAllFields
     }
     infrastructure_links_along_route {
-      ...infra_link_along_route_with_stops
+      ...InfraLinkAlongRouteWithStops
     }
   }
 `;
 
 const GQL_ROUTES_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS_AND_JPS = gql`
-  fragment route_with_infrastructure_links_with_stops_and_jps on route_route {
-    ...route_with_infrastructure_links_with_stops
-    ...route_with_journey_pattern_stops
+  fragment RouteWithInfrastructureLinksWithStopsAndJps on route_route {
+    ...RouteWithInfrastructureLinksWithStops
+    ...RouteWithJourneyPatternStops
   }
 `;
 
 const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS = gql`
-  fragment infra_link_along_route_with_stops on route_infrastructure_link_along_route {
+  fragment InfraLinkAlongRouteWithStops on route_infrastructure_link_along_route {
     route_id
     infrastructure_link_sequence
     infrastructure_link_id
     infrastructure_link {
-      ...infra_link_matching_fields
+      ...InfraLinkMatchingFields
       external_link_source
       scheduled_stop_points_located_on_infrastructure_link {
-        ...route_stop_fields
+        ...RouteStopFields
       }
     }
     is_traversal_forwards
@@ -69,7 +69,7 @@ const GQL_INFRA_LINK_ALONG_ROUTE_WITH_STOPS = gql`
 const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
   query GetRouteWithInfrastructureLinksWithStops($route_id: uuid!) {
     route_route_by_pk(route_id: $route_id) {
-      ...route_with_infrastructure_links_with_stops_and_jps
+      ...RouteWithInfrastructureLinksWithStopsAndJps
     }
   }
 `;

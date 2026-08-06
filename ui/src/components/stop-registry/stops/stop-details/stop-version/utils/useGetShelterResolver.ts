@@ -23,7 +23,7 @@ const GQL_RESOLVE_STOP_SHELTERS = gql`
             placeEquipments {
               id
               shelterEquipment {
-                ...shelter_equipment_details
+                ...ShelterEquipmentDetails
               }
             }
           }

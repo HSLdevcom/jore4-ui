@@ -61,7 +61,7 @@ const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
       _set: $patch
     ) {
       returning {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
+        ...ScheduledStopPointInJourneyPatternAllFields
       }
     }
   }

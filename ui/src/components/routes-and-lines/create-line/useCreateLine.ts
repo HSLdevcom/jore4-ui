@@ -19,7 +19,7 @@ import { FormState } from '../../forms/line/LineForm';
 const GQL_INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {
     insert_route_line_one(object: $object) {
-      ...line_all_fields
+      ...LineAllFields
     }
   }
 `;

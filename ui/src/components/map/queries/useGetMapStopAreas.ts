@@ -17,12 +17,12 @@ const GQL_QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
           parent_stop_place: { _eq: false }
         }
       ) {
-        ...mapMinimalStopAreaDetails
+        ...MapMinimalStopAreaDetails
       }
     }
   }
 
-  fragment mapMinimalStopAreaDetails on stops_database_stop_place_newest_version {
+  fragment MapMinimalStopAreaDetails on stops_database_stop_place_newest_version {
     id
     netex_id
     private_code_value

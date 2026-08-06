@@ -20,7 +20,7 @@ const GQL_UPDATE_INFO_SPOTS = gql`
   mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {
     stop_registry {
       mutateInfoSpots(infoSpot: $input) {
-        ...info_spot_details
+        ...InfoSpotDetails
       }
     }
   }

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const GQL_STOP_TABLE_ROW_SCHEDULED_STOP_POINT_DETAILS = gql`
-  fragment StopTableRow_ScheduledStopPoint_Details on service_pattern_scheduled_stop_point {
+  fragment StopTableRowScheduledStopPointDetails on service_pattern_scheduled_stop_point {
     scheduled_stop_point_id
     timing_place {
       timing_place_id
@@ -11,7 +11,7 @@ const GQL_STOP_TABLE_ROW_SCHEDULED_STOP_POINT_DETAILS = gql`
 `;
 
 const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
-  fragment StopTableRow_Quay_Details on stops_database_quay_newest_version {
+  fragment StopTableRowQuayDetails on stops_database_quay_newest_version {
     id
     netex_id
     public_code
@@ -88,7 +88,7 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
 `;
 
 const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
-  fragment StopTableRow_StopArea_Details on stop_registry_StopPlace {
+  fragment StopTableRowStopAreaDetails on stop_registry_StopPlace {
     id
     publicCode
     transportMode
@@ -106,11 +106,11 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
     }
 
     quays {
-      ...StopTableRow_StopArea_Quay_Details
+      ...StopTableRowStopAreaQuayDetails
     }
   }
 
-  fragment StopTableRow_StopArea_Quay_Details on stop_registry_Quay {
+  fragment StopTableRowStopAreaQuayDetails on stop_registry_Quay {
     id
     version
 
@@ -162,7 +162,7 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
     }
 
     scheduled_stop_point {
-      ...StopTableRow_ScheduledStopPoint_Details
+      ...StopTableRowScheduledStopPointDetails
     }
   }
 `;

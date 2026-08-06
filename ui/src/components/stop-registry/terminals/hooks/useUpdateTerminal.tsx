@@ -16,7 +16,7 @@ const GQL_UPDATE_TERMINAL = gql`
   mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {
     stop_registry {
       mutateParentStopPlace(ParentStopPlace: $input) {
-        ...parent_stop_place_details
+        ...ParentStopPlaceDetails
       }
     }
   }

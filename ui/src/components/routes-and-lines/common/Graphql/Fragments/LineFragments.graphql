@@ -1,4 +1,4 @@
-fragment line_all_fields on route_line {
+fragment LineAllFields on route_line {
   line_id
   label
   description
