@@ -6,7 +6,7 @@ import {
 } from '../../../../../generated/graphql';
 
 const GQL_VEHICLE_JOURNEY_WITH_PATTERN_AND_ROUTE_FRAGMENT = gql`
-  fragment VehicleJourneyWithPatternAndRouteFragment on timetables_vehicle_journey_vehicle_journey {
+  fragment VehicleJourneyWithPatternAndRoute on timetables_vehicle_journey_vehicle_journey {
     vehicle_journey_id
     start_time
     contract_number
@@ -55,7 +55,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_JOURNEY_INFO = gql`
           blocks {
             block_id
             vehicle_journeys {
-              ...VehicleJourneyWithPatternAndRouteFragment
+              ...VehicleJourneyWithPatternAndRoute
             }
           }
         }

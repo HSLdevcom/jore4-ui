@@ -3,7 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
 import {
   RouteDirectionEnum,
-  VehicleJourneyWithPatternAndRouteFragmentFragment,
+  VehicleJourneyWithPatternAndRouteFragment,
 } from '../../../../generated/graphql';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './deviations';
 import { useCombiningSameContractTimetables } from './useCombiningSameContractTimetables';
@@ -38,8 +38,8 @@ const saturdayDayType = {
 };
 
 const buildVehicleJourney = (
-  input: Partial<VehicleJourneyWithPatternAndRouteFragmentFragment>,
-): VehicleJourneyWithPatternAndRouteFragmentFragment => {
+  input: Partial<VehicleJourneyWithPatternAndRouteFragment>,
+): VehicleJourneyWithPatternAndRouteFragment => {
   return {
     journey_pattern_ref: route35JourneyPatternRef,
     start_time: Duration.fromISO('PT12H00M'),
@@ -50,7 +50,7 @@ const buildVehicleJourney = (
 };
 
 const buildSingleBlockFrameWithJourneys = (
-  journeys: ReadonlyArray<VehicleJourneyWithPatternAndRouteFragmentFragment>,
+  journeys: ReadonlyArray<VehicleJourneyWithPatternAndRouteFragment>,
 ): VehicleScheduleVehicleScheduleFrameWithJourneys => {
   return {
     validity_start: DateTime.fromISO('2023-07-13'),
