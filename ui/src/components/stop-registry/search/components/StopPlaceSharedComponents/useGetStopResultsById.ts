@@ -8,7 +8,7 @@ import {
 } from '../../../components';
 
 const GQL_GET_STOPS_BY_ID = gql`
-  query getStopsById($stopPlaceId: bigint) {
+  query GetStopsById($stopPlaceId: bigint) {
     stops_database {
       stops: stops_database_quay_newest_version(
         where: {

@@ -140,7 +140,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
   }
 
   function waitForStopAreaRemoveToBeFinished() {
-    expectGraphQLCallToSucceed('@gqlremoveFromMultiModalStopPlace');
+    expectGraphQLCallToSucceed('@gqlRemoveFromMultiModalStopPlace');
     Toast.expectSuccessToast('Terminaalin jäsenpysäkit muokattu');
   }
 

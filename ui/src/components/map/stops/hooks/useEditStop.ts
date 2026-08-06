@@ -547,7 +547,7 @@ export function useDefaultErrorHandler() {
 
 const refetchQueries = {
   awaitRefetchQueries: true,
-  refetchQueries: () => ['getStopPlaceDetails', 'GetStopInfoForEditingOnMap'],
+  refetchQueries: () => ['GetStopPlaceDetails', 'GetStopInfoForEditingOnMap'],
 } as const;
 
 export const useEditStop = () => {

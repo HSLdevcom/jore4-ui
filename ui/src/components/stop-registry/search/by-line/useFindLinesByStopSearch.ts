@@ -13,7 +13,7 @@ export type FindStopByLineInfo = FindStopByLineInfoFragment;
 export type FindStopByLineRouteInfo = FindStopByLineRouteInfoFragment;
 
 const GQL_FIND_LINES_BY_STOP_SEARCH_QUERY = gql`
-  query findLinesByStopSearch($query: String!, $validOn: date!) {
+  query FindLinesByStopSearch($query: String!, $validOn: date!) {
     route_line(
       where: {
         label: { _ilike: $query }

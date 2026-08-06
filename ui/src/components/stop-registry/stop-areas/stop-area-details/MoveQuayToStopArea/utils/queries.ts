@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const GQL_MOVE_QUAY_TO_STOP_PLACE = gql`
-  mutation moveQuayToStopPlace(
+  mutation MoveQuayToStopPlace(
     $toStopPlaceId: String!
     $quayIds: [String!]!
     $moveQuayFromDate: stop_registry_LocalDate!

@@ -6,7 +6,7 @@ import { selectedStopSchema } from './schema';
 const LIMIT = 5;
 
 const GQL_FIND_QUAYS_BY_QUERY = gql`
-  query findQuaysByQuery($cursor: bigint!, $limit: Int!, $query: String!) {
+  query FindQuaysByQuery($cursor: bigint!, $limit: Int!, $query: String!) {
     stops_database {
       findStopsForTerminal(
         args: { query: $query }

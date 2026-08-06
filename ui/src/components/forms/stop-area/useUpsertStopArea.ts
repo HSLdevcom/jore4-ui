@@ -134,8 +134,8 @@ export const useUpsertStopArea = () => {
     refetchQueries: [
       'GetStopAreasByLocation',
       'GetLatestStopPlaceChange',
-      'getStopPlaceDetails',
-      'getStopPlaceChangeHistory',
+      'GetStopPlaceDetails',
+      'GetStopPlaceChangeHistory',
     ],
   });
 

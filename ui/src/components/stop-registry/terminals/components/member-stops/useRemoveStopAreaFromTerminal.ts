@@ -20,7 +20,7 @@ export const useRemoveStopAreaFromTerminal = () => {
             stopPlaceId: [stopAreaId],
           },
           awaitRefetchQueries: true,
-          refetchQueries: ['getParentStopPlaceDetails'],
+          refetchQueries: ['GetParentStopPlaceDetails'],
         });
         showSuccessToast(t(($) => $.terminalDetails.stops.editSuccess));
       } catch (err) {

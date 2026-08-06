@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { useGetLineRouteStopIdsQuery } from '../../../../generated/graphql';
 
 const GQL_GET_LINE_ROUTE_STOP_IDS = gql`
-  query getLineRouteStopIds($routeIds: [uuid!]) {
+  query GetLineRouteStopIds($routeIds: [uuid!]) {
     stopPoints: service_pattern_scheduled_stop_point(
       where: {
         scheduled_stop_point_in_journey_patterns: {

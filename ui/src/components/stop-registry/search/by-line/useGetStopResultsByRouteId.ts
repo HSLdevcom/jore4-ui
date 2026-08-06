@@ -9,7 +9,7 @@ import { SortOrder } from '../../../../types';
 import { StopSearchRow, mapQueryResultToStopSearchRow } from '../../components';
 
 const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
-  query getStopsByRouteId($routeId: uuid!) {
+  query GetStopsByRouteId($routeId: uuid!) {
     stopPoints: service_pattern_scheduled_stop_point(
       where: {
         scheduled_stop_point_in_journey_patterns: {

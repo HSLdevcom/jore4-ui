@@ -52,9 +52,9 @@ export const useEditTerminalExternalLinks = () => {
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      'getParentStopPlaceDetails',
+      'GetParentStopPlaceDetails',
       'GetLatestStopPlaceChange',
-      'getStopPlaceChangeHistory',
+      'GetStopPlaceChangeHistory',
     ],
   });
 

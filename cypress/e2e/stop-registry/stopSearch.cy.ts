@@ -529,7 +529,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     function assertShowsAllResultsByDefault() {
       StopSearchBar.getSearchInput().clearAndType(`LE*{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindLinesByStopSearch');
+      expectGraphQLCallToSucceed('@gqlFindLinesByStopSearch');
 
       // Should contain and show all LE -lines
       StopGroupSelector.shouldHaveGroups(
@@ -543,7 +543,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       allExtraLines: ReadonlyArray<string>,
     ) {
       StopSearchBar.getSearchInput().clearAndType(`L*{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindLinesByStopSearch');
+      expectGraphQLCallToSucceed('@gqlFindLinesByStopSearch');
 
       // Changes in CSS styles, viewport size, and the line labels can influence
       // the list of shown labels.

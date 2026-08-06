@@ -23,7 +23,7 @@ export const useMoveQuayToStopPlace = () => {
   const [moveQuayMutation, { loading: moveLoading, error: moveError, reset }] =
     useMoveQuayToStopPlaceMutation({
       awaitRefetchQueries: true,
-      refetchQueries: ['getStopPlaceDetails', 'getStopPlaceChangeHistory'],
+      refetchQueries: ['GetStopPlaceDetails', 'GetStopPlaceChangeHistory'],
     });
   const [getStopPointsByQuayId] = useGetStopPointsByQuayIdLazyQuery();
   const [insertStopPointMutation] = useInsertStopPointMutation();

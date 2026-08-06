@@ -80,9 +80,9 @@ export const useEditTerminalInfoSpots = () => {
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      'getParentStopPlaceDetails',
+      'GetParentStopPlaceDetails',
       'GetLatestStopPlaceChange',
-      'getStopPlaceChangeHistory',
+      'GetStopPlaceChangeHistory',
     ],
   });
 

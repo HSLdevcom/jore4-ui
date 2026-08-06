@@ -11,7 +11,7 @@ import { EnrichedParentStopPlace } from '../../../../../../types';
 import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 
 const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
-  mutation removeFromMultiModalStopPlace(
+  mutation RemoveFromMultiModalStopPlace(
     $parentSiteRef: String!
     $stopPlaceId: [String]
   ) {
@@ -28,7 +28,7 @@ const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
 `;
 
 const GQL_ADD_TO_MULTIMODAL_STOP_PLACE = gql`
-  mutation addToMultiModalStopPlace(
+  mutation AddToMultiModalStopPlace(
     $input: stop_registry_addToMultiModalStopPlaceInput!
   ) {
     stop_registry {
@@ -120,7 +120,7 @@ export const useEditMembersOfTerminal = () => {
             },
           },
           awaitRefetchQueries: true,
-          refetchQueries: ['getParentStopPlaceDetails'],
+          refetchQueries: ['GetParentStopPlaceDetails'],
         });
       }
 
@@ -131,7 +131,7 @@ export const useEditMembersOfTerminal = () => {
             stopPlaceId: stopPlacesToRemove,
           },
           awaitRefetchQueries: true,
-          refetchQueries: ['getParentStopPlaceDetails'],
+          refetchQueries: ['GetParentStopPlaceDetails'],
         });
       }
     },

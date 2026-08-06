@@ -28,10 +28,10 @@ export const useUpdateTerminal = () => {
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      'getParentStopPlaceDetails',
+      'GetParentStopPlaceDetails',
       'GetStopTerminalsByLocation',
       'GetLatestStopPlaceChange',
-      'getStopPlaceChangeHistory',
+      'GetStopPlaceChangeHistory',
     ],
   });
 

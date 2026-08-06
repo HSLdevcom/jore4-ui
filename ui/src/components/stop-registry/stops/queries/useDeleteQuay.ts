@@ -28,7 +28,7 @@ export function useDeleteQuay() {
         variables: { stopPlaceId, quayId },
         refetchQueries: [
           'GetMapStops',
-          'getStopPlaceDetails',
+          'GetStopPlaceDetails',
           'GetStopDetails',
         ],
         awaitRefetchQueries: true,

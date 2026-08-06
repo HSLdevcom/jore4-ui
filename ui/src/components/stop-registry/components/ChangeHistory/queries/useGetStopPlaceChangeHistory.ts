@@ -15,7 +15,7 @@ import { sortByVersion, useSortTiamatHistoryItems } from '../../../utils';
 import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';
 
 const GQL_GET_STOP_PLACE_CHANGE_HISTORY_QUERY = gql`
-  query getStopPlaceChangeHistory($privateCode: String!) {
+  query GetStopPlaceChangeHistory($privateCode: String!) {
     stopsDb: stops_database {
       historyItems: getStopPlaceChangeHistory(
         where: { privateCodeValue: { _eq: $privateCode } }

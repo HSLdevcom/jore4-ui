@@ -20,7 +20,7 @@ import {
 import { useGetLatestStopPlaceChange } from './hooks/useGetStopPlaceChangeHistory';
 
 const GQL_GET_STOP_AREA_DETAILS = gql`
-  query getStopPlaceDetails(
+  query GetStopPlaceDetails(
     $where: stops_database_stop_place_newest_version_bool_exp
   ) {
     stopsDb: stops_database {

@@ -187,7 +187,7 @@ export function useCreateStop() {
   const [insertQuayIntoStopPlaceMutation] = useInsertQuayIntoStopPlaceMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      'getStopPlaceDetails',
+      'GetStopPlaceDetails',
       'GetStopInfoForEditingOnMap',
       'GetMapStops',
     ],

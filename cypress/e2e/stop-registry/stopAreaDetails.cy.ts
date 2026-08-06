@@ -451,13 +451,13 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
       expectGraphQLCallToSucceed('@gqlInsertMultipleStopPoints');
       Toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
-      expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
+      expectGraphQLCallToSucceed('@gqlGetStopPlaceDetails');
     }
 
     function waitForCopyWithNoStopsToBeFinished() {
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
       Toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
-      expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
+      expectGraphQLCallToSucceed('@gqlGetStopPlaceDetails');
     }
 
     it('should copy and cut current version from end', () => {
