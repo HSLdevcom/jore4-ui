@@ -1,7 +1,12 @@
+import { useApolloClient } from '@apollo/client';
 import { FC } from 'react';
 import {
-  useGetLineDetailsByIdLazyQuery,
-  useGetRouteDetailsByIdLazyQuery,
+  GetLineDetailsByIdDocument,
+  GetLineDetailsByIdQuery,
+  GetLineDetailsByIdQueryVariables,
+  GetRouteDetailsByIdDocument,
+  GetRouteDetailsByIdQuery,
+  GetRouteDetailsByIdQueryVariables,
 } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
@@ -24,9 +29,8 @@ const areFormValuesValid = (formData?: Partial<RouteFormState>) =>
   routeFormSchema.safeParse(formData).success;
 
 export const EditRouteMetadataLayer: FC = () => {
+  const apollo = useApolloClient();
   const dispatch = useAppDispatch();
-  const [getLineDetailsById] = useGetLineDetailsByIdLazyQuery();
-  const [getRouteDetailsById] = useGetRouteDetailsByIdLazyQuery();
   const { isRouteMetadataFormOpen } = useAppSelector(selectMapRouteEditor);
   const {
     templateRouteId,
@@ -49,10 +53,14 @@ export const EditRouteMetadataLayer: FC = () => {
 
   const onSuccess = async (formData: RouteFormState) => {
     // The line might have been changed by the user, so have to refresh its data in the redux store
-    const results = await getLineDetailsById({
+    const results = await apollo.query<
+      GetLineDetailsByIdQuery,
+      GetLineDetailsByIdQueryVariables
+    >({
+      query: GetLineDetailsByIdDocument,
       variables: { line_id: formData.onLineId },
     });
-    if (!results?.data?.route_line_by_pk) {
+    if (!results.data.route_line_by_pk) {
       throw new Error("Couldn't get line details!");
     }
 
@@ -63,12 +71,14 @@ export const EditRouteMetadataLayer: FC = () => {
      * Get journey pattern stop metadata (e.g. via info) from template route
      */
     if (templateRouteId) {
-      const routeDetailsResult = await getRouteDetailsById({
-        variables: {
-          routeId: templateRouteId,
-        },
+      const routeDetailsResult = await apollo.query<
+        GetRouteDetailsByIdQuery,
+        GetRouteDetailsByIdQueryVariables
+      >({
+        query: GetRouteDetailsByIdDocument,
+        variables: { routeId: templateRouteId },
       });
-      if (!routeDetailsResult.data?.route_route_by_pk) {
+      if (!routeDetailsResult.data.route_route_by_pk) {
         throw new Error("Can't find route and line details");
       }
 

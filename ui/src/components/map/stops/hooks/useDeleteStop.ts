@@ -1,11 +1,13 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import uniqBy from 'lodash/uniqBy';
 import { useTranslation } from 'react-i18next';
 import {
+  GetStopWithRouteGraphDataByIdDocument,
+  GetStopWithRouteGraphDataByIdQuery,
+  GetStopWithRouteGraphDataByIdQueryVariables,
   JourneyPatternJourneyPattern,
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
-  useGetStopWithRouteGraphDataByIdLazyQuery,
   useRemoveStopMutation,
 } from '../../../../generated/graphql';
 import {
@@ -69,19 +71,22 @@ function getJourneyPatternsToDeleteStopFrom(
 // Prepare variables for mutation and validate if it's even allowed.
 // Try to produce a changeset that can be displayed on an explanatory UI.
 function usePrepareDelete() {
-  const [getStopWithRouteGraphData] =
-    useGetStopWithRouteGraphDataByIdLazyQuery();
+  const apollo = useApolloClient();
 
   return async (deleteParams: DeleteParams) => {
     const { stopPointId } = deleteParams;
 
     // Check if we tried to delete the starting or ending stop of an existing route.
-    const stopWithRoutesResult = await getStopWithRouteGraphData({
+    const stopWithRoutesResult = await apollo.query<
+      GetStopWithRouteGraphDataByIdQuery,
+      GetStopWithRouteGraphDataByIdQueryVariables
+    >({
+      query: GetStopWithRouteGraphDataByIdDocument,
       variables: { stopId: stopPointId },
     });
     const stopWithRouteGraphData =
       illegalOptionalCast<ServicePatternScheduledStopPoint>(
-        stopWithRoutesResult.data?.service_pattern_scheduled_stop_point.at(0),
+        stopWithRoutesResult.data.service_pattern_scheduled_stop_point.at(0),
       );
 
     if (!stopWithRouteGraphData) {

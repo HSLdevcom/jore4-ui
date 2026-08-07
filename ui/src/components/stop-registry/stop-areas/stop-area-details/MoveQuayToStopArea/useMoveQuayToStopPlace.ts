@@ -1,7 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import {
-  useGetOriginalQuaysLazyQuery,
-  useGetStopPointsByQuayIdLazyQuery,
   useInsertStopPointMutation,
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
@@ -13,42 +11,30 @@ import {
   executeQuayMove,
   extractQuayValidityEnd,
   extractStopPlaceQuays,
-  fetchExistingStopPoints,
   updateStopPointValidity,
+  useFetchExistingStopPoints,
+  useFetchOriginalQuays,
 } from './utils/helpers';
-import { MoveQuayParams, QuayInfo } from './utils/types';
+import { MoveQuayParams } from './utils/types';
 
 export const useMoveQuayToStopPlace = () => {
   const { t } = useTranslation();
+
   const [moveQuayMutation, { loading: moveLoading, error: moveError, reset }] =
     useMoveQuayToStopPlaceMutation({
       awaitRefetchQueries: true,
       refetchQueries: ['GetStopPlaceDetails', 'GetStopPlaceChangeHistory'],
     });
-  const [getStopPointsByQuayId] = useGetStopPointsByQuayIdLazyQuery();
   const [insertStopPointMutation] = useInsertStopPointMutation();
   const [updateStopPointMutation] = useUpdateStopPointMutation();
-  const [getOriginalQuays] = useGetOriginalQuaysLazyQuery();
 
-  const fetchOriginalQuays = async (
-    quayIds: ReadonlyArray<string>,
-  ): Promise<QuayInfo[]> => {
-    const originalQuaysResult = await getOriginalQuays({
-      variables: { quayId: quayIds[0] },
-    });
-
-    const stopPlace = originalQuaysResult.data?.stop_registry?.stopPlace?.[0];
-    const allQuaysInOriginalStop = extractStopPlaceQuays(stopPlace);
-
-    return allQuaysInOriginalStop.filter((quay) =>
-      quayIds.includes(quay?.id ?? ''),
-    );
-  };
+  const fetchOriginalQuays = useFetchOriginalQuays();
+  const fetchExistingStopPoints = useFetchExistingStopPoints();
 
   const moveQuayToStopPlace = async (params: MoveQuayParams) => {
     const [originalQuays, existingStopPoints] = await Promise.all([
       fetchOriginalQuays(params.quayIds),
-      fetchExistingStopPoints(params.quayIds, getStopPointsByQuayId),
+      fetchExistingStopPoints(params.quayIds),
     ]);
 
     if (originalQuays.length === 0) {

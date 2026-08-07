@@ -1,12 +1,14 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
+  GetScheduledStopsOnRouteDocument,
+  GetScheduledStopsOnRouteQuery,
+  GetScheduledStopsOnRouteQueryVariables,
   PatchRouteMutationVariables,
   RouteAllFieldsFragment,
   RouteDefaultFieldsFragment,
   RouteRouteSetInput,
   ServicePatternScheduledStopPoint,
-  useGetScheduledStopsOnRouteLazyQuery,
   usePatchRouteMutation,
 } from '../../../../generated/graphql';
 import { MIN_DATE, mapToISODate } from '../../../../time';
@@ -14,13 +16,14 @@ import { Priority } from '../../../../types/enums';
 import { RouteDirection } from '../../../../types/RouteDirection';
 import {
   defaultLocalizedString,
+  illegalCast,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   showDangerToastWithError,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { useValidateRoute } from './useValidateRoute';
+import { useValidateRouteMetadata } from './useValidateRoute';
 
 const GQL_UPDATE_ROUTE = gql`
   mutation PatchRoute($route_id: uuid!, $object: route_route_set_input!) {
@@ -58,19 +61,20 @@ type EditChanges = {
   readonly conflicts?: ReadonlyArray<RouteDefaultFieldsFragment>;
 };
 
-export const mapRouteFormToInput = (state: RouteFormState) => {
-  const { label, variant, priority, validityStart, validityEnd, indefinite } =
-    state;
-  const mutation = {
+export function mapRouteFormToInput(state: RouteFormState) {
+  return {
     name_i18n: { fi_FI: state.finnishName },
-    label,
+    label: state.label,
     on_line_id: state.onLineId,
-    variant: Number.isInteger(variant) ? variant : null,
+    variant: Number.isInteger(state.variant) ? state.variant : null,
     direction: state.direction,
-    priority,
+    priority: state.priority,
     version_comment: state.versionComment?.trim() ?? null,
-    validity_start: mapDateInputToValidityStart(validityStart),
-    validity_end: mapDateInputToValidityEnd(validityEnd, indefinite),
+    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_end: mapDateInputToValidityEnd(
+      state.validityEnd,
+      state.indefinite,
+    ),
     origin_name_i18n: defaultLocalizedString(state.origin?.name),
     origin_short_name_i18n: defaultLocalizedString(state.origin?.shortName),
     destination_name_i18n: defaultLocalizedString(state.destination?.name),
@@ -78,31 +82,32 @@ export const mapRouteFormToInput = (state: RouteFormState) => {
       state.destination?.shortName,
     ),
   };
-  return mutation;
-};
+}
 
-export const mapRouteToFormState = (
+export function mapRouteToFormState(
   route: RouteAllFieldsFragment,
-): RouteFormState => ({
-  finnishName: route.name_i18n?.fi_FI ?? '',
-  versionComment: '',
-  label: route.label,
-  onLineId: route.on_line_id,
-  variant: route.variant ?? null,
-  direction: route.direction as RouteDirection,
-  priority: route.priority,
-  validityStart: mapToISODate(route.validity_start) ?? '',
-  validityEnd: mapToISODate(route.validity_end) ?? '',
-  indefinite: !route.validity_end,
-  origin: {
-    name: defaultLocalizedString(route.origin_name_i18n),
-    shortName: defaultLocalizedString(route.origin_short_name_i18n),
-  },
-  destination: {
-    name: defaultLocalizedString(route.destination_name_i18n),
-    shortName: defaultLocalizedString(route.destination_short_name_i18n),
-  },
-});
+): RouteFormState {
+  return {
+    finnishName: route.name_i18n?.fi_FI ?? '',
+    versionComment: '',
+    label: route.label,
+    onLineId: route.on_line_id,
+    variant: route.variant ?? null,
+    direction: route.direction as RouteDirection,
+    priority: route.priority,
+    validityStart: mapToISODate(route.validity_start) ?? '',
+    validityEnd: mapToISODate(route.validity_end) ?? '',
+    indefinite: !route.validity_end,
+    origin: {
+      name: defaultLocalizedString(route.origin_name_i18n),
+      shortName: defaultLocalizedString(route.origin_short_name_i18n),
+    },
+    destination: {
+      name: defaultLocalizedString(route.destination_name_i18n),
+      shortName: defaultLocalizedString(route.destination_short_name_i18n),
+    },
+  };
+}
 
 /**
  * Hook for editing route's metadata.
@@ -111,15 +116,16 @@ export const mapRouteToFormState = (
  */
 export const useEditRouteMetadata = () => {
   const { t } = useTranslation();
+
+  const apollo = useApolloClient();
   const [mutateFunction] = usePatchRouteMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
-  const { validateMetadata } = useValidateRoute();
-  const [getScheduledStopsOnRoute] = useGetScheduledStopsOnRouteLazyQuery();
+  const validateRouteMetadata = useValidateRouteMetadata();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
     const input = mapRouteFormToInput(form);
 
-    await validateMetadata(form);
+    await validateRouteMetadata(form);
     const conflicts = await getConflictingRoutes(
       {
         label: form.label,
@@ -132,13 +138,11 @@ export const useEditRouteMetadata = () => {
       routeId,
     );
 
-    const changes: EditChanges = {
+    return {
       routeId,
       patch: input,
       conflicts,
     };
-
-    return changes;
   };
 
   // Find all stops on route with draft priority, if the route changes priority from draft
@@ -151,31 +155,34 @@ export const useEditRouteMetadata = () => {
     oldPriority?: Priority;
     form: RouteFormState;
   }) => {
-    const input = mapRouteFormToInput(form);
+    const prioChangedFromDraft =
+      oldPriority === Priority.Draft && form.priority !== Priority.Draft;
 
-    if (oldPriority === Priority.Draft && input.priority !== Priority.Draft) {
-      const result = await getScheduledStopsOnRoute({
-        variables: {
-          routeId,
-        },
-      });
-      return (
-        result.data?.journey_pattern_journey_pattern
-          .flatMap(
-            (journeyPattern) =>
-              journeyPattern.scheduled_stop_point_in_journey_patterns,
-          )
-          .flatMap((scheduledStopPointsInJourneyPatterns) =>
-            scheduledStopPointsInJourneyPatterns.scheduled_stop_points.map(
-              (scheduledStopPoint) =>
-                scheduledStopPoint as ServicePatternScheduledStopPoint,
-            ),
-          )
-          .filter((stop) => stop.priority === Priority.Draft) ?? []
-      );
+    if (!prioChangedFromDraft) {
+      return [];
     }
 
-    return [];
+    const { data } = await apollo.query<
+      GetScheduledStopsOnRouteQuery,
+      GetScheduledStopsOnRouteQueryVariables
+    >({
+      query: GetScheduledStopsOnRouteDocument,
+      variables: { routeId },
+    });
+
+    return data.journey_pattern_journey_pattern
+      .flatMap(
+        (journeyPattern) =>
+          journeyPattern.scheduled_stop_point_in_journey_patterns,
+      )
+      .flatMap(
+        (scheduledStopPointsInJourneyPatterns) =>
+          scheduledStopPointsInJourneyPatterns.scheduled_stop_points,
+      )
+      .map((scheduledStopPoint) =>
+        illegalCast<ServicePatternScheduledStopPoint>(scheduledStopPoint),
+      )
+      .filter((stop) => stop.priority === Priority.Draft);
   };
 
   const mapEditChangesToVariables = (

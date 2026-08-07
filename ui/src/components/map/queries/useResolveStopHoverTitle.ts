@@ -1,7 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useResolveStopNameLazyQuery } from '../../../generated/graphql';
+import {
+  ResolveStopNameDocument,
+  ResolveStopNameQuery,
+  ResolveStopNameQueryVariables,
+} from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
 import { log } from '../../../utils';
 import { MapStop, MapStopArea } from '../types';
@@ -24,9 +28,7 @@ type ResolveStopNameFn = (stopPlaceNetexId: string) => Promise<string | null>;
 function useResolveStopName(
   areas: ReadonlyArray<MapStopArea>,
 ): ResolveStopNameFn {
-  const [resolveStopNameFromDB] = useResolveStopNameLazyQuery({
-    fetchPolicy: 'cache-first',
-  });
+  const apollo = useApolloClient();
 
   return useCallback(
     async (stopPlaceNetexId: string) => {
@@ -38,18 +40,22 @@ function useResolveStopName(
         return knownName;
       }
 
-      const dbName = await resolveStopNameFromDB({
-        variables: { stopPlaceNetexId },
-      }).then(
-        (result) =>
-          result.data?.stops_database?.stops_database_stop_place_newest_version.at(
-            0,
-          )?.name_value,
-      );
+      const dbName = await apollo
+        .query<ResolveStopNameQuery, ResolveStopNameQueryVariables>({
+          query: ResolveStopNameDocument,
+          variables: { stopPlaceNetexId },
+          fetchPolicy: 'cache-first',
+        })
+        .then(
+          (result) =>
+            result.data.stops_database?.stops_database_stop_place_newest_version.at(
+              0,
+            )?.name_value,
+        );
 
       return dbName ?? null;
     },
-    [areas, resolveStopNameFromDB],
+    [areas, apollo],
   );
 }
 

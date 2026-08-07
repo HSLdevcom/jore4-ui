@@ -1,51 +1,24 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
+  GetJourneyPatternsOfScheduledStopPointDocument,
+  GetJourneyPatternsOfScheduledStopPointQuery,
+  GetJourneyPatternsOfScheduledStopPointQueryVariables,
   JourneyPatternFieldsFragment,
-  useGetJourneyPatternsOfScheduledStopPointWithEndDateLazyQuery,
-  useGetJourneyPatternsOfScheduledStopPointWithNoEndDateLazyQuery,
+  JourneyPatternScheduledStopPointInJourneyPatternBoolExp,
+  RouteRouteBoolExp,
 } from '../../../../../generated/graphql';
 
 const GQL_GET_JOURNEY_PATTERNS_OF_STOP_POINT_WITH_END_DATE = gql`
-  query GetJourneyPatternsOfScheduledStopPointWithEndDate(
-    $label: String!
-    $startDate: date!
-    $endDate: date!
+  query GetJourneyPatternsOfScheduledStopPoint(
+    $where: journey_pattern_scheduled_stop_point_in_journey_pattern_bool_exp!
   ) {
-    journey_pattern_scheduled_stop_point_in_journey_pattern(
-      where: {
-        scheduled_stop_points: { label: { _eq: $label } }
-        journey_pattern: {
-          journey_pattern_route: {
-            validity_start: { _lte: $endDate }
-            _or: [
-              { validity_end: { _is_null: true } }
-              { validity_end: { _gte: $startDate } }
-            ]
-          }
-        }
-      }
+    ssps: journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: $where
     ) {
       ...JourneyPatternStopPoint
-    }
-  }
-
-  fragment JourneyPatternStopPoint on journey_pattern_scheduled_stop_point_in_journey_pattern {
-    journey_pattern_id
-    scheduled_stop_point_label
-    scheduled_stop_point_sequence
-    journey_pattern {
-      ...JourneyPatternFields
-    }
-  }
-
-  fragment JourneyPatternFields on journey_pattern_journey_pattern {
-    journey_pattern_id
-    on_route_id
-    journey_pattern_route {
-      ...JourneyPatternRouteFields
     }
   }
 
@@ -56,37 +29,55 @@ const GQL_GET_JOURNEY_PATTERNS_OF_STOP_POINT_WITH_END_DATE = gql`
     validity_start
     validity_end
   }
-`;
 
-const GQL_GET_JOURNEY_PATTERNS_OF_STOP_POINT_WITH_NO_END_DATE = gql`
-  query GetJourneyPatternsOfScheduledStopPointWithNoEndDate(
-    $label: String!
-    $startDate: date!
-  ) {
-    journey_pattern_scheduled_stop_point_in_journey_pattern(
-      where: {
-        scheduled_stop_points: { label: { _eq: $label } }
-        journey_pattern: {
-          journey_pattern_route: {
-            # We only need to check that the validity period had not already ended
-            _or: [
-              { validity_end: { _is_null: true } }
-              { validity_end: { _gte: $startDate } }
-            ]
-          }
-        }
-      }
-    ) {
-      ...JourneyPatternStopPoint
+  fragment JourneyPatternFields on journey_pattern_journey_pattern {
+    journey_pattern_id
+    on_route_id
+
+    journey_pattern_route {
+      ...JourneyPatternRouteFields
+    }
+  }
+
+  fragment JourneyPatternStopPoint on journey_pattern_scheduled_stop_point_in_journey_pattern {
+    journey_pattern_id
+    scheduled_stop_point_label
+    scheduled_stop_point_sequence
+
+    journey_pattern {
+      ...JourneyPatternFields
     }
   }
 `;
 
+function getWhere(
+  label: string,
+  startDate: DateTime,
+  endDate: DateTime | null,
+): JourneyPatternScheduledStopPointInJourneyPatternBoolExp {
+  const startDateCondition: RouteRouteBoolExp = {
+    _or: [
+      { validity_end: { _is_null: true } },
+      { validity_end: { _gte: startDate } },
+    ],
+  };
+
+  const endDateCondition: RouteRouteBoolExp | null = endDate
+    ? { validity_start: { _lte: endDate } }
+    : null;
+
+  return {
+    scheduled_stop_points: { label: { _eq: label } },
+    journey_pattern: {
+      journey_pattern_route: {
+        _and: compact([startDateCondition, endDateCondition]),
+      },
+    },
+  };
+}
+
 export const useGetJourneyPatternsOfStopPointDuringTimePeriod = () => {
-  const [getJourneyPatternWithEndDate] =
-    useGetJourneyPatternsOfScheduledStopPointWithEndDateLazyQuery();
-  const [getJourneyPatternWithNoEndDate] =
-    useGetJourneyPatternsOfScheduledStopPointWithNoEndDateLazyQuery();
+  const apollo = useApolloClient();
 
   return useCallback(
     async (
@@ -94,27 +85,16 @@ export const useGetJourneyPatternsOfStopPointDuringTimePeriod = () => {
       startDate: DateTime,
       endDate: DateTime | null,
     ): Promise<JourneyPatternFieldsFragment[]> => {
-      const result = endDate
-        ? await getJourneyPatternWithEndDate({
-            variables: {
-              label,
-              startDate,
-              endDate,
-            },
-          })
-        : await getJourneyPatternWithNoEndDate({
-            variables: {
-              label,
-              startDate,
-            },
-          });
+      const result = await apollo.query<
+        GetJourneyPatternsOfScheduledStopPointQuery,
+        GetJourneyPatternsOfScheduledStopPointQueryVariables
+      >({
+        query: GetJourneyPatternsOfScheduledStopPointDocument,
+        variables: { where: getWhere(label, startDate, endDate) },
+      });
 
-      const journeyPatterns = compact(
-        result.data?.journey_pattern_scheduled_stop_point_in_journey_pattern,
-      ).map((jp) => jp.journey_pattern);
-
-      return journeyPatterns;
+      return compact(result.data.ssps).map((jp) => jp.journey_pattern);
     },
-    [getJourneyPatternWithEndDate, getJourneyPatternWithNoEndDate],
+    [apollo],
   );
 };

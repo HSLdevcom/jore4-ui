@@ -1,8 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
+import compact from 'lodash/compact';
 import { useCallback, useMemo } from 'react';
 import {
+  GetStopPlaceVersionsDocument,
+  GetStopPlaceVersionsQuery,
+  GetStopPlaceVersionsQueryVariables,
   StopAreaVersionInfoFragment,
-  useGetStopPlaceVersionsLazyQuery,
   useGetStopPlaceVersionsQuery,
 } from '../../../../../generated/graphql';
 import { parseDate } from '../../../../../time';
@@ -96,27 +99,31 @@ export function useGetStopAreaVersions(
   return { loading: false, stopAreaVersions };
 }
 
-type GetStopAreaVersionsLazyResult = {
+type GetStopAreaVersionsResultLazy = {
   readonly stopAreaVersions: ReadonlyArray<StopAreaVersion>;
 };
 
 export function useGetStopAreaVersionsLazy() {
-  const [getStopAreaVersions] = useGetStopPlaceVersionsLazyQuery();
+  const apollo = useApolloClient();
 
   return useCallback(
-    async (privateCode: string): Promise<GetStopAreaVersionsLazyResult> => {
-      const { data } = await getStopAreaVersions({
+    async (privateCode: string): Promise<GetStopAreaVersionsResultLazy> => {
+      const { data } = await apollo.query<
+        GetStopPlaceVersionsQuery,
+        GetStopPlaceVersionsQueryVariables
+      >({
+        query: GetStopPlaceVersionsDocument,
         variables: { privateCode },
       });
 
-      const rawStopAreas = data?.stops_database?.stopAreas;
+      const rawStopAreas = data.stops_database?.stopAreas;
 
-      const stopAreaVersions: ReadonlyArray<StopAreaVersion> = rawStopAreas
-        ? rawStopAreas.map(mapRawStopAreaToStopAreaVersion)
-        : [];
-
-      return { stopAreaVersions };
+      return {
+        stopAreaVersions: compact(rawStopAreas).map(
+          mapRawStopAreaToStopAreaVersion,
+        ),
+      };
     },
-    [getStopAreaVersions],
+    [apollo],
   );
 }

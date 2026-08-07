@@ -1,26 +1,36 @@
+import { MockedProvider } from '@apollo/client/testing';
 import { renderHook } from '@testing-library/react';
+import { TFunction, keyFromSelector } from 'i18next';
 import { DateTime } from 'luxon';
-import { RouteDirectionEnum } from '../../../../generated/graphql';
+import {
+  GetLineValidityByIdDocument,
+  LineValidityFragment,
+  RouteDirectionEnum,
+} from '../../../../generated/graphql';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { useValidateRoute } from './useValidateRoute';
+import {
+  assertRouteValidityIsInsideLineValidity,
+  assertRouteValidityStartIsBeforeEnd,
+  useValidateJourneyPattern,
+  useValidateRouteMetadata,
+  useValidateStopCount,
+} from './useValidateRoute';
 
-jest.mock('@apollo/client', () => ({
-  useLazyQuery: jest.fn(),
-  gql: jest.fn(),
-}));
+function mockT(selector: ExplicitAny, details: unknown) {
+  const key = keyFromSelector(selector);
 
-jest.mock('i18next', () => ({
-  use: jest.fn(() => ({
-    init: jest.fn(),
-  })),
-  t: (key: string) => key,
-}));
+  if (details) {
+    return `${key}: ${JSON.stringify(details)}`;
+  }
+
+  return key;
+}
+
+const t = mockT as unknown as TFunction;
 
 // Mock dependencies
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
+  useTranslation: () => ({ t }),
 }));
 
 type GetLineDetailsByIdMockData = {
@@ -47,7 +57,7 @@ jest.mock('../../../../generated/graphql', () => ({
   ]),
 }));
 
-const defaultRouteParams: Partial<RouteFormState> = {
+const defaultRouteParams = {
   destination: {
     name: { fi_FI: '', sv_FI: '' },
     shortName: { fi_FI: '', sv_FI: '' },
@@ -61,44 +71,34 @@ const defaultRouteParams: Partial<RouteFormState> = {
   },
   priority: 10,
   variant: 1,
-};
-
-function mockGetLineDetailsByIdResult(
-  line: GetLineDetailsByIdMockData,
-): Promise<GetLineDetailsByIdMockResponse> {
-  return Promise.resolve({ data: { route_line_by_pk: line } });
-}
+} as const satisfies Partial<RouteFormState>;
 
 describe('useValidateRoute', () => {
-  const { result } = renderHook(() => useValidateRoute());
-
   beforeEach(() => mockedGetLineDetailsByIdLazyQuery.mockClear());
 
   describe('validateStopCount', () => {
+    const { result } = renderHook(() => useValidateStopCount());
+
     test('should throw an error if there are fewer than 2 stops', () => {
-      expect(() => result.current.validateStopCount(['Stop1'])).toThrow(
-        'routes.tooFewStops',
-      );
+      expect(() => result.current(['Stop1'])).toThrow('routes.tooFewStops');
     });
 
     test('should not throw an error if there are 2 or more stops', () => {
-      expect(() =>
-        result.current.validateStopCount(['Stop1', 'Stop2']),
-      ).not.toThrow();
+      expect(() => result.current(['Stop1', 'Stop2'])).not.toThrow();
     });
   });
 
   describe('validateJourneyPattern', () => {
-    test('should validate journey pattern by calling validateStopCount', async () => {
-      await expect(
-        result.current.validateJourneyPattern({
-          includedStopLabels: ['Stop1'],
-        }),
-      ).rejects.toThrow('routes.tooFewStops');
+    const { result } = renderHook(() => useValidateJourneyPattern());
+
+    test('should validate journey pattern by calling validateStopCount', () => {
+      expect(() => result.current({ includedStopLabels: ['Stop1'] })).toThrow(
+        'routes.tooFewStops',
+      );
     });
   });
 
-  describe('checkIsRouteValidityInsideLineValidity', () => {
+  describe('assertRouteValidityIsInsideLineValidity', () => {
     const line = {
       validity_start: DateTime.local().minus({ days: 1 }),
       validity_end: DateTime.local().plus({ days: 1 }),
@@ -110,7 +110,7 @@ describe('useValidateRoute', () => {
       };
 
       expect(() =>
-        result.current.checkIsRouteValidityInsideLineValidity(route, line),
+        assertRouteValidityIsInsideLineValidity(t, route, line),
       ).toThrow('routes.startNotInsideLineValidity');
     });
 
@@ -121,7 +121,7 @@ describe('useValidateRoute', () => {
       };
 
       expect(() =>
-        result.current.checkIsRouteValidityInsideLineValidity(route, line),
+        assertRouteValidityIsInsideLineValidity(t, route, line),
       ).toThrow('routes.endNotInsideLineValidity');
     });
 
@@ -132,7 +132,7 @@ describe('useValidateRoute', () => {
       };
 
       expect(() =>
-        result.current.checkIsRouteValidityInsideLineValidity(route, line),
+        assertRouteValidityIsInsideLineValidity(t, route, line),
       ).not.toThrow();
     });
   });
@@ -144,9 +144,9 @@ describe('useValidateRoute', () => {
         validity_end: DateTime.local(),
       };
 
-      expect(() =>
-        result.current.checkIsRouteValidityStartIsBeforeEnd(route),
-      ).toThrow('routes.validityStartIsAfterEnd');
+      expect(() => assertRouteValidityStartIsBeforeEnd(t, route)).toThrow(
+        'routes.validityStartIsAfterEnd',
+      );
     });
 
     test('should not throw an error if route validity start is before validity end', () => {
@@ -155,57 +155,78 @@ describe('useValidateRoute', () => {
         validity_end: DateTime.local().plus({ days: 1 }),
       };
 
-      expect(() =>
-        result.current.checkIsRouteValidityStartIsBeforeEnd(route),
-      ).not.toThrow();
+      expect(() => assertRouteValidityStartIsBeforeEnd(t, route)).not.toThrow();
     });
   });
 
-  describe('validateMetadata', () => {
+  describe('validateRouteMetadata', () => {
+    const lineId = '00000000-0000-0000-0000-000000000000';
+
+    function renderValidationHook(line: LineValidityFragment) {
+      return renderHook(() => useValidateRouteMetadata(), {
+        wrapper: ({ children }) => (
+          <MockedProvider
+            mocks={[
+              {
+                request: {
+                  query: GetLineValidityByIdDocument,
+                  variables: { lineId },
+                },
+                result: {
+                  data: {
+                    line: {
+                      ...line,
+                      __typename: 'route_line',
+                    },
+                  },
+                },
+              },
+            ]}
+          >
+            {children}
+          </MockedProvider>
+        ),
+      }).result.current;
+    }
+
     test('should validate metadata with line validity period', async () => {
-      const lineMock = {
-        validity_start: DateTime.local().minus({ days: 1 }),
-        validity_end: DateTime.local().plus({ days: 1 }),
-      };
-
-      mockedGetLineDetailsByIdLazyQuery.mockReturnValueOnce(
-        mockGetLineDetailsByIdResult(lineMock),
-      );
-
-      const routeMetadata: Partial<RouteFormState> = {
+      const routeMetadata: RouteFormState = {
         ...defaultRouteParams,
-        onLineId: 'line-id',
+        onLineId: lineId,
         validityStart: DateTime.local().toISO(),
         validityEnd: DateTime.local().toISO(),
         indefinite: false,
       };
 
+      const validateRouteMetadata = renderValidationHook({
+        line_id: lineId,
+        validity_start: DateTime.local().minus({ days: 1 }),
+        validity_end: DateTime.local().plus({ days: 1 }),
+      });
+
       await expect(
-        result.current.validateMetadata(routeMetadata as RouteFormState),
-      ).resolves.toBe(undefined);
+        validateRouteMetadata(routeMetadata),
+      ).resolves.toBeUndefined();
     });
 
     test('should throw an error if route metadata is outside line validity period', async () => {
-      const lineMock = {
-        validity_start: DateTime.local(),
-        validity_end: DateTime.local().plus({ days: 1 }),
-      };
-
-      mockedGetLineDetailsByIdLazyQuery.mockReturnValueOnce(
-        mockGetLineDetailsByIdResult(lineMock),
-      );
-
-      const routeMetadata: Partial<RouteFormState> = {
+      const routeMetadata: RouteFormState = {
         ...defaultRouteParams,
-        onLineId: 'line-id',
+        onLineId: lineId,
         validityStart: DateTime.local().plus({ days: 2 }).toISO(),
         validityEnd: DateTime.local().plus({ days: 3 }).toISO(),
         indefinite: false,
       };
 
-      await expect(
-        result.current.validateMetadata(routeMetadata as RouteFormState),
-      ).rejects.toThrow('routes.endNotInsideLineValidity');
+      const validateRouteMetadata = renderValidationHook({
+        line_id: lineId,
+        validity_start: DateTime.local(),
+        validity_end: DateTime.local().plus({ days: 1 }),
+      });
+
+      await expect(validateRouteMetadata(routeMetadata)).rejects.toThrow(
+        'routes.endNotInsideLineValidity',
+      );
     });
   });
 });

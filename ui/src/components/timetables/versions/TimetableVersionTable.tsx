@@ -68,7 +68,7 @@ export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
         </tr>
       </thead>
       <tbody>
-        {data?.length ? (
+        {data.length ? (
           data.map((row) => (
             <TimetableVersionTableRow key={getRowKey(row)} data={row} />
           ))

@@ -1,12 +1,14 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import flow from 'lodash/flow';
 import { useTranslation } from 'react-i18next';
 import {
   CreatedTimingPlaceFragment,
+  GetTimingPlacesByLabelDocument,
+  GetTimingPlacesByLabelQuery,
+  GetTimingPlacesByLabelQueryVariables,
   InsertTimingPlaceMutationVariables,
   NewTimingPlaceFragment,
   TimingPatternTimingPlaceInsertInput,
-  useGetTimingPlacesByLabelLazyQuery,
   useInsertTimingPlaceMutation,
 } from '../../../../generated/graphql';
 import { showDangerToast } from '../../../../utils';
@@ -56,8 +58,8 @@ const GQL_GET_TIMING_PLACES_BY_LABEL = gql`
 export const useCreateTimingPlace = () => {
   const { t } = useTranslation();
 
+  const apollo = useApolloClient();
   const [mutateFunction] = useInsertTimingPlaceMutation();
-  const [getTimingPlacesByLabel] = useGetTimingPlacesByLabelLazyQuery();
 
   const insertTimingPlaceMutation = async (
     variables: InsertTimingPlaceMutationVariables,
@@ -67,16 +69,15 @@ export const useCreateTimingPlace = () => {
     });
 
   const getConflictingTimingPlaces = async (label: string) => {
-    const existingTimingPlacesResult = await getTimingPlacesByLabel({
-      variables: {
-        label,
-      },
+    const existingTimingPlacesResult = await apollo.query<
+      GetTimingPlacesByLabelQuery,
+      GetTimingPlacesByLabelQueryVariables
+    >({
+      query: GetTimingPlacesByLabelDocument,
+      variables: { label },
     });
 
-    const existingTimingPlaces =
-      existingTimingPlacesResult.data?.timing_pattern_timing_place;
-
-    return existingTimingPlaces;
+    return existingTimingPlacesResult.data.timing_pattern_timing_place;
   };
 
   // prepare variables for mutation and validate if it's even allowed

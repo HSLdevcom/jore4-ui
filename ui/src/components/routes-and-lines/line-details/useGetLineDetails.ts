@@ -150,7 +150,9 @@ export function useGetLineDetails() {
 
   const { observationDate } = useObservationDateQueryParam();
 
-  const [line, setLine] = useState<LineWithRoutesUniqueFieldsFragment>();
+  const [line, setLine] = useState<LineWithRoutesUniqueFieldsFragment | null>(
+    null,
+  );
   const [lineError, setLineError] = useState<LineFetchError | null>(null);
 
   const lineDetailsResult = useGetLineDetailsByIdQuery({
@@ -176,6 +178,8 @@ export function useGetLineDetails() {
 
     if (lineByDate) {
       setLine(filterLineDetailsByDate(lineByDate));
+    } else {
+      setLine(null);
     }
   }, [lineDetails, lineByDate]);
 

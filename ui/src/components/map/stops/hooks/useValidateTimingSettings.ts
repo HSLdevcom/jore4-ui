@@ -1,5 +1,9 @@
-import { gql } from '@apollo/client';
-import { useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery } from '../../../../generated/graphql';
+import { gql, useApolloClient } from '@apollo/client';
+import {
+  GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument,
+  GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+  GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables,
+} from '../../../../generated/graphql';
 import {
   TimingPlaceRequiredError,
   getRouteLabelVariantText,
@@ -43,8 +47,7 @@ type Params = {
  * attached to the stop, an error will be thrown. Only stops that have timing place can be used as timing place.
  */
 export const useValidateTimingSettings = () => {
-  const [getScheduledStopPointsInJourneyPatternsUsedAsTimingPoints] =
-    useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery();
+  const apollo = useApolloClient();
 
   const validateTimingSettings = async ({
     stopLabel,
@@ -55,12 +58,13 @@ export const useValidateTimingSettings = () => {
       return;
     }
 
-    const timingPointScheduledStopPoints =
-      await getScheduledStopPointsInJourneyPatternsUsedAsTimingPoints({
-        variables: {
-          label: stopLabel,
-        },
-      });
+    const timingPointScheduledStopPoints = await apollo.query<
+      GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+      GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+    >({
+      query: GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument,
+      variables: { label: stopLabel },
+    });
 
     const routesUsingStopAsTimingPoint =
       timingPointScheduledStopPoints.data?.journey_pattern_scheduled_stop_point_in_journey_pattern.map(

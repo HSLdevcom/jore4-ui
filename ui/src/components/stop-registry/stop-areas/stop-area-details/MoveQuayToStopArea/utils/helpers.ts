@@ -1,8 +1,14 @@
+import { useApolloClient } from '@apollo/client';
 import { DateTime } from 'luxon';
 import {
+  GetOriginalQuaysDocument,
+  GetOriginalQuaysQuery,
+  GetOriginalQuaysQueryVariables,
+  GetStopPointsByQuayIdDocument,
+  GetStopPointsByQuayIdQuery,
+  GetStopPointsByQuayIdQueryVariables,
   ServicePatternScheduledStopPointInsertInput,
   ServicePatternScheduledStopPointSetInput,
-  useGetStopPointsByQuayIdLazyQuery,
   useInsertStopPointMutation,
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
@@ -88,17 +94,41 @@ export function createQuayMappingForCopiedQuay(
   return mapping;
 }
 
-export async function fetchExistingStopPoints(
-  quayIds: ReadonlyArray<string>,
-  getStopPointsByQuayId: ReturnType<
-    typeof useGetStopPointsByQuayIdLazyQuery
-  >[0],
-): Promise<ReadonlyArray<StopPointInfo>> {
-  const stopPointsResult = await getStopPointsByQuayId({
-    variables: { quayIds },
-  });
+export function useFetchOriginalQuays() {
+  const apollo = useApolloClient();
 
-  return stopPointsResult.data?.service_pattern_scheduled_stop_point ?? [];
+  return async (quayIds: ReadonlyArray<string>): Promise<QuayInfo[]> => {
+    const originalQuaysResult = await apollo.query<
+      GetOriginalQuaysQuery,
+      GetOriginalQuaysQueryVariables
+    >({
+      query: GetOriginalQuaysDocument,
+      variables: { quayId: quayIds[0] },
+    });
+
+    const stopPlace = originalQuaysResult.data.stop_registry?.stopPlace?.at(0);
+    const allQuaysInOriginalStop = extractStopPlaceQuays(stopPlace);
+
+    return allQuaysInOriginalStop.filter((quay) =>
+      quayIds.includes(quay?.id ?? ''),
+    );
+  };
+}
+
+export function useFetchExistingStopPoints() {
+  const apollo = useApolloClient();
+
+  return async (quayIds: ReadonlyArray<string>) => {
+    const stopPointsResult = await apollo.query<
+      GetStopPointsByQuayIdQuery,
+      GetStopPointsByQuayIdQueryVariables
+    >({
+      query: GetStopPointsByQuayIdDocument,
+      variables: { quayIds },
+    });
+
+    return stopPointsResult.data.service_pattern_scheduled_stop_point;
+  };
 }
 
 export async function executeQuayMove(

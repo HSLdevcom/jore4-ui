@@ -1,11 +1,14 @@
+import { useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import { pick } from 'lodash/fp';
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
+  GetQuayDocument,
+  GetQuayQuery,
+  GetQuayQueryVariables,
   useEditKeyValuesOfQuayMutation,
   useEditScheduledStopPointValidityMutation,
-  useGetQuayLazyQuery,
 } from '../../../../../../generated/graphql';
 import { KnownValueKey, setMultipleKeyValues } from '../../../../../../utils';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
@@ -58,11 +61,11 @@ function useEditScheduledStopPointValidityAndPriority() {
 }
 
 function useEditQuayValidity() {
+  const apollo = useApolloClient();
   const [editKeyValuesOfQuayMutation] = useEditKeyValuesOfQuayMutation({
     refetchQueries: ['GetStopDetails'],
     awaitRefetchQueries: true,
   });
-  const [getQuay] = useGetQuayLazyQuery();
 
   return useCallback(
     async (
@@ -73,28 +76,28 @@ function useEditQuayValidity() {
       indefinite?: boolean,
       reasonForChange?: string | null,
     ) => {
-      const { data } = await getQuay({
+      const { data } = await apollo.query<GetQuayQuery, GetQuayQueryVariables>({
+        query: GetQuayDocument,
         variables: { quayId },
       });
+
+      const stopPlace = data.stop_registry?.stopPlace?.at(0);
+
       if (
-        !data?.stop_registry?.stopPlace ||
-        !data.stop_registry.stopPlace[0] ||
         // eslint-disable-next-line no-underscore-dangle
-        data.stop_registry.stopPlace[0].__typename !== 'stop_registry_StopPlace'
+        stopPlace?.__typename !== 'stop_registry_StopPlace'
       ) {
         throw new QuayKeyValuesEditFailed(
           `Failed to get stop place for quayId: ${quayId}. Data received: ${JSON.stringify(data)}`,
         );
       }
 
-      const stopPlaceId = data.stop_registry.stopPlace[0].id as string;
-      const originalQuay = data.stop_registry.stopPlace[0].quays?.find(
-        (q) => q?.id === quayId,
-      );
+      const stopPlaceId = stopPlace.id as string;
+      const originalQuay = stopPlace.quays?.find((q) => q?.id === quayId);
 
       if (!originalQuay) {
         throw new QuayKeyValuesEditFailed(
-          `Failed to find quay with id: ${quayId} in stop place ${stopPlaceId}. Quays: ${JSON.stringify(data.stop_registry.stopPlace[0].quays)}`,
+          `Failed to find quay with id: ${quayId} in stop place ${stopPlaceId}. Quays: ${JSON.stringify(stopPlace.quays)}`,
         );
       }
 
@@ -144,7 +147,7 @@ function useEditQuayValidity() {
 
       return { stopPlaceId };
     },
-    [editKeyValuesOfQuayMutation, getQuay],
+    [apollo, editKeyValuesOfQuayMutation],
   );
 }
 

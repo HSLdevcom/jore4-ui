@@ -1,11 +1,15 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import {
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
+  QueryClosestLinkDocument,
+  QueryClosestLinkQuery,
+  QueryClosestLinkQueryVariables,
+  QueryPointDirectionOnLinkDocument,
+  QueryPointDirectionOnLinkQuery,
+  QueryPointDirectionOnLinkQueryVariables,
   ReusableComponentsVehicleModeEnum,
   ReusableComponentsVehicleSubmodeEnum,
-  useQueryClosestLinkLazyQuery,
-  useQueryPointDirectionOnLinkLazyQuery,
 } from '../../../../generated/graphql';
 import {
   DirectionNotResolvedError,
@@ -65,8 +69,7 @@ type Params = {
 };
 
 export const useGetStopLinkAndDirection = () => {
-  const [fetchClosestLink] = useQueryClosestLinkLazyQuery();
-  const [fetchStopDirection] = useQueryPointDirectionOnLinkLazyQuery();
+  const apollo = useApolloClient();
 
   // based on internal_service_pattern.check_scheduled_stop_point_infrastructure_link_direction()
   const areDirectionsCompatible = (
@@ -89,7 +92,11 @@ export const useGetStopLinkAndDirection = () => {
     maxSearchDistance = 50,
   }: Params) => {
     // fetch the closest link to the stop location
-    const closestLinkResult = await fetchClosestLink({
+    const closestLinkResult = await apollo.query<
+      QueryClosestLinkQuery,
+      QueryClosestLinkQueryVariables
+    >({
+      query: QueryClosestLinkDocument,
       variables: {
         point: stopLocation,
         filter_vehicle_submode: vehicleModeToSubmode[vehicleMode],
@@ -97,7 +104,7 @@ export const useGetStopLinkAndDirection = () => {
     });
     const closestLink =
       illegalOptionalCast<InfrastructureNetworkInfrastructureLink>(
-        closestLinkResult.data?.infrastructure_network_resolve_point_to_closest_link.at(
+        closestLinkResult.data.infrastructure_network_resolve_point_to_closest_link.at(
           0,
         ),
       );
@@ -110,7 +117,11 @@ export const useGetStopLinkAndDirection = () => {
     }
 
     // fetch the direction for the link
-    const stopDirectionResult = await fetchStopDirection({
+    const stopDirectionResult = await apollo.query<
+      QueryPointDirectionOnLinkQuery,
+      QueryPointDirectionOnLinkQueryVariables
+    >({
+      query: QueryPointDirectionOnLinkDocument,
       variables: {
         point_of_interest: stopLocation,
         infrastructure_link_uuid: closestLink.infrastructure_link_id,
@@ -118,7 +129,7 @@ export const useGetStopLinkAndDirection = () => {
       },
     });
     const direction =
-      stopDirectionResult.data?.infrastructure_network_find_point_direction_on_link.at(
+      stopDirectionResult.data.infrastructure_network_find_point_direction_on_link.at(
         0,
       )?.value;
 

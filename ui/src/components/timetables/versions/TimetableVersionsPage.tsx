@@ -31,10 +31,26 @@ const testIds = {
   closeButton: 'TimetableVersionsPage::closeButton',
 };
 
+function sortTimetables(timetables: ReadonlyArray<TimetableVersionRowData>) {
+  return orderBy(
+    timetables,
+    [
+      (version) => version.inEffect,
+      (version) => version.routeLabelAndVariant,
+      (version) => version.vehicleScheduleFrame.validityStart,
+      (version) => version.dayType.label,
+    ],
+    ['desc', 'asc', 'asc', 'asc'],
+  );
+}
+
 export const TimetableVersionsPage: FC = () => {
   const { t } = useTranslation();
+
   const { label } = useRequiredParams<{ label: string }>();
   const { startDate, endDate } = useTimeRangeQueryParams();
+  const { onClose } = useTimetableVersionsReturnToQueryParam();
+
   const dispatch = useAppDispatch();
 
   const onCloseTimetableValidityModal = () => {
@@ -45,58 +61,45 @@ export const TimetableVersionsPage: FC = () => {
   );
 
   // We first need to get the journey pattern ids for all line routes by line label
-  const { journeyPatternIdsGroupedByRouteLabel, loading } =
+  const { journeyPatternIdsGroupedByRouteLabel } =
     useGetJourneyPatternIdsByLineLabel({
       label,
       startDate,
       endDate,
     });
+
   // Then we can fetch the timetable versions using SQL functions
-  const { versions, fetchTimetableVersions } = useGetTimetableVersions({
-    // We need to use memoized value which only changes when the loading status is changed. Otherwise we
-    // end up in infinite loop
-    journeyPatternIdsGroupedByRouteLabel: useMemo(
-      () => journeyPatternIdsGroupedByRouteLabel,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [loading],
+  const { versions, refetch } = useGetTimetableVersions(
+    useMemo(
+      () => ({
+        journeyPatternIdsGroupedByRouteLabel,
+        startDate,
+        endDate,
+      }),
+      [journeyPatternIdsGroupedByRouteLabel, startDate, endDate],
     ),
-    startDate,
-    endDate,
-  });
+  );
 
-  const timetablesExcludingDrafts =
-    versions?.filter(
-      (version) =>
-        version.vehicleScheduleFrame?.priority !== TimetablePriority.Draft,
-    ) ?? [];
+  const timetablesExcludingDrafts = useMemo(
+    () =>
+      sortTimetables(
+        versions.filter(
+          (version) =>
+            version.vehicleScheduleFrame?.priority !== TimetablePriority.Draft,
+        ),
+      ),
+    [versions],
+  );
 
-  const onlyDraftTimetables =
-    versions?.filter(
-      (version) =>
-        version.vehicleScheduleFrame?.priority === TimetablePriority.Draft,
-    ) ?? [];
-  const { onClose } = useTimetableVersionsReturnToQueryParam();
+  const onlyDraftTimetables = useMemo(
+    () =>
+      versions.filter(
+        (version) =>
+          version.vehicleScheduleFrame?.priority === TimetablePriority.Draft,
+      ),
 
-  const sortTimetables = (
-    timetables: ReadonlyArray<TimetableVersionRowData>,
-  ) => {
-    return orderBy(
-      timetables,
-      [
-        (version) => version.inEffect,
-        (version) => version.routeLabelAndVariant,
-        (version) => version.vehicleScheduleFrame.validityStart,
-        (version) => version.dayType.label,
-      ],
-      ['desc', 'asc', 'asc', 'asc'],
-    );
-  };
-
-  // If the validity of a vehicleScheduleFrame is changed, we need to
-  // re-fetch the timetableVersion to update the view
-  const onChangeValidity = () => {
-    fetchTimetableVersions();
-  };
+    [versions],
+  );
 
   return (
     <Container>
@@ -121,7 +124,7 @@ export const TimetableVersionsPage: FC = () => {
         <h2 className="text-xl">{t(($) => $.timetables.operatingCalendar)}</h2>
         <TimetableVersionTable
           className="mb-8 w-full"
-          data={sortTimetables(timetablesExcludingDrafts)}
+          data={timetablesExcludingDrafts}
         />
         <h2 className="text-xl">{t(($) => $.timetables.drafts)}</h2>
         <TimetableVersionTable
@@ -129,12 +132,12 @@ export const TimetableVersionsPage: FC = () => {
           data={onlyDraftTimetables}
         />
       </Container>
-      <DeleteTimetableModal fetchTimetableVersions={fetchTimetableVersions} />
+      <DeleteTimetableModal fetchTimetableVersions={refetch} />
       <TimetableVersionDetailsPanel />
       <ChangeTimetablesValidityModal
         isOpen={changeTimetableValidityModalState.isOpen}
         onClose={onCloseTimetableValidityModal}
-        onChange={onChangeValidity}
+        onChange={refetch}
       />
     </Container>
   );

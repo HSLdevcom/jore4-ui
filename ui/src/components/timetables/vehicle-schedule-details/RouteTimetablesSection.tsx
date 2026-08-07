@@ -60,7 +60,7 @@ export const RouteTimetablesSection: FC<RouteTimetablesSectionProps> = ({
   });
   const route = routeResult.data?.route_route_by_pk;
 
-  const { timetables } = useGetRouteTimetables(
+  const timetables = useGetRouteTimetables(
     route?.route_journey_patterns[0].journey_pattern_id,
   );
 

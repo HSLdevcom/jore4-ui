@@ -1,25 +1,25 @@
+import { useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
-import { useGetStagingVehicleScheduleFramesLazyQuery } from '../../../../../generated/graphql';
+import {
+  GetStagingVehicleScheduleFramesDocument,
+  GetStagingVehicleScheduleFramesQuery,
+} from '../../../../../generated/graphql';
 
 export const useGetStagingVehicleScheduleFrameIds = () => {
-  const [getStagingVehicleScheduleFramesQuery] =
-    useGetStagingVehicleScheduleFramesLazyQuery();
+  const apollo = useApolloClient();
 
   const fetchStagingVehicleFrameIds = useCallback(async () => {
-    const result = await getStagingVehicleScheduleFramesQuery({
-      variables: {},
+    const { data } = await apollo.query<GetStagingVehicleScheduleFramesQuery>({
+      query: GetStagingVehicleScheduleFramesDocument,
     });
 
-    const vehicleScheduleFrames =
-      result.data?.timetables
-        ?.timetables_vehicle_schedule_vehicle_schedule_frame ?? [];
+    const stagedVehicleScheduleFrameIds =
+      data.timetables?.timetables_vehicle_schedule_vehicle_schedule_frame.map(
+        (frame) => frame.vehicle_schedule_frame_id,
+      );
 
-    const stagedVehicleScheduleFrameIds = vehicleScheduleFrames.map(
-      (frame) => frame.vehicle_schedule_frame_id,
-    );
-
-    return stagedVehicleScheduleFrameIds;
-  }, [getStagingVehicleScheduleFramesQuery]);
+    return stagedVehicleScheduleFrameIds ?? [];
+  }, [apollo]);
 
   return { fetchStagingVehicleFrameIds };
 };

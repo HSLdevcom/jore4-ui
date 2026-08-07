@@ -1,9 +1,9 @@
-import { QueryResult, gql } from '@apollo/client';
-import flow from 'lodash/flow';
+import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
 import uniq from 'lodash/uniq';
 import uniqWith from 'lodash/uniqWith';
 import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import {
   GetRouteInfoForTimetableVersionsQuery,
   RouteInfoForTimetableVersionFragment,
@@ -42,11 +42,11 @@ const GQL_GET_ROUTE_INFO_FOR_TIMETABLE_VERSIONS = gql`
  * For Timetable versions we only want to have 1 row per route label because
  * the validities are the same for both directions.
  */
-const removeSecondDirectionRouteFromResult = (
-  result: QueryResult<GetRouteInfoForTimetableVersionsQuery>,
-) =>
-  uniqWith(
-    result.data?.route_route,
+function removeSecondDirectionRouteFromResult(
+  data: GetRouteInfoForTimetableVersionsQuery,
+) {
+  return uniqWith(
+    data.route_route,
     (curr, next) =>
       curr.label === next.label &&
       curr.variant === next.variant &&
@@ -54,18 +54,21 @@ const removeSecondDirectionRouteFromResult = (
       curr.validity_start?.toISODate() === next.validity_start?.toISODate() &&
       curr.validity_end?.toISODate() === next.validity_end?.toISODate(),
   );
+}
 
-const groupByLabelAndVariant = (
+function groupByLabelAndVariant(
   routeInfo: ReadonlyArray<RouteInfoForTimetableVersionFragment>,
-) => groupBy(routeInfo, (route) => getRouteLabelVariantText(route));
+) {
+  return groupBy(routeInfo, (route) => getRouteLabelVariantText(route));
+}
 
-const extractDistinctJourneyPatternIdsGroupedByRouteLabel = (
+function extractDistinctJourneyPatternIdsGroupedByRouteLabel(
   groupedDataByLabelAndVariant: Record<
     string,
     ReadonlyArray<RouteInfoForTimetableVersionFragment>
   >,
-): Record<string, UUID[]> =>
-  Object.entries(groupedDataByLabelAndVariant).reduce(
+): Record<string, UUID[]> {
+  return Object.entries(groupedDataByLabelAndVariant).reduce(
     (object, [key, value]) => {
       return {
         ...object,
@@ -78,37 +81,39 @@ const extractDistinctJourneyPatternIdsGroupedByRouteLabel = (
     },
     {},
   );
+}
 
 /**
  * Fetches one journey patterns per route (only one direction is enough) by line label for timetable versions.
  * Returns object which has route labelAndVariant as key and distinct journey pattern ids as value
  */
-export const useGetJourneyPatternIdsByLineLabel = ({
+export function useGetJourneyPatternIdsByLineLabel({
   label,
   startDate,
   endDate,
 }: {
-  label: string;
-  startDate: DateTime;
-  endDate: DateTime;
-}) => {
-  const routeFilters = {
-    ...buildRouteLineLabelGqlFilter(label),
-    ...buildActiveDateRangeGqlFilter(startDate, endDate),
-  };
-
-  const result = useGetRouteInfoForTimetableVersionsQuery({
-    variables: { routeFilters },
+  readonly label: string;
+  readonly startDate: DateTime;
+  readonly endDate: DateTime;
+}) {
+  const { data, ...rest } = useGetRouteInfoForTimetableVersionsQuery({
+    variables: {
+      routeFilters: {
+        ...buildRouteLineLabelGqlFilter(label),
+        ...buildActiveDateRangeGqlFilter(startDate, endDate),
+      },
+    },
   });
 
-  const journeyPatternIdsGroupedByRouteLabel = flow(
-    removeSecondDirectionRouteFromResult,
-    groupByLabelAndVariant,
-    extractDistinctJourneyPatternIdsGroupedByRouteLabel,
-  )(result);
+  const journeyPatternIdsGroupedByRouteLabel = useMemo(() => {
+    if (!data) {
+      return {};
+    }
 
-  return {
-    journeyPatternIdsGroupedByRouteLabel,
-    loading: result.loading,
-  };
-};
+    const withSingleDirection = removeSecondDirectionRouteFromResult(data);
+    const grouped = groupByLabelAndVariant(withSingleDirection);
+    return extractDistinctJourneyPatternIdsGroupedByRouteLabel(grouped);
+  }, [data]);
+
+  return { ...rest, journeyPatternIdsGroupedByRouteLabel };
+}

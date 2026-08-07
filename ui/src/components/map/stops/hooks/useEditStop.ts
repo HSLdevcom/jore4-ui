@@ -1,10 +1,16 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
+  GetRoutesBrokenByStopChangeDocument,
+  GetRoutesBrokenByStopChangeQuery,
+  GetRoutesBrokenByStopChangeQueryVariables,
+  GetStopWithRouteGraphDataByIdDocument,
+  GetStopWithRouteGraphDataByIdQuery,
+  GetStopWithRouteGraphDataByIdQueryVariables,
   InfrastructureNetworkDirectionEnum,
   InfrastructureNetworkInfrastructureLink,
   ReusableComponentsVehicleModeEnum,
@@ -18,8 +24,6 @@ import {
   StopRegistryStopPlaceInput,
   useEditStopMutation,
   useEditStopPlaceMutation,
-  useGetRoutesBrokenByStopChangeLazyQuery,
-  useGetStopWithRouteGraphDataByIdLazyQuery,
 } from '../../../../generated/graphql';
 import {
   DirectionNotResolvedError,
@@ -33,6 +37,7 @@ import {
   TimingPlaceRequiredError,
   defaultTo,
   illegalCast,
+  illegalOptionalCast,
   showDangerToast,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
@@ -210,7 +215,7 @@ type GetRoutesBrokenByStopChangeResult = {
 };
 
 export function useGetRoutesBrokenByStopChange() {
-  const [getBrokenRoutes] = useGetRoutesBrokenByStopChangeLazyQuery();
+  const apollo = useApolloClient();
 
   return async ({
     newLink,
@@ -222,7 +227,11 @@ export function useGetRoutesBrokenByStopChange() {
     vehicleMode,
   }: BrokenRouteCheckParams): Promise<GetRoutesBrokenByStopChangeResult> => {
     // if a stop is moved away from the route geometry, remove it from its journey patterns
-    const brokenRoutesResult = await getBrokenRoutes({
+    const brokenRoutesResult = await apollo.query<
+      GetRoutesBrokenByStopChangeQuery,
+      GetRoutesBrokenByStopChangeQueryVariables
+    >({
+      query: GetRoutesBrokenByStopChangeDocument,
       variables: {
         new_located_on_infrastructure_link_id: newLink.infrastructure_link_id,
         new_direction: newDirection,
@@ -401,8 +410,7 @@ function useValidateTimingPlaceChanges() {
 // prepare variables for mutation and validate if it's even allowed
 // try to produce a changeset that can be displayed on an explanatory UI
 export function usePrepareEdit() {
-  const [getStopWithRouteGraphData] =
-    useGetStopWithRouteGraphDataByIdLazyQuery();
+  const apollo = useApolloClient();
 
   const getConflictingStops = useGetConflictingStops();
   const getLocationChanges = useGetLocationChanges();
@@ -416,13 +424,18 @@ export function usePrepareEdit() {
     quayId,
     quayPatch,
   }: EditParams): Promise<EditChanges> => {
-    const stopWithRoutesResult = await getStopWithRouteGraphData({
+    const stopWithRoutesResult = await apollo.query<
+      GetStopWithRouteGraphDataByIdQuery,
+      GetStopWithRouteGraphDataByIdQueryVariables
+    >({
+      query: GetStopWithRouteGraphDataByIdDocument,
       variables: { stopId },
     });
 
     const stopWithRouteGraphData =
-      stopWithRoutesResult.data?.service_pattern_scheduled_stop_point.at(0) as
-        ServicePatternScheduledStopPoint | undefined;
+      illegalOptionalCast<ServicePatternScheduledStopPoint>(
+        stopWithRoutesResult.data.service_pattern_scheduled_stop_point.at(0),
+      );
 
     if (!stopWithRouteGraphData) {
       throw new InternalError(`Could not find stop with id ${stopId}`);
