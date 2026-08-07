@@ -1,17 +1,14 @@
 import { gql } from '@apollo/client';
-import { produce } from 'immer';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   LineAllFieldsFragment,
   LineWithRoutesUniqueFieldsFragment,
   RouteDirectionEnum,
-  RouteLine,
   RouteUniqueFieldsFragment,
-  useGetHighestPriorityLineDetailsWithRoutesLazyQuery,
+  useGetHighestPriorityLineDetailsWithRoutesQuery,
   useGetLineDetailsByIdQuery,
-  useGetLineValidityPeriodByIdLazyQuery,
 } from '../../../generated/graphql';
 import {
   useObservationDateQueryParam,
@@ -22,18 +19,7 @@ import {
   buildDraftPriorityGqlFilter,
   buildLabelGqlFilter,
   getRouteLabelVariantText,
-  illegalOptionalCast,
 } from '../../../utils';
-
-const GQL_GET_LINE_VALIDITY_PERIOD_BY_ID = gql`
-  query GetLineValidityPeriodById($line_id: uuid!) {
-    route_line_by_pk(line_id: $line_id) {
-      line_id
-      validity_start
-      validity_end
-    }
-  }
-`;
 
 const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
   fragment InfrastructureLinkWithStops on infrastructure_network_infrastructure_link {
@@ -77,18 +63,18 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
   }
 `;
 
-const findHighestPriorityRoute = <TRoute extends RouteUniqueFieldsFragment>(
+function findHighestPriorityRoute<TRoute extends RouteUniqueFieldsFragment>(
   routes: ReadonlyArray<TRoute>,
-) =>
-  routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
+) {
+  return routes.reduce((prev, curr) =>
+    prev.priority > curr.priority ? prev : curr,
+  );
+}
 
 /** Returns highest priority routes filtered by given direction */
-const filterRoutesByHighestPriorityAndDirection = <
+function filterRoutesByHighestPriorityAndDirection<
   TRoute extends RouteUniqueFieldsFragment,
->(
-  direction: RouteDirectionEnum,
-  routes: ReadonlyArray<TRoute>,
-): TRoute[] => {
+>(direction: RouteDirectionEnum, routes: ReadonlyArray<TRoute>): TRoute[] {
   const routesFilteredByDirection = routes.filter(
     (route) => route.direction === direction,
   );
@@ -97,59 +83,37 @@ const filterRoutesByHighestPriorityAndDirection = <
     getRouteLabelVariantText,
   );
 
-  const highestPriorityRoutes = Object.keys(routesGroupedByLabelAndVariant).map(
-    (key) => findHighestPriorityRoute(routesGroupedByLabelAndVariant[key]),
+  return Object.keys(routesGroupedByLabelAndVariant).map((key) =>
+    findHighestPriorityRoute(routesGroupedByLabelAndVariant[key]),
   );
+}
 
-  return highestPriorityRoutes;
-};
-
-export const filterRoutesByHighestPriority = <
+export function filterRoutesByHighestPriority<
   TRoute extends RouteUniqueFieldsFragment,
->(
-  lineRoutes: ReadonlyArray<TRoute>,
-): TRoute[] => {
+>(lineRoutes: ReadonlyArray<TRoute>): TRoute[] {
   // TODO: what if RouteDirectionEnum is not Inbound or Outbound?
   // In that case we are currently just filtering those routes out!
   const filteredOutboundRoutes = filterRoutesByHighestPriorityAndDirection(
     RouteDirectionEnum.Outbound,
     lineRoutes,
   );
+
   const filteredInboundRoutes = filterRoutesByHighestPriorityAndDirection(
     RouteDirectionEnum.Inbound,
     lineRoutes,
   );
+
   return [...filteredOutboundRoutes, ...filteredInboundRoutes];
-};
+}
 
-const filterLineDetailsByDate = <
+function filterLineDetailsByDate<
   TLine extends LineWithRoutesUniqueFieldsFragment,
->(
-  line: TLine,
-) => {
-  const filteredRoutes = filterRoutesByHighestPriority(line?.line_routes);
-
-  const filteredLine = produce(line, (draft) => {
-    draft.line_routes = filteredRoutes;
-  });
-
-  return filteredLine;
-};
-
-/** Returns the initial observation date depending on the parameters. */
-const getInitialDate = (
-  validityStart?: DateTime | null,
-  validityEnd?: DateTime | null,
-) => {
-  const isActiveToday =
-    (!validityStart || validityStart <= DateTime.now().startOf('day')) &&
-    (!validityEnd || validityEnd >= DateTime.now().startOf('day'));
-
-  if (isActiveToday) {
-    return DateTime.now().startOf('day');
-  }
-  return validityStart;
-};
+>(line: TLine): TLine {
+  return {
+    ...line,
+    line_routes: filterRoutesByHighestPriority(line?.line_routes),
+  };
+}
 
 const buildLineDetailsGqlFilters = (
   line?: LineAllFieldsFragment,
@@ -181,17 +145,10 @@ export enum LineFetchError {
 }
 
 /** Gets the line details depending on query parameters. */
-export const useGetLineDetails = () => {
+export function useGetLineDetails() {
   const { id } = useRequiredParams<{ id: string }>();
 
-  const { observationDate, setObservationDateToUrl } =
-    useObservationDateQueryParam();
-
-  const [getLineValidityPeriodByIdQuery] =
-    useGetLineValidityPeriodByIdLazyQuery();
-
-  const [getHighestPriorityLineDetails] =
-    useGetHighestPriorityLineDetailsWithRoutesLazyQuery();
+  const { observationDate } = useObservationDateQueryParam();
 
   const [line, setLine] = useState<LineWithRoutesUniqueFieldsFragment>();
   const [lineError, setLineError] = useState<LineFetchError | null>(null);
@@ -199,77 +156,28 @@ export const useGetLineDetails = () => {
   const lineDetailsResult = useGetLineDetailsByIdQuery({
     variables: { line_id: id },
   });
+  const lineDetails = lineDetailsResult.data?.route_line_by_pk;
 
-  /** Determines and sets date to query parameters if it's not there */
-  const initializeObservationDate = useCallback(async () => {
-    if (!observationDate) {
-      const result = await getLineValidityPeriodByIdQuery({
-        variables: { line_id: id },
-      });
-      const lineDetails = illegalOptionalCast<RouteLine>(
-        result.data?.route_line_by_pk,
-      );
-      if (lineDetails) {
-        const initialDate = getInitialDate(
-          lineDetails?.validity_start,
-          lineDetails?.validity_end,
-        );
+  const highestPrioLineDetailsResult =
+    useGetHighestPriorityLineDetailsWithRoutesQuery(
+      lineDetails
+        ? {
+            variables: buildLineDetailsGqlFilters(lineDetails, observationDate),
+          }
+        : { skip: true },
+    );
 
-        if (initialDate?.isValid) {
-          setObservationDateToUrl(initialDate, true);
-        } else {
-          setLineError(LineFetchError.LINE_NOT_VALID_FOR_DAY);
-        }
-      }
-    }
-  }, [
-    getLineValidityPeriodByIdQuery,
-    id,
-    observationDate,
-    setObservationDateToUrl,
-  ]);
-
-  /** Fetches line details and filters results by observation date */
-  const fetchLineDetails = useCallback(async () => {
-    if (lineDetailsResult?.data && observationDate?.isValid) {
-      const lineDetails = lineDetailsResult.data.route_line_by_pk ?? undefined;
-
-      const lineByDateResult = await getHighestPriorityLineDetails({
-        variables: buildLineDetailsGqlFilters(lineDetails, observationDate),
-      });
-
-      const lineByDate = lineByDateResult.data?.route_line?.[0] ?? undefined;
-      if (lineDetails && !lineByDate) {
-        setLineError(LineFetchError.LINE_NOT_VALID_FOR_DAY);
-      }
-      const filteredLine = lineByDate
-        ? filterLineDetailsByDate(lineByDate)
-        : undefined;
-
-      setLine(filteredLine);
-
-      return filteredLine;
-    }
-
-    return null;
-  }, [getHighestPriorityLineDetails, lineDetailsResult, observationDate]);
+  const lineByDate = highestPrioLineDetailsResult.data?.route_line.at(0);
 
   useEffect(() => {
-    // TODO: This should probably be done differently
-    initializeObservationDate();
-  }, [initializeObservationDate]);
+    if (lineDetails && !lineByDate) {
+      setLineError(LineFetchError.LINE_NOT_VALID_FOR_DAY);
+    }
 
-  useEffect(() => {
-    // TODO: This should probably be done differently
-    fetchLineDetails().then((filteredLine) => {
-      if (filteredLine) {
-        setLineError(null);
-      }
-    });
-  }, [fetchLineDetails]);
+    if (lineByDate) {
+      setLine(filterLineDetailsByDate(lineByDate));
+    }
+  }, [lineDetails, lineByDate]);
 
-  return {
-    line,
-    lineError,
-  };
-};
+  return { line, lineError };
+}
