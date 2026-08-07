@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 // We cannot import directly from the @turf/turf top level package in this file.
 // This file is indirectly used in a Jest based unit test, which breaks down
 // if we import in kdbush package (One of the turf modules has dep on it).
@@ -11,6 +11,12 @@ import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
 import { getBusRoute, getTramRoute } from '../../../../api/routing';
 import {
+  GetLinksWithStopsByExternalLinkIdsDocument,
+  GetLinksWithStopsByExternalLinkIdsQuery,
+  GetLinksWithStopsByExternalLinkIdsQueryVariables,
+  GetStopsAlongInfrastructureLinksDocument,
+  GetStopsAlongInfrastructureLinksQuery,
+  GetStopsAlongInfrastructureLinksQueryVariables,
   InfraLinkMatchingFieldsFragment,
   InfrastructureLinkAllFieldsFragment,
   InfrastructureLinkWithStopsFragment,
@@ -21,8 +27,6 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
-  useGetLinksWithStopsByExternalLinkIdsLazyQuery,
-  useGetStopsAlongInfrastructureLinksLazyQuery,
 } from '../../../../generated/graphql';
 import { useAppSelector } from '../../../../hooks';
 import { selectEditedRouteData } from '../../../../redux';
@@ -455,35 +459,27 @@ function orderInfraLinksByExternalLinkId<
 export const useExtractRouteFromFeature = () => {
   const { lineInfo, vehicleMode } = useAppSelector(selectEditedRouteData);
 
-  const [fetchLinksWithStopsByExternalLinkIds] =
-    useGetLinksWithStopsByExternalLinkIdsLazyQuery();
-  const [fetchStopsAlongInfrastructureLinks] =
-    useGetStopsAlongInfrastructureLinksLazyQuery();
+  const apollo = useApolloClient();
 
   const fetchInfraLinksWithStopsByExternalIds = useCallback(
     async (externalLinkIds: ReadonlyArray<string>) => {
       // Retrieve the infra links from the external link ids returned by map-matching.
       // This will return the links in arbitrary order.
-      const infraLinksWithStopsResponse =
-        await fetchLinksWithStopsByExternalLinkIds({
-          variables: { externalLinkIds },
-        });
-      const unorderedInfraLinksWithStops =
-        infraLinksWithStopsResponse.data
-          ?.infrastructure_network_infrastructure_link;
-      if (!unorderedInfraLinksWithStops) {
-        throw new Error("could not fetch route's infra links");
-      }
+      const { data } = await apollo.query<
+        GetLinksWithStopsByExternalLinkIdsQuery,
+        GetLinksWithStopsByExternalLinkIdsQueryVariables
+      >({
+        query: GetLinksWithStopsByExternalLinkIdsDocument,
+        variables: { externalLinkIds },
+      });
 
       // Order the infra links to match the order of the route returned by map-matching
-      const orderedInfraLinksWithStops = orderInfraLinksByExternalLinkId(
-        unorderedInfraLinksWithStops,
+      return orderInfraLinksByExternalLinkId(
+        data.infrastructure_network_infrastructure_link,
         externalLinkIds,
       );
-
-      return orderedInfraLinksWithStops;
     },
-    [fetchLinksWithStopsByExternalLinkIds],
+    [apollo],
   );
 
   /**
@@ -538,20 +534,19 @@ export const useExtractRouteFromFeature = () => {
       infrastructureLinkIds: ReadonlyArray<UUID>,
       currentStopLabels: ReadonlyArray<string>,
     ) => {
-      const stopsResult = await fetchStopsAlongInfrastructureLinks({
-        variables: {
-          infrastructure_link_ids: infrastructureLinkIds,
-        },
+      const { data } = await apollo.query<
+        GetStopsAlongInfrastructureLinksQuery,
+        GetStopsAlongInfrastructureLinksQueryVariables
+      >({
+        query: GetStopsAlongInfrastructureLinksDocument,
+        variables: { infrastructure_link_ids: infrastructureLinkIds },
       });
 
-      return (
-        stopsResult.data?.service_pattern_scheduled_stop_point
-          ?.map((item) => item.label)
-          .filter((stop) => !currentStopLabels.includes(stop)) ?? []
-      );
+      return data.service_pattern_scheduled_stop_point
+        .map((item) => item.label)
+        .filter((stop) => !currentStopLabels.includes(stop));
     },
-
-    [fetchStopsAlongInfrastructureLinks],
+    [apollo],
   );
 
   return {

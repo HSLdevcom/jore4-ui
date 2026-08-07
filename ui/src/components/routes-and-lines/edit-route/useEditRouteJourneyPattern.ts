@@ -15,7 +15,7 @@ import {
   mapRouteStopsToJourneyPatternStops,
 } from '../../../utils';
 import { extractJourneyPatternCandidateStops } from '../../map/routes/hooks/useExtractRouteFromFeature';
-import { useValidateRoute } from '../../map/routes/hooks/useValidateRoute';
+import { useValidateStopCount } from '../../map/routes/hooks/useValidateRoute';
 import {
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,
@@ -83,7 +83,7 @@ export const getEligibleStopsAlongRoute = <
 
 function usePrepareUpdateJourneyPattern() {
   const client = useApolloClient();
-  const { validateStopCount } = useValidateRoute();
+  const validateStopCount = useValidateStopCount();
 
   const getStopsNeedingUpdate = async ({
     route,

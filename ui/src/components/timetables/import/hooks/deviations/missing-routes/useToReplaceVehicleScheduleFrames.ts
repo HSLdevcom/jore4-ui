@@ -1,7 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
-import { useGetToReplaceVehicleScheduleFramesLazyQuery } from '../../../../../../generated/graphql';
+import {
+  GetToReplaceVehicleScheduleFramesDocument,
+  GetToReplaceVehicleScheduleFramesQuery,
+  GetToReplaceVehicleScheduleFramesQueryVariables,
+} from '../../../../../../generated/graphql';
 import { TimetablePriority } from '../../../../../../types/enums';
 
 const GQL_GET_REPLACED_VEHICLE_SCHEDULE_FRAMES = gql`
@@ -14,36 +18,38 @@ const GQL_GET_REPLACED_VEHICLE_SCHEDULE_FRAMES = gql`
   }
 `;
 export const useToReplaceVehicleScheduleFrames = () => {
-  const [getReplacedQuery] = useGetToReplaceVehicleScheduleFramesLazyQuery();
+  const apollo = useApolloClient();
 
   const fetchToReplaceFrames = useCallback(
     async (ids: ReadonlyArray<UUID>, targetPriority: TimetablePriority) => {
       try {
-        const replacedPromises = ids.map(async (id) => {
-          return getReplacedQuery({
-            variables: {
-              arg1: {
-                targetPriority,
-                stagingVehicleScheduleFrameId: id,
+        const promisedIds = ids.map((id) =>
+          apollo
+            .query<
+              GetToReplaceVehicleScheduleFramesQuery,
+              GetToReplaceVehicleScheduleFramesQueryVariables
+            >({
+              query: GetToReplaceVehicleScheduleFramesDocument,
+              variables: {
+                arg1: { targetPriority, stagingVehicleScheduleFrameId: id },
               },
-            },
-          });
-        });
-
-        const replaced = (await Promise.all(replacedPromises)).flatMap(
-          (response) =>
-            response.data?.toReplaceVehicleScheduleFrameIds
-              ?.toReplaceVehicleScheduleFrameIds,
+            })
+            .then(
+              (result) =>
+                result.data.toReplaceVehicleScheduleFrameIds
+                  ?.toReplaceVehicleScheduleFrameIds,
+            )
+            .then(compact),
         );
 
-        return compact(replaced);
+        return Promise.all(promisedIds).then((idLists) => idLists.flat());
       } catch (error) {
         throw new Error(
           `Failed to fetch to replace vehicle schedule frames: ${error}`,
         );
       }
     },
-    [getReplacedQuery],
+    [apollo],
   );
 
   return { fetchToReplaceFrames };

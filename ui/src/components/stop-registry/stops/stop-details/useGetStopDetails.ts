@@ -1,14 +1,15 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import {
+  GetStopDetailsDocument,
   GetStopDetailsQuery,
+  GetStopDetailsQueryVariables,
   StopRegistryQuayInput,
   StopRegistryStopPlaceInterface,
   StopsDatabaseStopPlaceNewestVersionBoolExp,
-  useGetStopDetailsLazyQuery,
   useGetStopDetailsQuery,
 } from '../../../../generated/graphql';
 import {
@@ -570,7 +571,7 @@ export const useGetStopDetails = () => {
 };
 
 export const useGetStopDetailsLazy = () => {
-  const [getStopDetailsLazy] = useGetStopDetailsLazyQuery();
+  const apollo = useApolloClient();
   const { getUserNameById } = useGetUserNames();
 
   return useCallback(
@@ -584,9 +585,10 @@ export const useGetStopDetailsLazy = () => {
       },
     ) => {
       const where = getWhereCondition(label);
-      const { data, ...rest } = await getStopDetailsLazy({
-        variables: { where },
-      });
+      const { data, ...rest } = await apollo.query<
+        GetStopDetailsQuery,
+        GetStopDetailsQueryVariables
+      >({ query: GetStopDetailsDocument, variables: { where } });
 
       const observationDateTs = observationDate.valueOf();
       const stopDetails = getStopDetails(
@@ -600,7 +602,7 @@ export const useGetStopDetailsLazy = () => {
 
       return { ...rest, stopDetails };
     },
-    [getStopDetailsLazy, getUserNameById],
+    [getUserNameById, apollo],
   );
 };
 

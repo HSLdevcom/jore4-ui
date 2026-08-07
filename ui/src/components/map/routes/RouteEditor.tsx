@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import {
   ForwardRefRenderFunction,
   forwardRef,
@@ -7,9 +8,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
 import {
+  GetRouteDetailsByIdDocument,
+  GetRouteDetailsByIdQuery,
+  GetRouteDetailsByIdQueryVariables,
   ReusableComponentsVehicleModeEnum,
   RouteDefaultFieldsFragment,
-  useGetRouteDetailsByIdLazyQuery,
 } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
@@ -348,6 +351,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { current: map } = useMap();
+  const apollo = useApolloClient();
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
@@ -367,8 +371,6 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
     onDoCreate,
     onDoEdit,
   } = useSaveHelpers();
-
-  const [getRouteDetailsById] = useGetRouteDetailsByIdLazyQuery();
 
   const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
     useDeleteRoute();
@@ -397,12 +399,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
     }
 
     // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
-    const routeDetailsResult = await getRouteDetailsById({
-      variables: {
-        routeId: selectedRouteId,
-      },
+    const routeDetailsResult = await apollo.query<
+      GetRouteDetailsByIdQuery,
+      GetRouteDetailsByIdQueryVariables
+    >({
+      query: GetRouteDetailsByIdDocument,
+      variables: { routeId: selectedRouteId },
     });
-    if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
+
+    if (!routeDetailsResult.data.route_route_by_pk?.route_line) {
       throw new Error("Can't find route and line details");
     }
 

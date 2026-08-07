@@ -96,7 +96,7 @@ export const VehicleScheduleDetailsPage: FC = () => {
           )}
         </Row>
       </PageHeader>
-      <Visible visible={line && activeView !== TimetablesView.DEFAULT}>
+      <Visible visible={!!line && activeView !== TimetablesView.DEFAULT}>
         <TimetableNavigation onClose={setShowDefaultView} />
       </Visible>
       <Container>

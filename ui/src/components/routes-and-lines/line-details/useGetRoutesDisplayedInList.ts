@@ -7,7 +7,7 @@ import { QueryParameterName, useUrlQuery } from '../../../hooks';
  * Query parameter hook for setting and getting displayed routes by their labels.
  */
 export const useGetRoutesDisplayedInList = (
-  line: LineWithRoutesUniqueFieldsFragment | undefined,
+  line: LineWithRoutesUniqueFieldsFragment | null,
 ) => {
   const { setArrayToUrlQuery, getArrayFromUrlQuery } = useUrlQuery();
 

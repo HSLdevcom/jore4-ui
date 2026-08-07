@@ -20,7 +20,7 @@ import {
   resolveStopInfoByPublicCodes,
   updateStopRegistryStopMetatype,
 } from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
-import { useValidateRoute } from './useValidateRoute';
+import { useValidateJourneyPattern } from './useValidateRoute';
 import { mapInfraLinksAlongRouteToGraphQL } from './utils';
 
 const GQL_UPDATE_ROUTE_GEOMETRY = gql`
@@ -107,7 +107,7 @@ export type EditChanges = {
 export const useEditRouteGeometry = () => {
   const client = useApolloClient();
   const [mutateFunction] = useUpdateRouteGeometryMutation();
-  const { validateJourneyPattern } = useValidateRoute();
+  const validateJourneyPattern = useValidateJourneyPattern();
 
   const getStopsNeedingUpdate = async (
     routePriority: Priority,

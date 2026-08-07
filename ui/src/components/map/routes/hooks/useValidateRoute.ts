@@ -1,108 +1,152 @@
+import { gql, useApolloClient } from '@apollo/client';
+import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Maybe,
-  useGetLineDetailsByIdLazyQuery,
+  GetLineValidityByIdDocument,
+  GetLineValidityByIdQuery,
+  GetLineValidityByIdQueryVariables,
 } from '../../../../generated/graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
 } from '../../../../utils';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { mapLineDetailsResult } from '../../../routes-and-lines/common/utils';
 
-type ValidityPeriodParams = {
-  readonly validity_start?: Maybe<DateTime>;
-  readonly validity_end?: Maybe<DateTime>;
-};
+const GQL_GET_LINE_VALIDITY_BY_ID = gql`
+  query GetLineValidityById($lineId: uuid!) {
+    line: route_line_by_pk(line_id: $lineId) {
+      ...LineValidity
+    }
+  }
+
+  fragment LineValidity on route_line {
+    line_id
+    validity_start
+    validity_end
+  }
+`;
+
+export function useValidateStopCount() {
+  const { t } = useTranslation();
+
+  /**
+   * Check that there are enough stops on the route
+   */
+  return useCallback(
+    (includedStopLabels: ReadonlyArray<string>) => {
+      if (includedStopLabels.length < 2) {
+        throw new Error(t(($) => $.routes.tooFewStops));
+      }
+    },
+    [t],
+  );
+}
 
 type JourneyPattern = {
   readonly includedStopLabels: ReadonlyArray<string>;
 };
 
-export const useValidateRoute = () => {
-  const { t } = useTranslation();
+export function useValidateJourneyPattern() {
+  const validateStopCount = useValidateStopCount();
 
-  const [getLineById] = useGetLineDetailsByIdLazyQuery();
+  return useCallback(
+    (journeyPattern: JourneyPattern) =>
+      validateStopCount(journeyPattern.includedStopLabels),
+    [validateStopCount],
+  );
+}
 
-  /**
-   * Check that there are enoung stops on the route
-   */
-  const validateStopCount = (includedStopLabels: ReadonlyArray<string>) => {
-    if (includedStopLabels.length < 2) {
-      throw new Error(t(($) => $.routes.tooFewStops));
-    }
-  };
-
-  const validateJourneyPattern = async (journeyPattern: JourneyPattern) => {
-    validateStopCount(journeyPattern.includedStopLabels);
-  };
-
-  const checkIsRouteValidityInsideLineValidity = (
-    route: ValidityPeriodParams,
-    line: ValidityPeriodParams,
-  ) => {
-    if (
-      !route.validity_start ||
-      (line.validity_start && route.validity_start < line.validity_start)
-    ) {
-      throw new Error(t(($) => $.routes.startNotInsideLineValidity));
-    }
-
-    if (
-      line.validity_end &&
-      (!route.validity_end || route.validity_end > line.validity_end)
-    ) {
-      throw new Error(t(($) => $.routes.endNotInsideLineValidity));
-    }
-  };
-
-  const checkIsRouteValidityStartIsBeforeEnd = (
-    route: ValidityPeriodParams,
-  ) => {
-    if (
-      route.validity_start &&
-      route.validity_end &&
-      route.validity_start > route.validity_end
-    ) {
-      throw new Error(t(($) => $.routes.validityStartIsAfterEnd));
-    }
-  };
-
-  const validateMetadata = async (routeMetadata: RouteFormState) => {
-    // Check route's validity period is inside line's validity period
-
-    const lineResult = await getLineById({
-      variables: {
-        line_id: routeMetadata.onLineId,
-      },
-    });
-    const line = mapLineDetailsResult(lineResult.data);
-
-    const routeValidityStart = mapDateInputToValidityStart(
-      routeMetadata.validityStart,
-    );
-    const routeValidityEnd = mapDateInputToValidityEnd(
-      routeMetadata.validityEnd,
-      routeMetadata.indefinite,
-    );
-
-    checkIsRouteValidityInsideLineValidity(
-      { validity_start: routeValidityStart, validity_end: routeValidityEnd },
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      line!,
-    );
-    checkIsRouteValidityStartIsBeforeEnd({
-      validity_start: routeValidityStart,
-      validity_end: routeValidityEnd,
-    });
-  };
-
-  return {
-    validateStopCount,
-    validateJourneyPattern,
-    validateMetadata,
-    checkIsRouteValidityInsideLineValidity,
-    checkIsRouteValidityStartIsBeforeEnd,
-  };
+type ValidityPeriodParams = {
+  readonly validity_start?: DateTime | null;
+  readonly validity_end?: DateTime | null;
 };
+
+export function assertRouteValidityIsInsideLineValidity(
+  t: TFunction,
+  route: ValidityPeriodParams,
+  line: ValidityPeriodParams,
+) {
+  if (
+    !route.validity_start ||
+    (line.validity_start && route.validity_start < line.validity_start)
+  ) {
+    throw new Error(t(($) => $.routes.startNotInsideLineValidity));
+  }
+
+  if (
+    line.validity_end &&
+    (!route.validity_end || route.validity_end > line.validity_end)
+  ) {
+    throw new Error(t(($) => $.routes.endNotInsideLineValidity));
+  }
+}
+
+export function assertRouteValidityStartIsBeforeEnd(
+  t: TFunction,
+  route: ValidityPeriodParams,
+) {
+  if (
+    route.validity_start &&
+    route.validity_end &&
+    route.validity_start > route.validity_end
+  ) {
+    throw new Error(t(($) => $.routes.validityStartIsAfterEnd));
+  }
+}
+
+function assertRouteMetadataIsValid(
+  t: TFunction,
+  routeMetadata: RouteFormState,
+  line: ValidityPeriodParams,
+) {
+  const routeValidityStart = mapDateInputToValidityStart(
+    routeMetadata.validityStart,
+  );
+  const routeValidityEnd = mapDateInputToValidityEnd(
+    routeMetadata.validityEnd,
+    routeMetadata.indefinite,
+  );
+
+  assertRouteValidityIsInsideLineValidity(
+    t,
+    { validity_start: routeValidityStart, validity_end: routeValidityEnd },
+    line,
+  );
+
+  assertRouteValidityStartIsBeforeEnd(t, {
+    validity_start: routeValidityStart,
+    validity_end: routeValidityEnd,
+  });
+}
+
+export function useValidateRouteMetadata() {
+  const { t } = useTranslation();
+  const apollo = useApolloClient();
+
+  // Check route's validity period is inside line's validity period
+  return useCallback(
+    async (routeMetadata: RouteFormState) => {
+      const {
+        data: { line },
+      } = await apollo.query<
+        GetLineValidityByIdQuery,
+        GetLineValidityByIdQueryVariables
+      >({
+        query: GetLineValidityByIdDocument,
+        variables: { lineId: routeMetadata.onLineId },
+      });
+
+      // This should never happen
+      if (!line) {
+        throw new Error(
+          `Specified line ${routeMetadata.onLineId} not found from the Database!`,
+        );
+      }
+
+      assertRouteMetadataIsValid(t, routeMetadata, line);
+    },
+    [t, apollo],
+  );
+}

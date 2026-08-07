@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
+  GetLineDetailsWithRoutesByIdDocument,
+  GetLineDetailsWithRoutesByIdQuery,
+  GetLineDetailsWithRoutesByIdQueryVariables,
   RouteLineSetInput,
-  useGetLineDetailsWithRoutesByIdLazyQuery,
 } from '../../../generated/graphql';
-import { useValidateRoute } from '../../map/routes/hooks/useValidateRoute';
+import { assertRouteValidityIsInsideLineValidity } from '../../map/routes/hooks/useValidateRoute';
 
 const GQL_GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
   query GetLineDetailsWithRoutesById($line_id: uuid!) {
@@ -46,28 +48,27 @@ type ValidateParams = {
 
 export const useValidateLine = () => {
   const { t } = useTranslation();
-
-  const { checkIsRouteValidityInsideLineValidity } = useValidateRoute();
-
-  const [getLineWithRoutesById] = useGetLineDetailsWithRoutesByIdLazyQuery();
+  const apollo = useApolloClient();
 
   const checkIsLineValidityOutsideRouteValidity = async ({
     lineId,
     input,
   }: ValidateParams) => {
-    const lineResult = await getLineWithRoutesById({
+    const lineResult = await apollo.query<
+      GetLineDetailsWithRoutesByIdQuery,
+      GetLineDetailsWithRoutesByIdQueryVariables
+    >({
+      query: GetLineDetailsWithRoutesByIdDocument,
       variables: { line_id: lineId },
     });
-    const line = lineResult.data?.route_line_by_pk;
 
-    const routes = line?.line_routes;
+    const routes = lineResult.data.route_line_by_pk?.line_routes;
     const conflictingRoutes: string[] = [];
 
     routes?.forEach((route) => {
       try {
-        checkIsRouteValidityInsideLineValidity(route, {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          validity_start: input.validity_start!,
+        assertRouteValidityIsInsideLineValidity(t, route, {
+          validity_start: input.validity_start,
           validity_end: input.validity_end,
         });
       } catch {

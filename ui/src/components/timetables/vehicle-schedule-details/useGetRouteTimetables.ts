@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
+import { isNetworkRequestInFlight } from '@apollo/client/core/networkStatus';
 import { DateTime } from 'luxon';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   DayTypeAllFieldsFragment,
   VehicleJourneyWithServiceFragment,
   VehicleScheduleFragment,
-  useGetVehicleSchedulesForDateLazyQuery,
+  useGetVehicleSchedulesForDateQuery,
 } from '../../../generated/graphql';
 import { useAppSelector, useObservationDateQueryParam } from '../../../hooks';
 import { Operation, selectChangeTimetableValidityModal } from '../../../redux';
@@ -237,32 +238,45 @@ const combineVehicleSchedulesToVehicleJourneyGroups = (
 
 export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
   const { observationDate } = useObservationDateQueryParam();
-  const changeTimetableValidityModalState = useAppSelector(
+  const { lastModifiedVehicleScheduleFrame } = useAppSelector(
     selectChangeTimetableValidityModal,
   );
   const { setIsLoading } = useLoader(Operation.FetchRouteTimetables);
 
-  const [timetables, setTimetables] = useState<TimetableWithMetadata>();
+  const { data, loading, refetch, networkStatus } =
+    useGetVehicleSchedulesForDateQuery(
+      journeyPatternId
+        ? {
+            variables: {
+              journey_pattern_id: journeyPatternId,
+              observation_date: observationDate,
+            },
+          }
+        : { skip: true },
+    );
 
-  const [getVehicleSchedulesForDate] = useGetVehicleSchedulesForDateLazyQuery();
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading, setIsLoading]);
 
-  const getTimetablesForRoute = useCallback(async () => {
-    if (!journeyPatternId) {
-      return;
+  useEffect(() => {
+    if (journeyPatternId && !isNetworkRequestInFlight(networkStatus)) {
+      refetch();
     }
-    setIsLoading(true);
-    const response = await getVehicleSchedulesForDate({
-      variables: {
-        journey_pattern_id: journeyPatternId,
-        observation_date: observationDate,
-      },
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastModifiedVehicleScheduleFrame]);
+
+  return useMemo((): TimetableWithMetadata | null => {
+    if (!data || !journeyPatternId) {
+      return null;
+    }
+
     const vehicleSchedulesOnDate =
-      response.data?.timetables
+      data?.timetables
         ?.timetables_vehicle_journey_get_vehicle_schedules_on_date;
 
     const activeDayTypeIds =
-      response.data?.timetables?.timetables_service_calendar_get_active_day_types_for_date.map(
+      data?.timetables?.timetables_service_calendar_get_active_day_types_for_date.map(
         (dayType) => dayType.day_type_id,
       );
 
@@ -279,28 +293,10 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
       ? getTimetableNarrowestValidityPeriod(vehicleJourneyGroups)
       : undefined;
 
-    const timetableWithMetadata: TimetableWithMetadata = {
+    return {
       validity,
       vehicleJourneyGroups: enrichedVehicleJourneyGroups,
       journeyPatternId,
     };
-
-    setTimetables(timetableWithMetadata);
-    setIsLoading(false);
-  }, [
-    journeyPatternId,
-    setIsLoading,
-    getVehicleSchedulesForDate,
-    observationDate,
-  ]);
-
-  useEffect(() => {
-    getTimetablesForRoute();
-  }, [
-    getTimetablesForRoute,
-    observationDate,
-    changeTimetableValidityModalState.lastModifiedVehicleScheduleFrame,
-  ]);
-
-  return { timetables };
+  }, [data, journeyPatternId]);
 };

@@ -1,6 +1,9 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
-import { useGetQuayMaxPrivateCodeLazyQuery } from '../../../../generated/graphql';
+import {
+  GetQuayMaxPrivateCodeDocument,
+  GetQuayMaxPrivateCodeQuery,
+} from '../../../../generated/graphql';
 
 const MIN_JORE_4_CODE = 7000000;
 const MAX_JORE_4_CODE = 7999999;
@@ -22,13 +25,15 @@ const GQL_GET_QUAY_MAX_PRIVATE_CODE = gql`
 `;
 
 export function useGetNextQuayPrivateCode() {
-  const [getQuayMaxPrivateCodeLazyQuery] = useGetQuayMaxPrivateCodeLazyQuery();
+  const apollo = useApolloClient();
 
   return useCallback(async () => {
-    const { data } = await getQuayMaxPrivateCodeLazyQuery();
+    const { data } = await apollo.query<GetQuayMaxPrivateCodeQuery>({
+      query: GetQuayMaxPrivateCodeDocument,
+    });
 
     const rawMaxCode =
-      data?.stops_database?.stops_database_quay_aggregate.aggregate?.max
+      data.stops_database?.stops_database_quay_aggregate.aggregate?.max
         ?.private_code_value;
     const nextCode = Math.max(MIN_JORE_4_CODE, Number(rawMaxCode) + 1);
 
@@ -37,5 +42,5 @@ export function useGetNextQuayPrivateCode() {
     }
 
     return nextCode.toString(10);
-  }, [getQuayMaxPrivateCodeLazyQuery]);
+  }, [apollo]);
 }

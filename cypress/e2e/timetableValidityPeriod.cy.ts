@@ -93,9 +93,6 @@ describe('Timetable validity period', () => {
           .getSaveButton()
           .click();
 
-        RouteTimetablesSection.getLoader().shouldBeVisible();
-        RouteTimetablesSection.getLoader().should('not.exist');
-
         Toast.expectSuccessToast('Aikataulun voimassaolo tallennettu');
 
         VehicleScheduleDetailsPage.getRouteSectionByLabelAndDirection(
@@ -184,9 +181,6 @@ describe('Timetable validity period', () => {
       VehicleScheduleDetailsPage.changeTimetablesValidityForm
         .getSaveButton()
         .click();
-
-      RouteTimetablesSection.getLoader().shouldBeVisible();
-      RouteTimetablesSection.getLoader().should('not.exist');
 
       Toast.expectSuccessToast('Aikataulun voimassaolo tallennettu');
 

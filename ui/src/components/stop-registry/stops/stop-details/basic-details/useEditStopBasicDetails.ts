@@ -1,16 +1,18 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
   EditStopMutationVariables,
+  GetStopWithRouteGraphDataByIdDocument,
+  GetStopWithRouteGraphDataByIdQuery,
+  GetStopWithRouteGraphDataByIdQueryVariables,
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   ServicePatternScheduledStopPointSetInput,
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
   useEditStopMutation,
-  useGetStopWithRouteGraphDataByIdLazyQuery,
   useUpdateStopPlaceMutation,
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
@@ -63,20 +65,19 @@ const GQL_UPDATE_STOP_PLACE = gql`
 
 export const useEditStopBasicDetails = () => {
   const { t } = useTranslation();
+
+  const apollo = useApolloClient();
   const [editStopMutation] = useEditStopMutation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
-  const [getStopWithRouteGraphData] =
-    useGetStopWithRouteGraphDataByIdLazyQuery();
   const [validateTimingSettings] = useValidateTimingSettings();
 
   const mapFormStateToRoutesAndLinesDbInput = (
     state: StopBasicDetailsFormState,
   ) => {
-    const input = {
+    return {
       label: state.label,
       timing_place_id: state.timingPlaceId,
     };
-    return input;
   };
 
   // prepare variables for mutation and validate if it's even allowed
@@ -86,22 +87,20 @@ export const useEditStopBasicDetails = () => {
     state,
   }: EditRoutesAndLinesParams) => {
     const patch = mapFormStateToRoutesAndLinesDbInput(state);
-    const stopWithRoutesResult = await getStopWithRouteGraphData({
-      variables: { stopId },
-    });
+    const stopWithRoutesResult = await apollo.query<
+      GetStopWithRouteGraphDataByIdQuery,
+      GetStopWithRouteGraphDataByIdQueryVariables
+    >({ query: GetStopWithRouteGraphDataByIdDocument, variables: { stopId } });
     const stopWithRouteGraphData =
       illegalOptionalCast<ServicePatternScheduledStopPoint>(
-        stopWithRoutesResult.data?.service_pattern_scheduled_stop_point.at(0),
+        stopWithRoutesResult.data.service_pattern_scheduled_stop_point.at(0),
       );
-
-    // data model and form validation should ensure that
-    // label always exists
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const stopLabel = defaultTo(patch.label, stopWithRouteGraphData?.label)!;
 
     if (!stopWithRouteGraphData) {
       throw new InternalError(`Could not find stop with id ${stopId}`);
     }
+
+    const stopLabel = defaultTo(patch.label, stopWithRouteGraphData.label);
 
     // validate stop's timing settings in journey patterns if stop's timing place has been changed
     const newTimingPlaceId = patch.timing_place_id;

@@ -1,10 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import {
+  ResolveStopSheltersDocument,
   ResolveStopSheltersQuery,
+  ResolveStopSheltersQueryVariables,
   StopRegistryShelterEquipment,
-  useResolveStopSheltersLazyQuery,
 } from '../../../../../../generated/graphql';
 import { FailedToResolveNewShelters } from '../errors';
 
@@ -34,7 +35,7 @@ const GQL_RESOLVE_STOP_SHELTERS = gql`
 `;
 
 function getSheltersFromResult(
-  data: ResolveStopSheltersQuery | undefined,
+  data: ResolveStopSheltersQuery,
   netexId: string,
 ): Array<StopRegistryShelterEquipment> {
   const stopPlace = data?.stop_registry?.stopPlace?.at(0);
@@ -52,13 +53,17 @@ function getSheltersFromResult(
 }
 
 export function useGetShelters() {
-  const [resolveStopShelters] = useResolveStopSheltersLazyQuery();
+  const apollo = useApolloClient();
 
   return useCallback(
     async (netexId: string) => {
       try {
-        const result = await resolveStopShelters({ variables: { netexId } });
-        return getSheltersFromResult(result.data, netexId);
+        const { data } = await apollo.query<
+          ResolveStopSheltersQuery,
+          ResolveStopSheltersQueryVariables
+        >({ query: ResolveStopSheltersDocument, variables: { netexId } });
+
+        return getSheltersFromResult(data, netexId);
       } catch (cause) {
         throw new FailedToResolveNewShelters(
           "Failed to resolve new stop's shelters!",
@@ -66,6 +71,6 @@ export function useGetShelters() {
         );
       }
     },
-    [resolveStopShelters],
+    [apollo],
   );
 }

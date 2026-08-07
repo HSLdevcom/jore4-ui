@@ -1,6 +1,10 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
-import { useGetStopPlaceMaxPrivateCodeLazyQuery } from '../../../generated/graphql';
+import {
+  GetStopPlaceMaxPrivateCodeDocument,
+  GetStopPlaceMaxPrivateCodeQuery,
+  GetStopPlaceMaxPrivateCodeQueryVariables,
+} from '../../../generated/graphql';
 
 type Params = {
   readonly min: number;
@@ -43,19 +47,22 @@ const GQL_GET_STOP_PLACE_MAX_PRIVATE_CODE = gql`
 `;
 
 export function useGetNextPrivateCode(forTerminal = false) {
-  const [getStopPlaceMaxPrivateCodeLazyQuery] =
-    useGetStopPlaceMaxPrivateCodeLazyQuery();
+  const apollo = useApolloClient();
 
   const params = forTerminal ? terminalParams : stopAreaParams;
 
   return useCallback(async () => {
     const { min, max, isParent, mask } = params;
-    const { data } = await getStopPlaceMaxPrivateCodeLazyQuery({
+    const { data } = await apollo.query<
+      GetStopPlaceMaxPrivateCodeQuery,
+      GetStopPlaceMaxPrivateCodeQueryVariables
+    >({
+      query: GetStopPlaceMaxPrivateCodeDocument,
       variables: { isParent, mask },
     });
 
     const rawMaxCode =
-      data?.stops_database?.stops_database_stop_place_aggregate.aggregate?.max
+      data.stops_database?.stops_database_stop_place_aggregate.aggregate?.max
         ?.private_code_value;
     const nextCode = Math.max(min, Number(rawMaxCode) + 1);
 
@@ -64,5 +71,5 @@ export function useGetNextPrivateCode(forTerminal = false) {
     }
 
     return nextCode.toString(10);
-  }, [getStopPlaceMaxPrivateCodeLazyQuery, params]);
+  }, [apollo, params]);
 }

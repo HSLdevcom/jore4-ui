@@ -1,12 +1,14 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import {
+  GetTimetableVersionsByJourneyPatternIdsDocument,
+  GetTimetableVersionsByJourneyPatternIdsQuery,
+  GetTimetableVersionsByJourneyPatternIdsQueryVariables,
   TimetableVersionFragment,
-  useGetTimetableVersionsByJourneyPatternIdsLazyQuery,
 } from '../../../../generated/graphql';
 import { DayOfWeek, TimetablePriority } from '../../../../types/enums';
-import { convertArrayTypeForHasura } from '../../../../utils';
+import { convertArrayTypeForHasura, log } from '../../../../utils';
 
 const GQL_TIMETABLE_VERSIONS_FRAGMENT = gql`
   fragment TimetableVersion on timetables_return_value_timetable_version {
@@ -31,7 +33,7 @@ const GQL_TIMETABLE_VERSIONS_FRAGMENT = gql`
   }
 `;
 
-const GQL_GET_TIMETABLE_VERSIONS_BY_JOURNEY_PARTTERN_IDS = gql`
+const GQL_GET_TIMETABLE_VERSIONS_BY_JOURNEY_PATTERN_IDS = gql`
   query GetTimetableVersionsByJourneyPatternIds(
     $journey_pattern_ids: _uuid
     $start_date: date
@@ -39,7 +41,7 @@ const GQL_GET_TIMETABLE_VERSIONS_BY_JOURNEY_PARTTERN_IDS = gql`
     $observation_date: date
   ) {
     timetables {
-      timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids(
+      versions: timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids(
         args: {
           journey_pattern_ids: $journey_pattern_ids
           start_date: $start_date
@@ -148,68 +150,74 @@ const mapToTimetableVersionRowData = (
   };
 };
 
+type GetTimetableVersionsParams = {
+  readonly journeyPatternIdsGroupedByRouteLabel: Record<string, UUID[]>;
+  readonly startDate: DateTime;
+  readonly endDate: DateTime;
+};
+
+function useFetchTimetableVersions() {
+  const apollo = useApolloClient();
+
+  return useCallback(
+    async ({
+      journeyPatternIdsGroupedByRouteLabel,
+      startDate,
+      endDate,
+    }: GetTimetableVersionsParams) => {
+      const promisedVersions = Object.entries(
+        journeyPatternIdsGroupedByRouteLabel,
+      ).map(async ([routeLabelAndVariant, ids]) => {
+        const { data } = await apollo.query<
+          GetTimetableVersionsByJourneyPatternIdsQuery,
+          GetTimetableVersionsByJourneyPatternIdsQueryVariables
+        >({
+          query: GetTimetableVersionsByJourneyPatternIdsDocument,
+          variables: {
+            journey_pattern_ids: convertArrayTypeForHasura<UUID>(ids),
+            start_date: startDate,
+            end_date: endDate,
+            observation_date: DateTime.now().startOf('day'),
+          },
+        });
+
+        const rawVersions = data.timetables?.versions ?? [];
+
+        return rawVersions.map((entry) =>
+          mapToTimetableVersionRowData(routeLabelAndVariant, entry),
+        );
+      });
+
+      return (await Promise.all(promisedVersions)).flat(1);
+    },
+    [apollo],
+  );
+}
+
 /**
  * Fetch timetable versions during given time range for given journey pattern ids
  * fetch result is mapped to TimetableVersionRowData.
  */
-export const useGetTimetableVersions = ({
-  journeyPatternIdsGroupedByRouteLabel,
-  startDate,
-  endDate,
-}: {
-  journeyPatternIdsGroupedByRouteLabel: Record<string, UUID[]>;
-  startDate: DateTime;
-  endDate: DateTime;
-}) => {
-  const [versions, setVersions] =
-    useState<ReadonlyArray<TimetableVersionRowData>>();
-  const [getTimetableVersionsByJourneyPatternIds] =
-    useGetTimetableVersionsByJourneyPatternIdsLazyQuery();
+export const useGetTimetableVersions = (params: GetTimetableVersionsParams) => {
+  const [versions, setVersions] = useState<
+    ReadonlyArray<TimetableVersionRowData>
+  >([]);
 
-  const fetchTimetableVersions = useCallback(async () => {
-    const timetableVersions = await Promise.all(
-      Object.entries(journeyPatternIdsGroupedByRouteLabel).map(
-        async ([key, value]) => {
-          const result = await getTimetableVersionsByJourneyPatternIds({
-            variables: {
-              journey_pattern_ids: convertArrayTypeForHasura<UUID>(value),
-              start_date: startDate,
-              end_date: endDate,
-              observation_date: DateTime.now(),
-            },
-          });
-          return (
-            result.data?.timetables?.timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids?.map(
-              (entry: TimetableVersionFragment) =>
-                mapToTimetableVersionRowData(key, entry),
-            ) ?? []
-          );
-        },
-      ),
-    );
-    setVersions(timetableVersions.flat(1));
-  }, [
-    journeyPatternIdsGroupedByRouteLabel,
-    getTimetableVersionsByJourneyPatternIds,
-    startDate,
-    endDate,
-  ]);
-
-  useEffect(() => {
-    if (startDate <= endDate) {
-      fetchTimetableVersions();
+  const fetchTimetableVersions = useFetchTimetableVersions();
+  const refetch = useCallback(() => {
+    if (params.startDate <= params.endDate) {
+      fetchTimetableVersions(params)
+        .then(setVersions)
+        .catch((error) => {
+          setVersions([]);
+          log.error(error);
+        });
     } else {
       setVersions([]);
     }
-  }, [
-    endDate,
-    fetchTimetableVersions,
-    journeyPatternIdsGroupedByRouteLabel,
-    startDate,
-  ]);
+  }, [params, fetchTimetableVersions]);
 
-  return {
-    versions,
-    fetchTimetableVersions,
-  };
+  useEffect(refetch, [refetch]);
+
+  return { versions, refetch };
 };

@@ -1,13 +1,15 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import type { Point } from 'geojson';
 import {
+  QueryAnyClosestLinkDocument,
+  QueryAnyClosestLinkQuery,
+  QueryAnyClosestLinkQueryVariables,
   ReusableComponentsVehicleModeEnum,
   ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
   StopRegistryQuayInput,
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
-  useQueryAnyClosestLinkLazyQuery,
 } from '../../../../generated/graphql';
 import { OptionalKeys } from '../../../../types';
 import {
@@ -165,19 +167,25 @@ export function usePrepareCreate() {
 }
 
 export function useCheckIsLocationValidForStop() {
-  const [fetchAnyClosestLink] = useQueryAnyClosestLinkLazyQuery();
+  const apollo = useApolloClient();
 
   // Checks if the given location is near any infrastructure link at all.
   return async (stopLocation: Point): Promise<true> => {
-    const result = await fetchAnyClosestLink({
+    const result = await apollo.query<
+      QueryAnyClosestLinkQuery,
+      QueryAnyClosestLinkQueryVariables
+    >({
+      query: QueryAnyClosestLinkDocument,
       variables: { point: stopLocation },
     });
-    if (!result.data?.infrastructure_network_infrastructure_link.length) {
+
+    if (!result.data.infrastructure_network_infrastructure_link.length) {
       throw new LinkNotResolvedError(
         result.error,
         `Could not resolve closest link to point ${stopLocation}`,
       );
     }
+
     return true;
   };
 }

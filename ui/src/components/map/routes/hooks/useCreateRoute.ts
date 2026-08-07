@@ -21,7 +21,10 @@ import {
   resolveStopInfoByPublicCodes,
 } from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
-import { useValidateRoute } from './useValidateRoute';
+import {
+  useValidateJourneyPattern,
+  useValidateRouteMetadata,
+} from './useValidateRoute';
 import { mapInfraLinksAlongRouteToGraphQL } from './utils';
 
 const GQL_INSERT_ROUTE = gql`
@@ -84,7 +87,8 @@ export const useCreateRoute = () => {
   const client = useApolloClient();
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
-  const { validateJourneyPattern, validateMetadata } = useValidateRoute();
+  const validateJourneyPattern = useValidateJourneyPattern();
+  const validateRouteMetadata = useValidateRouteMetadata();
 
   const insertRouteMutation = ({ input: variables }: CreateChanges) =>
     mutateFunction({ variables });
@@ -113,8 +117,8 @@ export const useCreateRoute = () => {
   ): Promise<CreateChanges> => {
     const { includedStopLabels, form } = params;
 
-    await validateJourneyPattern({ includedStopLabels });
-    await validateMetadata(form);
+    validateJourneyPattern({ includedStopLabels });
+    await validateRouteMetadata(form);
 
     const input = mapRouteDetailsToInsertMutationVariables(params);
     const conflicts = await getConflictingRoutes({

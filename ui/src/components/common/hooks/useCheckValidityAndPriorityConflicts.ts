@@ -1,14 +1,20 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { DateTime } from 'luxon';
 import {
+  GetLinesByValidityDocument,
+  GetLinesByValidityQuery,
+  GetLinesByValidityQueryVariables,
+  GetRoutesByValidityDocument,
+  GetRoutesByValidityQuery,
+  GetRoutesByValidityQueryVariables,
+  GetStopsByValidityDocument,
+  GetStopsByValidityQuery,
+  GetStopsByValidityQueryVariables,
   RouteDirectionEnum,
   RouteLineBoolExp,
   RouteRouteBoolExp,
   ServicePatternScheduledStopPointBoolExp,
   TimetablesRouteDirectionEnum,
-  useGetLinesByValidityLazyQuery,
-  useGetRoutesByValidityLazyQuery,
-  useGetStopsByValidityLazyQuery,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
 
@@ -189,9 +195,7 @@ export const buildVariantGqlFilter = (variant?: number | null) => ({
 });
 
 export const useCheckValidityAndPriorityConflicts = () => {
-  const [getLineValidity] = useGetLinesByValidityLazyQuery();
-  const [getStopValidity] = useGetStopsByValidityLazyQuery();
-  const [getRouteValidity] = useGetRoutesByValidityLazyQuery();
+  const apollo = useApolloClient();
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
@@ -209,11 +213,15 @@ export const useCheckValidityAndPriorityConflicts = () => {
       : {};
     const commonFilter: RouteLineBoolExp = buildCommonGqlFilter(params);
 
-    const { data } = await getLineValidity({
+    const { data } = await apollo.query<
+      GetLinesByValidityQuery,
+      GetLinesByValidityQueryVariables
+    >({
+      query: GetLinesByValidityDocument,
       variables: { filter: { ...lineFilter, ...commonFilter } },
     });
 
-    return data?.route_line ?? [];
+    return data.route_line;
   };
 
   const getConflictingStops = async (params: CommonParams, stopId?: UUID) => {
@@ -235,13 +243,15 @@ export const useCheckValidityAndPriorityConflicts = () => {
       // (e.g. if they have been imported from jore3)
       buildCommonGqlFilter(params);
 
-    const { data } = await getStopValidity({
-      variables: {
-        filter: { ...stopsFilter, ...commonFilter },
-      },
+    const { data } = await apollo.query<
+      GetStopsByValidityQuery,
+      GetStopsByValidityQueryVariables
+    >({
+      query: GetStopsByValidityDocument,
+      variables: { filter: { ...stopsFilter, ...commonFilter } },
     });
 
-    return data?.service_pattern_scheduled_stop_point;
+    return data.service_pattern_scheduled_stop_point;
   };
 
   const getConflictingRoutes = async (params: RouteParams, routeId?: UUID) => {
@@ -277,7 +287,11 @@ export const useCheckValidityAndPriorityConflicts = () => {
       : {};
     const commonFilter: RouteRouteBoolExp = buildCommonGqlFilter(params);
 
-    const { data } = await getRouteValidity({
+    const { data } = await apollo.query<
+      GetRoutesByValidityQuery,
+      GetRoutesByValidityQueryVariables
+    >({
+      query: GetRoutesByValidityDocument,
       variables: {
         filter: {
           ...directionFilter,
@@ -288,7 +302,7 @@ export const useCheckValidityAndPriorityConflicts = () => {
       },
     });
 
-    return data?.route_route ?? [];
+    return data.route_route;
   };
 
   return {
