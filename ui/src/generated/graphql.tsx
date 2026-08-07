@@ -73543,21 +73543,6 @@ export type LineWithRoutesUniqueFieldsFragment = {
   }>
 };
 
-export type GetLineValidityPeriodByIdQueryVariables = Exact<{
-  line_id: Scalars['uuid']['input'];
-}>;
-
-
-export type GetLineValidityPeriodByIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line_by_pk?: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
-  } | null
-};
-
 export type InfrastructureLinkWithStopsFragment = {
   readonly __typename?: 'infrastructure_network_infrastructure_link',
   readonly infrastructure_link_id: UUID,
@@ -86567,43 +86552,6 @@ export type ResolveLineIdByLabelQueryHookResult = ReturnType<typeof useResolveLi
 export type ResolveLineIdByLabelLazyQueryHookResult = ReturnType<typeof useResolveLineIdByLabelLazyQuery>;
 export type ResolveLineIdByLabelSuspenseQueryHookResult = ReturnType<typeof useResolveLineIdByLabelSuspenseQuery>;
 export type ResolveLineIdByLabelQueryResult = Apollo.QueryResult<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>;
-export const GetLineValidityPeriodByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineValidityPeriodById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetLineValidityPeriodByIdQuery__
- *
- * To run a query within a React component, call `useGetLineValidityPeriodByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLineValidityPeriodByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLineValidityPeriodByIdQuery({
- *   variables: {
- *      line_id: // value for 'line_id'
- *   },
- * });
- */
-export function useGetLineValidityPeriodByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables> & ({ variables: GetLineValidityPeriodByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
-      }
-export function useGetLineValidityPeriodByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
-        }
-// @ts-ignore
-export function useGetLineValidityPeriodByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>;
-export function useGetLineValidityPeriodByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineValidityPeriodByIdQuery | undefined, GetLineValidityPeriodByIdQueryVariables>;
-export function useGetLineValidityPeriodByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>(GetLineValidityPeriodByIdDocument, options);
-        }
-export type GetLineValidityPeriodByIdQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdQuery>;
-export type GetLineValidityPeriodByIdLazyQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdLazyQuery>;
-export type GetLineValidityPeriodByIdSuspenseQueryHookResult = ReturnType<typeof useGetLineValidityPeriodByIdSuspenseQuery>;
-export type GetLineValidityPeriodByIdQueryResult = Apollo.QueryResult<GetLineValidityPeriodByIdQuery, GetLineValidityPeriodByIdQueryVariables>;
 export const GetHighestPriorityLineDetailsWithRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHighestPriorityLineDetailsWithRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeStopFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}}]}}]}}]} as unknown as DocumentNode;
 
 /**
