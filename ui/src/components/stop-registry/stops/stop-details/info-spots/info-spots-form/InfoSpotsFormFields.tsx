@@ -2,10 +2,7 @@ import { t } from 'i18next';
 import { FC, useEffect, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { twJoin } from 'tailwind-merge';
-import {
-  InfoSpotDetailsFragment,
-  StopRegistryIntendedUser,
-} from '../../../../../../generated/graphql';
+import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
@@ -18,7 +15,11 @@ import {
 import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import { ZoneLabel } from '../../../../types';
-import { InfoSpotsFormState, PosterState } from '../types';
+import {
+  InfoSpotsFormState,
+  IntendedUserDropdownValues,
+  PosterState,
+} from '../types';
 import { defaultInfoSpotPosterValues, mapStringToPurpose } from '../utils';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
 import { SizeFormFragment } from './SizeFormFragment';
@@ -155,8 +156,8 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             testId={testIds.intendedUser}
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
-              <EnumDropdown<StopRegistryIntendedUser>
-                enumType={StopRegistryIntendedUser}
+              <EnumDropdown<IntendedUserDropdownValues>
+                enumType={IntendedUserDropdownValues}
                 placeholder={t(($) => $.unknown)}
                 uiNameMapper={(val) => mapIntendedUserToUiName(t, val)}
                 buttonClassName="min-w-32"

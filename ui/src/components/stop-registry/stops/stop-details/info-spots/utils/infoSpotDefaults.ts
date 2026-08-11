@@ -1,5 +1,4 @@
-import { StopRegistryIntendedUser } from '../../../../../../generated/graphql';
-import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
+import { InfoSpotPurposeEnum, IntendedUserDropdownValues } from '../types';
 import { mapPurposeToString } from './infoSpotPurposeUtils';
 
 // Default stop label format: [stopLabel]_[orderNumber], where orderNumber is infoSpotCount + 1.s
@@ -17,7 +16,7 @@ export const defaultInfoSpotPosterValues = {
 };
 
 export const defaultInfoSpotValues = {
-  intendedUser: StopRegistryIntendedUser.Matkatieto,
+  intendedUser: IntendedUserDropdownValues.Matkatieto,
   width: 800,
   height: 1200,
   poster: [defaultInfoSpotPosterValues],

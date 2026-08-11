@@ -2,10 +2,10 @@ import { z } from 'zod';
 import {
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
-  StopRegistryIntendedUser,
 } from '../../../../../../generated/graphql';
 import { createNullableEnum, nullableBoolean } from '../../../../../../utils';
 import { InfoSpotPurposeEnum } from './InfoSpotPurpose';
+import { IntendedUserDropdownValues } from './IntendedUser';
 
 export const itemSizeUiState = z.enum([
   'UNKNOWN', // Width = null, height = null; Default state, or explicitly set.
@@ -44,7 +44,7 @@ export const infoSpotSchema = z.object({
   label: z.string().nullable(),
   infoSpotLocations: z.array(z.string().nullable()).nullable(),
   infoSpotType: createNullableEnum<StopRegistryInfoSpotType>(),
-  intendedUser: createNullableEnum<StopRegistryIntendedUser>(),
+  intendedUser: createNullableEnum<IntendedUserDropdownValues>(),
   railInformation: z.string().nullable(),
   speechProperty: nullableBoolean,
   zoneLabel: z.string().nullable(),

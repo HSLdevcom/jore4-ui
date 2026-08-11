@@ -1,10 +1,7 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import {
-  InfoSpotDetailsFragment,
-  StopRegistryIntendedUser,
-} from '../../../../../../generated/graphql';
+import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import {
   mapIntendedUserToUiName,
@@ -18,7 +15,10 @@ import {
 import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
-import { PosterState } from '../../../../stops/stop-details/info-spots/types';
+import {
+  IntendedUserDropdownValues,
+  PosterState,
+} from '../../../../stops/stop-details/info-spots/types';
 import { mapStringToPurpose } from '../../../../stops/stop-details/info-spots/utils';
 import { ZoneLabel } from '../../../../types';
 import { TerminalInfoSpotFormState } from '../types';
@@ -108,8 +108,8 @@ export const TerminalInfoSpotFormFields: FC<
             testId={testIds.intendedUser}
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
-              <EnumDropdown<StopRegistryIntendedUser>
-                enumType={StopRegistryIntendedUser}
+              <EnumDropdown<IntendedUserDropdownValues>
+                enumType={IntendedUserDropdownValues}
                 placeholder={t(($) => $.unknown)}
                 uiNameMapper={(val) => mapIntendedUserToUiName(t, val)}
                 buttonClassName="min-w-32"

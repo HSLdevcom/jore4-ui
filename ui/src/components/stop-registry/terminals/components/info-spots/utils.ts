@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { useState } from 'react';
-import {
-  InfoSpotDetailsFragment,
-  StopRegistryIntendedUser,
-} from '../../../../../generated/graphql';
+import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { EnrichedParentStopPlace, Point } from '../../../../../types';
 import { getGeometryPoint } from '../../../../../utils';
-import { InfoSpotPurposeEnum } from '../../../stops/stop-details/info-spots/types/InfoSpotPurpose';
+import {
+  InfoSpotPurposeEnum,
+  IntendedUserDropdownValues,
+} from '../../../stops/stop-details/info-spots/types';
 import {
   formatSizedDbItem,
   mapInfoSpotDataToFormState,
@@ -242,17 +242,17 @@ export function mapTerminalInfoSpotDataToFormState(
 
 export function getDefaultIntendedUser(
   terminal: EnrichedParentStopPlace,
-): StopRegistryIntendedUser {
+): IntendedUserDropdownValues {
   const ownerName = terminal.owner?.name?.trim().toUpperCase();
   if (!ownerName) {
-    return StopRegistryIntendedUser.Matkatieto;
+    return IntendedUserDropdownValues.Matkatieto;
   }
 
-  const matchedIntendedUser = Object.values(StopRegistryIntendedUser).find(
+  const matchedIntendedUser = Object.values(IntendedUserDropdownValues).find(
     (intendedUser) => intendedUser === ownerName,
   );
 
-  return matchedIntendedUser ?? StopRegistryIntendedUser.Muu;
+  return matchedIntendedUser ?? IntendedUserDropdownValues.Muu;
 }
 
 // Default terminal label format: [terminalCode]_[orderNumber], where orderNumber is infoSpotCount + 1.

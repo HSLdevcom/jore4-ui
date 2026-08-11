@@ -1,8 +1,10 @@
 import { TFunction } from 'i18next';
 import { AllOptionEnum, NullOptionEnum } from '..';
-import { InfoSpotPurposeEnum } from '../../components/stop-registry/stops/stop-details/info-spots/types';
-import { TerminalType } from '../../components/stop-registry/types/TerminalType';
-import { ZoneLabel } from '../../components/stop-registry/types/ZoneLabel';
+import {
+  InfoSpotPurposeEnum,
+  IntendedUserDropdownValues,
+} from '../../components/stop-registry/stops/stop-details/info-spots/types';
+import { TerminalType, ZoneLabel } from '../../components/stop-registry/types';
 import {
   HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
@@ -10,7 +12,6 @@ import {
   RouteTypeOfLineEnum,
   StopRegistryAccessibilityLevel,
   StopRegistryGuidanceType,
-  StopRegistryIntendedUser,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
   StopRegistryShelterCondition,
@@ -503,16 +504,16 @@ export const mapZoneLabelToUiName = genTranslationMapper<ZoneLabel, string>(
 );
 
 export const mapIntendedUserToUiName = genTranslationMapper<
-  StopRegistryIntendedUser | NullOptionEnum
+  IntendedUserDropdownValues | NullOptionEnum
 >({
   [NullOptionEnum.Null]: (t) => t(($) => $.unknown),
-  [StopRegistryIntendedUser.Matkatieto]: (t) =>
+  [IntendedUserDropdownValues.Matkatieto]: (t) =>
     t(($) => $.stopDetails.infoSpots.intendedUsers.matkatieto),
-  [StopRegistryIntendedUser.Markkinointi]: (t) =>
+  [IntendedUserDropdownValues.Markkinointi]: (t) =>
     t(($) => $.stopDetails.infoSpots.intendedUsers.markkinointi),
-  [StopRegistryIntendedUser.Vr]: (t) =>
+  [IntendedUserDropdownValues.Vr]: (t) =>
     t(($) => $.stopDetails.infoSpots.intendedUsers.vr),
-  [StopRegistryIntendedUser.Muu]: (t) =>
+  [IntendedUserDropdownValues.Muu]: (t) =>
     t(($) => $.stopDetails.infoSpots.intendedUsers.muu),
 });
 
