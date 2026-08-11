@@ -115,6 +115,12 @@ export const TerminalInfoSpotFormFields: FC<
                 buttonClassName="min-w-32"
                 includeNullOption
                 disabled={toBeDeleted}
+                customOrder={[
+                  StopRegistryIntendedUser.Matkatieto,
+                  StopRegistryIntendedUser.Markkinointi,
+                  StopRegistryIntendedUser.Vr,
+                  StopRegistryIntendedUser.Muu,
+                ]}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
