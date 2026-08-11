@@ -23,6 +23,7 @@ type EnumDropdownBaseProps<TEnum extends string> = BaseFormInputProps & {
   readonly value?: TEnum | string;
   readonly onChange: (newValue: TEnum) => void;
   readonly disabledOptions?: ReadonlyArray<TEnum>;
+  readonly customOrder?: ReadonlyArray<TEnum>;
 };
 
 type EnumDropdownWithNullOptionProps = {
@@ -69,14 +70,18 @@ const EnumDropdownImpl = <TEnum extends string>(
     includeAllOption = false,
     includeNullOption = false,
     disabledOptions,
+    customOrder,
     ...formInputProps
   }: EnumDropdownProps<TEnum>,
   ref: Ref<HTMLDivElement>,
 ): ReactElement => {
   type AllPossibleValues = TEnum | AllOptionEnum | NullOptionEnum;
+
+  const enumValues = customOrder ?? Object.values(enumType);
+
   const values: ReadonlyArray<AllPossibleValues> = [
     ...Object.values(includeAllOption ? AllOptionEnum : {}),
-    ...Object.values(enumType),
+    ...enumValues,
     ...Object.values(includeNullOption ? NullOptionEnum : {}),
   ];
 
