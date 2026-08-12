@@ -79752,50 +79752,13 @@ export type JourneyPatternRouteFragment = {
 };
 
 export type GetOverlappingStopVersionsQueryVariables = Exact<{
-  stopLabel: Scalars['String']['input'];
-  currentStopId: Scalars['String']['input'];
-  priority: Scalars['Int']['input'];
-  fromDate: Scalars['date']['input'];
-  toDate: Scalars['date']['input'];
+  where: ServicePatternScheduledStopPointBoolExp;
 }>;
 
 
 export type GetOverlappingStopVersionsQuery = {
   readonly __typename?: 'query_root',
-  readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point',
-    readonly scheduled_stop_point_id: UUID,
-    readonly label: string,
-    readonly priority: number,
-    readonly stop_place_ref?: string | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly stop_place?: ReadonlyArray<
-      | {
-        readonly __typename?: 'stop_registry_ParentStopPlace',
-        readonly id?: string | null,
-        readonly version?: string | null
-      }
-      | {
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly version?: string | null
-      }
-     | null> | null
-  }>
-};
-
-export type GetOverlappingStopVersionsIndefiniteQueryVariables = Exact<{
-  stopLabel: Scalars['String']['input'];
-  currentStopId: Scalars['String']['input'];
-  priority: Scalars['Int']['input'];
-  fromDate: Scalars['date']['input'];
-}>;
-
-
-export type GetOverlappingStopVersionsIndefiniteQuery = {
-  readonly __typename?: 'query_root',
-  readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
+  readonly ssps: ReadonlyArray<{
     readonly __typename?: 'service_pattern_scheduled_stop_point',
     readonly scheduled_stop_point_id: UUID,
     readonly label: string,
@@ -88547,7 +88510,7 @@ export type FindLinesByStopQueryHookResult = ReturnType<typeof useFindLinesBySto
 export type FindLinesByStopLazyQueryHookResult = ReturnType<typeof useFindLinesByStopLazyQuery>;
 export type FindLinesByStopSuspenseQueryHookResult = ReturnType<typeof useFindLinesByStopSuspenseQuery>;
 export type FindLinesByStopQueryResult = Apollo.QueryResult<FindLinesByStopQuery, FindLinesByStopQueryVariables>;
-export const GetOverlappingStopVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOverlappingStopVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentStopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fromDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"toDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"stop_place_ref"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentStopId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priority"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"toDate"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fromDate"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OverlappingStopVersionsData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OverlappingStopVersionsData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}}]}}]}}]} as unknown as DocumentNode;
+export const GetOverlappingStopVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOverlappingStopVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_bool_exp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"ssps"},"name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OverlappingStopVersionsData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OverlappingStopVersionsData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetOverlappingStopVersionsQuery__
@@ -88561,11 +88524,7 @@ export const GetOverlappingStopVersionsDocument = {"kind":"Document","definition
  * @example
  * const { data, loading, error } = useGetOverlappingStopVersionsQuery({
  *   variables: {
- *      stopLabel: // value for 'stopLabel'
- *      currentStopId: // value for 'currentStopId'
- *      priority: // value for 'priority'
- *      fromDate: // value for 'fromDate'
- *      toDate: // value for 'toDate'
+ *      where: // value for 'where'
  *   },
  * });
  */
@@ -88588,46 +88547,6 @@ export type GetOverlappingStopVersionsQueryHookResult = ReturnType<typeof useGet
 export type GetOverlappingStopVersionsLazyQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsLazyQuery>;
 export type GetOverlappingStopVersionsSuspenseQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsSuspenseQuery>;
 export type GetOverlappingStopVersionsQueryResult = Apollo.QueryResult<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>;
-export const GetOverlappingStopVersionsIndefiniteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOverlappingStopVersionsIndefinite"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentStopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fromDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"stop_place_ref"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentStopId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priority"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_not"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lt"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fromDate"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OverlappingStopVersionsData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OverlappingStopVersionsData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetOverlappingStopVersionsIndefiniteQuery__
- *
- * To run a query within a React component, call `useGetOverlappingStopVersionsIndefiniteQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetOverlappingStopVersionsIndefiniteQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetOverlappingStopVersionsIndefiniteQuery({
- *   variables: {
- *      stopLabel: // value for 'stopLabel'
- *      currentStopId: // value for 'currentStopId'
- *      priority: // value for 'priority'
- *      fromDate: // value for 'fromDate'
- *   },
- * });
- */
-export function useGetOverlappingStopVersionsIndefiniteQuery(baseOptions: Apollo.QueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables> & ({ variables: GetOverlappingStopVersionsIndefiniteQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>(GetOverlappingStopVersionsIndefiniteDocument, options);
-      }
-export function useGetOverlappingStopVersionsIndefiniteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>(GetOverlappingStopVersionsIndefiniteDocument, options);
-        }
-// @ts-ignore
-export function useGetOverlappingStopVersionsIndefiniteSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>): Apollo.UseSuspenseQueryResult<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>;
-export function useGetOverlappingStopVersionsIndefiniteSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>): Apollo.UseSuspenseQueryResult<GetOverlappingStopVersionsIndefiniteQuery | undefined, GetOverlappingStopVersionsIndefiniteQueryVariables>;
-export function useGetOverlappingStopVersionsIndefiniteSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>(GetOverlappingStopVersionsIndefiniteDocument, options);
-        }
-export type GetOverlappingStopVersionsIndefiniteQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsIndefiniteQuery>;
-export type GetOverlappingStopVersionsIndefiniteLazyQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsIndefiniteLazyQuery>;
-export type GetOverlappingStopVersionsIndefiniteSuspenseQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsIndefiniteSuspenseQuery>;
-export type GetOverlappingStopVersionsIndefiniteQueryResult = Apollo.QueryResult<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>;
 export const ResolveStopSheltersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveStopShelters"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"netexId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"netexId"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}}]} as unknown as DocumentNode;
 
 /**
