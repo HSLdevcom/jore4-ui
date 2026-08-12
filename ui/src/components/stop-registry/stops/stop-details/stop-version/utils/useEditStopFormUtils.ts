@@ -179,14 +179,14 @@ export const useEditStopFormUtils = (
   const onFormSubmit = async (state: StopVersionFormState) => {
     setIsLoading(true);
 
-    const { overlappingStopVersions } = await getOverlappingStopVersions(
-      originalStop.label,
-      originalStop.stop_place_ref ?? '',
-      state.priority,
-      state.validityStart,
-      state.validityEnd,
-      state.indefinite,
-    );
+    const overlappingStopVersions = await getOverlappingStopVersions({
+      stopLabel: originalStop.label,
+      currentStopId: originalStop.quay?.id ?? '',
+      priority: state.priority,
+      fromDate: state.validityStart,
+      toDate: state.validityEnd,
+      indefinite: state.indefinite,
+    });
 
     if (overlappingStopVersions.length > 0) {
       try {
@@ -221,14 +221,15 @@ export const useEditStopFormUtils = (
   const onCutConfirmationSubmit = async (state: StopVersionFormState) => {
     setIsLoading(true);
 
-    const { overlappingStopVersions } = await getOverlappingStopVersions(
-      originalStop.label,
-      originalStop.stop_place_ref ?? '',
-      state.priority,
-      state.validityStart,
-      state.validityEnd,
-      state.indefinite,
-    );
+    dispatch(closeCutStopVersionValidityModalAction());
+    const overlappingStopVersions = await getOverlappingStopVersions({
+      stopLabel: originalStop.label,
+      currentStopId: originalStop.quay?.id ?? '',
+      priority: state.priority,
+      fromDate: state.validityStart,
+      toDate: state.validityEnd,
+      indefinite: state.indefinite,
+    });
 
     if (overlappingStopVersions.length >= 1) {
       try {
@@ -257,7 +258,6 @@ export const useEditStopFormUtils = (
         }
       } catch (error) {
         handleError(error);
-        dispatch(closeCutStopVersionValidityModalAction());
         setIsLoading(false);
         return;
       }
@@ -276,7 +276,6 @@ export const useEditStopFormUtils = (
       .then(handleSuccess)
       .catch(handleError);
 
-    dispatch(closeCutStopVersionValidityModalAction());
     setIsLoading(false);
   };
 
