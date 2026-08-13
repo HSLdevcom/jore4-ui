@@ -4,7 +4,7 @@ import {
   InfoSpotDetailsFragment,
   ShelterEquipmentDetailsFragment,
 } from '../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../types';
+import { StopPlaceInfoSpots, StopWithDetails } from '../../../../../types';
 import { InfoSpotsNoShelters } from './InfoSpotsNoShelters';
 import { InfoSpotsSection } from './InfoSpotsSection';
 
@@ -14,7 +14,7 @@ type SheltersInfoSpotsSectionProps = {
 
 type ShelterAndSpots = [
   ShelterEquipmentDetailsFragment,
-  ReadonlyArray<InfoSpotDetailsFragment>,
+  ReadonlyArray<StopPlaceInfoSpots>,
 ];
 
 const useSheltersInfoSpots = (

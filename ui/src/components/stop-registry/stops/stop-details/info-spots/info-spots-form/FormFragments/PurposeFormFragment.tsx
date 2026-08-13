@@ -7,13 +7,12 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { TranslationKey } from '../../../../../../i18n';
-import { mapInfoSpotPurposeToUiName } from '../../../../../../utils/i18n';
-import { InputField, InputLabel } from '../../../../../common/Inputs';
-import { Column } from '../../../../../common/LayoutComponents';
-import { useGetInfoSpotPurposes } from '../queries/useGetInfoSpotPurposes';
-import { InfoSpotPurposeState } from '../types';
-import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
+import { TranslationKey } from '../../../../../../../i18n';
+import { mapInfoSpotPurposeToUiName } from '../../../../../../../utils/i18n';
+import { InputField, InputLabel } from '../../../../../../common/Inputs';
+import { Column } from '../../../../../../common/LayoutComponents';
+import { useGetInfoSpotPurposes } from '../../queries/useGetInfoSpotPurposes';
+import { InfoSpotPurposeEnum, InfoSpotPurposeState } from '../../types';
 import { PurposeOption, PurposeSelector } from './PurposeSelector';
 
 const testIds = {

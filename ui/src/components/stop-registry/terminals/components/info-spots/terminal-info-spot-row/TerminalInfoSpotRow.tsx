@@ -1,7 +1,9 @@
 import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
-import { EnrichedParentStopPlace } from '../../../../../../types';
+import {
+  EnrichedParentStopPlace,
+  StopPlaceInfoSpots,
+} from '../../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../../utils';
 import { useInfoContainerControls } from '../../../../../common/InfoContainer';
 import { useEditTerminalInfoSpots } from '../queries';
@@ -12,7 +14,7 @@ import { mapTerminalInfoSpotDataToFormState } from '../utils';
 import { TerminalInfoSpotRowHeader } from './TerminalInfoSpotRowHeader';
 
 const useExistingInfoSpotFormDefaultValues = (
-  infoSpot: Readonly<InfoSpotDetailsFragment>,
+  infoSpot: Readonly<StopPlaceInfoSpots>,
   terminal: Readonly<EnrichedParentStopPlace>,
 ) => {
   const terminalInfoSpotsFormDefaultValues = useMemo(

@@ -8,18 +8,18 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { TranslationKey } from '../../../../../../i18n';
-import { none } from '../../../../../../utils';
-import { InputField, InputLabel } from '../../../../../common/Inputs';
-import { Column } from '../../../../../common/LayoutComponents';
-import { useGetInfoSpotSizes } from '../queries/useGetInfoSpotSizes';
+import { TranslationKey } from '../../../../../../../i18n';
+import { none } from '../../../../../../../utils';
+import { InputField, InputLabel } from '../../../../../../common/Inputs';
+import { Column } from '../../../../../../common/LayoutComponents';
+import { useGetInfoSpotSizes } from '../../queries/useGetInfoSpotSizes';
 import {
   ItemSizeState,
   NewMenuItem,
   PosterSizeSubMenu,
   UnknownMenuItem,
   standardPosterSizes,
-} from '../types';
+} from '../../types';
 import { SizeSelector } from './SizeSelector';
 
 const testIds = {

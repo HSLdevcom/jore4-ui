@@ -29,6 +29,7 @@ export const posterSchema = z.object({
   label: infoSpotPurposeSchema,
   lines: z.string().nullable(),
   size: itemSizeSchema,
+  sortOrder: z.number().nullable(),
   toBeDeletedPoster: z.boolean(),
 });
 

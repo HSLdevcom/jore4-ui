@@ -3,8 +3,8 @@ import { FC } from 'react';
 import {
   JoreListboxButton,
   listboxStyles,
-} from '../../../../../common/Dropdowns';
-import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
+} from '../../../../../../common/Dropdowns';
+import { InfoSpotPurposeEnum } from '../../types';
 
 export type PurposeOption = {
   readonly purposeType: InfoSpotPurposeEnum;
