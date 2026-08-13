@@ -484,6 +484,7 @@
       "posterPurpose": "Käyttötarkoitus",
       "posterSize": "Infotuotteen koko",
       "posterLines": "Lisätieto",
+      "posterSortOrder": "Järjestys",
       "shelterTypeSubtitle": "Katos {{index}} | {{shelterType}}",
       "addInfoSpot": "Lisää infopaikka",
       "addNewInfoSpot": "Lisää uusi infopaikka",
