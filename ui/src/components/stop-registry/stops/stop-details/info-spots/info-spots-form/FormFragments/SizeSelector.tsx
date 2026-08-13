@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import {
   JoreListboxButton,
   listboxStyles,
-} from '../../../../../common/Dropdowns';
-import { ItemSizeState, PosterSizeSubMenu } from '../types';
-import { formatOption } from '../utils';
+} from '../../../../../../common/Dropdowns';
+import { ItemSizeState, PosterSizeSubMenu } from '../../types';
+import { formatOption } from '../../utils';
 
 type SizeSelectorProps = {
   readonly className?: string;

@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
-import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
-import { EnrichedParentStopPlace } from '../../../../../../types';
+import {
+  EnrichedParentStopPlace,
+  StopPlaceInfoSpots,
+} from '../../../../../../types';
 import { InfoContainerControls } from '../../../../../common/InfoContainer';
 
 export type SortField =
@@ -14,20 +16,20 @@ export type SortConfig = {
 };
 
 export type TerminalInfoSpotsViewListProps = {
-  readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
+  readonly infoSpots: ReadonlyArray<StopPlaceInfoSpots>;
   readonly terminal: EnrichedParentStopPlace;
   readonly latestAdded?: string;
 };
 
 export type TerminalInfoSpotRowProps = {
-  readonly infoSpot: InfoSpotDetailsFragment;
+  readonly infoSpot: StopPlaceInfoSpots;
   readonly index: number;
   readonly terminal: EnrichedParentStopPlace;
   readonly openByDefault?: boolean;
 };
 
 export type TerminalInfoSpotRowHeaderProps = {
-  readonly infoSpot: InfoSpotDetailsFragment;
+  readonly infoSpot: StopPlaceInfoSpots;
   readonly index: number;
   readonly terminal: EnrichedParentStopPlace;
   readonly isOpen: boolean;
@@ -37,11 +39,11 @@ export type TerminalInfoSpotRowHeaderProps = {
 };
 
 export type TerminalInfoSpotsViewCardProps = {
-  readonly infoSpot: InfoSpotDetailsFragment;
+  readonly infoSpot: StopPlaceInfoSpots;
   readonly terminal: EnrichedParentStopPlace;
 };
 
 export type TerminalInfoSpotsSectionProps = {
   readonly terminal: EnrichedParentStopPlace;
-  readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
+  readonly infoSpots: ReadonlyArray<StopPlaceInfoSpots>;
 };
