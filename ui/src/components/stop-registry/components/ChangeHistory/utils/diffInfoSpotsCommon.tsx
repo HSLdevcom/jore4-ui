@@ -3,7 +3,11 @@ import compact from 'lodash/compact';
 import { ReactNode } from 'react';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { StopPlaceInfoSpots } from '../../../../../types';
-import { getGeometryPoint } from '../../../../../utils';
+import {
+  KnownValueKey,
+  findKeyValueParsed,
+  getGeometryPoint,
+} from '../../../../../utils';
 import {
   mapIntendedUserToUiName,
   mapZoneLabelToUiName,
@@ -50,6 +54,10 @@ function preparePosters(
         fv(
           t(($) => $.stopDetails.infoSpots.posterLines),
           poster.lines,
+        ),
+        fv(
+          t(($) => $.stopDetails.infoSpots.posterSortOrder),
+          findKeyValueParsed(poster, KnownValueKey.SortOrder, String),
         ),
       ],
     }));

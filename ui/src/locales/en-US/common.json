@@ -484,6 +484,7 @@
       "posterPurpose": "Purpose",
       "posterSize": "Size",
       "posterLines": "Additional information",
+      "posterSortOrder": "Sort order",
       "shelterTypeSubtitle": "Shelter {{index}} | {{shelterType}}",
       "addInfoSpot": "Add info spot",
       "addNewInfoSpot": "Add new info spot",
