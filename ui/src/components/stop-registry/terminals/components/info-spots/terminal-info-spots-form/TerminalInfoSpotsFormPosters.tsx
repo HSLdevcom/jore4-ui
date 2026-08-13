@@ -4,8 +4,11 @@ import { useFormContext } from 'react-hook-form';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { InputField } from '../../../../../common/Inputs';
 import { Row } from '../../../../../common/LayoutComponents';
-import { PurposeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/PurposeFormFragment';
-import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
+import {
+  PositionMoveControls,
+  PurposeFormFragment,
+  SizeFormFragment,
+} from '../../../../stops/stop-details/info-spots/utils';
 import { TerminalInfoSpotFormState } from '../types';
 
 const testIds = {
@@ -14,26 +17,41 @@ const testIds = {
   posterSize: 'TerminalInfoSpotPosterFormFields::posterSize',
   posterDetails: 'TerminalInfoSpotPosterFormFields::posterDetails',
   deleteInfoSpotPoster: 'TerminalInfoSpotFormFields::deleteInfoSpotPoster',
+  moveUpPoster: 'TerminalInfoSpotPosterFormFields::moveUpPoster',
+  moveDownPoster: 'TerminalInfoSpotPosterFormFields::moveDownPoster',
+  posterPositionIndicator:
+    'TerminalInfoSpotPosterFormFields::positionIndicator',
 };
 
 type TerminalInfoSpotsFormPostersProps = {
   readonly posterIndex: number;
   readonly addPoster: () => void;
   readonly onRemovePoster: (posterIndex: number) => void;
+  readonly onMovePosterUp: (posterIndex: number) => void;
+  readonly onMovePosterDown: (posterIndex: number) => void;
+  readonly isFirstPoster: boolean;
+  readonly isLastPoster: boolean;
+  readonly totalPosters: number;
 };
 
 export const TerminalInfoSpotsFormPosters: FC<
   TerminalInfoSpotsFormPostersProps
-> = ({ posterIndex, addPoster, onRemovePoster }) => {
+> = ({
+  posterIndex,
+  addPoster,
+  onRemovePoster,
+  onMovePosterUp,
+  onMovePosterDown,
+  isFirstPoster,
+  isLastPoster,
+  totalPosters,
+}) => {
   const { watch } = useFormContext<TerminalInfoSpotFormState>();
   const toBeDeletedPoster = watch(`poster.${posterIndex}.toBeDeletedPoster`);
 
-  const posters = watch('poster') ?? [];
-  const isLastPoster = posterIndex === posters.length - 1;
-
   return (
     <div data-testid={testIds.posterContainer}>
-      <Row className="my-5 flex-wrap items-end gap-4 px-10">
+      <Row className="my-5 flex-wrap items-end gap-4 pr-5 pl-10">
         <SizeFormFragment<TerminalInfoSpotFormState>
           titlePath="stopDetails.infoSpots.posterSize"
           sizeStatePath={`poster.${posterIndex}.size`}
@@ -52,9 +70,10 @@ export const TerminalInfoSpotsFormPosters: FC<
           customTitlePath="terminalDetails.infoSpots.posterDetails"
           testId={testIds.posterDetails}
           disabled={toBeDeletedPoster}
+          className="grow"
         />
       </Row>
-      <Row className="px-10 pb-5">
+      <Row className="justify-between pr-5 pb-5 pl-10">
         <SimpleButton
           shape="slim"
           testId={testIds.deleteInfoSpotPoster}
@@ -67,6 +86,22 @@ export const TerminalInfoSpotsFormPosters: FC<
               : $.stopDetails.infoSpots.deleteInfoSpotPoster,
           )}
         </SimpleButton>
+        <PositionMoveControls
+          position={posterIndex + 1}
+          total={totalPosters}
+          isFirst={isFirstPoster}
+          isLast={isLastPoster}
+          disabled={toBeDeletedPoster}
+          onMoveUp={() => onMovePosterUp(posterIndex)}
+          onMoveDown={() => onMovePosterDown(posterIndex)}
+          testIds={{
+            positionIndicator: testIds.posterPositionIndicator,
+            moveUp: testIds.moveUpPoster,
+            moveDown: testIds.moveDownPoster,
+          }}
+        />
+      </Row>
+      <Row className="pr-5 pb-5 pl-10">
         {isLastPoster && (
           <AddNewButton
             testId={testIds.addInfoSpotPoster}

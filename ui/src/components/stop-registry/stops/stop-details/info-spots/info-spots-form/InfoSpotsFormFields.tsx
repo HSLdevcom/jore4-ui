@@ -1,7 +1,6 @@
 import { t } from 'i18next';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { twJoin } from 'tailwind-merge';
 import {
   InfoSpotDetailsFragment,
   StopRegistryIntendedUser,
@@ -19,9 +18,13 @@ import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import { ZoneLabel } from '../../../../types';
 import { InfoSpotsFormState, PosterState } from '../types';
-import { defaultInfoSpotPosterValues, mapStringToPurpose } from '../utils';
+import {
+  PositionMoveControls,
+  SizeFormFragment,
+  defaultInfoSpotPosterValues,
+  mapStringToPurpose,
+} from '../utils';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
-import { SizeFormFragment } from './SizeFormFragment';
 
 const testIds = {
   description: 'InfoSpotFormFields::description',
@@ -69,9 +72,12 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
   const { register, watch, getValues, setValue, control } =
     useFormContext<InfoSpotsFormState>();
   const toBeDeleted = watch(`infoSpots.${infoSpotIndex}.toBeDeleted`);
-  const [justMoved, setJustMoved] = useState(false);
 
-  const { fields: posters, append: appendPoster } = useFieldArray({
+  const {
+    fields: posters,
+    append: appendPoster,
+    move: movePoster,
+  } = useFieldArray({
     control,
     name: `infoSpots.${infoSpotIndex}.poster`,
   });
@@ -86,6 +92,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
       label: mapStringToPurpose(defaultInfoSpotPosterValues.label),
       lines: '',
       toBeDeletedPoster: false,
+      sortOrder: null,
       id: null,
     };
     appendPoster(newPoster);
@@ -106,27 +113,17 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
     );
   };
 
-  const handleMoveUp = () => {
-    onMoveUp(infoSpotIndex);
-    setJustMoved(true);
-  };
-
-  const handleMoveDown = () => {
-    onMoveDown(infoSpotIndex);
-    setJustMoved(true);
-  };
-
-  useEffect(() => {
-    if (!justMoved) {
-      return undefined;
+  const onMovePosterUp = (posterIndex: number) => {
+    if (posterIndex > 0) {
+      movePoster(posterIndex, posterIndex - 1);
     }
+  };
 
-    const timer = setTimeout(() => {
-      setJustMoved(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [justMoved]);
+  const onMovePosterDown = (posterIndex: number) => {
+    if (posterIndex < posters.length - 1) {
+      movePoster(posterIndex, posterIndex + 1);
+    }
+  };
 
   return (
     <Column>
@@ -254,39 +251,20 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
                 ? t(($) => $.stopDetails.infoSpots.cancelDeleteInfoSpot)
                 : t(($) => $.stopDetails.infoSpots.deleteInfoSpot)}
             </SimpleButton>
-            <Row className="gap-2">
-              <span
-                data-testid={testIds.positionIndicator}
-                className={twJoin(
-                  'flex items-center rounded-sm p-2 transition-colors',
-                  justMoved
-                    ? 'bg-hsl-light-green'
-                    : 'bg-gray-300 duration-3000',
-                )}
-              >
-                {infoSpotIndex + 1}/{totalCount}
-              </span>
-              <SimpleButton
-                className="rounded-sm px-2"
-                shape="slim"
-                testId={testIds.moveUpInfoSpot}
-                onClick={handleMoveUp}
-                disabled={isFirst || toBeDeleted}
-                inverted
-              >
-                <i className="icon-arrow rotate-180" />
-              </SimpleButton>
-              <SimpleButton
-                className="rounded-sm px-2"
-                shape="slim"
-                testId={testIds.moveDownInfoSpot}
-                onClick={handleMoveDown}
-                disabled={isLast || toBeDeleted}
-                inverted
-              >
-                <i className="icon-arrow" />
-              </SimpleButton>
-            </Row>
+            <PositionMoveControls
+              position={infoSpotIndex + 1}
+              total={totalCount}
+              isFirst={isFirst}
+              isLast={isLast}
+              disabled={toBeDeleted}
+              onMoveUp={() => onMoveUp(infoSpotIndex)}
+              onMoveDown={() => onMoveDown(infoSpotIndex)}
+              testIds={{
+                positionIndicator: testIds.positionIndicator,
+                moveUp: testIds.moveUpInfoSpot,
+                moveDown: testIds.moveDownInfoSpot,
+              }}
+            />
           </Row>
         </Column>
       </div>
@@ -298,6 +276,11 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             posterIndex={posterIndex}
             addPoster={addPoster}
             onRemovePoster={onRemovePoster}
+            onMovePosterUp={onMovePosterUp}
+            onMovePosterDown={onMovePosterDown}
+            isFirstPoster={posterIndex === 0}
+            isLastPoster={posterIndex === posters.length - 1}
+            totalPosters={posters.length}
             infoSpotToBeDeleted={toBeDeleted}
           />
         ))

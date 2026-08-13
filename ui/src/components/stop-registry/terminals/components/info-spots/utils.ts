@@ -5,7 +5,11 @@ import {
   InfoSpotDetailsFragment,
   StopRegistryIntendedUser,
 } from '../../../../../generated/graphql';
-import { EnrichedParentStopPlace, Point } from '../../../../../types';
+import {
+  EnrichedParentStopPlace,
+  Point,
+  StopPlaceInfoSpots,
+} from '../../../../../types';
 import { getGeometryPoint } from '../../../../../utils';
 import { InfoSpotPurposeEnum } from '../../../stops/stop-details/info-spots/types/InfoSpotPurpose';
 import {
@@ -145,7 +149,7 @@ export function useSorting() {
 }
 
 function getSortValue(
-  infoSpot: InfoSpotDetailsFragment,
+  infoSpot: StopPlaceInfoSpots,
   field: SortField,
   t: TFunction,
   terminal: EnrichedParentStopPlace,
@@ -169,19 +173,19 @@ function getSortValue(
 }
 
 function compareSizeValues(
-  a: InfoSpotDetailsFragment,
-  b: InfoSpotDetailsFragment,
+  a: StopPlaceInfoSpots,
+  b: StopPlaceInfoSpots,
 ): number {
   const widthDiff = (a.width ?? 0) - (b.width ?? 0);
   return widthDiff !== 0 ? widthDiff : (a.height ?? 0) - (b.height ?? 0);
 }
 
 export function sortInfoSpots(
-  infoSpots: ReadonlyArray<InfoSpotDetailsFragment>,
+  infoSpots: ReadonlyArray<StopPlaceInfoSpots>,
   sortConfig: SortConfig,
   t: TFunction,
   terminal: EnrichedParentStopPlace,
-): ReadonlyArray<InfoSpotDetailsFragment> {
+): ReadonlyArray<StopPlaceInfoSpots> {
   if (!sortConfig.field) {
     return infoSpots;
   }
@@ -228,7 +232,7 @@ export const getTerminalInfoSpotLocation = (
 };
 
 export function mapTerminalInfoSpotDataToFormState(
-  infoSpot: InfoSpotDetailsFragment,
+  infoSpot: StopPlaceInfoSpots,
   terminal: EnrichedParentStopPlace,
 ): TerminalInfoSpotFormState {
   const location = getTerminalInfoSpotLocation(infoSpot, terminal);

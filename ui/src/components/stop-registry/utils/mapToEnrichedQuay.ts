@@ -2,24 +2,47 @@ import compact from 'lodash/compact';
 import {
   AccessibilityAssessmentDetailsFragment,
   InfoSpotDetailsFragment,
-  StopRegistryPosterInput,
 } from '../../../generated/graphql';
-import { EnrichedQuay, Quay, StopPlaceInfoSpots } from '../../../types';
+import {
+  EnrichedQuay,
+  PosterWithSortOrder,
+  Quay,
+  StopPlaceInfoSpots,
+} from '../../../types';
 import {
   KnownValueKey,
+  comparePrimitive,
+  compareValues,
   findKeyValueParsed,
   getQuayDetailsForEnrichment,
 } from '../../../utils';
 
-function sortPosters(
-  posters: ReadonlyArray<StopRegistryPosterInput | null> | undefined | null,
-): Array<StopRegistryPosterInput> {
-  return compact(posters).sort((a, b) =>
-    (a.label ?? '').localeCompare(b.label ?? ''),
+function sortBySortOrder<T extends { sortOrder?: number | null }>(
+  items: ReadonlyArray<T>,
+): Array<T> {
+  return [...items].sort((a, b) =>
+    compareValues(a.sortOrder, b.sortOrder, comparePrimitive),
   );
 }
 
-function enrichInfoSpot(infoSpot: InfoSpotDetailsFragment): StopPlaceInfoSpots {
+function sortPosters(
+  posters: InfoSpotDetailsFragment['poster'],
+): Array<PosterWithSortOrder> {
+  return sortBySortOrder(
+    compact(posters).map((poster) => {
+      const sortOrder = findKeyValueParsed(
+        poster,
+        KnownValueKey.SortOrder,
+        parseInt,
+      );
+      return { ...poster, sortOrder };
+    }),
+  );
+}
+
+export function enrichInfoSpot(
+  infoSpot: InfoSpotDetailsFragment,
+): StopPlaceInfoSpots {
   const sortOrder = findKeyValueParsed(
     infoSpot,
     KnownValueKey.SortOrder,
@@ -35,9 +58,7 @@ function enrichInfoSpot(infoSpot: InfoSpotDetailsFragment): StopPlaceInfoSpots {
 function sortInfoSpots(
   infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
 ): Array<StopPlaceInfoSpots> {
-  return compact(infoSpots)
-    .map(enrichInfoSpot)
-    .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+  return sortBySortOrder(compact(infoSpots).map(enrichInfoSpot));
 }
 
 export function mapToEnrichedQuay(

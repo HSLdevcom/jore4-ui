@@ -1,10 +1,7 @@
 import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  InfoSpotDetailsFragment,
-  ShelterEquipmentDetailsFragment,
-} from '../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../types';
+import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
+import { StopPlaceInfoSpots, StopWithDetails } from '../../../../../types';
 import {
   NullOptionEnum,
   showSuccessToast,
@@ -37,13 +34,13 @@ const testIds = {
 
 type InfoSpotsSectionProps = {
   readonly stop: StopWithDetails;
-  readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
+  readonly infoSpots: ReadonlyArray<StopPlaceInfoSpots>;
   readonly shelter: ShelterEquipmentDetailsFragment;
   readonly shelterNumber: number | null;
 };
 
 export const useInfoSpotFormDefaultValues = (
-  infoSpots: ReadonlyArray<InfoSpotDetailsFragment>,
+  infoSpots: ReadonlyArray<StopPlaceInfoSpots>,
   stop: Readonly<StopWithDetails>,
   shelter: Readonly<ShelterEquipmentDetailsFragment>,
 ) => {

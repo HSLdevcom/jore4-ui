@@ -6,7 +6,7 @@ import {
   listboxStyles,
 } from '../../../../../common/Dropdowns';
 import { ItemSizeState, PosterSizeSubMenu } from '../types';
-import { formatOption } from '../utils';
+import { formatOption } from './formatOption';
 
 type SizeSelectorProps = {
   readonly className?: string;

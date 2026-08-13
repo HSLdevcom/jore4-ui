@@ -7,6 +7,7 @@ import { LoadingState } from '../../../types';
 import { useLoader } from '../../common/hooks';
 import { Container, Visible } from '../../common/LayoutComponents';
 import { navigationBlockerContext } from '../../forms/common/NavigationBlocker';
+import { enrichInfoSpot } from '../utils';
 import { TerminalDetails } from './components/basic-details/TerminalDetailsSection';
 import { TerminalExternalLinks } from './components/external-links/TerminalExternalLinks';
 import { TerminalInfoSpotsSection } from './components/info-spots/TerminalInfoSpotsSection';
@@ -71,7 +72,7 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
         ...compact(parentStopPlaceDetails.children).flatMap((child) =>
           compact(child.quays).flatMap((quay) => compact(quay.infoSpots)),
         ),
-      ]
+      ].map(enrichInfoSpot)
     : [];
 
   return (

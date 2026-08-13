@@ -2,3 +2,8 @@ export * from './formatOption';
 export * from './infoSpotDefaults';
 export * from './infoSpotPurposeUtils';
 export * from './mapInfoSpotDataToFormState';
+export * from './PositionMoveControls';
+export * from './PurposeFormFragment';
+export * from './PurposeSelector';
+export * from './SizeFormFragment';
+export * from './SizeSelector';

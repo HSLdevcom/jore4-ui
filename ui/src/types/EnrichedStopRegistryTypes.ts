@@ -77,13 +77,23 @@ export type QuayEnrichmentProperties = {
 };
 
 export type StopPlace = StopPlaceDetailsFragment;
-export type StopPlaceInfoSpots = InfoSpotDetailsFragment & {
+export type PosterElement = NonNullable<
+  InfoSpotDetailsFragment['poster']
+>[number];
+export type PosterWithSortOrder = PosterElement & {
   readonly sortOrder?: number | null;
+};
+export type StopPlaceInfoSpots = Omit<InfoSpotDetailsFragment, 'poster'> & {
+  readonly sortOrder?: number | null;
+  readonly poster?: ReadonlyArray<PosterWithSortOrder> | null;
 };
 export type EnrichedStopPlace = Omit<StopPlace, 'name'> &
   SharedEnrichmentProperties;
 export type Quay = QuayDetailsFragment;
-export type EnrichedQuay = Quay & QuayEnrichmentProperties;
+export type EnrichedQuay = Omit<Quay, 'infoSpots'> &
+  QuayEnrichmentProperties & {
+    readonly infoSpots?: ReadonlyArray<StopPlaceInfoSpots> | null;
+  };
 export type ParentStopPlace = ParentStopPlaceDetailsFragment;
 export type EnrichedParentStopPlace = Omit<ParentStopPlace, 'name'> &
   SharedEnrichmentProperties &

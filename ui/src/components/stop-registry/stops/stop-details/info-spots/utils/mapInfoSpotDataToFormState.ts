@@ -40,6 +40,7 @@ export function mapInfoSpotDataToFormState(
       label: mapStringToPurpose(poster.label),
       lines: poster.lines ?? null,
       size: determineItemSize(poster),
+      sortOrder: poster.sortOrder ?? null,
       toBeDeletedPoster: false,
     })),
     sortOrder: infoSpot.sortOrder ?? null,

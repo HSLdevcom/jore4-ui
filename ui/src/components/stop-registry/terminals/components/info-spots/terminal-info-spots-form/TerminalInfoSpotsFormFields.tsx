@@ -17,9 +17,11 @@ import {
 } from '../../../../../common/Dropdowns';
 import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
-import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
 import { PosterState } from '../../../../stops/stop-details/info-spots/types';
-import { mapStringToPurpose } from '../../../../stops/stop-details/info-spots/utils';
+import {
+  SizeFormFragment,
+  mapStringToPurpose,
+} from '../../../../stops/stop-details/info-spots/utils';
 import { ZoneLabel } from '../../../../types';
 import { TerminalInfoSpotFormState } from '../types';
 import {
@@ -56,7 +58,11 @@ export const TerminalInfoSpotFormFields: FC<
     useFormContext<TerminalInfoSpotFormState>();
   const toBeDeleted = watch('toBeDeleted');
 
-  const { fields: posters, append: appendPoster } = useFieldArray({
+  const {
+    fields: posters,
+    append: appendPoster,
+    move: movePoster,
+  } = useFieldArray({
     control,
     name: 'poster',
   });
@@ -71,6 +77,7 @@ export const TerminalInfoSpotFormFields: FC<
       label: mapStringToPurpose(defaultTerminalInfoSpotPosterValues.label),
       lines: '',
       toBeDeletedPoster: false,
+      sortOrder: null,
       id: null,
     };
     appendPoster(newPoster);
@@ -88,6 +95,18 @@ export const TerminalInfoSpotFormFields: FC<
       shouldTouch: true,
       shouldValidate: true, // Add this to trigger revalidation
     });
+  };
+
+  const onMovePosterUp = (posterIndex: number) => {
+    if (posterIndex > 0) {
+      movePoster(posterIndex, posterIndex - 1);
+    }
+  };
+
+  const onMovePosterDown = (posterIndex: number) => {
+    if (posterIndex < posters.length - 1) {
+      movePoster(posterIndex, posterIndex + 1);
+    }
   };
 
   return (
@@ -238,6 +257,11 @@ export const TerminalInfoSpotFormFields: FC<
             posterIndex={posterIndex}
             addPoster={addPoster}
             onRemovePoster={onRemovePoster}
+            onMovePosterUp={onMovePosterUp}
+            onMovePosterDown={onMovePosterDown}
+            isFirstPoster={posterIndex === 0}
+            isLastPoster={posterIndex === posters.length - 1}
+            totalPosters={posters.length}
           />
         ))
       ) : (

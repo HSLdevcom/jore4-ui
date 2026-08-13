@@ -1,14 +1,29 @@
 import {
   InfoSpotDetailsFragment,
   StopRegistryInfoSpotInput,
+  StopRegistryPosterInput,
 } from '../../../generated/graphql';
 import { KnownValueKey, patchKeyValues } from '../../../utils';
 import {
   mapCompactOrNull,
   mapGeoJsonToInput,
-  omitIdVersionAndTypeName,
   omitTypeName,
 } from './copyEntityUtilities';
+
+function mapPosterToInput(
+  poster: InfoSpotDetailsFragment['poster'],
+): ReadonlyArray<StopRegistryPosterInput> | null {
+  return mapCompactOrNull(poster, (item, index) => ({
+    id: item.id,
+    height: item.height,
+    keyValues: patchKeyValues(item, [
+      { key: KnownValueKey.SortOrder, values: [index.toString()] },
+    ]),
+    label: item.label,
+    lines: item.lines,
+    width: item.width,
+  }));
+}
 
 export function mapInfoSpotToInput(
   infoSpot: InfoSpotDetailsFragment,
@@ -26,7 +41,7 @@ export function mapInfoSpotToInput(
     infoSpotType: infoSpot.infoSpotType,
     intendedUser: infoSpot.intendedUser,
     label: infoSpot.label,
-    poster: mapCompactOrNull(infoSpot.poster, omitIdVersionAndTypeName),
+    poster: mapPosterToInput(infoSpot.poster),
     railInformation: infoSpot.railInformation,
     speechProperty: infoSpot.speechProperty,
     width: infoSpot.width,
