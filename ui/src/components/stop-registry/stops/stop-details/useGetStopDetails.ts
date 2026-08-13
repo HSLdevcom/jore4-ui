@@ -323,6 +323,10 @@ const GQL_INFO_SPOT_DETAILS = gql`
       width
       height
       lines
+      keyValues {
+        key
+        values
+      }
     }
     geometry {
       type
