@@ -316,17 +316,27 @@ const GQL_INFO_SPOT_DETAILS = gql`
       values
     }
     poster {
-      id
-      version
-
-      label
-      width
-      height
-      lines
+      ...PosterDetails
     }
     geometry {
       type
       coordinates
+    }
+  }
+`;
+
+const GQL_POSTER_DETAILS = gql`
+  fragment PosterDetails on stop_registry_poster {
+    id
+    version
+
+    label
+    width
+    height
+    lines
+    keyValues {
+      key
+      values
     }
   }
 `;
