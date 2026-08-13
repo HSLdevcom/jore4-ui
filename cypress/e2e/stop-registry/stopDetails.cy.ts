@@ -2648,6 +2648,100 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
         InfoSpotViewCard.getLabel().shouldHaveText('JP1234568');
       });
     });
+
+    it('should be able to reorder posters', () => {
+      verifyInitialInfoSpots();
+
+      InfoSpotViewCard.getNthSectionContainer(0).within(() => {
+        StopDetailsPage.infoSpots.getEditButton().click();
+        InfoSpotViewCard.getSectionContainers().should('not.exist');
+
+        const infoSpot = InfoSpotsForm.infoSpots;
+
+        InfoSpotsForm.getNthInfoSpot(0).within(() => {
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getPurposeButton().should('have.text', 'PT1234');
+            infoSpot.getPosterPositionIndicator().should('contain', '1/1');
+            infoSpot.getMoveUpPosterButton().should('be.disabled');
+            infoSpot.getMoveDownPosterButton().should('be.disabled');
+          });
+
+          infoSpot.getAddPosterButton().click();
+          infoSpot.getPosterContainers().should('have.length', 2);
+
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getPurposeButton().click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot
+                .getPurposeOptions()
+                .contains('Muu käyttötarkoitus')
+                .click(),
+            );
+            infoSpot.getPurposeCustom().clearAndType('PT9999');
+          });
+
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getPurposeButton().should('have.text', 'PT1234');
+            infoSpot.getPosterPositionIndicator().should('contain', '1/2');
+            infoSpot.getMoveUpPosterButton().should('be.disabled');
+            infoSpot.getMoveDownPosterButton().should('not.be.disabled');
+          });
+
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getPurposeCustom().should('have.value', 'PT9999');
+            infoSpot.getPosterPositionIndicator().should('contain', '2/2');
+            infoSpot.getMoveUpPosterButton().should('not.be.disabled');
+            infoSpot.getMoveDownPosterButton().should('be.disabled');
+          });
+
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getMoveUpPosterButton().click();
+          });
+
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getPurposeCustom().should('have.value', 'PT9999');
+            infoSpot.getPosterPositionIndicator().should('contain', '1/2');
+            infoSpot.getMoveUpPosterButton().should('be.disabled');
+            infoSpot.getMoveDownPosterButton().should('not.be.disabled');
+          });
+
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getPurposeButton().should('have.text', 'PT1234');
+            infoSpot.getPosterPositionIndicator().should('contain', '2/2');
+            infoSpot.getMoveUpPosterButton().should('not.be.disabled');
+            infoSpot.getMoveDownPosterButton().should('be.disabled');
+          });
+
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getMoveDownPosterButton().click();
+          });
+
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getPurposeButton().should('have.text', 'PT1234');
+            infoSpot.getPosterPositionIndicator().should('contain', '1/2');
+          });
+
+          infoSpot.getNthPosterContainer(1).within(() => {
+            infoSpot.getPurposeCustom().should('have.value', 'PT9999');
+            infoSpot.getPosterPositionIndicator().should('contain', '2/2');
+          });
+        });
+      });
+
+      StopDetailsPage.infoSpots.getSaveButton().click();
+      Toast.expectSuccessToast('Pysäkki muokattu');
+      InfoSpotViewCard.getSectionContainers().shouldBeVisible();
+
+      InfoSpotViewCard.getNthSectionContainer(0).within(() => {
+        InfoSpotViewCard.getNthPosterContainer(0).within(() => {
+          InfoSpotViewCard.getPosterPurpose().shouldHaveText('PT1234');
+        });
+
+        InfoSpotViewCard.getNthPosterContainer(1).within(() => {
+          InfoSpotViewCard.getPosterPurpose().shouldHaveText('PT9999');
+        });
+      });
+    });
   });
 
   describe('version and copies', () => {
