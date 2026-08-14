@@ -799,6 +799,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       form.getSubmitButton().click();
 
       waitForCopyToBeFinished();
+      cy.url().should('contain', 'observationDate=2052-01-02');
 
       // Confirm that the dates of the new version are correct
       StopAreaDetailsPage.versioningRow
@@ -820,7 +821,11 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         );
       });
 
-      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
+      StopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+      cy.url().should('contain', 'observationDate=2025-01-01');
+      expectGraphQLCallToSucceed('@gqlGetStopPlaceDetails');
 
       // Confirm that the old version was cut correctly
       StopAreaDetailsPage.versioningRow
