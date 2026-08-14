@@ -3,11 +3,10 @@ import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { mapLngLatToPoint } from '../../../../../utils';
+import { getTransportModeIcon, mapLngLatToPoint } from '../../../../../utils';
 import { LocatorButton } from '../../../../common/Buttons';
 import { ObservationDateControl, PageTitle } from '../../../../common/Jore';
 import { useShowStopAreaOnMap } from '../../../utils';
-import { getTransportModeIcon } from '../../../utils/getTransportModeIcon';
 import { StopAreaComponentProps } from '../types';
 import { TitleRowActions } from './TitleRowActions';
 

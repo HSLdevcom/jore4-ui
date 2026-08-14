@@ -1,8 +1,10 @@
 import { buildLocalizedString, buildRoute } from '@hsl/jore4-test-db-manager';
 import {
   LineTableRowFragment,
+  ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteTableRowFragment,
+  RouteTypeOfLineEnum,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
@@ -33,6 +35,12 @@ describe(`<${RoutesTable.name} />`, () => {
       priority: Priority.Standard,
       direction: RouteDirectionEnum.Outbound,
       route_journey_patterns: [],
+      route_line: {
+        __typename: 'route_line',
+        line_id: lineId,
+        primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+        type_of_line: RouteTypeOfLineEnum.RegionalBusService,
+      },
     },
   ];
 
@@ -80,6 +88,8 @@ describe(`<${RoutesTable.name} />`, () => {
       name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
       short_name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
       line_routes: [],
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+      type_of_line: RouteTypeOfLineEnum.RegionalBusService,
       __typename: 'route_line',
     },
     {
@@ -89,6 +99,8 @@ describe(`<${RoutesTable.name} />`, () => {
       name_i18n: buildLocalizedString('Rautatientori - Malmi as.'),
       short_name_i18n: buildLocalizedString('Rautatientori - Malmi as.'),
       line_routes: [],
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+      type_of_line: RouteTypeOfLineEnum.RegionalBusService,
       __typename: 'route_line',
     },
     {
@@ -98,6 +110,8 @@ describe(`<${RoutesTable.name} />`, () => {
       name_i18n: buildLocalizedString('Rautatientori - Nikkilä'),
       short_name_i18n: buildLocalizedString('Rautatientori - Nikkilä'),
       line_routes: [],
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+      type_of_line: RouteTypeOfLineEnum.RegionalBusService,
       __typename: 'route_line',
     },
     {
@@ -107,6 +121,8 @@ describe(`<${RoutesTable.name} />`, () => {
       name_i18n: buildLocalizedString('Erottaja - Arkkadiankatu'),
       short_name_i18n: buildLocalizedString('Erottaja - Arkkadiankatu'),
       line_routes: [],
+      primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+      type_of_line: RouteTypeOfLineEnum.RegionalBusService,
       __typename: 'route_line',
     },
   ];

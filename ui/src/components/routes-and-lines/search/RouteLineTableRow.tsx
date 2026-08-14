@@ -5,7 +5,6 @@ import { twMerge } from 'tailwind-merge';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
-  ReusableComponentsVehicleModeEnum as VehicleMode,
 } from '../../../generated/graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../time';
@@ -74,15 +73,7 @@ const getDisplayInformation = (
     case RouteLineTableRowVariant.RoutesAndLines:
     default:
       return {
-        rowIcon: (
-          <VehicleIcon
-            className="text-2xl text-tweaked-brand"
-            vehicleMode={
-              VehicleMode.Bus /* TODO: This hardcode needs proper logic when other vehicles are implemented */
-            }
-            rowItem={rowItem}
-          />
-        ),
+        rowIcon: <VehicleIcon className="text-2xl" rowItem={rowItem} />,
         alternativeRowActionButton: (
           <LineTimetablesButton
             disabled={!hasTimetables}

@@ -2,10 +2,8 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { StopRegistryTransportModeType } from '../../../generated/graphql';
-import {
-  getTransportModeIcon,
-  getTransportModeIconTitle,
-} from '../utils/getTransportModeIcon';
+import { getTransportModeIcon } from '../../../utils';
+import { getTransportModeIconTitle } from '../utils/getTransportModeIcon';
 
 const testIds = {
   unknownType: 'StopTransportModeIcon::unknown',

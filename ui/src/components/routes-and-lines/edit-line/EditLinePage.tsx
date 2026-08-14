@@ -11,8 +11,8 @@ import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
 import {
   defaultLocalizedString,
+  getTransportModeIcon,
   showSuccessToast,
-  vehicleModeIconMapping,
 } from '../../../utils';
 import { useLoader } from '../../common/hooks';
 import { PageTitle } from '../../common/Jore';
@@ -151,7 +151,10 @@ export const EditLinePage: FC = () => {
           {line?.primary_vehicle_mode && (
             <i
               className={twJoin(
-                vehicleModeIconMapping[line.primary_vehicle_mode],
+                getTransportModeIcon(
+                  line.primary_vehicle_mode,
+                  line.type_of_line,
+                ),
                 'text-5xl',
               )}
             />

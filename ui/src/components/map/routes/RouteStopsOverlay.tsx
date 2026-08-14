@@ -12,8 +12,8 @@ import { Priority } from '../../../types/enums';
 import {
   filterDistinctConsecutiveStops,
   filterHighestPriorityCurrentStops,
+  getTransportModeIcon,
   mapVehicleModeToRouteColor,
-  vehicleModeIconMapping,
 } from '../../../utils';
 import { mapDirectionToSymbol } from '../../../utils/i18n';
 import { EditButton } from '../../common/Buttons';
@@ -50,6 +50,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
   const {
     routeMetadata,
     routeVehicleMode,
+    routeLineType,
     includedStopLabels,
     stopsEligibleForJourneyPattern,
     // selectedRouteId is undefined if we are creating a new route
@@ -84,7 +85,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
         <MapOverlayHeader testId={testIds.mapOverlayHeader}>
           <i
             className={twJoin(
-              vehicleModeIconMapping[routeVehicleMode],
+              getTransportModeIcon(routeVehicleMode, routeLineType),
               'mt-1 text-xl',
             )}
           />
@@ -111,7 +112,10 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
           <div
             className="mt-1 ml-1 flex h-6 w-6 items-center justify-center rounded-xs font-bold text-white"
             style={{
-              backgroundColor: mapVehicleModeToRouteColor(routeVehicleMode),
+              backgroundColor: mapVehicleModeToRouteColor(
+                routeVehicleMode,
+                routeLineType,
+              ),
             }}
           >
             {mapDirectionToSymbol(t, routeMetadata.direction)}

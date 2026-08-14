@@ -35,6 +35,11 @@ const GQL_ROUTE_TABLE_ROW = gql`
         is_used_as_timing_point
       }
     }
+    route_line {
+      line_id
+      primary_vehicle_mode
+      type_of_line
+    }
   }
 `;
 

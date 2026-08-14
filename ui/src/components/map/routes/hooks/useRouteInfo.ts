@@ -3,6 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteMetadataFragment,
   RouteStopFieldsFragment,
+  RouteTypeOfLineEnum,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   useGetRouteWithInfrastructureLinksWithStopsQuery,
 } from '../../../../generated/graphql';
@@ -74,9 +75,9 @@ const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
   }
 `;
 
-const getRouteInfoFromRoute = (
+function getRouteInfoFromRoute(
   route: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
-) => {
+): RouteInfo {
   const infraLinksWithStops = mapInfrastructureLinksAlongRouteToRouteInfraLinks(
     route.infrastructure_links_along_route,
   );
@@ -91,12 +92,13 @@ const getRouteInfoFromRoute = (
   return {
     routeMetadata: route,
     routeVehicleMode: route.route_line.primary_vehicle_mode,
+    routeLineType: route.route_line.type_of_line,
     stopsEligibleForJourneyPattern,
     includedStopLabels,
   };
-};
+}
 
-const getRouteInfoFromState = (editedRouteData: EditedRouteData) => {
+function getRouteInfoFromState(editedRouteData: EditedRouteData): RouteInfo {
   return {
     routeMetadata: editedRouteData.metaData
       ? mapRouteFormToInput(editedRouteData.metaData)
@@ -104,22 +106,24 @@ const getRouteInfoFromState = (editedRouteData: EditedRouteData) => {
     routeVehicleMode:
       editedRouteData.lineInfo?.primary_vehicle_mode ??
       editedRouteData.vehicleMode,
+    routeLineType: editedRouteData.lineInfo?.type_of_line,
     stopsEligibleForJourneyPattern:
       editedRouteData.stopsEligibleForJourneyPattern,
     includedStopLabels: editedRouteData.includedStopLabels,
   };
-};
+}
 
-export const belongsToJourneyPattern = (
+export function belongsToJourneyPattern(
   includedStopLabels: ReadonlyArray<string>,
   stopLabel: string,
-) => {
+) {
   return includedStopLabels.includes(stopLabel);
-};
+}
 
 type RouteInfo = {
   readonly routeMetadata: RouteMetadataFragment | undefined;
   readonly routeVehicleMode: ReusableComponentsVehicleModeEnum | undefined;
+  readonly routeLineType: RouteTypeOfLineEnum | undefined;
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   readonly includedStopLabels: ReadonlyArray<string>;
 };
@@ -133,7 +137,7 @@ type RouteInfo = {
  * but e.g. getting all route data to redux for every use case and using it as a source in every case
  * would create its own problems (e.g. caching) so we are going with this hybrid model for now.
  */
-export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
+export function useRouteInfo(routeId: UUID | undefined): RouteInfo {
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
@@ -168,7 +172,8 @@ export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
   return {
     routeMetadata: fetchedRoute,
     routeVehicleMode: undefined,
+    routeLineType: undefined,
     stopsEligibleForJourneyPattern: [],
     includedStopLabels: [],
   };
-};
+}

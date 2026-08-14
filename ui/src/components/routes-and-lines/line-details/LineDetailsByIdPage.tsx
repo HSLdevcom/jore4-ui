@@ -12,7 +12,7 @@ import {
   startRouteCreatingAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import { isPastEntity, vehicleModeIconMapping } from '../../../utils';
+import { getTransportModeIcon, isPastEntity } from '../../../utils';
 import { useNavigateToMap } from '../../common/hooks';
 import { Column, Container, Row, Visible } from '../../common/LayoutComponents';
 import { PageHeader } from '../common/PageHeader';
@@ -74,7 +74,10 @@ export const LineDetailsByIdPage: FC = () => {
           {line?.primary_vehicle_mode && (
             <i
               className={twJoin(
-                vehicleModeIconMapping[line.primary_vehicle_mode],
+                getTransportModeIcon(
+                  line.primary_vehicle_mode,
+                  line.type_of_line,
+                ),
                 'mt-2 text-6xl',
               )}
             />

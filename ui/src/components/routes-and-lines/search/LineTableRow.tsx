@@ -26,6 +26,8 @@ const GQL_LINE_TABLE_ROW = gql`
     validity_start
     validity_end
     priority
+    primary_vehicle_mode
+    type_of_line
     ...LineMapParams
     line_routes {
       ...RouteMapParams
