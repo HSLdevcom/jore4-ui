@@ -1,9 +1,6 @@
 import { gql } from '@apollo/client';
 import { FC } from 'react';
-import {
-  ReusableComponentsVehicleModeEnum,
-  useGetRouteRenderInfoByIdQuery,
-} from '../../../generated/graphql';
+import { useGetRouteRenderInfoByIdQuery } from '../../../generated/graphql';
 import { mapVehicleModeToRouteColor } from '../../../utils/colors';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
 
@@ -15,6 +12,7 @@ const GQL_GET_ROUTE_RENDER_INFO_BY_ID = gql`
       route_line {
         line_id
         primary_vehicle_mode
+        type_of_line
       }
     }
   }
@@ -29,22 +27,20 @@ type ExistingRouteGeometryLayerProps = {
 export const ExistingRouteGeometryLayer: FC<
   ExistingRouteGeometryLayerProps
 > = ({ routeId, isSelected }) => {
-  const routeRenderInfoResult = useGetRouteRenderInfoByIdQuery({
+  const { data } = useGetRouteRenderInfoByIdQuery({
     variables: { routeId },
   });
-  const routeRenderInfo =
-    routeRenderInfoResult.data?.route_route_by_pk ?? undefined;
+  const routeRenderInfo = data?.route_route_by_pk;
 
   // do not render anything before data is received
   if (!routeRenderInfo?.route_shape) {
     return null;
   }
 
-  const vehicleMode =
-    routeRenderInfo.route_line?.primary_vehicle_mode ??
-    ReusableComponentsVehicleModeEnum.Bus;
-
-  const routeColor = mapVehicleModeToRouteColor(vehicleMode);
+  const routeColor = mapVehicleModeToRouteColor(
+    routeRenderInfo.route_line.primary_vehicle_mode,
+    routeRenderInfo.route_line.type_of_line,
+  );
 
   return (
     <RouteGeometryLayer

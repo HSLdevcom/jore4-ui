@@ -70988,7 +70988,8 @@ export type GetRouteRenderInfoByIdQuery = {
     readonly route_line: {
       readonly __typename?: 'route_line',
       readonly line_id: UUID,
-      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum
     }
   } | null
 };
@@ -85230,7 +85231,7 @@ export type ResolveStopNameQueryHookResult = ReturnType<typeof useResolveStopNam
 export type ResolveStopNameLazyQueryHookResult = ReturnType<typeof useResolveStopNameLazyQuery>;
 export type ResolveStopNameSuspenseQueryHookResult = ReturnType<typeof useResolveStopNameSuspenseQuery>;
 export type ResolveStopNameQueryResult = Apollo.QueryResult<ResolveStopNameQuery, ResolveStopNameQueryVariables>;
-export const GetRouteRenderInfoByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteRenderInfoById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetRouteRenderInfoByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteRenderInfoById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetRouteRenderInfoByIdQuery__
