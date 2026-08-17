@@ -16,9 +16,10 @@ type FileImportDragAndDropProps = {
   readonly setFileList: (fileList: File[]) => void;
 };
 
-const isCorrectFormatFile = (file: File) =>
+function isCorrectFormatFile(file: File) {
   // exp files have empty file type, just use filename extension for checking instead
-  file.type === 'text/csv' || file.name.split('.').pop() === 'exp';
+  return file.type === 'text/csv' || file.name.endsWith('exp');
+}
 
 export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
   fileList,

@@ -6,7 +6,7 @@ import {
 import { Priority } from '../../../types/enums';
 import { isRouteActiveOnObservationDate } from '../../../utils';
 
-export const useGetLineDraftDetails = () => {
+export function useGetLineDraftDetails() {
   const { label } = useRequiredParams<{ label: string }>();
 
   const { observationDate } = useObservationDateQueryParam();
@@ -31,4 +31,4 @@ export const useGetLineDraftDetails = () => {
     : [];
 
   return { routes: filteredRoutes };
-};
+}

@@ -38,14 +38,16 @@ const testIds = {
   addTimingPlaceButton: 'TimingSettingsForm::addTimingPlaceButton',
 };
 
-export const mapStopJourneyPatternToFormState = (
+export function mapStopJourneyPatternToFormState(
   stopInfo: ScheduledStopPointWithTimingSettingsFragment,
-) => ({
-  isUsedAsTimingPoint: stopInfo.is_used_as_timing_point,
-  isRegulatedTimingPoint: stopInfo.is_regulated_timing_point,
-  isLoadingTimeAllowed: stopInfo.is_loading_time_allowed,
-  timingPlaceId: stopInfo?.scheduled_stop_points[0].timing_place_id,
-});
+) {
+  return {
+    isUsedAsTimingPoint: stopInfo.is_used_as_timing_point,
+    isRegulatedTimingPoint: stopInfo.is_regulated_timing_point,
+    isLoadingTimeAllowed: stopInfo.is_loading_time_allowed,
+    timingPlaceId: stopInfo?.scheduled_stop_points[0].timing_place_id,
+  };
+}
 
 export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
   defaultValues,

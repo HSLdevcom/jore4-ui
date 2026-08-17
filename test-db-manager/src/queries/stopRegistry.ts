@@ -173,18 +173,18 @@ export const extractQuayIdsFromResponse = (
     return { label: quay.publicCode, netexId: quay.id };
   });
 
-export const mapToDeleteStopPlaceMutation = (stopPlaceId: string) => {
+export function mapToDeleteStopPlaceMutation(stopPlaceId: string) {
   return {
     query: getGqlString(GQL_DELETE_STOP_PLACE),
     variables: { stopPlaceId },
   };
-};
+}
 
-export const mapToGetAllStopPlaceIds = () => {
+export function mapToGetAllStopPlaceIds() {
   return {
     query: getGqlString(GQL_GET_ALL_STOP_PLACE_IDS),
   };
-};
+}
 
 export const mapToInsertStopAreaMutation = (
   input: Partial<StopRegistryGroupOfStopPlacesInput>,
@@ -195,12 +195,12 @@ export const mapToInsertStopAreaMutation = (
   };
 };
 
-export const mapToDeleteStopAreaMutation = (stopAreaId: string) => {
+export function mapToDeleteStopAreaMutation(stopAreaId: string) {
   return {
     query: getGqlString(GQL_DELETE_STOP_AREA),
     variables: { stopAreaId },
   };
-};
+}
 
 export const mapToInsertTerminalMutation = (
   input: Partial<StopRegistryCreateMultiModalStopPlaceInput>,
@@ -220,11 +220,11 @@ export const mapToUpdateTerminalMutation = (
   };
 };
 
-export const mapToGetAllStopAreaIds = () => {
+export function mapToGetAllStopAreaIds() {
   return {
     query: getGqlString(GQL_GET_ALL_STOP_AREA_IDS),
   };
-};
+}
 
 export const mapToInsertOrganisationMutation = (
   input: Partial<StopRegistryOrganisationInput>,
@@ -235,18 +235,18 @@ export const mapToInsertOrganisationMutation = (
   };
 };
 
-export const mapToDeleteOrganisationMutation = (organisationId: string) => {
+export function mapToDeleteOrganisationMutation(organisationId: string) {
   return {
     query: getGqlString(GQL_DELETE_ORGANISATION),
     variables: { organisationId },
   };
-};
+}
 
-export const mapToGetAllOrganisationIds = () => {
+export function mapToGetAllOrganisationIds() {
   return {
     query: getGqlString(GQL_GET_ALL_ORGANISATION_IDS),
   };
-};
+}
 
 export const mapToInsertInfoSpotMutation = (
   input: StopRegistryInfoSpotInput,
@@ -257,8 +257,8 @@ export const mapToInsertInfoSpotMutation = (
   };
 };
 
-export const mapToGetAllStopPlaceLabelsAndIds = () => {
+export function mapToGetAllStopPlaceLabelsAndIds() {
   return {
     query: getGqlString(GQL_ALL_STOP_PLACE_LABELS_AND_IDS),
   };
-};
+}

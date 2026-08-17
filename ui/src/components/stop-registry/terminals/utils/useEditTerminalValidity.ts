@@ -13,10 +13,10 @@ type EditTerminalValidityInputs = {
   readonly state: TerminalValidityFormState;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   terminal,
   state,
-}: EditTerminalValidityInputs): StopRegistryParentStopPlaceInput => {
+}: EditTerminalValidityInputs): StopRegistryParentStopPlaceInput {
   const { id } = terminal;
 
   const keyValues = patchKeyValues(
@@ -43,9 +43,9 @@ const mapFormStateToInput = ({
     id,
     keyValues,
   };
-};
+}
 
-export const useEditTerminalValidity = () => {
+export function useEditTerminalValidity() {
   const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();
 
   const editTerminalValidity = useCallback(
@@ -76,4 +76,4 @@ export const useEditTerminalValidity = () => {
     editTerminalValidity,
     defaultErrorHandler,
   };
-};
+}

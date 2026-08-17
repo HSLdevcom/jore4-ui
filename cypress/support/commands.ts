@@ -29,12 +29,12 @@ import type { DateTime } from 'luxon';
 import { formatShortDate } from '../utils/time';
 import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 
-const getHasuraEnvironment = () => {
+function getHasuraEnvironment() {
   if (Cypress.env('CI') === undefined && Cypress.env('CYPRESS') === 'true') {
     return HasuraEnvironment.e2e;
   }
   return HasuraEnvironment.default;
-};
+}
 
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);

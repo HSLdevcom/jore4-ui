@@ -103,7 +103,7 @@ export type QuayInput = {
   organisations?: StopPlaceMaintenance | null;
 };
 
-const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
+function mapToQuayInput(seedStopPlace: StopPlaceQuaySeedData): QuayInput {
   return {
     stopArea: seedStopPlace.stopArea,
     organisations: seedStopPlace.organisations,
@@ -220,7 +220,7 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
       ]),
     },
   };
-};
+}
 // Gets unnecessarily long and ugly with "prettier" so disabling it for these arrays.
 // prettier-ignore
 const route35Stops: Array<StopPlaceQuaySeedData> = [

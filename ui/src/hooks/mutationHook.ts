@@ -28,13 +28,11 @@ export type MutationHook<
 ) => MutationHookFunctions<TParams, TChanges, TMutationVariables>;
 
 // extends the mutation hook with some computed functions
-export const extendHook = <
+export function extendHook<
   TParams,
   TChanges,
   TMutationVariables extends OperationVariables,
->(
-  hook: MutationHook<TParams, TChanges, TMutationVariables>,
-) => {
+>(hook: MutationHook<TParams, TChanges, TMutationVariables>) {
   return (...args: Parameters<typeof hook>) => {
     const hookFunctions = hook(...args);
     const { prepare, mapChangesToVariables, executeMutation } = hookFunctions;
@@ -50,4 +48,4 @@ export const extendHook = <
       prepareAndExecute,
     };
   };
-};
+}

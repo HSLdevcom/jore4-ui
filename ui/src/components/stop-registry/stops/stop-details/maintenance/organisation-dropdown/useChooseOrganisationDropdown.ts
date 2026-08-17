@@ -4,14 +4,14 @@ import {
 } from '../../../../../../generated/graphql';
 import { useDebouncedString } from '../../../../../../hooks';
 
-export const useChooseOrganisationDropdown = (
+export function useChooseOrganisationDropdown(
   query: string,
   organisationId?: string,
   limit: number = 15,
 ): {
   organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
   selectedOrganisation?: StopPlaceOrganisationFieldsFragment;
-} => {
+} {
   const [debouncedQuery] = useDebouncedString(query, 300);
 
   const organisationsResult = useGetOrganisationsQuery();
@@ -38,4 +38,4 @@ export const useChooseOrganisationDropdown = (
     selectedOrganisation: selectedOrganisation as
       StopPlaceOrganisationFieldsFragment | undefined,
   };
-};
+}

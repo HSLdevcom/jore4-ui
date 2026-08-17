@@ -4,18 +4,18 @@ import { parseDate } from '../time';
 // useful in cases where ui designs prevent us from defining
 // submit button inside the form
 // https://github.com/react-hook-form/react-hook-form/issues/566#issuecomment-730077495
-export const submitFormByRef = (formRef: ExplicitAny) => {
+export function submitFormByRef(formRef: ExplicitAny) {
   formRef.current?.dispatchEvent(
     new Event('submit', { cancelable: true, bubbles: true }),
   );
-};
+}
 
 // maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
 // to validity end DateTime object
-export const mapDateInputToValidityEnd = (
+export function mapDateInputToValidityEnd(
   isoDate?: string,
   isIndefinite = false,
-) => {
+) {
   if (isIndefinite) {
     return null;
   }
@@ -25,4 +25,4 @@ export const mapDateInputToValidityEnd = (
   }
 
   return parseDate(isoDate).endOf('day');
-};
+}

@@ -26,10 +26,10 @@ const transportModeColors: Record<StopRegistryTransportModeType, string> = {
   [StopRegistryTransportModeType.Water]: colors.routes.ferry,
 };
 
-export const mapVehicleModeToRouteColor = (
+export function mapVehicleModeToRouteColor(
   key: ReusableComponentsVehicleModeEnum,
   typeOfLine?: RouteTypeOfLineEnum,
-) => {
+) {
   if (typeOfLine === RouteTypeOfLineEnum.ExpressBusService) {
     return colors.hslTrunkLineOrange;
   }
@@ -39,14 +39,14 @@ export const mapVehicleModeToRouteColor = (
   }
 
   return routeColors[key];
-};
+}
 
-export const mapTransportModeToColor = (
+export function mapTransportModeToColor(
   transportMode?: StopRegistryTransportModeType | null,
-): string => {
+): string {
   if (transportMode && transportMode in transportModeColors) {
     return transportModeColors[transportMode];
   }
 
   return theme.colors.tweakedBrand; // Default blue color
-};
+}

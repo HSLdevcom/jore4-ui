@@ -17,9 +17,9 @@ type ShelterAndSpots = [
   ReadonlyArray<StopPlaceInfoSpots>,
 ];
 
-const useSheltersInfoSpots = (
+function useSheltersInfoSpots(
   stop: StopWithDetails,
-): ReadonlyArray<ShelterAndSpots> => {
+): ReadonlyArray<ShelterAndSpots> {
   return useMemo(() => {
     const infoSpots: Array<InfoSpotDetailsFragment> = compact(
       stop.quay?.infoSpots ?? [],
@@ -35,7 +35,7 @@ const useSheltersInfoSpots = (
       return [shelter, shelterSpots] as ShelterAndSpots;
     });
   }, [stop]);
-};
+}
 
 export const SheltersInfoSpotsSection: FC<SheltersInfoSpotsSectionProps> = ({
   stop,

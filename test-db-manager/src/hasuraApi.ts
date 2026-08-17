@@ -7,7 +7,7 @@ enum HasuraURL {
   CI = 'http://jore4-hasura:8080/v1/graphql',
 }
 
-const getHasuraURL = () => {
+function getHasuraURL() {
   if (process.env.HASURA_URL) {
     return process.env.HASURA_URL;
   }
@@ -18,9 +18,9 @@ const getHasuraURL = () => {
     return HasuraURL.E2E;
   }
   return HasuraURL.Dev;
-};
+}
 
-const getHasuraAuthenticationHeaders = (): { [key: string]: string } => {
+function getHasuraAuthenticationHeaders() {
   if (process.env.HASURA_API_COOKIE) {
     return {
       Cookie: process.env.HASURA_API_COOKIE, // Eg. 'SESSION=AbcAbcAbc...'
@@ -31,7 +31,7 @@ const getHasuraAuthenticationHeaders = (): { [key: string]: string } => {
   return {
     'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET ?? 'hasura',
   };
-};
+}
 
 export type HasuraStringQueryBody<
   Variables extends Readonly<Record<string, unknown>>,

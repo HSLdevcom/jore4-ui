@@ -8,7 +8,9 @@ import {
 } from '../slices/loader';
 import { RootState } from '../store';
 
-export const selectLoader = (state: RootState) => state.loader;
+export function selectLoader(state: RootState) {
+  return state.loader;
+}
 
 export const selectMapOperationLoadingState = createSelector(
   selectLoader,

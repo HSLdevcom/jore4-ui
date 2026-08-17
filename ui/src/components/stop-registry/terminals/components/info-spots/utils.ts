@@ -208,10 +208,10 @@ export function sortInfoSpots(
   });
 }
 
-export const getTerminalInfoSpotLocation = (
+export function getTerminalInfoSpotLocation(
   infoSpot: Readonly<InfoSpotDetailsFragment>,
   terminal: Readonly<EnrichedParentStopPlace>,
-): Point | null => {
+): Point | null {
   // If infospot has a location use that
   // If not and quay infospot, use quay location
   // Otherwise use terminal location
@@ -229,7 +229,7 @@ export const getTerminalInfoSpotLocation = (
   }
 
   return null;
-};
+}
 
 export function mapTerminalInfoSpotDataToFormState(
   infoSpot: StopPlaceInfoSpots,

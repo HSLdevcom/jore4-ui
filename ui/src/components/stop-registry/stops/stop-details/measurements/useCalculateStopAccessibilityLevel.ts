@@ -34,7 +34,7 @@ export type StopAccessibilityLevelCalculationProperties = {
   } | null> | null;
 } | null;
 
-export const useCalculateStopAccessibilityLevel = () => {
+export function useCalculateStopAccessibilityLevel() {
   // A bench is required for the stop to be accessible.
   // We don't have a bench defined separately in our data model,
   // so we check if one exists based on stop type instead.
@@ -158,4 +158,4 @@ export const useCalculateStopAccessibilityLevel = () => {
   return {
     calculateStopAccessibilityLevel,
   };
-};
+}

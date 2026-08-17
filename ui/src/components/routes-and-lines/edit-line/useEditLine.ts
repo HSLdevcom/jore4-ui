@@ -40,7 +40,7 @@ export type EditLineChanges = {
   readonly stopsNeedingUpdate: ReadonlyArray<StopMetaTypeUpdateInfo>;
 };
 
-export const useEditLine = () => {
+export function useEditLine() {
   const { t } = useTranslation();
   const client = useApolloClient();
   const [mutateFunction] = usePatchLineMutation();
@@ -109,4 +109,4 @@ export const useEditLine = () => {
     editLineMutation: mutateFunction,
     defaultErrorHandler,
   };
-};
+}

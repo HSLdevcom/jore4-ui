@@ -17,22 +17,26 @@ type ChooseOrganisationDropdownProps = ListboxInputProps & {
   readonly optionAmount?: number;
 };
 
-const mapToOption = (
+function mapToOption(
   item: StopPlaceOrganisationFieldsFragment,
-): ComboboxOptionItem => ({
-  value: item.id ?? '',
-  content: item.name,
-});
+): ComboboxOptionItem {
+  return {
+    value: item.id ?? '',
+    content: item.name,
+  };
+}
 
-const createNewOrganisationOption = (t: TFunction): ComboboxOptionItem => ({
-  value: CREATE_NEW_ORGANISATION_OPTION,
-  content: (
-    <div className="flex items-center gap-2">
-      {t(($) => $.stopDetails.maintenance.organisation.createNewOrganisation)}
-      <AiFillPlusCircle className="text-m text-brand" />
-    </div>
-  ),
-});
+function createNewOrganisationOption(t: TFunction): ComboboxOptionItem {
+  return {
+    value: CREATE_NEW_ORGANISATION_OPTION,
+    content: (
+      <div className="flex items-center gap-2">
+        {t(($) => $.stopDetails.maintenance.organisation.createNewOrganisation)}
+        <AiFillPlusCircle className="text-m text-brand" />
+      </div>
+    ),
+  };
+}
 
 export const ChooseOrganisationDropdown: FC<
   ChooseOrganisationDropdownProps

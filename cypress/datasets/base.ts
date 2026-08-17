@@ -630,11 +630,12 @@ const baseDbResources = {
  * Returns a clone of baseDbResources so that the caller can
  * modify the data freely without side effects
  */
-export const getClonedBaseDbResources = (): typeof baseDbResources =>
-  cloneDeepWith(baseDbResources, (value) => {
+export function getClonedBaseDbResources(): typeof baseDbResources {
+  return cloneDeepWith(baseDbResources, (value) => {
     if (value instanceof DateTime) {
       return value;
     }
 
     return undefined;
   });
+}

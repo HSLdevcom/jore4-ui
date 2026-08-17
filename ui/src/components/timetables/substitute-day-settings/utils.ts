@@ -12,21 +12,21 @@ import {
   PeriodType,
 } from './OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
-const mapSubstituteDayOfWeekToNumber = (
+function mapSubstituteDayOfWeekToNumber(
   substituteDayOfWeek: SubstituteDayOfWeek,
-): number | undefined => {
+): number | undefined {
   const index = Object.values(SubstituteDayOfWeek).indexOf(substituteDayOfWeek);
   return index === 0 ? undefined : index;
-};
+}
 
-export const parseSubstituteDayOfWeek = (
+export function parseSubstituteDayOfWeek(
   substituteDayOfWeek: Maybe<number> | undefined,
-) => {
+) {
   if (substituteDayOfWeek) {
     return Object.values(SubstituteDayOfWeek)[substituteDayOfWeek];
   }
   return SubstituteDayOfWeek.NoTraffic;
-};
+}
 
 function parseOptionalInterval(
   str: string | undefined | null,
@@ -38,9 +38,9 @@ function parseOptionalInterval(
   return Duration.fromISOTime(str);
 }
 
-export const mapPeriodsToDayByLineTypes = (
+export function mapPeriodsToDayByLineTypes(
   input: PeriodType | CommonSubstitutePeriodType,
-): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] => {
+): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] {
   const {
     beginDate,
     endDate,
@@ -79,24 +79,24 @@ export const mapPeriodsToDayByLineTypes = (
     });
   }
   return objectArray;
-};
+}
 
-export const mapDateTimeToFormState = (
+export function mapDateTimeToFormState(
   date: Maybe<DateTime> | undefined,
-): string => {
+): string {
   const stringDate = date ? mapToISODate(date) : mapToISODate(DateTime.now());
   return stringDate ?? '';
-};
+}
 
-export const mapLineTypes = (lineTypes: Set<string>) => {
+export function mapLineTypes(lineTypes: Set<string>) {
   if (lineTypes.size === Object.keys(RouteTypeOfLineEnum).length) {
     lineTypes.add(AllOptionEnum.All);
   }
   return Array.from(lineTypes).join(',');
-};
+}
 
-export const generateLineTypes = (): string => {
+export function generateLineTypes(): string {
   const val: string[] = Object.values(RouteTypeOfLineEnum);
   val.push(AllOptionEnum.All);
   return val.join(',');
-};
+}

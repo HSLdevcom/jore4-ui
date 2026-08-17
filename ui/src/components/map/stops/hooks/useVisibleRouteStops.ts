@@ -9,7 +9,7 @@ import { useGetRoutesDisplayedInMap } from './useGetRoutesDisplayedInMap';
 /**
  * Hook for getting stop labels that belong to any displayed route or edited / created route
  */
-export const useVisibleRouteStops = () => {
+export function useVisibleRouteStops() {
   const { displayedRoutes } = useGetRoutesDisplayedInMap();
 
   const { includedStopLabels: editedRouteStopLabels } = useAppSelector(
@@ -38,4 +38,4 @@ export const useVisibleRouteStops = () => {
   );
 
   return { visibleRouteStopLabels };
-};
+}

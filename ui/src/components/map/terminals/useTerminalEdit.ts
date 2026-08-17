@@ -14,7 +14,7 @@ import { TerminalFormState } from '../../stop-registry/terminals/components/basi
 import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
 
-export const useTerminalEdit = () => {
+export function useTerminalEdit() {
   const { t } = useTranslation();
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
 
@@ -57,4 +57,4 @@ export const useTerminalEdit = () => {
   return {
     doUpdateTerminal,
   };
-};
+}

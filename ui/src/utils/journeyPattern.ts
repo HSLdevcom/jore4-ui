@@ -17,9 +17,11 @@ export const stopInJourneyPatternFieldsToRemove = {
  * This is used for example removing different versions of stops from the
  * journey pattern list where only the labels are shown
  */
-export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
+export function filterDistinctConsecutiveStops<TStop extends { label: string }>(
   stops: ReadonlyArray<TStop>,
-) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
+) {
+  return stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
+}
 
 type BuildJourneyPatternStopSequenceProps = {
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
@@ -37,12 +39,12 @@ type BuildJourneyPatternStopSequenceProps = {
  * @param journeyPatternId Journey pattern id
  * @returns Sequence of stops that belong to route's journey pattern
  */
-export const buildJourneyPatternStopSequence = ({
+export function buildJourneyPatternStopSequence({
   stopsEligibleForJourneyPattern,
   includedStopLabels,
   journeyPatternStops,
   journeyPatternId,
-}: BuildJourneyPatternStopSequenceProps): JourneyPatternScheduledStopPointInJourneyPatternInsertInput[] => {
+}: BuildJourneyPatternStopSequenceProps): JourneyPatternScheduledStopPointInJourneyPatternInsertInput[] {
   const stops = filterDistinctConsecutiveStops(stopsEligibleForJourneyPattern);
   return stops
     .filter((stop) => includedStopLabels.includes(stop.label))
@@ -61,7 +63,7 @@ export const buildJourneyPatternStopSequence = ({
         }),
       };
     });
-};
+}
 
 /**
  * Gets stop in journey pattern -metadata (e.g. via info) from stop.
@@ -69,10 +71,10 @@ export const buildJourneyPatternStopSequence = ({
  * @param routeId Route to whom related journey pattern metadata to get
  * @returns An array of stop in journey pattern -metadata
  */
-export const mapRouteStopsToJourneyPatternStops = (
+export function mapRouteStopsToJourneyPatternStops(
   stops: ReadonlyArray<StopWithJourneyPatternFieldsFragment>,
   routeId: UUID,
-) => {
+) {
   return stops.flatMap((stop) => {
     const stopInJourneyPattern =
       stop.scheduled_stop_point_in_journey_patterns?.find(
@@ -89,4 +91,4 @@ export const mapRouteStopsToJourneyPatternStops = (
         ]
       : [];
   });
-};
+}

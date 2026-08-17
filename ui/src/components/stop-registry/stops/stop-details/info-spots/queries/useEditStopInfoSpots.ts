@@ -100,7 +100,7 @@ function handleDeletions(
   }));
 }
 
-export const useEditStopInfoSpots = () => {
+export function useEditStopInfoSpots() {
   const { t } = useTranslation();
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
     refetchQueries: [
@@ -142,4 +142,4 @@ export const useEditStopInfoSpots = () => {
     saveStopPlaceInfoSpots,
     defaultErrorHandler,
   };
-};
+}

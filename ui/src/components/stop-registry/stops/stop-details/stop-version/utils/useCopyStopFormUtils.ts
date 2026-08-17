@@ -115,10 +115,10 @@ function useErrorHandler() {
   };
 }
 
-export const useCopyStopFormUtils = (
+export function useCopyStopFormUtils(
   originalStop: StopWithDetails,
   onCopyCreated: (result: CreateStopVersionResult) => void,
-) => {
+) {
   const { t } = useTranslation();
 
   const { setIsLoading } = useLoader(Operation.SaveStop);
@@ -161,4 +161,4 @@ export const useCopyStopFormUtils = (
     methods,
     onFormSubmit,
   };
-};
+}

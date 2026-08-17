@@ -45,11 +45,11 @@ const testIds = {
   electricCharging: 'TerminalDetailsEdit::electricCharging',
 };
 
-const mapQuayToSelectedStop = (
+function mapQuayToSelectedStop(
   terminal: EnrichedParentStopPlace,
   stopPlace: MemberStopStopPlaceDetailsFragment,
   quay: MemberStopQuayDetailsFragment,
-): SelectedStop => {
+): SelectedStop {
   const validityStart = mapToISODate(
     findKeyValue(quay, KnownValueKey.ValidityStart),
   );
@@ -66,9 +66,9 @@ const mapQuayToSelectedStop = (
     validityEnd: validityEnd ?? '',
     indefinite: !validityEnd,
   };
-};
+}
 
-const extractSelectedStops = (terminal: EnrichedParentStopPlace) => {
+function extractSelectedStops(terminal: EnrichedParentStopPlace) {
   return (
     terminal.children
       ?.filter(notNullish)
@@ -79,11 +79,11 @@ const extractSelectedStops = (terminal: EnrichedParentStopPlace) => {
             .map((quay) => mapQuayToSelectedStop(terminal, child, quay)) ?? [],
       ) ?? []
   );
-};
+}
 
-export const mapTerminalDataToFormState = (
+export function mapTerminalDataToFormState(
   terminal: EnrichedParentStopPlace,
-): TerminalFormState => {
+): TerminalFormState {
   const { latitude, longitude } = mapLngLatToPoint(
     terminal.geometry?.coordinates ?? [],
   );
@@ -118,7 +118,7 @@ export const mapTerminalDataToFormState = (
     longitude,
     selectedStops: extractSelectedStops(terminal),
   };
-};
+}
 
 type TerminalDetailsEditProps = {
   readonly terminal: EnrichedParentStopPlace;

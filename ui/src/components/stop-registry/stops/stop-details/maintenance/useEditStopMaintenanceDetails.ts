@@ -18,7 +18,7 @@ type EditTiamatParams = {
   readonly stop: StopWithDetails;
 };
 
-export const useEditStopMaintenanceDetails = () => {
+export function useEditStopMaintenanceDetails() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
 
@@ -108,4 +108,4 @@ export const useEditStopMaintenanceDetails = () => {
     saveStopMaintenanceDetails,
     defaultErrorHandler,
   };
-};
+}

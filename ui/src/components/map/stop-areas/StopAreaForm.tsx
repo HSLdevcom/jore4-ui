@@ -27,12 +27,14 @@ const testIds = {
   quays: 'StopAreaFormComponent::quays',
 };
 
-export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
+export function mapStopAreaDataToFormState(
+  stopArea: EnrichedStopPlace,
+): StopAreaFormState {
   const { latitude, longitude } = mapLngLatToPoint(
     stopArea?.geometry?.coordinates ?? [],
   );
 
-  const formState: StopAreaFormState = {
+  return {
     id: stopArea.id ?? undefined,
     privateCode: stopArea.privateCode?.value ?? '',
     name: stopArea.name ?? '',
@@ -51,9 +53,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     validityEnd: mapToISODate(stopArea.validityEnd),
     indefinite: !stopArea.validityEnd,
   };
-
-  return formState;
-};
+}
 
 type StopAreaFormProps = {
   readonly className?: string;

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 /**
  * Takes string as input, debounces and returns it after given delay
  */
-export const useDebouncedString = (string: string, delay: number) => {
+export function useDebouncedString(string: string, delay: number) {
   const [debouncedString, setDebouncedString] = useState('');
   const debouncedSetString = useMemo(
     () => debounce(setDebouncedString, delay),
@@ -16,4 +16,4 @@ export const useDebouncedString = (string: string, delay: number) => {
   }, [debouncedSetString, string]);
 
   return [debouncedString];
-};
+}

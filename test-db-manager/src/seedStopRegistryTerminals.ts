@@ -11,7 +11,7 @@ import {
   insertTerminals,
 } from './graphql-helpers';
 
-export const seedStopRegistryTerminals = async () => {
+export async function seedStopRegistryTerminals() {
   const collectedOrganisationIds = await insertOrganisations(
     seedOrganisations.concat(
       mapTerminalOwnersToOrganisations(seedLocalTerminals),
@@ -26,4 +26,4 @@ export const seedStopRegistryTerminals = async () => {
     buildTerminalUpdateInput(terminal, collectedOrganisationIds),
   );
   await insertTerminals(terminalCreateInputs, terminalUpdateInputs);
-};
+}

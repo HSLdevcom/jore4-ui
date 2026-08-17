@@ -16,15 +16,15 @@ type CommonDay = {
 
 type CommonDayProperty = 'substituteDayOfWeek' | 'lineTypes';
 
-const commonDayValidation = (
+function commonDayValidation(
   data: CommonDay,
   property: CommonDayProperty,
-): boolean => {
+): boolean {
   if (data.created && !data.fromDatabase) {
     return !isEmpty(data[property]);
   }
   return true;
-};
+}
 
 const commonDay = z
   .object({

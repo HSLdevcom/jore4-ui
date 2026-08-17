@@ -12,7 +12,7 @@ export function doOnEscape<E extends HTMLElement>(
   };
 }
 
-export const useCallbackOnKeyEscape = (callback: () => void) => {
+export function useCallbackOnKeyEscape(callback: () => void) {
   useEffect(() => {
     const onKeyEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -25,4 +25,4 @@ export const useCallbackOnKeyEscape = (callback: () => void) => {
 
     return () => document.removeEventListener('keydown', onKeyEscape, true);
   }, [callback]);
-};
+}

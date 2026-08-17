@@ -103,19 +103,23 @@ const dbResources = {
   routes,
 };
 
-const buildQuery = ({
+function buildQuery({
   label,
   validityStart,
   validityEnd,
   priority = Priority.Standard,
-}: OptionalKeys<CommonParams, 'priority'>) => ({
-  label,
-  priority,
-  validityStart,
-  validityEnd,
-});
+}: OptionalKeys<CommonParams, 'priority'>) {
+  return {
+    label,
+    priority,
+    validityStart,
+    validityEnd,
+  };
+}
 
-const deleteCreatedResources = () => removeFromDbHelper(dbResources);
+function deleteCreatedResources() {
+  return removeFromDbHelper(dbResources);
+}
 
 describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
   beforeAll(async () => {

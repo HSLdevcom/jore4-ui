@@ -3,7 +3,7 @@ import { useAppSelector } from '../../../../hooks';
 import { selectEditedRouteData } from '../../../../redux';
 import { parseDate } from '../../../../time';
 
-export const useRouteMetadata = () => {
+export function useRouteMetadata() {
   const editedRouteData = useAppSelector(selectEditedRouteData);
 
   return useMemo(() => {
@@ -23,4 +23,4 @@ export const useRouteMetadata = () => {
       priority,
     };
   }, [editedRouteData.metaData]);
-};
+}

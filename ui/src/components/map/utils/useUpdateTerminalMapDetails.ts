@@ -22,10 +22,10 @@ type UpdateTerminalInputs = {
   readonly selectedStops?: ReadonlyArray<SelectedStop>;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   terminal,
   state,
-}: UpdateTerminalInputs): StopRegistryParentStopPlaceInput => {
+}: UpdateTerminalInputs): StopRegistryParentStopPlaceInput {
   const { id } = terminal;
 
   const keyValues = patchKeyValues(
@@ -98,9 +98,9 @@ const mapFormStateToInput = ({
       },
     ]),
   };
-};
+}
 
-export const useUpdateTerminalMapDetails = () => {
+export function useUpdateTerminalMapDetails() {
   const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();
   const { editMembersOfTerminal } = useEditMembersOfTerminal();
 
@@ -128,4 +128,4 @@ export const useUpdateTerminalMapDetails = () => {
     updateTerminalMapDetails,
     defaultErrorHandler,
   };
-};
+}

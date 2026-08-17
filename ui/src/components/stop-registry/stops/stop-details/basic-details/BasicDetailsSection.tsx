@@ -19,7 +19,7 @@ import { BasicDetailsViewCard } from './BasicDetailsViewCard';
 import { StopStateChangeConfirmationDialog } from './StopStateChangeConfirmationDialog';
 import { useEditStopBasicDetails } from './useEditStopBasicDetails';
 
-const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
+function mapStopBasicDetailsDataToFormState(stop: StopWithDetails) {
   const formState: Partial<StopBasicDetailsFormState> = {
     label: stop.label ?? '',
     privateCode: stop.quay?.privateCode ?? undefined,
@@ -40,7 +40,7 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
   };
 
   return formState;
-};
+}
 type BasicDetailsSectionProps = {
   readonly stop: StopWithDetails;
   readonly isHybrid: boolean;

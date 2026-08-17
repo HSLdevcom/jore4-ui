@@ -13,7 +13,7 @@ type DeleteStopAreaProps = {
   readonly defaultErrorHandler: (err: Error) => void;
 };
 
-export const useStopAreaDeletion = () => {
+export function useStopAreaDeletion() {
   const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
     useState(false);
 
@@ -30,7 +30,7 @@ export const useStopAreaDeletion = () => {
     openDeleteDialog,
     closeDeleteDialog,
   };
-};
+}
 
 export const DeleteStopArea: FC<DeleteStopAreaProps> = ({
   stopArea,

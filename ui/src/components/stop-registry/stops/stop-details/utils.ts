@@ -6,10 +6,10 @@ import { EnrichedQuay, StopWithDetails } from '../../../../types';
 /**
  * Returns a translated string that includes all stop types of a given stop place.
  */
-export const translateStopTypes = (
+export function translateStopTypes(
   t: TFunction,
   quay?: Pick<EnrichedQuay, 'stopType'> | null | undefined,
-) => {
+) {
   if (!quay) {
     return '';
   }
@@ -26,17 +26,17 @@ export const translateStopTypes = (
 
   // Capitalize the final result.
   return result.charAt(0).toUpperCase() + result.slice(1);
-};
+}
 
 /**
  * Maps a boolean to a translated yes/no text.
  *
  * Missing values are NOT translated.
  */
-export const optionalBooleanToUiText = (
+export function optionalBooleanToUiText(
   t: TFunction,
   value: boolean | undefined | null,
-) => {
+) {
   if (value) {
     return t(($) => $.yes);
   }
@@ -46,18 +46,18 @@ export const optionalBooleanToUiText = (
   }
 
   return undefined;
-};
+}
 
 /**
  * Maps a boolean to a custom text values.
  *
  * Missing values are NOT translated.
  */
-export const optionalBooleanToCustomUiText = (
+export function optionalBooleanToCustomUiText(
   value: boolean | undefined | null,
   ifTrue: string,
   ifFalse: string,
-) => {
+) {
   if (value) {
     return ifTrue;
   }
@@ -67,14 +67,14 @@ export const optionalBooleanToCustomUiText = (
   }
 
   return undefined;
-};
+}
 
-export const extractRelevantAccessibilityAssessment = (
+export function extractRelevantAccessibilityAssessment(
   stop: StopWithDetails,
-): AccessibilityAssessmentDetailsFragment | null => {
+): AccessibilityAssessmentDetailsFragment | null {
   return (
     stop?.quay?.accessibilityAssessment ??
     stop?.stop_place?.accessibilityAssessment ??
     null
   );
-};
+}

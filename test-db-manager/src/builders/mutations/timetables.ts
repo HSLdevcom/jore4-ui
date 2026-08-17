@@ -102,12 +102,12 @@ const GQL_DELETE_STOP_IN_JOURNEY_PATTERN_REF = gql`
   }
 `;
 
-export const mapToDeleteStopInJourneyPatternRefMutation = (uuids: UUID[]) => {
+export function mapToDeleteStopInJourneyPatternRefMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_STOP_IN_JOURNEY_PATTERN_REF),
     variables: { stop_ref_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_VEHICLE_SCHEDULE_FRAMES = gql`
   mutation InsertVehicleScheduleFrames(
@@ -151,12 +151,12 @@ const GQL_DELETE_VEHICLE_SCHEDULE_FRAMES = gql`
   }
 `;
 
-export const mapToDeleteVehicleScheduleFramesMutation = (uuids: UUID[]) => {
+export function mapToDeleteVehicleScheduleFramesMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_VEHICLE_SCHEDULE_FRAMES),
     variables: { vehicle_schedule_frame_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_VEHICLE_SERVICES = gql`
   mutation InsertVehicleServices(
@@ -196,12 +196,12 @@ const GQL_DELETE_VEHICLE_SERVICES = gql`
   }
 `;
 
-export const mapToDeleteVehicleServicesMutation = (uuids: UUID[]) => {
+export function mapToDeleteVehicleServicesMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_VEHICLE_SERVICES),
     variables: { vehicle_service_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_VEHICLE_SERVICE_BLOCKS = gql`
   mutation InsertVehicleServiceBlocks(
@@ -241,12 +241,12 @@ const GQL_DELETE_VEHICLE_SERVICE_BLOCKS = gql`
   }
 `;
 
-export const mapToDeleteVehicleServiceBlocksMutation = (uuids: UUID[]) => {
+export function mapToDeleteVehicleServiceBlocksMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_VEHICLE_SERVICE_BLOCKS),
     variables: { block_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_VEHICLE_JOURNEYS = gql`
   mutation InsertVehicleJourneys(
@@ -286,12 +286,12 @@ const GQL_DELETE_VEHICLE_JOURNEYS = gql`
   }
 `;
 
-export const mapToDeleteVehicleJourneysMutation = (uuids: UUID[]) => {
+export function mapToDeleteVehicleJourneysMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_VEHICLE_JOURNEYS),
     variables: { vehicle_journey_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_TIMETABLED_PASSING_TIMES = gql`
   mutation InsertTimetabledPassingTimes(
@@ -337,9 +337,9 @@ const GQL_DELETE_TIMETABLED_PASSING_TIMES = gql`
   }
 `;
 
-export const mapToDeleteTimetabledPassingTimesMutation = (uuids: UUID[]) => {
+export function mapToDeleteTimetabledPassingTimesMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_TIMETABLED_PASSING_TIMES),
     variables: { timetabled_passing_time_ids: uuids },
   };
-};
+}

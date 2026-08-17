@@ -22,7 +22,7 @@ type EditTiamatParams = {
   readonly stop: StopWithDetails;
 };
 
-export const useEditStopLocationDetails = () => {
+export function useEditStopLocationDetails() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
 
@@ -132,4 +132,4 @@ export const useEditStopLocationDetails = () => {
     saveStopPlaceLocationDetails,
     defaultErrorHandler,
   };
-};
+}

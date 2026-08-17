@@ -38,28 +38,26 @@ const apiClient = axios.create({
   baseURL: '/api/hastus',
 });
 
-const exportRoutes = (payload: ExportBody) =>
-  apiClient.post('/export/routes', payload, {
+function exportRoutes(payload: ExportBody) {
+  return apiClient.post('/export/routes', payload, {
     responseType: 'blob',
     headers: roleHeaderMap(userHasuraRole),
   });
+}
 
-export const exportRoutesToHastus = async ({
+export function exportRoutesToHastus({
   uniqueLabels,
   priority,
   observationDate,
-}: ExportParams) => {
-  const request: ExportBody = {
+}: ExportParams) {
+  return exportRoutes({
     uniqueLabels,
     priority,
     observationDate: observationDate.toISODate(),
-  };
-  const response = await exportRoutes(request);
+  });
+}
 
-  return response;
-};
-
-export const getExportErrorBody = async (errorResponse: AxiosError) => {
+export async function getExportErrorBody(errorResponse: AxiosError) {
   // Since the response type is a "blob" (see exportRoutes above),
   // we need to parse the JSON out of error responses manually...
   // Note that the text() method is asynchronous.
@@ -67,26 +65,26 @@ export const getExportErrorBody = async (errorResponse: AxiosError) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const jsonText = (await (blobBody as any)?.text()) ?? '{}';
   return JSON.parse(jsonText);
-};
+}
 
-export const getImportErrorBody = (errorResponse: AxiosError) => {
+export function getImportErrorBody(errorResponse: AxiosError) {
   return errorResponse?.response?.data;
-};
+}
 
-export const sendFileToHastusImporter = (file: File) => {
+export function sendFileToHastusImporter(file: File) {
   return apiClient.post('import', file, {
     headers: {
       ...roleHeaderMap(userHasuraRole),
       'Content-Type': 'text/csv;charset=iso-8859-1',
     },
   });
-};
+}
 
-export const extractErrorType = (
+export function extractErrorType(
   errorResponseBody: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-): HastusApiErrorType => {
+): HastusApiErrorType {
   const errorType = errorResponseBody?.type as keyof typeof HastusApiErrorType;
   const errorTypeEnum = HastusApiErrorType[errorType];
 
   return errorTypeEnum ?? HastusApiErrorType.UnknownError;
-};
+}

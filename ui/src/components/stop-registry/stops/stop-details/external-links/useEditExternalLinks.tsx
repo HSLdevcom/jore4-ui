@@ -15,12 +15,12 @@ type EditTiamatParams = {
   readonly stop: StopWithDetails;
 };
 
-const mapExternalLinkFormToInput = (externalLink: ExternalLinksState) => {
+function mapExternalLinkFormToInput(externalLink: ExternalLinksState) {
   return {
     name: externalLink.name,
     location: externalLink.location,
   };
-};
+}
 
 function mapStopEditChangesToTiamatDbInput({
   state,
@@ -53,7 +53,7 @@ function prepareEditForTiamatDb({ state, stop }: EditTiamatParams) {
   };
 }
 
-export const useEditStopExternalLinks = () => {
+export function useEditStopExternalLinks() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
 
@@ -95,4 +95,4 @@ export const useEditStopExternalLinks = () => {
     saveStopPlaceExternalLinks,
     defaultErrorHandler,
   };
-};
+}

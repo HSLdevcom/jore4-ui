@@ -40,10 +40,7 @@ const VEHICLE_MODE_TO_TRANSPORT_MODE_MAP: Record<
     JoreStopRegistryTransportModeType.Tram,
 };
 
-export const useNearbyTransportModes = (
-  point: Point | null,
-  enabled = true,
-) => {
+export function useNearbyTransportModes(point: Point | null, enabled = true) {
   const shouldQuery = point !== null && enabled;
 
   const maxDistanceInMeters = 40;
@@ -85,4 +82,4 @@ export const useNearbyTransportModes = (
     availableTransportModes,
     loading,
   };
-};
+}

@@ -37,9 +37,9 @@ const saturdayDayType = {
   },
 };
 
-const buildVehicleJourney = (
+function buildVehicleJourney(
   input: Partial<VehicleJourneyWithPatternAndRouteFragment>,
-): VehicleJourneyWithPatternAndRouteFragment => {
+): VehicleJourneyWithPatternAndRouteFragment {
   return {
     journey_pattern_ref: route35JourneyPatternRef,
     start_time: Duration.fromISO('PT12H00M'),
@@ -47,11 +47,11 @@ const buildVehicleJourney = (
     vehicle_journey_id: 'ca57b921-ce13-4715-9546-3077887dbd4d',
     ...input,
   };
-};
+}
 
-const buildSingleBlockFrameWithJourneys = (
+function buildSingleBlockFrameWithJourneys(
   journeys: ReadonlyArray<VehicleJourneyWithPatternAndRouteFragment>,
-): VehicleScheduleVehicleScheduleFrameWithJourneys => {
+): VehicleScheduleVehicleScheduleFrameWithJourneys {
   return {
     validity_start: DateTime.fromISO('2023-07-13'),
     validity_end: DateTime.fromISO('2023-12-24'),
@@ -69,7 +69,7 @@ const buildSingleBlockFrameWithJourneys = (
       },
     ],
   };
-};
+}
 
 describe('useCombiningSameContractTimetables hook', () => {
   it('should return false when called with an empty array', async () => {

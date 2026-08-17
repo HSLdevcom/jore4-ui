@@ -36,7 +36,7 @@ const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
 const DEFAULT_LABEL = '';
 const DEFAULT_OBSERVATION_DATE = DateTime.now().startOf('day');
 
-export const useSearchQueryParser = (): SearchParameters => {
+export function useSearchQueryParser(): SearchParameters {
   const {
     getStringParamFromUrlQuery,
     getPriorityArrayFromUrlQuery,
@@ -86,4 +86,4 @@ export const useSearchQueryParser = (): SearchParameters => {
       displayedType,
     },
   };
-};
+}

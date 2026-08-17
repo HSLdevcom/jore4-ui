@@ -9,5 +9,6 @@ import { useParams } from 'react-router';
  *
  * More information in this issue thread: https://github.com/remix-run/react-router/issues/8498
  */
-export const useRequiredParams = <T extends Record<string, unknown>>() =>
-  useParams() as T;
+export function useRequiredParams<T extends Record<string, unknown>>() {
+  return useParams() as T;
+}

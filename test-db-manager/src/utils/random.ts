@@ -4,15 +4,16 @@ let lastRandom = 0.123;
  * deterministic (generates the same random numbers with every run)
  * @returns random number between 0.0000... - 0.9999...
  */
-export const pseudoRandom = () => {
+export function pseudoRandom() {
   const newRandom = lastRandom * 31;
   lastRandom = newRandom - Math.floor(newRandom);
   return lastRandom;
-};
+}
 
 /**
  * Generates a pseudorandom integer within the given interval.
  * @returns random integer between [min, max], both ends are inclusive
  */
-export const randomInt = (min: number, max: number) =>
-  Math.floor(pseudoRandom() * (max + 1 - min) + min);
+export function randomInt(min: number, max: number) {
+  return Math.floor(pseudoRandom() * (max + 1 - min) + min);
+}

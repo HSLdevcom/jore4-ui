@@ -10,12 +10,12 @@ type ChooseTimingPlaceDropdownProps = ListboxInputProps & {
   readonly optionAmount?: number;
 };
 
-const mapToOption = (
-  item: TimingPlaceForComboboxFragment,
-): ComboboxOptionItem => ({
-  value: item.timing_place_id,
-  content: `${item.label} (${item.description?.fi_FI})`,
-});
+function mapToOption(item: TimingPlaceForComboboxFragment): ComboboxOptionItem {
+  return {
+    value: item.timing_place_id,
+    content: `${item.label} (${item.description?.fi_FI})`,
+  };
+}
 
 export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
   testId,

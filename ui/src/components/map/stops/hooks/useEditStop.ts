@@ -198,11 +198,11 @@ export type BrokenRouteCheckParams = {
   readonly vehicleMode?: string | null;
 };
 
-export const isEditChanges = (
+export function isEditChanges(
   input: Record<string, ExplicitAny>,
-): input is EditChanges => {
+): input is EditChanges {
   return !!input.editedStop;
-};
+}
 
 function mapEditChangesToVariables(
   changes: EditChanges,
@@ -594,7 +594,7 @@ const refetchQueries = {
   refetchQueries: () => ['GetStopPlaceDetails', 'GetStopInfoForEditingOnMap'],
 } as const;
 
-export const useEditStop = () => {
+export function useEditStop() {
   const [editStopMutation] = useEditStopMutation();
   const [editStopPlaceMutation] = useEditStopPlaceMutation();
 
@@ -640,4 +640,4 @@ export const useEditStop = () => {
 
     return { updateStopPointResult, updateStopPlaceResult };
   };
-};
+}

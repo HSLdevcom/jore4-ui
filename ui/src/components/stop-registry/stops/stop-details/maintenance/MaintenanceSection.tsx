@@ -23,9 +23,9 @@ type MaintenanceSectionProps = {
   readonly stop: StopWithDetails;
 };
 
-const mapMaintenanceDetailsToFormState = (
+function mapMaintenanceDetailsToFormState(
   stop: StopWithDetails,
-): MaintenanceDetailsFormState => {
+): MaintenanceDetailsFormState {
   const maintainers = getMaintainers(stop.quay);
 
   const maintainerIdsByType = mapValues(maintainers, (maintainer) => {
@@ -35,7 +35,7 @@ const mapMaintenanceDetailsToFormState = (
   const stopOwner = stop.quay?.stopOwner ?? null;
 
   return { stopOwner, maintainers: maintainerIdsByType };
-};
+}
 
 export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
   const { t } = useTranslation();

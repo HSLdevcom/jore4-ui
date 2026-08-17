@@ -342,9 +342,9 @@ const GQL_POSTER_DETAILS = gql`
   }
 `;
 
-const getEnrichedStopPlace = (
+function getEnrichedStopPlace(
   stopPlace: StopPlace | null,
-): EnrichedStopPlace | null => {
+): EnrichedStopPlace | null {
   if (!stopPlace) {
     return null;
   }
@@ -360,7 +360,7 @@ const getEnrichedStopPlace = (
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(transformedStopPlace),
   };
-};
+}
 
 function validOn(observationDateTs: number) {
   return (quay: Quay) => {
@@ -412,7 +412,7 @@ function getCorrectQuay(
   );
 }
 
-const getStopDetails = (
+function getStopDetails(
   data: GetStopDetailsQuery | undefined,
   observationDateTs: number,
   priority: number,
@@ -422,7 +422,7 @@ const getStopDetails = (
     changed: string | null;
     changedBy: string | null;
   },
-): StopWithDetails | null => {
+): StopWithDetails | null {
   const stopPlaceResults = data?.stopsDb?.newestVersion ?? [];
 
   const result = compact(
@@ -466,7 +466,7 @@ const getStopDetails = (
       changedByUserName,
     ),
   };
-};
+}
 
 export type MirroredQuayDetails = {
   readonly quay: EnrichedQuay;
@@ -527,7 +527,7 @@ function getWhereCondition(
   };
 }
 
-export const useGetStopDetails = () => {
+export function useGetStopDetails() {
   const { label } = useRequiredParams<{ label: string }>();
   const { observationDate } = useObservationDateQueryParam();
   const { queryParams } = useUrlQuery();
@@ -568,9 +568,9 @@ export const useGetStopDetails = () => {
   );
 
   return { ...rest, stopDetails, mirroredQuays };
-};
+}
 
-export const useGetStopDetailsLazy = () => {
+export function useGetStopDetailsLazy() {
   const apollo = useApolloClient();
   const { getUserNameById } = useGetUserNames();
 
@@ -604,13 +604,16 @@ export const useGetStopDetailsLazy = () => {
     },
     [getUserNameById, apollo],
   );
-};
+}
 
-export const getQuayIdsFromStopExcept = (
+export function getQuayIdsFromStopExcept(
   stop: StopWithDetails | null,
   quayId: string | null | undefined,
-): Array<StopRegistryQuayInput> =>
-  stop?.stop_place?.quays
-    ?.map((quay) => quay?.id)
-    .filter((id) => id !== quayId)
-    .map((id) => ({ id })) ?? [];
+): Array<StopRegistryQuayInput> {
+  return (
+    stop?.stop_place?.quays
+      ?.map((quay) => quay?.id)
+      .filter((id) => id !== quayId)
+      .map((id) => ({ id })) ?? []
+  );
+}

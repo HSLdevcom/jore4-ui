@@ -45,7 +45,7 @@ const jore4db = getDbConnection(e2eDatabaseConfig);
 const timetablesDb = getDbConnection(timetablesDatabaseConfig);
 const stopsDb = getDbConnection(stopsDatabaseConfig);
 
-export const checkDbConnection = () => {
+export function checkDbConnection() {
   // Example about direct access to db
   return (
     jore4db
@@ -68,22 +68,22 @@ export const checkDbConnection = () => {
         return undefined;
       })
   );
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const executeRawDbQuery = ({ query, bindings }: any) => {
+export function executeRawDbQuery({ query, bindings }: any) {
   return jore4db.raw(query, bindings);
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const hasuraAPI = (request: any) => {
+export function hasuraAPI(request: any) {
   return hasuraApi(request);
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const hasuraAPIMultiple = (requests: Array<any>) => {
+export function hasuraAPIMultiple(requests: Array<any>) {
   return Promise.all(requests.map((r) => hasuraApi(r)));
-};
+}
 
 /**
  * Gets infrastuctureLink ids that match given external_link_ids
@@ -123,7 +123,7 @@ type InternalInsertedStopRegistryIds = {
   organisationIdsByName: OrganisationIdsByName;
 };
 
-export const insertStopRegistryData = async ({
+export async function insertStopRegistryData({
   organisations = [],
   terminals = [],
   stopPlaces = [],
@@ -135,7 +135,7 @@ export const insertStopRegistryData = async ({
   stopPlaces?: Array<StopAreaInput>;
   infoSpots?: Array<InfoSpotInput>;
   stopPointsRequired?: boolean;
-}): Promise<InternalInsertedStopRegistryIds> => {
+}): Promise<InternalInsertedStopRegistryIds> {
   const organisationIdsByName = await insertStopRegistryOrganisations(
     organisations.concat(mapTerminalOwnersToOrganisations(terminals)),
   );
@@ -202,54 +202,54 @@ export const insertStopRegistryData = async ({
     quayDetailsByLabel: collectedQuayDetails,
     organisationIdsByName,
   };
-};
+}
 
-export const truncateTimetablesDatabase = () => {
+export function truncateTimetablesDatabase() {
   const truncateQuery = fs.readFileSync(
     'fixtures/truncateTimetables/truncateTimetables.sql',
     'utf8',
   );
   return timetablesDb.raw(truncateQuery);
-};
+}
 
-export const getAllStopPlaceIds = () => {
+export function getAllStopPlaceIds() {
   return hasuraAPI(mapToGetAllStopPlaceIds());
-};
+}
 
-export const getAllStopAreaIds = () => {
+export function getAllStopAreaIds() {
   return hasuraAPI(mapToGetAllStopAreaIds());
-};
+}
 
-export const getAllOrganisationIds = () => {
+export function getAllOrganisationIds() {
   return hasuraAPI(mapToGetAllOrganisationIds());
-};
+}
 
-const truncateStopRegistryTables = async () => {
+function truncateStopRegistryTables() {
   const truncateQuery = fs.readFileSync(
     'fixtures/truncateStopRegistryTables.sql',
     'utf8',
   );
   return stopsDb.raw(truncateQuery);
-};
+}
 
-export const resetStopRegistryDb = async () => {
-  await truncateStopRegistryTables();
-};
+export function resetStopRegistryDb() {
+  return truncateStopRegistryTables();
+}
 
-export const resetDbs = async () => {
+export function resetDbs() {
   return Promise.all([
     resetStopRegistryDb(),
     resetRoutesAndLinesDb(jore4db),
     truncateTimetablesDatabase(),
   ]);
-};
+}
 
-export const deleteFile = (filePath: string) => {
+export function deleteFile(filePath: string) {
   if (fs.existsSync(filePath)) {
     return fs.unlinkSync(filePath);
   }
   return new Error(`File ${filePath} does not exist`);
-};
+}
 
 export const insertHslTimetablesDatasetToDb = (
   input: HslTimetablesDatasetInput,
@@ -258,7 +258,7 @@ export const insertHslTimetablesDatasetToDb = (
   return builtDataset;
 };
 
-export const emptyDownloadsFolder = () => {
+export function emptyDownloadsFolder() {
   const downloadsFolder = 'downloads';
 
   if (fs.existsSync(downloadsFolder)) {
@@ -268,7 +268,7 @@ export const emptyDownloadsFolder = () => {
   }
 
   return true;
-};
+}
 
 export async function insertInfoSpots(
   infoSpots: Array<Partial<StopRegistryInfoSpotInput>>,

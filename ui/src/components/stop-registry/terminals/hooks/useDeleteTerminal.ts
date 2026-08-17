@@ -9,7 +9,7 @@ const GQL_DELETE_TERMINAL = gql`
   }
 `;
 
-export const useDeleteTerminal = () => {
+export function useDeleteTerminal() {
   const [deleteTerminalFunction] = useDeleteTerminalMutation({
     awaitRefetchQueries: true,
     refetchQueries: ['GetStopTerminalsByLocation'],
@@ -22,4 +22,4 @@ export const useDeleteTerminal = () => {
   return {
     deleteTerminal,
   };
-};
+}

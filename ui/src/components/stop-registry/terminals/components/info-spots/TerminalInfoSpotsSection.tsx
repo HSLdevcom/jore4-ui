@@ -22,9 +22,9 @@ import {
   mapTerminalInfoSpotDataToFormState,
 } from './utils';
 
-const useNewInfoSpotFormDefaultValues = (
+function useNewInfoSpotFormDefaultValues(
   terminal: Readonly<EnrichedParentStopPlace>,
-) => {
+) {
   const terminalInfoSpotsFormDefaultValues = useMemo(
     () =>
       mapTerminalInfoSpotDataToFormState(
@@ -40,7 +40,7 @@ const useNewInfoSpotFormDefaultValues = (
   );
 
   return { terminalInfoSpotsFormDefaultValues };
-};
+}
 
 export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
   terminal,

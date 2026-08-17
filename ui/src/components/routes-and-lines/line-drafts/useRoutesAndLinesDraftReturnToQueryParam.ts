@@ -7,7 +7,7 @@ import { useReturnToQueryParam } from '../../common/hooks/useReturnToQueryParam'
  * NOTE: The URL structure might be reworked to have lineDetails by label,
  * not by id. And if this rework is done, then this logic can be simplified.
  */
-export const useRoutesAndLinesDraftReturnToQueryParam = () => {
+export function useRoutesAndLinesDraftReturnToQueryParam() {
   const { queryParams } = useUrlQuery();
   const { getUrlWithReturnToQueryString, onClose } = useReturnToQueryParam();
 
@@ -22,4 +22,4 @@ export const useRoutesAndLinesDraftReturnToQueryParam = () => {
     : routeDetails[Path.routes].getLink();
 
   return { getDraftsUrl, onClose: () => onClose(onCloseUrl) };
-};
+}

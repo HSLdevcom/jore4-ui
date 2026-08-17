@@ -16,20 +16,22 @@ type ChooseLineDropdownProps = ComboboxInputProps & {
   readonly testId?: string;
 };
 
-const mapToOption = (item: LineForComboboxFragment): ComboboxOptionItem => ({
-  value: item.line_id,
-  content: (
-    <div>
-      <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
-      <div className="text-sm">
-        <DateRange
-          startDate={item.validity_start ?? MIN_DATE}
-          endDate={item.validity_end ?? MAX_DATE}
-        />
+function mapToOption(item: LineForComboboxFragment): ComboboxOptionItem {
+  return {
+    value: item.line_id,
+    content: (
+      <div>
+        <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
+        <div className="text-sm">
+          <DateRange
+            startDate={item.validity_start ?? MIN_DATE}
+            endDate={item.validity_end ?? MAX_DATE}
+          />
+        </div>
       </div>
-    </div>
-  ),
-});
+    ),
+  };
+}
 
 export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
   testId,

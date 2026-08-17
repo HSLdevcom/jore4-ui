@@ -68,7 +68,7 @@ type Params = {
   readonly maxSearchDistance?: number;
 };
 
-export const useGetStopLinkAndDirection = () => {
+export function useGetStopLinkAndDirection() {
   const apollo = useApolloClient();
 
   // based on internal_service_pattern.check_scheduled_stop_point_infrastructure_link_direction()
@@ -153,4 +153,4 @@ export const useGetStopLinkAndDirection = () => {
   };
 
   return [getStopLinkAndDirection];
-};
+}

@@ -11,7 +11,7 @@ type AlternativeNames = {
   nameSwe?: string;
 };
 
-export const mapToAlternativeNames = (data: AlternativeNames) => {
+export function mapToAlternativeNames(data: AlternativeNames) {
   return [
     data.nameFinLong
       ? {
@@ -60,4 +60,4 @@ export const mapToAlternativeNames = (data: AlternativeNames) => {
       nameType: StopRegistryNameType.Translation,
     },
   ].filter(Boolean);
-};
+}

@@ -9,20 +9,22 @@ function parseNumberOrDefault(str: string, defaultValue: number): number {
   return Number.isFinite(parsed) ? parsed : defaultValue;
 }
 
-export const usePagination = (): {
-  currentPage: number;
-  getPaginatedData: <T>(
+type UsePaginationResult = {
+  readonly currentPage: number;
+  readonly getPaginatedData: <T>(
     data: ReadonlyArray<T>,
     itemsPerPage: number,
   ) => Array<T>;
-  setPage: (page: number) => void;
-  getRenderedPageNumber: (page: number) => string;
-  getDisplayedPageNumberList: (
+  readonly setPage: (page: number) => void;
+  readonly getRenderedPageNumber: (page: number) => string;
+  readonly getDisplayedPageNumberList: (
     currentPage: number,
     amountOfNeighbours: number,
     totalPages: number,
   ) => number[];
-} => {
+};
+
+export function usePagination(): UsePaginationResult {
   const navigate = useNavigate();
   const { queryParams } = useUrlQuery();
   const initialPage = parseNumberOrDefault(queryParams?.page as string, 1);
@@ -56,4 +58,4 @@ export const usePagination = (): {
     getRenderedPageNumber,
     getDisplayedPageNumberList,
   };
-};
+}

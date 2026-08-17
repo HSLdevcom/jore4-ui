@@ -46,9 +46,9 @@ type LinesForScheduledStopPointOnDateResult =
       readonly loading: true;
     };
 
-export const useGetUniqueLineCountForStopOnDate = (
+export function useGetUniqueLineCountForStopOnDate(
   scheduledStopPointId?: UUID,
-): LinesForScheduledStopPointOnDateResult => {
+): LinesForScheduledStopPointOnDateResult {
   const { observationDate } = useObservationDateQueryParam();
   const { data, loading } = useGetUniqueLineCountForStopOnDateQuery(
     scheduledStopPointId
@@ -75,4 +75,4 @@ export const useGetUniqueLineCountForStopOnDate = (
     lineCount,
     loading: false,
   };
-};
+}

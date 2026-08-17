@@ -1,3 +1,5 @@
 import { RootState } from '../store';
 
-export const selectExport = (state: RootState) => state.export;
+export function selectExport(state: RootState) {
+  return state.export;
+}

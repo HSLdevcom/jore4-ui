@@ -6,9 +6,9 @@ import { QueryParameterName, useUrlQuery } from '../../../hooks';
 /**
  * Query parameter hook for setting and getting displayed routes by their labels.
  */
-export const useGetRoutesDisplayedInList = (
+export function useGetRoutesDisplayedInList(
   line: LineWithRoutesUniqueFieldsFragment | null,
-) => {
+) {
   const { setArrayToUrlQuery, getArrayFromUrlQuery } = useUrlQuery();
 
   const uniqueLineRouteLabels = uniq(
@@ -61,4 +61,4 @@ export const useGetRoutesDisplayedInList = (
     displayedRouteLabels,
     toggleDisplayedRoute,
   };
-};
+}

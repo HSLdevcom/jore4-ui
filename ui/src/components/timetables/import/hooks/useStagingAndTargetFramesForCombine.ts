@@ -4,7 +4,7 @@ import { NonNullableKeys } from '../../../../types';
 import { TimetablePriority } from '../../../../types/enums';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './deviations';
 
-export const useStagingAndTargetFramesForCombine = (
+export function useStagingAndTargetFramesForCombine(
   fetchToCombineTargetFrameId: (
     stagingFrameId: UUID,
     targetPriority: number,
@@ -13,7 +13,7 @@ export const useStagingAndTargetFramesForCombine = (
     ids: ReadonlyArray<UUID>,
   ) => Promise<ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithJourneys>>,
   fetchStagingVehicleFrameIds: () => Promise<ReadonlyArray<UUID>>,
-) => {
+) {
   const [
     stagingAndTargetFramesForCombine,
     setStagingAndTargetFramesForCombine,
@@ -103,4 +103,4 @@ export const useStagingAndTargetFramesForCombine = (
     fetchStagingAndTargetFramesForCombine,
     clearStagingAndTargetFramesForCombine,
   };
-};
+}

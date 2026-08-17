@@ -6,7 +6,7 @@ import {
   showSuccessToast,
 } from '../../../../../utils';
 
-export const useRemoveStopAreaFromTerminal = () => {
+export function useRemoveStopAreaFromTerminal() {
   const { t } = useTranslation();
   const [removeFromMultiModalStopPlace] =
     useRemoveFromMultiModalStopPlaceMutation();
@@ -34,4 +34,4 @@ export const useRemoveStopAreaFromTerminal = () => {
   );
 
   return { removeStopAreaFromTerminal };
-};
+}

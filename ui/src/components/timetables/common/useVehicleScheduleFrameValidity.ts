@@ -67,9 +67,7 @@ function validLabel(label: string | null | undefined): label is string {
   return !!label;
 }
 
-export const useVehicleScheduleFrameValidity = (
-  vehicleScheduleFrameId?: UUID,
-) => {
+export function useVehicleScheduleFrameValidity(vehicleScheduleFrameId?: UUID) {
   const vehicleScheduleFrameResult = useGetVehicleScheduleFrameWithRoutesQuery({
     variables: {
       // The query is skipped if vehicleScheduleFrameId is undefined
@@ -115,4 +113,4 @@ export const useVehicleScheduleFrameValidity = (
   };
 
   return { vehicleScheduleFrame, affectedRouteLabels, updateValidity };
-};
+}

@@ -44,12 +44,12 @@ type RouteLineTableRowProps = {
 const yBorderClassNames = 'border-y border-y-light-grey';
 const rBorderClassNames = 'border-r border-r-light-grey';
 
-const getDisplayInformation = (
+function getDisplayInformation(
   routeLineTableRowVariant: RouteLineTableRowVariant,
   lineId: UUID,
   rowItem: RowItem,
   hasTimetables?: boolean,
-) => {
+) {
   const routeLabel = isRoute(rowItem) ? rowItem.label : undefined;
 
   switch (routeLineTableRowVariant) {
@@ -88,7 +88,7 @@ const getDisplayInformation = (
         isDisabled: false,
       };
   }
-};
+}
 
 /**
  * The visual component used for displaying RouteTableRow and LineTableRow

@@ -1,3 +1,5 @@
 import { RootState } from '../store';
 
-export const selectUser = (state: RootState) => state.user;
+export function selectUser(state: RootState) {
+  return state.user;
+}

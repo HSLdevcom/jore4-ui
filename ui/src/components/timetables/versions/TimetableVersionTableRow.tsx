@@ -30,13 +30,13 @@ const testIds = {
   versionPanelMenuItem: 'TimetableVersionTableRow::versionPanelMenuItem',
 };
 
-const getStatusClassName = ({
+function getStatusClassName({
   priority,
   inEffect,
 }: {
   priority: TimetablePriority;
   inEffect?: boolean;
-}) => {
+}) {
   if (inEffect) {
     return 'bg-hsl-dark-green text-white';
   }
@@ -49,9 +49,9 @@ const getStatusClassName = ({
     [TimetablePriority.Staging]: 'bg-hsl-red',
   };
   return statusClassNames[priority];
-};
+}
 
-const getDayTypeClassName = (priority: TimetablePriority) => {
+function getDayTypeClassName(priority: TimetablePriority) {
   const dayTypeClassNames: Record<TimetablePriority, string> = {
     [TimetablePriority.Standard]: 'bg-hsl-dark-green/25',
     [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow/25',
@@ -61,7 +61,7 @@ const getDayTypeClassName = (priority: TimetablePriority) => {
     [TimetablePriority.Staging]: 'bg-hsl-red/25',
   };
   return dayTypeClassNames[priority];
-};
+}
 
 type TimetableVersionTableRowProps = {
   readonly data: TimetableVersionRowData;

@@ -23,9 +23,9 @@ type OrganisationDetailsModalProps = {
   ) => void;
 };
 
-const mapOrganisationToFormState = (
+function mapOrganisationToFormState(
   organisation: StopPlaceOrganisationFieldsFragment | undefined | null,
-): Partial<OrganisationDetailsFormState> => {
+): Partial<OrganisationDetailsFormState> {
   return {
     id: organisation?.id ?? undefined,
     name: organisation?.name ?? undefined,
@@ -34,7 +34,7 @@ const mapOrganisationToFormState = (
       phone: organisation?.privateContactDetails?.phone,
     },
   };
-};
+}
 
 export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
   isOpen,

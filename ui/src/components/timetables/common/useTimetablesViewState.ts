@@ -11,7 +11,7 @@ export enum TimetablesView {
  * Keeps track of which view is visible (e.g. default, passing times by stops etc.),
  * which route or day types are selected etc.
  */
-export const useTimetablesViewState = () => {
+export function useTimetablesViewState() {
   const {
     getStringParamFromUrlQuery,
     setToUrlQuery,
@@ -86,4 +86,4 @@ export const useTimetablesViewState = () => {
     routeLabel,
     dayType,
   };
-};
+}

@@ -16,7 +16,7 @@ const GQL_GET_COMBINE_TARGET_VEHICLE_SCHEDULE_FRAME_ID = gql`
     }
   }
 `;
-export const useToCombineTargetVehicleScheduleFrameId = () => {
+export function useToCombineTargetVehicleScheduleFrameId() {
   const apollo = useApolloClient();
 
   const fetchToCombineTargetFrameId = useCallback(
@@ -49,4 +49,4 @@ export const useToCombineTargetVehicleScheduleFrameId = () => {
   );
 
   return { fetchToCombineTargetFrameId };
-};
+}

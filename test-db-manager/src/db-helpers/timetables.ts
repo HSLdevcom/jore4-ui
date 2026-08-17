@@ -36,15 +36,17 @@ export interface TimetablesResources {
   timetabledPassingTimes?: TimetabledPassingTimeInsertInput[];
 }
 
-const concatArrays = <T extends ExplicitAny>(
-  to: T[] | undefined,
-  from: T[] | undefined,
-) => (to ?? []).concat(from ?? []);
+function concatArrays<T extends ExplicitAny>(
+  to: ReadonlyArray<T> = [],
+  from: ReadonlyArray<T> = [],
+) {
+  return to.concat(from);
+}
 
-export const mergeTimetablesResources = (
+export function mergeTimetablesResources(
   resources: TimetablesResources[],
-): TimetablesResources =>
-  resources.reduce<TimetablesResources>(
+): TimetablesResources {
+  return resources.reduce<TimetablesResources>(
     (result, currentResources) => ({
       journeyPatternRefs: concatArrays(
         result.journeyPatternRefs,
@@ -77,15 +79,15 @@ export const mergeTimetablesResources = (
     }),
     {},
   );
-
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const handleErrors = (message: string, res: any) => {
+function handleErrors(message: string, res: any) {
   if (res.errors) {
     throw new Error(`${message}: ${JSON.stringify(res.errors, null, 2)}`);
   }
-};
+}
 
-export const clearTimetablesDb = async ({
+export async function clearTimetablesDb({
   journeyPatternRefs,
   stopsInJourneyPatternRefs,
   vehicleScheduleFrames,
@@ -93,7 +95,7 @@ export const clearTimetablesDb = async ({
   vehicleServiceBlocks,
   vehicleJourneys,
   timetabledPassingTimes,
-}: TimetablesResources) => {
+}: TimetablesResources) {
   if (timetabledPassingTimes) {
     const res = await hasuraApi(
       mapToDeleteTimetabledPassingTimesMutation(
@@ -163,9 +165,9 @@ export const clearTimetablesDb = async ({
     );
     handleErrors('Deleting journey pattern refs', res);
   }
-};
+}
 
-export const populateTimetablesDb = async ({
+export async function populateTimetablesDb({
   journeyPatternRefs,
   stopsInJourneyPatternRefs,
   vehicleScheduleFrames,
@@ -173,7 +175,7 @@ export const populateTimetablesDb = async ({
   vehicleServiceBlocks,
   vehicleJourneys,
   timetabledPassingTimes,
-}: TimetablesResources) => {
+}: TimetablesResources) {
   if (journeyPatternRefs) {
     const res = await hasuraApi(
       mapToCreateTimetablesJourneyPatternRefsMutation(journeyPatternRefs),
@@ -212,4 +214,4 @@ export const populateTimetablesDb = async ({
     );
     handleErrors('Inserting timetabled passing times', res);
   }
-};
+}

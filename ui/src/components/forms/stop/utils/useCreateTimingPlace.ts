@@ -55,7 +55,7 @@ const GQL_GET_TIMING_PLACES_BY_LABEL = gql`
   }
 `;
 
-export const useCreateTimingPlace = () => {
+export function useCreateTimingPlace() {
   const { t } = useTranslation();
 
   const apollo = useApolloClient();
@@ -122,4 +122,4 @@ export const useCreateTimingPlace = () => {
     prepareAndExecute,
     defaultErrorHandler,
   };
-};
+}

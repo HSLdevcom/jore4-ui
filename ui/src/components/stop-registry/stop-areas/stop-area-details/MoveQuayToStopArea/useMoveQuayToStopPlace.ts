@@ -17,7 +17,7 @@ import {
 } from './utils/helpers';
 import { MoveQuayParams } from './utils/types';
 
-export const useMoveQuayToStopPlace = () => {
+export function useMoveQuayToStopPlace() {
   const { t } = useTranslation();
 
   const [moveQuayMutation, { loading: moveLoading, error: moveError, reset }] =
@@ -159,4 +159,4 @@ export const useMoveQuayToStopPlace = () => {
     defaultErrorHandler,
     reset,
   };
-};
+}

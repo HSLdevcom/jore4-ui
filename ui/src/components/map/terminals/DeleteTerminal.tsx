@@ -16,7 +16,7 @@ import { ConfirmationDialog } from '../../common/Modals';
 import { useEditMembersOfTerminal } from '../../stop-registry/terminals/components/location-details/location-details-form/useEditMembersOfTerminal';
 import { useDeleteTerminal } from '../../stop-registry/terminals/hooks';
 
-const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
+function getMemberStops(terminal: EnrichedParentStopPlace): string {
   const quayCodes =
     terminal.children
       ?.flatMap((child) => child?.quays ?? [])
@@ -25,24 +25,24 @@ const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
       .sort() ?? [];
 
   return quayCodes.length ? quayCodes.join(', ') : '-';
-};
+}
 
-const getMemberStopsTotal = (terminal: EnrichedParentStopPlace): number => {
+function getMemberStopsTotal(terminal: EnrichedParentStopPlace): number {
   return (
     terminal.children?.reduce(
       (total, child) => total + (child?.quays?.length ?? 0),
       0,
     ) ?? 0
   );
-};
+}
 
-const getDeleteTerminalDescription = ({
+function getDeleteTerminalDescription({
   terminal,
   t,
 }: {
   terminal: EnrichedParentStopPlace;
   t: TFunction;
-}) => {
+}) {
   const count = getMemberStopsTotal(terminal);
   const memberStops = getMemberStops(terminal);
 
@@ -59,7 +59,7 @@ const getDeleteTerminalDescription = ({
       </span>
     </span>
   );
-};
+}
 
 type DeleteTerminalProps = {
   readonly isOpen: boolean;

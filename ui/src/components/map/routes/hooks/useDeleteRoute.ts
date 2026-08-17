@@ -13,7 +13,7 @@ const GQL_DELETE_ROUTE = gql`
   }
 `;
 
-export const useDeleteRoute = () => {
+export function useDeleteRoute() {
   const { t } = useTranslation();
   const [deleteRouteMutation] = useDeleteRouteMutation();
 
@@ -35,4 +35,4 @@ export const useDeleteRoute = () => {
   };
 
   return { deleteRoute, defaultErrorHandler };
-};
+}

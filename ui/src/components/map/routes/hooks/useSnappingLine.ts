@@ -8,7 +8,7 @@ import { SNAPPING_LINE_LAYER_ID } from '../utils';
 import { LineStringFeature } from './useExtractRouteFromFeature';
 import { useRouteGeometryUpdater } from './useRouteGeometryUpdater';
 
-export const useSnappingLine = (map: MapRef | undefined) => {
+export function useSnappingLine(map: MapRef | undefined) {
   const dispatch = useAppDispatch();
   const [snappingLine, setSnappingLine] = useState<LineStringFeature | null>(
     null,
@@ -42,4 +42,4 @@ export const useSnappingLine = (map: MapRef | undefined) => {
     removeSnappingLine,
     debouncedOnAddRoute,
   };
-};
+}

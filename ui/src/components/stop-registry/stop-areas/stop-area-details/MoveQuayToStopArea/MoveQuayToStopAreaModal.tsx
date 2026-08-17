@@ -45,10 +45,10 @@ const initialState: ModalState = {
   showVersions: false,
 };
 
-const useFilteredStopVersions = (
+function useFilteredStopVersions(
   stopVersions: ReadonlyArray<StopVersion> | null | undefined,
   selectedDate: DateTime,
-): ReadonlyArray<StopVersion> | null | undefined => {
+): ReadonlyArray<StopVersion> | null | undefined {
   return useMemo(() => {
     if (!stopVersions || !selectedDate) {
       return stopVersions;
@@ -62,13 +62,13 @@ const useFilteredStopVersions = (
       return isValidOnDate ?? isFutureVersion;
     });
   }, [stopVersions, selectedDate]);
-};
+}
 
 // Remove versions that end before the selected date
-const useRemovePastStopAreaVersions = (
+function useRemovePastStopAreaVersions(
   stopAreaVersions: ReadonlyArray<StopAreaVersion> | null | undefined,
   selectedDate: DateTime,
-): ReadonlyArray<StopAreaVersion> | null | undefined => {
+): ReadonlyArray<StopAreaVersion> | null | undefined {
   return useMemo(() => {
     if (!stopAreaVersions || !selectedDate) {
       return stopAreaVersions;
@@ -79,7 +79,7 @@ const useRemovePastStopAreaVersions = (
         version.validity_end === null || version.validity_end >= selectedDate,
     );
   }, [selectedDate, stopAreaVersions]);
-};
+}
 
 export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
   isOpen,

@@ -13,7 +13,7 @@ import { SearchNavigationState } from './types';
 import { useBasePath } from './useBasePath';
 import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
 
-export const useSearch = () => {
+export function useSearch() {
   const { basePath } = useBasePath();
   const queryParameters = useSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
@@ -100,4 +100,4 @@ export const useSearch = () => {
     handleSearch,
     handleClose,
   };
-};
+}

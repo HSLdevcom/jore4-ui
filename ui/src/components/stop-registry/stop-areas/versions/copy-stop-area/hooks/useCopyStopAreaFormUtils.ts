@@ -134,10 +134,10 @@ function useErrorHandler() {
   };
 }
 
-export const useCopyStopAreaFormUtils = (
+export function useCopyStopAreaFormUtils(
   stopArea: EnrichedStopPlace,
   onCopyCreated: (result: CopyStopAreaSuccessResult) => void,
-) => {
+) {
   const { t } = useTranslation();
 
   const [cutConfirmationState, setCutConfirmationState] =
@@ -229,4 +229,4 @@ export const useCopyStopAreaFormUtils = (
     onFormSubmit,
     onCutConfirmationSubmit,
   };
-};
+}

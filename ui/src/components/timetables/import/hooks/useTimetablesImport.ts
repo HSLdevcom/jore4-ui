@@ -154,7 +154,7 @@ export type HastusImportFailure = {
   error: AxiosError<{ reason: string }>;
 };
 
-export const useTimetablesImport = () => {
+export function useTimetablesImport() {
   const { t } = useTranslation();
   const [combineTimetables] = useCombineTimetablesMutation();
   const [replaceTimetables] = useReplaceTimetablesMutation();
@@ -291,4 +291,4 @@ export const useTimetablesImport = () => {
     importingSomeSpecialDays,
     inconsistentSpecialDayPrioritiesStaged,
   };
-};
+}

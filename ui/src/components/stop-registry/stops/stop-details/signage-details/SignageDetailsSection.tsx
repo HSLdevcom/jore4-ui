@@ -17,9 +17,9 @@ type SignageDetailsSectionProps = {
   readonly stop: StopWithDetails;
 };
 
-const mapSignageDetailsToFormState = (
+function mapSignageDetailsToFormState(
   stop: StopWithDetails,
-): Partial<SignageDetailsFormState> => {
+): Partial<SignageDetailsFormState> {
   const generalSign = stop.quay?.placeEquipments?.generalSign?.[0];
   const signType = generalSign?.privateCode?.value;
 
@@ -29,7 +29,7 @@ const mapSignageDetailsToFormState = (
     replacesRailSign: generalSign?.replacesRailSign,
     signageInstructionExceptions: generalSign?.note?.value,
   };
-};
+}
 
 export const SignageDetailsSection: FC<SignageDetailsSectionProps> = ({
   stop,

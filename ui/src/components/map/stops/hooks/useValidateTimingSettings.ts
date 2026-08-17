@@ -46,7 +46,7 @@ type Params = {
  * E.g. if the stop is used as timing point in a journey pattern but user tries to remove timing place
  * attached to the stop, an error will be thrown. Only stops that have timing place can be used as timing place.
  */
-export const useValidateTimingSettings = () => {
+export function useValidateTimingSettings() {
   const apollo = useApolloClient();
 
   const validateTimingSettings = async ({
@@ -84,4 +84,4 @@ export const useValidateTimingSettings = () => {
   };
 
   return [validateTimingSettings];
-};
+}

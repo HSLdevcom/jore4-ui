@@ -20,7 +20,7 @@ export type VehicleJourneyInfo = {
   routeId: UUID;
 };
 
-export const useCreateVehicleJourneyInfo = () => {
+export function useCreateVehicleJourneyInfo() {
   const createVehicleJourneyInfo = useCallback(
     (
       vehicleScheduleFrame: VehicleScheduleVehicleScheduleFrameWithJourneys,
@@ -77,4 +77,4 @@ export const useCreateVehicleJourneyInfo = () => {
   return {
     createVehicleJourneyInfo,
   };
-};
+}

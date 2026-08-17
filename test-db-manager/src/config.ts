@@ -21,7 +21,7 @@ const testDbHost = {
   ci: 'jore4-testdb',
 };
 
-const getTestDbPort = () => {
+function getTestDbPort() {
   if (process.env.CI === '1') {
     return testDbPort.ci;
   }
@@ -29,14 +29,14 @@ const getTestDbPort = () => {
     return testDbPort.local_e2e;
   }
   return testDbPort.local_dev;
-};
+}
 
-const getTestDbHost = () => {
+function getTestDbHost() {
   if (process.env.CI === '1') {
     return testDbHost.ci;
   }
   return testDbHost.local;
-};
+}
 
 export const e2eDatabaseConfig: DatabaseConnectionInfo = {
   host: getTestDbHost(),

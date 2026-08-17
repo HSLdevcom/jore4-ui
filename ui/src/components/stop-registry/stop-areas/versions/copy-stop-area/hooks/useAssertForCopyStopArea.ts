@@ -15,12 +15,12 @@ import {
 /**
  * Checks if the stop point validity is being shortened. Returns true if it is.
  */
-const isStopPointValidityShortened = (
+function isStopPointValidityShortened(
   originalStartDate: number,
   originalEndDate: number,
   newStartDate: number,
   newEndDate: number,
-): boolean => {
+): boolean {
   if (
     (newStartDate > originalEndDate && newEndDate > originalEndDate) ||
     newEndDate < originalStartDate
@@ -32,30 +32,30 @@ const isStopPointValidityShortened = (
   // Check if the new start date is later than the original start date OR
   // the new end date is earlier than the original end date
   return newStartDate > originalStartDate || newEndDate < originalEndDate;
-};
+}
 
-const getEarliestRouteStartDate = (
+function getEarliestRouteStartDate(
   routes: ReadonlyArray<JourneyPatternRouteFieldsFragment>,
-): number => {
+): number {
   return routes.reduce((earliest, route) => {
     const routeStart =
       route.validity_start?.toMillis() ?? Number.NEGATIVE_INFINITY;
 
     return routeStart < earliest ? routeStart : earliest;
   }, Number.POSITIVE_INFINITY);
-};
+}
 
-const getLatestRouteEndDate = (
+function getLatestRouteEndDate(
   routes: ReadonlyArray<JourneyPatternRouteFieldsFragment>,
-): number => {
+): number {
   return routes.reduce((latest, route) => {
     const routeEnd = route.validity_end?.toMillis() ?? Number.POSITIVE_INFINITY;
 
     return routeEnd > latest ? routeEnd : latest;
   }, Number.NEGATIVE_INFINITY);
-};
+}
 
-export const useAssertForCopyStopArea = () => {
+export function useAssertForCopyStopArea() {
   const getJourneyPatternsOfStopPointDuringTimePeriod =
     useGetJourneyPatternsOfStopPointDuringTimePeriod();
   const getStopAreaVersions = useGetStopAreaVersionsLazy();
@@ -214,4 +214,4 @@ export const useAssertForCopyStopArea = () => {
     assertNoOverlappingVersions,
     assertRouteStaysValidAfterStopPointChanges,
   };
-};
+}

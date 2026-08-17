@@ -15,10 +15,10 @@ type UpdateTerminalOwnerInputs = {
   readonly state: TerminalOwnerFormState;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   terminal,
   state,
-}: UpdateTerminalOwnerInputs): StopRegistryParentStopPlaceInput => {
+}: UpdateTerminalOwnerInputs): StopRegistryParentStopPlaceInput {
   const { id } = terminal;
 
   return {
@@ -47,7 +47,7 @@ const mapFormStateToInput = ({
       { key: KnownValueKey.OwnerNote, values: [state.note ?? ''] },
     ]),
   };
-};
+}
 
 export function useUpdateTerminalOwner() {
   const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();

@@ -17,9 +17,9 @@ type LocationDetailsSectionProps = {
   readonly stop: StopWithDetails;
 };
 
-const mapLocationDetailsToFormState = (
+function mapLocationDetailsToFormState(
   stop: StopWithDetails,
-): Partial<LocationDetailsFormState> => {
+): Partial<LocationDetailsFormState> {
   return {
     streetAddress: stop.quay?.streetAddress,
     postalCode: stop.quay?.postalCode,
@@ -34,7 +34,7 @@ const mapLocationDetailsToFormState = (
       stop.quay?.placeEquipments?.generalSign?.[0]?.signContentType ??
       undefined,
   };
-};
+}
 
 export const LocationDetailsSection: FC<LocationDetailsSectionProps> = ({
   stop,

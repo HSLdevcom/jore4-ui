@@ -15,23 +15,25 @@ type ChooseRouteDropdownProps = Omit<ComboboxInputProps, 'onChange'> & {
   readonly onChange: (newValue: string) => void;
 };
 
-const mapToOption = (item: RouteAllFieldsFragment) => ({
-  value: item.route_id,
-  content: (
-    <div>
-      <div data-testid="label-and-name">
-        <span className="font-bold">{item.label}</span>
-        {` | ${item.name_i18n?.fi_FI}`}
+function mapToOption(item: RouteAllFieldsFragment) {
+  return {
+    value: item.route_id,
+    content: (
+      <div>
+        <div data-testid="label-and-name">
+          <span className="font-bold">{item.label}</span>
+          {` | ${item.name_i18n?.fi_FI}`}
+        </div>
+        <div className="text-sm">
+          <DateRange
+            startDate={item.validity_start ?? MIN_DATE}
+            endDate={item.validity_end ?? MAX_DATE}
+          />
+        </div>
       </div>
-      <div className="text-sm">
-        <DateRange
-          startDate={item.validity_start ?? MIN_DATE}
-          endDate={item.validity_end ?? MAX_DATE}
-        />
-      </div>
-    </div>
-  ),
-});
+    ),
+  };
+}
 
 export const ChooseRouteDropdown: FC<ChooseRouteDropdownProps> = ({
   testId,

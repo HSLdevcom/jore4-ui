@@ -1,7 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export const selectMapModal = (state: RootState) => state.mapModal;
+export function selectMapModal(state: RootState) {
+  return state.mapModal;
+}
 
 export const selectMapViewport = createSelector(
   selectMapModal,

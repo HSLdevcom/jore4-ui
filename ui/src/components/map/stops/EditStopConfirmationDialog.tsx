@@ -21,10 +21,10 @@ type EditStopConfirmationDialogProps = {
  *
  * Example output: "65x, 65y (5 versions), 65z (3 versions)"
  */
-export const buildRouteLabelListString = (
+export function buildRouteLabelListString(
   routes: ReadonlyArray<RouteUniqueFieldsFragment>,
   t: TFunction,
-) => {
+) {
   const labelsCounted = countBy(routes, 'label');
 
   return Object.entries(labelsCounted)
@@ -38,7 +38,7 @@ export const buildRouteLabelListString = (
         : routeLabel,
     )
     .join(', ');
-};
+}
 
 /** Renders a confirmation dialog for confirming changes when a stop is edited */
 export const EditStopConfirmationDialog: FC<

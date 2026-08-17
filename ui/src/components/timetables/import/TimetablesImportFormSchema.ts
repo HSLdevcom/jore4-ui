@@ -11,11 +11,11 @@ const defaultValues: Partial<FormState> = {
   timetableImportStrategy: 'replace',
   // No default for priority, this is on purpose: design decision.
 };
-export const getDefaultValues = ({
+export function getDefaultValues({
   importingSomeSpecialDays,
 }: {
   importingSomeSpecialDays: boolean;
-}): Partial<FormState> => {
+}): Partial<FormState> {
   if (importingSomeSpecialDays) {
     return {
       ...defaultValues,
@@ -23,4 +23,4 @@ export const getDefaultValues = ({
     };
   }
   return defaultValues;
-};
+}

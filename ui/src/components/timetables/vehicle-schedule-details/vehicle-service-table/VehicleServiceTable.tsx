@@ -31,8 +31,9 @@ const headingBgColors: Readonly<Record<TimetablePriority, string>> = {
   [TimetablePriority.Staging]: 'bg-hsl-red/50',
 };
 
-export const getTimetableHeadingBgColor = (key: TimetablePriority) =>
-  headingBgColors[key];
+export function getTimetableHeadingBgColor(key: TimetablePriority) {
+  return headingBgColors[key];
+}
 
 const oddRowBgColors: Readonly<Record<TimetablePriority, string>> = {
   [TimetablePriority.Standard]: 'bg-hsl-neutral-blue',
@@ -42,7 +43,6 @@ const oddRowBgColors: Readonly<Record<TimetablePriority, string>> = {
   [TimetablePriority.Draft]: 'bg-background',
   [TimetablePriority.Staging]: 'bg-hsl-neutral-blue',
 };
-const getOddRowColor = (key: TimetablePriority) => oddRowBgColors[key];
 
 export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
   vehicleJourneyGroup,
@@ -130,7 +130,7 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
             <VehicleServiceRow
               key={item.hours}
               data={item}
-              oddRowColor={getOddRowColor(priority)}
+              oddRowColor={oddRowBgColors[priority]}
             />
           ))}
         </div>

@@ -34,52 +34,52 @@ type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
 // The items in stop place query result also contain some types that should not be there at all:
 // possible null values and parent stop places.
 // We want to omit those here since they're not possible.
-const isStopPlace = <T extends StopPlaceType>(
+function isStopPlace<T extends StopPlaceType>(
   stopPlaceResult: unknown,
-): stopPlaceResult is T => {
+): stopPlaceResult is T {
   // For parent type this would be stop_registry_ParentStopPlace
   return hasTypeName(stopPlaceResult, 'stop_registry_StopPlace');
-};
+}
 
-const isParentStopPlace = <T extends ParentStopPlaceType>(
+function isParentStopPlace<T extends ParentStopPlaceType>(
   stopPlaceResult: unknown,
-): stopPlaceResult is T => {
+): stopPlaceResult is T {
   return hasTypeName(stopPlaceResult, 'stop_registry_ParentStopPlace');
-};
+}
 
 /**
  * Takes an array of StopPlace objects from a GraphQL query result.
  * Filters unwanted types from the result, and returns StopPlace objects with correct type.
  */
-export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
+export function getStopPlacesFromQueryResult<T extends StopPlaceType>(
   stopPlaceResult:
     ReadonlyArray<T | ParentStopPlaceType | null> | undefined | null,
-): Array<T> => {
+): Array<T> {
   const stopPlaces = stopPlaceResult ?? [];
   return stopPlaces.filter(isStopPlace<T>);
-};
+}
 
-export const getParentStopPlacesFromQueryResult = <
+export function getParentStopPlacesFromQueryResult<
   T extends ParentStopPlaceType,
 >(
   parentStopPlaceResult:
     ReadonlyArray<T | StopPlaceType | null> | undefined | null,
-): Array<T> => {
+): Array<T> {
   const parentStopPlaces = parentStopPlaceResult ?? [];
   return parentStopPlaces.filter(isParentStopPlace<T>);
-};
+}
 
 // Required in DB so can't be null.
 export const defaultAccessibilityLevel = StopRegistryAccessibilityLevel.Unknown;
 
-export const setAlternativeName = (
+export function setAlternativeName(
   initialAlternativeNames:
     ReadonlyArray<StopRegistryAlternativeName | null> | undefined,
   newAlternativeName: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
   },
-) => {
+) {
   const alternativeNames = initialAlternativeNames ?? [];
   const existingAlternativeNameIndex = alternativeNames.findIndex(
     (alternativeName) =>
@@ -95,20 +95,20 @@ export const setAlternativeName = (
   }
 
   return alternativeNames.concat(newAlternativeName);
-};
+}
 
-export const setMultipleAlternativeNames = (
+export function setMultipleAlternativeNames(
   initialAlternativeNames:
     ReadonlyArray<StopRegistryAlternativeName | null> | undefined,
   updates: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
   }[],
-) => {
+) {
   return updates.reduce((acc, newAlternativeName) => {
     return setAlternativeName(acc, newAlternativeName);
   }, initialAlternativeNames);
-};
+}
 
 /**
  * Changes the value of given key in initialKeyValues if the key is found,
@@ -166,31 +166,31 @@ export function setMultipleKeyValues(
 // but that currently causes a random cache desync with timing settings dropdown
 // so lets just use these omits for now and replace them in an individual PR
 // where we upgrade apollo client to > 3.8
-const omitTypename = <T extends { __typename?: string } | null>(
+function omitTypename<T extends { __typename?: string } | null>(
   obj: T,
-): Omit<T, '__typename'> => {
+): Omit<T, '__typename'> {
   return obj && omit(obj, '__typename');
-};
+}
 
-export const patchKeyValues = (
+export function patchKeyValues(
   stopPlace: {
     readonly keyValues?: Maybe<ReadonlyArray<Maybe<StopRegistryKeyValues>>>;
   } | null,
   updates: ReadonlyArray<{ key: string; values: ReadonlyArray<string> }>,
-) => {
+) {
   const initialKeyValues =
     stopPlace?.keyValues?.map((keyValue) => omitTypename(keyValue)) ?? [];
 
   return setMultipleKeyValues(initialKeyValues, updates);
-};
+}
 
-export const patchAlternativeNames = (
+export function patchAlternativeNames(
   stopPlace: Pick<StopRegistryStopPlace, 'alternativeNames'> | null,
   updates: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
   }[],
-) => {
+) {
   const initialAlternativeNames = stopPlace?.alternativeNames?.map(
     (alternativeName) =>
       alternativeName && {
@@ -200,20 +200,20 @@ export const patchAlternativeNames = (
   );
 
   return setMultipleAlternativeNames(initialAlternativeNames, updates);
-};
+}
 
 type StopRegistryQuayWithoutStopPoint = Omit<
   StopRegistryQuay,
   'scheduled_stop_point'
 >;
 
-export const getQuayDetailsForEnrichment = <
+export function getQuayDetailsForEnrichment<
   T extends StopRegistryQuayWithoutStopPoint,
 >(
   quay: T,
   accessibilityAssessment:
     AccessibilityAssessmentDetailsFragment | null | undefined,
-): QuayEnrichmentProperties => {
+): QuayEnrichmentProperties {
   const rawPriorityNumber = Number(findKeyValue(quay, KnownValueKey.Priority));
 
   return {
@@ -253,7 +253,7 @@ export const getQuayDetailsForEnrichment = <
     stopOwner: findKeyValue(quay, KnownValueKey.StopOwner) as StopOwner,
     timingPlaceId: findKeyValue(quay, KnownValueKey.TimingPlaceId),
   };
-};
+}
 
 type StopRegistryStopPlaceWithQuays = Omit<StopRegistryStopPlace, 'quays'> & {
   readonly quays?: Maybe<
@@ -261,13 +261,13 @@ type StopRegistryStopPlaceWithQuays = Omit<StopRegistryStopPlace, 'quays'> & {
   >;
 };
 
-const findCoordinate = (
+function findCoordinate(
   stopPlace: StopRegistryStopPlaceWithQuays | StopRegistryParentStopPlace,
   coordinate: 'latitude' | 'longitude',
-): number | undefined => {
+): number | undefined {
   const coordinates = stopPlace.geometry?.coordinates ?? undefined;
   return coordinates ? mapLngLatToPoint(coordinates)[coordinate] : undefined;
-};
+}
 
 // Mark all keys as required, but allow undefined as value.
 type ObjectWithAllKeyosOfStopPlaceEnrichmentProperties = {
@@ -282,12 +282,12 @@ type ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties = {
   ]: ParentStopPlaceEnrichmentProperties[K];
 };
 
-const extractSharedStopPlaceDetails = (stopPlace: {
+function extractSharedStopPlaceDetails(stopPlace: {
   alternativeNames?: Maybe<ReadonlyArray<Maybe<StopRegistryAlternativeName>>>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   geometry?: Maybe<StopRegistryGeoJson>;
   keyValues?: Maybe<ReadonlyArray<Maybe<StopRegistryKeyValues>>>;
-}): Partial<SharedEnrichmentProperties> => {
+}): Partial<SharedEnrichmentProperties> {
   return {
     nameSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
@@ -321,13 +321,11 @@ const extractSharedStopPlaceDetails = (stopPlace: {
     validityEnd:
       findKeyValue(stopPlace, KnownValueKey.ValidityEnd) ?? undefined,
   };
-};
+}
 
-export const getStopPlaceDetailsForEnrichment = <
+export function getStopPlaceDetailsForEnrichment<
   T extends StopRegistryStopPlaceWithQuays,
->(
-  stopPlace: T,
-): ObjectWithAllKeyosOfStopPlaceEnrichmentProperties => {
+>(stopPlace: T): ObjectWithAllKeyosOfStopPlaceEnrichmentProperties {
   return {
     ...extractSharedStopPlaceDetails(stopPlace),
     municipality:
@@ -337,7 +335,7 @@ export const getStopPlaceDetailsForEnrichment = <
         : undefined,
     fareZone: stopPlace.fareZones?.[0]?.name?.value ?? undefined,
   } as ObjectWithAllKeyosOfStopPlaceEnrichmentProperties;
-};
+}
 
 function findParentStopPlaceOwnerDetails(
   parentStopPlace: StopRegistryParentStopPlace,
@@ -362,11 +360,9 @@ function findParentStopPlaceOwnerDetails(
   };
 }
 
-export const getParentStopPlaceDetailsForEnrichment = <
+export function getParentStopPlaceDetailsForEnrichment<
   T extends StopRegistryParentStopPlace,
->(
-  parentStopPlace: T,
-): ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties => {
+>(parentStopPlace: T): ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties {
   return {
     ...extractSharedStopPlaceDetails(parentStopPlace),
     municipality: parentStopPlace.topographicPlace?.name?.value ?? undefined,
@@ -391,4 +387,4 @@ export const getParentStopPlaceDetailsForEnrichment = <
       findKeyValue(parentStopPlace, KnownValueKey.TerminalType) ?? undefined,
     owner: findParentStopPlaceOwnerDetails(parentStopPlace),
   } as ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties;
-};
+}

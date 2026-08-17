@@ -2,16 +2,16 @@
 import { Knex, knex } from 'knex';
 import { DatabaseConnectionInfo } from './config';
 
-export const getDbConnection = (knexConfig: DatabaseConnectionInfo): Knex => {
+export function getDbConnection(knexConfig: DatabaseConnectionInfo): Knex {
   return knex({ client: 'pg', connection: knexConfig });
-};
+}
 
 /**
  * Resets routes and lines database by truncating the necessary tables.
  * We do not truncate those table which's values are set in initial seed.
  * e.g. infrastructure link related tables, vehicle modes, etc.
  */
-export const resetRoutesAndLinesDb = async (db: Knex) => {
+export async function resetRoutesAndLinesDb(db: Knex) {
   console.log(`Resetting routes and lines db...`);
 
   // list of tables has to be manually updated if schema changes
@@ -38,4 +38,4 @@ export const resetRoutesAndLinesDb = async (db: Knex) => {
     console.log('Error when truncating db, err');
     throw err;
   }
-};
+}

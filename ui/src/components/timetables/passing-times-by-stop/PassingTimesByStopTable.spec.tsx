@@ -17,34 +17,37 @@ import {
 } from '../../../utils/test-utils';
 import { PassingTimesByStopTable } from './PassingTimesByStopTable';
 
-const vehicleJourney = (vehicleTypeName: string) => ({
-  block: {
-    block_id: '',
-    vehicle_type: {
-      description_i18n: {
-        fi_FI: vehicleTypeName,
+function vehicleJourney(vehicleTypeName: string) {
+  return {
+    block: {
+      block_id: '',
+      vehicle_type: {
+        description_i18n: {
+          fi_FI: vehicleTypeName,
+        },
+        vehicle_type_id: '',
       },
-      vehicle_type_id: '',
     },
-  },
-  vehicle_journey_id: '',
-});
+    vehicle_journey_id: '',
+  };
+}
 
-const createScheduleStopPointInstance = (timingPlaceLabel: string) => ({
-  direction: InfrastructureNetworkDirectionEnum.Forward,
-  label: '',
-  located_on_infrastructure_link_id: '',
-  priority: 0,
-  scheduled_stop_point_id: '',
-  timing_place: {
-    label: timingPlaceLabel,
-    timing_place_id: '',
-  },
-  validity_end: DateTime.fromISO('2051-01-01T00:00:00.000+02:00'),
-  validity_start: DateTime.fromISO('1990-01-01T00:00:00.000+02:00'),
-});
-
-const createTimetabledPassingTime = ({
+function createScheduleStopPointInstance(timingPlaceLabel: string) {
+  return {
+    direction: InfrastructureNetworkDirectionEnum.Forward,
+    label: '',
+    located_on_infrastructure_link_id: '',
+    priority: 0,
+    scheduled_stop_point_id: '',
+    timing_place: {
+      label: timingPlaceLabel,
+      timing_place_id: '',
+    },
+    validity_end: DateTime.fromISO('2051-01-01T00:00:00.000+02:00'),
+    validity_start: DateTime.fromISO('1990-01-01T00:00:00.000+02:00'),
+  };
+}
+function createTimetabledPassingTime({
   label,
   passingTime,
   arrivalTime,
@@ -54,7 +57,7 @@ const createTimetabledPassingTime = ({
   passingTime: Duration;
   arrivalTime?: Duration;
   departureTime?: Duration;
-}): PassingTimeByStopFragment => {
+}): PassingTimeByStopFragment {
   return {
     arrival_time: arrivalTime,
     departure_time: departureTime,
@@ -73,9 +76,9 @@ const createTimetabledPassingTime = ({
     vehicle_journey: vehicleJourney('Matala telibussi'),
     vehicle_journey_id: uniqueId(),
   };
-};
+}
 
-const createTimetabledPassingTimeWithStopPoint = ({
+function createTimetabledPassingTimeWithStopPoint({
   label,
   timingPlaceLabel,
   passingTime,
@@ -87,7 +90,7 @@ const createTimetabledPassingTimeWithStopPoint = ({
   passingTime: Duration;
   arrivalTime?: Duration;
   departureTime?: Duration;
-}) => {
+}) {
   const timetabledPassingTime = createTimetabledPassingTime({
     label,
     passingTime,
@@ -105,7 +108,7 @@ const createTimetabledPassingTimeWithStopPoint = ({
       scheduled_stop_point_instances: [scheduledStopPointInstance],
     },
   };
-};
+}
 
 describe(`<${PassingTimesByStopTable.name} />`, () => {
   const vehicleJourneys: VehicleJourneyByStopFragment[] = [

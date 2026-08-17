@@ -1,8 +1,8 @@
 import { hasuraApi } from '../hasuraApi';
 import { GetVehicleTypesResult } from '../types';
 
-export const getVehicleTypes = () =>
-  hasuraApi({
+export function getVehicleTypes() {
+  return hasuraApi({
     operationName: 'GetTimetablesVehicleTypes',
     query: `query GetTimetablesVehicleTypes {
     timetables {
@@ -12,3 +12,4 @@ export const getVehicleTypes = () =>
     }
   }`,
   }) as Promise<GetVehicleTypesResult>;
+}

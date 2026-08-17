@@ -28,7 +28,7 @@ import {
   SNAPPING_LINE_LAYER_ID,
 } from './utils';
 
-const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
+function setCursor(map: MapRef | undefined, drawingMode: Mode | undefined) {
   if (!map) {
     return;
   }
@@ -43,7 +43,7 @@ const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
     default:
       canvas.style.cursor = 'auto';
   }
-};
+}
 
 export const DrawRouteLayer: FC = () => {
   const drawRef = useRef<MapboxDraw | null>(null);

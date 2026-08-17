@@ -25,8 +25,9 @@ import {
 } from '../../forms/route/RoutePropertiesForm.types';
 import { EditRouteModal } from './EditRouteModal';
 
-const areFormValuesValid = (formData?: Partial<RouteFormState>) =>
-  routeFormSchema.safeParse(formData).success;
+function areFormValuesValid(formData?: Partial<RouteFormState>) {
+  return routeFormSchema.safeParse(formData).success;
+}
 
 export const EditRouteMetadataLayer: FC = () => {
   const apollo = useApolloClient();

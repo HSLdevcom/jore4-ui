@@ -19,7 +19,7 @@ export type GetUserNameById = (
   userId: string | null | undefined,
 ) => string | null;
 
-export const useGetUserNames = () => {
+export function useGetUserNames() {
   const { data, ...rest } = useGetUserNamesQuery();
 
   const users = useMemo(() => compact(data?.login_audit), [data]);
@@ -29,4 +29,4 @@ export const useGetUserNames = () => {
   );
 
   return { ...rest, getUserNameById, users };
-};
+}

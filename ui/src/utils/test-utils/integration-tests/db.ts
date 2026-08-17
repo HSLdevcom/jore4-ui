@@ -28,12 +28,12 @@ import {
   removeVehicleSubmodeOnInfraLink,
 } from '@hsl/jore4-test-db-manager';
 
-const logOnError = (message: string, res: ExplicitAny) => {
+function logOnError(message: string, res: ExplicitAny) {
   if (res.errors) {
     // eslint-disable-next-line no-console
     console.log(`${message}:`, res);
   }
-};
+}
 
 type SupportedResources = {
   readonly infraLinks?: InfraLinkInsertInput[];
@@ -46,7 +46,7 @@ type SupportedResources = {
   readonly stopsInJourneyPattern?: StopInJourneyPatternInsertInput[];
 };
 
-export const insertToDbHelper = async ({
+export async function insertToDbHelper({
   infraLinks,
   vehicleSubmodeOnInfrastructureLink,
   lines,
@@ -55,7 +55,7 @@ export const insertToDbHelper = async ({
   infraLinksAlongRoute,
   journeyPatterns,
   stopsInJourneyPattern,
-}: SupportedResources) => {
+}: SupportedResources) {
   if (infraLinks) {
     const mutation = mapToCreateInfraLinksMutation(infraLinks);
     await hasuraApi(mutation).then((res) =>
@@ -107,9 +107,9 @@ export const insertToDbHelper = async ({
       logOnError('Inserting stops in journey pattern', res),
     );
   }
-};
+}
 
-export const removeFromDbHelper = async ({
+export async function removeFromDbHelper({
   infraLinks,
   vehicleSubmodeOnInfrastructureLink,
   lines,
@@ -118,7 +118,7 @@ export const removeFromDbHelper = async ({
   infraLinksAlongRoute,
   journeyPatterns,
   stopsInJourneyPattern,
-}: SupportedResources) => {
+}: SupportedResources) {
   if (routes) {
     const mutation = mapToDeleteRoutesMutation(
       routes.map((item) => item.route_id),
@@ -179,4 +179,4 @@ export const removeFromDbHelper = async ({
       logOnError('Removing stops in journey pattern', res),
     );
   }
-};
+}

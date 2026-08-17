@@ -29,7 +29,7 @@ const appReducer = combineReducers({
   timetableVersionPanel: timetableVersionPanelReducer,
 });
 
-export const rootReducer = (state: ExplicitAny, action: UnknownAction) => {
+export function rootReducer(state: ExplicitAny, action: UnknownAction) {
   if (action.type === loginFailedAction.type) {
     // Setting state to undefined is the correct way for resetting state:
     // https://stackoverflow.com/a/35641992
@@ -37,4 +37,4 @@ export const rootReducer = (state: ExplicitAny, action: UnknownAction) => {
   }
 
   return appReducer(state, action);
-};
+}

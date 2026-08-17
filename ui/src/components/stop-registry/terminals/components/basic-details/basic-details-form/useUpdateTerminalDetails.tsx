@@ -18,10 +18,10 @@ type UpdateTerminalInputs = {
   readonly state: TerminalFormState;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   terminal,
   state,
-}: UpdateTerminalInputs): StopRegistryParentStopPlaceInput => {
+}: UpdateTerminalInputs): StopRegistryParentStopPlaceInput {
   const { id } = terminal;
 
   return {
@@ -105,9 +105,9 @@ const mapFormStateToInput = ({
       ]),
     ),
   };
-};
+}
 
-export const useUpdateTerminalDetails = () => {
+export function useUpdateTerminalDetails() {
   const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();
 
   const updateTerminalDetails = useCallback(
@@ -122,4 +122,4 @@ export const useUpdateTerminalDetails = () => {
     updateTerminalDetails,
     defaultErrorHandler,
   };
-};
+}

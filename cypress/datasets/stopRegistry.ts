@@ -605,5 +605,6 @@ const baseStopRegistryData = {
   infoSpots: infoSpotData,
 };
 
-export const getClonedBaseStopRegistryData = () =>
-  cloneDeep(baseStopRegistryData);
+export function getClonedBaseStopRegistryData() {
+  return cloneDeep(baseStopRegistryData);
+}

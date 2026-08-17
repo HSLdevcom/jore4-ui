@@ -15,12 +15,12 @@ type EditTiamatParams = {
   readonly terminal: EnrichedParentStopPlace;
 };
 
-const mapExternalLinkFormToInput = (externalLink: ExternalLinksState) => {
+function mapExternalLinkFormToInput(externalLink: ExternalLinksState) {
   return {
     name: externalLink.name,
     location: externalLink.location,
   };
-};
+}
 
 function mapTerminalEditChangesToTiamatDbInput({
   state,
@@ -47,7 +47,7 @@ function prepareEditForTiamatDb({ state, terminal }: EditTiamatParams) {
   };
 }
 
-export const useEditTerminalExternalLinks = () => {
+export function useEditTerminalExternalLinks() {
   const { t } = useTranslation();
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
@@ -91,4 +91,4 @@ export const useEditTerminalExternalLinks = () => {
     saveParentStopPlaceExternalLinks,
     defaultErrorHandler,
   };
-};
+}

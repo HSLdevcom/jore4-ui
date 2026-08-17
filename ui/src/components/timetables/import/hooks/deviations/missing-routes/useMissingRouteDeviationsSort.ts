@@ -1,7 +1,7 @@
 import orderBy from 'lodash/orderBy';
 import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
 
-export const useMissingRouteDeviationsSort = () => {
+export function useMissingRouteDeviationsSort() {
   const sortDeviations = (
     routeDeviations: ReadonlyArray<VehicleScheduleFrameInfo>,
   ): VehicleScheduleFrameInfo[] => {
@@ -13,4 +13,4 @@ export const useMissingRouteDeviationsSort = () => {
   };
 
   return { sortDeviations };
-};
+}

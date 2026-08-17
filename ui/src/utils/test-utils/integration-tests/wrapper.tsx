@@ -4,9 +4,9 @@ import { ReactNode } from 'react';
 import { ApolloProvider } from '../../../components/common/Apollo';
 
 // https://react-hooks-testing-library.com/usage/advanced-hooks
-export const hookWrapper = ({ children }: { children: ReactNode }) => (
-  <ApolloProvider>{children}</ApolloProvider>
-);
+export function hookWrapper({ children }: { children: ReactNode }) {
+  return <ApolloProvider>{children}</ApolloProvider>;
+}
 
 // default options for `renderHook` method from `@testing-library/react`
 // to be used in integration tests

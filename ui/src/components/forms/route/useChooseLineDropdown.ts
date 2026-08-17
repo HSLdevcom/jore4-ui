@@ -51,14 +51,14 @@ const GQL_LINE_FOR_COMBOBOX = gql`
   }
 `;
 
-export const useChooseLineDropdown = (
+export function useChooseLineDropdown(
   query: string,
   lineId?: string,
   vehicleMode?: ReusableComponentsVehicleModeEnum,
 ): {
   lines: ReadonlyArray<LineForComboboxFragment>;
   selectedLine?: LineForComboboxFragment;
-} => {
+} {
   const today = useMemo(() => DateTime.now().startOf('day'), []);
 
   const [debouncedQuery] = useDebouncedString(query, 300);
@@ -102,4 +102,4 @@ export const useChooseLineDropdown = (
     lines,
     selectedLine: displayedSelectedLine,
   };
-};
+}

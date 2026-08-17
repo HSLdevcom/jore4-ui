@@ -39,11 +39,11 @@ type InfoSpotsSectionProps = {
   readonly shelterNumber: number | null;
 };
 
-export const useInfoSpotFormDefaultValues = (
+export function useInfoSpotFormDefaultValues(
   infoSpots: ReadonlyArray<StopPlaceInfoSpots>,
   stop: Readonly<StopWithDetails>,
   shelter: Readonly<ShelterEquipmentDetailsFragment>,
-) => {
+) {
   const infoSpotLocations = useMemo(
     () => [stop.stop_place_ref ?? null, shelter.id ?? null],
     [stop.stop_place_ref, shelter.id],
@@ -66,7 +66,7 @@ export const useInfoSpotFormDefaultValues = (
   }, [infoSpots, infoSpotLocations, stop.label]);
 
   return { infoSpotsFormDefaultValues, infoSpotLocations };
-};
+}
 
 const InfoSpotTitle: FC<{
   readonly infoSpotCount: number;

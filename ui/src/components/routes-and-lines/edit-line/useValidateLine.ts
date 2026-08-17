@@ -46,7 +46,7 @@ type ValidateParams = {
   readonly input: RouteLineSetInput;
 };
 
-export const useValidateLine = () => {
+export function useValidateLine() {
   const { t } = useTranslation();
   const apollo = useApolloClient();
 
@@ -90,4 +90,4 @@ export const useValidateLine = () => {
   return {
     validateLine,
   };
-};
+}

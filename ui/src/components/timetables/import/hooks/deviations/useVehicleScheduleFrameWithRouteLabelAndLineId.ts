@@ -49,7 +49,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_AND_LINE_INFO = gql`
 export type VehicleScheduleVehicleScheduleFrameWithRoutes =
   VehicleScheduleFrameWithRouteAndLineInfoFragment;
 
-export const useVehicleScheduleFrameWithRouteLabelAndLineId = () => {
+export function useVehicleScheduleFrameWithRouteLabelAndLineId() {
   const apollo = useApolloClient();
 
   const fetchVehicleFrames = useCallback(
@@ -68,4 +68,4 @@ export const useVehicleScheduleFrameWithRouteLabelAndLineId = () => {
   );
 
   return { fetchVehicleFrames };
-};
+}

@@ -57,16 +57,16 @@ const emptyRowObject: PeriodType = {
   isPreset: false,
 };
 
-const mapDurationToString = (duration: Maybe<Duration> | undefined) => {
+function mapDurationToString(duration: Maybe<Duration> | undefined) {
   if (duration) {
     return mapDurationToShortTime(duration);
   }
   return '';
-};
+}
 
-const convertToPeriodSchema = (
+function convertToPeriodSchema(
   input: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
-): FormState => {
+): FormState {
   const periods = input?.map((item) => {
     const periodBeginDate = minBy(
       item.substitute_operating_day_by_line_types,
@@ -104,23 +104,23 @@ const convertToPeriodSchema = (
     };
   });
   return { periods };
-};
+}
 
-export const mapOccasionalSubstituteOperatingPeriodsToFormState = (
+export function mapOccasionalSubstituteOperatingPeriodsToFormState(
   occasionalSubstituteOperatingPeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
-) => {
+) {
   return convertToPeriodSchema(occasionalSubstituteOperatingPeriods);
-};
+}
 
-export const findEarliestDate = (values: FormState) => {
+export function findEarliestDate(values: FormState) {
   const periodWithEarliestdate = minBy(values.periods, 'beginDate');
   return DateTime.fromISO(periodWithEarliestdate?.beginDate ?? '');
-};
+}
 
-export const findLatestDate = (values: FormState) => {
+export function findLatestDate(values: FormState) {
   const periodWithlatestDate = maxBy(values.periods, 'endDate');
   return DateTime.fromISO(periodWithlatestDate?.endDate ?? '');
-};
+}
 
 export const OccasionalSubstitutePeriodForm: FC<
   OccasionalSubstitutePeriodFormProps

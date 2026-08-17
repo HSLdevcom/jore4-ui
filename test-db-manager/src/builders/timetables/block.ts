@@ -47,7 +47,7 @@ export const buildBlockDeep = (
   };
 };
 
-export const getBlockTimes = (block: BlockInsertInputDeep) => {
+export function getBlockTimes(block: BlockInsertInputDeep) {
   const vehicleJourneys = block.vehicle_journeys.data;
 
   // find the first valid vehicle journey with a start time
@@ -69,7 +69,7 @@ export const getBlockTimes = (block: BlockInsertInputDeep) => {
     blockStart && blockEnd ? blockEnd.minus(blockStart) : undefined;
 
   return { start: blockStart, end: blockEnd, duration };
-};
+}
 
 export type BlockSequenceBuilder = BlockDeepBuilder & {
   blockWaitSequenceBuilder: TimeSequenceParams;

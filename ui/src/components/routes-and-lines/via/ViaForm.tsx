@@ -39,13 +39,17 @@ const testIds = {
   removeButton: 'ViaForm::removeButton',
 };
 
-export const mapStopJourneyPatternToFormState = (
+export function mapStopJourneyPatternToFormState(
   stopInfo: JourneyPatternScheduledStopPointInJourneyPattern,
-) => ({
-  isViaPoint: stopInfo.is_via_point,
-  viaPointName: defaultLocalizedString(stopInfo.via_point_name_i18n),
-  viaPointShortName: defaultLocalizedString(stopInfo.via_point_short_name_i18n),
-});
+) {
+  return {
+    isViaPoint: stopInfo.is_via_point,
+    viaPointName: defaultLocalizedString(stopInfo.via_point_name_i18n),
+    viaPointShortName: defaultLocalizedString(
+      stopInfo.via_point_short_name_i18n,
+    ),
+  };
+}
 
 export const ViaForm: FC<ViaFormProps> = ({
   defaultValues,

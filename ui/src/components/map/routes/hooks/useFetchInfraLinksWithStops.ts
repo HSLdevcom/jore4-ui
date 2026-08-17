@@ -5,7 +5,7 @@ import { MapMatchingNoSegmentError, showDangerToast } from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
 import { useExtractRouteFromFeature } from './useExtractRouteFromFeature';
 
-export const useFetchInfraLinksWithStops = () => {
+export function useFetchInfraLinksWithStops() {
   const { setIsLoading } = useLoader(Operation.FetchInfraLinksWithStops);
   const { t } = useTranslation();
   const { getInfraLinksWithStopsForGeometry } = useExtractRouteFromFeature();
@@ -32,4 +32,4 @@ export const useFetchInfraLinksWithStops = () => {
     },
     [getInfraLinksWithStopsForGeometry, setIsLoading, t],
   );
-};
+}

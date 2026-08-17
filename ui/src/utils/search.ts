@@ -23,9 +23,9 @@ export type SearchConditions = {
   readonly observationDate: DateTime;
 };
 
-export const mapToSqlLikeValue = (str: string) => {
+export function mapToSqlLikeValue(str: string) {
   return str.replaceAll('*', '%');
-};
+}
 
 /** Build optional search condition filter. Returns
  * empty object if the filter is not set or is set to 'All', otherwise
@@ -33,18 +33,18 @@ export const mapToSqlLikeValue = (str: string) => {
  * If the value is missing or is 'All', we return empty object because
  * we do not want to create the GQL filter at all.
  */
-export const buildOptionalSearchConditionGqlFilter = <
+export function buildOptionalSearchConditionGqlFilter<
   TType,
   TBuildType = RouteLineBoolExp | RouteRouteBoolExp,
 >(
   value: TType | AllOptionEnum.All | undefined,
   buildFunction: (value: TType) => TBuildType,
-) => {
+) {
   if (value && value !== AllOptionEnum.All) {
     return buildFunction(value);
   }
   return {};
-};
+}
 
 /** Builds an object for gql to filter by label using the '_like' operator.
  * This will means that all the '%' in the label are considered as 'any'
@@ -59,13 +59,13 @@ function buildLabelLikeGqlFilter(
  * and if there is any properties to wrap (they are optional and if none of them
  * are chosen, the properties object might be empty).
  */
-const handleLinePropertyGqlFilters = ({
+function handleLinePropertyGqlFilters({
   properties,
   buildRouteFilter,
 }: {
   properties: RouteLineBoolExp;
   buildRouteFilter: boolean;
-}) => {
+}) {
   return {
     // Wrap with route_line if building route filter and there are properties to wrap
     ...(buildRouteFilter && Object.keys(properties).length
@@ -74,7 +74,7 @@ const handleLinePropertyGqlFilters = ({
         }
       : properties),
   };
-};
+}
 
 /** Builds an object for gql to filter by primary_vehicle_mode */
 function buildPrimaryVehicleModeGqlFilter(
@@ -105,13 +105,13 @@ function buildTypeOfLineGqlFilter(
 /** Builds the search condition GQL filters for either route or line and
  * buildRouteFilter parameter is used to determine which one.
  */
-const buildSearchConditionGqlFilters = ({
+function buildSearchConditionGqlFilters({
   searchConditions,
   buildRouteFilter,
 }: {
   searchConditions: SearchConditions;
   buildRouteFilter: boolean;
-}): RouteRouteBoolExp | RouteLineBoolExp => {
+}): RouteRouteBoolExp | RouteLineBoolExp {
   return {
     // Build all the generic filters.
     ...buildOptionalSearchConditionGqlFilter<string>(
@@ -135,11 +135,11 @@ const buildSearchConditionGqlFilters = ({
       buildRouteFilter,
     }),
   };
-};
+}
 
-export const buildSearchLinesAndRoutesGqlQueryVariables = (
+export function buildSearchLinesAndRoutesGqlQueryVariables(
   searchConditions: SearchConditions,
-): SearchLinesAndRoutesQueryVariables => {
+): SearchLinesAndRoutesQueryVariables {
   const lineFilter = buildSearchConditionGqlFilters({
     searchConditions,
     buildRouteFilter: false,
@@ -167,4 +167,4 @@ export const buildSearchLinesAndRoutesGqlQueryVariables = (
     lineOrderBy,
     routeOrderBy,
   };
-};
+}

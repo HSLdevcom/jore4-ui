@@ -13,17 +13,17 @@ import { TerminalInfoSpotFormState, TerminalInfoSpotRowProps } from '../types';
 import { mapTerminalInfoSpotDataToFormState } from '../utils';
 import { TerminalInfoSpotRowHeader } from './TerminalInfoSpotRowHeader';
 
-const useExistingInfoSpotFormDefaultValues = (
+function useExistingInfoSpotFormDefaultValues(
   infoSpot: Readonly<StopPlaceInfoSpots>,
   terminal: Readonly<EnrichedParentStopPlace>,
-) => {
+) {
   const terminalInfoSpotsFormDefaultValues = useMemo(
     () => mapTerminalInfoSpotDataToFormState(infoSpot, terminal),
     [infoSpot, terminal],
   );
 
   return { terminalInfoSpotsFormDefaultValues };
-};
+}
 
 export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
   infoSpot,

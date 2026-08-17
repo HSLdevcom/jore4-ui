@@ -13,7 +13,7 @@ export type VehicleScheduleFrameInfo = {
   routeName: LocalizedString;
 };
 
-export const useCreateVehicleScheduleFrameInfo = () => {
+export function useCreateVehicleScheduleFrameInfo() {
   const createVehicleScheduleFrameInfo = useCallback(
     (
       vehicleScheduleFrames: ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithRoutes>,
@@ -60,4 +60,4 @@ export const useCreateVehicleScheduleFrameInfo = () => {
   return {
     createVehicleScheduleFrameInfo,
   };
-};
+}

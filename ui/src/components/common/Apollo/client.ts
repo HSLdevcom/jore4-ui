@@ -33,7 +33,7 @@ function parseDateTime(raw: unknown) {
   return parseDate(raw);
 }
 
-const buildScalarMappingLink = () => {
+export function buildScalarMappingLink() {
   const dateMapper: ParsingFunctionsObject<DateTime, unknown> = {
     serialize: (parsed: unknown) => {
       if (DateTime.isDateTime(parsed)) {
@@ -90,7 +90,7 @@ const buildScalarMappingLink = () => {
   );
 
   return withScalars({ schema, typesMap });
-};
+}
 
 function getGraphqlUrl(isWebsocket: false): UriFunction;
 function getGraphqlUrl(isWebsocket: true): string;
@@ -108,7 +108,7 @@ function getGraphqlUrl(isWebsocket: boolean): string | UriFunction {
   return (operation) => `${joreConfig.hasuraUrl}?q=${operation.operationName}`;
 }
 
-const buildWebSocketLink = () => {
+function buildWebSocketLink() {
   return new GraphQLWsLink(
     createWsClient({
       url: getGraphqlUrl(true),
@@ -118,7 +118,7 @@ const buildWebSocketLink = () => {
       lazy: true,
     }),
   );
-};
+}
 
 // To temporarily deal with the site giving pages without any information due to stop & start
 // dependencies while developing, we can catch the access-denied error and reload the page which
@@ -141,7 +141,7 @@ const errorLink = onError((response) => {
   }
 });
 
-const buildHttpLink = (isTesting: boolean) => {
+function buildHttpLink(isTesting: boolean) {
   const defaultConfig = {
     uri: getGraphqlUrl(false),
   };
@@ -154,9 +154,9 @@ const buildHttpLink = (isTesting: boolean) => {
       }
     : defaultConfig;
   return new HttpLink(httpLinkConfig);
-};
+}
 
-const buildConnectionLink = (isBrowser: boolean, isTesting: boolean) => {
+function buildConnectionLink(isBrowser: boolean, isTesting: boolean) {
   // because next.js might run this on server-side and websockets aren't
   // supported there, we have to check if we are on browser before
   // initializing WebSocket link
@@ -177,9 +177,9 @@ const buildConnectionLink = (isBrowser: boolean, isTesting: boolean) => {
     wsLink,
     httpLink,
   );
-};
+}
 
-const buildCacheDefinition = () => {
+function buildCacheDefinition() {
   const cacheDefinition = new InMemoryCache({
     typePolicies: {
       route_line: {
@@ -333,7 +333,7 @@ const buildCacheDefinition = () => {
   });
 
   return cacheDefinition;
-};
+}
 
 function buildAuthLink() {
   return new ApolloLink((operation, forward) => {
@@ -351,7 +351,7 @@ function buildAuthLink() {
   });
 }
 
-export const createGraphqlClient = () => {
+export function createGraphqlClient() {
   // jest and most testing frameworks set NODE_ENV to 'test' automatically
   const isTesting = process.env.NODE_ENV === 'test';
 
@@ -377,4 +377,4 @@ export const createGraphqlClient = () => {
       },
     },
   });
-};
+}

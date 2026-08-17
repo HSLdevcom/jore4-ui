@@ -83,7 +83,7 @@ function mapRouteDetailsToInsertMutationVariables({
   };
 }
 
-export const useCreateRoute = () => {
+export function useCreateRoute() {
   const client = useApolloClient();
   const [mutateFunction] = useInsertRouteOneMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
@@ -142,4 +142,4 @@ export const useCreateRoute = () => {
   };
 
   return { prepareCreate, insertRouteMutation };
-};
+}

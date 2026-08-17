@@ -5,7 +5,7 @@ import {
   GetStagingVehicleScheduleFramesQuery,
 } from '../../../../../generated/graphql';
 
-export const useGetStagingVehicleScheduleFrameIds = () => {
+export function useGetStagingVehicleScheduleFrameIds() {
   const apollo = useApolloClient();
 
   const fetchStagingVehicleFrameIds = useCallback(async () => {
@@ -22,4 +22,4 @@ export const useGetStagingVehicleScheduleFrameIds = () => {
   }, [apollo]);
 
   return { fetchStagingVehicleFrameIds };
-};
+}

@@ -11,11 +11,11 @@ const ADDITIONAL_BUTTON_AMOUNT = 2;
  * we render ... 6 7 8 ...
  * @param totalPages
  */
-const getSliceIndexes = (
+function getSliceIndexes(
   currentPage: number,
   amountOfNeighbours: number,
   totalPages: number,
-) => {
+) {
   const currentPageIsNearStart =
     currentPage <= amountOfNeighbours + ADDITIONAL_BUTTON_AMOUNT;
   const currentPageIsNearEnd =
@@ -44,13 +44,13 @@ const getSliceIndexes = (
     startIndex: currentPage - amountOfNeighbours - 1,
     endIndex: currentPage + amountOfNeighbours,
   };
-};
+}
 
-export const getDisplayedPageNumberList = (
+export function getDisplayedPageNumberList(
   currentPage: number,
   amountOfNeighbours: number,
   totalPages: number,
-) => {
+) {
   const { startIndex, endIndex } = getSliceIndexes(
     currentPage,
     amountOfNeighbours,
@@ -60,8 +60,9 @@ export const getDisplayedPageNumberList = (
   const pageNumbers = range(1, totalPages + 1);
 
   return pageNumbers.slice(startIndex, endIndex);
-};
+}
 
 /** Adds zero in front of 1-9 page numbers */
-export const getRenderedPageNumber = (page: number) =>
-  page < 10 ? `0${page}` : page.toString();
+export function getRenderedPageNumber(page: number) {
+  return page < 10 ? `0${page}` : page.toString();
+}

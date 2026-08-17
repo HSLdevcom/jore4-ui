@@ -6,7 +6,7 @@ const testIds = {
   notValidText: 'LineMissingBox::notValidText',
 };
 
-const useLineMissingTranslation = (error?: LineFetchError) => {
+function useLineMissingTranslation(error?: LineFetchError) {
   const { t } = useTranslation();
 
   if (error === LineFetchError.LINE_NOT_VALID_FOR_DAY) {
@@ -14,7 +14,7 @@ const useLineMissingTranslation = (error?: LineFetchError) => {
   }
 
   return t(($) => $.lines.lineMissingDefault);
-};
+}
 
 type LineMissingBoxProps = {
   readonly error?: LineFetchError;

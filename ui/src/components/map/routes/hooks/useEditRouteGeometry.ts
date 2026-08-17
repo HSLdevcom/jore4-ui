@@ -104,7 +104,7 @@ export type EditChanges = {
  * For editing route metadata (name, label, validity etc.),
  * use editRouteMetadata
  */
-export const useEditRouteGeometry = () => {
+export function useEditRouteGeometry() {
   const client = useApolloClient();
   const [mutateFunction] = useUpdateRouteGeometryMutation();
   const validateJourneyPattern = useValidateJourneyPattern();
@@ -182,4 +182,4 @@ export const useEditRouteGeometry = () => {
   };
 
   return { prepareEditGeometry: prepareEdit, editRouteGeometryMutation };
-};
+}

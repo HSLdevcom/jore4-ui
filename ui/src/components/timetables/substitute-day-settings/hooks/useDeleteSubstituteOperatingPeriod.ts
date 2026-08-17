@@ -13,7 +13,7 @@ const GQL_DELETE_SUBSTITUTE_OPERATING_PERIOD = gql`
     }
   }
 `;
-export const useDeleteSubstituteOperatingPeriod = () => {
+export function useDeleteSubstituteOperatingPeriod() {
   const [mutateFunction] = useDeleteSubstituteOperatingPeriodMutation();
 
   const deleteSubstituteOperatingPeriod = async (form: {
@@ -27,4 +27,4 @@ export const useDeleteSubstituteOperatingPeriod = () => {
     });
   };
   return { deleteSubstituteOperatingPeriod };
-};
+}

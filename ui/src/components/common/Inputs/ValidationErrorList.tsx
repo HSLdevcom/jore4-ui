@@ -45,12 +45,12 @@ type ErrorListProps<FormState extends FieldValues> = {
 
 const INVALID_EMAIL_MESSAGE = 'Invalid email';
 
-const isDefaultZodErrorMessage = (message: string) => {
+function isDefaultZodErrorMessage(message: string) {
   return (
     message.startsWith('String must contain at least') ||
     message.startsWith('String must contain at most')
   );
-};
+}
 
 function useTranslateErrorMessage(): (message: string | undefined) => string {
   const translateStringKey = useTranslateStringKey();

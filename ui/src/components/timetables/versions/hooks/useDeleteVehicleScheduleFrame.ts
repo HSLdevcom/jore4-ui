@@ -21,11 +21,11 @@ const GQL_DELETE_VEHICLE_SCHEDULE_FRAME = gql`
   }
 `;
 
-export const useDeleteVehicleScheduleFrame = ({
+export function useDeleteVehicleScheduleFrame({
   onCompleted,
 }: {
   onCompleted?: () => void;
-} = {}) => {
+} = {}) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [mutateFunction] = useDeleteVehicleScheduleFrameMutation({
@@ -66,4 +66,4 @@ export const useDeleteVehicleScheduleFrame = ({
   return {
     deleteVehicleScheduleFrameMutation,
   };
-};
+}

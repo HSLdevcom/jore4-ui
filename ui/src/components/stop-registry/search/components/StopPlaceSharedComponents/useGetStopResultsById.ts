@@ -25,7 +25,7 @@ const GQL_GET_STOPS_BY_ID = gql`
   }
 `;
 
-export const useGetStopResultById = (stopPlaceId: number | bigint) => {
+export function useGetStopResultById(stopPlaceId: number | bigint) {
   const { data, ...rest } = useGetStopsByIdQuery({
     variables: { stopPlaceId },
   });
@@ -41,4 +41,4 @@ export const useGetStopResultById = (stopPlaceId: number | bigint) => {
     ...rest,
     stops: stopSearchRows,
   };
-};
+}

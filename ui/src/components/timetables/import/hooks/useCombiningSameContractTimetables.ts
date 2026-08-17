@@ -1,20 +1,18 @@
 import uniq from 'lodash/uniq';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './deviations';
 
-const getJourneys = (
-  frame: VehicleScheduleVehicleScheduleFrameWithJourneys,
-) => {
+function getJourneys(frame: VehicleScheduleVehicleScheduleFrameWithJourneys) {
   return frame.vehicle_services.flatMap((service) =>
     service.blocks.flatMap((block) => block.vehicle_journeys),
   );
-};
+}
 
-export const useCombiningSameContractTimetables = (
+export function useCombiningSameContractTimetables(
   stagingAndTargetFramesForCombine: {
     stagingFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
     targetFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
   }[],
-) => {
+) {
   const combiningSameContractTimetables = stagingAndTargetFramesForCombine.some(
     ({ stagingFrame, targetFrame }) => {
       const stagingContractNumbers = uniq(
@@ -33,4 +31,4 @@ export const useCombiningSameContractTimetables = (
   return {
     combiningSameContractTimetables,
   };
-};
+}

@@ -72,29 +72,36 @@ export function tryToParseDate(
 }
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
-export const formatDateWithLocale = (
+export function formatDateWithLocale(
   format: string,
   locale: string,
   date?: DateLike | null,
-): string | undefined => parseDate(date)?.setLocale(locale).toFormat(format);
+): string | undefined {
+  return parseDate(date)?.setLocale(locale).toFormat(format);
+}
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
-export const formatDateWithoutLocale = (
+export function formatDateWithoutLocale(
   format: string,
   date?: DateLike | null,
-): string | undefined => parseDate(date)?.toFormat(format);
+): string | undefined {
+  return parseDate(date)?.toFormat(format);
+}
 
 // "shortDate" means format "D.M.YYYY"
-export const mapToShortDate = (date?: DateLike | null) =>
-  formatDateWithoutLocale('d.L.yyyy', date);
+export function mapToShortDate(date?: DateLike | null) {
+  return formatDateWithoutLocale('d.L.yyyy', date);
+}
 
 // "shorTime" means format "H.mm"
-export const mapToShortTime = (date?: DateLike | null) =>
-  formatDateWithoutLocale('H.mm', date);
+export function mapToShortTime(date?: DateLike | null) {
+  return formatDateWithoutLocale('H.mm', date);
+}
 
 // "shortDateTime" means format "D.M.YYYY H.mm"
-export const mapToShortDateTime = (date?: DateLike | null) =>
-  formatDateWithoutLocale('d.L.yyyy H.mm', date);
+export function mapToShortDateTime(date?: DateLike | null) {
+  return formatDateWithoutLocale('d.L.yyyy H.mm', date);
+}
 
 export function mapToISODate(date: DateLike): string;
 export function mapToISODate(date: null | undefined): undefined;
@@ -110,39 +117,43 @@ export function mapToISODate(
 export const MIN_DATE = DateTime.fromISO('1970-01-01').startOf('day');
 export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');
 
-export const isDateInRange = (
+export function isDateInRange(
   date: DateTime,
   startDate: DateTime | null | undefined,
   endDate: DateTime | null | undefined,
-) => {
+) {
   return (!startDate || date >= startDate) && (!endDate || date <= endDate);
-};
+}
 
 // The luxon Interval does not handle infinite start/end, so using MIN_DATE and MAX_DATE instead
-export const mapValidityPeriodToInterval = (entity: ValidityPeriod) =>
-  Interval.fromDateTimes(
+export function mapValidityPeriodToInterval(entity: ValidityPeriod) {
+  return Interval.fromDateTimes(
     entity.validity_start ?? MIN_DATE,
     entity.validity_end ?? MAX_DATE,
   );
+}
 
-export const areValidityPeriodsOverlapping = (
+export function areValidityPeriodsOverlapping(
   entity1: ValidityPeriod,
   entity2: ValidityPeriod,
-) =>
-  mapValidityPeriodToInterval(entity1).overlaps(
+) {
+  return mapValidityPeriodToInterval(entity1).overlaps(
     mapValidityPeriodToInterval(entity2),
   );
+}
 
-export const padToTwoDigits = (number: number) =>
-  padStart(number.toString(), 2, '0');
+export function padToTwoDigits(number: number) {
+  return padStart(number.toString(), 2, '0');
+}
 
-export const mapDurationToShortTime = (duration: Duration) =>
-  `${padToTwoDigits(duration.hours)}:${padToTwoDigits(duration.minutes)}`;
+export function mapDurationToShortTime(duration: Duration) {
+  return `${padToTwoDigits(duration.hours)}:${padToTwoDigits(duration.minutes)}`;
+}
 
-export const findEarliestTime = (times: ReadonlyArray<DateTime>) => {
+export function findEarliestTime(times: ReadonlyArray<DateTime>) {
   return DateTime.fromMillis(Math.min(...times.map((item) => item.toMillis())));
-};
+}
 
-export const findLatestTime = (times: ReadonlyArray<DateTime>) => {
+export function findLatestTime(times: ReadonlyArray<DateTime>) {
   return DateTime.fromMillis(Math.max(...times.map((item) => item.toMillis())));
-};
+}

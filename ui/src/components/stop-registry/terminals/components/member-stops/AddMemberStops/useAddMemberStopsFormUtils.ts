@@ -66,9 +66,7 @@ function mapTerminalDataToFormState(
   };
 }
 
-export const useAddMemberStopsFormUtils = (
-  terminal: EnrichedParentStopPlace,
-) => {
+export function useAddMemberStopsFormUtils(terminal: EnrichedParentStopPlace) {
   const { t } = useTranslation();
 
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
@@ -116,4 +114,4 @@ export const useAddMemberStopsFormUtils = (
     methods,
     onFormSubmit,
   };
-};
+}

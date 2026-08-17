@@ -13,7 +13,7 @@ import { useLoader } from '../../../common/hooks';
 import { TimetableImportStrategy } from '../TimetableImportStrategyForm';
 import { useTimetablesImport } from './useTimetablesImport';
 
-export const useConfirmTimetablesImportUIAction = () => {
+export function useConfirmTimetablesImportUIAction() {
   const { t } = useTranslation();
   const {
     confirmTimetablesImportByCombining,
@@ -101,4 +101,4 @@ export const useConfirmTimetablesImportUIAction = () => {
   };
 
   return { onConfirmTimetablesImport, showConfirmFailedErrorDialog };
-};
+}

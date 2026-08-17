@@ -1,7 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export const selectModals = (state: RootState) => state.modals;
+export function selectModals(state: RootState) {
+  return state.modals;
+}
 
 export const selectViaModal = createSelector(
   selectModals,

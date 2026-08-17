@@ -42,9 +42,9 @@ const testIds = {
   longitude: 'StopAreaDetailsEdit::longitude',
 };
 
-export const mapStopAreaDataToFormState = (
+export function mapStopAreaDataToFormState(
   area: EnrichedStopPlace,
-): Partial<FormState> => {
+): Partial<FormState> {
   const { latitude, longitude } = mapLngLatToPoint(
     area.geometry?.coordinates ?? [],
   );
@@ -66,7 +66,7 @@ export const mapStopAreaDataToFormState = (
     validityEnd: mapToISODate(area.validityEnd),
     indefinite: !area.validityEnd,
   };
-};
+}
 
 type StopAreaDetailsEditProps = {
   readonly area: EnrichedStopPlace;

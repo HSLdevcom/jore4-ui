@@ -49,12 +49,12 @@ type Props = {
   readonly routeId?: string;
 };
 
-export const useChooseRouteDropdown = ({
+export function useChooseRouteDropdown({
   query,
   observationDate,
   priorities,
   routeId,
-}: Props) => {
+}: Props) {
   const [debouncedQuery] = useDebouncedString(query, 300);
 
   const [routes, setRoutes] =
@@ -92,4 +92,4 @@ export const useChooseRouteDropdown = ({
     : selectedRoute;
 
   return { routes, selectedRoute: displayedSelectedRoute };
-};
+}

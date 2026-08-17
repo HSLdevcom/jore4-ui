@@ -27,10 +27,10 @@ function useDefaultValues(
   }, [originalTerminal]);
 }
 
-export const useEditTerminalValidityFormUtils = (
+export function useEditTerminalValidityFormUtils(
   originalTerminal: EnrichedParentStopPlace,
   onEditDone: (result: EditTerminalValidityResult) => void,
-) => {
+) {
   const { t } = useTranslation();
 
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
@@ -74,4 +74,4 @@ export const useEditTerminalValidityFormUtils = (
     methods,
     onFormSubmit,
   };
-};
+}

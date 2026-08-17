@@ -8,17 +8,17 @@ import {
   mapToStoreType,
 } from './storeType';
 
-const expectDateTimeToBeSerialized = (input: unknown, output: unknown) => {
+function expectDateTimeToBeSerialized(input: unknown, output: unknown) {
   expect(input).toBeInstanceOf(DateTime);
   expect(typeof output).toEqual('string');
   expect((input as DateTime).toISO()).toEqual(output);
-};
+}
 
-const expectDateTimeToBeDeserialized = (input: unknown, output: unknown) => {
+function expectDateTimeToBeDeserialized(input: unknown, output: unknown) {
   expect(typeof input).toEqual('string');
   expect(output).toBeInstanceOf(DateTime);
   expect((output as DateTime).toISO()).toEqual(input);
-};
+}
 
 describe(`redux object de/serializing`, () => {
   const serializer: SerializerFunction = <

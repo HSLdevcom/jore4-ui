@@ -3,10 +3,11 @@ import range from 'lodash/range';
 import { Duration } from 'luxon';
 import { randomInt } from '../utils';
 
-export const buildLabelArray = (labelPrefix: string, labelCount: number) =>
-  range(1, labelCount + 1).map((no) => `${labelPrefix}${no}`);
+export function buildLabelArray(labelPrefix: string, labelCount: number) {
+  return range(1, labelCount + 1).map((no) => `${labelPrefix}${no}`);
+}
 
-export const buildRandomDuration = (min: Duration, max: Duration) => {
+export function buildRandomDuration(min: Duration, max: Duration) {
   const unroundedDuration = Duration.fromMillis(
     randomInt(min.toMillis(), max.toMillis()),
   );
@@ -18,14 +19,15 @@ export const buildRandomDuration = (min: Duration, max: Duration) => {
   const durationInMinutes = Duration.fromObject(durationParts);
 
   return durationInMinutes;
-};
+}
 
 type ConstantCount = number;
 type RandomCount = { min: number; max: number };
 export type Count = ConstantCount | RandomCount;
 
-export const buildCount = (count: Count) =>
-  isNumber(count) ? count : randomInt(count.min, count.max);
+export function buildCount(count: Count) {
+  return isNumber(count) ? count : randomInt(count.min, count.max);
+}
 
 export type ArrayItemPickMethod = 'modulo' | 'random';
 /**
@@ -34,11 +36,11 @@ export type ArrayItemPickMethod = 'modulo' | 'random';
  * - 'random' method: picks a random item from the array
  * - ... other methods might be implemented later as seen fit
  */
-export const pickArrayItem = <T extends ExplicitAny>(
+export function pickArrayItem<T extends ExplicitAny>(
   method: ArrayItemPickMethod,
   array: T[],
   index: number,
-): T => {
+): T {
   if (method === 'modulo') {
     return array[index % array.length];
   }
@@ -49,4 +51,4 @@ export const pickArrayItem = <T extends ExplicitAny>(
   // https://stackoverflow.com/questions/39419170/how-do-i-check-that-a-switch-block-is-exhaustive-in-typescript
   const exhaustiveCheck: never = method;
   throw new Error(`Unknown array picker method: ${exhaustiveCheck}`);
-};
+}

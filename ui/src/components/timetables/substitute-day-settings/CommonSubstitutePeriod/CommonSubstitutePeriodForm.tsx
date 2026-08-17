@@ -36,10 +36,10 @@ const testIds = {
 
 type GeneratedDate = { name: string; date: DateTime };
 
-const generatePresetDatesForDateRange = (
+function generatePresetDatesForDateRange(
   startDate: DateTime,
   endDate: DateTime,
-) => {
+) {
   const years = range(startDate.year, endDate.year + 1);
   const generatedDates: GeneratedDate[] = [];
 
@@ -60,11 +60,11 @@ const generatePresetDatesForDateRange = (
   });
 
   return generatedDates;
-};
+}
 
-export const mapCommonSubstituteOperatingPeriodsToCommonDays = (
+export function mapCommonSubstituteOperatingPeriodsToCommonDays(
   commonSubstituteOperatingPeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
-): CommonDayType[] => {
+): CommonDayType[] {
   return commonSubstituteOperatingPeriods?.map((period) => {
     const lineTypes: Set<string> = new Set();
     period.substitute_operating_day_by_line_types.forEach(
@@ -87,12 +87,12 @@ export const mapCommonSubstituteOperatingPeriodsToCommonDays = (
       isPreset: period.is_preset,
     };
   });
-};
+}
 
-const combineCommonDaysWithPresetDates = (
+function combineCommonDaysWithPresetDates(
   commonDays: ReadonlyArray<CommonDayType>,
   presetDays: ReadonlyArray<GeneratedDate>,
-): ReadonlyArray<CommonDayType> => {
+): ReadonlyArray<CommonDayType> {
   const displayedCommonDays = [...commonDays];
 
   presetDays.forEach((presetDay) => {
@@ -116,7 +116,7 @@ const combineCommonDaysWithPresetDates = (
   });
 
   return displayedCommonDays;
-};
+}
 
 type CommonSubstitutePeriodFormProps = {
   readonly className?: string;

@@ -19,14 +19,14 @@ export const externalLinksFormSchema = z.object({
 export type ExternalLinksState = z.infer<typeof externalLinksSchema>;
 export type ExternalLinksFormState = z.infer<typeof externalLinksFormSchema>;
 
-export const mapExternalLinkDataToFormState = (
+export function mapExternalLinkDataToFormState(
   externalLink:
     ExternalLinksDetailsFragment | TerminalExternalLinksDetailsFragment,
-): ExternalLinksState => {
+): ExternalLinksState {
   return {
     name: externalLink.name ?? '',
     location: externalLink.location ?? '',
     orderNum: externalLink.orderNum ?? 0,
     toBeDeleted: false,
   };
-};
+}

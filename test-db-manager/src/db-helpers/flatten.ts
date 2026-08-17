@@ -18,7 +18,7 @@ const flattenVehicleJourney = (
   timetabledPassingTimes: vehicleJourney.timetabled_passing_times.data,
 });
 
-const flattenBlock = (block: BlockInsertInputDeep): TimetablesResources => {
+function flattenBlock(block: BlockInsertInputDeep): TimetablesResources {
   const vehicleJourneyResources: TimetablesResources[] =
     block.vehicle_journeys.data.map(flattenVehicleJourney);
   const blockResources: TimetablesResources = {
@@ -28,7 +28,7 @@ const flattenBlock = (block: BlockInsertInputDeep): TimetablesResources => {
     ],
   };
   return mergeTimetablesResources([blockResources, ...vehicleJourneyResources]);
-};
+}
 
 const flattenVehicleService = (
   vehicleService: VehicleServiceInsertInputDeep,

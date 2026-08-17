@@ -12,7 +12,7 @@ type EditTiamatParams = {
   readonly stop: StopWithDetails;
 };
 
-export const useEditStopSignageDetails = () => {
+export function useEditStopSignageDetails() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
 
@@ -105,4 +105,4 @@ export const useEditStopSignageDetails = () => {
     saveStopPlaceSignageDetails,
     defaultErrorHandler,
   };
-};
+}

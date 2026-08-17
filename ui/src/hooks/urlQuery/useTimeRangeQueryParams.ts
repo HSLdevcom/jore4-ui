@@ -4,7 +4,7 @@ import { showWarningToast } from '../../utils/toastService';
 import { useDateQueryParam } from './useDateQueryParam';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
-export const useTimeRangeQueryParams = () => {
+export function useTimeRangeQueryParams() {
   const { t } = useTranslation();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
   const { date: startDate, setDateToUrl: setStartDateToUrl } =
@@ -52,4 +52,4 @@ export const useTimeRangeQueryParams = () => {
   };
 
   return { startDate, endDate, isInvalidDateRange, updateTimeRangeIfNeeded };
-};
+}

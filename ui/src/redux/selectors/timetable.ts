@@ -1,3 +1,5 @@
 import { RootState } from '../store';
 
-export const selectTimetable = (state: RootState) => state.timetable;
+export function selectTimetable(state: RootState) {
+  return state.timetable;
+}

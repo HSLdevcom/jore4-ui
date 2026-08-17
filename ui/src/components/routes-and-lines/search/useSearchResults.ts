@@ -27,15 +27,17 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
   }
 `;
 
-export const useSearchResults = (): {
-  loading: boolean;
-  lines: ReadonlyArray<LineTableRowFragment>;
+type UseSearchResultsResult = {
+  readonly loading: boolean;
+  readonly lines: ReadonlyArray<LineTableRowFragment>;
   /** Routes reduced to only have 1 direction per label */
-  reducedRoutes: ReadonlyArray<RouteTableRowFragment>;
-  routes: ReadonlyArray<RouteTableRowFragment>;
-  resultCount: number;
-  resultType: DisplayedSearchResultType;
-} => {
+  readonly reducedRoutes: ReadonlyArray<RouteTableRowFragment>;
+  readonly routes: ReadonlyArray<RouteTableRowFragment>;
+  readonly resultCount: number;
+  readonly resultType: DisplayedSearchResultType;
+};
+
+export function useSearchResults(): UseSearchResultsResult {
   const parsedSearchQueryParameters = useSearchQueryParser();
 
   const { data, loading } = useSearchLinesAndRoutesQuery({
@@ -89,4 +91,4 @@ export const useSearchResults = (): {
     resultCount: resultCounts[resultType],
     resultType,
   };
-};
+}

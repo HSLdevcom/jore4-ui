@@ -20,19 +20,19 @@ function getElements(): Elements | null {
   return { x, y, text };
 }
 
-const setLocation = ({ x, y, text }: Elements, e: MouseEvent) => {
+function setLocation({ x, y, text }: Elements, e: MouseEvent) {
   x.style.left = `${e.x}px`;
   y.style.top = `${e.y}px`;
   text.style.left = `${e.x}px`;
   text.style.top = `${e.y}px`;
   text.innerText = `x: ${e.x} | y: ${e.y}`;
-};
+}
 
-const setColor = ({ x, y, text }: Elements, color: string) => {
+function setColor({ x, y, text }: Elements, color: string) {
   x.style.background = color;
   y.style.background = color;
   text.style.color = color;
-};
+}
 
 export const CypressCoordinatesHelper: FC = () => {
   useEffect(() => {

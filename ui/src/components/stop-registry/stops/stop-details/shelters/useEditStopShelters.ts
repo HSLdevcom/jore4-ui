@@ -22,7 +22,7 @@ const enclosedShelterTypes = [
   StopRegistryShelterType.Steel,
 ];
 
-const mapShelterFormToInput = (shelter: ShelterState) => {
+function mapShelterFormToInput(shelter: ShelterState) {
   const enclosed = !!(
     shelter.shelterType && shelter.shelterType in enclosedShelterTypes
   );
@@ -54,7 +54,7 @@ const mapShelterFormToInput = (shelter: ShelterState) => {
     shelterFasciaBoardTaping: shelter.shelterFasciaBoardTaping,
     shelterExternalId: shelter.shelterExternalId,
   };
-};
+}
 
 function mapStopEditChangesToTiamatDbInput({
   state,
@@ -100,7 +100,7 @@ function prepareEditForTiamatDb({ state, stop }: EditTiamatParams) {
   };
 }
 
-export const useEditStopShelters = () => {
+export function useEditStopShelters() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
 
@@ -139,4 +139,4 @@ export const useEditStopShelters = () => {
     saveStopPlaceShelters,
     defaultErrorHandler,
   };
-};
+}

@@ -83,7 +83,7 @@ function validateSelectedStops(
   }
 }
 
-export const useEditMembersOfTerminal = () => {
+export function useEditMembersOfTerminal() {
   const { t } = useTranslation();
   const [addToMultiModalStopPlace] = useAddToMultiModalStopPlaceMutation();
   const [removeFromMultiModalStopPlace] =
@@ -141,4 +141,4 @@ export const useEditMembersOfTerminal = () => {
   return {
     editMembersOfTerminal,
   };
-};
+}

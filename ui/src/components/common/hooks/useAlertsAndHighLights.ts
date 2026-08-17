@@ -21,7 +21,7 @@ type AlertStatusInput = {
   readonly validity_end?: DateLike | null | undefined;
 };
 
-export const useAlertsAndHighLights = () => {
+export function useAlertsAndHighLights() {
   const { t } = useTranslation();
 
   const getAlertStatus = (input: AlertStatusInput): AlertStatus => {
@@ -95,4 +95,4 @@ export const useAlertsAndHighLights = () => {
     getAlertIcon,
     getAlertListItemBorder,
   };
-};
+}

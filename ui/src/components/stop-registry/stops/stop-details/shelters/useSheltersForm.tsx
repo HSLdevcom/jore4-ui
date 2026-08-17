@@ -8,20 +8,18 @@ type UtilProps = {
   readonly onShelterCountChanged: (newShelterCount: number) => void;
 };
 
-const getNextShelterNumber = (
-  shelters: SheltersFormState['shelters'],
-): number => {
+function getNextShelterNumber(shelters: SheltersFormState['shelters']): number {
   const usedNumbers = shelters
     .map((shelter) => shelter.shelterNumber)
     .filter((num): num is number => num !== null && !Number.isNaN(num));
 
   return Math.max(0, ...usedNumbers) + 1;
-};
+}
 
-export const useSheltersFormUtils = (props: UtilProps) => {
-  const { methods, onShelterCountChanged } = props;
-  const { control, setValue, getValues, handleSubmit } = methods;
-
+export function useSheltersFormUtils({
+  methods: { control, setValue, getValues, handleSubmit },
+  onShelterCountChanged,
+}: UtilProps) {
   const {
     append,
     fields: shelters,
@@ -103,4 +101,4 @@ export const useSheltersFormUtils = (props: UtilProps) => {
     isLast,
     handleSubmit,
   };
-};
+}

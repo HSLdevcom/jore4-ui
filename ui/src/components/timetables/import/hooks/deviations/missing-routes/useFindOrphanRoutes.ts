@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
 
-export const useFindOrphanRoutes = () => {
+export function useFindOrphanRoutes() {
   const routesAreEqual = (
     routeA: VehicleScheduleFrameInfo,
     routeB: VehicleScheduleFrameInfo,
@@ -31,4 +31,4 @@ export const useFindOrphanRoutes = () => {
     [],
   );
   return { findOrphanRoutes };
-};
+}

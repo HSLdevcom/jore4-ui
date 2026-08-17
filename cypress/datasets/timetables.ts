@@ -872,5 +872,6 @@ const baseTimetableDataInput = {
  * Returns a clone of baseTimetableDatainput for timetables datainserter
  *  so that the caller can modify the data freely without side effects
  */
-export const getClonedBaseTimetableDataInput = () =>
-  cloneDeep(baseTimetableDataInput);
+export function getClonedBaseTimetableDataInput() {
+  return cloneDeep(baseTimetableDataInput);
+}

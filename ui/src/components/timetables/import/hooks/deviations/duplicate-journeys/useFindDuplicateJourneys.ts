@@ -6,7 +6,7 @@ export type VehicleJourneyDuplicate = {
   targetJourney: VehicleJourneyInfo;
 };
 
-export const useFindDuplicateJourneys = () => {
+export function useFindDuplicateJourneys() {
   const journeysAreEqual = (
     journeyA: VehicleJourneyInfo,
     journeyB: VehicleJourneyInfo,
@@ -42,4 +42,4 @@ export const useFindDuplicateJourneys = () => {
     [],
   );
   return { findDuplicateJourneys };
-};
+}

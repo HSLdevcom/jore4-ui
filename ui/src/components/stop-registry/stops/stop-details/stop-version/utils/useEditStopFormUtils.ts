@@ -114,10 +114,10 @@ function useErrorHandler() {
   };
 }
 
-export const useEditStopFormUtils = (
+export function useEditStopFormUtils(
   originalStop: StopWithDetails,
   onEditDone: (result: EditStopVersionResult) => void,
-) => {
+) {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -284,4 +284,4 @@ export const useEditStopFormUtils = (
     onFormSubmit,
     onCutConfirmationSubmit,
   };
-};
+}

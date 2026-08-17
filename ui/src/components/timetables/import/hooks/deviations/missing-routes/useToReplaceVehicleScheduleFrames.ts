@@ -17,7 +17,7 @@ const GQL_GET_REPLACED_VEHICLE_SCHEDULE_FRAMES = gql`
     }
   }
 `;
-export const useToReplaceVehicleScheduleFrames = () => {
+export function useToReplaceVehicleScheduleFrames() {
   const apollo = useApolloClient();
 
   const fetchToReplaceFrames = useCallback(
@@ -53,4 +53,4 @@ export const useToReplaceVehicleScheduleFrames = () => {
   );
 
   return { fetchToReplaceFrames };
-};
+}

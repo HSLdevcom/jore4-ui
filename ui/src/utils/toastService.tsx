@@ -15,12 +15,12 @@ type ToastOptions = {
   readonly type?: ToastType;
 };
 
-export const showToast = ({
+export function showToast({
   className,
   id,
   message,
   type = 'primary',
-}: ToastOptions) => {
+}: ToastOptions) {
   /* Dispatch and queue toasts asynchronously.
    * Improves test compatibility with Navigation blockers and react-hook-forms.
    * We hava a code pattern: ```
@@ -71,20 +71,20 @@ export const showToast = ({
       },
     );
   }, 0);
-};
+}
 
-export const showDangerToast = (message: ReactNode, id?: string) => {
+export function showDangerToast(message: ReactNode, id?: string) {
   return showToast({
     id,
     message,
     type: 'danger',
   });
-};
+}
 
-export const showDangerToastWithError = (
+export function showDangerToastWithError(
   messageSubject: ReactNode,
   err: unknown,
-) => {
+) {
   if (err instanceof ApolloError) {
     return showDangerToast(
       <>
@@ -106,18 +106,18 @@ export const showDangerToastWithError = (
   }
 
   return showDangerToast(messageSubject);
-};
+}
 
-export const showSuccessToast = (message: ReactNode) => {
+export function showSuccessToast(message: ReactNode) {
   return showToast({
     message,
     type: 'success',
   });
-};
+}
 
-export const showWarningToast = (message: ReactNode) => {
+export function showWarningToast(message: ReactNode) {
   return showToast({
     message,
     type: 'warning',
   });
-};
+}

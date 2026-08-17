@@ -69,7 +69,7 @@ export type TerminalInput = {
     Partial<StopRegistryParentStopPlaceInput>;
 };
 
-const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
+function mapToTerminalInput(seedTerminal: TerminalSeedData): TerminalInput {
   return {
     memberLabels: seedTerminal.members,
     owner: seedTerminal.owner,
@@ -132,7 +132,7 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
           : undefined,
     },
   };
-};
+}
 
 const northEsplanadi = {
   name: 'Pohjoisesplanadi Terminaali',

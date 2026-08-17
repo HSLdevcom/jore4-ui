@@ -1,5 +1,7 @@
-export const defaultLocalizedString = (locStr?: LocalizedString | null) => ({
-  fi_FI: '',
-  sv_FI: '',
-  ...locStr,
-});
+export function defaultLocalizedString(locStr?: LocalizedString | null) {
+  return {
+    fi_FI: '',
+    sv_FI: '',
+    ...locStr,
+  };
+}

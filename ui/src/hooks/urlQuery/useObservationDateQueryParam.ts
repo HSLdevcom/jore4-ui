@@ -14,9 +14,9 @@ type Props = {
  * Query parameter hook for setting and getting observationDate. Initialization
  * of this query parameter can be set to false if you don't want to initialize it.
  */
-export const useObservationDateQueryParam = (
+export function useObservationDateQueryParam(
   { initialize }: Props = { initialize: true },
-) => {
+) {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
   const { t } = useTranslation();
@@ -87,4 +87,4 @@ export const useObservationDateQueryParam = (
     setObservationDateToUrl,
     updateObservationDateByValidityPeriodIfNeeded,
   };
-};
+}

@@ -113,7 +113,7 @@ function usePrepareDelete() {
   };
 }
 
-export const useDeleteStop = () => {
+export function useDeleteStop() {
   const { t } = useTranslation();
 
   const prepareDelete = usePrepareDelete();
@@ -149,4 +149,4 @@ export const useDeleteStop = () => {
   };
 
   return { prepareDelete, removeStop, defaultErrorHandler };
-};
+}

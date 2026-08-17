@@ -30,9 +30,9 @@ type MeasurementsSectionProps = {
   readonly stop: StopWithDetails;
 };
 
-const mapMeasurementsDataToFormState = (
+function mapMeasurementsDataToFormState(
   stop: StopWithDetails,
-): Partial<MeasurementsFormState> => {
+): Partial<MeasurementsFormState> {
   const accessibilityProps =
     extractRelevantAccessibilityAssessment(stop)?.hslAccessibilityProperties ??
     {};
@@ -78,7 +78,7 @@ const mapMeasurementsDataToFormState = (
       ? (accessibilityProps.pedestrianCrossingRampType as StopRegistryPedestrianCrossingRampType)
       : null,
   };
-};
+}
 
 export const MeasurementsSection: FC<MeasurementsSectionProps> = ({ stop }) => {
   const { t } = useTranslation();

@@ -15,7 +15,7 @@ import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
 import { useEnsureMapEntityTypeVisible } from '../utils/useEnsureMapEntityTypeVisible';
 import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 
-export const useTerminalCreation = () => {
+export function useTerminalCreation() {
   const { t } = useTranslation();
 
   const { createTerminal, defaultErrorHandler } = useCreateTerminal();
@@ -53,4 +53,4 @@ export const useTerminalCreation = () => {
   return {
     doCreateTerminal,
   };
-};
+}

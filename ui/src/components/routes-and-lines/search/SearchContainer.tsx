@@ -23,13 +23,11 @@ import {
   mapSearchConditionsToFilters,
 } from './utils';
 
-const generateNavigationState = (
-  isExpanded: boolean,
-): SearchNavigationState => {
+function generateNavigationState(isExpanded: boolean): SearchNavigationState {
   return {
     searchExpanded: isExpanded,
   };
-};
+}
 
 type SearchContainerProps = {
   readonly searchExpandChanged?: (val: boolean) => void;

@@ -54,7 +54,7 @@ const GQL_DISPLAYED_ROUTE = gql`
   }
 `;
 
-export const useGetRoutesDisplayedInMap = () => {
+export function useGetRoutesDisplayedInMap() {
   const {
     state: {
       displayedRoute: {
@@ -137,4 +137,4 @@ export const useGetRoutesDisplayedInMap = () => {
   useMapDataLayerLoader(Operation.FetchRoutes, initialLoadDone, isLoading);
 
   return { displayedRoutes, displayedRouteIds, loading: isLoading };
-};
+}

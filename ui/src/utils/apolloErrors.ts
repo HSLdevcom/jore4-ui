@@ -6,7 +6,7 @@ import { ApolloError } from '@apollo/client';
  * to the type of the message. If there are multiple error messages,
  * they will be all included.
  */
-export const getApolloErrorMessage = (err: ApolloError) => {
+export function getApolloErrorMessage(err: ApolloError) {
   if (err.graphQLErrors.length) {
     const errorMessages = err.graphQLErrors.map((gqlError) => {
       // If it is an internal error, we get the message from internal object
@@ -33,4 +33,4 @@ export const getApolloErrorMessage = (err: ApolloError) => {
   }
 
   return err.message;
-};
+}

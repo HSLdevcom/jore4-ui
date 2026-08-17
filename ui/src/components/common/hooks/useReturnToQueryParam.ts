@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { useNavigate } from 'react-router';
 
-export const useReturnToQueryParam = () => {
+export function useReturnToQueryParam() {
   const navigate = useNavigate();
 
   /**
@@ -23,4 +23,4 @@ export const useReturnToQueryParam = () => {
   };
 
   return { getUrlWithReturnToQueryString, onClose };
-};
+}

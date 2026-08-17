@@ -6,9 +6,9 @@ import { PathValue } from '../../../router/routeDetails';
  * Base path is the first part of the URL path.
  * E.g. in '/routes/search?observationDate=2022-12-07' the basePath is '/routes'
  */
-export const useBasePath = (): { basePath: PathValue } => {
+export function useBasePath(): { basePath: PathValue } {
   const location = useLocation();
   const basePath = `/${location.pathname.split('/')[1]}` as PathValue;
 
   return { basePath };
-};
+}

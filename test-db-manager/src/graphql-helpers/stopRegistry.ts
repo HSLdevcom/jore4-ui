@@ -43,7 +43,7 @@ import {
 
 const testQuayIdentityTag = 'TestQuayIdentityTag';
 
-const getTiamatResponseBody = (res: ExplicitAny) => {
+function getTiamatResponseBody(res: ExplicitAny) {
   const { data, errors } = res;
   if (errors) {
     throw new Error(
@@ -54,7 +54,7 @@ const getTiamatResponseBody = (res: ExplicitAny) => {
     throw new Error('Null data returned from Tiamat');
   }
   return data;
-};
+}
 
 function findKeyValue(
   keyValues: ReadonlyArray<StopRegistryKeyValuesInput | null | undefined>,
@@ -117,13 +117,13 @@ function getStopPlaceAndQuayRefsFromInsertResult(
  * Inserts a new stop place to stop registry,
  * and updates its id to the scheduled stop point.
  */
-export const insertStopPlaceForScheduledStopPoint = async ({
+export async function insertStopPlaceForScheduledStopPoint({
   scheduledStopPoints,
   stopPlace,
 }: {
   scheduledStopPoints: Record<string, UUID>;
   stopPlace: Partial<StopRegistryStopPlaceInput>;
-}): Promise<StopPlaceNetexRef> => {
+}): Promise<StopPlaceNetexRef> {
   const insertStopPlaceResult = (await hasuraApi(
     mapToInsertStopPlaceMutation(stopPlace),
   )) as InsertStopPlaceResult;
@@ -159,11 +159,9 @@ export const insertStopPlaceForScheduledStopPoint = async ({
   }
 
   return stopPlaceNetexRef;
-};
+}
 
-const insertOrganisation = async (
-  organisation: StopRegistryOrganisationInput,
-) => {
+async function insertOrganisation(organisation: StopRegistryOrganisationInput) {
   try {
     const res = (await hasuraApi(
       mapToInsertOrganisationMutation(organisation),
@@ -179,7 +177,7 @@ const insertOrganisation = async (
     );
     throw error;
   }
-};
+}
 
 type StopPointType = {
   scheduled_stop_point_id: UUID;
@@ -418,13 +416,13 @@ function tagQuays(
   return stopPlace;
 }
 
-const insertStopPlace = async ({
+async function insertStopPlace({
   stopPlace,
   stopPointsRequired,
 }: {
   stopPlace: Partial<StopRegistryStopPlaceInput>;
   stopPointsRequired: boolean;
-}): Promise<StopPlaceNetexRef> => {
+}): Promise<StopPlaceNetexRef> {
   const taggedStopPlace = tagQuays(stopPlace);
 
   const stopPointRefs = stopPointsRequired
@@ -454,11 +452,11 @@ const insertStopPlace = async ({
     );
     throw error;
   }
-};
+}
 
-const insertTerminal = async (
+async function insertTerminal(
   terminal: Partial<StopRegistryCreateMultiModalStopPlaceInput>,
-): Promise<string> => {
+): Promise<string> {
   try {
     const res = (await hasuraApi(
       mapToInsertTerminalMutation(terminal),
@@ -474,12 +472,12 @@ const insertTerminal = async (
     );
     throw error;
   }
-};
+}
 
-const updateTerminal = async (
+async function updateTerminal(
   id: string,
   terminal: Partial<StopRegistryParentStopPlaceInput>,
-) => {
+) {
   try {
     const res = await hasuraApi(
       mapToUpdateTerminalMutation({ id, ...terminal }),
@@ -493,9 +491,9 @@ const updateTerminal = async (
     );
     throw error;
   }
-};
+}
 
-const insertInfoSpot = async (infoSpot: Partial<StopRegistryInfoSpotInput>) => {
+async function insertInfoSpot(infoSpot: Partial<StopRegistryInfoSpotInput>) {
   try {
     const res = (await hasuraApi(
       mapToInsertInfoSpotMutation(infoSpot),
@@ -510,11 +508,11 @@ const insertInfoSpot = async (infoSpot: Partial<StopRegistryInfoSpotInput>) => {
     );
     throw error;
   }
-};
+}
 
-export const insertOrganisations = async (
+export async function insertOrganisations(
   organisations: Array<StopRegistryOrganisationInput>,
-) => {
+) {
   const collectedOrganisationIds: OrganisationIdsByName = {};
 
   console.log('Inserting organisations...');
@@ -534,12 +532,12 @@ export const insertOrganisations = async (
   console.log(`Inserted ${organisations.length} organisations.`);
 
   return collectedOrganisationIds;
-};
+}
 
-export const insertStopPlaces = async (
+export async function insertStopPlaces(
   stopPlaces: Array<Partial<StopRegistryStopPlaceInput>>,
   stopPointsRequired: boolean,
-) => {
+) {
   const collectedStopIds: StopPlaceIdsByName = {};
   const collectedQuayDetails: QuayDetailsByLabel = {};
 
@@ -565,9 +563,9 @@ export const insertStopPlaces = async (
   console.log(`Inserted ${stopPlaces.length} stop places.`);
 
   return { collectedStopIds, collectedQuayDetails };
-};
+}
 
-export const fetchStopPlaceIdsAndLabels = async () => {
+export async function fetchStopPlaceIdsAndLabels() {
   const stopIds: StopPlaceIdsByName = {};
 
   const stopPlaceFetchResult = (await hasuraApi(
@@ -581,14 +579,14 @@ export const fetchStopPlaceIdsAndLabels = async () => {
   });
 
   return stopIds;
-};
+}
 
-export const insertTerminals = async (
+export async function insertTerminals(
   terminalCreateInputs: Array<
     Partial<StopRegistryCreateMultiModalStopPlaceInput>
   >,
   terminalUpdateInputs: Array<Partial<StopRegistryParentStopPlaceInput>>,
-): Promise<TerminalIdsByName> => {
+): Promise<TerminalIdsByName> {
   const collectedTerminalIds: TerminalIdsByName = {};
 
   console.log('Inserting terminals...');
@@ -622,11 +620,11 @@ export const insertTerminals = async (
   console.log(`Inserted ${terminalCreateInputs.length} terminals.`);
 
   return collectedTerminalIds;
-};
+}
 
-export const insertInfoSpots = async (
+export async function insertInfoSpots(
   infoSpots: Array<Partial<StopRegistryInfoSpotInput>>,
-) => {
+) {
   console.log('Inserting info spots...');
   for (let index = 0; index < infoSpots.length; index++) {
     const infoSpot = infoSpots[index];
@@ -636,4 +634,4 @@ export const insertInfoSpots = async (
     console.log(`Info spot ${infoSpot.label}: insert finished!`);
   }
   console.log(`Inserted ${infoSpots.length} info spots.`);
-};
+}

@@ -12,9 +12,9 @@ export type InfoSpotInput = {
   locatedInTerminal?: string;
 };
 
-const mapToInfoSpotInput = (seedInfoSpot: InfoSpotInput): InfoSpotInput => {
+function mapToInfoSpotInput(seedInfoSpot: InfoSpotInput): InfoSpotInput {
   return seedInfoSpot;
-};
+}
 
 const infoSpotJP1234568: StopRegistryInfoSpotInput = {
   description: {

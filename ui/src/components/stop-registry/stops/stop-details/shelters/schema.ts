@@ -37,9 +37,9 @@ export const sheltersFormSchema = z.object({
 export type ShelterState = z.infer<typeof shelterSchema>;
 export type SheltersFormState = z.infer<typeof sheltersFormSchema>;
 
-export const mapShelterDataToFormState = (
+export function mapShelterDataToFormState(
   shelter: ShelterEquipmentDetailsFragment,
-): ShelterState => {
+): ShelterState {
   return {
     shelterId: shelter.id ?? null,
     shelterNumber: shelter.shelterNumber ?? null,
@@ -58,4 +58,4 @@ export const mapShelterDataToFormState = (
     shelterNetexId: shelter.id ?? null,
     toBeDeleted: false,
   };
-};
+}

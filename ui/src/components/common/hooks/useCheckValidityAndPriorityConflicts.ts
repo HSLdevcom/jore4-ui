@@ -56,9 +56,7 @@ type RouteParams = CommonParams & {
   readonly variant: number | null;
 };
 
-const buildValidityStartMissingGqlFilterOrConditions = (
-  params: CommonParams,
-) => {
+function buildValidityStartMissingGqlFilterOrConditions(params: CommonParams) {
   const { validityEnd } = params;
 
   return {
@@ -74,9 +72,9 @@ const buildValidityStartMissingGqlFilterOrConditions = (
       { validity_start: { _lte: validityEnd } },
     ],
   };
-};
+}
 
-const buildValidityEndMissingGqlFilterOrConditions = (params: CommonParams) => {
+function buildValidityEndMissingGqlFilterOrConditions(params: CommonParams) {
   const { validityStart } = params;
 
   return {
@@ -91,9 +89,9 @@ const buildValidityEndMissingGqlFilterOrConditions = (params: CommonParams) => {
       { validity_end: { _gte: validityStart } },
     ],
   };
-};
+}
 
-const buildValidityBoundedGqlFilterOrConditions = (params: CommonParams) => {
+function buildValidityBoundedGqlFilterOrConditions(params: CommonParams) {
   const { validityStart, validityEnd } = params;
 
   return {
@@ -163,9 +161,9 @@ const buildValidityBoundedGqlFilterOrConditions = (params: CommonParams) => {
       },
     ],
   };
-};
+}
 
-const buildCommonGqlFilterOrConditions = (params: CommonParams) => {
+function buildCommonGqlFilterOrConditions(params: CommonParams) {
   const { validityStart, validityEnd } = params;
   if (!validityStart && !validityEnd) {
     return [];
@@ -177,9 +175,9 @@ const buildCommonGqlFilterOrConditions = (params: CommonParams) => {
     return buildValidityEndMissingGqlFilterOrConditions(params);
   }
   return buildValidityBoundedGqlFilterOrConditions(params);
-};
+}
 
-const buildCommonGqlFilter = (params: CommonParams) => {
+function buildCommonGqlFilter(params: CommonParams) {
   const { label, priority } = params;
 
   return {
@@ -187,14 +185,18 @@ const buildCommonGqlFilter = (params: CommonParams) => {
     priority: { _eq: priority },
     ...buildCommonGqlFilterOrConditions(params),
   };
-};
+}
 
 /** Builds an object for gql to filter by variant */
-export const buildVariantGqlFilter = (variant?: number | null) => ({
-  variant: variant === null ? { _is_null: true } : { _eq: variant },
-});
+export function buildVariantGqlFilter(variant?: number | null) {
+  if (variant === null) {
+    return { variant: { _is_null: true } };
+  }
 
-export const useCheckValidityAndPriorityConflicts = () => {
+  return { variant: { _eq: variant } };
+}
+
+export function useCheckValidityAndPriorityConflicts() {
   const apollo = useApolloClient();
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
@@ -310,4 +312,4 @@ export const useCheckValidityAndPriorityConflicts = () => {
     getConflictingStops,
     getConflictingRoutes,
   };
-};
+}

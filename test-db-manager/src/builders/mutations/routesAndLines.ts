@@ -28,13 +28,13 @@ const GQL_INSERT_LINES = gql`
   }
 `;
 
-export const mapToCreateLinesMutation = (objects: RouteLineInsertInput[]) => {
+export function mapToCreateLinesMutation(objects: RouteLineInsertInput[]) {
   return {
     operationName: 'InsertLines',
     query: getGqlString(GQL_INSERT_LINES),
     variables: { objects },
   };
-};
+}
 
 const GQL_INSERT_ROUTES = gql`
   mutation InsertRoutes($objects: [route_route_insert_input!]!) {
@@ -59,13 +59,13 @@ const GQL_INSERT_ROUTES = gql`
   }
 `;
 
-export const mapToCreateRoutesMutation = (objects: RouteRouteInsertInput[]) => {
+export function mapToCreateRoutesMutation(objects: RouteRouteInsertInput[]) {
   return {
     operationName: 'InsertRoutes',
     query: getGqlString(GQL_INSERT_ROUTES),
     variables: { objects },
   };
-};
+}
 
 const GQL_DELETE_ROUTES = gql`
   mutation DeleteRoutes($route_id: [uuid!]!) {
@@ -77,12 +77,12 @@ const GQL_DELETE_ROUTES = gql`
   }
 `;
 
-export const mapToDeleteRoutesMutation = (uuid: UUID[]) => {
+export function mapToDeleteRoutesMutation(uuid: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_ROUTES),
     variables: { route_id: uuid },
   };
-};
+}
 
 // ...line_all_fields
 const GQL_DELETE_LINES = gql`
@@ -95,12 +95,12 @@ const GQL_DELETE_LINES = gql`
   }
 `;
 
-export const mapToDeleteLinesMutation = (lineUuids: UUID[]) => {
+export function mapToDeleteLinesMutation(lineUuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_LINES),
     variables: { line_ids: lineUuids },
   };
-};
+}
 
 const GQL_INSERT_TIMING_PLACES = gql`
   mutation InsertTimingPlaces(
@@ -138,12 +138,12 @@ const GQL_DELETE_TIMING_PLACES = gql`
   }
 `;
 
-export const mapToDeleteTimingPlacesMutation = (timingPlaceUuids: UUID[]) => {
+export function mapToDeleteTimingPlacesMutation(timingPlaceUuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_TIMING_PLACES),
     variables: { timing_place_ids: timingPlaceUuids },
   };
-};
+}
 
 const GQL_INSERT_STOPS = gql`
   mutation InsertStops(
@@ -186,12 +186,12 @@ const GQL_DELETE_STOPS = gql`
   }
 `;
 
-export const mapToDeleteStopsMutation = (uuids: UUID[]) => {
+export function mapToDeleteStopsMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_STOPS),
     variables: { stop_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_INFRA_LINKS = gql`
   mutation InsertInfraLinks(
@@ -227,12 +227,12 @@ const GQL_DELETE_INFRA_LINKS = gql`
   }
 `;
 
-export const mapToDeleteInfraLinksMutation = (uuids: UUID[]) => {
+export function mapToDeleteInfraLinksMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_INFRA_LINKS),
     variables: { infra_links_ids: uuids },
   };
-};
+}
 
 export interface VehicleSubmodeOnInfraLinkInsertInput {
   infrastructure_link_id: UUID;
@@ -273,12 +273,12 @@ const GQL_DELETE_INFRA_LINKS_ALONG_ROUTE = gql`
   }
 `;
 
-export const mapToDeleteInfraLinksAlongRouteMutation = (uuids: UUID[]) => {
+export function mapToDeleteInfraLinksAlongRouteMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_INFRA_LINKS_ALONG_ROUTE),
     variables: { infra_links_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_JOURNEY_PATTERNS = gql`
   mutation InsertJourneyPatterns(
@@ -314,12 +314,12 @@ const GQL_DELETE_JOURNEY_PATTERNS = gql`
   }
 `;
 
-export const mapToDeleteJourneyPatternsMutation = (uuids: UUID[]) => {
+export function mapToDeleteJourneyPatternsMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_JOURNEY_PATTERNS),
     variables: { journey_pattern_ids: uuids },
   };
-};
+}
 
 const GQL_INSERT_STOPS_IN_JOURNEY_PATTERN = gql`
   mutation InsertStopsInJourneyPattern(
@@ -357,9 +357,9 @@ const GQL_DELETE_STOPS_IN_JOURNEY_PATTERN = gql`
   }
 `;
 
-export const mapToDeleteStopsInJourneyPatternMutation = (uuids: UUID[]) => {
+export function mapToDeleteStopsInJourneyPatternMutation(uuids: UUID[]) {
   return {
     query: getGqlString(GQL_DELETE_STOPS_IN_JOURNEY_PATTERN),
     variables: { journey_pattern_ids: uuids },
   };
-};
+}

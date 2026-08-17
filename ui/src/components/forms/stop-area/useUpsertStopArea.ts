@@ -30,26 +30,26 @@ const GQL_UPSERT_STOP_AREA = gql`
   }
 `;
 
-const initializeStopArea = (
+function initializeStopArea(
   stopAreaLocation: GeoJSON.Point,
-): EnrichedStopPlace => {
+): EnrichedStopPlace {
   return {
     geometry: {
       coordinates: stopAreaLocation.coordinates,
       type: StopRegistryGeoJsonType.Point,
     },
   };
-};
+}
 
 type UpsertStopAreaInputs = {
   readonly stop: EnrichedStopPlace;
   readonly state: StopAreaFormState;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   stop,
   state,
-}: UpsertStopAreaInputs): StopRegistryStopPlaceInput => {
+}: UpsertStopAreaInputs): StopRegistryStopPlaceInput {
   const { id } = stop;
 
   return {
@@ -124,9 +124,9 @@ const mapFormStateToInput = ({
       kv?.key !== KnownValueKey.ValidityEnd ? true : !state.indefinite,
     ),
   };
-};
+}
 
-export const useUpsertStopArea = () => {
+export function useUpsertStopArea() {
   const { t } = useTranslation();
   const tryHandleApolloError = useStopAreaDetailsApolloErrorHandler();
   const [upsertStopAreaMutation] = useUpsertStopAreaMutation({
@@ -183,4 +183,4 @@ export const useUpsertStopArea = () => {
     upsertStopArea,
     defaultErrorHandler,
   };
-};
+}

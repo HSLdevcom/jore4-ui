@@ -32,7 +32,7 @@ export type StopAreaInput = {
   organisations: StopPlaceMaintenance | null;
 };
 
-const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
+function mapToStopAreaInput(seedStopArea: StopAreaSeedData): StopAreaInput {
   return {
     StopArea: {
       transportMode:
@@ -60,7 +60,7 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
     },
     organisations: seedStopArea.organisations ?? null,
   };
-};
+}
 
 const basicStart = '2020-01-01';
 const basicEnd = '2050-01-01';

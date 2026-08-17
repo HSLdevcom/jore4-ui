@@ -63,7 +63,7 @@ const GQL_UPDATE_STOP_PLACE = gql`
   }
 `;
 
-export const useEditStopBasicDetails = () => {
+export function useEditStopBasicDetails() {
   const { t } = useTranslation();
 
   const apollo = useApolloClient();
@@ -323,4 +323,4 @@ export const useEditStopBasicDetails = () => {
     saveStopPlaceDetails,
     defaultErrorHandler,
   };
-};
+}

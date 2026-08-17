@@ -15,10 +15,12 @@ import {
   StopInJourneyPatternInsertInput,
 } from '../types';
 
-export const buildLocalizedString = (str: string): LocalizedString => ({
-  fi_FI: str,
-  sv_FI: `${str} SV`,
-});
+export function buildLocalizedString(str: string): LocalizedString {
+  return {
+    fi_FI: str,
+    sv_FI: `${str} SV`,
+  };
+}
 
 export const buildRoute = (
   requiredFields: Pick<RouteRouteInsertInput, 'label'>,

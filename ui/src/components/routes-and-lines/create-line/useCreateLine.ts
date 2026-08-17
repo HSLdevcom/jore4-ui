@@ -32,8 +32,8 @@ type CreateChanges = {
   readonly conflicts?: ReadonlyArray<LineAllFieldsFragment>;
 };
 
-export const mapFormToInput = (state: FormState) => {
-  const input = {
+export function mapFormToInput(state: FormState): RouteLineInsertInput {
+  return {
     label: state.label,
     description: state.description,
     name_i18n: state.name,
@@ -50,10 +50,9 @@ export const mapFormToInput = (state: FormState) => {
     ),
     version_comment: state.versionComment?.trim() ?? null,
   };
-  return input;
-};
+}
 
-export const useCreateLine = () => {
+export function useCreateLine() {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertLineOneMutation();
   const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
@@ -98,4 +97,4 @@ export const useCreateLine = () => {
     insertLineMutation: mutateFunction,
     defaultErrorHandler,
   };
-};
+}

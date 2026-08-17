@@ -84,7 +84,7 @@ function handleDeletions(
   };
 }
 
-export const useEditTerminalInfoSpots = () => {
+export function useEditTerminalInfoSpots() {
   const { t } = useTranslation();
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
     awaitRefetchQueries: true,
@@ -125,4 +125,4 @@ export const useEditTerminalInfoSpots = () => {
     saveTerminalInfoSpots,
     defaultErrorHandler,
   };
-};
+}

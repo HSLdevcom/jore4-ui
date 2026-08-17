@@ -128,10 +128,10 @@ function buildDraftPriorityGqlFilter(priority?: Priority): RouteLineBoolExp {
   return {};
 }
 
-const buildLineDetailsGqlFilters = (
+function buildLineDetailsGqlFilters(
   line?: LineAllFieldsFragment,
   observationDate?: DateTime | null,
-) => {
+) {
   const lineFilters: RouteLineBoolExp = {
     label: { _eq: line?.label },
     ...buildActiveDateGqlFilter(observationDate),
@@ -151,7 +151,7 @@ const buildLineDetailsGqlFilters = (
     lineRouteFilters,
     routeStopFilters,
   };
-};
+}
 
 export enum LineFetchError {
   LINE_MISSING_DEFAULT = 'LINE_MISSING_DEFAULT',

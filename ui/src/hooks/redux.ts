@@ -6,10 +6,15 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { useCallback } from 'react';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import {
+  TypedUseSelectorHook,
+  UseDispatch,
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import { AppDispatch, RootState } from '../redux';
 
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch: UseDispatch<AppDispatch> = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 // Dispacted versions of ActionCreator -types. === Just the callable function part.

@@ -5,7 +5,7 @@ import {
 } from './datasets';
 import { insertOrganisations, insertStopPlaces } from './graphql-helpers';
 
-export const seedStopRegistryTrams = async () => {
+export async function seedStopRegistryTrams() {
   const collectedOrganisationIds = await insertOrganisations(seedOrganisations);
 
   const stopPlacesWithOrganisations = seedTramStopAreas.map((sa) =>
@@ -18,4 +18,4 @@ export const seedStopRegistryTrams = async () => {
   }));
 
   await insertStopPlaces(stopPlaceInputs, true);
-};
+}

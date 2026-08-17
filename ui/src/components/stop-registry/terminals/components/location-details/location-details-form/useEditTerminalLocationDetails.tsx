@@ -14,13 +14,13 @@ type UpsertTerminalInputs = {
   readonly selectedStops?: ReadonlyArray<SelectedStop>;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   terminal,
   state,
 }: Omit<
   UpsertTerminalInputs,
   'selectedStops'
->): StopRegistryParentStopPlaceInput => {
+>): StopRegistryParentStopPlaceInput {
   return {
     id: terminal.id,
     keyValues: patchKeyValues(
@@ -38,9 +38,9 @@ const mapFormStateToInput = ({
       ]),
     ),
   };
-};
+}
 
-export const useUpsertTerminalLocationDetails = () => {
+export function useUpsertTerminalLocationDetails() {
   const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();
   const { editMembersOfTerminal } = useEditMembersOfTerminal();
 
@@ -67,4 +67,4 @@ export const useUpsertTerminalLocationDetails = () => {
     upsertTerminalLocationDetails,
     defaultErrorHandler,
   };
-};
+}

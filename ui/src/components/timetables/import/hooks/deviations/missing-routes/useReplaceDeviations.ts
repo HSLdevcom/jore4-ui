@@ -9,7 +9,7 @@ import {
 import { VehicleScheduleVehicleScheduleFrameWithRoutes } from '../useVehicleScheduleFrameWithRouteLabelAndLineId';
 import { useFindOrphanRoutes } from './useFindOrphanRoutes';
 
-export const useReplaceDeviations = (
+export function useReplaceDeviations(
   fetchToReplaceFrames: (
     ids: ReadonlyArray<UUID>,
     targetPriority: number,
@@ -18,7 +18,7 @@ export const useReplaceDeviations = (
     ids: ReadonlyArray<UUID>,
   ) => Promise<ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithRoutes>>,
   fetchStagingVehicleFrameIds: () => Promise<ReadonlyArray<UUID>>,
-) => {
+) {
   const { t } = useTranslation();
   const { createVehicleScheduleFrameInfo } =
     useCreateVehicleScheduleFrameInfo();
@@ -91,4 +91,4 @@ export const useReplaceDeviations = (
   }, []);
 
   return { deviations, fetchRouteDeviations, clearRouteDeviations };
-};
+}

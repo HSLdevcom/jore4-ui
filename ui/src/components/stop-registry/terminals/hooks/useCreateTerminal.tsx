@@ -35,9 +35,9 @@ type CreateTerminalInputs = {
   readonly state: TerminalFormState;
 };
 
-const mapFormStateToInput = ({
+function mapFormStateToInput({
   state,
-}: CreateTerminalInputs): StopRegistryCreateMultiModalStopPlaceInput => {
+}: CreateTerminalInputs): StopRegistryCreateMultiModalStopPlaceInput {
   const uniqueChildStopPlaces = uniq(
     state.selectedStops.map((stop) => stop.stopPlaceId),
   );
@@ -139,20 +139,20 @@ const mapFormStateToInput = ({
       },
     ],
   };
-};
+}
 
-const initializeTerminal = (
+function initializeTerminal(
   terminalLocation: GeoJSON.Point,
-): EnrichedParentStopPlace => {
+): EnrichedParentStopPlace {
   return {
     geometry: {
       coordinates: terminalLocation.coordinates,
       type: StopRegistryGeoJsonType.Point,
     },
   };
-};
+}
 
-export const useCreateTerminal = () => {
+export function useCreateTerminal() {
   const { t } = useTranslation();
   const tryHandleApolloError = useTerminalApolloErrorHandler();
   const [createTerminalMutation] = useCreateTerminalMutation({
@@ -196,4 +196,4 @@ export const useCreateTerminal = () => {
     createTerminal,
     defaultErrorHandler,
   };
-};
+}

@@ -100,12 +100,12 @@ type UseStopSearchResultsParams = {
   readonly where: StopsDatabaseQuayNewestVersionBoolExp;
 };
 
-export const useStopSearchResults = ({
+export function useStopSearchResults({
   pagingInfo,
   skip,
   sortingInfo,
   where,
-}: UseStopSearchResultsParams) => {
+}: UseStopSearchResultsParams) {
   const { data, ...rest } = useSearchStopsQuery({
     variables: {
       where,
@@ -130,4 +130,4 @@ export const useStopSearchResults = ({
     resultCount: data?.stops_database?.resultCount.aggregate?.count ?? 0,
     stops: stopSearchRows,
   };
-};
+}

@@ -36,13 +36,13 @@ const GQL_TIMING_PLACE_FOR_COMBOBOX = gql`
   }
 `;
 
-export const useChooseTimingPlaceDropdown = (
+export function useChooseTimingPlaceDropdown(
   query: string,
   timingPlaceId?: string,
 ): {
   timingPlaces: ReadonlyArray<TimingPlaceForComboboxFragment>;
   selectedTimingPlace?: TimingPlaceForComboboxFragment;
-} => {
+} {
   const [debouncedQuery] = useDebouncedString(query, 300);
 
   const [timingPlaces, setTimingPlaces] =
@@ -80,4 +80,4 @@ export const useChooseTimingPlaceDropdown = (
     timingPlaces,
     selectedTimingPlace: displayedSelectedTimingPlace,
   };
-};
+}

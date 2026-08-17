@@ -76,7 +76,7 @@ function getWhere(
   };
 }
 
-export const useGetJourneyPatternsOfStopPointDuringTimePeriod = () => {
+export function useGetJourneyPatternsOfStopPointDuringTimePeriod() {
   const apollo = useApolloClient();
 
   return useCallback(
@@ -97,4 +97,4 @@ export const useGetJourneyPatternsOfStopPointDuringTimePeriod = () => {
     },
     [apollo],
   );
-};
+}

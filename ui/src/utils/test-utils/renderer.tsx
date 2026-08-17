@@ -19,10 +19,12 @@ const AllTheProviders: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-const customRender = (
+function customRender(
   ui: ReactElement,
   options?: Omit<RenderOptions, 'queries'>,
-) => render(ui, { wrapper: AllTheProviders, ...options });
+) {
+  return render(ui, { wrapper: AllTheProviders, ...options });
+}
 
 // re-export everything
 // Disable warning about render being exported twice

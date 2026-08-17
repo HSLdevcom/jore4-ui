@@ -22,12 +22,9 @@ import { getRouteStopLabels } from '../../../routes-and-lines/common/utils';
 import { MapStop } from '../../types';
 import { useMapObservationDate } from '../../utils/mapUrlState';
 
-const extractHighestPriorityStopsFromRoute = <
+function extractHighestPriorityStopsFromRoute<
   TRoute extends RouteWithJourneyPatternStopsFragment,
->(
-  route: TRoute,
-  observationDate: DateTime,
-) => {
+>(route: TRoute, observationDate: DateTime) {
   const routeStopPoints =
     route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.flatMap(
       (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
@@ -39,9 +36,9 @@ const extractHighestPriorityStopsFromRoute = <
     // If the route is a draft, we want to select draft versions of stops if there are any
     route.priority === Priority.Draft,
   );
-};
+}
 
-export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
+export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const observationDate = useMapObservationDate();
@@ -126,4 +123,4 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
   );
 
   return { getStopHighlighted, getStopShouldBeGray };
-};
+}

@@ -16,14 +16,14 @@ import {
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const responseLogger = (message: string, req: any, res: any) => {
+function responseLogger(message: string, req: any, res: any) {
   if (res.errors) {
     cy.log(`${message}:`, res, ' Request: ', JSON.stringify(req));
   }
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const throwOnErrorResponse = (message: string, req: any, res: any) => {
+function throwOnErrorResponse(message: string, req: any, res: any) {
   if (res.errors) {
     const requestBody = JSON.stringify(req);
 
@@ -43,13 +43,13 @@ const throwOnErrorResponse = (message: string, req: any, res: any) => {
        ${requestBody}`,
     );
   }
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const handleResponse = (message: string, req: any, res: any) => {
+function handleResponse(message: string, req: any, res: any) {
   responseLogger(message, req, res);
   throwOnErrorResponse(message, req, res);
-};
+}
 
 export interface SupportedResources {
   lines?: LineInsertInput[];

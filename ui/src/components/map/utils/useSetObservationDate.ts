@@ -4,7 +4,7 @@ import { EnrichedParentStopPlace, EnrichedStopPlace } from '../../../types';
 import { showWarningToast } from '../../../utils';
 import { useMapUrlStateContext } from './mapUrlState';
 
-export const useSetMapObservationDate = () => {
+export function useSetMapObservationDate() {
   const { t } = useTranslation();
 
   const {
@@ -30,4 +30,4 @@ export const useSetMapObservationDate = () => {
   };
 
   return setMapObservationDate;
-};
+}

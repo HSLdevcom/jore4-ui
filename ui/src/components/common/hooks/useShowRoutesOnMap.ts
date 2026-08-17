@@ -71,7 +71,7 @@ type ShowRoutesOnMapParams = {
   readonly validityEnd: DateTime | null | undefined;
 };
 
-export const useShowRoutesOnMap = () => {
+export function useShowRoutesOnMap() {
   const dispatch = useAppDispatch();
   const navigateToMap = useNavigateToMap();
 
@@ -185,4 +185,4 @@ export const useShowRoutesOnMap = () => {
     showRoutesOnMapByLineLabel,
     showRouteOnMap,
   };
-};
+}

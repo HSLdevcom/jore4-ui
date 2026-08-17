@@ -71,7 +71,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_JOURNEY_INFO = gql`
 export type VehicleScheduleVehicleScheduleFrameWithJourneys =
   VehicleScheduleFrameWithJourneyInfoFragment;
 
-export const useVehicleScheduleFrameWithJourneys = () => {
+export function useVehicleScheduleFrameWithJourneys() {
   const apollo = useApolloClient();
 
   const fetchVehicleFramesWithJourneys = useCallback(
@@ -90,4 +90,4 @@ export const useVehicleScheduleFrameWithJourneys = () => {
   );
 
   return { fetchVehicleFramesWithJourneys };
-};
+}

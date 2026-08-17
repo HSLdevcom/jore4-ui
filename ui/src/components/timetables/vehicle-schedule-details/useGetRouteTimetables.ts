@@ -132,9 +132,9 @@ export type TimetableWithMetadata = {
   readonly vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>;
 };
 
-const getTimetableNarrowestValidityPeriod = (
+function getTimetableNarrowestValidityPeriod(
   vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>,
-) => {
+) {
   const startTimes = vehicleJourneyGroups.map(
     (item) => item.validity.validityStart,
   );
@@ -147,7 +147,7 @@ const getTimetableNarrowestValidityPeriod = (
     validityStart: findLatestTime(startTimes),
     validityEnd: findEarliestTime(endTimes),
   };
-};
+}
 
 /**
  * Enriches the vehicleJourneyGroups with inEffect value calculated by checking
@@ -157,10 +157,10 @@ const getTimetableNarrowestValidityPeriod = (
  * that eligible day types are Mon-Fri and Tuesday, but Tuesday is highest priority, so
  * that one will get the inEffect: true.
  */
-const enrichWithInEffectValue = (
+function enrichWithInEffectValue(
   vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>,
   activeDayTypeIds?: ReadonlyArray<UUID>,
-) => {
+) {
   return vehicleJourneyGroups.map((group) => {
     const dayTypeIsActive = activeDayTypeIds?.includes(
       group.dayType.day_type_id,
@@ -182,7 +182,7 @@ const enrichWithInEffectValue = (
     }
     return { ...group, inEffect: true };
   });
-};
+}
 
 /**
  * In this function we combine the vehicle schedules that we get from the
@@ -194,9 +194,9 @@ const enrichWithInEffectValue = (
  * in this object. After this we can drop the grouping by dayTypeId and use
  * Object.values to get the result as an array.
  */
-const combineVehicleSchedulesToVehicleJourneyGroups = (
+function combineVehicleSchedulesToVehicleJourneyGroups(
   vehicleSchedulesOnDate?: ReadonlyArray<VehicleScheduleFragment>,
-) => {
+) {
   return Object.values(
     vehicleSchedulesOnDate?.reduce(
       (acc: { [key: string]: VehicleJourneyGroup }, obj) => {
@@ -234,9 +234,9 @@ const combineVehicleSchedulesToVehicleJourneyGroups = (
       {} as { [key: string]: VehicleJourneyGroup },
     ) ?? {},
   );
-};
+}
 
-export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
+export function useGetRouteTimetables(journeyPatternId?: UUID) {
   const { observationDate } = useObservationDateQueryParam();
   const { lastModifiedVehicleScheduleFrame } = useAppSelector(
     selectChangeTimetableValidityModal,
@@ -299,4 +299,4 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
       journeyPatternId,
     };
   }, [data, journeyPatternId]);
-};
+}

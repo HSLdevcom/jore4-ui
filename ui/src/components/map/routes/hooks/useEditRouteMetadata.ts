@@ -113,7 +113,7 @@ export function mapRouteToFormState(
  * For editing route geometry (journey pattern and infrastructure links),
  * use editRouteGeometry
  */
-export const useEditRouteMetadata = () => {
+export function useEditRouteMetadata() {
   const { t } = useTranslation();
 
   const apollo = useApolloClient();
@@ -211,4 +211,4 @@ export const useEditRouteMetadata = () => {
     editRouteMetadata,
     defaultErrorHandler,
   };
-};
+}

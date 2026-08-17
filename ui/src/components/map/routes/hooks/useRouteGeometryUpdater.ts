@@ -20,10 +20,10 @@ import {
 import { useFetchInfraLinksWithStops } from './useFetchInfraLinksWithStops';
 import { useRouteMetadata } from './useRouteMetadata';
 
-export const useRouteGeometryUpdater = (
+export function useRouteGeometryUpdater(
   map: MapRef | undefined,
   removeSnappingLine: () => void,
-) => {
+) {
   const dispatch = useAppDispatch();
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const { getRemovedStopLabels } = useExtractRouteFromFeature();
@@ -111,4 +111,4 @@ export const useRouteGeometryUpdater = (
       removeSnappingLine,
     ],
   );
-};
+}

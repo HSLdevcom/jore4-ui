@@ -78,14 +78,14 @@ const GQL_GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
  * @param percentage relative distance along the line
  * @returns Point `percentage`% along the line
  */
-export const relativeAlong = (
+export function relativeAlong(
   feature: Feature<LineString>,
   percentage: number,
-) => {
+) {
   const featureLength = length(feature);
 
   return along(feature, featureLength * percentage);
-};
+}
 
 /**
  * Get RouteStops for stops along route geometry
@@ -94,40 +94,46 @@ export const relativeAlong = (
  * @param routeId Id of the route which has this stop along it's route geometry
  * @returns List of RouteStops
  */
-export const getStopLabelsIncludedInRoute = <
+export function getStopLabelsIncludedInRoute<
   TStop extends StopWithJourneyPatternFieldsFragment,
 >(
   stops: ReadonlyArray<TStop>,
   removedStopLabels?: ReadonlyArray<string>,
-): string[] =>
-  stops
+): string[] {
+  return stops
     .filter((item) => !removedStopLabels?.includes(item.label))
     .map((item) => item.label);
+}
 
 /**
  * Verifies that stop is on the correct side of the road for the route
  * @param stop stop of the route
  * @param isTraversalForwards the traversal direction of the route along the link
  */
-const isStopTraversalCompatible = (
+function isStopTraversalCompatible(
   stop: ScheduledStopPointDefaultFieldsFragment,
   isTraversalForwards: boolean,
-) =>
-  stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional ||
-  (isTraversalForwards &&
-    stop.direction === InfrastructureNetworkDirectionEnum.Forward) ||
-  (!isTraversalForwards &&
-    stop.direction === InfrastructureNetworkDirectionEnum.Backward);
+) {
+  return (
+    stop.direction === InfrastructureNetworkDirectionEnum.Bidirectional ||
+    (isTraversalForwards &&
+      stop.direction === InfrastructureNetworkDirectionEnum.Forward) ||
+    (!isTraversalForwards &&
+      stop.direction === InfrastructureNetworkDirectionEnum.Backward)
+  );
+}
 
 /**
  * Verifies that the stop's validity period is overlapping with its route's validity period
  * @param stop stop of the route
  * @param routeValidity the validity period of the route
  */
-const isStopValidDuringRouteValidity = (
+function isStopValidDuringRouteValidity(
   stop: ScheduledStopPointDefaultFieldsFragment,
   routeValidity: RouteValidityFragment,
-) => areValidityPeriodsOverlapping(routeValidity, stop);
+) {
+  return areValidityPeriodsOverlapping(routeValidity, stop);
+}
 
 function isStopActive(stop: RouteStopFieldsFragment) {
   return (
@@ -141,12 +147,12 @@ function isStopActive(stop: RouteStopFieldsFragment) {
  * @param stop stop instance
  * @param routeInfraLinks all the infra links along the route
  */
-const isStopAlongInfraLinks = (
+function isStopAlongInfraLinks(
   stop: ScheduledStopPointDefaultFieldsFragment,
   routeInfraLinks: ReadonlyArray<
     RouteInfraLink<InfraLinkMatchingFieldsFragment>
   >,
-) => {
+) {
   // first checking if the stop is beside of any of the route's infra links
   const infraLink = routeInfraLinks.find(
     (link) =>
@@ -158,7 +164,7 @@ const isStopAlongInfraLinks = (
 
   // second, check if the stop's direction is compatible with the route's traversal direction
   return isStopTraversalCompatible(stop, infraLink.is_traversal_forwards);
-};
+}
 
 /**
  * Validate all the (same label) instances of a stop.
@@ -167,13 +173,13 @@ const isStopAlongInfraLinks = (
  * @param routeValidity the validity period of the route
  * @param routeInfraLinks all the infra links along the route
  */
-const validateStopInstancesAlongGeometry = (
+function validateStopInstancesAlongGeometry(
   stop: RouteStopFieldsFragment,
   routeValidity: RouteValidityFragment,
   routeInfraLinks: ReadonlyArray<
     RouteInfraLink<InfrastructureLinkAllFieldsFragment>
   >,
-) => {
+) {
   // We always allow draft stops along routes, no integrity checks are done
   if (stop.priority === Priority.Draft) {
     return true;
@@ -200,7 +206,7 @@ const validateStopInstancesAlongGeometry = (
     // Checking if the other instance is also along the route and is compatible with the traversal direction
     return isStopAlongInfraLinks(stop, routeInfraLinks);
   });
-};
+}
 
 const sortStopsByTraversalForwards: Comparator<
   ScheduledStopPointAllFieldsFragment
@@ -242,12 +248,12 @@ export function sortStopsOnInfraLinkComparator(
  * @param infraLinksWithStops list of infra links (in order) with the stops on them
  * @param routeMetadata  metadata about the edited route (e.g. priority, validity period)
  */
-export const extractJourneyPatternCandidateStops = (
+export function extractJourneyPatternCandidateStops(
   infraLinksWithStops: ReadonlyArray<
     RouteInfraLink<InfraLinkAlongRouteWithStopsFragment['infrastructure_link']>
   >,
   routeMetadata: RouteValidityFragment,
-) => {
+) {
   // getting the (ordered) list of all the stops that are along the infra links,
   // prefiltered by route compatibility
   const filteredStops = infraLinksWithStops.flatMap((infraLinkWithStops) => {
@@ -281,16 +287,16 @@ export const extractJourneyPatternCandidateStops = (
   );
 
   return filteredValidatedStops;
-};
+}
 
 /**
  * Maps Infrastructure Link to GeoJSON Feature
  * @param link Infrastructure link
  * @returns GeoJSON Feature
  */
-const mapInfraLinkToFeature = (
+function mapInfraLinkToFeature(
   link: RouteInfraLink<InfrastructureLinkAllFieldsFragment>,
-) => {
+) {
   const { shape, is_traversal_forwards: isTraversalForwards } = link;
 
   // Build feature out of infrastructure link geometry
@@ -305,7 +311,7 @@ const mapInfraLinkToFeature = (
     ...shape,
     coordinates: linkCoordinates,
   });
-};
+}
 
 type SnapPointCalculationParams = {
   readonly isFirstLink: boolean;
@@ -317,12 +323,12 @@ type SnapPointCalculationParams = {
   readonly isLinkLengthValid: boolean;
 };
 
-const getSnapPointCalculateParamsForInfraLink = (
+function getSnapPointCalculateParamsForInfraLink(
   linkFeature: GeoJSON.Feature<LineString>,
   direction: InfrastructureNetworkDirectionEnum,
   index: number,
   linkCount: number,
-): SnapPointCalculationParams => {
+): SnapPointCalculationParams {
   const { coordinates } = linkFeature.geometry;
   const featureLength = length(linkFeature, { units: 'meters' });
 
@@ -348,14 +354,14 @@ const getSnapPointCalculateParamsForInfraLink = (
     isBidirectional,
     isLinkLengthValid,
   };
-};
+}
 
 /**
  * Returns relative distances along the infrastructure link for edited route snap points
  * @returns An array of floats which describe the percentage of distance along the infra link geometry
  * to travel to reach the snap point location
  */
-const getRelativeSnapPointDistancesAlongLink = ({
+function getRelativeSnapPointDistancesAlongLink({
   isFirstLink,
   isLastLink,
   isLoopLink,
@@ -363,7 +369,7 @@ const getRelativeSnapPointDistancesAlongLink = ({
   isOnlyLink,
   isBidirectional,
   isLinkLengthValid,
-}: SnapPointCalculationParams) => {
+}: SnapPointCalculationParams) {
   if (isLoopLink) {
     if (isBidirectional || isOnlyLink) {
       // If closed-loop link is bidirectional or only link along route, add two points at fractional
@@ -394,13 +400,13 @@ const getRelativeSnapPointDistancesAlongLink = ({
 
   // Otherwise don't add any point on the link to the snap points
   return [];
-};
+}
 
-export const mapInfraLinksToFeature = (
+export function mapInfraLinksToFeature(
   infraLinks: ReadonlyArray<
     RouteInfraLink<InfrastructureLinkAllFieldsFragment>
   >,
-): LineStringFeature => {
+): LineStringFeature {
   const coordinates: GeoJSON.Position[] = infraLinks.flatMap((link, index) => {
     const linkFeature = mapInfraLinkToFeature(link);
 
@@ -427,15 +433,15 @@ export const mapInfraLinksToFeature = (
   });
 
   return mapGeoJSONtoFeature({ type: 'LineString', coordinates });
-};
+}
 
-export const getOldRouteGeometryVariables = (
+export function getOldRouteGeometryVariables(
   previouslyEditedStopLabels: ReadonlyArray<string>,
   stateInfraLinks:
     | ReadonlyArray<RouteInfraLink<InfrastructureLinkAllFieldsFragment>>
     | undefined,
   baseRoute?: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
-) => {
+) {
   const previouslyEditedRouteInfrastructureLinks = stateInfraLinks ?? [];
 
   // If we are editing existing route and it has not been edited yet,
@@ -456,7 +462,7 @@ export const getOldRouteGeometryVariables = (
     oldStopLabels: previouslyEditedStopLabels,
     oldInfraLinks: previouslyEditedRouteInfrastructureLinks,
   };
-};
+}
 
 // Order the given infra links to match the order of the given external ids. Throws if there is no infra link
 // present for a given external link id.
@@ -483,7 +489,7 @@ function orderInfraLinksByExternalLinkId<
   });
 }
 
-export const useExtractRouteFromFeature = () => {
+export function useExtractRouteFromFeature() {
   const { lineInfo, vehicleMode } = useAppSelector(selectEditedRouteData);
 
   const apollo = useApolloClient();
@@ -581,4 +587,4 @@ export const useExtractRouteFromFeature = () => {
     getInfraLinksWithStopsForGeometry,
     getRemovedStopLabels,
   };
-};
+}

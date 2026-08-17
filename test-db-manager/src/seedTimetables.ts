@@ -17,7 +17,7 @@ import { TimetablesRouteDirectionEnum } from './generated/graphql';
 import { getVehicleTypes } from './queries';
 import { Priority } from './types';
 
-export const seedTimetables = async () => {
+export async function seedTimetables() {
   const stopLabels = buildLabelArray('H22', 10);
   const hastusStopLabels = [stopLabels[0], stopLabels[4], stopLabels[9]];
   const vehicleTypesResult = await getVehicleTypes();
@@ -132,4 +132,4 @@ export const seedTimetables = async () => {
   ]);
 
   await populateTimetablesDb(timetablesResources);
-};
+}

@@ -17,7 +17,7 @@ const GQL_UPSERT_ORGANISATION = gql`
   }
 `;
 
-export const useUpsertOrganisation = () => {
+export function useUpsertOrganisation() {
   const { t } = useTranslation();
   const [upsertOrganisationMutation] = useUpsertOrganisationMutation();
 
@@ -40,4 +40,4 @@ export const useUpsertOrganisation = () => {
     upsertOrganisation,
     defaultErrorHandler,
   };
-};
+}

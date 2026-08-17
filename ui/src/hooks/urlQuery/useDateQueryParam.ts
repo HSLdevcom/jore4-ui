@@ -14,11 +14,11 @@ type Props = {
  * TODO: This is currently partly copypasted from useObservationDateQueryParam, and
  * these could maybe be combined at least from some parts.
  */
-export const useDateQueryParam = ({
+export function useDateQueryParam({
   initialize = true,
   queryParamName,
   initialDate,
-}: Props) => {
+}: Props) {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
 
@@ -69,4 +69,4 @@ export const useDateQueryParam = ({
     date,
     setDateToUrl,
   };
-};
+}

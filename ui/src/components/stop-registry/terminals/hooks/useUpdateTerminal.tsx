@@ -22,7 +22,7 @@ const GQL_UPDATE_TERMINAL = gql`
   }
 `;
 
-export const useUpdateTerminal = () => {
+export function useUpdateTerminal() {
   const { t } = useTranslation();
   const tryHandleApolloError = useTerminalApolloErrorHandler();
   const [updateTerminalMutation] = useUpdateTerminalMutation({
@@ -73,4 +73,4 @@ export const useUpdateTerminal = () => {
     updateTerminal,
     defaultErrorHandler,
   };
-};
+}

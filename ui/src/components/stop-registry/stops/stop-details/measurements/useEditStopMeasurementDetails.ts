@@ -19,7 +19,7 @@ type EditTiamatParams = {
   readonly stop: StopWithDetails;
 };
 
-export const useEditStopMeasurementDetails = () => {
+export function useEditStopMeasurementDetails() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
   const { calculateStopAccessibilityLevel } =
@@ -162,4 +162,4 @@ export const useEditStopMeasurementDetails = () => {
     saveStopPlaceMeasurementDetails,
     defaultErrorHandler,
   };
-};
+}

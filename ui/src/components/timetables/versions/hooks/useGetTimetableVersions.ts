@@ -85,9 +85,7 @@ export type TimetableVersionRowData = {
   readonly inEffect?: boolean;
 };
 
-const mapSubstituteDayData = (
-  timetableVersionData: TimetableVersionFragment,
-) => {
+function mapSubstituteDayData(timetableVersionData: TimetableVersionFragment) {
   if (
     timetableVersionData?.substitute_operating_day_by_line_type?.superseded_date
   ) {
@@ -103,11 +101,11 @@ const mapSubstituteDayData = (
     };
   }
   return {};
-};
+}
 
-const mapVehicleScheduleFrameData = (
+function mapVehicleScheduleFrameData(
   timetableVersionData: TimetableVersionFragment,
-) => {
+) {
   return {
     vehicleScheduleFrame: {
       id: timetableVersionData.vehicle_schedule_frame
@@ -119,9 +117,9 @@ const mapVehicleScheduleFrameData = (
       validityEnd: timetableVersionData.validity_end,
     },
   };
-};
+}
 
-const mapDayTypeData = (timetableVersionData: TimetableVersionFragment) => {
+function mapDayTypeData(timetableVersionData: TimetableVersionFragment) {
   // When using the SQL functions, we had to create a return_value dummy table in the database
   // but we do not want to include it in the data model, since we never save anything to the tables.
   // Because there are no FK constraints, this day_type object relationship from hasura can theoratically
@@ -140,12 +138,12 @@ const mapDayTypeData = (timetableVersionData: TimetableVersionFragment) => {
       label: timetableVersionData.day_type.label,
     },
   };
-};
+}
 
-const mapToTimetableVersionRowData = (
+function mapToTimetableVersionRowData(
   key: string,
   timetableVersionData: TimetableVersionFragment,
-): TimetableVersionRowData => {
+): TimetableVersionRowData {
   return {
     routeLabelAndVariant: key,
     inEffect: timetableVersionData.in_effect,
@@ -153,7 +151,7 @@ const mapToTimetableVersionRowData = (
     ...mapVehicleScheduleFrameData(timetableVersionData),
     ...mapSubstituteDayData(timetableVersionData),
   };
-};
+}
 
 type GetTimetableVersionsParams = {
   readonly journeyPatternIdsGroupedByRouteLabel: Record<string, UUID[]>;
@@ -203,7 +201,7 @@ function useFetchTimetableVersions() {
  * Fetch timetable versions during given time range for given journey pattern ids
  * fetch result is mapped to TimetableVersionRowData.
  */
-export const useGetTimetableVersions = (params: GetTimetableVersionsParams) => {
+export function useGetTimetableVersions(params: GetTimetableVersionsParams) {
   const { t } = useTranslation();
 
   const [versions, setVersions] = useState<
@@ -231,4 +229,4 @@ export const useGetTimetableVersions = (params: GetTimetableVersionsParams) => {
   useEffect(refetch, [refetch]);
 
   return { versions, refetch };
-};
+}
