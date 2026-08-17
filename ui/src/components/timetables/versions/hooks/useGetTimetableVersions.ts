@@ -1,6 +1,7 @@
 import { gql, useApolloClient } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   GetTimetableVersionsByJourneyPatternIdsDocument,
   GetTimetableVersionsByJourneyPatternIdsQuery,
@@ -8,7 +9,11 @@ import {
   TimetableVersionFragment,
 } from '../../../../generated/graphql';
 import { DayOfWeek, TimetablePriority } from '../../../../types/enums';
-import { convertArrayTypeForHasura, log } from '../../../../utils';
+import {
+  convertArrayTypeForHasura,
+  log,
+  showDangerToastWithError,
+} from '../../../../utils';
 
 const GQL_TIMETABLE_VERSIONS_FRAGMENT = gql`
   fragment TimetableVersion on timetables_return_value_timetable_version {
@@ -199,6 +204,8 @@ function useFetchTimetableVersions() {
  * fetch result is mapped to TimetableVersionRowData.
  */
 export const useGetTimetableVersions = (params: GetTimetableVersionsParams) => {
+  const { t } = useTranslation();
+
   const [versions, setVersions] = useState<
     ReadonlyArray<TimetableVersionRowData>
   >([]);
@@ -211,11 +218,15 @@ export const useGetTimetableVersions = (params: GetTimetableVersionsParams) => {
         .catch((error) => {
           setVersions([]);
           log.error(error);
+          showDangerToastWithError(
+            t(($) => $.timetables.failedToFetch),
+            error,
+          );
         });
     } else {
       setVersions([]);
     }
-  }, [params, fetchTimetableVersions]);
+  }, [params, fetchTimetableVersions, t]);
 
   useEffect(refetch, [refetch]);
 

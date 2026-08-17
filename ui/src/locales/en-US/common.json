@@ -1285,6 +1285,7 @@
     "settingsButton": "Settings",
     "daySettings": "Day settings",
     "filter": "Filter",
+    "failedToFetch": "Failed to fetch timetables!",
     "settings": {
       "periods": {
         "periodName": "Period name",

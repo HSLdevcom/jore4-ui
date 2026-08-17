@@ -1285,6 +1285,7 @@
     "settingsButton": "Asetukset",
     "daySettings": "Päiväasetukset",
     "filter": "Suodata",
+    "failedToFetch": "Aikataulujen nouto epäonnistui!",
     "settings": {
       "periods": {
         "periodName": "Jakson nimi",
