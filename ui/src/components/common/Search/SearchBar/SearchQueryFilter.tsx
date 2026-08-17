@@ -41,7 +41,7 @@ export const SearchQueryFilter = <FormState extends FieldValues>({
         />
 
         <button
-          className="icon-search w-(--input-height) rounded-r bg-tweaked-brand text-2xl text-white"
+          className="icon-search w-(--input-height) rounded-r bg-brand text-2xl text-white hover:border-tweaked-brand-darker30 hover:bg-tweaked-brand"
           type="submit"
           aria-label={t(($) => $.search.search)}
           title={t(($) => $.search.search)}
