@@ -186,7 +186,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
             <AddNewButton
               onClick={handleAddNewInfoSpot}
               label={
-                <span className="text-hsl-dark-80">
+                <span className="text-hsl-dark-80 hover:text-tweaked-brand">
                   {t(($) => $.stopDetails.infoSpots.addInfoSpot)}
                 </span>
               }
