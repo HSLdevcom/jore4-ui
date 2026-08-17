@@ -7,7 +7,7 @@ import { useCallbackOnKeyEscape } from '../../../hooks';
 import {
   drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
-} from '../../../utils/map';
+} from '../utils/lineFromStopToInfraLink';
 import { LineToActiveStopArea } from './LineToActiveStopArea';
 
 type CreateStopMarkerProps = {

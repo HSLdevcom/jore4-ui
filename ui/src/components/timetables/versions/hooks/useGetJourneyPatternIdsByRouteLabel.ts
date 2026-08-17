@@ -7,13 +7,10 @@ import { useMemo } from 'react';
 import {
   GetRouteInfoForTimetableVersionsQuery,
   RouteInfoForTimetableVersionFragment,
+  RouteRouteBoolExp,
   useGetRouteInfoForTimetableVersionsQuery,
 } from '../../../../generated/graphql';
-import {
-  buildActiveDateRangeGqlFilter,
-  buildRouteLineLabelGqlFilter,
-  getRouteLabelVariantText,
-} from '../../../../utils';
+import { getRouteLabelVariantText } from '../../../../utils';
 
 const GQL_ROUTE_INFO_FOR_TIMETABLE_VERSION_FRAGMENT = gql`
   fragment RouteInfoForTimetableVersion on route_route {
@@ -36,6 +33,57 @@ const GQL_GET_ROUTE_INFO_FOR_TIMETABLE_VERSIONS = gql`
     }
   }
 `;
+
+/** Builds an object for gql to filter route by line label */
+function buildRouteLineLabelGqlFilter(label: string): RouteRouteBoolExp {
+  return { route_line: { label: { _eq: label } } };
+}
+
+/**
+ * Builds an object for gql to filter out all
+ * results which are not active on the given date range
+ */
+export function buildActiveDateRangeGqlFilter(
+  startDate: DateTime,
+  endDate: DateTime,
+): RouteRouteBoolExp {
+  return {
+    _or: [
+      {
+        _and: [
+          {
+            _or: [
+              { validity_start: { _lte: startDate } },
+              { validity_start: { _is_null: true } },
+            ],
+          },
+          {
+            _or: [
+              { validity_end: { _gte: startDate } },
+              { validity_end: { _is_null: true } },
+            ],
+          },
+        ],
+      },
+      {
+        _and: [
+          {
+            _or: [
+              { validity_start: { _lte: endDate } },
+              { validity_start: { _is_null: true } },
+            ],
+          },
+          {
+            _or: [
+              { validity_end: { _gte: startDate } },
+              { validity_end: { _is_null: true } },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+}
 
 /**
  * Removes the second direction from the result, if there are two directions.

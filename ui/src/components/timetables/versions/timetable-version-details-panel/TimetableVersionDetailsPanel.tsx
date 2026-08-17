@@ -6,14 +6,32 @@ import {
   closeVersionPanelAction,
   selectTimetableVersionPanel,
 } from '../../../../redux';
+import { SortOrder } from '../../../../types';
 import {
-  sortAlphabetically,
-  sortReverseAlphabetically,
+  chainedComparator,
+  comparePrimitive,
+  getOrder,
 } from '../../../../utils';
 import { Visible } from '../../../common/LayoutComponents';
-import { useVehicleScheduleFrameSchedules } from '../../common/useVehicleScheduleFrameSchedules';
+import {
+  RouteTimetableRowInfo,
+  useVehicleScheduleFrameSchedules,
+} from '../../common/useVehicleScheduleFrameSchedules';
 import { RouteTimetableCard } from './RouteTimetableCard';
 import { TimetableVersionPanelHeading } from './TimetableVersionPanelHeading';
+
+const reverse = getOrder<RouteTimetableRowInfo>(SortOrder.DESCENDING);
+
+const rowInfoComparator = chainedComparator<RouteTimetableRowInfo>(
+  reverse((a, b) => comparePrimitive(a.direction, b.direction)),
+  (a, b) => comparePrimitive(a.label, b.label),
+);
+
+function sortRowInfo(
+  rows: ReadonlyArray<RouteTimetableRowInfo>,
+): Array<RouteTimetableRowInfo> {
+  return rows.toSorted(rowInfoComparator);
+}
 
 export const TimetableVersionDetailsPanel = () => {
   const { isOpen, vehicleScheduleFrameId } = useAppSelector(
@@ -39,11 +57,7 @@ export const TimetableVersionDetailsPanel = () => {
   }, [dispatch, location.pathname]);
 
   const sortedByDirectionRouteTimetableRowInfo =
-    timetableRowInfo &&
-    sortAlphabetically(
-      sortReverseAlphabetically(timetableRowInfo, 'direction'),
-      'label',
-    );
+    timetableRowInfo && sortRowInfo(timetableRowInfo);
 
   return (
     <Visible visible={isOpen}>

@@ -11,7 +11,6 @@ import { FilterableStopInfo } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
-  hasPriority,
   isCurrentEntity,
   isFutureEntity,
   isPastEntity,
@@ -46,6 +45,13 @@ function getActiveTimeFilters(
       filterFunction: partial(isPastEntity, observationDate),
     },
   ].filter(({ type }) => stopFilters[type]);
+}
+
+function hasPriority(
+  priority: Priority,
+  stop: { readonly priority: Priority },
+) {
+  return stop.priority === priority;
 }
 
 function getActivePriorityFilters(

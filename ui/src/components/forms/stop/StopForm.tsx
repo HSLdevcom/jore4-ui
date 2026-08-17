@@ -18,11 +18,11 @@ import {
 } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
+import { parseDate } from '../../../time';
 import { StopPlaceState } from '../../../types/stop-registry';
 import {
   KnownValueKey,
   mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
   mapPointToGeoJSON,
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
@@ -58,7 +58,7 @@ function mapFormStateToStopPointSetInput(
     measured_location: mapPointToGeoJSON(state),
     label: state.publicCode.value,
     priority: state.priority,
-    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_start: parseDate(state.validityStart),
     validity_end: mapDateInputToValidityEnd(
       state.validityEnd,
       state.indefinite,

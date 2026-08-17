@@ -2,8 +2,8 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
   StopRegistryTransportModeType,
-} from '../generated/graphql';
-import { theme } from '../generated/theme';
+} from '../../../generated/graphql';
+import { theme } from '../../../generated/theme';
 
 const { colors } = theme;
 

@@ -1,4 +1,4 @@
-import { KnownValueKey } from '../../../utils/knownValueKey';
+import { KnownValueKey } from '../../../utils';
 import {
   getMirrorParentId,
   isMirrorChild,

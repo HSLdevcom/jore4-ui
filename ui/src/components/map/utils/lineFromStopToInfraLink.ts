@@ -12,14 +12,10 @@ import {
   Point as MapLibrePoint,
 } from 'maplibre-gl';
 import { MapInstance } from 'react-map-gl/maplibre';
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { Point as JorePoint } from '../../types';
-import { notNullish } from '../misc';
-import {
-  createGeometryLineBetweenPoints,
-  isMapStyleReady,
-  removeLayer,
-} from './mapUtils';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
+import { Point as JorePoint } from '../../../types';
+import { notNullish } from '../../../utils/misc';
+import { isMapStyleReady } from './mapUtils';
 
 type LineAndDistance = {
   readonly line: LineString;
@@ -112,12 +108,12 @@ function findNearestPointOnLineFeatures(
 }
 
 export function removeLineFromStopToInfraLink(map: MapInstance | undefined) {
-  if (map) {
-    removeLayer(map, INFRA_CONNECTION_NAME);
+  if (map && isMapStyleReady(map) && map.getLayer(INFRA_CONNECTION_NAME)) {
+    map.removeLayer(INFRA_CONNECTION_NAME);
   }
 }
 
-export function addLineFromStopToInfraLink(
+function addLineFromStopToInfraLink(
   map: MapInstance | undefined,
   geometry: Geometry,
 ) {
@@ -209,11 +205,13 @@ export function drawLineToClosestRoad(
   );
 
   if (nearestPointOnFeatures) {
-    const lineToNetworkConnection = createGeometryLineBetweenPoints(
-      nearestPointOnFeatures.coordinates,
-      cursorLocation.coordinates,
-    );
-    addLineFromStopToInfraLink(map, lineToNetworkConnection);
+    addLineFromStopToInfraLink(map, {
+      type: 'LineString',
+      coordinates: [
+        nearestPointOnFeatures.coordinates,
+        cursorLocation.coordinates,
+      ],
+    });
   }
 
   if (!features.length) {

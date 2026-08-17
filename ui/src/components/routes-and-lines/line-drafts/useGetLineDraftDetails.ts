@@ -4,24 +4,21 @@ import {
   useRequiredParams,
 } from '../../../hooks';
 import { Priority } from '../../../types/enums';
-import {
-  buildPriorityEqualGqlFilter,
-  buildRouteLineLabelGqlFilter,
-  isRouteActiveOnObservationDate,
-} from '../../../utils';
+import { isRouteActiveOnObservationDate } from '../../../utils';
 
 export const useGetLineDraftDetails = () => {
   const { label } = useRequiredParams<{ label: string }>();
 
   const { observationDate } = useObservationDateQueryParam();
 
-  // Get all draft routes by line label
-  const routeFilters = {
-    ...buildRouteLineLabelGqlFilter(label),
-    ...buildPriorityEqualGqlFilter(Priority.Draft),
-  };
-
-  const result = useGetRoutesWithStopsQuery({ variables: { routeFilters } });
+  const result = useGetRoutesWithStopsQuery({
+    variables: {
+      routeFilters: {
+        route_line: { label: { _eq: label } },
+        priority: { _eq: Priority.Draft },
+      },
+    },
+  });
 
   const routes = result.data?.route_route ?? [];
 

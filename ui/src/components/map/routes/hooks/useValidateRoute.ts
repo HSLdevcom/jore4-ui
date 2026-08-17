@@ -8,10 +8,8 @@ import {
   GetLineValidityByIdQuery,
   GetLineValidityByIdQueryVariables,
 } from '../../../../generated/graphql';
-import {
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-} from '../../../../utils';
+import { parseDate } from '../../../../time';
+import { mapDateInputToValidityEnd } from '../../../../utils';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 
 const GQL_GET_LINE_VALIDITY_BY_ID = gql`
@@ -101,9 +99,7 @@ function assertRouteMetadataIsValid(
   routeMetadata: RouteFormState,
   line: ValidityPeriodParams,
 ) {
-  const routeValidityStart = mapDateInputToValidityStart(
-    routeMetadata.validityStart,
-  );
+  const routeValidityStart = parseDate(routeMetadata.validityStart);
   const routeValidityEnd = mapDateInputToValidityEnd(
     routeMetadata.validityEnd,
     routeMetadata.indefinite,

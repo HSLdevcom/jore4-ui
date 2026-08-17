@@ -11,14 +11,13 @@ import {
   ServicePatternScheduledStopPoint,
   usePatchRouteMutation,
 } from '../../../../generated/graphql';
-import { MIN_DATE, mapToISODate } from '../../../../time';
+import { MIN_DATE, mapToISODate, parseDate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { RouteDirection } from '../../../../types/RouteDirection';
 import {
   defaultLocalizedString,
   illegalCast,
   mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
   showDangerToastWithError,
 } from '../../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
@@ -70,7 +69,7 @@ export function mapRouteFormToInput(state: RouteFormState) {
     direction: state.direction,
     priority: state.priority,
     version_comment: state.versionComment?.trim() ?? null,
-    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_start: parseDate(state.validityStart),
     validity_end: mapDateInputToValidityEnd(
       state.validityEnd,
       state.indefinite,

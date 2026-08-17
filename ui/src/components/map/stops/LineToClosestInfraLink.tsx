@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { MapInstance, useMap } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { Point } from '../../../types';
-import { findNearestPointOnARoad } from '../../../utils/map';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { LineRenderLayer } from '../routes';
+import { findNearestPointOnARoad } from '../utils/lineFromStopToInfraLink';
 
 function linestringFromStop(
   stop: StopInfoForEditingOnMap | null,

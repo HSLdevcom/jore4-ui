@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { FC } from 'react';
 import { useGetRouteRenderInfoByIdQuery } from '../../../generated/graphql';
-import { mapVehicleModeToRouteColor } from '../../../utils/colors';
+import { mapVehicleModeToRouteColor } from '../utils/colors';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
 
 const GQL_GET_ROUTE_RENDER_INFO_BY_ID = gql`

@@ -7,6 +7,7 @@ import { along } from '@turf/along';
 // eslint-disable-next-line import-x/no-extraneous-dependencies
 import { length } from '@turf/length';
 import type { Feature, LineString, Point } from 'geojson';
+import flip from 'lodash/flip';
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
 import { getBusRoute, getTramRoute } from '../../../../api/routing';
@@ -25,6 +26,7 @@ import {
   RouteStopFieldsFragment,
   RouteValidityFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
+  ScheduledStopPointAllFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
 } from '../../../../generated/graphql';
@@ -34,10 +36,7 @@ import { areValidityPeriodsOverlapping } from '../../../../time';
 import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { StopPlaceState } from '../../../../types/stop-registry';
-import {
-  mapGeoJSONtoFeature,
-  sortStopsOnInfraLinkComparator,
-} from '../../../../utils';
+import { Comparator, mapGeoJSONtoFeature } from '../../../../utils';
 import { getRouteStopLabels } from '../../../routes-and-lines/common/utils';
 import { mapRouteToInfraLinksAlongRoute } from './utils';
 
@@ -203,6 +202,25 @@ const validateStopInstancesAlongGeometry = (
   });
 };
 
+const sortStopsByTraversalForwards: Comparator<
+  ScheduledStopPointAllFieldsFragment
+> = (stop1, stop2) =>
+  stop1.relative_distance_from_infrastructure_link_start -
+  stop2.relative_distance_from_infrastructure_link_start;
+
+/**
+ * Comparator for sorting stops of the same link based on the distance from the link start.
+ * Note that the distances need to be inverted when the link is traversed backwards.
+ * @param isTraversalForwards the traversal direction of the route along the link
+ */
+export function sortStopsOnInfraLinkComparator(
+  isTraversalForwards: boolean,
+): Comparator<ScheduledStopPointAllFieldsFragment> {
+  return isTraversalForwards
+    ? sortStopsByTraversalForwards
+    : flip(sortStopsByTraversalForwards);
+}
+
 /**
  * Finds all the stops along a route's geometry that are eligible to be part of the journey pattern
  * - only keeps stops that are on the correct side of the road
@@ -221,8 +239,8 @@ const validateStopInstancesAlongGeometry = (
  * - we don't check whether the line's primary vehicle mode is compatible with the are the vehicle modes compatible
  *   -> with even a tiny bit faulty data this might cause false negatives. It should be enough that the route geometry
  *      returned by map-matching is compatible with the line's vehicle mode
- * @param infraLinksWithStops: list of infra links (in order) with the stops on them
- * @param routeMetadata: metadata about the edited route (e.g. priority, validity period)
+ * @param infraLinksWithStops list of infra links (in order) with the stops on them
+ * @param routeMetadata  metadata about the edited route (e.g. priority, validity period)
  */
 export const extractJourneyPatternCandidateStops = (
   infraLinksWithStops: ReadonlyArray<

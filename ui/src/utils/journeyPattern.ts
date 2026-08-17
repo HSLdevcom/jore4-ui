@@ -1,5 +1,3 @@
-import maxBy from 'lodash/maxBy';
-import minBy from 'lodash/minBy';
 import {
   JourneyPatternScheduledStopPointInJourneyPatternInsertInput,
   JourneyPatternStopFragment,
@@ -91,36 +89,4 @@ export const mapRouteStopsToJourneyPatternStops = (
         ]
       : [];
   });
-};
-
-type JourneyPatternWithGenericReturnType<TType> = {
-  scheduled_stop_point_in_journey_patterns: ReadonlyArray<
-    TType & {
-      scheduled_stop_point_sequence: number;
-    }
-  >;
-};
-
-/**
- * Extracts the first stop of journey pattern with the given TType typing
- */
-export const extractJourneyPatternFirstStop = <TType>(
-  journeyPattern: JourneyPatternWithGenericReturnType<TType>,
-) => {
-  return minBy(
-    journeyPattern.scheduled_stop_point_in_journey_patterns,
-    'scheduled_stop_point_sequence',
-  );
-};
-
-/**
- * Extracts the last stop of journey pattern with the given TType typing
- */
-export const extractJourneyPatternLastStop = <TType>(
-  journeyPattern: JourneyPatternWithGenericReturnType<TType>,
-) => {
-  return maxBy(
-    journeyPattern.scheduled_stop_point_in_journey_patterns,
-    'scheduled_stop_point_sequence',
-  );
 };

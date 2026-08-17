@@ -1,22 +1,10 @@
-import omit from 'lodash/omit';
-import {
-  StopRegistryKeyValues,
-  StopRegistryKeyValuesInput,
-} from '../../../generated/graphql';
+import { StopRegistryKeyValues } from '../../../generated/graphql';
 import {
   ElementWithKeyValues,
+  KnownValueKey,
   findKeyValue,
-} from '../../../utils/findKeyValue';
-import { KnownValueKey } from '../../../utils/knownValueKey';
-import { setKeyValue } from '../../../utils/stop-registry/stopPlace';
-
-export function stripKeyValueTypenames(
-  keyValues: ReadonlyArray<StopRegistryKeyValues | null>,
-): StopRegistryKeyValuesInput[] {
-  return keyValues
-    .filter(Boolean)
-    .map((kv) => omit(kv, '__typename') as StopRegistryKeyValuesInput);
-}
+  setKeyValue,
+} from '../../../utils';
 
 export function getMirrorParentId(quay: ElementWithKeyValues): string | null {
   return findKeyValue(quay, KnownValueKey.Mirrors);

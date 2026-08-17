@@ -7,10 +7,10 @@ import {
   selectExport,
   selectRowAction,
 } from '../../../redux';
-import { routeHasTimetables } from '../../../utils/route';
 import { useShowRoutesOnMap } from '../../common/hooks/useShowRoutesOnMap';
 import { RouteLineTableRow } from './RouteLineTableRow';
 import { RouteLineTableRowVariant } from './types';
+import { routeHasTimetables } from './utils';
 
 type LineTableRowProps = {
   readonly className?: string;
@@ -31,22 +31,9 @@ const GQL_LINE_TABLE_ROW = gql`
     ...LineMapParams
     line_routes {
       ...RouteMapParams
+      ...LineRouteSearchRouteWithJourneyPatternDetails
       unique_label
       direction
-      route_journey_patterns {
-        journey_pattern_id
-        journey_pattern_refs {
-          journey_pattern_ref_id
-          vehicle_journeys {
-            vehicle_journey_id
-          }
-        }
-        scheduled_stop_point_in_journey_patterns {
-          journey_pattern_id
-          scheduled_stop_point_sequence
-          is_used_as_timing_point
-        }
-      }
     }
   }
 `;

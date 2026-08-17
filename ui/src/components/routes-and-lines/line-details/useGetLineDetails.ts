@@ -6,7 +6,10 @@ import {
   LineAllFieldsFragment,
   LineWithRoutesUniqueFieldsFragment,
   RouteDirectionEnum,
+  RouteLineBoolExp,
+  RouteRouteBoolExp,
   RouteUniqueFieldsFragment,
+  ServicePatternScheduledStopPointBoolExp,
   useGetHighestPriorityLineDetailsWithRoutesQuery,
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
@@ -14,10 +17,9 @@ import {
   useObservationDateQueryParam,
   useRequiredParams,
 } from '../../../hooks';
+import { Priority } from '../../../types/enums';
 import {
   buildActiveDateGqlFilter,
-  buildDraftPriorityGqlFilter,
-  buildLabelGqlFilter,
   getRouteLabelVariantText,
 } from '../../../utils';
 
@@ -115,22 +117,34 @@ function filterLineDetailsByDate<
   };
 }
 
+/** Builds an object for gql to filter out all drafts if
+ * the given priority is not draft itself
+ */
+function buildDraftPriorityGqlFilter(priority?: Priority): RouteLineBoolExp {
+  if (priority !== Priority.Draft) {
+    return { priority: { _neq: Priority.Draft } };
+  }
+
+  return {};
+}
+
 const buildLineDetailsGqlFilters = (
   line?: LineAllFieldsFragment,
   observationDate?: DateTime | null,
 ) => {
-  const lineFilters = {
-    ...buildLabelGqlFilter(line?.label),
+  const lineFilters: RouteLineBoolExp = {
+    label: { _eq: line?.label },
     ...buildActiveDateGqlFilter(observationDate),
     ...buildDraftPriorityGqlFilter(line?.priority),
   };
 
-  const lineRouteFilters = {
+  const lineRouteFilters: RouteRouteBoolExp = {
     ...buildActiveDateGqlFilter(observationDate),
     ...buildDraftPriorityGqlFilter(line?.priority),
   };
 
-  const routeStopFilters = buildActiveDateGqlFilter(observationDate);
+  const routeStopFilters: ServicePatternScheduledStopPointBoolExp =
+    buildActiveDateGqlFilter(observationDate);
 
   return {
     lineFilters,

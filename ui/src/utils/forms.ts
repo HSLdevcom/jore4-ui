@@ -11,10 +11,6 @@ export const submitFormByRef = (formRef: ExplicitAny) => {
 };
 
 // maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
-// to validity start DateTime object
-export const mapDateInputToValidityStart = (isoDate: string) =>
-  parseDate(isoDate);
-// maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
 // to validity end DateTime object
 export const mapDateInputToValidityEnd = (
   isoDate?: string,

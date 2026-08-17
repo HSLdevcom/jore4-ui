@@ -10,7 +10,7 @@ import { TimetableHeading } from './TimetableHeading';
 type RouteTimetableCardProps = {
   readonly routeTimetableRowInfo: RouteTimetableRowInfo;
   readonly dayTypeNameI18n: LocalizedString;
-  readonly createdAt?: DateTime;
+  readonly createdAt: DateTime | null;
 };
 
 export const RouteTimetableCard: FC<RouteTimetableCardProps> = ({

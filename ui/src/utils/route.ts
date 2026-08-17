@@ -1,54 +1,42 @@
+import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
-import * as luxon from 'luxon';
 import {
-  RouteAllFieldsFragment,
-  RouteTableRowFragment,
+  RouteLabelAndVariantFragment,
+  RouteValidityPeriodFragment,
 } from '../generated/graphql';
 import { isDateInRange } from '../time';
 
-/**
- * Type that includes route_journey_patterns with journey pattern refs. This is used
- * for checking if route has timetables, and this is used for type checking that the
- * object has only the necessary information. So the routeHasTimetables() can be called
- * with any route object, as long as it has
- * route_journey_patterns: {
- *   journey_pattern_refs
- * }
- */
-type RouteJourneyPatternsWithJourneyPatternRefs = {
-  route_journey_patterns: ReadonlyArray<
-    Pick<
-      RouteTableRowFragment['route_journey_patterns'][0],
-      'journey_pattern_refs'
-    >
-  >;
-};
+const GQL_ROUTE_HELPER_FRAGMENTS = gql`
+  fragment RouteLabelAndVariant on route_route {
+    label
+    variant
+  }
 
-/**
- * Checks if the route has any vehicle_journey's existing. If there is
- * that means that the route has timetables.
- */
-export const routeHasTimetables = (
-  route: RouteJourneyPatternsWithJourneyPatternRefs,
-) =>
-  route.route_journey_patterns.some((routeJourneyPattern) =>
-    routeJourneyPattern.journey_pattern_refs.some(
-      (journeyPatternRefs) => journeyPatternRefs.vehicle_journeys.length,
-    ),
-  );
+  fragment RouteValidityPeriod on route_route {
+    validity_start
+    validity_end
+  }
+`;
 
-export type RouteWithLabel = Pick<RouteAllFieldsFragment, 'label' | 'variant'>;
+export function hasRouteVariant(route: RouteLabelAndVariantFragment) {
+  return Number.isInteger(route?.variant);
+}
 
-export const hasRouteVariant = (route: RouteWithLabel) =>
-  Number.isInteger(route?.variant);
+export function getRouteLabelVariantText(route: RouteLabelAndVariantFragment) {
+  if (hasRouteVariant(route)) {
+    return `${route.label} ${route.variant}`;
+  }
 
-export const getRouteLabelVariantText = (route: RouteWithLabel) =>
-  `${route.label}${hasRouteVariant(route) ? ` ${route.variant}` : ''}`;
+  return route.label;
+}
 
-export const isRouteActiveOnObservationDate = (
-  route: {
-    readonly validity_start?: luxon.DateTime | null;
-    readonly validity_end?: luxon.DateTime | null;
-  },
+export function isRouteActiveOnObservationDate(
+  route: RouteValidityPeriodFragment,
   observationDate: DateTime,
-) => isDateInRange(observationDate, route.validity_start, route.validity_end);
+) {
+  return isDateInRange(
+    observationDate,
+    route.validity_start,
+    route.validity_end,
+  );
+}

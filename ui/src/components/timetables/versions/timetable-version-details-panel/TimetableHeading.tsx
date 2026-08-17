@@ -10,8 +10,8 @@ import { getTimetableHeadingBgColor } from '../../vehicle-schedule-details';
 
 type TimetableHeadingProps = {
   readonly priority: TimetablePriority;
-  readonly dayTypeI18n?: LocalizedString;
-  readonly createdAt?: DateTime;
+  readonly dayTypeI18n: LocalizedString;
+  readonly createdAt: DateTime | null;
   readonly className?: string;
 };
 

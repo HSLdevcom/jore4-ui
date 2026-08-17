@@ -5,22 +5,6 @@ import { SortOrder } from '../types';
 import { areEqual } from './areEqual';
 import { memoizeOne } from './memoizeOne';
 
-export function sortAlphabetically<T>(
-  array: ReadonlyArray<T>,
-  attribute: keyof T,
-): T[] {
-  return array.toSorted((a, b) =>
-    String(a[attribute]).localeCompare(String(b[attribute])),
-  );
-}
-
-export function sortReverseAlphabetically<T>(
-  array: ReadonlyArray<T>,
-  attribute: keyof T,
-): T[] {
-  return sortAlphabetically(array, attribute).reverse();
-}
-
 export type NullOrder = 'NullsFirst' | 'NullsLast';
 export type Comparator<T> = (a: T, b: T) => number;
 export type Order<T> = (comparator: Comparator<T>) => Comparator<T>;

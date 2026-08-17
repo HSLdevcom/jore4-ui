@@ -8,7 +8,7 @@ import {
   setDraftRouteGeometryAction,
 } from '../../../../redux';
 import { log } from '../../../../utils';
-import { addRoute } from '../../../../utils/map';
+import { addRoute } from '../../utils/mapUtils';
 import { SNAPPING_LINE_LAYER_ID } from '../utils';
 import {
   LineStringFeature,

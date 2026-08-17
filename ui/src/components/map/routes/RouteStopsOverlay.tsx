@@ -13,7 +13,6 @@ import {
   filterDistinctConsecutiveStops,
   filterHighestPriorityCurrentStops,
   getTransportModeIcon,
-  mapVehicleModeToRouteColor,
 } from '../../../utils';
 import { mapDirectionToSymbol } from '../../../utils/i18n';
 import { EditButton } from '../../common/Buttons';
@@ -22,6 +21,7 @@ import { RouteLabel } from '../../routes-and-lines/common/RouteLabel';
 import { CustomOverlay } from '../CustomOverlay';
 import { MapOverlay, MapOverlayHeader } from '../MapOverlay';
 import { PriorityBadge } from '../PriorityBadge';
+import { mapVehicleModeToRouteColor } from '../utils/colors';
 import { useMapObservationDate } from '../utils/mapUrlState';
 import { belongsToJourneyPattern, useRouteInfo } from './hooks';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';

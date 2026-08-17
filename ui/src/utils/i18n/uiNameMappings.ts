@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import { AllOptionEnum, NullOptionEnum } from '..';
+import { HastusApiErrorType } from '../../api/hastus';
 import { InfoSpotPurposeEnum } from '../../components/stop-registry/stops/stop-details/info-spots/types';
 import { TerminalType } from '../../components/stop-registry/types/TerminalType';
 import { ZoneLabel } from '../../components/stop-registry/types/ZoneLabel';
@@ -554,3 +555,44 @@ export const mapStopOwnerToUiName = genTranslationMapper<StopOwner>({
   [StopOwner.Other]: (t) =>
     t(($) => $.stopDetails.maintenance.stopOwnerOptions.other),
 });
+
+export const mapHastusErrorTypeToErrorMessage =
+  genTranslationMapper<HastusApiErrorType>({
+    [HastusApiErrorType.CannotFindJourneyPatternRefByRouteLabelAndDirectionError]:
+      (t) =>
+        t(
+          ($) =>
+            $.hastusApiErrors
+              .cannotFindJourneyPatternRefByRouteLabelAndDirectionError,
+        ),
+    [HastusApiErrorType.CannotFindJourneyPatternRefByStopPointLabelsError]: (
+      t,
+    ) =>
+      t(
+        ($) =>
+          $.hastusApiErrors.cannotFindJourneyPatternRefByStopPointLabelsError,
+      ),
+    [HastusApiErrorType.CannotFindJourneyPatternRefByTimingPlaceLabelsError]: (
+      t,
+    ) =>
+      t(
+        ($) =>
+          $.hastusApiErrors.cannotFindJourneyPatternRefByTimingPlaceLabelsError,
+      ),
+    [HastusApiErrorType.ErrorWhileProcessingHastusDataError]: (t) =>
+      t(($) => $.hastusApiErrors.errorWhileProcessingHastusDataError),
+    [HastusApiErrorType.FirstStopNotTimingPointError]: (t) =>
+      t(($) => $.hastusApiErrors.firstStopNotTimingPointError),
+    [HastusApiErrorType.GraphQLAuthenticationFailedError]: (t) =>
+      t(($) => $.hastusApiErrors.graphQLAuthenticationFailedError),
+    [HastusApiErrorType.IllegalArgumentError]: (t) =>
+      t(($) => $.hastusApiErrors.illegalArgumentError),
+    [HastusApiErrorType.InvalidHastusDataError]: (t) =>
+      t(($) => $.hastusApiErrors.invalidHastusDataError),
+    [HastusApiErrorType.LastStopNotTimingPointError]: (t) =>
+      t(($) => $.hastusApiErrors.lastStopNotTimingPointError),
+    [HastusApiErrorType.TooFewStopPointsError]: (t) =>
+      t(($) => $.hastusApiErrors.tooFewStopPointsError),
+    [HastusApiErrorType.UnknownError]: (t) =>
+      t(($) => $.hastusApiErrors.unknownError),
+  });

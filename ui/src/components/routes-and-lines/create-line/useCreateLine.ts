@@ -8,9 +8,9 @@ import {
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
 } from '../../../generated/graphql';
+import { parseDate } from '../../../time';
 import {
   mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
   showDangerToastWithError,
 } from '../../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../../common/hooks/useCheckValidityAndPriorityConflicts';
@@ -43,7 +43,7 @@ export const mapFormToInput = (state: FormState) => {
     priority: state.priority,
     transport_target: state.transportTarget,
     type_of_line: state.typeOfLine as RouteTypeOfLineEnum,
-    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_start: parseDate(state.validityStart),
     validity_end: mapDateInputToValidityEnd(
       state.validityEnd,
       state.indefinite,

@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
 import { SerializerFunction } from '..';
 import { isDateLike, parseDate } from '../../time';
-import { PlainObject } from '../../utils';
 import {
   DeserializerFunction,
+  PlainObject,
   mapFromStoreType,
   mapToStoreType,
 } from './storeType';

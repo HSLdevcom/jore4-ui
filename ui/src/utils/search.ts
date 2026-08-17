@@ -11,13 +11,7 @@ import {
 } from '../generated/graphql';
 import { Priority } from '../types/enums';
 import { AllOptionEnum } from './enum';
-import {
-  buildActiveDateGqlFilter,
-  buildLabelLikeGqlFilter,
-  buildPrimaryVehicleModeGqlFilter,
-  buildPriorityInGqlFilter,
-  buildTypeOfLineGqlFilter,
-} from './gql';
+import { buildActiveDateGqlFilter } from './gql';
 
 export type SearchConditions = {
   readonly priorities: ReadonlyArray<Priority>;
@@ -52,6 +46,15 @@ export const buildOptionalSearchConditionGqlFilter = <
   return {};
 };
 
+/** Builds an object for gql to filter by label using the '_like' operator.
+ * This will means that all the '%' in the label are considered as 'any'
+ */
+function buildLabelLikeGqlFilter(
+  label?: string,
+): RouteRouteBoolExp | RouteLineBoolExp {
+  return { label: { _like: label } };
+}
+
 /** Wraps all the properties in route_line if 'buildRouteFilter' flag is true
  * and if there is any properties to wrap (they are optional and if none of them
  * are chosen, the properties object might be empty).
@@ -73,6 +76,32 @@ const handleLinePropertyGqlFilters = ({
   };
 };
 
+/** Builds an object for gql to filter by primary_vehicle_mode */
+function buildPrimaryVehicleModeGqlFilter(
+  primaryVehicleMode: ReadonlyArray<
+    ReusableComponentsVehicleModeEnum | AllOptionEnum
+  >,
+): RouteLineBoolExp {
+  if (primaryVehicleMode.includes(AllOptionEnum.All)) {
+    return {};
+  }
+
+  // Filter out any AllOptionEnum values, just in case to satisfy TS
+  const filtered = primaryVehicleMode.filter(
+    (mode): mode is ReusableComponentsVehicleModeEnum =>
+      mode !== AllOptionEnum.All,
+  );
+
+  return { primary_vehicle_mode: { _in: filtered } };
+}
+
+/** Builds an object for gql to filter by typeOfLine */
+function buildTypeOfLineGqlFilter(
+  typeOfLine: RouteTypeOfLineEnum,
+): RouteLineBoolExp {
+  return { type_of_line: { _eq: typeOfLine } };
+}
+
 /** Builds the search condition GQL filters for either route or line and
  * buildRouteFilter parameter is used to determine which one.
  */
@@ -89,7 +118,7 @@ const buildSearchConditionGqlFilters = ({
       mapToSqlLikeValue(searchConditions.query),
       buildLabelLikeGqlFilter,
     ),
-    ...buildPriorityInGqlFilter(searchConditions.priorities),
+    priority: { _in: searchConditions.priorities },
     ...buildActiveDateGqlFilter(searchConditions.observationDate),
 
     // Build all the filters that are line's properties.

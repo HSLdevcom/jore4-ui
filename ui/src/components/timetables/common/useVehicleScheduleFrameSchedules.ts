@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import {
+  DayTypeDetailsFragment,
   RouteDirectionEnum,
   VehicleJourneyWithStartTimeInfoFragment,
   useGetVehicleScheduleFrameSchedulesQuery,
@@ -23,9 +25,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_SCHEDULES = gql`
         vehicle_services {
           vehicle_service_id
           day_type {
-            day_type_id
-            label
-            name_i18n
+            ...DayTypeDetails
           }
           blocks {
             block_id
@@ -37,9 +37,13 @@ const GQL_VEHICLE_SCHEDULE_FRAME_SCHEDULES = gql`
       }
     }
   }
-`;
 
-const GQL_VEHICLE_JOURNEY_WITH_START_TIME_INFO = gql`
+  fragment DayTypeDetails on timetables_service_calendar_day_type {
+    day_type_id
+    label
+    name_i18n
+  }
+
   fragment VehicleJourneyWithStartTimeInfo on timetables_vehicle_journey_vehicle_journey {
     vehicle_journey_id
     start_time
@@ -59,16 +63,16 @@ const GQL_VEHICLE_JOURNEY_WITH_START_TIME_INFO = gql`
 `;
 
 export type RouteTimetableRowInfo = {
-  direction: RouteDirectionEnum;
-  nameI18n: LocalizedString;
-  label: string;
-  vehicleServiceRowData: ReadonlyArray<VehicleServiceRowData>;
-  vehicleJourneys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>;
-  priority: TimetablePriority;
-  vehicleScheduleFrameId: UUID;
-  validity: {
-    validityStart: DateTime;
-    validityEnd: DateTime;
+  readonly direction: RouteDirectionEnum;
+  readonly nameI18n: LocalizedString;
+  readonly label: string;
+  readonly vehicleServiceRowData: ReadonlyArray<VehicleServiceRowData>;
+  readonly vehicleJourneys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>;
+  readonly priority: TimetablePriority;
+  readonly vehicleScheduleFrameId: UUID;
+  readonly validity: {
+    readonly validityStart: DateTime;
+    readonly validityEnd: DateTime;
   };
 };
 
@@ -81,9 +85,9 @@ type JourneysGroupedByLabelAndDirection = {
   };
 };
 
-const groupJourneysByLabelAndDirection = (
+function groupJourneysByLabelAndDirection(
   journeys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>,
-) => {
+) {
   return journeys.reduce((acc: JourneysGroupedByLabelAndDirection, item) => {
     const updatedAcc = { ...acc };
     const route =
@@ -107,15 +111,15 @@ const groupJourneysByLabelAndDirection = (
 
     return updatedAcc;
   }, {});
-};
+}
 
-const createTimetableRowInfo = (
+function createTimetableRowInfo(
   allJourneys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>,
   priority: TimetablePriority,
   vehicleScheduleFrameId: UUID,
   validityStart: DateTime,
   validityEnd: DateTime,
-) => {
+): Array<RouteTimetableRowInfo> {
   const timetableRowInfo: RouteTimetableRowInfo[] = [];
 
   const journeysGroupedByLabelAndDirection =
@@ -161,50 +165,67 @@ const createTimetableRowInfo = (
       },
     );
   });
+
   return timetableRowInfo;
+}
+
+type VehicleScheduleFrameSchedulesFound = {
+  readonly timetableRowInfo: ReadonlyArray<RouteTimetableRowInfo>;
+  readonly dayType: DayTypeDetailsFragment;
+  readonly createdAt: DateTime;
+  readonly validityStart: DateTime;
+  readonly validityEnd: DateTime;
 };
 
-export const useVehicleScheduleFrameSchedules = (
+type VehicleScheduleFrameSchedulesNotFound = {
+  readonly [Key in keyof VehicleScheduleFrameSchedulesFound]: null;
+};
+
+export function useVehicleScheduleFrameSchedules(
   vehicleScheduleFrameId: UUID,
-) => {
-  const vsfResult = useGetVehicleScheduleFrameSchedulesQuery({
+): VehicleScheduleFrameSchedulesFound | VehicleScheduleFrameSchedulesNotFound {
+  const { data } = useGetVehicleScheduleFrameSchedulesQuery({
     variables: { vehicle_schedule_frame_id: vehicleScheduleFrameId },
   });
 
   const vehicleScheduleFrame =
-    vsfResult.data?.timetables
-      ?.timetables_vehicle_schedule_vehicle_schedule_frame_by_pk;
-  if (!vehicleScheduleFrame) {
-    return {
-      timetableRowInfo: [],
-      dayType: undefined,
-      createdAt: undefined,
-      validityStart: undefined,
-      validityEnd: undefined,
-    };
-  }
+    data?.timetables?.timetables_vehicle_schedule_vehicle_schedule_frame_by_pk;
 
-  // One vsf can have only one day type, so we can use any of the vehicle services day type
-  const dayType = vehicleScheduleFrame.vehicle_services[0].day_type;
-  const {
-    priority,
-    created_at: createdAt,
-    validity_start: validityStart,
-    validity_end: validityEnd,
-  } = vehicleScheduleFrame;
+  return useMemo(() => {
+    if (!vehicleScheduleFrame) {
+      return {
+        timetableRowInfo: null,
+        dayType: null,
+        createdAt: null,
+        validityStart: null,
+        validityEnd: null,
+      };
+    }
 
-  const allJourneys = vehicleScheduleFrame.vehicle_services.flatMap((vs) =>
-    vs.blocks.flatMap((block) =>
-      block.vehicle_journeys.map((journey) => journey),
-    ),
-  );
+    // One vsf can have only one day type, so we can use any of the vehicle services day type
+    const dayType = vehicleScheduleFrame.vehicle_services[0].day_type;
+    const {
+      priority,
+      created_at: createdAt,
+      validity_start: validityStart,
+      validity_end: validityEnd,
+      vehicle_services: vehicleServices,
+    } = vehicleScheduleFrame;
 
-  const timetableRowInfo = createTimetableRowInfo(
-    allJourneys,
-    priority,
-    vehicleScheduleFrameId,
-    validityStart,
-    validityEnd,
-  );
-  return { timetableRowInfo, dayType, createdAt, validityStart, validityEnd };
-};
+    const allJourneys = vehicleServices.flatMap((vs) =>
+      vs.blocks.flatMap((block) =>
+        block.vehicle_journeys.map((journey) => journey),
+      ),
+    );
+
+    const timetableRowInfo = createTimetableRowInfo(
+      allJourneys,
+      priority,
+      vehicleScheduleFrameId,
+      validityStart,
+      validityEnd,
+    );
+
+    return { timetableRowInfo, dayType, createdAt, validityStart, validityEnd };
+  }, [vehicleScheduleFrame, vehicleScheduleFrameId]);
+}

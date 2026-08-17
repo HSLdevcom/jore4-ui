@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
   RouteRouteBoolExp,
@@ -6,12 +7,7 @@ import {
   useGetRouteByFiltersQuery,
 } from '../../../../generated/graphql';
 import { Operation } from '../../../../redux';
-import {
-  buildActiveDateGqlFilter,
-  buildLabelGqlFilter,
-  buildLabelInGqlFilter,
-  buildPriorityInGqlFilter,
-} from '../../../../utils';
+import { buildActiveDateGqlFilter } from '../../../../utils';
 import { useMapDataLayerLoader } from '../../../common/hooks';
 import { filterRoutesByHighestPriority } from '../../../routes-and-lines/line-details/useGetLineDetails';
 import { useMapUrlStateContext } from '../../utils/mapUrlState';
@@ -72,23 +68,22 @@ export const useGetRoutesDisplayedInMap = () => {
     },
   } = useMapUrlStateContext();
 
-  const routeFilters = {
+  const routeFilters: RouteRouteBoolExp = {
     ...buildActiveDateGqlFilter(observationDate),
-    ...(routePriorities ? buildPriorityInGqlFilter(routePriorities) : {}),
+    priority: { _in: routePriorities },
   };
 
-  const skipRoutesByRouteInfoResult = !routeLabels?.length && !routeId;
+  const skipRoutesByRouteInfoResult = !routeLabels.length && !routeId;
   // Get routes by ROUTE LABEL OR ID
   const routesByRouteInfoResult = useGetRouteByFiltersQuery({
     variables: {
       routeFilters: {
         _and: [
           {
-            _or: [
-              routeLabels && buildLabelInGqlFilter(routeLabels),
-              routeId && { route_id: { _eq: routeId } },
-              // Remove undefined instances with filter
-            ].filter((i) => i) as RouteRouteBoolExp[],
+            _or: compact([
+              { label: { _in: routeLabels } },
+              routeId ? { route_id: { _eq: routeId } } : null,
+            ]),
           },
           routeFilters,
         ],
@@ -97,15 +92,10 @@ export const useGetRoutesDisplayedInMap = () => {
     skip: skipRoutesByRouteInfoResult,
   });
 
-  // Get routes by LINE LABEL
-  const lineFilters = {
-    ...buildLabelGqlFilter(lineLabel),
-  };
-
   const skipRoutesByLineLabelResult = !lineLabel;
   const routesByLineLabelResult = useGetLineRoutesByLabelQuery({
     variables: {
-      lineFilters,
+      lineFilters: { label: { _eq: lineLabel } },
       lineRouteFilters: routeFilters,
     },
     skip: skipRoutesByLineLabelResult,

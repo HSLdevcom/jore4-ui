@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import type { LineString } from 'geojson';
 import merge from 'lodash/merge';
 import { DateTime } from 'luxon';
 import {
@@ -9,7 +10,6 @@ import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import { resetMapState, setSelectedRouteIdAction } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';
-import { getRouteShapeFirstCoordinates } from '../../../utils';
 import {
   DisplayedRouteParams,
   OpenMapViewPortParams,
@@ -40,6 +40,29 @@ const GQL_LINE_MAP_PARAMS = gql`
     }
   }
 `;
+
+function getFirstCoordinatesFromLineString(routeShape: LineString) {
+  const [firstLineStringCoordinates] = routeShape.coordinates;
+  const [longitude, latitude] = firstLineStringCoordinates;
+
+  return { longitude, latitude };
+}
+
+/* This is a temporary solution to get the coordinates from route to position the map
+ * to opened route
+ * After react-map-gl v7 we should have a trivial way of centering the map
+ */
+function getRouteShapeFirstCoordinates(
+  route: RouteMapParamsFragment | undefined | null,
+) {
+  const routeShape = route?.route_shape;
+
+  if (routeShape?.type === 'LineString') {
+    return getFirstCoordinatesFromLineString(routeShape);
+  }
+
+  return { longitude: undefined, latitude: undefined };
+}
 
 type ShowRoutesOnMapParams = {
   readonly viewPort: OpenMapViewPortParams | undefined;
@@ -87,9 +110,7 @@ export const useShowRoutesOnMap = () => {
   };
 
   const showRoutesOnMapByLabel = (route: RouteMapParamsFragment) => {
-    const { latitude, longitude } = getRouteShapeFirstCoordinates(
-      route.route_shape,
-    );
+    const { latitude, longitude } = getRouteShapeFirstCoordinates(route);
 
     showRoutesOnMap({
       displayedRoute: { routeLabels: [route.label] },
@@ -107,7 +128,7 @@ export const useShowRoutesOnMap = () => {
 
   const showRoutesOnMapByLineLabel = (line: LineTableRowFragment) => {
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
-      line.line_routes[0]?.route_shape,
+      line.line_routes.at(0),
     );
 
     showRoutesOnMap({
@@ -124,9 +145,7 @@ export const useShowRoutesOnMap = () => {
   };
 
   const showRouteOnMapById = (route: RouteMapParamsFragment) => {
-    const { latitude, longitude } = getRouteShapeFirstCoordinates(
-      route.route_shape,
-    );
+    const { latitude, longitude } = getRouteShapeFirstCoordinates(route);
 
     showRoutesOnMap({
       displayedRoute: {

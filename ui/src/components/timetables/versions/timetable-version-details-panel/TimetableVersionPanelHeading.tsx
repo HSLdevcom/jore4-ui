@@ -12,8 +12,8 @@ const testIds = {
 
 type TimetableVersionPanelHeadingProps = {
   readonly onClose: () => void;
-  readonly validityStart?: DateTime;
-  readonly validityEnd?: DateTime;
+  readonly validityStart: DateTime | null;
+  readonly validityEnd: DateTime | null;
 };
 
 export const TimetableVersionPanelHeading: FC<

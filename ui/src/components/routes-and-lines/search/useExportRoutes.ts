@@ -1,4 +1,6 @@
 import { AxiosError } from 'axios';
+import maxBy from 'lodash/maxBy';
+import minBy from 'lodash/minBy';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import {
@@ -10,18 +12,64 @@ import { RouteTableRowFragment } from '../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../hooks';
 import { Operation, openSingleErrorModalAction } from '../../../redux';
 import {
-  downloadFile,
-  extractJourneyPatternFirstStop,
-  extractJourneyPatternLastStop,
-} from '../../../utils';
-import {
   mapHastusErrorTypeToErrorMessage,
   mapPriorityToUiName,
 } from '../../../utils/i18n';
 import { useLoader } from '../../common/hooks/useLoader';
 import { useSearchQueryParser } from './useSearchQueryParser';
 
-export const useExportRoutes = () => {
+type JourneyPatternWithGenericReturnType<TType> = {
+  scheduled_stop_point_in_journey_patterns: ReadonlyArray<
+    TType & {
+      scheduled_stop_point_sequence: number;
+    }
+  >;
+};
+
+/**
+ * Extracts the first stop of journey pattern with the given TType typing
+ */
+function extractJourneyPatternFirstStop<TType>(
+  journeyPattern: JourneyPatternWithGenericReturnType<TType>,
+) {
+  return minBy(
+    journeyPattern.scheduled_stop_point_in_journey_patterns,
+    'scheduled_stop_point_sequence',
+  );
+}
+
+/**
+ * Extracts the last stop of journey pattern with the given TType typing
+ */
+function extractJourneyPatternLastStop<TType>(
+  journeyPattern: JourneyPatternWithGenericReturnType<TType>,
+) {
+  return maxBy(
+    journeyPattern.scheduled_stop_point_in_journey_patterns,
+    'scheduled_stop_point_sequence',
+  );
+}
+
+function downloadFile(data: Blob, fileName: string) {
+  // File download hack from here:
+  // https://stackoverflow.com/a/53230807
+
+  // Create file link in browser's memory
+  const href = URL.createObjectURL(data);
+
+  // Create "a" HTML element with href to file & click
+  const link = document.createElement('a');
+  link.href = href;
+  link.setAttribute('download', fileName);
+  document.body.appendChild(link);
+  link.click();
+
+  // Clean up "a" element & remove ObjectURL
+  document.body.removeChild(link);
+  URL.revokeObjectURL(href);
+}
+
+export function useExportRoutes() {
   const { observationDate } = useObservationDateQueryParam();
   const { search } = useSearchQueryParser();
   const { setIsLoading } = useLoader(Operation.ExportRoute);
@@ -120,4 +168,4 @@ export const useExportRoutes = () => {
     exportRoutesToHastus,
     findNotEligibleRoutesForExport,
   };
-};
+}

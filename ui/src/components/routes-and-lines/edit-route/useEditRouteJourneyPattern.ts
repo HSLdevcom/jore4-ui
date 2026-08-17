@@ -1,4 +1,5 @@
 import { gql, useApolloClient } from '@apollo/client';
+import uniq from 'lodash/uniq';
 import {
   GetRouteDetailsByIdDocument,
   JourneyPatternStopFragment,
@@ -9,7 +10,6 @@ import {
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
 import {
-  addOrRemoveStopLabelsFromIncludedStops,
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
@@ -54,6 +54,7 @@ const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
     }
   }
 `;
+
 type DeleteStopParams = {
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   readonly stopPointLabels: ReadonlyArray<string>;
@@ -70,16 +71,32 @@ export type UpdateJourneyPatternChanges = {
   readonly stopsNeedingUpdate: ReadonlyArray<StopMetaTypeUpdateInfo>;
 };
 
-export const getEligibleStopsAlongRoute = <
+export function getEligibleStopsAlongRoute<
   TRoute extends RouteWithInfrastructureLinksWithStopsFragment,
->(
-  route: TRoute,
-) => {
+>(route: TRoute) {
   const links = mapInfrastructureLinksAlongRouteToRouteInfraLinks(
     route.infrastructure_links_along_route,
   );
   return extractJourneyPatternCandidateStops(links, route);
-};
+}
+
+/**
+ * Adds stops to or removes stops from the first stop parameter, depending on
+ * belongsToJourneyPattern boolean.
+ * @param stops list of stops to modify
+ * @param stopsToActOn list of stops to add or remove
+ * @param belongsToJourneyPattern should stops be added or removed. true to add, false to remove
+ * @returns stops list with the provided stops added to or removed from it
+ */
+export function addOrRemoveStopLabelsFromIncludedStops(
+  stops: ReadonlyArray<string>,
+  stopsToActOn: ReadonlyArray<string>,
+  belongsToJourneyPattern: boolean,
+) {
+  return belongsToJourneyPattern
+    ? uniq([...stops, ...stopsToActOn])
+    : stops.filter((label) => !stopsToActOn.includes(label));
+}
 
 function usePrepareUpdateJourneyPattern() {
   const client = useApolloClient();

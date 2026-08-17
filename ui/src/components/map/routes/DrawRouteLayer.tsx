@@ -11,9 +11,9 @@ import {
   stopRouteEditingAction,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
-import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { DrawControl } from '../DrawControl';
+import { removeRoute } from '../utils/mapUtils';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import {
   LineStringFeature,

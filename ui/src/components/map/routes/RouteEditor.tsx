@@ -41,7 +41,6 @@ import {
   showWarningToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
-import { removeRoute } from '../../../utils/map';
 import { useLoader } from '../../common/hooks/useLoader';
 import { ConfirmationDialog } from '../../common/Modals';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
@@ -57,6 +56,7 @@ import {
 import { StopsNeedingUpdateModal } from '../../routes-and-lines/common/StopsNeedingUpdateModal';
 import { StopMetaTypeUpdateInfo } from '../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
+import { removeRoute } from '../utils/mapUtils';
 import {
   CreateChanges,
   EditChanges,

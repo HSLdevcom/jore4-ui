@@ -7,11 +7,11 @@ import {
   StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
+import { parseDate } from '../../../../../../time';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   KnownValueKey,
   mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
   mapPointToGeoJSON,
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
@@ -47,7 +47,7 @@ type ValidityInput = {
 function getValidity(
   state: StopVersionFormState | StopFormState,
 ): ValidityInput {
-  const validityStart = mapDateInputToValidityStart(state.validityStart);
+  const validityStart = parseDate(state.validityStart);
   if (!validityStart) {
     throw new Error('Cannot map state with null validityStart');
   }

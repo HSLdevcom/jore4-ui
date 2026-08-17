@@ -1,11 +1,18 @@
 import {
   ForwardRefRenderFunction,
+  ReactElement,
   ReactNode,
+  cloneElement,
   forwardRef,
   isValidElement,
 } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { addClassName } from '../../../utils/components';
+
+function addClassName(element: ReactElement, newClassNames: string) {
+  return cloneElement(element, {
+    className: twMerge(element.props.className, newClassNames),
+  });
+}
 
 type IconButtonProps = {
   readonly testId?: string;

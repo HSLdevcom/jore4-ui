@@ -3,11 +3,11 @@ import { Marker } from 'react-map-gl/maplibre';
 import { MapEntityEditorViewState } from '../../../redux';
 import {
   getGeometryPoint,
-  mapTransportModeToColor,
   parseStopRegistryTransportMode,
 } from '../../../utils';
 import { StopAreaMarker } from '../markers';
 import { MapStopArea } from '../types';
+import { mapTransportModeToColor } from '../utils/colors';
 
 const testIds = {
   stopArea: ({ private_code_value: id }: MapStopArea) =>

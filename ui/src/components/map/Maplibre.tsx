@@ -4,6 +4,7 @@ import type { LngLatBoundsLike } from 'maplibre-gl';
 import {
   FC,
   PropsWithChildren,
+  RefObject,
   useEffect,
   useMemo,
   useRef,
@@ -21,10 +22,42 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Operation, selectMapViewport, setViewPortAction } from '../../redux';
 import { LoadingState } from '../../types';
 import { log, showWarningToast } from '../../utils';
-import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 import { useLoader } from '../common/hooks/useLoader';
 import { isViewportLoaded } from './utils/isViewportLoaded';
 import { useMapUrlStateContext } from './utils/mapUrlState';
+import { getInteractiveLayerIds } from './utils/mapUtils';
+
+type ImageAsset = { name: string; fileUrl: string; sdf: boolean };
+
+const imageAssets: ReadonlyArray<ImageAsset> = [
+  { name: 'arrow', fileUrl: '/img/arrow-right.png', sdf: true },
+  {
+    name: 'route_vector_icon',
+    fileUrl: '/img/route_vector_icon.png',
+    sdf: false,
+  },
+];
+
+function loadMapAssets(mapRef: RefObject<MapRef>) {
+  const map = mapRef.current?.getMap();
+  if (!map) {
+    return;
+  }
+
+  imageAssets.forEach(async (asset) => {
+    if (map.hasImage(asset.name)) {
+      return;
+    }
+
+    const response = await map.loadImage(asset.fileUrl);
+    // Even though we have already checked if the map has the image,
+    // we need to check it again here because this code is inside event callback
+    // which could be called multiple times before the map actually has the image
+    if (!map.hasImage(asset.name)) {
+      map.addImage(asset.name, response.data, { sdf: asset.sdf });
+    }
+  });
+}
 
 type MaplibreProps = {
   readonly className?: string;
