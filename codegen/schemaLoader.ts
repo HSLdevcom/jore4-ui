@@ -144,9 +144,7 @@ export default async (schemaString: string, config: LoadSchemaOptions) => {
     onFieldTypeConflict: (existingField) => existingField,
   });
 
-  const mergedSchema = makeExecutableSchema({
+  return makeExecutableSchema({
     typeDefs: mergedTypeDefs,
   });
-
-  return mergedSchema;
 };

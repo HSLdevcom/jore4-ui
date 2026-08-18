@@ -19,15 +19,13 @@ export function useFindOrphanRoutes() {
     }: {
       toReplaceRoutes: ReadonlyArray<VehicleScheduleFrameInfo>;
       stagingRoutes: ReadonlyArray<VehicleScheduleFrameInfo>;
-    }) => {
-      const orphans = toReplaceRoutes.filter((toBeReplacedRoute) => {
-        return !stagingRoutes.some((stagingRoute) =>
-          routesAreEqual(stagingRoute, toBeReplacedRoute),
-        );
-      });
-
-      return orphans;
-    },
+    }) =>
+      toReplaceRoutes.filter(
+        (toBeReplacedRoute) =>
+          !stagingRoutes.some((stagingRoute) =>
+            routesAreEqual(stagingRoute, toBeReplacedRoute),
+          ),
+      ),
     [],
   );
   return { findOrphanRoutes };

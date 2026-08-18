@@ -277,16 +277,14 @@ export function extractJourneyPatternCandidateStops(
     return filteredStops;
   }
 
-  // checking the integrity of the journey pattern
-  const filteredValidatedStops = filteredStops.filter((stop) =>
+  // checking the integrity of the journey pattern | return valid stops
+  return filteredStops.filter((stop) =>
     validateStopInstancesAlongGeometry(
       stop,
       routeMetadata,
       infraLinksWithStops,
     ),
   );
-
-  return filteredValidatedStops;
 }
 
 /**

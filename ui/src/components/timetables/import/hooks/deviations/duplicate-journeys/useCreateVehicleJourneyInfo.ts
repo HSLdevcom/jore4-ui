@@ -54,7 +54,7 @@ export function useCreateVehicleJourneyInfo() {
           ),
       );
 
-      const journeyInfos = compact(journeys).map((item) => ({
+      return compact(journeys).map((item) => ({
         vehicleJourneyId: item.vehicleJourneyId,
         startTime: item.startTime,
         contractNumber: item.contractNumber,
@@ -68,8 +68,6 @@ export function useCreateVehicleJourneyInfo() {
         routeName: item.routeName,
         routeId: item.routeId,
       }));
-
-      return journeyInfos;
     },
     [],
   );

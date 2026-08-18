@@ -251,12 +251,11 @@ export function deleteFile(filePath: string) {
   return new Error(`File ${filePath} does not exist`);
 }
 
-export const insertHslTimetablesDatasetToDb = (
+export function insertHslTimetablesDatasetToDb(
   input: HslTimetablesDatasetInput,
-) => {
-  const builtDataset = insertHslDataset(input, timetablesDatabaseConfig);
-  return builtDataset;
-};
+) {
+  return insertHslDataset(input, timetablesDatabaseConfig);
+}
 
 export function emptyDownloadsFolder() {
   const downloadsFolder = 'downloads';

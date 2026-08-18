@@ -27,8 +27,8 @@ export const ControlledElement = <FormState extends FieldValues>({
     <Controller<FormState>
       name={fieldPath}
       control={control}
-      render={({ field: { onChange, onBlur, value }, fieldState }) => {
-        const renderProps = {
+      render={({ field: { onChange, onBlur, value }, fieldState }) =>
+        inputElementRenderer({
           onChange,
           onBlur,
           value,
@@ -36,10 +36,8 @@ export const ControlledElement = <FormState extends FieldValues>({
           id,
           className,
           testId,
-        };
-        const inputElement = inputElementRenderer(renderProps);
-        return inputElement;
-      }}
+        })
+      }
     />
   );
 };

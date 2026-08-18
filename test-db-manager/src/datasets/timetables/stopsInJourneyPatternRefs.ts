@@ -34,25 +34,21 @@ const buildStopInJourneyPatternRef = ({
   scheduled_stop_point_sequence: sequenceNumber,
 });
 
-const buildStopSequence = ({
+function buildStopSequence({
   journeyPatternRefId,
   labels,
 }: {
   journeyPatternRefId: UUID;
   labels: string[];
-}): StopInJourneyPatternRefInsertInput[] => {
-  const stops: StopInJourneyPatternRefInsertInput[] = labels.map(
-    (label, index) => {
-      return buildStopInJourneyPatternRef({
-        journeyPatternRefId,
-        label,
-        sequenceNumber: index + 1,
-      });
-    },
+}): StopInJourneyPatternRefInsertInput[] {
+  return labels.map((label, index) =>
+    buildStopInJourneyPatternRef({
+      journeyPatternRefId,
+      label,
+      sequenceNumber: index + 1,
+    }),
   );
-
-  return stops;
-};
+}
 
 const journeyPatternRefId0 = expectValue(
   seedJourneyPatternRefs[0].journey_pattern_ref_id,

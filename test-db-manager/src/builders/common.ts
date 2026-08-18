@@ -16,9 +16,8 @@ export function buildRandomDuration(min: Duration, max: Duration) {
   const durationParts = unroundedDuration.rescale().toObject();
   delete durationParts.seconds;
   delete durationParts.milliseconds;
-  const durationInMinutes = Duration.fromObject(durationParts);
 
-  return durationInMinutes;
+  return Duration.fromObject(durationParts);
 }
 
 type ConstantCount = number;
@@ -44,11 +43,10 @@ export function pickArrayItem<T extends ExplicitAny>(
   if (method === 'modulo') {
     return array[index % array.length];
   }
+
   if (method === 'random') {
     return array[randomInt(0, array.length - 1)];
   }
-  // compile-time type checking:
-  // https://stackoverflow.com/questions/39419170/how-do-i-check-that-a-switch-block-is-exhaustive-in-typescript
-  const exhaustiveCheck: never = method;
-  throw new Error(`Unknown array picker method: ${exhaustiveCheck}`);
+
+  throw new Error(`Unknown array picker method: ${method}`);
 }

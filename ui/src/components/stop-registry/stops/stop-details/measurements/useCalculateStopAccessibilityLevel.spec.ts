@@ -18,10 +18,7 @@ describe('calculateStopAccessibilityLevel', () => {
   ) => {
     const { result } = renderHook(() => useCalculateStopAccessibilityLevel());
 
-    const accessibilityLevel =
-      result.current.calculateStopAccessibilityLevel(stop);
-
-    return accessibilityLevel;
+    return result.current.calculateStopAccessibilityLevel(stop);
   };
 
   const fullyAccessibleMeasurements: HslAccessibilityLevelCalculationProperties =

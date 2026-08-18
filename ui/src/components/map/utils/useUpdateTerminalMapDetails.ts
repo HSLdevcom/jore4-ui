@@ -117,9 +117,7 @@ export function useUpdateTerminalMapDetails() {
       });
 
       const input = mapFormStateToInput({ terminal, state });
-      const updatedTerminal = await updateTerminal(input);
-
-      return updatedTerminal;
+      return updateTerminal(input);
     },
     [editMembersOfTerminal, updateTerminal],
   );

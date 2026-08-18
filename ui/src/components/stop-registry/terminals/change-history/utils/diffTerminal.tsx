@@ -43,7 +43,7 @@ export function diffTerminalBasicDetails(
   const previousPoint = getGeometryPoint(previous.geometry);
   const currentPoint = getGeometryPoint(current.geometry);
 
-  const result = compact([
+  return compact([
     diffKeyedValues({
       key: 'ValidityStart',
       field: t(($) => $.changeHistory.tableHeaders.validityStart),
@@ -257,8 +257,6 @@ export function diffTerminalBasicDetails(
       newValue: findKeyValue(current, KnownValueKey.ElectricCharging),
     }),
   ]);
-
-  return result;
 }
 
 type MemberStop = NonNullable<
@@ -279,7 +277,7 @@ export function diffTerminalStops(
   const previousStops = compact(previous.children ?? []);
   const currentStops = compact(current.children ?? []);
 
-  const result = compact([
+  return compact([
     diffKeyedValues({
       key: 'Stops',
       field: t(($) => $.terminalChangeHistory.memberStops),
@@ -294,8 +292,6 @@ export function diffTerminalStops(
       ),
     }),
   ]);
-
-  return result;
 }
 
 export function diffTerminalExternalLinks(

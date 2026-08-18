@@ -498,8 +498,7 @@ async function insertInfoSpot(infoSpot: Partial<StopRegistryInfoSpotInput>) {
     const res = (await hasuraApi(
       mapToInsertInfoSpotMutation(infoSpot),
     )) as InsertInfoSpotsResult;
-    const data = getTiamatResponseBody(res);
-    return data;
+    return getTiamatResponseBody(res);
   } catch (error) {
     console.error(
       'An error occurred while inserting info spot!',

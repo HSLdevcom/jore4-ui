@@ -95,20 +95,13 @@ const useEditSubstituteOperatingPeriodHook: MutationHook<
     return { periodsToInsert, periodsToDelete, daysToInsert };
   };
 
-  const prepare = (params: EditParams): EditChanges => {
-    const input = mapFormStateToEditVariables(params);
-    const changes: EditChanges = { input };
-    return changes;
-  };
+  const prepare = (params: EditParams): EditChanges => ({
+    input: mapFormStateToEditVariables(params),
+  });
 
   const mapChangesToVariables = (
     changes: EditChanges,
-  ): EditSubstituteOperatingPeriodsMutationVariables => {
-    const variables: EditSubstituteOperatingPeriodsMutationVariables = {
-      ...changes.input,
-    };
-    return variables;
-  };
+  ): EditSubstituteOperatingPeriodsMutationVariables => changes.input;
 
   return { prepare, mapChangesToVariables, executeMutation };
 };

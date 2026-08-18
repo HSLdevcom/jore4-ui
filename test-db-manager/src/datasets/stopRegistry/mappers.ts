@@ -34,30 +34,26 @@ const mapStopPlaceMaintenanceToInput = (
     return undefined;
   }
 
-  const organisationRefs: Array<StopRegistryStopPlaceOrganisationRef> =
-    Object.entries(maintenance)
-      .map(([key, organisationName]) => {
-        if (!organisationName) {
-          return null;
-        }
+  return Object.entries(maintenance)
+    .map(([key, organisationName]) => {
+      if (!organisationName) {
+        return null;
+      }
 
-        const maintenanceOrganisationId =
-          organisationIdsByName[organisationName];
-        if (!maintenanceOrganisationId) {
-          throw new Error(
-            `Could not find organisation with name ${organisationName}`,
-          );
-        }
+      const maintenanceOrganisationId = organisationIdsByName[organisationName];
+      if (!maintenanceOrganisationId) {
+        throw new Error(
+          `Could not find organisation with name ${organisationName}`,
+        );
+      }
 
-        return {
-          organisationRef: maintenanceOrganisationId,
-          relationshipType:
-            key as StopRegistryStopPlaceOrganisationRelationshipType,
-        };
-      })
-      .filter(isNotNullish);
-
-  return organisationRefs;
+      return {
+        organisationRef: maintenanceOrganisationId,
+        relationshipType:
+          key as StopRegistryStopPlaceOrganisationRelationshipType,
+      };
+    })
+    .filter(isNotNullish);
 };
 
 export const setStopPlaceOrganisations = (
@@ -94,15 +90,13 @@ export const buildTerminalCreateInput = (
   input: TerminalInput,
   stopPlaceIdsByName: StopPlaceIdsByName,
 ): Partial<StopRegistryCreateMultiModalStopPlaceInput> => {
-  const terminal = {
+  return {
     name: input.terminal.name,
     description: input.terminal.description,
     validBetween: input.terminal.validBetween,
     geometry: input.terminal.geometry,
     stopPlaceIds: input.memberLabels.map((label) => stopPlaceIdsByName[label]),
   };
-
-  return terminal;
 };
 
 export const buildTerminalUpdateInput = (

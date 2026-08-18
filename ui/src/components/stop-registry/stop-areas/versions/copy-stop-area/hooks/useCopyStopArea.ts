@@ -220,14 +220,12 @@ export function useCopyStopArea() {
         false,
       );
 
-      const insertResponse = await insertStopAreaCopy(
+      return insertStopAreaCopy(
         stopArea,
         state,
         mutatedStopArea,
         mutatedStopPoints,
       );
-
-      return insertResponse;
     },
     [
       assertNoOverlappingVersions,

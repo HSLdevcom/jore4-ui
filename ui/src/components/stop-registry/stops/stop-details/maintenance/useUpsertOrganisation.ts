@@ -25,8 +25,7 @@ export function useUpsertOrganisation() {
     const result = await upsertOrganisationMutation({
       variables: { objects: [input] },
     });
-    const organisation = result.data?.stop_registry?.mutateOrganisation?.[0];
-    return organisation;
+    return result.data?.stop_registry?.mutateOrganisation?.[0];
   };
 
   const defaultErrorHandler = (err: unknown) => {

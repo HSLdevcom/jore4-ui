@@ -44,7 +44,7 @@ export function useEditStopMaintenanceDetails() {
         })
         .filter(notNullish);
 
-    const input = {
+    return {
       id: stopPlaceId,
       quays: [
         {
@@ -60,8 +60,6 @@ export function useEditStopMaintenanceDetails() {
         },
       ],
     };
-
-    return input;
   };
 
   const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {

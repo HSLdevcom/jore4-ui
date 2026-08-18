@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isDateInRange, parseDate } from '../../../time';
 import { EnrichedParentStopPlace, EnrichedStopPlace } from '../../../types';
@@ -14,20 +15,19 @@ export function useSetMapObservationDate() {
     setFlatUrlState,
   } = useMapUrlStateContext();
 
-  const setMapObservationDate = (
-    stopPlace: EnrichedParentStopPlace | EnrichedStopPlace | null,
-  ) => {
-    const validityStart = parseDate(stopPlace?.validityStart);
-    const validityEnd = parseDate(stopPlace?.validityEnd);
+  return useCallback(
+    (stopPlace: EnrichedParentStopPlace | EnrichedStopPlace | null) => {
+      const validityStart = parseDate(stopPlace?.validityStart);
+      const validityEnd = parseDate(stopPlace?.validityEnd);
 
-    if (!isDateInRange(observationDate, validityStart, validityEnd)) {
-      setFlatUrlState((p) => ({
-        ...p,
-        observationDate: validityStart ?? validityEnd ?? observationDate,
-      }));
-      showWarningToast(t(($) => $.filters.observationDateAdjusted));
-    }
-  };
-
-  return setMapObservationDate;
+      if (!isDateInRange(observationDate, validityStart, validityEnd)) {
+        setFlatUrlState((p) => ({
+          ...p,
+          observationDate: validityStart ?? validityEnd ?? observationDate,
+        }));
+        showWarningToast(t(($) => $.filters.observationDateAdjusted));
+      }
+    },
+    [observationDate, t, setFlatUrlState],
+  );
 }

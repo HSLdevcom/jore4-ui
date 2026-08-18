@@ -169,10 +169,11 @@ function buildConnectionLink(isBrowser: boolean, isTesting: boolean) {
     // if running a subscription query, prefer to use wsLink
     ({ query }) => {
       const definition = getMainDefinition(query);
-      const isSubscription =
+      // isSubscription
+      return (
         definition.kind === 'OperationDefinition' &&
-        definition.operation === 'subscription';
-      return isSubscription;
+        definition.operation === 'subscription'
+      );
     },
     wsLink,
     httpLink,
@@ -180,7 +181,7 @@ function buildConnectionLink(isBrowser: boolean, isTesting: boolean) {
 }
 
 function buildCacheDefinition() {
-  const cacheDefinition = new InMemoryCache({
+  return new InMemoryCache({
     typePolicies: {
       route_line: {
         keyFields: ['line_id'],
@@ -331,8 +332,6 @@ function buildCacheDefinition() {
       ),
     },
   });
-
-  return cacheDefinition;
 }
 
 function buildAuthLink() {
