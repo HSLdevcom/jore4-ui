@@ -1,0 +1,41 @@
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { SimpleButton } from '../../../common/Buttons';
+import { ObservationDateControl } from '../../../common/Jore';
+import { Column, Container, FormRow } from '../../../common/LayoutComponents';
+import { useGetLineDetails } from '../../Common/useGetLineDetails';
+import { useRoutesAndLinesDraftReturnToQueryParam } from '../Drafts/useRoutesAndLinesDraftReturnToQueryParam';
+
+const testIds = {
+  showDraftsButton: 'ActionsRow::showDraftsButton',
+};
+
+type ActionsRowProps = {
+  readonly className?: string;
+};
+
+export const ActionsRow: FC<ActionsRowProps> = ({ className }) => {
+  const { t } = useTranslation();
+
+  const { line } = useGetLineDetails();
+  const { getDraftsUrl } = useRoutesAndLinesDraftReturnToQueryParam();
+
+  return (
+    <Container className={className}>
+      <FormRow mdColumns={2}>
+        <ObservationDateControl className="max-w-max" />
+        {line && (
+          <Column className="items-end justify-end">
+            <SimpleButton
+              inverted
+              href={getDraftsUrl(line.label, line.line_id)}
+              testId={testIds.showDraftsButton}
+            >
+              {t(($) => $.lines.showDrafts)}
+            </SimpleButton>
+          </Column>
+        )}
+      </FormRow>
+    </Container>
+  );
+};

@@ -47,14 +47,14 @@ import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
-} from '../../routes-and-lines/common/ConflictResolverModal';
+} from '../../LinesAndRoutes/Common/ConflictResolverModal';
 import {
   SaveBlockers,
   getBlockers,
   hasBlockers,
-} from '../../routes-and-lines/common/SaveBlockers';
-import { StopsNeedingUpdateModal } from '../../routes-and-lines/common/StopsNeedingUpdateModal';
-import { StopMetaTypeUpdateInfo } from '../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
+} from '../../LinesAndRoutes/Common/SaveBlockers';
+import { StopsNeedingUpdateModal } from '../../LinesAndRoutes/Common/StopsNeedingUpdateModal';
+import { StopMetaTypeUpdateInfo } from '../../LinesAndRoutes/Common/useUpdateStopRegistryStopMetatype';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
 import { removeRoute } from '../utils/mapUtils';
 import {

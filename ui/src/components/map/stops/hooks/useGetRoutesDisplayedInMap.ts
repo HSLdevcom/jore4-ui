@@ -9,7 +9,7 @@ import {
 import { Operation } from '../../../../redux';
 import { buildActiveDateGqlFilter } from '../../../../utils';
 import { useMapDataLayerLoader } from '../../../common/hooks';
-import { filterRoutesByHighestPriority } from '../../../routes-and-lines/line-details/useGetLineDetails';
+import { filterRoutesByHighestPriority } from '../../../LinesAndRoutes/Common/useGetLineDetails';
 import { useMapUrlStateContext } from '../../utils/mapUrlState';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
