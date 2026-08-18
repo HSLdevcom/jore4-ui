@@ -18,7 +18,7 @@ import {
   filterHighestPriorityCurrentStops,
   isCurrentEntity,
 } from '../../../../utils';
-import { getRouteStopLabels } from '../../../routes-and-lines/common/utils';
+import { getRouteStopLabels } from '../../../LinesAndRoutes/Common/utils';
 import { MapStop } from '../../types';
 import { useMapObservationDate } from '../../utils/mapUrlState';
 

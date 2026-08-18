@@ -38,7 +38,7 @@ import {
 import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
-} from '../../routes-and-lines/common/ConflictResolverModal';
+} from '../../LinesAndRoutes/Common/ConflictResolverModal';
 import { EditStoplayerRef } from '../refTypes';
 import { CopyStopConfirmationDialog } from './CopyStopConfirmationDialog';
 import { CopyStopModal } from './CopyStopModal';

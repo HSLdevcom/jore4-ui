@@ -16,7 +16,7 @@ import {
 import {
   getRouteStopLabels,
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-} from '../../../routes-and-lines/common/utils';
+} from '../../../LinesAndRoutes/Common/utils';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 

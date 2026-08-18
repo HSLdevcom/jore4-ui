@@ -19,7 +19,7 @@ import {
   lineTypeAffectsMetatypes,
   resolveStopInfoByPublicCodes,
   updateStopRegistryStopMetatype,
-} from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
+} from '../../../LinesAndRoutes/Common/useUpdateStopRegistryStopMetatype';
 import { useValidateJourneyPattern } from './useValidateRoute';
 import { mapInfraLinksAlongRouteToGraphQL } from './utils';
 
