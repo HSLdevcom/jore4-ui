@@ -13,7 +13,7 @@ import {
 } from '../../../../generated/graphql';
 import { Priority, TimetablePriority } from '../../../../types/enums';
 import { fireEvent, render, within } from '../../../../utils/test-utils';
-import { directionBadgeTestIds } from '../../../routes-and-lines/line-details/DirectionBadge';
+import { directionBadgeTestIds } from '../../../LinesAndRoutes/Lines/Details/DirectionBadge';
 import { blockVehicleJourneysTableTestIds } from './BlockVehicleJourneysTable';
 import { ImportContentsView } from './ImportContentsView';
 import { vehicleJourneyRowTestIds } from './VehicleJourneyRow';

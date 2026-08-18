@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router';
 import { routeDetails } from '../../../../router/routeDetails';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
-import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
+import { DirectionBadge } from '../../../LinesAndRoutes/Lines/Details/DirectionBadge';
 import { VehicleScheduleFrameInfo } from '../hooks';
 
 type RouteDeviationLinkProps = {

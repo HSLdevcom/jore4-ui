@@ -1,0 +1,205 @@
+import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  RouteDefaultFieldsFragment,
+  ServicePatternScheduledStopPoint,
+  useGetRouteDetailsByIdQuery,
+} from '../../../../generated/graphql';
+import { useRequiredParams } from '../../../../hooks';
+import { Path, routeDetails } from '../../../../router/routeDetails';
+import { showSuccessToast } from '../../../../utils';
+import { PageTitle } from '../../../common/Jore';
+import {
+  Container,
+  FormContainer,
+  Row,
+} from '../../../common/LayoutComponents';
+import { ConfirmationDialog } from '../../../common/Modals';
+import { RouteDraftStopsConfirmationDialog } from '../../../forms/route/RouteDraftStopsConfirmationDialog';
+import { RoutePropertiesForm } from '../../../forms/route/RoutePropertiesForm';
+import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
+import { useDeleteRoute } from '../../../map/routes/hooks/useDeleteRoute';
+import {
+  mapRouteToFormState,
+  useEditRouteMetadata,
+} from '../../../map/routes/hooks/useEditRouteMetadata';
+import {
+  ConflictResolverModal,
+  mapRouteToCommonConflictItem,
+} from '../../Common/ConflictResolverModal';
+import { PageHeader } from '../../Common/PageHeader';
+import { RedirectWithQuery } from './RedirectWithQuery';
+import { useEditRouteJourneyPattern } from './useEditRouteJourneyPattern';
+
+export const EditRoutePage: FC = () => {
+  const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [draftStops, setDraftStops] = useState<
+    ReadonlyArray<ServicePatternScheduledStopPoint>
+  >([]);
+  const [routeFormData, setRouteFormData] = useState<RouteFormState | null>(
+    null,
+  );
+
+  const {
+    prepareEditRouteMetadata,
+    findDraftStopsOnRoute,
+    mapEditRouteMetadataChangesToVariables,
+    editRouteMetadata,
+    defaultErrorHandler,
+  } = useEditRouteMetadata();
+  const { deleteRoute, defaultErrorHandler: defaultDeleteErrorHandler } =
+    useDeleteRoute();
+  const { prepareDeleteStopFromRoute, performUpdate } =
+    useEditRouteJourneyPattern();
+  const [conflicts, setConflicts] = useState<
+    ReadonlyArray<RouteDefaultFieldsFragment>
+  >([]);
+  const { id } = useRequiredParams<{ id: string }>();
+
+  const routeDetailsResult = useGetRouteDetailsByIdQuery({
+    variables: { routeId: id },
+  });
+  const route = routeDetailsResult.data?.route_route_by_pk;
+  const { t } = useTranslation();
+
+  const onCancel = () => {
+    setHasFinishedEditing(true);
+  };
+
+  const onSubmit = async (form: RouteFormState) => {
+    try {
+      const changes = await prepareEditRouteMetadata({ routeId: id, form });
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
+      const variables = mapEditRouteMetadataChangesToVariables(changes);
+      await editRouteMetadata(variables);
+      showSuccessToast(t(($) => $.routes.updateSuccess));
+      setHasFinishedEditing(true);
+      setRouteFormData(null);
+    } catch (err) {
+      defaultErrorHandler(err);
+    }
+  };
+
+  const onPrepareSubmit = async (form: RouteFormState) => {
+    try {
+      const draftStopsOnRoute = await findDraftStopsOnRoute({
+        routeId: id,
+        oldPriority: route?.priority,
+        form,
+      });
+      if (draftStopsOnRoute.length > 0) {
+        setRouteFormData(form);
+        setDraftStops(draftStopsOnRoute);
+        return;
+      }
+      onSubmit(form);
+    } catch (err) {
+      defaultErrorHandler(err);
+    }
+  };
+
+  const onRemoveStopsFromRoute = async (form: RouteFormState) => {
+    try {
+      if (route) {
+        const changes = await prepareDeleteStopFromRoute({
+          route,
+          stopPointLabels: draftStops?.map((stop) => stop.label),
+        });
+        await performUpdate(changes);
+      }
+      onSubmit(form);
+    } catch (err) {
+      defaultErrorHandler(err);
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      await deleteRoute(route?.route_id);
+      showSuccessToast(t(($) => $.routes.deleteSuccess));
+      setHasFinishedEditing(true);
+    } catch (err) {
+      defaultDeleteErrorHandler(err);
+    }
+  };
+
+  if (hasFinishedEditing) {
+    // if route was successfully edited, redirect to its line's page
+    return (
+      <RedirectWithQuery
+        to={{
+          pathname: route
+            ? routeDetails[Path.lineDetails].getLink(route?.on_line_id)
+            : '404',
+        }}
+      />
+    );
+  }
+
+  const pageTitleText = t(($) => $.lines.line, {
+    label: route?.route_line?.label ?? '',
+  });
+
+  return (
+    <div>
+      <PageHeader>
+        <PageTitle.H1 titleText={pageTitleText}>
+          <i className="icon-bus-alt text-tweaked-brand" />
+          {pageTitleText}
+        </PageTitle.H1>
+      </PageHeader>
+      <Container>
+        <Row className="mt-10">
+          <FormContainer className="w-full p-0">
+            {route && (
+              <RoutePropertiesForm
+                routeLabel={route.label}
+                className="p-6 pb-0"
+                defaultValues={mapRouteToFormState(route)}
+                onSubmit={onPrepareSubmit}
+                onCancel={onCancel}
+                testIdPrefix="EditRoutePage"
+                onDelete={() => setIsDeleting(true)}
+                deleteButtonText={t(($) => $.map.deleteRoute)}
+                actionButtonsClassName="mb-0 border-none"
+              />
+            )}
+          </FormContainer>
+        </Row>
+      </Container>
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapRouteToCommonConflictItem)}
+      />
+      <ConfirmationDialog
+        isOpen={isDeleting}
+        onCancel={() => setIsDeleting(false)}
+        onConfirm={onDelete}
+        title={t(($) => $.confirmDeleteRouteDialog.title)}
+        description={t(($) => $.confirmDeleteRouteDialog.description)}
+        confirmText={t(($) => $.confirmDeleteRouteDialog.confirmText)}
+        cancelText={t(($) => $.cancel)}
+      />
+      <RouteDraftStopsConfirmationDialog
+        isOpen={draftStops?.length > 0}
+        onCancel={() => setDraftStops([])}
+        onRemoveStops={() => {
+          if (routeFormData) {
+            onRemoveStopsFromRoute(routeFormData);
+          }
+        }}
+        onConfirm={() => {
+          if (routeFormData) {
+            onSubmit(routeFormData);
+          }
+        }}
+        routeLabel={route?.label}
+        stopsLabelsToRemove={draftStops.map((stop) => stop.label)}
+      />
+    </div>
+  );
+};

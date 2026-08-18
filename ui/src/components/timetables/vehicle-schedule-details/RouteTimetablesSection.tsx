@@ -12,8 +12,8 @@ import { AccordionButton } from '../../common/Buttons';
 import { useToggle } from '../../common/hooks/useToggle';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { LoadingWrapper } from '../../common/Loaders';
-import { RouteLabel } from '../../routes-and-lines/common/RouteLabel';
-import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
+import { RouteLabel } from '../../LinesAndRoutes/Common/RouteLabel';
+import { DirectionBadge } from '../../LinesAndRoutes/Lines/Details/DirectionBadge';
 import {
   TimetablesView,
   useTimetablesViewState,

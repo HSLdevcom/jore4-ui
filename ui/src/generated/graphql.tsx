@@ -69401,6 +69401,2179 @@ export type VehicleServiceVehicleServiceAggregateBoolExpCount = {
   readonly predicate: IntComparisonExp;
 };
 
+export type InfraLinkAlongRouteDefaultFieldsFragment = {
+  readonly __typename?: 'route_infrastructure_link_along_route',
+  readonly infrastructure_link_id: UUID,
+  readonly is_traversal_forwards: boolean,
+  readonly infrastructure_link: {
+    readonly __typename?: 'infrastructure_network_infrastructure_link',
+    readonly infrastructure_link_id: UUID
+  }
+};
+
+export type ScheduledStopPointDefaultFieldsFragment = {
+  readonly __typename?: 'service_pattern_scheduled_stop_point',
+  readonly priority: number,
+  readonly direction: InfrastructureNetworkDirectionEnum,
+  readonly scheduled_stop_point_id: UUID,
+  readonly label: string,
+  readonly timing_place_id?: UUID | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly located_on_infrastructure_link_id: UUID,
+  readonly stop_place_ref?: string | null,
+  readonly timing_place?: {
+    readonly __typename?: 'timing_pattern_timing_place',
+    readonly timing_place_id: UUID,
+    readonly label: string
+  } | null
+};
+
+export type ScheduledStopPointAllFieldsFragment = {
+  readonly __typename?: 'service_pattern_scheduled_stop_point',
+  readonly measured_location: GeoJSON.Point,
+  readonly relative_distance_from_infrastructure_link_start: number,
+  readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+  readonly priority: number,
+  readonly direction: InfrastructureNetworkDirectionEnum,
+  readonly scheduled_stop_point_id: UUID,
+  readonly label: string,
+  readonly timing_place_id?: UUID | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly located_on_infrastructure_link_id: UUID,
+  readonly stop_place_ref?: string | null,
+  readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+    readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+  }>,
+  readonly timing_place?: {
+    readonly __typename?: 'timing_pattern_timing_place',
+    readonly timing_place_id: UUID,
+    readonly label: string
+  } | null
+};
+
+export type StopWithJourneyPatternFieldsFragment = {
+  readonly __typename?: 'service_pattern_scheduled_stop_point',
+  readonly measured_location: GeoJSON.Point,
+  readonly relative_distance_from_infrastructure_link_start: number,
+  readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+  readonly priority: number,
+  readonly direction: InfrastructureNetworkDirectionEnum,
+  readonly scheduled_stop_point_id: UUID,
+  readonly label: string,
+  readonly timing_place_id?: UUID | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly located_on_infrastructure_link_id: UUID,
+  readonly stop_place_ref?: string | null,
+  readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly scheduled_stop_point_label: string,
+    readonly scheduled_stop_point_sequence: number,
+    readonly is_used_as_timing_point: boolean,
+    readonly is_regulated_timing_point: boolean,
+    readonly is_loading_time_allowed: boolean,
+    readonly is_via_point: boolean,
+    readonly via_point_name_i18n?: LocalizedString | null,
+    readonly via_point_short_name_i18n?: LocalizedString | null,
+    readonly journey_pattern: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID
+    }
+  }>,
+  readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+    readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+  }>,
+  readonly timing_place?: {
+    readonly __typename?: 'timing_pattern_timing_place',
+    readonly timing_place_id: UUID,
+    readonly label: string
+  } | null
+};
+
+export type RouteStopFieldsFragment = {
+  readonly __typename?: 'service_pattern_scheduled_stop_point',
+  readonly measured_location: GeoJSON.Point,
+  readonly relative_distance_from_infrastructure_link_start: number,
+  readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+  readonly priority: number,
+  readonly direction: InfrastructureNetworkDirectionEnum,
+  readonly scheduled_stop_point_id: UUID,
+  readonly label: string,
+  readonly timing_place_id?: UUID | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly located_on_infrastructure_link_id: UUID,
+  readonly stop_place_ref?: string | null,
+  readonly newest_quay?: {
+    readonly __typename?: 'stops_database_quay_newest_version',
+    readonly netex_id?: string | null,
+    readonly stop_state?: string | null
+  } | null,
+  readonly stop_place?: ReadonlyArray<
+    | {
+      readonly __typename?: 'stop_registry_ParentStopPlace',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly name?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null
+    }
+    | {
+      readonly __typename?: 'stop_registry_StopPlace',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly name?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null
+    }
+   | null> | null,
+  readonly other_label_instances: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly priority: number,
+    readonly direction: InfrastructureNetworkDirectionEnum,
+    readonly scheduled_stop_point_id: UUID,
+    readonly label: string,
+    readonly timing_place_id?: UUID | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly located_on_infrastructure_link_id: UUID,
+    readonly stop_place_ref?: string | null,
+    readonly timing_place?: {
+      readonly __typename?: 'timing_pattern_timing_place',
+      readonly timing_place_id: UUID,
+      readonly label: string
+    } | null
+  }>,
+  readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly scheduled_stop_point_label: string,
+    readonly scheduled_stop_point_sequence: number,
+    readonly is_used_as_timing_point: boolean,
+    readonly is_regulated_timing_point: boolean,
+    readonly is_loading_time_allowed: boolean,
+    readonly is_via_point: boolean,
+    readonly via_point_name_i18n?: LocalizedString | null,
+    readonly via_point_short_name_i18n?: LocalizedString | null,
+    readonly journey_pattern: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID
+    }
+  }>,
+  readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+    readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+  }>,
+  readonly timing_place?: {
+    readonly __typename?: 'timing_pattern_timing_place',
+    readonly timing_place_id: UUID,
+    readonly label: string
+  } | null
+};
+
+export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
+  readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+  readonly journey_pattern_id: UUID,
+  readonly scheduled_stop_point_label: string,
+  readonly scheduled_stop_point_sequence: number,
+  readonly is_used_as_timing_point: boolean,
+  readonly is_regulated_timing_point: boolean,
+  readonly is_loading_time_allowed: boolean,
+  readonly is_via_point: boolean,
+  readonly via_point_name_i18n?: LocalizedString | null,
+  readonly via_point_short_name_i18n?: LocalizedString | null,
+  readonly journey_pattern: {
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly on_route_id: UUID
+  }
+};
+
+export type GetRoutesWithStopsQueryVariables = Exact<{
+  routeFilters?: InputMaybe<RouteRouteBoolExp>;
+}>;
+
+
+export type GetRoutesWithStopsQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly name_i18n: LocalizedString,
+    readonly description_i18n?: LocalizedString | null,
+    readonly version_comment?: string | null,
+    readonly origin_name_i18n: LocalizedString,
+    readonly origin_short_name_i18n: LocalizedString,
+    readonly destination_name_i18n: LocalizedString,
+    readonly destination_short_name_i18n: LocalizedString,
+    readonly on_line_id: UUID,
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly route_id: UUID,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly label: string,
+      readonly description?: string | null,
+      readonly version_comment?: string | null,
+      readonly name_i18n: LocalizedString,
+      readonly short_name_i18n: LocalizedString,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number,
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum,
+      readonly transport_target: HslRouteTransportTargetEnum
+    },
+    readonly infrastructure_links_along_route: ReadonlyArray<{
+      readonly __typename?: 'route_infrastructure_link_along_route',
+      readonly route_id: UUID,
+      readonly infrastructure_link_sequence: number,
+      readonly infrastructure_link_id: UUID,
+      readonly is_traversal_forwards: boolean,
+      readonly infrastructure_link: {
+        readonly __typename?: 'infrastructure_network_infrastructure_link',
+        readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
+        readonly external_link_id: string,
+        readonly infrastructure_link_id: UUID,
+        readonly shape: GeoJSON.LineString,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly measured_location: GeoJSON.Point,
+          readonly relative_distance_from_infrastructure_link_start: number,
+          readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly newest_quay?: {
+            readonly __typename?: 'stops_database_quay_newest_version',
+            readonly netex_id?: string | null,
+            readonly stop_state?: string | null
+          } | null,
+          readonly stop_place?: ReadonlyArray<
+            | {
+              readonly __typename?: 'stop_registry_ParentStopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            }
+            | {
+              readonly __typename?: 'stop_registry_StopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            }
+           | null> | null,
+          readonly other_label_instances: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null
+          }>,
+          readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+            readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly scheduled_stop_point_label: string,
+            readonly scheduled_stop_point_sequence: number,
+            readonly is_used_as_timing_point: boolean,
+            readonly is_regulated_timing_point: boolean,
+            readonly is_loading_time_allowed: boolean,
+            readonly is_via_point: boolean,
+            readonly via_point_name_i18n?: LocalizedString | null,
+            readonly via_point_short_name_i18n?: LocalizedString | null,
+            readonly journey_pattern: {
+              readonly __typename?: 'journey_pattern_journey_pattern',
+              readonly journey_pattern_id: UUID,
+              readonly on_route_id: UUID
+            }
+          }>,
+          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+          }>,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>
+      }
+    }>,
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_label: string,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean,
+        readonly is_regulated_timing_point: boolean,
+        readonly is_loading_time_allowed: boolean,
+        readonly is_via_point: boolean,
+        readonly via_point_name_i18n?: LocalizedString | null,
+        readonly via_point_short_name_i18n?: LocalizedString | null,
+        readonly scheduled_stop_points: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>,
+        readonly journey_pattern: {
+          readonly __typename?: 'journey_pattern_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly on_route_id: UUID
+        }
+      }>
+    }>
+  }>
+};
+
+export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
+  stopId: Scalars['uuid']['input'];
+}>;
+
+
+export type GetStopWithRouteGraphDataByIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly measured_location: GeoJSON.Point,
+    readonly relative_distance_from_infrastructure_link_start: number,
+    readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+    readonly priority: number,
+    readonly direction: InfrastructureNetworkDirectionEnum,
+    readonly scheduled_stop_point_id: UUID,
+    readonly label: string,
+    readonly timing_place_id?: UUID | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly located_on_infrastructure_link_id: UUID,
+    readonly stop_place_ref?: string | null,
+    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean,
+      readonly is_regulated_timing_point: boolean,
+      readonly is_loading_time_allowed: boolean,
+      readonly is_via_point: boolean,
+      readonly via_point_name_i18n?: LocalizedString | null,
+      readonly via_point_short_name_i18n?: LocalizedString | null,
+      readonly journey_pattern: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly on_route_id: UUID,
+        readonly journey_pattern_route?: {
+          readonly __typename?: 'route_route',
+          readonly name_i18n: LocalizedString,
+          readonly description_i18n?: LocalizedString | null,
+          readonly version_comment?: string | null,
+          readonly origin_name_i18n: LocalizedString,
+          readonly origin_short_name_i18n: LocalizedString,
+          readonly destination_name_i18n: LocalizedString,
+          readonly destination_short_name_i18n: LocalizedString,
+          readonly on_line_id: UUID,
+          readonly label: string,
+          readonly direction: RouteDirectionEnum,
+          readonly variant?: number | null,
+          readonly route_id: UUID,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly priority: number,
+          readonly infrastructure_links_along_route: ReadonlyArray<{
+            readonly __typename?: 'route_infrastructure_link_along_route',
+            readonly route_id: UUID,
+            readonly infrastructure_link_id: UUID,
+            readonly infrastructure_link_sequence: number
+          }>
+        } | null
+      }
+    }>,
+    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+    }>,
+    readonly timing_place?: {
+      readonly __typename?: 'timing_pattern_timing_place',
+      readonly timing_place_id: UUID,
+      readonly label: string
+    } | null
+  }>
+};
+
+export type ResolveLineStopPublicCodesQueryVariables = Exact<{
+  lineId: Scalars['uuid']['input'];
+}>;
+
+
+export type ResolveLineStopPublicCodesQuery = {
+  readonly __typename?: 'query_root',
+  readonly stopPoints: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly scheduled_stop_point_sequence: number,
+    readonly publicCode: string
+  }>
+};
+
+export type GetStopsForMetaTypeUpdateQueryVariables = Exact<{
+  publicCodes: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type GetStopsForMetaTypeUpdateQuery = {
+  readonly __typename?: 'query_root',
+  readonly stopsDb?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly quays: ReadonlyArray<{
+      readonly __typename?: 'stops_database_quay_newest_version',
+      readonly netex_id?: string | null,
+      readonly stop_place_netex_id?: string | null,
+      readonly public_code?: string | null,
+      readonly quay_key_values: ReadonlyArray<{
+        readonly __typename?: 'stops_database_quay_key_values',
+        readonly key_values_id: any,
+        readonly key_values_key: string,
+        readonly quay_id: any,
+        readonly value: {
+          readonly __typename?: 'stops_database_value',
+          readonly id: any,
+          readonly value_items: ReadonlyArray<{
+            readonly __typename?: 'stops_database_value_items',
+            readonly value_id: any,
+            readonly items?: string | null
+          }>
+        }
+      }>,
+      readonly stop_place?: {
+        readonly __typename?: 'stops_database_stop_place',
+        readonly id: any,
+        readonly transport_mode?: string | null
+      } | null
+    }>
+  } | null
+};
+
+export type RawQuayKeyValueFragment = {
+  readonly __typename?: 'stops_database_quay_key_values',
+  readonly key_values_id: any,
+  readonly key_values_key: string,
+  readonly quay_id: any,
+  readonly value: {
+    readonly __typename?: 'stops_database_value',
+    readonly id: any,
+    readonly value_items: ReadonlyArray<{
+      readonly __typename?: 'stops_database_value_items',
+      readonly value_id: any,
+      readonly items?: string | null
+    }>
+  }
+};
+
+export type GetStopForMetaTypeUpdateDataFragment = {
+  readonly __typename?: 'stops_database_quay_newest_version',
+  readonly netex_id?: string | null,
+  readonly stop_place_netex_id?: string | null,
+  readonly public_code?: string | null,
+  readonly quay_key_values: ReadonlyArray<{
+    readonly __typename?: 'stops_database_quay_key_values',
+    readonly key_values_id: any,
+    readonly key_values_key: string,
+    readonly quay_id: any,
+    readonly value: {
+      readonly __typename?: 'stops_database_value',
+      readonly id: any,
+      readonly value_items: ReadonlyArray<{
+        readonly __typename?: 'stops_database_value_items',
+        readonly value_id: any,
+        readonly items?: string | null
+      }>
+    }
+  }>,
+  readonly stop_place?: {
+    readonly __typename?: 'stops_database_stop_place',
+    readonly id: any,
+    readonly transport_mode?: string | null
+  } | null
+};
+
+export type UpdateQuayMetaTypeMutationVariables = Exact<{
+  stopPlaceId: Scalars['String']['input'];
+  quays: ReadonlyArray<StopRegistryQuayInput> | StopRegistryQuayInput;
+}>;
+
+
+export type UpdateQuayMetaTypeMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceMutation',
+    readonly mutateStopPlace?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_StopPlace',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly quays?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_Quay',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly keyValues?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_KeyValues',
+          readonly key?: string | null,
+          readonly values?: ReadonlyArray<string | null> | null
+        } | null> | null
+      } | null> | null
+    } | null> | null
+  } | null
+};
+
+export type GetLineChangeHistoryQueryVariables = Exact<{
+  label: Scalars['String']['input'];
+}>;
+
+
+export type GetLineChangeHistoryQuery = {
+  readonly __typename?: 'query_root',
+  readonly historyItems: ReadonlyArray<{
+    readonly __typename?: 'route_line_change_history',
+    readonly id: any,
+    readonly name?: string | null,
+    readonly changed: luxon.DateTime,
+    readonly tgOperation: string,
+    readonly lineId: UUID,
+    readonly lineLabel: string,
+    readonly linePriority: number,
+    readonly lineValidityStart?: luxon.DateTime | null,
+    readonly lineValidityEnd?: luxon.DateTime | null,
+    readonly routeId?: UUID | null,
+    readonly routeLabel?: string | null,
+    readonly routeDirection?: string | null,
+    readonly routeValidityStart?: luxon.DateTime | null,
+    readonly routeValidityEnd?: luxon.DateTime | null,
+    readonly versionComment?: string | null,
+    readonly changedBy?: string | null
+  }>
+};
+
+export type LineChangeHistoryItemDetailsFragment = {
+  readonly __typename?: 'route_line_change_history',
+  readonly id: any,
+  readonly name?: string | null,
+  readonly changed: luxon.DateTime,
+  readonly tgOperation: string,
+  readonly lineId: UUID,
+  readonly lineLabel: string,
+  readonly linePriority: number,
+  readonly lineValidityStart?: luxon.DateTime | null,
+  readonly lineValidityEnd?: luxon.DateTime | null,
+  readonly routeId?: UUID | null,
+  readonly routeLabel?: string | null,
+  readonly routeDirection?: string | null,
+  readonly routeValidityStart?: luxon.DateTime | null,
+  readonly routeValidityEnd?: luxon.DateTime | null,
+  readonly versionComment?: string | null,
+  readonly changedBy?: string | null
+};
+
+export type GetLineChangeHistoryItemDataQueryVariables = Exact<{
+  where: RouteLineChangeHistoryBoolExp;
+  orderBy: ReadonlyArray<RouteLineChangeHistoryOrderBy> | RouteLineChangeHistoryOrderBy;
+}>;
+
+
+export type GetLineChangeHistoryItemDataQuery = {
+  readonly __typename?: 'query_root',
+  readonly items: ReadonlyArray<{
+    readonly __typename?: 'route_line_change_history',
+    readonly id: any,
+    readonly data: any
+  }>
+};
+
+export type GetTodaysNameForLineQueryVariables = Exact<{
+  label: Scalars['String']['input'];
+  priority: Scalars['Int']['input'];
+  today: Scalars['date']['input'];
+}>;
+
+
+export type GetTodaysNameForLineQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line: ReadonlyArray<{
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly name_i18n: LocalizedString
+  }>
+};
+
+export type ResolveTimingPointNamesQueryVariables = Exact<{
+  stopLabels: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type ResolveTimingPointNamesQuery = {
+  readonly __typename?: 'query_root',
+  readonly timing_pattern_timing_place: ReadonlyArray<{
+    readonly __typename?: 'timing_pattern_timing_place',
+    readonly timing_place_id: UUID,
+    readonly label: string
+  }>
+};
+
+export type InsertLineOneMutationVariables = Exact<{
+  object: RouteLineInsertInput;
+}>;
+
+
+export type InsertLineOneMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly insert_route_line_one?: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly description?: string | null,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly transport_target: HslRouteTransportTargetEnum
+  } | null
+};
+
+export type ResolveLineIdByLabelQueryVariables = Exact<{
+  label: Scalars['String']['input'];
+  observationDate: Scalars['date']['input'];
+}>;
+
+
+export type ResolveLineIdByLabelQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line: ReadonlyArray<{
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID
+  }>
+};
+
+export type LineWithRoutesUniqueFieldsFragment = {
+  readonly __typename?: 'route_line',
+  readonly line_id: UUID,
+  readonly label: string,
+  readonly description?: string | null,
+  readonly version_comment?: string | null,
+  readonly name_i18n: LocalizedString,
+  readonly short_name_i18n: LocalizedString,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+  readonly type_of_line: RouteTypeOfLineEnum,
+  readonly transport_target: HslRouteTransportTargetEnum,
+  readonly line_routes: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly route_id: UUID,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number
+  }>,
+  readonly change_history: ReadonlyArray<{
+    readonly __typename?: 'route_line_change_history',
+    readonly id: any,
+    readonly changed: luxon.DateTime,
+    readonly changed_by?: string | null
+  }>
+};
+
+export type InfrastructureLinkWithStopsFragment = {
+  readonly __typename?: 'infrastructure_network_infrastructure_link',
+  readonly infrastructure_link_id: UUID,
+  readonly direction: InfrastructureNetworkDirectionEnum,
+  readonly shape: GeoJSON.LineString,
+  readonly estimated_length_in_metres?: number | null,
+  readonly external_link_id: string,
+  readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
+  readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly measured_location: GeoJSON.Point,
+    readonly relative_distance_from_infrastructure_link_start: number,
+    readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+    readonly priority: number,
+    readonly direction: InfrastructureNetworkDirectionEnum,
+    readonly scheduled_stop_point_id: UUID,
+    readonly label: string,
+    readonly timing_place_id?: UUID | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly located_on_infrastructure_link_id: UUID,
+    readonly stop_place_ref?: string | null,
+    readonly other_label_instances: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly priority: number,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly scheduled_stop_point_id: UUID,
+      readonly label: string,
+      readonly timing_place_id?: UUID | null,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly located_on_infrastructure_link_id: UUID,
+      readonly stop_place_ref?: string | null,
+      readonly timing_place?: {
+        readonly __typename?: 'timing_pattern_timing_place',
+        readonly timing_place_id: UUID,
+        readonly label: string
+      } | null
+    }>,
+    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean,
+      readonly is_regulated_timing_point: boolean,
+      readonly is_loading_time_allowed: boolean,
+      readonly is_via_point: boolean,
+      readonly via_point_name_i18n?: LocalizedString | null,
+      readonly via_point_short_name_i18n?: LocalizedString | null,
+      readonly journey_pattern: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly on_route_id: UUID
+      }
+    }>,
+    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+    }>,
+    readonly timing_place?: {
+      readonly __typename?: 'timing_pattern_timing_place',
+      readonly timing_place_id: UUID,
+      readonly label: string
+    } | null
+  }>
+};
+
+export type LineWithRoutesFragment = {
+  readonly __typename?: 'route_line',
+  readonly line_id: UUID,
+  readonly label: string,
+  readonly description?: string | null,
+  readonly version_comment?: string | null,
+  readonly name_i18n: LocalizedString,
+  readonly short_name_i18n: LocalizedString,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+  readonly type_of_line: RouteTypeOfLineEnum,
+  readonly transport_target: HslRouteTransportTargetEnum,
+  readonly line_routes: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly name_i18n: LocalizedString,
+    readonly description_i18n?: LocalizedString | null,
+    readonly version_comment?: string | null,
+    readonly origin_name_i18n: LocalizedString,
+    readonly origin_short_name_i18n: LocalizedString,
+    readonly destination_name_i18n: LocalizedString,
+    readonly destination_short_name_i18n: LocalizedString,
+    readonly on_line_id: UUID,
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly route_id: UUID,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly label: string,
+      readonly description?: string | null,
+      readonly version_comment?: string | null,
+      readonly name_i18n: LocalizedString,
+      readonly short_name_i18n: LocalizedString,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number,
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum,
+      readonly transport_target: HslRouteTransportTargetEnum
+    },
+    readonly infrastructure_links_along_route: ReadonlyArray<{
+      readonly __typename?: 'route_infrastructure_link_along_route',
+      readonly route_id: UUID,
+      readonly infrastructure_link_sequence: number,
+      readonly infrastructure_link_id: UUID,
+      readonly is_traversal_forwards: boolean,
+      readonly infrastructure_link: {
+        readonly __typename?: 'infrastructure_network_infrastructure_link',
+        readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
+        readonly external_link_id: string,
+        readonly infrastructure_link_id: UUID,
+        readonly shape: GeoJSON.LineString,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly measured_location: GeoJSON.Point,
+          readonly relative_distance_from_infrastructure_link_start: number,
+          readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly newest_quay?: {
+            readonly __typename?: 'stops_database_quay_newest_version',
+            readonly netex_id?: string | null,
+            readonly stop_state?: string | null
+          } | null,
+          readonly stop_place?: ReadonlyArray<
+            | {
+              readonly __typename?: 'stop_registry_ParentStopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            }
+            | {
+              readonly __typename?: 'stop_registry_StopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            }
+           | null> | null,
+          readonly other_label_instances: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null
+          }>,
+          readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+            readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly scheduled_stop_point_label: string,
+            readonly scheduled_stop_point_sequence: number,
+            readonly is_used_as_timing_point: boolean,
+            readonly is_regulated_timing_point: boolean,
+            readonly is_loading_time_allowed: boolean,
+            readonly is_via_point: boolean,
+            readonly via_point_name_i18n?: LocalizedString | null,
+            readonly via_point_short_name_i18n?: LocalizedString | null,
+            readonly journey_pattern: {
+              readonly __typename?: 'journey_pattern_journey_pattern',
+              readonly journey_pattern_id: UUID,
+              readonly on_route_id: UUID
+            }
+          }>,
+          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+          }>,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>
+      }
+    }>,
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_label: string,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean,
+        readonly is_regulated_timing_point: boolean,
+        readonly is_loading_time_allowed: boolean,
+        readonly is_via_point: boolean,
+        readonly via_point_name_i18n?: LocalizedString | null,
+        readonly via_point_short_name_i18n?: LocalizedString | null,
+        readonly scheduled_stop_points: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>,
+        readonly journey_pattern: {
+          readonly __typename?: 'journey_pattern_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly on_route_id: UUID
+        }
+      }>
+    }>
+  }>
+};
+
+export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
+  lineFilters?: InputMaybe<RouteLineBoolExp>;
+  lineRouteFilters?: InputMaybe<RouteRouteBoolExp>;
+  routeStopFilters?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
+}>;
+
+
+export type GetHighestPriorityLineDetailsWithRoutesQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line: ReadonlyArray<{
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly description?: string | null,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly transport_target: HslRouteTransportTargetEnum,
+    readonly line_routes: ReadonlyArray<{
+      readonly __typename?: 'route_route',
+      readonly label: string,
+      readonly direction: RouteDirectionEnum,
+      readonly variant?: number | null,
+      readonly route_id: UUID,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number
+    }>,
+    readonly change_history: ReadonlyArray<{
+      readonly __typename?: 'route_line_change_history',
+      readonly id: any,
+      readonly changed: luxon.DateTime,
+      readonly changed_by?: string | null
+    }>
+  }>
+};
+
+export type PatchLineMutationVariables = Exact<{
+  line_id: Scalars['uuid']['input'];
+  object: RouteLineSetInput;
+}>;
+
+
+export type PatchLineMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly update_route_line_by_pk?: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly description?: string | null,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly transport_target: HslRouteTransportTargetEnum
+  } | null
+};
+
+export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetLineDetailsWithRoutesByIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line_by_pk?: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly description?: string | null,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly transport_target: HslRouteTransportTargetEnum,
+    readonly line_routes: ReadonlyArray<{
+      readonly __typename?: 'route_route',
+      readonly route_shape?: GeoJSON.LineString | null,
+      readonly name_i18n: LocalizedString,
+      readonly description_i18n?: LocalizedString | null,
+      readonly version_comment?: string | null,
+      readonly origin_name_i18n: LocalizedString,
+      readonly origin_short_name_i18n: LocalizedString,
+      readonly destination_name_i18n: LocalizedString,
+      readonly destination_short_name_i18n: LocalizedString,
+      readonly on_line_id: UUID,
+      readonly label: string,
+      readonly direction: RouteDirectionEnum,
+      readonly variant?: number | null,
+      readonly route_id: UUID,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number,
+      readonly infrastructure_links_along_route: ReadonlyArray<{
+        readonly __typename?: 'route_infrastructure_link_along_route',
+        readonly route_id: UUID,
+        readonly infrastructure_link_id: UUID,
+        readonly infrastructure_link_sequence: number,
+        readonly is_traversal_forwards: boolean,
+        readonly infrastructure_link: {
+          readonly __typename?: 'infrastructure_network_infrastructure_link',
+          readonly infrastructure_link_id: UUID,
+          readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly measured_location: GeoJSON.Point,
+            readonly relative_distance_from_infrastructure_link_start: number,
+            readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+              readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+              readonly journey_pattern_id: UUID,
+              readonly scheduled_stop_point_label: string,
+              readonly scheduled_stop_point_sequence: number,
+              readonly is_used_as_timing_point: boolean,
+              readonly is_regulated_timing_point: boolean,
+              readonly is_loading_time_allowed: boolean,
+              readonly is_via_point: boolean,
+              readonly via_point_name_i18n?: LocalizedString | null,
+              readonly via_point_short_name_i18n?: LocalizedString | null,
+              readonly journey_pattern: {
+                readonly __typename?: 'journey_pattern_journey_pattern',
+                readonly journey_pattern_id: UUID,
+                readonly on_route_id: UUID
+              }
+            }>,
+            readonly other_label_instances: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_scheduled_stop_point',
+              readonly priority: number,
+              readonly direction: InfrastructureNetworkDirectionEnum,
+              readonly scheduled_stop_point_id: UUID,
+              readonly label: string,
+              readonly timing_place_id?: UUID | null,
+              readonly validity_start?: luxon.DateTime | null,
+              readonly validity_end?: luxon.DateTime | null,
+              readonly located_on_infrastructure_link_id: UUID,
+              readonly stop_place_ref?: string | null,
+              readonly timing_place?: {
+                readonly __typename?: 'timing_pattern_timing_place',
+                readonly timing_place_id: UUID,
+                readonly label: string
+              } | null
+            }>,
+            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+            }>,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null
+          }>
+        }
+      }>
+    }>
+  } | null
+};
+
+export type LineAllFieldsFragment = {
+  readonly __typename?: 'route_line',
+  readonly line_id: UUID,
+  readonly label: string,
+  readonly description?: string | null,
+  readonly version_comment?: string | null,
+  readonly name_i18n: LocalizedString,
+  readonly short_name_i18n: LocalizedString,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+  readonly type_of_line: RouteTypeOfLineEnum,
+  readonly transport_target: HslRouteTransportTargetEnum
+};
+
+export type LineLatestChangeInfoFragment = {
+  readonly __typename?: 'route_line',
+  readonly change_history: ReadonlyArray<{
+    readonly __typename?: 'route_line_change_history',
+    readonly id: any,
+    readonly changed: luxon.DateTime,
+    readonly changed_by?: string | null
+  }>
+};
+
+export type GetLineDetailsByIdQueryVariables = Exact<{
+  line_id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetLineDetailsByIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line_by_pk?: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly description?: string | null,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly transport_target: HslRouteTransportTargetEnum,
+    readonly change_history: ReadonlyArray<{
+      readonly __typename?: 'route_line_change_history',
+      readonly id: any,
+      readonly changed: luxon.DateTime,
+      readonly changed_by?: string | null
+    }>
+  } | null
+};
+
+export type ScheduledStopPointWithTimingSettingsFragment = {
+  readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+  readonly journey_pattern_id: UUID,
+  readonly scheduled_stop_point_label: string,
+  readonly scheduled_stop_point_sequence: number,
+  readonly is_used_as_timing_point: boolean,
+  readonly is_regulated_timing_point: boolean,
+  readonly is_loading_time_allowed: boolean,
+  readonly is_via_point: boolean,
+  readonly via_point_name_i18n?: LocalizedString | null,
+  readonly via_point_short_name_i18n?: LocalizedString | null,
+  readonly journey_pattern: {
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly on_route_id: UUID,
+    readonly journey_pattern_route?: {
+      readonly __typename?: 'route_route',
+      readonly route_id: UUID,
+      readonly label: string
+    } | null
+  },
+  readonly scheduled_stop_points: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly scheduled_stop_point_id: UUID,
+    readonly timing_place_id?: UUID | null
+  }>
+};
+
+export type GetScheduledStopPointWithTimingSettingsQueryVariables = Exact<{
+  journeyPatternId: Scalars['uuid']['input'];
+  stopLabel: Scalars['String']['input'];
+  sequence: Scalars['Int']['input'];
+}>;
+
+
+export type GetScheduledStopPointWithTimingSettingsQuery = {
+  readonly __typename?: 'query_root',
+  readonly journey_pattern_scheduled_stop_point_in_journey_pattern: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly scheduled_stop_point_label: string,
+    readonly scheduled_stop_point_sequence: number,
+    readonly is_used_as_timing_point: boolean,
+    readonly is_regulated_timing_point: boolean,
+    readonly is_loading_time_allowed: boolean,
+    readonly is_via_point: boolean,
+    readonly via_point_name_i18n?: LocalizedString | null,
+    readonly via_point_short_name_i18n?: LocalizedString | null,
+    readonly journey_pattern: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly journey_pattern_route?: {
+        readonly __typename?: 'route_route',
+        readonly route_id: UUID,
+        readonly label: string
+      } | null
+    },
+    readonly scheduled_stop_points: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly scheduled_stop_point_id: UUID,
+      readonly timing_place_id?: UUID | null
+    }>
+  }>
+};
+
+export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
+  stopLabel: Scalars['String']['input'];
+  journeyPatternId: Scalars['uuid']['input'];
+  sequence: Scalars['Int']['input'];
+  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
+  stopId: Scalars['uuid']['input'];
+  timingPlaceId?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type PatchScheduledStopPointTimingSettingsMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly update_service_pattern_scheduled_stop_point?: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly scheduled_stop_point_id: UUID,
+      readonly timing_place_id?: UUID | null,
+      readonly timing_place?: {
+        readonly __typename?: 'timing_pattern_timing_place',
+        readonly timing_place_id: UUID
+      } | null
+    }>
+  } | null,
+  readonly update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean,
+      readonly is_regulated_timing_point: boolean,
+      readonly is_loading_time_allowed: boolean,
+      readonly is_via_point: boolean,
+      readonly via_point_name_i18n?: LocalizedString | null,
+      readonly via_point_short_name_i18n?: LocalizedString | null,
+      readonly journey_pattern: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly on_route_id: UUID
+      }
+    }>
+  } | null
+};
+
+export type GetScheduledStopPointWithViaInfoQueryVariables = Exact<{
+  journeyPatternId: Scalars['uuid']['input'];
+  stopLabel: Scalars['String']['input'];
+}>;
+
+
+export type GetScheduledStopPointWithViaInfoQuery = {
+  readonly __typename?: 'query_root',
+  readonly journey_pattern_scheduled_stop_point_in_journey_pattern: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly scheduled_stop_point_label: string,
+    readonly scheduled_stop_point_sequence: number,
+    readonly is_used_as_timing_point: boolean,
+    readonly is_regulated_timing_point: boolean,
+    readonly is_loading_time_allowed: boolean,
+    readonly is_via_point: boolean,
+    readonly via_point_name_i18n?: LocalizedString | null,
+    readonly via_point_short_name_i18n?: LocalizedString | null,
+    readonly journey_pattern: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly journey_pattern_route?: {
+        readonly __typename?: 'route_route',
+        readonly route_id: UUID,
+        readonly label: string
+      } | null
+    }
+  }>
+};
+
+export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
+  stopLabel: Scalars['String']['input'];
+  journeyPatternId: Scalars['uuid']['input'];
+  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
+}>;
+
+
+export type PatchScheduledStopPointViaInfoMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean,
+      readonly is_regulated_timing_point: boolean,
+      readonly is_loading_time_allowed: boolean,
+      readonly is_via_point: boolean,
+      readonly via_point_name_i18n?: LocalizedString | null,
+      readonly via_point_short_name_i18n?: LocalizedString | null,
+      readonly journey_pattern: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly on_route_id: UUID
+      }
+    }>
+  } | null
+};
+
+export type RemoveScheduledStopPointViaInfoMutationVariables = Exact<{
+  stopLabel: Scalars['String']['input'];
+  journeyPatternId: Scalars['uuid']['input'];
+}>;
+
+
+export type RemoveScheduledStopPointViaInfoMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean,
+      readonly is_regulated_timing_point: boolean,
+      readonly is_loading_time_allowed: boolean,
+      readonly is_via_point: boolean,
+      readonly via_point_name_i18n?: LocalizedString | null,
+      readonly via_point_short_name_i18n?: LocalizedString | null,
+      readonly journey_pattern: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly on_route_id: UUID
+      }
+    }>
+  } | null
+};
+
+export type ListChangingRoutesQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ListChangingRoutesQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly name_i18n: LocalizedString,
+    readonly direction: RouteDirectionEnum,
+    readonly priority: number,
+    readonly on_line_id: UUID,
+    readonly variant?: number | null,
+    readonly unique_label: string,
+    readonly route_id: UUID,
+    readonly label: string,
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum
+    },
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_refs: ReadonlyArray<{
+        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+        readonly journey_pattern_ref_id: UUID,
+        readonly vehicle_journeys: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+          readonly vehicle_journey_id: UUID
+        }>
+      }>,
+      readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean
+      }>
+    }>
+  }>
+};
+
+export type ListOwnLinesQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ListOwnLinesQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line: ReadonlyArray<{
+    readonly __typename?: 'route_line',
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly line_routes: ReadonlyArray<{
+      readonly __typename?: 'route_route',
+      readonly unique_label: string,
+      readonly direction: RouteDirectionEnum,
+      readonly route_id: UUID,
+      readonly route_shape?: GeoJSON.LineString | null,
+      readonly label: string,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number,
+      readonly route_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly journey_pattern_refs: ReadonlyArray<{
+          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+          readonly journey_pattern_ref_id: UUID,
+          readonly vehicle_journeys: ReadonlyArray<{
+            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+            readonly vehicle_journey_id: UUID
+          }>
+        }>,
+        readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+          readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly scheduled_stop_point_sequence: number,
+          readonly is_used_as_timing_point: boolean
+        }>
+      }>
+    }>
+  }>
+};
+
+export type LineTableRowFragment = {
+  readonly __typename?: 'route_line',
+  readonly name_i18n: LocalizedString,
+  readonly short_name_i18n: LocalizedString,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+  readonly type_of_line: RouteTypeOfLineEnum,
+  readonly line_id: UUID,
+  readonly label: string,
+  readonly line_routes: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly unique_label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly route_id: UUID,
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly label: string,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_refs: ReadonlyArray<{
+        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+        readonly journey_pattern_ref_id: UUID,
+        readonly vehicle_journeys: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+          readonly vehicle_journey_id: UUID
+        }>
+      }>,
+      readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean
+      }>
+    }>
+  }>
+};
+
+export type RouteTableRowFragment = {
+  readonly __typename?: 'route_route',
+  readonly name_i18n: LocalizedString,
+  readonly direction: RouteDirectionEnum,
+  readonly priority: number,
+  readonly on_line_id: UUID,
+  readonly variant?: number | null,
+  readonly unique_label: string,
+  readonly route_id: UUID,
+  readonly label: string,
+  readonly route_shape?: GeoJSON.LineString | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly route_line: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum
+  },
+  readonly route_journey_patterns: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly journey_pattern_refs: ReadonlyArray<{
+      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+      readonly journey_pattern_ref_id: UUID,
+      readonly vehicle_journeys: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+        readonly vehicle_journey_id: UUID
+      }>
+    }>,
+    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean
+    }>
+  }>
+};
+
+export type LineRouteSearchRouteWithJourneyPatternDetailsFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_journey_patterns: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly journey_pattern_refs: ReadonlyArray<{
+      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+      readonly journey_pattern_ref_id: UUID,
+      readonly vehicle_journeys: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+        readonly vehicle_journey_id: UUID
+      }>
+    }>,
+    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean
+    }>
+  }>
+};
+
+export type SearchLinesAndRoutesQueryVariables = Exact<{
+  lineFilter?: InputMaybe<RouteLineBoolExp>;
+  routeFilter?: InputMaybe<RouteRouteBoolExp>;
+  lineOrderBy?: InputMaybe<ReadonlyArray<RouteLineOrderBy> | RouteLineOrderBy>;
+  routeOrderBy?: InputMaybe<ReadonlyArray<RouteRouteOrderBy> | RouteRouteOrderBy>;
+}>;
+
+
+export type SearchLinesAndRoutesQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_line: ReadonlyArray<{
+    readonly __typename?: 'route_line',
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly line_routes: ReadonlyArray<{
+      readonly __typename?: 'route_route',
+      readonly unique_label: string,
+      readonly direction: RouteDirectionEnum,
+      readonly route_id: UUID,
+      readonly route_shape?: GeoJSON.LineString | null,
+      readonly label: string,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number,
+      readonly route_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly journey_pattern_refs: ReadonlyArray<{
+          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+          readonly journey_pattern_ref_id: UUID,
+          readonly vehicle_journeys: ReadonlyArray<{
+            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+            readonly vehicle_journey_id: UUID
+          }>
+        }>,
+        readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+          readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly scheduled_stop_point_sequence: number,
+          readonly is_used_as_timing_point: boolean
+        }>
+      }>
+    }>
+  }>,
+  readonly route_route: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly name_i18n: LocalizedString,
+    readonly direction: RouteDirectionEnum,
+    readonly priority: number,
+    readonly on_line_id: UUID,
+    readonly variant?: number | null,
+    readonly unique_label: string,
+    readonly route_id: UUID,
+    readonly label: string,
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum
+    },
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_refs: ReadonlyArray<{
+        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+        readonly journey_pattern_ref_id: UUID,
+        readonly vehicle_journeys: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+          readonly vehicle_journey_id: UUID
+        }>
+      }>,
+      readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean
+      }>
+    }>
+  }>
+};
+
+export type UpdateRouteJourneyPatternMutationVariables = Exact<{
+  journey_pattern_id: Scalars['uuid']['input'];
+  new_stops_in_journey_pattern: ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternInsertInput> | JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
+}>;
+
+
+export type UpdateRouteJourneyPatternMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly journey_pattern_id: UUID
+    }>
+  } | null,
+  readonly insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly journey_pattern_id: UUID
+    }>
+  } | null
+};
+
+export type RouteValidityFragment = {
+  readonly __typename?: 'route_route',
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number
+};
+
+export type RouteUniqueFieldsFragment = {
+  readonly __typename?: 'route_route',
+  readonly label: string,
+  readonly direction: RouteDirectionEnum,
+  readonly variant?: number | null,
+  readonly route_id: UUID,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number
+};
+
+export type RouteDefaultFieldsFragment = {
+  readonly __typename?: 'route_route',
+  readonly name_i18n: LocalizedString,
+  readonly description_i18n?: LocalizedString | null,
+  readonly version_comment?: string | null,
+  readonly origin_name_i18n: LocalizedString,
+  readonly origin_short_name_i18n: LocalizedString,
+  readonly destination_name_i18n: LocalizedString,
+  readonly destination_short_name_i18n: LocalizedString,
+  readonly on_line_id: UUID,
+  readonly label: string,
+  readonly direction: RouteDirectionEnum,
+  readonly variant?: number | null,
+  readonly route_id: UUID,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number
+};
+
+export type RouteAllFieldsFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_shape?: GeoJSON.LineString | null,
+  readonly name_i18n: LocalizedString,
+  readonly description_i18n?: LocalizedString | null,
+  readonly version_comment?: string | null,
+  readonly origin_name_i18n: LocalizedString,
+  readonly origin_short_name_i18n: LocalizedString,
+  readonly destination_name_i18n: LocalizedString,
+  readonly destination_short_name_i18n: LocalizedString,
+  readonly on_line_id: UUID,
+  readonly label: string,
+  readonly direction: RouteDirectionEnum,
+  readonly variant?: number | null,
+  readonly route_id: UUID,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number
+};
+
+export type RouteWithJourneyPatternStopsFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_shape?: GeoJSON.LineString | null,
+  readonly name_i18n: LocalizedString,
+  readonly description_i18n?: LocalizedString | null,
+  readonly version_comment?: string | null,
+  readonly origin_name_i18n: LocalizedString,
+  readonly origin_short_name_i18n: LocalizedString,
+  readonly destination_name_i18n: LocalizedString,
+  readonly destination_short_name_i18n: LocalizedString,
+  readonly on_line_id: UUID,
+  readonly label: string,
+  readonly direction: RouteDirectionEnum,
+  readonly variant?: number | null,
+  readonly route_id: UUID,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly route_journey_patterns: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly on_route_id: UUID,
+    readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly scheduled_stop_point_sequence: number,
+      readonly is_used_as_timing_point: boolean,
+      readonly is_regulated_timing_point: boolean,
+      readonly is_loading_time_allowed: boolean,
+      readonly is_via_point: boolean,
+      readonly via_point_name_i18n?: LocalizedString | null,
+      readonly via_point_short_name_i18n?: LocalizedString | null,
+      readonly scheduled_stop_points: ReadonlyArray<{
+        readonly __typename?: 'service_pattern_scheduled_stop_point',
+        readonly priority: number,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_point_id: UUID,
+        readonly label: string,
+        readonly timing_place_id?: UUID | null,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null,
+        readonly located_on_infrastructure_link_id: UUID,
+        readonly stop_place_ref?: string | null,
+        readonly timing_place?: {
+          readonly __typename?: 'timing_pattern_timing_place',
+          readonly timing_place_id: UUID,
+          readonly label: string
+        } | null
+      }>,
+      readonly journey_pattern: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly on_route_id: UUID
+      }
+    }>
+  }>
+};
+
+export type RouteWithInfrastructureLinksFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_shape?: GeoJSON.LineString | null,
+  readonly name_i18n: LocalizedString,
+  readonly description_i18n?: LocalizedString | null,
+  readonly version_comment?: string | null,
+  readonly origin_name_i18n: LocalizedString,
+  readonly origin_short_name_i18n: LocalizedString,
+  readonly destination_name_i18n: LocalizedString,
+  readonly destination_short_name_i18n: LocalizedString,
+  readonly on_line_id: UUID,
+  readonly label: string,
+  readonly direction: RouteDirectionEnum,
+  readonly variant?: number | null,
+  readonly route_id: UUID,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly route_line: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly description?: string | null,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly short_name_i18n: LocalizedString,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum,
+    readonly transport_target: HslRouteTransportTargetEnum
+  },
+  readonly infrastructure_links_along_route: ReadonlyArray<{
+    readonly __typename?: 'route_infrastructure_link_along_route',
+    readonly route_id: UUID,
+    readonly infrastructure_link_sequence: number,
+    readonly infrastructure_link_id: UUID,
+    readonly is_traversal_forwards: boolean,
+    readonly infrastructure_link: {
+      readonly __typename?: 'infrastructure_network_infrastructure_link',
+      readonly infrastructure_link_id: UUID,
+      readonly shape: GeoJSON.LineString,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly external_link_id: string,
+      readonly external_link_source: InfrastructureNetworkExternalSourceEnum
+    }
+  }>
+};
+
+export type GetRouteDetailsByIdQueryVariables = Exact<{
+  routeId: Scalars['uuid']['input'];
+}>;
+
+
+export type GetRouteDetailsByIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route_by_pk?: {
+    readonly __typename?: 'route_route',
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly name_i18n: LocalizedString,
+    readonly description_i18n?: LocalizedString | null,
+    readonly version_comment?: string | null,
+    readonly origin_name_i18n: LocalizedString,
+    readonly origin_short_name_i18n: LocalizedString,
+    readonly destination_name_i18n: LocalizedString,
+    readonly destination_short_name_i18n: LocalizedString,
+    readonly on_line_id: UUID,
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly route_id: UUID,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly label: string,
+      readonly description?: string | null,
+      readonly version_comment?: string | null,
+      readonly name_i18n: LocalizedString,
+      readonly short_name_i18n: LocalizedString,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly priority: number,
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum,
+      readonly transport_target: HslRouteTransportTargetEnum
+    },
+    readonly infrastructure_links_along_route: ReadonlyArray<{
+      readonly __typename?: 'route_infrastructure_link_along_route',
+      readonly route_id: UUID,
+      readonly infrastructure_link_sequence: number,
+      readonly infrastructure_link_id: UUID,
+      readonly is_traversal_forwards: boolean,
+      readonly infrastructure_link: {
+        readonly __typename?: 'infrastructure_network_infrastructure_link',
+        readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
+        readonly external_link_id: string,
+        readonly infrastructure_link_id: UUID,
+        readonly shape: GeoJSON.LineString,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly measured_location: GeoJSON.Point,
+          readonly relative_distance_from_infrastructure_link_start: number,
+          readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly newest_quay?: {
+            readonly __typename?: 'stops_database_quay_newest_version',
+            readonly netex_id?: string | null,
+            readonly stop_state?: string | null
+          } | null,
+          readonly stop_place?: ReadonlyArray<
+            | {
+              readonly __typename?: 'stop_registry_ParentStopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            }
+            | {
+              readonly __typename?: 'stop_registry_StopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            }
+           | null> | null,
+          readonly other_label_instances: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null
+          }>,
+          readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+            readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly scheduled_stop_point_label: string,
+            readonly scheduled_stop_point_sequence: number,
+            readonly is_used_as_timing_point: boolean,
+            readonly is_regulated_timing_point: boolean,
+            readonly is_loading_time_allowed: boolean,
+            readonly is_via_point: boolean,
+            readonly via_point_name_i18n?: LocalizedString | null,
+            readonly via_point_short_name_i18n?: LocalizedString | null,
+            readonly journey_pattern: {
+              readonly __typename?: 'journey_pattern_journey_pattern',
+              readonly journey_pattern_id: UUID,
+              readonly on_route_id: UUID
+            }
+          }>,
+          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+          }>,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>
+      }
+    }>,
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_label: string,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean,
+        readonly is_regulated_timing_point: boolean,
+        readonly is_loading_time_allowed: boolean,
+        readonly is_via_point: boolean,
+        readonly via_point_name_i18n?: LocalizedString | null,
+        readonly via_point_short_name_i18n?: LocalizedString | null,
+        readonly scheduled_stop_points: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>,
+        readonly journey_pattern: {
+          readonly __typename?: 'journey_pattern_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly on_route_id: UUID
+        }
+      }>
+    }>
+  } | null
+};
+
+export type GetRouteVersionsQueryVariables = Exact<{
+  label: Scalars['String']['input'];
+  direction: TimetablesRouteDirectionEnum;
+}>;
+
+
+export type GetRouteVersionsQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly route_id: UUID,
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly version_comment?: string | null,
+    readonly name_i18n: LocalizedString,
+    readonly origin_name_i18n: LocalizedString,
+    readonly destination_name_i18n: LocalizedString,
+    readonly unique_label: string,
+    readonly on_line_id: UUID,
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly label: string
+    },
+    readonly change_history: ReadonlyArray<{
+      readonly __typename?: 'route_line_change_history',
+      readonly route_id?: UUID | null,
+      readonly changed: luxon.DateTime,
+      readonly changed_by?: string | null
+    }>
+  }>
+};
+
+export type RouteVersionInfoFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_id: UUID,
+  readonly label: string,
+  readonly direction: RouteDirectionEnum,
+  readonly variant?: number | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly version_comment?: string | null,
+  readonly name_i18n: LocalizedString,
+  readonly origin_name_i18n: LocalizedString,
+  readonly destination_name_i18n: LocalizedString,
+  readonly unique_label: string,
+  readonly on_line_id: UUID,
+  readonly route_shape?: GeoJSON.LineString | null,
+  readonly route_line: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string
+  },
+  readonly change_history: ReadonlyArray<{
+    readonly __typename?: 'route_line_change_history',
+    readonly route_id?: UUID | null,
+    readonly changed: luxon.DateTime,
+    readonly changed_by?: string | null
+  }>
+};
+
 export type GetLinesByValidityQueryVariables = Exact<{
   filter?: InputMaybe<RouteLineBoolExp>;
 }>;
@@ -72292,2179 +74465,6 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
       } | null
     }
   }>
-};
-
-export type InfraLinkAlongRouteDefaultFieldsFragment = {
-  readonly __typename?: 'route_infrastructure_link_along_route',
-  readonly infrastructure_link_id: UUID,
-  readonly is_traversal_forwards: boolean,
-  readonly infrastructure_link: {
-    readonly __typename?: 'infrastructure_network_infrastructure_link',
-    readonly infrastructure_link_id: UUID
-  }
-};
-
-export type LineAllFieldsFragment = {
-  readonly __typename?: 'route_line',
-  readonly line_id: UUID,
-  readonly label: string,
-  readonly description?: string | null,
-  readonly version_comment?: string | null,
-  readonly name_i18n: LocalizedString,
-  readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-  readonly type_of_line: RouteTypeOfLineEnum,
-  readonly transport_target: HslRouteTransportTargetEnum
-};
-
-export type LineLatestChangeInfoFragment = {
-  readonly __typename?: 'route_line',
-  readonly change_history: ReadonlyArray<{
-    readonly __typename?: 'route_line_change_history',
-    readonly id: any,
-    readonly changed: luxon.DateTime,
-    readonly changed_by?: string | null
-  }>
-};
-
-export type RouteValidityFragment = {
-  readonly __typename?: 'route_route',
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number
-};
-
-export type RouteUniqueFieldsFragment = {
-  readonly __typename?: 'route_route',
-  readonly label: string,
-  readonly direction: RouteDirectionEnum,
-  readonly variant?: number | null,
-  readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number
-};
-
-export type RouteDefaultFieldsFragment = {
-  readonly __typename?: 'route_route',
-  readonly name_i18n: LocalizedString,
-  readonly description_i18n?: LocalizedString | null,
-  readonly version_comment?: string | null,
-  readonly origin_name_i18n: LocalizedString,
-  readonly origin_short_name_i18n: LocalizedString,
-  readonly destination_name_i18n: LocalizedString,
-  readonly destination_short_name_i18n: LocalizedString,
-  readonly on_line_id: UUID,
-  readonly label: string,
-  readonly direction: RouteDirectionEnum,
-  readonly variant?: number | null,
-  readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number
-};
-
-export type RouteAllFieldsFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_shape?: GeoJSON.LineString | null,
-  readonly name_i18n: LocalizedString,
-  readonly description_i18n?: LocalizedString | null,
-  readonly version_comment?: string | null,
-  readonly origin_name_i18n: LocalizedString,
-  readonly origin_short_name_i18n: LocalizedString,
-  readonly destination_name_i18n: LocalizedString,
-  readonly destination_short_name_i18n: LocalizedString,
-  readonly on_line_id: UUID,
-  readonly label: string,
-  readonly direction: RouteDirectionEnum,
-  readonly variant?: number | null,
-  readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number
-};
-
-export type RouteWithJourneyPatternStopsFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_shape?: GeoJSON.LineString | null,
-  readonly name_i18n: LocalizedString,
-  readonly description_i18n?: LocalizedString | null,
-  readonly version_comment?: string | null,
-  readonly origin_name_i18n: LocalizedString,
-  readonly origin_short_name_i18n: LocalizedString,
-  readonly destination_name_i18n: LocalizedString,
-  readonly destination_short_name_i18n: LocalizedString,
-  readonly on_line_id: UUID,
-  readonly label: string,
-  readonly direction: RouteDirectionEnum,
-  readonly variant?: number | null,
-  readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly route_journey_patterns: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly on_route_id: UUID,
-    readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean,
-      readonly is_regulated_timing_point: boolean,
-      readonly is_loading_time_allowed: boolean,
-      readonly is_via_point: boolean,
-      readonly via_point_name_i18n?: LocalizedString | null,
-      readonly via_point_short_name_i18n?: LocalizedString | null,
-      readonly scheduled_stop_points: ReadonlyArray<{
-        readonly __typename?: 'service_pattern_scheduled_stop_point',
-        readonly priority: number,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_point_id: UUID,
-        readonly label: string,
-        readonly timing_place_id?: UUID | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
-        readonly located_on_infrastructure_link_id: UUID,
-        readonly stop_place_ref?: string | null,
-        readonly timing_place?: {
-          readonly __typename?: 'timing_pattern_timing_place',
-          readonly timing_place_id: UUID,
-          readonly label: string
-        } | null
-      }>,
-      readonly journey_pattern: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly on_route_id: UUID
-      }
-    }>
-  }>
-};
-
-export type RouteWithInfrastructureLinksFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_shape?: GeoJSON.LineString | null,
-  readonly name_i18n: LocalizedString,
-  readonly description_i18n?: LocalizedString | null,
-  readonly version_comment?: string | null,
-  readonly origin_name_i18n: LocalizedString,
-  readonly origin_short_name_i18n: LocalizedString,
-  readonly destination_name_i18n: LocalizedString,
-  readonly destination_short_name_i18n: LocalizedString,
-  readonly on_line_id: UUID,
-  readonly label: string,
-  readonly direction: RouteDirectionEnum,
-  readonly variant?: number | null,
-  readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly route_line: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly description?: string | null,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly transport_target: HslRouteTransportTargetEnum
-  },
-  readonly infrastructure_links_along_route: ReadonlyArray<{
-    readonly __typename?: 'route_infrastructure_link_along_route',
-    readonly route_id: UUID,
-    readonly infrastructure_link_sequence: number,
-    readonly infrastructure_link_id: UUID,
-    readonly is_traversal_forwards: boolean,
-    readonly infrastructure_link: {
-      readonly __typename?: 'infrastructure_network_infrastructure_link',
-      readonly infrastructure_link_id: UUID,
-      readonly shape: GeoJSON.LineString,
-      readonly direction: InfrastructureNetworkDirectionEnum,
-      readonly external_link_id: string,
-      readonly external_link_source: InfrastructureNetworkExternalSourceEnum
-    }
-  }>
-};
-
-export type ScheduledStopPointDefaultFieldsFragment = {
-  readonly __typename?: 'service_pattern_scheduled_stop_point',
-  readonly priority: number,
-  readonly direction: InfrastructureNetworkDirectionEnum,
-  readonly scheduled_stop_point_id: UUID,
-  readonly label: string,
-  readonly timing_place_id?: UUID | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly located_on_infrastructure_link_id: UUID,
-  readonly stop_place_ref?: string | null,
-  readonly timing_place?: {
-    readonly __typename?: 'timing_pattern_timing_place',
-    readonly timing_place_id: UUID,
-    readonly label: string
-  } | null
-};
-
-export type ScheduledStopPointAllFieldsFragment = {
-  readonly __typename?: 'service_pattern_scheduled_stop_point',
-  readonly measured_location: GeoJSON.Point,
-  readonly relative_distance_from_infrastructure_link_start: number,
-  readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-  readonly priority: number,
-  readonly direction: InfrastructureNetworkDirectionEnum,
-  readonly scheduled_stop_point_id: UUID,
-  readonly label: string,
-  readonly timing_place_id?: UUID | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly located_on_infrastructure_link_id: UUID,
-  readonly stop_place_ref?: string | null,
-  readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-    readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-  }>,
-  readonly timing_place?: {
-    readonly __typename?: 'timing_pattern_timing_place',
-    readonly timing_place_id: UUID,
-    readonly label: string
-  } | null
-};
-
-export type StopWithJourneyPatternFieldsFragment = {
-  readonly __typename?: 'service_pattern_scheduled_stop_point',
-  readonly measured_location: GeoJSON.Point,
-  readonly relative_distance_from_infrastructure_link_start: number,
-  readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-  readonly priority: number,
-  readonly direction: InfrastructureNetworkDirectionEnum,
-  readonly scheduled_stop_point_id: UUID,
-  readonly label: string,
-  readonly timing_place_id?: UUID | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly located_on_infrastructure_link_id: UUID,
-  readonly stop_place_ref?: string | null,
-  readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly scheduled_stop_point_label: string,
-    readonly scheduled_stop_point_sequence: number,
-    readonly is_used_as_timing_point: boolean,
-    readonly is_regulated_timing_point: boolean,
-    readonly is_loading_time_allowed: boolean,
-    readonly is_via_point: boolean,
-    readonly via_point_name_i18n?: LocalizedString | null,
-    readonly via_point_short_name_i18n?: LocalizedString | null,
-    readonly journey_pattern: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID
-    }
-  }>,
-  readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-    readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-  }>,
-  readonly timing_place?: {
-    readonly __typename?: 'timing_pattern_timing_place',
-    readonly timing_place_id: UUID,
-    readonly label: string
-  } | null
-};
-
-export type RouteStopFieldsFragment = {
-  readonly __typename?: 'service_pattern_scheduled_stop_point',
-  readonly measured_location: GeoJSON.Point,
-  readonly relative_distance_from_infrastructure_link_start: number,
-  readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-  readonly priority: number,
-  readonly direction: InfrastructureNetworkDirectionEnum,
-  readonly scheduled_stop_point_id: UUID,
-  readonly label: string,
-  readonly timing_place_id?: UUID | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly located_on_infrastructure_link_id: UUID,
-  readonly stop_place_ref?: string | null,
-  readonly newest_quay?: {
-    readonly __typename?: 'stops_database_quay_newest_version',
-    readonly netex_id?: string | null,
-    readonly stop_state?: string | null
-  } | null,
-  readonly stop_place?: ReadonlyArray<
-    | {
-      readonly __typename?: 'stop_registry_ParentStopPlace',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null
-    }
-    | {
-      readonly __typename?: 'stop_registry_StopPlace',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null
-    }
-   | null> | null,
-  readonly other_label_instances: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point',
-    readonly priority: number,
-    readonly direction: InfrastructureNetworkDirectionEnum,
-    readonly scheduled_stop_point_id: UUID,
-    readonly label: string,
-    readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly located_on_infrastructure_link_id: UUID,
-    readonly stop_place_ref?: string | null,
-    readonly timing_place?: {
-      readonly __typename?: 'timing_pattern_timing_place',
-      readonly timing_place_id: UUID,
-      readonly label: string
-    } | null
-  }>,
-  readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly scheduled_stop_point_label: string,
-    readonly scheduled_stop_point_sequence: number,
-    readonly is_used_as_timing_point: boolean,
-    readonly is_regulated_timing_point: boolean,
-    readonly is_loading_time_allowed: boolean,
-    readonly is_via_point: boolean,
-    readonly via_point_name_i18n?: LocalizedString | null,
-    readonly via_point_short_name_i18n?: LocalizedString | null,
-    readonly journey_pattern: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID
-    }
-  }>,
-  readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-    readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-  }>,
-  readonly timing_place?: {
-    readonly __typename?: 'timing_pattern_timing_place',
-    readonly timing_place_id: UUID,
-    readonly label: string
-  } | null
-};
-
-export type ScheduledStopPointInJourneyPatternAllFieldsFragment = {
-  readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-  readonly journey_pattern_id: UUID,
-  readonly scheduled_stop_point_label: string,
-  readonly scheduled_stop_point_sequence: number,
-  readonly is_used_as_timing_point: boolean,
-  readonly is_regulated_timing_point: boolean,
-  readonly is_loading_time_allowed: boolean,
-  readonly is_via_point: boolean,
-  readonly via_point_name_i18n?: LocalizedString | null,
-  readonly via_point_short_name_i18n?: LocalizedString | null,
-  readonly journey_pattern: {
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly on_route_id: UUID
-  }
-};
-
-export type GetLineDetailsByIdQueryVariables = Exact<{
-  line_id: Scalars['uuid']['input'];
-}>;
-
-
-export type GetLineDetailsByIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line_by_pk?: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly description?: string | null,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly transport_target: HslRouteTransportTargetEnum,
-    readonly change_history: ReadonlyArray<{
-      readonly __typename?: 'route_line_change_history',
-      readonly id: any,
-      readonly changed: luxon.DateTime,
-      readonly changed_by?: string | null
-    }>
-  } | null
-};
-
-export type GetRouteDetailsByIdQueryVariables = Exact<{
-  routeId: Scalars['uuid']['input'];
-}>;
-
-
-export type GetRouteDetailsByIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_route_by_pk?: {
-    readonly __typename?: 'route_route',
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly name_i18n: LocalizedString,
-    readonly description_i18n?: LocalizedString | null,
-    readonly version_comment?: string | null,
-    readonly origin_name_i18n: LocalizedString,
-    readonly origin_short_name_i18n: LocalizedString,
-    readonly destination_name_i18n: LocalizedString,
-    readonly destination_short_name_i18n: LocalizedString,
-    readonly on_line_id: UUID,
-    readonly label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly variant?: number | null,
-    readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly route_line: {
-      readonly __typename?: 'route_line',
-      readonly line_id: UUID,
-      readonly label: string,
-      readonly description?: string | null,
-      readonly version_comment?: string | null,
-      readonly name_i18n: LocalizedString,
-      readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number,
-      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-      readonly type_of_line: RouteTypeOfLineEnum,
-      readonly transport_target: HslRouteTransportTargetEnum
-    },
-    readonly infrastructure_links_along_route: ReadonlyArray<{
-      readonly __typename?: 'route_infrastructure_link_along_route',
-      readonly route_id: UUID,
-      readonly infrastructure_link_sequence: number,
-      readonly infrastructure_link_id: UUID,
-      readonly is_traversal_forwards: boolean,
-      readonly infrastructure_link: {
-        readonly __typename?: 'infrastructure_network_infrastructure_link',
-        readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
-        readonly external_link_id: string,
-        readonly infrastructure_link_id: UUID,
-        readonly shape: GeoJSON.LineString,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly measured_location: GeoJSON.Point,
-          readonly relative_distance_from_infrastructure_link_start: number,
-          readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly newest_quay?: {
-            readonly __typename?: 'stops_database_quay_newest_version',
-            readonly netex_id?: string | null,
-            readonly stop_state?: string | null
-          } | null,
-          readonly stop_place?: ReadonlyArray<
-            | {
-              readonly __typename?: 'stop_registry_ParentStopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            }
-            | {
-              readonly __typename?: 'stop_registry_StopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            }
-           | null> | null,
-          readonly other_label_instances: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_scheduled_stop_point',
-            readonly priority: number,
-            readonly direction: InfrastructureNetworkDirectionEnum,
-            readonly scheduled_stop_point_id: UUID,
-            readonly label: string,
-            readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
-            readonly located_on_infrastructure_link_id: UUID,
-            readonly stop_place_ref?: string | null,
-            readonly timing_place?: {
-              readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
-            } | null
-          }>,
-          readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-            readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly scheduled_stop_point_label: string,
-            readonly scheduled_stop_point_sequence: number,
-            readonly is_used_as_timing_point: boolean,
-            readonly is_regulated_timing_point: boolean,
-            readonly is_loading_time_allowed: boolean,
-            readonly is_via_point: boolean,
-            readonly via_point_name_i18n?: LocalizedString | null,
-            readonly via_point_short_name_i18n?: LocalizedString | null,
-            readonly journey_pattern: {
-              readonly __typename?: 'journey_pattern_journey_pattern',
-              readonly journey_pattern_id: UUID,
-              readonly on_route_id: UUID
-            }
-          }>,
-          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-          }>,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>
-      }
-    }>,
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_label: string,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean,
-        readonly is_regulated_timing_point: boolean,
-        readonly is_loading_time_allowed: boolean,
-        readonly is_via_point: boolean,
-        readonly via_point_name_i18n?: LocalizedString | null,
-        readonly via_point_short_name_i18n?: LocalizedString | null,
-        readonly scheduled_stop_points: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>,
-        readonly journey_pattern: {
-          readonly __typename?: 'journey_pattern_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly on_route_id: UUID
-        }
-      }>
-    }>
-  } | null
-};
-
-export type GetRoutesWithStopsQueryVariables = Exact<{
-  routeFilters?: InputMaybe<RouteRouteBoolExp>;
-}>;
-
-
-export type GetRoutesWithStopsQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_route: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly name_i18n: LocalizedString,
-    readonly description_i18n?: LocalizedString | null,
-    readonly version_comment?: string | null,
-    readonly origin_name_i18n: LocalizedString,
-    readonly origin_short_name_i18n: LocalizedString,
-    readonly destination_name_i18n: LocalizedString,
-    readonly destination_short_name_i18n: LocalizedString,
-    readonly on_line_id: UUID,
-    readonly label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly variant?: number | null,
-    readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly route_line: {
-      readonly __typename?: 'route_line',
-      readonly line_id: UUID,
-      readonly label: string,
-      readonly description?: string | null,
-      readonly version_comment?: string | null,
-      readonly name_i18n: LocalizedString,
-      readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number,
-      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-      readonly type_of_line: RouteTypeOfLineEnum,
-      readonly transport_target: HslRouteTransportTargetEnum
-    },
-    readonly infrastructure_links_along_route: ReadonlyArray<{
-      readonly __typename?: 'route_infrastructure_link_along_route',
-      readonly route_id: UUID,
-      readonly infrastructure_link_sequence: number,
-      readonly infrastructure_link_id: UUID,
-      readonly is_traversal_forwards: boolean,
-      readonly infrastructure_link: {
-        readonly __typename?: 'infrastructure_network_infrastructure_link',
-        readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
-        readonly external_link_id: string,
-        readonly infrastructure_link_id: UUID,
-        readonly shape: GeoJSON.LineString,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly measured_location: GeoJSON.Point,
-          readonly relative_distance_from_infrastructure_link_start: number,
-          readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly newest_quay?: {
-            readonly __typename?: 'stops_database_quay_newest_version',
-            readonly netex_id?: string | null,
-            readonly stop_state?: string | null
-          } | null,
-          readonly stop_place?: ReadonlyArray<
-            | {
-              readonly __typename?: 'stop_registry_ParentStopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            }
-            | {
-              readonly __typename?: 'stop_registry_StopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            }
-           | null> | null,
-          readonly other_label_instances: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_scheduled_stop_point',
-            readonly priority: number,
-            readonly direction: InfrastructureNetworkDirectionEnum,
-            readonly scheduled_stop_point_id: UUID,
-            readonly label: string,
-            readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
-            readonly located_on_infrastructure_link_id: UUID,
-            readonly stop_place_ref?: string | null,
-            readonly timing_place?: {
-              readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
-            } | null
-          }>,
-          readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-            readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly scheduled_stop_point_label: string,
-            readonly scheduled_stop_point_sequence: number,
-            readonly is_used_as_timing_point: boolean,
-            readonly is_regulated_timing_point: boolean,
-            readonly is_loading_time_allowed: boolean,
-            readonly is_via_point: boolean,
-            readonly via_point_name_i18n?: LocalizedString | null,
-            readonly via_point_short_name_i18n?: LocalizedString | null,
-            readonly journey_pattern: {
-              readonly __typename?: 'journey_pattern_journey_pattern',
-              readonly journey_pattern_id: UUID,
-              readonly on_route_id: UUID
-            }
-          }>,
-          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-          }>,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>
-      }
-    }>,
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_label: string,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean,
-        readonly is_regulated_timing_point: boolean,
-        readonly is_loading_time_allowed: boolean,
-        readonly is_via_point: boolean,
-        readonly via_point_name_i18n?: LocalizedString | null,
-        readonly via_point_short_name_i18n?: LocalizedString | null,
-        readonly scheduled_stop_points: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>,
-        readonly journey_pattern: {
-          readonly __typename?: 'journey_pattern_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly on_route_id: UUID
-        }
-      }>
-    }>
-  }>
-};
-
-export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
-  stopId: Scalars['uuid']['input'];
-}>;
-
-
-export type GetStopWithRouteGraphDataByIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point',
-    readonly measured_location: GeoJSON.Point,
-    readonly relative_distance_from_infrastructure_link_start: number,
-    readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-    readonly priority: number,
-    readonly direction: InfrastructureNetworkDirectionEnum,
-    readonly scheduled_stop_point_id: UUID,
-    readonly label: string,
-    readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly located_on_infrastructure_link_id: UUID,
-    readonly stop_place_ref?: string | null,
-    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean,
-      readonly is_regulated_timing_point: boolean,
-      readonly is_loading_time_allowed: boolean,
-      readonly is_via_point: boolean,
-      readonly via_point_name_i18n?: LocalizedString | null,
-      readonly via_point_short_name_i18n?: LocalizedString | null,
-      readonly journey_pattern: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly on_route_id: UUID,
-        readonly journey_pattern_route?: {
-          readonly __typename?: 'route_route',
-          readonly name_i18n: LocalizedString,
-          readonly description_i18n?: LocalizedString | null,
-          readonly version_comment?: string | null,
-          readonly origin_name_i18n: LocalizedString,
-          readonly origin_short_name_i18n: LocalizedString,
-          readonly destination_name_i18n: LocalizedString,
-          readonly destination_short_name_i18n: LocalizedString,
-          readonly on_line_id: UUID,
-          readonly label: string,
-          readonly direction: RouteDirectionEnum,
-          readonly variant?: number | null,
-          readonly route_id: UUID,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly priority: number,
-          readonly infrastructure_links_along_route: ReadonlyArray<{
-            readonly __typename?: 'route_infrastructure_link_along_route',
-            readonly route_id: UUID,
-            readonly infrastructure_link_id: UUID,
-            readonly infrastructure_link_sequence: number
-          }>
-        } | null
-      }
-    }>,
-    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-    }>,
-    readonly timing_place?: {
-      readonly __typename?: 'timing_pattern_timing_place',
-      readonly timing_place_id: UUID,
-      readonly label: string
-    } | null
-  }>
-};
-
-export type ResolveLineStopPublicCodesQueryVariables = Exact<{
-  lineId: Scalars['uuid']['input'];
-}>;
-
-
-export type ResolveLineStopPublicCodesQuery = {
-  readonly __typename?: 'query_root',
-  readonly stopPoints: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly scheduled_stop_point_sequence: number,
-    readonly publicCode: string
-  }>
-};
-
-export type GetStopsForMetaTypeUpdateQueryVariables = Exact<{
-  publicCodes: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
-}>;
-
-
-export type GetStopsForMetaTypeUpdateQuery = {
-  readonly __typename?: 'query_root',
-  readonly stopsDb?: {
-    readonly __typename?: 'stops_database_stops_database_query',
-    readonly quays: ReadonlyArray<{
-      readonly __typename?: 'stops_database_quay_newest_version',
-      readonly netex_id?: string | null,
-      readonly stop_place_netex_id?: string | null,
-      readonly public_code?: string | null,
-      readonly quay_key_values: ReadonlyArray<{
-        readonly __typename?: 'stops_database_quay_key_values',
-        readonly key_values_id: any,
-        readonly key_values_key: string,
-        readonly quay_id: any,
-        readonly value: {
-          readonly __typename?: 'stops_database_value',
-          readonly id: any,
-          readonly value_items: ReadonlyArray<{
-            readonly __typename?: 'stops_database_value_items',
-            readonly value_id: any,
-            readonly items?: string | null
-          }>
-        }
-      }>,
-      readonly stop_place?: {
-        readonly __typename?: 'stops_database_stop_place',
-        readonly id: any,
-        readonly transport_mode?: string | null
-      } | null
-    }>
-  } | null
-};
-
-export type RawQuayKeyValueFragment = {
-  readonly __typename?: 'stops_database_quay_key_values',
-  readonly key_values_id: any,
-  readonly key_values_key: string,
-  readonly quay_id: any,
-  readonly value: {
-    readonly __typename?: 'stops_database_value',
-    readonly id: any,
-    readonly value_items: ReadonlyArray<{
-      readonly __typename?: 'stops_database_value_items',
-      readonly value_id: any,
-      readonly items?: string | null
-    }>
-  }
-};
-
-export type GetStopForMetaTypeUpdateDataFragment = {
-  readonly __typename?: 'stops_database_quay_newest_version',
-  readonly netex_id?: string | null,
-  readonly stop_place_netex_id?: string | null,
-  readonly public_code?: string | null,
-  readonly quay_key_values: ReadonlyArray<{
-    readonly __typename?: 'stops_database_quay_key_values',
-    readonly key_values_id: any,
-    readonly key_values_key: string,
-    readonly quay_id: any,
-    readonly value: {
-      readonly __typename?: 'stops_database_value',
-      readonly id: any,
-      readonly value_items: ReadonlyArray<{
-        readonly __typename?: 'stops_database_value_items',
-        readonly value_id: any,
-        readonly items?: string | null
-      }>
-    }
-  }>,
-  readonly stop_place?: {
-    readonly __typename?: 'stops_database_stop_place',
-    readonly id: any,
-    readonly transport_mode?: string | null
-  } | null
-};
-
-export type UpdateQuayMetaTypeMutationVariables = Exact<{
-  stopPlaceId: Scalars['String']['input'];
-  quays: ReadonlyArray<StopRegistryQuayInput> | StopRegistryQuayInput;
-}>;
-
-
-export type UpdateQuayMetaTypeMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceMutation',
-    readonly mutateStopPlace?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_StopPlace',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly quays?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_Quay',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly keyValues?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_KeyValues',
-          readonly key?: string | null,
-          readonly values?: ReadonlyArray<string | null> | null
-        } | null> | null
-      } | null> | null
-    } | null> | null
-  } | null
-};
-
-export type InsertLineOneMutationVariables = Exact<{
-  object: RouteLineInsertInput;
-}>;
-
-
-export type InsertLineOneMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly insert_route_line_one?: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly description?: string | null,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly transport_target: HslRouteTransportTargetEnum
-  } | null
-};
-
-export type PatchLineMutationVariables = Exact<{
-  line_id: Scalars['uuid']['input'];
-  object: RouteLineSetInput;
-}>;
-
-
-export type PatchLineMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly update_route_line_by_pk?: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly description?: string | null,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly transport_target: HslRouteTransportTargetEnum
-  } | null
-};
-
-export type GetLineDetailsWithRoutesByIdQueryVariables = Exact<{
-  line_id: Scalars['uuid']['input'];
-}>;
-
-
-export type GetLineDetailsWithRoutesByIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line_by_pk?: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly description?: string | null,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly transport_target: HslRouteTransportTargetEnum,
-    readonly line_routes: ReadonlyArray<{
-      readonly __typename?: 'route_route',
-      readonly route_shape?: GeoJSON.LineString | null,
-      readonly name_i18n: LocalizedString,
-      readonly description_i18n?: LocalizedString | null,
-      readonly version_comment?: string | null,
-      readonly origin_name_i18n: LocalizedString,
-      readonly origin_short_name_i18n: LocalizedString,
-      readonly destination_name_i18n: LocalizedString,
-      readonly destination_short_name_i18n: LocalizedString,
-      readonly on_line_id: UUID,
-      readonly label: string,
-      readonly direction: RouteDirectionEnum,
-      readonly variant?: number | null,
-      readonly route_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number,
-      readonly infrastructure_links_along_route: ReadonlyArray<{
-        readonly __typename?: 'route_infrastructure_link_along_route',
-        readonly route_id: UUID,
-        readonly infrastructure_link_id: UUID,
-        readonly infrastructure_link_sequence: number,
-        readonly is_traversal_forwards: boolean,
-        readonly infrastructure_link: {
-          readonly __typename?: 'infrastructure_network_infrastructure_link',
-          readonly infrastructure_link_id: UUID,
-          readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_scheduled_stop_point',
-            readonly measured_location: GeoJSON.Point,
-            readonly relative_distance_from_infrastructure_link_start: number,
-            readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-            readonly priority: number,
-            readonly direction: InfrastructureNetworkDirectionEnum,
-            readonly scheduled_stop_point_id: UUID,
-            readonly label: string,
-            readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
-            readonly located_on_infrastructure_link_id: UUID,
-            readonly stop_place_ref?: string | null,
-            readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-              readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-              readonly journey_pattern_id: UUID,
-              readonly scheduled_stop_point_label: string,
-              readonly scheduled_stop_point_sequence: number,
-              readonly is_used_as_timing_point: boolean,
-              readonly is_regulated_timing_point: boolean,
-              readonly is_loading_time_allowed: boolean,
-              readonly is_via_point: boolean,
-              readonly via_point_name_i18n?: LocalizedString | null,
-              readonly via_point_short_name_i18n?: LocalizedString | null,
-              readonly journey_pattern: {
-                readonly __typename?: 'journey_pattern_journey_pattern',
-                readonly journey_pattern_id: UUID,
-                readonly on_route_id: UUID
-              }
-            }>,
-            readonly other_label_instances: ReadonlyArray<{
-              readonly __typename?: 'service_pattern_scheduled_stop_point',
-              readonly priority: number,
-              readonly direction: InfrastructureNetworkDirectionEnum,
-              readonly scheduled_stop_point_id: UUID,
-              readonly label: string,
-              readonly timing_place_id?: UUID | null,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
-              readonly located_on_infrastructure_link_id: UUID,
-              readonly stop_place_ref?: string | null,
-              readonly timing_place?: {
-                readonly __typename?: 'timing_pattern_timing_place',
-                readonly timing_place_id: UUID,
-                readonly label: string
-              } | null
-            }>,
-            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-            }>,
-            readonly timing_place?: {
-              readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
-            } | null
-          }>
-        }
-      }>
-    }>
-  } | null
-};
-
-export type UpdateRouteJourneyPatternMutationVariables = Exact<{
-  journey_pattern_id: Scalars['uuid']['input'];
-  new_stops_in_journey_pattern: ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternInsertInput> | JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
-}>;
-
-
-export type UpdateRouteJourneyPatternMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly journey_pattern_id: UUID
-    }>
-  } | null,
-  readonly insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly journey_pattern_id: UUID
-    }>
-  } | null
-};
-
-export type GetLineChangeHistoryQueryVariables = Exact<{
-  label: Scalars['String']['input'];
-}>;
-
-
-export type GetLineChangeHistoryQuery = {
-  readonly __typename?: 'query_root',
-  readonly historyItems: ReadonlyArray<{
-    readonly __typename?: 'route_line_change_history',
-    readonly id: any,
-    readonly name?: string | null,
-    readonly changed: luxon.DateTime,
-    readonly tgOperation: string,
-    readonly lineId: UUID,
-    readonly lineLabel: string,
-    readonly linePriority: number,
-    readonly lineValidityStart?: luxon.DateTime | null,
-    readonly lineValidityEnd?: luxon.DateTime | null,
-    readonly routeId?: UUID | null,
-    readonly routeLabel?: string | null,
-    readonly routeDirection?: string | null,
-    readonly routeValidityStart?: luxon.DateTime | null,
-    readonly routeValidityEnd?: luxon.DateTime | null,
-    readonly versionComment?: string | null,
-    readonly changedBy?: string | null
-  }>
-};
-
-export type LineChangeHistoryItemDetailsFragment = {
-  readonly __typename?: 'route_line_change_history',
-  readonly id: any,
-  readonly name?: string | null,
-  readonly changed: luxon.DateTime,
-  readonly tgOperation: string,
-  readonly lineId: UUID,
-  readonly lineLabel: string,
-  readonly linePriority: number,
-  readonly lineValidityStart?: luxon.DateTime | null,
-  readonly lineValidityEnd?: luxon.DateTime | null,
-  readonly routeId?: UUID | null,
-  readonly routeLabel?: string | null,
-  readonly routeDirection?: string | null,
-  readonly routeValidityStart?: luxon.DateTime | null,
-  readonly routeValidityEnd?: luxon.DateTime | null,
-  readonly versionComment?: string | null,
-  readonly changedBy?: string | null
-};
-
-export type GetLineChangeHistoryItemDataQueryVariables = Exact<{
-  where: RouteLineChangeHistoryBoolExp;
-  orderBy: ReadonlyArray<RouteLineChangeHistoryOrderBy> | RouteLineChangeHistoryOrderBy;
-}>;
-
-
-export type GetLineChangeHistoryItemDataQuery = {
-  readonly __typename?: 'query_root',
-  readonly items: ReadonlyArray<{
-    readonly __typename?: 'route_line_change_history',
-    readonly id: any,
-    readonly data: any
-  }>
-};
-
-export type GetTodaysNameForLineQueryVariables = Exact<{
-  label: Scalars['String']['input'];
-  priority: Scalars['Int']['input'];
-  today: Scalars['date']['input'];
-}>;
-
-
-export type GetTodaysNameForLineQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line: ReadonlyArray<{
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly name_i18n: LocalizedString
-  }>
-};
-
-export type ResolveTimingPointNamesQueryVariables = Exact<{
-  stopLabels: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
-}>;
-
-
-export type ResolveTimingPointNamesQuery = {
-  readonly __typename?: 'query_root',
-  readonly timing_pattern_timing_place: ReadonlyArray<{
-    readonly __typename?: 'timing_pattern_timing_place',
-    readonly timing_place_id: UUID,
-    readonly label: string
-  }>
-};
-
-export type ResolveLineIdByLabelQueryVariables = Exact<{
-  label: Scalars['String']['input'];
-  observationDate: Scalars['date']['input'];
-}>;
-
-
-export type ResolveLineIdByLabelQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line: ReadonlyArray<{
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID
-  }>
-};
-
-export type LineWithRoutesUniqueFieldsFragment = {
-  readonly __typename?: 'route_line',
-  readonly line_id: UUID,
-  readonly label: string,
-  readonly description?: string | null,
-  readonly version_comment?: string | null,
-  readonly name_i18n: LocalizedString,
-  readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-  readonly type_of_line: RouteTypeOfLineEnum,
-  readonly transport_target: HslRouteTransportTargetEnum,
-  readonly line_routes: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly variant?: number | null,
-    readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number
-  }>,
-  readonly change_history: ReadonlyArray<{
-    readonly __typename?: 'route_line_change_history',
-    readonly id: any,
-    readonly changed: luxon.DateTime,
-    readonly changed_by?: string | null
-  }>
-};
-
-export type InfrastructureLinkWithStopsFragment = {
-  readonly __typename?: 'infrastructure_network_infrastructure_link',
-  readonly infrastructure_link_id: UUID,
-  readonly direction: InfrastructureNetworkDirectionEnum,
-  readonly shape: GeoJSON.LineString,
-  readonly estimated_length_in_metres?: number | null,
-  readonly external_link_id: string,
-  readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
-  readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point',
-    readonly measured_location: GeoJSON.Point,
-    readonly relative_distance_from_infrastructure_link_start: number,
-    readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-    readonly priority: number,
-    readonly direction: InfrastructureNetworkDirectionEnum,
-    readonly scheduled_stop_point_id: UUID,
-    readonly label: string,
-    readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly located_on_infrastructure_link_id: UUID,
-    readonly stop_place_ref?: string | null,
-    readonly other_label_instances: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly priority: number,
-      readonly direction: InfrastructureNetworkDirectionEnum,
-      readonly scheduled_stop_point_id: UUID,
-      readonly label: string,
-      readonly timing_place_id?: UUID | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly located_on_infrastructure_link_id: UUID,
-      readonly stop_place_ref?: string | null,
-      readonly timing_place?: {
-        readonly __typename?: 'timing_pattern_timing_place',
-        readonly timing_place_id: UUID,
-        readonly label: string
-      } | null
-    }>,
-    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean,
-      readonly is_regulated_timing_point: boolean,
-      readonly is_loading_time_allowed: boolean,
-      readonly is_via_point: boolean,
-      readonly via_point_name_i18n?: LocalizedString | null,
-      readonly via_point_short_name_i18n?: LocalizedString | null,
-      readonly journey_pattern: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly on_route_id: UUID
-      }
-    }>,
-    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-    }>,
-    readonly timing_place?: {
-      readonly __typename?: 'timing_pattern_timing_place',
-      readonly timing_place_id: UUID,
-      readonly label: string
-    } | null
-  }>
-};
-
-export type LineWithRoutesFragment = {
-  readonly __typename?: 'route_line',
-  readonly line_id: UUID,
-  readonly label: string,
-  readonly description?: string | null,
-  readonly version_comment?: string | null,
-  readonly name_i18n: LocalizedString,
-  readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-  readonly type_of_line: RouteTypeOfLineEnum,
-  readonly transport_target: HslRouteTransportTargetEnum,
-  readonly line_routes: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly name_i18n: LocalizedString,
-    readonly description_i18n?: LocalizedString | null,
-    readonly version_comment?: string | null,
-    readonly origin_name_i18n: LocalizedString,
-    readonly origin_short_name_i18n: LocalizedString,
-    readonly destination_name_i18n: LocalizedString,
-    readonly destination_short_name_i18n: LocalizedString,
-    readonly on_line_id: UUID,
-    readonly label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly variant?: number | null,
-    readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly route_line: {
-      readonly __typename?: 'route_line',
-      readonly line_id: UUID,
-      readonly label: string,
-      readonly description?: string | null,
-      readonly version_comment?: string | null,
-      readonly name_i18n: LocalizedString,
-      readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number,
-      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-      readonly type_of_line: RouteTypeOfLineEnum,
-      readonly transport_target: HslRouteTransportTargetEnum
-    },
-    readonly infrastructure_links_along_route: ReadonlyArray<{
-      readonly __typename?: 'route_infrastructure_link_along_route',
-      readonly route_id: UUID,
-      readonly infrastructure_link_sequence: number,
-      readonly infrastructure_link_id: UUID,
-      readonly is_traversal_forwards: boolean,
-      readonly infrastructure_link: {
-        readonly __typename?: 'infrastructure_network_infrastructure_link',
-        readonly external_link_source: InfrastructureNetworkExternalSourceEnum,
-        readonly external_link_id: string,
-        readonly infrastructure_link_id: UUID,
-        readonly shape: GeoJSON.LineString,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly measured_location: GeoJSON.Point,
-          readonly relative_distance_from_infrastructure_link_start: number,
-          readonly closest_point_on_infrastructure_link?: GeoJSON.Point | null,
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly newest_quay?: {
-            readonly __typename?: 'stops_database_quay_newest_version',
-            readonly netex_id?: string | null,
-            readonly stop_state?: string | null
-          } | null,
-          readonly stop_place?: ReadonlyArray<
-            | {
-              readonly __typename?: 'stop_registry_ParentStopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            }
-            | {
-              readonly __typename?: 'stop_registry_StopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            }
-           | null> | null,
-          readonly other_label_instances: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_scheduled_stop_point',
-            readonly priority: number,
-            readonly direction: InfrastructureNetworkDirectionEnum,
-            readonly scheduled_stop_point_id: UUID,
-            readonly label: string,
-            readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
-            readonly located_on_infrastructure_link_id: UUID,
-            readonly stop_place_ref?: string | null,
-            readonly timing_place?: {
-              readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
-            } | null
-          }>,
-          readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-            readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly scheduled_stop_point_label: string,
-            readonly scheduled_stop_point_sequence: number,
-            readonly is_used_as_timing_point: boolean,
-            readonly is_regulated_timing_point: boolean,
-            readonly is_loading_time_allowed: boolean,
-            readonly is_via_point: boolean,
-            readonly via_point_name_i18n?: LocalizedString | null,
-            readonly via_point_short_name_i18n?: LocalizedString | null,
-            readonly journey_pattern: {
-              readonly __typename?: 'journey_pattern_journey_pattern',
-              readonly journey_pattern_id: UUID,
-              readonly on_route_id: UUID
-            }
-          }>,
-          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-          }>,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>
-      }
-    }>,
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_label: string,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean,
-        readonly is_regulated_timing_point: boolean,
-        readonly is_loading_time_allowed: boolean,
-        readonly is_via_point: boolean,
-        readonly via_point_name_i18n?: LocalizedString | null,
-        readonly via_point_short_name_i18n?: LocalizedString | null,
-        readonly scheduled_stop_points: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>,
-        readonly journey_pattern: {
-          readonly __typename?: 'journey_pattern_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly on_route_id: UUID
-        }
-      }>
-    }>
-  }>
-};
-
-export type GetHighestPriorityLineDetailsWithRoutesQueryVariables = Exact<{
-  lineFilters?: InputMaybe<RouteLineBoolExp>;
-  lineRouteFilters?: InputMaybe<RouteRouteBoolExp>;
-  routeStopFilters?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
-}>;
-
-
-export type GetHighestPriorityLineDetailsWithRoutesQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line: ReadonlyArray<{
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly description?: string | null,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly transport_target: HslRouteTransportTargetEnum,
-    readonly line_routes: ReadonlyArray<{
-      readonly __typename?: 'route_route',
-      readonly label: string,
-      readonly direction: RouteDirectionEnum,
-      readonly variant?: number | null,
-      readonly route_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number
-    }>,
-    readonly change_history: ReadonlyArray<{
-      readonly __typename?: 'route_line_change_history',
-      readonly id: any,
-      readonly changed: luxon.DateTime,
-      readonly changed_by?: string | null
-    }>
-  }>
-};
-
-export type ListChangingRoutesQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type ListChangingRoutesQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_route: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly name_i18n: LocalizedString,
-    readonly direction: RouteDirectionEnum,
-    readonly priority: number,
-    readonly on_line_id: UUID,
-    readonly variant?: number | null,
-    readonly unique_label: string,
-    readonly route_id: UUID,
-    readonly label: string,
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly route_line: {
-      readonly __typename?: 'route_line',
-      readonly line_id: UUID,
-      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-      readonly type_of_line: RouteTypeOfLineEnum
-    },
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_refs: ReadonlyArray<{
-        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-        readonly journey_pattern_ref_id: UUID,
-        readonly vehicle_journeys: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-          readonly vehicle_journey_id: UUID
-        }>
-      }>,
-      readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean
-      }>
-    }>
-  }>
-};
-
-export type ListOwnLinesQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type ListOwnLinesQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line: ReadonlyArray<{
-    readonly __typename?: 'route_line',
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly line_routes: ReadonlyArray<{
-      readonly __typename?: 'route_route',
-      readonly unique_label: string,
-      readonly direction: RouteDirectionEnum,
-      readonly route_id: UUID,
-      readonly route_shape?: GeoJSON.LineString | null,
-      readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number,
-      readonly route_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly journey_pattern_refs: ReadonlyArray<{
-          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-          readonly journey_pattern_ref_id: UUID,
-          readonly vehicle_journeys: ReadonlyArray<{
-            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly vehicle_journey_id: UUID
-          }>
-        }>,
-        readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-          readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly scheduled_stop_point_sequence: number,
-          readonly is_used_as_timing_point: boolean
-        }>
-      }>
-    }>
-  }>
-};
-
-export type GetRouteVersionsQueryVariables = Exact<{
-  label: Scalars['String']['input'];
-  direction: TimetablesRouteDirectionEnum;
-}>;
-
-
-export type GetRouteVersionsQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_route: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly route_id: UUID,
-    readonly label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly version_comment?: string | null,
-    readonly name_i18n: LocalizedString,
-    readonly origin_name_i18n: LocalizedString,
-    readonly destination_name_i18n: LocalizedString,
-    readonly unique_label: string,
-    readonly on_line_id: UUID,
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly route_line: {
-      readonly __typename?: 'route_line',
-      readonly line_id: UUID,
-      readonly label: string
-    },
-    readonly change_history: ReadonlyArray<{
-      readonly __typename?: 'route_line_change_history',
-      readonly route_id?: UUID | null,
-      readonly changed: luxon.DateTime,
-      readonly changed_by?: string | null
-    }>
-  }>
-};
-
-export type RouteVersionInfoFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_id: UUID,
-  readonly label: string,
-  readonly direction: RouteDirectionEnum,
-  readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly version_comment?: string | null,
-  readonly name_i18n: LocalizedString,
-  readonly origin_name_i18n: LocalizedString,
-  readonly destination_name_i18n: LocalizedString,
-  readonly unique_label: string,
-  readonly on_line_id: UUID,
-  readonly route_shape?: GeoJSON.LineString | null,
-  readonly route_line: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly label: string
-  },
-  readonly change_history: ReadonlyArray<{
-    readonly __typename?: 'route_line_change_history',
-    readonly route_id?: UUID | null,
-    readonly changed: luxon.DateTime,
-    readonly changed_by?: string | null
-  }>
-};
-
-export type LineTableRowFragment = {
-  readonly __typename?: 'route_line',
-  readonly name_i18n: LocalizedString,
-  readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-  readonly type_of_line: RouteTypeOfLineEnum,
-  readonly line_id: UUID,
-  readonly label: string,
-  readonly line_routes: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly unique_label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly route_id: UUID,
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly label: string,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_refs: ReadonlyArray<{
-        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-        readonly journey_pattern_ref_id: UUID,
-        readonly vehicle_journeys: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-          readonly vehicle_journey_id: UUID
-        }>
-      }>,
-      readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean
-      }>
-    }>
-  }>
-};
-
-export type RouteTableRowFragment = {
-  readonly __typename?: 'route_route',
-  readonly name_i18n: LocalizedString,
-  readonly direction: RouteDirectionEnum,
-  readonly priority: number,
-  readonly on_line_id: UUID,
-  readonly variant?: number | null,
-  readonly unique_label: string,
-  readonly route_id: UUID,
-  readonly label: string,
-  readonly route_shape?: GeoJSON.LineString | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly route_line: {
-    readonly __typename?: 'route_line',
-    readonly line_id: UUID,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum
-  },
-  readonly route_journey_patterns: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly journey_pattern_refs: ReadonlyArray<{
-      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-      readonly journey_pattern_ref_id: UUID,
-      readonly vehicle_journeys: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly vehicle_journey_id: UUID
-      }>
-    }>,
-    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean
-    }>
-  }>
-};
-
-export type LineRouteSearchRouteWithJourneyPatternDetailsFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_journey_patterns: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly journey_pattern_refs: ReadonlyArray<{
-      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-      readonly journey_pattern_ref_id: UUID,
-      readonly vehicle_journeys: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly vehicle_journey_id: UUID
-      }>
-    }>,
-    readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean
-    }>
-  }>
-};
-
-export type SearchLinesAndRoutesQueryVariables = Exact<{
-  lineFilter?: InputMaybe<RouteLineBoolExp>;
-  routeFilter?: InputMaybe<RouteRouteBoolExp>;
-  lineOrderBy?: InputMaybe<ReadonlyArray<RouteLineOrderBy> | RouteLineOrderBy>;
-  routeOrderBy?: InputMaybe<ReadonlyArray<RouteRouteOrderBy> | RouteRouteOrderBy>;
-}>;
-
-
-export type SearchLinesAndRoutesQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_line: ReadonlyArray<{
-    readonly __typename?: 'route_line',
-    readonly name_i18n: LocalizedString,
-    readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-    readonly type_of_line: RouteTypeOfLineEnum,
-    readonly line_id: UUID,
-    readonly label: string,
-    readonly line_routes: ReadonlyArray<{
-      readonly __typename?: 'route_route',
-      readonly unique_label: string,
-      readonly direction: RouteDirectionEnum,
-      readonly route_id: UUID,
-      readonly route_shape?: GeoJSON.LineString | null,
-      readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly priority: number,
-      readonly route_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly journey_pattern_refs: ReadonlyArray<{
-          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-          readonly journey_pattern_ref_id: UUID,
-          readonly vehicle_journeys: ReadonlyArray<{
-            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly vehicle_journey_id: UUID
-          }>
-        }>,
-        readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-          readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly scheduled_stop_point_sequence: number,
-          readonly is_used_as_timing_point: boolean
-        }>
-      }>
-    }>
-  }>,
-  readonly route_route: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly name_i18n: LocalizedString,
-    readonly direction: RouteDirectionEnum,
-    readonly priority: number,
-    readonly on_line_id: UUID,
-    readonly variant?: number | null,
-    readonly unique_label: string,
-    readonly route_id: UUID,
-    readonly label: string,
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly route_line: {
-      readonly __typename?: 'route_line',
-      readonly line_id: UUID,
-      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
-      readonly type_of_line: RouteTypeOfLineEnum
-    },
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_refs: ReadonlyArray<{
-        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-        readonly journey_pattern_ref_id: UUID,
-        readonly vehicle_journeys: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-          readonly vehicle_journey_id: UUID
-        }>
-      }>,
-      readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean
-      }>
-    }>
-  }>
-};
-
-export type ScheduledStopPointWithTimingSettingsFragment = {
-  readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-  readonly journey_pattern_id: UUID,
-  readonly scheduled_stop_point_label: string,
-  readonly scheduled_stop_point_sequence: number,
-  readonly is_used_as_timing_point: boolean,
-  readonly is_regulated_timing_point: boolean,
-  readonly is_loading_time_allowed: boolean,
-  readonly is_via_point: boolean,
-  readonly via_point_name_i18n?: LocalizedString | null,
-  readonly via_point_short_name_i18n?: LocalizedString | null,
-  readonly journey_pattern: {
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly on_route_id: UUID,
-    readonly journey_pattern_route?: {
-      readonly __typename?: 'route_route',
-      readonly route_id: UUID,
-      readonly label: string
-    } | null
-  },
-  readonly scheduled_stop_points: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point',
-    readonly scheduled_stop_point_id: UUID,
-    readonly timing_place_id?: UUID | null
-  }>
-};
-
-export type GetScheduledStopPointWithTimingSettingsQueryVariables = Exact<{
-  journeyPatternId: Scalars['uuid']['input'];
-  stopLabel: Scalars['String']['input'];
-  sequence: Scalars['Int']['input'];
-}>;
-
-
-export type GetScheduledStopPointWithTimingSettingsQuery = {
-  readonly __typename?: 'query_root',
-  readonly journey_pattern_scheduled_stop_point_in_journey_pattern: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly scheduled_stop_point_label: string,
-    readonly scheduled_stop_point_sequence: number,
-    readonly is_used_as_timing_point: boolean,
-    readonly is_regulated_timing_point: boolean,
-    readonly is_loading_time_allowed: boolean,
-    readonly is_via_point: boolean,
-    readonly via_point_name_i18n?: LocalizedString | null,
-    readonly via_point_short_name_i18n?: LocalizedString | null,
-    readonly journey_pattern: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly journey_pattern_route?: {
-        readonly __typename?: 'route_route',
-        readonly route_id: UUID,
-        readonly label: string
-      } | null
-    },
-    readonly scheduled_stop_points: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly scheduled_stop_point_id: UUID,
-      readonly timing_place_id?: UUID | null
-    }>
-  }>
-};
-
-export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
-  stopLabel: Scalars['String']['input'];
-  journeyPatternId: Scalars['uuid']['input'];
-  sequence: Scalars['Int']['input'];
-  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
-  stopId: Scalars['uuid']['input'];
-  timingPlaceId?: InputMaybe<Scalars['uuid']['input']>;
-}>;
-
-
-export type PatchScheduledStopPointTimingSettingsMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly update_service_pattern_scheduled_stop_point?: {
-    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly scheduled_stop_point_id: UUID,
-      readonly timing_place_id?: UUID | null,
-      readonly timing_place?: {
-        readonly __typename?: 'timing_pattern_timing_place',
-        readonly timing_place_id: UUID
-      } | null
-    }>
-  } | null,
-  readonly update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean,
-      readonly is_regulated_timing_point: boolean,
-      readonly is_loading_time_allowed: boolean,
-      readonly is_via_point: boolean,
-      readonly via_point_name_i18n?: LocalizedString | null,
-      readonly via_point_short_name_i18n?: LocalizedString | null,
-      readonly journey_pattern: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly on_route_id: UUID
-      }
-    }>
-  } | null
-};
-
-export type GetScheduledStopPointWithViaInfoQueryVariables = Exact<{
-  journeyPatternId: Scalars['uuid']['input'];
-  stopLabel: Scalars['String']['input'];
-}>;
-
-
-export type GetScheduledStopPointWithViaInfoQuery = {
-  readonly __typename?: 'query_root',
-  readonly journey_pattern_scheduled_stop_point_in_journey_pattern: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly scheduled_stop_point_label: string,
-    readonly scheduled_stop_point_sequence: number,
-    readonly is_used_as_timing_point: boolean,
-    readonly is_regulated_timing_point: boolean,
-    readonly is_loading_time_allowed: boolean,
-    readonly is_via_point: boolean,
-    readonly via_point_name_i18n?: LocalizedString | null,
-    readonly via_point_short_name_i18n?: LocalizedString | null,
-    readonly journey_pattern: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly journey_pattern_route?: {
-        readonly __typename?: 'route_route',
-        readonly route_id: UUID,
-        readonly label: string
-      } | null
-    }
-  }>
-};
-
-export type PatchScheduledStopPointViaInfoMutationVariables = Exact<{
-  stopLabel: Scalars['String']['input'];
-  journeyPatternId: Scalars['uuid']['input'];
-  patch: JourneyPatternScheduledStopPointInJourneyPatternSetInput;
-}>;
-
-
-export type PatchScheduledStopPointViaInfoMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean,
-      readonly is_regulated_timing_point: boolean,
-      readonly is_loading_time_allowed: boolean,
-      readonly is_via_point: boolean,
-      readonly via_point_name_i18n?: LocalizedString | null,
-      readonly via_point_short_name_i18n?: LocalizedString | null,
-      readonly journey_pattern: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly on_route_id: UUID
-      }
-    }>
-  } | null
-};
-
-export type RemoveScheduledStopPointViaInfoMutationVariables = Exact<{
-  stopLabel: Scalars['String']['input'];
-  journeyPatternId: Scalars['uuid']['input'];
-}>;
-
-
-export type RemoveScheduledStopPointViaInfoMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly update_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly scheduled_stop_point_sequence: number,
-      readonly is_used_as_timing_point: boolean,
-      readonly is_regulated_timing_point: boolean,
-      readonly is_loading_time_allowed: boolean,
-      readonly is_via_point: boolean,
-      readonly via_point_name_i18n?: LocalizedString | null,
-      readonly via_point_short_name_i18n?: LocalizedString | null,
-      readonly journey_pattern: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly on_route_id: UUID
-      }
-    }>
-  } | null
 };
 
 export type GetStopPlaceChangeHistoryQueryVariables = Exact<{
@@ -84473,6 +84473,38 @@ export type RouteValidityPeriodFragment = {
   readonly validity_end?: luxon.DateTime | null
 };
 
+export const InfraLinkAlongRouteDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}}]} as unknown as DocumentNode;
+export const RawQuayKeyValueFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RawQuayKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_key_values"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key_values_id"}},{"kind":"Field","name":{"kind":"Name","value":"key_values_key"}},{"kind":"Field","name":{"kind":"Name","value":"quay_id"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value_id"}},{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetStopForMetaTypeUpdateDataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetStopForMetaTypeUpdateData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"quay_key_values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RawQuayKeyValue"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"transport_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RawQuayKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_key_values"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key_values_id"}},{"kind":"Field","name":{"kind":"Name","value":"key_values_key"}},{"kind":"Field","name":{"kind":"Name","value":"quay_id"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value_id"}},{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const LineChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"tgOperation"},"name":{"kind":"Name","value":"tg_operation"}},{"kind":"Field","alias":{"kind":"Name","value":"lineId"},"name":{"kind":"Name","value":"line_id"}},{"kind":"Field","alias":{"kind":"Name","value":"lineLabel"},"name":{"kind":"Name","value":"line_label"}},{"kind":"Field","alias":{"kind":"Name","value":"linePriority"},"name":{"kind":"Name","value":"line_priority"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityStart"},"name":{"kind":"Name","value":"line_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityEnd"},"name":{"kind":"Name","value":"line_validity_end"}},{"kind":"Field","alias":{"kind":"Name","value":"routeId"},"name":{"kind":"Name","value":"route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"routeLabel"},"name":{"kind":"Name","value":"route_label"}},{"kind":"Field","alias":{"kind":"Name","value":"routeDirection"},"name":{"kind":"Name","value":"route_direction"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityStart"},"name":{"kind":"Name","value":"route_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityEnd"},"name":{"kind":"Name","value":"route_validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","alias":{"kind":"Name","value":"versionComment"},"name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","alias":{"kind":"Name","value":"changedBy"},"name":{"kind":"Name","value":"changed_by"}}]}}]} as unknown as DocumentNode;
+export const LineAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
+export const LineLatestChangeInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
+export const RouteValidityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
+export const RouteUniqueFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
+export const LineWithRoutesUniqueFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}}]} as unknown as DocumentNode;
+export const InfrastructureLinkAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfrastructureLinkAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"estimated_length_in_metres"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}}]} as unknown as DocumentNode;
+export const ScheduledStopPointDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]} as unknown as DocumentNode;
+export const ScheduledStopPointAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]} as unknown as DocumentNode;
+export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const InfrastructureLinkWithStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfrastructureLinkWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfrastructureLinkAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeStopFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfrastructureLinkAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"estimated_length_in_metres"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}}]} as unknown as DocumentNode;
+export const RouteDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}}]} as unknown as DocumentNode;
+export const RouteAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}}]} as unknown as DocumentNode;
+export const InfraLinkMatchingFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+export const StopWithJourneyPatternFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const RouteStopFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const InfraLinkAlongRouteWithStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+export const RouteWithInfrastructureLinksWithStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+export const RouteWithJourneyPatternStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
+export const RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+export const LineWithRoutesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutes"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+export const ScheduledStopPointWithTimingSettingsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const LineMapParamsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}}]} as unknown as DocumentNode;
+export const RouteMapParamsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
+export const LineRouteSearchRouteWithJourneyPatternDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const LineTableRowFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineMapParams"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}}]} as unknown as DocumentNode;
+export const RouteTableRowFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
+export const RouteWithInfrastructureLinksFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinks"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
+export const RouteVersionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
 export const LineForComboboxFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineForCombobox"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
 export const TimingPlaceForComboboxFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TimingPlaceForCombobox"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timing_pattern_timing_place"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode;
 export const NewTimingPlaceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NewTimingPlace"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timing_pattern_timing_place"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode;
@@ -84486,38 +84518,6 @@ export const MapMinimalTerminalDetailsFragmentDoc = {"kind":"Document","definiti
 export const RouteMetadataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}}]}}]} as unknown as DocumentNode;
 export const LineValidityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
 export const DisplayedRouteFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const InfraLinkAlongRouteDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}}]} as unknown as DocumentNode;
-export const RouteValidityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
-export const RouteUniqueFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
-export const RouteDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}}]} as unknown as DocumentNode;
-export const RouteAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}}]} as unknown as DocumentNode;
-export const LineAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
-export const RouteWithInfrastructureLinksFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinks"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
-export const RawQuayKeyValueFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RawQuayKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_key_values"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key_values_id"}},{"kind":"Field","name":{"kind":"Name","value":"key_values_key"}},{"kind":"Field","name":{"kind":"Name","value":"quay_id"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value_id"}},{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const GetStopForMetaTypeUpdateDataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetStopForMetaTypeUpdateData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"quay_key_values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RawQuayKeyValue"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"transport_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RawQuayKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_key_values"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key_values_id"}},{"kind":"Field","name":{"kind":"Name","value":"key_values_key"}},{"kind":"Field","name":{"kind":"Name","value":"quay_id"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value_id"}},{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const LineChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"tgOperation"},"name":{"kind":"Name","value":"tg_operation"}},{"kind":"Field","alias":{"kind":"Name","value":"lineId"},"name":{"kind":"Name","value":"line_id"}},{"kind":"Field","alias":{"kind":"Name","value":"lineLabel"},"name":{"kind":"Name","value":"line_label"}},{"kind":"Field","alias":{"kind":"Name","value":"linePriority"},"name":{"kind":"Name","value":"line_priority"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityStart"},"name":{"kind":"Name","value":"line_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityEnd"},"name":{"kind":"Name","value":"line_validity_end"}},{"kind":"Field","alias":{"kind":"Name","value":"routeId"},"name":{"kind":"Name","value":"route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"routeLabel"},"name":{"kind":"Name","value":"route_label"}},{"kind":"Field","alias":{"kind":"Name","value":"routeDirection"},"name":{"kind":"Name","value":"route_direction"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityStart"},"name":{"kind":"Name","value":"route_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityEnd"},"name":{"kind":"Name","value":"route_validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","alias":{"kind":"Name","value":"versionComment"},"name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","alias":{"kind":"Name","value":"changedBy"},"name":{"kind":"Name","value":"changed_by"}}]}}]} as unknown as DocumentNode;
-export const LineLatestChangeInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
-export const LineWithRoutesUniqueFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}}]} as unknown as DocumentNode;
-export const InfrastructureLinkAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfrastructureLinkAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"estimated_length_in_metres"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}}]} as unknown as DocumentNode;
-export const ScheduledStopPointDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]} as unknown as DocumentNode;
-export const ScheduledStopPointAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]} as unknown as DocumentNode;
-export const ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const InfrastructureLinkWithStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfrastructureLinkWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfrastructureLinkAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeStopFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfrastructureLinkAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"estimated_length_in_metres"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const InfraLinkMatchingFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
-export const StopWithJourneyPatternFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const RouteStopFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const InfraLinkAlongRouteWithStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const RouteWithInfrastructureLinksWithStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const RouteWithJourneyPatternStopsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const RouteWithInfrastructureLinksWithStopsAndJpsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const LineWithRoutesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutes"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export const RouteVersionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
-export const LineMapParamsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}}]} as unknown as DocumentNode;
-export const RouteMapParamsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
-export const LineRouteSearchRouteWithJourneyPatternDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const LineTableRowFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineMapParams"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const RouteTableRowFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const ScheduledStopPointWithTimingSettingsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
 export const StopPlaceChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StopPlaceChangeHistoryItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netexId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changedBy"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeType"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeValue"}},{"kind":"Field","name":{"kind":"Name","value":"validityStart"}},{"kind":"Field","name":{"kind":"Name","value":"validityEnd"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"}}]}}]} as unknown as DocumentNode;
 export const FindStopByLineRouteInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopByLineRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
 export const FindStopByLineInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopByLineInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validOn"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validOn"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"direction"},"value":{"kind":"EnumValue","value":"desc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"distinct_on"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"direction"},{"kind":"EnumValue","value":"priority"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FindStopByLineRouteInfo"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopByLineRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
@@ -84582,6 +84582,922 @@ export const TimetableVersionFragmentDoc = {"kind":"Document","definitions":[{"k
 export const JourneyPatternStopFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}}]}}]} as unknown as DocumentNode;
 export const RouteLabelAndVariantFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteLabelAndVariant"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}}]}}]} as unknown as DocumentNode;
 export const RouteValidityPeriodFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidityPeriod"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
+export const GetRoutesWithStopsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRoutesWithStops"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetRoutesWithStopsQuery__
+ *
+ * To run a query within a React component, call `useGetRoutesWithStopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoutesWithStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRoutesWithStopsQuery({
+ *   variables: {
+ *      routeFilters: // value for 'routeFilters'
+ *   },
+ * });
+ */
+export function useGetRoutesWithStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
+      }
+export function useGetRoutesWithStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
+        }
+// @ts-ignore
+export function useGetRoutesWithStopsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>;
+export function useGetRoutesWithStopsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRoutesWithStopsQuery | undefined, GetRoutesWithStopsQueryVariables>;
+export function useGetRoutesWithStopsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
+        }
+export type GetRoutesWithStopsQueryHookResult = ReturnType<typeof useGetRoutesWithStopsQuery>;
+export type GetRoutesWithStopsLazyQueryHookResult = ReturnType<typeof useGetRoutesWithStopsLazyQuery>;
+export type GetRoutesWithStopsSuspenseQueryHookResult = ReturnType<typeof useGetRoutesWithStopsSuspenseQuery>;
+export type GetRoutesWithStopsQueryResult = Apollo.QueryResult<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>;
+export const GetStopWithRouteGraphDataByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopWithRouteGraphDataById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetStopWithRouteGraphDataByIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopWithRouteGraphDataByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopWithRouteGraphDataByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopWithRouteGraphDataByIdQuery({
+ *   variables: {
+ *      stopId: // value for 'stopId'
+ *   },
+ * });
+ */
+export function useGetStopWithRouteGraphDataByIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables> & ({ variables: GetStopWithRouteGraphDataByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
+      }
+export function useGetStopWithRouteGraphDataByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
+        }
+// @ts-ignore
+export function useGetStopWithRouteGraphDataByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
+export function useGetStopWithRouteGraphDataByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopWithRouteGraphDataByIdQuery | undefined, GetStopWithRouteGraphDataByIdQueryVariables>;
+export function useGetStopWithRouteGraphDataByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
+        }
+export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdQuery>;
+export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdLazyQuery>;
+export type GetStopWithRouteGraphDataByIdSuspenseQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdSuspenseQuery>;
+export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
+export const ResolveLineStopPublicCodesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveLineStopPublicCodes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPoints"},"name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_route"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lt"},"value":{"kind":"IntValue","value":"30"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"on_line_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineId"}}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","alias":{"kind":"Name","value":"publicCode"},"name":{"kind":"Name","value":"scheduled_stop_point_label"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useResolveLineStopPublicCodesQuery__
+ *
+ * To run a query within a React component, call `useResolveLineStopPublicCodesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveLineStopPublicCodesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveLineStopPublicCodesQuery({
+ *   variables: {
+ *      lineId: // value for 'lineId'
+ *   },
+ * });
+ */
+export function useResolveLineStopPublicCodesQuery(baseOptions: Apollo.QueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables> & ({ variables: ResolveLineStopPublicCodesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>(ResolveLineStopPublicCodesDocument, options);
+      }
+export function useResolveLineStopPublicCodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>(ResolveLineStopPublicCodesDocument, options);
+        }
+// @ts-ignore
+export function useResolveLineStopPublicCodesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>;
+export function useResolveLineStopPublicCodesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineStopPublicCodesQuery | undefined, ResolveLineStopPublicCodesQueryVariables>;
+export function useResolveLineStopPublicCodesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>(ResolveLineStopPublicCodesDocument, options);
+        }
+export type ResolveLineStopPublicCodesQueryHookResult = ReturnType<typeof useResolveLineStopPublicCodesQuery>;
+export type ResolveLineStopPublicCodesLazyQueryHookResult = ReturnType<typeof useResolveLineStopPublicCodesLazyQuery>;
+export type ResolveLineStopPublicCodesSuspenseQueryHookResult = ReturnType<typeof useResolveLineStopPublicCodesSuspenseQuery>;
+export type ResolveLineStopPublicCodesQueryResult = Apollo.QueryResult<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>;
+export const GetStopsForMetaTypeUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopsForMetaTypeUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"publicCodes"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"quays"},"name":{"kind":"Name","value":"stops_database_quay_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"public_code"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"publicCodes"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetStopForMetaTypeUpdateData"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RawQuayKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_key_values"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key_values_id"}},{"kind":"Field","name":{"kind":"Name","value":"key_values_key"}},{"kind":"Field","name":{"kind":"Name","value":"quay_id"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value_id"}},{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetStopForMetaTypeUpdateData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"quay_key_values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RawQuayKeyValue"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"transport_mode"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetStopsForMetaTypeUpdateQuery__
+ *
+ * To run a query within a React component, call `useGetStopsForMetaTypeUpdateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsForMetaTypeUpdateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsForMetaTypeUpdateQuery({
+ *   variables: {
+ *      publicCodes: // value for 'publicCodes'
+ *   },
+ * });
+ */
+export function useGetStopsForMetaTypeUpdateQuery(baseOptions: Apollo.QueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables> & ({ variables: GetStopsForMetaTypeUpdateQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>(GetStopsForMetaTypeUpdateDocument, options);
+      }
+export function useGetStopsForMetaTypeUpdateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>(GetStopsForMetaTypeUpdateDocument, options);
+        }
+// @ts-ignore
+export function useGetStopsForMetaTypeUpdateSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>;
+export function useGetStopsForMetaTypeUpdateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopsForMetaTypeUpdateQuery | undefined, GetStopsForMetaTypeUpdateQueryVariables>;
+export function useGetStopsForMetaTypeUpdateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>(GetStopsForMetaTypeUpdateDocument, options);
+        }
+export type GetStopsForMetaTypeUpdateQueryHookResult = ReturnType<typeof useGetStopsForMetaTypeUpdateQuery>;
+export type GetStopsForMetaTypeUpdateLazyQueryHookResult = ReturnType<typeof useGetStopsForMetaTypeUpdateLazyQuery>;
+export type GetStopsForMetaTypeUpdateSuspenseQueryHookResult = ReturnType<typeof useGetStopsForMetaTypeUpdateSuspenseQuery>;
+export type GetStopsForMetaTypeUpdateQueryResult = Apollo.QueryResult<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>;
+export const UpdateQuayMetaTypeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateQuayMetaType"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quays"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_QuayInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mutateStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"StopPlace"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"quays"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quays"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UpdateQuayMetaTypeMutationFn = Apollo.MutationFunction<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>;
+
+/**
+ * __useUpdateQuayMetaTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateQuayMetaTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateQuayMetaTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateQuayMetaTypeMutation, { data, loading, error }] = useUpdateQuayMetaTypeMutation({
+ *   variables: {
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *      quays: // value for 'quays'
+ *   },
+ * });
+ */
+export function useUpdateQuayMetaTypeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>(UpdateQuayMetaTypeDocument, options);
+      }
+export type UpdateQuayMetaTypeMutationHookResult = ReturnType<typeof useUpdateQuayMetaTypeMutation>;
+export type UpdateQuayMetaTypeMutationResult = Apollo.MutationResult<UpdateQuayMetaTypeMutation>;
+export type UpdateQuayMetaTypeMutationOptions = Apollo.BaseMutationOptions<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>;
+export const GetLineChangeHistoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineChangeHistory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"historyItems"},"name":{"kind":"Name","value":"route_line_change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"line_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineChangeHistoryItemDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"tgOperation"},"name":{"kind":"Name","value":"tg_operation"}},{"kind":"Field","alias":{"kind":"Name","value":"lineId"},"name":{"kind":"Name","value":"line_id"}},{"kind":"Field","alias":{"kind":"Name","value":"lineLabel"},"name":{"kind":"Name","value":"line_label"}},{"kind":"Field","alias":{"kind":"Name","value":"linePriority"},"name":{"kind":"Name","value":"line_priority"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityStart"},"name":{"kind":"Name","value":"line_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityEnd"},"name":{"kind":"Name","value":"line_validity_end"}},{"kind":"Field","alias":{"kind":"Name","value":"routeId"},"name":{"kind":"Name","value":"route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"routeLabel"},"name":{"kind":"Name","value":"route_label"}},{"kind":"Field","alias":{"kind":"Name","value":"routeDirection"},"name":{"kind":"Name","value":"route_direction"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityStart"},"name":{"kind":"Name","value":"route_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityEnd"},"name":{"kind":"Name","value":"route_validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","alias":{"kind":"Name","value":"versionComment"},"name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","alias":{"kind":"Name","value":"changedBy"},"name":{"kind":"Name","value":"changed_by"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetLineChangeHistoryQuery__
+ *
+ * To run a query within a React component, call `useGetLineChangeHistoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineChangeHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineChangeHistoryQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *   },
+ * });
+ */
+export function useGetLineChangeHistoryQuery(baseOptions: Apollo.QueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables> & ({ variables: GetLineChangeHistoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>(GetLineChangeHistoryDocument, options);
+      }
+export function useGetLineChangeHistoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>(GetLineChangeHistoryDocument, options);
+        }
+// @ts-ignore
+export function useGetLineChangeHistorySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>;
+export function useGetLineChangeHistorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryQuery | undefined, GetLineChangeHistoryQueryVariables>;
+export function useGetLineChangeHistorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>(GetLineChangeHistoryDocument, options);
+        }
+export type GetLineChangeHistoryQueryHookResult = ReturnType<typeof useGetLineChangeHistoryQuery>;
+export type GetLineChangeHistoryLazyQueryHookResult = ReturnType<typeof useGetLineChangeHistoryLazyQuery>;
+export type GetLineChangeHistorySuspenseQueryHookResult = ReturnType<typeof useGetLineChangeHistorySuspenseQuery>;
+export type GetLineChangeHistoryQueryResult = Apollo.QueryResult<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>;
+export const GetLineChangeHistoryItemDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineChangeHistoryItemData"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history_bool_exp"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history_order_by"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"items"},"name":{"kind":"Name","value":"route_line_change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetLineChangeHistoryItemDataQuery__
+ *
+ * To run a query within a React component, call `useGetLineChangeHistoryItemDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineChangeHistoryItemDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineChangeHistoryItemDataQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useGetLineChangeHistoryItemDataQuery(baseOptions: Apollo.QueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables> & ({ variables: GetLineChangeHistoryItemDataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>(GetLineChangeHistoryItemDataDocument, options);
+      }
+export function useGetLineChangeHistoryItemDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>(GetLineChangeHistoryItemDataDocument, options);
+        }
+// @ts-ignore
+export function useGetLineChangeHistoryItemDataSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>;
+export function useGetLineChangeHistoryItemDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryItemDataQuery | undefined, GetLineChangeHistoryItemDataQueryVariables>;
+export function useGetLineChangeHistoryItemDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>(GetLineChangeHistoryItemDataDocument, options);
+        }
+export type GetLineChangeHistoryItemDataQueryHookResult = ReturnType<typeof useGetLineChangeHistoryItemDataQuery>;
+export type GetLineChangeHistoryItemDataLazyQueryHookResult = ReturnType<typeof useGetLineChangeHistoryItemDataLazyQuery>;
+export type GetLineChangeHistoryItemDataSuspenseQueryHookResult = ReturnType<typeof useGetLineChangeHistoryItemDataSuspenseQuery>;
+export type GetLineChangeHistoryItemDataQueryResult = Apollo.QueryResult<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>;
+export const GetTodaysNameForLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTodaysNameForLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priority"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetTodaysNameForLineQuery__
+ *
+ * To run a query within a React component, call `useGetTodaysNameForLineQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTodaysNameForLineQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTodaysNameForLineQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      priority: // value for 'priority'
+ *      today: // value for 'today'
+ *   },
+ * });
+ */
+export function useGetTodaysNameForLineQuery(baseOptions: Apollo.QueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables> & ({ variables: GetTodaysNameForLineQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>(GetTodaysNameForLineDocument, options);
+      }
+export function useGetTodaysNameForLineLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>(GetTodaysNameForLineDocument, options);
+        }
+// @ts-ignore
+export function useGetTodaysNameForLineSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>): Apollo.UseSuspenseQueryResult<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>;
+export function useGetTodaysNameForLineSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>): Apollo.UseSuspenseQueryResult<GetTodaysNameForLineQuery | undefined, GetTodaysNameForLineQueryVariables>;
+export function useGetTodaysNameForLineSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>(GetTodaysNameForLineDocument, options);
+        }
+export type GetTodaysNameForLineQueryHookResult = ReturnType<typeof useGetTodaysNameForLineQuery>;
+export type GetTodaysNameForLineLazyQueryHookResult = ReturnType<typeof useGetTodaysNameForLineLazyQuery>;
+export type GetTodaysNameForLineSuspenseQueryHookResult = ReturnType<typeof useGetTodaysNameForLineSuspenseQuery>;
+export type GetTodaysNameForLineQueryResult = Apollo.QueryResult<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>;
+export const ResolveTimingPointNamesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveTimingPointNames"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabels"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_pattern_timing_place"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_points"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabels"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useResolveTimingPointNamesQuery__
+ *
+ * To run a query within a React component, call `useResolveTimingPointNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveTimingPointNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveTimingPointNamesQuery({
+ *   variables: {
+ *      stopLabels: // value for 'stopLabels'
+ *   },
+ * });
+ */
+export function useResolveTimingPointNamesQuery(baseOptions: Apollo.QueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables> & ({ variables: ResolveTimingPointNamesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>(ResolveTimingPointNamesDocument, options);
+      }
+export function useResolveTimingPointNamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>(ResolveTimingPointNamesDocument, options);
+        }
+// @ts-ignore
+export function useResolveTimingPointNamesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>;
+export function useResolveTimingPointNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveTimingPointNamesQuery | undefined, ResolveTimingPointNamesQueryVariables>;
+export function useResolveTimingPointNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>(ResolveTimingPointNamesDocument, options);
+        }
+export type ResolveTimingPointNamesQueryHookResult = ReturnType<typeof useResolveTimingPointNamesQuery>;
+export type ResolveTimingPointNamesLazyQueryHookResult = ReturnType<typeof useResolveTimingPointNamesLazyQuery>;
+export type ResolveTimingPointNamesSuspenseQueryHookResult = ReturnType<typeof useResolveTimingPointNamesSuspenseQuery>;
+export type ResolveTimingPointNamesQueryResult = Apollo.QueryResult<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>;
+export const InsertLineOneDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertLineOne"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"object"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_route_line_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"object"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
+export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
+
+/**
+ * __useInsertLineOneMutation__
+ *
+ * To run a mutation, you first call `useInsertLineOneMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertLineOneMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertLineOneMutation, InsertLineOneMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertLineOneMutation, InsertLineOneMutationVariables>(InsertLineOneDocument, options);
+      }
+export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
+export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
+export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
+export const ResolveLineIdByLabelDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveLineIdByLabel"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"observationDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_ilike"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observationDate"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lt"},"value":{"kind":"IntValue","value":"30"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observationDate"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useResolveLineIdByLabelQuery__
+ *
+ * To run a query within a React component, call `useResolveLineIdByLabelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveLineIdByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveLineIdByLabelQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      observationDate: // value for 'observationDate'
+ *   },
+ * });
+ */
+export function useResolveLineIdByLabelQuery(baseOptions: Apollo.QueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables> & ({ variables: ResolveLineIdByLabelQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>(ResolveLineIdByLabelDocument, options);
+      }
+export function useResolveLineIdByLabelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>(ResolveLineIdByLabelDocument, options);
+        }
+// @ts-ignore
+export function useResolveLineIdByLabelSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>;
+export function useResolveLineIdByLabelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineIdByLabelQuery | undefined, ResolveLineIdByLabelQueryVariables>;
+export function useResolveLineIdByLabelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>(ResolveLineIdByLabelDocument, options);
+        }
+export type ResolveLineIdByLabelQueryHookResult = ReturnType<typeof useResolveLineIdByLabelQuery>;
+export type ResolveLineIdByLabelLazyQueryHookResult = ReturnType<typeof useResolveLineIdByLabelLazyQuery>;
+export type ResolveLineIdByLabelSuspenseQueryHookResult = ReturnType<typeof useResolveLineIdByLabelSuspenseQuery>;
+export type ResolveLineIdByLabelQueryResult = Apollo.QueryResult<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>;
+export const GetHighestPriorityLineDetailsWithRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHighestPriorityLineDetailsWithRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeStopFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetHighestPriorityLineDetailsWithRoutesQuery__
+ *
+ * To run a query within a React component, call `useGetHighestPriorityLineDetailsWithRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHighestPriorityLineDetailsWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHighestPriorityLineDetailsWithRoutesQuery({
+ *   variables: {
+ *      lineFilters: // value for 'lineFilters'
+ *      lineRouteFilters: // value for 'lineRouteFilters'
+ *      routeStopFilters: // value for 'routeStopFilters'
+ *   },
+ * });
+ */
+export function useGetHighestPriorityLineDetailsWithRoutesQuery(baseOptions?: Apollo.QueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
+      }
+export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
+        }
+// @ts-ignore
+export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
+export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetHighestPriorityLineDetailsWithRoutesQuery | undefined, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
+export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
+        }
+export type GetHighestPriorityLineDetailsWithRoutesQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesQuery>;
+export type GetHighestPriorityLineDetailsWithRoutesLazyQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesLazyQuery>;
+export type GetHighestPriorityLineDetailsWithRoutesSuspenseQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery>;
+export type GetHighestPriorityLineDetailsWithRoutesQueryResult = Apollo.QueryResult<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
+export const PatchLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"PatchLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"object"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"object"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
+export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, PatchLineMutationVariables>;
+
+/**
+ * __usePatchLineMutation__
+ *
+ * To run a mutation, you first call `usePatchLineMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchLineMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchLineMutation, { data, loading, error }] = usePatchLineMutation({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<PatchLineMutation, PatchLineMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PatchLineMutation, PatchLineMutationVariables>(PatchLineDocument, options);
+      }
+export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
+export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
+export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
+export const GetLineDetailsWithRoutesByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineDetailsWithRoutesById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetLineDetailsWithRoutesByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLineDetailsWithRoutesByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineDetailsWithRoutesByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineDetailsWithRoutesByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetLineDetailsWithRoutesByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables> & ({ variables: GetLineDetailsWithRoutesByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
+      }
+export function useGetLineDetailsWithRoutesByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
+        }
+// @ts-ignore
+export function useGetLineDetailsWithRoutesByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
+export function useGetLineDetailsWithRoutesByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsWithRoutesByIdQuery | undefined, GetLineDetailsWithRoutesByIdQueryVariables>;
+export function useGetLineDetailsWithRoutesByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
+        }
+export type GetLineDetailsWithRoutesByIdQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>;
+export type GetLineDetailsWithRoutesByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdLazyQuery>;
+export type GetLineDetailsWithRoutesByIdSuspenseQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdSuspenseQuery>;
+export type GetLineDetailsWithRoutesByIdQueryResult = Apollo.QueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
+export const GetLineDetailsByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineDetailsById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetLineDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLineDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineDetailsByIdQuery({
+ *   variables: {
+ *      line_id: // value for 'line_id'
+ *   },
+ * });
+ */
+export function useGetLineDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables> & ({ variables: GetLineDetailsByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
+      }
+export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
+        }
+// @ts-ignore
+export function useGetLineDetailsByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
+export function useGetLineDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsByIdQuery | undefined, GetLineDetailsByIdQueryVariables>;
+export function useGetLineDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
+        }
+export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
+export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
+export type GetLineDetailsByIdSuspenseQueryHookResult = ReturnType<typeof useGetLineDetailsByIdSuspenseQuery>;
+export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
+export const GetScheduledStopPointWithTimingSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetScheduledStopPointWithTimingSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetScheduledStopPointWithTimingSettingsQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointWithTimingSettingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointWithTimingSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointWithTimingSettingsQuery({
+ *   variables: {
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *      stopLabel: // value for 'stopLabel'
+ *      sequence: // value for 'sequence'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointWithTimingSettingsQuery(baseOptions: Apollo.QueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables> & ({ variables: GetScheduledStopPointWithTimingSettingsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>(GetScheduledStopPointWithTimingSettingsDocument, options);
+      }
+export function useGetScheduledStopPointWithTimingSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>(GetScheduledStopPointWithTimingSettingsDocument, options);
+        }
+// @ts-ignore
+export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>;
+export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithTimingSettingsQuery | undefined, GetScheduledStopPointWithTimingSettingsQueryVariables>;
+export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>(GetScheduledStopPointWithTimingSettingsDocument, options);
+        }
+export type GetScheduledStopPointWithTimingSettingsQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsQuery>;
+export type GetScheduledStopPointWithTimingSettingsLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsLazyQuery>;
+export type GetScheduledStopPointWithTimingSettingsSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsSuspenseQuery>;
+export type GetScheduledStopPointWithTimingSettingsQueryResult = Apollo.QueryResult<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>;
+export const PatchScheduledStopPointTimingSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"PatchScheduledStopPointTimingSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"patch"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_set_input"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"timingPlaceId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"timing_place_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"timingPlaceId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"update_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"patch"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export type PatchScheduledStopPointTimingSettingsMutationFn = Apollo.MutationFunction<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>;
+
+/**
+ * __usePatchScheduledStopPointTimingSettingsMutation__
+ *
+ * To run a mutation, you first call `usePatchScheduledStopPointTimingSettingsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchScheduledStopPointTimingSettingsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchScheduledStopPointTimingSettingsMutation, { data, loading, error }] = usePatchScheduledStopPointTimingSettingsMutation({
+ *   variables: {
+ *      stopLabel: // value for 'stopLabel'
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *      sequence: // value for 'sequence'
+ *      patch: // value for 'patch'
+ *      stopId: // value for 'stopId'
+ *      timingPlaceId: // value for 'timingPlaceId'
+ *   },
+ * });
+ */
+export function usePatchScheduledStopPointTimingSettingsMutation(baseOptions?: Apollo.MutationHookOptions<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>(PatchScheduledStopPointTimingSettingsDocument, options);
+      }
+export type PatchScheduledStopPointTimingSettingsMutationHookResult = ReturnType<typeof usePatchScheduledStopPointTimingSettingsMutation>;
+export type PatchScheduledStopPointTimingSettingsMutationResult = Apollo.MutationResult<PatchScheduledStopPointTimingSettingsMutation>;
+export type PatchScheduledStopPointTimingSettingsMutationOptions = Apollo.BaseMutationOptions<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>;
+export const GetScheduledStopPointWithViaInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetScheduledStopPointWithViaInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetScheduledStopPointWithViaInfoQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointWithViaInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointWithViaInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointWithViaInfoQuery({
+ *   variables: {
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *      stopLabel: // value for 'stopLabel'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointWithViaInfoQuery(baseOptions: Apollo.QueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables> & ({ variables: GetScheduledStopPointWithViaInfoQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
+      }
+export function useGetScheduledStopPointWithViaInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
+        }
+// @ts-ignore
+export function useGetScheduledStopPointWithViaInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>;
+export function useGetScheduledStopPointWithViaInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithViaInfoQuery | undefined, GetScheduledStopPointWithViaInfoQueryVariables>;
+export function useGetScheduledStopPointWithViaInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
+        }
+export type GetScheduledStopPointWithViaInfoQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoQuery>;
+export type GetScheduledStopPointWithViaInfoLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoLazyQuery>;
+export type GetScheduledStopPointWithViaInfoSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoSuspenseQuery>;
+export type GetScheduledStopPointWithViaInfoQueryResult = Apollo.QueryResult<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>;
+export const PatchScheduledStopPointViaInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"PatchScheduledStopPointViaInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"patch"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"patch"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export type PatchScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
+
+/**
+ * __usePatchScheduledStopPointViaInfoMutation__
+ *
+ * To run a mutation, you first call `usePatchScheduledStopPointViaInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePatchScheduledStopPointViaInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [patchScheduledStopPointViaInfoMutation, { data, loading, error }] = usePatchScheduledStopPointViaInfoMutation({
+ *   variables: {
+ *      stopLabel: // value for 'stopLabel'
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *      patch: // value for 'patch'
+ *   },
+ * });
+ */
+export function usePatchScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>(PatchScheduledStopPointViaInfoDocument, options);
+      }
+export type PatchScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof usePatchScheduledStopPointViaInfoMutation>;
+export type PatchScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<PatchScheduledStopPointViaInfoMutation>;
+export type PatchScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
+export const RemoveScheduledStopPointViaInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveScheduledStopPointViaInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"is_via_point"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"via_point_name_i18n"},"value":{"kind":"NullValue"}},{"kind":"ObjectField","name":{"kind":"Name","value":"via_point_short_name_i18n"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export type RemoveScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
+
+/**
+ * __useRemoveScheduledStopPointViaInfoMutation__
+ *
+ * To run a mutation, you first call `useRemoveScheduledStopPointViaInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveScheduledStopPointViaInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeScheduledStopPointViaInfoMutation, { data, loading, error }] = useRemoveScheduledStopPointViaInfoMutation({
+ *   variables: {
+ *      stopLabel: // value for 'stopLabel'
+ *      journeyPatternId: // value for 'journeyPatternId'
+ *   },
+ * });
+ */
+export function useRemoveScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>(RemoveScheduledStopPointViaInfoDocument, options);
+      }
+export type RemoveScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof useRemoveScheduledStopPointViaInfoMutation>;
+export type RemoveScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<RemoveScheduledStopPointViaInfoMutation>;
+export type RemoveScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
+export const ListChangingRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListChangingRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteTableRow"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useListChangingRoutesQuery__
+ *
+ * To run a query within a React component, call `useListChangingRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListChangingRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListChangingRoutesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListChangingRoutesQuery(baseOptions?: Apollo.QueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
+      }
+export function useListChangingRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
+        }
+// @ts-ignore
+export function useListChangingRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
+export function useListChangingRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<ListChangingRoutesQuery | undefined, ListChangingRoutesQueryVariables>;
+export function useListChangingRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
+        }
+export type ListChangingRoutesQueryHookResult = ReturnType<typeof useListChangingRoutesQuery>;
+export type ListChangingRoutesLazyQueryHookResult = ReturnType<typeof useListChangingRoutesLazyQuery>;
+export type ListChangingRoutesSuspenseQueryHookResult = ReturnType<typeof useListChangingRoutesSuspenseQuery>;
+export type ListChangingRoutesQueryResult = Apollo.QueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
+export const ListOwnLinesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListOwnLines"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"defaultValue":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineTableRow"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineMapParams"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useListOwnLinesQuery__
+ *
+ * To run a query within a React component, call `useListOwnLinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListOwnLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListOwnLinesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListOwnLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
+      }
+export function useListOwnLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
+        }
+// @ts-ignore
+export function useListOwnLinesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>): Apollo.UseSuspenseQueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
+export function useListOwnLinesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>): Apollo.UseSuspenseQueryResult<ListOwnLinesQuery | undefined, ListOwnLinesQueryVariables>;
+export function useListOwnLinesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
+        }
+export type ListOwnLinesQueryHookResult = ReturnType<typeof useListOwnLinesQuery>;
+export type ListOwnLinesLazyQueryHookResult = ReturnType<typeof useListOwnLinesLazyQuery>;
+export type ListOwnLinesSuspenseQueryHookResult = ReturnType<typeof useListOwnLinesSuspenseQuery>;
+export type ListOwnLinesQueryResult = Apollo.QueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
+export const SearchLinesAndRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchLinesAndRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineOrderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_order_by"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeOrderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_order_by"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilter"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineOrderBy"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineTableRow"}}]}},{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilter"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeOrderBy"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteTableRow"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineMapParams"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useSearchLinesAndRoutesQuery__
+ *
+ * To run a query within a React component, call `useSearchLinesAndRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchLinesAndRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchLinesAndRoutesQuery({
+ *   variables: {
+ *      lineFilter: // value for 'lineFilter'
+ *      routeFilter: // value for 'routeFilter'
+ *      lineOrderBy: // value for 'lineOrderBy'
+ *      routeOrderBy: // value for 'routeOrderBy'
+ *   },
+ * });
+ */
+export function useSearchLinesAndRoutesQuery(baseOptions?: Apollo.QueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
+      }
+export function useSearchLinesAndRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
+        }
+// @ts-ignore
+export function useSearchLinesAndRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
+export function useSearchLinesAndRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<SearchLinesAndRoutesQuery | undefined, SearchLinesAndRoutesQueryVariables>;
+export function useSearchLinesAndRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
+        }
+export type SearchLinesAndRoutesQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesQuery>;
+export type SearchLinesAndRoutesLazyQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesLazyQuery>;
+export type SearchLinesAndRoutesSuspenseQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesSuspenseQuery>;
+export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
+export const UpdateRouteJourneyPatternDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRouteJourneyPattern"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"new_stops_in_journey_pattern"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"insert_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"new_stops_in_journey_pattern"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+
+/**
+ * __useUpdateRouteJourneyPatternMutation__
+ *
+ * To run a mutation, you first call `useUpdateRouteJourneyPatternMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateRouteJourneyPatternMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateRouteJourneyPatternMutation, { data, loading, error }] = useUpdateRouteJourneyPatternMutation({
+ *   variables: {
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      new_stops_in_journey_pattern: // value for 'new_stops_in_journey_pattern'
+ *   },
+ * });
+ */
+export function useUpdateRouteJourneyPatternMutation(baseOptions?: Apollo.MutationHookOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>(UpdateRouteJourneyPatternDocument, options);
+      }
+export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<typeof useUpdateRouteJourneyPatternMutation>;
+export type UpdateRouteJourneyPatternMutationResult = Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
+export type UpdateRouteJourneyPatternMutationOptions = Apollo.BaseMutationOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
+export const GetRouteDetailsByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteDetailsById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetRouteDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetRouteDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteDetailsByIdQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetRouteDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables> & ({ variables: GetRouteDetailsByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+      }
+export function useGetRouteDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+        }
+// @ts-ignore
+export function useGetRouteDetailsByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
+export function useGetRouteDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteDetailsByIdQuery | undefined, GetRouteDetailsByIdQueryVariables>;
+export function useGetRouteDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
+        }
+export type GetRouteDetailsByIdQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdQuery>;
+export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdLazyQuery>;
+export type GetRouteDetailsByIdSuspenseQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdSuspenseQuery>;
+export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
+export const GetRouteVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"direction"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_route_direction_enum"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"direction"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"direction"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteVersionInfo"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetRouteVersionsQuery__
+ *
+ * To run a query within a React component, call `useGetRouteVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteVersionsQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      direction: // value for 'direction'
+ *   },
+ * });
+ */
+export function useGetRouteVersionsQuery(baseOptions: Apollo.QueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables> & ({ variables: GetRouteVersionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>(GetRouteVersionsDocument, options);
+      }
+export function useGetRouteVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>(GetRouteVersionsDocument, options);
+        }
+// @ts-ignore
+export function useGetRouteVersionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>;
+export function useGetRouteVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteVersionsQuery | undefined, GetRouteVersionsQueryVariables>;
+export function useGetRouteVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>(GetRouteVersionsDocument, options);
+        }
+export type GetRouteVersionsQueryHookResult = ReturnType<typeof useGetRouteVersionsQuery>;
+export type GetRouteVersionsLazyQueryHookResult = ReturnType<typeof useGetRouteVersionsLazyQuery>;
+export type GetRouteVersionsSuspenseQueryHookResult = ReturnType<typeof useGetRouteVersionsSuspenseQuery>;
+export type GetRouteVersionsQueryResult = Apollo.QueryResult<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>;
 export const GetLinesByValidityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinesByValidity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
 
 /**
@@ -85606,7 +86522,7 @@ export type GetScheduledStopsOnRouteQueryHookResult = ReturnType<typeof useGetSc
 export type GetScheduledStopsOnRouteLazyQueryHookResult = ReturnType<typeof useGetScheduledStopsOnRouteLazyQuery>;
 export type GetScheduledStopsOnRouteSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopsOnRouteSuspenseQuery>;
 export type GetScheduledStopsOnRouteQueryResult = Apollo.QueryResult<GetScheduledStopsOnRouteQuery, GetScheduledStopsOnRouteQueryVariables>;
-export const GetLinksWithStopsByExternalLinkIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinksWithStopsByExternalLinkIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"externalLinkIds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"external_link_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"externalLinkIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const GetLinksWithStopsByExternalLinkIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinksWithStopsByExternalLinkIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"externalLinkIds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"external_link_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"externalLinkIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetLinksWithStopsByExternalLinkIdsQuery__
@@ -85680,7 +86596,7 @@ export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<typeof 
 export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksLazyQuery>;
 export type GetStopsAlongInfrastructureLinksSuspenseQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksSuspenseQuery>;
 export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>;
-export const GetRouteWithInfrastructureLinksWithStopsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteWithInfrastructureLinksWithStops"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"route_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"route_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const GetRouteWithInfrastructureLinksWithStopsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteWithInfrastructureLinksWithStops"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"route_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"route_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetRouteWithInfrastructureLinksWithStopsQuery__
@@ -86210,922 +87126,6 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryHookRe
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery>;
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsSuspenseQuery>;
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryResult = Apollo.QueryResult<GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery, GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables>;
-export const GetLineDetailsByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineDetailsById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetLineDetailsByIdQuery__
- *
- * To run a query within a React component, call `useGetLineDetailsByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLineDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLineDetailsByIdQuery({
- *   variables: {
- *      line_id: // value for 'line_id'
- *   },
- * });
- */
-export function useGetLineDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables> & ({ variables: GetLineDetailsByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
-      }
-export function useGetLineDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
-        }
-// @ts-ignore
-export function useGetLineDetailsByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
-export function useGetLineDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsByIdQuery | undefined, GetLineDetailsByIdQueryVariables>;
-export function useGetLineDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>(GetLineDetailsByIdDocument, options);
-        }
-export type GetLineDetailsByIdQueryHookResult = ReturnType<typeof useGetLineDetailsByIdQuery>;
-export type GetLineDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsByIdLazyQuery>;
-export type GetLineDetailsByIdSuspenseQueryHookResult = ReturnType<typeof useGetLineDetailsByIdSuspenseQuery>;
-export type GetLineDetailsByIdQueryResult = Apollo.QueryResult<GetLineDetailsByIdQuery, GetLineDetailsByIdQueryVariables>;
-export const GetRouteDetailsByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteDetailsById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetRouteDetailsByIdQuery__
- *
- * To run a query within a React component, call `useGetRouteDetailsByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRouteDetailsByIdQuery({
- *   variables: {
- *      routeId: // value for 'routeId'
- *   },
- * });
- */
-export function useGetRouteDetailsByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables> & ({ variables: GetRouteDetailsByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
-      }
-export function useGetRouteDetailsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
-        }
-// @ts-ignore
-export function useGetRouteDetailsByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
-export function useGetRouteDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteDetailsByIdQuery | undefined, GetRouteDetailsByIdQueryVariables>;
-export function useGetRouteDetailsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>(GetRouteDetailsByIdDocument, options);
-        }
-export type GetRouteDetailsByIdQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdQuery>;
-export type GetRouteDetailsByIdLazyQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdLazyQuery>;
-export type GetRouteDetailsByIdSuspenseQueryHookResult = ReturnType<typeof useGetRouteDetailsByIdSuspenseQuery>;
-export type GetRouteDetailsByIdQueryResult = Apollo.QueryResult<GetRouteDetailsByIdQuery, GetRouteDetailsByIdQueryVariables>;
-export const GetRoutesWithStopsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRoutesWithStops"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStopsAndJps"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithInfrastructureLinksWithStops"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteWithStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfraLinkMatchingFields"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteStopFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkMatchingFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopWithJourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteStopFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopWithJourneyPatternFields"}},{"kind":"Field","name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetRoutesWithStopsQuery__
- *
- * To run a query within a React component, call `useGetRoutesWithStopsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRoutesWithStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRoutesWithStopsQuery({
- *   variables: {
- *      routeFilters: // value for 'routeFilters'
- *   },
- * });
- */
-export function useGetRoutesWithStopsQuery(baseOptions?: Apollo.QueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
-      }
-export function useGetRoutesWithStopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
-        }
-// @ts-ignore
-export function useGetRoutesWithStopsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>;
-export function useGetRoutesWithStopsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRoutesWithStopsQuery | undefined, GetRoutesWithStopsQueryVariables>;
-export function useGetRoutesWithStopsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>(GetRoutesWithStopsDocument, options);
-        }
-export type GetRoutesWithStopsQueryHookResult = ReturnType<typeof useGetRoutesWithStopsQuery>;
-export type GetRoutesWithStopsLazyQueryHookResult = ReturnType<typeof useGetRoutesWithStopsLazyQuery>;
-export type GetRoutesWithStopsSuspenseQueryHookResult = ReturnType<typeof useGetRoutesWithStopsSuspenseQuery>;
-export type GetRoutesWithStopsQueryResult = Apollo.QueryResult<GetRoutesWithStopsQuery, GetRoutesWithStopsQueryVariables>;
-export const GetStopWithRouteGraphDataByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopWithRouteGraphDataById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetStopWithRouteGraphDataByIdQuery__
- *
- * To run a query within a React component, call `useGetStopWithRouteGraphDataByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopWithRouteGraphDataByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopWithRouteGraphDataByIdQuery({
- *   variables: {
- *      stopId: // value for 'stopId'
- *   },
- * });
- */
-export function useGetStopWithRouteGraphDataByIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables> & ({ variables: GetStopWithRouteGraphDataByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
-      }
-export function useGetStopWithRouteGraphDataByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
-        }
-// @ts-ignore
-export function useGetStopWithRouteGraphDataByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
-export function useGetStopWithRouteGraphDataByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopWithRouteGraphDataByIdQuery | undefined, GetStopWithRouteGraphDataByIdQueryVariables>;
-export function useGetStopWithRouteGraphDataByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>(GetStopWithRouteGraphDataByIdDocument, options);
-        }
-export type GetStopWithRouteGraphDataByIdQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdQuery>;
-export type GetStopWithRouteGraphDataByIdLazyQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdLazyQuery>;
-export type GetStopWithRouteGraphDataByIdSuspenseQueryHookResult = ReturnType<typeof useGetStopWithRouteGraphDataByIdSuspenseQuery>;
-export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<GetStopWithRouteGraphDataByIdQuery, GetStopWithRouteGraphDataByIdQueryVariables>;
-export const ResolveLineStopPublicCodesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveLineStopPublicCodes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPoints"},"name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_route"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lt"},"value":{"kind":"IntValue","value":"30"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"on_line_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineId"}}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","alias":{"kind":"Name","value":"publicCode"},"name":{"kind":"Name","value":"scheduled_stop_point_label"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useResolveLineStopPublicCodesQuery__
- *
- * To run a query within a React component, call `useResolveLineStopPublicCodesQuery` and pass it any options that fit your needs.
- * When your component renders, `useResolveLineStopPublicCodesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useResolveLineStopPublicCodesQuery({
- *   variables: {
- *      lineId: // value for 'lineId'
- *   },
- * });
- */
-export function useResolveLineStopPublicCodesQuery(baseOptions: Apollo.QueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables> & ({ variables: ResolveLineStopPublicCodesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>(ResolveLineStopPublicCodesDocument, options);
-      }
-export function useResolveLineStopPublicCodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>(ResolveLineStopPublicCodesDocument, options);
-        }
-// @ts-ignore
-export function useResolveLineStopPublicCodesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>;
-export function useResolveLineStopPublicCodesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineStopPublicCodesQuery | undefined, ResolveLineStopPublicCodesQueryVariables>;
-export function useResolveLineStopPublicCodesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>(ResolveLineStopPublicCodesDocument, options);
-        }
-export type ResolveLineStopPublicCodesQueryHookResult = ReturnType<typeof useResolveLineStopPublicCodesQuery>;
-export type ResolveLineStopPublicCodesLazyQueryHookResult = ReturnType<typeof useResolveLineStopPublicCodesLazyQuery>;
-export type ResolveLineStopPublicCodesSuspenseQueryHookResult = ReturnType<typeof useResolveLineStopPublicCodesSuspenseQuery>;
-export type ResolveLineStopPublicCodesQueryResult = Apollo.QueryResult<ResolveLineStopPublicCodesQuery, ResolveLineStopPublicCodesQueryVariables>;
-export const GetStopsForMetaTypeUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopsForMetaTypeUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"publicCodes"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"quays"},"name":{"kind":"Name","value":"stops_database_quay_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"public_code"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"publicCodes"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetStopForMetaTypeUpdateData"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RawQuayKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_key_values"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key_values_id"}},{"kind":"Field","name":{"kind":"Name","value":"key_values_key"}},{"kind":"Field","name":{"kind":"Name","value":"quay_id"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value_id"}},{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetStopForMetaTypeUpdateData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"quay_key_values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RawQuayKeyValue"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"transport_mode"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetStopsForMetaTypeUpdateQuery__
- *
- * To run a query within a React component, call `useGetStopsForMetaTypeUpdateQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopsForMetaTypeUpdateQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopsForMetaTypeUpdateQuery({
- *   variables: {
- *      publicCodes: // value for 'publicCodes'
- *   },
- * });
- */
-export function useGetStopsForMetaTypeUpdateQuery(baseOptions: Apollo.QueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables> & ({ variables: GetStopsForMetaTypeUpdateQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>(GetStopsForMetaTypeUpdateDocument, options);
-      }
-export function useGetStopsForMetaTypeUpdateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>(GetStopsForMetaTypeUpdateDocument, options);
-        }
-// @ts-ignore
-export function useGetStopsForMetaTypeUpdateSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>;
-export function useGetStopsForMetaTypeUpdateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopsForMetaTypeUpdateQuery | undefined, GetStopsForMetaTypeUpdateQueryVariables>;
-export function useGetStopsForMetaTypeUpdateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>(GetStopsForMetaTypeUpdateDocument, options);
-        }
-export type GetStopsForMetaTypeUpdateQueryHookResult = ReturnType<typeof useGetStopsForMetaTypeUpdateQuery>;
-export type GetStopsForMetaTypeUpdateLazyQueryHookResult = ReturnType<typeof useGetStopsForMetaTypeUpdateLazyQuery>;
-export type GetStopsForMetaTypeUpdateSuspenseQueryHookResult = ReturnType<typeof useGetStopsForMetaTypeUpdateSuspenseQuery>;
-export type GetStopsForMetaTypeUpdateQueryResult = Apollo.QueryResult<GetStopsForMetaTypeUpdateQuery, GetStopsForMetaTypeUpdateQueryVariables>;
-export const UpdateQuayMetaTypeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateQuayMetaType"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quays"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_QuayInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mutateStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"StopPlace"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"quays"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quays"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type UpdateQuayMetaTypeMutationFn = Apollo.MutationFunction<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>;
-
-/**
- * __useUpdateQuayMetaTypeMutation__
- *
- * To run a mutation, you first call `useUpdateQuayMetaTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateQuayMetaTypeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateQuayMetaTypeMutation, { data, loading, error }] = useUpdateQuayMetaTypeMutation({
- *   variables: {
- *      stopPlaceId: // value for 'stopPlaceId'
- *      quays: // value for 'quays'
- *   },
- * });
- */
-export function useUpdateQuayMetaTypeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>(UpdateQuayMetaTypeDocument, options);
-      }
-export type UpdateQuayMetaTypeMutationHookResult = ReturnType<typeof useUpdateQuayMetaTypeMutation>;
-export type UpdateQuayMetaTypeMutationResult = Apollo.MutationResult<UpdateQuayMetaTypeMutation>;
-export type UpdateQuayMetaTypeMutationOptions = Apollo.BaseMutationOptions<UpdateQuayMetaTypeMutation, UpdateQuayMetaTypeMutationVariables>;
-export const InsertLineOneDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertLineOne"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"object"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_route_line_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"object"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
-export type InsertLineOneMutationFn = Apollo.MutationFunction<InsertLineOneMutation, InsertLineOneMutationVariables>;
-
-/**
- * __useInsertLineOneMutation__
- *
- * To run a mutation, you first call `useInsertLineOneMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertLineOneMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertLineOneMutation, { data, loading, error }] = useInsertLineOneMutation({
- *   variables: {
- *      object: // value for 'object'
- *   },
- * });
- */
-export function useInsertLineOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertLineOneMutation, InsertLineOneMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertLineOneMutation, InsertLineOneMutationVariables>(InsertLineOneDocument, options);
-      }
-export type InsertLineOneMutationHookResult = ReturnType<typeof useInsertLineOneMutation>;
-export type InsertLineOneMutationResult = Apollo.MutationResult<InsertLineOneMutation>;
-export type InsertLineOneMutationOptions = Apollo.BaseMutationOptions<InsertLineOneMutation, InsertLineOneMutationVariables>;
-export const PatchLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"PatchLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"object"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"object"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}}]} as unknown as DocumentNode;
-export type PatchLineMutationFn = Apollo.MutationFunction<PatchLineMutation, PatchLineMutationVariables>;
-
-/**
- * __usePatchLineMutation__
- *
- * To run a mutation, you first call `usePatchLineMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePatchLineMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [patchLineMutation, { data, loading, error }] = usePatchLineMutation({
- *   variables: {
- *      line_id: // value for 'line_id'
- *      object: // value for 'object'
- *   },
- * });
- */
-export function usePatchLineMutation(baseOptions?: Apollo.MutationHookOptions<PatchLineMutation, PatchLineMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PatchLineMutation, PatchLineMutationVariables>(PatchLineDocument, options);
-      }
-export type PatchLineMutationHookResult = ReturnType<typeof usePatchLineMutation>;
-export type PatchLineMutationResult = Apollo.MutationResult<PatchLineMutation>;
-export type PatchLineMutationOptions = Apollo.BaseMutationOptions<PatchLineMutation, PatchLineMutationVariables>;
-export const GetLineDetailsWithRoutesByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineDetailsWithRoutesById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"line_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points_located_on_infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"other_label_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"relative_distance_from_infrastructure_link_start"}},{"kind":"Field","name":{"kind":"Name","value":"closest_point_on_infrastructure_link"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetLineDetailsWithRoutesByIdQuery__
- *
- * To run a query within a React component, call `useGetLineDetailsWithRoutesByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLineDetailsWithRoutesByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLineDetailsWithRoutesByIdQuery({
- *   variables: {
- *      line_id: // value for 'line_id'
- *   },
- * });
- */
-export function useGetLineDetailsWithRoutesByIdQuery(baseOptions: Apollo.QueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables> & ({ variables: GetLineDetailsWithRoutesByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
-      }
-export function useGetLineDetailsWithRoutesByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
-        }
-// @ts-ignore
-export function useGetLineDetailsWithRoutesByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
-export function useGetLineDetailsWithRoutesByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineDetailsWithRoutesByIdQuery | undefined, GetLineDetailsWithRoutesByIdQueryVariables>;
-export function useGetLineDetailsWithRoutesByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>(GetLineDetailsWithRoutesByIdDocument, options);
-        }
-export type GetLineDetailsWithRoutesByIdQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdQuery>;
-export type GetLineDetailsWithRoutesByIdLazyQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdLazyQuery>;
-export type GetLineDetailsWithRoutesByIdSuspenseQueryHookResult = ReturnType<typeof useGetLineDetailsWithRoutesByIdSuspenseQuery>;
-export type GetLineDetailsWithRoutesByIdQueryResult = Apollo.QueryResult<GetLineDetailsWithRoutesByIdQuery, GetLineDetailsWithRoutesByIdQueryVariables>;
-export const UpdateRouteJourneyPatternDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRouteJourneyPattern"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"new_stops_in_journey_pattern"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"insert_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"new_stops_in_journey_pattern"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type UpdateRouteJourneyPatternMutationFn = Apollo.MutationFunction<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
-
-/**
- * __useUpdateRouteJourneyPatternMutation__
- *
- * To run a mutation, you first call `useUpdateRouteJourneyPatternMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateRouteJourneyPatternMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateRouteJourneyPatternMutation, { data, loading, error }] = useUpdateRouteJourneyPatternMutation({
- *   variables: {
- *      journey_pattern_id: // value for 'journey_pattern_id'
- *      new_stops_in_journey_pattern: // value for 'new_stops_in_journey_pattern'
- *   },
- * });
- */
-export function useUpdateRouteJourneyPatternMutation(baseOptions?: Apollo.MutationHookOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>(UpdateRouteJourneyPatternDocument, options);
-      }
-export type UpdateRouteJourneyPatternMutationHookResult = ReturnType<typeof useUpdateRouteJourneyPatternMutation>;
-export type UpdateRouteJourneyPatternMutationResult = Apollo.MutationResult<UpdateRouteJourneyPatternMutation>;
-export type UpdateRouteJourneyPatternMutationOptions = Apollo.BaseMutationOptions<UpdateRouteJourneyPatternMutation, UpdateRouteJourneyPatternMutationVariables>;
-export const GetLineChangeHistoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineChangeHistory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"historyItems"},"name":{"kind":"Name","value":"route_line_change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"line_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineChangeHistoryItemDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"tgOperation"},"name":{"kind":"Name","value":"tg_operation"}},{"kind":"Field","alias":{"kind":"Name","value":"lineId"},"name":{"kind":"Name","value":"line_id"}},{"kind":"Field","alias":{"kind":"Name","value":"lineLabel"},"name":{"kind":"Name","value":"line_label"}},{"kind":"Field","alias":{"kind":"Name","value":"linePriority"},"name":{"kind":"Name","value":"line_priority"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityStart"},"name":{"kind":"Name","value":"line_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"lineValidityEnd"},"name":{"kind":"Name","value":"line_validity_end"}},{"kind":"Field","alias":{"kind":"Name","value":"routeId"},"name":{"kind":"Name","value":"route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"routeLabel"},"name":{"kind":"Name","value":"route_label"}},{"kind":"Field","alias":{"kind":"Name","value":"routeDirection"},"name":{"kind":"Name","value":"route_direction"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityStart"},"name":{"kind":"Name","value":"route_validity_start"}},{"kind":"Field","alias":{"kind":"Name","value":"routeValidityEnd"},"name":{"kind":"Name","value":"route_validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","alias":{"kind":"Name","value":"versionComment"},"name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","alias":{"kind":"Name","value":"changedBy"},"name":{"kind":"Name","value":"changed_by"}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetLineChangeHistoryQuery__
- *
- * To run a query within a React component, call `useGetLineChangeHistoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLineChangeHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLineChangeHistoryQuery({
- *   variables: {
- *      label: // value for 'label'
- *   },
- * });
- */
-export function useGetLineChangeHistoryQuery(baseOptions: Apollo.QueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables> & ({ variables: GetLineChangeHistoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>(GetLineChangeHistoryDocument, options);
-      }
-export function useGetLineChangeHistoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>(GetLineChangeHistoryDocument, options);
-        }
-// @ts-ignore
-export function useGetLineChangeHistorySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>;
-export function useGetLineChangeHistorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryQuery | undefined, GetLineChangeHistoryQueryVariables>;
-export function useGetLineChangeHistorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>(GetLineChangeHistoryDocument, options);
-        }
-export type GetLineChangeHistoryQueryHookResult = ReturnType<typeof useGetLineChangeHistoryQuery>;
-export type GetLineChangeHistoryLazyQueryHookResult = ReturnType<typeof useGetLineChangeHistoryLazyQuery>;
-export type GetLineChangeHistorySuspenseQueryHookResult = ReturnType<typeof useGetLineChangeHistorySuspenseQuery>;
-export type GetLineChangeHistoryQueryResult = Apollo.QueryResult<GetLineChangeHistoryQuery, GetLineChangeHistoryQueryVariables>;
-export const GetLineChangeHistoryItemDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineChangeHistoryItemData"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history_bool_exp"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_change_history_order_by"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"items"},"name":{"kind":"Name","value":"route_line_change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetLineChangeHistoryItemDataQuery__
- *
- * To run a query within a React component, call `useGetLineChangeHistoryItemDataQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLineChangeHistoryItemDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLineChangeHistoryItemDataQuery({
- *   variables: {
- *      where: // value for 'where'
- *      orderBy: // value for 'orderBy'
- *   },
- * });
- */
-export function useGetLineChangeHistoryItemDataQuery(baseOptions: Apollo.QueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables> & ({ variables: GetLineChangeHistoryItemDataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>(GetLineChangeHistoryItemDataDocument, options);
-      }
-export function useGetLineChangeHistoryItemDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>(GetLineChangeHistoryItemDataDocument, options);
-        }
-// @ts-ignore
-export function useGetLineChangeHistoryItemDataSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>;
-export function useGetLineChangeHistoryItemDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>): Apollo.UseSuspenseQueryResult<GetLineChangeHistoryItemDataQuery | undefined, GetLineChangeHistoryItemDataQueryVariables>;
-export function useGetLineChangeHistoryItemDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>(GetLineChangeHistoryItemDataDocument, options);
-        }
-export type GetLineChangeHistoryItemDataQueryHookResult = ReturnType<typeof useGetLineChangeHistoryItemDataQuery>;
-export type GetLineChangeHistoryItemDataLazyQueryHookResult = ReturnType<typeof useGetLineChangeHistoryItemDataLazyQuery>;
-export type GetLineChangeHistoryItemDataSuspenseQueryHookResult = ReturnType<typeof useGetLineChangeHistoryItemDataSuspenseQuery>;
-export type GetLineChangeHistoryItemDataQueryResult = Apollo.QueryResult<GetLineChangeHistoryItemDataQuery, GetLineChangeHistoryItemDataQueryVariables>;
-export const GetTodaysNameForLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTodaysNameForLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priority"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetTodaysNameForLineQuery__
- *
- * To run a query within a React component, call `useGetTodaysNameForLineQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTodaysNameForLineQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTodaysNameForLineQuery({
- *   variables: {
- *      label: // value for 'label'
- *      priority: // value for 'priority'
- *      today: // value for 'today'
- *   },
- * });
- */
-export function useGetTodaysNameForLineQuery(baseOptions: Apollo.QueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables> & ({ variables: GetTodaysNameForLineQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>(GetTodaysNameForLineDocument, options);
-      }
-export function useGetTodaysNameForLineLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>(GetTodaysNameForLineDocument, options);
-        }
-// @ts-ignore
-export function useGetTodaysNameForLineSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>): Apollo.UseSuspenseQueryResult<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>;
-export function useGetTodaysNameForLineSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>): Apollo.UseSuspenseQueryResult<GetTodaysNameForLineQuery | undefined, GetTodaysNameForLineQueryVariables>;
-export function useGetTodaysNameForLineSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>(GetTodaysNameForLineDocument, options);
-        }
-export type GetTodaysNameForLineQueryHookResult = ReturnType<typeof useGetTodaysNameForLineQuery>;
-export type GetTodaysNameForLineLazyQueryHookResult = ReturnType<typeof useGetTodaysNameForLineLazyQuery>;
-export type GetTodaysNameForLineSuspenseQueryHookResult = ReturnType<typeof useGetTodaysNameForLineSuspenseQuery>;
-export type GetTodaysNameForLineQueryResult = Apollo.QueryResult<GetTodaysNameForLineQuery, GetTodaysNameForLineQueryVariables>;
-export const ResolveTimingPointNamesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveTimingPointNames"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabels"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_pattern_timing_place"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_points"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabels"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useResolveTimingPointNamesQuery__
- *
- * To run a query within a React component, call `useResolveTimingPointNamesQuery` and pass it any options that fit your needs.
- * When your component renders, `useResolveTimingPointNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useResolveTimingPointNamesQuery({
- *   variables: {
- *      stopLabels: // value for 'stopLabels'
- *   },
- * });
- */
-export function useResolveTimingPointNamesQuery(baseOptions: Apollo.QueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables> & ({ variables: ResolveTimingPointNamesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>(ResolveTimingPointNamesDocument, options);
-      }
-export function useResolveTimingPointNamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>(ResolveTimingPointNamesDocument, options);
-        }
-// @ts-ignore
-export function useResolveTimingPointNamesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>;
-export function useResolveTimingPointNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveTimingPointNamesQuery | undefined, ResolveTimingPointNamesQueryVariables>;
-export function useResolveTimingPointNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>(ResolveTimingPointNamesDocument, options);
-        }
-export type ResolveTimingPointNamesQueryHookResult = ReturnType<typeof useResolveTimingPointNamesQuery>;
-export type ResolveTimingPointNamesLazyQueryHookResult = ReturnType<typeof useResolveTimingPointNamesLazyQuery>;
-export type ResolveTimingPointNamesSuspenseQueryHookResult = ReturnType<typeof useResolveTimingPointNamesSuspenseQuery>;
-export type ResolveTimingPointNamesQueryResult = Apollo.QueryResult<ResolveTimingPointNamesQuery, ResolveTimingPointNamesQueryVariables>;
-export const ResolveLineIdByLabelDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolveLineIdByLabel"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"observationDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_ilike"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observationDate"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lt"},"value":{"kind":"IntValue","value":"30"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observationDate"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useResolveLineIdByLabelQuery__
- *
- * To run a query within a React component, call `useResolveLineIdByLabelQuery` and pass it any options that fit your needs.
- * When your component renders, `useResolveLineIdByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useResolveLineIdByLabelQuery({
- *   variables: {
- *      label: // value for 'label'
- *      observationDate: // value for 'observationDate'
- *   },
- * });
- */
-export function useResolveLineIdByLabelQuery(baseOptions: Apollo.QueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables> & ({ variables: ResolveLineIdByLabelQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>(ResolveLineIdByLabelDocument, options);
-      }
-export function useResolveLineIdByLabelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>(ResolveLineIdByLabelDocument, options);
-        }
-// @ts-ignore
-export function useResolveLineIdByLabelSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>;
-export function useResolveLineIdByLabelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>): Apollo.UseSuspenseQueryResult<ResolveLineIdByLabelQuery | undefined, ResolveLineIdByLabelQueryVariables>;
-export function useResolveLineIdByLabelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>(ResolveLineIdByLabelDocument, options);
-        }
-export type ResolveLineIdByLabelQueryHookResult = ReturnType<typeof useResolveLineIdByLabelQuery>;
-export type ResolveLineIdByLabelLazyQueryHookResult = ReturnType<typeof useResolveLineIdByLabelLazyQuery>;
-export type ResolveLineIdByLabelSuspenseQueryHookResult = ReturnType<typeof useResolveLineIdByLabelSuspenseQuery>;
-export type ResolveLineIdByLabelQueryResult = Apollo.QueryResult<ResolveLineIdByLabelQuery, ResolveLineIdByLabelQueryVariables>;
-export const GetHighestPriorityLineDetailsWithRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHighestPriorityLineDetailsWithRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeStopFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineLatestChangeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineWithRoutesUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineLatestChangeInfo"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetHighestPriorityLineDetailsWithRoutesQuery__
- *
- * To run a query within a React component, call `useGetHighestPriorityLineDetailsWithRoutesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetHighestPriorityLineDetailsWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetHighestPriorityLineDetailsWithRoutesQuery({
- *   variables: {
- *      lineFilters: // value for 'lineFilters'
- *      lineRouteFilters: // value for 'lineRouteFilters'
- *      routeStopFilters: // value for 'routeStopFilters'
- *   },
- * });
- */
-export function useGetHighestPriorityLineDetailsWithRoutesQuery(baseOptions?: Apollo.QueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
-      }
-export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
-        }
-// @ts-ignore
-export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
-export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetHighestPriorityLineDetailsWithRoutesQuery | undefined, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
-export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>(GetHighestPriorityLineDetailsWithRoutesDocument, options);
-        }
-export type GetHighestPriorityLineDetailsWithRoutesQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesQuery>;
-export type GetHighestPriorityLineDetailsWithRoutesLazyQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesLazyQuery>;
-export type GetHighestPriorityLineDetailsWithRoutesSuspenseQueryHookResult = ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery>;
-export type GetHighestPriorityLineDetailsWithRoutesQueryResult = Apollo.QueryResult<GetHighestPriorityLineDetailsWithRoutesQuery, GetHighestPriorityLineDetailsWithRoutesQueryVariables>;
-export const ListChangingRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListChangingRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteTableRow"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useListChangingRoutesQuery__
- *
- * To run a query within a React component, call `useListChangingRoutesQuery` and pass it any options that fit your needs.
- * When your component renders, `useListChangingRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListChangingRoutesQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useListChangingRoutesQuery(baseOptions?: Apollo.QueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
-      }
-export function useListChangingRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
-        }
-// @ts-ignore
-export function useListChangingRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
-export function useListChangingRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<ListChangingRoutesQuery | undefined, ListChangingRoutesQueryVariables>;
-export function useListChangingRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>(ListChangingRoutesDocument, options);
-        }
-export type ListChangingRoutesQueryHookResult = ReturnType<typeof useListChangingRoutesQuery>;
-export type ListChangingRoutesLazyQueryHookResult = ReturnType<typeof useListChangingRoutesLazyQuery>;
-export type ListChangingRoutesSuspenseQueryHookResult = ReturnType<typeof useListChangingRoutesSuspenseQuery>;
-export type ListChangingRoutesQueryResult = Apollo.QueryResult<ListChangingRoutesQuery, ListChangingRoutesQueryVariables>;
-export const ListOwnLinesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListOwnLines"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"defaultValue":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineTableRow"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineMapParams"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useListOwnLinesQuery__
- *
- * To run a query within a React component, call `useListOwnLinesQuery` and pass it any options that fit your needs.
- * When your component renders, `useListOwnLinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListOwnLinesQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useListOwnLinesQuery(baseOptions?: Apollo.QueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
-      }
-export function useListOwnLinesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
-        }
-// @ts-ignore
-export function useListOwnLinesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>): Apollo.UseSuspenseQueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
-export function useListOwnLinesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>): Apollo.UseSuspenseQueryResult<ListOwnLinesQuery | undefined, ListOwnLinesQueryVariables>;
-export function useListOwnLinesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ListOwnLinesQuery, ListOwnLinesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(ListOwnLinesDocument, options);
-        }
-export type ListOwnLinesQueryHookResult = ReturnType<typeof useListOwnLinesQuery>;
-export type ListOwnLinesLazyQueryHookResult = ReturnType<typeof useListOwnLinesLazyQuery>;
-export type ListOwnLinesSuspenseQueryHookResult = ReturnType<typeof useListOwnLinesSuspenseQuery>;
-export type ListOwnLinesQueryResult = Apollo.QueryResult<ListOwnLinesQuery, ListOwnLinesQueryVariables>;
-export const GetRouteVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"label"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"direction"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_route_direction_enum"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"label"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"direction"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"direction"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteVersionInfo"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetRouteVersionsQuery__
- *
- * To run a query within a React component, call `useGetRouteVersionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRouteVersionsQuery({
- *   variables: {
- *      label: // value for 'label'
- *      direction: // value for 'direction'
- *   },
- * });
- */
-export function useGetRouteVersionsQuery(baseOptions: Apollo.QueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables> & ({ variables: GetRouteVersionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>(GetRouteVersionsDocument, options);
-      }
-export function useGetRouteVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>(GetRouteVersionsDocument, options);
-        }
-// @ts-ignore
-export function useGetRouteVersionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>;
-export function useGetRouteVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteVersionsQuery | undefined, GetRouteVersionsQueryVariables>;
-export function useGetRouteVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>(GetRouteVersionsDocument, options);
-        }
-export type GetRouteVersionsQueryHookResult = ReturnType<typeof useGetRouteVersionsQuery>;
-export type GetRouteVersionsLazyQueryHookResult = ReturnType<typeof useGetRouteVersionsLazyQuery>;
-export type GetRouteVersionsSuspenseQueryHookResult = ReturnType<typeof useGetRouteVersionsSuspenseQuery>;
-export type GetRouteVersionsQueryResult = Apollo.QueryResult<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>;
-export const SearchLinesAndRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchLinesAndRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineOrderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_order_by"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeOrderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_order_by"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilter"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineOrderBy"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineTableRow"}}]}},{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilter"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeOrderBy"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteTableRow"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineMapParams"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteTableRow"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMapParams"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineRouteSearchRouteWithJourneyPatternDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_refs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useSearchLinesAndRoutesQuery__
- *
- * To run a query within a React component, call `useSearchLinesAndRoutesQuery` and pass it any options that fit your needs.
- * When your component renders, `useSearchLinesAndRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSearchLinesAndRoutesQuery({
- *   variables: {
- *      lineFilter: // value for 'lineFilter'
- *      routeFilter: // value for 'routeFilter'
- *      lineOrderBy: // value for 'lineOrderBy'
- *      routeOrderBy: // value for 'routeOrderBy'
- *   },
- * });
- */
-export function useSearchLinesAndRoutesQuery(baseOptions?: Apollo.QueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
-      }
-export function useSearchLinesAndRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
-        }
-// @ts-ignore
-export function useSearchLinesAndRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
-export function useSearchLinesAndRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<SearchLinesAndRoutesQuery | undefined, SearchLinesAndRoutesQueryVariables>;
-export function useSearchLinesAndRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>(SearchLinesAndRoutesDocument, options);
-        }
-export type SearchLinesAndRoutesQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesQuery>;
-export type SearchLinesAndRoutesLazyQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesLazyQuery>;
-export type SearchLinesAndRoutesSuspenseQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesSuspenseQuery>;
-export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
-export const GetScheduledStopPointWithTimingSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetScheduledStopPointWithTimingSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetScheduledStopPointWithTimingSettingsQuery__
- *
- * To run a query within a React component, call `useGetScheduledStopPointWithTimingSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetScheduledStopPointWithTimingSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetScheduledStopPointWithTimingSettingsQuery({
- *   variables: {
- *      journeyPatternId: // value for 'journeyPatternId'
- *      stopLabel: // value for 'stopLabel'
- *      sequence: // value for 'sequence'
- *   },
- * });
- */
-export function useGetScheduledStopPointWithTimingSettingsQuery(baseOptions: Apollo.QueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables> & ({ variables: GetScheduledStopPointWithTimingSettingsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>(GetScheduledStopPointWithTimingSettingsDocument, options);
-      }
-export function useGetScheduledStopPointWithTimingSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>(GetScheduledStopPointWithTimingSettingsDocument, options);
-        }
-// @ts-ignore
-export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>;
-export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithTimingSettingsQuery | undefined, GetScheduledStopPointWithTimingSettingsQueryVariables>;
-export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>(GetScheduledStopPointWithTimingSettingsDocument, options);
-        }
-export type GetScheduledStopPointWithTimingSettingsQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsQuery>;
-export type GetScheduledStopPointWithTimingSettingsLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsLazyQuery>;
-export type GetScheduledStopPointWithTimingSettingsSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsSuspenseQuery>;
-export type GetScheduledStopPointWithTimingSettingsQueryResult = Apollo.QueryResult<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>;
-export const PatchScheduledStopPointTimingSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"PatchScheduledStopPointTimingSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"patch"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_set_input"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"timingPlaceId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"timing_place_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"timingPlaceId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"update_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sequence"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"patch"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export type PatchScheduledStopPointTimingSettingsMutationFn = Apollo.MutationFunction<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>;
-
-/**
- * __usePatchScheduledStopPointTimingSettingsMutation__
- *
- * To run a mutation, you first call `usePatchScheduledStopPointTimingSettingsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePatchScheduledStopPointTimingSettingsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [patchScheduledStopPointTimingSettingsMutation, { data, loading, error }] = usePatchScheduledStopPointTimingSettingsMutation({
- *   variables: {
- *      stopLabel: // value for 'stopLabel'
- *      journeyPatternId: // value for 'journeyPatternId'
- *      sequence: // value for 'sequence'
- *      patch: // value for 'patch'
- *      stopId: // value for 'stopId'
- *      timingPlaceId: // value for 'timingPlaceId'
- *   },
- * });
- */
-export function usePatchScheduledStopPointTimingSettingsMutation(baseOptions?: Apollo.MutationHookOptions<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>(PatchScheduledStopPointTimingSettingsDocument, options);
-      }
-export type PatchScheduledStopPointTimingSettingsMutationHookResult = ReturnType<typeof usePatchScheduledStopPointTimingSettingsMutation>;
-export type PatchScheduledStopPointTimingSettingsMutationResult = Apollo.MutationResult<PatchScheduledStopPointTimingSettingsMutation>;
-export type PatchScheduledStopPointTimingSettingsMutationOptions = Apollo.BaseMutationOptions<PatchScheduledStopPointTimingSettingsMutation, PatchScheduledStopPointTimingSettingsMutationVariables>;
-export const GetScheduledStopPointWithViaInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetScheduledStopPointWithViaInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetScheduledStopPointWithViaInfoQuery__
- *
- * To run a query within a React component, call `useGetScheduledStopPointWithViaInfoQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetScheduledStopPointWithViaInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetScheduledStopPointWithViaInfoQuery({
- *   variables: {
- *      journeyPatternId: // value for 'journeyPatternId'
- *      stopLabel: // value for 'stopLabel'
- *   },
- * });
- */
-export function useGetScheduledStopPointWithViaInfoQuery(baseOptions: Apollo.QueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables> & ({ variables: GetScheduledStopPointWithViaInfoQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
-      }
-export function useGetScheduledStopPointWithViaInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
-        }
-// @ts-ignore
-export function useGetScheduledStopPointWithViaInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>;
-export function useGetScheduledStopPointWithViaInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetScheduledStopPointWithViaInfoQuery | undefined, GetScheduledStopPointWithViaInfoQueryVariables>;
-export function useGetScheduledStopPointWithViaInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>(GetScheduledStopPointWithViaInfoDocument, options);
-        }
-export type GetScheduledStopPointWithViaInfoQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoQuery>;
-export type GetScheduledStopPointWithViaInfoLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoLazyQuery>;
-export type GetScheduledStopPointWithViaInfoSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithViaInfoSuspenseQuery>;
-export type GetScheduledStopPointWithViaInfoQueryResult = Apollo.QueryResult<GetScheduledStopPointWithViaInfoQuery, GetScheduledStopPointWithViaInfoQueryVariables>;
-export const PatchScheduledStopPointViaInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"PatchScheduledStopPointViaInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"patch"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"patch"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export type PatchScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
-
-/**
- * __usePatchScheduledStopPointViaInfoMutation__
- *
- * To run a mutation, you first call `usePatchScheduledStopPointViaInfoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePatchScheduledStopPointViaInfoMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [patchScheduledStopPointViaInfoMutation, { data, loading, error }] = usePatchScheduledStopPointViaInfoMutation({
- *   variables: {
- *      stopLabel: // value for 'stopLabel'
- *      journeyPatternId: // value for 'journeyPatternId'
- *      patch: // value for 'patch'
- *   },
- * });
- */
-export function usePatchScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>(PatchScheduledStopPointViaInfoDocument, options);
-      }
-export type PatchScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof usePatchScheduledStopPointViaInfoMutation>;
-export type PatchScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<PatchScheduledStopPointViaInfoMutation>;
-export type PatchScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<PatchScheduledStopPointViaInfoMutation, PatchScheduledStopPointViaInfoMutationVariables>;
-export const RemoveScheduledStopPointViaInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveScheduledStopPointViaInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_label"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopLabel"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journeyPatternId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"is_via_point"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"via_point_name_i18n"},"value":{"kind":"NullValue"}},{"kind":"ObjectField","name":{"kind":"Name","value":"via_point_short_name_i18n"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
-export type RemoveScheduledStopPointViaInfoMutationFn = Apollo.MutationFunction<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
-
-/**
- * __useRemoveScheduledStopPointViaInfoMutation__
- *
- * To run a mutation, you first call `useRemoveScheduledStopPointViaInfoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveScheduledStopPointViaInfoMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeScheduledStopPointViaInfoMutation, { data, loading, error }] = useRemoveScheduledStopPointViaInfoMutation({
- *   variables: {
- *      stopLabel: // value for 'stopLabel'
- *      journeyPatternId: // value for 'journeyPatternId'
- *   },
- * });
- */
-export function useRemoveScheduledStopPointViaInfoMutation(baseOptions?: Apollo.MutationHookOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>(RemoveScheduledStopPointViaInfoDocument, options);
-      }
-export type RemoveScheduledStopPointViaInfoMutationHookResult = ReturnType<typeof useRemoveScheduledStopPointViaInfoMutation>;
-export type RemoveScheduledStopPointViaInfoMutationResult = Apollo.MutationResult<RemoveScheduledStopPointViaInfoMutation>;
-export type RemoveScheduledStopPointViaInfoMutationOptions = Apollo.BaseMutationOptions<RemoveScheduledStopPointViaInfoMutation, RemoveScheduledStopPointViaInfoMutationVariables>;
 export const GetStopPlaceChangeHistoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceChangeHistory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"historyItems"},"name":{"kind":"Name","value":"getStopPlaceChangeHistory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"privateCodeValue"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StopPlaceChangeHistoryItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netexId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changedBy"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeType"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeValue"}},{"kind":"Field","name":{"kind":"Name","value":"validityStart"}},{"kind":"Field","name":{"kind":"Name","value":"validityEnd"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"}}]}}]} as unknown as DocumentNode;
 
 /**
@@ -89807,7 +89807,7 @@ export type GetSubstituteOperatingPeriodsQueryHookResult = ReturnType<typeof use
 export type GetSubstituteOperatingPeriodsLazyQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsLazyQuery>;
 export type GetSubstituteOperatingPeriodsSuspenseQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsSuspenseQuery>;
 export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>;
-export const GetRouteWithJourneyPatternDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteWithJourneyPattern"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
+export const GetRouteWithJourneyPatternDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteWithJourneyPattern"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetRouteWithJourneyPatternQuery__

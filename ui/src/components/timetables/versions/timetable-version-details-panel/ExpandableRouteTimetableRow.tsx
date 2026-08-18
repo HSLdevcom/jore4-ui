@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { AccordionButton } from '../../../common/Buttons';
 import { Row, Visible } from '../../../common/LayoutComponents';
-import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
+import { DirectionBadge } from '../../../LinesAndRoutes/Lines/Details/DirectionBadge';
 
 type ExpandableRouteTimetableRowProps = {
   readonly direction: RouteDirectionEnum;

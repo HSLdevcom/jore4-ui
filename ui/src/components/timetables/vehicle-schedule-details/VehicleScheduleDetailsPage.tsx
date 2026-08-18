@@ -20,10 +20,10 @@ import {
   Row,
   Visible,
 } from '../../common/LayoutComponents';
-import { PageHeader } from '../../routes-and-lines/common/PageHeader';
-import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
-import { useGetLineDetails } from '../../routes-and-lines/line-details/useGetLineDetails';
-import { useGetRoutesDisplayedInList } from '../../routes-and-lines/line-details/useGetRoutesDisplayedInList';
+import { PageHeader } from '../../LinesAndRoutes/Common/PageHeader';
+import { LineTitle } from '../../LinesAndRoutes/Lines/Details/LineTitle';
+import { useGetLineDetails } from '../../LinesAndRoutes/Lines/Details/useGetLineDetails';
+import { useGetRoutesDisplayedInList } from '../../LinesAndRoutes/Lines/Details/useGetRoutesDisplayedInList';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import {
   TimetablesView,

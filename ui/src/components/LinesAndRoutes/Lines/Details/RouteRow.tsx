@@ -1,0 +1,204 @@
+import { DateTime } from 'luxon';
+import { FC, PropsWithChildren } from 'react';
+import { useTranslation } from 'react-i18next';
+import { MdHistory } from 'react-icons/md';
+import { Link } from 'react-router';
+import { twMerge } from 'tailwind-merge';
+import {
+  RouteAllFieldsFragment,
+  RouteDirectionEnum,
+} from '../../../../generated/graphql';
+import { makeBackNavigationIsSafeState } from '../../../../hooks';
+import { Path, routeDetails } from '../../../../router/routeDetails';
+import {
+  MAX_DATE,
+  MIN_DATE,
+  mapToShortDate,
+  mapToShortDateTime,
+} from '../../../../time';
+import {
+  mapDirectionToSymbol,
+  useGetLocalizedTextFromDbBlob,
+} from '../../../../utils/i18n';
+import {
+  AccordionButton,
+  EditButton,
+  LocatorButton,
+} from '../../../common/Buttons';
+import {
+  useAlertsAndHighLights,
+  useShowRoutesOnMap,
+} from '../../../common/hooks';
+import { AlertPopover } from '../../Common/AlertPopover';
+import { RouteLabel } from '../../Common/RouteLabel';
+import { DirectionBadge } from './DirectionBadge';
+
+const testIds = {
+  container: (routeLabel: string, direction: RouteDirectionEnum) =>
+    `RouteRow::${routeLabel}-${direction}`,
+  label: 'RouteRow::label',
+  name: 'RouteRow::name',
+  validityPeriod: 'RouteRow::validityPeriod',
+  lastEdited: 'RouteRow::lastEdited',
+  showRouteButton: 'RouteRow::showRouteButton',
+  toggleAccordion: 'RouteRow::toggleAccordion',
+  editRouteButton: 'RouteRow::editRouteButton',
+  versionsButton: 'RouteRow::versionsButton',
+};
+
+type RouteRowProps = {
+  readonly directionAndLabelId: string;
+  readonly className?: string;
+  readonly route: RouteAllFieldsFragment;
+  readonly observationDate: DateTime;
+  readonly isExpanded: boolean;
+  readonly isLast: boolean;
+  readonly onToggle: () => void;
+  readonly controls: string;
+};
+
+export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
+  directionAndLabelId,
+  className,
+  route,
+  observationDate,
+  isExpanded,
+  isLast,
+  onToggle,
+  controls,
+}) => {
+  const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
+  const { showRouteOnMap } = useShowRoutesOnMap();
+
+  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
+  const alertStatus = getAlertStatus(route);
+  const alertStyle = getAlertStyle(alertStatus.alertLevel);
+
+  const onClickShowRouteOnMap = () => {
+    showRouteOnMap(route);
+  };
+  const { label } = route;
+  const directionNumber = mapDirectionToSymbol(t, route.direction);
+
+  // alertStyle left border is different colour than what we want the bottom border to be
+  // and to achieve the correct visual design for the borders, we need to add it with pseudo classes
+  const pseudoBottomBorderClassName = !isLast
+    ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-white'
+    : '';
+
+  return (
+    <div
+      className={twMerge(
+        `relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24`,
+        pseudoBottomBorderClassName,
+        alertStyle.listItemBorder,
+        className,
+      )}
+      data-testid={testIds.container(label, route.direction)}
+    >
+      <div className="flex justify-center">
+        <AlertPopover
+          title={alertStatus.title}
+          description={alertStatus.description}
+          alertIcon={alertStyle.icon}
+        />
+      </div>
+      <div
+        id={directionAndLabelId}
+        className="col-span-2 ml-2 flex h-full items-center justify-evenly"
+      >
+        <DirectionBadge direction={route.direction as RouteDirectionEnum} />
+        {/* Route label max is 6 characters including space and the variant */}
+        <span className="ml-2 w-[6ch] text-xl" data-testid={testIds.label}>
+          <RouteLabel label={label} variant={route.variant} />
+        </span>
+      </div>
+      <span className="text-l col-span-8" data-testid={testIds.name}>
+        {getLocalizedTextFromDbBlob(route.name_i18n)}
+      </span>
+      <Link
+        to={routeDetails[Path.lineChangeHistory].getLink(label)}
+        className="col-span-3 text-center text-sm text-brand hover:underline"
+        data-testid={testIds.lastEdited}
+      >
+        !{mapToShortDateTime(DateTime.now())}
+        <MdHistory
+          aria-hidden
+          className="ml-1 inline text-xl text-tweaked-brand"
+        />
+      </Link>
+      <span
+        data-testid={testIds.validityPeriod}
+        className="col-span-5 text-center text-sm"
+      >
+        {t(($) => $.validity.validDuring, {
+          startDate: mapToShortDate(route.validity_start ?? MIN_DATE),
+          endDate: mapToShortDate(route.validity_end ?? MAX_DATE),
+        })}
+      </span>
+      <div className="col-span-4 flex h-full items-center justify-center gap-2 border-l-4 border-white">
+        <EditButton
+          href={routeDetails[Path.editRoute].getLink(route.route_id, {
+            observationDate: observationDate.toISODate(),
+          })}
+          testId={testIds.editRouteButton}
+          tooltip={t(($) => $.accessibility.routes.editRouteDirection, {
+            label,
+            directionNumber,
+          })}
+          className="ml-0 rounded-none border-none bg-transparent hover:text-black"
+        />
+        <LocatorButton
+          onClick={onClickShowRouteOnMap}
+          disabled={
+            !route.route_shape /* some routes imported from jore3 are missing the geometry */
+          }
+          testId={testIds.showRouteButton}
+          tooltipText={t(($) => $.accessibility.routes.showOnMapDirection, {
+            label,
+            directionNumber,
+          })}
+          className="ml-0 rounded-none border-none bg-transparent hover:text-black"
+        />
+        <Link
+          to={routeDetails[Path.routeVersions].getLink(
+            `${label}/${route.direction}`,
+          )}
+          state={makeBackNavigationIsSafeState()}
+          data-testid={testIds.versionsButton}
+          title={t(($) => $.accessibility.routes.viewVersions, {
+            label,
+            directionNumber,
+          })}
+        >
+          <i
+            aria-hidden
+            className="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
+          />
+        </Link>
+        <i
+          aria-hidden
+          className="icon-download disabled ml-2 text-3xl text-grey"
+        />
+      </div>
+      <AccordionButton
+        className="h-full border-l-4 border-white"
+        iconClassName="text-3xl"
+        isOpen={isExpanded}
+        onToggle={onToggle}
+        testId={testIds.toggleAccordion}
+        openTooltip={t(($) => $.accessibility.routes.expandStops, {
+          label,
+          directionNumber,
+        })}
+        closeTooltip={t(($) => $.accessibility.routes.closeStops, {
+          label,
+          directionNumber,
+        })}
+        controls={controls}
+      />
+    </div>
+  );
+};

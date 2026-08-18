@@ -4,7 +4,7 @@ import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../common/Buttons';
 import { PageTitle } from '../../common/Jore';
 import { Container, Row } from '../../common/LayoutComponents';
-import { SearchContainer } from '../../routes-and-lines/search/SearchContainer';
+import { SearchContainer } from '../../LinesAndRoutes/MainPage/Search/SearchContainer';
 
 const testIds = {
   importButton: 'TimetablesMainPage::importButton',

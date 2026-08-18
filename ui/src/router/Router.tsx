@@ -20,17 +20,17 @@ import { TaskListDisplay } from '../components/common/AsyncTaskList';
 import { PageTitle } from '../components/common/Jore';
 import { Navbar } from '../components/common/Navbar';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
+import { LineChangeHistoryPage } from '../components/LinesAndRoutes/Lines/ChangeHistory/LineChangeHistoryPage';
+import { CreateNewLinePage } from '../components/LinesAndRoutes/Lines/Create/CreateNewLinePage';
+import { LineDetailsPage } from '../components/LinesAndRoutes/Lines/Details/LineDetailsPage';
+import { LineDraftsPage } from '../components/LinesAndRoutes/Lines/Drafts/LineDraftsPage';
+import { EditLinePage } from '../components/LinesAndRoutes/Lines/Edit/EditLinePage';
+import { RoutesAndLinesMainPage } from '../components/LinesAndRoutes/MainPage/RoutesAndLinesMainPage';
+import { SearchResultPage } from '../components/LinesAndRoutes/MainPage/Search/SearchResultPage';
+import { EditRoutePage } from '../components/LinesAndRoutes/Routes/EditRoute/EditRoutePage';
+import { RouteVersionsPage } from '../components/LinesAndRoutes/Routes/RouteVersions';
 import { MainPage } from '../components/main/MainPage';
 import { MapPage } from '../components/map';
-import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
-import { EditLinePage } from '../components/routes-and-lines/edit-line/EditLinePage';
-import { EditRoutePage } from '../components/routes-and-lines/edit-route/EditRoutePage';
-import { LineChangeHistoryPage } from '../components/routes-and-lines/line-change-history/LineChangeHistoryPage';
-import { LineDetailsPage } from '../components/routes-and-lines/line-details/LineDetailsPage';
-import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
-import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
-import { RouteVersionsPage } from '../components/routes-and-lines/route-versions';
-import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
   StopDetailsPage,
   StopSearchResultPage,
