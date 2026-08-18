@@ -7,7 +7,7 @@ import { mapDurationToShortTime } from '../../../../time';
 import { getRouteLabelVariantText } from '../../../../utils';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { Row } from '../../../common/LayoutComponents';
-import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
+import { DirectionBadge } from '../../../LinesAndRoutes/Common/DirectionBadge';
 
 const testIds = {
   vehicleJourneyRow: 'VehicleJourneyRow',

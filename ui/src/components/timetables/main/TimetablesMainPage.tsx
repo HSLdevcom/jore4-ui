@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../common/Buttons';
 import { PageTitle } from '../../common/Jore';
+import { SearchContainer } from '../../common/Jore/RouteLineSearch/SearchContainer';
 import { Container, Row } from '../../common/LayoutComponents';
-import { SearchContainer } from '../../routes-and-lines/search/SearchContainer';
 
 const testIds = {
   importButton: 'TimetablesMainPage::importButton',

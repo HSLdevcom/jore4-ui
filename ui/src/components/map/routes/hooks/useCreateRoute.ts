@@ -19,7 +19,7 @@ import {
   filterNeedUpdateByLineType,
   lineTypeAffectsMetatypes,
   resolveStopInfoByPublicCodes,
-} from '../../../routes-and-lines/common/useUpdateStopRegistryStopMetatype';
+} from '../../../LinesAndRoutes/Common/useUpdateStopRegistryStopMetatype';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import {
   useValidateJourneyPattern,

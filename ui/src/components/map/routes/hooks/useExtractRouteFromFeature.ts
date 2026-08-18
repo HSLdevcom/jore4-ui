@@ -37,7 +37,7 @@ import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { StopPlaceState } from '../../../../types/stop-registry';
 import { Comparator, mapGeoJSONtoFeature } from '../../../../utils';
-import { getRouteStopLabels } from '../../../routes-and-lines/common/utils';
+import { getRouteStopLabels } from '../../../LinesAndRoutes/Common/utils';
 import { mapRouteToInfraLinksAlongRoute } from './utils';
 
 export type LineStringFeature = GeoJSON.Feature<GeoJSON.LineString>;

@@ -1,0 +1,83 @@
+import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router';
+import {
+  LineAllFieldsFragment,
+  ReusableComponentsVehicleModeEnum,
+  RouteLine,
+} from '../../../../generated/graphql';
+import { Path, routeDetails } from '../../../../router/routeDetails';
+import { Priority } from '../../../../types/enums';
+import { illegalOptionalCast, showSuccessToast } from '../../../../utils';
+import { PageTitle } from '../../../common/Jore';
+import { Container, Row } from '../../../common/LayoutComponents';
+import { FormState, LineForm } from '../../../forms/line/LineForm';
+import {
+  ConflictResolverModal,
+  mapLineToCommonConflictItem,
+} from '../../Common/ConflictResolverModal';
+import { useCreateLine } from './useCreateLine';
+
+export const CreateNewLinePage: FC = () => {
+  const {
+    prepareCreate,
+    mapCreateChangesToVariables,
+    insertLineMutation,
+    defaultErrorHandler,
+  } = useCreateLine();
+  const [conflicts, setConflicts] = useState<
+    ReadonlyArray<LineAllFieldsFragment>
+  >([]);
+  const [createdLineId, setCreatedLineId] = useState<UUID>();
+  const { t } = useTranslation();
+
+  const defaultValues = {
+    primaryVehicleMode: ReusableComponentsVehicleModeEnum.Bus,
+    priority: Priority.Draft,
+  };
+
+  const onSubmit = async (form: FormState) => {
+    try {
+      const changes = await prepareCreate({ form });
+      if (changes.conflicts?.length) {
+        setConflicts(changes.conflicts);
+        return;
+      }
+      const variables = mapCreateChangesToVariables(changes);
+      const result = await insertLineMutation({ variables });
+      const createdLine = illegalOptionalCast<RouteLine>(
+        result.data?.insert_route_line_one,
+      );
+      setCreatedLineId(createdLine?.line_id);
+      showSuccessToast(t(($) => $.lines.saveSuccess));
+    } catch (err) {
+      defaultErrorHandler(err);
+    }
+  };
+
+  if (createdLineId) {
+    // if line was successfully created, redirect to its page
+    return (
+      <Navigate
+        to={{ pathname: routeDetails[Path.lineDetails].getLink(createdLineId) }}
+      />
+    );
+  }
+
+  return (
+    <Container>
+      <ConflictResolverModal
+        onClose={() => setConflicts([])}
+        conflicts={conflicts.map(mapLineToCommonConflictItem)}
+      />
+      <Row>
+        <PageTitle.H1>{t(($) => $.lines.createNew)}</PageTitle.H1>
+      </Row>
+      <LineForm
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        validityPeriodTitle={t(($) => $.lines.lineValidityPeriod)}
+      />
+    </Container>
+  );
+};

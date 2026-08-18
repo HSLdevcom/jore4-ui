@@ -20,10 +20,11 @@ import {
   Row,
   Visible,
 } from '../../common/LayoutComponents';
-import { PageHeader } from '../../routes-and-lines/common/PageHeader';
-import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
-import { useGetLineDetails } from '../../routes-and-lines/line-details/useGetLineDetails';
-import { useGetRoutesDisplayedInList } from '../../routes-and-lines/line-details/useGetRoutesDisplayedInList';
+import {
+  LineTitle,
+  useGetLineDetails,
+  useGetRoutesDisplayedInList,
+} from '../../LinesAndRoutes/Common';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import {
   TimetablesView,
@@ -80,22 +81,24 @@ export const VehicleScheduleDetailsPage: FC = () => {
 
   return (
     <div>
-      <PageHeader>
-        <Row>
-          <i className="icon-bus-alt text-6xl text-tweaked-brand" />
-          {line && (
-            <LineTitle
-              line={line}
-              showValidityPeriod={false}
-              allowSelectingMultipleRoutes={
-                // If passing times by stop view is active, only allow selecting
-                // one route at the time
-                activeView !== TimetablesView.PASSING_TIMES_BY_STOP
-              }
-            />
-          )}
-        </Row>
-      </PageHeader>
+      <div className="border-b border-light-grey bg-background">
+        <Container>
+          <Row>
+            <i className="icon-bus-alt text-6xl text-tweaked-brand" />
+            {line && (
+              <LineTitle
+                line={line}
+                showValidityPeriod={false}
+                allowSelectingMultipleRoutes={
+                  // If passing times by stop view is active, only allow selecting
+                  // one route at the time
+                  activeView !== TimetablesView.PASSING_TIMES_BY_STOP
+                }
+              />
+            )}
+          </Row>
+        </Container>
+      </div>
       <Visible visible={!!line && activeView !== TimetablesView.DEFAULT}>
         <TimetableNavigation onClose={setShowDefaultView} />
       </Visible>
