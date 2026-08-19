@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../hooks';
-import { FilterType, resetMapState, setStopFilterAction } from '../../../redux';
+import {
+  FilterType,
+  resetMapState,
+  setStopFilterAction,
+  useAppDispatch,
+} from '../../../redux';
 import { SimpleButton } from '../Buttons';
 import { useNavigateToMap } from '../hooks';
 

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../hooks';
 import {
   openDeleteTimetableModalAction,
   openVersionPanelAction,
+  useAppDispatch,
 } from '../../../redux';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';

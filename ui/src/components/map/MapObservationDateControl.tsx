@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../hooks';
-import { selectHasChangesInProgress } from '../../redux';
+import { selectHasChangesInProgress, useAppSelector } from '../../redux';
 import { ObservationDateInput } from '../common/Inputs';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../../hooks';
-import { openTimingPlaceModalAction } from '../../../../redux';
+import { openTimingPlaceModalAction, useAppDispatch } from '../../../../redux';
 import { SimpleButton } from '../../../common/Buttons';
 import { InputField } from '../../../common/Inputs';
 import { Row } from '../../../common/LayoutComponents';

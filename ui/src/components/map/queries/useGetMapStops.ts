@@ -6,8 +6,7 @@ import {
   StopsDatabaseQuayNewestVersionBoolExp,
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
-import { Operation } from '../../../redux';
-import { Viewport } from '../../../redux/types';
+import { Operation, Viewport } from '../../../redux';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';

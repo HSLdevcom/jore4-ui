@@ -3,8 +3,12 @@ import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdList } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { selectMapStopSelection, setStopSelectionAction } from '../../../redux';
+import {
+  selectMapStopSelection,
+  setStopSelectionAction,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../redux';
 import { IconButton } from '../../common/Buttons';
 import { hasMeaningfulFilters } from '../../stop-registry';
 import { useMapUrlStateContext } from '../utils/mapUrlState';

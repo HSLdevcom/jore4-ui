@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { StopRegistryTransportModeType } from '../../../generated/graphql';
-import { useAppSelector } from '../../../hooks';
-import { FilterType, selectMapFilter } from '../../../redux';
+import { FilterType, selectMapFilter, useAppSelector } from '../../../redux';
 import { parseStopRegistryTransportMode } from '../../../utils';
 import { MapStopArea } from '../types';
 

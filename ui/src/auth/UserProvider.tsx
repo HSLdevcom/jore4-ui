@@ -1,7 +1,10 @@
 import { FC, PropsWithChildren, useCallback, useEffect } from 'react';
 import { Api } from '../api';
-import { useAppDispatch } from '../hooks';
-import { loginFailedAction, loginSuccessAction } from '../redux';
+import {
+  loginFailedAction,
+  loginSuccessAction,
+  useAppDispatch,
+} from '../redux';
 
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();

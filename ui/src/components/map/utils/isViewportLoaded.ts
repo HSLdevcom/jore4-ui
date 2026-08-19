@@ -1,4 +1,4 @@
-import { Viewport } from '../../../redux/types';
+import { Viewport } from '../../../redux';
 
 export function isViewportLoaded(viewport: Viewport): boolean {
   const [[west = 0, south = 0], [east = 0, north = 0]] = viewport.bounds;

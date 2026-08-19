@@ -11,8 +11,10 @@ import {
   Maybe,
   SubstituteOperatingPeriodSettingsInfoFragment,
 } from '../../../../generated/graphql';
-import { useAppDispatch } from '../../../../hooks';
-import { setIsOccasionalSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
+import {
+  setIsOccasionalSubstitutePeriodFormDirtyAction,
+  useAppDispatch,
+} from '../../../../redux';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { submitFormByRef } from '../../../../utils';

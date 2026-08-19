@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOGIN_URL } from '../../api/user';
-import { useAppSelector } from '../../hooks';
-import { selectUser } from '../../redux';
+import { selectUser, useAppSelector } from '../../redux';
 import { SimpleButton } from '../common/Buttons';
 import { PageTitle } from '../common/Jore';
 

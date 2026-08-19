@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   selectChangeTimetableValidityModal,
   setChangeTimetableValidityModalSuccessResultAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { mapToISODate } from '../../../time';
 import {

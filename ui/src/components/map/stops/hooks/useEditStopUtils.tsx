@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { StopRegistryGeoJsonType } from '../../../../generated/graphql';
-import { useAppDispatch } from '../../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
   setMapStopViewStateAction,
+  useAppDispatch,
 } from '../../../../redux';
 import { isDateInRange } from '../../../../time';
 import {

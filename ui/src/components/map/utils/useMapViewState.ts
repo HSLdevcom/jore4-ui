@@ -1,7 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   selectMapStopAreaViewState,
@@ -10,6 +9,7 @@ import {
   setMapStopAreaViewStateAction,
   setMapStopViewStateAction,
   setMapTerminalViewStateAction,
+  useAppSelector,
 } from '../../../redux';
 
 type MapViewState = {

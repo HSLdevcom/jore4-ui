@@ -4,8 +4,10 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
-import { useAppDispatch } from '../../../hooks';
-import { openChangeTimetableValidityModalAction } from '../../../redux';
+import {
+  openChangeTimetableValidityModalAction,
+  useAppDispatch,
+} from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
 import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { IconButton } from '../../common/Buttons';

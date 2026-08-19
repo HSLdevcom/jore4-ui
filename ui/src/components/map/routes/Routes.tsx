@@ -1,13 +1,13 @@
 import uniq from 'lodash/uniq';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
-import { useAppSelector } from '../../../hooks';
 import {
   Mode,
   selectEditedRouteData,
   selectHasDraftRouteGeometry,
   selectMapRouteEditor,
   selectSelectedRouteId,
+  useAppSelector,
 } from '../../../redux';
 import { Visible } from '../../common/LayoutComponents';
 import { RouteEditorRef } from '../refTypes';

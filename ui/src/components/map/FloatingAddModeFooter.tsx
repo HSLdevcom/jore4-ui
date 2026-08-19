@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppAction, useAppDispatch } from '../../hooks';
 import {
   MapEntityEditorViewState,
   setCopyStopIdAction,
   setRouteMetadataFormOpenAction,
+  useAppAction,
+  useAppDispatch,
 } from '../../redux';
 import { FloatingFooter } from './FloatingFooter';
 import { useMapViewState } from './utils/useMapViewState';

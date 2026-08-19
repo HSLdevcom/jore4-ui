@@ -5,12 +5,12 @@ import {
   RouteWithJourneyPatternStopsFragment,
   useGetRoutesWithStopsQuery,
 } from '../../../../generated/graphql';
-import { useAppSelector } from '../../../../hooks/redux';
 import {
   selectEditedRouteIncludedStops,
   selectMapRouteEditor,
   selectSelectedStopAreaId,
   selectSelectedStopId,
+  useAppSelector,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
 import { StopPlaceState } from '../../../../types/stop-registry';

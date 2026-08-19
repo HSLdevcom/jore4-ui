@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { StopRegistryTransportModeType } from '../../../../generated/graphql';
-import { useAppSelector } from '../../../../hooks';
-import { FilterType, selectMapFilter } from '../../../../redux';
+import { FilterType, selectMapFilter, useAppSelector } from '../../../../redux';
 import { MapStop } from '../../types';
 import { useVisibleRouteStops } from './useVisibleRouteStops';
 

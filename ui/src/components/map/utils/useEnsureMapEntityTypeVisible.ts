@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   MapEntityType,
   selectShowMapEntityTypes,
   setShowMapEntityTypeAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { showWarningToast } from '../../../utils';
 

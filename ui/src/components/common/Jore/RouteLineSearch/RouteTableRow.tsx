@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
 import { ChangeEventHandler, FC } from 'react';
 import { RouteTableRowFragment } from '../../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   deselectRowAction,
   selectExport,
   selectRowAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../redux';
 import { useShowRoutesOnMap } from '../../hooks';
 import { RouteLineTableRow } from './RouteLineTableRow';

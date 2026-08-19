@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { LoadingOverlay } from '../../components/common/Loaders';
-import { useAppSelector } from '../../hooks';
-import { selectIsJoreOperationLoading } from '../../redux';
+import { selectIsJoreOperationLoading, useAppSelector } from '../../redux';
 
 const testIds = {
   loader: 'JoreLoader::loader',

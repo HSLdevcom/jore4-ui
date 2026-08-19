@@ -9,8 +9,10 @@ import {
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../../generated/graphql';
-import { useAppDispatch } from '../../../../hooks';
-import { openTimingSettingsModalAction } from '../../../../redux';
+import {
+  openTimingSettingsModalAction,
+  useAppDispatch,
+} from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import {
   MAX_DATE,

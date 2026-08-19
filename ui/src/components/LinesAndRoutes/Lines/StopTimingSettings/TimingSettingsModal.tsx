@@ -5,9 +5,12 @@ import {
   ScheduledStopPointWithTimingSettingsFragment,
   useGetScheduledStopPointWithTimingSettingsQuery,
 } from '../../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { selectTimingSettingsModal } from '../../../../redux';
-import { closeTimingSettingsModalAction } from '../../../../redux/slices/modals';
+import {
+  closeTimingSettingsModalAction,
+  selectTimingSettingsModal,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../redux';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
 import { Modal, ModalHeader } from '../../../common/Modals';
 import { useWrapInContextNavigation } from '../../../forms/common/NavigationBlocker';

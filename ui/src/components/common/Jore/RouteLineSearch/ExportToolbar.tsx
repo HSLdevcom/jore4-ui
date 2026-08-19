@@ -1,16 +1,14 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useObservationDateQueryParam,
-} from '../../../../hooks';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import {
   resetSelectedRowsAction,
   selectExport,
   selectLoader,
   selectRowsAction,
   setIsSelectingRoutesForExportAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../redux';
 import { LoadingState } from '../../../../types';
 import {

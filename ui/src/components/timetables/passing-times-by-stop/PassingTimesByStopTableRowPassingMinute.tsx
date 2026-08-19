@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
-import { useAppSelector } from '../../../hooks';
-import { selectTimetable } from '../../../redux';
+import { selectTimetable, useAppSelector } from '../../../redux';
 import { mapDurationToShortTime, padToTwoDigits } from '../../../time';
 import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { Visible } from '../../common/LayoutComponents';

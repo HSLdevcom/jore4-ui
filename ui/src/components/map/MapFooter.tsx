@@ -1,11 +1,11 @@
 import some from 'lodash/some';
 import { FC } from 'react';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { useAppSelector } from '../../hooks';
 import {
   MapEntityEditorViewState,
   Mode,
   selectMapRouteEditor,
+  useAppSelector,
 } from '../../redux';
 import { FloatingAddModeFooter } from './FloatingAddModeFooter';
 import { FloatingStopResultsFooter } from './FloatingStopResultsFooter';

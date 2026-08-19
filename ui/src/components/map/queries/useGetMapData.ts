@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import { useAppSelector } from '../../../hooks';
 import {
   MapEntityType,
   Operation,
@@ -7,6 +6,7 @@ import {
   selectSelectedStopAreaId,
   selectSelectedTerminalId,
   selectShowMapEntityTypes,
+  useAppSelector,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { useLoader } from '../../common/hooks';

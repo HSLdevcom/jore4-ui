@@ -1,10 +1,11 @@
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   FilterType,
   selectMapFilter,
   setStopFilterAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { FilterItem } from './types';
 

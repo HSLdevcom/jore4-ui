@@ -2,8 +2,7 @@ import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import { useGetStopAreasByLocationQuery } from '../../../generated/graphql';
-import { Operation } from '../../../redux';
-import { Viewport } from '../../../redux/types';
+import { Operation, Viewport } from '../../../redux';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks';
 import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';
 

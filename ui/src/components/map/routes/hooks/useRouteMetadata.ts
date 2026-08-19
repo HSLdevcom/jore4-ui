@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { useAppSelector } from '../../../../hooks';
-import { selectEditedRouteData } from '../../../../redux';
+import { selectEditedRouteData, useAppSelector } from '../../../../redux';
 import { parseDate } from '../../../../time';
 
 export function useRouteMetadata() {

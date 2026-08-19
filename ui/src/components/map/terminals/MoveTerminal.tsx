@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
-import { useAppAction } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   setMapTerminalViewStateAction,
+  useAppAction,
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
 import { mapPointToStopRegistryGeoJSON } from '../../../utils';

@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import {
   QueryParameterName,
-  useAppSelector,
   useDateQueryParam,
   useUrlQuery,
 } from '../../../hooks';
-import { selectTimetable } from '../../../redux';
+import { selectTimetable, useAppSelector } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { DateRange } from '../../../types';
 import { CloseIconButton } from '../../common/Buttons';

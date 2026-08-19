@@ -5,11 +5,12 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import { twMerge } from 'tailwind-merge';
 import { StopSelectionInfoFragment as StopSelectionInfo } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   FilterType,
   selectMapFilter,
   toggleStopSelectionAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../common/Buttons';

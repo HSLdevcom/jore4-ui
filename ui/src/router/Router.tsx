@@ -50,8 +50,7 @@ import { ImportTimetablesPage } from '../components/timetables/import/ImportTime
 import { PreviewTimetablesPage } from '../components/timetables/import/PreviewTimetablesPage';
 import { TimetableVersionsPage } from '../components/timetables/versions';
 import { joreConfig } from '../config';
-import { useAppSelector } from '../hooks';
-import { selectUser } from '../redux';
+import { selectUser, useAppSelector } from '../redux';
 import { mapToShortDateTime } from '../time';
 import { showDangerToast } from '../utils';
 import { JoreErrorModal } from './Components/JoreErrorModal';

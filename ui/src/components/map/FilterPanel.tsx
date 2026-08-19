@@ -3,10 +3,11 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectMapFilter,
   setShowMapEntityTypeFilterOverlayAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../redux';
 import { IconButton } from '../common/Buttons';
 import { Row } from '../common/LayoutComponents';

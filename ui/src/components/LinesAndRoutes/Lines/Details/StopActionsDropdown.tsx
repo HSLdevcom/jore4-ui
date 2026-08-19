@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   Operation,
   openTimingSettingsModalAction,
   openViaModalAction,
   selectIsJoreOperationLoading,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../redux';
 import { showDangerToast, showSuccessToast } from '../../../../utils';
 import {

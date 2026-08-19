@@ -1,15 +1,12 @@
 import orderBy from 'lodash/orderBy';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useRequiredParams,
-  useTimeRangeQueryParams,
-} from '../../../hooks';
+import { useRequiredParams, useTimeRangeQueryParams } from '../../../hooks';
 import {
   closeChangeTimetableValidityModalAction,
   selectChangeTimetableValidityModal,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../common/Buttons';

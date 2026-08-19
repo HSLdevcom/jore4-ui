@@ -4,11 +4,11 @@ import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../../../../hooks';
 import {
   Operation,
   closeCutStopVersionValidityModalAction,
   openCutStopVersionValidityModalAction,
+  useAppDispatch,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';

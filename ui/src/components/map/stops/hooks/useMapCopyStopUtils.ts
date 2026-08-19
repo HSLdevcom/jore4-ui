@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useAppAction, useAppSelector } from '../../../../hooks';
 import {
   MapEntityEditorViewState,
   closeTimingPlaceModalAction,
@@ -12,6 +11,8 @@ import {
   setDraftVehicleModeAction,
   setMapStopViewStateAction,
   setSelectedStopIdAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../../redux';
 import { isDateInRange, parseDate } from '../../../../time';
 import { Point } from '../../../../types';

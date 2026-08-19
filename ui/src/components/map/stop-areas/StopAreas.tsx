@@ -6,7 +6,6 @@ import {
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -18,6 +17,8 @@ import {
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';

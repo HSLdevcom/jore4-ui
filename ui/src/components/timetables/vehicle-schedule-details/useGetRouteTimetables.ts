@@ -8,8 +8,12 @@ import {
   VehicleScheduleFragment,
   useGetVehicleSchedulesForDateQuery,
 } from '../../../generated/graphql';
-import { useAppSelector, useObservationDateQueryParam } from '../../../hooks';
-import { Operation, selectChangeTimetableValidityModal } from '../../../redux';
+import { useObservationDateQueryParam } from '../../../hooks';
+import {
+  Operation,
+  selectChangeTimetableValidityModal,
+  useAppSelector,
+} from '../../../redux';
 import { findEarliestTime, findLatestTime } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 import { useLoader } from '../../common/hooks';

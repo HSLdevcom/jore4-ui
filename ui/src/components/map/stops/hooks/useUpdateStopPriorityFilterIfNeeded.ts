@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   FilterType,
   selectMapFilter,
   setStopFilterAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
 import { showWarningToast } from '../../../../utils';

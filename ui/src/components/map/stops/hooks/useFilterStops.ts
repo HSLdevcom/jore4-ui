@@ -1,11 +1,11 @@
 import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
-import { useAppSelector } from '../../../../hooks';
 import {
   ActiveStopFilters,
   FilterType,
   selectMapFilter,
+  useAppSelector,
 } from '../../../../redux';
 import { FilterableStopInfo } from '../../../../types';
 import { Priority } from '../../../../types/enums';

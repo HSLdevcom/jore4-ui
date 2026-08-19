@@ -1,10 +1,11 @@
 import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks';
 import {
   closeCutStopVersionValidityModalAction,
   selectCutStopVersionValidityModal,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../../redux';
 import { ConfirmModal } from '../../../../common/Modals';
 

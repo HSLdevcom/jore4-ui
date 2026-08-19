@@ -1,11 +1,12 @@
 import { FC, useRef } from 'react';
-import { useAppAction, useNavigateBackSafely } from '../../hooks';
+import { useNavigateBackSafely } from '../../hooks';
 import {
   MapEntityEditorViewState,
   setCopyStopIdAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
+  useAppAction,
 } from '../../redux';
 import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
 import { Map } from './Map';

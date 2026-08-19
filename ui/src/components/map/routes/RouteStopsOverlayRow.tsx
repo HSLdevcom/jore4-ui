@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteStopFieldsFragment } from '../../../generated/graphql';
-import { useAppDispatch } from '../../../hooks';
 import {
   excludeStopFromJourneyPatternAction,
   includeStopToJourneyPatternAction,
+  useAppDispatch,
 } from '../../../redux';
 import {
   SimpleDropdownMenu,

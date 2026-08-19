@@ -30,8 +30,7 @@ import {
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
 } from '../../../../generated/graphql';
-import { useAppSelector } from '../../../../hooks';
-import { selectEditedRouteData } from '../../../../redux';
+import { selectEditedRouteData, useAppSelector } from '../../../../redux';
 import { areValidityPeriodsOverlapping } from '../../../../time';
 import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';

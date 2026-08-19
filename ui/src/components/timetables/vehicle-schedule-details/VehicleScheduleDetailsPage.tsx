@@ -1,16 +1,15 @@
 import { Field } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   closeChangeTimetableValidityModalAction,
   selectChangeTimetableValidityModal,
   selectTimetable,
-} from '../../../redux';
-import {
   setShowAllValidAction,
   setShowArrivalTimesAction,
-} from '../../../redux/slices/timetable';
+  useAppDispatch,
+  useAppSelector,
+} from '../../../redux';
 import { SimpleButton } from '../../common/Buttons';
 import { ObservationDateControl, Switch, SwitchLabel } from '../../common/Jore';
 import {

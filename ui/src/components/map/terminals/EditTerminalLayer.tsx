@@ -1,12 +1,13 @@
 import { MapLayerMouseEvent } from 'maplibre-gl';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   isModalOpen,
   selectMapTerminalViewState,
   setEditedTerminalDataAction,
   setMapTerminalViewStateAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';

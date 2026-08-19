@@ -1,6 +1,11 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { FilterType, selectMapFilter, setStopFilterAction } from '../../redux';
+import {
+  FilterType,
+  selectMapFilter,
+  setStopFilterAction,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import { FilterPanel } from './FilterPanel';
 
 type MapFilterPanelProps = {

@@ -1,11 +1,12 @@
 import { useCallback } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   selectEditedRouteData,
   selectMapRouteEditor,
   setDraftRouteGeometryAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../redux';
 import { log } from '../../../../utils';
 import { addRoute } from '../../utils/mapUtils';

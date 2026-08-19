@@ -16,8 +16,11 @@ import {
   StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../generated/graphql';
-import { useAppSelector } from '../../../hooks';
-import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
+import {
+  Operation,
+  selectIsTimingPlaceModalOpen,
+  useAppSelector,
+} from '../../../redux';
 import { parseDate } from '../../../time';
 import { StopPlaceState } from '../../../types/stop-registry';
 import {

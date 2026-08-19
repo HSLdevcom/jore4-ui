@@ -6,7 +6,6 @@ import {
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   MapEntityType,
@@ -24,6 +23,8 @@ import {
   setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { Priority } from '../../../types/enums';

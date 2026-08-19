@@ -4,11 +4,12 @@ import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   selectEditedRouteData,
   selectMapRouteEditor,
   setTemplateRouteIdAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { InputField } from '../../common/Inputs';
 import { Switch, SwitchLabel } from '../../common/Jore';

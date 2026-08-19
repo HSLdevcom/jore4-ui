@@ -4,8 +4,7 @@ import {
   MapMinimalTerminalDetailsFragment,
   useGetStopTerminalsByLocationQuery,
 } from '../../../generated/graphql';
-import { Operation } from '../../../redux';
-import { Viewport } from '../../../redux/types';
+import { Operation, Viewport } from '../../../redux';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { ChildStopPlaceIds, MapTerminal } from '../types';
 import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';

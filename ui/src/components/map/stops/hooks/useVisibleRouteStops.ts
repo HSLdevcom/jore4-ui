@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { useAppSelector } from '../../../../hooks/redux';
 import {
   selectEditedRouteData,
   selectHasChangesInProgress,
+  useAppSelector,
 } from '../../../../redux';
 import { useGetRoutesDisplayedInMap } from './useGetRoutesDisplayedInMap';
 

@@ -14,7 +14,6 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteDefaultFieldsFragment,
 } from '../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Mode,
   Operation,
@@ -32,6 +31,8 @@ import {
   startRouteCreatingAction,
   startRouteEditingAction,
   stopRouteEditingAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';

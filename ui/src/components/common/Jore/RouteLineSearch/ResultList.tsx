@@ -3,8 +3,7 @@ import {
   LineTableRowFragment,
   RouteTableRowFragment,
 } from '../../../../generated/graphql';
-import { useAppSelector } from '../../../../hooks';
-import { selectExport } from '../../../../redux';
+import { selectExport, useAppSelector } from '../../../../redux';
 import { DisplayedSearchResultType } from '../../../../utils';
 import { LinesList } from './LinesList';
 import { RoutesList } from './RoutesList';

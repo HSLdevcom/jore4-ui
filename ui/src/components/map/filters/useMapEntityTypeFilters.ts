@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityType,
   selectShowMapEntityTypes,
   setShowMapEntityTypeAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { FilterItem } from './types';
 

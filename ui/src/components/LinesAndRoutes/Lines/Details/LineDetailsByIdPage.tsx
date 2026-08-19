@@ -3,13 +3,14 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   resetMapRouteEditorStateAction,
   selectIsTimingSettingsModalOpen,
   selectIsViaModalOpen,
   setLineInfoAction,
   startRouteCreatingAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
 import { getTransportModeIcon, isPastEntity } from '../../../../utils';

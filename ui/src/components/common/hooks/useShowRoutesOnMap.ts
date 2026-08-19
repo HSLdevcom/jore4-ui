@@ -6,8 +6,12 @@ import {
   LineTableRowFragment,
   RouteMapParamsFragment,
 } from '../../../generated/graphql';
-import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
-import { resetMapState, setSelectedRouteIdAction } from '../../../redux';
+import { useObservationDateQueryParam } from '../../../hooks';
+import {
+  resetMapState,
+  setSelectedRouteIdAction,
+  useAppDispatch,
+} from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';
 import {

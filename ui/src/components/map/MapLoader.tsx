@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../hooks';
-import { selectMapOperationLoadingState } from '../../redux';
+import { selectMapOperationLoadingState, useAppSelector } from '../../redux';
 import { LoadingOverlay } from '../common/Loaders';
 
 const testIds = {

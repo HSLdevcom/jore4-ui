@@ -1,4 +1,4 @@
-import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
+import { useObservationDateQueryParam } from '../../../hooks';
 import {
   FilterType,
   MapEntityEditorViewState,
@@ -6,6 +6,7 @@ import {
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
   setStopFilterAction,
+  useAppDispatch,
 } from '../../../redux';
 import { Point } from '../../../types';
 import { useNavigateToMap } from '../../common/hooks';

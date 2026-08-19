@@ -18,8 +18,13 @@ import MapGL, {
   NavigationControl,
 } from 'react-map-gl/maplibre';
 import { joreConfig } from '../../config';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Operation, selectMapViewport, setViewPortAction } from '../../redux';
+import {
+  Operation,
+  selectMapViewport,
+  setViewPortAction,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import { LoadingState } from '../../types';
 import { log, showWarningToast } from '../../utils';
 import { useLoader } from '../common/hooks/useLoader';

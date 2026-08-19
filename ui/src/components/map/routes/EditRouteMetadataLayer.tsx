@@ -8,7 +8,6 @@ import {
   GetRouteDetailsByIdQuery,
   GetRouteDetailsByIdQueryVariables,
 } from '../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   finishRouteMetadataEditingAction,
   resetRouteCreatingAction,
@@ -17,6 +16,8 @@ import {
   setDraftRouteJourneyPatternAction,
   setLineInfoAction,
   setRouteMetadataFormOpenAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { stopInJourneyPatternFieldsToRemove } from '../../../utils';
 import {

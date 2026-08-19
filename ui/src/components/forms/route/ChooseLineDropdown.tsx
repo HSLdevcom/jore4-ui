@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../generated/graphql';
-import { useAppSelector } from '../../../hooks';
-import { selectEditedRouteData } from '../../../redux';
+import { selectEditedRouteData, useAppSelector } from '../../../redux';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import {
   ComboboxInputProps,

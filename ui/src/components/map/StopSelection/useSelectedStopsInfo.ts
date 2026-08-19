@@ -10,11 +10,12 @@ import {
   StopsDatabaseQuayNewestVersionBoolExp,
   useGetStopSelectionInfoQuery,
 } from '../../../generated/graphql';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapStopSelection,
   selectMapStopSelection,
   setStopSelectionAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { ResultSelection, StopSearchFilters } from '../../stop-registry';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';

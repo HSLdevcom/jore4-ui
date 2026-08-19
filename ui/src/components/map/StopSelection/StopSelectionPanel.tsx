@@ -2,8 +2,7 @@ import { PopoverPanel } from '@headlessui/react';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { useAppSelector } from '../../../hooks';
-import { selectMapStopSelection } from '../../../redux';
+import { selectMapStopSelection, useAppSelector } from '../../../redux';
 import { SlimDropDownMenu } from '../../common/Dropdowns';
 import {
   EquipmentReportMenuItem,

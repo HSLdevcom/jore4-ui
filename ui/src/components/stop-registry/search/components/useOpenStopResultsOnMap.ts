@@ -14,11 +14,11 @@ import {
   GetStopSearchResultDetailsForMapQuery,
   GetStopSearchResultDetailsForMapQueryVariables,
 } from '../../../../generated/graphql';
-import { useAppDispatch } from '../../../../hooks';
 import {
   FilterType,
   MapEntityType,
   MutableViewport,
+  Viewport as ReduxViewPort,
   defaultViewPort as defaultReduxMapViewPort,
   resetMapState,
   setShowMapEntityTypeFilterOverlayAction,
@@ -26,8 +26,8 @@ import {
   setStopFiltersAction,
   setStopSelectionAction,
   setViewPortAction,
+  useAppDispatch,
 } from '../../../../redux';
-import { Viewport as ReduxViewPort } from '../../../../redux/types';
 import { ValidGeoJsonPoint, isValidGeoJSONPoint, log } from '../../../../utils';
 import { useNavigateToMap } from '../../../common/hooks';
 import {

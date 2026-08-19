@@ -8,8 +8,7 @@ import {
   RouteWithJourneyPatternStopsFragment,
   VehicleJourneyByStopFragment,
 } from '../../../generated/graphql';
-import { useAppDispatch } from '../../../hooks/redux';
-import { setShowArrivalTimesAction } from '../../../redux/slices/timetable';
+import { setShowArrivalTimesAction, useAppDispatch } from '../../../redux';
 import {
   fireEvent,
   getAssertedElement,

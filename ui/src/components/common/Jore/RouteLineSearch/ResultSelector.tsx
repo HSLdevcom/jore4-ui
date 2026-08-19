@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../../hooks';
-import { resetSelectedRowsAction } from '../../../../redux';
+import { resetSelectedRowsAction, useAppDispatch } from '../../../../redux';
 import { DisplayedSearchResultType } from '../../../../utils';
 import { SimpleButton } from '../../Buttons';
 import { useSearch } from './useSearch';

@@ -3,8 +3,7 @@ import type { LineString, Position } from 'geojson';
 import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
-import { useAppSelector } from '../../../hooks';
-import { selectEditedStopAreaData } from '../../../redux';
+import { selectEditedStopAreaData, useAppSelector } from '../../../redux';
 import { Point } from '../../../types';
 import { LineRenderLayer } from '../routes';
 

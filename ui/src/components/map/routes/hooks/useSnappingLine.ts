@@ -1,8 +1,10 @@
 import debounce from 'lodash/debounce';
 import { useCallback, useMemo, useState } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
-import { useAppDispatch } from '../../../../hooks';
-import { resetDraftRouteGeometryAction } from '../../../../redux';
+import {
+  resetDraftRouteGeometryAction,
+  useAppDispatch,
+} from '../../../../redux';
 import { removeRoute } from '../../utils/mapUtils';
 import { SNAPPING_LINE_LAYER_ID } from '../utils';
 import { LineStringFeature } from './useExtractRouteFromFeature';

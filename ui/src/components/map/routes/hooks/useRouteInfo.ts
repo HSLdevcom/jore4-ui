@@ -7,11 +7,11 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   useGetRouteWithInfrastructureLinksWithStopsQuery,
 } from '../../../../generated/graphql';
-import { useAppSelector } from '../../../../hooks';
 import {
   EditedRouteData,
   selectEditedRouteData,
   selectHasChangesInProgress,
+  useAppSelector,
 } from '../../../../redux';
 import {
   getRouteStopLabels,

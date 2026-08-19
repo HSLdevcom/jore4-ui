@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../../hooks';
-import { selectEditedRouteData } from '../../../redux';
+import { selectEditedRouteData, useAppSelector } from '../../../redux';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
 
 export const DraftRouteGeometryLayer: FC = () => {

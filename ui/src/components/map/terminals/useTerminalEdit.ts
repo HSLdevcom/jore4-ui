@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -7,6 +6,8 @@ import {
   setEditedTerminalDataAction,
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';

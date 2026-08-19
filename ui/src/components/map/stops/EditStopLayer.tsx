@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
-import { useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -19,6 +18,7 @@ import {
   setMapStopViewStateAction,
   setSelectedRouteIdAction,
   toggleStopSelectionAction,
+  useAppSelector,
 } from '../../../redux';
 import { EnrichedStopPlace, Point } from '../../../types';
 import {

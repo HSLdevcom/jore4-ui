@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { useAppAction, useAppSelector } from '../../hooks';
 import {
   MapEntityEditorViewState,
   Mode,
@@ -13,6 +12,8 @@ import {
   selectIsInViewMode,
   selectMapRouteEditor,
   setDraftVehicleModeAction,
+  useAppAction,
+  useAppSelector,
 } from '../../redux';
 import { SimpleButton } from '../common/Buttons';
 import { Row, Visible } from '../common/LayoutComponents';

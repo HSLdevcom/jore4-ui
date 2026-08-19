@@ -1,5 +1,5 @@
 import { GeometryComparisonExp } from '../../../generated/graphql';
-import { Viewport } from '../../../redux/types';
+import { Viewport } from '../../../redux';
 
 export function buildWithinViewportGqlGeometryFilter(
   viewport: Viewport,

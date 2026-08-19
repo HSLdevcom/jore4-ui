@@ -1,8 +1,7 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useAppSelector } from '../../../hooks';
-import { selectIsJoreOperationLoading } from '../../../redux';
+import { selectIsJoreOperationLoading, useAppSelector } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { submitFormByRef } from '../../../utils';
 import { AccordionButton, SimpleButton } from '../../common/Buttons';

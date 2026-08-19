@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon';
-import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
+import { useObservationDateQueryParam } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   resetMapState,
   setMapStopViewStateAction,
   setSelectedStopIdAction,
+  useAppDispatch,
 } from '../../../redux';
 import { useNavigateToMap } from '../../common/hooks';
 import { useUpdateStopPriorityFilterIfNeeded } from '../../map/stops/hooks/useUpdateStopPriorityFilterIfNeeded';

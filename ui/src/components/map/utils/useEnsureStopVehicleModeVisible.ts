@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   FilterType,
   selectMapFilter,
   setStopFilterAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { parseVehicleMode, showWarningToast } from '../../../utils';
 

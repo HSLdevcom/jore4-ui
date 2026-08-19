@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { RouteDirectionEnum } from '../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   selectHasChangesInProgress,
   selectMapRouteEditor,
   setRouteMetadataFormOpenAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import {

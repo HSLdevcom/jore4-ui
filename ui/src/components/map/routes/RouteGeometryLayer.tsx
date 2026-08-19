@@ -1,8 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
 import { theme } from '../../../generated/theme';
-import { useAppSelector } from '../../../hooks';
-import { selectMapRouteEditor } from '../../../redux';
+import { selectMapRouteEditor, useAppSelector } from '../../../redux';
 import { ArrowLayout, ArrowPaint, ArrowRenderLayer } from './ArrowRenderLayer';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import { LinePaint, LineRenderLayer } from './LineRenderLayer';

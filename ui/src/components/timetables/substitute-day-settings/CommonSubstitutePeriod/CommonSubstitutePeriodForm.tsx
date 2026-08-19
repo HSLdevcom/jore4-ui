@@ -6,8 +6,10 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SubstituteOperatingPeriodSettingsInfoFragment } from '../../../../generated/graphql';
-import { useAppDispatch } from '../../../../hooks';
-import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
+import {
+  setIsCommonSubstitutePeriodFormDirtyAction,
+  useAppDispatch,
+} from '../../../../redux';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
 import { DateRange } from '../../../../types';
 import { submitFormByRef } from '../../../../utils';

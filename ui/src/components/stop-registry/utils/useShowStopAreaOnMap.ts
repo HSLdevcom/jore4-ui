@@ -1,9 +1,10 @@
-import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
+import { useObservationDateQueryParam } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   resetMapState,
   setMapStopAreaViewStateAction,
   setSelectedMapStopAreaIdAction,
+  useAppDispatch,
 } from '../../../redux';
 import { Point } from '../../../types';
 import { useNavigateToMap } from '../../common/hooks';

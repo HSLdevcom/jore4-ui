@@ -2,10 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../../../../../hooks/redux';
 import {
   openTimingPlaceModalAction,
   selectIsTimingPlaceModalOpen,
+  useAppSelector,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import {

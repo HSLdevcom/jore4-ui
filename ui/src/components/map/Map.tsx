@@ -11,7 +11,6 @@ import {
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   MapEntityEditorViewState,
   MapEntityType,
@@ -24,6 +23,8 @@ import {
   selectSelectedRouteId,
   selectShowMapEntityTypes,
   setSelectedRouteIdAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../redux';
 import { CustomOverlay } from './CustomOverlay';
 import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';

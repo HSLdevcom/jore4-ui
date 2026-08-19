@@ -1,9 +1,9 @@
 import type { MultiLineString, Position } from 'geojson';
 import { FC, useMemo } from 'react';
-import { useAppSelector } from '../../../hooks';
 import {
   selectSelectedStopAreaId,
   selectSelectedTerminalId,
+  useAppSelector,
 } from '../../../redux';
 import { getPointPosition } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';

@@ -2,7 +2,6 @@ import { MapLayerMouseEvent } from 'maplibre-gl';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   MapEntityType,
@@ -15,6 +14,8 @@ import {
   setMapStopAreaViewStateAction,
   setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
+  useAppAction,
+  useAppSelector,
 } from '../../../redux';
 import { EnrichedStopPlace } from '../../../types';
 import {

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
-import { useAppSelector } from '../../../../hooks';
 import {
   closeVersionPanelAction,
   selectTimetableVersionPanel,
+  useAppSelector,
 } from '../../../../redux';
 import { SortOrder } from '../../../../types';
 import {

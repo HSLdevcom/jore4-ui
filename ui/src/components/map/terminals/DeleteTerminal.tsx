@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppAction } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
   setEditedTerminalDataAction,
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
+  useAppAction,
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';

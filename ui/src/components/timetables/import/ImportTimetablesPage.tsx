@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { extractErrorType, getImportErrorBody } from '../../../api/hastus';
-import { useAppSelector } from '../../../hooks';
 import {
   ErrorListItem,
   openErrorListModalAction,
   selectIsJoreOperationLoading,
+  useAppSelector,
 } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';

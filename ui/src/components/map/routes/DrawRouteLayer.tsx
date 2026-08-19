@@ -2,13 +2,14 @@ import isEmpty from 'lodash/isEmpty';
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Mode,
   Operation,
   selectEditedRouteData,
   selectMapRouteEditor,
   stopRouteEditingAction,
+  useAppDispatch,
+  useAppSelector,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { useLoader } from '../../common/hooks/useLoader';

@@ -5,9 +5,12 @@ import {
   JourneyPatternScheduledStopPointInJourneyPattern,
   useGetScheduledStopPointWithViaInfoQuery,
 } from '../../../../generated/graphql';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { selectViaModal } from '../../../../redux';
-import { closeViaModalAction } from '../../../../redux/slices/modals';
+import {
+  closeViaModalAction,
+  selectViaModal,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../redux';
 import {
   illegalOptionalCast,
   showDangerToastWithError,

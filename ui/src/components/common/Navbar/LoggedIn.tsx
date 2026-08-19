@@ -1,6 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import { useAppSelector } from '../../../hooks';
-import { selectUser } from '../../../redux';
+import { selectUser, useAppSelector } from '../../../redux';
 
 /*
  * Convenience component for conditionally hiding components from
