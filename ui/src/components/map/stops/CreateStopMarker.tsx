@@ -3,7 +3,7 @@ import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
-import { useCallbackOnKeyEscape } from '../../../hooks';
+import { useCallbackOnKeyEscape } from '../../../utils';
 import {
   drawLineToClosestRoad,
   removeLineFromStopToInfraLink,

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
-import { useAppSelector, useCallbackOnKeyEscape } from '../../../../hooks';
+import { useAppSelector } from '../../../../hooks';
 import {
   closeVersionPanelAction,
   selectTimetableVersionPanel,
@@ -11,6 +11,7 @@ import {
   chainedComparator,
   comparePrimitive,
   getOrder,
+  useCallbackOnKeyEscape,
 } from '../../../../utils';
 import { Visible } from '../../../common/LayoutComponents';
 import {

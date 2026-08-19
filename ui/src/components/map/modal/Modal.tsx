@@ -1,7 +1,6 @@
-import { FC, ReactNode } from 'react';
+import { FC, KeyboardEventHandler, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { doOnEscape } from '../../../hooks';
 import { SimpleButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 import {
@@ -14,6 +13,18 @@ import { ModalHeader } from './ModalHeader';
 const testIds = {
   saveButton: 'Modal::saveButton',
 };
+
+function doOnEscape<E extends HTMLElement>(
+  callback: () => void,
+): KeyboardEventHandler<E> {
+  return (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      e.stopPropagation();
+      callback();
+    }
+  };
+}
 
 type ModalFooterProps = {
   readonly className?: string;

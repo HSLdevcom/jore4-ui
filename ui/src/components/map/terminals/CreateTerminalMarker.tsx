@@ -1,8 +1,8 @@
 import noop from 'lodash/noop';
 import { FC, useEffect, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { useCallbackOnKeyEscape } from '../../../hooks';
 import { Coords } from '../../../types';
+import { useCallbackOnKeyEscape } from '../../../utils';
 import { TerminalMarker } from '../markers';
 
 type CreateTerminalMarkerProps = {
