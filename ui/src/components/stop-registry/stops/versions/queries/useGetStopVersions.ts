@@ -5,10 +5,13 @@ import {
   StopVersionInfoFragment,
   useGetQuayVersionsQuery,
 } from '../../../../../generated/graphql';
-import { GetUserNameById, useGetUserNames } from '../../../../../hooks';
 import { parseDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
+import {
+  GetUserNameById,
+  useGetUserNames,
+} from '../../../../common/ChangeHistory';
 import {
   VersionStatus,
   mapPriorityToVersionStatus,
@@ -116,7 +119,7 @@ export function useGetStopVersions(
     variables: { publicCode },
     skip: !publicCode,
   });
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   const rawQuays = data?.stops_database?.quays;
   const stopVersions = useMemo(() => {

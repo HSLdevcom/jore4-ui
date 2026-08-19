@@ -5,12 +5,12 @@ import {
   QuayChangeHistoryItem,
   useGetStopChangeHistoryQuery,
 } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import { SortOrder } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
+  GetUserNameById,
 } from '../../../../common/ChangeHistory';
 import {
   historyItemIsDateRange,

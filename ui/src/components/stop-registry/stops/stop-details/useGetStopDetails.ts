@@ -16,10 +16,6 @@ import {
   useObservationDateQueryParam,
   useUrlQuery,
 } from '../../../../hooks/urlQuery';
-import {
-  GetUserNameById,
-  useGetUserNames,
-} from '../../../../hooks/useGetUserNames';
 import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
   EnrichedQuay,
@@ -36,6 +32,10 @@ import {
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
+import {
+  GetUserNameById,
+  useGetUserNames,
+} from '../../../common/ChangeHistory';
 import { mapToEnrichedQuay } from '../../utils';
 import { getMirrorParentId, isMirrorChild } from '../../utils/mirrorRelation';
 import { useGetLatestQuayChange } from '../queries/useGetQuayChangeHistory';
@@ -532,7 +532,7 @@ export function useGetStopDetails() {
   const { observationDate } = useObservationDateQueryParam();
   const { queryParams } = useUrlQuery();
   const priority = Number(queryParams.priority);
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   const where = getWhereCondition(label);
   const { data, ...rest } = useGetStopDetailsQuery({ variables: { where } });
@@ -572,7 +572,7 @@ export function useGetStopDetails() {
 
 export function useGetStopDetailsLazy() {
   const apollo = useApolloClient();
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   return useCallback(
     async (

@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
-import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
+import {
+  GetUserNameById,
+  NoEarlierVersionExists,
+} from '../../../../common/ChangeHistory';
 import { PreviousStopPlaceChangeHistoryItem } from '../../../components/ChangeHistory';
 import { DataDiffSections } from './DataDiffSections';
 import { TerminalChangeHistoryFirstVersionHeaderRow } from './TerminalChangeHistoryFirstVersionHeaderRow';

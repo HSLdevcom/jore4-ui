@@ -1,6 +1,8 @@
 import { FC } from 'react';
-import { GetUserNameById } from '../../../../../hooks';
-import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
+import {
+  GetUserNameById,
+  NoEarlierVersionExists,
+} from '../../../../common/ChangeHistory';
 import { LineChangeHistoryItem, PreviousLineChangeHistoryItem } from '../Types';
 import { DataDiffSections } from './DataDiffSections';
 import { LineChangeDeletedVersionHeaderRow } from './LineChangeDeletedVersionHeaderRow';

@@ -6,11 +6,12 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { Link } from 'react-router';
 import { twJoin } from 'tailwind-merge';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
-import { makeBackNavigationIsSafeState, useGetUserNames } from '../../../hooks';
+import { makeBackNavigationIsSafeState } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDateTime } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { SimpleButton } from '../../common/Buttons';
+import { useGetUserNames } from '../../common/ChangeHistory';
 import { PageTitle } from '../../common/Jore';
 import { Column, Row } from '../../common/LayoutComponents';
 import { LineValidityPeriod } from '../Lines/Details/LineValidityPeriod';
@@ -55,7 +56,7 @@ export const LineTitle: FC<LineTitleProps> = ({
     setDisplayedRoutesToUrl,
   } = useGetRoutesDisplayedInList(line);
 
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   const onRouteToggleClick = (label: string) => {
     // If "multiple route select" is disabled, only one route can be selected at once

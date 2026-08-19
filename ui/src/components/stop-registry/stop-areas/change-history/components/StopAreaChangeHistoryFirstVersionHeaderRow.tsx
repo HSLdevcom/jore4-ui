@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
-import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
-import { SectionTitle } from '../../../../common/ChangeHistory/SectionTitle';
+import {
+  ChangeHistoryItemSectionHeaderRow,
+  GetUserNameById,
+  SectionTitle,
+} from '../../../../common/ChangeHistory';
 
 const testIds = {
   // These will expand to: ChangeHistory::SectionHeader::${testId}

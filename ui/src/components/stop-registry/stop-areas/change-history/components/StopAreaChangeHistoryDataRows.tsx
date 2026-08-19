@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
+import { GetUserNameById } from '../../../../common/ChangeHistory';
 import { findPreviousTiamatHistoryItemVersion } from '../../../utils';
 import { StopAreaChangeHistoryItemSections } from './StopAreaChangeHistoryItemSections';
 

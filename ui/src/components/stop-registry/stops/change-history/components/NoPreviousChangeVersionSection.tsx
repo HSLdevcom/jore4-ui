@@ -2,8 +2,10 @@ import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
-import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
+import {
+  ChangeHistoryItemSectionHeaderRow,
+  GetUserNameById,
+} from '../../../../common/ChangeHistory';
 
 const testIds = {
   // These will expand to: ChangeHistory::SectionHeader::${testId}

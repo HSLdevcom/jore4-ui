@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
-import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
+import {
+  GetUserNameById,
+  NoEarlierVersionExists,
+} from '../../../../common/ChangeHistory';
 import { PreviousQuayChangeHistoryItem } from '../types';
 import { DataDiffSections } from './DataDiffSections';
 import { NoPreviousChangeVersionSection } from './NoPreviousChangeVersionSection';

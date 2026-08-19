@@ -2,10 +2,10 @@ import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../../../../generated/theme';
-import { GetUserNameById } from '../../../../hooks';
 import {
   BaseChangeHistoryItemDetails,
   ChangeHistoryItemSectionHeaderRow,
+  GetUserNameById,
 } from '../../../common/ChangeHistory';
 
 type DataDiffSectionLoadingProps = {

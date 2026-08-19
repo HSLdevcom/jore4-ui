@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { GetUserNameById } from '../../../hooks';
 import { useCollator } from '../../../utils';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
+  GetUserNameById,
   SortChangeHistoryBy,
 } from '../../common/ChangeHistory';
 import { BaseTiamatChangeHistoryItem } from '../types';

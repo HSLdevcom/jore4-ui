@@ -5,11 +5,11 @@ import {
   StopPlaceChangeHistoryItem,
   useGetStopPlaceChangeHistoryQuery,
 } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import { SortOrder } from '../../../../../types';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
+  GetUserNameById,
 } from '../../../../common/ChangeHistory';
 import { sortByVersion, useSortTiamatHistoryItems } from '../../../utils';
 import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';

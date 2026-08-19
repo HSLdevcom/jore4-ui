@@ -7,8 +7,6 @@ import {
   useGetParentStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
-  GetUserNameById,
-  useGetUserNames,
   useObservationDateQueryParam,
   useRequiredParams,
 } from '../../../../hooks';
@@ -17,6 +15,10 @@ import {
   getParentStopPlaceDetailsForEnrichment,
   getParentStopPlacesFromQueryResult,
 } from '../../../../utils';
+import {
+  GetUserNameById,
+  useGetUserNames,
+} from '../../../common/ChangeHistory';
 import { useGetLatestStopPlaceChange } from '../../stop-areas/stop-area-details/hooks/useGetStopPlaceChangeHistory';
 
 const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
@@ -267,7 +269,7 @@ function useGetParentStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseSto
 }
 
 export function useGetParentStopPlaceDetails() {
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   const { latestStopPlaceChangeData } = useGetLatestStopPlaceChange(
     useGetParentStopPlaceDetailsWhereConditions(),

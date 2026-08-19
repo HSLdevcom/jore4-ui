@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { GetUserNameById } from '../../../../../hooks';
-import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
+import {
+  ChangeHistoryItemSectionHeaderRow,
+  GetUserNameById,
+} from '../../../../common/ChangeHistory';
 import { LineChangeHistoryItem } from '../Types';
 import { HistoricalRouteDirectionBadge } from './HistoricalRouteDirectionBadge';
 import { VersionComment } from './VersionComment';

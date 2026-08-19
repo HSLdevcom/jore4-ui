@@ -5,7 +5,6 @@ import {
   LineChangeHistoryItemDetailsFragment,
   useGetLineChangeHistoryQuery,
 } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import { SortOrder } from '../../../../../types';
 import {
   Comparator,
@@ -18,6 +17,7 @@ import {
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
+  GetUserNameById,
   SortChangeHistoryBy,
 } from '../../../../common/ChangeHistory';
 import { LineChangeHistoryItem, TgOperation } from '../Types';

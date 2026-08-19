@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import { parseDate } from '../../../../../time';
 import { PagingInfo } from '../../../../../types';
-import { NoEarlierVersionExists } from '../../../../common/ChangeHistory';
+import {
+  GetUserNameById,
+  NoEarlierVersionExists,
+} from '../../../../common/ChangeHistory';
 import { PreviousQuayChangeHistoryItem } from '../types';
 import { StopChangeHistoryItem } from './StopChangeHistoryItem';
 

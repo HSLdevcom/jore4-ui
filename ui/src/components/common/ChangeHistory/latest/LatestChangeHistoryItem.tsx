@@ -1,10 +1,10 @@
 import { FC, isValidElement } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { Link, To } from 'react-router';
-import { useGetUserNames } from '../../../../hooks';
 import { mapToShortDateTime } from '../../../../time';
 import { EmptyCell } from '../EmptyCell';
 import { BaseChangeHistoryItemDetails, ChangedValue } from '../types';
+import { useGetUserNames } from '../UserNamesProvider';
 
 function changeKey(change: ChangedValue): string {
   return change.key ?? change.field;
@@ -96,7 +96,7 @@ export const LatestChangeHistoryItem: FC<LatestChangeHistoryItemProps> = ({
   link,
   testId,
 }) => {
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   const changedBy = getUserNameById(historyItem.changedBy) ?? 'HSL';
   const changedAt = mapToShortDateTime(historyItem.changed);

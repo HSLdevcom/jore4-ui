@@ -9,3 +9,4 @@ export * from './FailedToLoadChangeHistory';
 export * from './LoadingChangeHistory';
 export * from './SectionTitle';
 export * from './StopsList';
+export * from './UserNamesProvider';

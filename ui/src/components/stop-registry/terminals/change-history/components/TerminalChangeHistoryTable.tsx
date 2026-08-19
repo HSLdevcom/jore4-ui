@@ -1,11 +1,11 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
 import {
   ChangeHistorySortingInfo,
   ChangeHistoryTable,
   FailedToLoadChangeHistory,
+  GetUserNameById,
   LoadingChangeHistory,
 } from '../../../../common/ChangeHistory';
 import { TerminalChangeHistoryDataRows } from './TerminalChangeHistoryDataRows';

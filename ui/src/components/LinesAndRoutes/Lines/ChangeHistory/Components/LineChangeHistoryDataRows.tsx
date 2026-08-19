@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { GetUserNameById } from '../../../../../hooks';
 import { PagingInfo } from '../../../../../types';
+import { GetUserNameById } from '../../../../common/ChangeHistory';
 import { LineChangeHistoryItem } from '../Types';
 import { findPreviousLineHistoryItemVersion } from '../Utils';
 import { LineChangeHistoryItemSections } from './LineChangeHistoryItem';

@@ -6,6 +6,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import { UserProvider } from '../auth/UserProvider';
 import { ApolloProvider } from '../components/common/Apollo';
 import { AsyncTaskListProvider } from '../components/common/AsyncTaskList';
+import { UserNamesProvider } from '../components/common/ChangeHistory';
 import { CypressCoordinatesHelper } from '../components/common/Jore';
 import { Toaster } from '../components/common/Toast/Toaster';
 import { theme } from '../generated/theme';
@@ -46,7 +47,9 @@ const Index = () => {
             >
               <UserProvider />
               <AsyncTaskListProvider>
-                <Router />
+                <UserNamesProvider>
+                  <Router />
+                </UserNamesProvider>
               </AsyncTaskListProvider>
               <Toaster />
             </Suspense>

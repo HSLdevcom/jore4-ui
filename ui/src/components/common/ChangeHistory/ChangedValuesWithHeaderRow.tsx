@@ -1,5 +1,4 @@
 import { FC, ReactNode } from 'react';
-import { GetUserNameById } from '../../../hooks';
 import {
   ChangedValueRow,
   getLocationByArrayIndex,
@@ -7,6 +6,7 @@ import {
 } from './ChangedValueRow';
 import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
 import { BaseChangeHistoryItemDetails, ChangedValue } from './types';
+import { GetUserNameById } from './UserNamesProvider';
 
 export type ChangedValuesWithHeaderRowProps = {
   readonly changedValues: ReadonlyArray<ChangedValue>;

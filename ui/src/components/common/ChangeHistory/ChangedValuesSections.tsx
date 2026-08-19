@@ -2,7 +2,6 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GetUserNameById } from '../../../hooks';
 import {
   ChangedValuesWithHeaderRow,
   ChangedValuesWithHeaderRowProps,
@@ -10,6 +9,7 @@ import {
 import { NoChangedValuesWithHeaderRow } from './NoChangedValuesWithHeaderRow';
 import { OptionalSimulatedEndOfTableBorder } from './OptionalSimulatedEndOfTableBorder';
 import { BaseChangeHistoryItemDetails, ChangedValue } from './types';
+import { GetUserNameById } from './UserNamesProvider';
 
 type ChangedValueSection<HistoricalDataT> = {
   readonly diffVersions: (

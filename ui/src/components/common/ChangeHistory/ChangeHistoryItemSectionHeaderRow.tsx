@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { GetUserNameById } from '../../../hooks';
 import { mapToShortDate, mapToShortDateTime, parseDate } from '../../../time';
 import { BaseChangeHistoryItemDetails } from './types';
+import { GetUserNameById } from './UserNamesProvider';
 
 const testIds = {
   row: (testId: string) => `ChangeHistory::SectionHeader::${testId}`,

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceChangeHistoryItem } from '../../../../../generated/graphql';
-import { GetUserNameById } from '../../../../../hooks';
 import {
   ChangeValueSections,
+  GetUserNameById,
   SectionTitle,
 } from '../../../../common/ChangeHistory';
 import {

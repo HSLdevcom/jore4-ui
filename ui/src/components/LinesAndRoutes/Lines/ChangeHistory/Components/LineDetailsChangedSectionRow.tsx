@@ -1,6 +1,8 @@
 import { FC } from 'react';
-import { GetUserNameById } from '../../../../../hooks';
-import { ChangeValueSections } from '../../../../common/ChangeHistory';
+import {
+  ChangeValueSections,
+  GetUserNameById,
+} from '../../../../common/ChangeHistory';
 import { LineChangeHistoryItem, LineData } from '../Types';
 import { diffLine } from '../Utils';
 import { ItemTitle } from './ItemTitle';

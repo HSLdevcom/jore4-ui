@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GetUserNameById } from '../../../hooks';
 import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
 import { BaseChangeHistoryItemDetails } from './types';
+import { GetUserNameById } from './UserNamesProvider';
 
 const testIds = { noChanges: 'ChangeHistory::ChangedValues::NoChangedValues' };
 

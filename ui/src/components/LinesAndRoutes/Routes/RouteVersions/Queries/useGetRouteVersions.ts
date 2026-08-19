@@ -6,10 +6,13 @@ import {
   TimetablesRouteDirectionEnum,
   useGetRouteVersionsQuery,
 } from '../../../../../generated/graphql';
-import { GetUserNameById, useGetUserNames } from '../../../../../hooks';
 import { parseDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 import { defaultLocalizedString, requireValue } from '../../../../../utils';
+import {
+  GetUserNameById,
+  useGetUserNames,
+} from '../../../../common/ChangeHistory';
 import {
   VersionStatus,
   mapPriorityToVersionStatus,
@@ -134,7 +137,7 @@ export function useGetRouteVersions(
     variables: { label, direction },
   });
 
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
 
   const routeVersions = useMemo(() => {
     const rawRoutes = result.data?.route_route ?? [];

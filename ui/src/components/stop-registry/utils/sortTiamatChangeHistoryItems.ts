@@ -1,4 +1,3 @@
-import { GetUserNameById } from '../../../hooks';
 import { SortOrder } from '../../../types';
 import {
   Comparator,
@@ -9,6 +8,7 @@ import {
 } from '../../../utils';
 import {
   ChangeHistorySortingInfo,
+  GetUserNameById,
   SortChangeHistoryBy,
 } from '../../common/ChangeHistory';
 import { BaseTiamatChangeHistoryItem } from '../types';

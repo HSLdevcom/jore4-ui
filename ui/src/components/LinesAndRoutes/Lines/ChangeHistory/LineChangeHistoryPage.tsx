@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { useGetUserNames, useRequiredParams } from '../../../../hooks';
+import { useRequiredParams } from '../../../../hooks';
 import {
   DateRangeFilter,
   useChangeHistoryPageRouterState,
+  useGetUserNames,
 } from '../../../common/ChangeHistory';
 import { Container } from '../../../common/LayoutComponents';
 import { Pagination } from '../../../common/Pagination';
@@ -35,7 +36,7 @@ export const LineChangeHistoryPage: FC = () => {
     filters.priority,
   );
 
-  const { getUserNameById } = useGetUserNames();
+  const getUserNameById = useGetUserNames();
   const { historyItems, sortedHistoryItems, loading, error, refetch } =
     useGetLineChangeHistoryItems({
       filters,

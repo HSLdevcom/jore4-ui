@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GetUserNameById } from '../../../../../hooks';
 import { SimpleButton } from '../../../../common/Buttons';
-import { ChangeHistoryItemSectionHeaderRow } from '../../../../common/ChangeHistory';
+import {
+  ChangeHistoryItemSectionHeaderRow,
+  GetUserNameById,
+} from '../../../../common/ChangeHistory';
 import { LineChangeHistoryItem } from '../Types';
 import { ItemTitle } from './ItemTitle';
 

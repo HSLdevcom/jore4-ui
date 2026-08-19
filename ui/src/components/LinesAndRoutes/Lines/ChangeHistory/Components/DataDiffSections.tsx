@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { GetUserNameById } from '../../../../../hooks';
+import { GetUserNameById } from '../../../../common/ChangeHistory';
 import { useGetLineChangeHistoryItemData } from '../Queries';
 import { LineChangeHistoryItem } from '../Types';
 import { DataDiffFailedToLoadSection } from './DataDiffFailedToLoadSection';
