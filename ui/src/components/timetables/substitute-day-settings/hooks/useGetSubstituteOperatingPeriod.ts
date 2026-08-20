@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   GetSubstituteOperatingPeriodsQueryVariables,
+  SubstituteOperatingPeriodSettingsInfoFragment,
   useGetSubstituteOperatingPeriodsQuery,
 } from '../../../../generated/graphql';
 
@@ -59,6 +60,7 @@ function useGetSubstituteOperatingPeriods({
     variables: {
       isPreset,
 
+      // TODO: Find better fix === stabilize inputs
       // Hack to fix Luxon.DateTime⋄Apollo cache interaction.
       // Same problem exists everywhere where raw DateTime is used to represent
       // a Postgres `date` type in a query variable. But this is the only
@@ -86,14 +88,15 @@ function useGetSubstituteOperatingPeriods({
     },
   });
 
-  const substitutePeriods = useMemo(
-    () =>
-      compact(
-        data?.timetables
-          ?.timetables_service_calendar_substitute_operating_period,
-      ),
-    [data],
-  );
+  const substitutePeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment> =
+    useMemo(
+      () =>
+        compact(
+          data?.timetables
+            ?.timetables_service_calendar_substitute_operating_period,
+        ),
+      [data],
+    );
 
   return { ...rest, substitutePeriods };
 }

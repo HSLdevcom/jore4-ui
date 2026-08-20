@@ -1,35 +1,7 @@
 import { gql } from '@apollo/client';
-import {
-  JourneyPatternScheduledStopPointInJourneyPatternSetInput,
-  PatchScheduledStopPointTimingSettingsMutationVariables,
-  usePatchScheduledStopPointTimingSettingsMutation,
-} from '../../../../generated/graphql';
-import { MutationHook, extendHook } from '../../../../hooks';
+import { useCallback } from 'react';
+import { usePatchScheduledStopPointTimingSettingsMutation } from '../../../../generated/graphql';
 import { FormState } from './TimingSettingsForm';
-
-type TimingSettingsPatch = Pick<
-  JourneyPatternScheduledStopPointInJourneyPatternSetInput,
-  | 'is_loading_time_allowed'
-  | 'is_regulated_timing_point'
-  | 'is_used_as_timing_point'
->;
-
-type EditParams = {
-  readonly form: FormState;
-  readonly journeyPatternId: UUID;
-  readonly stopLabel: string;
-  readonly sequence: number;
-  readonly stopId: UUID;
-};
-
-type EditChanges = {
-  readonly journeyPatternId: UUID;
-  readonly stopLabel: string;
-  readonly sequence: number;
-  readonly patch: TimingSettingsPatch;
-  readonly stopId: UUID;
-  readonly timingPlaceId: UUID | null;
-};
 
 const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
   mutation PatchScheduledStopPointTimingSettings(
@@ -52,6 +24,7 @@ const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
         }
       }
     }
+
     update_journey_pattern_scheduled_stop_point_in_journey_pattern(
       where: {
         scheduled_stop_point_label: { _eq: $stopLabel }
@@ -67,63 +40,34 @@ const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
   }
 `;
 
-const useEditStopTimingSettingsHook: MutationHook<
-  EditParams,
-  EditChanges,
-  PatchScheduledStopPointTimingSettingsMutationVariables
-> = () => {
+type EditParams = {
+  readonly form: FormState;
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+  readonly sequence: number;
+  readonly stopId: UUID;
+};
+
+export function useEditStopTimingSetting() {
   const [updateTimingSettings] =
     usePatchScheduledStopPointTimingSettingsMutation();
 
-  const prepare = ({
-    form,
-    journeyPatternId,
-    stopLabel,
-    sequence,
-    stopId,
-  }: EditParams): EditChanges => ({
-    journeyPatternId,
-    stopLabel,
-    sequence,
-    patch: {
-      is_used_as_timing_point: form.isUsedAsTimingPoint,
-      is_regulated_timing_point: form.isRegulatedTimingPoint,
-      is_loading_time_allowed: form.isLoadingTimeAllowed,
-    },
-    stopId,
-    timingPlaceId: form.timingPlaceId,
-  });
-
-  const mapChangesToVariables = ({
-    journeyPatternId,
-    stopLabel,
-    patch,
-    sequence,
-    stopId,
-    timingPlaceId,
-  }: EditChanges): PatchScheduledStopPointTimingSettingsMutationVariables => ({
-    journeyPatternId,
-    stopLabel,
-    sequence,
-    patch,
-    stopId,
-    timingPlaceId,
-  });
-
-  const executeMutation = (
-    variables: PatchScheduledStopPointTimingSettingsMutationVariables,
-  ) =>
-    updateTimingSettings({
-      variables,
-    });
-
-  return {
-    prepare,
-    mapChangesToVariables,
-    executeMutation,
-  };
-};
-
-export const useEditStopTimingSetting = extendHook(
-  useEditStopTimingSettingsHook,
-);
+  return useCallback(
+    ({ form, journeyPatternId, stopLabel, sequence, stopId }: EditParams) =>
+      updateTimingSettings({
+        variables: {
+          journeyPatternId,
+          stopLabel,
+          sequence,
+          patch: {
+            is_used_as_timing_point: form.isUsedAsTimingPoint,
+            is_regulated_timing_point: form.isRegulatedTimingPoint,
+            is_loading_time_allowed: form.isLoadingTimeAllowed,
+          },
+          stopId,
+          timingPlaceId: form.timingPlaceId,
+        },
+      }),
+    [updateTimingSettings],
+  );
+}

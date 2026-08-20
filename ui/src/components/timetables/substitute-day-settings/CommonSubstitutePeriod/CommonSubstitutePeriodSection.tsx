@@ -45,14 +45,9 @@ export const CommonSubstitutePeriodSection: FC<
     [commonSubstituteOperatingPeriods],
   );
 
-  const { prepareAndExecute: prepareAndExecuteCreate } =
-    useCreateSubstituteOperatingPeriod();
-
-  const { prepareAndExecute: prepareAndExecuteEdit } =
-    useEditSubstituteOperatingPeriod();
-
-  const { deleteSubstituteOperatingPeriod } =
-    useDeleteSubstituteOperatingPeriod();
+  const createSubstituteOperatingPeriod = useCreateSubstituteOperatingPeriod();
+  const editSubstituteOperatingPeriod = useEditSubstituteOperatingPeriod();
+  const deleteSubstituteOperatingPeriod = useDeleteSubstituteOperatingPeriod();
 
   const onSubmit = async (form: FormState) => {
     // Filter out days that are not already in database or are not added in UI
@@ -69,9 +64,9 @@ export const CommonSubstitutePeriodSection: FC<
       }));
 
     try {
-      await deleteSubstituteOperatingPeriod({ periods });
-      await prepareAndExecuteEdit({ form: { periods } });
-      await prepareAndExecuteCreate({ form: { periods } });
+      await deleteSubstituteOperatingPeriod(periods);
+      await editSubstituteOperatingPeriod(periods);
+      await createSubstituteOperatingPeriod(periods);
       await refetch();
 
       showSuccessToast(t(($) => $.timetables.settings.saveSuccess));

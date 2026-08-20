@@ -69,8 +69,7 @@ export const TimingSettingsModal: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const { prepareAndExecute: prepareAndExecuteEdit } =
-    useEditStopTimingSetting();
+  const editStopTimingSetting = useEditStopTimingSetting();
 
   const scheduledStopResult = useGetScheduledStopPointWithTimingSettingsQuery({
     variables: {
@@ -88,7 +87,7 @@ export const TimingSettingsModal: FC = () => {
     stopJourneyPattern: ScheduledStopPointWithTimingSettingsFragment,
   ) => {
     try {
-      await prepareAndExecuteEdit({
+      await editStopTimingSetting({
         form,
         journeyPatternId: stopJourneyPattern.journey_pattern_id,
         stopLabel: stopJourneyPattern.scheduled_stop_point_label,

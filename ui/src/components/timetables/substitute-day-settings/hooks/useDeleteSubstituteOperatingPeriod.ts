@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { useCallback } from 'react';
 import { useDeleteSubstituteOperatingPeriodMutation } from '../../../../generated/graphql';
 import { PeriodType } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
@@ -13,18 +14,20 @@ const GQL_DELETE_SUBSTITUTE_OPERATING_PERIOD = gql`
     }
   }
 `;
+
 export function useDeleteSubstituteOperatingPeriod() {
   const [mutateFunction] = useDeleteSubstituteOperatingPeriodMutation();
 
-  const deleteSubstituteOperatingPeriod = async (form: {
-    periods: ReadonlyArray<Pick<PeriodType, 'periodId' | 'toBeDeleted'>>;
-  }) => {
-    const deletedIds = form.periods
-      .filter((p) => p.toBeDeleted)
-      .map((p) => p.periodId as string);
-    return mutateFunction({
-      variables: { ids: deletedIds },
-    });
-  };
-  return { deleteSubstituteOperatingPeriod };
+  return useCallback(
+    (periods: ReadonlyArray<Pick<PeriodType, 'periodId' | 'toBeDeleted'>>) =>
+      mutateFunction({
+        variables: {
+          ids: periods
+            .filter((p) => p.toBeDeleted)
+            .map((p) => p.periodId)
+            .filter((p): p is UUID => !!p),
+        },
+      }),
+    [mutateFunction],
+  );
 }

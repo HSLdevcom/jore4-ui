@@ -61,8 +61,8 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
   const { journeyPatternId, stopLabel } = viaModalState;
   const dispatch = useAppDispatch();
 
-  const { prepareAndExecute: prepareAndExecuteEdit } = useEditViaInfo();
-  const { prepareAndExecute: prepareAndExecuteRemove } = useRemoveViaInfo();
+  const editViaInfo = useEditViaInfo();
+  const removeViaInfo = useRemoveViaInfo();
 
   const scheduledStopResult = useGetScheduledStopPointWithViaInfoQuery({
     variables: {
@@ -85,7 +85,7 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
     stopJourneyPattern: JourneyPatternScheduledStopPointInJourneyPattern,
   ) => {
     try {
-      await prepareAndExecuteEdit({
+      await editViaInfo({
         form,
         journeyPatternId: stopJourneyPattern.journey_pattern_id,
         stopLabel: stopJourneyPattern.scheduled_stop_point_label,
@@ -105,7 +105,7 @@ export const ViaModal: FC<ViaModalProps> = ({ className }) => {
     stopJourneyPattern: JourneyPatternScheduledStopPointInJourneyPattern,
   ) => {
     try {
-      await prepareAndExecuteRemove({
+      await removeViaInfo({
         journeyPatternId: stopJourneyPattern.journey_pattern_id,
         stopLabel: stopJourneyPattern.scheduled_stop_point_label,
       });

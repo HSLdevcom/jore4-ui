@@ -1,3 +1,6 @@
+import maxBy from 'lodash/maxBy';
+import minBy from 'lodash/minBy';
+import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateRange } from '../../../../types';
@@ -12,13 +15,26 @@ import {
   useEditSubstituteOperatingPeriod,
   useGetOccasionalSubstituteOperatingPeriods,
 } from '../hooks';
+import { OccasionalSubstitutePeriodForm } from './OccasionalSubstitutePeriodForm';
 import {
-  OccasionalSubstitutePeriodForm,
-  findEarliestDate,
-  findLatestDate,
-  mapOccasionalSubstituteOperatingPeriodsToFormState,
-} from './OccasionalSubstitutePeriodForm';
-import { FormState } from './OccasionalSubstitutePeriodForm.types';
+  CommonSubstitutePeriodType,
+  FormState,
+  PeriodType,
+} from './OccasionalSubstitutePeriodForm.types';
+
+function findEarliestDate(
+  periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>,
+) {
+  const periodWithEarliestdate = minBy(periods, 'beginDate');
+  return DateTime.fromISO(periodWithEarliestdate?.beginDate ?? '');
+}
+
+function findLatestDate(
+  periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>,
+) {
+  const periodWithlatestDate = maxBy(periods, 'endDate');
+  return DateTime.fromISO(periodWithlatestDate?.endDate ?? '');
+}
 
 type OccasionalSubstitutePeriodSectionProps = {
   readonly dateRange: DateRange;
@@ -34,25 +50,21 @@ export const OccasionalSubstitutePeriodSection: FC<
     refetch,
     loading,
   } = useGetOccasionalSubstituteOperatingPeriods(dateRange);
-  const { prepareAndExecute: prepareAndExecuteCreate } =
-    useCreateSubstituteOperatingPeriod();
 
-  const { prepareAndExecute: prepareAndExecuteEdit } =
-    useEditSubstituteOperatingPeriod();
+  const createSubstituteOperatingPeriod = useCreateSubstituteOperatingPeriod();
+  const editSubstituteOperatingPeriod = useEditSubstituteOperatingPeriod();
+  const deleteSubstituteOperatingPeriod = useDeleteSubstituteOperatingPeriod();
 
-  const { deleteSubstituteOperatingPeriod } =
-    useDeleteSubstituteOperatingPeriod();
-
-  const onSubmit = async (form: FormState) => {
+  const onSubmit = async ({ periods }: FormState) => {
     try {
-      await deleteSubstituteOperatingPeriod(form);
-      await prepareAndExecuteEdit({ form });
-      await prepareAndExecuteCreate({ form });
+      await deleteSubstituteOperatingPeriod(periods);
+      await editSubstituteOperatingPeriod(periods);
+      await createSubstituteOperatingPeriod(periods);
 
       setDateRange((prevRange) => {
         const newRange = {
-          startDate: findEarliestDate(form),
-          endDate: findLatestDate(form),
+          startDate: findEarliestDate(periods),
+          endDate: findLatestDate(periods),
         };
 
         // Preserve object identity
@@ -80,9 +92,7 @@ export const OccasionalSubstitutePeriodSection: FC<
       <OccasionalSubstitutePeriodForm
         onSubmit={onSubmit}
         loading={loading}
-        values={mapOccasionalSubstituteOperatingPeriodsToFormState(
-          occasionalSubstituteOperatingPeriods,
-        )}
+        periods={occasionalSubstituteOperatingPeriods}
       />
     </div>
   );

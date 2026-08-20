@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import maxBy from 'lodash/maxBy';
 import minBy from 'lodash/minBy';
 import { DateTime, Duration } from 'luxon';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -41,12 +41,6 @@ const testIds = {
   addRowButton: 'OccasionalSubstitutePeriodForm::addRowButton',
 };
 
-type OccasionalSubstitutePeriodFormProps = {
-  readonly onSubmit: (state: FormState) => void;
-  readonly values: FormState;
-  readonly loading: boolean;
-};
-
 const emptyRowObject: PeriodType = {
   periodName: '',
   lineTypes: generateLineTypes(),
@@ -63,76 +57,68 @@ function mapDurationToString(duration: Maybe<Duration> | undefined) {
   if (duration) {
     return mapDurationToShortTime(duration);
   }
+
   return '';
 }
 
 function convertToPeriodSchema(
-  input: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
+  periods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
 ): FormState {
-  const periods = input?.map((item) => {
-    const periodBeginDate = minBy(
-      item.substitute_operating_day_by_line_types,
-      'superseded_date',
-    )?.superseded_date;
+  return {
+    periods: periods.map((item) => {
+      const periodBeginDate = minBy(
+        item.substitute_operating_day_by_line_types,
+        'superseded_date',
+      )?.superseded_date;
 
-    const periodEndDate = maxBy(
-      item.substitute_operating_day_by_line_types,
-      'superseded_date',
-    )?.superseded_date;
+      const periodEndDate = maxBy(
+        item.substitute_operating_day_by_line_types,
+        'superseded_date',
+      )?.superseded_date;
 
-    const lineTypes: Set<string> = new Set();
-    item.substitute_operating_day_by_line_types.forEach(
-      (operatingDayByLineType) =>
-        lineTypes.add(operatingDayByLineType.type_of_line),
-    );
+      const lineTypes: Set<string> = new Set();
+      item.substitute_operating_day_by_line_types.forEach(
+        (operatingDayByLineType) =>
+          lineTypes.add(operatingDayByLineType.type_of_line),
+      );
 
-    return {
-      periodId: item.substitute_operating_period_id,
-      periodName: item.period_name,
-      beginDate: mapDateTimeToFormState(periodBeginDate),
-      endDate: mapDateTimeToFormState(periodEndDate),
-      beginTime: mapDurationToString(
-        item.substitute_operating_day_by_line_types[0].begin_time,
-      ),
-      endTime: mapDurationToString(
-        item.substitute_operating_day_by_line_types[0].end_time,
-      ),
-      substituteDayOfWeek: parseSubstituteDayOfWeek(
-        item.substitute_operating_day_by_line_types[0].substitute_day_of_week,
-      ),
-      lineTypes: mapLineTypes(lineTypes),
-      toBeDeleted: false,
-      isPreset: false,
-    };
-  });
-  return { periods };
+      return {
+        periodId: item.substitute_operating_period_id,
+        periodName: item.period_name,
+        beginDate: mapDateTimeToFormState(periodBeginDate),
+        endDate: mapDateTimeToFormState(periodEndDate),
+        beginTime: mapDurationToString(
+          item.substitute_operating_day_by_line_types[0].begin_time,
+        ),
+        endTime: mapDurationToString(
+          item.substitute_operating_day_by_line_types[0].end_time,
+        ),
+        substituteDayOfWeek: parseSubstituteDayOfWeek(
+          item.substitute_operating_day_by_line_types[0].substitute_day_of_week,
+        ),
+        lineTypes: mapLineTypes(lineTypes),
+        toBeDeleted: false,
+        isPreset: false,
+      };
+    }),
+  };
 }
 
-export function mapOccasionalSubstituteOperatingPeriodsToFormState(
-  occasionalSubstituteOperatingPeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
-) {
-  return convertToPeriodSchema(occasionalSubstituteOperatingPeriods);
-}
-
-export function findEarliestDate(values: FormState) {
-  const periodWithEarliestdate = minBy(values.periods, 'beginDate');
-  return DateTime.fromISO(periodWithEarliestdate?.beginDate ?? '');
-}
-
-export function findLatestDate(values: FormState) {
-  const periodWithlatestDate = maxBy(values.periods, 'endDate');
-  return DateTime.fromISO(periodWithlatestDate?.endDate ?? '');
-}
+type OccasionalSubstitutePeriodFormProps = {
+  readonly onSubmit: (state: FormState) => void;
+  readonly periods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>;
+  readonly loading: boolean;
+};
 
 export const OccasionalSubstitutePeriodForm: FC<
   OccasionalSubstitutePeriodFormProps
-> = ({ onSubmit, values, loading }) => {
+> = ({ onSubmit, periods, loading }) => {
   const { t } = useTranslation();
   const [isResetting, setIsResetting] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const formRef = useRef<ExplicitAny>(null);
   const methods = useForm<FormState>({
-    values,
+    values: useMemo(() => convertToPeriodSchema(periods), [periods]),
     resolver: zodResolver(schema),
   });
   useDirtyFormBlockNavigation(

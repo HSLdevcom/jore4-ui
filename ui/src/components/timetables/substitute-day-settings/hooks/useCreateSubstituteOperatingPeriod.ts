@@ -1,9 +1,6 @@
 import { gql } from '@apollo/client';
-import {
-  CreateSubstituteOperatingPeriodMutationVariables,
-  useCreateSubstituteOperatingPeriodMutation,
-} from '../../../../generated/graphql';
-import { MutationHook, extendHook } from '../../../../hooks';
+import { useCallback } from 'react';
+import { useCreateSubstituteOperatingPeriodMutation } from '../../../../generated/graphql';
 import {
   CommonSubstitutePeriodType,
   PeriodType,
@@ -36,63 +33,25 @@ const GQL_CREATE_SUBSTITUTE_OPERATING_PERIOD = gql`
   }
 `;
 
-type CreateParams = {
-  readonly form: {
-    readonly periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>;
-  };
-};
-
-type CreateChanges = {
-  readonly input: CreateSubstituteOperatingPeriodMutationVariables;
-};
-
-const useCreateSubstituteOperatingPeriodHook: MutationHook<
-  CreateParams,
-  CreateChanges,
-  CreateSubstituteOperatingPeriodMutationVariables
-> = () => {
+export function useCreateSubstituteOperatingPeriod() {
   const [mutateFunction] = useCreateSubstituteOperatingPeriodMutation();
 
-  const executeMutation = (
-    variables: CreateSubstituteOperatingPeriodMutationVariables,
-  ) =>
-    mutateFunction({
-      variables,
-    });
+  return useCallback(
+    (periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>) => {
+      const data = periods
+        .filter((p) => !p.periodId)
+        .map((p) => {
+          return {
+            period_name: p.periodName,
+            is_preset: p.isPreset,
+            substitute_operating_day_by_line_types: {
+              data: mapPeriodsToDayByLineTypes(p),
+            },
+          };
+        });
 
-  const mapSubstituteOperatingPeriodsToMutationVariables = (
-    params: CreateParams,
-  ): CreateSubstituteOperatingPeriodMutationVariables => {
-    const filtered = params.form.periods.filter((p) => !p.periodId);
-
-    const data = filtered.map((p) => {
-      return {
-        period_name: p.periodName,
-        is_preset: p.isPreset,
-        substitute_operating_day_by_line_types: {
-          data: mapPeriodsToDayByLineTypes(p),
-        },
-      };
-    });
-
-    return { data };
-  };
-
-  const prepare = (params: CreateParams): CreateChanges => ({
-    input: mapSubstituteOperatingPeriodsToMutationVariables(params),
-  });
-
-  const mapChangesToVariables = (
-    changes: CreateChanges,
-  ): CreateSubstituteOperatingPeriodMutationVariables => changes.input;
-
-  return {
-    prepare,
-    mapChangesToVariables,
-    executeMutation,
-  };
-};
-
-export const useCreateSubstituteOperatingPeriod = extendHook(
-  useCreateSubstituteOperatingPeriodHook,
-);
+      return mutateFunction({ variables: { data } });
+    },
+    [mutateFunction],
+  );
+}

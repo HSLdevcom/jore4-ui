@@ -1,11 +1,9 @@
 import { gql } from '@apollo/client';
-import flatten from 'lodash/flatten';
+import { useCallback } from 'react';
 import {
-  EditSubstituteOperatingPeriodsMutationVariables,
   TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput,
   useEditSubstituteOperatingPeriodsMutation,
 } from '../../../../generated/graphql';
-import { MutationHook, extendHook } from '../../../../hooks';
 import {
   CommonSubstitutePeriodType,
   PeriodType,
@@ -49,63 +47,32 @@ const GQL_UPDATE_SUBSTITUTE_PERIOD = gql`
   }
 `;
 
-type EditParams = {
-  readonly form: {
-    readonly periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>;
-  };
-};
-
-type EditChanges = {
-  readonly input: EditSubstituteOperatingPeriodsMutationVariables;
-};
-
-const useEditSubstituteOperatingPeriodHook: MutationHook<
-  EditParams,
-  EditChanges,
-  EditSubstituteOperatingPeriodsMutationVariables
-> = () => {
+export function useEditSubstituteOperatingPeriod() {
   const [mutateFunction] = useEditSubstituteOperatingPeriodsMutation();
 
-  const executeMutation = (
-    variables: EditSubstituteOperatingPeriodsMutationVariables,
-  ) => mutateFunction({ variables });
+  return useCallback(
+    (periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>) => {
+      const filtered = periods.filter((p) => p.periodId && !p.toBeDeleted);
 
-  const mapFormStateToEditVariables = (
-    params: EditParams,
-  ): EditSubstituteOperatingPeriodsMutationVariables => {
-    const filtered = params.form.periods.filter(
-      (p) => p.periodId && !p.toBeDeleted,
-    );
+      const periodsToInsert: TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput[] =
+        filtered.map((p) => ({
+          substitute_operating_period_id: p.periodId,
+          period_name: p.periodName,
+          is_preset: p.isPreset,
+        }));
 
-    const periodsToInsert: TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput[] =
-      filtered.map((p) => ({
-        substitute_operating_period_id: p.periodId,
-        period_name: p.periodName,
-        is_preset: p.isPreset,
-      }));
+      const periodsToDelete = filtered
+        .map((p) => p.periodId)
+        .filter((id): id is UUID => typeof id === 'string' && id !== '');
 
-    const periodsToDelete: UUID[] = filtered
-      .filter((p) => typeof p.periodId === 'string' && p.periodId !== '')
-      .map((p) => p.periodId) as UUID[];
+      const daysToInsert = filtered.flatMap((p) =>
+        mapPeriodsToDayByLineTypes(p),
+      );
 
-    const substituteOperatingDaysByLineType = filtered.map((p) =>
-      mapPeriodsToDayByLineTypes(p),
-    );
-    const daysToInsert = flatten(substituteOperatingDaysByLineType);
-    return { periodsToInsert, periodsToDelete, daysToInsert };
-  };
-
-  const prepare = (params: EditParams): EditChanges => ({
-    input: mapFormStateToEditVariables(params),
-  });
-
-  const mapChangesToVariables = (
-    changes: EditChanges,
-  ): EditSubstituteOperatingPeriodsMutationVariables => changes.input;
-
-  return { prepare, mapChangesToVariables, executeMutation };
-};
-
-export const useEditSubstituteOperatingPeriod = extendHook(
-  useEditSubstituteOperatingPeriodHook,
-);
+      return mutateFunction({
+        variables: { periodsToInsert, periodsToDelete, daysToInsert },
+      });
+    },
+    [mutateFunction],
+  );
+}
