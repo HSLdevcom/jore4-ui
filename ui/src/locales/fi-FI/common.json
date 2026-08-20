@@ -467,8 +467,9 @@
       "titleNoInfoSpots": "Ei infopaikkoja",
       "infoSpot": "Infopaikka {{infoSpot}}",
       "sortOrder": "Infopaikan {{ label }} järjestys",
+      "sortOrderHeader": "Järjestysnumero",
       "backlight": "Taustavalo",
-      "description": "Kuvaus",
+      "description": "Sijainti ja lisätiedot",
       "floor": "Kerros",
       "label": "Infopaikan tunnus",
       "maintenance": "Huoltotiedot",
@@ -523,6 +524,7 @@
         "title": {
           "metaHeader": "Infopaikat katos {{shelterNumber}}",
           "label": "Tunnus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "sortOrder": "Järjestysnumero - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "intendedUser": "Käyttäjä - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "size": "Koko - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "backlight": "Taustavalo - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
@@ -531,7 +533,7 @@
           "zoneLabel": "Vyöhyketunnus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "railInformation": "Raidetieto - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "floor": "Kerros - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
-          "description": "Kuvaus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "description": "Sijainti ja lisätiedot - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
           "productSize": "Koko - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
           "posterPurpose": "Käyttötarkoitus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
           "posterLines": "Lisätieto - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}"
@@ -540,7 +542,7 @@
       "infoSpotReport": {
         "title": {
           "productSize": "Infotuotteen {{posterNumber}} koko",
-          "posterPurpose": "Infotuote {{posterNumber}}",
+          "posterPurpose": "Infotuote {{posterNumber}} käyttötarkoitus",
           "posterLines": "Infotuotteen {{posterNumber}} lisätieto"
         }
       }
@@ -618,7 +620,9 @@
       "deleteExternalLink": "Poista linkki",
       "addExternalLink": "Lisää uusi linkki",
       "name": "Nimi",
-      "location": "Osoite"
+      "location": "Osoite",
+      "stopLink": "Linkki",
+      "terminalLink": "Linkki"
     },
     "alternativeNames": {
       "nameEng": "Nimi (englanti)",

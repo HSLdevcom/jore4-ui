@@ -467,8 +467,9 @@
       "titleNoInfoSpots": "No info spots",
       "infoSpot": "Info spot {{infoSpot}}",
       "sortOrder": "Info spot {{ label }} sort order",
+      "sortOrderHeader": "Placement number",
       "backlight": "Backlight",
-      "description": "Description",
+      "description": "Location and additional information",
       "floor": "Floor",
       "label": "Label",
       "maintenance": "Maintenance",
@@ -523,6 +524,7 @@
         "title": {
           "metaHeader": "Info Spots Shelter {{shelterNumber}}",
           "label": "Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "sortOrder": "Placement number - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "intendedUser": "Intended User - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "size": "Size - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "backlight": "Backlight - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
@@ -531,7 +533,7 @@
           "zoneLabel": "Zone Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "railInformation": "Rail Information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "floor": "Floor - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
-          "description": "Description - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "description": "Location and additional information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
           "productSize": "Size - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
           "posterPurpose": "Purpose - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
           "posterLines": "Additional information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}"
@@ -540,7 +542,7 @@
       "infoSpotReport": {
         "title": {
           "productSize": "Poster {{posterNumber}} size",
-          "posterPurpose": "Poster {{posterNumber}}",
+          "posterPurpose": "Poster {{posterNumber}} purpose",
           "posterLines": "Poster {{posterNumber}} additional information"
         }
       }
@@ -618,7 +620,9 @@
       "deleteExternalLink": "Delete link",
       "addExternalLink": "Add new link",
       "name": "Name",
-      "location": "Link"
+      "location": "Link",
+      "stopLink": "Link",
+      "terminalLink": "Link"
     },
     "alternativeNames": {
       "nameEng": "Name (English)",

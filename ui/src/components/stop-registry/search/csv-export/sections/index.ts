@@ -1,4 +1,5 @@
 export * from './BasicDetailsSection';
+export * from './ExternalLinksSection';
 export * from './InfoSpotsSection';
 export * from './LocationDetailsSection';
 export * from './MaintenanceDetailsSection';
