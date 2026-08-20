@@ -2,7 +2,7 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import noop from 'lodash/noop';
-import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import { StopPlaceInfoSpots, PosterWithSortOrder } from '../../../../../types';
 import { getPointPosition } from '../../../../../utils';
 import { mapZoneLabelToUiName } from '../../../../../utils/i18n';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
@@ -46,6 +46,8 @@ const infoSpotHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
   (t, context) =>
     t(($) => $.stopDetails.infoSpots.equipmentReport.title.label, context),
   (t, context) =>
+    t(($) => $.stopDetails.infoSpots.equipmentReport.title.sortOrder, context),
+  (t, context) =>
     t(
       ($) => $.stopDetails.infoSpots.equipmentReport.title.intendedUser,
       context,
@@ -76,6 +78,7 @@ const infoSpotHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
 
 const singleInfoSpotHeaders: ReadonlyArray<(t: TFunction) => string> = [
   (t) => t(($) => $.stopDetails.infoSpots.label),
+  (t) => t(($) => $.stopDetails.infoSpots.sortOrderHeader),
   (t) => t(($) => $.stopDetails.infoSpots.intendedUser),
   (t) => t(($) => $.stopDetails.infoSpots.size),
   (t) => t(($) => $.stopDetails.infoSpots.backlight),
@@ -90,12 +93,12 @@ const singleInfoSpotHeaders: ReadonlyArray<(t: TFunction) => string> = [
 const posterHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
   (t, context) =>
     t(
-      ($) => $.stopDetails.infoSpots.equipmentReport.title.productSize,
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.posterPurpose,
       context,
     ),
   (t, context) =>
     t(
-      ($) => $.stopDetails.infoSpots.equipmentReport.title.posterPurpose,
+      ($) => $.stopDetails.infoSpots.equipmentReport.title.productSize,
       context,
     ),
   (t, context) =>
@@ -109,11 +112,11 @@ const singleInfoSpotPosterHeaders: ReadonlyArray<
   (t: TFunction, posterNumber: number) => string
 > = [
   (t, posterNumber) =>
-    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.productSize, {
+    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.posterPurpose, {
       posterNumber,
     }),
   (t, posterNumber) =>
-    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.posterPurpose, {
+    t(($) => $.stopDetails.infoSpots.infoSpotReport.title.productSize, {
       posterNumber,
     }),
   (t, posterNumber) =>
@@ -191,10 +194,7 @@ function getFlatFieldCount(counts: Counts): number {
   return fields;
 }
 
-type PosterDetails = Exclude<
-  Exclude<InfoSpotDetailsFragment['poster'], null | undefined>[number],
-  null | undefined
->;
+type PosterDetails = PosterWithSortOrder;
 
 /**
  * Map the consept of "Nth shelter" into actual Database IDs.
@@ -249,8 +249,8 @@ function resolveInfoSpots(
 function writePosterFields(writer: CSVWriter, poster: PosterDetails) {
   const { t } = writer;
 
-  writer.writeTextField(formatSizedDbItem(t, poster));
   writer.writeTextField(poster.label);
+  writer.writeTextField(formatSizedDbItem(t, poster));
   writer.writeTextField(poster.lines);
 }
 
@@ -272,13 +272,14 @@ function writeEmptyPoster(writer: CSVWriter) {
  */
 function writeInfoSpotFields(
   writer: CSVWriter,
-  infoSpot: InfoSpotDetailsFragment,
+  infoSpot: StopPlaceInfoSpots,
   expectedPosterCount: number,
 ) {
   const { t } = writer;
   const position = getPointPosition(infoSpot.geometry);
 
   writer.writeTextField(infoSpot.label);
+  writer.writeNumberField(infoSpot.sortOrder);
   writer.writeTextField(infoSpot.intendedUser);
   writer.writeTextField(formatSizedDbItem(t, infoSpot));
   writer.writeBooleanField(

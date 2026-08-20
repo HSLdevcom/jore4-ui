@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { CSVWriter } from '../../../common/ReportWriter/CSVWriter';
 import {
   BasicDetailsSection,
+  ExternalLinksSection,
   InfoSpotsSection,
   LocationDetailsSection,
   MaintenanceDetailsSection,
@@ -39,12 +40,18 @@ const equipmentReportSections: ReadonlyArray<ReportSectionInstantiator> = [
   ...baseReportSections,
   SheltersSection,
   InfoSpotsSection,
+  ExternalLinksSection,
 ];
 
 // Builders for sections that should be included in the InfoSpot details report.
 const infoSpotReportSections: ReadonlyArray<
   ReportSectionInstantiator<EnrichedStopDetailsWithSelectedInfoSpot>
-> = [...baseReportSections, SingularShelterSection, SingleInfoSpotsSection];
+> = [
+  ...baseReportSections,
+  SingularShelterSection,
+  SingleInfoSpotsSection,
+  ExternalLinksSection,
+];
 
 export class SectionedReport<
   StopDetails extends EnrichedStopDetails = EnrichedStopDetails,

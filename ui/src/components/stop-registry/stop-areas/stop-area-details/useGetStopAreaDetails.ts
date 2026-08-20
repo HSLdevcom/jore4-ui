@@ -112,6 +112,12 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
     children {
       ...MemberStopStopPlaceDetails
     }
+    externalLinks {
+      stopPlaceId
+      orderNum
+      name
+      location
+    }
   }
 `;
 
