@@ -16,8 +16,9 @@ import {
 } from '../../../utils/test-utils/integration-tests';
 import {
   CommonParams,
-  useCheckValidityAndPriorityConflicts,
-} from './useCheckValidityAndPriorityConflicts';
+  useGetConflictingLines,
+  useGetConflictingRoutes,
+} from './checkValidityAndPriorityConflicts';
 
 jest.mock('apollo-link-scalars', () => ({
   ...jest.requireActual('apollo-link-scalars'),
@@ -121,7 +122,7 @@ function deleteCreatedResources() {
   return removeFromDbHelper(dbResources);
 }
 
-describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
+describe('useGetConflictingLines()', () => {
   beforeAll(async () => {
     await deleteCreatedResources();
     await insertToDbHelper(dbResources);
@@ -135,15 +136,12 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
   // generally the renderHook function should be called once per test instead of
   // once per suite. In this case it shouldn't matter as this hook doesn't have
   // state within it.
-  const { result } = renderHook(
-    useCheckValidityAndPriorityConflicts,
-    renderOptions,
-  );
+  const { result } = renderHook(useGetConflictingLines, renderOptions);
 
   describe('Indefinite resources (validity_start and validity_end both null)', () => {
     test('Should return conflict on two resources with indefinite validity', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: indefiniteLine.label,
             validityStart: undefined,
@@ -157,7 +155,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should return conflict on bounded resource within existing indefinite resource', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: indefiniteLine.label,
             validityStart: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
@@ -173,7 +171,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
   describe('Bounded resources (either validity_start or validity_end defined).', () => {
     test('Should return conflict on resources with same validity_start', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: indefiniteEndLine.label,
             validityStart: indefiniteEndLine.validity_start,
@@ -186,7 +184,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should return conflict on resources with same validity_end', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: indefiniteStartLine.label,
             validityEnd: indefiniteStartLine.validity_end,
@@ -199,7 +197,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should return conflict on resource within existing instance of resource', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_start?.plus({
@@ -215,7 +213,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should return conflict on resource starting before and ending after existing version', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_start?.minus({
@@ -231,7 +229,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should not allow new version after current version when bounds overlap', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_end,
@@ -245,7 +243,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should allow new version after current version, bounds not overlapping, validity_end null', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_end?.plus({ days: 1 }),
@@ -258,7 +256,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should allow new version after current version, bounds not overlapping, validity_end defined', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_end?.plus({ days: 1 }),
@@ -271,7 +269,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should not allow new version before current version when bounds overlap', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: undefined,
@@ -285,7 +283,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should allow new version before current version, bounds not overlapping, validity_start defined', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_start?.minus({ months: 1 }),
@@ -298,7 +296,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should allow new version before current version, bounds not overlapping, validity_start null', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: undefined,
@@ -313,7 +311,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
   describe('Checking conflicts with priorities', () => {
     test('Should allow creating conflicting version with new priority', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_start,
@@ -327,7 +325,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('Should allow creating conflicting version with draft priority', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: draftLine.label,
             validityStart: draftLine.validity_start,
@@ -344,7 +342,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
       // to enable editing. In this case conflicts do not matter we are
       // *overwriting* conflicting version.
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
             validityStart: boundedLine.validity_start,
@@ -358,7 +356,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
     test('A resource should still conflict with existing version if modified', async () => {
       await act(async () => {
-        const conflicts = await result.current.getConflictingLines(
+        const conflicts = await result.current(
           buildQuery({
             label: boundedLine2V1.label,
             validityStart: boundedLine2V2.validity_start,
@@ -370,11 +368,30 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
         expect(conflicts[0].line_id).toEqual(boundedLine2V2.line_id);
       });
     });
+  });
+});
 
+describe('useGetConflictingRoutes()', () => {
+  beforeAll(async () => {
+    await deleteCreatedResources();
+    await insertToDbHelper(dbResources);
+  });
+
+  afterAll(async () => {
+    await deleteCreatedResources();
+  });
+
+  // NOTE: To make sure that the rendered hook does not carry state between tests,
+  // generally the renderHook function should be called once per test instead of
+  // once per suite. In this case it shouldn't matter as this hook doesn't have
+  // state within it.
+  const { result } = renderHook(useGetConflictingRoutes, renderOptions);
+
+  describe('Checking conflicts with priorities', () => {
     describe('Routes', () => {
       test('Does not allow creating conflicting route with same direction', async () => {
         await act(async () => {
-          const conflicts = await result.current.getConflictingRoutes({
+          const conflicts = await result.current({
             ...buildQuery({
               label: inboundRoute.label,
             }),
@@ -388,7 +405,7 @@ describe(`${useCheckValidityAndPriorityConflicts.name}()`, () => {
 
       test('Allow creating conflicting route with opposite direction', async () => {
         await act(async () => {
-          const conflicts = await result.current.getConflictingRoutes({
+          const conflicts = await result.current({
             ...buildQuery({
               label: inboundRoute.label,
             }),

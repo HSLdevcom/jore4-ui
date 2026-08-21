@@ -40,7 +40,7 @@ import {
   illegalOptionalCast,
   showDangerToast,
 } from '../../../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
+import { useGetConflictingStops } from '../../../LinesAndRoutes/Common';
 import { wrapErrors } from '../../../stop-registry/stops/stop-details/stop-version/utils/wrapErrors';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 import { useValidateTimingSettings } from './useValidateTimingSettings';
@@ -307,8 +307,8 @@ function hasStopPointFieldChanged(
   return false;
 }
 
-function useGetConflictingStops() {
-  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
+function useGetConflictingStopsOnPrepare() {
+  const getConflictingStops = useGetConflictingStops();
 
   return async (
     stopId: string,
@@ -443,7 +443,7 @@ function useValidateTimingPlaceChanges() {
 export function usePrepareEdit() {
   const apollo = useApolloClient();
 
-  const getConflictingStops = useGetConflictingStops();
+  const getConflictingStops = useGetConflictingStopsOnPrepare();
   const getLocationChanges = useGetLocationChanges();
   const validateTimingPlaceChanges = useValidateTimingPlaceChanges();
 
