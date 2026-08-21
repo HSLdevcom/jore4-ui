@@ -6,9 +6,8 @@ import {
   useGetRouteDetailsByLabelWildcardQuery,
   useGetSelectedRouteDetailsByIdQuery,
 } from '../../../generated/graphql';
-import { useDebouncedString } from '../../../hooks';
 import { Priority } from '../../../types/enums';
-import { mapToSqlLikeValue } from '../../../utils';
+import { mapToSqlLikeValue, useDebouncedString } from '../../../utils';
 
 const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
   query GetRouteDetailsByLabelWildcard(
