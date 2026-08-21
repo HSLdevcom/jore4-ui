@@ -62,21 +62,22 @@ export function useValidateLine() {
       variables: { line_id: lineId },
     });
 
-    const routes = lineResult.data.route_line_by_pk?.line_routes;
-    const conflictingRoutes: string[] = [];
+    const conflictingRoutes = lineResult.data.route_line_by_pk?.line_routes
+      .filter((route) => {
+        try {
+          assertRouteValidityIsInsideLineValidity(t, route, {
+            validity_start: input.validity_start,
+            validity_end: input.validity_end,
+          });
+        } catch {
+          return true;
+        }
 
-    routes?.forEach((route) => {
-      try {
-        assertRouteValidityIsInsideLineValidity(t, route, {
-          validity_start: input.validity_start,
-          validity_end: input.validity_end,
-        });
-      } catch {
-        conflictingRoutes.push(route.label);
-      }
-    });
+        return false;
+      })
+      .map((route) => route.label);
 
-    if (conflictingRoutes.length) {
+    if (conflictingRoutes?.length) {
       throw new Error(
         `${t(($) => $.lines.routesOutsideValidity)}: ${conflictingRoutes.join(', ')}`,
       );

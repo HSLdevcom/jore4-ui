@@ -10,7 +10,7 @@ import {
   setIsCommonSubstitutePeriodFormDirtyAction,
   useAppDispatch,
 } from '../../../../redux';
-import { mapToISODate, padToTwoDigits } from '../../../../time';
+import { mapToISODate } from '../../../../time';
 import { DateRange } from '../../../../types';
 import { submitFormByRef } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
@@ -41,83 +41,64 @@ type GeneratedDate = { name: string; date: DateTime };
 function generatePresetDatesForDateRange(
   startDate: DateTime,
   endDate: DateTime,
-) {
+): Array<GeneratedDate> {
   const years = range(startDate.year, endDate.year + 1);
-  const generatedDates: GeneratedDate[] = [];
 
   // Generate individual days for each year
   // return generated dates within date range
-  years.forEach((year) => {
-    commonSubstituteDayData.forEach((day) => {
-      const date = DateTime.fromISO(
-        `${year}-${padToTwoDigits(day.month)}-${padToTwoDigits(day.day)}`,
-      );
-      if (date >= startDate && date <= endDate) {
-        generatedDates.push({
-          name: `${day.name} ${year}`,
-          date,
-        });
-      }
-    });
-  });
-
-  return generatedDates;
+  return years
+    .flatMap((year) =>
+      commonSubstituteDayData.map<GeneratedDate>(({ name, month, day }) => ({
+        name: `${name} ${year}`,
+        date: DateTime.fromObject({ year, month, day }),
+      })),
+    )
+    .filter(({ date }) => date >= startDate && date <= endDate);
 }
 
 export function mapCommonSubstituteOperatingPeriodsToCommonDays(
   commonSubstituteOperatingPeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
 ): CommonDayType[] {
-  return commonSubstituteOperatingPeriods?.map((period) => {
-    const lineTypes: Set<string> = new Set();
-    period.substitute_operating_day_by_line_types.forEach(
-      (operatingDayByLineType) =>
-        lineTypes.add(operatingDayByLineType.type_of_line),
-    );
-
-    return {
-      periodId: period.substitute_operating_period_id,
-      periodName: period.period_name,
-      supersededDate: mapDateTimeToFormState(
-        period.substitute_operating_day_by_line_types[0].superseded_date,
-      ),
-      substituteDayOfWeek: parseSubstituteDayOfWeek(
-        period.substitute_operating_day_by_line_types[0].substitute_day_of_week,
-      ),
-      lineTypes: mapLineTypes(lineTypes),
-      fromDatabase: true,
-      created: false,
-      isPreset: period.is_preset,
-    };
-  });
+  return commonSubstituteOperatingPeriods.map((period) => ({
+    periodId: period.substitute_operating_period_id,
+    periodName: period.period_name,
+    supersededDate: mapDateTimeToFormState(
+      period.substitute_operating_day_by_line_types[0].superseded_date,
+    ),
+    substituteDayOfWeek: parseSubstituteDayOfWeek(
+      period.substitute_operating_day_by_line_types[0].substitute_day_of_week,
+    ),
+    lineTypes: mapLineTypes(period),
+    fromDatabase: true,
+    created: false,
+    isPreset: period.is_preset,
+  }));
 }
 
 function combineCommonDaysWithPresetDates(
   commonDays: ReadonlyArray<CommonDayType>,
   presetDays: ReadonlyArray<GeneratedDate>,
 ): ReadonlyArray<CommonDayType> {
-  const displayedCommonDays = [...commonDays];
+  const displayedPresetDays: Array<CommonDayType> = presetDays
+    .filter(
+      (presetDay) =>
+        !commonDays.some(
+          (commonDay) =>
+            presetDay.name === commonDay.periodName &&
+            mapToISODate(presetDay.date) === commonDay.supersededDate,
+        ),
+    )
+    .map((presetDay) => ({
+      periodName: presetDay.name,
+      supersededDate: mapDateTimeToFormState(presetDay.date),
+      lineTypes: '',
+      substituteDayOfWeek: '',
+      fromDatabase: false,
+      created: false,
+      isPreset: true,
+    }));
 
-  presetDays.forEach((presetDay) => {
-    const presetDayFoundInCommonDays = commonDays.some(
-      (commonDay) =>
-        presetDay.name === commonDay.periodName &&
-        mapToISODate(presetDay.date) === commonDay.supersededDate,
-    );
-
-    if (!presetDayFoundInCommonDays) {
-      displayedCommonDays.push({
-        periodName: presetDay.name,
-        supersededDate: mapDateTimeToFormState(presetDay.date),
-        lineTypes: '',
-        substituteDayOfWeek: '',
-        fromDatabase: false,
-        created: false,
-        isPreset: true,
-      });
-    }
-  });
-
-  return displayedCommonDays;
+  return commonDays.concat(displayedPresetDays);
 }
 
 type CommonSubstitutePeriodFormProps = {

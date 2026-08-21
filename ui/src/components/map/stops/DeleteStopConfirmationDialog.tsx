@@ -31,24 +31,20 @@ export const DeleteStopConfirmationDialog: FC<
     const deletedStopText = t(($) => $.confirmDeleteStopDialog.description, {
       stopLabel: changes.deletedStopPoint.label,
     });
-    const confirmationTextParts: string[] = [deletedStopText];
 
-    // if stop is deleted from some routes, list them
-    if (changes.deleteStopFromRoutes.length > 0) {
-      const routeLabels = buildRouteLabelListString(
-        changes.deleteStopFromRoutes,
-        t,
-      );
-      const removedRoutesText = t(
-        ($) => $.confirmDeleteStopDialog.removedFromRoutes,
-        {
-          routeLabels,
-        },
-      );
-      confirmationTextParts.push(removedRoutesText);
+    // If stop is deleted from some routes, list them, else don't
+    if (changes.deleteStopFromRoutes.length === 0) {
+      return deletedStopText;
     }
 
-    return confirmationTextParts.join('\n\n');
+    const removedRoutesText = t(
+      ($) => $.confirmDeleteStopDialog.removedFromRoutes,
+      {
+        routeLabels: buildRouteLabelListString(changes.deleteStopFromRoutes, t),
+      },
+    );
+
+    return `${deletedStopText}\n\n${removedRoutesText}`;
   };
 
   return (

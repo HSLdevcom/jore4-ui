@@ -33,15 +33,11 @@ function useShelters(
 function useShelterFormDefaultValues(
   shelters: ReadonlyArray<ShelterEquipmentDetailsFragment>,
 ) {
-  const shelterFormDefaultValues = {
-    shelters: shelters.map(mapShelterDataToFormState),
-  };
-
-  if (!shelterFormDefaultValues.shelters.length) {
-    shelterFormDefaultValues.shelters.push(mapShelterDataToFormState({}));
+  if (shelters.length === 0) {
+    return { shelters: [mapShelterDataToFormState({})] };
   }
 
-  return shelterFormDefaultValues;
+  return { shelters: shelters.map(mapShelterDataToFormState) };
 }
 
 export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {

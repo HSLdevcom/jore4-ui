@@ -116,15 +116,9 @@ export function useExportRoutes() {
       >
     >,
   ): string[] => {
-    const notEligibleRoutes: string[] = [];
-    routesToExport.forEach((route) => {
-      if (!hasFirstAndLastStopSetAsTimingPoint(route)) {
-        const uniqueLabelAndDirection = `${route.unique_label} (${route.direction})`;
-        notEligibleRoutes.push(uniqueLabelAndDirection);
-      }
-    });
-
-    return notEligibleRoutes;
+    return routesToExport
+      .filter((route) => !hasFirstAndLastStopSetAsTimingPoint(route))
+      .map((route) => `${route.unique_label} (${route.direction})`);
   };
 
   const exportRoutesToHastus = async (routeLabels: ReadonlyArray<string>) => {

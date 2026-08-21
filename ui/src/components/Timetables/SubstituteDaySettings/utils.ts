@@ -1,10 +1,12 @@
+import uniq from 'lodash/uniq';
 import { DateTime, Duration } from 'luxon';
 import {
   Maybe,
   RouteTypeOfLineEnum,
+  SubstituteOperatingPeriodSettingsInfoFragment,
   TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput,
 } from '../../../generated/graphql';
-import { mapToISODate, parseDate } from '../../../time';
+import { DateLike, mapToISODate, parseDate } from '../../../time';
 import { SubstituteDayOfWeek } from '../../../types/enums';
 import { AllOptionEnum } from '../../../utils';
 import {
@@ -38,6 +40,25 @@ function parseOptionalInterval(
   return Duration.fromISOTime(str);
 }
 
+function* dateRange(beginDate: DateLike, endDate: DateLike) {
+  const parsedBegin = parseDate(beginDate);
+  const parsedEnd = parseDate(endDate);
+
+  if (!parsedBegin || !parsedEnd) {
+    throw new Error(
+      `Invalid date input! $beginDate=${beginDate} | endDate=${endDate}`,
+    );
+  }
+
+  for (
+    let date = parsedBegin;
+    date <= parsedEnd;
+    date = date.plus({ days: 1 })
+  ) {
+    yield date;
+  }
+}
+
 export function mapPeriodsToDayByLineTypes(
   input: PeriodType | CommonSubstitutePeriodType,
 ): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] {
@@ -46,27 +67,19 @@ export function mapPeriodsToDayByLineTypes(
     endDate,
     beginTime,
     endTime,
-    lineTypes,
+    lineTypes: lineTypesString,
     substituteDayOfWeek,
     periodId,
   } = input;
-  const currentDate = parseDate(beginDate);
-  const endDateObj = parseDate(endDate);
-  if (!currentDate || !endDateObj) {
-    throw new Error('Invalid date input');
-  }
 
-  const objectArray: TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] =
-    [];
-  const lineTypeArray = lineTypes.split(',');
-  for (
-    let date = currentDate;
-    date <= endDateObj;
-    date = date.plus({ days: 1 })
-  ) {
-    lineTypeArray.forEach((lineType: string) => {
-      if (lineType !== AllOptionEnum.All) {
-        objectArray.push({
+  const lineTypes = lineTypesString
+    .split(',')
+    .filter((lineType) => lineType !== AllOptionEnum.All);
+
+  return dateRange(beginDate, endDate)
+    .flatMap((date) =>
+      lineTypes.map((lineType: string) => {
+        return {
           type_of_line: lineType,
           superseded_date: date,
           substitute_day_of_week:
@@ -74,11 +87,10 @@ export function mapPeriodsToDayByLineTypes(
           begin_time: parseOptionalInterval(beginTime),
           end_time: parseOptionalInterval(endTime),
           substitute_operating_period_id: periodId,
-        });
-      }
-    });
-  }
-  return objectArray;
+        };
+      }),
+    )
+    .toArray();
 }
 
 export function mapDateTimeToFormState(
@@ -88,15 +100,20 @@ export function mapDateTimeToFormState(
   return stringDate ?? '';
 }
 
-export function mapLineTypes(lineTypes: Set<string>) {
-  if (lineTypes.size === Object.keys(RouteTypeOfLineEnum).length) {
-    lineTypes.add(AllOptionEnum.All);
-  }
-  return Array.from(lineTypes).join(',');
-}
+const lineTypeEnumSize = Object.keys(RouteTypeOfLineEnum).length;
 
-export function generateLineTypes(): string {
-  const val: string[] = Object.values(RouteTypeOfLineEnum);
-  val.push(AllOptionEnum.All);
-  return val.join(',');
+export function mapLineTypes(
+  period: SubstituteOperatingPeriodSettingsInfoFragment,
+) {
+  const uniqLineTypes = uniq(
+    period.substitute_operating_day_by_line_types.map(
+      (operatingDayByLineType) => operatingDayByLineType.type_of_line,
+    ),
+  );
+
+  const lineTypes =
+    uniqLineTypes.length === lineTypeEnumSize
+      ? [AllOptionEnum.All]
+      : uniqLineTypes;
+  return lineTypes.join(',');
 }

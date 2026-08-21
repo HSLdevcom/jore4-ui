@@ -9,6 +9,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { twJoin } from 'tailwind-merge';
 import {
   Maybe,
+  RouteTypeOfLineEnum,
   SubstituteOperatingPeriodSettingsInfoFragment,
 } from '../../../../generated/graphql';
 import {
@@ -17,13 +18,12 @@ import {
 } from '../../../../redux';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
-import { submitFormByRef } from '../../../../utils';
+import { AllOptionEnum, submitFormByRef } from '../../../../utils';
 import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
 import { Row, Visible } from '../../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../../common/Modals';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {
-  generateLineTypes,
   mapDateTimeToFormState,
   mapLineTypes,
   parseSubstituteDayOfWeek,
@@ -40,6 +40,10 @@ const testIds = {
   saveButton: 'OccasionalSubstitutePeriodForm::saveButton',
   addRowButton: 'OccasionalSubstitutePeriodForm::addRowButton',
 };
+
+function generateLineTypes(): string {
+  return [...Object.values(RouteTypeOfLineEnum), AllOptionEnum.All].join(',');
+}
 
 const emptyRowObject: PeriodType = {
   periodName: '',
@@ -65,38 +69,33 @@ function convertToPeriodSchema(
   periods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
 ): FormState {
   return {
-    periods: periods.map((item) => {
+    periods: periods.map((period) => {
       const periodBeginDate = minBy(
-        item.substitute_operating_day_by_line_types,
+        period.substitute_operating_day_by_line_types,
         'superseded_date',
       )?.superseded_date;
 
       const periodEndDate = maxBy(
-        item.substitute_operating_day_by_line_types,
+        period.substitute_operating_day_by_line_types,
         'superseded_date',
       )?.superseded_date;
 
-      const lineTypes: Set<string> = new Set();
-      item.substitute_operating_day_by_line_types.forEach(
-        (operatingDayByLineType) =>
-          lineTypes.add(operatingDayByLineType.type_of_line),
-      );
-
       return {
-        periodId: item.substitute_operating_period_id,
-        periodName: item.period_name,
+        periodId: period.substitute_operating_period_id,
+        periodName: period.period_name,
         beginDate: mapDateTimeToFormState(periodBeginDate),
         endDate: mapDateTimeToFormState(periodEndDate),
         beginTime: mapDurationToString(
-          item.substitute_operating_day_by_line_types[0].begin_time,
+          period.substitute_operating_day_by_line_types[0].begin_time,
         ),
         endTime: mapDurationToString(
-          item.substitute_operating_day_by_line_types[0].end_time,
+          period.substitute_operating_day_by_line_types[0].end_time,
         ),
         substituteDayOfWeek: parseSubstituteDayOfWeek(
-          item.substitute_operating_day_by_line_types[0].substitute_day_of_week,
+          period.substitute_operating_day_by_line_types[0]
+            .substitute_day_of_week,
         ),
-        lineTypes: mapLineTypes(lineTypes),
+        lineTypes: mapLineTypes(period),
         toBeDeleted: false,
         isPreset: false,
       };

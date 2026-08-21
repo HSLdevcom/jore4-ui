@@ -61,6 +61,7 @@ type ValidityPeriodParams = {
   readonly validity_end?: DateTime | null;
 };
 
+// TODOO: Replace with custom errors and translate them at catch site.
 export function assertRouteValidityIsInsideLineValidity(
   t: TFunction,
   route: ValidityPeriodParams,
