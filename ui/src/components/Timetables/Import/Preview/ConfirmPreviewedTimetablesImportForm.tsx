@@ -1,0 +1,100 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Column, Row } from '../../../common/LayoutComponents';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
+import { TimetableImportStrategyForm } from '../Common/TimetableImportStrategyForm';
+import {
+  FormState,
+  timetablesImportFormSchema,
+} from '../Common/TimetablesImportFormSchema';
+import { TimetablesImportPriorityForm } from '../Common/TimetablesImportPriorityForm';
+
+type ConfirmPreviewedTimetablesImportFormProps = {
+  readonly defaultValues?: Partial<FormState>;
+  readonly onSubmit: (state: FormState) => void;
+  readonly fetchStagingAndTargetFramesForCombine: (priority: number) => void;
+  readonly fetchRouteDeviations: (priority: number) => void;
+  readonly clearStagingAndTargetFramesForCombine: () => void;
+  readonly clearRouteDeviations: () => void;
+};
+
+export const ConfirmPreviewedTimetablesImportFormComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  ConfirmPreviewedTimetablesImportFormProps
+> = (
+  {
+    clearStagingAndTargetFramesForCombine,
+    clearRouteDeviations,
+    defaultValues,
+    fetchStagingAndTargetFramesForCombine,
+    fetchRouteDeviations,
+    onSubmit,
+  },
+  externalRef,
+) => {
+  const methods = useForm<FormState>({
+    defaultValues,
+    resolver: zodResolver(timetablesImportFormSchema),
+  });
+  useDirtyFormBlockNavigation(
+    methods.formState,
+    'ConfirmPreviewedTimetablesImportForm',
+  );
+
+  const { handleSubmit, watch } = methods;
+
+  const { priority, timetableImportStrategy } = watch();
+
+  useEffect(() => {
+    if (timetableImportStrategy === 'combine' && priority) {
+      fetchStagingAndTargetFramesForCombine(priority);
+    } else {
+      clearStagingAndTargetFramesForCombine();
+    }
+  }, [
+    fetchStagingAndTargetFramesForCombine,
+    clearStagingAndTargetFramesForCombine,
+    priority,
+    timetableImportStrategy,
+  ]);
+
+  useEffect(() => {
+    if (timetableImportStrategy === 'replace' && priority) {
+      fetchRouteDeviations(priority);
+    } else {
+      clearRouteDeviations();
+    }
+  }, [
+    clearRouteDeviations,
+    fetchRouteDeviations,
+    priority,
+    timetableImportStrategy,
+  ]);
+
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <FormProvider {...methods}>
+      <form
+        id="save-timetables-form"
+        onSubmit={handleSubmit(onSubmit)}
+        ref={externalRef}
+      >
+        <Row className="gap-6">
+          <TimetablesImportPriorityForm showLabel={false} />
+          <div className="px-4">
+            <div className="h-full border-l border-black" />
+          </div>
+          <Column className="self-center">
+            <TimetableImportStrategyForm testIdPrefix="ConfirmPreviewedTimetablesImportForm" />
+          </Column>
+        </Row>
+      </form>
+    </FormProvider>
+  );
+};
+
+export const ConfirmPreviewedTimetablesImportForm = forwardRef<
+  ExplicitAny,
+  ConfirmPreviewedTimetablesImportFormProps
+>(ConfirmPreviewedTimetablesImportFormComponent);
