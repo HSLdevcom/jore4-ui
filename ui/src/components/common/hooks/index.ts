@@ -1,4 +1,4 @@
-export * from './useAlertsAndHighLights';
+export * from './alertStatus';
 export * from './useLoader';
 export * from './useNavigateToMap';
 export * from './useReturnToQueryParam';
