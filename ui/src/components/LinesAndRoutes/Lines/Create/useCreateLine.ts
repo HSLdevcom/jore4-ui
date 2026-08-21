@@ -13,8 +13,8 @@ import {
   mapDateInputToValidityEnd,
   showDangerToastWithError,
 } from '../../../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks/useCheckValidityAndPriorityConflicts';
 import { FormState } from '../../../forms/line/LineForm';
+import { useGetConflictingLines } from '../../Common';
 
 const GQL_INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {
@@ -55,7 +55,7 @@ export function mapFormToInput(state: FormState): RouteLineInsertInput {
 export function useCreateLine() {
   const { t } = useTranslation();
   const [mutateFunction] = useInsertLineOneMutation();
-  const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
+  const getConflictingLines = useGetConflictingLines();
 
   const prepareCreate = async ({ form }: CreateParams) => {
     const input = mapFormToInput(form);

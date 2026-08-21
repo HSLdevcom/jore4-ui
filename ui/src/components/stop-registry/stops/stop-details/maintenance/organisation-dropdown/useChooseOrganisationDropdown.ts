@@ -2,7 +2,7 @@ import {
   StopPlaceOrganisationFieldsFragment,
   useGetOrganisationsQuery,
 } from '../../../../../../generated/graphql';
-import { useDebouncedString } from '../../../../../../hooks';
+import { useDebouncedString } from '../../../../../../utils';
 
 export function useChooseOrganisationDropdown(
   query: string,

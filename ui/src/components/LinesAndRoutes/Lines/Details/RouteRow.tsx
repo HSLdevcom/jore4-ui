@@ -8,7 +8,6 @@ import {
   RouteAllFieldsFragment,
   RouteDirectionEnum,
 } from '../../../../generated/graphql';
-import { makeBackNavigationIsSafeState } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import {
   MAX_DATE,
@@ -16,6 +15,7 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../../time';
+import { makeBackNavigationIsSafeState } from '../../../../utils';
 import {
   mapDirectionToSymbol,
   useGetLocalizedTextFromDbBlob,
@@ -26,12 +26,11 @@ import {
   LocatorButton,
 } from '../../../common/Buttons';
 import {
-  useAlertsAndHighLights,
+  getAlertStatus,
+  getAlertStyle,
   useShowRoutesOnMap,
 } from '../../../common/hooks';
-import { AlertPopover } from '../../Common/AlertPopover';
-import { DirectionBadge } from '../../Common/DirectionBadge';
-import { RouteLabel } from '../../Common/RouteLabel';
+import { AlertPopover, DirectionBadge, RouteLabel } from '../../Common';
 
 const testIds = {
   container: (routeLabel: string, direction: RouteDirectionEnum) =>
@@ -72,8 +71,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
 
   const { showRouteOnMap } = useShowRoutesOnMap();
 
-  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
-  const alertStatus = getAlertStatus(route);
+  const alertStatus = getAlertStatus(t, route);
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
 
   const onClickShowRouteOnMap = () => {

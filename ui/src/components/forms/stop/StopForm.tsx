@@ -20,6 +20,7 @@ import {
   Operation,
   selectIsTimingPlaceModalOpen,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { parseDate } from '../../../time';
 import { StopPlaceState } from '../../../types/stop-registry';
@@ -30,7 +31,6 @@ import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../utils';
-import { useLoader } from '../../common/hooks';
 import { ValidationError } from '../../common/Inputs';
 import { Visible } from '../../common/LayoutComponents';
 import {

@@ -5,8 +5,7 @@ import {
   useGetSelectedTimingPlaceDetailsByIdQuery,
   useGetTimingPlacesForComboboxQuery,
 } from '../../../../generated/graphql';
-import { useDebouncedString } from '../../../../hooks';
-import { mapToSqlLikeValue } from '../../../../utils';
+import { mapToSqlLikeValue, useDebouncedString } from '../../../../utils';
 
 const GQL_GET_TIMING_PLACES_FOR_COMBOBOX = gql`
   query GetTimingPlacesForCombobox($labelPattern: String!) {

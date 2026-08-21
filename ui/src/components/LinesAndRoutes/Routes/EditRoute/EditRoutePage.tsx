@@ -5,9 +5,8 @@ import {
   ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdQuery,
 } from '../../../../generated/graphql';
-import { useRequiredParams } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { showSuccessToast } from '../../../../utils';
+import { showSuccessToast, useRequiredParams } from '../../../../utils';
 import { PageTitle } from '../../../common/Jore';
 import {
   Container,

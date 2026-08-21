@@ -3,8 +3,8 @@ import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import { useGetStopAreasByLocationQuery } from '../../../generated/graphql';
 import { Operation, Viewport } from '../../../redux';
-import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks';
 import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';
+import { useMapDataLayerSimpleQueryLoader } from '../utils/useMapDataLayerLoader';
 
 const GQL_QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
   query GetStopAreasByLocation($locationFilter: geometry_comparison_exp) {

@@ -33,6 +33,7 @@ import {
   stopRouteEditingAction,
   useAppDispatch,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';
@@ -42,7 +43,6 @@ import {
   showWarningToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
-import { useLoader } from '../../common/hooks/useLoader';
 import { ConfirmationDialog } from '../../common/Modals';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {

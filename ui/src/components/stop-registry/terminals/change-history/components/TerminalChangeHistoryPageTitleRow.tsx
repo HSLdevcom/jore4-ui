@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigateBackSafely } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
+import { useNavigateBackSafely } from '../../../../../utils';
 import { CloseIconButton } from '../../../../common/Buttons';
 import { PageTitle } from '../../../../common/Jore';
 import { Row } from '../../../../common/LayoutComponents';

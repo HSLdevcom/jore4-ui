@@ -11,13 +11,13 @@ import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';
 import { parseStopRegistryTransportModeJsonArray } from '../../../utils';
-import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
 import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../types';
 import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
 import { hasSearchFilters } from '../utils/useIsInSearchResultMode';
+import { useMapDataLayerSimpleQueryLoader } from '../utils/useMapDataLayerLoader';
 
 const GQL_GET_MAP_STOPS = gql`
   query GetMapStops($where: stops_database_quay_newest_version_bool_exp) {

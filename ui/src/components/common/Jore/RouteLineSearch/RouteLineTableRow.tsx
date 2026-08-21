@@ -11,7 +11,7 @@ import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
 import { isRoute } from '../../../../utils';
 import { AlertPopover, RouteLabel } from '../../../LinesAndRoutes/Common';
 import { LocatorButton } from '../../Buttons';
-import { useAlertsAndHighLights } from '../../hooks';
+import { getAlertStatus, getAlertStyle } from '../../hooks';
 import { Column, Row, Visible } from '../../LayoutComponents';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
@@ -107,8 +107,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
-  const alertStatus = getAlertStatus(rowItem);
+  const alertStatus = getAlertStatus(t, rowItem);
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
 
   const displayInformation = getDisplayInformation(
@@ -124,7 +123,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
    * Determine the proper title text for the map button.
    * The title is mainly relevant for screen readers, but it also helps mouse users with added details.
    * TODO: This could be done better if the tables were refactored, especially if the "generic" line/route structure is removed at the same time.
-   * @param RowItem
+   * @param item
    * @returns An accessible translated text for this section's buttons.
    */
   function getMapButtonTooltip(item: RowItem): string {

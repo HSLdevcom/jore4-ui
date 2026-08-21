@@ -1,5 +1,4 @@
 import { FC, useRef } from 'react';
-import { useNavigateBackSafely } from '../../hooks';
 import {
   MapEntityEditorViewState,
   setCopyStopIdAction,
@@ -8,6 +7,7 @@ import {
   setSelectedTerminalIdAction,
   useAppAction,
 } from '../../redux';
+import { useNavigateBackSafely } from '../../utils';
 import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';

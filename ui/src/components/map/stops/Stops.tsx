@@ -25,11 +25,11 @@ import {
   setSelectedStopIdAction,
   useAppAction,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { Priority } from '../../../types/enums';
 import { mapLngLatToPoint, mapPointToGeoJSON, none } from '../../../utils';
-import { useLoader } from '../../common/hooks';
 import { useResolveStopHoverTitle } from '../queries';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapStop, MapStopArea, MapTerminal } from '../types';

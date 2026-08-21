@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeBackNavigationIsSafeState, useUrlQuery } from '../../../../hooks';
+import { useUrlQuery } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
+import { makeBackNavigationIsSafeState } from '../../../../utils';
 import { CloseIconButton, SimpleButton } from '../../../common/Buttons';
 import { ObservationDateControl } from '../../../common/Jore';
 import { Row } from '../../../common/LayoutComponents';

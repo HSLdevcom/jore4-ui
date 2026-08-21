@@ -13,14 +13,12 @@ import {
   useGetHighestPriorityLineDetailsWithRoutesQuery,
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
-import {
-  useObservationDateQueryParam,
-  useRequiredParams,
-} from '../../../hooks';
+import { useObservationDateQueryParam } from '../../../hooks';
 import { Priority } from '../../../types/enums';
 import {
   buildActiveDateGqlFilter,
   getRouteLabelVariantText,
+  useRequiredParams,
 } from '../../../utils';
 
 const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`

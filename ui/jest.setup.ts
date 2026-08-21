@@ -22,6 +22,9 @@ if (!global.TextDecoder) {
 
 configMocks({ act });
 
+// mock the lodash debounce module to call the function immediately
+jest.mock('lodash/debounce', () => jest.fn((fn) => fn));
+
 mockAnimationsApi();
 mockResizeObserver();
 
