@@ -1,7 +1,11 @@
 import { ApolloError } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { Operation, openSingleErrorModalAction } from '../../../../redux';
+import {
+  Operation,
+  openSingleErrorModalAction,
+  useLoader,
+} from '../../../../redux';
 import { TimetablePriority } from '../../../../types/enums';
 import { showSuccessToast } from '../../../../utils';
 import {
@@ -9,7 +13,6 @@ import {
   extractErrorType,
   extractRawSqlError,
 } from '../../../../utils/timetablesApiErrors';
-import { useLoader } from '../../../common/hooks';
 import { TimetableImportStrategy } from '../TimetableImportStrategyForm';
 import { useTimetablesImport } from './useTimetablesImport';
 

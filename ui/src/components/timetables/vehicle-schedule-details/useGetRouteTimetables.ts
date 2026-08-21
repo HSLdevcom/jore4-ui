@@ -13,10 +13,10 @@ import {
   Operation,
   selectChangeTimetableValidityModal,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { findEarliestTime, findLatestTime } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
-import { useLoader } from '../../common/hooks';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
   fragment DayTypeAllFields on timetables_service_calendar_day_type {

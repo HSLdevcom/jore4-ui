@@ -3,11 +3,10 @@ import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
-import { Operation } from '../../../../../redux';
+import { Operation, useLoader } from '../../../../../redux';
 import { isDateInRange, mapToISODate, parseDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
-import { useLoader } from '../../../../common/hooks/useLoader';
 import { InputField } from '../../../../common/Inputs';
 import {
   Column,

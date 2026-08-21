@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Operation } from '../../../../redux';
+import { Operation, useLoader } from '../../../../redux';
 import { showSuccessToast } from '../../../../utils';
-import { useLoader } from '../../../common/hooks';
 import { StopInfoForEditingOnMap } from '../../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { DeleteChanges, useDeleteStop } from './useDeleteStop';
 

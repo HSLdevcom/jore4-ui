@@ -5,9 +5,12 @@ import {
   DeleteVehicleScheduleFrameMutationVariables,
   useDeleteVehicleScheduleFrameMutation,
 } from '../../../../generated/graphql';
-import { Operation, openErrorListModalAction } from '../../../../redux';
+import {
+  Operation,
+  openErrorListModalAction,
+  useLoader,
+} from '../../../../redux';
 import { getApolloErrorMessage } from '../../../../utils/apolloErrors';
-import { useLoader } from '../../../common/hooks';
 
 const GQL_DELETE_VEHICLE_SCHEDULE_FRAME = gql`
   mutation DeleteVehicleScheduleFrame($vehicle_schedule_frame_id: uuid!) {

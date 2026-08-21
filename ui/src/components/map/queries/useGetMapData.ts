@@ -7,9 +7,9 @@ import {
   selectSelectedTerminalId,
   selectShowMapEntityTypes,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
-import { useLoader } from '../../common/hooks';
 import { useFilterStopAreas } from '../stop-areas';
 import { useFilterStops, useGetRoutesDisplayedInMap } from '../stops/hooks';
 import { isViewportLoaded } from '../utils/isViewportLoaded';

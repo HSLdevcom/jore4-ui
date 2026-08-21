@@ -6,10 +6,9 @@ import {
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
 } from '../../../../../generated/graphql';
-import { Operation } from '../../../../../redux';
+import { Operation, useLoader } from '../../../../../redux';
 import { StopWithDetails } from '../../../../../types';
 import { KnownValueKey } from '../../../../../utils';
-import { useLoader } from '../../../../common/hooks';
 import { useGetStopLinkAndDirection } from '../../../../map/stops/hooks/useGetStopLinkAndDirection';
 import { setMirrorParent } from '../../../utils/mirrorRelation';
 

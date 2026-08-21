@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
-import { Operation } from '../../../redux';
+import { Operation, useLoader } from '../../../redux';
 import {
   localizedStringOptional,
   requiredString,
@@ -13,7 +13,6 @@ import {
   submitFormByRef,
 } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
-import { useLoader } from '../../common/hooks';
 import { InputField } from '../../common/Inputs';
 import { FormRow, Row } from '../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';

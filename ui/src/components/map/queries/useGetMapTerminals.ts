@@ -5,9 +5,9 @@ import {
   useGetStopTerminalsByLocationQuery,
 } from '../../../generated/graphql';
 import { Operation, Viewport } from '../../../redux';
-import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { ChildStopPlaceIds, MapTerminal } from '../types';
 import { buildWithinViewportGqlGeometryFilter } from '../utils/buildWithinViewportGqlGeometryFilter';
+import { useMapDataLayerSimpleQueryLoader } from '../utils/useMapDataLayerLoader';
 
 const GQL_QUERY_GET_STOP_TERMINALS_BY_LOCATION = gql`
   query GetStopTerminalsByLocation($locationFilter: geometry_comparison_exp) {

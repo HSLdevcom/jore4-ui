@@ -10,12 +10,15 @@ import {
 } from '../../../../api/hastus';
 import { RouteTableRowFragment } from '../../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../../hooks';
-import { Operation, openSingleErrorModalAction } from '../../../../redux';
+import {
+  Operation,
+  openSingleErrorModalAction,
+  useLoader,
+} from '../../../../redux';
 import {
   mapHastusErrorTypeToErrorMessage,
   mapPriorityToUiName,
 } from '../../../../utils/i18n';
-import { useLoader } from '../../hooks/useLoader';
 import { useSearchQueryParser } from './useSearchQueryParser';
 
 type JourneyPatternWithGenericReturnType<TType> = {

@@ -16,6 +16,7 @@ import {
   setSelectedMapStopAreaIdAction,
   useAppAction,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { EnrichedStopPlace } from '../../../types';
 import {
@@ -24,7 +25,6 @@ import {
   parseVehicleMode,
   showSuccessToast,
 } from '../../../utils';
-import { useLoader } from '../../common/hooks';
 import { ConfirmationDialog } from '../../common/Modals';
 import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
 import {

@@ -7,6 +7,7 @@ import {
   Operation,
   setMapStopViewStateAction,
   useAppDispatch,
+  useLoader,
 } from '../../../../redux';
 import { isDateInRange } from '../../../../time';
 import {
@@ -14,7 +15,6 @@ import {
   showSuccessToast,
   showWarningToast,
 } from '../../../../utils';
-import { useLoader } from '../../../common/hooks';
 import { StopInfoForEditingOnMap } from '../../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { useMapUrlStateContext } from '../../utils/mapUrlState';
 import {

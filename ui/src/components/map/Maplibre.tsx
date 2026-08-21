@@ -24,10 +24,10 @@ import {
   setViewPortAction,
   useAppDispatch,
   useAppSelector,
+  useLoader,
 } from '../../redux';
 import { LoadingState } from '../../types';
 import { log, showWarningToast } from '../../utils';
-import { useLoader } from '../common/hooks/useLoader';
 import { isViewportLoaded } from './utils/isViewportLoaded';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 import { getInteractiveLayerIds } from './utils/mapUtils';

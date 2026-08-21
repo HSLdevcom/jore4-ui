@@ -19,10 +19,10 @@ import {
   setSelectedTerminalIdAction,
   useAppAction,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
-import { useLoader } from '../../common/hooks/useLoader';
 import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
 import { useGetTerminalDetails } from '../queries';
 import { EditTerminalLayerRef, TerminalsRef } from '../refTypes';

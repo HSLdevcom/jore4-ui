@@ -8,13 +8,13 @@ import {
   selectIsJoreOperationLoading,
   useAppDispatch,
   useAppSelector,
+  useLoader,
 } from '../../../../redux';
 import { showDangerToast, showSuccessToast } from '../../../../utils';
 import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../common/Dropdowns';
-import { useLoader } from '../../../common/hooks/useLoader';
 import { StopsNeedingUpdateModal } from '../../Common/StopsNeedingUpdateModal';
 import {
   UpdateJourneyPatternChanges,

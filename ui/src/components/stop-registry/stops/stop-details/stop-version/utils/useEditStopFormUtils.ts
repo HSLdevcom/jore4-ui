@@ -9,11 +9,11 @@ import {
   closeCutStopVersionValidityModalAction,
   openCutStopVersionValidityModalAction,
   useAppDispatch,
+  useLoader,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
-import { useLoader } from '../../../../../common/hooks/useLoader';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { FailedToCutOverlappingStopVersion } from '../errors/FailedToCutOverlappingStopVersion';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
