@@ -45,10 +45,10 @@ import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,
   VehicleScheduleDetailsPage,
-} from '../components/timetables';
-import { ImportTimetablesPage } from '../components/timetables/import/ImportTimetablesPage';
-import { PreviewTimetablesPage } from '../components/timetables/import/PreviewTimetablesPage';
-import { TimetableVersionsPage } from '../components/timetables/versions';
+} from '../components/Timetables';
+import { ImportTimetablesPage } from '../components/Timetables/Import/Import/ImportTimetablesPage';
+import { PreviewTimetablesPage } from '../components/Timetables/Import/Preview/PreviewTimetablesPage';
+import { TimetableVersionsPage } from '../components/Timetables/Versions';
 import { joreConfig } from '../config';
 import { selectUser, useAppSelector } from '../redux';
 import { mapToShortDateTime } from '../time';

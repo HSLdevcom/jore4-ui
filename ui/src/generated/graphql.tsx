@@ -71464,6 +71464,1405 @@ export type RouteVersionInfoFragment = {
   }>
 };
 
+export type VehicleScheduleFrameWithRoutesFragment = {
+  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+  readonly vehicle_schedule_frame_id: UUID,
+  readonly validity_start: luxon.DateTime,
+  readonly validity_end: luxon.DateTime,
+  readonly vehicle_services: ReadonlyArray<{
+    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+    readonly vehicle_service_id: UUID,
+    readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
+      readonly journey_pattern_instance?: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly journey_pattern_route?: {
+          readonly __typename?: 'route_route',
+          readonly route_id: UUID,
+          readonly label: string
+        } | null
+      } | null
+    }>
+  }>
+};
+
+export type GetVehicleScheduleFrameWithRoutesQueryVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetVehicleScheduleFrameWithRoutesQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly timetables_vehicle_schedule_vehicle_schedule_frame: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+      readonly vehicle_schedule_frame_id: UUID,
+      readonly validity_start: luxon.DateTime,
+      readonly validity_end: luxon.DateTime,
+      readonly vehicle_services: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+        readonly vehicle_service_id: UUID,
+        readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
+          readonly journey_pattern_instance?: {
+            readonly __typename?: 'journey_pattern_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly journey_pattern_route?: {
+              readonly __typename?: 'route_route',
+              readonly route_id: UUID,
+              readonly label: string
+            } | null
+          } | null
+        }>
+      }>
+    }>
+  } | null
+};
+
+export type UpdateVehicleScheduleFrameValidityMutationVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid']['input'];
+  validity_start?: InputMaybe<Scalars['date']['input']>;
+  validity_end?: InputMaybe<Scalars['date']['input']>;
+}>;
+
+
+export type UpdateVehicleScheduleFrameValidityMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_update_vehicle_schedule_vehicle_schedule_frame?: {
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response',
+      readonly returning: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+        readonly vehicle_schedule_frame_id: UUID,
+        readonly validity_start: luxon.DateTime,
+        readonly validity_end: luxon.DateTime
+      }>
+    } | null
+  } | null
+};
+
+export type VehicleJourneyWithRouteInfoFragment = {
+  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+  readonly start_time: luxon.Duration,
+  readonly end_time: luxon.Duration,
+  readonly contract_number: string,
+  readonly vehicle_journey_id: UUID,
+  readonly journey_pattern_ref: {
+    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+    readonly journey_pattern_ref_id: UUID,
+    readonly journey_pattern_instance?: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_route?: {
+        readonly __typename?: 'route_route',
+        readonly direction: RouteDirectionEnum,
+        readonly name_i18n: LocalizedString,
+        readonly description_i18n?: LocalizedString | null,
+        readonly version_comment?: string | null,
+        readonly origin_name_i18n: LocalizedString,
+        readonly origin_short_name_i18n: LocalizedString,
+        readonly destination_name_i18n: LocalizedString,
+        readonly destination_short_name_i18n: LocalizedString,
+        readonly on_line_id: UUID,
+        readonly label: string,
+        readonly variant?: number | null,
+        readonly route_id: UUID,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null,
+        readonly priority: number
+      } | null
+    } | null
+  }
+};
+
+export type VehicleServiceWithJourneysFragment = {
+  readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+  readonly vehicle_service_id: UUID,
+  readonly name_i18n?: any | null,
+  readonly day_type: {
+    readonly __typename?: 'timetables_service_calendar_day_type',
+    readonly day_type_id: UUID,
+    readonly label: string,
+    readonly name_i18n: any
+  },
+  readonly blocks: ReadonlyArray<{
+    readonly __typename?: 'timetables_vehicle_service_block',
+    readonly block_id: UUID,
+    readonly vehicle_journeys: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+      readonly start_time: luxon.Duration,
+      readonly end_time: luxon.Duration,
+      readonly contract_number: string,
+      readonly vehicle_journey_id: UUID,
+      readonly journey_pattern_ref: {
+        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+        readonly journey_pattern_ref_id: UUID,
+        readonly journey_pattern_instance?: {
+          readonly __typename?: 'journey_pattern_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly journey_pattern_route?: {
+            readonly __typename?: 'route_route',
+            readonly direction: RouteDirectionEnum,
+            readonly name_i18n: LocalizedString,
+            readonly description_i18n?: LocalizedString | null,
+            readonly version_comment?: string | null,
+            readonly origin_name_i18n: LocalizedString,
+            readonly origin_short_name_i18n: LocalizedString,
+            readonly destination_name_i18n: LocalizedString,
+            readonly destination_short_name_i18n: LocalizedString,
+            readonly on_line_id: UUID,
+            readonly label: string,
+            readonly variant?: number | null,
+            readonly route_id: UUID,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly priority: number
+          } | null
+        } | null
+      }
+    }>,
+    readonly vehicle_type?: {
+      readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+      readonly vehicle_type_id: UUID,
+      readonly description_i18n?: any | null
+    } | null
+  }>
+};
+
+export type VehicleScheduleFrameWithRouteInfoFragment = {
+  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+  readonly label: string,
+  readonly validity_end: luxon.DateTime,
+  readonly validity_start: luxon.DateTime,
+  readonly name_i18n?: any | null,
+  readonly vehicle_schedule_frame_id: UUID,
+  readonly priority: number,
+  readonly vehicle_services: ReadonlyArray<{
+    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+    readonly vehicle_service_id: UUID,
+    readonly name_i18n?: any | null,
+    readonly day_type: {
+      readonly __typename?: 'timetables_service_calendar_day_type',
+      readonly day_type_id: UUID,
+      readonly label: string,
+      readonly name_i18n: any
+    },
+    readonly blocks: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_service_block',
+      readonly block_id: UUID,
+      readonly vehicle_journeys: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+        readonly start_time: luxon.Duration,
+        readonly end_time: luxon.Duration,
+        readonly contract_number: string,
+        readonly vehicle_journey_id: UUID,
+        readonly journey_pattern_ref: {
+          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+          readonly journey_pattern_ref_id: UUID,
+          readonly journey_pattern_instance?: {
+            readonly __typename?: 'journey_pattern_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly journey_pattern_route?: {
+              readonly __typename?: 'route_route',
+              readonly direction: RouteDirectionEnum,
+              readonly name_i18n: LocalizedString,
+              readonly description_i18n?: LocalizedString | null,
+              readonly version_comment?: string | null,
+              readonly origin_name_i18n: LocalizedString,
+              readonly origin_short_name_i18n: LocalizedString,
+              readonly destination_name_i18n: LocalizedString,
+              readonly destination_short_name_i18n: LocalizedString,
+              readonly on_line_id: UUID,
+              readonly label: string,
+              readonly variant?: number | null,
+              readonly route_id: UUID,
+              readonly validity_start?: luxon.DateTime | null,
+              readonly validity_end?: luxon.DateTime | null,
+              readonly priority: number
+            } | null
+          } | null
+        }
+      }>,
+      readonly vehicle_type?: {
+        readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+        readonly vehicle_type_id: UUID,
+        readonly description_i18n?: any | null
+      } | null
+    }>
+  }>
+};
+
+export type GetStagingVehicleScheduleFramesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStagingVehicleScheduleFramesQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly timetables_vehicle_schedule_vehicle_schedule_frame: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+      readonly label: string,
+      readonly validity_end: luxon.DateTime,
+      readonly validity_start: luxon.DateTime,
+      readonly name_i18n?: any | null,
+      readonly vehicle_schedule_frame_id: UUID,
+      readonly priority: number,
+      readonly vehicle_services: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+        readonly vehicle_service_id: UUID,
+        readonly name_i18n?: any | null,
+        readonly day_type: {
+          readonly __typename?: 'timetables_service_calendar_day_type',
+          readonly day_type_id: UUID,
+          readonly label: string,
+          readonly name_i18n: any
+        },
+        readonly blocks: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_service_block',
+          readonly block_id: UUID,
+          readonly vehicle_journeys: ReadonlyArray<{
+            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+            readonly start_time: luxon.Duration,
+            readonly end_time: luxon.Duration,
+            readonly contract_number: string,
+            readonly vehicle_journey_id: UUID,
+            readonly journey_pattern_ref: {
+              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+              readonly journey_pattern_ref_id: UUID,
+              readonly journey_pattern_instance?: {
+                readonly __typename?: 'journey_pattern_journey_pattern',
+                readonly journey_pattern_id: UUID,
+                readonly journey_pattern_route?: {
+                  readonly __typename?: 'route_route',
+                  readonly direction: RouteDirectionEnum,
+                  readonly name_i18n: LocalizedString,
+                  readonly description_i18n?: LocalizedString | null,
+                  readonly version_comment?: string | null,
+                  readonly origin_name_i18n: LocalizedString,
+                  readonly origin_short_name_i18n: LocalizedString,
+                  readonly destination_name_i18n: LocalizedString,
+                  readonly destination_short_name_i18n: LocalizedString,
+                  readonly on_line_id: UUID,
+                  readonly label: string,
+                  readonly variant?: number | null,
+                  readonly route_id: UUID,
+                  readonly validity_start?: luxon.DateTime | null,
+                  readonly validity_end?: luxon.DateTime | null,
+                  readonly priority: number
+                } | null
+              } | null
+            }
+          }>,
+          readonly vehicle_type?: {
+            readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+            readonly vehicle_type_id: UUID,
+            readonly description_i18n?: any | null
+          } | null
+        }>
+      }>
+    }>
+  } | null
+};
+
+export type ChangeStagingVehicleScheduleFramePriorityMutationVariables = Exact<{
+  newPriority: Scalars['Int']['input'];
+}>;
+
+
+export type ChangeStagingVehicleScheduleFramePriorityMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_update_vehicle_schedule_vehicle_schedule_frame?: {
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response',
+      readonly returning: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+        readonly priority: number,
+        readonly validity_end: luxon.DateTime,
+        readonly validity_start: luxon.DateTime,
+        readonly name_i18n?: any | null,
+        readonly vehicle_schedule_frame_id: UUID
+      }>
+    } | null
+  } | null
+};
+
+export type CombineTimetablesMutationVariables = Exact<{
+  stagingVehicleScheduleFrameIds: ReadonlyArray<InputMaybe<Scalars['uuid']['input']>> | InputMaybe<Scalars['uuid']['input']>;
+  targetPriority: Scalars['Int']['input'];
+}>;
+
+
+export type CombineTimetablesMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly combineTimetables?: {
+    readonly __typename?: 'CombineTimetablesOutput',
+    readonly combinedIntoVehicleScheduleFrameIds: ReadonlyArray<UUID | null>
+  } | null
+};
+
+export type ReplaceTimetablesMutationVariables = Exact<{
+  stagingVehicleScheduleFrameIds: ReadonlyArray<InputMaybe<Scalars['uuid']['input']>> | InputMaybe<Scalars['uuid']['input']>;
+  targetPriority: Scalars['Int']['input'];
+}>;
+
+
+export type ReplaceTimetablesMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly replaceTimetables?: {
+    readonly __typename?: 'ReplaceTimetablesOutput',
+    readonly replacedVehicleScheduleFrameIds: ReadonlyArray<UUID | null>
+  } | null
+};
+
+export type DeleteStagingTimetablesMutationVariables = Exact<{
+  stagingVehicleScheduleFrameIds?: InputMaybe<ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input']>;
+}>;
+
+
+export type DeleteStagingTimetablesMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_delete_vehicle_schedule_vehicle_schedule_frame?: {
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response',
+      readonly returning: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+        readonly vehicle_schedule_frame_id: UUID
+      }>
+    } | null
+  } | null
+};
+
+export type GetToCombineTargetVehicleScheduleFrameIdQueryVariables = Exact<{
+  arg1: ToCombineTargetVehicleScheduleFrameIdInput;
+}>;
+
+
+export type GetToCombineTargetVehicleScheduleFrameIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly toCombineTargetVehicleScheduleFrameId?: {
+    readonly __typename?: 'ToCombineTargetVehicleScheduleFrameIdOutput',
+    readonly toCombineTargetVehicleScheduleFrameId: UUID
+  } | null
+};
+
+export type GetVehicleScheduleFrameWithJourneyInfoQueryVariables = Exact<{
+  vehicle_schedule_frame_ids: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
+}>;
+
+
+export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly frames: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+      readonly vehicle_schedule_frame_id: UUID,
+      readonly validity_start: luxon.DateTime,
+      readonly validity_end: luxon.DateTime,
+      readonly vehicle_services: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+        readonly vehicle_service_id: UUID,
+        readonly day_type: {
+          readonly __typename?: 'timetables_service_calendar_day_type',
+          readonly day_type_id: UUID,
+          readonly label: string,
+          readonly name_i18n: any
+        },
+        readonly blocks: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_service_block',
+          readonly block_id: UUID,
+          readonly vehicle_journeys: ReadonlyArray<{
+            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+            readonly vehicle_journey_id: UUID,
+            readonly start_time: luxon.Duration,
+            readonly contract_number: string,
+            readonly journey_pattern_ref: {
+              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+              readonly journey_pattern_ref_id: UUID,
+              readonly journey_pattern_instance?: {
+                readonly __typename?: 'journey_pattern_journey_pattern',
+                readonly journey_pattern_id: UUID,
+                readonly journey_pattern_route?: {
+                  readonly __typename?: 'route_route',
+                  readonly route_id: UUID,
+                  readonly unique_label: string,
+                  readonly direction: RouteDirectionEnum,
+                  readonly variant?: number | null,
+                  readonly name_i18n: LocalizedString,
+                  readonly route_line: {
+                    readonly __typename?: 'route_line',
+                    readonly line_id: UUID
+                  }
+                } | null
+              } | null
+            }
+          }>
+        }>
+      }>
+    }>
+  } | null
+};
+
+export type VehicleScheduleFrameWithJourneyInfoFragment = {
+  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+  readonly vehicle_schedule_frame_id: UUID,
+  readonly validity_start: luxon.DateTime,
+  readonly validity_end: luxon.DateTime,
+  readonly vehicle_services: ReadonlyArray<{
+    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+    readonly vehicle_service_id: UUID,
+    readonly day_type: {
+      readonly __typename?: 'timetables_service_calendar_day_type',
+      readonly day_type_id: UUID,
+      readonly label: string,
+      readonly name_i18n: any
+    },
+    readonly blocks: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_service_block',
+      readonly block_id: UUID,
+      readonly vehicle_journeys: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+        readonly vehicle_journey_id: UUID,
+        readonly start_time: luxon.Duration,
+        readonly contract_number: string,
+        readonly journey_pattern_ref: {
+          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+          readonly journey_pattern_ref_id: UUID,
+          readonly journey_pattern_instance?: {
+            readonly __typename?: 'journey_pattern_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly journey_pattern_route?: {
+              readonly __typename?: 'route_route',
+              readonly route_id: UUID,
+              readonly unique_label: string,
+              readonly direction: RouteDirectionEnum,
+              readonly variant?: number | null,
+              readonly name_i18n: LocalizedString,
+              readonly route_line: {
+                readonly __typename?: 'route_line',
+                readonly line_id: UUID
+              }
+            } | null
+          } | null
+        }
+      }>
+    }>
+  }>
+};
+
+export type VehicleJourneyWithPatternAndRouteFragment = {
+  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+  readonly vehicle_journey_id: UUID,
+  readonly start_time: luxon.Duration,
+  readonly contract_number: string,
+  readonly journey_pattern_ref: {
+    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+    readonly journey_pattern_ref_id: UUID,
+    readonly journey_pattern_instance?: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_route?: {
+        readonly __typename?: 'route_route',
+        readonly route_id: UUID,
+        readonly unique_label: string,
+        readonly direction: RouteDirectionEnum,
+        readonly variant?: number | null,
+        readonly name_i18n: LocalizedString,
+        readonly route_line: {
+          readonly __typename?: 'route_line',
+          readonly line_id: UUID
+        }
+      } | null
+    } | null
+  }
+};
+
+export type GetToReplaceVehicleScheduleFramesQueryVariables = Exact<{
+  arg1: ToReplaceVehicleScheduleFrameIdsInput;
+}>;
+
+
+export type GetToReplaceVehicleScheduleFramesQuery = {
+  readonly __typename?: 'query_root',
+  readonly toReplaceVehicleScheduleFrameIds?: {
+    readonly __typename?: 'ToReplaceVehicleScheduleFrameIdsOutput',
+    readonly toReplaceVehicleScheduleFrameIds: ReadonlyArray<UUID | null>
+  } | null
+};
+
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables = Exact<{
+  vehicle_schedule_frame_ids: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
+}>;
+
+
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly frames: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+      readonly vehicle_schedule_frame_id: UUID,
+      readonly vehicle_services: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+        readonly vehicle_service_id: UUID,
+        readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
+          readonly journey_pattern_id: UUID,
+          readonly journey_pattern_instance?: {
+            readonly __typename?: 'journey_pattern_journey_pattern',
+            readonly journey_pattern_id: UUID,
+            readonly journey_pattern_route?: {
+              readonly __typename?: 'route_route',
+              readonly route_id: UUID,
+              readonly unique_label: string,
+              readonly direction: RouteDirectionEnum,
+              readonly variant?: number | null,
+              readonly name_i18n: LocalizedString,
+              readonly route_line: {
+                readonly __typename?: 'route_line',
+                readonly line_id: UUID
+              }
+            } | null
+          } | null
+        }>
+      }>
+    }>
+  } | null
+};
+
+export type VehicleScheduleFrameWithRouteAndLineInfoFragment = {
+  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+  readonly vehicle_schedule_frame_id: UUID,
+  readonly vehicle_services: ReadonlyArray<{
+    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+    readonly vehicle_service_id: UUID,
+    readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
+      readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_instance?: {
+        readonly __typename?: 'journey_pattern_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly journey_pattern_route?: {
+          readonly __typename?: 'route_route',
+          readonly route_id: UUID,
+          readonly unique_label: string,
+          readonly direction: RouteDirectionEnum,
+          readonly variant?: number | null,
+          readonly name_i18n: LocalizedString,
+          readonly route_line: {
+            readonly __typename?: 'route_line',
+            readonly line_id: UUID
+          }
+        } | null
+      } | null
+    }>
+  }>
+};
+
+export type GetSubstituteOperatingPeriodsQueryVariables = Exact<{
+  startDate: Scalars['date']['input'];
+  endDate: Scalars['date']['input'];
+  isPreset: Scalars['Boolean']['input'];
+}>;
+
+
+export type GetSubstituteOperatingPeriodsQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly timetables_service_calendar_substitute_operating_period: ReadonlyArray<{
+      readonly __typename?: 'timetables_service_calendar_substitute_operating_period',
+      readonly period_name: string,
+      readonly is_preset: boolean,
+      readonly substitute_operating_period_id: UUID,
+      readonly substitute_operating_day_by_line_types: ReadonlyArray<{
+        readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
+        readonly begin_time?: luxon.Duration | null,
+        readonly end_time?: luxon.Duration | null,
+        readonly substitute_day_of_week?: number | null,
+        readonly substitute_operating_day_by_line_type_id: UUID,
+        readonly superseded_date: luxon.DateTime,
+        readonly type_of_line: string
+      }>
+    }>
+  } | null
+};
+
+export type SubstituteOperatingPeriodSettingsInfoFragment = {
+  readonly __typename?: 'timetables_service_calendar_substitute_operating_period',
+  readonly period_name: string,
+  readonly is_preset: boolean,
+  readonly substitute_operating_period_id: UUID,
+  readonly substitute_operating_day_by_line_types: ReadonlyArray<{
+    readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
+    readonly begin_time?: luxon.Duration | null,
+    readonly end_time?: luxon.Duration | null,
+    readonly substitute_day_of_week?: number | null,
+    readonly substitute_operating_day_by_line_type_id: UUID,
+    readonly superseded_date: luxon.DateTime,
+    readonly type_of_line: string
+  }>
+};
+
+export type CreateSubstituteOperatingPeriodMutationVariables = Exact<{
+  data: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput> | TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput;
+}>;
+
+
+export type CreateSubstituteOperatingPeriodMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_insert_service_calendar_substitute_operating_period?: {
+      readonly __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response',
+      readonly returning: ReadonlyArray<{
+        readonly __typename?: 'timetables_service_calendar_substitute_operating_period',
+        readonly substitute_operating_period_id: UUID,
+        readonly period_name: string,
+        readonly is_preset: boolean,
+        readonly substitute_operating_day_by_line_types: ReadonlyArray<{
+          readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
+          readonly begin_time?: luxon.Duration | null,
+          readonly end_time?: luxon.Duration | null,
+          readonly substitute_day_of_week?: number | null,
+          readonly substitute_operating_day_by_line_type_id: UUID,
+          readonly superseded_date: luxon.DateTime,
+          readonly type_of_line: string
+        }>
+      }>
+    } | null
+  } | null
+};
+
+export type DeleteSubstituteOperatingPeriodMutationVariables = Exact<{
+  ids: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
+}>;
+
+
+export type DeleteSubstituteOperatingPeriodMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_delete_service_calendar_substitute_operating_period?: {
+      readonly __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response',
+      readonly affected_rows: number
+    } | null
+  } | null
+};
+
+export type EditSubstituteOperatingPeriodsMutationVariables = Exact<{
+  periodsToInsert: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput> | TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput;
+  periodsToDelete: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
+  daysToInsert: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput> | TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput;
+}>;
+
+
+export type EditSubstituteOperatingPeriodsMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_insert_service_calendar_substitute_operating_period?: {
+      readonly __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response',
+      readonly affected_rows: number
+    } | null,
+    readonly timetables_delete_service_calendar_substitute_operating_day_by_line_type?: {
+      readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response',
+      readonly affected_rows: number
+    } | null,
+    readonly timetables_insert_service_calendar_substitute_operating_day_by_line_type?: {
+      readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response',
+      readonly affected_rows: number
+    } | null
+  } | null
+};
+
+export type VehicleJourneyByStopFragment = {
+  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+  readonly journey_pattern_ref_id: UUID,
+  readonly vehicle_journey_id: UUID,
+  readonly timetabled_passing_times: ReadonlyArray<{
+    readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
+    readonly arrival_time?: luxon.Duration | null,
+    readonly departure_time?: luxon.Duration | null,
+    readonly passing_time: luxon.Duration,
+    readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+    readonly timetabled_passing_time_id: UUID,
+    readonly vehicle_journey_id: UUID,
+    readonly scheduled_stop_point_in_journey_pattern_ref: {
+      readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
+      readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly journey_pattern_ref: {
+        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+        readonly journey_pattern_ref_id: UUID,
+        readonly observation_timestamp: luxon.DateTime
+      },
+      readonly scheduled_stop_point_instances: ReadonlyArray<{
+        readonly __typename?: 'service_pattern_scheduled_stop_point',
+        readonly priority: number,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_point_id: UUID,
+        readonly label: string,
+        readonly timing_place_id?: UUID | null,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null,
+        readonly located_on_infrastructure_link_id: UUID,
+        readonly stop_place_ref?: string | null,
+        readonly timing_place?: {
+          readonly __typename?: 'timing_pattern_timing_place',
+          readonly label: string,
+          readonly timing_place_id: UUID
+        } | null
+      }>
+    },
+    readonly vehicle_journey: {
+      readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+      readonly vehicle_journey_id: UUID,
+      readonly block: {
+        readonly __typename?: 'timetables_vehicle_service_block',
+        readonly block_id: UUID,
+        readonly vehicle_type?: {
+          readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+          readonly description_i18n?: any | null,
+          readonly vehicle_type_id: UUID
+        } | null
+      }
+    }
+  }>
+};
+
+export type PassingTimeByStopFragment = {
+  readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
+  readonly arrival_time?: luxon.Duration | null,
+  readonly departure_time?: luxon.Duration | null,
+  readonly passing_time: luxon.Duration,
+  readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+  readonly timetabled_passing_time_id: UUID,
+  readonly vehicle_journey_id: UUID,
+  readonly scheduled_stop_point_in_journey_pattern_ref: {
+    readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
+    readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+    readonly scheduled_stop_point_label: string,
+    readonly journey_pattern_ref: {
+      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+      readonly journey_pattern_ref_id: UUID,
+      readonly observation_timestamp: luxon.DateTime
+    },
+    readonly scheduled_stop_point_instances: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly priority: number,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly scheduled_stop_point_id: UUID,
+      readonly label: string,
+      readonly timing_place_id?: UUID | null,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly located_on_infrastructure_link_id: UUID,
+      readonly stop_place_ref?: string | null,
+      readonly timing_place?: {
+        readonly __typename?: 'timing_pattern_timing_place',
+        readonly label: string,
+        readonly timing_place_id: UUID
+      } | null
+    }>
+  },
+  readonly vehicle_journey: {
+    readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+    readonly vehicle_journey_id: UUID,
+    readonly block: {
+      readonly __typename?: 'timetables_vehicle_service_block',
+      readonly block_id: UUID,
+      readonly vehicle_type?: {
+        readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+        readonly description_i18n?: any | null,
+        readonly vehicle_type_id: UUID
+      } | null
+    }
+  }
+};
+
+export type GetRouteWithJourneyPatternQueryVariables = Exact<{
+  routeId: Scalars['uuid']['input'];
+}>;
+
+
+export type GetRouteWithJourneyPatternQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route_by_pk?: {
+    readonly __typename?: 'route_route',
+    readonly route_shape?: GeoJSON.LineString | null,
+    readonly name_i18n: LocalizedString,
+    readonly description_i18n?: LocalizedString | null,
+    readonly version_comment?: string | null,
+    readonly origin_name_i18n: LocalizedString,
+    readonly origin_short_name_i18n: LocalizedString,
+    readonly destination_name_i18n: LocalizedString,
+    readonly destination_short_name_i18n: LocalizedString,
+    readonly on_line_id: UUID,
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly route_id: UUID,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
+        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+        readonly journey_pattern_id: UUID,
+        readonly scheduled_stop_point_label: string,
+        readonly scheduled_stop_point_sequence: number,
+        readonly is_used_as_timing_point: boolean,
+        readonly is_regulated_timing_point: boolean,
+        readonly is_loading_time_allowed: boolean,
+        readonly is_via_point: boolean,
+        readonly via_point_name_i18n?: LocalizedString | null,
+        readonly via_point_short_name_i18n?: LocalizedString | null,
+        readonly scheduled_stop_points: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly timing_place_id: UUID,
+            readonly label: string
+          } | null
+        }>,
+        readonly journey_pattern: {
+          readonly __typename?: 'journey_pattern_journey_pattern',
+          readonly journey_pattern_id: UUID,
+          readonly on_route_id: UUID
+        }
+      }>
+    }>
+  } | null
+};
+
+export type DayTypeAllFieldsFragment = {
+  readonly __typename?: 'timetables_service_calendar_day_type',
+  readonly day_type_id: UUID,
+  readonly label: string,
+  readonly name_i18n: any
+};
+
+export type VehicleJourneyWithServiceFragment = {
+  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+  readonly vehicle_journey_id: UUID,
+  readonly start_time: luxon.Duration,
+  readonly end_time: luxon.Duration,
+  readonly journey_pattern_ref_id: UUID,
+  readonly journey_pattern_ref: {
+    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+    readonly journey_pattern_ref_id: UUID,
+    readonly journey_pattern_id: UUID
+  },
+  readonly block: {
+    readonly __typename?: 'timetables_vehicle_service_block',
+    readonly block_id: UUID,
+    readonly vehicle_service_id: UUID,
+    readonly vehicle_service: {
+      readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+      readonly vehicle_service_id: UUID,
+      readonly day_type_id: UUID,
+      readonly vehicle_schedule_frame: {
+        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+        readonly vehicle_schedule_frame_id: UUID,
+        readonly validity_end: luxon.DateTime,
+        readonly validity_start: luxon.DateTime,
+        readonly priority: number,
+        readonly name_i18n?: any | null,
+        readonly created_at: luxon.DateTime
+      },
+      readonly day_type: {
+        readonly __typename?: 'timetables_service_calendar_day_type',
+        readonly day_type_id: UUID,
+        readonly label: string,
+        readonly name_i18n: any
+      }
+    }
+  },
+  readonly timetabled_passing_times: ReadonlyArray<{
+    readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
+    readonly arrival_time?: luxon.Duration | null,
+    readonly departure_time?: luxon.Duration | null,
+    readonly passing_time: luxon.Duration,
+    readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+    readonly timetabled_passing_time_id: UUID,
+    readonly vehicle_journey_id: UUID,
+    readonly scheduled_stop_point_in_journey_pattern_ref: {
+      readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
+      readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+      readonly scheduled_stop_point_label: string,
+      readonly journey_pattern_ref: {
+        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+        readonly journey_pattern_ref_id: UUID,
+        readonly observation_timestamp: luxon.DateTime
+      },
+      readonly scheduled_stop_point_instances: ReadonlyArray<{
+        readonly __typename?: 'service_pattern_scheduled_stop_point',
+        readonly priority: number,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_point_id: UUID,
+        readonly label: string,
+        readonly timing_place_id?: UUID | null,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null,
+        readonly located_on_infrastructure_link_id: UUID,
+        readonly stop_place_ref?: string | null,
+        readonly timing_place?: {
+          readonly __typename?: 'timing_pattern_timing_place',
+          readonly label: string,
+          readonly timing_place_id: UUID
+        } | null
+      }>
+    },
+    readonly vehicle_journey: {
+      readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+      readonly vehicle_journey_id: UUID,
+      readonly block: {
+        readonly __typename?: 'timetables_vehicle_service_block',
+        readonly block_id: UUID,
+        readonly vehicle_type?: {
+          readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+          readonly description_i18n?: any | null,
+          readonly vehicle_type_id: UUID
+        } | null
+      }
+    }
+  }>
+};
+
+export type VehicleScheduleFragment = {
+  readonly __typename?: 'timetables_return_value_vehicle_schedule',
+  readonly priority: number,
+  readonly validity_start: luxon.DateTime,
+  readonly validity_end: luxon.DateTime,
+  readonly created_at?: luxon.DateTime | null,
+  readonly vehicle_schedule_frame_id?: UUID | null,
+  readonly vehicle_journey?: {
+    readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+    readonly vehicle_journey_id: UUID,
+    readonly start_time: luxon.Duration,
+    readonly end_time: luxon.Duration,
+    readonly journey_pattern_ref_id: UUID,
+    readonly journey_pattern_ref: {
+      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+      readonly journey_pattern_ref_id: UUID,
+      readonly journey_pattern_id: UUID
+    },
+    readonly block: {
+      readonly __typename?: 'timetables_vehicle_service_block',
+      readonly block_id: UUID,
+      readonly vehicle_service_id: UUID,
+      readonly vehicle_service: {
+        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+        readonly vehicle_service_id: UUID,
+        readonly day_type_id: UUID,
+        readonly vehicle_schedule_frame: {
+          readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+          readonly vehicle_schedule_frame_id: UUID,
+          readonly validity_end: luxon.DateTime,
+          readonly validity_start: luxon.DateTime,
+          readonly priority: number,
+          readonly name_i18n?: any | null,
+          readonly created_at: luxon.DateTime
+        },
+        readonly day_type: {
+          readonly __typename?: 'timetables_service_calendar_day_type',
+          readonly day_type_id: UUID,
+          readonly label: string,
+          readonly name_i18n: any
+        }
+      }
+    },
+    readonly timetabled_passing_times: ReadonlyArray<{
+      readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
+      readonly arrival_time?: luxon.Duration | null,
+      readonly departure_time?: luxon.Duration | null,
+      readonly passing_time: luxon.Duration,
+      readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+      readonly timetabled_passing_time_id: UUID,
+      readonly vehicle_journey_id: UUID,
+      readonly scheduled_stop_point_in_journey_pattern_ref: {
+        readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
+        readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+        readonly scheduled_stop_point_label: string,
+        readonly journey_pattern_ref: {
+          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+          readonly journey_pattern_ref_id: UUID,
+          readonly observation_timestamp: luxon.DateTime
+        },
+        readonly scheduled_stop_point_instances: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_scheduled_stop_point',
+          readonly priority: number,
+          readonly direction: InfrastructureNetworkDirectionEnum,
+          readonly scheduled_stop_point_id: UUID,
+          readonly label: string,
+          readonly timing_place_id?: UUID | null,
+          readonly validity_start?: luxon.DateTime | null,
+          readonly validity_end?: luxon.DateTime | null,
+          readonly located_on_infrastructure_link_id: UUID,
+          readonly stop_place_ref?: string | null,
+          readonly timing_place?: {
+            readonly __typename?: 'timing_pattern_timing_place',
+            readonly label: string,
+            readonly timing_place_id: UUID
+          } | null
+        }>
+      },
+      readonly vehicle_journey: {
+        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+        readonly vehicle_journey_id: UUID,
+        readonly block: {
+          readonly __typename?: 'timetables_vehicle_service_block',
+          readonly block_id: UUID,
+          readonly vehicle_type?: {
+            readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+            readonly description_i18n?: any | null,
+            readonly vehicle_type_id: UUID
+          } | null
+        }
+      }
+    }>
+  } | null,
+  readonly day_type?: {
+    readonly __typename?: 'timetables_service_calendar_day_type',
+    readonly day_type_id: UUID,
+    readonly label: string,
+    readonly name_i18n: any
+  } | null
+};
+
+export type GetVehicleSchedulesForDateQueryVariables = Exact<{
+  journey_pattern_id: Scalars['uuid']['input'];
+  observation_date: Scalars['date']['input'];
+}>;
+
+
+export type GetVehicleSchedulesForDateQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly timetables_vehicle_journey_get_vehicle_schedules_on_date: ReadonlyArray<{
+      readonly __typename?: 'timetables_return_value_vehicle_schedule',
+      readonly priority: number,
+      readonly validity_start: luxon.DateTime,
+      readonly validity_end: luxon.DateTime,
+      readonly created_at?: luxon.DateTime | null,
+      readonly vehicle_schedule_frame_id?: UUID | null,
+      readonly vehicle_journey?: {
+        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+        readonly vehicle_journey_id: UUID,
+        readonly start_time: luxon.Duration,
+        readonly end_time: luxon.Duration,
+        readonly journey_pattern_ref_id: UUID,
+        readonly journey_pattern_ref: {
+          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+          readonly journey_pattern_ref_id: UUID,
+          readonly journey_pattern_id: UUID
+        },
+        readonly block: {
+          readonly __typename?: 'timetables_vehicle_service_block',
+          readonly block_id: UUID,
+          readonly vehicle_service_id: UUID,
+          readonly vehicle_service: {
+            readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+            readonly vehicle_service_id: UUID,
+            readonly day_type_id: UUID,
+            readonly vehicle_schedule_frame: {
+              readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+              readonly vehicle_schedule_frame_id: UUID,
+              readonly validity_end: luxon.DateTime,
+              readonly validity_start: luxon.DateTime,
+              readonly priority: number,
+              readonly name_i18n?: any | null,
+              readonly created_at: luxon.DateTime
+            },
+            readonly day_type: {
+              readonly __typename?: 'timetables_service_calendar_day_type',
+              readonly day_type_id: UUID,
+              readonly label: string,
+              readonly name_i18n: any
+            }
+          }
+        },
+        readonly timetabled_passing_times: ReadonlyArray<{
+          readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
+          readonly arrival_time?: luxon.Duration | null,
+          readonly departure_time?: luxon.Duration | null,
+          readonly passing_time: luxon.Duration,
+          readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+          readonly timetabled_passing_time_id: UUID,
+          readonly vehicle_journey_id: UUID,
+          readonly scheduled_stop_point_in_journey_pattern_ref: {
+            readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
+            readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
+            readonly scheduled_stop_point_label: string,
+            readonly journey_pattern_ref: {
+              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+              readonly journey_pattern_ref_id: UUID,
+              readonly observation_timestamp: luxon.DateTime
+            },
+            readonly scheduled_stop_point_instances: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_scheduled_stop_point',
+              readonly priority: number,
+              readonly direction: InfrastructureNetworkDirectionEnum,
+              readonly scheduled_stop_point_id: UUID,
+              readonly label: string,
+              readonly timing_place_id?: UUID | null,
+              readonly validity_start?: luxon.DateTime | null,
+              readonly validity_end?: luxon.DateTime | null,
+              readonly located_on_infrastructure_link_id: UUID,
+              readonly stop_place_ref?: string | null,
+              readonly timing_place?: {
+                readonly __typename?: 'timing_pattern_timing_place',
+                readonly label: string,
+                readonly timing_place_id: UUID
+              } | null
+            }>
+          },
+          readonly vehicle_journey: {
+            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+            readonly vehicle_journey_id: UUID,
+            readonly block: {
+              readonly __typename?: 'timetables_vehicle_service_block',
+              readonly block_id: UUID,
+              readonly vehicle_type?: {
+                readonly __typename?: 'timetables_vehicle_type_vehicle_type',
+                readonly description_i18n?: any | null,
+                readonly vehicle_type_id: UUID
+              } | null
+            }
+          }
+        }>
+      } | null,
+      readonly day_type?: {
+        readonly __typename?: 'timetables_service_calendar_day_type',
+        readonly day_type_id: UUID,
+        readonly label: string,
+        readonly name_i18n: any
+      } | null
+    }>,
+    readonly timetables_service_calendar_get_active_day_types_for_date: ReadonlyArray<{
+      readonly __typename?: 'timetables_service_calendar_day_type',
+      readonly day_type_id: UUID
+    }>
+  } | null
+};
+
+export type GetVehicleScheduleFrameSchedulesQueryVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetVehicleScheduleFrameSchedulesQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly timetables_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+      readonly vehicle_schedule_frame_id: UUID,
+      readonly validity_start: luxon.DateTime,
+      readonly validity_end: luxon.DateTime,
+      readonly priority: number,
+      readonly created_at: luxon.DateTime,
+      readonly vehicle_services: ReadonlyArray<{
+        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
+        readonly vehicle_service_id: UUID,
+        readonly day_type: {
+          readonly __typename?: 'timetables_service_calendar_day_type',
+          readonly day_type_id: UUID,
+          readonly label: string,
+          readonly name_i18n: any
+        },
+        readonly blocks: ReadonlyArray<{
+          readonly __typename?: 'timetables_vehicle_service_block',
+          readonly block_id: UUID,
+          readonly vehicle_journeys: ReadonlyArray<{
+            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+            readonly vehicle_journey_id: UUID,
+            readonly start_time: luxon.Duration,
+            readonly journey_pattern_ref: {
+              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+              readonly journey_pattern_ref_id: UUID,
+              readonly journey_pattern_instance?: {
+                readonly __typename?: 'journey_pattern_journey_pattern',
+                readonly journey_pattern_id: UUID,
+                readonly journey_pattern_route?: {
+                  readonly __typename?: 'route_route',
+                  readonly route_id: UUID,
+                  readonly unique_label: string,
+                  readonly direction: RouteDirectionEnum,
+                  readonly name_i18n: LocalizedString
+                } | null
+              } | null
+            }
+          }>
+        }>
+      }>
+    } | null
+  } | null
+};
+
+export type DayTypeDetailsFragment = {
+  readonly __typename?: 'timetables_service_calendar_day_type',
+  readonly day_type_id: UUID,
+  readonly label: string,
+  readonly name_i18n: any
+};
+
+export type VehicleJourneyWithStartTimeInfoFragment = {
+  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
+  readonly vehicle_journey_id: UUID,
+  readonly start_time: luxon.Duration,
+  readonly journey_pattern_ref: {
+    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
+    readonly journey_pattern_ref_id: UUID,
+    readonly journey_pattern_instance?: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly journey_pattern_route?: {
+        readonly __typename?: 'route_route',
+        readonly route_id: UUID,
+        readonly unique_label: string,
+        readonly direction: RouteDirectionEnum,
+        readonly name_i18n: LocalizedString
+      } | null
+    } | null
+  }
+};
+
+export type DeleteVehicleScheduleFrameMutationVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid']['input'];
+}>;
+
+
+export type DeleteVehicleScheduleFrameMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_mutation_frontend',
+    readonly timetables_delete_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
+      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+      readonly vehicle_schedule_frame_id: UUID
+    } | null
+  } | null
+};
+
+export type RouteInfoForTimetableVersionFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_id: UUID,
+  readonly label: string,
+  readonly variant?: number | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly priority: number,
+  readonly validity_end?: luxon.DateTime | null,
+  readonly route_journey_patterns: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID
+  }>
+};
+
+export type GetRouteInfoForTimetableVersionsQueryVariables = Exact<{
+  routeFilters?: InputMaybe<RouteRouteBoolExp>;
+}>;
+
+
+export type GetRouteInfoForTimetableVersionsQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly route_id: UUID,
+    readonly label: string,
+    readonly variant?: number | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly priority: number,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly route_journey_patterns: ReadonlyArray<{
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID
+    }>
+  }>
+};
+
+export type TimetableVersionFragment = {
+  readonly __typename?: 'timetables_return_value_timetable_version',
+  readonly validity_start: luxon.DateTime,
+  readonly validity_end: luxon.DateTime,
+  readonly priority: number,
+  readonly in_effect: boolean,
+  readonly day_type?: {
+    readonly __typename?: 'timetables_service_calendar_day_type',
+    readonly day_type_id: UUID,
+    readonly name_i18n: any,
+    readonly label: string
+  } | null,
+  readonly substitute_operating_day_by_line_type?: {
+    readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
+    readonly substitute_operating_day_by_line_type_id: UUID,
+    readonly superseded_date: luxon.DateTime,
+    readonly substitute_day_of_week?: number | null
+  } | null,
+  readonly vehicle_schedule_frame?: {
+    readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+    readonly vehicle_schedule_frame_id: UUID,
+    readonly name_i18n?: any | null
+  } | null
+};
+
+export type GetTimetableVersionsByJourneyPatternIdsQueryVariables = Exact<{
+  journey_pattern_ids?: InputMaybe<Scalars['_uuid']['input']>;
+  start_date?: InputMaybe<Scalars['date']['input']>;
+  end_date?: InputMaybe<Scalars['date']['input']>;
+  observation_date?: InputMaybe<Scalars['date']['input']>;
+}>;
+
+
+export type GetTimetableVersionsByJourneyPatternIdsQuery = {
+  readonly __typename?: 'query_root',
+  readonly timetables?: {
+    readonly __typename?: 'timetables_timetables_query',
+    readonly versions: ReadonlyArray<{
+      readonly __typename?: 'timetables_return_value_timetable_version',
+      readonly validity_start: luxon.DateTime,
+      readonly validity_end: luxon.DateTime,
+      readonly priority: number,
+      readonly in_effect: boolean,
+      readonly day_type?: {
+        readonly __typename?: 'timetables_service_calendar_day_type',
+        readonly day_type_id: UUID,
+        readonly name_i18n: any,
+        readonly label: string
+      } | null,
+      readonly substitute_operating_day_by_line_type?: {
+        readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
+        readonly substitute_operating_day_by_line_type_id: UUID,
+        readonly superseded_date: luxon.DateTime,
+        readonly substitute_day_of_week?: number | null
+      } | null,
+      readonly vehicle_schedule_frame?: {
+        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
+        readonly vehicle_schedule_frame_id: UUID,
+        readonly name_i18n?: any | null
+      } | null
+    }>
+  } | null
+};
+
 export type GetUserNamesSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -72079,8 +73478,8 @@ export type UpsertStopAreaMutation = {
           readonly measured_location: GeoJSON.Point,
           readonly timing_place?: {
             readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
+            readonly label: string,
+            readonly timing_place_id: UUID
           } | null,
           readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
             readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -72167,8 +73566,8 @@ export type UpsertStopAreaMutation = {
                 readonly measured_location: GeoJSON.Point,
                 readonly timing_place?: {
                   readonly __typename?: 'timing_pattern_timing_place',
-                  readonly timing_place_id: UUID,
-                  readonly label: string
+                  readonly label: string,
+                  readonly timing_place_id: UUID
                 } | null,
                 readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                   readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -73013,8 +74412,8 @@ export type GetTerminalDetailsByNetexIdQuery = {
               readonly measured_location: GeoJSON.Point,
               readonly timing_place?: {
                 readonly __typename?: 'timing_pattern_timing_place',
-                readonly timing_place_id: UUID,
-                readonly label: string
+                readonly label: string,
+                readonly timing_place_id: UUID
               } | null,
               readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                 readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -75542,8 +76941,8 @@ export type GetStopPlaceAndRelatedQuaysQuery = {
             readonly measured_location: GeoJSON.Point,
             readonly timing_place?: {
               readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
+              readonly label: string,
+              readonly timing_place_id: UUID
             } | null,
             readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
               readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -75677,8 +77076,8 @@ export type GetStopPlaceAndRelatedQuaysQuery = {
                   readonly measured_location: GeoJSON.Point,
                   readonly timing_place?: {
                     readonly __typename?: 'timing_pattern_timing_place',
-                    readonly timing_place_id: UUID,
-                    readonly label: string
+                    readonly label: string,
+                    readonly timing_place_id: UUID
                   } | null,
                   readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                     readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -76633,8 +78032,8 @@ export type GetStopPlaceDetailsQuery = {
               readonly measured_location: GeoJSON.Point,
               readonly timing_place?: {
                 readonly __typename?: 'timing_pattern_timing_place',
-                readonly timing_place_id: UUID,
-                readonly label: string
+                readonly label: string,
+                readonly timing_place_id: UUID
               } | null,
               readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                 readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -76721,8 +78120,8 @@ export type GetStopPlaceDetailsQuery = {
                     readonly measured_location: GeoJSON.Point,
                     readonly timing_place?: {
                       readonly __typename?: 'timing_pattern_timing_place',
-                      readonly timing_place_id: UUID,
-                      readonly label: string
+                      readonly label: string,
+                      readonly timing_place_id: UUID
                     } | null,
                     readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                       readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -77159,8 +78558,8 @@ export type StopPlaceDetailsFragment = {
       readonly measured_location: GeoJSON.Point,
       readonly timing_place?: {
         readonly __typename?: 'timing_pattern_timing_place',
-        readonly timing_place_id: UUID,
-        readonly label: string
+        readonly label: string,
+        readonly timing_place_id: UUID
       } | null,
       readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
         readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -77247,8 +78646,8 @@ export type StopPlaceDetailsFragment = {
             readonly measured_location: GeoJSON.Point,
             readonly timing_place?: {
               readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
+              readonly label: string,
+              readonly timing_place_id: UUID
             } | null,
             readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
               readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -77489,8 +78888,8 @@ export type TerminalDetailsFragment = {
         readonly measured_location: GeoJSON.Point,
         readonly timing_place?: {
           readonly __typename?: 'timing_pattern_timing_place',
-          readonly timing_place_id: UUID,
-          readonly label: string
+          readonly label: string,
+          readonly timing_place_id: UUID
         } | null,
         readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
           readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -77981,8 +79380,8 @@ export type GetVersionedStopPlaceAndQuaysQuery = {
             readonly measured_location: GeoJSON.Point,
             readonly timing_place?: {
               readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
+              readonly label: string,
+              readonly timing_place_id: UUID
             } | null,
             readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
               readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -78116,8 +79515,8 @@ export type GetVersionedStopPlaceAndQuaysQuery = {
                   readonly measured_location: GeoJSON.Point,
                   readonly timing_place?: {
                     readonly __typename?: 'timing_pattern_timing_place',
-                    readonly timing_place_id: UUID,
-                    readonly label: string
+                    readonly label: string,
+                    readonly timing_place_id: UUID
                   } | null,
                   readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                     readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -78506,8 +79905,8 @@ export type DetailsForHistoricalStopVersionFragment = {
       readonly measured_location: GeoJSON.Point,
       readonly timing_place?: {
         readonly __typename?: 'timing_pattern_timing_place',
-        readonly timing_place_id: UUID,
-        readonly label: string
+        readonly label: string,
+        readonly timing_place_id: UUID
       } | null,
       readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
         readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -78641,8 +80040,8 @@ export type DetailsForHistoricalStopVersionFragment = {
             readonly measured_location: GeoJSON.Point,
             readonly timing_place?: {
               readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
+              readonly label: string,
+              readonly timing_place_id: UUID
             } | null,
             readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
               readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -79407,8 +80806,8 @@ export type UpdateStopPlaceMutation = {
           readonly measured_location: GeoJSON.Point,
           readonly timing_place?: {
             readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
+            readonly label: string,
+            readonly timing_place_id: UUID
           } | null,
           readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
             readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -79495,8 +80894,8 @@ export type UpdateStopPlaceMutation = {
                 readonly measured_location: GeoJSON.Point,
                 readonly timing_place?: {
                   readonly __typename?: 'timing_pattern_timing_place',
-                  readonly timing_place_id: UUID,
-                  readonly label: string
+                  readonly label: string,
+                  readonly timing_place_id: UUID
                 } | null,
                 readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                   readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -80286,8 +81685,8 @@ export type GetStopDetailsQuery = {
               readonly measured_location: GeoJSON.Point,
               readonly timing_place?: {
                 readonly __typename?: 'timing_pattern_timing_place',
-                readonly timing_place_id: UUID,
-                readonly label: string
+                readonly label: string,
+                readonly timing_place_id: UUID
               } | null,
               readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                 readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -80421,8 +81820,8 @@ export type GetStopDetailsQuery = {
                     readonly measured_location: GeoJSON.Point,
                     readonly timing_place?: {
                       readonly __typename?: 'timing_pattern_timing_place',
-                      readonly timing_place_id: UUID,
-                      readonly label: string
+                      readonly label: string,
+                      readonly timing_place_id: UUID
                     } | null,
                     readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                       readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -81688,8 +83087,8 @@ export type CreateTerminalMutation = {
             readonly measured_location: GeoJSON.Point,
             readonly timing_place?: {
               readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
+              readonly label: string,
+              readonly timing_place_id: UUID
             } | null,
             readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
               readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -82038,8 +83437,8 @@ export type GetParentStopPlaceDetailsQuery = {
                 readonly measured_location: GeoJSON.Point,
                 readonly timing_place?: {
                   readonly __typename?: 'timing_pattern_timing_place',
-                  readonly timing_place_id: UUID,
-                  readonly label: string
+                  readonly label: string,
+                  readonly timing_place_id: UUID
                 } | null,
                 readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
                   readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -82367,8 +83766,8 @@ export type ParentStopPlaceDetailsFragment = {
         readonly measured_location: GeoJSON.Point,
         readonly timing_place?: {
           readonly __typename?: 'timing_pattern_timing_place',
-          readonly timing_place_id: UUID,
-          readonly label: string
+          readonly label: string,
+          readonly timing_place_id: UUID
         } | null,
         readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
           readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -82542,8 +83941,8 @@ export type MemberStopStopPlaceDetailsFragment = {
       readonly measured_location: GeoJSON.Point,
       readonly timing_place?: {
         readonly __typename?: 'timing_pattern_timing_place',
-        readonly timing_place_id: UUID,
-        readonly label: string
+        readonly label: string,
+        readonly timing_place_id: UUID
       } | null,
       readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
         readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -82983,8 +84382,8 @@ export type UpdateTerminalMutation = {
             readonly measured_location: GeoJSON.Point,
             readonly timing_place?: {
               readonly __typename?: 'timing_pattern_timing_place',
-              readonly timing_place_id: UUID,
-              readonly label: string
+              readonly label: string,
+              readonly timing_place_id: UUID
             } | null,
             readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
               readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -83121,1405 +84520,6 @@ export type UpdateTerminalMutation = {
   } | null
 };
 
-export type GetVehicleScheduleFrameSchedulesQueryVariables = Exact<{
-  vehicle_schedule_frame_id: Scalars['uuid']['input'];
-}>;
-
-
-export type GetVehicleScheduleFrameSchedulesQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly timetables_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-      readonly vehicle_schedule_frame_id: UUID,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
-      readonly priority: number,
-      readonly created_at: luxon.DateTime,
-      readonly vehicle_services: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-        readonly vehicle_service_id: UUID,
-        readonly day_type: {
-          readonly __typename?: 'timetables_service_calendar_day_type',
-          readonly day_type_id: UUID,
-          readonly label: string,
-          readonly name_i18n: any
-        },
-        readonly blocks: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_service_block',
-          readonly block_id: UUID,
-          readonly vehicle_journeys: ReadonlyArray<{
-            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly vehicle_journey_id: UUID,
-            readonly start_time: luxon.Duration,
-            readonly journey_pattern_ref: {
-              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-              readonly journey_pattern_ref_id: UUID,
-              readonly journey_pattern_instance?: {
-                readonly __typename?: 'journey_pattern_journey_pattern',
-                readonly journey_pattern_id: UUID,
-                readonly journey_pattern_route?: {
-                  readonly __typename?: 'route_route',
-                  readonly route_id: UUID,
-                  readonly unique_label: string,
-                  readonly direction: RouteDirectionEnum,
-                  readonly name_i18n: LocalizedString
-                } | null
-              } | null
-            }
-          }>
-        }>
-      }>
-    } | null
-  } | null
-};
-
-export type DayTypeDetailsFragment = {
-  readonly __typename?: 'timetables_service_calendar_day_type',
-  readonly day_type_id: UUID,
-  readonly label: string,
-  readonly name_i18n: any
-};
-
-export type VehicleJourneyWithStartTimeInfoFragment = {
-  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-  readonly vehicle_journey_id: UUID,
-  readonly start_time: luxon.Duration,
-  readonly journey_pattern_ref: {
-    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-    readonly journey_pattern_ref_id: UUID,
-    readonly journey_pattern_instance?: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_route?: {
-        readonly __typename?: 'route_route',
-        readonly route_id: UUID,
-        readonly unique_label: string,
-        readonly direction: RouteDirectionEnum,
-        readonly name_i18n: LocalizedString
-      } | null
-    } | null
-  }
-};
-
-export type VehicleScheduleFrameWithRoutesFragment = {
-  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-  readonly vehicle_schedule_frame_id: UUID,
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
-  readonly vehicle_services: ReadonlyArray<{
-    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-    readonly vehicle_service_id: UUID,
-    readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
-      readonly journey_pattern_instance?: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly journey_pattern_route?: {
-          readonly __typename?: 'route_route',
-          readonly route_id: UUID,
-          readonly label: string
-        } | null
-      } | null
-    }>
-  }>
-};
-
-export type GetVehicleScheduleFrameWithRoutesQueryVariables = Exact<{
-  vehicle_schedule_frame_id: Scalars['uuid']['input'];
-}>;
-
-
-export type GetVehicleScheduleFrameWithRoutesQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly timetables_vehicle_schedule_vehicle_schedule_frame: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-      readonly vehicle_schedule_frame_id: UUID,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
-      readonly vehicle_services: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-        readonly vehicle_service_id: UUID,
-        readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
-          readonly journey_pattern_instance?: {
-            readonly __typename?: 'journey_pattern_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly journey_pattern_route?: {
-              readonly __typename?: 'route_route',
-              readonly route_id: UUID,
-              readonly label: string
-            } | null
-          } | null
-        }>
-      }>
-    }>
-  } | null
-};
-
-export type UpdateVehicleScheduleFrameValidityMutationVariables = Exact<{
-  vehicle_schedule_frame_id: Scalars['uuid']['input'];
-  validity_start?: InputMaybe<Scalars['date']['input']>;
-  validity_end?: InputMaybe<Scalars['date']['input']>;
-}>;
-
-
-export type UpdateVehicleScheduleFrameValidityMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_update_vehicle_schedule_vehicle_schedule_frame?: {
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response',
-      readonly returning: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-        readonly vehicle_schedule_frame_id: UUID,
-        readonly validity_start: luxon.DateTime,
-        readonly validity_end: luxon.DateTime
-      }>
-    } | null
-  } | null
-};
-
-export type GetToCombineTargetVehicleScheduleFrameIdQueryVariables = Exact<{
-  arg1: ToCombineTargetVehicleScheduleFrameIdInput;
-}>;
-
-
-export type GetToCombineTargetVehicleScheduleFrameIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly toCombineTargetVehicleScheduleFrameId?: {
-    readonly __typename?: 'ToCombineTargetVehicleScheduleFrameIdOutput',
-    readonly toCombineTargetVehicleScheduleFrameId: UUID
-  } | null
-};
-
-export type GetToReplaceVehicleScheduleFramesQueryVariables = Exact<{
-  arg1: ToReplaceVehicleScheduleFrameIdsInput;
-}>;
-
-
-export type GetToReplaceVehicleScheduleFramesQuery = {
-  readonly __typename?: 'query_root',
-  readonly toReplaceVehicleScheduleFrameIds?: {
-    readonly __typename?: 'ToReplaceVehicleScheduleFrameIdsOutput',
-    readonly toReplaceVehicleScheduleFrameIds: ReadonlyArray<UUID | null>
-  } | null
-};
-
-export type GetVehicleScheduleFrameWithJourneyInfoQueryVariables = Exact<{
-  vehicle_schedule_frame_ids: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
-}>;
-
-
-export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly frames: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-      readonly vehicle_schedule_frame_id: UUID,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
-      readonly vehicle_services: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-        readonly vehicle_service_id: UUID,
-        readonly day_type: {
-          readonly __typename?: 'timetables_service_calendar_day_type',
-          readonly day_type_id: UUID,
-          readonly label: string,
-          readonly name_i18n: any
-        },
-        readonly blocks: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_service_block',
-          readonly block_id: UUID,
-          readonly vehicle_journeys: ReadonlyArray<{
-            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly vehicle_journey_id: UUID,
-            readonly start_time: luxon.Duration,
-            readonly contract_number: string,
-            readonly journey_pattern_ref: {
-              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-              readonly journey_pattern_ref_id: UUID,
-              readonly journey_pattern_instance?: {
-                readonly __typename?: 'journey_pattern_journey_pattern',
-                readonly journey_pattern_id: UUID,
-                readonly journey_pattern_route?: {
-                  readonly __typename?: 'route_route',
-                  readonly route_id: UUID,
-                  readonly unique_label: string,
-                  readonly direction: RouteDirectionEnum,
-                  readonly variant?: number | null,
-                  readonly name_i18n: LocalizedString,
-                  readonly route_line: {
-                    readonly __typename?: 'route_line',
-                    readonly line_id: UUID
-                  }
-                } | null
-              } | null
-            }
-          }>
-        }>
-      }>
-    }>
-  } | null
-};
-
-export type VehicleScheduleFrameWithJourneyInfoFragment = {
-  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-  readonly vehicle_schedule_frame_id: UUID,
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
-  readonly vehicle_services: ReadonlyArray<{
-    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-    readonly vehicle_service_id: UUID,
-    readonly day_type: {
-      readonly __typename?: 'timetables_service_calendar_day_type',
-      readonly day_type_id: UUID,
-      readonly label: string,
-      readonly name_i18n: any
-    },
-    readonly blocks: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_service_block',
-      readonly block_id: UUID,
-      readonly vehicle_journeys: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly vehicle_journey_id: UUID,
-        readonly start_time: luxon.Duration,
-        readonly contract_number: string,
-        readonly journey_pattern_ref: {
-          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-          readonly journey_pattern_ref_id: UUID,
-          readonly journey_pattern_instance?: {
-            readonly __typename?: 'journey_pattern_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly journey_pattern_route?: {
-              readonly __typename?: 'route_route',
-              readonly route_id: UUID,
-              readonly unique_label: string,
-              readonly direction: RouteDirectionEnum,
-              readonly variant?: number | null,
-              readonly name_i18n: LocalizedString,
-              readonly route_line: {
-                readonly __typename?: 'route_line',
-                readonly line_id: UUID
-              }
-            } | null
-          } | null
-        }
-      }>
-    }>
-  }>
-};
-
-export type VehicleJourneyWithPatternAndRouteFragment = {
-  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-  readonly vehicle_journey_id: UUID,
-  readonly start_time: luxon.Duration,
-  readonly contract_number: string,
-  readonly journey_pattern_ref: {
-    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-    readonly journey_pattern_ref_id: UUID,
-    readonly journey_pattern_instance?: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_route?: {
-        readonly __typename?: 'route_route',
-        readonly route_id: UUID,
-        readonly unique_label: string,
-        readonly direction: RouteDirectionEnum,
-        readonly variant?: number | null,
-        readonly name_i18n: LocalizedString,
-        readonly route_line: {
-          readonly __typename?: 'route_line',
-          readonly line_id: UUID
-        }
-      } | null
-    } | null
-  }
-};
-
-export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables = Exact<{
-  vehicle_schedule_frame_ids: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
-}>;
-
-
-export type GetVehicleScheduleFrameWithRouteAndLineInfoQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly frames: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-      readonly vehicle_schedule_frame_id: UUID,
-      readonly vehicle_services: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-        readonly vehicle_service_id: UUID,
-        readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
-          readonly journey_pattern_id: UUID,
-          readonly journey_pattern_instance?: {
-            readonly __typename?: 'journey_pattern_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly journey_pattern_route?: {
-              readonly __typename?: 'route_route',
-              readonly route_id: UUID,
-              readonly unique_label: string,
-              readonly direction: RouteDirectionEnum,
-              readonly variant?: number | null,
-              readonly name_i18n: LocalizedString,
-              readonly route_line: {
-                readonly __typename?: 'route_line',
-                readonly line_id: UUID
-              }
-            } | null
-          } | null
-        }>
-      }>
-    }>
-  } | null
-};
-
-export type VehicleScheduleFrameWithRouteAndLineInfoFragment = {
-  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-  readonly vehicle_schedule_frame_id: UUID,
-  readonly vehicle_services: ReadonlyArray<{
-    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-    readonly vehicle_service_id: UUID,
-    readonly journey_patterns_in_vehicle_service: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_instance?: {
-        readonly __typename?: 'journey_pattern_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly journey_pattern_route?: {
-          readonly __typename?: 'route_route',
-          readonly route_id: UUID,
-          readonly unique_label: string,
-          readonly direction: RouteDirectionEnum,
-          readonly variant?: number | null,
-          readonly name_i18n: LocalizedString,
-          readonly route_line: {
-            readonly __typename?: 'route_line',
-            readonly line_id: UUID
-          }
-        } | null
-      } | null
-    }>
-  }>
-};
-
-export type VehicleJourneyWithRouteInfoFragment = {
-  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-  readonly start_time: luxon.Duration,
-  readonly end_time: luxon.Duration,
-  readonly contract_number: string,
-  readonly vehicle_journey_id: UUID,
-  readonly journey_pattern_ref: {
-    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-    readonly journey_pattern_ref_id: UUID,
-    readonly journey_pattern_instance?: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly journey_pattern_route?: {
-        readonly __typename?: 'route_route',
-        readonly direction: RouteDirectionEnum,
-        readonly name_i18n: LocalizedString,
-        readonly description_i18n?: LocalizedString | null,
-        readonly version_comment?: string | null,
-        readonly origin_name_i18n: LocalizedString,
-        readonly origin_short_name_i18n: LocalizedString,
-        readonly destination_name_i18n: LocalizedString,
-        readonly destination_short_name_i18n: LocalizedString,
-        readonly on_line_id: UUID,
-        readonly label: string,
-        readonly variant?: number | null,
-        readonly route_id: UUID,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
-        readonly priority: number
-      } | null
-    } | null
-  }
-};
-
-export type VehicleServiceWithJourneysFragment = {
-  readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-  readonly vehicle_service_id: UUID,
-  readonly name_i18n?: any | null,
-  readonly day_type: {
-    readonly __typename?: 'timetables_service_calendar_day_type',
-    readonly day_type_id: UUID,
-    readonly label: string,
-    readonly name_i18n: any
-  },
-  readonly blocks: ReadonlyArray<{
-    readonly __typename?: 'timetables_vehicle_service_block',
-    readonly block_id: UUID,
-    readonly vehicle_journeys: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-      readonly start_time: luxon.Duration,
-      readonly end_time: luxon.Duration,
-      readonly contract_number: string,
-      readonly vehicle_journey_id: UUID,
-      readonly journey_pattern_ref: {
-        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-        readonly journey_pattern_ref_id: UUID,
-        readonly journey_pattern_instance?: {
-          readonly __typename?: 'journey_pattern_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly journey_pattern_route?: {
-            readonly __typename?: 'route_route',
-            readonly direction: RouteDirectionEnum,
-            readonly name_i18n: LocalizedString,
-            readonly description_i18n?: LocalizedString | null,
-            readonly version_comment?: string | null,
-            readonly origin_name_i18n: LocalizedString,
-            readonly origin_short_name_i18n: LocalizedString,
-            readonly destination_name_i18n: LocalizedString,
-            readonly destination_short_name_i18n: LocalizedString,
-            readonly on_line_id: UUID,
-            readonly label: string,
-            readonly variant?: number | null,
-            readonly route_id: UUID,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
-            readonly priority: number
-          } | null
-        } | null
-      }
-    }>,
-    readonly vehicle_type?: {
-      readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-      readonly vehicle_type_id: UUID,
-      readonly description_i18n?: any | null
-    } | null
-  }>
-};
-
-export type VehicleScheduleFrameWithRouteInfoFragment = {
-  readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-  readonly label: string,
-  readonly validity_end: luxon.DateTime,
-  readonly validity_start: luxon.DateTime,
-  readonly name_i18n?: any | null,
-  readonly vehicle_schedule_frame_id: UUID,
-  readonly priority: number,
-  readonly vehicle_services: ReadonlyArray<{
-    readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-    readonly vehicle_service_id: UUID,
-    readonly name_i18n?: any | null,
-    readonly day_type: {
-      readonly __typename?: 'timetables_service_calendar_day_type',
-      readonly day_type_id: UUID,
-      readonly label: string,
-      readonly name_i18n: any
-    },
-    readonly blocks: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_service_block',
-      readonly block_id: UUID,
-      readonly vehicle_journeys: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly start_time: luxon.Duration,
-        readonly end_time: luxon.Duration,
-        readonly contract_number: string,
-        readonly vehicle_journey_id: UUID,
-        readonly journey_pattern_ref: {
-          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-          readonly journey_pattern_ref_id: UUID,
-          readonly journey_pattern_instance?: {
-            readonly __typename?: 'journey_pattern_journey_pattern',
-            readonly journey_pattern_id: UUID,
-            readonly journey_pattern_route?: {
-              readonly __typename?: 'route_route',
-              readonly direction: RouteDirectionEnum,
-              readonly name_i18n: LocalizedString,
-              readonly description_i18n?: LocalizedString | null,
-              readonly version_comment?: string | null,
-              readonly origin_name_i18n: LocalizedString,
-              readonly origin_short_name_i18n: LocalizedString,
-              readonly destination_name_i18n: LocalizedString,
-              readonly destination_short_name_i18n: LocalizedString,
-              readonly on_line_id: UUID,
-              readonly label: string,
-              readonly variant?: number | null,
-              readonly route_id: UUID,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
-              readonly priority: number
-            } | null
-          } | null
-        }
-      }>,
-      readonly vehicle_type?: {
-        readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-        readonly vehicle_type_id: UUID,
-        readonly description_i18n?: any | null
-      } | null
-    }>
-  }>
-};
-
-export type GetStagingVehicleScheduleFramesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetStagingVehicleScheduleFramesQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly timetables_vehicle_schedule_vehicle_schedule_frame: ReadonlyArray<{
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-      readonly label: string,
-      readonly validity_end: luxon.DateTime,
-      readonly validity_start: luxon.DateTime,
-      readonly name_i18n?: any | null,
-      readonly vehicle_schedule_frame_id: UUID,
-      readonly priority: number,
-      readonly vehicle_services: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-        readonly vehicle_service_id: UUID,
-        readonly name_i18n?: any | null,
-        readonly day_type: {
-          readonly __typename?: 'timetables_service_calendar_day_type',
-          readonly day_type_id: UUID,
-          readonly label: string,
-          readonly name_i18n: any
-        },
-        readonly blocks: ReadonlyArray<{
-          readonly __typename?: 'timetables_vehicle_service_block',
-          readonly block_id: UUID,
-          readonly vehicle_journeys: ReadonlyArray<{
-            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly start_time: luxon.Duration,
-            readonly end_time: luxon.Duration,
-            readonly contract_number: string,
-            readonly vehicle_journey_id: UUID,
-            readonly journey_pattern_ref: {
-              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-              readonly journey_pattern_ref_id: UUID,
-              readonly journey_pattern_instance?: {
-                readonly __typename?: 'journey_pattern_journey_pattern',
-                readonly journey_pattern_id: UUID,
-                readonly journey_pattern_route?: {
-                  readonly __typename?: 'route_route',
-                  readonly direction: RouteDirectionEnum,
-                  readonly name_i18n: LocalizedString,
-                  readonly description_i18n?: LocalizedString | null,
-                  readonly version_comment?: string | null,
-                  readonly origin_name_i18n: LocalizedString,
-                  readonly origin_short_name_i18n: LocalizedString,
-                  readonly destination_name_i18n: LocalizedString,
-                  readonly destination_short_name_i18n: LocalizedString,
-                  readonly on_line_id: UUID,
-                  readonly label: string,
-                  readonly variant?: number | null,
-                  readonly route_id: UUID,
-                  readonly validity_start?: luxon.DateTime | null,
-                  readonly validity_end?: luxon.DateTime | null,
-                  readonly priority: number
-                } | null
-              } | null
-            }
-          }>,
-          readonly vehicle_type?: {
-            readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-            readonly vehicle_type_id: UUID,
-            readonly description_i18n?: any | null
-          } | null
-        }>
-      }>
-    }>
-  } | null
-};
-
-export type ChangeStagingVehicleScheduleFramePriorityMutationVariables = Exact<{
-  newPriority: Scalars['Int']['input'];
-}>;
-
-
-export type ChangeStagingVehicleScheduleFramePriorityMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_update_vehicle_schedule_vehicle_schedule_frame?: {
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response',
-      readonly returning: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-        readonly priority: number,
-        readonly validity_end: luxon.DateTime,
-        readonly validity_start: luxon.DateTime,
-        readonly name_i18n?: any | null,
-        readonly vehicle_schedule_frame_id: UUID
-      }>
-    } | null
-  } | null
-};
-
-export type CombineTimetablesMutationVariables = Exact<{
-  stagingVehicleScheduleFrameIds: ReadonlyArray<InputMaybe<Scalars['uuid']['input']>> | InputMaybe<Scalars['uuid']['input']>;
-  targetPriority: Scalars['Int']['input'];
-}>;
-
-
-export type CombineTimetablesMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly combineTimetables?: {
-    readonly __typename?: 'CombineTimetablesOutput',
-    readonly combinedIntoVehicleScheduleFrameIds: ReadonlyArray<UUID | null>
-  } | null
-};
-
-export type ReplaceTimetablesMutationVariables = Exact<{
-  stagingVehicleScheduleFrameIds: ReadonlyArray<InputMaybe<Scalars['uuid']['input']>> | InputMaybe<Scalars['uuid']['input']>;
-  targetPriority: Scalars['Int']['input'];
-}>;
-
-
-export type ReplaceTimetablesMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly replaceTimetables?: {
-    readonly __typename?: 'ReplaceTimetablesOutput',
-    readonly replacedVehicleScheduleFrameIds: ReadonlyArray<UUID | null>
-  } | null
-};
-
-export type DeleteStagingTimetablesMutationVariables = Exact<{
-  stagingVehicleScheduleFrameIds?: InputMaybe<ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input']>;
-}>;
-
-
-export type DeleteStagingTimetablesMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_delete_vehicle_schedule_vehicle_schedule_frame?: {
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_mutation_response',
-      readonly returning: ReadonlyArray<{
-        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-        readonly vehicle_schedule_frame_id: UUID
-      }>
-    } | null
-  } | null
-};
-
-export type VehicleJourneyByStopFragment = {
-  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-  readonly journey_pattern_ref_id: UUID,
-  readonly vehicle_journey_id: UUID,
-  readonly timetabled_passing_times: ReadonlyArray<{
-    readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-    readonly arrival_time?: luxon.Duration | null,
-    readonly departure_time?: luxon.Duration | null,
-    readonly passing_time: luxon.Duration,
-    readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-    readonly timetabled_passing_time_id: UUID,
-    readonly vehicle_journey_id: UUID,
-    readonly scheduled_stop_point_in_journey_pattern_ref: {
-      readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
-      readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly journey_pattern_ref: {
-        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-        readonly journey_pattern_ref_id: UUID,
-        readonly observation_timestamp: luxon.DateTime
-      },
-      readonly scheduled_stop_point_instances: ReadonlyArray<{
-        readonly __typename?: 'service_pattern_scheduled_stop_point',
-        readonly priority: number,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_point_id: UUID,
-        readonly label: string,
-        readonly timing_place_id?: UUID | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
-        readonly located_on_infrastructure_link_id: UUID,
-        readonly stop_place_ref?: string | null,
-        readonly timing_place?: {
-          readonly __typename?: 'timing_pattern_timing_place',
-          readonly timing_place_id: UUID,
-          readonly label: string
-        } | null
-      }>
-    },
-    readonly vehicle_journey: {
-      readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-      readonly vehicle_journey_id: UUID,
-      readonly block: {
-        readonly __typename?: 'timetables_vehicle_service_block',
-        readonly block_id: UUID,
-        readonly vehicle_type?: {
-          readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-          readonly description_i18n?: any | null,
-          readonly vehicle_type_id: UUID
-        } | null
-      }
-    }
-  }>
-};
-
-export type PassingTimeByStopFragment = {
-  readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-  readonly arrival_time?: luxon.Duration | null,
-  readonly departure_time?: luxon.Duration | null,
-  readonly passing_time: luxon.Duration,
-  readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-  readonly timetabled_passing_time_id: UUID,
-  readonly vehicle_journey_id: UUID,
-  readonly scheduled_stop_point_in_journey_pattern_ref: {
-    readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
-    readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-    readonly scheduled_stop_point_label: string,
-    readonly journey_pattern_ref: {
-      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-      readonly journey_pattern_ref_id: UUID,
-      readonly observation_timestamp: luxon.DateTime
-    },
-    readonly scheduled_stop_point_instances: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly priority: number,
-      readonly direction: InfrastructureNetworkDirectionEnum,
-      readonly scheduled_stop_point_id: UUID,
-      readonly label: string,
-      readonly timing_place_id?: UUID | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly located_on_infrastructure_link_id: UUID,
-      readonly stop_place_ref?: string | null,
-      readonly timing_place?: {
-        readonly __typename?: 'timing_pattern_timing_place',
-        readonly timing_place_id: UUID,
-        readonly label: string
-      } | null
-    }>
-  },
-  readonly vehicle_journey: {
-    readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-    readonly vehicle_journey_id: UUID,
-    readonly block: {
-      readonly __typename?: 'timetables_vehicle_service_block',
-      readonly block_id: UUID,
-      readonly vehicle_type?: {
-        readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-        readonly description_i18n?: any | null,
-        readonly vehicle_type_id: UUID
-      } | null
-    }
-  }
-};
-
-export type CreateSubstituteOperatingPeriodMutationVariables = Exact<{
-  data: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput> | TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput;
-}>;
-
-
-export type CreateSubstituteOperatingPeriodMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_insert_service_calendar_substitute_operating_period?: {
-      readonly __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response',
-      readonly returning: ReadonlyArray<{
-        readonly __typename?: 'timetables_service_calendar_substitute_operating_period',
-        readonly substitute_operating_period_id: UUID,
-        readonly period_name: string,
-        readonly is_preset: boolean,
-        readonly substitute_operating_day_by_line_types: ReadonlyArray<{
-          readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-          readonly begin_time?: luxon.Duration | null,
-          readonly end_time?: luxon.Duration | null,
-          readonly substitute_day_of_week?: number | null,
-          readonly substitute_operating_day_by_line_type_id: UUID,
-          readonly superseded_date: luxon.DateTime,
-          readonly type_of_line: string
-        }>
-      }>
-    } | null
-  } | null
-};
-
-export type DeleteSubstituteOperatingPeriodMutationVariables = Exact<{
-  ids: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
-}>;
-
-
-export type DeleteSubstituteOperatingPeriodMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_delete_service_calendar_substitute_operating_period?: {
-      readonly __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response',
-      readonly affected_rows: number
-    } | null
-  } | null
-};
-
-export type EditSubstituteOperatingPeriodsMutationVariables = Exact<{
-  periodsToInsert: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput> | TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput;
-  periodsToDelete: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
-  daysToInsert: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput> | TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput;
-}>;
-
-
-export type EditSubstituteOperatingPeriodsMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_insert_service_calendar_substitute_operating_period?: {
-      readonly __typename?: 'timetables_service_calendar_substitute_operating_period_mutation_response',
-      readonly affected_rows: number
-    } | null,
-    readonly timetables_delete_service_calendar_substitute_operating_day_by_line_type?: {
-      readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response',
-      readonly affected_rows: number
-    } | null,
-    readonly timetables_insert_service_calendar_substitute_operating_day_by_line_type?: {
-      readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response',
-      readonly affected_rows: number
-    } | null
-  } | null
-};
-
-export type GetSubstituteOperatingPeriodsQueryVariables = Exact<{
-  startDate: Scalars['date']['input'];
-  endDate: Scalars['date']['input'];
-  isPreset: Scalars['Boolean']['input'];
-}>;
-
-
-export type GetSubstituteOperatingPeriodsQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly timetables_service_calendar_substitute_operating_period: ReadonlyArray<{
-      readonly __typename?: 'timetables_service_calendar_substitute_operating_period',
-      readonly period_name: string,
-      readonly is_preset: boolean,
-      readonly substitute_operating_period_id: UUID,
-      readonly substitute_operating_day_by_line_types: ReadonlyArray<{
-        readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-        readonly begin_time?: luxon.Duration | null,
-        readonly end_time?: luxon.Duration | null,
-        readonly substitute_day_of_week?: number | null,
-        readonly substitute_operating_day_by_line_type_id: UUID,
-        readonly superseded_date: luxon.DateTime,
-        readonly type_of_line: string
-      }>
-    }>
-  } | null
-};
-
-export type SubstituteOperatingPeriodSettingsInfoFragment = {
-  readonly __typename?: 'timetables_service_calendar_substitute_operating_period',
-  readonly period_name: string,
-  readonly is_preset: boolean,
-  readonly substitute_operating_period_id: UUID,
-  readonly substitute_operating_day_by_line_types: ReadonlyArray<{
-    readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-    readonly begin_time?: luxon.Duration | null,
-    readonly end_time?: luxon.Duration | null,
-    readonly substitute_day_of_week?: number | null,
-    readonly substitute_operating_day_by_line_type_id: UUID,
-    readonly superseded_date: luxon.DateTime,
-    readonly type_of_line: string
-  }>
-};
-
-export type GetRouteWithJourneyPatternQueryVariables = Exact<{
-  routeId: Scalars['uuid']['input'];
-}>;
-
-
-export type GetRouteWithJourneyPatternQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_route_by_pk?: {
-    readonly __typename?: 'route_route',
-    readonly route_shape?: GeoJSON.LineString | null,
-    readonly name_i18n: LocalizedString,
-    readonly description_i18n?: LocalizedString | null,
-    readonly version_comment?: string | null,
-    readonly origin_name_i18n: LocalizedString,
-    readonly origin_short_name_i18n: LocalizedString,
-    readonly destination_name_i18n: LocalizedString,
-    readonly destination_short_name_i18n: LocalizedString,
-    readonly on_line_id: UUID,
-    readonly label: string,
-    readonly direction: RouteDirectionEnum,
-    readonly variant?: number | null,
-    readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly ordered_scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
-        readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-        readonly journey_pattern_id: UUID,
-        readonly scheduled_stop_point_label: string,
-        readonly scheduled_stop_point_sequence: number,
-        readonly is_used_as_timing_point: boolean,
-        readonly is_regulated_timing_point: boolean,
-        readonly is_loading_time_allowed: boolean,
-        readonly is_via_point: boolean,
-        readonly via_point_name_i18n?: LocalizedString | null,
-        readonly via_point_short_name_i18n?: LocalizedString | null,
-        readonly scheduled_stop_points: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>,
-        readonly journey_pattern: {
-          readonly __typename?: 'journey_pattern_journey_pattern',
-          readonly journey_pattern_id: UUID,
-          readonly on_route_id: UUID
-        }
-      }>
-    }>
-  } | null
-};
-
-export type DayTypeAllFieldsFragment = {
-  readonly __typename?: 'timetables_service_calendar_day_type',
-  readonly day_type_id: UUID,
-  readonly label: string,
-  readonly name_i18n: any
-};
-
-export type VehicleJourneyWithServiceFragment = {
-  readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-  readonly vehicle_journey_id: UUID,
-  readonly start_time: luxon.Duration,
-  readonly end_time: luxon.Duration,
-  readonly journey_pattern_ref_id: UUID,
-  readonly journey_pattern_ref: {
-    readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-    readonly journey_pattern_ref_id: UUID,
-    readonly journey_pattern_id: UUID
-  },
-  readonly block: {
-    readonly __typename?: 'timetables_vehicle_service_block',
-    readonly block_id: UUID,
-    readonly vehicle_service_id: UUID,
-    readonly vehicle_service: {
-      readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-      readonly vehicle_service_id: UUID,
-      readonly day_type_id: UUID,
-      readonly vehicle_schedule_frame: {
-        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-        readonly vehicle_schedule_frame_id: UUID,
-        readonly validity_end: luxon.DateTime,
-        readonly validity_start: luxon.DateTime,
-        readonly priority: number,
-        readonly name_i18n?: any | null,
-        readonly created_at: luxon.DateTime
-      },
-      readonly day_type: {
-        readonly __typename?: 'timetables_service_calendar_day_type',
-        readonly day_type_id: UUID,
-        readonly label: string,
-        readonly name_i18n: any
-      }
-    }
-  },
-  readonly timetabled_passing_times: ReadonlyArray<{
-    readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-    readonly arrival_time?: luxon.Duration | null,
-    readonly departure_time?: luxon.Duration | null,
-    readonly passing_time: luxon.Duration,
-    readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-    readonly timetabled_passing_time_id: UUID,
-    readonly vehicle_journey_id: UUID,
-    readonly scheduled_stop_point_in_journey_pattern_ref: {
-      readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
-      readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-      readonly scheduled_stop_point_label: string,
-      readonly journey_pattern_ref: {
-        readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-        readonly journey_pattern_ref_id: UUID,
-        readonly observation_timestamp: luxon.DateTime
-      },
-      readonly scheduled_stop_point_instances: ReadonlyArray<{
-        readonly __typename?: 'service_pattern_scheduled_stop_point',
-        readonly priority: number,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_point_id: UUID,
-        readonly label: string,
-        readonly timing_place_id?: UUID | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
-        readonly located_on_infrastructure_link_id: UUID,
-        readonly stop_place_ref?: string | null,
-        readonly timing_place?: {
-          readonly __typename?: 'timing_pattern_timing_place',
-          readonly timing_place_id: UUID,
-          readonly label: string
-        } | null
-      }>
-    },
-    readonly vehicle_journey: {
-      readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-      readonly vehicle_journey_id: UUID,
-      readonly block: {
-        readonly __typename?: 'timetables_vehicle_service_block',
-        readonly block_id: UUID,
-        readonly vehicle_type?: {
-          readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-          readonly description_i18n?: any | null,
-          readonly vehicle_type_id: UUID
-        } | null
-      }
-    }
-  }>
-};
-
-export type VehicleScheduleFragment = {
-  readonly __typename?: 'timetables_return_value_vehicle_schedule',
-  readonly priority: number,
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
-  readonly created_at?: luxon.DateTime | null,
-  readonly vehicle_schedule_frame_id?: UUID | null,
-  readonly vehicle_journey?: {
-    readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-    readonly vehicle_journey_id: UUID,
-    readonly start_time: luxon.Duration,
-    readonly end_time: luxon.Duration,
-    readonly journey_pattern_ref_id: UUID,
-    readonly journey_pattern_ref: {
-      readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-      readonly journey_pattern_ref_id: UUID,
-      readonly journey_pattern_id: UUID
-    },
-    readonly block: {
-      readonly __typename?: 'timetables_vehicle_service_block',
-      readonly block_id: UUID,
-      readonly vehicle_service_id: UUID,
-      readonly vehicle_service: {
-        readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-        readonly vehicle_service_id: UUID,
-        readonly day_type_id: UUID,
-        readonly vehicle_schedule_frame: {
-          readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-          readonly vehicle_schedule_frame_id: UUID,
-          readonly validity_end: luxon.DateTime,
-          readonly validity_start: luxon.DateTime,
-          readonly priority: number,
-          readonly name_i18n?: any | null,
-          readonly created_at: luxon.DateTime
-        },
-        readonly day_type: {
-          readonly __typename?: 'timetables_service_calendar_day_type',
-          readonly day_type_id: UUID,
-          readonly label: string,
-          readonly name_i18n: any
-        }
-      }
-    },
-    readonly timetabled_passing_times: ReadonlyArray<{
-      readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-      readonly arrival_time?: luxon.Duration | null,
-      readonly departure_time?: luxon.Duration | null,
-      readonly passing_time: luxon.Duration,
-      readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-      readonly timetabled_passing_time_id: UUID,
-      readonly vehicle_journey_id: UUID,
-      readonly scheduled_stop_point_in_journey_pattern_ref: {
-        readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
-        readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-        readonly scheduled_stop_point_label: string,
-        readonly journey_pattern_ref: {
-          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-          readonly journey_pattern_ref_id: UUID,
-          readonly observation_timestamp: luxon.DateTime
-        },
-        readonly scheduled_stop_point_instances: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null
-        }>
-      },
-      readonly vehicle_journey: {
-        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly vehicle_journey_id: UUID,
-        readonly block: {
-          readonly __typename?: 'timetables_vehicle_service_block',
-          readonly block_id: UUID,
-          readonly vehicle_type?: {
-            readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-            readonly description_i18n?: any | null,
-            readonly vehicle_type_id: UUID
-          } | null
-        }
-      }
-    }>
-  } | null,
-  readonly day_type?: {
-    readonly __typename?: 'timetables_service_calendar_day_type',
-    readonly day_type_id: UUID,
-    readonly label: string,
-    readonly name_i18n: any
-  } | null
-};
-
-export type GetVehicleSchedulesForDateQueryVariables = Exact<{
-  journey_pattern_id: Scalars['uuid']['input'];
-  observation_date: Scalars['date']['input'];
-}>;
-
-
-export type GetVehicleSchedulesForDateQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly timetables_vehicle_journey_get_vehicle_schedules_on_date: ReadonlyArray<{
-      readonly __typename?: 'timetables_return_value_vehicle_schedule',
-      readonly priority: number,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
-      readonly created_at?: luxon.DateTime | null,
-      readonly vehicle_schedule_frame_id?: UUID | null,
-      readonly vehicle_journey?: {
-        readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly vehicle_journey_id: UUID,
-        readonly start_time: luxon.Duration,
-        readonly end_time: luxon.Duration,
-        readonly journey_pattern_ref_id: UUID,
-        readonly journey_pattern_ref: {
-          readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-          readonly journey_pattern_ref_id: UUID,
-          readonly journey_pattern_id: UUID
-        },
-        readonly block: {
-          readonly __typename?: 'timetables_vehicle_service_block',
-          readonly block_id: UUID,
-          readonly vehicle_service_id: UUID,
-          readonly vehicle_service: {
-            readonly __typename?: 'timetables_vehicle_service_vehicle_service',
-            readonly vehicle_service_id: UUID,
-            readonly day_type_id: UUID,
-            readonly vehicle_schedule_frame: {
-              readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-              readonly vehicle_schedule_frame_id: UUID,
-              readonly validity_end: luxon.DateTime,
-              readonly validity_start: luxon.DateTime,
-              readonly priority: number,
-              readonly name_i18n?: any | null,
-              readonly created_at: luxon.DateTime
-            },
-            readonly day_type: {
-              readonly __typename?: 'timetables_service_calendar_day_type',
-              readonly day_type_id: UUID,
-              readonly label: string,
-              readonly name_i18n: any
-            }
-          }
-        },
-        readonly timetabled_passing_times: ReadonlyArray<{
-          readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-          readonly arrival_time?: luxon.Duration | null,
-          readonly departure_time?: luxon.Duration | null,
-          readonly passing_time: luxon.Duration,
-          readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-          readonly timetabled_passing_time_id: UUID,
-          readonly vehicle_journey_id: UUID,
-          readonly scheduled_stop_point_in_journey_pattern_ref: {
-            readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref',
-            readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
-            readonly scheduled_stop_point_label: string,
-            readonly journey_pattern_ref: {
-              readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
-              readonly journey_pattern_ref_id: UUID,
-              readonly observation_timestamp: luxon.DateTime
-            },
-            readonly scheduled_stop_point_instances: ReadonlyArray<{
-              readonly __typename?: 'service_pattern_scheduled_stop_point',
-              readonly priority: number,
-              readonly direction: InfrastructureNetworkDirectionEnum,
-              readonly scheduled_stop_point_id: UUID,
-              readonly label: string,
-              readonly timing_place_id?: UUID | null,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
-              readonly located_on_infrastructure_link_id: UUID,
-              readonly stop_place_ref?: string | null,
-              readonly timing_place?: {
-                readonly __typename?: 'timing_pattern_timing_place',
-                readonly timing_place_id: UUID,
-                readonly label: string
-              } | null
-            }>
-          },
-          readonly vehicle_journey: {
-            readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly vehicle_journey_id: UUID,
-            readonly block: {
-              readonly __typename?: 'timetables_vehicle_service_block',
-              readonly block_id: UUID,
-              readonly vehicle_type?: {
-                readonly __typename?: 'timetables_vehicle_type_vehicle_type',
-                readonly description_i18n?: any | null,
-                readonly vehicle_type_id: UUID
-              } | null
-            }
-          }
-        }>
-      } | null,
-      readonly day_type?: {
-        readonly __typename?: 'timetables_service_calendar_day_type',
-        readonly day_type_id: UUID,
-        readonly label: string,
-        readonly name_i18n: any
-      } | null
-    }>,
-    readonly timetables_service_calendar_get_active_day_types_for_date: ReadonlyArray<{
-      readonly __typename?: 'timetables_service_calendar_day_type',
-      readonly day_type_id: UUID
-    }>
-  } | null
-};
-
-export type DeleteVehicleScheduleFrameMutationVariables = Exact<{
-  vehicle_schedule_frame_id: Scalars['uuid']['input'];
-}>;
-
-
-export type DeleteVehicleScheduleFrameMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_mutation_frontend',
-    readonly timetables_delete_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
-      readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-      readonly vehicle_schedule_frame_id: UUID
-    } | null
-  } | null
-};
-
-export type RouteInfoForTimetableVersionFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_id: UUID,
-  readonly label: string,
-  readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly priority: number,
-  readonly validity_end?: luxon.DateTime | null,
-  readonly route_journey_patterns: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID
-  }>
-};
-
-export type GetRouteInfoForTimetableVersionsQueryVariables = Exact<{
-  routeFilters?: InputMaybe<RouteRouteBoolExp>;
-}>;
-
-
-export type GetRouteInfoForTimetableVersionsQuery = {
-  readonly __typename?: 'query_root',
-  readonly route_route: ReadonlyArray<{
-    readonly __typename?: 'route_route',
-    readonly route_id: UUID,
-    readonly label: string,
-    readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly priority: number,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly route_journey_patterns: ReadonlyArray<{
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID
-    }>
-  }>
-};
-
-export type TimetableVersionFragment = {
-  readonly __typename?: 'timetables_return_value_timetable_version',
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
-  readonly priority: number,
-  readonly in_effect: boolean,
-  readonly day_type?: {
-    readonly __typename?: 'timetables_service_calendar_day_type',
-    readonly day_type_id: UUID,
-    readonly name_i18n: any,
-    readonly label: string
-  } | null,
-  readonly substitute_operating_day_by_line_type?: {
-    readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-    readonly substitute_operating_day_by_line_type_id: UUID,
-    readonly superseded_date: luxon.DateTime,
-    readonly substitute_day_of_week?: number | null
-  } | null,
-  readonly vehicle_schedule_frame?: {
-    readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-    readonly vehicle_schedule_frame_id: UUID,
-    readonly name_i18n?: any | null
-  } | null
-};
-
-export type GetTimetableVersionsByJourneyPatternIdsQueryVariables = Exact<{
-  journey_pattern_ids?: InputMaybe<Scalars['_uuid']['input']>;
-  start_date?: InputMaybe<Scalars['date']['input']>;
-  end_date?: InputMaybe<Scalars['date']['input']>;
-  observation_date?: InputMaybe<Scalars['date']['input']>;
-}>;
-
-
-export type GetTimetableVersionsByJourneyPatternIdsQuery = {
-  readonly __typename?: 'query_root',
-  readonly timetables?: {
-    readonly __typename?: 'timetables_timetables_query',
-    readonly versions: ReadonlyArray<{
-      readonly __typename?: 'timetables_return_value_timetable_version',
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
-      readonly priority: number,
-      readonly in_effect: boolean,
-      readonly day_type?: {
-        readonly __typename?: 'timetables_service_calendar_day_type',
-        readonly day_type_id: UUID,
-        readonly name_i18n: any,
-        readonly label: string
-      } | null,
-      readonly substitute_operating_day_by_line_type?: {
-        readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-        readonly substitute_operating_day_by_line_type_id: UUID,
-        readonly superseded_date: luxon.DateTime,
-        readonly substitute_day_of_week?: number | null
-      } | null,
-      readonly vehicle_schedule_frame?: {
-        readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
-        readonly vehicle_schedule_frame_id: UUID,
-        readonly name_i18n?: any | null
-      } | null
-    }>
-  } | null
-};
-
 export type JourneyPatternStopFragment = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
   readonly scheduled_stop_point_label: string,
@@ -84569,6 +84569,23 @@ export const LineChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","defin
 export const ScheduledStopPointWithTimingSettingsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointWithTimingSettings"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}}]} as unknown as DocumentNode;
 export const RouteWithInfrastructureLinksFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithInfrastructureLinks"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LineAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_links_along_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"shape"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"external_link_source"}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}},{"kind":"Field","name":{"kind":"Name","value":"transport_target"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
 export const RouteVersionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"change_history"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}}]}}]}}]} as unknown as DocumentNode;
+export const VehicleScheduleFrameWithRoutesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRoutes"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export const DayTypeAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
+export const VehicleJourneyWithRouteInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}}]} as unknown as DocumentNode;
+export const VehicleServiceWithJourneysFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleServiceWithJourneys"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_service_vehicle_service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
+export const VehicleScheduleFrameWithRouteInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleServiceWithJourneys"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleServiceWithJourneys"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_service_vehicle_service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
+export const VehicleJourneyWithPatternAndRouteFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export const VehicleScheduleFrameWithJourneyInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithJourneyInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export const VehicleScheduleFrameWithRouteAndLineInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteAndLineInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export const SubstituteOperatingPeriodSettingsInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SubstituteOperatingPeriodSettingsInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"period_name"}},{"kind":"Field","name":{"kind":"Name","value":"is_preset"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_period_id"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begin_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]} as unknown as DocumentNode;
+export const PassingTimeByStopFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]} as unknown as DocumentNode;
+export const VehicleJourneyByStopFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export const VehicleJourneyWithServiceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithService"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyByStop"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
+export const VehicleScheduleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleSchedule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_vehicle_schedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithService"}}]}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithService"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyByStop"}}]}}]} as unknown as DocumentNode;
+export const DayTypeDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
+export const VehicleJourneyWithStartTimeInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithStartTimeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export const RouteInfoForTimetableVersionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteInfoForTimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}}]} as unknown as DocumentNode;
+export const TimetableVersionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_timetable_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"in_effect"}}]}}]} as unknown as DocumentNode;
 export const UserNameDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserNameDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"login_audit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_name"}}]}}]} as unknown as DocumentNode;
 export const LineMapParamsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LineMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]}}]} as unknown as DocumentNode;
 export const RouteMapParamsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMapParams"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]} as unknown as DocumentNode;
@@ -84632,23 +84649,6 @@ export const HistoricalTerminalDetailsFragmentDoc = {"kind":"Document","definiti
 export const TerminalExternalLinksDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_stopPlaceExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]} as unknown as DocumentNode;
 export const TerminalOrganizationRefFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalOrganizationRef"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlaceOrganisationRef"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}}]} as unknown as DocumentNode;
 export const ParentStopPlaceDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ParentStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalOrganizationRef"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_stopPlaceExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalOrganizationRef"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlaceOrganisationRef"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]} as unknown as DocumentNode;
-export const DayTypeDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
-export const VehicleJourneyWithStartTimeInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithStartTimeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const VehicleScheduleFrameWithRoutesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRoutes"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const VehicleJourneyWithPatternAndRouteFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const VehicleScheduleFrameWithJourneyInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithJourneyInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const VehicleScheduleFrameWithRouteAndLineInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteAndLineInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const DayTypeAllFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
-export const VehicleJourneyWithRouteInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}}]} as unknown as DocumentNode;
-export const VehicleServiceWithJourneysFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleServiceWithJourneys"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_service_vehicle_service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
-export const VehicleScheduleFrameWithRouteInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleServiceWithJourneys"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleServiceWithJourneys"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_service_vehicle_service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
-export const SubstituteOperatingPeriodSettingsInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SubstituteOperatingPeriodSettingsInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"period_name"}},{"kind":"Field","name":{"kind":"Name","value":"is_preset"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_period_id"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begin_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]} as unknown as DocumentNode;
-export const PassingTimeByStopFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]} as unknown as DocumentNode;
-export const VehicleJourneyByStopFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const VehicleJourneyWithServiceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithService"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyByStop"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
-export const VehicleScheduleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleSchedule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_vehicle_schedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithService"}}]}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithService"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyByStop"}}]}}]} as unknown as DocumentNode;
-export const RouteInfoForTimetableVersionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteInfoForTimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}}]} as unknown as DocumentNode;
-export const TimetableVersionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_timetable_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"in_effect"}}]}}]} as unknown as DocumentNode;
 export const JourneyPatternStopFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}}]}}]} as unknown as DocumentNode;
 export const RouteLabelAndVariantFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteLabelAndVariant"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}}]}}]} as unknown as DocumentNode;
 export const RouteValidityPeriodFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidityPeriod"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
@@ -85639,6 +85639,704 @@ export type GetRouteVersionsQueryHookResult = ReturnType<typeof useGetRouteVersi
 export type GetRouteVersionsLazyQueryHookResult = ReturnType<typeof useGetRouteVersionsLazyQuery>;
 export type GetRouteVersionsSuspenseQueryHookResult = ReturnType<typeof useGetRouteVersionsSuspenseQuery>;
 export type GetRouteVersionsQueryResult = Apollo.QueryResult<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>;
+export const GetVehicleScheduleFrameWithRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameWithRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithRoutes"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRoutes"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetVehicleScheduleFrameWithRoutesQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameWithRoutesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameWithRoutesQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameWithRoutesQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables> & ({ variables: GetVehicleScheduleFrameWithRoutesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>(GetVehicleScheduleFrameWithRoutesDocument, options);
+      }
+export function useGetVehicleScheduleFrameWithRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>(GetVehicleScheduleFrameWithRoutesDocument, options);
+        }
+// @ts-ignore
+export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>;
+export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRoutesQuery | undefined, GetVehicleScheduleFrameWithRoutesQueryVariables>;
+export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>(GetVehicleScheduleFrameWithRoutesDocument, options);
+        }
+export type GetVehicleScheduleFrameWithRoutesQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRoutesQuery>;
+export type GetVehicleScheduleFrameWithRoutesLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRoutesLazyQuery>;
+export type GetVehicleScheduleFrameWithRoutesSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRoutesSuspenseQuery>;
+export type GetVehicleScheduleFrameWithRoutesQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>;
+export const UpdateVehicleScheduleFrameValidityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateVehicleScheduleFrameValidity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validity_start"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validity_end"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_update_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validity_start"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validity_end"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UpdateVehicleScheduleFrameValidityMutationFn = Apollo.MutationFunction<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>;
+
+/**
+ * __useUpdateVehicleScheduleFrameValidityMutation__
+ *
+ * To run a mutation, you first call `useUpdateVehicleScheduleFrameValidityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateVehicleScheduleFrameValidityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateVehicleScheduleFrameValidityMutation, { data, loading, error }] = useUpdateVehicleScheduleFrameValidityMutation({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *      validity_start: // value for 'validity_start'
+ *      validity_end: // value for 'validity_end'
+ *   },
+ * });
+ */
+export function useUpdateVehicleScheduleFrameValidityMutation(baseOptions?: Apollo.MutationHookOptions<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>(UpdateVehicleScheduleFrameValidityDocument, options);
+      }
+export type UpdateVehicleScheduleFrameValidityMutationHookResult = ReturnType<typeof useUpdateVehicleScheduleFrameValidityMutation>;
+export type UpdateVehicleScheduleFrameValidityMutationResult = Apollo.MutationResult<UpdateVehicleScheduleFrameValidityMutation>;
+export type UpdateVehicleScheduleFrameValidityMutationOptions = Apollo.BaseMutationOptions<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>;
+export const GetStagingVehicleScheduleFramesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStagingVehicleScheduleFrames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"40"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleServiceWithJourneys"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_service_vehicle_service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleServiceWithJourneys"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetStagingVehicleScheduleFramesQuery__
+ *
+ * To run a query within a React component, call `useGetStagingVehicleScheduleFramesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStagingVehicleScheduleFramesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStagingVehicleScheduleFramesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStagingVehicleScheduleFramesQuery(baseOptions?: Apollo.QueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>(GetStagingVehicleScheduleFramesDocument, options);
+      }
+export function useGetStagingVehicleScheduleFramesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>(GetStagingVehicleScheduleFramesDocument, options);
+        }
+// @ts-ignore
+export function useGetStagingVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>;
+export function useGetStagingVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetStagingVehicleScheduleFramesQuery | undefined, GetStagingVehicleScheduleFramesQueryVariables>;
+export function useGetStagingVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>(GetStagingVehicleScheduleFramesDocument, options);
+        }
+export type GetStagingVehicleScheduleFramesQueryHookResult = ReturnType<typeof useGetStagingVehicleScheduleFramesQuery>;
+export type GetStagingVehicleScheduleFramesLazyQueryHookResult = ReturnType<typeof useGetStagingVehicleScheduleFramesLazyQuery>;
+export type GetStagingVehicleScheduleFramesSuspenseQueryHookResult = ReturnType<typeof useGetStagingVehicleScheduleFramesSuspenseQuery>;
+export type GetStagingVehicleScheduleFramesQueryResult = Apollo.QueryResult<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>;
+export const ChangeStagingVehicleScheduleFramePriorityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ChangeStagingVehicleScheduleFramePriority"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"newPriority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_update_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"40"}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"Variable","name":{"kind":"Name","value":"newPriority"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type ChangeStagingVehicleScheduleFramePriorityMutationFn = Apollo.MutationFunction<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>;
+
+/**
+ * __useChangeStagingVehicleScheduleFramePriorityMutation__
+ *
+ * To run a mutation, you first call `useChangeStagingVehicleScheduleFramePriorityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeStagingVehicleScheduleFramePriorityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeStagingVehicleScheduleFramePriorityMutation, { data, loading, error }] = useChangeStagingVehicleScheduleFramePriorityMutation({
+ *   variables: {
+ *      newPriority: // value for 'newPriority'
+ *   },
+ * });
+ */
+export function useChangeStagingVehicleScheduleFramePriorityMutation(baseOptions?: Apollo.MutationHookOptions<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>(ChangeStagingVehicleScheduleFramePriorityDocument, options);
+      }
+export type ChangeStagingVehicleScheduleFramePriorityMutationHookResult = ReturnType<typeof useChangeStagingVehicleScheduleFramePriorityMutation>;
+export type ChangeStagingVehicleScheduleFramePriorityMutationResult = Apollo.MutationResult<ChangeStagingVehicleScheduleFramePriorityMutation>;
+export type ChangeStagingVehicleScheduleFramePriorityMutationOptions = Apollo.BaseMutationOptions<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>;
+export const CombineTimetablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CombineTimetables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"combineTimetables"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"targetPriority"},"value":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"combinedIntoVehicleScheduleFrameIds"}}]}}]}}]} as unknown as DocumentNode;
+export type CombineTimetablesMutationFn = Apollo.MutationFunction<CombineTimetablesMutation, CombineTimetablesMutationVariables>;
+
+/**
+ * __useCombineTimetablesMutation__
+ *
+ * To run a mutation, you first call `useCombineTimetablesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCombineTimetablesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [combineTimetablesMutation, { data, loading, error }] = useCombineTimetablesMutation({
+ *   variables: {
+ *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
+ *      targetPriority: // value for 'targetPriority'
+ *   },
+ * });
+ */
+export function useCombineTimetablesMutation(baseOptions?: Apollo.MutationHookOptions<CombineTimetablesMutation, CombineTimetablesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CombineTimetablesMutation, CombineTimetablesMutationVariables>(CombineTimetablesDocument, options);
+      }
+export type CombineTimetablesMutationHookResult = ReturnType<typeof useCombineTimetablesMutation>;
+export type CombineTimetablesMutationResult = Apollo.MutationResult<CombineTimetablesMutation>;
+export type CombineTimetablesMutationOptions = Apollo.BaseMutationOptions<CombineTimetablesMutation, CombineTimetablesMutationVariables>;
+export const ReplaceTimetablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ReplaceTimetables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"replaceTimetables"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"targetPriority"},"value":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"replacedVehicleScheduleFrameIds"}}]}}]}}]} as unknown as DocumentNode;
+export type ReplaceTimetablesMutationFn = Apollo.MutationFunction<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>;
+
+/**
+ * __useReplaceTimetablesMutation__
+ *
+ * To run a mutation, you first call `useReplaceTimetablesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReplaceTimetablesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [replaceTimetablesMutation, { data, loading, error }] = useReplaceTimetablesMutation({
+ *   variables: {
+ *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
+ *      targetPriority: // value for 'targetPriority'
+ *   },
+ * });
+ */
+export function useReplaceTimetablesMutation(baseOptions?: Apollo.MutationHookOptions<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>(ReplaceTimetablesDocument, options);
+      }
+export type ReplaceTimetablesMutationHookResult = ReturnType<typeof useReplaceTimetablesMutation>;
+export type ReplaceTimetablesMutationResult = Apollo.MutationResult<ReplaceTimetablesMutation>;
+export type ReplaceTimetablesMutationOptions = Apollo.BaseMutationOptions<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>;
+export const DeleteStagingTimetablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteStagingTimetables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_and"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"40"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type DeleteStagingTimetablesMutationFn = Apollo.MutationFunction<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>;
+
+/**
+ * __useDeleteStagingTimetablesMutation__
+ *
+ * To run a mutation, you first call `useDeleteStagingTimetablesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStagingTimetablesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStagingTimetablesMutation, { data, loading, error }] = useDeleteStagingTimetablesMutation({
+ *   variables: {
+ *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
+ *   },
+ * });
+ */
+export function useDeleteStagingTimetablesMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>(DeleteStagingTimetablesDocument, options);
+      }
+export type DeleteStagingTimetablesMutationHookResult = ReturnType<typeof useDeleteStagingTimetablesMutation>;
+export type DeleteStagingTimetablesMutationResult = Apollo.MutationResult<DeleteStagingTimetablesMutation>;
+export type DeleteStagingTimetablesMutationOptions = Apollo.BaseMutationOptions<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>;
+export const GetToCombineTargetVehicleScheduleFrameIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetToCombineTargetVehicleScheduleFrameId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ToCombineTargetVehicleScheduleFrameIdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toCombineTargetVehicleScheduleFrameId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toCombineTargetVehicleScheduleFrameId"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetToCombineTargetVehicleScheduleFrameIdQuery__
+ *
+ * To run a query within a React component, call `useGetToCombineTargetVehicleScheduleFrameIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetToCombineTargetVehicleScheduleFrameIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetToCombineTargetVehicleScheduleFrameIdQuery({
+ *   variables: {
+ *      arg1: // value for 'arg1'
+ *   },
+ * });
+ */
+export function useGetToCombineTargetVehicleScheduleFrameIdQuery(baseOptions: Apollo.QueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables> & ({ variables: GetToCombineTargetVehicleScheduleFrameIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
+      }
+export function useGetToCombineTargetVehicleScheduleFrameIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
+        }
+// @ts-ignore
+export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>;
+export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetToCombineTargetVehicleScheduleFrameIdQuery | undefined, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>;
+export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
+        }
+export type GetToCombineTargetVehicleScheduleFrameIdQueryHookResult = ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdQuery>;
+export type GetToCombineTargetVehicleScheduleFrameIdLazyQueryHookResult = ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdLazyQuery>;
+export type GetToCombineTargetVehicleScheduleFrameIdSuspenseQueryHookResult = ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery>;
+export type GetToCombineTargetVehicleScheduleFrameIdQueryResult = Apollo.QueryResult<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>;
+export const GetVehicleScheduleFrameWithJourneyInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameWithJourneyInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"frames"},"name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithJourneyInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithJourneyInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetVehicleScheduleFrameWithJourneyInfoQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameWithJourneyInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameWithJourneyInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameWithJourneyInfoQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_ids: // value for 'vehicle_schedule_frame_ids'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameWithJourneyInfoQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables> & ({ variables: GetVehicleScheduleFrameWithJourneyInfoQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
+      }
+export function useGetVehicleScheduleFrameWithJourneyInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
+        }
+// @ts-ignore
+export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>;
+export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithJourneyInfoQuery | undefined, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>;
+export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
+        }
+export type GetVehicleScheduleFrameWithJourneyInfoQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoQuery>;
+export type GetVehicleScheduleFrameWithJourneyInfoLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoLazyQuery>;
+export type GetVehicleScheduleFrameWithJourneyInfoSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery>;
+export type GetVehicleScheduleFrameWithJourneyInfoQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>;
+export const GetToReplaceVehicleScheduleFramesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetToReplaceVehicleScheduleFrames"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ToReplaceVehicleScheduleFrameIdsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toReplaceVehicleScheduleFrameIds"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toReplaceVehicleScheduleFrameIds"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetToReplaceVehicleScheduleFramesQuery__
+ *
+ * To run a query within a React component, call `useGetToReplaceVehicleScheduleFramesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetToReplaceVehicleScheduleFramesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetToReplaceVehicleScheduleFramesQuery({
+ *   variables: {
+ *      arg1: // value for 'arg1'
+ *   },
+ * });
+ */
+export function useGetToReplaceVehicleScheduleFramesQuery(baseOptions: Apollo.QueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables> & ({ variables: GetToReplaceVehicleScheduleFramesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>(GetToReplaceVehicleScheduleFramesDocument, options);
+      }
+export function useGetToReplaceVehicleScheduleFramesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>(GetToReplaceVehicleScheduleFramesDocument, options);
+        }
+// @ts-ignore
+export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>;
+export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetToReplaceVehicleScheduleFramesQuery | undefined, GetToReplaceVehicleScheduleFramesQueryVariables>;
+export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>(GetToReplaceVehicleScheduleFramesDocument, options);
+        }
+export type GetToReplaceVehicleScheduleFramesQueryHookResult = ReturnType<typeof useGetToReplaceVehicleScheduleFramesQuery>;
+export type GetToReplaceVehicleScheduleFramesLazyQueryHookResult = ReturnType<typeof useGetToReplaceVehicleScheduleFramesLazyQuery>;
+export type GetToReplaceVehicleScheduleFramesSuspenseQueryHookResult = ReturnType<typeof useGetToReplaceVehicleScheduleFramesSuspenseQuery>;
+export type GetToReplaceVehicleScheduleFramesQueryResult = Apollo.QueryResult<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>;
+export const GetVehicleScheduleFrameWithRouteAndLineInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameWithRouteAndLineInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"frames"},"name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteAndLineInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteAndLineInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetVehicleScheduleFrameWithRouteAndLineInfoQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameWithRouteAndLineInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameWithRouteAndLineInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameWithRouteAndLineInfoQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_ids: // value for 'vehicle_schedule_frame_ids'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables> & ({ variables: GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
+      }
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
+        }
+// @ts-ignore
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>;
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRouteAndLineInfoQuery | undefined, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>;
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
+        }
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoQuery>;
+export type GetVehicleScheduleFrameWithRouteAndLineInfoLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery>;
+export type GetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery>;
+export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>;
+export const GetSubstituteOperatingPeriodsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSubstituteOperatingPeriods"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isPreset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_and"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"superseded_date"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"superseded_date"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}}}]}}]}]}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"is_preset"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isPreset"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SubstituteOperatingPeriodSettingsInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SubstituteOperatingPeriodSettingsInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"period_name"}},{"kind":"Field","name":{"kind":"Name","value":"is_preset"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_period_id"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begin_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetSubstituteOperatingPeriodsQuery__
+ *
+ * To run a query within a React component, call `useGetSubstituteOperatingPeriodsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubstituteOperatingPeriodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubstituteOperatingPeriodsQuery({
+ *   variables: {
+ *      startDate: // value for 'startDate'
+ *      endDate: // value for 'endDate'
+ *      isPreset: // value for 'isPreset'
+ *   },
+ * });
+ */
+export function useGetSubstituteOperatingPeriodsQuery(baseOptions: Apollo.QueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables> & ({ variables: GetSubstituteOperatingPeriodsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>(GetSubstituteOperatingPeriodsDocument, options);
+      }
+export function useGetSubstituteOperatingPeriodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>(GetSubstituteOperatingPeriodsDocument, options);
+        }
+// @ts-ignore
+export function useGetSubstituteOperatingPeriodsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>): Apollo.UseSuspenseQueryResult<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>;
+export function useGetSubstituteOperatingPeriodsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>): Apollo.UseSuspenseQueryResult<GetSubstituteOperatingPeriodsQuery | undefined, GetSubstituteOperatingPeriodsQueryVariables>;
+export function useGetSubstituteOperatingPeriodsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>(GetSubstituteOperatingPeriodsDocument, options);
+        }
+export type GetSubstituteOperatingPeriodsQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsQuery>;
+export type GetSubstituteOperatingPeriodsLazyQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsLazyQuery>;
+export type GetSubstituteOperatingPeriodsSuspenseQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsSuspenseQuery>;
+export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>;
+export const CreateSubstituteOperatingPeriodDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSubstituteOperatingPeriod"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_insert_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_period_id"}},{"kind":"Field","name":{"kind":"Name","value":"period_name"}},{"kind":"Field","name":{"kind":"Name","value":"is_preset"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begin_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type CreateSubstituteOperatingPeriodMutationFn = Apollo.MutationFunction<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>;
+
+/**
+ * __useCreateSubstituteOperatingPeriodMutation__
+ *
+ * To run a mutation, you first call `useCreateSubstituteOperatingPeriodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSubstituteOperatingPeriodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSubstituteOperatingPeriodMutation, { data, loading, error }] = useCreateSubstituteOperatingPeriodMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateSubstituteOperatingPeriodMutation(baseOptions?: Apollo.MutationHookOptions<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>(CreateSubstituteOperatingPeriodDocument, options);
+      }
+export type CreateSubstituteOperatingPeriodMutationHookResult = ReturnType<typeof useCreateSubstituteOperatingPeriodMutation>;
+export type CreateSubstituteOperatingPeriodMutationResult = Apollo.MutationResult<CreateSubstituteOperatingPeriodMutation>;
+export type CreateSubstituteOperatingPeriodMutationOptions = Apollo.BaseMutationOptions<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>;
+export const DeleteSubstituteOperatingPeriodDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteSubstituteOperatingPeriod"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"substitute_operating_period_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type DeleteSubstituteOperatingPeriodMutationFn = Apollo.MutationFunction<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>;
+
+/**
+ * __useDeleteSubstituteOperatingPeriodMutation__
+ *
+ * To run a mutation, you first call `useDeleteSubstituteOperatingPeriodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSubstituteOperatingPeriodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSubstituteOperatingPeriodMutation, { data, loading, error }] = useDeleteSubstituteOperatingPeriodMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useDeleteSubstituteOperatingPeriodMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>(DeleteSubstituteOperatingPeriodDocument, options);
+      }
+export type DeleteSubstituteOperatingPeriodMutationHookResult = ReturnType<typeof useDeleteSubstituteOperatingPeriodMutation>;
+export type DeleteSubstituteOperatingPeriodMutationResult = Apollo.MutationResult<DeleteSubstituteOperatingPeriodMutation>;
+export type DeleteSubstituteOperatingPeriodMutationOptions = Apollo.BaseMutationOptions<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>;
+export const EditSubstituteOperatingPeriodsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EditSubstituteOperatingPeriods"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"periodsToInsert"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period_insert_input"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"periodsToDelete"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"daysToInsert"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_day_by_line_type_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_insert_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"periodsToInsert"}}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"substitute_operating_period_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"period_name"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_service_calendar_substitute_operating_day_by_line_type"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"substitute_operating_period_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"periodsToDelete"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timetables_insert_service_calendar_substitute_operating_day_by_line_type"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"daysToInsert"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type EditSubstituteOperatingPeriodsMutationFn = Apollo.MutationFunction<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>;
+
+/**
+ * __useEditSubstituteOperatingPeriodsMutation__
+ *
+ * To run a mutation, you first call `useEditSubstituteOperatingPeriodsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditSubstituteOperatingPeriodsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editSubstituteOperatingPeriodsMutation, { data, loading, error }] = useEditSubstituteOperatingPeriodsMutation({
+ *   variables: {
+ *      periodsToInsert: // value for 'periodsToInsert'
+ *      periodsToDelete: // value for 'periodsToDelete'
+ *      daysToInsert: // value for 'daysToInsert'
+ *   },
+ * });
+ */
+export function useEditSubstituteOperatingPeriodsMutation(baseOptions?: Apollo.MutationHookOptions<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>(EditSubstituteOperatingPeriodsDocument, options);
+      }
+export type EditSubstituteOperatingPeriodsMutationHookResult = ReturnType<typeof useEditSubstituteOperatingPeriodsMutation>;
+export type EditSubstituteOperatingPeriodsMutationResult = Apollo.MutationResult<EditSubstituteOperatingPeriodsMutation>;
+export type EditSubstituteOperatingPeriodsMutationOptions = Apollo.BaseMutationOptions<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>;
+export const GetRouteWithJourneyPatternDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteWithJourneyPattern"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetRouteWithJourneyPatternQuery__
+ *
+ * To run a query within a React component, call `useGetRouteWithJourneyPatternQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteWithJourneyPatternQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteWithJourneyPatternQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetRouteWithJourneyPatternQuery(baseOptions: Apollo.QueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables> & ({ variables: GetRouteWithJourneyPatternQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>(GetRouteWithJourneyPatternDocument, options);
+      }
+export function useGetRouteWithJourneyPatternLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>(GetRouteWithJourneyPatternDocument, options);
+        }
+// @ts-ignore
+export function useGetRouteWithJourneyPatternSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>;
+export function useGetRouteWithJourneyPatternSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteWithJourneyPatternQuery | undefined, GetRouteWithJourneyPatternQueryVariables>;
+export function useGetRouteWithJourneyPatternSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>(GetRouteWithJourneyPatternDocument, options);
+        }
+export type GetRouteWithJourneyPatternQueryHookResult = ReturnType<typeof useGetRouteWithJourneyPatternQuery>;
+export type GetRouteWithJourneyPatternLazyQueryHookResult = ReturnType<typeof useGetRouteWithJourneyPatternLazyQuery>;
+export type GetRouteWithJourneyPatternSuspenseQueryHookResult = ReturnType<typeof useGetRouteWithJourneyPatternSuspenseQuery>;
+export type GetRouteWithJourneyPatternQueryResult = Apollo.QueryResult<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>;
+export const GetVehicleSchedulesForDateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleSchedulesForDate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_journey_get_vehicle_schedules_on_date"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_uuid"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"observation_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleSchedule"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timetables_service_calendar_get_active_day_types_for_date"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"observation_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithService"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyByStop"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleSchedule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_vehicle_schedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithService"}}]}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetVehicleSchedulesForDateQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleSchedulesForDateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleSchedulesForDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleSchedulesForDateQuery({
+ *   variables: {
+ *      journey_pattern_id: // value for 'journey_pattern_id'
+ *      observation_date: // value for 'observation_date'
+ *   },
+ * });
+ */
+export function useGetVehicleSchedulesForDateQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables> & ({ variables: GetVehicleSchedulesForDateQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>(GetVehicleSchedulesForDateDocument, options);
+      }
+export function useGetVehicleSchedulesForDateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>(GetVehicleSchedulesForDateDocument, options);
+        }
+// @ts-ignore
+export function useGetVehicleSchedulesForDateSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>;
+export function useGetVehicleSchedulesForDateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleSchedulesForDateQuery | undefined, GetVehicleSchedulesForDateQueryVariables>;
+export function useGetVehicleSchedulesForDateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>(GetVehicleSchedulesForDateDocument, options);
+        }
+export type GetVehicleSchedulesForDateQueryHookResult = ReturnType<typeof useGetVehicleSchedulesForDateQuery>;
+export type GetVehicleSchedulesForDateLazyQueryHookResult = ReturnType<typeof useGetVehicleSchedulesForDateLazyQuery>;
+export type GetVehicleSchedulesForDateSuspenseQueryHookResult = ReturnType<typeof useGetVehicleSchedulesForDateSuspenseQuery>;
+export type GetVehicleSchedulesForDateQueryResult = Apollo.QueryResult<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>;
+export const GetVehicleScheduleFrameSchedulesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameSchedules"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithStartTimeInfo"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithStartTimeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetVehicleScheduleFrameSchedulesQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameSchedulesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameSchedulesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameSchedulesQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameSchedulesQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables> & ({ variables: GetVehicleScheduleFrameSchedulesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>(GetVehicleScheduleFrameSchedulesDocument, options);
+      }
+export function useGetVehicleScheduleFrameSchedulesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>(GetVehicleScheduleFrameSchedulesDocument, options);
+        }
+// @ts-ignore
+export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>;
+export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameSchedulesQuery | undefined, GetVehicleScheduleFrameSchedulesQueryVariables>;
+export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>(GetVehicleScheduleFrameSchedulesDocument, options);
+        }
+export type GetVehicleScheduleFrameSchedulesQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameSchedulesQuery>;
+export type GetVehicleScheduleFrameSchedulesLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameSchedulesLazyQuery>;
+export type GetVehicleScheduleFrameSchedulesSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameSchedulesSuspenseQuery>;
+export type GetVehicleScheduleFrameSchedulesQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>;
+export const DeleteVehicleScheduleFrameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteVehicleScheduleFrame"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_vehicle_schedule_vehicle_schedule_frame_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type DeleteVehicleScheduleFrameMutationFn = Apollo.MutationFunction<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>;
+
+/**
+ * __useDeleteVehicleScheduleFrameMutation__
+ *
+ * To run a mutation, you first call `useDeleteVehicleScheduleFrameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteVehicleScheduleFrameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteVehicleScheduleFrameMutation, { data, loading, error }] = useDeleteVehicleScheduleFrameMutation({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *   },
+ * });
+ */
+export function useDeleteVehicleScheduleFrameMutation(baseOptions?: Apollo.MutationHookOptions<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>(DeleteVehicleScheduleFrameDocument, options);
+      }
+export type DeleteVehicleScheduleFrameMutationHookResult = ReturnType<typeof useDeleteVehicleScheduleFrameMutation>;
+export type DeleteVehicleScheduleFrameMutationResult = Apollo.MutationResult<DeleteVehicleScheduleFrameMutation>;
+export type DeleteVehicleScheduleFrameMutationOptions = Apollo.BaseMutationOptions<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>;
+export const GetRouteInfoForTimetableVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteInfoForTimetableVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteInfoForTimetableVersion"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteInfoForTimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetRouteInfoForTimetableVersionsQuery__
+ *
+ * To run a query within a React component, call `useGetRouteInfoForTimetableVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteInfoForTimetableVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteInfoForTimetableVersionsQuery({
+ *   variables: {
+ *      routeFilters: // value for 'routeFilters'
+ *   },
+ * });
+ */
+export function useGetRouteInfoForTimetableVersionsQuery(baseOptions?: Apollo.QueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>(GetRouteInfoForTimetableVersionsDocument, options);
+      }
+export function useGetRouteInfoForTimetableVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>(GetRouteInfoForTimetableVersionsDocument, options);
+        }
+// @ts-ignore
+export function useGetRouteInfoForTimetableVersionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>;
+export function useGetRouteInfoForTimetableVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteInfoForTimetableVersionsQuery | undefined, GetRouteInfoForTimetableVersionsQueryVariables>;
+export function useGetRouteInfoForTimetableVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>(GetRouteInfoForTimetableVersionsDocument, options);
+        }
+export type GetRouteInfoForTimetableVersionsQueryHookResult = ReturnType<typeof useGetRouteInfoForTimetableVersionsQuery>;
+export type GetRouteInfoForTimetableVersionsLazyQueryHookResult = ReturnType<typeof useGetRouteInfoForTimetableVersionsLazyQuery>;
+export type GetRouteInfoForTimetableVersionsSuspenseQueryHookResult = ReturnType<typeof useGetRouteInfoForTimetableVersionsSuspenseQuery>;
+export type GetRouteInfoForTimetableVersionsQueryResult = Apollo.QueryResult<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>;
+export const GetTimetableVersionsByJourneyPatternIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTimetableVersionsByJourneyPatternIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_ids"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"_uuid"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"start_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"end_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"versions"},"name":{"kind":"Name","value":"timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_ids"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"start_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"start_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"end_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"end_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"observation_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TimetableVersion"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_timetable_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"in_effect"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetTimetableVersionsByJourneyPatternIdsQuery__
+ *
+ * To run a query within a React component, call `useGetTimetableVersionsByJourneyPatternIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTimetableVersionsByJourneyPatternIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTimetableVersionsByJourneyPatternIdsQuery({
+ *   variables: {
+ *      journey_pattern_ids: // value for 'journey_pattern_ids'
+ *      start_date: // value for 'start_date'
+ *      end_date: // value for 'end_date'
+ *      observation_date: // value for 'observation_date'
+ *   },
+ * });
+ */
+export function useGetTimetableVersionsByJourneyPatternIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+      }
+export function useGetTimetableVersionsByJourneyPatternIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+        }
+// @ts-ignore
+export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>;
+export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetTimetableVersionsByJourneyPatternIdsQuery | undefined, GetTimetableVersionsByJourneyPatternIdsQueryVariables>;
+export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>(GetTimetableVersionsByJourneyPatternIdsDocument, options);
+        }
+export type GetTimetableVersionsByJourneyPatternIdsQueryHookResult = ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsQuery>;
+export type GetTimetableVersionsByJourneyPatternIdsLazyQueryHookResult = ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsLazyQuery>;
+export type GetTimetableVersionsByJourneyPatternIdsSuspenseQueryHookResult = ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery>;
+export type GetTimetableVersionsByJourneyPatternIdsQueryResult = Apollo.QueryResult<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>;
 export const GetUserNamesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"GetUserNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login_audit"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct_on"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"user_id"}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"EnumValue","value":"desc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"login_timestamp"},"value":{"kind":"EnumValue","value":"desc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserNameDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserNameDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"login_audit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_name"}}]}}]} as unknown as DocumentNode;
 
 /**
@@ -89381,701 +90079,3 @@ export function useUpdateTerminalMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateTerminalMutationHookResult = ReturnType<typeof useUpdateTerminalMutation>;
 export type UpdateTerminalMutationResult = Apollo.MutationResult<UpdateTerminalMutation>;
 export type UpdateTerminalMutationOptions = Apollo.BaseMutationOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
-export const GetVehicleScheduleFrameSchedulesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameSchedules"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithStartTimeInfo"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithStartTimeInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetVehicleScheduleFrameSchedulesQuery__
- *
- * To run a query within a React component, call `useGetVehicleScheduleFrameSchedulesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVehicleScheduleFrameSchedulesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetVehicleScheduleFrameSchedulesQuery({
- *   variables: {
- *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
- *   },
- * });
- */
-export function useGetVehicleScheduleFrameSchedulesQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables> & ({ variables: GetVehicleScheduleFrameSchedulesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>(GetVehicleScheduleFrameSchedulesDocument, options);
-      }
-export function useGetVehicleScheduleFrameSchedulesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>(GetVehicleScheduleFrameSchedulesDocument, options);
-        }
-// @ts-ignore
-export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>;
-export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameSchedulesQuery | undefined, GetVehicleScheduleFrameSchedulesQueryVariables>;
-export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>(GetVehicleScheduleFrameSchedulesDocument, options);
-        }
-export type GetVehicleScheduleFrameSchedulesQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameSchedulesQuery>;
-export type GetVehicleScheduleFrameSchedulesLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameSchedulesLazyQuery>;
-export type GetVehicleScheduleFrameSchedulesSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameSchedulesSuspenseQuery>;
-export type GetVehicleScheduleFrameSchedulesQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameSchedulesQuery, GetVehicleScheduleFrameSchedulesQueryVariables>;
-export const GetVehicleScheduleFrameWithRoutesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameWithRoutes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithRoutes"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRoutes"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetVehicleScheduleFrameWithRoutesQuery__
- *
- * To run a query within a React component, call `useGetVehicleScheduleFrameWithRoutesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVehicleScheduleFrameWithRoutesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetVehicleScheduleFrameWithRoutesQuery({
- *   variables: {
- *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
- *   },
- * });
- */
-export function useGetVehicleScheduleFrameWithRoutesQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables> & ({ variables: GetVehicleScheduleFrameWithRoutesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>(GetVehicleScheduleFrameWithRoutesDocument, options);
-      }
-export function useGetVehicleScheduleFrameWithRoutesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>(GetVehicleScheduleFrameWithRoutesDocument, options);
-        }
-// @ts-ignore
-export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>;
-export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRoutesQuery | undefined, GetVehicleScheduleFrameWithRoutesQueryVariables>;
-export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>(GetVehicleScheduleFrameWithRoutesDocument, options);
-        }
-export type GetVehicleScheduleFrameWithRoutesQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRoutesQuery>;
-export type GetVehicleScheduleFrameWithRoutesLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRoutesLazyQuery>;
-export type GetVehicleScheduleFrameWithRoutesSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRoutesSuspenseQuery>;
-export type GetVehicleScheduleFrameWithRoutesQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameWithRoutesQuery, GetVehicleScheduleFrameWithRoutesQueryVariables>;
-export const UpdateVehicleScheduleFrameValidityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateVehicleScheduleFrameValidity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validity_start"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validity_end"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_update_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validity_start"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validity_end"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type UpdateVehicleScheduleFrameValidityMutationFn = Apollo.MutationFunction<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>;
-
-/**
- * __useUpdateVehicleScheduleFrameValidityMutation__
- *
- * To run a mutation, you first call `useUpdateVehicleScheduleFrameValidityMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateVehicleScheduleFrameValidityMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateVehicleScheduleFrameValidityMutation, { data, loading, error }] = useUpdateVehicleScheduleFrameValidityMutation({
- *   variables: {
- *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
- *      validity_start: // value for 'validity_start'
- *      validity_end: // value for 'validity_end'
- *   },
- * });
- */
-export function useUpdateVehicleScheduleFrameValidityMutation(baseOptions?: Apollo.MutationHookOptions<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>(UpdateVehicleScheduleFrameValidityDocument, options);
-      }
-export type UpdateVehicleScheduleFrameValidityMutationHookResult = ReturnType<typeof useUpdateVehicleScheduleFrameValidityMutation>;
-export type UpdateVehicleScheduleFrameValidityMutationResult = Apollo.MutationResult<UpdateVehicleScheduleFrameValidityMutation>;
-export type UpdateVehicleScheduleFrameValidityMutationOptions = Apollo.BaseMutationOptions<UpdateVehicleScheduleFrameValidityMutation, UpdateVehicleScheduleFrameValidityMutationVariables>;
-export const GetToCombineTargetVehicleScheduleFrameIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetToCombineTargetVehicleScheduleFrameId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ToCombineTargetVehicleScheduleFrameIdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toCombineTargetVehicleScheduleFrameId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toCombineTargetVehicleScheduleFrameId"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetToCombineTargetVehicleScheduleFrameIdQuery__
- *
- * To run a query within a React component, call `useGetToCombineTargetVehicleScheduleFrameIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetToCombineTargetVehicleScheduleFrameIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetToCombineTargetVehicleScheduleFrameIdQuery({
- *   variables: {
- *      arg1: // value for 'arg1'
- *   },
- * });
- */
-export function useGetToCombineTargetVehicleScheduleFrameIdQuery(baseOptions: Apollo.QueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables> & ({ variables: GetToCombineTargetVehicleScheduleFrameIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
-      }
-export function useGetToCombineTargetVehicleScheduleFrameIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
-        }
-// @ts-ignore
-export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>;
-export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetToCombineTargetVehicleScheduleFrameIdQuery | undefined, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>;
-export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
-        }
-export type GetToCombineTargetVehicleScheduleFrameIdQueryHookResult = ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdQuery>;
-export type GetToCombineTargetVehicleScheduleFrameIdLazyQueryHookResult = ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdLazyQuery>;
-export type GetToCombineTargetVehicleScheduleFrameIdSuspenseQueryHookResult = ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery>;
-export type GetToCombineTargetVehicleScheduleFrameIdQueryResult = Apollo.QueryResult<GetToCombineTargetVehicleScheduleFrameIdQuery, GetToCombineTargetVehicleScheduleFrameIdQueryVariables>;
-export const GetToReplaceVehicleScheduleFramesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetToReplaceVehicleScheduleFrames"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ToReplaceVehicleScheduleFrameIdsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toReplaceVehicleScheduleFrameIds"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"Variable","name":{"kind":"Name","value":"arg1"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toReplaceVehicleScheduleFrameIds"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetToReplaceVehicleScheduleFramesQuery__
- *
- * To run a query within a React component, call `useGetToReplaceVehicleScheduleFramesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetToReplaceVehicleScheduleFramesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetToReplaceVehicleScheduleFramesQuery({
- *   variables: {
- *      arg1: // value for 'arg1'
- *   },
- * });
- */
-export function useGetToReplaceVehicleScheduleFramesQuery(baseOptions: Apollo.QueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables> & ({ variables: GetToReplaceVehicleScheduleFramesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>(GetToReplaceVehicleScheduleFramesDocument, options);
-      }
-export function useGetToReplaceVehicleScheduleFramesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>(GetToReplaceVehicleScheduleFramesDocument, options);
-        }
-// @ts-ignore
-export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>;
-export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetToReplaceVehicleScheduleFramesQuery | undefined, GetToReplaceVehicleScheduleFramesQueryVariables>;
-export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>(GetToReplaceVehicleScheduleFramesDocument, options);
-        }
-export type GetToReplaceVehicleScheduleFramesQueryHookResult = ReturnType<typeof useGetToReplaceVehicleScheduleFramesQuery>;
-export type GetToReplaceVehicleScheduleFramesLazyQueryHookResult = ReturnType<typeof useGetToReplaceVehicleScheduleFramesLazyQuery>;
-export type GetToReplaceVehicleScheduleFramesSuspenseQueryHookResult = ReturnType<typeof useGetToReplaceVehicleScheduleFramesSuspenseQuery>;
-export type GetToReplaceVehicleScheduleFramesQueryResult = Apollo.QueryResult<GetToReplaceVehicleScheduleFramesQuery, GetToReplaceVehicleScheduleFramesQueryVariables>;
-export const GetVehicleScheduleFrameWithJourneyInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameWithJourneyInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"frames"},"name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithJourneyInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithJourneyInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithPatternAndRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetVehicleScheduleFrameWithJourneyInfoQuery__
- *
- * To run a query within a React component, call `useGetVehicleScheduleFrameWithJourneyInfoQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVehicleScheduleFrameWithJourneyInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetVehicleScheduleFrameWithJourneyInfoQuery({
- *   variables: {
- *      vehicle_schedule_frame_ids: // value for 'vehicle_schedule_frame_ids'
- *   },
- * });
- */
-export function useGetVehicleScheduleFrameWithJourneyInfoQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables> & ({ variables: GetVehicleScheduleFrameWithJourneyInfoQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
-      }
-export function useGetVehicleScheduleFrameWithJourneyInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
-        }
-// @ts-ignore
-export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>;
-export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithJourneyInfoQuery | undefined, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>;
-export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
-        }
-export type GetVehicleScheduleFrameWithJourneyInfoQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoQuery>;
-export type GetVehicleScheduleFrameWithJourneyInfoLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoLazyQuery>;
-export type GetVehicleScheduleFrameWithJourneyInfoSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery>;
-export type GetVehicleScheduleFrameWithJourneyInfoQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameWithJourneyInfoQuery, GetVehicleScheduleFrameWithJourneyInfoQueryVariables>;
-export const GetVehicleScheduleFrameWithRouteAndLineInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleScheduleFrameWithRouteAndLineInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"frames"},"name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_ids"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteAndLineInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteAndLineInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_patterns_in_vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetVehicleScheduleFrameWithRouteAndLineInfoQuery__
- *
- * To run a query within a React component, call `useGetVehicleScheduleFrameWithRouteAndLineInfoQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVehicleScheduleFrameWithRouteAndLineInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetVehicleScheduleFrameWithRouteAndLineInfoQuery({
- *   variables: {
- *      vehicle_schedule_frame_ids: // value for 'vehicle_schedule_frame_ids'
- *   },
- * });
- */
-export function useGetVehicleScheduleFrameWithRouteAndLineInfoQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables> & ({ variables: GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
-      }
-export function useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
-        }
-// @ts-ignore
-export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>;
-export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleScheduleFrameWithRouteAndLineInfoQuery | undefined, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>;
-export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
-        }
-export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoQuery>;
-export type GetVehicleScheduleFrameWithRouteAndLineInfoLazyQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery>;
-export type GetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQueryHookResult = ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery>;
-export type GetVehicleScheduleFrameWithRouteAndLineInfoQueryResult = Apollo.QueryResult<GetVehicleScheduleFrameWithRouteAndLineInfoQuery, GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables>;
-export const GetStagingVehicleScheduleFramesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStagingVehicleScheduleFrames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"40"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"contract_number"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleServiceWithJourneys"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_service_vehicle_service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journeys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithRouteInfo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleScheduleFrameWithRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_schedule_vehicle_schedule_frame"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_services"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleServiceWithJourneys"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetStagingVehicleScheduleFramesQuery__
- *
- * To run a query within a React component, call `useGetStagingVehicleScheduleFramesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStagingVehicleScheduleFramesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStagingVehicleScheduleFramesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetStagingVehicleScheduleFramesQuery(baseOptions?: Apollo.QueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>(GetStagingVehicleScheduleFramesDocument, options);
-      }
-export function useGetStagingVehicleScheduleFramesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>(GetStagingVehicleScheduleFramesDocument, options);
-        }
-// @ts-ignore
-export function useGetStagingVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>;
-export function useGetStagingVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>): Apollo.UseSuspenseQueryResult<GetStagingVehicleScheduleFramesQuery | undefined, GetStagingVehicleScheduleFramesQueryVariables>;
-export function useGetStagingVehicleScheduleFramesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>(GetStagingVehicleScheduleFramesDocument, options);
-        }
-export type GetStagingVehicleScheduleFramesQueryHookResult = ReturnType<typeof useGetStagingVehicleScheduleFramesQuery>;
-export type GetStagingVehicleScheduleFramesLazyQueryHookResult = ReturnType<typeof useGetStagingVehicleScheduleFramesLazyQuery>;
-export type GetStagingVehicleScheduleFramesSuspenseQueryHookResult = ReturnType<typeof useGetStagingVehicleScheduleFramesSuspenseQuery>;
-export type GetStagingVehicleScheduleFramesQueryResult = Apollo.QueryResult<GetStagingVehicleScheduleFramesQuery, GetStagingVehicleScheduleFramesQueryVariables>;
-export const ChangeStagingVehicleScheduleFramePriorityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ChangeStagingVehicleScheduleFramePriority"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"newPriority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_update_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"40"}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"Variable","name":{"kind":"Name","value":"newPriority"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type ChangeStagingVehicleScheduleFramePriorityMutationFn = Apollo.MutationFunction<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>;
-
-/**
- * __useChangeStagingVehicleScheduleFramePriorityMutation__
- *
- * To run a mutation, you first call `useChangeStagingVehicleScheduleFramePriorityMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useChangeStagingVehicleScheduleFramePriorityMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [changeStagingVehicleScheduleFramePriorityMutation, { data, loading, error }] = useChangeStagingVehicleScheduleFramePriorityMutation({
- *   variables: {
- *      newPriority: // value for 'newPriority'
- *   },
- * });
- */
-export function useChangeStagingVehicleScheduleFramePriorityMutation(baseOptions?: Apollo.MutationHookOptions<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>(ChangeStagingVehicleScheduleFramePriorityDocument, options);
-      }
-export type ChangeStagingVehicleScheduleFramePriorityMutationHookResult = ReturnType<typeof useChangeStagingVehicleScheduleFramePriorityMutation>;
-export type ChangeStagingVehicleScheduleFramePriorityMutationResult = Apollo.MutationResult<ChangeStagingVehicleScheduleFramePriorityMutation>;
-export type ChangeStagingVehicleScheduleFramePriorityMutationOptions = Apollo.BaseMutationOptions<ChangeStagingVehicleScheduleFramePriorityMutation, ChangeStagingVehicleScheduleFramePriorityMutationVariables>;
-export const CombineTimetablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CombineTimetables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"combineTimetables"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"targetPriority"},"value":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"combinedIntoVehicleScheduleFrameIds"}}]}}]}}]} as unknown as DocumentNode;
-export type CombineTimetablesMutationFn = Apollo.MutationFunction<CombineTimetablesMutation, CombineTimetablesMutationVariables>;
-
-/**
- * __useCombineTimetablesMutation__
- *
- * To run a mutation, you first call `useCombineTimetablesMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCombineTimetablesMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [combineTimetablesMutation, { data, loading, error }] = useCombineTimetablesMutation({
- *   variables: {
- *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
- *      targetPriority: // value for 'targetPriority'
- *   },
- * });
- */
-export function useCombineTimetablesMutation(baseOptions?: Apollo.MutationHookOptions<CombineTimetablesMutation, CombineTimetablesMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CombineTimetablesMutation, CombineTimetablesMutationVariables>(CombineTimetablesDocument, options);
-      }
-export type CombineTimetablesMutationHookResult = ReturnType<typeof useCombineTimetablesMutation>;
-export type CombineTimetablesMutationResult = Apollo.MutationResult<CombineTimetablesMutation>;
-export type CombineTimetablesMutationOptions = Apollo.BaseMutationOptions<CombineTimetablesMutation, CombineTimetablesMutationVariables>;
-export const ReplaceTimetablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ReplaceTimetables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"replaceTimetables"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"arg1"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"targetPriority"},"value":{"kind":"Variable","name":{"kind":"Name","value":"targetPriority"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"replacedVehicleScheduleFrameIds"}}]}}]}}]} as unknown as DocumentNode;
-export type ReplaceTimetablesMutationFn = Apollo.MutationFunction<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>;
-
-/**
- * __useReplaceTimetablesMutation__
- *
- * To run a mutation, you first call `useReplaceTimetablesMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useReplaceTimetablesMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [replaceTimetablesMutation, { data, loading, error }] = useReplaceTimetablesMutation({
- *   variables: {
- *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
- *      targetPriority: // value for 'targetPriority'
- *   },
- * });
- */
-export function useReplaceTimetablesMutation(baseOptions?: Apollo.MutationHookOptions<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>(ReplaceTimetablesDocument, options);
-      }
-export type ReplaceTimetablesMutationHookResult = ReturnType<typeof useReplaceTimetablesMutation>;
-export type ReplaceTimetablesMutationResult = Apollo.MutationResult<ReplaceTimetablesMutation>;
-export type ReplaceTimetablesMutationOptions = Apollo.BaseMutationOptions<ReplaceTimetablesMutation, ReplaceTimetablesMutationVariables>;
-export const DeleteStagingTimetablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteStagingTimetables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_vehicle_schedule_vehicle_schedule_frame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_and"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"40"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stagingVehicleScheduleFrameIds"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type DeleteStagingTimetablesMutationFn = Apollo.MutationFunction<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>;
-
-/**
- * __useDeleteStagingTimetablesMutation__
- *
- * To run a mutation, you first call `useDeleteStagingTimetablesMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteStagingTimetablesMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteStagingTimetablesMutation, { data, loading, error }] = useDeleteStagingTimetablesMutation({
- *   variables: {
- *      stagingVehicleScheduleFrameIds: // value for 'stagingVehicleScheduleFrameIds'
- *   },
- * });
- */
-export function useDeleteStagingTimetablesMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>(DeleteStagingTimetablesDocument, options);
-      }
-export type DeleteStagingTimetablesMutationHookResult = ReturnType<typeof useDeleteStagingTimetablesMutation>;
-export type DeleteStagingTimetablesMutationResult = Apollo.MutationResult<DeleteStagingTimetablesMutation>;
-export type DeleteStagingTimetablesMutationOptions = Apollo.BaseMutationOptions<DeleteStagingTimetablesMutation, DeleteStagingTimetablesMutationVariables>;
-export const CreateSubstituteOperatingPeriodDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSubstituteOperatingPeriod"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_insert_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_period_id"}},{"kind":"Field","name":{"kind":"Name","value":"period_name"}},{"kind":"Field","name":{"kind":"Name","value":"is_preset"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begin_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type CreateSubstituteOperatingPeriodMutationFn = Apollo.MutationFunction<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>;
-
-/**
- * __useCreateSubstituteOperatingPeriodMutation__
- *
- * To run a mutation, you first call `useCreateSubstituteOperatingPeriodMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSubstituteOperatingPeriodMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createSubstituteOperatingPeriodMutation, { data, loading, error }] = useCreateSubstituteOperatingPeriodMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateSubstituteOperatingPeriodMutation(baseOptions?: Apollo.MutationHookOptions<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>(CreateSubstituteOperatingPeriodDocument, options);
-      }
-export type CreateSubstituteOperatingPeriodMutationHookResult = ReturnType<typeof useCreateSubstituteOperatingPeriodMutation>;
-export type CreateSubstituteOperatingPeriodMutationResult = Apollo.MutationResult<CreateSubstituteOperatingPeriodMutation>;
-export type CreateSubstituteOperatingPeriodMutationOptions = Apollo.BaseMutationOptions<CreateSubstituteOperatingPeriodMutation, CreateSubstituteOperatingPeriodMutationVariables>;
-export const DeleteSubstituteOperatingPeriodDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteSubstituteOperatingPeriod"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"substitute_operating_period_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type DeleteSubstituteOperatingPeriodMutationFn = Apollo.MutationFunction<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>;
-
-/**
- * __useDeleteSubstituteOperatingPeriodMutation__
- *
- * To run a mutation, you first call `useDeleteSubstituteOperatingPeriodMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteSubstituteOperatingPeriodMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteSubstituteOperatingPeriodMutation, { data, loading, error }] = useDeleteSubstituteOperatingPeriodMutation({
- *   variables: {
- *      ids: // value for 'ids'
- *   },
- * });
- */
-export function useDeleteSubstituteOperatingPeriodMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>(DeleteSubstituteOperatingPeriodDocument, options);
-      }
-export type DeleteSubstituteOperatingPeriodMutationHookResult = ReturnType<typeof useDeleteSubstituteOperatingPeriodMutation>;
-export type DeleteSubstituteOperatingPeriodMutationResult = Apollo.MutationResult<DeleteSubstituteOperatingPeriodMutation>;
-export type DeleteSubstituteOperatingPeriodMutationOptions = Apollo.BaseMutationOptions<DeleteSubstituteOperatingPeriodMutation, DeleteSubstituteOperatingPeriodMutationVariables>;
-export const EditSubstituteOperatingPeriodsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EditSubstituteOperatingPeriods"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"periodsToInsert"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period_insert_input"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"periodsToDelete"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"daysToInsert"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_day_by_line_type_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_insert_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"periodsToInsert"}}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"substitute_operating_period_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"period_name"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_service_calendar_substitute_operating_day_by_line_type"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"substitute_operating_period_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"periodsToDelete"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timetables_insert_service_calendar_substitute_operating_day_by_line_type"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"daysToInsert"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type EditSubstituteOperatingPeriodsMutationFn = Apollo.MutationFunction<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>;
-
-/**
- * __useEditSubstituteOperatingPeriodsMutation__
- *
- * To run a mutation, you first call `useEditSubstituteOperatingPeriodsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditSubstituteOperatingPeriodsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editSubstituteOperatingPeriodsMutation, { data, loading, error }] = useEditSubstituteOperatingPeriodsMutation({
- *   variables: {
- *      periodsToInsert: // value for 'periodsToInsert'
- *      periodsToDelete: // value for 'periodsToDelete'
- *      daysToInsert: // value for 'daysToInsert'
- *   },
- * });
- */
-export function useEditSubstituteOperatingPeriodsMutation(baseOptions?: Apollo.MutationHookOptions<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>(EditSubstituteOperatingPeriodsDocument, options);
-      }
-export type EditSubstituteOperatingPeriodsMutationHookResult = ReturnType<typeof useEditSubstituteOperatingPeriodsMutation>;
-export type EditSubstituteOperatingPeriodsMutationResult = Apollo.MutationResult<EditSubstituteOperatingPeriodsMutation>;
-export type EditSubstituteOperatingPeriodsMutationOptions = Apollo.BaseMutationOptions<EditSubstituteOperatingPeriodsMutation, EditSubstituteOperatingPeriodsMutationVariables>;
-export const GetSubstituteOperatingPeriodsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSubstituteOperatingPeriods"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isPreset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_and"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"superseded_date"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"superseded_date"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}}}]}}]}]}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"is_preset"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isPreset"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SubstituteOperatingPeriodSettingsInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SubstituteOperatingPeriodSettingsInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_substitute_operating_period"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"period_name"}},{"kind":"Field","name":{"kind":"Name","value":"is_preset"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_period_id"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begin_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetSubstituteOperatingPeriodsQuery__
- *
- * To run a query within a React component, call `useGetSubstituteOperatingPeriodsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSubstituteOperatingPeriodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetSubstituteOperatingPeriodsQuery({
- *   variables: {
- *      startDate: // value for 'startDate'
- *      endDate: // value for 'endDate'
- *      isPreset: // value for 'isPreset'
- *   },
- * });
- */
-export function useGetSubstituteOperatingPeriodsQuery(baseOptions: Apollo.QueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables> & ({ variables: GetSubstituteOperatingPeriodsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>(GetSubstituteOperatingPeriodsDocument, options);
-      }
-export function useGetSubstituteOperatingPeriodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>(GetSubstituteOperatingPeriodsDocument, options);
-        }
-// @ts-ignore
-export function useGetSubstituteOperatingPeriodsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>): Apollo.UseSuspenseQueryResult<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>;
-export function useGetSubstituteOperatingPeriodsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>): Apollo.UseSuspenseQueryResult<GetSubstituteOperatingPeriodsQuery | undefined, GetSubstituteOperatingPeriodsQueryVariables>;
-export function useGetSubstituteOperatingPeriodsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>(GetSubstituteOperatingPeriodsDocument, options);
-        }
-export type GetSubstituteOperatingPeriodsQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsQuery>;
-export type GetSubstituteOperatingPeriodsLazyQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsLazyQuery>;
-export type GetSubstituteOperatingPeriodsSuspenseQueryHookResult = ReturnType<typeof useGetSubstituteOperatingPeriodsSuspenseQuery>;
-export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<GetSubstituteOperatingPeriodsQuery, GetSubstituteOperatingPeriodsQueryVariables>;
-export const GetRouteWithJourneyPatternDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteWithJourneyPattern"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"is_used_as_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_regulated_timing_point"}},{"kind":"Field","name":{"kind":"Name","value":"is_loading_time_allowed"}},{"kind":"Field","name":{"kind":"Name","value":"is_via_point"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"via_point_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteWithJourneyPatternStops"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","alias":{"kind":"Name","value":"ordered_scheduled_stop_point_in_journey_patterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_sequence"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointInJourneyPatternAllFields"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetRouteWithJourneyPatternQuery__
- *
- * To run a query within a React component, call `useGetRouteWithJourneyPatternQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteWithJourneyPatternQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRouteWithJourneyPatternQuery({
- *   variables: {
- *      routeId: // value for 'routeId'
- *   },
- * });
- */
-export function useGetRouteWithJourneyPatternQuery(baseOptions: Apollo.QueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables> & ({ variables: GetRouteWithJourneyPatternQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>(GetRouteWithJourneyPatternDocument, options);
-      }
-export function useGetRouteWithJourneyPatternLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>(GetRouteWithJourneyPatternDocument, options);
-        }
-// @ts-ignore
-export function useGetRouteWithJourneyPatternSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>;
-export function useGetRouteWithJourneyPatternSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteWithJourneyPatternQuery | undefined, GetRouteWithJourneyPatternQueryVariables>;
-export function useGetRouteWithJourneyPatternSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>(GetRouteWithJourneyPatternDocument, options);
-        }
-export type GetRouteWithJourneyPatternQueryHookResult = ReturnType<typeof useGetRouteWithJourneyPatternQuery>;
-export type GetRouteWithJourneyPatternLazyQueryHookResult = ReturnType<typeof useGetRouteWithJourneyPatternLazyQuery>;
-export type GetRouteWithJourneyPatternSuspenseQueryHookResult = ReturnType<typeof useGetRouteWithJourneyPatternSuspenseQuery>;
-export type GetRouteWithJourneyPatternQueryResult = Apollo.QueryResult<GetRouteWithJourneyPatternQuery, GetRouteWithJourneyPatternQueryVariables>;
-export const GetVehicleSchedulesForDateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleSchedulesForDate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_vehicle_journey_get_vehicle_schedules_on_date"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_uuid"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"observation_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleSchedule"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timetables_service_calendar_get_active_day_types_for_date"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"observation_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_times"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PassingTimeByStop"}}]}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PassingTimeByStop"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_passing_times_timetabled_passing_time"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"arrival_time"}},{"kind":"Field","name":{"kind":"Name","value":"departure_time"}},{"kind":"Field","name":{"kind":"Name","value":"passing_time"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"timetabled_passing_time_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"observation_timestamp"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_type_id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DayTypeAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_service_calendar_day_type"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleJourneyWithService"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_vehicle_journey_vehicle_journey"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey_id"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"end_time"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_ref_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_service_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyByStop"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VehicleSchedule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_vehicle_schedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_journey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VehicleJourneyWithService"}}]}},{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DayTypeAllFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetVehicleSchedulesForDateQuery__
- *
- * To run a query within a React component, call `useGetVehicleSchedulesForDateQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVehicleSchedulesForDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetVehicleSchedulesForDateQuery({
- *   variables: {
- *      journey_pattern_id: // value for 'journey_pattern_id'
- *      observation_date: // value for 'observation_date'
- *   },
- * });
- */
-export function useGetVehicleSchedulesForDateQuery(baseOptions: Apollo.QueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables> & ({ variables: GetVehicleSchedulesForDateQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>(GetVehicleSchedulesForDateDocument, options);
-      }
-export function useGetVehicleSchedulesForDateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>(GetVehicleSchedulesForDateDocument, options);
-        }
-// @ts-ignore
-export function useGetVehicleSchedulesForDateSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>;
-export function useGetVehicleSchedulesForDateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>): Apollo.UseSuspenseQueryResult<GetVehicleSchedulesForDateQuery | undefined, GetVehicleSchedulesForDateQueryVariables>;
-export function useGetVehicleSchedulesForDateSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>(GetVehicleSchedulesForDateDocument, options);
-        }
-export type GetVehicleSchedulesForDateQueryHookResult = ReturnType<typeof useGetVehicleSchedulesForDateQuery>;
-export type GetVehicleSchedulesForDateLazyQueryHookResult = ReturnType<typeof useGetVehicleSchedulesForDateLazyQuery>;
-export type GetVehicleSchedulesForDateSuspenseQueryHookResult = ReturnType<typeof useGetVehicleSchedulesForDateSuspenseQuery>;
-export type GetVehicleSchedulesForDateQueryResult = Apollo.QueryResult<GetVehicleSchedulesForDateQuery, GetVehicleSchedulesForDateQueryVariables>;
-export const DeleteVehicleScheduleFrameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteVehicleScheduleFrame"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables_delete_vehicle_schedule_vehicle_schedule_frame_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"vehicle_schedule_frame_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type DeleteVehicleScheduleFrameMutationFn = Apollo.MutationFunction<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>;
-
-/**
- * __useDeleteVehicleScheduleFrameMutation__
- *
- * To run a mutation, you first call `useDeleteVehicleScheduleFrameMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteVehicleScheduleFrameMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteVehicleScheduleFrameMutation, { data, loading, error }] = useDeleteVehicleScheduleFrameMutation({
- *   variables: {
- *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
- *   },
- * });
- */
-export function useDeleteVehicleScheduleFrameMutation(baseOptions?: Apollo.MutationHookOptions<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>(DeleteVehicleScheduleFrameDocument, options);
-      }
-export type DeleteVehicleScheduleFrameMutationHookResult = ReturnType<typeof useDeleteVehicleScheduleFrameMutation>;
-export type DeleteVehicleScheduleFrameMutationResult = Apollo.MutationResult<DeleteVehicleScheduleFrameMutation>;
-export type DeleteVehicleScheduleFrameMutationOptions = Apollo.BaseMutationOptions<DeleteVehicleScheduleFrameMutation, DeleteVehicleScheduleFrameMutationVariables>;
-export const GetRouteInfoForTimetableVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteInfoForTimetableVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteInfoForTimetableVersion"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteInfoForTimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetRouteInfoForTimetableVersionsQuery__
- *
- * To run a query within a React component, call `useGetRouteInfoForTimetableVersionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteInfoForTimetableVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRouteInfoForTimetableVersionsQuery({
- *   variables: {
- *      routeFilters: // value for 'routeFilters'
- *   },
- * });
- */
-export function useGetRouteInfoForTimetableVersionsQuery(baseOptions?: Apollo.QueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>(GetRouteInfoForTimetableVersionsDocument, options);
-      }
-export function useGetRouteInfoForTimetableVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>(GetRouteInfoForTimetableVersionsDocument, options);
-        }
-// @ts-ignore
-export function useGetRouteInfoForTimetableVersionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>;
-export function useGetRouteInfoForTimetableVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteInfoForTimetableVersionsQuery | undefined, GetRouteInfoForTimetableVersionsQueryVariables>;
-export function useGetRouteInfoForTimetableVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>(GetRouteInfoForTimetableVersionsDocument, options);
-        }
-export type GetRouteInfoForTimetableVersionsQueryHookResult = ReturnType<typeof useGetRouteInfoForTimetableVersionsQuery>;
-export type GetRouteInfoForTimetableVersionsLazyQueryHookResult = ReturnType<typeof useGetRouteInfoForTimetableVersionsLazyQuery>;
-export type GetRouteInfoForTimetableVersionsSuspenseQueryHookResult = ReturnType<typeof useGetRouteInfoForTimetableVersionsSuspenseQuery>;
-export type GetRouteInfoForTimetableVersionsQueryResult = Apollo.QueryResult<GetRouteInfoForTimetableVersionsQuery, GetRouteInfoForTimetableVersionsQueryVariables>;
-export const GetTimetableVersionsByJourneyPatternIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTimetableVersionsByJourneyPatternIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_ids"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"_uuid"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"start_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"end_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timetables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"versions"},"name":{"kind":"Name","value":"timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern_ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"journey_pattern_ids"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"start_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"start_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"end_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"end_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"observation_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"observation_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TimetableVersion"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TimetableVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timetables_return_value_timetable_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"day_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"substitute_operating_day_by_line_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"superseded_date"}},{"kind":"Field","name":{"kind":"Name","value":"substitute_day_of_week"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_schedule_frame_id"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"in_effect"}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetTimetableVersionsByJourneyPatternIdsQuery__
- *
- * To run a query within a React component, call `useGetTimetableVersionsByJourneyPatternIdsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTimetableVersionsByJourneyPatternIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTimetableVersionsByJourneyPatternIdsQuery({
- *   variables: {
- *      journey_pattern_ids: // value for 'journey_pattern_ids'
- *      start_date: // value for 'start_date'
- *      end_date: // value for 'end_date'
- *      observation_date: // value for 'observation_date'
- *   },
- * });
- */
-export function useGetTimetableVersionsByJourneyPatternIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>(GetTimetableVersionsByJourneyPatternIdsDocument, options);
-      }
-export function useGetTimetableVersionsByJourneyPatternIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>(GetTimetableVersionsByJourneyPatternIdsDocument, options);
-        }
-// @ts-ignore
-export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>;
-export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetTimetableVersionsByJourneyPatternIdsQuery | undefined, GetTimetableVersionsByJourneyPatternIdsQueryVariables>;
-export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>(GetTimetableVersionsByJourneyPatternIdsDocument, options);
-        }
-export type GetTimetableVersionsByJourneyPatternIdsQueryHookResult = ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsQuery>;
-export type GetTimetableVersionsByJourneyPatternIdsLazyQueryHookResult = ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsLazyQuery>;
-export type GetTimetableVersionsByJourneyPatternIdsSuspenseQueryHookResult = ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery>;
-export type GetTimetableVersionsByJourneyPatternIdsQueryResult = Apollo.QueryResult<GetTimetableVersionsByJourneyPatternIdsQuery, GetTimetableVersionsByJourneyPatternIdsQueryVariables>;

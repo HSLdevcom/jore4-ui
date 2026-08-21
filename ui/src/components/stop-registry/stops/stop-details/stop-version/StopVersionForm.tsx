@@ -9,7 +9,7 @@ import {
   ReasonForChangeForm,
   ValidityPeriodForm,
 } from '../../../../forms/common';
-import { AffectedRouteLabels } from '../../../../timetables/common/AffectedRouteLabels';
+import { AffectedRouteLabels } from '../../../../Timetables/Common/AffectedRouteLabels';
 import { ExistingStopValidityRange } from './types';
 import { LinesByStop } from './types/LinesByStopResult';
 import { ValidityRangeIsValidVirtualField } from './ValidityRangeIsValidVirtualField';
