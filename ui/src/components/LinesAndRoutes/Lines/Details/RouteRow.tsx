@@ -8,7 +8,6 @@ import {
   RouteAllFieldsFragment,
   RouteDirectionEnum,
 } from '../../../../generated/graphql';
-import { makeBackNavigationIsSafeState } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import {
   MAX_DATE,
@@ -16,6 +15,7 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../../time';
+import { makeBackNavigationIsSafeState } from '../../../../utils';
 import {
   mapDirectionToSymbol,
   useGetLocalizedTextFromDbBlob,
