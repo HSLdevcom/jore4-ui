@@ -138,6 +138,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       located_on_infrastructure_link_id:
                         'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                       __typename: 'service_pattern_scheduled_stop_point',
+                      newest_quay: null,
                       measured_location: {
                         type: 'Point',
                         coordinates: [24.928326557825727, 60.16391811339392, 0],
@@ -274,6 +275,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       located_on_infrastructure_link_id:
                         '2feba2ae-c7af-4034-a299-9e592e67358f',
                       __typename: 'service_pattern_scheduled_stop_point',
+                      newest_quay: null,
                       measured_location: {
                         type: 'Point',
                         coordinates: [
@@ -398,6 +400,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       located_on_infrastructure_link_id:
                         'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                       __typename: 'service_pattern_scheduled_stop_point',
+                      newest_quay: null,
                       measured_location: {
                         type: 'Point',
                         coordinates: [24.933251767757206, 60.16565505738068, 0],
