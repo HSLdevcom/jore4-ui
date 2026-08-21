@@ -5,13 +5,19 @@ import {
   ActionCreatorWithoutPayload,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
   TypedUseSelectorHook,
   UseDispatch,
   useDispatch,
   useSelector,
 } from 'react-redux';
+import { LoadingState } from '../types';
+import {
+  Operation,
+  setLoadingAction,
+  setLoadingStateAction,
+} from './slices/loader';
 import { AppDispatch, RootState } from './store';
 
 export const useAppDispatch: UseDispatch<AppDispatch> = useDispatch;
@@ -65,4 +71,36 @@ export function useAppAction(action: ExplicitAny): ExplicitAny {
     (...params: ExplicitAny[]) => dispatch(action(...params)),
     [dispatch, action],
   );
+}
+
+type LoaderOptions = {
+  readonly initialState?: LoadingState;
+};
+
+export function useLoader(operation: Operation, options?: LoaderOptions) {
+  const dispatch = useDispatch();
+
+  const setIsLoading = useCallback(
+    (isLoading: boolean) =>
+      dispatch(setLoadingAction({ operation, isLoading })),
+    [dispatch, operation],
+  );
+
+  const setLoadingState = useCallback(
+    (state: LoadingState) =>
+      dispatch(setLoadingStateAction({ operation, state })),
+    [dispatch, operation],
+  );
+
+  useEffect(() => {
+    const initialState = options?.initialState;
+
+    if (initialState) {
+      setLoadingState(initialState);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { setIsLoading, setLoadingState };
 }

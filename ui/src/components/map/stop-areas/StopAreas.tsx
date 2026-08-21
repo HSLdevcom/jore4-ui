@@ -19,10 +19,10 @@ import {
   setSelectedTerminalIdAction,
   useAppAction,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
-import { useLoader } from '../../common/hooks';
 import { useUpsertStopArea } from '../../forms/stop-area';
 import { useGetStopPlaceDetailsById } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
 import { EditStopAreaLayerRef, StopAreasRef } from '../refTypes';

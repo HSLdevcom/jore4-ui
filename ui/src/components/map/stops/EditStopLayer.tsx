@@ -26,7 +26,6 @@ import {
   parseVehicleMode,
   showSuccessToast,
 } from '../../../utils';
-import { useMapDataLayerLoader } from '../../common/hooks';
 import {
   StopFormState,
   StopModalStopAreaFormSchema,
@@ -40,6 +39,7 @@ import {
   mapStopToCommonConflictItem,
 } from '../../LinesAndRoutes/Common/ConflictResolverModal';
 import { EditStoplayerRef } from '../refTypes';
+import { useMapDataLayerLoader } from '../utils/useMapDataLayerLoader';
 import { CopyStopConfirmationDialog } from './CopyStopConfirmationDialog';
 import { CopyStopModal } from './CopyStopModal';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';

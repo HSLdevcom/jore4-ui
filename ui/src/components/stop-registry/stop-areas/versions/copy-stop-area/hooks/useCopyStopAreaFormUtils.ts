@@ -4,12 +4,11 @@ import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../../hooks';
-import { Operation } from '../../../../../../redux';
+import { Operation, useLoader } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
-import { useLoader } from '../../../../../common/hooks';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import {
   FailedToResolveExistingShelter,

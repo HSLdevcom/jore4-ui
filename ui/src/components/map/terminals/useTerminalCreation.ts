@@ -7,9 +7,9 @@ import {
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
   useAppAction,
+  useLoader,
 } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
-import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
 import { useEnsureMapEntityTypeVisible } from '../utils/useEnsureMapEntityTypeVisible';

@@ -1,9 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { Operation } from '../../../../redux';
+import { Operation, useLoader } from '../../../../redux';
 import { LoadingState } from '../../../../types';
-import { useLoader } from '../../../common/hooks';
 import { Container } from '../../../common/LayoutComponents';
 import {
   StopAreaDetailsAndMap,

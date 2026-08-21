@@ -8,9 +8,9 @@ import {
 } from '../../../../generated/graphql';
 import { Operation } from '../../../../redux';
 import { buildActiveDateGqlFilter } from '../../../../utils';
-import { useMapDataLayerLoader } from '../../../common/hooks';
 import { filterRoutesByHighestPriority } from '../../../LinesAndRoutes/Common/useGetLineDetails';
 import { useMapUrlStateContext } from '../../utils/mapUrlState';
+import { useMapDataLayerLoader } from '../../utils/useMapDataLayerLoader';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
   query GetLineRoutesByLabel(

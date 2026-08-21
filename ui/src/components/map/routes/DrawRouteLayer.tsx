@@ -10,9 +10,9 @@ import {
   stopRouteEditingAction,
   useAppDispatch,
   useAppSelector,
+  useLoader,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
-import { useLoader } from '../../common/hooks/useLoader';
 import { DrawControl } from '../DrawControl';
 import { removeRoute } from '../utils/mapUtils';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
