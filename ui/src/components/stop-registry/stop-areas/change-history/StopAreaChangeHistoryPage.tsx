@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useRequiredParams } from '../../../../hooks';
+import { useRequiredParams } from '../../../../utils';
 import {
   DateRangeFilter,
   useChangeHistoryPageRouterState,

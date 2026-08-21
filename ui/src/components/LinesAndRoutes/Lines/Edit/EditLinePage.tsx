@@ -5,7 +5,7 @@ import {
   LineAllFieldsFragment,
   useGetLineDetailsByIdQuery,
 } from '../../../../generated/graphql';
-import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
+import { useNavigateBackSafely } from '../../../../hooks';
 import { Operation } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { mapToISODate } from '../../../../time';
@@ -13,6 +13,7 @@ import {
   defaultLocalizedString,
   getTransportModeIcon,
   showSuccessToast,
+  useRequiredParams,
 } from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
 import { PageTitle } from '../../../common/Jore';

@@ -25,5 +25,6 @@ export * from './toastService';
 export * from './url';
 export * from './useCallbackOnKeyEscape';
 export * from './useDebouncedString';
+export * from './useRequiredParams';
 export * from './useViewState';
 export * from './validity';

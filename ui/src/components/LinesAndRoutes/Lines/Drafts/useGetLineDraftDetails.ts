@@ -1,10 +1,10 @@
 import { useGetRoutesWithStopsQuery } from '../../../../generated/graphql';
-import {
-  useObservationDateQueryParam,
-  useRequiredParams,
-} from '../../../../hooks';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import { Priority } from '../../../../types/enums';
-import { isRouteActiveOnObservationDate } from '../../../../utils';
+import {
+  isRouteActiveOnObservationDate,
+  useRequiredParams,
+} from '../../../../utils';
 
 export function useGetLineDraftDetails() {
   const { label } = useRequiredParams<{ label: string }>();
