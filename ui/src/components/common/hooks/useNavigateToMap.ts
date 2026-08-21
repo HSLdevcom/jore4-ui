@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import { makeBackNavigationIsSafeState } from '../../../hooks';
+import { makeBackNavigationIsSafeState } from '../../../utils';
 import { OpenMapUrlState } from '../../map/types';
 import { mapUrlStateToSearch } from '../../map/utils/mapUrlState';
 

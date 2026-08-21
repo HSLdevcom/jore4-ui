@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TimetablesRouteDirectionEnum } from '../../../../generated/graphql';
-import { useNavigateBackSafely } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { useRequiredParams } from '../../../../utils';
+import { useNavigateBackSafely, useRequiredParams } from '../../../../utils';
 import { mapDirectionToUiName } from '../../../../utils/i18n';
 import { CloseIconButton } from '../../../common/Buttons';
 import { PageTitle } from '../../../common/Jore';
