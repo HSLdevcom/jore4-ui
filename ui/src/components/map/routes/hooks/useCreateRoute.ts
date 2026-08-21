@@ -12,14 +12,14 @@ import { MIN_DATE } from '../../../../time';
 import { RouteInfraLink } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { buildJourneyPatternStopSequence } from '../../../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import {
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,
   lineTypeAffectsMetatypes,
   resolveStopInfoByPublicCodes,
-} from '../../../LinesAndRoutes/Common/useUpdateStopRegistryStopMetatype';
+  useGetConflictingRoutes,
+} from '../../../LinesAndRoutes/Common';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import {
   useValidateJourneyPattern,
@@ -86,7 +86,7 @@ function mapRouteDetailsToInsertMutationVariables({
 export function useCreateRoute() {
   const client = useApolloClient();
   const [mutateFunction] = useInsertRouteOneMutation();
-  const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
+  const getConflictingRoutes = useGetConflictingRoutes();
   const validateJourneyPattern = useValidateJourneyPattern();
   const validateRouteMetadata = useValidateRouteMetadata();
 

@@ -19,7 +19,7 @@ import {
   findKeyValue,
   getRouteLabelVariantText,
 } from '../../../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
+import { useGetConflictingStops } from '../../../LinesAndRoutes/Common';
 import {
   BrokenRouteCheckParams,
   useGetRoutesBrokenByStopChange,
@@ -96,7 +96,7 @@ function useCheckForBrokenRoutes() {
 }
 
 export function usePrepareCreate() {
-  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
+  const getConflictingStops = useGetConflictingStops();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const getNextQuayPrivateCode = useGetNextQuayPrivateCode();
 

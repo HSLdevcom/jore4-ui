@@ -9,14 +9,14 @@ import {
 import { MIN_DATE } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { showDangerToastWithError } from '../../../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks/useCheckValidityAndPriorityConflicts';
 import { FormState } from '../../../forms/line/LineForm';
 import {
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,
   lineTypeAffectsMetatypes,
   resolveStopInfoByLine,
-} from '../../Common/useUpdateStopRegistryStopMetatype';
+  useGetConflictingLines,
+} from '../../Common';
 import { mapFormToInput } from '../Create/useCreateLine';
 import { useValidateLine } from './useValidateLine';
 
@@ -44,7 +44,7 @@ export function useEditLine() {
   const { t } = useTranslation();
   const client = useApolloClient();
   const [mutateFunction] = usePatchLineMutation();
-  const { getConflictingLines } = useCheckValidityAndPriorityConflicts();
+  const getConflictingLines = useGetConflictingLines();
   const { validateLine } = useValidateLine();
 
   const prepareEdit = async ({

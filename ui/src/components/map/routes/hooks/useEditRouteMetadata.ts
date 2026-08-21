@@ -20,8 +20,8 @@ import {
   mapDateInputToValidityEnd,
   showDangerToastWithError,
 } from '../../../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
+import { useGetConflictingRoutes } from '../../../LinesAndRoutes/Common';
 import { useValidateRouteMetadata } from './useValidateRoute';
 
 const GQL_UPDATE_ROUTE = gql`
@@ -118,7 +118,7 @@ export function useEditRouteMetadata() {
 
   const apollo = useApolloClient();
   const [mutateFunction] = usePatchRouteMutation();
-  const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
+  const getConflictingRoutes = useGetConflictingRoutes();
   const validateRouteMetadata = useValidateRouteMetadata();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
