@@ -1,0 +1,46 @@
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { QueryParameterName, useTimeRangeQueryParams } from '../../../hooks';
+import { ValidationError } from '../../common/Inputs';
+import { Row } from '../../common/LayoutComponents';
+import { DateControl } from './DateControl';
+
+type TimeRangeControlProps = {
+  readonly className?: string;
+};
+
+export const TimeRangeControl: FC<TimeRangeControlProps> = ({ className }) => {
+  const { t } = useTranslation();
+  const testIds = {
+    startDate: 'TimeRangeControl::startDate',
+    endDate: 'TimeRangeControl::endDate',
+  };
+  const { isInvalidDateRange } = useTimeRangeQueryParams();
+
+  return (
+    <div className={className}>
+      <Row className="gap-8">
+        <DateControl
+          label={t(($) => $.validityPeriod.validityStart)}
+          dateInputId="startDate"
+          className="max-w-max"
+          testId={testIds.startDate}
+          queryParamName={QueryParameterName.StartDate}
+        />
+        <DateControl
+          label={t(($) => $.validityPeriod.validityEnd)}
+          dateInputId="endDate"
+          className="max-w-max"
+          testId={testIds.endDate}
+          queryParamName={QueryParameterName.EndDate}
+        />
+      </Row>
+      {isInvalidDateRange && (
+        <ValidationError
+          fieldPath="timeRange"
+          errorMessage={t(($) => $.formValidation.timeRange)}
+        />
+      )}
+    </div>
+  );
+};
