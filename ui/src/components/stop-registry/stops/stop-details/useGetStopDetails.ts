@@ -16,7 +16,6 @@ import {
   useObservationDateQueryParam,
   useUrlQuery,
 } from '../../../../hooks/urlQuery';
-import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
   EnrichedQuay,
   EnrichedStopPlace,
@@ -31,6 +30,7 @@ import {
   getGeometryPoint,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
+  useRequiredParams,
 } from '../../../../utils';
 import {
   GetUserNameById,

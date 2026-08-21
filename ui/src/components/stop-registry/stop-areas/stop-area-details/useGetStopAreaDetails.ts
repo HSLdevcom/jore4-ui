@@ -6,14 +6,12 @@ import {
   StopsDatabaseStopPlaceNewestVersionBoolExp,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
-import {
-  useObservationDateQueryParam,
-  useRequiredParams,
-} from '../../../../hooks';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import { EnrichedStopPlace } from '../../../../types';
 import {
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
+  useRequiredParams,
 } from '../../../../utils';
 import {
   GetUserNameById,

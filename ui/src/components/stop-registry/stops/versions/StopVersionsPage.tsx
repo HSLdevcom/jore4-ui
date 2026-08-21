@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigateBackSafely, useRequiredParams } from '../../../../hooks';
+import { useNavigateBackSafely } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
+import { useRequiredParams } from '../../../../utils';
 import { CloseIconButton } from '../../../common/Buttons';
 import { PageTitle } from '../../../common/Jore';
 import { Container, Row } from '../../../common/LayoutComponents';

@@ -3,9 +3,9 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { Navigate, useSearchParams } from 'react-router';
 import { useResolveLineIdByLabelQuery } from '../../../../generated/graphql';
-import { useRequiredParams } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { parseDate } from '../../../../time';
+import { useRequiredParams } from '../../../../utils';
 import { LineDetailsByIdPage } from './LineDetailsByIdPage';
 
 const uuidLength = 36;
