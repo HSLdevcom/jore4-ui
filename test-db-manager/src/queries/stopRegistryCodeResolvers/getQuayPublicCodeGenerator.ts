@@ -47,6 +47,7 @@ const knownMunicipalityPrefixes = {
   Sipoo: 'Si',
   Kerava: 'Ke',
   Tuusula: 'Tu',
+  Järvenpää: 'Jä',
 } as const;
 
 function assertIsPoint(
