@@ -17,6 +17,15 @@ import { TimetablesRouteDirectionEnum } from './generated/graphql';
 import { getVehicleTypes } from './queries';
 import { Priority } from './types';
 
+function vehicleScheduleFrameBase(label: string) {
+  return {
+    label,
+    priority: Priority.Standard,
+    validity_start: DateTime.now().startOf('year'),
+    validity_end: DateTime.now().endOf('year'),
+  };
+}
+
 export async function seedTimetables() {
   const stopLabels = buildLabelArray('H22', 10);
   const hastusStopLabels = [stopLabels[0], stopLabels[4], stopLabels[9]];
@@ -53,13 +62,6 @@ export async function seedTimetables() {
   const blockBase = {
     vehicle_type_id: vehicleTypes[0].vehicle_type_id,
   };
-
-  const vehicleScheduleFrameBase = (label: string) => ({
-    label,
-    priority: Priority.Standard,
-    validity_start: DateTime.now().startOf('year'),
-    validity_end: DateTime.now().endOf('year'),
-  });
 
   // basic priority, long timeframe, Monday-Sunday, route 641 back and forth
   const vsf1 = buildVehicleScheduleFrameDeep({

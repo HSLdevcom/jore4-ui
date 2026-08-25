@@ -4,7 +4,6 @@ import {
   GetScheduledStopsOnRouteDocument,
   GetScheduledStopsOnRouteQuery,
   GetScheduledStopsOnRouteQueryVariables,
-  PatchRouteMutationVariables,
   RouteAllFieldsFragment,
   RouteDefaultFieldsFragment,
   RouteRouteSetInput,
@@ -184,16 +183,13 @@ export function useEditRouteMetadata() {
       .filter((stop) => stop.priority === Priority.Draft);
   };
 
-  const mapEditChangesToVariables = (
-    changes: EditChanges,
-  ): PatchRouteMutationVariables => ({
-    route_id: changes.routeId,
-    object: changes.patch,
-  });
-
-  const editRouteMetadata = (variables: PatchRouteMutationVariables) => {
-    return mutateFunction({ variables });
-  };
+  const editRouteMetadata = (changes: EditChanges) =>
+    mutateFunction({
+      variables: {
+        route_id: changes.routeId,
+        object: changes.patch,
+      },
+    });
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
@@ -207,7 +203,6 @@ export function useEditRouteMetadata() {
   return {
     prepareEditRouteMetadata: prepareEdit,
     findDraftStopsOnRoute,
-    mapEditRouteMetadataChangesToVariables: mapEditChangesToVariables,
     editRouteMetadata,
     defaultErrorHandler,
   };

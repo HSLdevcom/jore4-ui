@@ -47,12 +47,8 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
   const formRef = useRef<ExplicitAny>(null);
   const { setIsLoading } = useLoader(Operation.SaveTimingPlace);
 
-  const {
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertTimingPlaceMutation,
-    defaultErrorHandler,
-  } = useCreateTimingPlace();
+  const { prepareCreate, insertTimingPlaceMutation, defaultErrorHandler } =
+    useCreateTimingPlace();
 
   const defaultValues = { label: '', description: { fi_FI: '', sv_FI: '' } };
 
@@ -84,8 +80,7 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
         return;
       }
 
-      const variables = mapCreateChangesToVariables(changes);
-      const createResponse = await insertTimingPlaceMutation(variables);
+      const createResponse = await insertTimingPlaceMutation(changes);
 
       showSuccessToast(t(($) => $.timingPlaces.saveSuccess));
 

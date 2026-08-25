@@ -18,83 +18,67 @@ type EditTiamatParams = {
   readonly stop: StopWithDetails;
 };
 
+function mapStopEditChangesToTiamatDbInput({ state, stop }: EditTiamatParams) {
+  const stopPlaceId = stop.stop_place?.id;
+  const stopPlaceQuayId = stop.stop_place_ref;
+
+  const selectedOrganisations: Array<StopRegistryStopPlaceOrganisationRefInput> =
+    Object.entries(state.maintainers)
+      .map(([relationshipType, organisationId]) => {
+        if (organisationId === null || organisationId === 'null') {
+          return null;
+        }
+
+        return {
+          organisationRef: organisationId,
+          relationshipType:
+            relationshipType as StopRegistryStopPlaceOrganisationRelationshipType,
+        };
+      })
+      .filter(notNullish);
+
+  return {
+    id: stopPlaceId,
+    quays: [
+      {
+        id: stopPlaceQuayId,
+        organisations:
+          selectedOrganisations.length > 0 ? selectedOrganisations : [null],
+        keyValues: patchKeyValues(stop.quay, [
+          {
+            key: KnownValueKey.StopOwner,
+            values: state.stopOwner ? [state.stopOwner] : [],
+          },
+        ]),
+      },
+    ],
+  };
+}
+
 export function useEditStopMaintenanceDetails() {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
 
-  const mapStopEditChangesToTiamatDbInput = ({
+  const saveStopMaintenanceDetails = ({
     state,
     stop,
-  }: EditTiamatParams) => {
-    const stopPlaceId = stop.stop_place?.id;
-    const stopPlaceQuayId = stop.stop_place_ref;
-
-    const selectedOrganisations: Array<StopRegistryStopPlaceOrganisationRefInput> =
-      Object.entries(state.maintainers)
-        .map(([relationshipType, organisationId]) => {
-          if (organisationId === null || organisationId === 'null') {
-            return null;
-          }
-
-          return {
-            organisationRef: organisationId,
-            relationshipType:
-              relationshipType as StopRegistryStopPlaceOrganisationRelationshipType,
-          };
-        })
-        .filter(notNullish);
-
-    return {
-      id: stopPlaceId,
-      quays: [
-        {
-          id: stopPlaceQuayId,
-          organisations:
-            selectedOrganisations.length > 0 ? selectedOrganisations : [null],
-          keyValues: patchKeyValues(stop.quay, [
-            {
-              key: KnownValueKey.StopOwner,
-              values: state.stopOwner ? [state.stopOwner] : [],
-            },
-          ]),
-        },
-      ],
-    };
-  };
-
-  const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {
-    return {
-      input: mapStopEditChangesToTiamatDbInput({
-        state,
-        stop,
-      }),
-    };
-  };
-
-  const updateTiamatStopPlace = async (editParams: EditTiamatParams) => {
-    const changesToTiamatDb = prepareEditForTiamatDb(editParams);
-    await updateStopPlaceMutation({
-      variables: changesToTiamatDb,
+  }: {
+    state: MaintenanceDetailsFormState;
+    stop: StopWithDetails;
+  }) =>
+    updateStopPlaceMutation({
+      variables: {
+        input: mapStopEditChangesToTiamatDbInput({
+          state,
+          stop,
+        }),
+      },
       refetchQueries: [
         'GetStopDetails',
         'GetLatestQuayChange',
         'GetStopChangeHistory',
       ],
     });
-  };
-
-  const saveStopMaintenanceDetails = async ({
-    state,
-    stop,
-  }: {
-    state: MaintenanceDetailsFormState;
-    stop: StopWithDetails;
-  }) => {
-    await updateTiamatStopPlace({
-      state,
-      stop,
-    });
-  };
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown

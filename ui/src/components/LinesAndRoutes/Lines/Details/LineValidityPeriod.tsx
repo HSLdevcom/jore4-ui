@@ -11,6 +11,15 @@ const testIds = {
   priority: 'LineValidityPeriod::priority',
 };
 
+function buildValidityPeriod(
+  validityStart?: DateLike | null,
+  validityEnd?: DateLike | null,
+) {
+  return `${mapToShortDate(validityStart) ?? ''} - ${
+    mapToShortDate(validityEnd) ?? ''
+  }`;
+}
+
 type LineValidityPeriodProps = {
   readonly className?: string;
   readonly line: LineAllFieldsFragment;
@@ -21,14 +30,6 @@ export const LineValidityPeriod: FC<LineValidityPeriodProps> = ({
   line,
 }) => {
   const { t } = useTranslation();
-
-  const buildValidityPeriod = (
-    validityStart?: DateLike | null,
-    validityEnd?: DateLike | null,
-  ) =>
-    `${mapToShortDate(validityStart) ?? ''} - ${
-      mapToShortDate(validityEnd) ?? ''
-    }`;
 
   return (
     <Row className={className}>

@@ -1,6 +1,6 @@
-import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../../../Common/Utils/useVehicleScheduleFrameWithJourneys';
-import { useCreateVehicleJourneyInfo } from './useCreateVehicleJourneyInfo';
-import { useFindDuplicateJourneys } from './useFindDuplicateJourneys';
+import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../../../Common/Utils';
+import { createVehicleJourneyInfo } from './createVehicleJourneyInfo';
+import { findDuplicateJourneys } from './findDuplicateJourneys';
 
 export function useDuplicateJourneyDeviations(
   stagingAndTargetFramesForCombine: {
@@ -8,9 +8,6 @@ export function useDuplicateJourneyDeviations(
     targetFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
   }[],
 ) {
-  const { createVehicleJourneyInfo } = useCreateVehicleJourneyInfo();
-  const { findDuplicateJourneys } = useFindDuplicateJourneys();
-
   const duplicateJourneys = stagingAndTargetFramesForCombine.flatMap(
     ({ stagingFrame, targetFrame }) => {
       return findDuplicateJourneys({

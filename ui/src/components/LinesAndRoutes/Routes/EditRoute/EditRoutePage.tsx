@@ -42,7 +42,6 @@ export const EditRoutePage: FC = () => {
   const {
     prepareEditRouteMetadata,
     findDraftStopsOnRoute,
-    mapEditRouteMetadataChangesToVariables,
     editRouteMetadata,
     defaultErrorHandler,
   } = useEditRouteMetadata();
@@ -72,8 +71,7 @@ export const EditRoutePage: FC = () => {
         setConflicts(changes.conflicts);
         return;
       }
-      const variables = mapEditRouteMetadataChangesToVariables(changes);
-      await editRouteMetadata(variables);
+      await editRouteMetadata(changes);
       showSuccessToast(t(($) => $.routes.updateSuccess));
       setHasFinishedEditing(true);
       setRouteFormData(null);

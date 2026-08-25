@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
-  InsertLineOneMutationVariables,
   LineAllFieldsFragment,
   ReusableComponentsVehicleModeEnum,
   RouteLineInsertInput,
@@ -76,12 +75,6 @@ export function useCreateLine() {
     return changes;
   };
 
-  const mapCreateChangesToVariables = (
-    changes: CreateChanges,
-  ): InsertLineOneMutationVariables => ({
-    object: changes.input,
-  });
-
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
   const defaultErrorHandler = (err: unknown) => {
@@ -93,7 +86,6 @@ export function useCreateLine() {
 
   return {
     prepareCreate,
-    mapCreateChangesToVariables,
     insertLineMutation: mutateFunction,
     defaultErrorHandler,
   };

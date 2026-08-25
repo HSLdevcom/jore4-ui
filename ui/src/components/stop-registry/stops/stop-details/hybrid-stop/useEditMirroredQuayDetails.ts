@@ -17,41 +17,42 @@ type SaveMirroredQuayParams = {
   readonly stopPlace: EnrichedStopPlace;
 };
 
+function buildMutationInput({
+  state,
+  quay,
+  stopPlace,
+}: SaveMirroredQuayParams): StopRegistryStopPlaceInput {
+  const quayId = quay.id;
+
+  return {
+    id: stopPlace.id,
+    quays: [
+      {
+        id: quayId,
+        keyValues: patchKeyValues(quay, [
+          {
+            key: KnownValueKey.StopState,
+            values: [state.stopState],
+          },
+          {
+            key: KnownValueKey.TrunkLineStop,
+            values: [state.trunkLineStop.toString()],
+          },
+          {
+            key: KnownValueKey.SpeedTramStop,
+            values: [state.speedTramStop.toString()],
+          },
+        ]),
+        versionComment: state.reasonForChange,
+      },
+    ],
+  };
+}
+
 export function useEditMirroredQuayDetails() {
   const { t } = useTranslation();
+
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
-
-  const buildMutationInput = ({
-    state,
-    quay,
-    stopPlace,
-  }: SaveMirroredQuayParams): StopRegistryStopPlaceInput => {
-    const quayId = quay.id;
-
-    return {
-      id: stopPlace.id,
-      quays: [
-        {
-          id: quayId,
-          keyValues: patchKeyValues(quay, [
-            {
-              key: KnownValueKey.StopState,
-              values: [state.stopState],
-            },
-            {
-              key: KnownValueKey.TrunkLineStop,
-              values: [state.trunkLineStop.toString()],
-            },
-            {
-              key: KnownValueKey.SpeedTramStop,
-              values: [state.speedTramStop.toString()],
-            },
-          ]),
-          versionComment: state.reasonForChange,
-        },
-      ],
-    };
-  };
 
   const saveMirroredQuayDetails = async (params: SaveMirroredQuayParams) => {
     const input = buildMutationInput(params);

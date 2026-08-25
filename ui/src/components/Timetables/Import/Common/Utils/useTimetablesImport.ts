@@ -149,12 +149,24 @@ const GQL_DELETE_STAGING_TIMETABLES = gql`
 `;
 
 export type HastusImportFailure = {
-  file: File;
-  error: AxiosError<{ reason: string }>;
+  readonly file: File;
+  readonly error: AxiosError<{ reason: string }>;
 };
+
+function shouldBeSpecialDay(vsf: {
+  validity_start: DateTime;
+  validity_end: DateTime;
+}) {
+  return (
+    vsf.validity_start &&
+    vsf.validity_end &&
+    vsf.validity_start?.valueOf() === vsf.validity_end?.valueOf()
+  );
+}
 
 export function useTimetablesImport() {
   const { t } = useTranslation();
+
   const [combineTimetables] = useCombineTimetablesMutation();
   const [replaceTimetables] = useReplaceTimetablesMutation();
   const [deleteStagingTimetables] = useDeleteStagingTimetablesMutation();
@@ -263,16 +275,6 @@ export function useTimetablesImport() {
     };
   };
 
-  const shouldBeSpecialDay = (vsf: {
-    validity_start: DateTime;
-    validity_end: DateTime;
-  }) => {
-    return (
-      vsf.validity_start &&
-      vsf.validity_end &&
-      vsf.validity_start?.valueOf() === vsf.validity_end?.valueOf()
-    );
-  };
   const importingSomeSpecialDays =
     vehicleScheduleFrames.some(shouldBeSpecialDay);
   const importingOnlySpecialDays =

@@ -18,7 +18,10 @@ import {
 } from '../../../../utils';
 import { SimpleButton } from '../../Buttons';
 import { Row, Visible } from '../../LayoutComponents';
-import { useExportRoutes } from './useExportRoutes';
+import {
+  findNotEligibleRoutesForExport,
+  useExportRoutes,
+} from './useExportRoutes';
 import { useSearchResults } from './useSearchResults';
 
 const testIds = {
@@ -35,8 +38,7 @@ export const ExportToolbar: FC = () => {
     useSearchResults();
   const { isSelectingRoutesForExport, selectedRows } =
     useAppSelector(selectExport);
-  const { canExport, exportRoutesToHastus, findNotEligibleRoutesForExport } =
-    useExportRoutes();
+  const { canExport, exportRoutesToHastus } = useExportRoutes();
   const { exportRoute: exportRouteLoadingState } = useAppSelector(selectLoader);
 
   const linesWithRoutes = lines.filter((line) => !!line.line_routes.length);

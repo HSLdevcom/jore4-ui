@@ -3,13 +3,27 @@ import { useTranslation } from 'react-i18next';
 import { TimetableVersionTableRow } from './TimetableVersionTableRow';
 import { TimetableVersionRowData } from './Utils';
 
+const testIds = {
+  table: 'TimetableVersionTable',
+};
+
+// Uniqueness is determined by validity period, label and variant, priority and day type.
+function getRowKey(row: TimetableVersionRowData) {
+  const validity = row.substituteDay?.supersededDate
+    ? row.substituteDay.supersededDate.toISODate()
+    : `${row.vehicleScheduleFrame.validityStart?.toISODate()}${row.vehicleScheduleFrame.validityEnd?.toISODate()}`;
+
+  return (
+    row.routeLabelAndVariant +
+    validity +
+    row.vehicleScheduleFrame.priority +
+    row.dayType.id
+  );
+}
+
 type TimetableVersionTableProps = {
   readonly data: ReadonlyArray<TimetableVersionRowData>;
   readonly className: string;
-};
-
-const testIds = {
-  table: 'TimetableVersionTable',
 };
 
 export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
@@ -17,20 +31,6 @@ export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
-
-  // Uniqueness is determined by validity period, label and variant, priority and day type.
-  const getRowKey = (row: TimetableVersionRowData) => {
-    const validity = row.substituteDay?.supersededDate
-      ? row.substituteDay.supersededDate.toISODate()
-      : `${row.vehicleScheduleFrame.validityStart?.toISODate()}${row.vehicleScheduleFrame.validityEnd?.toISODate()}`;
-
-    return (
-      row.routeLabelAndVariant +
-      validity +
-      row.vehicleScheduleFrame.priority +
-      row.dayType.id
-    );
-  };
 
   // NOTE: These widths are given to prevent width jumping depending on data
   // It will also keep the headings in line when there are multiple tables

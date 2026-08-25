@@ -346,7 +346,7 @@ type OnStopLocationChangedResult = Pick<
 
 function useOnStopLocationChanged() {
   const getRoutesBrokenByStopChange = useGetRoutesBrokenByStopChange();
-  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const getStopLinkAndDirection = useGetStopLinkAndDirection();
 
   return async (
     oldStop: ScheduledStopPointAllFieldsFragment,

@@ -40,6 +40,15 @@ export type EditLineChanges = {
   readonly stopsNeedingUpdate: ReadonlyArray<StopMetaTypeUpdateInfo>;
 };
 
+function mapEditChangesToVariables(
+  changes: EditLineChanges,
+): PatchLineMutationVariables {
+  return {
+    line_id: changes.lineId,
+    object: changes.patch,
+  };
+}
+
 export function useEditLine() {
   const { t } = useTranslation();
   const client = useApolloClient();
@@ -86,13 +95,6 @@ export function useEditLine() {
 
     return { lineId, patch: input, conflicts, stopsNeedingUpdate };
   };
-
-  const mapEditChangesToVariables = (
-    changes: EditLineChanges,
-  ): PatchLineMutationVariables => ({
-    line_id: changes.lineId,
-    object: changes.patch,
-  });
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown

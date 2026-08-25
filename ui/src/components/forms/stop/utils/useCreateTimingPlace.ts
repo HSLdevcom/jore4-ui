@@ -1,12 +1,10 @@
 import { gql, useApolloClient } from '@apollo/client';
-import flow from 'lodash/flow';
 import { useTranslation } from 'react-i18next';
 import {
   CreatedTimingPlaceFragment,
   GetTimingPlacesByLabelDocument,
   GetTimingPlacesByLabelQuery,
   GetTimingPlacesByLabelQueryVariables,
-  InsertTimingPlaceMutationVariables,
   NewTimingPlaceFragment,
   TimingPatternTimingPlaceInsertInput,
   useInsertTimingPlaceMutation,
@@ -61,12 +59,10 @@ export function useCreateTimingPlace() {
   const apollo = useApolloClient();
   const [mutateFunction] = useInsertTimingPlaceMutation();
 
-  const insertTimingPlaceMutation = async (
-    variables: InsertTimingPlaceMutationVariables,
-  ) =>
-    mutateFunction({
-      variables,
-    });
+  const insertTimingPlaceMutation = async ({
+    timingPlaceToCreate,
+  }: CreateChanges) =>
+    mutateFunction({ variables: { object: timingPlaceToCreate } });
 
   const getConflictingTimingPlaces = async (label: string) => {
     const existingTimingPlacesResult = await apollo.query<
@@ -82,31 +78,12 @@ export function useCreateTimingPlace() {
 
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
-  const prepareCreate = async ({ input }: CreateParams) => {
-    const conflicts = await getConflictingTimingPlaces(input.label);
-
-    const timingPlaceToCreate: TimingPatternTimingPlaceInsertInput = input;
-
-    const changes: CreateChanges = {
-      timingPlaceToCreate,
-      conflicts,
-    };
-
-    return changes;
-  };
-
-  const mapCreateChangesToVariables = (changes: CreateChanges) => {
-    const variables: InsertTimingPlaceMutationVariables = {
-      object: changes.timingPlaceToCreate,
-    };
-    return variables;
-  };
-
-  const prepareAndExecute = flow(
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertTimingPlaceMutation,
-  );
+  const prepareCreate = async ({
+    input,
+  }: CreateParams): Promise<CreateChanges> => ({
+    timingPlaceToCreate: input,
+    conflicts: await getConflictingTimingPlaces(input.label),
+  });
 
   // default handler that can be used to show error messages as toast
   // in case an exception is thrown
@@ -117,9 +94,7 @@ export function useCreateTimingPlace() {
 
   return {
     prepareCreate,
-    mapCreateChangesToVariables,
     insertTimingPlaceMutation,
-    prepareAndExecute,
     defaultErrorHandler,
   };
 }

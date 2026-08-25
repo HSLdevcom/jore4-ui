@@ -97,7 +97,7 @@ function useCheckForBrokenRoutes() {
 
 export function usePrepareCreate() {
   const getConflictingStops = useGetConflictingStops();
-  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const getStopLinkAndDirection = useGetStopLinkAndDirection();
   const getNextQuayPrivateCode = useGetNextQuayPrivateCode();
 
   const checkForBrokenRoutes = useCheckForBrokenRoutes();

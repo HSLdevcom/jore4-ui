@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+/* eslint-disable jest/expect-expect */
 import {
   StopRegistryAccessibilityLevel as StopAccessibilityLevel,
   StopRegistryShelterType,
@@ -7,20 +7,10 @@ import {
   HslAccessibilityLevelCalculationProperties,
   ShelterAccessibilityLevelCalculationProperties,
   StopAccessibilityLevelCalculationProperties,
-  useCalculateStopAccessibilityLevel,
-} from './useCalculateStopAccessibilityLevel';
+  calculateStopAccessibilityLevel,
+} from './calculateStopAccessibilityLevel';
 
 describe('calculateStopAccessibilityLevel', () => {
-  // Helps readability if we can use helper functions and have most tests as oneliners.
-  /* eslint-disable jest/expect-expect */
-  const calculateAccessibilityLevel = (
-    stop: StopAccessibilityLevelCalculationProperties,
-  ) => {
-    const { result } = renderHook(() => useCalculateStopAccessibilityLevel());
-
-    return result.current.calculateStopAccessibilityLevel(stop);
-  };
-
   const fullyAccessibleMeasurements: HslAccessibilityLevelCalculationProperties =
     {
       serviceAreaWidth: 175,
@@ -69,7 +59,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(expectedLevel);
     };
@@ -113,7 +103,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(expectedLevel);
     };
@@ -165,7 +155,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(expectedLevel);
     };
@@ -227,7 +217,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(expectedLevel);
     };
@@ -277,7 +267,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.FullyAccessible);
     });
@@ -291,7 +281,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.PartiallyInaccessible);
     });
@@ -305,7 +295,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.Unknown);
     });
@@ -319,7 +309,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.PartiallyInaccessible);
     });
@@ -333,7 +323,7 @@ describe('calculateStopAccessibilityLevel', () => {
         fullyAccessibleShelterEquipment,
       );
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.Unknown);
     });
@@ -344,7 +334,7 @@ describe('calculateStopAccessibilityLevel', () => {
         shelterLighting: false,
       });
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.PartiallyInaccessible);
     });
@@ -355,7 +345,7 @@ describe('calculateStopAccessibilityLevel', () => {
         shelterLighting: null,
       });
 
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
 
       expect(level).toEqual(StopAccessibilityLevel.Unknown);
     });
@@ -370,7 +360,7 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterType,
         });
 
-        const level = calculateAccessibilityLevel(stop);
+        const level = calculateStopAccessibilityLevel(stop);
 
         expect(level).toEqual(expectedLevel);
       };
@@ -400,7 +390,7 @@ describe('calculateStopAccessibilityLevel', () => {
       it('returns Unknown when stop has no shelter', () => {
         const stop = createStop(fullyAccessibleMeasurements, null);
 
-        const level = calculateAccessibilityLevel(stop);
+        const level = calculateStopAccessibilityLevel(stop);
 
         expect(level).toEqual(StopAccessibilityLevel.Unknown);
       });
@@ -424,7 +414,7 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterLighting: true,
         },
       );
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
       expect(level).toEqual(StopAccessibilityLevel.FullyAccessible);
     });
 
@@ -444,7 +434,7 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterLighting: true,
         },
       );
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
       expect(level).toEqual(StopAccessibilityLevel.MostlyAccessible);
     });
 
@@ -464,7 +454,7 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterLighting: true,
         },
       );
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
       expect(level).toEqual(StopAccessibilityLevel.MostlyAccessible);
     });
 
@@ -484,7 +474,7 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterLighting: true,
         },
       );
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
       expect(level).toEqual(StopAccessibilityLevel.PartiallyInaccessible);
     });
 
@@ -504,7 +494,7 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterLighting: false,
         },
       );
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
       expect(level).toEqual(StopAccessibilityLevel.PartiallyInaccessible);
     });
 
@@ -524,10 +514,8 @@ describe('calculateStopAccessibilityLevel', () => {
           shelterLighting: false,
         },
       );
-      const level = calculateAccessibilityLevel(stop);
+      const level = calculateStopAccessibilityLevel(stop);
       expect(level).toEqual(StopAccessibilityLevel.Inaccessible);
     });
   });
-
-  /* eslint-enable jest/expect-expect */
 });

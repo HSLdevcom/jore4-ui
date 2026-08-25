@@ -1,3 +1,3 @@
-export * from './useCreateVehicleJourneyInfo';
+export * from './createVehicleJourneyInfo';
+export * from './findDuplicateJourneys';
 export * from './useDuplicateJourneyDeviations';
-export * from './useFindDuplicateJourneys';

@@ -1,9 +1,8 @@
-import { renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
-import { VehicleJourneyInfo } from './useCreateVehicleJourneyInfo';
-import { useFindDuplicateJourneys } from './useFindDuplicateJourneys';
+import { VehicleJourneyInfo } from './createVehicleJourneyInfo';
+import { findDuplicateJourneys } from './findDuplicateJourneys';
 
 const baseVehicleJourneyInfo: VehicleJourneyInfo = {
   vehicleJourneyId: 'c9107f53-5199-43b0-96c4-e05738fdc7a2',
@@ -25,13 +24,12 @@ const baseVehicleJourneyInfo: VehicleJourneyInfo = {
   routeId: '1da483b6-52a3-4900-87c2-3889004b8dba',
 };
 
-describe('useFindDuplicateJourneys hook', () => {
+describe('findDuplicateJourneys', () => {
   it('should return a duplicate journey', () => {
-    const { result } = renderHook(() => useFindDuplicateJourneys());
     const stagingJourney1 = cloneDeep(baseVehicleJourneyInfo);
     const targetJourney1 = cloneDeep(baseVehicleJourneyInfo);
 
-    const duplicateJourneys = result.current.findDuplicateJourneys({
+    const duplicateJourneys = findDuplicateJourneys({
       stagingFrameJourneys: [stagingJourney1],
       targetFrameJourneys: [targetJourney1],
     });
@@ -45,14 +43,13 @@ describe('useFindDuplicateJourneys hook', () => {
   });
 
   it('should not return a journey with different route', () => {
-    const { result } = renderHook(() => useFindDuplicateJourneys());
     const stagingJourney1 = cloneDeep(baseVehicleJourneyInfo);
     const targetJourney1 = {
       ...cloneDeep(baseVehicleJourneyInfo),
       routeId: '80edbf66-9fb6-43d7-bc4a-2223c0959f3c',
     };
 
-    const duplicateJourneys = result.current.findDuplicateJourneys({
+    const duplicateJourneys = findDuplicateJourneys({
       stagingFrameJourneys: [stagingJourney1],
       targetFrameJourneys: [targetJourney1],
     });
@@ -61,14 +58,13 @@ describe('useFindDuplicateJourneys hook', () => {
   });
 
   it('should not return a journey with different start time', () => {
-    const { result } = renderHook(() => useFindDuplicateJourneys());
     const stagingJourney1 = cloneDeep(baseVehicleJourneyInfo);
     const targetJourney1 = {
       ...cloneDeep(baseVehicleJourneyInfo),
       startTime: Duration.fromISO('PT9H15M'),
     };
 
-    const duplicateJourneys = result.current.findDuplicateJourneys({
+    const duplicateJourneys = findDuplicateJourneys({
       stagingFrameJourneys: [stagingJourney1],
       targetFrameJourneys: [targetJourney1],
     });
@@ -77,14 +73,13 @@ describe('useFindDuplicateJourneys hook', () => {
   });
 
   it('should not return a journey with different contract number', () => {
-    const { result } = renderHook(() => useFindDuplicateJourneys());
     const stagingJourney1 = cloneDeep(baseVehicleJourneyInfo);
     const targetJourney1 = {
       ...cloneDeep(baseVehicleJourneyInfo),
       contractNumber: 'SOME OTHER CONTRACT',
     };
 
-    const duplicateJourneys = result.current.findDuplicateJourneys({
+    const duplicateJourneys = findDuplicateJourneys({
       stagingFrameJourneys: [stagingJourney1],
       targetFrameJourneys: [targetJourney1],
     });
@@ -93,7 +88,6 @@ describe('useFindDuplicateJourneys hook', () => {
   });
 
   it('should return multiple duplicates correctly', () => {
-    const { result } = renderHook(() => useFindDuplicateJourneys());
     const stagingJourney1 = {
       ...cloneDeep(baseVehicleJourneyInfo),
       routeId: 'aaaaaaaa-9a3d-4b63-b856-c62ad3df1d92',
@@ -114,7 +108,7 @@ describe('useFindDuplicateJourneys hook', () => {
     const targetJourney2 = cloneDeep(stagingJourney1);
     const targetJourney3 = cloneDeep(stagingJourney2);
 
-    const duplicateJourneys = result.current.findDuplicateJourneys({
+    const duplicateJourneys = findDuplicateJourneys({
       stagingFrameJourneys: [stagingJourney1, stagingJourney2, stagingJourney3],
       targetFrameJourneys: [targetJourney1, targetJourney2, targetJourney3],
     });

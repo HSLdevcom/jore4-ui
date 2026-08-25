@@ -94,7 +94,7 @@ export function useCreateMirrorQuay() {
   });
 
   const [insertStopPoint] = useInsertStopPointMutation();
-  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const getStopLinkAndDirection = useGetStopLinkAndDirection();
 
   const createMirrorQuay = useCallback(
     async ({

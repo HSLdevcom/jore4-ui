@@ -1,12 +1,9 @@
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
-import { renderHook } from '@testing-library/react';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
+import { sortDeviations } from './sortDeviations';
 import { VehicleScheduleFrameInfo } from './useCreateVehicleScheduleFrameInfo';
-import { useMissingRouteDeviationsSort } from './useMissingRouteDeviationsSort';
 
-describe('useMissingRouteDeviationsSort hook', () => {
-  const { result } = renderHook(useMissingRouteDeviationsSort);
-
+describe('sortDeviations', () => {
   test('should sort by label in ascending order', () => {
     const data: VehicleScheduleFrameInfo[] = [
       {
@@ -25,7 +22,7 @@ describe('useMissingRouteDeviationsSort hook', () => {
       },
     ];
 
-    const sortedDeviations = result.current.sortDeviations(data);
+    const sortedDeviations = sortDeviations(data);
 
     expect(sortedDeviations).toEqual([
       {
@@ -63,7 +60,7 @@ describe('useMissingRouteDeviationsSort hook', () => {
       },
     ];
 
-    const sortedDeviations = result.current.sortDeviations(data);
+    const sortedDeviations = sortDeviations(data);
 
     expect(sortedDeviations).toEqual([
       {
@@ -108,7 +105,7 @@ describe('useMissingRouteDeviationsSort hook', () => {
       },
     ];
 
-    const sortedDeviations = result.current.sortDeviations(data);
+    const sortedDeviations = sortDeviations(data);
 
     expect(sortedDeviations).toEqual([
       {

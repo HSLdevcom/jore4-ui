@@ -72,6 +72,42 @@ function downloadFile(data: Blob, fileName: string) {
   URL.revokeObjectURL(href);
 }
 
+function hasFirstAndLastStopSetAsTimingPoint(
+  route: Pick<RouteTableRowFragment, 'route_journey_patterns'>,
+): boolean {
+  const isEligibleJourneyPatterns = route.route_journey_patterns.map((jp) => {
+    const firstStop = extractJourneyPatternFirstStop<{
+      is_used_as_timing_point: boolean;
+    }>(jp);
+    const lastStop = extractJourneyPatternLastStop<{
+      is_used_as_timing_point: boolean;
+    }>(jp);
+    return (
+      firstStop?.is_used_as_timing_point && lastStop?.is_used_as_timing_point
+    );
+  });
+
+  return isEligibleJourneyPatterns.some((eligible) => eligible);
+}
+
+/**
+ * Checks if routes are eligible for export. All routes should have their first
+ * and last stop set as timing point for it to be eligible for export. Returns
+ * all routes uniqueLabel and direction which are not eligible.
+ */
+export function findNotEligibleRoutesForExport(
+  routesToExport: ReadonlyArray<
+    Pick<
+      RouteTableRowFragment,
+      'unique_label' | 'direction' | 'route_journey_patterns'
+    >
+  >,
+): Array<string> {
+  return routesToExport
+    .filter((route) => !hasFirstAndLastStopSetAsTimingPoint(route))
+    .map((route) => `${route.unique_label} (${route.direction})`);
+}
+
 export function useExportRoutes() {
   const { observationDate } = useObservationDateQueryParam();
   const { search } = useSearchQueryParser();
@@ -84,42 +120,6 @@ export function useExportRoutes() {
   // Routes can be exported to Hastus only when there is only 1 priority selected
   // TODO: this will be reworked to not be dependant on search criteria
   const canExport = priorities?.length === 1;
-
-  const hasFirstAndLastStopSetAsTimingPoint = (
-    route: Pick<RouteTableRowFragment, 'route_journey_patterns'>,
-  ): boolean => {
-    const isEligibleJourneyPatterns = route.route_journey_patterns.map((jp) => {
-      const firstStop = extractJourneyPatternFirstStop<{
-        is_used_as_timing_point: boolean;
-      }>(jp);
-      const lastStop = extractJourneyPatternLastStop<{
-        is_used_as_timing_point: boolean;
-      }>(jp);
-      return (
-        firstStop?.is_used_as_timing_point && lastStop?.is_used_as_timing_point
-      );
-    });
-
-    return isEligibleJourneyPatterns.some((eligible) => eligible);
-  };
-
-  /**
-   * Checks if routes are eligible for export. All routes should have their first
-   * and last stop set as timing point for it to be eligible for export. Returns
-   * all routes uniqueLabel and direction which are not eligible.
-   */
-  const findNotEligibleRoutesForExport = (
-    routesToExport: ReadonlyArray<
-      Pick<
-        RouteTableRowFragment,
-        'unique_label' | 'direction' | 'route_journey_patterns'
-      >
-    >,
-  ): string[] => {
-    return routesToExport
-      .filter((route) => !hasFirstAndLastStopSetAsTimingPoint(route))
-      .map((route) => `${route.unique_label} (${route.direction})`);
-  };
 
   const exportRoutesToHastus = async (routeLabels: ReadonlyArray<string>) => {
     try {

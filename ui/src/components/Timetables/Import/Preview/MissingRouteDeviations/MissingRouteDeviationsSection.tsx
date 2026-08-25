@@ -3,10 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { MdClose } from 'react-icons/md';
 import { IconButton } from '../../../../common/Buttons';
 import { RouteDeviationLink } from './RouteDeviationLink';
-import {
-  VehicleScheduleFrameInfo,
-  useMissingRouteDeviationsSort,
-} from './Utils';
+import { VehicleScheduleFrameInfo, sortDeviations } from './Utils';
 
 type MissingRouteDeviationsSectionProps = {
   readonly className?: string;
@@ -18,7 +15,6 @@ export const MissingRouteDeviationsSection: FC<
   MissingRouteDeviationsSectionProps
 > = ({ className, routeDeviations, handleClose }) => {
   const { t } = useTranslation();
-  const { sortDeviations } = useMissingRouteDeviationsSort();
 
   const sortedDeviations = sortDeviations(routeDeviations);
 

@@ -38,6 +38,12 @@ function createNewOrganisationOption(t: TFunction): ComboboxOptionItem {
   };
 }
 
+function mapToButtonContent(
+  displayedOrganisation?: StopPlaceOrganisationFieldsFragment,
+) {
+  return <div className="w-full">{displayedOrganisation?.name ?? '-'}</div>;
+}
+
 export const ChooseOrganisationDropdown: FC<
   ChooseOrganisationDropdownProps
 > = ({ testId, value, onChange, onBlur, optionAmount = 15 }) => {
@@ -53,12 +59,6 @@ export const ChooseOrganisationDropdown: FC<
 
   const organisationOptions = organisations.map(mapToOption) ?? [];
   const options = [createNewOrganisationOption(t), ...organisationOptions];
-
-  const mapToButtonContent = (
-    displayedOrganisation?: StopPlaceOrganisationFieldsFragment,
-  ) => {
-    return <div className="w-full">{displayedOrganisation?.name ?? '-'}</div>;
-  };
 
   return (
     <SearchableDropdown

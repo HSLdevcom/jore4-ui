@@ -98,6 +98,26 @@ const style = generateStyle({
   ],
 });
 
+const navStyle = {
+  bottom: 72,
+  right: 0,
+  padding: '10px',
+};
+
+function transformRequest(url: string) {
+  if (url.startsWith('/')) {
+    // mapbox gl js doesn't handle relative url's. As a workaround
+    // we can make those url's non-relative by prepending those with
+    // window.location.origin
+    // https://github.com/mapbox/mapbox-gl-js/issues/10407
+    const newUrl = window.location.origin + url;
+    return {
+      url: newUrl,
+    };
+  }
+  return { url };
+}
+
 export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
   onClick,
   width = '100vw',
@@ -172,26 +192,6 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
         bounds.toArray(),
       );
     }
-  };
-
-  const navStyle = {
-    bottom: 72,
-    right: 0,
-    padding: '10px',
-  };
-
-  const transformRequest = (url: string) => {
-    if (url.startsWith('/')) {
-      // mapbox gl js doesn't handle relative url's. As a workaround
-      // we can make those url's non-relative by prepending those with
-      // window.location.origin
-      // https://github.com/mapbox/mapbox-gl-js/issues/10407
-      const newUrl = window.location.origin + url;
-      return {
-        url: newUrl,
-      };
-    }
-    return { url };
   };
 
   const onLoad = () => {

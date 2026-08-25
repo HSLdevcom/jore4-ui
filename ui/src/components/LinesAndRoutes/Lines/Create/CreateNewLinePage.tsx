@@ -19,12 +19,8 @@ import {
 import { useCreateLine } from './useCreateLine';
 
 export const CreateNewLinePage: FC = () => {
-  const {
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertLineMutation,
-    defaultErrorHandler,
-  } = useCreateLine();
+  const { prepareCreate, insertLineMutation, defaultErrorHandler } =
+    useCreateLine();
   const [conflicts, setConflicts] = useState<
     ReadonlyArray<LineAllFieldsFragment>
   >([]);
@@ -43,8 +39,10 @@ export const CreateNewLinePage: FC = () => {
         setConflicts(changes.conflicts);
         return;
       }
-      const variables = mapCreateChangesToVariables(changes);
-      const result = await insertLineMutation({ variables });
+
+      const result = await insertLineMutation({
+        variables: { object: changes.input },
+      });
       const createdLine = illegalOptionalCast<RouteLine>(
         result.data?.insert_route_line_one,
       );
