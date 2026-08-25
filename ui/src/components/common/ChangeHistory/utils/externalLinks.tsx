@@ -1,24 +1,28 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
+import { FC } from 'react';
 
-export type ExternalLink = {
-  name?: string | null;
-  location?: string | null;
-  orderNum?: number | null;
+type ExternalLink = {
+  readonly name?: string | null;
+  readonly location?: string | null;
+  readonly orderNum?: number | null;
 };
 
 type FormattedExternalLink = {
-  name: string;
-  location: string;
-  orderNum: number;
+  readonly name: string;
+  readonly location: string;
+  readonly orderNum: number;
 };
 
 type ExternalLinksListProps = {
-  links: FormattedExternalLink[];
-  id?: string;
+  readonly links: ReadonlyArray<FormattedExternalLink>;
+  readonly id?: string;
 };
 
-export const ExternalLinksList = ({ links, id }: ExternalLinksListProps) => {
+export const ExternalLinksList: FC<ExternalLinksListProps> = ({
+  links,
+  id,
+}) => {
   return (
     <ol>
       {links.map((link) => (
@@ -30,21 +34,22 @@ export const ExternalLinksList = ({ links, id }: ExternalLinksListProps) => {
   );
 };
 
-export function formatExternalLinks<T extends ExternalLink>(
-  links: readonly (T | null)[],
+function formatExternalLinks<T extends ExternalLink>(
+  links: ReadonlyArray<T>,
 ): FormattedExternalLink[] {
-  return compact(links).map((link) => ({
-    name: link?.name ?? '',
-    location: link?.location ?? '',
-    orderNum: link?.orderNum ?? 0,
+  return links.map((link) => ({
+    name: link.name ?? '',
+    location: link.location ?? '',
+    orderNum: link.orderNum ?? 0,
   }));
 }
 
 export function formatLinks<T extends ExternalLink>(
-  links: readonly (T | null)[] | null | undefined,
   t: TFunction,
+  links: ReadonlyArray<T | null> | null | undefined,
 ) {
-  const formatted = formatExternalLinks(links ?? []);
+  const formatted = formatExternalLinks(compact(links));
+
   return formatted.length === 0
     ? t(($) => $.changeHistory.externalLinks.noExternalLinks)
     : formatted;

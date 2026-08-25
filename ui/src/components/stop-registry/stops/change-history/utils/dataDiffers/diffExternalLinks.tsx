@@ -19,8 +19,8 @@ export function diffStopExternalLinks(
     diffKeyedValues({
       key: 'Links',
       field: null,
-      oldValue: formatLinks(previous.quay.externalLinks, t),
-      newValue: formatLinks(current.quay.externalLinks, t),
+      oldValue: formatLinks(t, previous.quay.externalLinks),
+      newValue: formatLinks(t, current.quay.externalLinks),
       mapper: (links) =>
         typeof links === 'string' ? (
           links

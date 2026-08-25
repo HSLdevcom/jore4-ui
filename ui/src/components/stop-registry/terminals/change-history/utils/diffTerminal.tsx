@@ -303,8 +303,8 @@ export function diffTerminalExternalLinks(
     diffKeyedValues({
       key: 'Links',
       field: null,
-      oldValue: formatLinks(previous.externalLinks, t),
-      newValue: formatLinks(current.externalLinks, t),
+      oldValue: formatLinks(t, previous.externalLinks),
+      newValue: formatLinks(t, current.externalLinks),
       mapper: (links) =>
         typeof links === 'string' ? (
           links
