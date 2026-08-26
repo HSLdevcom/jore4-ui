@@ -3,7 +3,7 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { Coords } from '../../../types';
 import { useCallbackOnKeyEscape } from '../../../utils';
-import { StopAreaMarker } from '../markers';
+import { StopAreaMarker } from './StopAreaMarker';
 
 type CreateStopAreaMarkerProps = {
   readonly onCancel: () => void;

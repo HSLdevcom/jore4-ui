@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
 import { EnrichedStopPlace } from '../../../types';
 import { getGeometryPoint } from '../../../utils';
-import { StopAreaMarker } from '../markers';
 import { mapTransportModeToColor } from '../Utils/colors';
+import { StopAreaMarker } from './StopAreaMarker';
 
 const testIds = {
   placeholder: 'Map::MapStopArea::placeholder',

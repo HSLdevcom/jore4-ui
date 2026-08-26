@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
 import { EnrichedParentStopPlace } from '../../../types';
 import { getGeometryPoint } from '../../../utils';
-import { TerminalMarker } from '../markers';
+import { TerminalMarker } from './TerminalMarker';
 
 const testIds = {
   placeholder: 'Map::MapTerminal::placeholder',

@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { Coords } from '../../../types';
 import { useCallbackOnKeyEscape } from '../../../utils';
-import { TerminalMarker } from '../markers';
+import { TerminalMarker } from './TerminalMarker';
 
 type CreateTerminalMarkerProps = {
   readonly onCancel: () => void;

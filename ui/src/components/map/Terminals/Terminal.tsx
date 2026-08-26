@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
 import { MapEntityEditorViewState } from '../../../redux';
 import { getGeometryPoint } from '../../../utils';
-import { TerminalMarker } from '../markers';
 import { MapTerminal } from '../Types';
+import { TerminalMarker } from './TerminalMarker';
 
 const testIds = {
   terminal: ({ private_code_value: id }: MapTerminal) =>

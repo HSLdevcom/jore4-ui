@@ -4,8 +4,8 @@ import { Marker } from 'react-map-gl/maplibre';
 import { StopRegistryTransportModeType } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { MapEntityEditorViewState } from '../../../redux';
-import { StopMarker } from '../markers';
 import { MapStop } from '../Types';
+import { StopMarker } from './StopMarker';
 
 const { colors } = theme;
 
