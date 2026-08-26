@@ -14,7 +14,6 @@ import {
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { DrawControl } from '../DrawControl';
-import { removeRoute } from '../Utils/mapUtils';
 import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
 import {
   LineStringFeature,
@@ -27,6 +26,7 @@ import {
   NEW_ROUTE_ARROWS_ID,
   NEW_ROUTE_LINE_ID,
   SNAPPING_LINE_LAYER_ID,
+  removeRoute,
 } from './utils';
 
 function setCursor(map: MapRef | undefined, drawingMode: Mode | undefined) {

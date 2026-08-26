@@ -9,8 +9,7 @@ import {
   useAppSelector,
 } from '../../../../redux';
 import { log } from '../../../../utils';
-import { addRoute } from '../../Utils/mapUtils';
-import { SNAPPING_LINE_LAYER_ID } from '../utils';
+import { SNAPPING_LINE_LAYER_ID, addRoute } from '../utils';
 import {
   LineStringFeature,
   extractJourneyPatternCandidateStops,

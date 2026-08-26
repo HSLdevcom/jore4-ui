@@ -59,7 +59,6 @@ import {
   hasBlockers,
 } from '../../LinesAndRoutes/Common/SaveBlockers';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
-import { removeRoute } from '../Utils/mapUtils';
 import {
   CreateChanges,
   EditChanges,
@@ -68,7 +67,7 @@ import {
   useDeleteRoute,
   useEditRouteGeometry,
 } from './hooks';
-import { SNAPPING_LINE_LAYER_ID } from './utils';
+import { SNAPPING_LINE_LAYER_ID, removeRoute } from './utils';
 
 // default handler that can be used to show error messages as toast
 // in case an exception is thrown

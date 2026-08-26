@@ -5,8 +5,7 @@ import {
   resetDraftRouteGeometryAction,
   useAppDispatch,
 } from '../../../../redux';
-import { removeRoute } from '../../Utils/mapUtils';
-import { SNAPPING_LINE_LAYER_ID } from '../utils';
+import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../utils';
 import { LineStringFeature } from './useExtractRouteFromFeature';
 import { useRouteGeometryUpdater } from './useRouteGeometryUpdater';
 
