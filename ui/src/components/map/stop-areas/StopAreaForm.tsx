@@ -113,6 +113,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
                 testId={testIds.privateCode}
                 className="w-2/5"
                 disabled
+                required
               />
               <InputField<StopAreaFormState>
                 type="text"
@@ -120,6 +121,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
                 fieldPath="name"
                 testId={testIds.name}
                 className="w-full"
+                required
               />
             </div>
 
@@ -145,6 +147,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
                 fieldPath="latitude"
                 testId={testIds.latitude}
                 step="any"
+                required
               />
               <InputField<StopAreaFormState>
                 type="number"
@@ -152,6 +155,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
                 fieldPath="longitude"
                 testId={testIds.longitude}
                 step="any"
+                required
               />
             </FormRow>
             <FormRow className="border-t border-light-grey p-4">

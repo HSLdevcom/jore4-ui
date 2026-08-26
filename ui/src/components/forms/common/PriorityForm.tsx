@@ -73,7 +73,10 @@ export const PriorityForm: FC<PriorityFormProps> = ({
   return (
     <Column>
       <fieldset>
-        <legend className="font-bold">{t(($) => $.priority.label)}</legend>
+        <legend className="font-bold">
+          {t(($) => $.priority.label)}
+          <span className="ml-1 text-dark-grey">*</span>
+        </legend>
         <Row className="flex-wrap gap-2">
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (

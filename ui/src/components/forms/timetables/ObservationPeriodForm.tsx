@@ -139,6 +139,7 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 fieldPath="startDate"
                 testId={testIds.startDate}
                 disabled={formDisabled}
+                required
               />
               <InputField<ObservationPeriodSchema>
                 type="date"
@@ -146,6 +147,7 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 fieldPath="endDate"
                 testId={testIds.endDate}
                 disabled={formDisabled}
+                required
               />
               <div className="flex self-end pb-2">
                 <SimpleButton

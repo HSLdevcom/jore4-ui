@@ -39,6 +39,7 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
             translationPrefix="validityPeriod"
             fieldPath="validityStart"
             testId={testIds.startDateInput}
+            required
           />
           <InputField<ValidityPeriodFormState>
             className={indefinite ? 'hidden' : ''}
@@ -47,6 +48,7 @@ export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
             translationPrefix="validityPeriod"
             fieldPath="validityEnd"
             testId={testIds.endDateInput}
+            required={!indefinite}
           />
         </FormRow>
       </FormColumn>

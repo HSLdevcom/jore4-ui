@@ -132,6 +132,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 fieldPath="finnishName"
                 testId={testIds.finnishName}
                 className="sm:col-span-3"
+                required
               />
               <InputField<FormState>
                 type="text"
@@ -139,6 +140,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 fieldPath="label"
                 testId={testIds.label}
                 className="col-span-1"
+                required
               />
               <InputField<FormState>
                 type="number"
@@ -160,6 +162,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                   />
                 )}
                 className="col-span-2"
+                required
               />
               <InputField<FormState>
                 translationPrefix="routes"
@@ -173,6 +176,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                   />
                 )}
                 className="sm:col-span-3"
+                required
               />
             </FormRow>
           </FormColumn>
