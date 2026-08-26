@@ -5,7 +5,7 @@ import {
   setStopFilterAction,
   useAppDispatch,
   useAppSelector,
-} from '../../redux';
+} from '../../../redux';
 import { FilterPanel } from './FilterPanel';
 
 type MapFilterPanelProps = {

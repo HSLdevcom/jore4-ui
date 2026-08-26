@@ -27,8 +27,8 @@ import {
   useAppSelector,
 } from '../../redux';
 import { CustomOverlay } from './CustomOverlay';
-import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';
-import { MapFilterPanel } from './MapFilterPanel';
+import { ItemTypeFiltersOverlay } from './Filters/ItemTypeFiltersOverlay';
+import { MapFilterPanel } from './Filters/MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { useGetMapData } from './Queries';
