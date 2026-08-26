@@ -145,6 +145,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
                 translationPrefix="stopAreaDetails.basicDetails"
                 fieldPath="name"
                 testId={testIds.name}
+                required
               />
             </Column>
             <Column>

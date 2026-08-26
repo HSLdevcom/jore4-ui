@@ -9,6 +9,7 @@ type InputLabelProps<FormState extends FieldValues> = {
   readonly fieldPath: Path<FormState>;
   readonly translationPrefix: TranslationKey;
   readonly customTitlePath?: TranslationKey;
+  readonly required?: boolean;
 };
 
 const InputLabelImpl = <FormState extends FieldValues>(
@@ -17,6 +18,7 @@ const InputLabelImpl = <FormState extends FieldValues>(
     fieldPath,
     translationPrefix,
     customTitlePath,
+    required,
   }: InputLabelProps<FormState>,
   ref: ForwardedRef<HTMLLabelElement>,
 ): ReactElement => {
@@ -35,7 +37,14 @@ const InputLabelImpl = <FormState extends FieldValues>(
       ref={ref}
     >
       {customTitlePath ? (
-        translateStringKey(customTitlePath)
+        <>
+          {translateStringKey(customTitlePath)}
+          {hasError ? (
+            <span className="ml-1 text-hsl-red">*</span>
+          ) : (
+            required && <span className="ml-1 text-dark-grey">*</span>
+          )}
+        </>
       ) : (
         <>
           {translateStringKey(
@@ -44,7 +53,11 @@ const InputLabelImpl = <FormState extends FieldValues>(
               created with React Hook Form useFieldArray */
             `${translationPrefix}.${fieldPath.replace(/\.\d+/, '')}`,
           )}
-          {hasError && <span className="ml-1 text-hsl-red">*</span>}
+          {hasError ? (
+            <span className="ml-1 text-hsl-red">*</span>
+          ) : (
+            required && <span className="ml-1 text-dark-grey">*</span>
+          )}
         </>
       )}
     </label>

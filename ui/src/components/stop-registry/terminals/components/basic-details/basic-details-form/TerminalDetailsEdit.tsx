@@ -181,6 +181,7 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
                 translationPrefix="terminalDetails.basicDetails"
                 fieldPath="name"
                 testId={testIds.name}
+                required
               />
             </Column>
             <Column>

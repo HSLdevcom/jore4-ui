@@ -43,24 +43,28 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
             translationPrefix="routes"
             fieldPath="origin.name.fi_FI"
             testId={testIds.originFinnishNameInput}
+            required
           />
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.shortName.fi_FI"
             testId={testIds.originFinnishShortNameInput}
+            required
           />
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.name.sv_FI"
             testId={testIds.originSwedishNameInput}
+            required
           />
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="origin.shortName.sv_FI"
             testId={testIds.originSwedishShortNameInput}
+            required
           />
         </FormRow>
       </FormColumn>
@@ -77,24 +81,28 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
             translationPrefix="routes"
             fieldPath="destination.name.fi_FI"
             testId={testIds.destinationFinnishNameInput}
+            required
           />
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.shortName.fi_FI"
             testId={testIds.destinationFinnishShortNameInput}
+            required
           />
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.name.sv_FI"
             testId={testIds.destinationSwedishNameInput}
+            required
           />
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
             fieldPath="destination.shortName.sv_FI"
             testId={testIds.destinationSwedishShortNameInput}
+            required
           />
         </FormRow>
       </FormColumn>
