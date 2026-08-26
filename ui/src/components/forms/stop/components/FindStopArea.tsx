@@ -32,7 +32,10 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
   disabled,
 }) => {
   const { t } = useTranslation();
-  const { watch } = useFormContext<StopFormState>();
+  const {
+    watch,
+    formState: { errors },
+  } = useFormContext<StopFormState>();
   const vehicleMode = watch('vehicleMode');
 
   const [query, setQuery] = useState('');
@@ -48,6 +51,8 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
   const {
     field: { onChange: onSelect, value: selected, ref },
   } = useController<StopFormState, 'stopArea'>({ name: 'stopArea' });
+
+  const hasError = !!errors.stopArea;
 
   const onQueryChange = useMemo(() => {
     const debounced = debounce(setQuery, 500);
@@ -92,7 +97,14 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
       onChange={onSelect}
       disabled={disabled}
     >
-      <Label>{t(($) => $.stops.stopArea.label)}</Label>
+      <Label>
+        {t(($) => $.stops.stopArea.label)}
+        {hasError ? (
+          <span className="ml-1 text-hsl-red">*</span>
+        ) : (
+          <span className="ml-1 text-dark-grey">*</span>
+        )}
+      </Label>
       <div className="flex h-(--input-height)">
         <ComboboxInput<StopModalStopAreaFormSchema>
           ref={ref}

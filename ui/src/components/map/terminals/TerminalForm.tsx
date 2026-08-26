@@ -85,6 +85,7 @@ const TerminalFormComponent: ForwardRefRenderFunction<
                 fieldPath="name"
                 testId={testIds.name}
                 className="w-full"
+                required
               />
             </div>
 

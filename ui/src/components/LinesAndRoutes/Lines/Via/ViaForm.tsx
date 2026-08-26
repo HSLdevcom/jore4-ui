@@ -88,6 +88,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             translationPrefix="viaModal"
             fieldPath="viaPointName.fi_FI"
             testId={testIds.finnishName}
+            required
           />
         </Row>
         <Row className="mb-5 gap-10">
@@ -97,6 +98,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             translationPrefix="viaModal"
             fieldPath="viaPointName.sv_FI"
             testId={testIds.swedishName}
+            required
           />
         </Row>
         <Row className="mb-5 gap-10">
@@ -106,6 +108,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             translationPrefix="viaModal"
             fieldPath="viaPointShortName.fi_FI"
             testId={testIds.finnishShortName}
+            required
           />
         </Row>
         <Row className="mb-5 gap-10">
@@ -115,6 +118,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             translationPrefix="viaModal"
             fieldPath="viaPointShortName.sv_FI"
             testId={testIds.swedishShortName}
+            required
           />
         </Row>
         <Row className="gap-4">

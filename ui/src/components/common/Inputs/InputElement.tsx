@@ -32,6 +32,7 @@ type BaseProps<FormState extends FieldValues> = {
   readonly id: string;
   readonly testId: string;
   readonly fieldPath: Path<FormState>;
+  readonly required?: boolean;
 };
 
 type InputElementProps<FormState extends FieldValues> =
@@ -45,6 +46,7 @@ const RawInputElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   type,
+  required,
   ...elementProps
 }: InputElementProps<FormState>): ReactElement => {
   const {
@@ -64,6 +66,7 @@ const RawInputElement = <FormState extends FieldValues>({
         {...register(fieldPath)}
         className={actualClassNames}
         data-testid={testId}
+        aria-required={required}
       />
     );
   }
@@ -77,6 +80,7 @@ const RawInputElement = <FormState extends FieldValues>({
       className={actualClassNames}
       data-testid={testId}
       type={type}
+      aria-required={required}
     />
   );
 };
@@ -85,6 +89,7 @@ const DateInputElement = <FormState extends FieldValues>({
   className,
   fieldPath,
   testId,
+  required,
   ...elementProps
 }: InputElementProps<FormState>): ReactElement => {
   const {
@@ -102,6 +107,7 @@ const DateInputElement = <FormState extends FieldValues>({
       {...field}
       className={twMerge(className, error ? inputErrorStyles : '')}
       data-testid={testId}
+      aria-required={required}
     />
   );
 };

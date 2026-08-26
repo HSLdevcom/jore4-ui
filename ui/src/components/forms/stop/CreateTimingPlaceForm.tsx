@@ -116,6 +116,7 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
             translationPrefix="timingPlaces"
             fieldPath="label"
             testId={testIds.label}
+            required
           />
         </FormRow>
         <FormRow>

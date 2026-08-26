@@ -36,6 +36,7 @@ export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
           inputClassName="w-full"
           testId={testIds.name}
           disabled={toBeDeleted}
+          required
         />
         <SimpleButton
           shape="round"
@@ -65,6 +66,7 @@ export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
           inputClassName="w-full"
           testId={testIds.location}
           disabled={toBeDeleted}
+          required
         />
       </Row>
       <input

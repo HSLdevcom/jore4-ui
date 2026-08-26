@@ -56,6 +56,7 @@ export const PublicCode: FC<PublicCodeProps> = ({ className, disabled }) => {
           loading ? t(($) => $.stops.loadingUsedPublicCodes) : undefined
         }
         disabled={disabled || loading}
+        required
       />
       <datalist id={datalistId}>
         {candidates.map((publicCode) => (

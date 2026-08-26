@@ -38,6 +38,7 @@ export const Location: FC<LocationProps> = ({ className }) => {
           fieldPath="latitude"
           testId={testIds.latitude}
           step="any"
+          required
         />
         <InputField<StopFormState>
           type="number"
@@ -45,6 +46,7 @@ export const Location: FC<LocationProps> = ({ className }) => {
           fieldPath="longitude"
           testId={testIds.longitude}
           step="any"
+          required
         />
       </FormRow>
 

@@ -22,6 +22,7 @@ type CommonInputProps<FormState extends FieldValues> = {
   readonly translationPrefix: TranslationKey;
   readonly customTitlePath?: TranslationKey;
   readonly testId: string;
+  readonly required?: boolean;
 };
 
 type ControlledInputProps = {
@@ -54,6 +55,7 @@ export const InputField = <FormState extends FieldValues>({
   testId,
   type,
   inputElementRenderer,
+  required,
   ...inputHTMLAttributes
 }: InputFieldProps<FormState>): ReactElement => {
   if ((!inputElementRenderer && !type) || (inputElementRenderer && type)) {
@@ -73,6 +75,7 @@ export const InputField = <FormState extends FieldValues>({
         fieldPath={fieldPath}
         translationPrefix={translationPrefix}
         customTitlePath={customTitlePath}
+        required={required}
       />
       {isControlledElement ? (
         <ControlledElement
@@ -80,6 +83,7 @@ export const InputField = <FormState extends FieldValues>({
           fieldPath={fieldPath}
           id={id}
           testId={testId}
+          required={required}
         />
       ) : (
         <InputElement<FormState>
@@ -92,6 +96,7 @@ export const InputField = <FormState extends FieldValues>({
           id={id}
           testId={testId}
           className={inputClassName}
+          required={required}
         />
       )}
       <ValidationErrorList fieldPath={fieldPath} />
