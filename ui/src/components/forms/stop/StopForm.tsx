@@ -37,12 +37,12 @@ import {
   CreateChanges,
   CreateStopPointInput,
   usePrepareCreate,
-} from '../../map/stops/hooks/useCreateStop';
+} from '../../map/Stops/hooks/useCreateStop';
 import {
   EditChanges,
   useDefaultErrorHandler,
   usePrepareEdit,
-} from '../../map/stops/hooks/useEditStop';
+} from '../../map/Stops/hooks/useEditStop';
 import { FormActionButtons } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { Location, PublicCodeAndArea, VersionInfo } from './components';

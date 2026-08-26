@@ -28,9 +28,9 @@ import {
 } from '../../redux';
 import { LoadingState } from '../../types';
 import { log, showWarningToast } from '../../utils';
-import { isViewportLoaded } from './utils/isViewportLoaded';
-import { useMapUrlStateContext } from './utils/mapUrlState';
-import { getInteractiveLayerIds } from './utils/mapUtils';
+import { isViewportLoaded } from './Utils/isViewportLoaded';
+import { useMapUrlStateContext } from './Utils/mapUrlState';
+import { getInteractiveLayerIds } from './Utils/mapUtils';
 
 type ImageAsset = { name: string; fileUrl: string; sdf: boolean };
 

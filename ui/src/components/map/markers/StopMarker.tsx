@@ -1,6 +1,6 @@
 import { FC, MouseEventHandler, useEffect, useState } from 'react';
 import { StopRegistryTransportModeType } from '../../../generated/graphql';
-import { MapStop } from '../types';
+import { MapStop } from '../Types';
 
 const testIds = {
   icon: 'Map::Stops::stopMarker::Icon',

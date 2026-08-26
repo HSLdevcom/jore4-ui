@@ -14,7 +14,7 @@ import {
 } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../common/Buttons';
-import { useMapObservationDate } from '../utils/mapUrlState';
+import { useMapObservationDate } from '../Utils/mapUrlState';
 import { SelectedStop } from './SelectedStop';
 import { useSelectedStopsInfo } from './useSelectedStopsInfo';
 

@@ -17,11 +17,11 @@ import { ConfirmationDialog } from '../../../common/Modals';
 import { RouteDraftStopsConfirmationDialog } from '../../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { useDeleteRoute } from '../../../map/routes/hooks/useDeleteRoute';
+import { useDeleteRoute } from '../../../map/Routes/hooks/useDeleteRoute';
 import {
   mapRouteToFormState,
   useEditRouteMetadata,
-} from '../../../map/routes/hooks/useEditRouteMetadata';
+} from '../../../map/Routes/hooks/useEditRouteMetadata';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,

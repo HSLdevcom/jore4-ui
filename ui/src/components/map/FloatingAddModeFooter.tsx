@@ -8,7 +8,7 @@ import {
   useAppDispatch,
 } from '../../redux';
 import { FloatingFooter } from './FloatingFooter';
-import { useMapViewState } from './utils/useMapViewState';
+import { useMapViewState } from './Utils/useMapViewState';
 
 type FloatingAddModeFooterProps = {
   readonly isInDrawingMode: boolean;

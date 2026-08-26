@@ -19,8 +19,8 @@ import {
 } from '../../../redux';
 import { ResultSelection, StopSearchFilters } from '../../stop-registry';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
-import { DisplayedRouteParams } from '../types';
-import { useMapUrlStateContext } from '../utils/mapUrlState';
+import { DisplayedRouteParams } from '../Types';
+import { useMapUrlStateContext } from '../Utils/mapUrlState';
 
 const GQL_STOP_SELECTION_INFO_FRAGMENT = gql`
   fragment StopSelectionInfo on stops_database_quay_newest_version {

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { selectHasChangesInProgress, useAppSelector } from '../../redux';
 import { ObservationDateInput } from '../common/Inputs';
-import { useMapUrlStateContext } from './utils/mapUrlState';
+import { useMapUrlStateContext } from './Utils/mapUrlState';
 
 const testIds = {
   observationDateInput: 'MapObservationDateControl::dateInput',

@@ -6,7 +6,7 @@ import {
   GetLineDetailsWithRoutesByIdQueryVariables,
   RouteLineSetInput,
 } from '../../../../generated/graphql';
-import { assertRouteValidityIsInsideLineValidity } from '../../../map/routes/hooks/useValidateRoute';
+import { assertRouteValidityIsInsideLineValidity } from '../../../map/Routes/hooks/useValidateRoute';
 
 const GQL_GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
   query GetLineDetailsWithRoutesById($line_id: uuid!) {

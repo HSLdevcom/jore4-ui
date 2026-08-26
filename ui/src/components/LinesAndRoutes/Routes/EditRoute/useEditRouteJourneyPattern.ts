@@ -14,8 +14,8 @@ import {
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
 } from '../../../../utils';
-import { extractJourneyPatternCandidateStops } from '../../../map/routes/hooks/useExtractRouteFromFeature';
-import { useValidateStopCount } from '../../../map/routes/hooks/useValidateRoute';
+import { extractJourneyPatternCandidateStops } from '../../../map/Routes/hooks/useExtractRouteFromFeature';
+import { useValidateStopCount } from '../../../map/Routes/hooks/useValidateRoute';
 import {
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,

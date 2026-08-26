@@ -31,19 +31,19 @@ import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';
 import { MapFilterPanel } from './MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
-import { useGetMapData } from './queries';
+import { useGetMapData } from './Queries';
 import {
   RouteEditorRef,
   StopAreasRef,
   StopsRef,
   TerminalsRef,
 } from './refTypes';
-import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './routes';
-import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
-import { FunctionalAreaVisualization, StopAreas } from './stop-areas';
-import { MemberStopLines, Stops } from './stops';
-import { Terminals } from './terminals';
-import { useMapUrlStateContext } from './utils/mapUrlState';
+import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './Routes';
+import { RouteStopsOverlay } from './Routes/RouteStopsOverlay';
+import { FunctionalAreaVisualization, StopAreas } from './StopAreas';
+import { MemberStopLines, Stops } from './Stops';
+import { Terminals } from './Terminals';
+import { useMapUrlStateContext } from './Utils/mapUrlState';
 
 type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;

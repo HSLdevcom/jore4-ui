@@ -14,7 +14,7 @@ import { Row } from '../common/LayoutComponents';
 import { IconToggle } from './IconToggle';
 import { MapObservationDateControl } from './MapObservationDateControl';
 import { StopSelection } from './StopSelection';
-import { useIsInSearchResultMode } from './utils/useIsInSearchResultMode';
+import { useIsInSearchResultMode } from './Utils/useIsInSearchResultMode';
 
 const testIds = {
   toggleFiltersButton: 'ObservationDateOverlay::toggleFiltersButton',

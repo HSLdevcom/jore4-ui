@@ -26,7 +26,7 @@ import {
   patchKeyValues,
   showDangerToast,
 } from '../../../../../utils';
-import { useValidateTimingSettings } from '../../../../map/stops/hooks/useValidateTimingSettings';
+import { useValidateTimingSettings } from '../../../../map/Stops/hooks/useValidateTimingSettings';
 import { decodeQuayPrivateCodeType } from '../../../utils/decodeQuayPrivateCodeType';
 import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';

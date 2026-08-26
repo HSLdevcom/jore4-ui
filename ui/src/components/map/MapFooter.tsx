@@ -10,8 +10,8 @@ import {
 import { FloatingAddModeFooter } from './FloatingAddModeFooter';
 import { FloatingStopResultsFooter } from './FloatingStopResultsFooter';
 import { MapFooterFullBar } from './MapFooterFullBar';
-import { useIsInSearchResultMode } from './utils/useIsInSearchResultMode';
-import { useMapViewState } from './utils/useMapViewState';
+import { useIsInSearchResultMode } from './Utils/useIsInSearchResultMode';
+import { useMapViewState } from './Utils/useMapViewState';
 
 function useActiveModes() {
   const isInSearchResultMode = useIsInSearchResultMode();

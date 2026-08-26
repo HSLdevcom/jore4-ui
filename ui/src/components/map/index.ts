@@ -1,4 +1,4 @@
 export * from './MapPage';
-export { isViewportLoaded } from './utils/isViewportLoaded';
-export { useMapDataLayerSimpleQueryLoader } from './utils/useMapDataLayerLoader';
-export { useMapDataLayerLoader } from './utils/useMapDataLayerLoader';
+export { isViewportLoaded } from './Utils/isViewportLoaded';
+export { useMapDataLayerSimpleQueryLoader } from './Utils/useMapDataLayerLoader';
+export { useMapDataLayerLoader } from './Utils/useMapDataLayerLoader';

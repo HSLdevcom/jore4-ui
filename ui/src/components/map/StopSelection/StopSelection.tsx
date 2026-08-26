@@ -11,7 +11,7 @@ import {
 } from '../../../redux';
 import { IconButton } from '../../common/Buttons';
 import { hasMeaningfulFilters } from '../../stop-registry';
-import { useMapUrlStateContext } from '../utils/mapUrlState';
+import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { StopSelectionPanel } from './StopSelectionPanel';
 
 const testIds = { button: 'Map::StopSelection::openButton' };

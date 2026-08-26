@@ -14,8 +14,8 @@ import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
 import { MapLoader } from './MapLoader';
 import { RouteEditorRef } from './refTypes';
-import { ProvideMapUrlStateContext } from './utils/mapUrlState';
-import { useMapViewState } from './utils/useMapViewState';
+import { ProvideMapUrlStateContext } from './Utils/mapUrlState';
+import { useMapViewState } from './Utils/useMapViewState';
 
 const testIds = { mapPage: 'mapPage' };
 

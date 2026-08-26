@@ -8,8 +8,8 @@ import {
   useRef,
 } from 'react';
 import { ControlPosition, IControl, useControl } from 'react-map-gl/maplibre';
-import { styles } from './routes/editorStyles';
-import { joreDrawModes } from './utils/drawModeUtils';
+import { styles } from './Routes/editorStyles';
+import { joreDrawModes } from './Utils/drawModeUtils';
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
   readonly position?: ControlPosition;

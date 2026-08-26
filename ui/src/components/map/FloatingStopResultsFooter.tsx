@@ -11,7 +11,7 @@ import {
   defaultResultSelection,
 } from '../stop-registry/search/types';
 import { FloatingFooter } from './FloatingFooter';
-import { useMapUrlStateContext } from './utils/mapUrlState';
+import { useMapUrlStateContext } from './Utils/mapUrlState';
 
 const GQL_GET_STOP_RESULT_COUNT = gql`
   query GetStopResultsCount(

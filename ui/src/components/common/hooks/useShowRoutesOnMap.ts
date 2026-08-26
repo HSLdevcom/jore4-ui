@@ -18,7 +18,7 @@ import {
   DisplayedRouteParams,
   OpenMapViewPortParams,
   defaultDisplayedRouteParams,
-} from '../../map/types';
+} from '../../map/Types';
 import { useNavigateToMap } from './useNavigateToMap';
 
 const GQL_ROUTE_MAP_PARAMS = gql`

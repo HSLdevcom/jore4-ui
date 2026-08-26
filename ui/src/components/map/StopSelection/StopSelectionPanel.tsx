@@ -9,7 +9,7 @@ import {
   InfoSpotReportReportMenuItem,
 } from '../../stop-registry/search/components/ResultsActionMenuItems';
 import { ResultSelection } from '../../stop-registry/search/types';
-import { useMapUrlStateContext } from '../utils/mapUrlState';
+import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { StopSelectionListing } from './StopSelectionListing';
 
 const testIds = {

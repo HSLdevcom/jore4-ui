@@ -1,0 +1,256 @@
+import type { PointLike } from 'maplibre-gl';
+import { FC } from 'react';
+import { Marker } from 'react-map-gl/maplibre';
+import { StopRegistryTransportModeType } from '../../../generated/graphql';
+import { theme } from '../../../generated/theme';
+import { MapEntityEditorViewState } from '../../../redux';
+import { StopMarker } from '../markers';
+import { MapStop } from '../Types';
+
+const { colors } = theme;
+
+// Offset from the markers left edge, to the center of the circle icon.
+// Needed to align the stop correctly, when the stop label is or isn't shown.
+const offset: PointLike = [-13, 0];
+
+function determineTransportModeColor(
+  mode: StopRegistryTransportModeType,
+  isTrunkLineStop: boolean,
+  isSpeedTramStop: boolean,
+) {
+  if (mode === StopRegistryTransportModeType.Bus) {
+    return isTrunkLineStop ? colors.hslTrunkLineOrange : colors.tweakedBrand;
+  }
+
+  if (mode === StopRegistryTransportModeType.Tram) {
+    return isSpeedTramStop
+      ? colors.hslSpeedTramTurquoise
+      : colors.hslTramDarkGreen;
+  }
+
+  if (mode === StopRegistryTransportModeType.Metro) {
+    return colors.hslMetroOrange;
+  }
+
+  if (mode === StopRegistryTransportModeType.Water) {
+    return colors.hslFerryBlue;
+  }
+
+  if (mode === StopRegistryTransportModeType.Rail) {
+    return colors.hslFerryBlue;
+  }
+
+  throw new Error(
+    `No color specified for StopRegistryTransportModeType(${mode})!`,
+  );
+}
+
+/** Stop map markers border color is determined in this function. There are
+ * different aspects which are affecting this determination. These are
+ * * isPlaceholder: when moving a stop we have a placeholder for the stop's
+ * original location.
+ * * isSelected: if the stop is selected.
+ * * isHighlighted: if the stop is highlighted because it belongs to a currently selected route.
+ * * stopVehicleMode: If neither of the above applies and vehicleMode is given,
+ * we use the vehicleMode color defined in colors theme.
+ * * If none of the above apply, we use 'hsl-dark-80' as the border color
+ */
+function determineBorderColor(
+  isHighlighted: boolean,
+  asMemberStop: boolean,
+  isSelected: boolean,
+  isPlaceholder: boolean,
+  activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
+  isTrunkLineStop: boolean,
+  isSpeedTramStop: boolean,
+  inSelection: boolean,
+) {
+  if (inSelection) {
+    return colors.tweakedBrand;
+  }
+
+  if (isPlaceholder) {
+    return colors.grey;
+  }
+
+  if (isSelected) {
+    return colors.hslDark80;
+  }
+
+  if (inSelection || asMemberStop) {
+    return colors.tweakedBrand;
+  }
+
+  if (isHighlighted) {
+    return colors.selectedMapItem;
+  }
+
+  const primaryMode = activeTransportModes.at(0);
+  if (primaryMode) {
+    return determineTransportModeColor(
+      primaryMode,
+      isTrunkLineStop,
+      isSpeedTramStop,
+    );
+  }
+
+  return colors.hslDark80;
+}
+
+function determineFillColor(
+  asMemberStop: boolean,
+  isSelected: boolean,
+  inSelection: boolean,
+  shouldBeGray: boolean,
+  activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
+) {
+  if (isSelected || asMemberStop || inSelection) {
+    return 'white';
+  }
+
+  if (shouldBeGray || activeTransportModes.length === 0) {
+    return colors.lightGrey;
+  }
+
+  return 'white';
+}
+
+function determineSecondaryFillColor(
+  asMemberStop: boolean,
+  isSelected: boolean,
+  inSelection: boolean,
+  activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
+  isTrunkLineStop: boolean,
+  isSpeedTramStop: boolean,
+) {
+  if (isSelected || asMemberStop || inSelection) {
+    return null;
+  }
+
+  if (activeTransportModes.length >= 2) {
+    const secondaryMode = activeTransportModes[1];
+    return determineTransportModeColor(
+      secondaryMode,
+      isTrunkLineStop,
+      isSpeedTramStop,
+    );
+  }
+
+  return null;
+}
+
+type BaseStopProps = {
+  readonly longitude: number;
+  readonly latitude: number;
+  readonly inSelection?: boolean;
+  readonly isHighlighted?: boolean;
+  readonly asMemberStop?: boolean;
+  readonly mapStopViewState: MapEntityEditorViewState;
+  readonly selected?: boolean;
+  readonly testId?: string;
+  readonly activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>;
+  readonly isTrunkLineStop?: boolean;
+  readonly isSpeedTramStop?: boolean;
+  readonly shouldBeGray?: boolean;
+  readonly showLabel?: boolean;
+};
+
+type ExistingStopSpecialProps = {
+  readonly onClick: (stop: MapStop) => void;
+  readonly onResolveTitle: (stop: MapStop) => Promise<string | null>;
+  readonly stop: MapStop;
+};
+
+type ExistingStopSpecialPropsNever = {
+  readonly [key in keyof ExistingStopSpecialProps]?: never;
+};
+
+type ExistingStopProps = BaseStopProps & ExistingStopSpecialProps;
+
+type PlaceholderStopProps = BaseStopProps & ExistingStopSpecialPropsNever;
+
+type StopProps = PlaceholderStopProps | ExistingStopProps;
+
+export const Stop: FC<StopProps> = ({
+  isHighlighted = false,
+  inSelection = false,
+  asMemberStop = false,
+  latitude,
+  longitude,
+  mapStopViewState,
+  selected = false,
+  testId,
+  activeTransportModes,
+  isTrunkLineStop = false,
+  isSpeedTramStop = false,
+  shouldBeGray = false,
+  onClick,
+  onResolveTitle,
+  stop,
+  showLabel = false,
+}) => {
+  // If the stop is being moved, we use different styles for the stop
+  // to indicate the placeholder of the old location
+  const isPlaceholder =
+    selected && mapStopViewState === MapEntityEditorViewState.MOVE;
+  const iconBorderColor = determineBorderColor(
+    isHighlighted,
+    asMemberStop,
+    selected,
+    isPlaceholder,
+    activeTransportModes,
+    isTrunkLineStop,
+    isSpeedTramStop,
+    inSelection,
+  );
+
+  const iconFillColor = determineFillColor(
+    asMemberStop,
+    selected,
+    inSelection,
+    shouldBeGray,
+    activeTransportModes,
+  );
+
+  const secondaryFillColor = determineSecondaryFillColor(
+    asMemberStop,
+    selected,
+    inSelection,
+    activeTransportModes,
+    isTrunkLineStop,
+    isSpeedTramStop,
+  );
+
+  return (
+    <Marker
+      anchor="left"
+      offset={offset}
+      longitude={longitude}
+      latitude={latitude}
+      className="z-2"
+    >
+      <StopMarker
+        testId={testId}
+        borderColor={iconBorderColor}
+        fillColor={iconFillColor}
+        secondaryFillColor={secondaryFillColor}
+        borderWidth={3}
+        strokeDashArray={isPlaceholder ? 2 : 0}
+        centerDot={selected}
+        inSelection={inSelection}
+        showLabel={showLabel}
+        transportModes={activeTransportModes}
+        trunkLine={isTrunkLineStop}
+        speedTram={isSpeedTramStop}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...(stop
+          ? ({
+              onClick,
+              onResolveTitle,
+              stop,
+            } as ExistingStopSpecialProps)
+          : ({} as ExistingStopSpecialPropsNever))}
+      />
+    </Marker>
+  );
+};

@@ -20,7 +20,7 @@ import { Row, Visible } from '../common/LayoutComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { MapFooterAddRouteDropdown } from './MapFooterAddRouteDropdown';
 import { MapFooterAddStopDropdown } from './MapFooterAddStopDropdown';
-import { useMapViewState } from './utils/useMapViewState';
+import { useMapViewState } from './Utils/useMapViewState';
 
 const testIds = {
   mapFooter: 'MapFooter::mapFooter',
