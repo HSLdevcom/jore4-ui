@@ -2,7 +2,7 @@ import some from 'lodash/some';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import {
   MapEntityEditorViewState,
   Mode,
@@ -14,13 +14,13 @@ import {
   setDraftVehicleModeAction,
   useAppAction,
   useAppSelector,
-} from '../../redux';
-import { SimpleButton } from '../common/Buttons';
-import { Row, Visible } from '../common/LayoutComponents';
+} from '../../../redux';
+import { SimpleButton } from '../../common/Buttons';
+import { Row, Visible } from '../../common/LayoutComponents';
+import { useMapViewState } from '../Utils/useMapViewState';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { MapFooterAddRouteDropdown } from './MapFooterAddRouteDropdown';
 import { MapFooterAddStopDropdown } from './MapFooterAddStopDropdown';
-import { useMapViewState } from './Utils/useMapViewState';
 
 const testIds = {
   mapFooter: 'MapFooter::mapFooter',

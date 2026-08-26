@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
-} from '../common/Dropdowns';
+} from '../../common/Dropdowns';
 
 const testIds = {
   menu: 'MapFooterActionsDropdown::menu',

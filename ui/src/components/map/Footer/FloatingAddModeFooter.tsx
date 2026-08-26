@@ -6,9 +6,9 @@ import {
   setRouteMetadataFormOpenAction,
   useAppAction,
   useAppDispatch,
-} from '../../redux';
+} from '../../../redux';
+import { useMapViewState } from '../Utils/useMapViewState';
 import { FloatingFooter } from './FloatingFooter';
-import { useMapViewState } from './Utils/useMapViewState';
 
 type FloatingAddModeFooterProps = {
   readonly isInDrawingMode: boolean;

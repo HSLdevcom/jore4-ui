@@ -1,17 +1,17 @@
 import some from 'lodash/some';
 import { FC } from 'react';
-import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import {
   MapEntityEditorViewState,
   Mode,
   selectMapRouteEditor,
   useAppSelector,
-} from '../../redux';
+} from '../../../redux';
+import { useIsInSearchResultMode } from '../Utils/useIsInSearchResultMode';
+import { useMapViewState } from '../Utils/useMapViewState';
 import { FloatingAddModeFooter } from './FloatingAddModeFooter';
 import { FloatingStopResultsFooter } from './FloatingStopResultsFooter';
 import { MapFooterFullBar } from './MapFooterFullBar';
-import { useIsInSearchResultMode } from './Utils/useIsInSearchResultMode';
-import { useMapViewState } from './Utils/useMapViewState';
 
 function useActiveModes() {
   const isInSearchResultMode = useIsInSearchResultMode();

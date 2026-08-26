@@ -9,8 +9,8 @@ import {
 } from '../../redux';
 import { useNavigateBackSafely } from '../../utils';
 import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
+import { MapFooter } from './Footer';
 import { Map } from './Map';
-import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
 import { MapLoader } from './MapLoader';
 import { RouteEditorRef } from './refTypes';

@@ -1,0 +1,1 @@
+export { MapFooter } from './MapFooter';
