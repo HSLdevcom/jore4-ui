@@ -12,6 +12,7 @@ type ControlledElementProps<FormState extends FieldValues> =
     readonly inputElementRenderer: (
       props: InputElementRenderProps,
     ) => ReactElement;
+    readonly required?: boolean;
   };
 
 export const ControlledElement = <FormState extends FieldValues>({
@@ -20,6 +21,7 @@ export const ControlledElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   inputElementRenderer,
+  required,
 }: ControlledElementProps<FormState>): ReactElement => {
   const { control } = useFormContext<FormState>();
 
@@ -36,6 +38,7 @@ export const ControlledElement = <FormState extends FieldValues>({
           id,
           className,
           testId,
+          'aria-required': required,
         })
       }
     />

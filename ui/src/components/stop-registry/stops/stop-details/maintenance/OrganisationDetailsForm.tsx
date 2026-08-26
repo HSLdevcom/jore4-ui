@@ -74,6 +74,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
               translationPrefix="stopDetails.maintenance.organisation"
               fieldPath="name"
               testId={testIds.name}
+              required
             />
           </FormRow>
           <FormRow>
@@ -90,6 +91,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
               translationPrefix="stopDetails.maintenance.organisation"
               fieldPath="privateContactDetails.email"
               testId={testIds.email}
+              required
             />
           </FormRow>
           <Visible visible={!!defaultValues.id}>

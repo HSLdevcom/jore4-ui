@@ -74,6 +74,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             fieldPath="label"
             testId={testIds.label}
             disabled={editing}
+            required
           />
         </FormRow>
         <FormRow mdColumns={3}>
@@ -83,6 +84,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             translationPrefix="lines"
             fieldPath="name.fi_FI"
             testId={testIds.finnishName}
+            required
           />
         </FormRow>
         <Row className="items-center">
@@ -112,6 +114,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 translationPrefix="lines"
                 fieldPath="name.sv_FI"
                 testId={testIds.swedishName}
+                required
               />
             </FormRow>
             <FormRow mdColumns={3}>
@@ -121,6 +124,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 translationPrefix="lines"
                 fieldPath="shortName.fi_FI"
                 testId={testIds.finnishShortName}
+                required
               />
             </FormRow>
             <FormRow mdColumns={3}>
@@ -130,6 +134,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 translationPrefix="lines"
                 fieldPath="shortName.sv_FI"
                 testId={testIds.swedishShortName}
+                required
               />
             </FormRow>
           </FormColumn>
@@ -146,6 +151,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 {...props}
               />
             )}
+            required
           />
           <InputField<FormState>
             translationPrefix="lines"
@@ -158,6 +164,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 {...props}
               />
             )}
+            required
           />
           <InputField<FormState>
             translationPrefix="lines"
@@ -171,6 +178,7 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 vehicleMode={watch('primaryVehicleMode')}
               />
             )}
+            required
           />
         </FormRow>
         <FormRow mdColumns={3}>
