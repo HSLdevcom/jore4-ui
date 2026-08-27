@@ -39,7 +39,6 @@ import {
   TerminalsRef,
 } from './refTypes';
 import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './Routes';
-import { RouteStopsOverlay } from './Routes/RouteStopsOverlay';
 import { FunctionalAreaVisualization, StopAreas } from './StopAreas';
 import { MemberStopLines, Stops } from './Stops';
 import { Terminals } from './Terminals';
@@ -251,8 +250,6 @@ export const MapComponent: ForwardRefRenderFunction<
           <ItemTypeFiltersOverlay className="pointer-events-auto mb-2" />
         </CustomOverlay>
       )}
-
-      <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
 
       <InfraLinksVectorLayer
         enableInfraLinkLayer={

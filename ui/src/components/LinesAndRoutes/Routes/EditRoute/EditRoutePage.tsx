@@ -17,17 +17,14 @@ import { ConfirmationDialog } from '../../../common/Modals';
 import { RouteDraftStopsConfirmationDialog } from '../../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { useDeleteRoute } from '../../../map/Routes/hooks/useDeleteRoute';
-import {
-  mapRouteToFormState,
-  useEditRouteMetadata,
-} from '../../../map/Routes/hooks/useEditRouteMetadata';
+import { mapRouteToFormState, useDeleteRoute } from '../../Common';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
 } from '../../Common/ConflictResolverModal';
 import { RedirectWithQuery } from './RedirectWithQuery';
 import { useEditRouteJourneyPattern } from './useEditRouteJourneyPattern';
+import { useEditRouteMetadata } from './useEditRouteMetadata';
 
 export const EditRoutePage: FC = () => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);

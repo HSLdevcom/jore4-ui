@@ -2,7 +2,6 @@ import {
   GetLineDetailsByIdQuery,
   InfraLinkAlongRouteDefaultFieldsFragment,
   RouteLine,
-  RouteWithJourneyPatternStopsFragment,
   StopWithJourneyPatternFieldsFragment,
 } from '../../../generated/graphql';
 import { RouteInfraLink } from '../../../types';
@@ -35,12 +34,4 @@ export function mapLineDetailsResult(
   data: GetLineDetailsByIdQuery | undefined,
 ) {
   return illegalOptionalCast<RouteLine>(data?.route_line_by_pk);
-}
-
-export function getRouteStopLabels(
-  route: RouteWithJourneyPatternStopsFragment,
-) {
-  return route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.map(
-    (point) => point.scheduled_stop_point_label,
-  );
 }

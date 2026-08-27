@@ -1,5 +1,6 @@
 import { gql, useApolloClient } from '@apollo/client';
 import uniq from 'lodash/uniq';
+import { useTranslation } from 'react-i18next';
 import {
   GetRouteDetailsByIdDocument,
   JourneyPatternStopFragment,
@@ -14,19 +15,16 @@ import {
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
 } from '../../../../utils';
-import { extractJourneyPatternCandidateStops } from '../../../map/Routes/hooks/useExtractRouteFromFeature';
-import { useValidateStopCount } from '../../../map/Routes/hooks/useValidateRoute';
 import {
   StopMetaTypeUpdateInfo,
+  extractJourneyPatternCandidateStops,
   filterNeedUpdateByLineType,
   lineTypeAffectsMetatypes,
-  resolveStopInfoByPublicCodes,
-  useUpdateStopRegistryStopMetatype,
-} from '../../Common/useUpdateStopRegistryStopMetatype';
-import {
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
+  resolveStopInfoByPublicCodes,
   stopBelongsToJourneyPattern,
-} from '../../Common/utils';
+  useUpdateStopRegistryStopMetatype,
+} from '../../Common';
 
 const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
   mutation UpdateRouteJourneyPattern(
@@ -99,8 +97,8 @@ export function addOrRemoveStopLabelsFromIncludedStops(
 }
 
 function usePrepareUpdateJourneyPattern() {
+  const { t } = useTranslation();
   const client = useApolloClient();
-  const validateStopCount = useValidateStopCount();
 
   const getStopsNeedingUpdate = async ({
     route,
@@ -144,7 +142,9 @@ function usePrepareUpdateJourneyPattern() {
       stopBelongsToRoute,
     );
 
-    validateStopCount(includedStopLabels);
+    if (includedStopLabels.length < 2) {
+      throw new Error(t(($) => $.routes.tooFewStops));
+    }
 
     const journeyPatternStops = mapRouteStopsToJourneyPatternStops(
       stopsEligibleForJourneyPattern,

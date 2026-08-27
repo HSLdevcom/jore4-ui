@@ -1,3 +1,2 @@
-export * from './LineRenderLayer';
 export * from './Routes';
-export * from './utils';
+export * from './Utils';

@@ -6,7 +6,7 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { getPointPosition } from '../../../utils';
-import { LinePaint, LineRenderLayer } from '../Routes';
+import { LinePaint, LineRenderLayer } from '../LineRenderLayer';
 import { MapStop, MapStopArea, MapTerminal } from '../Types';
 
 const memberLinePaint: Partial<LinePaint> = {

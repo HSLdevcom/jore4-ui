@@ -1,21 +1,29 @@
-import uniq from 'lodash/uniq';
-import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { FC, ForwardRefRenderFunction, forwardRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
-import {
-  Mode,
-  selectEditedRouteData,
-  selectHasDraftRouteGeometry,
-  selectMapRouteEditor,
-  selectSelectedRouteId,
-  useAppSelector,
-} from '../../../redux';
+import { selectMapRouteEditor, useAppSelector } from '../../../redux';
 import { Visible } from '../../common/LayoutComponents';
 import { RouteEditorRef } from '../refTypes';
-import { DraftRouteGeometryLayer } from './DraftRouteGeometryLayer';
-import { DrawRouteLayer } from './DrawRouteLayer';
-import { EditRouteMetadataLayer } from './EditRouteMetadataLayer';
-import { ExistingRouteGeometryLayer } from './ExistingRouteGeometryLayer';
-import { RouteEditor } from './RouteEditor';
+import { DrawRouteLayer } from './DrawRoute';
+import {
+  DraftRouteGeometryLayer,
+  ExistingRouteGeometryLayers,
+} from './GeometryLayers';
+import { EditRouteMetadataLayer, RouteEditor } from './RouteEditor';
+import { RouteStopsOverlay } from './RouteStopsOverlay';
+import { ROUTE_BASE_LAYER_ID } from './Utils';
+
+/**
+ * Empty layer for dynamically ordering route layers
+ * https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200
+ */
+const RouteBaseLayer: FC = () => (
+  <Layer
+    id={ROUTE_BASE_LAYER_ID}
+    type="background"
+    layout={{ visibility: 'none' }}
+    paint={{}}
+  />
+);
 
 type RoutesProps = {
   readonly displayedRouteIds: ReadonlyArray<string>;
@@ -26,47 +34,21 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
   { displayedRouteIds, showRoute },
   ref,
 ) => {
-  const selectedRouteId = useAppSelector(selectSelectedRouteId);
-  const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
-  const { drawingMode, creatingNewRoute } =
-    useAppSelector(selectMapRouteEditor);
-  const { id: editedRouteId } = useAppSelector(selectEditedRouteData);
-  const isEditingExistingRoute = drawingMode === Mode.Edit && !creatingNewRoute;
-
-  const renderedRouteIds = uniq([
-    ...displayedRouteIds,
-    ...(selectedRouteId ? [selectedRouteId] : []),
-    ...(isEditingExistingRoute && editedRouteId ? [editedRouteId] : []),
-  ]);
+  const { drawingMode } = useAppSelector(selectMapRouteEditor);
 
   return (
     <>
       <EditRouteMetadataLayer />
 
-      {/**
-       * Empty layer for dynamically ordering route layers
-       * https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200
-       */}
-      <Layer
-        id="route_base"
-        type="background"
-        layout={{ visibility: 'none' }}
-        paint={{}}
+      <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
+
+      <RouteBaseLayer />
+      <ExistingRouteGeometryLayers
+        displayedRouteIds={displayedRouteIds}
+        showRoute={showRoute}
       />
-      {showRoute &&
-        renderedRouteIds.map((item) => (
-          <ExistingRouteGeometryLayer
-            key={item}
-            routeId={item}
-            isSelected={
-              (isEditingExistingRoute && editedRouteId === item) ||
-              (!isEditingExistingRoute &&
-                selectedRouteId === item &&
-                !hasDraftRouteGeometry)
-            }
-          />
-        ))}
       <DraftRouteGeometryLayer />
+
       <RouteEditor ref={ref} />
       <Visible visible={drawingMode !== undefined}>
         <DrawRouteLayer />

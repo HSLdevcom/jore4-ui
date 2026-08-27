@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
 import { selectEditedStopAreaData, useAppSelector } from '../../../redux';
 import { Point } from '../../../types';
-import { LineRenderLayer } from '../Routes';
+import { LineRenderLayer } from '../LineRenderLayer';
 
 type LineToActiveStopAreaProps = { readonly from: Position };
 
