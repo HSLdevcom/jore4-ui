@@ -36,7 +36,7 @@ export const AccessibilityLevelInfo: FC<AccessibilityLevelInfoProps> = ({
         <span data-testid={testIds.accessibilityLevel}>
           {mapStopAccessibilityLevelToUiName(t, accessibilityLevel)}
         </span>
-        <i className="icon-info text-xl text-brand" />
+        <i className="icon-info mx-2 text-xl text-brand" />
       </button>
       <AccessibilityLevelDescriptionsDialog
         isOpen={isModalOpen}

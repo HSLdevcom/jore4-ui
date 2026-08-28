@@ -28,7 +28,7 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
         {stop.transportModes.map((mode) => (
           <StopTransportModeIcon
             key={mode}
-            className="text-xl not-last-of-type:-mr-1"
+            className="mx-2 text-xl not-last-of-type:-mr-1"
             mode={mode}
             active={stop.activeTransportModes.includes(mode)}
             trunkLine={stop.trunkLineStop}

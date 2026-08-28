@@ -20,7 +20,7 @@ export const UserNavMenu: FC<UserNavMenuProps> = ({ className }) => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 
-  const userIcon = <i className="icon-person text-3xl" />;
+  const userIcon = <i className="icon-person mx-2 text-3xl" />;
 
   if (!userInfo) {
     return (

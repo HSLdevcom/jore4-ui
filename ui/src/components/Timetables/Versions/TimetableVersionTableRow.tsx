@@ -129,7 +129,7 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
           <IconButton
             onClick={openVersionPanel}
             tooltip={t(($) => $.accessibility.timetables.showTimetable)}
-            icon={<i className="icon-calendar" />}
+            icon={<i className="icon-calendar mx-2" />}
           />
         </Visible>
         {data.substituteDay?.supersededDate && (

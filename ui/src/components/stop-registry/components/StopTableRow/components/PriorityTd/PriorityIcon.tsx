@@ -25,6 +25,6 @@ function getColorAndIconClassNames(
 
 export const PriorityIcon: FC<SubComponentProps> = ({ type }) => (
   <span
-    className={twJoin('mt-2 self-start', getColorAndIconClassNames(type))}
+    className={twJoin('mx-2 mt-2 self-start', getColorAndIconClassNames(type))}
   />
 );

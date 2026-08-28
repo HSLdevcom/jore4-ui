@@ -35,7 +35,7 @@ export const JoreListboxButton = forwardRef<
       {children}
       <i
         className={twMerge(
-          'icon-arrow ml-auto text-tweaked-brand',
+          'icon-arrow mr-1 ml-auto text-tweaked-brand',
           '-rotate-180 transition duration-150 ease-in-out ui-not-open:rotate-0',
           hasError ? arrowErrorStyles : '',
         )}

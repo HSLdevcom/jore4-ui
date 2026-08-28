@@ -36,7 +36,7 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
         data-testid={testIds.changeHistoryLink}
       >
         {mapToShortDateTime(area.changed)} | {area.changedByUserName ?? 'HSL'}{' '}
-        <i className="icon-history text-xl" aria-hidden />
+        <i className="icon-history mx-2 text-xl" aria-hidden />
       </Link>
     </div>
   );

@@ -32,7 +32,7 @@ const EquipmentIcon: FC<EquipmentIconProps> = ({ className = '', details }) => {
     return (
       <i
         aria-hidden
-        className={twMerge(className, placeholderIcon, 'mx-[-0.2em] text-4xl')}
+        className={twMerge(className, placeholderIcon, 'text-4xl')}
       />
     );
   }
@@ -40,7 +40,7 @@ const EquipmentIcon: FC<EquipmentIconProps> = ({ className = '', details }) => {
   return (
     <i
       role="img"
-      className={twMerge(className, details.icon, 'mx-[-0.2em] text-4xl')}
+      className={twMerge(className, details.icon, 'text-4xl')}
       aria-label={details.label}
       title={details.label}
     />

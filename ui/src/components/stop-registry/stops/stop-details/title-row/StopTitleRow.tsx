@@ -77,7 +77,7 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({
         ),
       )}
       <PageTitle.H1
-        className="mr-2"
+        className="mx-2"
         testId={testIds.label}
         titleText={compact([label, stopDetails?.stop_place?.name]).join(' ')}
       >

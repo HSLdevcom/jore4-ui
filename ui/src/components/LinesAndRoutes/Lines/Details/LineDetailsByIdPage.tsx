@@ -90,7 +90,7 @@ export const LineDetailsByIdPage: FC = () => {
                     line.primary_vehicle_mode,
                     line.type_of_line,
                   ),
-                  'mt-2 text-6xl',
+                  'mx-2 mt-2 text-6xl',
                 )}
               />
             )}

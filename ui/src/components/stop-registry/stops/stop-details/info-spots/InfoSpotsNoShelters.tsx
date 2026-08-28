@@ -13,7 +13,7 @@ export const InfoSpotsNoShelters: FC = () => {
       className="mt-4 flex w-full flex-row items-center gap-1"
       data-testid={testIds.noSheltersText}
     >
-      <i className="icon-info text-2xl text-brand" />
+      <i className="icon-info mx-2 text-2xl text-brand" />
       <p>{t(($) => $.stopDetails.infoSpots.noSheltersInfo)}</p>
     </div>
   );

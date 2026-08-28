@@ -98,7 +98,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
                     stop.stop_place?.municipality || '-'
                   }
                 </span>
-                <i className="icon-info text-lg text-brand" />
+                <i className="icon-info mx-2 text-lg text-brand" />
               </div>
             </Column>
             <Column>
@@ -119,7 +119,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
                     stop.stop_place?.fareZone || '-'
                   }
                 </span>
-                <i className="icon-info text-lg text-brand" />
+                <i className="icon-info mx-2 text-lg text-brand" />
               </div>
             </Column>
           </Row>

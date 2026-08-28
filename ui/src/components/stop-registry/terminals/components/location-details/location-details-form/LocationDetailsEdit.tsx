@@ -181,7 +181,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
                     terminal.municipality || '-'
                   }
                 </span>
-                <i className="icon-info text-lg text-brand" />
+                <i className="icon-info mx-2 text-lg text-brand" />
               </div>
             </Column>
             <Column>
@@ -202,7 +202,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
                     terminal.fareZone || '-'
                   }
                 </span>
-                <i className="icon-info text-lg text-brand" />
+                <i className="icon-info mx-2 text-lg text-brand" />
               </div>
             </Column>
             <InputField<TerminalLocationDetailsFormState>

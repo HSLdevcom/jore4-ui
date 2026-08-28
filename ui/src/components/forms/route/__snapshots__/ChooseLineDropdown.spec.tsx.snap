@@ -61,7 +61,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
+        class="icon-arrow mx-1 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -122,7 +122,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
+        class="icon-arrow mx-1 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -183,7 +183,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading with preselecte
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
+        class="icon-arrow mx-1 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -244,7 +244,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
+        class="icon-arrow mx-1 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -305,7 +305,7 @@ exports[`<ChooseLineDropdown /> Shows correct texts when loading without pre-sel
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
+        class="icon-arrow mx-1 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>

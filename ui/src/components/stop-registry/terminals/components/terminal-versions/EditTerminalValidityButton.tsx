@@ -29,7 +29,7 @@ export const EditTerminalValidityButton: FC<TerminalComponentProps> = ({
         disabled={!terminal}
         onClick={() => setShowEditModal(true)}
       >
-        <i aria-hidden className="icon-calendar text-lg" />
+        <i aria-hidden className="icon-calendar mx-2 text-lg" />
       </SimpleButton>
       <EditTerminalValidityModal
         isOpen={showEditModal}

@@ -142,7 +142,7 @@ export const EditRoutePage: FC = () => {
       <div className="border-b border-light-grey bg-background">
         <Container>
           <PageTitle.H1 titleText={pageTitleText}>
-            <i className="icon-bus-alt text-tweaked-brand" />
+            <i className="icon-bus-alt mx-2 text-tweaked-brand" />
             {pageTitleText}
           </PageTitle.H1>
         </Container>
