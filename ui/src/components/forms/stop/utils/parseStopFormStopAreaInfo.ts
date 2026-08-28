@@ -1,22 +1,6 @@
 import { StopFormStopAreaInfoFragment } from '../../../../generated/graphql';
+import { RawAlternativeName, findRawAlternativeName } from '../../../../utils';
 import { StopModalStopAreaFormSchema } from '../types';
-
-export type RawName = {
-  readonly type?: string | null;
-  readonly value?: string | null;
-  readonly lang?: string | null;
-};
-
-export function findName(
-  names: ReadonlyArray<RawName>,
-  type: string,
-  lang: string,
-): string | null {
-  return (
-    names.find((name) => name.type === type && name.lang === lang)?.value ??
-    null
-  );
-}
 
 export function parseStopFormStopAreaInfo(
   rawArea: StopFormStopAreaInfoFragment | null | undefined,
@@ -30,7 +14,7 @@ export function parseStopFormStopAreaInfo(
     return null;
   }
 
-  const names: ReadonlyArray<RawName> = rawArea.alternativeNames
+  const names: ReadonlyArray<RawAlternativeName> = rawArea.alternativeNames
     .map((it) => it.name)
     .concat({
       type: 'TRANSLATION',
@@ -45,16 +29,16 @@ export function parseStopFormStopAreaInfo(
     validityStart: rawArea.validityStart,
     validityEnd: rawArea.validityEnd ?? null,
 
-    nameFin: findName(names, 'TRANSLATION', 'fin'),
-    nameSwe: findName(names, 'TRANSLATION', 'swe'),
-    nameEng: findName(names, 'TRANSLATION', 'eng'),
+    nameFin: findRawAlternativeName(names, 'TRANSLATION', 'fin'),
+    nameSwe: findRawAlternativeName(names, 'TRANSLATION', 'swe'),
+    nameEng: findRawAlternativeName(names, 'TRANSLATION', 'eng'),
 
-    longNameFin: findName(names, 'ALIAS', 'fin'),
-    longNameSwe: findName(names, 'ALIAS', 'swe'),
-    longNameEng: findName(names, 'ALIAS', 'eng'),
+    longNameFin: findRawAlternativeName(names, 'ALIAS', 'fin'),
+    longNameSwe: findRawAlternativeName(names, 'ALIAS', 'swe'),
+    longNameEng: findRawAlternativeName(names, 'ALIAS', 'eng'),
 
-    abbreviationFin: findName(names, 'OTHER', 'fin'),
-    abbreviationSwe: findName(names, 'OTHER', 'swe'),
-    abbreviationEng: findName(names, 'OTHER', 'eng'),
+    abbreviationFin: findRawAlternativeName(names, 'OTHER', 'fin'),
+    abbreviationSwe: findRawAlternativeName(names, 'OTHER', 'swe'),
+    abbreviationEng: findRawAlternativeName(names, 'OTHER', 'eng'),
   };
 }

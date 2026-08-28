@@ -7,7 +7,6 @@ import {
   MapEntityEditorViewState,
   Operation,
   closeTimingPlaceModalAction,
-  isCopyMode,
   isModalOpen,
   selectCopyStopId,
   selectEditedStopAreaData,
@@ -31,33 +30,25 @@ import {
   StopModalStopAreaFormSchema,
 } from '../../forms/stop/types';
 import {
-  StopInfoForEditingOnMap,
-  useGetStopInfoForEditingOnMap,
-} from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
-import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
 } from '../../LinesAndRoutes/Common/ConflictResolverModal';
 import { EditStoplayerRef } from '../refTypes';
 import { useMapDataLayerLoader } from '../Utils/useMapDataLayerLoader';
-import { CopyStopConfirmationDialog } from './CopyStopConfirmationDialog';
-import { CopyStopModal } from './CopyStopModal';
-import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
+import { CopyStop } from './CopyStop';
+import { DeleteStopConfirmationDialog, useDeleteStopUtils } from './DeleteStop';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
-import { EditStopModal } from './EditStopModal';
-import {
-  CreateChanges,
-  EditChanges,
-  isEditChanges,
-  useCreateStopUtils,
-  useDeleteStopUtils,
-  useEditStopUtils,
-} from './hooks';
-import { useMapCopyStopUtils } from './hooks/useMapCopyStopUtils';
+import { EditStopModal } from './EditStopModal/EditStopModal';
+import { Stop, StopPopup } from './ExistingStops';
 import { LineToActiveStopArea } from './LineToActiveStopArea';
 import { LineToClosestInfraLink } from './LineToClosestInfraLink';
-import { Stop } from './Stop';
-import { StopPopup } from './StopPopup';
+import { CreateChanges, EditChanges, StopInfoForEditingOnMap } from './Types';
+import {
+  isEditChanges,
+  useCreateStopUtils,
+  useEditStopUtils,
+  useGetStopInfoForEditingOnMap,
+} from './utils';
 
 function enrichedStopAreaToStopModalStopAreaFormSchema(
   editedStopAreaData: EnrichedStopPlace,
@@ -170,7 +161,8 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       stopInfo,
     );
 
-    const [copyDialogOpen, setCopyDialogOpen] = useState(false);
+    const [isConfirmCopyDialogOpen, setIsConfirmCopyDialogOpen] =
+      useState(false);
 
     const onCloseEditors = () => {
       dispatch(setDraftVehicleModeAction(undefined));
@@ -203,19 +195,6 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onConfirmDelete,
       onCancelDelete,
     } = useDeleteStopUtils(stopInfo, onFinishEditing);
-
-    const {
-      defaultStopFormValues,
-      onStartCopyStop,
-      onCancelCopyStop,
-      onCloseCopyModal,
-      onCopyStopFormSubmit,
-    } = useMapCopyStopUtils(
-      stopInfo,
-      onEditingFinished,
-      onPopupClose,
-      setCopyDialogOpen,
-    );
 
     if (createChanges && editChanges) {
       throw new Error('Undefined state');
@@ -250,7 +229,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     const onInitCopyStop = () => {
       if (selectedStopId) {
         dispatch(setCopyStopIdAction(selectedStopId));
-        setCopyDialogOpen(true);
+        setIsConfirmCopyDialogOpen(true);
       }
     };
 
@@ -342,7 +321,6 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
         {deleteChanges && (
           <DeleteStopConfirmationDialog
-            isOpen
             onCancel={onCancelDelete}
             onConfirm={onConfirmDelete}
             deleteChanges={deleteChanges}
@@ -350,20 +328,13 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
           />
         )}
 
-        <CopyStopConfirmationDialog
-          isOpen={copyDialogOpen}
-          onConfirm={onStartCopyStop}
-          onCancel={onCancelCopyStop}
+        <CopyStop
+          onCopyFinished={onEditingFinished}
+          onPopupClose={onPopupClose}
+          isConfirmCopyDialogOpen={isConfirmCopyDialogOpen}
+          setIsConfirmCopyDialogOpen={setIsConfirmCopyDialogOpen}
+          stopInfo={stopInfo}
         />
-
-        {isCopyMode(mapStopViewState) && !!defaultStopFormValues && (
-          <CopyStopModal
-            defaultValues={defaultStopFormValues}
-            onCancel={onCloseCopyModal}
-            onClose={onCloseCopyModal}
-            onSubmit={onCopyStopFormSubmit}
-          />
-        )}
       </>
     );
   },

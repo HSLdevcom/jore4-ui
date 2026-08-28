@@ -11,8 +11,9 @@ import {
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { useFilterStopAreas } from '../StopAreas';
-import { useFilterStops, useGetRoutesDisplayedInMap } from '../Stops/hooks';
+import { useGetRoutesDisplayedInMap } from '../Stops/utils';
 import { isViewportLoaded } from '../Utils/isViewportLoaded';
+import { useFilterStops } from '../Utils/useFilterStops';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
 import { useGetMapTerminals } from './useGetMapTerminals';

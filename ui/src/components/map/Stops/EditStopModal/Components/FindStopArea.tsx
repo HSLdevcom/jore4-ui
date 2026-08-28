@@ -4,72 +4,112 @@ import {
   ComboboxInput,
   ComboboxOption,
   ComboboxOptions,
+  Label,
 } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import { FC, useEffect, useMemo, useState } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
-import { ReusableComponentsVehicleModeEnum } from '../../../../../generated/graphql';
 import { mapToShortDate } from '../../../../../time';
 import { comboboxStyles } from '../../../../common/Dropdowns';
+import { ValidationErrorList } from '../../../../common/Inputs';
+import { StopFormState } from '../../../../forms/stop';
 import { StopModalStopAreaFormSchema } from '../../../../forms/stop/types';
 import { useFindStopAreas } from '../../../../forms/stop/utils';
 
-type StopAreaSearchComboboxProps = {
-  readonly vehicleMode: ReusableComponentsVehicleModeEnum | null | undefined;
-  readonly value: StopModalStopAreaFormSchema | null;
-  readonly onChange: (value: StopModalStopAreaFormSchema | null) => void;
-  readonly disabled: boolean;
-  readonly inputTestId: string;
-  readonly optionTestId: (code: string) => string;
+const testIds = {
+  input: 'FindStopArea::input',
+  loading: 'FindStopArea::loading',
+  result: (privateCode: string) => `FindStopArea::stopArea::${privateCode}`,
 };
 
-export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
-  vehicleMode,
-  value,
-  onChange,
+type FindStopAreaProps = {
+  readonly className?: string;
+  readonly disabled: boolean;
+};
+
+export const FindStopArea: FC<FindStopAreaProps> = ({
+  className,
   disabled,
-  inputTestId,
-  optionTestId,
 }) => {
   const { t } = useTranslation();
+  const {
+    watch,
+    formState: { errors },
+  } = useFormContext<StopFormState>();
+  const vehicleMode = watch('vehicleMode');
 
   const [query, setQuery] = useState('');
+  // Is there pending keystrokes in the input field being buffered by debouncing.
+  // Set to true on key input and reset to false, after DB query.
+  // This is to avoid flickering of the loading state
   const [queryDebounced, setQueryDebounced] = useState(false);
-  const { areas, loading: loadingAreas } = useFindStopAreas(query, vehicleMode);
+  const { areas, loading: loadingResults } = useFindStopAreas(
+    query,
+    vehicleMode,
+  );
 
-  useEffect(() => {
-    if (!loadingAreas) {
-      setQueryDebounced(false);
-    }
-  }, [loadingAreas]);
+  const {
+    field: { onChange: onSelect, value: selected, ref },
+  } = useController<StopFormState, 'stopArea'>({ name: 'stopArea' });
+
+  const hasError = !!errors.stopArea;
 
   const onQueryChange = useMemo(() => {
-    const debouncedSetQuery = debounce(setQuery, 500);
+    const debounced = debounce(setQuery, 500);
+
     return (newQuery: string) => {
+      // If the user clears the input field, clear the query state immediately.
+      // As a side effect also closes the result list.
       if (newQuery === '') {
-        debouncedSetQuery.cancel();
+        debounced.cancel();
         setQueryDebounced(false);
         setQuery('');
       } else {
+        // Mark that we have input incoming, so we may trigger the loading state
+        // even tough we are not actually truly loading any data from the DB yet.
         setQueryDebounced(true);
-        debouncedSetQuery(newQuery);
+        debounced(newQuery);
       }
     };
   }, []);
 
-  const areaSearchLoading = loadingAreas || queryDebounced;
+  useEffect(() => {
+    if (!loadingResults) {
+      // Technically we might still have some data in the debounce buffer
+      // but from user perspective the actual true loading of data has ended.
+      // Once the debounce flushes, it will trigger a true load cycle through the
+      // db query, thus triggering the loading state again.
+      setQueryDebounced(false);
+    }
+  }, [loadingResults]);
+
+  const loading = loadingResults || queryDebounced;
 
   return (
     <Combobox
       as="div"
-      className={comboboxStyles.root('flex flex-col')}
-      value={value}
-      onChange={onChange}
+      className={comboboxStyles.root(
+        'flex flex-col justify-between',
+        className,
+      )}
+      name="stopArea"
+      value={selected}
+      onChange={onSelect}
       disabled={disabled}
     >
+      <Label>
+        {t(($) => $.stops.stopArea.label)}
+        {hasError ? (
+          <span className="ml-1 text-hsl-red">*</span>
+        ) : (
+          <span className="ml-1 text-dark-grey">*</span>
+        )}
+      </Label>
       <div className="flex h-(--input-height)">
         <ComboboxInput<StopModalStopAreaFormSchema>
+          ref={ref}
           className={comboboxStyles.input(
             'grow border-r-0 outline-0 ui-not-open:rounded-tr-none ui-not-open:rounded-br-none',
             'ui-open:rounded-bl-none',
@@ -77,8 +117,7 @@ export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
           onChange={(e) => onQueryChange(e.target.value)}
           displayValue={(it) => it?.nameFin ?? ''}
           autoComplete="off"
-          placeholder={t(($) => $.stopDetails.hybrid.searchStopArea)}
-          data-testid={inputTestId}
+          data-testid={testIds.input}
         />
         <ComboboxButton
           disabled={!query}
@@ -86,10 +125,12 @@ export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
             'static flex h-(--input-height) w-(--input-height) justify-center rounded-tr-[5px] rounded-br-[5px] bg-tweaked-brand text-xl',
             'ui-open:rounded-br-none',
           )}
+          title={t(($) => $.stops.stopArea.search)}
         >
           <MdOutlineSearch color="white" />
         </ComboboxButton>
       </div>
+      <ValidationErrorList<StopFormState> fieldPath="stopArea" />
       <ComboboxOptions
         anchor="bottom start"
         className={comboboxStyles.options(
@@ -97,11 +138,12 @@ export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
         )}
         transition
       >
-        {areaSearchLoading && (
+        {loading && (
           <ComboboxOption
             className={comboboxStyles.option()}
             value={null}
             disabled
+            data-testid={testIds.loading}
           >
             {t(($) => $.stops.stopArea.label)}
           </ComboboxOption>
@@ -112,7 +154,7 @@ export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
             className={comboboxStyles.option()}
             key={area.netexId}
             value={area}
-            data-testid={optionTestId(area.privateCode)}
+            data-testid={testIds.result(area.privateCode)}
           >
             <span className="shrink-0 self-start font-bold">
               {area.privateCode}
@@ -126,9 +168,9 @@ export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
           </ComboboxOption>
         ))}
 
-        {!query && !areaSearchLoading && (
+        {!query && !loading && (
           <ComboboxOption
-            className={comboboxStyles.option()}
+            className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-hidden ui-active:bg-dark-grey ui-active:text-white"
             value={null}
             disabled
           >

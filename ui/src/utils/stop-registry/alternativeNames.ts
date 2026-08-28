@@ -69,3 +69,20 @@ export function findAlternativeName(
   );
   return matchingName?.name ?? null;
 }
+
+export type RawAlternativeName = {
+  readonly type?: string | null;
+  readonly value?: string | null;
+  readonly lang?: string | null;
+};
+
+export function findRawAlternativeName(
+  names: ReadonlyArray<RawAlternativeName>,
+  type: string,
+  lang: string,
+): string | null {
+  return (
+    names.find((name) => name.type === type && name.lang === lang)?.value ??
+    null
+  );
+}

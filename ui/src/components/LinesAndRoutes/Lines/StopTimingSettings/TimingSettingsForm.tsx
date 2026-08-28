@@ -10,7 +10,7 @@ import { SimpleButton } from '../../../common/Buttons';
 import { InputElement, InputField } from '../../../common/Inputs';
 import { Row } from '../../../common/LayoutComponents';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
-import { ChooseTimingPlaceDropdown } from '../../../forms/stop/ChooseTimingPlaceDropdown';
+import { ChooseTimingPlaceDropdown } from '../../../forms/stop/TimingPlace';
 
 export const schema = z.object({
   isUsedAsTimingPoint: z.boolean(),

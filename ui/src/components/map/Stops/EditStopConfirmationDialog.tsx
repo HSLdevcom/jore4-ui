@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { ConfirmationDialog } from '../../common/Modals';
-import { EditChanges } from './hooks';
+import { EditChanges } from './Types';
 
 type EditStopConfirmationDialogProps = {
   readonly isOpen: boolean;

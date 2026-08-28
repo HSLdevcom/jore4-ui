@@ -7,7 +7,7 @@ import { SimpleButton } from '../../../../../common/Buttons';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
 import { InputField } from '../../../../../common/Inputs';
 import { Column, FormRow, Row } from '../../../../../common/LayoutComponents';
-import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/ChooseTimingPlaceDropdown';
+import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/TimingPlace';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {

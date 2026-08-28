@@ -18,7 +18,7 @@ import {
   ReasonForChangeForm,
 } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
+import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlace';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopLabelAndLocationFormRow } from './StopLabelAndLocationFormRow';

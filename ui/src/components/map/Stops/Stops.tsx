@@ -2,23 +2,17 @@ import {
   ForwardRefRenderFunction,
   forwardRef,
   useImperativeHandle,
-  useMemo,
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   MapEntityEditorViewState,
-  MapEntityType,
   Operation,
   isEditorOpen,
   isPlacingOrMoving,
   selectDraftLocation,
   selectDraftVehicleMode,
-  selectMapStopSelection,
-  selectSelectedStopAreaId,
   selectSelectedStopId,
-  selectSelectedTerminalId,
-  selectShowMapEntityTypes,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
@@ -28,59 +22,17 @@ import {
   useLoader,
 } from '../../../redux';
 import { LoadingState } from '../../../types';
-import { Priority } from '../../../types/enums';
-import { mapLngLatToPoint, mapPointToGeoJSON, none } from '../../../utils';
-import { useResolveStopHoverTitle } from '../Queries';
+import { mapLngLatToPoint, mapPointToGeoJSON } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapStop, MapStopArea, MapTerminal } from '../Types';
-import { useIsInSearchResultMode } from '../Utils/useIsInSearchResultMode';
 import { useMapViewState } from '../Utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
+import { ExistingStops } from './ExistingStops';
 import {
   useCheckIsLocationValidForStop,
   useDefaultErrorHandler,
-  useMapStops,
-} from './hooks';
-import { useFilterStopsByVehicleMode } from './hooks/useFilterStopsByVehicleMode';
-import { Stop } from './Stop';
-
-const testIds = {
-  stopMarker: (label: string, priority: Priority) =>
-    `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
-  memberStop: (label: string) => `Map::Stops::memberStop::${label}`,
-};
-
-function useFilteredStops(
-  stops: ReadonlyArray<MapStop>,
-  terminals: ReadonlyArray<MapTerminal>,
-  selectedStopAreaId: string | undefined | null,
-  selectedTerminalId: string | undefined | null,
-): ReadonlyArray<MapStop> {
-  return useMemo(() => {
-    if (selectedStopAreaId) {
-      return stops.filter(
-        (it) => it.stop_place_netex_id === selectedStopAreaId,
-      );
-    }
-
-    if (selectedTerminalId) {
-      const childAreaIds = terminals
-        .find((it) => it.netex_id === selectedTerminalId)
-        ?.children.map((it) => it.netexId);
-
-      if (!childAreaIds?.length) {
-        return [];
-      }
-
-      return stops.filter((it) =>
-        childAreaIds.includes(it.stop_place_netex_id),
-      );
-    }
-
-    return stops;
-  }, [selectedStopAreaId, selectedTerminalId, stops, terminals]);
-}
+} from './utils';
 
 type StopsProps = {
   readonly areas: ReadonlyArray<MapStopArea>;
@@ -96,17 +48,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 ) => {
   const [mapViewState, setMapViewState] = useMapViewState();
 
-  const isInSearchResultMode = useIsInSearchResultMode();
-
   const selectedStopId = useAppSelector(selectSelectedStopId);
-  const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
-  const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
   const draftLocation = useAppSelector(selectDraftLocation);
   const draftVehicleMode = useAppSelector(selectDraftVehicleMode);
-  const mapStopSelection = useAppSelector(selectMapStopSelection);
-  const showStopLabels = useAppSelector(selectShowMapEntityTypes)[
-    MapEntityType.StopLabel
-  ];
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
@@ -116,10 +60,6 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   const editStopLayerRef = useRef<EditStoplayerRef>(null);
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
-
-  const { getStopHighlighted, getStopShouldBeGray } =
-    useMapStops(displayedRouteIds);
-  const filterStopsByVehicleMode = useFilterStopsByVehicleMode(showRoute);
 
   const { setLoadingState: setFetchStopsLoadingState } = useLoader(
     Operation.FetchStops,
@@ -151,29 +91,13 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   };
 
   useImperativeHandle(ref, () => ({
-    onCreateStop: async (e: MapLayerMouseEvent) => {
-      handleStopAction(e, MapEntityEditorViewState.CREATE);
-    },
-    onCopyStop: async (e: MapLayerMouseEvent) => {
-      handleStopAction(e, MapEntityEditorViewState.COPY);
-    },
-    onMoveStop: async (e: MapLayerMouseEvent) => {
-      editStopLayerRef.current?.onMoveStop(e);
-    },
+    onCreateStop: async (e: MapLayerMouseEvent) =>
+      handleStopAction(e, MapEntityEditorViewState.CREATE),
+    onCopyStop: async (e: MapLayerMouseEvent) =>
+      handleStopAction(e, MapEntityEditorViewState.COPY),
+    onMoveStop: async (e: MapLayerMouseEvent) =>
+      editStopLayerRef.current?.onMoveStop(e),
   }));
-
-  const resolveStopHoverTitle = useResolveStopHoverTitle(areas);
-  const onClickStop = (stop: MapStop) => {
-    if (none(isEditorOpen, mapViewState)) {
-      setSelectedStopId(stop.netex_id);
-      setSelectedMapStopAreaId(stop.stop_place_netex_id);
-      setMapViewState({
-        stops: MapEntityEditorViewState.POPUP,
-        stopAreas: MapEntityEditorViewState.NONE,
-        terminals: MapEntityEditorViewState.NONE,
-      });
-    }
-  };
 
   const onPopupClose = () => {
     setSelectedStopId(undefined);
@@ -201,13 +125,6 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     });
   };
 
-  const filteredStops = useFilteredStops(
-    stops,
-    terminals,
-    selectedStopAreaId,
-    selectedTerminalId,
-  );
-
   if (
     isEditorOpen(mapViewState.stopAreas) ||
     isEditorOpen(mapViewState.terminals)
@@ -215,49 +132,15 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     return null;
   }
 
-  const asMemberStop = !!(selectedStopAreaId ?? selectedTerminalId);
-
-  const selectedStops = mapStopSelection.byResultSelection
-    ? []
-    : mapStopSelection.selected;
-  const isInSelection = (stop: MapStop) =>
-    (isInSearchResultMode && mapStopSelection.byResultSelection) ||
-    selectedStops.includes(stop.netex_id);
-
-  const modeFilteredStops = filterStopsByVehicleMode(filteredStops);
-
   return (
     <>
-      {/* Display existing stops */}
-      {modeFilteredStops.map((item) => {
-        const point = mapLngLatToPoint(item.location.coordinates);
-
-        return (
-          <Stop
-            isHighlighted={getStopHighlighted(item)}
-            inSelection={isInSelection(item)}
-            asMemberStop={asMemberStop}
-            key={item.netex_id}
-            latitude={point.latitude}
-            longitude={point.longitude}
-            mapStopViewState={mapViewState.stops}
-            onClick={onClickStop}
-            onResolveTitle={resolveStopHoverTitle}
-            showLabel={showStopLabels}
-            stop={item}
-            selected={item.netex_id === selectedStopId}
-            testId={
-              asMemberStop
-                ? testIds.memberStop(item.label)
-                : testIds.stopMarker(item.label, item.priority)
-            }
-            activeTransportModes={item.active_transport_modes}
-            isTrunkLineStop={item.trunk_line_stop}
-            isSpeedTramStop={item.speed_tram_stop}
-            shouldBeGray={getStopShouldBeGray(item)}
-          />
-        );
-      })}
+      <ExistingStops
+        areas={areas}
+        displayedRouteIds={displayedRouteIds}
+        showRoute={showRoute}
+        stops={stops}
+        terminals={terminals}
+      />
 
       {/* Display edited stop + its editor components */}
       {(selectedStopId ?? draftLocation) && (

@@ -1,6 +1,8 @@
 export * from './EditStopLayer';
-export * from './EditStopModal';
 export * from './MemberStopLines';
-export * from './Stop';
-export * from './StopPopup';
+export * from './ExistingStops/Stop';
+export * from './ExistingStops/StopPopup';
 export * from './Stops';
+export type { CreateChanges } from './Types';
+export type { CreateParams } from './Types';
+export type { CreateStopPointInput } from './Types';

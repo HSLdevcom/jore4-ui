@@ -1,0 +1,54 @@
+import { FC } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { ValidationError } from '../../../../common/Inputs';
+import { Column } from '../../../../common/LayoutComponents';
+import {
+  StopFormState,
+  StopPublicCodeState,
+} from '../../../../forms/stop/types';
+
+function selectedCodeHasValidPrefix({
+  value,
+  expectedPrefix,
+  municipality,
+}: StopPublicCodeState): boolean {
+  if (!expectedPrefix || !municipality || !value) {
+    return true;
+  }
+
+  return value.startsWith(expectedPrefix);
+}
+
+type PublicCodePrefixMissmatchWarningProps = { readonly className?: string };
+
+export const PublicCodePrefixMissmatchWarning: FC<
+  PublicCodePrefixMissmatchWarningProps
+> = ({ className }) => {
+  const { t } = useTranslation();
+
+  const publicCode = useFormContext<StopFormState>().watch<'publicCode'>(
+    'publicCode',
+    {
+      value: '',
+      expectedPrefix: null,
+      municipality: null,
+    },
+  );
+
+  if (selectedCodeHasValidPrefix(publicCode)) {
+    return null;
+  }
+
+  return (
+    <Column className={className}>
+      <ValidationError
+        errorMessage={t(
+          ($) => $.stops.stopPublicCodePrefixMissmatch,
+          publicCode,
+        )}
+        fieldPath="PublicCodePrefixMissmatchWarning"
+      />
+    </Column>
+  );
+};
