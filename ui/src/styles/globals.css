@@ -143,3 +143,12 @@
   gap: 1rem;
   padding: 0.5rem;
 }
+
+[class^='icon-']:before,
+[class*=' icon-']:before {
+  /* Undo Fontello default margins.
+   * Any and all margins should be controlled on the container level,
+   * not on the ::before pseudoelement level */
+  margin-right: 0;
+  margin-left: 0;
+}
