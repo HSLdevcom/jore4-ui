@@ -121,7 +121,7 @@ export const LineTitle: FC<LineTitleProps> = ({
         >
           {mapToShortDateTime(line.change_history.at(0)?.changed)} |{' '}
           {getUserNameById(line.change_history.at(0)?.changed_by) ?? 'HSL'}{' '}
-          <i className="icon-history text-xl" aria-hidden />
+          <i className="icon-history mx-2 text-xl" aria-hidden />
         </Link>
       </Row>
       <Row>

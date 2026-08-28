@@ -130,7 +130,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         <Visible visible={isViaPoint}>
           <i
             data-testid={testIds.viaIcon}
-            className="icon-via text-4xl text-hsl-dark-green"
+            className="icon-via mx-2 text-4xl text-hsl-dark-green"
           />
         </Visible>
       </div>

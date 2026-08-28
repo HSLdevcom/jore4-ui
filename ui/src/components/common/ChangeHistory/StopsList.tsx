@@ -27,7 +27,7 @@ export const StopsList: FC<StopsListProps> = ({
             to={routeDetails[Path.stopDetails].getLink(stopLabel)}
           >
             {stopLabel}
-            <i className="icon-open-in-new" aria-hidden />
+            <i className="icon-open-in-new mx-1" aria-hidden />
           </Link>
         </li>
       ))}

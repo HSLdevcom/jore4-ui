@@ -39,7 +39,7 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
       >
         {mapToShortDateTime(terminal.changed)} |{' '}
         {terminal.changedByUserName ?? 'HSL'}{' '}
-        <i className="icon-history text-xl" aria-hidden />
+        <i className="icon-history mx-2 text-xl" aria-hidden />
       </Link>
     </div>
   );

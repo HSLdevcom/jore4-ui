@@ -27,7 +27,7 @@ export const JoreComboboxButton = forwardRef<
       {children}
       <MdSearch className="mr-1 text-2xl text-tweaked-brand" />
       <i
-        className="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
+        className="icon-arrow mx-1 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style={{ fontSize: 10 }}
       />
     </ComboboxButton>

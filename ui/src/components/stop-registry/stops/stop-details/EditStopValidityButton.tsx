@@ -34,7 +34,7 @@ export const EditStopValidityButton: FC<EditStopValidityButtonProps> = ({
         disabled={!stop}
         onClick={() => setShowEditModal(true)}
       >
-        <i aria-hidden className="icon-calendar text-lg" />
+        <i aria-hidden className="icon-calendar mx-2 text-lg" />
       </SimpleButton>
       <EditStopModal
         isOpen={showEditModal}

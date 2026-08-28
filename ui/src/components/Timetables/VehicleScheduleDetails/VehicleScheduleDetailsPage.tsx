@@ -83,7 +83,7 @@ export const VehicleScheduleDetailsPage: FC = () => {
       <div className="border-b border-light-grey bg-background">
         <Container>
           <Row>
-            <i className="icon-bus-alt text-6xl text-tweaked-brand" />
+            <i className="icon-bus-alt mr-3 text-6xl text-tweaked-brand" />
             {line && (
               <LineTitle
                 line={line}

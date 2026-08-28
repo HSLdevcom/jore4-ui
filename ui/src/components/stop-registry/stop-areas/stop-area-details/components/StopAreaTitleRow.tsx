@@ -34,7 +34,7 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
 
   return (
     <div className={twMerge('flex items-center', className)}>
-      <i className={twJoin(transportModeIcon, 'mr-2 text-3xl')} />
+      <i className={twJoin(transportModeIcon, 'mr-3 text-3xl')} />
       <PageTitle.H1
         className="mr-2"
         testId={testIds.privateCode}

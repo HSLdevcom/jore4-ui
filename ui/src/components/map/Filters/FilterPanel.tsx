@@ -47,7 +47,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({
       )}
     >
       <i
-        className="icon-favicon text-5xl text-tweaked-brand"
+        className="icon-favicon mx-2 text-5xl text-tweaked-brand"
         role="presentation"
       />
       {!isInSearchResultMode && (

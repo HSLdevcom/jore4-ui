@@ -111,7 +111,7 @@ export const StopDetailsPage: FC = () => {
         >
           {mapToShortDateTime(stopDetails?.quay?.changed)} |{' '}
           {stopDetails?.quay?.changedByUserName ?? 'HSL'}{' '}
-          <i className="icon-history text-xl" aria-hidden />
+          <i className="icon-history mx-2 text-xl" aria-hidden />
         </Link>
       </div>
       <DetailTabSelector

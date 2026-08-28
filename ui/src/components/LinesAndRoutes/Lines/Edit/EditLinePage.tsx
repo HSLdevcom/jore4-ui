@@ -155,7 +155,7 @@ export const EditLinePage: FC = () => {
                     line.primary_vehicle_mode,
                     line.type_of_line,
                   ),
-                  'text-5xl',
+                  'mx-2 text-5xl',
                 )}
               />
             )}

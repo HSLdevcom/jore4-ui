@@ -62,7 +62,7 @@ export const PositionMoveControls: FC<PositionMoveControlsProps> = ({
         disabled={isFirst || disabled}
         inverted
       >
-        <i className="icon-arrow rotate-180" />
+        <i className="icon-arrow mx-1 rotate-180" />
       </SimpleButton>
       <SimpleButton
         className="rounded-sm px-2"
@@ -72,7 +72,7 @@ export const PositionMoveControls: FC<PositionMoveControlsProps> = ({
         disabled={isLast || disabled}
         inverted
       >
-        <i className="icon-arrow" />
+        <i className="icon-arrow mx-1" />
       </SimpleButton>
     </Row>
   );

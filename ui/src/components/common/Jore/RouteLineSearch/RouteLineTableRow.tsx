@@ -72,7 +72,7 @@ function getDisplayInformation(
     case RouteLineTableRowVariant.RoutesAndLines:
     default:
       return {
-        rowIcon: <VehicleIcon className="text-2xl" rowItem={rowItem} />,
+        rowIcon: <VehicleIcon className="mx-2 text-2xl" rowItem={rowItem} />,
         alternativeRowActionButton: (
           <LineTimetablesButton
             disabled={!hasTimetables}

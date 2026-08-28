@@ -45,7 +45,7 @@ export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
         className,
       )}
       onClick={onClick}
-      icon={<i className="icon-bus-alt" aria-hidden />}
+      icon={<i className="icon-bus-alt mx-2" aria-hidden />}
       testId={testId ?? testIds.button}
     />
   );

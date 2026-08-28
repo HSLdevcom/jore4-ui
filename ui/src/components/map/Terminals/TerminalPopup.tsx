@@ -81,7 +81,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
                   )}
                 >
                   <span>{terminalLabel}</span> <span>{terminalName}</span>
-                  <i className="icon-open-in-new" aria-hidden />
+                  <i className="icon-open-in-new mx-2" aria-hidden />
                 </a>
               </h3>
               <CloseIconButton

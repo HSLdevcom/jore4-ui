@@ -26,7 +26,7 @@ export const TimetableIcon: FC<TimetableIconProps> = ({
   const fontColor = hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400';
   return (
     <i
-      className={twMerge('icon-calendar', fontColor, className)}
+      className={twMerge('icon-calendar mx-2', fontColor, className)}
       title={iconTitle}
       role="img"
     />
