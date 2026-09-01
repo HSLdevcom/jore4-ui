@@ -9,6 +9,7 @@ import {
   GetStopWithRouteGraphDataByIdQueryVariables,
   RouteUniqueFieldsFragment,
 } from '../../../../generated/graphql';
+import { Operation, useLoader } from '../../../../redux';
 import { StopPlaceState } from '../../../../types/stop-registry';
 
 const GQL_GET_SSP_ID_BY_QUAY_NETEX_ID = gql`
@@ -118,6 +119,8 @@ export function useStopStateChangeConfirmation<
     scheduledStopPointId,
   );
 
+  const { setIsLoading } = useLoader(Operation.ModifyStop);
+
   const [confirmationState, setConfirmationState] = useState<
     ConfirmationState<TFormState>
   >({ isOpen: false, state: null, affectedRoutes: [] });
@@ -129,12 +132,17 @@ export function useStopStateChangeConfirmation<
     );
   }
 
-  const performSave = async (state: TFormState) => {
-    await doSave(state);
-    onSuccess();
-  };
+  async function performSave(state: TFormState) {
+    setIsLoading(true);
+    try {
+      await doSave(state);
+      onSuccess();
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-  const onSubmit = async (state: TFormState) => {
+  async function onSubmit(state: TFormState) {
     try {
       if (isChangingToInactive(state)) {
         const affectedRoutes = await getAffectedRoutes();
@@ -145,9 +153,9 @@ export function useStopStateChangeConfirmation<
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
-  };
+  }
 
-  const onConfirmStateChange = async () => {
+  async function onConfirmStateChange() {
     setConfirmationState((prev) => ({ ...prev, isOpen: false }));
     if (!confirmationState.state) {
       return;
@@ -157,11 +165,11 @@ export function useStopStateChangeConfirmation<
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
-  };
+  }
 
-  const onCancelStateChange = () => {
+  function onCancelStateChange() {
     setConfirmationState({ isOpen: false, state: null, affectedRoutes: [] });
-  };
+  }
 
   return {
     onSubmit,
