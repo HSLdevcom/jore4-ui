@@ -9,6 +9,7 @@ import {
   GetStopWithRouteGraphDataByIdQueryVariables,
   RouteUniqueFieldsFragment,
 } from '../../../../generated/graphql';
+import { Operation, useLoader } from '../../../../redux';
 import { StopPlaceState } from '../../../../types/stop-registry';
 
 const GQL_GET_SSP_ID_BY_QUAY_NETEX_ID = gql`
@@ -118,20 +119,24 @@ export function useStopStateChangeConfirmation<
     scheduledStopPointId,
   );
 
+  const { setIsLoading } = useLoader(Operation.ModifyStop);
+
   const [confirmationState, setConfirmationState] = useState<
     ConfirmationState<TFormState>
   >({ isOpen: false, state: null, affectedRoutes: [] });
 
-  function isChangingToInactive(state: TFormState): boolean {
-    return (
-      currentStopState === StopPlaceState.InOperation &&
-      state.stopState !== StopPlaceState.InOperation
-    );
-  }
+  const isChangingToInactive = (state: TFormState): boolean =>
+    currentStopState === StopPlaceState.InOperation &&
+    state.stopState !== StopPlaceState.InOperation;
 
   const performSave = async (state: TFormState) => {
-    await doSave(state);
-    onSuccess();
+    setIsLoading(true);
+    try {
+      await doSave(state);
+      onSuccess();
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onSubmit = async (state: TFormState) => {

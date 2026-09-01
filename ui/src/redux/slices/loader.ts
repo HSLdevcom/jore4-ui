@@ -33,6 +33,7 @@ export enum Operation {
   UpdateRouteJourneyPattern = 'updateRouteJourneyPattern',
   UpdateLine = 'updateLine',
   CreateMirrorQuay = 'createMirrorQuay',
+  ModifyStop = 'modifyStop',
 }
 
 export function getHighestLoadingState(
@@ -86,6 +87,7 @@ export const joreOperations = [
   Operation.UpdateRouteJourneyPattern,
   Operation.UpdateLine,
   Operation.CreateMirrorQuay,
+  Operation.ModifyStop,
 ];
 
 type IState = {
