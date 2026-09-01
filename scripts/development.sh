@@ -23,7 +23,8 @@ INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/2025-09-24-
 TRAM_INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/tram_infraLinks_2026-01-28.sql"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
-DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
+DOCKER_TIAMAT_IMAGE="jore4-tiamat"
+DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-timetablesapi")
 DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2e" "jore4-testdb-e2e")
 
 ROUTES_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
@@ -264,7 +265,7 @@ start_dependencies() {
     additional_images+=("${DOCKER_E2E_IMAGES[@]}")
   fi
 
-  start_docker_containers "$DOCKER_TESTDB_IMAGE" "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
+  start_docker_containers "$DOCKER_TESTDB_IMAGE" "${DOCKER_IMAGES[@]}" "$DOCKER_TIAMAT_IMAGE" "${additional_images[@]}"
 
   # Use port 3010 for tiamat and 3110 for tiamat-e2e
 
@@ -377,6 +378,13 @@ setup_environment() {
     additional_images+=("${DOCKER_E2E_IMAGES[@]}")
   fi
 
+  if [[ $1 = "localtiamat" ]]; then
+    echo "Using locally running Tiamat instance, you should start the java application now
+          and press enter when it is ready to accept connections..."
+    read -r
+  else
+    additional_images+=("$DOCKER_TIAMAT_IMAGE")
+  fi
   start_docker_containers "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
 
   # Bus links are already in the above dump files.
@@ -390,7 +398,7 @@ setup_environment() {
     ./scripts/seed-municipalities-and-fare-zones.sh 3110
   fi
 
-  if [[ $1 = "test" ]]; then
+  if [[ $1 = "test" || $1 = "localtiamat" ]]; then
     cd ./test-db-manager
     yarn build
     # Stop registry dumps do not include any terminal data or trams, use the seed data to insert them
@@ -440,6 +448,19 @@ print_usage() {
 
     The stop registry dump does not currently contain any terminals, so use this command
     if you want to have terminal data in the database.
+
+    If the Digitransit subscription key has not yet been fetched (stored in
+    ui/.env.local), you will need to set the AZ_HTTPS_PROXY environment
+    variable. For more information, see the README.md file.
+
+    You can change which version of the Docker Compose bundle is downloaded by
+    passing a commit reference to the jore4-docker-compose-bundle repository via
+    the BUNDLE_REF environment variable. By default, the latest version is
+    downloaded.
+
+  setup:localtiamat
+    Start dependencies and seed databases with dump data, but use a locally running 
+    Tiamat instance instead of the one downloaded from Azure Container Registry.
 
     If the Digitransit subscription key has not yet been fetched (stored in
     ui/.env.local), you will need to set the AZ_HTTPS_PROXY environment
@@ -500,6 +521,10 @@ setup:env)
 
 setup:test)
   setup_environment test
+  ;;
+
+setup:localtiamat)
+  setup_environment localtiamat
   ;;
 
 infralinks:download)
