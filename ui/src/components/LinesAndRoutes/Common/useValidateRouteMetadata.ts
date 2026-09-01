@@ -44,9 +44,11 @@ export function assertRouteValidityIsInsideLineValidity(
     throw new Error(t(($) => $.routes.startNotInsideLineValidity));
   }
 
+  const lineValidityEnd = line.validity_end?.endOf('day');
+
   if (
-    line.validity_end &&
-    (!route.validity_end || route.validity_end > line.validity_end)
+    lineValidityEnd &&
+    (!route.validity_end || route.validity_end > lineValidityEnd)
   ) {
     throw new Error(t(($) => $.routes.endNotInsideLineValidity));
   }
