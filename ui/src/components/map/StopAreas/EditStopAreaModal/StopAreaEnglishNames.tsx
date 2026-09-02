@@ -2,11 +2,11 @@ import { Transition } from '@headlessui/react';
 import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { accordionClassNames } from '../../common';
-import { ExpandButton } from '../../common/Buttons';
-import { InputField } from '../../common/Inputs';
-import { FormRow } from '../../common/LayoutComponents';
-import { StopAreaFormState } from '../../forms/stop-area';
+import { accordionClassNames } from '../../../common';
+import { ExpandButton } from '../../../common/Buttons';
+import { InputField } from '../../../common/Inputs';
+import { FormRow } from '../../../common/LayoutComponents';
+import { StopAreaFormState } from '../../../forms/stop-area';
 
 const ID = 'StopAreaEngNameSection';
 const HeaderId = 'StopAreaEngNameSection::Header';

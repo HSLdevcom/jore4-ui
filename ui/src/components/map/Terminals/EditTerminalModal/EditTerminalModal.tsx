@@ -1,11 +1,11 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { EnrichedParentStopPlace } from '../../../types';
-import { useGetNextPrivateCode } from '../../forms/stop-area';
-import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
-import { CustomOverlay } from '../CustomOverlay';
-import { Modal } from '../modal';
+import { EnrichedParentStopPlace } from '../../../../types';
+import { useGetNextPrivateCode } from '../../../forms/stop-area';
+import { TerminalFormState } from '../../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { mapTerminalDataToFormState } from '../../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
+import { CustomOverlay } from '../../CustomOverlay';
+import { Modal } from '../../modal';
 import { TerminalForm } from './TerminalForm';
 
 const testIds = {

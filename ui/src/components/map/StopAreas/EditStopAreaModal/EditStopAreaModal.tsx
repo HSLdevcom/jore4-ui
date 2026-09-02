@@ -1,13 +1,13 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { EnrichedStopPlace } from '../../../types';
-import { getGeometryPoint, mapPointToGeoJSON } from '../../../utils';
+import { EnrichedStopPlace } from '../../../../types';
+import { getGeometryPoint, mapPointToGeoJSON } from '../../../../utils';
 import {
   StopAreaFormState,
   useGetNextPrivateCode,
-} from '../../forms/stop-area';
-import { CustomOverlay } from '../CustomOverlay';
-import { Modal } from '../modal/Modal';
+} from '../../../forms/stop-area';
+import { CustomOverlay } from '../../CustomOverlay';
+import { Modal } from '../../modal';
 import { StopAreaForm, mapStopAreaDataToFormState } from './StopAreaForm';
 import { useNearbyTransportModes } from './useNearbyTransportModes';
 

@@ -2,18 +2,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
-import { mapToISODate } from '../../../time';
-import { EnrichedStopPlace } from '../../../types';
-import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
-import { mapLngLatToPoint } from '../../../utils';
-import { InputField } from '../../common/Inputs';
-import { FormColumn, FormRow } from '../../common/LayoutComponents';
-import { FormActionButtons, ValidityPeriodForm } from '../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
+import { mapToISODate } from '../../../../time';
+import { EnrichedStopPlace } from '../../../../types';
+import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
+import { mapLngLatToPoint } from '../../../../utils';
+import { InputField } from '../../../common/Inputs';
+import { FormColumn, FormRow } from '../../../common/LayoutComponents';
+import { FormActionButtons, ValidityPeriodForm } from '../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   StopAreaFormState,
   stopAreaFormSchema,
-} from '../../forms/stop-area/stopAreaFormSchema';
+} from '../../../forms/stop-area';
 import { StopAreaNames } from './StopAreaNames';
 import { TransportationModeField } from './TransportationModeFormField';
 

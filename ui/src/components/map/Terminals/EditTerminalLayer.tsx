@@ -14,7 +14,7 @@ import { TerminalFormState } from '../../stop-registry/terminals/components/basi
 import { EditTerminalLayerRef } from '../refTypes';
 import { DeleteTerminal } from './DeleteTerminal';
 import { EditTerminal } from './EditTerminal';
-import { EditTerminalModal } from './EditTerminalModal';
+import { EditTerminalModal } from './EditTerminalModal/EditTerminalModal';
 import { MoveTerminal } from './MoveTerminal';
 import { NewTerminalMarker } from './NewTerminalMarker';
 import { TerminalPopup } from './TerminalPopup';

@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
   useQueryNearbyTransportModesQuery,
-} from '../../../generated/graphql';
-import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
+} from '../../../../generated/graphql';
+import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
 
 const GQL_QUERY_NEARBY_TRANSPORT_MODES = gql`
   query QueryNearbyTransportModes($point: geography!, $maxDistance: Float!) {

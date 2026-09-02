@@ -35,9 +35,9 @@ import { EditStopAreaLayerRef } from '../refTypes';
 import { useEnsureMapEntityTypeVisible } from '../Utils/useEnsureMapEntityTypeVisible';
 import { useEnsureStopVehicleModeVisible } from '../Utils/useEnsureStopVehicleModeVisible';
 import { useSetMapObservationDate } from '../Utils/useSetObservationDate';
-import { EditStopAreaModal } from './EditStopAreaModal';
+import { EditStopAreaModal } from './EditStopAreaModal/EditStopAreaModal';
+import { mapStopAreaDataToFormState } from './EditStopAreaModal/StopAreaForm';
 import { NewStopAreaMarker } from './NewStopAreaMarker';
-import { mapStopAreaDataToFormState } from './StopAreaForm';
 import { StopAreaPopup } from './StopAreaPopup';
 
 type EditStopAreaLayerProps = {

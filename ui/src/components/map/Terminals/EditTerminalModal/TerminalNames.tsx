@@ -2,11 +2,11 @@ import { Transition } from '@headlessui/react';
 import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { accordionClassNames } from '../../common';
-import { ExpandButton } from '../../common/Buttons';
-import { InputField } from '../../common/Inputs';
-import { FormRow } from '../../common/LayoutComponents';
-import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { accordionClassNames } from '../../../common';
+import { ExpandButton } from '../../../common/Buttons';
+import { InputField } from '../../../common/Inputs';
+import { FormRow } from '../../../common/LayoutComponents';
+import { TerminalFormState } from '../../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 
 const ID = 'TerminalNameSection';
 const HeaderId = 'TerminalNameSection::Header';

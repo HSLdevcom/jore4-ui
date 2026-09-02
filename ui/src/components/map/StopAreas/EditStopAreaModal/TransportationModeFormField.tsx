@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StopRegistryTransportModeType } from '../../../generated/graphql';
-import { JoreStopRegistryTransportModeType } from '../../../types/stop-registry';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../utils/i18n';
-import { EnumDropdown } from '../../common/Dropdowns';
-import { InputField } from '../../common/Inputs';
-import { StopAreaFormState } from '../../forms/stop-area/stopAreaFormSchema';
+import { StopRegistryTransportModeType } from '../../../../generated/graphql';
+import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
+import { mapStopRegistryTransportModeTypeToUiName } from '../../../../utils/i18n';
+import { EnumDropdown } from '../../../common/Dropdowns';
+import { InputField } from '../../../common/Inputs';
+import { StopAreaFormState } from '../../../forms/stop-area';
 
 const testId = 'StopAreaFormComponent::transportMode';
 

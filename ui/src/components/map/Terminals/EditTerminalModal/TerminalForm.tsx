@@ -3,16 +3,16 @@ import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { InputField } from '../../common/Inputs';
-import { FormColumn, FormRow } from '../../common/LayoutComponents';
-import { FormActionButtons, ValidityPeriodForm } from '../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
-import { TerminalTypeDropdown } from '../../stop-registry/components/TerminalTypeDropdown';
+import { InputField } from '../../../common/Inputs';
+import { FormColumn, FormRow } from '../../../common/LayoutComponents';
+import { FormActionButtons, ValidityPeriodForm } from '../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
+import { TerminalTypeDropdown } from '../../../stop-registry/components/TerminalTypeDropdown';
 import {
   TerminalFormState,
   terminalFormSchema,
-} from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { SelectTerminalMemberStopsDropdown } from '../../stop-registry/terminals/components/location-details/member-stops';
+} from '../../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { SelectTerminalMemberStopsDropdown } from '../../../stop-registry/terminals/components/location-details/member-stops';
 import { TerminalNames } from './TerminalNames';
 
 const testIds = {
