@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HslRouteTransportTargetEnum } from '../../../generated/graphql';
-import { mapTransportTargetToUiName } from '../../../utils/i18n';
-import { EnumDropdown } from '../../common/Dropdowns';
-import { FormInputProps } from '../../common/Inputs';
+import { HslRouteTransportTargetEnum } from '../../../../../generated/graphql';
+import { mapTransportTargetToUiName } from '../../../../../utils/i18n';
+import { EnumDropdown } from '../../../../common/Dropdowns';
+import { FormInputProps } from '../../../../common/Inputs';
 
 type TransportTargetDropdownProps = FormInputProps & {
   readonly testId?: string;
