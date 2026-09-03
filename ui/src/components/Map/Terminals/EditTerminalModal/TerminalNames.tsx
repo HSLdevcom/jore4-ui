@@ -6,7 +6,7 @@ import { accordionClassNames } from '../../../common';
 import { ExpandButton } from '../../../common/Buttons';
 import { InputField } from '../../../common/Inputs';
 import { FormRow } from '../../../common/LayoutComponents';
-import { TerminalFormState } from '../../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { TerminalFormState } from '../../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
 
 const ID = 'TerminalNameSection';
 const HeaderId = 'TerminalNameSection::Header';

@@ -23,7 +23,6 @@ import {
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
-import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
 import { useGetTerminalDetails } from '../Queries';
 import { EditTerminalLayerRef, TerminalsRef } from '../refTypes';
 import { MapTerminal } from '../Types';
@@ -31,6 +30,7 @@ import { useMapViewState } from '../Utils/useMapViewState';
 import { CreateTerminalMarker } from './CreateTerminalMarker';
 import { EditTerminalLayer } from './EditTerminalLayer';
 import { Terminal } from './Terminal';
+import { useCreateTerminal } from './useCreateTerminal';
 
 function useFetchAndUpdateSelectedTerminalData() {
   const selectedTerminalId = useAppSelector(selectSelectedTerminalId);

@@ -8,11 +8,11 @@ import { FormColumn, FormRow } from '../../../common/LayoutComponents';
 import { FormActionButtons, ValidityPeriodForm } from '../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { TerminalTypeDropdown } from '../../../stop-registry/components/TerminalTypeDropdown';
+import { SelectTerminalMemberStopsDropdown } from '../../../stop-registry/Terminals/Common/SelectTerminalMemberStopsDropdown';
 import {
   TerminalFormState,
   terminalFormSchema,
-} from '../../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { SelectTerminalMemberStopsDropdown } from '../../../stop-registry/terminals/components/location-details/member-stops';
+} from '../../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
 import { TerminalNames } from './TerminalNames';
 
 const testIds = {

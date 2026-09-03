@@ -1,0 +1,76 @@
+import { ApolloError, gql } from '@apollo/client';
+import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  StopRegistryParentStopPlaceInput,
+  useUpdateTerminalMutation,
+} from '../../../../generated/graphql';
+import { showDangerToastWithError } from '../../../../utils';
+import { TerminalFormState } from '../Components/BasicDetails/Edit/schema';
+import { TerminalOwnerFormState } from '../Components/OwnerDetails/terminalOwnerSchema';
+import { TerminalValidityFormState } from '../Components/Versions/TerminalValidityFormState';
+import { useTerminalApolloErrorHandler } from '../Utils/terminalErrorHandler';
+import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
+
+const GQL_UPDATE_TERMINAL = gql`
+  mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {
+    stop_registry {
+      mutateParentStopPlace(ParentStopPlace: $input) {
+        ...ParentStopPlaceDetails
+      }
+    }
+  }
+`;
+
+export function useUpdateTerminal() {
+  const { t } = useTranslation();
+  const tryHandleApolloError = useTerminalApolloErrorHandler();
+  const [updateTerminalMutation] = useUpdateTerminalMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: [
+      'GetParentStopPlaceDetails',
+      'GetStopTerminalsByLocation',
+      'GetLatestStopPlaceChange',
+      'GetStopPlaceChangeHistory',
+    ],
+  });
+
+  const updateTerminal = useCallback(
+    async (input: StopRegistryParentStopPlaceInput) => {
+      const result = await updateTerminalMutation({
+        variables: { input },
+      });
+
+      return getEnrichedParentStopPlace(
+        result.data?.stop_registry?.mutateParentStopPlace?.at(0),
+      );
+    },
+    [updateTerminalMutation],
+  );
+
+  const defaultErrorHandler = useCallback(
+    (
+      err: unknown,
+      details?:
+        TerminalFormState | TerminalValidityFormState | TerminalOwnerFormState,
+    ) => {
+      if (err instanceof ApolloError) {
+        const isKnownError = tryHandleApolloError(err, details);
+        if (isKnownError) {
+          return;
+        }
+      }
+
+      showDangerToastWithError(
+        t(($) => $.errors.saveFailed),
+        err,
+      );
+    },
+    [t, tryHandleApolloError],
+  );
+
+  return {
+    updateTerminal,
+    defaultErrorHandler,
+  };
+}

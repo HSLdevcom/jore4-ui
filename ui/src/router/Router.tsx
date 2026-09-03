@@ -39,8 +39,8 @@ import { StopAreaChangeHistoryPage } from '../components/stop-registry/StopAreas
 import { StopAreaDetailsPage } from '../components/stop-registry/StopAreas/StopAreaDetails/StopAreaDetailsPage';
 import { StopChangeHistoryPage } from '../components/stop-registry/stops/change-history';
 import { StopVersionsPage } from '../components/stop-registry/stops/versions';
-import { TerminalChangeHistoryPage } from '../components/stop-registry/terminals/change-history/TerminalChangeHistoryPage';
-import { TerminalDetailsPage } from '../components/stop-registry/terminals/TerminalDetailsPage';
+import { TerminalChangeHistoryPage } from '../components/stop-registry/Terminals/ChangeHistory/TerminalChangeHistoryPage';
+import { TerminalDetailsPage } from '../components/stop-registry/Terminals/TerminalDetailsPage';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,
