@@ -30,7 +30,7 @@ import { RoutesAndLinesMainPage } from '../components/LinesAndRoutes/MainPage/Ro
 import { EditRoutePage } from '../components/LinesAndRoutes/Routes/EditRoute/EditRoutePage';
 import { RouteVersionsPage } from '../components/LinesAndRoutes/Routes/RouteVersions';
 import { MainPage } from '../components/main/MainPage';
-import { MapPage } from '../components/map';
+import { MapPage } from '../components/Map';
 import {
   StopDetailsPage,
   StopSearchResultPage,

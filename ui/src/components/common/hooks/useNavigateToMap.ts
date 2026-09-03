@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { makeBackNavigationIsSafeState } from '../../../utils';
-import { OpenMapUrlState } from '../../map/Types';
-import { mapUrlStateToSearch } from '../../map/Utils/mapUrlState';
+import { OpenMapUrlState } from '../../Map/Types';
+import { mapUrlStateToSearch } from '../../Map/Utils/mapUrlState';
 
 export function useNavigateToMap() {
   const navigate = useNavigate();

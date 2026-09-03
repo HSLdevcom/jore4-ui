@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
-import { theme } from '../../../generated/theme';
+import { theme } from '../../generated/theme';
 
 const { colors } = theme;
 

@@ -33,7 +33,7 @@ import { useNavigateToMap } from '../../../common/hooks';
 import {
   ViewPortParams as UrlViewPort,
   defaultViewPortParams as defaultUrlViewPortParams,
-} from '../../../map/Types';
+} from '../../../Map/Types';
 import { StopSearchRow } from '../../components';
 import { mapCompactOrNull } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';

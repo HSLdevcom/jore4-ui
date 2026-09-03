@@ -8,8 +8,8 @@ import {
   useAppDispatch,
 } from '../../../redux';
 import { useNavigateToMap } from '../../common/hooks';
-import { useUpdateStopPriorityFilterIfNeeded } from '../../map/Stops/utils/useUpdateStopPriorityFilterIfNeeded';
-import { useEnsureStopVehicleModeVisible } from '../../map/Utils/useEnsureStopVehicleModeVisible';
+import { useUpdateStopPriorityFilterIfNeeded } from '../../Map/Stops/utils/useUpdateStopPriorityFilterIfNeeded';
+import { useEnsureStopVehicleModeVisible } from '../../Map/Utils/useEnsureStopVehicleModeVisible';
 import { LocatableStop } from '../types';
 
 export function useShowStopOnMap() {

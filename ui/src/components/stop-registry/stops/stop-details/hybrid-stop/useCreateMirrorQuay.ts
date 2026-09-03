@@ -9,7 +9,7 @@ import {
 import { Operation, useLoader } from '../../../../../redux';
 import { StopWithDetails } from '../../../../../types';
 import { KnownValueKey } from '../../../../../utils';
-import { useGetStopLinkAndDirection } from '../../../../map/Stops/utils/useGetStopLinkAndDirection';
+import { useGetStopLinkAndDirection } from '../../../../Map/Stops/utils/useGetStopLinkAndDirection';
 import { setMirrorParent } from '../../../utils/mirrorRelation';
 
 type CreateMirrorQuayParams = {
