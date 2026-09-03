@@ -5,13 +5,13 @@ import { DateTime } from 'luxon';
 import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
-} from '../../../generated/graphql';
-import { areEqual } from '../../../utils';
+} from '../../../../../../generated/graphql';
+import { areEqual } from '../../../../../../utils';
 import {
   fireFullMouseClickSequence,
   render,
   sleep,
-} from '../../../utils/test-utils';
+} from '../../../../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {

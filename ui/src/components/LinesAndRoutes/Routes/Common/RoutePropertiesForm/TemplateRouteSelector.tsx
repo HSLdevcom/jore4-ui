@@ -3,11 +3,15 @@ import { DateTime } from 'luxon';
 import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Priority } from '../../../types/enums';
-import { ObservationDateInput } from '../../common/Inputs';
-import { Column, Row } from '../../common/LayoutComponents';
-import { PriorityForm, PriorityFormState, priorityFormSchema } from '../common';
-import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
+import { Priority } from '../../../../../types/enums';
+import { ObservationDateInput } from '../../../../common/Inputs';
+import { Column, Row } from '../../../../common/LayoutComponents';
+import {
+  PriorityForm,
+  PriorityFormState,
+  priorityFormSchema,
+} from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 type TemplateRouteSelectorProps = {

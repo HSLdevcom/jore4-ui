@@ -6,8 +6,8 @@ import {
   ReusableComponentsVehicleModeEnum,
   useGetLinesForComboboxQuery,
   useGetSelectedLineDetailsByIdQuery,
-} from '../../../generated/graphql';
-import { mapToSqlLikeValue, useDebouncedString } from '../../../utils';
+} from '../../../../../../generated/graphql';
+import { mapToSqlLikeValue, useDebouncedString } from '../../../../../../utils';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
   query GetLinesForCombobox(

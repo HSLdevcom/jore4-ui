@@ -10,22 +10,19 @@ import {
   setTemplateRouteIdAction,
   useAppDispatch,
   useAppSelector,
-} from '../../../redux';
-import { InputField } from '../../common/Inputs';
-import { Switch, SwitchLabel } from '../../common/Jore';
-import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
+} from '../../../../../redux';
+import { InputField } from '../../../../common/Inputs';
+import { Switch, SwitchLabel } from '../../../../common/Jore';
+import { FormColumn, FormRow, Row } from '../../../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormActionButtons,
   hasSavableDirtyFields,
-} from '../common';
-import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
+} from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+import { RouteFormState, routeFormSchema } from '../../../Common';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
-import {
-  RouteFormState as FormState,
-  routeFormSchema,
-} from './RoutePropertiesForm.types';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
@@ -33,8 +30,8 @@ export type RoutePropertiesFormProps = {
   readonly id?: string;
   readonly routeLabel?: string | null;
   readonly className?: string;
-  readonly defaultValues: Partial<FormState>;
-  readonly onSubmit: (state: FormState) => void;
+  readonly defaultValues: Partial<RouteFormState>;
+  readonly onSubmit: (state: RouteFormState) => void;
   readonly onCancel: () => void;
   readonly testIdPrefix: string;
   readonly onDelete?: () => void;
@@ -81,7 +78,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const { templateRouteId } = useAppSelector(selectEditedRouteData);
 
-  const methods = useForm<FormState>({
+  const methods = useForm<RouteFormState>({
     defaultValues,
     resolver: zodResolver(routeFormSchema),
   });
@@ -126,7 +123,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
               mdColumns={5}
               smColumns={4}
             >
-              <InputField<FormState>
+              <InputField<RouteFormState>
                 type="text"
                 translationPrefix="routes"
                 fieldPath="finnishName"
@@ -134,7 +131,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 className="sm:col-span-3"
                 required
               />
-              <InputField<FormState>
+              <InputField<RouteFormState>
                 type="text"
                 translationPrefix="routes"
                 fieldPath="label"
@@ -142,7 +139,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 className="col-span-1"
                 required
               />
-              <InputField<FormState>
+              <InputField<RouteFormState>
                 type="number"
                 translationPrefix="routes"
                 fieldPath="variant"
@@ -150,7 +147,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 className="col-span-1"
                 min={0}
               />
-              <InputField<FormState>
+              <InputField<RouteFormState>
                 translationPrefix="routes"
                 fieldPath="direction"
                 testId={testIds.directionDropdown}
@@ -164,7 +161,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 className="col-span-2"
                 required
               />
-              <InputField<FormState>
+              <InputField<RouteFormState>
                 translationPrefix="routes"
                 fieldPath="onLineId"
                 testId={testIds.lineChoiceDropdown}
@@ -208,7 +205,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             </>
           )}
           <FormRow className="border-t border-light-grey p-4">
-            <ChangeValidityForm<FormState>
+            <ChangeValidityForm<RouteFormState>
               dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
               modalLayout={modalLayout}
               title={t(($) => $.routes.routeValidityPeriod)}

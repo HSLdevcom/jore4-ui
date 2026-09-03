@@ -10,7 +10,7 @@ import {
 } from '../../../generated/graphql';
 import { parseDate } from '../../../time';
 import { mapDateInputToValidityEnd } from '../../../utils';
-import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
+import { RouteFormState } from './RoutePropertiesForm.types';
 
 const GQL_GET_LINE_VALIDITY_BY_ID = gql`
   query GetLineValidityById($lineId: uuid!) {

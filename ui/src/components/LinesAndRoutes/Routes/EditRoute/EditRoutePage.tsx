@@ -14,15 +14,18 @@ import {
   Row,
 } from '../../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../../common/Modals';
-import { RouteDraftStopsConfirmationDialog } from '../../../forms/route/RouteDraftStopsConfirmationDialog';
-import { RoutePropertiesForm } from '../../../forms/route/RoutePropertiesForm';
-import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
-import { mapRouteToFormState, useDeleteRoute } from '../../Common';
+import {
+  RouteFormState,
+  mapRouteToFormState,
+  useDeleteRoute,
+} from '../../Common';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
 } from '../../Common/ConflictResolverModal';
+import { RoutePropertiesForm } from '../Common';
 import { RedirectWithQuery } from './RedirectWithQuery';
+import { RouteDraftStopsConfirmationDialog } from './RouteDraftStopsConfirmationDialog';
 import { useEditRouteJourneyPattern } from './useEditRouteJourneyPattern';
 import { useEditRouteMetadata } from './useEditRouteMetadata';
 

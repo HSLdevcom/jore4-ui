@@ -5,7 +5,7 @@ import {
   defaultLocalizedString,
   mapDateInputToValidityEnd,
 } from '../../../utils';
-import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
+import { RouteFormState } from './RoutePropertiesForm.types';
 
 export function mapRouteFormToInput(state: RouteFormState) {
   return {
