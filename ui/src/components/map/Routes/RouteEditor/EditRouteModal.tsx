@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RoutePropertiesForm } from '../../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import { CustomOverlay } from '../../CustomOverlay';
-import { Modal } from '../../modal';
+import { MapModal } from '../../MapModal';
 
 const testIds = {
   modal: 'EditRouteModal',
@@ -30,7 +30,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
       className="min-h-full w-[calc(450px+(2*1.25rem))]"
       position="top-left"
     >
-      <Modal
+      <MapModal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="items-center px-4 py-4 *:text-xl"
         bodyClassName="mx-0 my-0"
@@ -49,7 +49,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
           variant="modal"
           modalLayout
         />
-      </Modal>
+      </MapModal>
     </CustomOverlay>
   );
 };

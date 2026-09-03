@@ -73,7 +73,7 @@ export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
             ? t(($) => $.stopDetails.maintenance.organisation.modalTitleEdit)
             : t(($) => $.stopDetails.maintenance.organisation.modalTitleCreate)
         }
-        titleTestId={testIds.title}
+        testId={testIds.title}
       />
       <ModalBody className="w-[500px]">
         <OrganisationDetailsForm

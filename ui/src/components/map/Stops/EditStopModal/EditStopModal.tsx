@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { mapVehicleModeToStopTypeName } from '../../../../utils/i18n';
 import { StopFormState } from '../../../forms/stop';
 import { CustomOverlay } from '../../CustomOverlay';
-import { Modal } from '../../modal';
+import { MapModal } from '../../MapModal';
 import { CreateChanges, EditChanges } from '../Types';
 import { StopForm } from './Components/StopForm';
 
@@ -56,7 +56,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
       className="min-h-full w-[calc(450px+(2*1.25rem))]"
       position="top-left"
     >
-      <Modal
+      <MapModal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="items-center px-4 py-4 *:text-xl"
         bodyClassName="mx-0 my-0 flex flex-col"
@@ -74,7 +74,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
           ref={formRef}
           className="min-h-0"
         />
-      </Modal>
+      </MapModal>
     </CustomOverlay>
   );
 };

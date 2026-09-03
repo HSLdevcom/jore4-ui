@@ -62,7 +62,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
         loading={!originalStop || loadingExistingValidityRanges}
       >
         {originalStop && (
-          <ModalBody className="border-x border-light-grey">
+          <ModalBody>
             <CopyStopBoilerPlate originalStop={originalStop} />
             <h4 className="mt-4">
               {t(($) => $.stopDetails.version.title.copySubTitle)}

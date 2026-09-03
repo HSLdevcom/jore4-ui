@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { CloseIconButton } from '../Buttons';
 import { Row } from '../LayoutComponents';
 
@@ -8,21 +9,28 @@ const testIds = {
 };
 
 type ModalHeaderProps = {
+  readonly className?: string;
+  readonly heading: ReactNode;
   readonly onClose: () => void;
-  readonly heading: string;
-  readonly titleTestId?: string;
+  readonly testId?: string;
 };
 
 export const ModalHeader: FC<ModalHeaderProps> = ({
+  className,
   onClose,
   heading,
-  titleTestId,
+  testId,
 }) => {
   const { t } = useTranslation();
 
   return (
-    <Row className="border border-light-grey bg-background px-10 py-7">
-      <h2 data-testid={titleTestId}>{heading}</h2>
+    <Row
+      className={twMerge(
+        'border border-light-grey bg-background px-10 py-7',
+        className,
+      )}
+    >
+      <h2 data-testid={testId}>{heading}</h2>
       <CloseIconButton
         ariaLabel={t(($) => $.close)}
         className="ml-auto"

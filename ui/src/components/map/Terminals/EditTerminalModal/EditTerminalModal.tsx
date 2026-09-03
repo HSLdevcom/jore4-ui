@@ -5,7 +5,7 @@ import { useGetNextPrivateCode } from '../../../forms/stop-area';
 import { TerminalFormState } from '../../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { mapTerminalDataToFormState } from '../../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
 import { CustomOverlay } from '../../CustomOverlay';
-import { Modal } from '../../modal';
+import { MapModal } from '../../MapModal';
 import { TerminalForm } from './TerminalForm';
 
 const testIds = {
@@ -62,7 +62,7 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
       className="min-h-full w-[calc(450px+(2*1.25rem))]"
       position="top-left"
     >
-      <Modal
+      <MapModal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="items-center px-4 py-4 *:text-xl"
         bodyClassName="mx-0 my-0 flex"
@@ -79,7 +79,7 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
           className="min-h-0"
           ref={formRef}
         />
-      </Modal>
+      </MapModal>
     </CustomOverlay>
   );
 };

@@ -8,7 +8,7 @@ const baseStyles = 'flex items-center gap-2 px-4 py-2';
 const variantStyles = {
   infoContainer:
     '-mx-5 -mb-5 mt-5 border-t border-(--borderColor) bg-(--backgroundColor)',
-  modal: 'mx-0 my-0 border border-light-grey bg-background',
+  modal: 'mx-0 my-0 border-y border-light-grey bg-background',
 } as const;
 
 type FormActionButtonsProps = {
@@ -49,7 +49,9 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
       )}
     >
       {addNewButton}
+
       <div className="grow" />
+
       {onDelete && (
         <SimpleButton
           inverted
@@ -60,6 +62,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
           {deleteButtonText ?? t(($) => $.remove)}
         </SimpleButton>
       )}
+
       {cancelAsTextButton ? (
         <TextButton
           onClick={onCancel}
@@ -79,6 +82,7 @@ export const FormActionButtons: FC<FormActionButtonsProps> = ({
           {t(($) => $.cancel)}
         </SimpleButton>
       )}
+
       <SimpleButton
         inverted={invertedSaveButton}
         type="submit"

@@ -7,7 +7,7 @@ import {
   useGetNextPrivateCode,
 } from '../../../forms/stop-area';
 import { CustomOverlay } from '../../CustomOverlay';
-import { Modal } from '../../modal';
+import { MapModal } from '../../MapModal';
 import { StopAreaForm, mapStopAreaDataToFormState } from './StopAreaForm';
 import { useNearbyTransportModes } from './useNearbyTransportModes';
 
@@ -74,7 +74,7 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
       className="min-h-full w-[calc(450px+(2*1.25rem))]"
       position="top-left"
     >
-      <Modal
+      <MapModal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="items-center px-4 py-4 *:text-xl"
         bodyClassName="mx-0 my-0 flex flex-col"
@@ -94,7 +94,7 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
           loadingTransportModes={loading}
           enableTransportModeAutoSelect={enableTransportModeAutoSelect}
         />
-      </Modal>
+      </MapModal>
     </CustomOverlay>
   );
 };
