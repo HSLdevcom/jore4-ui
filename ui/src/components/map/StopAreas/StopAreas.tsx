@@ -24,7 +24,7 @@ import {
 import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
 import { useUpsertStopArea } from '../../forms/stop-area';
-import { useGetStopPlaceDetailsById } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
+import { useGetStopPlaceDetailsById } from '../../stop-registry/StopAreas/StopAreaDetails/useGetStopAreaDetails';
 import { EditStopAreaLayerRef, StopAreasRef } from '../refTypes';
 import { MapStopArea } from '../Types';
 import { useMapViewState } from '../Utils/useMapViewState';
