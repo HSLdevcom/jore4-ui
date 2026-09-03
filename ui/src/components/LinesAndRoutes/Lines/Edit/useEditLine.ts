@@ -9,7 +9,6 @@ import {
 import { MIN_DATE } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { showDangerToastWithError } from '../../../../utils';
-import { FormState } from '../../../forms/line/LineForm';
 import {
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,
@@ -17,6 +16,7 @@ import {
   resolveStopInfoByLine,
   useGetConflictingLines,
 } from '../../Common';
+import { FormState } from '../Components/LineForm/LineForm';
 import { mapFormToInput } from '../Create/useCreateLine';
 import { useValidateLine } from './useValidateLine';
 

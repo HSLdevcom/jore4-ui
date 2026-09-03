@@ -11,11 +11,11 @@ import { Priority } from '../../../../types/enums';
 import { illegalOptionalCast, showSuccessToast } from '../../../../utils';
 import { PageTitle } from '../../../common/Jore';
 import { Container, Row } from '../../../common/LayoutComponents';
-import { FormState, LineForm } from '../../../forms/line/LineForm';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from '../../Common/ConflictResolverModal';
+import { FormState, LineForm } from '../Components';
 import { useCreateLine } from './useCreateLine';
 
 export const CreateNewLinePage: FC = () => {

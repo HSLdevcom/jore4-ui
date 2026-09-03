@@ -4,24 +4,24 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
-import { Priority } from '../../../types/enums';
-import { submitFormByRef } from '../../../utils';
-import { SimpleButton } from '../../common/Buttons';
-import { FormContainer, Row } from '../../common/LayoutComponents';
+import { Priority } from '../../../../../types/enums';
+import { submitFormByRef } from '../../../../../utils';
+import { SimpleButton } from '../../../../common/Buttons';
+import { FormContainer, Row } from '../../../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   ChangeValidityFormState,
   changeValidityFormSchema,
   hasSavableDirtyFields,
   refineValidityPeriodSchema,
-} from '../common';
-import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
+} from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+import { lineTypesByVehicleMode } from '../../../../forms/line/LineTypeDropdown';
 import {
   LinePropertiesForm,
   FormState as LinePropertiesFormState,
   schema as linePropertiesFormSchema,
 } from './LinePropertiesForm';
-import { lineTypesByVehicleMode } from './LineTypeDropdown';
 
 export type FormState = LinePropertiesFormState &
   ChangeValidityFormState & {

@@ -17,15 +17,18 @@ import {
 } from '../../../../utils';
 import { PageTitle } from '../../../common/Jore';
 import { Container } from '../../../common/LayoutComponents';
-import { FormState, LineForm } from '../../../forms/line/LineForm';
+import {
+  StopsNeedingUpdateModal,
+  getBlockers,
+  hasBlockers,
+  mapLineDetailsResult,
+  useUpdateStopRegistryStopMetatype,
+} from '../../Common';
 import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from '../../Common/ConflictResolverModal';
-import { getBlockers, hasBlockers } from '../../Common/SaveBlockers';
-import { StopsNeedingUpdateModal } from '../../Common/StopsNeedingUpdateModal';
-import { useUpdateStopRegistryStopMetatype } from '../../Common/useUpdateStopRegistryStopMetatype';
-import { mapLineDetailsResult } from '../../Common/utils';
+import { FormState, LineForm } from '../Components';
 import { EditLineChanges, useEditLine } from './useEditLine';
 
 function mapLineToFormState(line: LineAllFieldsFragment): FormState {
