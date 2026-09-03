@@ -7,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
-import { selectTimetable, useAppSelector } from '../../../redux';
-import { parseDate } from '../../../time';
-import { DateRange } from '../../../types';
-import { areEqual, requiredDate } from '../../../utils';
-import { SimpleButton } from '../../common/Buttons';
-import { InputField } from '../../common/Inputs';
-import { Row, Visible } from '../../common/LayoutComponents';
+import { selectTimetable, useAppSelector } from '../../../../redux';
+import { parseDate } from '../../../../time';
+import { DateRange } from '../../../../types';
+import { areEqual, requiredDate } from '../../../../utils';
+import { SimpleButton } from '../../../common/Buttons';
+import { InputField } from '../../../common/Inputs';
+import { Row, Visible } from '../../../common/LayoutComponents';
 
 const testIds = {
   startDate: 'ObservationPeriodForm::startDate',

@@ -10,8 +10,10 @@ import {
   FormRow,
   Visible,
 } from '../../../common/LayoutComponents';
-import { LineTypeMultiSelectDropdown } from '../../../forms/timetables/LineTypeMultiSelectDropdown';
-import { SubstituteDayOfWeekDropdown } from '../../../forms/timetables/SubstituteDayOfWeekDropdown';
+import {
+  LineTypeMultiSelectDropdown,
+  SubstituteDayOfWeekDropdown,
+} from '../Components';
 import { FormState, PeriodType } from './OccasionalSubstitutePeriodForm.types';
 
 type OccasionalSubstitutePeriodRowProps = {

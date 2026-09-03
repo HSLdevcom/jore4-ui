@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SubstituteDayOfWeek } from '../../../types/enums';
-import { AllOptionEnum } from '../../../utils';
-import { mapSubstituteDayOfWeekToUiName } from '../../../utils/i18n';
-import { EnumDropdown } from '../../common/Dropdowns';
-import { FormInputProps } from '../../common/Inputs';
+import { SubstituteDayOfWeek } from '../../../../types/enums';
+import { AllOptionEnum } from '../../../../utils';
+import { mapSubstituteDayOfWeekToUiName } from '../../../../utils/i18n';
+import { EnumDropdown } from '../../../common/Dropdowns';
+import { FormInputProps } from '../../../common/Inputs';
 
 type SubstituteDayOfWeekDropdownProps = FormInputProps & {
   readonly id?: string;

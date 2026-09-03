@@ -13,8 +13,8 @@ import { CloseIconButton } from '../../common/Buttons';
 import { PageTitle } from '../../common/Jore';
 import { Container, Row } from '../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../common/Modals';
-import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
 import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod';
+import { ObservationPeriodForm } from './Components';
 import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';
 
 const testIds = {
