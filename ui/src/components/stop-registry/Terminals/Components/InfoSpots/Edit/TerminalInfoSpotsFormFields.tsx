@@ -1,0 +1,283 @@
+import { t } from 'i18next';
+import { FC } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import {
+  InfoSpotDetailsFragment,
+  StopRegistryIntendedUser,
+} from '../../../../../../generated/graphql';
+import { EnrichedParentStopPlace } from '../../../../../../types';
+import {
+  mapIntendedUserToUiName,
+  mapZoneLabelToUiName,
+} from '../../../../../../utils/i18n';
+import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
+import {
+  EnumDropdown,
+  NullableBooleanDropdown,
+} from '../../../../../common/Dropdowns';
+import { InputField } from '../../../../../common/Inputs';
+import { Column, Row } from '../../../../../common/LayoutComponents';
+import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/FormFragments';
+import { PosterState } from '../../../../stops/stop-details/info-spots/types';
+import { mapStringToPurpose } from '../../../../stops/stop-details/info-spots/utils';
+import { ZoneLabel } from '../../../../types';
+import { TerminalInfoSpotFormState } from '../Types';
+import {
+  defaultTerminalInfoSpotPosterValues,
+  resolveQuayPublicCode,
+} from '../utils';
+import { TerminalInfoSpotsFormPosters } from './TerminalInfoSpotsFormPosters';
+
+const testIds = {
+  description: 'TerminalInfoSpotFormFields::description',
+  label: 'TerminalInfoSpotFormFields::label',
+  intendedUser: 'TerminalInfoSpotFormFields::intendedUser',
+  latitude: 'TerminalInfoSpotFormFields::latitude',
+  longitude: 'TerminalInfoSpotFormFields::longitude',
+  backlight: 'TerminalInfoSpotFormFields::backlight',
+  floor: 'TerminalInfoSpotFormFields::floor',
+  railInformation: 'TerminalInfoSpotFormFields::railInformation',
+  zoneLabel: 'TerminalInfoSpotFormFields::zoneLabel',
+  deleteInfoSpot: 'TerminalInfoSpotFormFields::deleteInfoSpot',
+  addInfoSpotPoster: 'TerminalInfoSpotFormFields::addInfoSpotPoster',
+  noPosters: 'TerminalInfoSpotFormFields::noPosters',
+};
+
+type TerminalInfoSpotFormFieldsProps = {
+  readonly infoSpot?: InfoSpotDetailsFragment;
+  readonly terminal: EnrichedParentStopPlace;
+  readonly onRemove: () => void;
+};
+
+export const TerminalInfoSpotFormFields: FC<
+  TerminalInfoSpotFormFieldsProps
+> = ({ infoSpot, terminal, onRemove }) => {
+  const { register, watch, getValues, setValue, control } =
+    useFormContext<TerminalInfoSpotFormState>();
+  const toBeDeleted = watch('toBeDeleted');
+
+  const {
+    fields: posters,
+    append: appendPoster,
+    move: movePoster,
+  } = useFieldArray({
+    control,
+    name: 'poster',
+  });
+
+  const addPoster = () => {
+    const newPoster: PosterState = {
+      size: {
+        uiState: 'EXISTING',
+        width: defaultTerminalInfoSpotPosterValues.width,
+        height: defaultTerminalInfoSpotPosterValues.height,
+      },
+      label: mapStringToPurpose(defaultTerminalInfoSpotPosterValues.label),
+      lines: '',
+      toBeDeletedPoster: false,
+      sortOrder: null,
+      id: null,
+    };
+    appendPoster(newPoster);
+  };
+
+  const isStopInfoSpot =
+    infoSpot && !!resolveQuayPublicCode(infoSpot, terminal);
+
+  const onRemovePoster = (posterIndex: number) => {
+    const newToBeDeleted = !getValues(
+      `poster.${posterIndex}.toBeDeletedPoster`,
+    );
+    setValue(`poster.${posterIndex}.toBeDeletedPoster`, newToBeDeleted, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true, // Add this to trigger revalidation
+    });
+  };
+
+  const onMovePosterUp = (posterIndex: number) => {
+    if (posterIndex > 0) {
+      movePoster(posterIndex, posterIndex - 1);
+    }
+  };
+
+  const onMovePosterDown = (posterIndex: number) => {
+    if (posterIndex < posters.length - 1) {
+      movePoster(posterIndex, posterIndex + 1);
+    }
+  };
+
+  return (
+    <Column>
+      <div className="bg-background-hsl-commuter-train-purple/25 p-5">
+        <Row className="flex-wrap items-end gap-4 py-2.5">
+          <InputField<TerminalInfoSpotFormState>
+            type="text"
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="label"
+            testId={testIds.label}
+            disabled={toBeDeleted}
+          />
+
+          <InputField<TerminalInfoSpotFormState>
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="intendedUser"
+            testId={testIds.intendedUser}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<StopRegistryIntendedUser>
+                enumType={StopRegistryIntendedUser}
+                placeholder={t(($) => $.unknown)}
+                uiNameMapper={(val) => mapIntendedUserToUiName(t, val)}
+                buttonClassName="min-w-32"
+                includeNullOption
+                disabled={toBeDeleted}
+                customOrder={[
+                  StopRegistryIntendedUser.Matkatieto,
+                  StopRegistryIntendedUser.Markkinointi,
+                  StopRegistryIntendedUser.Vr,
+                  StopRegistryIntendedUser.Muu,
+                ]}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
+          />
+
+          <SizeFormFragment<TerminalInfoSpotFormState>
+            sizeStatePath="size"
+            titlePath="stopDetails.infoSpots.size"
+            disabled={toBeDeleted}
+          />
+
+          <InputField<TerminalInfoSpotFormState>
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="backlight"
+            testId={testIds.backlight}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <NullableBooleanDropdown
+                placeholder={t(($) => $.unknown)}
+                buttonClassName="min-w-32"
+                disabled={toBeDeleted}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
+          />
+        </Row>
+
+        <Row className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap">
+          <InputField<TerminalInfoSpotFormState>
+            type="number"
+            translationPrefix="terminalDetails.infoSpots"
+            fieldPath="latitude"
+            testId={testIds.latitude}
+            disabled={toBeDeleted || isStopInfoSpot}
+            inputClassName="w-36"
+            step="any"
+          />
+
+          <InputField<TerminalInfoSpotFormState>
+            type="number"
+            translationPrefix="terminalDetails.infoSpots"
+            fieldPath="longitude"
+            testId={testIds.longitude}
+            disabled={toBeDeleted || isStopInfoSpot}
+            inputClassName="w-36"
+            step="any"
+          />
+
+          <InputField<TerminalInfoSpotFormState>
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="zoneLabel"
+            testId={testIds.zoneLabel}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<ZoneLabel>
+                enumType={ZoneLabel}
+                placeholder={t(($) => $.unknown)}
+                uiNameMapper={(val) => mapZoneLabelToUiName(t, val)}
+                buttonClassName="min-w-32"
+                disabled={toBeDeleted}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
+          />
+
+          <InputField<TerminalInfoSpotFormState>
+            type="text"
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="railInformation"
+            inputClassName="w-20"
+            testId={testIds.railInformation}
+            disabled={toBeDeleted}
+          />
+
+          <InputField<TerminalInfoSpotFormState>
+            type="text"
+            translationPrefix="stopDetails.infoSpots"
+            fieldPath="floor"
+            inputClassName="w-20"
+            testId={testIds.floor}
+            disabled={toBeDeleted}
+          />
+        </Row>
+
+        <Column className="items-stretch gap-4 bg-background py-2.5">
+          <InputField<TerminalInfoSpotFormState>
+            type="text"
+            translationPrefix="stopDetails"
+            fieldPath="description.value"
+            testId={testIds.description}
+            customTitlePath="stopDetails.infoSpots.description"
+            disabled={toBeDeleted}
+          />
+
+          <SimpleButton
+            className="self-start"
+            shape="slim"
+            testId={testIds.deleteInfoSpot}
+            onClick={onRemove}
+            inverted
+          >
+            {toBeDeleted
+              ? t(($) => $.stopDetails.infoSpots.cancelDeleteInfoSpot)
+              : t(($) => $.stopDetails.infoSpots.deleteInfoSpot)}
+          </SimpleButton>
+        </Column>
+      </div>
+      {posters?.length ? (
+        posters.map((poster, posterIndex) => (
+          <TerminalInfoSpotsFormPosters
+            key={poster.id}
+            posterIndex={posterIndex}
+            addPoster={addPoster}
+            onRemovePoster={onRemovePoster}
+            onMovePosterUp={onMovePosterUp}
+            onMovePosterDown={onMovePosterDown}
+            isFirstPoster={posterIndex === 0}
+            isLastPoster={posterIndex === posters.length - 1}
+            totalPosters={posters.length}
+          />
+        ))
+      ) : (
+        <Row className="items-center p-5">
+          <span data-testid={testIds.noPosters}>
+            <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
+            {t(($) => $.stopDetails.infoSpots.noPosters)}
+          </span>
+
+          <AddNewButton
+            testId={testIds.addInfoSpotPoster}
+            label={t(($) => $.stopDetails.infoSpots.addInfoSpotPoster)}
+            onClick={addPoster}
+            className="ml-auto"
+          />
+        </Row>
+      )}
+      <input type="checkbox" hidden {...register('toBeDeleted')} />
+    </Column>
+  );
+};

@@ -9,7 +9,7 @@ import {
 import { EnrichedParentStopPlace } from '../../../types';
 import { mapPointToStopRegistryGeoJSON } from '../../../utils';
 import { ConfirmationDialog } from '../../common/Modals';
-import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
+import { mapTerminalDataToFormState } from '../../stop-registry/Terminals/Components/BasicDetails/Edit/TerminalDetailsEdit';
 import { useTerminalEdit } from './useTerminalEdit';
 
 type MoveTerminalProps = {

@@ -13,8 +13,8 @@ import {
 import { EnrichedParentStopPlace } from '../../../types';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { ConfirmationDialog } from '../../common/Modals';
-import { useEditMembersOfTerminal } from '../../stop-registry/terminals/components/location-details/location-details-form/useEditMembersOfTerminal';
-import { useDeleteTerminal } from '../../stop-registry/terminals/hooks';
+import { useEditMembersOfTerminal } from '../../stop-registry/Terminals/Common';
+import { useDeleteTerminal } from './useDeleteTerminal';
 
 function getMemberStops(terminal: EnrichedParentStopPlace): string {
   const quayCodes =

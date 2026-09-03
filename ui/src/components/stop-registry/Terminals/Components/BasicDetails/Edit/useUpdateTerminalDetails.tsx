@@ -1,0 +1,125 @@
+import compact from 'lodash/compact';
+import { useCallback } from 'react';
+import {
+  StopRegistryNameType,
+  StopRegistryParentStopPlaceInput,
+} from '../../../../../../generated/graphql';
+import { EnrichedParentStopPlace } from '../../../../../../types';
+import {
+  KnownValueKey,
+  patchAlternativeNames,
+  patchKeyValues,
+} from '../../../../../../utils';
+import { useUpdateTerminal } from '../../../Common';
+import { TerminalFormState } from './schema';
+
+type UpdateTerminalInputs = {
+  readonly terminal: EnrichedParentStopPlace;
+  readonly state: TerminalFormState;
+};
+
+function mapFormStateToInput({
+  terminal,
+  state,
+}: UpdateTerminalInputs): StopRegistryParentStopPlaceInput {
+  const { id } = terminal;
+
+  return {
+    id,
+    alternativeNames: patchAlternativeNames(terminal, [
+      {
+        name: { lang: 'swe', value: state.nameSwe },
+        nameType: StopRegistryNameType.Translation,
+      },
+      {
+        name: { lang: 'eng', value: state.nameEng },
+        nameType: StopRegistryNameType.Translation,
+      },
+      {
+        name: { lang: 'swe', value: state.abbreviationSwe },
+        nameType: StopRegistryNameType.Other,
+      },
+      {
+        name: { lang: 'fin', value: state.abbreviationFin },
+        nameType: StopRegistryNameType.Other,
+      },
+      {
+        name: { lang: 'eng', value: state.abbreviationEng },
+        nameType: StopRegistryNameType.Other,
+      },
+      {
+        name: { lang: 'fin', value: state.nameLongFin },
+        nameType: StopRegistryNameType.Alias,
+      },
+      {
+        name: { lang: 'swe', value: state.nameLongSwe },
+        nameType: StopRegistryNameType.Alias,
+      },
+      {
+        name: { lang: 'eng', value: state.nameLongEng },
+        nameType: StopRegistryNameType.Alias,
+      },
+    ]),
+    name: {
+      value: state.name,
+      lang: 'fin',
+    },
+    description: {
+      value: state.description.value ?? '',
+      lang: state.description.lang ?? 'fin',
+    },
+    validBetween: null,
+    keyValues: patchKeyValues(
+      terminal,
+      compact([
+        state.terminalType
+          ? {
+              key: KnownValueKey.TerminalType,
+              values: [state.terminalType],
+            }
+          : undefined,
+        state.departurePlatforms
+          ? {
+              key: KnownValueKey.DeparturePlatforms,
+              values: [state.departurePlatforms],
+            }
+          : undefined,
+        state.arrivalPlatforms
+          ? {
+              key: KnownValueKey.ArrivalPlatforms,
+              values: [state.arrivalPlatforms],
+            }
+          : undefined,
+        state.loadingPlatforms
+          ? {
+              key: KnownValueKey.LoadingPlatforms,
+              values: [state.loadingPlatforms],
+            }
+          : undefined,
+        state.electricCharging
+          ? {
+              key: KnownValueKey.ElectricCharging,
+              values: [state.electricCharging],
+            }
+          : undefined,
+      ]),
+    ),
+  };
+}
+
+export function useUpdateTerminalDetails() {
+  const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();
+
+  const updateTerminalDetails = useCallback(
+    async (inputs: UpdateTerminalInputs) => {
+      const input = mapFormStateToInput(inputs);
+      return updateTerminal(input);
+    },
+    [updateTerminal],
+  );
+
+  return {
+    updateTerminalDetails,
+    defaultErrorHandler,
+  };
+}

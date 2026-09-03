@@ -10,10 +10,10 @@ import {
   useLoader,
 } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
-import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
+import { TerminalFormState } from '../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
 import { useEnsureMapEntityTypeVisible } from '../Utils/useEnsureMapEntityTypeVisible';
 import { useSetMapObservationDate } from '../Utils/useSetObservationDate';
+import { useCreateTerminal } from './useCreateTerminal';
 
 export function useTerminalCreation() {
   const { t } = useTranslation();

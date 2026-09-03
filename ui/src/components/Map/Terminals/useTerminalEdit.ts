@@ -11,7 +11,7 @@ import {
   useLoader,
 } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
-import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { TerminalFormState } from '../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
 import { useSetMapObservationDate } from '../Utils/useSetObservationDate';
 import { useUpdateTerminalMapDetails } from '../Utils/useUpdateTerminalMapDetails';
 
