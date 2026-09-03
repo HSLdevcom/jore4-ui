@@ -5,9 +5,9 @@ import {
   RouteAllFieldsFragment,
   useGetRouteDetailsByLabelWildcardQuery,
   useGetSelectedRouteDetailsByIdQuery,
-} from '../../../generated/graphql';
-import { Priority } from '../../../types/enums';
-import { mapToSqlLikeValue, useDebouncedString } from '../../../utils';
+} from '../../../../../../generated/graphql';
+import { Priority } from '../../../../../../types/enums';
+import { mapToSqlLikeValue, useDebouncedString } from '../../../../../../utils';
 
 const GQL_GET_ROUTE_DETAILS_BY_LABEL_WILDCARD = gql`
   query GetRouteDetailsByLabelWildcard(

@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LineForComboboxFragment } from '../../../generated/graphql';
-import { selectEditedRouteData, useAppSelector } from '../../../redux';
-import { MAX_DATE, MIN_DATE } from '../../../time';
+import { LineForComboboxFragment } from '../../../../../../generated/graphql';
+import { selectEditedRouteData, useAppSelector } from '../../../../../../redux';
+import { MAX_DATE, MIN_DATE } from '../../../../../../time';
 import {
   ComboboxInputProps,
   ComboboxOptionItem,
   SearchableDropdown,
-} from '../../common/Dropdowns';
-import { DateRange } from '../common';
+} from '../../../../../common/Dropdowns';
+import { DateRange } from '../../../../../forms/common';
 import { useChooseLineDropdown } from './useChooseLineDropdown';
 
 type ChooseLineDropdownProps = ComboboxInputProps & {

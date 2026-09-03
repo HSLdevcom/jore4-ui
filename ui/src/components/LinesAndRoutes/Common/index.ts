@@ -5,6 +5,7 @@ export * from './extractJourneyPatternCandidateStops';
 export * from './LineTitle';
 export * from './mapRouteFormUtils';
 export * from './RouteLabel';
+export * from './RoutePropertiesForm.types';
 export * from './SaveBlockers';
 export * from './StopsNeedingUpdateModal';
 export * from './useDeleteRoute';

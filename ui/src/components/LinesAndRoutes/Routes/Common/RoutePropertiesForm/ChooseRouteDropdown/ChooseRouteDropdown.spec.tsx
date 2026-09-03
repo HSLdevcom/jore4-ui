@@ -6,14 +6,14 @@ import {
   GetRouteDetailsByLabelWildcardDocument,
   GetRouteDetailsByLabelWildcardQuery,
   RouteDirectionEnum,
-} from '../../../generated/graphql';
-import { Priority } from '../../../types/enums';
-import { areEqual } from '../../../utils';
+} from '../../../../../../generated/graphql';
+import { Priority } from '../../../../../../types/enums';
+import { areEqual } from '../../../../../../utils';
 import {
   fireFullMouseClickSequence,
   render,
   sleep,
-} from '../../../utils/test-utils';
+} from '../../../../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 describe(`<${ChooseRouteDropdown.name} />`, () => {

@@ -10,9 +10,9 @@ import {
   ChangeValidityFormState,
   changeValidityFormSchema,
   refineValidityPeriodSchema,
-} from '../common';
+} from '../../forms/common';
 
-export const namesSchema = z.object({
+const namesSchema = z.object({
   name: localizedStringRequired,
   shortName: localizedStringRequired,
 });

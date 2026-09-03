@@ -1,7 +1,7 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RoutePropertiesForm } from '../../../forms/route/RoutePropertiesForm';
-import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
+import { RouteFormState } from '../../../LinesAndRoutes/Common';
+import { RoutePropertiesForm } from '../../../LinesAndRoutes/Routes/Common';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
 
