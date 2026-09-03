@@ -16,7 +16,7 @@ import {
   patchKeyValues,
   showDangerToast,
 } from '../../../utils';
-import { getEnrichedStopPlace } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
+import { getEnrichedStopPlace } from '../../stop-registry/StopAreas/StopAreaDetails/useGetStopAreaDetails';
 import { StopAreaFormState } from './stopAreaFormSchema';
 import { useStopAreaDetailsApolloErrorHandler } from './util/stopAreaDetailsErrorHandler';
 

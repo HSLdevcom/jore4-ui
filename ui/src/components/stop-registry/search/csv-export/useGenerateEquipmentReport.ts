@@ -18,7 +18,7 @@ import {
   AsyncTaskCancelledError,
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
-import { getEnrichedStopPlace } from '../../stop-areas/stop-area-details/useGetStopAreaDetails';
+import { getEnrichedStopPlace } from '../../StopAreas/StopAreaDetails/useGetStopAreaDetails';
 import { mapCompactOrNull, mapToEnrichedQuay } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';
 import { ResultSelection, StopSearchFilters } from '../types';

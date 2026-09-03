@@ -75891,6 +75891,1707 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
   }>
 };
 
+export type GetHistoricalStopAreaDetailsQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  version: Scalars['Int']['input'];
+}>;
+
+
+export type GetHistoricalStopAreaDetailsQuery = {
+  readonly __typename?: 'query_root',
+  readonly stopsRegistry?: {
+    readonly __typename?: 'stop_registryStopPlaceRegister',
+    readonly stopPlace?: ReadonlyArray<
+      | {
+        readonly __typename?: 'stop_registry_ParentStopPlace'
+      }
+      | {
+        readonly __typename?: 'stop_registry_StopPlace',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly transportMode?: StopRegistryTransportModeType | null,
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly alternativeNames?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_AlternativeName',
+          readonly nameType: StopRegistryNameType,
+          readonly name: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          }
+        } | null> | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null,
+          readonly type?: string | null
+        } | null,
+        readonly geometry?: {
+          readonly __typename?: 'stop_registry_GeoJSON',
+          readonly type?: StopRegistryGeoJsonType | null,
+          readonly coordinates?: GeoJSON.Position | null
+        } | null,
+        readonly keyValues?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_KeyValues',
+          readonly key?: string | null,
+          readonly values?: ReadonlyArray<string | null> | null
+        } | null> | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly publicCode?: string | null
+        } | null> | null,
+        readonly parentStopPlace?: ReadonlyArray<
+          | {
+            readonly __typename?: 'stop_registry_ParentStopPlace',
+            readonly id?: string | null,
+            readonly version?: string | null,
+            readonly name?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly privateCode?: {
+              readonly __typename?: 'stop_registry_PrivateCode',
+              readonly value?: string | null,
+              readonly type?: string | null
+            } | null
+          }
+          | {
+            readonly __typename?: 'stop_registry_StopPlace'
+          }
+         | null> | null
+      }
+     | null> | null
+  } | null
+};
+
+export type HistoricalStopAreaDetailsFragment = {
+  readonly __typename?: 'stop_registry_StopPlace',
+  readonly id?: string | null,
+  readonly version?: string | null,
+  readonly transportMode?: StopRegistryTransportModeType | null,
+  readonly name?: {
+    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+    readonly lang?: string | null,
+    readonly value?: string | null
+  } | null,
+  readonly alternativeNames?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_AlternativeName',
+    readonly nameType: StopRegistryNameType,
+    readonly name: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    }
+  } | null> | null,
+  readonly privateCode?: {
+    readonly __typename?: 'stop_registry_PrivateCode',
+    readonly value?: string | null,
+    readonly type?: string | null
+  } | null,
+  readonly geometry?: {
+    readonly __typename?: 'stop_registry_GeoJSON',
+    readonly type?: StopRegistryGeoJsonType | null,
+    readonly coordinates?: GeoJSON.Position | null
+  } | null,
+  readonly keyValues?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_KeyValues',
+    readonly key?: string | null,
+    readonly values?: ReadonlyArray<string | null> | null
+  } | null> | null,
+  readonly quays?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_Quay',
+    readonly id?: string | null,
+    readonly version?: string | null,
+    readonly publicCode?: string | null
+  } | null> | null,
+  readonly parentStopPlace?: ReadonlyArray<
+    | {
+      readonly __typename?: 'stop_registry_ParentStopPlace',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly name?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly privateCode?: {
+        readonly __typename?: 'stop_registry_PrivateCode',
+        readonly value?: string | null,
+        readonly type?: string | null
+      } | null
+    }
+    | {
+      readonly __typename?: 'stop_registry_StopPlace'
+    }
+   | null> | null
+};
+
+export type HistoricalStopAreaQuayDetailsFragment = {
+  readonly __typename?: 'stop_registry_Quay',
+  readonly id?: string | null,
+  readonly version?: string | null,
+  readonly publicCode?: string | null
+};
+
+export type HistoricalStopAreaTerminalDetailsFragment = {
+  readonly __typename?: 'stop_registry_ParentStopPlace',
+  readonly id?: string | null,
+  readonly version?: string | null,
+  readonly name?: {
+    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+    readonly lang?: string | null,
+    readonly value?: string | null
+  } | null,
+  readonly privateCode?: {
+    readonly __typename?: 'stop_registry_PrivateCode',
+    readonly value?: string | null,
+    readonly type?: string | null
+  } | null
+};
+
+export type DeleteStopAreaMutationVariables = Exact<{
+  stopPlaceId: Scalars['String']['input'];
+}>;
+
+
+export type DeleteStopAreaMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceMutation',
+    readonly deleteStopPlace?: boolean | null
+  } | null
+};
+
+export type GetLatestStopPlaceChangeQueryVariables = Exact<{
+  where: StopsDatabaseStopPlaceBoolExp;
+}>;
+
+
+export type GetLatestStopPlaceChangeQuery = {
+  readonly __typename?: 'query_root',
+  readonly stopsDb?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly stopPlace: ReadonlyArray<{
+      readonly __typename?: 'stops_database_stop_place',
+      readonly changed?: any | null,
+      readonly changed_by?: string | null,
+      readonly private_code_value?: string | null,
+      readonly netex_id?: string | null
+    }>
+  } | null
+};
+
+export type MoveQuayToStopPlaceMutationVariables = Exact<{
+  toStopPlaceId: Scalars['String']['input'];
+  quayIds: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
+  moveQuayFromDate: Scalars['stop_registry_LocalDate']['input'];
+}>;
+
+
+export type MoveQuayToStopPlaceMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceMutation',
+    readonly moveQuaysToStop?:
+      | {
+        readonly __typename?: 'stop_registry_ParentStopPlace'
+      }
+      | {
+        readonly __typename?: 'stop_registry_StopPlace',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly versionComment?: string | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly publicCode?: string | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null
+        } | null> | null
+      }
+     | null
+  } | null
+};
+
+export type GetStopPointsByQuayIdQueryVariables = Exact<{
+  quayIds: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type GetStopPointsByQuayIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly scheduled_stop_point_id: UUID,
+    readonly priority: number,
+    readonly direction: InfrastructureNetworkDirectionEnum,
+    readonly label: string,
+    readonly timing_place_id?: UUID | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly located_on_infrastructure_link_id: UUID,
+    readonly stop_place_ref?: string | null,
+    readonly measured_location: GeoJSON.Point,
+    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+    }>
+  }>
+};
+
+export type UpdateStopPointMutationVariables = Exact<{
+  stopId: Scalars['uuid']['input'];
+  changes: ServicePatternScheduledStopPointSetInput;
+}>;
+
+
+export type UpdateStopPointMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly update_service_pattern_scheduled_stop_point?: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly scheduled_stop_point_id: UUID,
+      readonly validity_end?: luxon.DateTime | null
+    }>
+  } | null
+};
+
+export type GetOriginalQuaysQueryVariables = Exact<{
+  quayId: Scalars['String']['input'];
+}>;
+
+
+export type GetOriginalQuaysQuery = {
+  readonly __typename?: 'query_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceRegister',
+    readonly stopPlace?: ReadonlyArray<
+      | {
+        readonly __typename?: 'stop_registry_ParentStopPlace'
+      }
+      | {
+        readonly __typename?: 'stop_registry_StopPlace',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly publicCode?: string | null
+        } | null> | null
+      }
+     | null> | null
+  } | null
+};
+
+export type GetStopPlaceDetailsQueryVariables = Exact<{
+  where?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
+}>;
+
+
+export type GetStopPlaceDetailsQuery = {
+  readonly __typename?: 'query_root',
+  readonly stopsDb?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly newestVersion: ReadonlyArray<{
+      readonly __typename?: 'stops_database_stop_place_newest_version',
+      readonly id?: any | null,
+      readonly TiamatStopPlace?: ReadonlyArray<
+        | {
+          readonly __typename?: 'stop_registry_ParentStopPlace'
+        }
+        | {
+          readonly __typename?: 'stop_registry_StopPlace',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly transportMode?: StopRegistryTransportModeType | null,
+          readonly publicCode?: string | null,
+          readonly alternativeNames?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_AlternativeName',
+            readonly nameType: StopRegistryNameType,
+            readonly name: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            }
+          } | null> | null,
+          readonly privateCode?: {
+            readonly __typename?: 'stop_registry_PrivateCode',
+            readonly value?: string | null,
+            readonly type?: string | null
+          } | null,
+          readonly name?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly organisations?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+            readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+            readonly organisationRef: string,
+            readonly organisation?: {
+              readonly __typename?: 'stop_registry_Organisation',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: string | null,
+              readonly privateContactDetails?: {
+                readonly __typename?: 'stop_registry_Contact',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly email?: string | null,
+                readonly phone?: string | null
+              } | null
+            } | null
+          } | null> | null,
+          readonly geometry?: {
+            readonly __typename?: 'stop_registry_GeoJSON',
+            readonly type?: StopRegistryGeoJsonType | null,
+            readonly coordinates?: GeoJSON.Position | null
+          } | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null,
+          readonly quays?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_Quay',
+            readonly id?: string | null,
+            readonly version?: string | null,
+            readonly publicCode?: string | null,
+            readonly privateCode?: {
+              readonly __typename?: 'stop_registry_PrivateCode',
+              readonly type?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly alternativeNames?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_AlternativeName',
+              readonly nameType: StopRegistryNameType,
+              readonly name: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              }
+            } | null> | null,
+            readonly geometry?: {
+              readonly __typename?: 'stop_registry_GeoJSON',
+              readonly coordinates?: GeoJSON.Position | null,
+              readonly type?: StopRegistryGeoJsonType | null
+            } | null,
+            readonly accessibilityAssessment?: {
+              readonly __typename?: 'stop_registry_AccessibilityAssessment',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly hslAccessibilityProperties?: {
+                readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null,
+                readonly stopAreaSideSlope?: number | null,
+                readonly stopAreaLengthwiseSlope?: number | null,
+                readonly endRampSlope?: number | null,
+                readonly shelterLaneDistance?: number | null,
+                readonly curbBackOfRailDistance?: number | null,
+                readonly curbDriveSideOfRailDistance?: number | null,
+                readonly structureLaneDistance?: number | null,
+                readonly stopElevationFromRailTop?: number | null,
+                readonly stopElevationFromSidewalk?: number | null,
+                readonly lowerCleatHeight?: number | null,
+                readonly serviceAreaWidth?: number | null,
+                readonly serviceAreaLength?: number | null,
+                readonly platformEdgeWarningArea?: boolean | null,
+                readonly guidanceTiles?: boolean | null,
+                readonly guidanceStripe?: boolean | null,
+                readonly serviceAreaStripes?: boolean | null,
+                readonly sidewalkAccessibleConnection?: boolean | null,
+                readonly stopAreaSurroundingsAccessible?: boolean | null,
+                readonly curvedStop?: boolean | null,
+                readonly stopType?: StopRegistryStopType | null,
+                readonly shelterType?: StopRegistryShelterWidthType | null,
+                readonly guidanceType?: StopRegistryGuidanceType | null,
+                readonly mapType?: StopRegistryMapType | null,
+                readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null
+              } | null,
+              readonly limitations?: {
+                readonly __typename?: 'stop_registry_AccessibilityLimitations',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+                readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+                readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+                readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+                readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+              } | null
+            } | null,
+            readonly keyValues?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_KeyValues',
+              readonly key?: string | null,
+              readonly values?: ReadonlyArray<string | null> | null
+            } | null> | null,
+            readonly infoSpots?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_infoSpot',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly backlight?: boolean | null,
+              readonly displayType?: StopRegistryDisplayType | null,
+              readonly floor?: string | null,
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+              readonly infoSpotType?: StopRegistryInfoSpotType | null,
+              readonly intendedUser?: StopRegistryIntendedUser | null,
+              readonly railInformation?: string | null,
+              readonly speechProperty?: boolean | null,
+              readonly zoneLabel?: string | null,
+              readonly description?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null,
+              readonly keyValues?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_KeyValues',
+                readonly key?: string | null,
+                readonly values?: ReadonlyArray<string | null> | null
+              } | null> | null,
+              readonly poster?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_poster',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly label?: string | null,
+                readonly width?: number | null,
+                readonly height?: number | null,
+                readonly lines?: string | null,
+                readonly keyValues?: ReadonlyArray<{
+                  readonly __typename?: 'stop_registry_KeyValues',
+                  readonly key?: string | null,
+                  readonly values?: ReadonlyArray<string | null> | null
+                } | null> | null
+              } | null> | null,
+              readonly geometry?: {
+                readonly __typename?: 'stop_registry_GeoJSON',
+                readonly type?: StopRegistryGeoJsonType | null,
+                readonly coordinates?: GeoJSON.Position | null
+              } | null
+            } | null> | null,
+            readonly placeEquipments?: {
+              readonly __typename?: 'stop_registry_PlaceEquipments',
+              readonly id?: string | null,
+              readonly shelterEquipment?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_ShelterEquipment',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly shelterType?: StopRegistryShelterType | null,
+                readonly shelterElectricity?: StopRegistryShelterElectricity | null,
+                readonly enclosed?: boolean | null,
+                readonly stepFree?: boolean | null,
+                readonly shelterNumber?: number | null,
+                readonly shelterLighting?: boolean | null,
+                readonly shelterCondition?: StopRegistryShelterCondition | null,
+                readonly timetableCabinets?: number | null,
+                readonly trashCan?: boolean | null,
+                readonly shelterHasDisplay?: boolean | null,
+                readonly bicycleParking?: boolean | null,
+                readonly leaningRail?: boolean | null,
+                readonly outsideBench?: boolean | null,
+                readonly shelterFasciaBoardTaping?: boolean | null,
+                readonly shelterExternalId?: string | null
+              } | null> | null,
+              readonly cycleStorageEquipment?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_CycleStorageEquipment',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly cycleStorageType?: StopRegistryCycleStorageType | null
+              } | null> | null,
+              readonly generalSign?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_GeneralSign',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly signContentType?: StopRegistrySignContentType | null,
+                readonly numberOfFrames?: number | null,
+                readonly replacesRailSign?: boolean | null,
+                readonly privateCode?: {
+                  readonly __typename?: 'stop_registry_PrivateCode',
+                  readonly value?: string | null,
+                  readonly type?: string | null
+                } | null,
+                readonly content?: {
+                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  readonly lang?: string | null,
+                  readonly value?: string | null
+                } | null,
+                readonly note?: {
+                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  readonly lang?: string | null,
+                  readonly value?: string | null
+                } | null
+              } | null> | null
+            } | null,
+            readonly scheduled_stop_point?: {
+              readonly __typename?: 'service_pattern_scheduled_stop_point',
+              readonly priority: number,
+              readonly direction: InfrastructureNetworkDirectionEnum,
+              readonly scheduled_stop_point_id: UUID,
+              readonly label: string,
+              readonly timing_place_id?: UUID | null,
+              readonly validity_start?: luxon.DateTime | null,
+              readonly validity_end?: luxon.DateTime | null,
+              readonly located_on_infrastructure_link_id: UUID,
+              readonly stop_place_ref?: string | null,
+              readonly measured_location: GeoJSON.Point,
+              readonly timing_place?: {
+                readonly __typename?: 'timing_pattern_timing_place',
+                readonly label: string,
+                readonly timing_place_id: UUID
+              } | null,
+              readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+                readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+                readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+              }>
+            } | null,
+            readonly externalLinks?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_externalLink',
+              readonly quayId?: number | null,
+              readonly orderNum?: number | null,
+              readonly name?: string | null,
+              readonly location?: string | null
+            } | null> | null,
+            readonly organisations?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+              readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+              readonly organisationRef: string,
+              readonly organisation?: {
+                readonly __typename?: 'stop_registry_Organisation',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly name?: string | null,
+                readonly privateContactDetails?: {
+                  readonly __typename?: 'stop_registry_Contact',
+                  readonly id?: string | null,
+                  readonly version?: string | null,
+                  readonly email?: string | null,
+                  readonly phone?: string | null
+                } | null
+              } | null
+            } | null> | null
+          } | null> | null,
+          readonly parentStopPlace?: ReadonlyArray<
+            | {
+              readonly __typename?: 'stop_registry_ParentStopPlace',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly name?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null,
+              readonly privateCode?: {
+                readonly __typename?: 'stop_registry_PrivateCode',
+                readonly value?: string | null,
+                readonly type?: string | null
+              } | null,
+              readonly children?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_StopPlace',
+                readonly id?: string | null,
+                readonly version?: string | null,
+                readonly publicCode?: string | null,
+                readonly transportMode?: StopRegistryTransportModeType | null,
+                readonly name?: {
+                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  readonly lang?: string | null,
+                  readonly value?: string | null
+                } | null,
+                readonly privateCode?: {
+                  readonly __typename?: 'stop_registry_PrivateCode',
+                  readonly value?: string | null
+                } | null,
+                readonly quays?: ReadonlyArray<{
+                  readonly __typename?: 'stop_registry_Quay',
+                  readonly id?: string | null,
+                  readonly version?: string | null,
+                  readonly publicCode?: string | null,
+                  readonly description?: {
+                    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                    readonly lang?: string | null,
+                    readonly value?: string | null
+                  } | null,
+                  readonly scheduled_stop_point?: {
+                    readonly __typename?: 'service_pattern_scheduled_stop_point',
+                    readonly priority: number,
+                    readonly direction: InfrastructureNetworkDirectionEnum,
+                    readonly scheduled_stop_point_id: UUID,
+                    readonly label: string,
+                    readonly timing_place_id?: UUID | null,
+                    readonly validity_start?: luxon.DateTime | null,
+                    readonly validity_end?: luxon.DateTime | null,
+                    readonly located_on_infrastructure_link_id: UUID,
+                    readonly stop_place_ref?: string | null,
+                    readonly measured_location: GeoJSON.Point,
+                    readonly timing_place?: {
+                      readonly __typename?: 'timing_pattern_timing_place',
+                      readonly label: string,
+                      readonly timing_place_id: UUID
+                    } | null,
+                    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+                      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+                      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+                    }>
+                  } | null,
+                  readonly keyValues?: ReadonlyArray<{
+                    readonly __typename?: 'stop_registry_KeyValues',
+                    readonly key?: string | null,
+                    readonly values?: ReadonlyArray<string | null> | null
+                  } | null> | null,
+                  readonly infoSpots?: ReadonlyArray<{
+                    readonly __typename?: 'stop_registry_infoSpot',
+                    readonly id?: string | null,
+                    readonly version?: string | null,
+                    readonly backlight?: boolean | null,
+                    readonly displayType?: StopRegistryDisplayType | null,
+                    readonly floor?: string | null,
+                    readonly label?: string | null,
+                    readonly width?: number | null,
+                    readonly height?: number | null,
+                    readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+                    readonly infoSpotType?: StopRegistryInfoSpotType | null,
+                    readonly intendedUser?: StopRegistryIntendedUser | null,
+                    readonly railInformation?: string | null,
+                    readonly speechProperty?: boolean | null,
+                    readonly zoneLabel?: string | null,
+                    readonly description?: {
+                      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                      readonly lang?: string | null,
+                      readonly value?: string | null
+                    } | null,
+                    readonly keyValues?: ReadonlyArray<{
+                      readonly __typename?: 'stop_registry_KeyValues',
+                      readonly key?: string | null,
+                      readonly values?: ReadonlyArray<string | null> | null
+                    } | null> | null,
+                    readonly poster?: ReadonlyArray<{
+                      readonly __typename?: 'stop_registry_poster',
+                      readonly id?: string | null,
+                      readonly version?: string | null,
+                      readonly label?: string | null,
+                      readonly width?: number | null,
+                      readonly height?: number | null,
+                      readonly lines?: string | null,
+                      readonly keyValues?: ReadonlyArray<{
+                        readonly __typename?: 'stop_registry_KeyValues',
+                        readonly key?: string | null,
+                        readonly values?: ReadonlyArray<string | null> | null
+                      } | null> | null
+                    } | null> | null,
+                    readonly geometry?: {
+                      readonly __typename?: 'stop_registry_GeoJSON',
+                      readonly type?: StopRegistryGeoJsonType | null,
+                      readonly coordinates?: GeoJSON.Position | null
+                    } | null
+                  } | null> | null,
+                  readonly geometry?: {
+                    readonly __typename?: 'stop_registry_GeoJSON',
+                    readonly coordinates?: GeoJSON.Position | null,
+                    readonly type?: StopRegistryGeoJsonType | null
+                  } | null,
+                  readonly placeEquipments?: {
+                    readonly __typename?: 'stop_registry_PlaceEquipments',
+                    readonly id?: string | null,
+                    readonly generalSign?: ReadonlyArray<{
+                      readonly __typename?: 'stop_registry_GeneralSign',
+                      readonly id?: string | null,
+                      readonly version?: string | null,
+                      readonly replacesRailSign?: boolean | null,
+                      readonly content?: {
+                        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                        readonly lang?: string | null,
+                        readonly value?: string | null
+                      } | null
+                    } | null> | null,
+                    readonly shelterEquipment?: ReadonlyArray<{
+                      readonly __typename?: 'stop_registry_ShelterEquipment',
+                      readonly id?: string | null,
+                      readonly version?: string | null,
+                      readonly shelterNumber?: number | null,
+                      readonly shelterType?: StopRegistryShelterType | null,
+                      readonly shelterElectricity?: StopRegistryShelterElectricity | null
+                    } | null> | null
+                  } | null,
+                  readonly accessibilityAssessment?: {
+                    readonly __typename?: 'stop_registry_AccessibilityAssessment',
+                    readonly id?: string | null,
+                    readonly version?: string | null,
+                    readonly hslAccessibilityProperties?: {
+                      readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+                      readonly id?: string | null,
+                      readonly version?: string | null,
+                      readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+                    } | null
+                  } | null
+                } | null> | null,
+                readonly alternativeNames?: ReadonlyArray<{
+                  readonly __typename?: 'stop_registry_AlternativeName',
+                  readonly nameType: StopRegistryNameType,
+                  readonly name: {
+                    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                    readonly lang?: string | null,
+                    readonly value?: string | null
+                  }
+                } | null> | null
+              } | null> | null,
+              readonly externalLinks?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_stopPlaceExternalLink',
+                readonly stopPlaceId?: number | null,
+                readonly orderNum?: number | null,
+                readonly name?: string | null,
+                readonly location?: string | null
+              } | null> | null
+            }
+            | {
+              readonly __typename?: 'stop_registry_StopPlace'
+            }
+           | null> | null,
+          readonly accessibilityAssessment?: {
+            readonly __typename?: 'stop_registry_AccessibilityAssessment',
+            readonly id?: string | null,
+            readonly version?: string | null,
+            readonly hslAccessibilityProperties?: {
+              readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly stopAreaSideSlope?: number | null,
+              readonly stopAreaLengthwiseSlope?: number | null,
+              readonly endRampSlope?: number | null,
+              readonly shelterLaneDistance?: number | null,
+              readonly curbBackOfRailDistance?: number | null,
+              readonly curbDriveSideOfRailDistance?: number | null,
+              readonly structureLaneDistance?: number | null,
+              readonly stopElevationFromRailTop?: number | null,
+              readonly stopElevationFromSidewalk?: number | null,
+              readonly lowerCleatHeight?: number | null,
+              readonly serviceAreaWidth?: number | null,
+              readonly serviceAreaLength?: number | null,
+              readonly platformEdgeWarningArea?: boolean | null,
+              readonly guidanceTiles?: boolean | null,
+              readonly guidanceStripe?: boolean | null,
+              readonly serviceAreaStripes?: boolean | null,
+              readonly sidewalkAccessibleConnection?: boolean | null,
+              readonly stopAreaSurroundingsAccessible?: boolean | null,
+              readonly curvedStop?: boolean | null,
+              readonly stopType?: StopRegistryStopType | null,
+              readonly shelterType?: StopRegistryShelterWidthType | null,
+              readonly guidanceType?: StopRegistryGuidanceType | null,
+              readonly mapType?: StopRegistryMapType | null,
+              readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+              readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+            } | null,
+            readonly limitations?: {
+              readonly __typename?: 'stop_registry_AccessibilityLimitations',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+              readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+              readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+              readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+              readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+            } | null
+          } | null,
+          readonly topographicPlace?: {
+            readonly __typename?: 'stop_registry_TopographicPlace',
+            readonly id?: string | null,
+            readonly version?: number | null,
+            readonly topographicPlaceType?: StopRegistryTopographicPlaceType | null,
+            readonly name?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly value?: string | null,
+              readonly lang?: string | null
+            } | null
+          } | null,
+          readonly fareZones?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_FareZone',
+            readonly id?: string | null,
+            readonly version?: string | null,
+            readonly name?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly value?: string | null,
+              readonly lang?: string | null
+            } | null
+          } | null> | null
+        }
+       | null> | null
+    }>
+  } | null
+};
+
+export type StopPlaceDetailsFragment = {
+  readonly __typename?: 'stop_registry_StopPlace',
+  readonly id?: string | null,
+  readonly version?: string | null,
+  readonly transportMode?: StopRegistryTransportModeType | null,
+  readonly publicCode?: string | null,
+  readonly alternativeNames?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_AlternativeName',
+    readonly nameType: StopRegistryNameType,
+    readonly name: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    }
+  } | null> | null,
+  readonly privateCode?: {
+    readonly __typename?: 'stop_registry_PrivateCode',
+    readonly value?: string | null,
+    readonly type?: string | null
+  } | null,
+  readonly name?: {
+    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+    readonly lang?: string | null,
+    readonly value?: string | null
+  } | null,
+  readonly organisations?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+    readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+    readonly organisationRef: string,
+    readonly organisation?: {
+      readonly __typename?: 'stop_registry_Organisation',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly name?: string | null,
+      readonly privateContactDetails?: {
+        readonly __typename?: 'stop_registry_Contact',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly email?: string | null,
+        readonly phone?: string | null
+      } | null
+    } | null
+  } | null> | null,
+  readonly geometry?: {
+    readonly __typename?: 'stop_registry_GeoJSON',
+    readonly type?: StopRegistryGeoJsonType | null,
+    readonly coordinates?: GeoJSON.Position | null
+  } | null,
+  readonly keyValues?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_KeyValues',
+    readonly key?: string | null,
+    readonly values?: ReadonlyArray<string | null> | null
+  } | null> | null,
+  readonly quays?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_Quay',
+    readonly id?: string | null,
+    readonly version?: string | null,
+    readonly publicCode?: string | null,
+    readonly privateCode?: {
+      readonly __typename?: 'stop_registry_PrivateCode',
+      readonly type?: string | null,
+      readonly value?: string | null
+    } | null,
+    readonly description?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    } | null,
+    readonly alternativeNames?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_AlternativeName',
+      readonly nameType: StopRegistryNameType,
+      readonly name: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      }
+    } | null> | null,
+    readonly geometry?: {
+      readonly __typename?: 'stop_registry_GeoJSON',
+      readonly coordinates?: GeoJSON.Position | null,
+      readonly type?: StopRegistryGeoJsonType | null
+    } | null,
+    readonly accessibilityAssessment?: {
+      readonly __typename?: 'stop_registry_AccessibilityAssessment',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly hslAccessibilityProperties?: {
+        readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null,
+        readonly stopAreaSideSlope?: number | null,
+        readonly stopAreaLengthwiseSlope?: number | null,
+        readonly endRampSlope?: number | null,
+        readonly shelterLaneDistance?: number | null,
+        readonly curbBackOfRailDistance?: number | null,
+        readonly curbDriveSideOfRailDistance?: number | null,
+        readonly structureLaneDistance?: number | null,
+        readonly stopElevationFromRailTop?: number | null,
+        readonly stopElevationFromSidewalk?: number | null,
+        readonly lowerCleatHeight?: number | null,
+        readonly serviceAreaWidth?: number | null,
+        readonly serviceAreaLength?: number | null,
+        readonly platformEdgeWarningArea?: boolean | null,
+        readonly guidanceTiles?: boolean | null,
+        readonly guidanceStripe?: boolean | null,
+        readonly serviceAreaStripes?: boolean | null,
+        readonly sidewalkAccessibleConnection?: boolean | null,
+        readonly stopAreaSurroundingsAccessible?: boolean | null,
+        readonly curvedStop?: boolean | null,
+        readonly stopType?: StopRegistryStopType | null,
+        readonly shelterType?: StopRegistryShelterWidthType | null,
+        readonly guidanceType?: StopRegistryGuidanceType | null,
+        readonly mapType?: StopRegistryMapType | null,
+        readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null
+      } | null,
+      readonly limitations?: {
+        readonly __typename?: 'stop_registry_AccessibilityLimitations',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+        readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+        readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+        readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+        readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+      } | null
+    } | null,
+    readonly keyValues?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_KeyValues',
+      readonly key?: string | null,
+      readonly values?: ReadonlyArray<string | null> | null
+    } | null> | null,
+    readonly infoSpots?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_infoSpot',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly backlight?: boolean | null,
+      readonly displayType?: StopRegistryDisplayType | null,
+      readonly floor?: string | null,
+      readonly label?: string | null,
+      readonly width?: number | null,
+      readonly height?: number | null,
+      readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+      readonly infoSpotType?: StopRegistryInfoSpotType | null,
+      readonly intendedUser?: StopRegistryIntendedUser | null,
+      readonly railInformation?: string | null,
+      readonly speechProperty?: boolean | null,
+      readonly zoneLabel?: string | null,
+      readonly description?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly keyValues?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_KeyValues',
+        readonly key?: string | null,
+        readonly values?: ReadonlyArray<string | null> | null
+      } | null> | null,
+      readonly poster?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_poster',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly lines?: string | null,
+        readonly keyValues?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_KeyValues',
+          readonly key?: string | null,
+          readonly values?: ReadonlyArray<string | null> | null
+        } | null> | null
+      } | null> | null,
+      readonly geometry?: {
+        readonly __typename?: 'stop_registry_GeoJSON',
+        readonly type?: StopRegistryGeoJsonType | null,
+        readonly coordinates?: GeoJSON.Position | null
+      } | null
+    } | null> | null,
+    readonly placeEquipments?: {
+      readonly __typename?: 'stop_registry_PlaceEquipments',
+      readonly id?: string | null,
+      readonly shelterEquipment?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_ShelterEquipment',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly shelterType?: StopRegistryShelterType | null,
+        readonly shelterElectricity?: StopRegistryShelterElectricity | null,
+        readonly enclosed?: boolean | null,
+        readonly stepFree?: boolean | null,
+        readonly shelterNumber?: number | null,
+        readonly shelterLighting?: boolean | null,
+        readonly shelterCondition?: StopRegistryShelterCondition | null,
+        readonly timetableCabinets?: number | null,
+        readonly trashCan?: boolean | null,
+        readonly shelterHasDisplay?: boolean | null,
+        readonly bicycleParking?: boolean | null,
+        readonly leaningRail?: boolean | null,
+        readonly outsideBench?: boolean | null,
+        readonly shelterFasciaBoardTaping?: boolean | null,
+        readonly shelterExternalId?: string | null
+      } | null> | null,
+      readonly cycleStorageEquipment?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_CycleStorageEquipment',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly cycleStorageType?: StopRegistryCycleStorageType | null
+      } | null> | null,
+      readonly generalSign?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_GeneralSign',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly signContentType?: StopRegistrySignContentType | null,
+        readonly numberOfFrames?: number | null,
+        readonly replacesRailSign?: boolean | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null,
+          readonly type?: string | null
+        } | null,
+        readonly content?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly note?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null
+      } | null> | null
+    } | null,
+    readonly scheduled_stop_point?: {
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly priority: number,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly scheduled_stop_point_id: UUID,
+      readonly label: string,
+      readonly timing_place_id?: UUID | null,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly located_on_infrastructure_link_id: UUID,
+      readonly stop_place_ref?: string | null,
+      readonly measured_location: GeoJSON.Point,
+      readonly timing_place?: {
+        readonly __typename?: 'timing_pattern_timing_place',
+        readonly label: string,
+        readonly timing_place_id: UUID
+      } | null,
+      readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+        readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+        readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+      }>
+    } | null,
+    readonly externalLinks?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_externalLink',
+      readonly quayId?: number | null,
+      readonly orderNum?: number | null,
+      readonly name?: string | null,
+      readonly location?: string | null
+    } | null> | null,
+    readonly organisations?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+      readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+      readonly organisationRef: string,
+      readonly organisation?: {
+        readonly __typename?: 'stop_registry_Organisation',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly name?: string | null,
+        readonly privateContactDetails?: {
+          readonly __typename?: 'stop_registry_Contact',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly email?: string | null,
+          readonly phone?: string | null
+        } | null
+      } | null
+    } | null> | null
+  } | null> | null,
+  readonly parentStopPlace?: ReadonlyArray<
+    | {
+      readonly __typename?: 'stop_registry_ParentStopPlace',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly name?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly privateCode?: {
+        readonly __typename?: 'stop_registry_PrivateCode',
+        readonly value?: string | null,
+        readonly type?: string | null
+      } | null,
+      readonly children?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_StopPlace',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly publicCode?: string | null,
+        readonly transportMode?: StopRegistryTransportModeType | null,
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null
+        } | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly publicCode?: string | null,
+          readonly description?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly scheduled_stop_point?: {
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly measured_location: GeoJSON.Point,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly label: string,
+              readonly timing_place_id: UUID
+            } | null,
+            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+            }>
+          } | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null,
+          readonly infoSpots?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_infoSpot',
+            readonly id?: string | null,
+            readonly version?: string | null,
+            readonly backlight?: boolean | null,
+            readonly displayType?: StopRegistryDisplayType | null,
+            readonly floor?: string | null,
+            readonly label?: string | null,
+            readonly width?: number | null,
+            readonly height?: number | null,
+            readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+            readonly infoSpotType?: StopRegistryInfoSpotType | null,
+            readonly intendedUser?: StopRegistryIntendedUser | null,
+            readonly railInformation?: string | null,
+            readonly speechProperty?: boolean | null,
+            readonly zoneLabel?: string | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly keyValues?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_KeyValues',
+              readonly key?: string | null,
+              readonly values?: ReadonlyArray<string | null> | null
+            } | null> | null,
+            readonly poster?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_poster',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly lines?: string | null,
+              readonly keyValues?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_KeyValues',
+                readonly key?: string | null,
+                readonly values?: ReadonlyArray<string | null> | null
+              } | null> | null
+            } | null> | null,
+            readonly geometry?: {
+              readonly __typename?: 'stop_registry_GeoJSON',
+              readonly type?: StopRegistryGeoJsonType | null,
+              readonly coordinates?: GeoJSON.Position | null
+            } | null
+          } | null> | null,
+          readonly geometry?: {
+            readonly __typename?: 'stop_registry_GeoJSON',
+            readonly coordinates?: GeoJSON.Position | null,
+            readonly type?: StopRegistryGeoJsonType | null
+          } | null,
+          readonly placeEquipments?: {
+            readonly __typename?: 'stop_registry_PlaceEquipments',
+            readonly id?: string | null,
+            readonly generalSign?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_GeneralSign',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly replacesRailSign?: boolean | null,
+              readonly content?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            } | null> | null,
+            readonly shelterEquipment?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_ShelterEquipment',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly shelterNumber?: number | null,
+              readonly shelterType?: StopRegistryShelterType | null,
+              readonly shelterElectricity?: StopRegistryShelterElectricity | null
+            } | null> | null
+          } | null,
+          readonly accessibilityAssessment?: {
+            readonly __typename?: 'stop_registry_AccessibilityAssessment',
+            readonly id?: string | null,
+            readonly version?: string | null,
+            readonly hslAccessibilityProperties?: {
+              readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+            } | null
+          } | null
+        } | null> | null,
+        readonly alternativeNames?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_AlternativeName',
+          readonly nameType: StopRegistryNameType,
+          readonly name: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          }
+        } | null> | null
+      } | null> | null,
+      readonly externalLinks?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_stopPlaceExternalLink',
+        readonly stopPlaceId?: number | null,
+        readonly orderNum?: number | null,
+        readonly name?: string | null,
+        readonly location?: string | null
+      } | null> | null
+    }
+    | {
+      readonly __typename?: 'stop_registry_StopPlace'
+    }
+   | null> | null,
+  readonly accessibilityAssessment?: {
+    readonly __typename?: 'stop_registry_AccessibilityAssessment',
+    readonly id?: string | null,
+    readonly version?: string | null,
+    readonly hslAccessibilityProperties?: {
+      readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly stopAreaSideSlope?: number | null,
+      readonly stopAreaLengthwiseSlope?: number | null,
+      readonly endRampSlope?: number | null,
+      readonly shelterLaneDistance?: number | null,
+      readonly curbBackOfRailDistance?: number | null,
+      readonly curbDriveSideOfRailDistance?: number | null,
+      readonly structureLaneDistance?: number | null,
+      readonly stopElevationFromRailTop?: number | null,
+      readonly stopElevationFromSidewalk?: number | null,
+      readonly lowerCleatHeight?: number | null,
+      readonly serviceAreaWidth?: number | null,
+      readonly serviceAreaLength?: number | null,
+      readonly platformEdgeWarningArea?: boolean | null,
+      readonly guidanceTiles?: boolean | null,
+      readonly guidanceStripe?: boolean | null,
+      readonly serviceAreaStripes?: boolean | null,
+      readonly sidewalkAccessibleConnection?: boolean | null,
+      readonly stopAreaSurroundingsAccessible?: boolean | null,
+      readonly curvedStop?: boolean | null,
+      readonly stopType?: StopRegistryStopType | null,
+      readonly shelterType?: StopRegistryShelterWidthType | null,
+      readonly guidanceType?: StopRegistryGuidanceType | null,
+      readonly mapType?: StopRegistryMapType | null,
+      readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+      readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+    } | null,
+    readonly limitations?: {
+      readonly __typename?: 'stop_registry_AccessibilityLimitations',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+      readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+      readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+      readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+      readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+    } | null
+  } | null,
+  readonly topographicPlace?: {
+    readonly __typename?: 'stop_registry_TopographicPlace',
+    readonly id?: string | null,
+    readonly version?: number | null,
+    readonly topographicPlaceType?: StopRegistryTopographicPlaceType | null,
+    readonly name?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly value?: string | null,
+      readonly lang?: string | null
+    } | null
+  } | null,
+  readonly fareZones?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_FareZone',
+    readonly id?: string | null,
+    readonly version?: string | null,
+    readonly name?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly value?: string | null,
+      readonly lang?: string | null
+    } | null
+  } | null> | null
+};
+
+export type TerminalDetailsFragment = {
+  readonly __typename?: 'stop_registry_ParentStopPlace',
+  readonly id?: string | null,
+  readonly version?: string | null,
+  readonly name?: {
+    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+    readonly lang?: string | null,
+    readonly value?: string | null
+  } | null,
+  readonly privateCode?: {
+    readonly __typename?: 'stop_registry_PrivateCode',
+    readonly value?: string | null,
+    readonly type?: string | null
+  } | null,
+  readonly children?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_StopPlace',
+    readonly id?: string | null,
+    readonly version?: string | null,
+    readonly publicCode?: string | null,
+    readonly transportMode?: StopRegistryTransportModeType | null,
+    readonly name?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    } | null,
+    readonly privateCode?: {
+      readonly __typename?: 'stop_registry_PrivateCode',
+      readonly value?: string | null
+    } | null,
+    readonly quays?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_Quay',
+      readonly id?: string | null,
+      readonly version?: string | null,
+      readonly publicCode?: string | null,
+      readonly description?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly scheduled_stop_point?: {
+        readonly __typename?: 'service_pattern_scheduled_stop_point',
+        readonly priority: number,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_point_id: UUID,
+        readonly label: string,
+        readonly timing_place_id?: UUID | null,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null,
+        readonly located_on_infrastructure_link_id: UUID,
+        readonly stop_place_ref?: string | null,
+        readonly measured_location: GeoJSON.Point,
+        readonly timing_place?: {
+          readonly __typename?: 'timing_pattern_timing_place',
+          readonly label: string,
+          readonly timing_place_id: UUID
+        } | null,
+        readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+          readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+        }>
+      } | null,
+      readonly keyValues?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_KeyValues',
+        readonly key?: string | null,
+        readonly values?: ReadonlyArray<string | null> | null
+      } | null> | null,
+      readonly infoSpots?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_infoSpot',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly backlight?: boolean | null,
+        readonly displayType?: StopRegistryDisplayType | null,
+        readonly floor?: string | null,
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+        readonly infoSpotType?: StopRegistryInfoSpotType | null,
+        readonly intendedUser?: StopRegistryIntendedUser | null,
+        readonly railInformation?: string | null,
+        readonly speechProperty?: boolean | null,
+        readonly zoneLabel?: string | null,
+        readonly description?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly keyValues?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_KeyValues',
+          readonly key?: string | null,
+          readonly values?: ReadonlyArray<string | null> | null
+        } | null> | null,
+        readonly poster?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_poster',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly label?: string | null,
+          readonly width?: number | null,
+          readonly height?: number | null,
+          readonly lines?: string | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null
+        } | null> | null,
+        readonly geometry?: {
+          readonly __typename?: 'stop_registry_GeoJSON',
+          readonly type?: StopRegistryGeoJsonType | null,
+          readonly coordinates?: GeoJSON.Position | null
+        } | null
+      } | null> | null,
+      readonly geometry?: {
+        readonly __typename?: 'stop_registry_GeoJSON',
+        readonly coordinates?: GeoJSON.Position | null,
+        readonly type?: StopRegistryGeoJsonType | null
+      } | null,
+      readonly placeEquipments?: {
+        readonly __typename?: 'stop_registry_PlaceEquipments',
+        readonly id?: string | null,
+        readonly generalSign?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_GeneralSign',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly replacesRailSign?: boolean | null,
+          readonly content?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null
+        } | null> | null,
+        readonly shelterEquipment?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_ShelterEquipment',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly shelterNumber?: number | null,
+          readonly shelterType?: StopRegistryShelterType | null,
+          readonly shelterElectricity?: StopRegistryShelterElectricity | null
+        } | null> | null
+      } | null,
+      readonly accessibilityAssessment?: {
+        readonly __typename?: 'stop_registry_AccessibilityAssessment',
+        readonly id?: string | null,
+        readonly version?: string | null,
+        readonly hslAccessibilityProperties?: {
+          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+        } | null
+      } | null
+    } | null> | null,
+    readonly alternativeNames?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_AlternativeName',
+      readonly nameType: StopRegistryNameType,
+      readonly name: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      }
+    } | null> | null
+  } | null> | null,
+  readonly externalLinks?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_stopPlaceExternalLink',
+    readonly stopPlaceId?: number | null,
+    readonly orderNum?: number | null,
+    readonly name?: string | null,
+    readonly location?: string | null
+  } | null> | null
+};
+
+export type EditMultipleStopPointsMutationVariables = Exact<{
+  updates: ReadonlyArray<ServicePatternScheduledStopPointUpdates> | ServicePatternScheduledStopPointUpdates;
+}>;
+
+
+export type EditMultipleStopPointsMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stopPoints?: ReadonlyArray<{
+    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly scheduled_stop_point_id: UUID,
+      readonly located_on_infrastructure_link_id: UUID,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly priority: number,
+      readonly measured_location: GeoJSON.Point,
+      readonly label: string,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly stop_place_ref?: string | null
+    }>
+  } | null> | null
+};
+
+export type GetJourneyPatternsOfScheduledStopPointQueryVariables = Exact<{
+  where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
+}>;
+
+
+export type GetJourneyPatternsOfScheduledStopPointQuery = {
+  readonly __typename?: 'query_root',
+  readonly ssps: ReadonlyArray<{
+    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly scheduled_stop_point_label: string,
+    readonly scheduled_stop_point_sequence: number,
+    readonly journey_pattern: {
+      readonly __typename?: 'journey_pattern_journey_pattern',
+      readonly journey_pattern_id: UUID,
+      readonly on_route_id: UUID,
+      readonly journey_pattern_route?: {
+        readonly __typename?: 'route_route',
+        readonly route_id: UUID,
+        readonly label: string,
+        readonly variant?: number | null,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null
+      } | null
+    }
+  }>
+};
+
+export type JourneyPatternRouteFieldsFragment = {
+  readonly __typename?: 'route_route',
+  readonly route_id: UUID,
+  readonly label: string,
+  readonly variant?: number | null,
+  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_end?: luxon.DateTime | null
+};
+
+export type JourneyPatternFieldsFragment = {
+  readonly __typename?: 'journey_pattern_journey_pattern',
+  readonly journey_pattern_id: UUID,
+  readonly on_route_id: UUID,
+  readonly journey_pattern_route?: {
+    readonly __typename?: 'route_route',
+    readonly route_id: UUID,
+    readonly label: string,
+    readonly variant?: number | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null
+  } | null
+};
+
+export type JourneyPatternStopPointFragment = {
+  readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+  readonly journey_pattern_id: UUID,
+  readonly scheduled_stop_point_label: string,
+  readonly scheduled_stop_point_sequence: number,
+  readonly journey_pattern: {
+    readonly __typename?: 'journey_pattern_journey_pattern',
+    readonly journey_pattern_id: UUID,
+    readonly on_route_id: UUID,
+    readonly journey_pattern_route?: {
+      readonly __typename?: 'route_route',
+      readonly route_id: UUID,
+      readonly label: string,
+      readonly variant?: number | null,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null
+    } | null
+  }
+};
+
+export type GetStopPlaceVersionsQueryVariables = Exact<{
+  privateCode: Scalars['String']['input'];
+}>;
+
+
+export type GetStopPlaceVersionsQuery = {
+  readonly __typename?: 'query_root',
+  readonly stops_database?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly stopAreas: ReadonlyArray<{
+      readonly __typename?: 'stops_database_stop_place_newest_version',
+      readonly id?: any | null,
+      readonly netex_id?: string | null,
+      readonly private_code_type?: string | null,
+      readonly private_code_value?: string | null,
+      readonly name_value?: string | null,
+      readonly validity_start?: string | null,
+      readonly validity_end?: string | null,
+      readonly centroid?: GeoJSON.Geometry | null,
+      readonly created?: any | null,
+      readonly changed?: any | null,
+      readonly changed_by?: string | null,
+      readonly version_comment?: string | null
+    }>
+  } | null
+};
+
+export type StopAreaVersionInfoFragment = {
+  readonly __typename?: 'stops_database_stop_place_newest_version',
+  readonly id?: any | null,
+  readonly netex_id?: string | null,
+  readonly private_code_type?: string | null,
+  readonly private_code_value?: string | null,
+  readonly name_value?: string | null,
+  readonly validity_start?: string | null,
+  readonly validity_end?: string | null,
+  readonly centroid?: GeoJSON.Geometry | null,
+  readonly created?: any | null,
+  readonly changed?: any | null,
+  readonly changed_by?: string | null,
+  readonly version_comment?: string | null
+};
+
+export type InsertMultipleStopPointsMutationVariables = Exact<{
+  stopPoints: ReadonlyArray<ServicePatternScheduledStopPointInsertInput> | ServicePatternScheduledStopPointInsertInput;
+}>;
+
+
+export type InsertMultipleStopPointsMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stopPoints?: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
+    readonly returning: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly scheduled_stop_point_id: UUID,
+      readonly located_on_infrastructure_link_id: UUID,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly priority: number,
+      readonly measured_location: GeoJSON.Point,
+      readonly label: string,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly stop_place_ref?: string | null
+    }>
+  } | null
+};
+
 export type GetStopPlaceChangeHistoryQueryVariables = Exact<{
   privateCode: Scalars['String']['input'];
 }>;
@@ -77464,1707 +79165,6 @@ export type StopTableRowQuayFragment = {
         } | null> | null
       }
      | null> | null
-  } | null
-};
-
-export type GetHistoricalStopAreaDetailsQueryVariables = Exact<{
-  id: Scalars['String']['input'];
-  version: Scalars['Int']['input'];
-}>;
-
-
-export type GetHistoricalStopAreaDetailsQuery = {
-  readonly __typename?: 'query_root',
-  readonly stopsRegistry?: {
-    readonly __typename?: 'stop_registryStopPlaceRegister',
-    readonly stopPlace?: ReadonlyArray<
-      | {
-        readonly __typename?: 'stop_registry_ParentStopPlace'
-      }
-      | {
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly transportMode?: StopRegistryTransportModeType | null,
-        readonly name?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        } | null,
-        readonly alternativeNames?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_AlternativeName',
-          readonly nameType: StopRegistryNameType,
-          readonly name: {
-            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-            readonly lang?: string | null,
-            readonly value?: string | null
-          }
-        } | null> | null,
-        readonly privateCode?: {
-          readonly __typename?: 'stop_registry_PrivateCode',
-          readonly value?: string | null,
-          readonly type?: string | null
-        } | null,
-        readonly geometry?: {
-          readonly __typename?: 'stop_registry_GeoJSON',
-          readonly type?: StopRegistryGeoJsonType | null,
-          readonly coordinates?: GeoJSON.Position | null
-        } | null,
-        readonly keyValues?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_KeyValues',
-          readonly key?: string | null,
-          readonly values?: ReadonlyArray<string | null> | null
-        } | null> | null,
-        readonly quays?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_Quay',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly publicCode?: string | null
-        } | null> | null,
-        readonly parentStopPlace?: ReadonlyArray<
-          | {
-            readonly __typename?: 'stop_registry_ParentStopPlace',
-            readonly id?: string | null,
-            readonly version?: string | null,
-            readonly name?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly lang?: string | null,
-              readonly value?: string | null
-            } | null,
-            readonly privateCode?: {
-              readonly __typename?: 'stop_registry_PrivateCode',
-              readonly value?: string | null,
-              readonly type?: string | null
-            } | null
-          }
-          | {
-            readonly __typename?: 'stop_registry_StopPlace'
-          }
-         | null> | null
-      }
-     | null> | null
-  } | null
-};
-
-export type HistoricalStopAreaDetailsFragment = {
-  readonly __typename?: 'stop_registry_StopPlace',
-  readonly id?: string | null,
-  readonly version?: string | null,
-  readonly transportMode?: StopRegistryTransportModeType | null,
-  readonly name?: {
-    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-    readonly lang?: string | null,
-    readonly value?: string | null
-  } | null,
-  readonly alternativeNames?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_AlternativeName',
-    readonly nameType: StopRegistryNameType,
-    readonly name: {
-      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-      readonly lang?: string | null,
-      readonly value?: string | null
-    }
-  } | null> | null,
-  readonly privateCode?: {
-    readonly __typename?: 'stop_registry_PrivateCode',
-    readonly value?: string | null,
-    readonly type?: string | null
-  } | null,
-  readonly geometry?: {
-    readonly __typename?: 'stop_registry_GeoJSON',
-    readonly type?: StopRegistryGeoJsonType | null,
-    readonly coordinates?: GeoJSON.Position | null
-  } | null,
-  readonly keyValues?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_KeyValues',
-    readonly key?: string | null,
-    readonly values?: ReadonlyArray<string | null> | null
-  } | null> | null,
-  readonly quays?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_Quay',
-    readonly id?: string | null,
-    readonly version?: string | null,
-    readonly publicCode?: string | null
-  } | null> | null,
-  readonly parentStopPlace?: ReadonlyArray<
-    | {
-      readonly __typename?: 'stop_registry_ParentStopPlace',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly privateCode?: {
-        readonly __typename?: 'stop_registry_PrivateCode',
-        readonly value?: string | null,
-        readonly type?: string | null
-      } | null
-    }
-    | {
-      readonly __typename?: 'stop_registry_StopPlace'
-    }
-   | null> | null
-};
-
-export type HistoricalStopAreaQuayDetailsFragment = {
-  readonly __typename?: 'stop_registry_Quay',
-  readonly id?: string | null,
-  readonly version?: string | null,
-  readonly publicCode?: string | null
-};
-
-export type HistoricalStopAreaTerminalDetailsFragment = {
-  readonly __typename?: 'stop_registry_ParentStopPlace',
-  readonly id?: string | null,
-  readonly version?: string | null,
-  readonly name?: {
-    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-    readonly lang?: string | null,
-    readonly value?: string | null
-  } | null,
-  readonly privateCode?: {
-    readonly __typename?: 'stop_registry_PrivateCode',
-    readonly value?: string | null,
-    readonly type?: string | null
-  } | null
-};
-
-export type MoveQuayToStopPlaceMutationVariables = Exact<{
-  toStopPlaceId: Scalars['String']['input'];
-  quayIds: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
-  moveQuayFromDate: Scalars['stop_registry_LocalDate']['input'];
-}>;
-
-
-export type MoveQuayToStopPlaceMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceMutation',
-    readonly moveQuaysToStop?:
-      | {
-        readonly __typename?: 'stop_registry_ParentStopPlace'
-      }
-      | {
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly versionComment?: string | null,
-        readonly quays?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_Quay',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly publicCode?: string | null,
-          readonly keyValues?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_KeyValues',
-            readonly key?: string | null,
-            readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
-        } | null> | null
-      }
-     | null
-  } | null
-};
-
-export type GetStopPointsByQuayIdQueryVariables = Exact<{
-  quayIds: ReadonlyArray<Scalars['String']['input']> | Scalars['String']['input'];
-}>;
-
-
-export type GetStopPointsByQuayIdQuery = {
-  readonly __typename?: 'query_root',
-  readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point',
-    readonly scheduled_stop_point_id: UUID,
-    readonly priority: number,
-    readonly direction: InfrastructureNetworkDirectionEnum,
-    readonly label: string,
-    readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
-    readonly located_on_infrastructure_link_id: UUID,
-    readonly stop_place_ref?: string | null,
-    readonly measured_location: GeoJSON.Point,
-    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-    }>
-  }>
-};
-
-export type UpdateStopPointMutationVariables = Exact<{
-  stopId: Scalars['uuid']['input'];
-  changes: ServicePatternScheduledStopPointSetInput;
-}>;
-
-
-export type UpdateStopPointMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly update_service_pattern_scheduled_stop_point?: {
-    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly scheduled_stop_point_id: UUID,
-      readonly validity_end?: luxon.DateTime | null
-    }>
-  } | null
-};
-
-export type GetOriginalQuaysQueryVariables = Exact<{
-  quayId: Scalars['String']['input'];
-}>;
-
-
-export type GetOriginalQuaysQuery = {
-  readonly __typename?: 'query_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceRegister',
-    readonly stopPlace?: ReadonlyArray<
-      | {
-        readonly __typename?: 'stop_registry_ParentStopPlace'
-      }
-      | {
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly quays?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_Quay',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly publicCode?: string | null
-        } | null> | null
-      }
-     | null> | null
-  } | null
-};
-
-export type DeleteStopAreaMutationVariables = Exact<{
-  stopPlaceId: Scalars['String']['input'];
-}>;
-
-
-export type DeleteStopAreaMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceMutation',
-    readonly deleteStopPlace?: boolean | null
-  } | null
-};
-
-export type GetLatestStopPlaceChangeQueryVariables = Exact<{
-  where: StopsDatabaseStopPlaceBoolExp;
-}>;
-
-
-export type GetLatestStopPlaceChangeQuery = {
-  readonly __typename?: 'query_root',
-  readonly stopsDb?: {
-    readonly __typename?: 'stops_database_stops_database_query',
-    readonly stopPlace: ReadonlyArray<{
-      readonly __typename?: 'stops_database_stop_place',
-      readonly changed?: any | null,
-      readonly changed_by?: string | null,
-      readonly private_code_value?: string | null,
-      readonly netex_id?: string | null
-    }>
-  } | null
-};
-
-export type GetStopPlaceDetailsQueryVariables = Exact<{
-  where?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
-}>;
-
-
-export type GetStopPlaceDetailsQuery = {
-  readonly __typename?: 'query_root',
-  readonly stopsDb?: {
-    readonly __typename?: 'stops_database_stops_database_query',
-    readonly newestVersion: ReadonlyArray<{
-      readonly __typename?: 'stops_database_stop_place_newest_version',
-      readonly id?: any | null,
-      readonly TiamatStopPlace?: ReadonlyArray<
-        | {
-          readonly __typename?: 'stop_registry_ParentStopPlace'
-        }
-        | {
-          readonly __typename?: 'stop_registry_StopPlace',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly transportMode?: StopRegistryTransportModeType | null,
-          readonly publicCode?: string | null,
-          readonly alternativeNames?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_AlternativeName',
-            readonly nameType: StopRegistryNameType,
-            readonly name: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly lang?: string | null,
-              readonly value?: string | null
-            }
-          } | null> | null,
-          readonly privateCode?: {
-            readonly __typename?: 'stop_registry_PrivateCode',
-            readonly value?: string | null,
-            readonly type?: string | null
-          } | null,
-          readonly name?: {
-            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-            readonly lang?: string | null,
-            readonly value?: string | null
-          } | null,
-          readonly organisations?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
-            readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
-            readonly organisationRef: string,
-            readonly organisation?: {
-              readonly __typename?: 'stop_registry_Organisation',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: string | null,
-              readonly privateContactDetails?: {
-                readonly __typename?: 'stop_registry_Contact',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly email?: string | null,
-                readonly phone?: string | null
-              } | null
-            } | null
-          } | null> | null,
-          readonly geometry?: {
-            readonly __typename?: 'stop_registry_GeoJSON',
-            readonly type?: StopRegistryGeoJsonType | null,
-            readonly coordinates?: GeoJSON.Position | null
-          } | null,
-          readonly keyValues?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_KeyValues',
-            readonly key?: string | null,
-            readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null,
-          readonly quays?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_Quay',
-            readonly id?: string | null,
-            readonly version?: string | null,
-            readonly publicCode?: string | null,
-            readonly privateCode?: {
-              readonly __typename?: 'stop_registry_PrivateCode',
-              readonly type?: string | null,
-              readonly value?: string | null
-            } | null,
-            readonly description?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly lang?: string | null,
-              readonly value?: string | null
-            } | null,
-            readonly alternativeNames?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_AlternativeName',
-              readonly nameType: StopRegistryNameType,
-              readonly name: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              }
-            } | null> | null,
-            readonly geometry?: {
-              readonly __typename?: 'stop_registry_GeoJSON',
-              readonly coordinates?: GeoJSON.Position | null,
-              readonly type?: StopRegistryGeoJsonType | null
-            } | null,
-            readonly accessibilityAssessment?: {
-              readonly __typename?: 'stop_registry_AccessibilityAssessment',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly hslAccessibilityProperties?: {
-                readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null,
-                readonly stopAreaSideSlope?: number | null,
-                readonly stopAreaLengthwiseSlope?: number | null,
-                readonly endRampSlope?: number | null,
-                readonly shelterLaneDistance?: number | null,
-                readonly curbBackOfRailDistance?: number | null,
-                readonly curbDriveSideOfRailDistance?: number | null,
-                readonly structureLaneDistance?: number | null,
-                readonly stopElevationFromRailTop?: number | null,
-                readonly stopElevationFromSidewalk?: number | null,
-                readonly lowerCleatHeight?: number | null,
-                readonly serviceAreaWidth?: number | null,
-                readonly serviceAreaLength?: number | null,
-                readonly platformEdgeWarningArea?: boolean | null,
-                readonly guidanceTiles?: boolean | null,
-                readonly guidanceStripe?: boolean | null,
-                readonly serviceAreaStripes?: boolean | null,
-                readonly sidewalkAccessibleConnection?: boolean | null,
-                readonly stopAreaSurroundingsAccessible?: boolean | null,
-                readonly curvedStop?: boolean | null,
-                readonly stopType?: StopRegistryStopType | null,
-                readonly shelterType?: StopRegistryShelterWidthType | null,
-                readonly guidanceType?: StopRegistryGuidanceType | null,
-                readonly mapType?: StopRegistryMapType | null,
-                readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null
-              } | null,
-              readonly limitations?: {
-                readonly __typename?: 'stop_registry_AccessibilityLimitations',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-                readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-                readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-                readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-                readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-              } | null
-            } | null,
-            readonly keyValues?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_KeyValues',
-              readonly key?: string | null,
-              readonly values?: ReadonlyArray<string | null> | null
-            } | null> | null,
-            readonly infoSpots?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_infoSpot',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly backlight?: boolean | null,
-              readonly displayType?: StopRegistryDisplayType | null,
-              readonly floor?: string | null,
-              readonly label?: string | null,
-              readonly width?: number | null,
-              readonly height?: number | null,
-              readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
-              readonly infoSpotType?: StopRegistryInfoSpotType | null,
-              readonly intendedUser?: StopRegistryIntendedUser | null,
-              readonly railInformation?: string | null,
-              readonly speechProperty?: boolean | null,
-              readonly zoneLabel?: string | null,
-              readonly description?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null,
-              readonly keyValues?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_KeyValues',
-                readonly key?: string | null,
-                readonly values?: ReadonlyArray<string | null> | null
-              } | null> | null,
-              readonly poster?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_poster',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly label?: string | null,
-                readonly width?: number | null,
-                readonly height?: number | null,
-                readonly lines?: string | null,
-                readonly keyValues?: ReadonlyArray<{
-                  readonly __typename?: 'stop_registry_KeyValues',
-                  readonly key?: string | null,
-                  readonly values?: ReadonlyArray<string | null> | null
-                } | null> | null
-              } | null> | null,
-              readonly geometry?: {
-                readonly __typename?: 'stop_registry_GeoJSON',
-                readonly type?: StopRegistryGeoJsonType | null,
-                readonly coordinates?: GeoJSON.Position | null
-              } | null
-            } | null> | null,
-            readonly placeEquipments?: {
-              readonly __typename?: 'stop_registry_PlaceEquipments',
-              readonly id?: string | null,
-              readonly shelterEquipment?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_ShelterEquipment',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly shelterType?: StopRegistryShelterType | null,
-                readonly shelterElectricity?: StopRegistryShelterElectricity | null,
-                readonly enclosed?: boolean | null,
-                readonly stepFree?: boolean | null,
-                readonly shelterNumber?: number | null,
-                readonly shelterLighting?: boolean | null,
-                readonly shelterCondition?: StopRegistryShelterCondition | null,
-                readonly timetableCabinets?: number | null,
-                readonly trashCan?: boolean | null,
-                readonly shelterHasDisplay?: boolean | null,
-                readonly bicycleParking?: boolean | null,
-                readonly leaningRail?: boolean | null,
-                readonly outsideBench?: boolean | null,
-                readonly shelterFasciaBoardTaping?: boolean | null,
-                readonly shelterExternalId?: string | null
-              } | null> | null,
-              readonly cycleStorageEquipment?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_CycleStorageEquipment',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly cycleStorageType?: StopRegistryCycleStorageType | null
-              } | null> | null,
-              readonly generalSign?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_GeneralSign',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly signContentType?: StopRegistrySignContentType | null,
-                readonly numberOfFrames?: number | null,
-                readonly replacesRailSign?: boolean | null,
-                readonly privateCode?: {
-                  readonly __typename?: 'stop_registry_PrivateCode',
-                  readonly value?: string | null,
-                  readonly type?: string | null
-                } | null,
-                readonly content?: {
-                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                  readonly lang?: string | null,
-                  readonly value?: string | null
-                } | null,
-                readonly note?: {
-                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                  readonly lang?: string | null,
-                  readonly value?: string | null
-                } | null
-              } | null> | null
-            } | null,
-            readonly scheduled_stop_point?: {
-              readonly __typename?: 'service_pattern_scheduled_stop_point',
-              readonly priority: number,
-              readonly direction: InfrastructureNetworkDirectionEnum,
-              readonly scheduled_stop_point_id: UUID,
-              readonly label: string,
-              readonly timing_place_id?: UUID | null,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
-              readonly located_on_infrastructure_link_id: UUID,
-              readonly stop_place_ref?: string | null,
-              readonly measured_location: GeoJSON.Point,
-              readonly timing_place?: {
-                readonly __typename?: 'timing_pattern_timing_place',
-                readonly label: string,
-                readonly timing_place_id: UUID
-              } | null,
-              readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-                readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-                readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-              }>
-            } | null,
-            readonly externalLinks?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_externalLink',
-              readonly quayId?: number | null,
-              readonly orderNum?: number | null,
-              readonly name?: string | null,
-              readonly location?: string | null
-            } | null> | null,
-            readonly organisations?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
-              readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
-              readonly organisationRef: string,
-              readonly organisation?: {
-                readonly __typename?: 'stop_registry_Organisation',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly name?: string | null,
-                readonly privateContactDetails?: {
-                  readonly __typename?: 'stop_registry_Contact',
-                  readonly id?: string | null,
-                  readonly version?: string | null,
-                  readonly email?: string | null,
-                  readonly phone?: string | null
-                } | null
-              } | null
-            } | null> | null
-          } | null> | null,
-          readonly parentStopPlace?: ReadonlyArray<
-            | {
-              readonly __typename?: 'stop_registry_ParentStopPlace',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly name?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null,
-              readonly privateCode?: {
-                readonly __typename?: 'stop_registry_PrivateCode',
-                readonly value?: string | null,
-                readonly type?: string | null
-              } | null,
-              readonly children?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_StopPlace',
-                readonly id?: string | null,
-                readonly version?: string | null,
-                readonly publicCode?: string | null,
-                readonly transportMode?: StopRegistryTransportModeType | null,
-                readonly name?: {
-                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                  readonly lang?: string | null,
-                  readonly value?: string | null
-                } | null,
-                readonly privateCode?: {
-                  readonly __typename?: 'stop_registry_PrivateCode',
-                  readonly value?: string | null
-                } | null,
-                readonly quays?: ReadonlyArray<{
-                  readonly __typename?: 'stop_registry_Quay',
-                  readonly id?: string | null,
-                  readonly version?: string | null,
-                  readonly publicCode?: string | null,
-                  readonly description?: {
-                    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                    readonly lang?: string | null,
-                    readonly value?: string | null
-                  } | null,
-                  readonly scheduled_stop_point?: {
-                    readonly __typename?: 'service_pattern_scheduled_stop_point',
-                    readonly priority: number,
-                    readonly direction: InfrastructureNetworkDirectionEnum,
-                    readonly scheduled_stop_point_id: UUID,
-                    readonly label: string,
-                    readonly timing_place_id?: UUID | null,
-                    readonly validity_start?: luxon.DateTime | null,
-                    readonly validity_end?: luxon.DateTime | null,
-                    readonly located_on_infrastructure_link_id: UUID,
-                    readonly stop_place_ref?: string | null,
-                    readonly measured_location: GeoJSON.Point,
-                    readonly timing_place?: {
-                      readonly __typename?: 'timing_pattern_timing_place',
-                      readonly label: string,
-                      readonly timing_place_id: UUID
-                    } | null,
-                    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-                      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-                      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-                    }>
-                  } | null,
-                  readonly keyValues?: ReadonlyArray<{
-                    readonly __typename?: 'stop_registry_KeyValues',
-                    readonly key?: string | null,
-                    readonly values?: ReadonlyArray<string | null> | null
-                  } | null> | null,
-                  readonly infoSpots?: ReadonlyArray<{
-                    readonly __typename?: 'stop_registry_infoSpot',
-                    readonly id?: string | null,
-                    readonly version?: string | null,
-                    readonly backlight?: boolean | null,
-                    readonly displayType?: StopRegistryDisplayType | null,
-                    readonly floor?: string | null,
-                    readonly label?: string | null,
-                    readonly width?: number | null,
-                    readonly height?: number | null,
-                    readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
-                    readonly infoSpotType?: StopRegistryInfoSpotType | null,
-                    readonly intendedUser?: StopRegistryIntendedUser | null,
-                    readonly railInformation?: string | null,
-                    readonly speechProperty?: boolean | null,
-                    readonly zoneLabel?: string | null,
-                    readonly description?: {
-                      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                      readonly lang?: string | null,
-                      readonly value?: string | null
-                    } | null,
-                    readonly keyValues?: ReadonlyArray<{
-                      readonly __typename?: 'stop_registry_KeyValues',
-                      readonly key?: string | null,
-                      readonly values?: ReadonlyArray<string | null> | null
-                    } | null> | null,
-                    readonly poster?: ReadonlyArray<{
-                      readonly __typename?: 'stop_registry_poster',
-                      readonly id?: string | null,
-                      readonly version?: string | null,
-                      readonly label?: string | null,
-                      readonly width?: number | null,
-                      readonly height?: number | null,
-                      readonly lines?: string | null,
-                      readonly keyValues?: ReadonlyArray<{
-                        readonly __typename?: 'stop_registry_KeyValues',
-                        readonly key?: string | null,
-                        readonly values?: ReadonlyArray<string | null> | null
-                      } | null> | null
-                    } | null> | null,
-                    readonly geometry?: {
-                      readonly __typename?: 'stop_registry_GeoJSON',
-                      readonly type?: StopRegistryGeoJsonType | null,
-                      readonly coordinates?: GeoJSON.Position | null
-                    } | null
-                  } | null> | null,
-                  readonly geometry?: {
-                    readonly __typename?: 'stop_registry_GeoJSON',
-                    readonly coordinates?: GeoJSON.Position | null,
-                    readonly type?: StopRegistryGeoJsonType | null
-                  } | null,
-                  readonly placeEquipments?: {
-                    readonly __typename?: 'stop_registry_PlaceEquipments',
-                    readonly id?: string | null,
-                    readonly generalSign?: ReadonlyArray<{
-                      readonly __typename?: 'stop_registry_GeneralSign',
-                      readonly id?: string | null,
-                      readonly version?: string | null,
-                      readonly replacesRailSign?: boolean | null,
-                      readonly content?: {
-                        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                        readonly lang?: string | null,
-                        readonly value?: string | null
-                      } | null
-                    } | null> | null,
-                    readonly shelterEquipment?: ReadonlyArray<{
-                      readonly __typename?: 'stop_registry_ShelterEquipment',
-                      readonly id?: string | null,
-                      readonly version?: string | null,
-                      readonly shelterNumber?: number | null,
-                      readonly shelterType?: StopRegistryShelterType | null,
-                      readonly shelterElectricity?: StopRegistryShelterElectricity | null
-                    } | null> | null
-                  } | null,
-                  readonly accessibilityAssessment?: {
-                    readonly __typename?: 'stop_registry_AccessibilityAssessment',
-                    readonly id?: string | null,
-                    readonly version?: string | null,
-                    readonly hslAccessibilityProperties?: {
-                      readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-                      readonly id?: string | null,
-                      readonly version?: string | null,
-                      readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-                    } | null
-                  } | null
-                } | null> | null,
-                readonly alternativeNames?: ReadonlyArray<{
-                  readonly __typename?: 'stop_registry_AlternativeName',
-                  readonly nameType: StopRegistryNameType,
-                  readonly name: {
-                    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                    readonly lang?: string | null,
-                    readonly value?: string | null
-                  }
-                } | null> | null
-              } | null> | null,
-              readonly externalLinks?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_stopPlaceExternalLink',
-                readonly stopPlaceId?: number | null,
-                readonly orderNum?: number | null,
-                readonly name?: string | null,
-                readonly location?: string | null
-              } | null> | null
-            }
-            | {
-              readonly __typename?: 'stop_registry_StopPlace'
-            }
-           | null> | null,
-          readonly accessibilityAssessment?: {
-            readonly __typename?: 'stop_registry_AccessibilityAssessment',
-            readonly id?: string | null,
-            readonly version?: string | null,
-            readonly hslAccessibilityProperties?: {
-              readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly stopAreaSideSlope?: number | null,
-              readonly stopAreaLengthwiseSlope?: number | null,
-              readonly endRampSlope?: number | null,
-              readonly shelterLaneDistance?: number | null,
-              readonly curbBackOfRailDistance?: number | null,
-              readonly curbDriveSideOfRailDistance?: number | null,
-              readonly structureLaneDistance?: number | null,
-              readonly stopElevationFromRailTop?: number | null,
-              readonly stopElevationFromSidewalk?: number | null,
-              readonly lowerCleatHeight?: number | null,
-              readonly serviceAreaWidth?: number | null,
-              readonly serviceAreaLength?: number | null,
-              readonly platformEdgeWarningArea?: boolean | null,
-              readonly guidanceTiles?: boolean | null,
-              readonly guidanceStripe?: boolean | null,
-              readonly serviceAreaStripes?: boolean | null,
-              readonly sidewalkAccessibleConnection?: boolean | null,
-              readonly stopAreaSurroundingsAccessible?: boolean | null,
-              readonly curvedStop?: boolean | null,
-              readonly stopType?: StopRegistryStopType | null,
-              readonly shelterType?: StopRegistryShelterWidthType | null,
-              readonly guidanceType?: StopRegistryGuidanceType | null,
-              readonly mapType?: StopRegistryMapType | null,
-              readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
-              readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-            } | null,
-            readonly limitations?: {
-              readonly __typename?: 'stop_registry_AccessibilityLimitations',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-              readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-              readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-              readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-              readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-            } | null
-          } | null,
-          readonly topographicPlace?: {
-            readonly __typename?: 'stop_registry_TopographicPlace',
-            readonly id?: string | null,
-            readonly version?: number | null,
-            readonly topographicPlaceType?: StopRegistryTopographicPlaceType | null,
-            readonly name?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly value?: string | null,
-              readonly lang?: string | null
-            } | null
-          } | null,
-          readonly fareZones?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_FareZone',
-            readonly id?: string | null,
-            readonly version?: string | null,
-            readonly name?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly value?: string | null,
-              readonly lang?: string | null
-            } | null
-          } | null> | null
-        }
-       | null> | null
-    }>
-  } | null
-};
-
-export type StopPlaceDetailsFragment = {
-  readonly __typename?: 'stop_registry_StopPlace',
-  readonly id?: string | null,
-  readonly version?: string | null,
-  readonly transportMode?: StopRegistryTransportModeType | null,
-  readonly publicCode?: string | null,
-  readonly alternativeNames?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_AlternativeName',
-    readonly nameType: StopRegistryNameType,
-    readonly name: {
-      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-      readonly lang?: string | null,
-      readonly value?: string | null
-    }
-  } | null> | null,
-  readonly privateCode?: {
-    readonly __typename?: 'stop_registry_PrivateCode',
-    readonly value?: string | null,
-    readonly type?: string | null
-  } | null,
-  readonly name?: {
-    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-    readonly lang?: string | null,
-    readonly value?: string | null
-  } | null,
-  readonly organisations?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
-    readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
-    readonly organisationRef: string,
-    readonly organisation?: {
-      readonly __typename?: 'stop_registry_Organisation',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly name?: string | null,
-      readonly privateContactDetails?: {
-        readonly __typename?: 'stop_registry_Contact',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly email?: string | null,
-        readonly phone?: string | null
-      } | null
-    } | null
-  } | null> | null,
-  readonly geometry?: {
-    readonly __typename?: 'stop_registry_GeoJSON',
-    readonly type?: StopRegistryGeoJsonType | null,
-    readonly coordinates?: GeoJSON.Position | null
-  } | null,
-  readonly keyValues?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_KeyValues',
-    readonly key?: string | null,
-    readonly values?: ReadonlyArray<string | null> | null
-  } | null> | null,
-  readonly quays?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_Quay',
-    readonly id?: string | null,
-    readonly version?: string | null,
-    readonly publicCode?: string | null,
-    readonly privateCode?: {
-      readonly __typename?: 'stop_registry_PrivateCode',
-      readonly type?: string | null,
-      readonly value?: string | null
-    } | null,
-    readonly description?: {
-      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-      readonly lang?: string | null,
-      readonly value?: string | null
-    } | null,
-    readonly alternativeNames?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_AlternativeName',
-      readonly nameType: StopRegistryNameType,
-      readonly name: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      }
-    } | null> | null,
-    readonly geometry?: {
-      readonly __typename?: 'stop_registry_GeoJSON',
-      readonly coordinates?: GeoJSON.Position | null,
-      readonly type?: StopRegistryGeoJsonType | null
-    } | null,
-    readonly accessibilityAssessment?: {
-      readonly __typename?: 'stop_registry_AccessibilityAssessment',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly hslAccessibilityProperties?: {
-        readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null,
-        readonly stopAreaSideSlope?: number | null,
-        readonly stopAreaLengthwiseSlope?: number | null,
-        readonly endRampSlope?: number | null,
-        readonly shelterLaneDistance?: number | null,
-        readonly curbBackOfRailDistance?: number | null,
-        readonly curbDriveSideOfRailDistance?: number | null,
-        readonly structureLaneDistance?: number | null,
-        readonly stopElevationFromRailTop?: number | null,
-        readonly stopElevationFromSidewalk?: number | null,
-        readonly lowerCleatHeight?: number | null,
-        readonly serviceAreaWidth?: number | null,
-        readonly serviceAreaLength?: number | null,
-        readonly platformEdgeWarningArea?: boolean | null,
-        readonly guidanceTiles?: boolean | null,
-        readonly guidanceStripe?: boolean | null,
-        readonly serviceAreaStripes?: boolean | null,
-        readonly sidewalkAccessibleConnection?: boolean | null,
-        readonly stopAreaSurroundingsAccessible?: boolean | null,
-        readonly curvedStop?: boolean | null,
-        readonly stopType?: StopRegistryStopType | null,
-        readonly shelterType?: StopRegistryShelterWidthType | null,
-        readonly guidanceType?: StopRegistryGuidanceType | null,
-        readonly mapType?: StopRegistryMapType | null,
-        readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null
-      } | null,
-      readonly limitations?: {
-        readonly __typename?: 'stop_registry_AccessibilityLimitations',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-        readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-        readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-        readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-        readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-      } | null
-    } | null,
-    readonly keyValues?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_KeyValues',
-      readonly key?: string | null,
-      readonly values?: ReadonlyArray<string | null> | null
-    } | null> | null,
-    readonly infoSpots?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_infoSpot',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly backlight?: boolean | null,
-      readonly displayType?: StopRegistryDisplayType | null,
-      readonly floor?: string | null,
-      readonly label?: string | null,
-      readonly width?: number | null,
-      readonly height?: number | null,
-      readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
-      readonly infoSpotType?: StopRegistryInfoSpotType | null,
-      readonly intendedUser?: StopRegistryIntendedUser | null,
-      readonly railInformation?: string | null,
-      readonly speechProperty?: boolean | null,
-      readonly zoneLabel?: string | null,
-      readonly description?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly keyValues?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_KeyValues',
-        readonly key?: string | null,
-        readonly values?: ReadonlyArray<string | null> | null
-      } | null> | null,
-      readonly poster?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_poster',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly label?: string | null,
-        readonly width?: number | null,
-        readonly height?: number | null,
-        readonly lines?: string | null,
-        readonly keyValues?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_KeyValues',
-          readonly key?: string | null,
-          readonly values?: ReadonlyArray<string | null> | null
-        } | null> | null
-      } | null> | null,
-      readonly geometry?: {
-        readonly __typename?: 'stop_registry_GeoJSON',
-        readonly type?: StopRegistryGeoJsonType | null,
-        readonly coordinates?: GeoJSON.Position | null
-      } | null
-    } | null> | null,
-    readonly placeEquipments?: {
-      readonly __typename?: 'stop_registry_PlaceEquipments',
-      readonly id?: string | null,
-      readonly shelterEquipment?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_ShelterEquipment',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly shelterType?: StopRegistryShelterType | null,
-        readonly shelterElectricity?: StopRegistryShelterElectricity | null,
-        readonly enclosed?: boolean | null,
-        readonly stepFree?: boolean | null,
-        readonly shelterNumber?: number | null,
-        readonly shelterLighting?: boolean | null,
-        readonly shelterCondition?: StopRegistryShelterCondition | null,
-        readonly timetableCabinets?: number | null,
-        readonly trashCan?: boolean | null,
-        readonly shelterHasDisplay?: boolean | null,
-        readonly bicycleParking?: boolean | null,
-        readonly leaningRail?: boolean | null,
-        readonly outsideBench?: boolean | null,
-        readonly shelterFasciaBoardTaping?: boolean | null,
-        readonly shelterExternalId?: string | null
-      } | null> | null,
-      readonly cycleStorageEquipment?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_CycleStorageEquipment',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly cycleStorageType?: StopRegistryCycleStorageType | null
-      } | null> | null,
-      readonly generalSign?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_GeneralSign',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly signContentType?: StopRegistrySignContentType | null,
-        readonly numberOfFrames?: number | null,
-        readonly replacesRailSign?: boolean | null,
-        readonly privateCode?: {
-          readonly __typename?: 'stop_registry_PrivateCode',
-          readonly value?: string | null,
-          readonly type?: string | null
-        } | null,
-        readonly content?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        } | null,
-        readonly note?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        } | null
-      } | null> | null
-    } | null,
-    readonly scheduled_stop_point?: {
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly priority: number,
-      readonly direction: InfrastructureNetworkDirectionEnum,
-      readonly scheduled_stop_point_id: UUID,
-      readonly label: string,
-      readonly timing_place_id?: UUID | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly located_on_infrastructure_link_id: UUID,
-      readonly stop_place_ref?: string | null,
-      readonly measured_location: GeoJSON.Point,
-      readonly timing_place?: {
-        readonly __typename?: 'timing_pattern_timing_place',
-        readonly label: string,
-        readonly timing_place_id: UUID
-      } | null,
-      readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-        readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-        readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-      }>
-    } | null,
-    readonly externalLinks?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_externalLink',
-      readonly quayId?: number | null,
-      readonly orderNum?: number | null,
-      readonly name?: string | null,
-      readonly location?: string | null
-    } | null> | null,
-    readonly organisations?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
-      readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
-      readonly organisationRef: string,
-      readonly organisation?: {
-        readonly __typename?: 'stop_registry_Organisation',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly name?: string | null,
-        readonly privateContactDetails?: {
-          readonly __typename?: 'stop_registry_Contact',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly email?: string | null,
-          readonly phone?: string | null
-        } | null
-      } | null
-    } | null> | null
-  } | null> | null,
-  readonly parentStopPlace?: ReadonlyArray<
-    | {
-      readonly __typename?: 'stop_registry_ParentStopPlace',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly privateCode?: {
-        readonly __typename?: 'stop_registry_PrivateCode',
-        readonly value?: string | null,
-        readonly type?: string | null
-      } | null,
-      readonly children?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly publicCode?: string | null,
-        readonly transportMode?: StopRegistryTransportModeType | null,
-        readonly name?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        } | null,
-        readonly privateCode?: {
-          readonly __typename?: 'stop_registry_PrivateCode',
-          readonly value?: string | null
-        } | null,
-        readonly quays?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_Quay',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly publicCode?: string | null,
-          readonly description?: {
-            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-            readonly lang?: string | null,
-            readonly value?: string | null
-          } | null,
-          readonly scheduled_stop_point?: {
-            readonly __typename?: 'service_pattern_scheduled_stop_point',
-            readonly priority: number,
-            readonly direction: InfrastructureNetworkDirectionEnum,
-            readonly scheduled_stop_point_id: UUID,
-            readonly label: string,
-            readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
-            readonly located_on_infrastructure_link_id: UUID,
-            readonly stop_place_ref?: string | null,
-            readonly measured_location: GeoJSON.Point,
-            readonly timing_place?: {
-              readonly __typename?: 'timing_pattern_timing_place',
-              readonly label: string,
-              readonly timing_place_id: UUID
-            } | null,
-            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-            }>
-          } | null,
-          readonly keyValues?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_KeyValues',
-            readonly key?: string | null,
-            readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null,
-          readonly infoSpots?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_infoSpot',
-            readonly id?: string | null,
-            readonly version?: string | null,
-            readonly backlight?: boolean | null,
-            readonly displayType?: StopRegistryDisplayType | null,
-            readonly floor?: string | null,
-            readonly label?: string | null,
-            readonly width?: number | null,
-            readonly height?: number | null,
-            readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
-            readonly infoSpotType?: StopRegistryInfoSpotType | null,
-            readonly intendedUser?: StopRegistryIntendedUser | null,
-            readonly railInformation?: string | null,
-            readonly speechProperty?: boolean | null,
-            readonly zoneLabel?: string | null,
-            readonly description?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly lang?: string | null,
-              readonly value?: string | null
-            } | null,
-            readonly keyValues?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_KeyValues',
-              readonly key?: string | null,
-              readonly values?: ReadonlyArray<string | null> | null
-            } | null> | null,
-            readonly poster?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_poster',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly label?: string | null,
-              readonly width?: number | null,
-              readonly height?: number | null,
-              readonly lines?: string | null,
-              readonly keyValues?: ReadonlyArray<{
-                readonly __typename?: 'stop_registry_KeyValues',
-                readonly key?: string | null,
-                readonly values?: ReadonlyArray<string | null> | null
-              } | null> | null
-            } | null> | null,
-            readonly geometry?: {
-              readonly __typename?: 'stop_registry_GeoJSON',
-              readonly type?: StopRegistryGeoJsonType | null,
-              readonly coordinates?: GeoJSON.Position | null
-            } | null
-          } | null> | null,
-          readonly geometry?: {
-            readonly __typename?: 'stop_registry_GeoJSON',
-            readonly coordinates?: GeoJSON.Position | null,
-            readonly type?: StopRegistryGeoJsonType | null
-          } | null,
-          readonly placeEquipments?: {
-            readonly __typename?: 'stop_registry_PlaceEquipments',
-            readonly id?: string | null,
-            readonly generalSign?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_GeneralSign',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly replacesRailSign?: boolean | null,
-              readonly content?: {
-                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-                readonly lang?: string | null,
-                readonly value?: string | null
-              } | null
-            } | null> | null,
-            readonly shelterEquipment?: ReadonlyArray<{
-              readonly __typename?: 'stop_registry_ShelterEquipment',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly shelterNumber?: number | null,
-              readonly shelterType?: StopRegistryShelterType | null,
-              readonly shelterElectricity?: StopRegistryShelterElectricity | null
-            } | null> | null
-          } | null,
-          readonly accessibilityAssessment?: {
-            readonly __typename?: 'stop_registry_AccessibilityAssessment',
-            readonly id?: string | null,
-            readonly version?: string | null,
-            readonly hslAccessibilityProperties?: {
-              readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-              readonly id?: string | null,
-              readonly version?: string | null,
-              readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-            } | null
-          } | null
-        } | null> | null,
-        readonly alternativeNames?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_AlternativeName',
-          readonly nameType: StopRegistryNameType,
-          readonly name: {
-            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-            readonly lang?: string | null,
-            readonly value?: string | null
-          }
-        } | null> | null
-      } | null> | null,
-      readonly externalLinks?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_stopPlaceExternalLink',
-        readonly stopPlaceId?: number | null,
-        readonly orderNum?: number | null,
-        readonly name?: string | null,
-        readonly location?: string | null
-      } | null> | null
-    }
-    | {
-      readonly __typename?: 'stop_registry_StopPlace'
-    }
-   | null> | null,
-  readonly accessibilityAssessment?: {
-    readonly __typename?: 'stop_registry_AccessibilityAssessment',
-    readonly id?: string | null,
-    readonly version?: string | null,
-    readonly hslAccessibilityProperties?: {
-      readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly stopAreaSideSlope?: number | null,
-      readonly stopAreaLengthwiseSlope?: number | null,
-      readonly endRampSlope?: number | null,
-      readonly shelterLaneDistance?: number | null,
-      readonly curbBackOfRailDistance?: number | null,
-      readonly curbDriveSideOfRailDistance?: number | null,
-      readonly structureLaneDistance?: number | null,
-      readonly stopElevationFromRailTop?: number | null,
-      readonly stopElevationFromSidewalk?: number | null,
-      readonly lowerCleatHeight?: number | null,
-      readonly serviceAreaWidth?: number | null,
-      readonly serviceAreaLength?: number | null,
-      readonly platformEdgeWarningArea?: boolean | null,
-      readonly guidanceTiles?: boolean | null,
-      readonly guidanceStripe?: boolean | null,
-      readonly serviceAreaStripes?: boolean | null,
-      readonly sidewalkAccessibleConnection?: boolean | null,
-      readonly stopAreaSurroundingsAccessible?: boolean | null,
-      readonly curvedStop?: boolean | null,
-      readonly stopType?: StopRegistryStopType | null,
-      readonly shelterType?: StopRegistryShelterWidthType | null,
-      readonly guidanceType?: StopRegistryGuidanceType | null,
-      readonly mapType?: StopRegistryMapType | null,
-      readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
-      readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-    } | null,
-    readonly limitations?: {
-      readonly __typename?: 'stop_registry_AccessibilityLimitations',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-      readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-      readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-      readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-      readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-    } | null
-  } | null,
-  readonly topographicPlace?: {
-    readonly __typename?: 'stop_registry_TopographicPlace',
-    readonly id?: string | null,
-    readonly version?: number | null,
-    readonly topographicPlaceType?: StopRegistryTopographicPlaceType | null,
-    readonly name?: {
-      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-      readonly value?: string | null,
-      readonly lang?: string | null
-    } | null
-  } | null,
-  readonly fareZones?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_FareZone',
-    readonly id?: string | null,
-    readonly version?: string | null,
-    readonly name?: {
-      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-      readonly value?: string | null,
-      readonly lang?: string | null
-    } | null
-  } | null> | null
-};
-
-export type TerminalDetailsFragment = {
-  readonly __typename?: 'stop_registry_ParentStopPlace',
-  readonly id?: string | null,
-  readonly version?: string | null,
-  readonly name?: {
-    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-    readonly lang?: string | null,
-    readonly value?: string | null
-  } | null,
-  readonly privateCode?: {
-    readonly __typename?: 'stop_registry_PrivateCode',
-    readonly value?: string | null,
-    readonly type?: string | null
-  } | null,
-  readonly children?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_StopPlace',
-    readonly id?: string | null,
-    readonly version?: string | null,
-    readonly publicCode?: string | null,
-    readonly transportMode?: StopRegistryTransportModeType | null,
-    readonly name?: {
-      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-      readonly lang?: string | null,
-      readonly value?: string | null
-    } | null,
-    readonly privateCode?: {
-      readonly __typename?: 'stop_registry_PrivateCode',
-      readonly value?: string | null
-    } | null,
-    readonly quays?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_Quay',
-      readonly id?: string | null,
-      readonly version?: string | null,
-      readonly publicCode?: string | null,
-      readonly description?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly scheduled_stop_point?: {
-        readonly __typename?: 'service_pattern_scheduled_stop_point',
-        readonly priority: number,
-        readonly direction: InfrastructureNetworkDirectionEnum,
-        readonly scheduled_stop_point_id: UUID,
-        readonly label: string,
-        readonly timing_place_id?: UUID | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
-        readonly located_on_infrastructure_link_id: UUID,
-        readonly stop_place_ref?: string | null,
-        readonly measured_location: GeoJSON.Point,
-        readonly timing_place?: {
-          readonly __typename?: 'timing_pattern_timing_place',
-          readonly label: string,
-          readonly timing_place_id: UUID
-        } | null,
-        readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-          readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-          readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-        }>
-      } | null,
-      readonly keyValues?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_KeyValues',
-        readonly key?: string | null,
-        readonly values?: ReadonlyArray<string | null> | null
-      } | null> | null,
-      readonly infoSpots?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_infoSpot',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly backlight?: boolean | null,
-        readonly displayType?: StopRegistryDisplayType | null,
-        readonly floor?: string | null,
-        readonly label?: string | null,
-        readonly width?: number | null,
-        readonly height?: number | null,
-        readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
-        readonly infoSpotType?: StopRegistryInfoSpotType | null,
-        readonly intendedUser?: StopRegistryIntendedUser | null,
-        readonly railInformation?: string | null,
-        readonly speechProperty?: boolean | null,
-        readonly zoneLabel?: string | null,
-        readonly description?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        } | null,
-        readonly keyValues?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_KeyValues',
-          readonly key?: string | null,
-          readonly values?: ReadonlyArray<string | null> | null
-        } | null> | null,
-        readonly poster?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_poster',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly label?: string | null,
-          readonly width?: number | null,
-          readonly height?: number | null,
-          readonly lines?: string | null,
-          readonly keyValues?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_KeyValues',
-            readonly key?: string | null,
-            readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
-        } | null> | null,
-        readonly geometry?: {
-          readonly __typename?: 'stop_registry_GeoJSON',
-          readonly type?: StopRegistryGeoJsonType | null,
-          readonly coordinates?: GeoJSON.Position | null
-        } | null
-      } | null> | null,
-      readonly geometry?: {
-        readonly __typename?: 'stop_registry_GeoJSON',
-        readonly coordinates?: GeoJSON.Position | null,
-        readonly type?: StopRegistryGeoJsonType | null
-      } | null,
-      readonly placeEquipments?: {
-        readonly __typename?: 'stop_registry_PlaceEquipments',
-        readonly id?: string | null,
-        readonly generalSign?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_GeneralSign',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly replacesRailSign?: boolean | null,
-          readonly content?: {
-            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-            readonly lang?: string | null,
-            readonly value?: string | null
-          } | null
-        } | null> | null,
-        readonly shelterEquipment?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_ShelterEquipment',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly shelterNumber?: number | null,
-          readonly shelterType?: StopRegistryShelterType | null,
-          readonly shelterElectricity?: StopRegistryShelterElectricity | null
-        } | null> | null
-      } | null,
-      readonly accessibilityAssessment?: {
-        readonly __typename?: 'stop_registry_AccessibilityAssessment',
-        readonly id?: string | null,
-        readonly version?: string | null,
-        readonly hslAccessibilityProperties?: {
-          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-        } | null
-      } | null
-    } | null> | null,
-    readonly alternativeNames?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_AlternativeName',
-      readonly nameType: StopRegistryNameType,
-      readonly name: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      }
-    } | null> | null
-  } | null> | null,
-  readonly externalLinks?: ReadonlyArray<{
-    readonly __typename?: 'stop_registry_stopPlaceExternalLink',
-    readonly stopPlaceId?: number | null,
-    readonly orderNum?: number | null,
-    readonly name?: string | null,
-    readonly location?: string | null
-  } | null> | null
-};
-
-export type EditMultipleStopPointsMutationVariables = Exact<{
-  updates: ReadonlyArray<ServicePatternScheduledStopPointUpdates> | ServicePatternScheduledStopPointUpdates;
-}>;
-
-
-export type EditMultipleStopPointsMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stopPoints?: ReadonlyArray<{
-    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly scheduled_stop_point_id: UUID,
-      readonly located_on_infrastructure_link_id: UUID,
-      readonly direction: InfrastructureNetworkDirectionEnum,
-      readonly priority: number,
-      readonly measured_location: GeoJSON.Point,
-      readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly stop_place_ref?: string | null
-    }>
-  } | null> | null
-};
-
-export type GetJourneyPatternsOfScheduledStopPointQueryVariables = Exact<{
-  where: JourneyPatternScheduledStopPointInJourneyPatternBoolExp;
-}>;
-
-
-export type GetJourneyPatternsOfScheduledStopPointQuery = {
-  readonly __typename?: 'query_root',
-  readonly ssps: ReadonlyArray<{
-    readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly scheduled_stop_point_label: string,
-    readonly scheduled_stop_point_sequence: number,
-    readonly journey_pattern: {
-      readonly __typename?: 'journey_pattern_journey_pattern',
-      readonly journey_pattern_id: UUID,
-      readonly on_route_id: UUID,
-      readonly journey_pattern_route?: {
-        readonly __typename?: 'route_route',
-        readonly route_id: UUID,
-        readonly label: string,
-        readonly variant?: number | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null
-      } | null
-    }
-  }>
-};
-
-export type JourneyPatternRouteFieldsFragment = {
-  readonly __typename?: 'route_route',
-  readonly route_id: UUID,
-  readonly label: string,
-  readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null
-};
-
-export type JourneyPatternFieldsFragment = {
-  readonly __typename?: 'journey_pattern_journey_pattern',
-  readonly journey_pattern_id: UUID,
-  readonly on_route_id: UUID,
-  readonly journey_pattern_route?: {
-    readonly __typename?: 'route_route',
-    readonly route_id: UUID,
-    readonly label: string,
-    readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
-  } | null
-};
-
-export type JourneyPatternStopPointFragment = {
-  readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
-  readonly journey_pattern_id: UUID,
-  readonly scheduled_stop_point_label: string,
-  readonly scheduled_stop_point_sequence: number,
-  readonly journey_pattern: {
-    readonly __typename?: 'journey_pattern_journey_pattern',
-    readonly journey_pattern_id: UUID,
-    readonly on_route_id: UUID,
-    readonly journey_pattern_route?: {
-      readonly __typename?: 'route_route',
-      readonly route_id: UUID,
-      readonly label: string,
-      readonly variant?: number | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null
-    } | null
-  }
-};
-
-export type GetStopPlaceVersionsQueryVariables = Exact<{
-  privateCode: Scalars['String']['input'];
-}>;
-
-
-export type GetStopPlaceVersionsQuery = {
-  readonly __typename?: 'query_root',
-  readonly stops_database?: {
-    readonly __typename?: 'stops_database_stops_database_query',
-    readonly stopAreas: ReadonlyArray<{
-      readonly __typename?: 'stops_database_stop_place_newest_version',
-      readonly id?: any | null,
-      readonly netex_id?: string | null,
-      readonly private_code_type?: string | null,
-      readonly private_code_value?: string | null,
-      readonly name_value?: string | null,
-      readonly validity_start?: string | null,
-      readonly validity_end?: string | null,
-      readonly centroid?: GeoJSON.Geometry | null,
-      readonly created?: any | null,
-      readonly changed?: any | null,
-      readonly changed_by?: string | null,
-      readonly version_comment?: string | null
-    }>
-  } | null
-};
-
-export type StopAreaVersionInfoFragment = {
-  readonly __typename?: 'stops_database_stop_place_newest_version',
-  readonly id?: any | null,
-  readonly netex_id?: string | null,
-  readonly private_code_type?: string | null,
-  readonly private_code_value?: string | null,
-  readonly name_value?: string | null,
-  readonly validity_start?: string | null,
-  readonly validity_end?: string | null,
-  readonly centroid?: GeoJSON.Geometry | null,
-  readonly created?: any | null,
-  readonly changed?: any | null,
-  readonly changed_by?: string | null,
-  readonly version_comment?: string | null
-};
-
-export type InsertMultipleStopPointsMutationVariables = Exact<{
-  stopPoints: ReadonlyArray<ServicePatternScheduledStopPointInsertInput> | ServicePatternScheduledStopPointInsertInput;
-}>;
-
-
-export type InsertMultipleStopPointsMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stopPoints?: {
-    readonly __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
-    readonly returning: ReadonlyArray<{
-      readonly __typename?: 'service_pattern_scheduled_stop_point',
-      readonly scheduled_stop_point_id: UUID,
-      readonly located_on_infrastructure_link_id: UUID,
-      readonly direction: InfrastructureNetworkDirectionEnum,
-      readonly priority: number,
-      readonly measured_location: GeoJSON.Point,
-      readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
-      readonly stop_place_ref?: string | null
-    }>
   } | null
 };
 
@@ -84605,6 +84605,13 @@ export const MapMinimalTerminalDetailsFragmentDoc = {"kind":"Document","definiti
 export const RouteMetadataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}}]}}]} as unknown as DocumentNode;
 export const StopSelectionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopSelectionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"street_address"}},{"kind":"Field","alias":{"kind":"Name","value":"stop_place"},"name":{"kind":"Name","value":"stop_place_newest_version"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_value"}}]}}]}}]} as unknown as DocumentNode;
 export const DisplayedRouteFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const HistoricalStopAreaQuayDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}}]} as unknown as DocumentNode;
+export const HistoricalStopAreaTerminalDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode;
+export const HistoricalStopAreaDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode;
+export const JourneyPatternRouteFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
+export const JourneyPatternFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternRouteFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
+export const JourneyPatternStopPointFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternStopPoint"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternRouteFields"}}]}}]}}]} as unknown as DocumentNode;
+export const StopAreaVersionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopAreaVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}}]}}]} as unknown as DocumentNode;
 export const StopPlaceChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StopPlaceChangeHistoryItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netexId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changedBy"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeType"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeValue"}},{"kind":"Field","name":{"kind":"Name","value":"validityStart"}},{"kind":"Field","name":{"kind":"Name","value":"validityEnd"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"}}]}}]} as unknown as DocumentNode;
 export const FindStopByLineRouteInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopByLineRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
 export const FindStopByLineInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopByLineInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_line"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validOn"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validOn"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_end"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"direction"},"value":{"kind":"EnumValue","value":"desc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"distinct_on"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"direction"},{"kind":"EnumValue","value":"priority"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FindStopByLineRouteInfo"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopByLineRouteInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
@@ -84613,13 +84620,6 @@ export const StopTableRowQuayDetailsFragmentDoc = {"kind":"Document","definition
 export const GetStopByRouteIdSearchResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetStopByRouteIdSearchResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}},{"kind":"Field","alias":{"kind":"Name","value":"quay"},"name":{"kind":"Name","value":"newest_quay"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowQuayDetails"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"journeyPatterns"},"name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"journey_pattern"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"on_route_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","alias":{"kind":"Name","value":"sequence"},"name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"description_value"}},{"kind":"Field","name":{"kind":"Name","value":"transport_modes"}},{"kind":"Field","name":{"kind":"Name","value":"active_transport_modes"}},{"kind":"Field","name":{"kind":"Name","value":"speed_tram_stop"}},{"kind":"Field","name":{"kind":"Name","value":"trunk_line_stop"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"transport_mode"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_alternative_names"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alternative_name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_lang"}},{"kind":"Field","name":{"kind":"Name","value":"name_type"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"TiamatStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 export const FindStopPlaceInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FindStopPlaceInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name_lang"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","alias":{"kind":"Name","value":"private_code"},"name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}}]}}]} as unknown as DocumentNode;
 export const StopTableRowQuayFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowQuay"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowQuayDetails"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_instance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"description_value"}},{"kind":"Field","name":{"kind":"Name","value":"transport_modes"}},{"kind":"Field","name":{"kind":"Name","value":"active_transport_modes"}},{"kind":"Field","name":{"kind":"Name","value":"speed_tram_stop"}},{"kind":"Field","name":{"kind":"Name","value":"trunk_line_stop"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"transport_mode"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_alternative_names"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alternative_name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_lang"}},{"kind":"Field","name":{"kind":"Name","value":"name_type"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"TiamatStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export const HistoricalStopAreaQuayDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}}]} as unknown as DocumentNode;
-export const HistoricalStopAreaTerminalDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode;
-export const HistoricalStopAreaDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode;
-export const JourneyPatternRouteFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
-export const JourneyPatternFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternRouteFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]} as unknown as DocumentNode;
-export const JourneyPatternStopPointFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternStopPoint"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternRouteFields"}}]}}]}}]} as unknown as DocumentNode;
-export const StopAreaVersionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopAreaVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}}]}}]} as unknown as DocumentNode;
 export const StopPlaceOrganisationFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}}]} as unknown as DocumentNode;
 export const HslAccessibilityPropertiesDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]} as unknown as DocumentNode;
 export const AccessibilityAssessmentDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]} as unknown as DocumentNode;
@@ -84636,8 +84636,8 @@ export const MemberStopStopPlaceDetailsFragmentDoc = {"kind":"Document","definit
 export const TerminalDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 export const TopographicPlaceDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}}]} as unknown as DocumentNode;
 export const FareZoneDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}}]} as unknown as DocumentNode;
-export const StopPlaceDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
-export const DetailsForHistoricalStopVersionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DetailsForHistoricalStopVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const StopPlaceDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const DetailsForHistoricalStopVersionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DetailsForHistoricalStopVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 export const QuayChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"QuayChangeHistoryItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netexId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changedBy"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeType"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeValue"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"importedId"}},{"kind":"Field","name":{"kind":"Name","value":"validityStart"}},{"kind":"Field","name":{"kind":"Name","value":"validityEnd"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"stopPlaceNetexId"}},{"kind":"Field","name":{"kind":"Name","value":"stopPlaceVersion"}}]}}]} as unknown as DocumentNode;
 export const StopPlaceAlternativeNamesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceAlternativeNames"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_alternative_names"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"alternative_names_id"}},{"kind":"Field","alias":{"kind":"Name","value":"alternativeName"},"name":{"kind":"Name","value":"alternative_name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"name_lang"}},{"kind":"Field","name":{"kind":"Name","value":"name_type"}}]}}]}}]} as unknown as DocumentNode;
 export const StopPointDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}}]}}]} as unknown as DocumentNode;
@@ -86719,7 +86719,7 @@ export type GetStopPlaceMaxPrivateCodeQueryHookResult = ReturnType<typeof useGet
 export type GetStopPlaceMaxPrivateCodeLazyQueryHookResult = ReturnType<typeof useGetStopPlaceMaxPrivateCodeLazyQuery>;
 export type GetStopPlaceMaxPrivateCodeSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceMaxPrivateCodeSuspenseQuery>;
 export type GetStopPlaceMaxPrivateCodeQueryResult = Apollo.QueryResult<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>;
-export const UpsertStopAreaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpsertStopArea"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlaceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mutateStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"StopPlace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const UpsertStopAreaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpsertStopArea"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlaceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mutateStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"StopPlace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UpsertStopAreaMutationFn = Apollo.MutationFunction<UpsertStopAreaMutation, UpsertStopAreaMutationVariables>;
 
 /**
@@ -87917,6 +87917,404 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryHookRe
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery>;
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsSuspenseQuery>;
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryResult = Apollo.QueryResult<GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery, GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables>;
+export const GetHistoricalStopAreaDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHistoricalStopAreaDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"version"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsRegistry"},"name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"version"},"value":{"kind":"Variable","name":{"kind":"Name","value":"version"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetHistoricalStopAreaDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetHistoricalStopAreaDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoricalStopAreaDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoricalStopAreaDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      version: // value for 'version'
+ *   },
+ * });
+ */
+export function useGetHistoricalStopAreaDetailsQuery(baseOptions: Apollo.QueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables> & ({ variables: GetHistoricalStopAreaDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>(GetHistoricalStopAreaDetailsDocument, options);
+      }
+export function useGetHistoricalStopAreaDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>(GetHistoricalStopAreaDetailsDocument, options);
+        }
+// @ts-ignore
+export function useGetHistoricalStopAreaDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>;
+export function useGetHistoricalStopAreaDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetHistoricalStopAreaDetailsQuery | undefined, GetHistoricalStopAreaDetailsQueryVariables>;
+export function useGetHistoricalStopAreaDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>(GetHistoricalStopAreaDetailsDocument, options);
+        }
+export type GetHistoricalStopAreaDetailsQueryHookResult = ReturnType<typeof useGetHistoricalStopAreaDetailsQuery>;
+export type GetHistoricalStopAreaDetailsLazyQueryHookResult = ReturnType<typeof useGetHistoricalStopAreaDetailsLazyQuery>;
+export type GetHistoricalStopAreaDetailsSuspenseQueryHookResult = ReturnType<typeof useGetHistoricalStopAreaDetailsSuspenseQuery>;
+export type GetHistoricalStopAreaDetailsQueryResult = Apollo.QueryResult<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>;
+export const DeleteStopAreaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteStopArea"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stopPlaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}}}]}]}}]}}]} as unknown as DocumentNode;
+export type DeleteStopAreaMutationFn = Apollo.MutationFunction<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>;
+
+/**
+ * __useDeleteStopAreaMutation__
+ *
+ * To run a mutation, you first call `useDeleteStopAreaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStopAreaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStopAreaMutation, { data, loading, error }] = useDeleteStopAreaMutation({
+ *   variables: {
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *   },
+ * });
+ */
+export function useDeleteStopAreaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>(DeleteStopAreaDocument, options);
+      }
+export type DeleteStopAreaMutationHookResult = ReturnType<typeof useDeleteStopAreaMutation>;
+export type DeleteStopAreaMutationResult = Apollo.MutationResult<DeleteStopAreaMutation>;
+export type DeleteStopAreaMutationOptions = Apollo.BaseMutationOptions<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>;
+export const GetLatestStopPlaceChangeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLatestStopPlaceChange"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_bool_exp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPlace"},"name":{"kind":"Name","value":"stops_database_stop_place"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetLatestStopPlaceChangeQuery__
+ *
+ * To run a query within a React component, call `useGetLatestStopPlaceChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLatestStopPlaceChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLatestStopPlaceChangeQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetLatestStopPlaceChangeQuery(baseOptions: Apollo.QueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables> & ({ variables: GetLatestStopPlaceChangeQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>(GetLatestStopPlaceChangeDocument, options);
+      }
+export function useGetLatestStopPlaceChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>(GetLatestStopPlaceChangeDocument, options);
+        }
+// @ts-ignore
+export function useGetLatestStopPlaceChangeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>): Apollo.UseSuspenseQueryResult<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>;
+export function useGetLatestStopPlaceChangeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>): Apollo.UseSuspenseQueryResult<GetLatestStopPlaceChangeQuery | undefined, GetLatestStopPlaceChangeQueryVariables>;
+export function useGetLatestStopPlaceChangeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>(GetLatestStopPlaceChangeDocument, options);
+        }
+export type GetLatestStopPlaceChangeQueryHookResult = ReturnType<typeof useGetLatestStopPlaceChangeQuery>;
+export type GetLatestStopPlaceChangeLazyQueryHookResult = ReturnType<typeof useGetLatestStopPlaceChangeLazyQuery>;
+export type GetLatestStopPlaceChangeSuspenseQueryHookResult = ReturnType<typeof useGetLatestStopPlaceChangeSuspenseQuery>;
+export type GetLatestStopPlaceChangeQueryResult = Apollo.QueryResult<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>;
+export const MoveQuayToStopPlaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MoveQuayToStopPlace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"toStopPlaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"moveQuayFromDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_LocalDate"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"moveQuaysToStop"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"toStopPlaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"toStopPlaceId"}}},{"kind":"Argument","name":{"kind":"Name","value":"quayIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}}},{"kind":"Argument","name":{"kind":"Name","value":"moveQuayFromDate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"moveQuayFromDate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type MoveQuayToStopPlaceMutationFn = Apollo.MutationFunction<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>;
+
+/**
+ * __useMoveQuayToStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useMoveQuayToStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMoveQuayToStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [moveQuayToStopPlaceMutation, { data, loading, error }] = useMoveQuayToStopPlaceMutation({
+ *   variables: {
+ *      toStopPlaceId: // value for 'toStopPlaceId'
+ *      quayIds: // value for 'quayIds'
+ *      moveQuayFromDate: // value for 'moveQuayFromDate'
+ *   },
+ * });
+ */
+export function useMoveQuayToStopPlaceMutation(baseOptions?: Apollo.MutationHookOptions<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>(MoveQuayToStopPlaceDocument, options);
+      }
+export type MoveQuayToStopPlaceMutationHookResult = ReturnType<typeof useMoveQuayToStopPlaceMutation>;
+export type MoveQuayToStopPlaceMutationResult = Apollo.MutationResult<MoveQuayToStopPlaceMutation>;
+export type MoveQuayToStopPlaceMutationOptions = Apollo.BaseMutationOptions<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>;
+export const GetStopPointsByQuayIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPointsByQuayId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stop_place_ref"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetStopPointsByQuayIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopPointsByQuayIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPointsByQuayIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPointsByQuayIdQuery({
+ *   variables: {
+ *      quayIds: // value for 'quayIds'
+ *   },
+ * });
+ */
+export function useGetStopPointsByQuayIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables> & ({ variables: GetStopPointsByQuayIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>(GetStopPointsByQuayIdDocument, options);
+      }
+export function useGetStopPointsByQuayIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>(GetStopPointsByQuayIdDocument, options);
+        }
+// @ts-ignore
+export function useGetStopPointsByQuayIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>;
+export function useGetStopPointsByQuayIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPointsByQuayIdQuery | undefined, GetStopPointsByQuayIdQueryVariables>;
+export function useGetStopPointsByQuayIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>(GetStopPointsByQuayIdDocument, options);
+        }
+export type GetStopPointsByQuayIdQueryHookResult = ReturnType<typeof useGetStopPointsByQuayIdQuery>;
+export type GetStopPointsByQuayIdLazyQueryHookResult = ReturnType<typeof useGetStopPointsByQuayIdLazyQuery>;
+export type GetStopPointsByQuayIdSuspenseQueryHookResult = ReturnType<typeof useGetStopPointsByQuayIdSuspenseQuery>;
+export type GetStopPointsByQuayIdQueryResult = Apollo.QueryResult<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>;
+export const UpdateStopPointDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateStopPoint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changes"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changes"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UpdateStopPointMutationFn = Apollo.MutationFunction<UpdateStopPointMutation, UpdateStopPointMutationVariables>;
+
+/**
+ * __useUpdateStopPointMutation__
+ *
+ * To run a mutation, you first call `useUpdateStopPointMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStopPointMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStopPointMutation, { data, loading, error }] = useUpdateStopPointMutation({
+ *   variables: {
+ *      stopId: // value for 'stopId'
+ *      changes: // value for 'changes'
+ *   },
+ * });
+ */
+export function useUpdateStopPointMutation(baseOptions?: Apollo.MutationHookOptions<UpdateStopPointMutation, UpdateStopPointMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateStopPointMutation, UpdateStopPointMutationVariables>(UpdateStopPointDocument, options);
+      }
+export type UpdateStopPointMutationHookResult = ReturnType<typeof useUpdateStopPointMutation>;
+export type UpdateStopPointMutationResult = Apollo.MutationResult<UpdateStopPointMutation>;
+export type UpdateStopPointMutationOptions = Apollo.BaseMutationOptions<UpdateStopPointMutation, UpdateStopPointMutationVariables>;
+export const GetOriginalQuaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOriginalQuays"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quayId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quayId"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetOriginalQuaysQuery__
+ *
+ * To run a query within a React component, call `useGetOriginalQuaysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOriginalQuaysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOriginalQuaysQuery({
+ *   variables: {
+ *      quayId: // value for 'quayId'
+ *   },
+ * });
+ */
+export function useGetOriginalQuaysQuery(baseOptions: Apollo.QueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables> & ({ variables: GetOriginalQuaysQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>(GetOriginalQuaysDocument, options);
+      }
+export function useGetOriginalQuaysLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>(GetOriginalQuaysDocument, options);
+        }
+// @ts-ignore
+export function useGetOriginalQuaysSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>): Apollo.UseSuspenseQueryResult<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>;
+export function useGetOriginalQuaysSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>): Apollo.UseSuspenseQueryResult<GetOriginalQuaysQuery | undefined, GetOriginalQuaysQueryVariables>;
+export function useGetOriginalQuaysSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>(GetOriginalQuaysDocument, options);
+        }
+export type GetOriginalQuaysQueryHookResult = ReturnType<typeof useGetOriginalQuaysQuery>;
+export type GetOriginalQuaysLazyQueryHookResult = ReturnType<typeof useGetOriginalQuaysLazyQuery>;
+export type GetOriginalQuaysSuspenseQueryHookResult = ReturnType<typeof useGetOriginalQuaysSuspenseQuery>;
+export type GetOriginalQuaysQueryResult = Apollo.QueryResult<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>;
+export const GetStopPlaceDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"newestVersion"},"name":{"kind":"Name","value":"stops_database_stop_place_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"TiamatStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetStopPlaceDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetStopPlaceDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPlaceDetailsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetStopPlaceDetailsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
+      }
+export function useGetStopPlaceDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
+        }
+// @ts-ignore
+export function useGetStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>;
+export function useGetStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceDetailsQuery | undefined, GetStopPlaceDetailsQueryVariables>;
+export function useGetStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
+        }
+export type GetStopPlaceDetailsQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsQuery>;
+export type GetStopPlaceDetailsLazyQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsLazyQuery>;
+export type GetStopPlaceDetailsSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsSuspenseQuery>;
+export type GetStopPlaceDetailsQueryResult = Apollo.QueryResult<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>;
+export const EditMultipleStopPointsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EditMultipleStopPoints"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updates"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_updates"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPoints"},"name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point_many"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updates"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updates"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type EditMultipleStopPointsMutationFn = Apollo.MutationFunction<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>;
+
+/**
+ * __useEditMultipleStopPointsMutation__
+ *
+ * To run a mutation, you first call `useEditMultipleStopPointsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditMultipleStopPointsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editMultipleStopPointsMutation, { data, loading, error }] = useEditMultipleStopPointsMutation({
+ *   variables: {
+ *      updates: // value for 'updates'
+ *   },
+ * });
+ */
+export function useEditMultipleStopPointsMutation(baseOptions?: Apollo.MutationHookOptions<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>(EditMultipleStopPointsDocument, options);
+      }
+export type EditMultipleStopPointsMutationHookResult = ReturnType<typeof useEditMultipleStopPointsMutation>;
+export type EditMultipleStopPointsMutationResult = Apollo.MutationResult<EditMultipleStopPointsMutation>;
+export type EditMultipleStopPointsMutationOptions = Apollo.BaseMutationOptions<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>;
+export const GetJourneyPatternsOfScheduledStopPointDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetJourneyPatternsOfScheduledStopPoint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_bool_exp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"ssps"},"name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternStopPoint"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternRouteFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternStopPoint"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternFields"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetJourneyPatternsOfScheduledStopPointQuery__
+ *
+ * To run a query within a React component, call `useGetJourneyPatternsOfScheduledStopPointQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJourneyPatternsOfScheduledStopPointQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJourneyPatternsOfScheduledStopPointQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetJourneyPatternsOfScheduledStopPointQuery(baseOptions: Apollo.QueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables> & ({ variables: GetJourneyPatternsOfScheduledStopPointQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>(GetJourneyPatternsOfScheduledStopPointDocument, options);
+      }
+export function useGetJourneyPatternsOfScheduledStopPointLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>(GetJourneyPatternsOfScheduledStopPointDocument, options);
+        }
+// @ts-ignore
+export function useGetJourneyPatternsOfScheduledStopPointSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>): Apollo.UseSuspenseQueryResult<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>;
+export function useGetJourneyPatternsOfScheduledStopPointSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>): Apollo.UseSuspenseQueryResult<GetJourneyPatternsOfScheduledStopPointQuery | undefined, GetJourneyPatternsOfScheduledStopPointQueryVariables>;
+export function useGetJourneyPatternsOfScheduledStopPointSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>(GetJourneyPatternsOfScheduledStopPointDocument, options);
+        }
+export type GetJourneyPatternsOfScheduledStopPointQueryHookResult = ReturnType<typeof useGetJourneyPatternsOfScheduledStopPointQuery>;
+export type GetJourneyPatternsOfScheduledStopPointLazyQueryHookResult = ReturnType<typeof useGetJourneyPatternsOfScheduledStopPointLazyQuery>;
+export type GetJourneyPatternsOfScheduledStopPointSuspenseQueryHookResult = ReturnType<typeof useGetJourneyPatternsOfScheduledStopPointSuspenseQuery>;
+export type GetJourneyPatternsOfScheduledStopPointQueryResult = Apollo.QueryResult<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>;
+export const GetStopPlaceVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopAreas"},"name":{"kind":"Name","value":"stops_database_stop_place_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"private_code_value"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopAreaVersionInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopAreaVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetStopPlaceVersionsQuery__
+ *
+ * To run a query within a React component, call `useGetStopPlaceVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPlaceVersionsQuery({
+ *   variables: {
+ *      privateCode: // value for 'privateCode'
+ *   },
+ * });
+ */
+export function useGetStopPlaceVersionsQuery(baseOptions: Apollo.QueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables> & ({ variables: GetStopPlaceVersionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
+      }
+export function useGetStopPlaceVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
+        }
+// @ts-ignore
+export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>;
+export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceVersionsQuery | undefined, GetStopPlaceVersionsQueryVariables>;
+export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
+        }
+export type GetStopPlaceVersionsQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsQuery>;
+export type GetStopPlaceVersionsLazyQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsLazyQuery>;
+export type GetStopPlaceVersionsSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsSuspenseQuery>;
+export type GetStopPlaceVersionsQueryResult = Apollo.QueryResult<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>;
+export const InsertMultipleStopPointsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertMultipleStopPoints"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPoints"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPoints"},"name":{"kind":"Name","value":"insert_service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPoints"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type InsertMultipleStopPointsMutationFn = Apollo.MutationFunction<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>;
+
+/**
+ * __useInsertMultipleStopPointsMutation__
+ *
+ * To run a mutation, you first call `useInsertMultipleStopPointsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertMultipleStopPointsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertMultipleStopPointsMutation, { data, loading, error }] = useInsertMultipleStopPointsMutation({
+ *   variables: {
+ *      stopPoints: // value for 'stopPoints'
+ *   },
+ * });
+ */
+export function useInsertMultipleStopPointsMutation(baseOptions?: Apollo.MutationHookOptions<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>(InsertMultipleStopPointsDocument, options);
+      }
+export type InsertMultipleStopPointsMutationHookResult = ReturnType<typeof useInsertMultipleStopPointsMutation>;
+export type InsertMultipleStopPointsMutationResult = Apollo.MutationResult<InsertMultipleStopPointsMutation>;
+export type InsertMultipleStopPointsMutationOptions = Apollo.BaseMutationOptions<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>;
 export const GetStopPlaceChangeHistoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceChangeHistory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"historyItems"},"name":{"kind":"Name","value":"getStopPlaceChangeHistory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"privateCodeValue"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StopPlaceChangeHistoryItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netexId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changedBy"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeType"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeValue"}},{"kind":"Field","name":{"kind":"Name","value":"validityStart"}},{"kind":"Field","name":{"kind":"Name","value":"validityEnd"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"}}]}}]} as unknown as DocumentNode;
 
 /**
@@ -88407,7 +88805,7 @@ export type ResolveSearchResultNetexIdsQueryHookResult = ReturnType<typeof useRe
 export type ResolveSearchResultNetexIdsLazyQueryHookResult = ReturnType<typeof useResolveSearchResultNetexIdsLazyQuery>;
 export type ResolveSearchResultNetexIdsSuspenseQueryHookResult = ReturnType<typeof useResolveSearchResultNetexIdsSuspenseQuery>;
 export type ResolveSearchResultNetexIdsQueryResult = Apollo.QueryResult<ResolveSearchResultNetexIdsQuery, ResolveSearchResultNetexIdsQueryVariables>;
-export const GetStopPlaceAndRelatedQuaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceAndRelatedQuays"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopRegistry"},"name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetStopPlaceAndRelatedQuaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceAndRelatedQuays"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopRegistry"},"name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetStopPlaceAndRelatedQuaysQuery__
@@ -88484,405 +88882,7 @@ export type SearchStopsQueryHookResult = ReturnType<typeof useSearchStopsQuery>;
 export type SearchStopsLazyQueryHookResult = ReturnType<typeof useSearchStopsLazyQuery>;
 export type SearchStopsSuspenseQueryHookResult = ReturnType<typeof useSearchStopsSuspenseQuery>;
 export type SearchStopsQueryResult = Apollo.QueryResult<SearchStopsQuery, SearchStopsQueryVariables>;
-export const GetHistoricalStopAreaDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHistoricalStopAreaDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"version"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsRegistry"},"name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"version"},"value":{"kind":"Variable","name":{"kind":"Name","value":"version"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HistoricalStopAreaTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetHistoricalStopAreaDetailsQuery__
- *
- * To run a query within a React component, call `useGetHistoricalStopAreaDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetHistoricalStopAreaDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetHistoricalStopAreaDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *      version: // value for 'version'
- *   },
- * });
- */
-export function useGetHistoricalStopAreaDetailsQuery(baseOptions: Apollo.QueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables> & ({ variables: GetHistoricalStopAreaDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>(GetHistoricalStopAreaDetailsDocument, options);
-      }
-export function useGetHistoricalStopAreaDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>(GetHistoricalStopAreaDetailsDocument, options);
-        }
-// @ts-ignore
-export function useGetHistoricalStopAreaDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>;
-export function useGetHistoricalStopAreaDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetHistoricalStopAreaDetailsQuery | undefined, GetHistoricalStopAreaDetailsQueryVariables>;
-export function useGetHistoricalStopAreaDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>(GetHistoricalStopAreaDetailsDocument, options);
-        }
-export type GetHistoricalStopAreaDetailsQueryHookResult = ReturnType<typeof useGetHistoricalStopAreaDetailsQuery>;
-export type GetHistoricalStopAreaDetailsLazyQueryHookResult = ReturnType<typeof useGetHistoricalStopAreaDetailsLazyQuery>;
-export type GetHistoricalStopAreaDetailsSuspenseQueryHookResult = ReturnType<typeof useGetHistoricalStopAreaDetailsSuspenseQuery>;
-export type GetHistoricalStopAreaDetailsQueryResult = Apollo.QueryResult<GetHistoricalStopAreaDetailsQuery, GetHistoricalStopAreaDetailsQueryVariables>;
-export const MoveQuayToStopPlaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MoveQuayToStopPlace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"toStopPlaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"moveQuayFromDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_LocalDate"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"moveQuaysToStop"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"toStopPlaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"toStopPlaceId"}}},{"kind":"Argument","name":{"kind":"Name","value":"quayIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}}},{"kind":"Argument","name":{"kind":"Name","value":"moveQuayFromDate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"moveQuayFromDate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type MoveQuayToStopPlaceMutationFn = Apollo.MutationFunction<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>;
-
-/**
- * __useMoveQuayToStopPlaceMutation__
- *
- * To run a mutation, you first call `useMoveQuayToStopPlaceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMoveQuayToStopPlaceMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [moveQuayToStopPlaceMutation, { data, loading, error }] = useMoveQuayToStopPlaceMutation({
- *   variables: {
- *      toStopPlaceId: // value for 'toStopPlaceId'
- *      quayIds: // value for 'quayIds'
- *      moveQuayFromDate: // value for 'moveQuayFromDate'
- *   },
- * });
- */
-export function useMoveQuayToStopPlaceMutation(baseOptions?: Apollo.MutationHookOptions<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>(MoveQuayToStopPlaceDocument, options);
-      }
-export type MoveQuayToStopPlaceMutationHookResult = ReturnType<typeof useMoveQuayToStopPlaceMutation>;
-export type MoveQuayToStopPlaceMutationResult = Apollo.MutationResult<MoveQuayToStopPlaceMutation>;
-export type MoveQuayToStopPlaceMutationOptions = Apollo.BaseMutationOptions<MoveQuayToStopPlaceMutation, MoveQuayToStopPlaceMutationVariables>;
-export const GetStopPointsByQuayIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPointsByQuayId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stop_place_ref"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quayIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetStopPointsByQuayIdQuery__
- *
- * To run a query within a React component, call `useGetStopPointsByQuayIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopPointsByQuayIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopPointsByQuayIdQuery({
- *   variables: {
- *      quayIds: // value for 'quayIds'
- *   },
- * });
- */
-export function useGetStopPointsByQuayIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables> & ({ variables: GetStopPointsByQuayIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>(GetStopPointsByQuayIdDocument, options);
-      }
-export function useGetStopPointsByQuayIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>(GetStopPointsByQuayIdDocument, options);
-        }
-// @ts-ignore
-export function useGetStopPointsByQuayIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>;
-export function useGetStopPointsByQuayIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPointsByQuayIdQuery | undefined, GetStopPointsByQuayIdQueryVariables>;
-export function useGetStopPointsByQuayIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>(GetStopPointsByQuayIdDocument, options);
-        }
-export type GetStopPointsByQuayIdQueryHookResult = ReturnType<typeof useGetStopPointsByQuayIdQuery>;
-export type GetStopPointsByQuayIdLazyQueryHookResult = ReturnType<typeof useGetStopPointsByQuayIdLazyQuery>;
-export type GetStopPointsByQuayIdSuspenseQueryHookResult = ReturnType<typeof useGetStopPointsByQuayIdSuspenseQuery>;
-export type GetStopPointsByQuayIdQueryResult = Apollo.QueryResult<GetStopPointsByQuayIdQuery, GetStopPointsByQuayIdQueryVariables>;
-export const UpdateStopPointDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateStopPoint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changes"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changes"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type UpdateStopPointMutationFn = Apollo.MutationFunction<UpdateStopPointMutation, UpdateStopPointMutationVariables>;
-
-/**
- * __useUpdateStopPointMutation__
- *
- * To run a mutation, you first call `useUpdateStopPointMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateStopPointMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateStopPointMutation, { data, loading, error }] = useUpdateStopPointMutation({
- *   variables: {
- *      stopId: // value for 'stopId'
- *      changes: // value for 'changes'
- *   },
- * });
- */
-export function useUpdateStopPointMutation(baseOptions?: Apollo.MutationHookOptions<UpdateStopPointMutation, UpdateStopPointMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateStopPointMutation, UpdateStopPointMutationVariables>(UpdateStopPointDocument, options);
-      }
-export type UpdateStopPointMutationHookResult = ReturnType<typeof useUpdateStopPointMutation>;
-export type UpdateStopPointMutationResult = Apollo.MutationResult<UpdateStopPointMutation>;
-export type UpdateStopPointMutationOptions = Apollo.BaseMutationOptions<UpdateStopPointMutation, UpdateStopPointMutationVariables>;
-export const GetOriginalQuaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOriginalQuays"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"quayId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"quayId"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetOriginalQuaysQuery__
- *
- * To run a query within a React component, call `useGetOriginalQuaysQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetOriginalQuaysQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetOriginalQuaysQuery({
- *   variables: {
- *      quayId: // value for 'quayId'
- *   },
- * });
- */
-export function useGetOriginalQuaysQuery(baseOptions: Apollo.QueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables> & ({ variables: GetOriginalQuaysQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>(GetOriginalQuaysDocument, options);
-      }
-export function useGetOriginalQuaysLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>(GetOriginalQuaysDocument, options);
-        }
-// @ts-ignore
-export function useGetOriginalQuaysSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>): Apollo.UseSuspenseQueryResult<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>;
-export function useGetOriginalQuaysSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>): Apollo.UseSuspenseQueryResult<GetOriginalQuaysQuery | undefined, GetOriginalQuaysQueryVariables>;
-export function useGetOriginalQuaysSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>(GetOriginalQuaysDocument, options);
-        }
-export type GetOriginalQuaysQueryHookResult = ReturnType<typeof useGetOriginalQuaysQuery>;
-export type GetOriginalQuaysLazyQueryHookResult = ReturnType<typeof useGetOriginalQuaysLazyQuery>;
-export type GetOriginalQuaysSuspenseQueryHookResult = ReturnType<typeof useGetOriginalQuaysSuspenseQuery>;
-export type GetOriginalQuaysQueryResult = Apollo.QueryResult<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>;
-export const DeleteStopAreaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteStopArea"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stopPlaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceId"}}}]}]}}]}}]} as unknown as DocumentNode;
-export type DeleteStopAreaMutationFn = Apollo.MutationFunction<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>;
-
-/**
- * __useDeleteStopAreaMutation__
- *
- * To run a mutation, you first call `useDeleteStopAreaMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteStopAreaMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteStopAreaMutation, { data, loading, error }] = useDeleteStopAreaMutation({
- *   variables: {
- *      stopPlaceId: // value for 'stopPlaceId'
- *   },
- * });
- */
-export function useDeleteStopAreaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>(DeleteStopAreaDocument, options);
-      }
-export type DeleteStopAreaMutationHookResult = ReturnType<typeof useDeleteStopAreaMutation>;
-export type DeleteStopAreaMutationResult = Apollo.MutationResult<DeleteStopAreaMutation>;
-export type DeleteStopAreaMutationOptions = Apollo.BaseMutationOptions<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>;
-export const GetLatestStopPlaceChangeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLatestStopPlaceChange"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_bool_exp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPlace"},"name":{"kind":"Name","value":"stops_database_stop_place"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"changed"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetLatestStopPlaceChangeQuery__
- *
- * To run a query within a React component, call `useGetLatestStopPlaceChangeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLatestStopPlaceChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLatestStopPlaceChangeQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetLatestStopPlaceChangeQuery(baseOptions: Apollo.QueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables> & ({ variables: GetLatestStopPlaceChangeQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>(GetLatestStopPlaceChangeDocument, options);
-      }
-export function useGetLatestStopPlaceChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>(GetLatestStopPlaceChangeDocument, options);
-        }
-// @ts-ignore
-export function useGetLatestStopPlaceChangeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>): Apollo.UseSuspenseQueryResult<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>;
-export function useGetLatestStopPlaceChangeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>): Apollo.UseSuspenseQueryResult<GetLatestStopPlaceChangeQuery | undefined, GetLatestStopPlaceChangeQueryVariables>;
-export function useGetLatestStopPlaceChangeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>(GetLatestStopPlaceChangeDocument, options);
-        }
-export type GetLatestStopPlaceChangeQueryHookResult = ReturnType<typeof useGetLatestStopPlaceChangeQuery>;
-export type GetLatestStopPlaceChangeLazyQueryHookResult = ReturnType<typeof useGetLatestStopPlaceChangeLazyQuery>;
-export type GetLatestStopPlaceChangeSuspenseQueryHookResult = ReturnType<typeof useGetLatestStopPlaceChangeSuspenseQuery>;
-export type GetLatestStopPlaceChangeQueryResult = Apollo.QueryResult<GetLatestStopPlaceChangeQuery, GetLatestStopPlaceChangeQueryVariables>;
-export const GetStopPlaceDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"newestVersion"},"name":{"kind":"Name","value":"stops_database_stop_place_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"TiamatStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetStopPlaceDetailsQuery__
- *
- * To run a query within a React component, call `useGetStopPlaceDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopPlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopPlaceDetailsQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetStopPlaceDetailsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
-      }
-export function useGetStopPlaceDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
-        }
-// @ts-ignore
-export function useGetStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>;
-export function useGetStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceDetailsQuery | undefined, GetStopPlaceDetailsQueryVariables>;
-export function useGetStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
-        }
-export type GetStopPlaceDetailsQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsQuery>;
-export type GetStopPlaceDetailsLazyQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsLazyQuery>;
-export type GetStopPlaceDetailsSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsSuspenseQuery>;
-export type GetStopPlaceDetailsQueryResult = Apollo.QueryResult<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>;
-export const EditMultipleStopPointsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EditMultipleStopPoints"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updates"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_updates"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPoints"},"name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point_many"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updates"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updates"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type EditMultipleStopPointsMutationFn = Apollo.MutationFunction<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>;
-
-/**
- * __useEditMultipleStopPointsMutation__
- *
- * To run a mutation, you first call `useEditMultipleStopPointsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditMultipleStopPointsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editMultipleStopPointsMutation, { data, loading, error }] = useEditMultipleStopPointsMutation({
- *   variables: {
- *      updates: // value for 'updates'
- *   },
- * });
- */
-export function useEditMultipleStopPointsMutation(baseOptions?: Apollo.MutationHookOptions<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>(EditMultipleStopPointsDocument, options);
-      }
-export type EditMultipleStopPointsMutationHookResult = ReturnType<typeof useEditMultipleStopPointsMutation>;
-export type EditMultipleStopPointsMutationResult = Apollo.MutationResult<EditMultipleStopPointsMutation>;
-export type EditMultipleStopPointsMutationOptions = Apollo.BaseMutationOptions<EditMultipleStopPointsMutation, EditMultipleStopPointsMutationVariables>;
-export const GetJourneyPatternsOfScheduledStopPointDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetJourneyPatternsOfScheduledStopPoint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern_bool_exp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"ssps"},"name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternStopPoint"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternRouteFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"on_route_id"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_route"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternRouteFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JourneyPatternStopPoint"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"journey_pattern_scheduled_stop_point_in_journey_pattern"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}},{"kind":"Field","name":{"kind":"Name","value":"journey_pattern"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"JourneyPatternFields"}}]}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetJourneyPatternsOfScheduledStopPointQuery__
- *
- * To run a query within a React component, call `useGetJourneyPatternsOfScheduledStopPointQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetJourneyPatternsOfScheduledStopPointQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetJourneyPatternsOfScheduledStopPointQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetJourneyPatternsOfScheduledStopPointQuery(baseOptions: Apollo.QueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables> & ({ variables: GetJourneyPatternsOfScheduledStopPointQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>(GetJourneyPatternsOfScheduledStopPointDocument, options);
-      }
-export function useGetJourneyPatternsOfScheduledStopPointLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>(GetJourneyPatternsOfScheduledStopPointDocument, options);
-        }
-// @ts-ignore
-export function useGetJourneyPatternsOfScheduledStopPointSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>): Apollo.UseSuspenseQueryResult<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>;
-export function useGetJourneyPatternsOfScheduledStopPointSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>): Apollo.UseSuspenseQueryResult<GetJourneyPatternsOfScheduledStopPointQuery | undefined, GetJourneyPatternsOfScheduledStopPointQueryVariables>;
-export function useGetJourneyPatternsOfScheduledStopPointSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>(GetJourneyPatternsOfScheduledStopPointDocument, options);
-        }
-export type GetJourneyPatternsOfScheduledStopPointQueryHookResult = ReturnType<typeof useGetJourneyPatternsOfScheduledStopPointQuery>;
-export type GetJourneyPatternsOfScheduledStopPointLazyQueryHookResult = ReturnType<typeof useGetJourneyPatternsOfScheduledStopPointLazyQuery>;
-export type GetJourneyPatternsOfScheduledStopPointSuspenseQueryHookResult = ReturnType<typeof useGetJourneyPatternsOfScheduledStopPointSuspenseQuery>;
-export type GetJourneyPatternsOfScheduledStopPointQueryResult = Apollo.QueryResult<GetJourneyPatternsOfScheduledStopPointQuery, GetJourneyPatternsOfScheduledStopPointQueryVariables>;
-export const GetStopPlaceVersionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopPlaceVersions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopAreas"},"name":{"kind":"Name","value":"stops_database_stop_place_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"private_code_value"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"privateCode"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"validity_start"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"priority"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopAreaVersionInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopAreaVersionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changed_by"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}}]}}]} as unknown as DocumentNode;
-
-/**
- * __useGetStopPlaceVersionsQuery__
- *
- * To run a query within a React component, call `useGetStopPlaceVersionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopPlaceVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopPlaceVersionsQuery({
- *   variables: {
- *      privateCode: // value for 'privateCode'
- *   },
- * });
- */
-export function useGetStopPlaceVersionsQuery(baseOptions: Apollo.QueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables> & ({ variables: GetStopPlaceVersionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
-      }
-export function useGetStopPlaceVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
-        }
-// @ts-ignore
-export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>;
-export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>): Apollo.UseSuspenseQueryResult<GetStopPlaceVersionsQuery | undefined, GetStopPlaceVersionsQueryVariables>;
-export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
-        }
-export type GetStopPlaceVersionsQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsQuery>;
-export type GetStopPlaceVersionsLazyQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsLazyQuery>;
-export type GetStopPlaceVersionsSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsSuspenseQuery>;
-export type GetStopPlaceVersionsQueryResult = Apollo.QueryResult<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>;
-export const InsertMultipleStopPointsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertMultipleStopPoints"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPoints"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopPoints"},"name":{"kind":"Name","value":"insert_service_pattern_scheduled_stop_point"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPoints"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type InsertMultipleStopPointsMutationFn = Apollo.MutationFunction<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>;
-
-/**
- * __useInsertMultipleStopPointsMutation__
- *
- * To run a mutation, you first call `useInsertMultipleStopPointsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertMultipleStopPointsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertMultipleStopPointsMutation, { data, loading, error }] = useInsertMultipleStopPointsMutation({
- *   variables: {
- *      stopPoints: // value for 'stopPoints'
- *   },
- * });
- */
-export function useInsertMultipleStopPointsMutation(baseOptions?: Apollo.MutationHookOptions<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>(InsertMultipleStopPointsDocument, options);
-      }
-export type InsertMultipleStopPointsMutationHookResult = ReturnType<typeof useInsertMultipleStopPointsMutation>;
-export type InsertMultipleStopPointsMutationResult = Apollo.MutationResult<InsertMultipleStopPointsMutation>;
-export type InsertMultipleStopPointsMutationOptions = Apollo.BaseMutationOptions<InsertMultipleStopPointsMutation, InsertMultipleStopPointsMutationVariables>;
-export const GetVersionedStopPlaceAndQuaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVersionedStopPlaceAndQuays"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceVersion"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopRegistry"},"name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}}},{"kind":"Argument","name":{"kind":"Name","value":"version"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceVersion"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DetailsForHistoricalStopVersion"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DetailsForHistoricalStopVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetVersionedStopPlaceAndQuaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVersionedStopPlaceAndQuays"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceVersion"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopRegistry"},"name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceNetexId"}}},{"kind":"Argument","name":{"kind":"Name","value":"version"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stopPlaceVersion"}}},{"kind":"Argument","name":{"kind":"Name","value":"onlyMonomodalStopPlaces"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DetailsForHistoricalStopVersion"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DetailsForHistoricalStopVersion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetVersionedStopPlaceAndQuaysQuery__
@@ -89316,7 +89316,7 @@ export function useReactivateScheduledStopPointMutation(baseOptions?: Apollo.Mut
 export type ReactivateScheduledStopPointMutationHookResult = ReturnType<typeof useReactivateScheduledStopPointMutation>;
 export type ReactivateScheduledStopPointMutationResult = Apollo.MutationResult<ReactivateScheduledStopPointMutation>;
 export type ReactivateScheduledStopPointMutationOptions = Apollo.BaseMutationOptions<ReactivateScheduledStopPointMutation, ReactivateScheduledStopPointMutationVariables>;
-export const UpdateStopPlaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateStopPlace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlaceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mutateStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"StopPlace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const UpdateStopPlaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateStopPlace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlaceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_registry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mutateStopPlace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"StopPlace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UpdateStopPlaceMutationFn = Apollo.MutationFunction<UpdateStopPlaceMutation, UpdateStopPlaceMutationVariables>;
 
 /**
@@ -89720,7 +89720,7 @@ export type ResolveExistingStopValidityRangesQueryHookResult = ReturnType<typeof
 export type ResolveExistingStopValidityRangesLazyQueryHookResult = ReturnType<typeof useResolveExistingStopValidityRangesLazyQuery>;
 export type ResolveExistingStopValidityRangesSuspenseQueryHookResult = ReturnType<typeof useResolveExistingStopValidityRangesSuspenseQuery>;
 export type ResolveExistingStopValidityRangesQueryResult = Apollo.QueryResult<ResolveExistingStopValidityRangesQuery, ResolveExistingStopValidityRangesQueryVariables>;
-export const GetStopDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"newestVersion"},"name":{"kind":"Name","value":"stops_database_stop_place_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"TiamatStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetStopDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"newestVersion"},"name":{"kind":"Name","value":"stops_database_stop_place_newest_version"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"TiamatStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceDetails"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuayDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TerminalDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TopographicPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fareZones"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FareZoneDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ParentStopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopPlaceId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"transportMode"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nameType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopTableRowStopAreaQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowScheduledStopPointDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"timing_place"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"located_on_infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_ref"}},{"kind":"Field","name":{"kind":"Name","value":"measured_location"}},{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode_on_scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicle_mode"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ShelterEquipmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_ShelterEquipment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"enclosed"}},{"kind":"Field","name":{"kind":"Name","value":"stepFree"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterElectricity"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLighting"}},{"kind":"Field","name":{"kind":"Name","value":"shelterCondition"}},{"kind":"Field","name":{"kind":"Name","value":"timetableCabinets"}},{"kind":"Field","name":{"kind":"Name","value":"trashCan"}},{"kind":"Field","name":{"kind":"Name","value":"shelterHasDisplay"}},{"kind":"Field","name":{"kind":"Name","value":"bicycleParking"}},{"kind":"Field","name":{"kind":"Name","value":"leaningRail"}},{"kind":"Field","name":{"kind":"Name","value":"outsideBench"}},{"kind":"Field","name":{"kind":"Name","value":"shelterFasciaBoardTaping"}},{"kind":"Field","name":{"kind":"Name","value":"shelterExternalId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_AccessibilityAssessment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"hslAccessibilityProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"limitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"audibleSignalsAvailable"}},{"kind":"Field","name":{"kind":"Name","value":"escalatorFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"liftFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"stepFreeAccess"}},{"kind":"Field","name":{"kind":"Name","value":"wheelchairAccess"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alternativeNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nameType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityAssessment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccessibilityAssessmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ShelterEquipmentDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"cycleStorageType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"signContentType"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfFrames"}},{"kind":"Field","name":{"kind":"Name","value":"replacesRailSign"}},{"kind":"Field","name":{"kind":"Name","value":"note"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ExternalLinksDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organisations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relationshipType"}},{"kind":"Field","name":{"kind":"Name","value":"organisationRef"}},{"kind":"Field","name":{"kind":"Name","value":"organisation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopPlaceOrganisationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ExternalLinksDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_externalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quayId"}},{"kind":"Field","name":{"kind":"Name","value":"orderNum"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TopographicPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_TopographicPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"topographicPlaceType"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FareZoneDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_FareZone"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"lang"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HslAccessibilityPropertiesDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_HslAccessibilityProperties"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSideSlope"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaLengthwiseSlope"}},{"kind":"Field","name":{"kind":"Name","value":"endRampSlope"}},{"kind":"Field","name":{"kind":"Name","value":"shelterLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbBackOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"curbDriveSideOfRailDistance"}},{"kind":"Field","name":{"kind":"Name","value":"structureLaneDistance"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromRailTop"}},{"kind":"Field","name":{"kind":"Name","value":"stopElevationFromSidewalk"}},{"kind":"Field","name":{"kind":"Name","value":"lowerCleatHeight"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaWidth"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaLength"}},{"kind":"Field","name":{"kind":"Name","value":"platformEdgeWarningArea"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceTiles"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceStripe"}},{"kind":"Field","name":{"kind":"Name","value":"serviceAreaStripes"}},{"kind":"Field","name":{"kind":"Name","value":"sidewalkAccessibleConnection"}},{"kind":"Field","name":{"kind":"Name","value":"stopAreaSurroundingsAccessible"}},{"kind":"Field","name":{"kind":"Name","value":"curvedStop"}},{"kind":"Field","name":{"kind":"Name","value":"stopType"}},{"kind":"Field","name":{"kind":"Name","value":"shelterType"}},{"kind":"Field","name":{"kind":"Name","value":"guidanceType"}},{"kind":"Field","name":{"kind":"Name","value":"mapType"}},{"kind":"Field","name":{"kind":"Name","value":"pedestrianCrossingRampType"}},{"kind":"Field","name":{"kind":"Name","value":"accessibilityLevel"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceOrganisationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Organisation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"privateContactDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfoSpotDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_infoSpot"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"backlight"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayType"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotLocations"}},{"kind":"Field","name":{"kind":"Name","value":"infoSpotType"}},{"kind":"Field","name":{"kind":"Name","value":"intendedUser"}},{"kind":"Field","name":{"kind":"Name","value":"railInformation"}},{"kind":"Field","name":{"kind":"Name","value":"speechProperty"}},{"kind":"Field","name":{"kind":"Name","value":"zoneLabel"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"poster"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PosterDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PosterDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_poster"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"lines"}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopStopPlaceDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_StopPlace"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"privateCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberStopQuayDetails"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StopTableRowStopAreaDetails"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberStopQuayDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stop_registry_Quay"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"publicCode"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lang"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ScheduledStopPointDetailFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"keyValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"infoSpots"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InfoSpotDetails"}}]}},{"kind":"Field","name":{"kind":"Name","value":"geometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placeEquipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"generalSign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"shelterEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"shelterNumber"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetStopDetailsQuery__

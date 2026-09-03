@@ -17,7 +17,7 @@ import {
   GetUserNameById,
   useGetUserNames,
 } from '../../../common/ChangeHistory';
-import { useGetLatestStopPlaceChange } from '../../stop-areas/stop-area-details/hooks/useGetStopPlaceChangeHistory';
+import { useGetLatestStopPlaceChange } from '../../StopAreas/Common/LatestChanges/useGetStopPlaceChangeHistory';
 
 const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
   query GetParentStopPlaceDetails(

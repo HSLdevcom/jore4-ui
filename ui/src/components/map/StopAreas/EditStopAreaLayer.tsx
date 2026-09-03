@@ -30,7 +30,7 @@ import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
 import {
   DeleteStopArea,
   useStopAreaDeletion,
-} from '../../stop-registry/stop-areas/stop-area-details/hooks/DeleteStopArea';
+} from '../../stop-registry/StopAreas/Common/DeleteStopArea';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { useEnsureMapEntityTypeVisible } from '../Utils/useEnsureMapEntityTypeVisible';
 import { useEnsureStopVehicleModeVisible } from '../Utils/useEnsureStopVehicleModeVisible';
