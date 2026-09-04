@@ -6,6 +6,7 @@ export * from './LineDetailsPage';
 export * from './LineRouteList';
 export * from './LineValidityPeriod';
 export * from './RouteLineTableRow';
+export * from './RouteReportDownloadMenu';
 export * from './RouteRow';
 export * from './RouteStopListItem';
 export * from './RoutesAndLinesPage';

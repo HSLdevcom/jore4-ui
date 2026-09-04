@@ -178,10 +178,28 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                 class="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
               />
             </a>
-            <i
-              aria-hidden="true"
-              class="icon-download disabled ml-2 text-3xl text-grey"
-            />
+            <div
+              class="ml-2"
+              data-headlessui-state=""
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="Lataa reitin pysäkit raporttina"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
+                data-headlessui-state=""
+                data-testid="RouteReportDownloadMenu::menu"
+                id="headlessui-menu-button-:r5:"
+                title="Lataa reitin pysäkit raporttina"
+                type="button"
+              >
+                <i
+                  aria-hidden="true"
+                  class="icon-download"
+                />
+              </button>
+            </div>
           </div>
           <button
             aria-controls="route-stop-list"
@@ -396,10 +414,28 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 class="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
               />
             </a>
-            <i
-              aria-hidden="true"
-              class="icon-download disabled ml-2 text-3xl text-grey"
-            />
+            <div
+              class="ml-2"
+              data-headlessui-state=""
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="Lataa reitin pysäkit raporttina"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
+                data-headlessui-state=""
+                data-testid="RouteReportDownloadMenu::menu"
+                id="headlessui-menu-button-:r5:"
+                title="Lataa reitin pysäkit raporttina"
+                type="button"
+              >
+                <i
+                  aria-hidden="true"
+                  class="icon-download"
+                />
+              </button>
+            </div>
           </div>
           <button
             aria-controls="route-stop-list"
@@ -517,7 +553,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r5:"
+                id="headlessui-menu-button-:rb:"
                 title="Lisää toimintoja pysäkille H1234"
                 type="button"
               >
@@ -626,7 +662,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rb:"
+                id="headlessui-menu-button-:rh:"
                 title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >
@@ -838,10 +874,28 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 class="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
               />
             </a>
-            <i
-              aria-hidden="true"
-              class="icon-download disabled ml-2 text-3xl text-grey"
-            />
+            <div
+              class="ml-2"
+              data-headlessui-state=""
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="Lataa reitin pysäkit raporttina"
+                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                data-anchor="bottom end"
+                data-headlessui-state=""
+                data-testid="RouteReportDownloadMenu::menu"
+                id="headlessui-menu-button-:r5:"
+                title="Lataa reitin pysäkit raporttina"
+                type="button"
+              >
+                <i
+                  aria-hidden="true"
+                  class="icon-download"
+                />
+              </button>
+            </div>
           </div>
           <button
             aria-controls="route-stop-list"
@@ -959,7 +1013,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r5:"
+                id="headlessui-menu-button-:rb:"
                 title="Lisää toimintoja pysäkille H1234"
                 type="button"
               >
@@ -1068,7 +1122,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rh:"
+                id="headlessui-menu-button-:rn:"
                 title="Lisää toimintoja pysäkille H1235"
                 type="button"
               >
@@ -1177,7 +1231,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 data-anchor="bottom end"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rb:"
+                id="headlessui-menu-button-:rh:"
                 title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >
