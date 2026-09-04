@@ -12,16 +12,16 @@ import {
   ResolveSearchResultNetexIdsQuery,
   ResolveSearchResultNetexIdsQueryVariables,
   StopPlaceDetailsFragment,
-} from '../../../../generated/graphql';
-import { EnrichedStopPlace, StopPlace } from '../../../../types';
+} from '../../../../../generated/graphql';
+import { EnrichedStopPlace, StopPlace } from '../../../../../types';
 import {
   AsyncTaskCancelledError,
   getStopPlacesFromQueryResult,
-} from '../../../../utils';
-import { getEnrichedStopPlace } from '../../StopAreas/StopAreaDetails/useGetStopAreaDetails';
-import { mapCompactOrNull, mapToEnrichedQuay } from '../../utils';
-import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';
-import { ResultSelection, StopSearchFilters } from '../types';
+} from '../../../../../utils';
+import { filtersAndResultSelectionToQueryVariables } from '../../../search/by-stop/filtersToQueryVariables';
+import { ResultSelection, StopSearchFilters } from '../../../search/types';
+import { getEnrichedStopPlace } from '../../../StopAreas/StopAreaDetails/useGetStopAreaDetails';
+import { mapCompactOrNull, mapToEnrichedQuay } from '../../../utils';
 import { SectionedReport } from './SectionedReport';
 import {
   ByAlreadyKnownIds,
@@ -82,7 +82,7 @@ type ResolveQuayAndStopPlaceIdsFn = (
  *
  * @param data Raw result data from the query
  */
-function parseIdPairs(
+export function parseIdPairs(
   data: ResolveSearchResultNetexIdsQuery | undefined,
 ): ReadonlyArray<QuayAndStopPlaceIds> {
   return (
@@ -507,9 +507,35 @@ function useTiamatStopDataFetcher(
   );
 }
 
+export function useFetchEnrichedStopsByIds() {
+  const tiamatStopDataFetcher = useTiamatStopDataFetcher(10);
+
+  return async (
+    ids: ReadonlyArray<QuayAndStopPlaceIds>,
+    abortSignal: AbortSignal,
+    onAllStopsResolved: (count: number) => void,
+    onQuaysLoadedProgress: OnQuaysProcessedProgress,
+  ) => {
+    onAllStopsResolved(ids.length);
+
+    // Begins asynchronously fetching data on the background
+    const dataFetcher = tiamatStopDataFetcher(
+      ids,
+      abortSignal,
+      onQuaysLoadedProgress,
+    );
+
+    await dataFetcher.allLoaded;
+
+    // Wait for all id pairs to get downloaded and parsed. Output order follows
+    // the input id order.
+    return Promise.all(ids.map(dataFetcher.getEnrichedStopDetails));
+  };
+}
+
 function usePrepareDataForExport() {
   const resolveQuayAndStopPlaceIds = useResolveQuayAndStopPlaceIds();
-  const tiamatStopDataFetcher = useTiamatStopDataFetcher(10);
+  const fetchEnrichedStopsByIds = useFetchEnrichedStopsByIds();
 
   return async (
     filters: StopSearchFilters,
@@ -523,19 +549,13 @@ function usePrepareDataForExport() {
       selection,
       abortSignal,
     });
-    onAllStopsResolved(ids.length);
 
-    // Begins asynchronously fetching data on the background
-    const dataFetcher = tiamatStopDataFetcher(
+    return fetchEnrichedStopsByIds(
       ids,
       abortSignal,
+      onAllStopsResolved,
       onQuaysLoadedProgress,
     );
-
-    await dataFetcher.allLoaded;
-
-    // Wait for all id pairs to get downloaded and parsed.
-    return Promise.all(ids.map(dataFetcher.getEnrichedStopDetails));
   };
 }
 
@@ -545,7 +565,7 @@ type FetchWriteProgressControls = {
   readonly onDataWritten: (writtenCount: number) => void;
 };
 
-function makeFetchWriteProgressControls(
+export function makeFetchWriteProgressControls(
   onProgress: OnProgress,
 ): FetchWriteProgressControls {
   // Downloading data takes longer than writing it to the CSV report.
@@ -594,7 +614,7 @@ function makeFetchWriteProgressControls(
   };
 }
 
-function promptForFileName(
+export function promptForFileName(
   filename: string,
   saveFileNamePrompt: string,
 ): string {
@@ -645,7 +665,7 @@ export function useGenerateEquipmentReport(): GenerateReport {
   };
 }
 
-function mapToInfoSpotReportData(
+export function mapToInfoSpotReportData(
   data: ReadonlyArray<EnrichedStopDetails>,
 ): Array<EnrichedStopDetailsWithSelectedInfoSpot> {
   return data

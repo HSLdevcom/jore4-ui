@@ -5,7 +5,7 @@ import { mapToShortDate, mapToShortTime } from '../../../../time';
 import {
   useGenerateEquipmentReport,
   useGenerateInfoSpotReport,
-} from '../csv-export/useGenerateEquipmentReport';
+} from '../../stops/Common/report/useGenerateEquipmentReport';
 import { ResultSelection, StopSearchFilters } from '../types';
 import { DownloadReportMenuItem } from './DownloadReportMenuItem';
 

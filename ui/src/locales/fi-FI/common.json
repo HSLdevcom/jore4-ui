@@ -792,8 +792,8 @@
     "gotoTerminalDetails": "Siirry terminaalin tietoihin.",
     "showOnMap": "Näytä kartalla",
     "csv": {
-      "downloadEquipmentReport": "Lataa Varustelutietoraportti",
-      "downloadInfoSpotReport": "Lataa Infopaikkaraportti",
+      "downloadEquipmentReport": "Tallenna taulukkona: Varustelutiedot",
+      "downloadInfoSpotReport": "Tallenna taulukkona: Infopaikat",
       "saveAs": "Tallenna raportti nimellä:",
       "equipmentReportFileName": "Varustelutietoraportti {{today}} klo {{now}}.csv",
       "infoSpotReportFileName": "Infopaikkaraportti {{today}} klo {{now}}.csv",
@@ -803,6 +803,15 @@
       "generationCanceled": "CSV raportin tuottaminen peruutettiin.",
       "generationError": "CSV raportin tuottaminen epäonnistui",
       "downloaded": "CSV raportti ladattu nimellä: <Filename />",
+      "routeColumns": {
+        "route": "Reitti",
+        "direction": "Suunta"
+      },
+      "routeReport": {
+        "downloadTooltip": "Lataa reitin pysäkit raporttina",
+        "equipmentFileName": "Varustelutietoraportti {{route}} {{today}} klo {{now}}.csv",
+        "infoSpotFileName": "Infopaikkaraportti {{route}} {{today}} klo {{now}}.csv"
+      },
       "metaHeaders": {
         "validity": "Voimassaolo",
         "shelter": "Katos"

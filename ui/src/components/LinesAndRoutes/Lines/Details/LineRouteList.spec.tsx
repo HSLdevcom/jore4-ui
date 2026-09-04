@@ -16,6 +16,13 @@ import { RouteDirection } from '../../../../types/RouteDirection';
 import { render, sleep } from '../../../../utils/test-utils';
 import { LineRouteList } from './LineRouteList';
 
+// RouteRow pulls in TaskWithProgressBar via RouteReportDownloadMenu, whose CSS
+// module Jest cannot parse.
+jest.mock(
+  '../../../common/AsyncTaskList/TaskWithProgressBar.module.css',
+  () => new Proxy({}, { get: (_target, prop) => prop }),
+);
+
 describe(`<${LineRouteList.name} />`, () => {
   // These responses are copy-pasted from the actual graphql response.
   // The actual request for this is GET_ROUTE_DETAILS_BY_ID.

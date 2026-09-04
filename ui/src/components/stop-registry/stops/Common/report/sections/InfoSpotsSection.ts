@@ -2,12 +2,12 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import noop from 'lodash/noop';
-import { PosterWithSortOrder, StopPlaceInfoSpots } from '../../../../../types';
-import { getPointPosition } from '../../../../../utils';
-import { mapZoneLabelToUiName } from '../../../../../utils/i18n';
-import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
-import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
-import { normalizeZoneLabel } from '../../../types';
+import { PosterWithSortOrder, StopPlaceInfoSpots } from '../../../../../../types';
+import { getPointPosition } from '../../../../../../utils';
+import { mapZoneLabelToUiName } from '../../../../../../utils/i18n';
+import { CSVWriter } from '../../../../../common/ReportWriter/CSVWriter';
+import { normalizeZoneLabel } from '../../../../types';
+import { formatSizedDbItem } from "../../../stop-details/info-spots/utils";
 import {
   EnrichedQuayWithTimingPlace,
   EnrichedStopDetails,

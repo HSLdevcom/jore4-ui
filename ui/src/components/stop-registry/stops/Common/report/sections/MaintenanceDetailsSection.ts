@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
-import { StopRegistryStopPlaceOrganisationRelationshipType as StopOrganisationType } from '../../../../../generated/graphql';
-import { mapStopOwnerToUiName } from '../../../../../utils/i18n';
-import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
+import { StopRegistryStopPlaceOrganisationRelationshipType as StopOrganisationType } from '../../../../../../generated/graphql';
+import { mapStopOwnerToUiName } from '../../../../../../utils/i18n';
+import { CSVWriter } from '../../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
