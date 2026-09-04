@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { StopRegistryTransportModeType } from '../../../generated/graphql';
-import { requiredNumber, requiredString } from '../../../utils';
+import { StopRegistryTransportModeType } from '../../../../generated/graphql';
+import { requiredNumber, requiredString } from '../../../../utils';
 import {
   ValidityPeriodFormState,
   refineValidityPeriodSchema,
   validityPeriodFormSchema,
-} from '../common';
+} from '../../../forms/common';
 
 export const stopAreaFormSchema = z
   .object({

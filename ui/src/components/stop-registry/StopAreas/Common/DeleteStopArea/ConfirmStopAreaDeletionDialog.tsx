@@ -3,10 +3,10 @@ import compact from 'lodash/compact';
 import { DateTime } from 'luxon';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useObservationDateQueryParam } from '../../../hooks';
-import { Path, routeDetails } from '../../../router/routeDetails';
-import { EnrichedStopPlace } from '../../../types';
-import { DialogWithButtons } from '../../common/Modals';
+import { useObservationDateQueryParam } from '../../../../../hooks';
+import { Path, routeDetails } from '../../../../../router/routeDetails';
+import { EnrichedStopPlace } from '../../../../../types';
+import { DialogWithButtons } from '../../../../common/Modals';
 
 const testIds = {
   // Reuse generic ConformDialog testIds, to minimize test changes.

@@ -6,7 +6,7 @@ import { accordionClassNames } from '../../../common';
 import { ExpandButton } from '../../../common/Buttons';
 import { InputField } from '../../../common/Inputs';
 import { FormRow } from '../../../common/LayoutComponents';
-import { StopAreaFormState } from '../../../forms/stop-area';
+import { StopAreaFormState } from '../../../stop-registry/StopAreas/Common';
 import { StopAreaEnglishNames } from './StopAreaEnglishNames';
 
 const ID = 'StopAreaNameSection';

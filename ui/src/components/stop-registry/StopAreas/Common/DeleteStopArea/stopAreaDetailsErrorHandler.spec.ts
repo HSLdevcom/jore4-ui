@@ -1,8 +1,8 @@
 import { ApolloError } from '@apollo/client';
+import { renderHook } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
-import { showDangerToast } from '../../../../utils';
-import { renderHook } from '../../../../utils/test-utils';
-import { StopAreaFormState } from '../stopAreaFormSchema';
+import { showDangerToast } from '../../../../../utils';
+import { StopAreaFormState } from '../index';
 import { useStopAreaDetailsApolloErrorHandler } from './stopAreaDetailsErrorHandler';
 
 const { keyFromSelector } = jest.requireActual('i18next');
@@ -17,7 +17,7 @@ jest.mock('i18next', () => ({
   })),
 }));
 
-jest.mock('../../../../utils', () => ({
+jest.mock('../../../../../utils', () => ({
   showDangerToast: jest.fn(),
 }));
 
