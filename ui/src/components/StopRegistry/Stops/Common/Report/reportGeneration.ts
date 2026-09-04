@@ -3,39 +3,28 @@ import compact from 'lodash/compact';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   GetStopPlaceAndRelatedQuaysDocument,
   GetStopPlaceAndRelatedQuaysQuery,
   GetStopPlaceAndRelatedQuaysQueryVariables,
-  ResolveSearchResultNetexIdsDocument,
   ResolveSearchResultNetexIdsQuery,
-  ResolveSearchResultNetexIdsQueryVariables,
   StopPlaceDetailsFragment,
-} from '../../../../generated/graphql';
-import { EnrichedStopPlace, StopPlace } from '../../../../types';
+} from '../../../../../generated/graphql';
+import { EnrichedStopPlace, StopPlace } from '../../../../../types';
 import {
   AsyncTaskCancelledError,
-  getStopPlacesFromQueryResult,
-  mapCompactOrNull,
-} from '../../../../utils';
-import { getEnrichedStopPlace } from '../../StopAreas/Common';
-import { mapToEnrichedQuay } from '../../Utils';
-import { filtersAndResultSelectionToQueryVariables } from '../Common';
-import { ResultSelection, StopSearchFilters } from '../Types';
-import { SectionedReport } from './SectionedReport';
+  getStopPlacesFromQueryResult, mapCompactOrNull 
+} from '../../../../../utils';
+import { getEnrichedStopPlace } from '../../../StopAreas/Common';
+import { mapToEnrichedQuay } from '../../../Utils';
 import {
-  ByAlreadyKnownIds,
-  ByFiltersAndSelection,
   EnrichedQuayWithTimingPlace,
   EnrichedStopDetails,
   EnrichedStopDetailsWithSelectedInfoSpot,
-  GenerateReport,
   InitTiamatStopDataFetcherFn,
   OnProgress,
   OnQuaysProcessedProgress,
   QuayAndStopPlaceIds,
-  ReportContext,
 } from './types';
 
 const GQL_RESOLVE_SEARCH_RESULT_NETEX_IDS = gql`
@@ -74,16 +63,12 @@ const GQL_GET_STOP_PLACE_AND_RELATED_QUAYS = gql`
   }
 `;
 
-type ResolveQuayAndStopPlaceIdsFn = (
-  options: ByAlreadyKnownIds | ByFiltersAndSelection,
-) => Promise<ReadonlyArray<QuayAndStopPlaceIds>>;
-
 /**
  * Parse raw results from the "Resolve all Netex IDs" -query.
  *
  * @param data Raw result data from the query
  */
-function parseIdPairs(
+export function parseIdPairs(
   data: ResolveSearchResultNetexIdsQuery | undefined,
 ): ReadonlyArray<QuayAndStopPlaceIds> {
   return (
@@ -97,57 +82,6 @@ function parseIdPairs(
 
       return null;
     }) ?? []
-  );
-}
-
-/**
- * Resolve filters or preknown list of ids into proper Quay+StopPlace NetexID
- * pairs that can be used to fetch the proper details from Tiamat.
- */
-function useResolveQuayAndStopPlaceIds(): ResolveQuayAndStopPlaceIdsFn {
-  const apollo = useApolloClient();
-
-  return useCallback(
-    async (options) => {
-      if ('alreadyKnownIds' in options) {
-        return options.alreadyKnownIds;
-      }
-
-      const where = filtersAndResultSelectionToQueryVariables(
-        options.filters,
-        options.selection,
-      );
-
-      const results = await apollo.query<
-        ResolveSearchResultNetexIdsQuery,
-        ResolveSearchResultNetexIdsQueryVariables
-      >({
-        query: ResolveSearchResultNetexIdsDocument,
-        fetchPolicy: 'network-only',
-        variables: { where },
-
-        // At this moment, Apollo does not handle AbortSignals gracefully.
-        // Apollo itself does not have direct support for them, but the HTTP
-        // link can pass through the signal to the underlying fetch call.
-        // But Apollo also dedupes queries, so if we have 2 reports requesting
-        // the same data through a different query, but with same variables,
-        // both of those calls get aborted, even tough only one of them is
-        // supposed to be. This developer tried to also circumvent this
-        // deduping behaviour by including an extra UUID v4 variable in the
-        // query, that would have marked each instance unique, but Apollo
-        // discards any and all variables, not actually used within the query,
-        // even if they are declared as nonnull: query A($uniq: String!)
-        // Comment link tag: Apollo and Abort Signals.
-        // context: { fetchOptions: { signal: abortSignal } },
-      });
-
-      // Apollo does not handle the cancellation gracefully and can return
-      // garbled up result on absort signal.
-      options.abortSignal.throwIfAborted();
-
-      return parseIdPairs(results.data);
-    },
-    [apollo],
   );
 }
 
@@ -465,7 +399,8 @@ function useTiamatStopDataFetcher(
           fetchPolicy: 'network-only',
           variables: { stopPlaceNetexId },
 
-          // See comment earlier in the file. Search: Apollo and Abort Signals
+          // See the "Apollo and Abort Signals" comment in
+          // useGenerateEquipmentReport.ts.
           // context: { fetchOptions: { signal: abortSignal } },
         });
 
@@ -508,22 +443,15 @@ function useTiamatStopDataFetcher(
   );
 }
 
-function usePrepareDataForExport() {
-  const resolveQuayAndStopPlaceIds = useResolveQuayAndStopPlaceIds();
+export function useFetchEnrichedStopsByIds() {
   const tiamatStopDataFetcher = useTiamatStopDataFetcher(10);
 
   return async (
-    filters: StopSearchFilters,
-    selection: ResultSelection,
+    ids: ReadonlyArray<QuayAndStopPlaceIds>,
     abortSignal: AbortSignal,
     onAllStopsResolved: (count: number) => void,
     onQuaysLoadedProgress: OnQuaysProcessedProgress,
   ) => {
-    const ids = await resolveQuayAndStopPlaceIds({
-      filters,
-      selection,
-      abortSignal,
-    });
     onAllStopsResolved(ids.length);
 
     // Begins asynchronously fetching data on the background
@@ -535,7 +463,8 @@ function usePrepareDataForExport() {
 
     await dataFetcher.allLoaded;
 
-    // Wait for all id pairs to get downloaded and parsed.
+    // Wait for all id pairs to get downloaded and parsed. Output order follows
+    // the input id order.
     return Promise.all(ids.map(dataFetcher.getEnrichedStopDetails));
   };
 }
@@ -546,7 +475,7 @@ type FetchWriteProgressControls = {
   readonly onDataWritten: (writtenCount: number) => void;
 };
 
-function makeFetchWriteProgressControls(
+export function makeFetchWriteProgressControls(
   onProgress: OnProgress,
 ): FetchWriteProgressControls {
   // Downloading data takes longer than writing it to the CSV report.
@@ -595,7 +524,7 @@ function makeFetchWriteProgressControls(
   };
 }
 
-function promptForFileName(
+export function promptForFileName(
   filename: string,
   saveFileNamePrompt: string,
 ): string {
@@ -611,42 +540,7 @@ function promptForFileName(
   return userGivenFilename.trim() ? userGivenFilename : filename;
 }
 
-export function useGenerateEquipmentReport(): GenerateReport {
-  const { t } = useTranslation();
-  const prepareDataForExport = usePrepareDataForExport();
-
-  return async (
-    filters: StopSearchFilters,
-    selection: ResultSelection,
-    filename: string,
-    saveFileNamePrompt: string,
-    abortSignal: AbortSignal,
-    onProgress: OnProgress,
-  ): Promise<string> => {
-    const { onTotalCountResolved, onDataFetched, onDataWritten } =
-      makeFetchWriteProgressControls(onProgress);
-
-    const data = await prepareDataForExport(
-      filters,
-      selection,
-      abortSignal,
-      onTotalCountResolved,
-      onDataFetched,
-    );
-
-    const context: ReportContext = { observationDate: filters.observationDate };
-    using report = SectionedReport.equipmentReport(t, data, context);
-    const download = await report.generate(abortSignal, onDataWritten);
-
-    abortSignal.throwIfAborted();
-
-    const actualFileName = promptForFileName(filename, saveFileNamePrompt);
-    download(actualFileName);
-    return actualFileName;
-  };
-}
-
-function mapToInfoSpotReportData(
+export function mapToInfoSpotReportData(
   data: ReadonlyArray<EnrichedStopDetails>,
 ): Array<EnrichedStopDetailsWithSelectedInfoSpot> {
   return data
@@ -664,44 +558,4 @@ function mapToInfoSpotReportData(
       }));
     })
     .toArray();
-}
-
-export function useGenerateInfoSpotReport(): GenerateReport {
-  const { t } = useTranslation();
-  const prepareDataForExport = usePrepareDataForExport();
-
-  return async (
-    filters: StopSearchFilters,
-    selection: ResultSelection,
-    filename: string,
-    saveFileNamePrompt: string,
-    abortSignal: AbortSignal,
-    onProgress: OnProgress,
-  ): Promise<string> => {
-    const { onTotalCountResolved, onDataFetched, onDataWritten } =
-      makeFetchWriteProgressControls(onProgress);
-
-    const data = await prepareDataForExport(
-      filters,
-      selection,
-      abortSignal,
-      onTotalCountResolved,
-      onDataFetched,
-    );
-    const infoSpotReportData = mapToInfoSpotReportData(data);
-
-    const context: ReportContext = { observationDate: filters.observationDate };
-    using report = SectionedReport.infoSpotReport(
-      t,
-      infoSpotReportData,
-      context,
-    );
-    const download = await report.generate(abortSignal, onDataWritten);
-
-    abortSignal.throwIfAborted();
-
-    const actualFileName = promptForFileName(filename, saveFileNamePrompt);
-    download(actualFileName);
-    return actualFileName;
-  };
 }
