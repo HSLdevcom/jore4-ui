@@ -18,10 +18,16 @@ import {
   AsyncTaskCancelledError,
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { getEnrichedStopPlace } from '../../StopAreas/StopAreaDetails/useGetStopAreaDetails';
 import { mapCompactOrNull, mapToEnrichedQuay } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';
 import { ResultSelection, StopSearchFilters } from '../types';
+import {
+  getRouteJourneyPatternStops,
+  orderIdPairsByQuayNetexIds,
+  routeStopsToOrderedQuayNetexIds,
+} from './routeReportStops';
 import { SectionedReport } from './SectionedReport';
 import {
   ByAlreadyKnownIds,
@@ -30,11 +36,13 @@ import {
   EnrichedStopDetails,
   EnrichedStopDetailsWithSelectedInfoSpot,
   GenerateReport,
+  GenerateRouteReport,
   InitTiamatStopDataFetcherFn,
   OnProgress,
   OnQuaysProcessedProgress,
   QuayAndStopPlaceIds,
   ReportContext,
+  ReportRouteContext,
 } from './types';
 
 const GQL_RESOLVE_SEARCH_RESULT_NETEX_IDS = gql`
@@ -507,9 +515,35 @@ function useTiamatStopDataFetcher(
   );
 }
 
+function useFetchEnrichedStopsByIds() {
+  const tiamatStopDataFetcher = useTiamatStopDataFetcher(10);
+
+  return async (
+    ids: ReadonlyArray<QuayAndStopPlaceIds>,
+    abortSignal: AbortSignal,
+    onAllStopsResolved: (count: number) => void,
+    onQuaysLoadedProgress: OnQuaysProcessedProgress,
+  ) => {
+    onAllStopsResolved(ids.length);
+
+    // Begins asynchronously fetching data on the background
+    const dataFetcher = tiamatStopDataFetcher(
+      ids,
+      abortSignal,
+      onQuaysLoadedProgress,
+    );
+
+    await dataFetcher.allLoaded;
+
+    // Wait for all id pairs to get downloaded and parsed. Output order follows
+    // the input id order.
+    return Promise.all(ids.map(dataFetcher.getEnrichedStopDetails));
+  };
+}
+
 function usePrepareDataForExport() {
   const resolveQuayAndStopPlaceIds = useResolveQuayAndStopPlaceIds();
-  const tiamatStopDataFetcher = useTiamatStopDataFetcher(10);
+  const fetchEnrichedStopsByIds = useFetchEnrichedStopsByIds();
 
   return async (
     filters: StopSearchFilters,
@@ -523,19 +557,13 @@ function usePrepareDataForExport() {
       selection,
       abortSignal,
     });
-    onAllStopsResolved(ids.length);
 
-    // Begins asynchronously fetching data on the background
-    const dataFetcher = tiamatStopDataFetcher(
+    return fetchEnrichedStopsByIds(
       ids,
       abortSignal,
+      onAllStopsResolved,
       onQuaysLoadedProgress,
     );
-
-    await dataFetcher.allLoaded;
-
-    // Wait for all id pairs to get downloaded and parsed.
-    return Promise.all(ids.map(dataFetcher.getEnrichedStopDetails));
   };
 }
 
@@ -690,6 +718,154 @@ export function useGenerateInfoSpotReport(): GenerateReport {
     const infoSpotReportData = mapToInfoSpotReportData(data);
 
     const context: ReportContext = { observationDate: filters.observationDate };
+    using report = SectionedReport.infoSpotReport(
+      t,
+      infoSpotReportData,
+      context,
+    );
+    const download = await report.generate(abortSignal, onDataWritten);
+
+    abortSignal.throwIfAborted();
+
+    const actualFileName = promptForFileName(filename, saveFileNamePrompt);
+    download(actualFileName);
+    return actualFileName;
+  };
+}
+
+/**
+ * Resolve ordered Quay NetexIDs into Quay + StopPlace NetexID pairs using the
+ * stops database. Kept separate from the route/journey pattern query so the
+ * scheduled stop point and quay lookups are never combined into one query.
+ */
+function useResolveIdPairsByQuayNetexIds() {
+  const apollo = useApolloClient();
+
+  return async (
+    quayNetexIds: ReadonlyArray<string>,
+    abortSignal: AbortSignal,
+  ): Promise<ReadonlyArray<QuayAndStopPlaceIds>> => {
+    if (quayNetexIds.length === 0) {
+      return [];
+    }
+
+    const results = await apollo.query<
+      ResolveSearchResultNetexIdsQuery,
+      ResolveSearchResultNetexIdsQueryVariables
+    >({
+      query: ResolveSearchResultNetexIdsDocument,
+      fetchPolicy: 'network-only',
+      variables: { where: { netex_id: { _in: [...quayNetexIds] } } },
+    });
+
+    abortSignal.throwIfAborted();
+
+    return orderIdPairsByQuayNetexIds(quayNetexIds, parseIdPairs(results.data));
+  };
+}
+
+/**
+ * Resolve the ordered Quay NetexIDs (in driving order) and the route context
+ * for a route based export. All rows share the same route, so the route context
+ * is constant for the whole report.
+ */
+function useResolveRouteExportInput() {
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
+  return (
+    route: Parameters<GenerateRouteReport>[0],
+    observationDate: Parameters<GenerateRouteReport>[1],
+  ): {
+    readonly quayNetexIds: ReadonlyArray<string>;
+    readonly routeContext: ReportRouteContext;
+  } => {
+    const stops = getRouteJourneyPatternStops(route, observationDate);
+    const quayNetexIds = routeStopsToOrderedQuayNetexIds(stops);
+
+    const routeContext: ReportRouteContext = {
+      label: route.label,
+      name: getLocalizedTextFromDbBlob(route.name_i18n),
+      direction: route.direction,
+    };
+
+    return { quayNetexIds, routeContext };
+  };
+}
+
+export function useGenerateRouteEquipmentReport(): GenerateRouteReport {
+  const { t } = useTranslation();
+  const fetchEnrichedStopsByIds = useFetchEnrichedStopsByIds();
+  const resolveRouteExportInput = useResolveRouteExportInput();
+  const resolveIdPairsByQuayNetexIds = useResolveIdPairsByQuayNetexIds();
+
+  return async (
+    route,
+    observationDate,
+    filename,
+    saveFileNamePrompt,
+    abortSignal,
+    onProgress,
+  ): Promise<string> => {
+    const { onTotalCountResolved, onDataFetched, onDataWritten } =
+      makeFetchWriteProgressControls(onProgress);
+
+    const { quayNetexIds, routeContext } = resolveRouteExportInput(
+      route,
+      observationDate,
+    );
+    const ids = await resolveIdPairsByQuayNetexIds(quayNetexIds, abortSignal);
+
+    const data = await fetchEnrichedStopsByIds(
+      ids,
+      abortSignal,
+      onTotalCountResolved,
+      onDataFetched,
+    );
+
+    const context: ReportContext = { observationDate, route: routeContext };
+    using report = SectionedReport.equipmentReport(t, data, context);
+    const download = await report.generate(abortSignal, onDataWritten);
+
+    abortSignal.throwIfAborted();
+
+    const actualFileName = promptForFileName(filename, saveFileNamePrompt);
+    download(actualFileName);
+    return actualFileName;
+  };
+}
+
+export function useGenerateRouteInfoSpotReport(): GenerateRouteReport {
+  const { t } = useTranslation();
+  const fetchEnrichedStopsByIds = useFetchEnrichedStopsByIds();
+  const resolveRouteExportInput = useResolveRouteExportInput();
+  const resolveIdPairsByQuayNetexIds = useResolveIdPairsByQuayNetexIds();
+
+  return async (
+    route,
+    observationDate,
+    filename,
+    saveFileNamePrompt,
+    abortSignal,
+    onProgress,
+  ): Promise<string> => {
+    const { onTotalCountResolved, onDataFetched, onDataWritten } =
+      makeFetchWriteProgressControls(onProgress);
+
+    const { quayNetexIds, routeContext } = resolveRouteExportInput(
+      route,
+      observationDate,
+    );
+    const ids = await resolveIdPairsByQuayNetexIds(quayNetexIds, abortSignal);
+
+    const data = await fetchEnrichedStopsByIds(
+      ids,
+      abortSignal,
+      onTotalCountResolved,
+      onDataFetched,
+    );
+    const infoSpotReportData = mapToInfoSpotReportData(data);
+
+    const context: ReportContext = { observationDate, route: routeContext };
     using report = SectionedReport.infoSpotReport(
       t,
       infoSpotReportData,

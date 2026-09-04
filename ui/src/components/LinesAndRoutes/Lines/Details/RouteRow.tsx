@@ -5,8 +5,8 @@ import { MdHistory } from 'react-icons/md';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import {
-  RouteAllFieldsFragment,
   RouteDirectionEnum,
+  RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import {
@@ -31,6 +31,7 @@ import {
   useShowRoutesOnMap,
 } from '../../../common/hooks';
 import { AlertPopover, DirectionBadge, RouteLabel } from '../../Common';
+import { RouteReportDownloadMenu } from './RouteReportDownloadMenu';
 
 const testIds = {
   container: (routeLabel: string, direction: RouteDirectionEnum) =>
@@ -48,7 +49,7 @@ const testIds = {
 type RouteRowProps = {
   readonly directionAndLabelId: string;
   readonly className?: string;
-  readonly route: RouteAllFieldsFragment;
+  readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   readonly observationDate: DateTime;
   readonly isExpanded: boolean;
   readonly isLast: boolean;
@@ -176,9 +177,10 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
             className="icon-lista ml-2 text-xl text-tweaked-brand hover:text-black"
           />
         </Link>
-        <i
-          aria-hidden
-          className="icon-download disabled ml-2 text-3xl text-grey"
+        <RouteReportDownloadMenu
+          route={route}
+          observationDate={observationDate}
+          className="ml-2"
         />
       </div>
       <AccordionButton
