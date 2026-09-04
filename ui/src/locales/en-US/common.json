@@ -792,8 +792,8 @@
     "gotoTerminalDetails": "Go to terminal details page.",
     "showOnMap": "Show on map",
     "csv": {
-      "downloadEquipmentReport": "Download Equipment Details Report",
-      "downloadInfoSpotReport": "Download Info Spot Details Report",
+      "downloadEquipmentReport": "Save as spreadsheet: Equipment details",
+      "downloadInfoSpotReport": "Save as spreadsheet: Info spots",
       "saveAs": "Save CSV report under filename:",
       "equipmentReportFileName": "Equipment Details Report {{today}} at {{now}} o'clock.csv",
       "infoSpotReportFileName": "Info Spot Details Report {{today}} at {{now}} o'clock.csv",
@@ -803,6 +803,15 @@
       "generationCanceled": "CSV Report generation canceled.",
       "generationError": "CSV Report generation failed",
       "downloaded": "CSV report downloaded as: <Filename />",
+      "routeColumns": {
+        "route": "Route",
+        "direction": "Direction"
+      },
+      "routeReport": {
+        "downloadTooltip": "Download the route's stops as a report",
+        "equipmentFileName": "Equipment Details Report {{route}} {{today}} at {{now}} o'clock.csv",
+        "infoSpotFileName": "Info Spot Details Report {{route}} {{today}} at {{now}} o'clock.csv"
+      },
       "metaHeaders": {
         "validity": "Validity period",
         "shelter": "Shelter"

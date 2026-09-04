@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
+import { CSVWriter } from '../../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails, ReportSectionInstantiator } from '../types';
 
 export function writeHeaderArray(
