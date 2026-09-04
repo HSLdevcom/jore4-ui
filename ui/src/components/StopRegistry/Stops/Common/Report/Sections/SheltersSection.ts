@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import noop from 'lodash/noop';
-import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
+import { ShelterEquipmentDetailsFragment } from '../../../../../../generated/graphql';
 import {
   mapStopRegistryShelterConditionEnumToUiName,
   mapStopRegistryShelterElectricityEnumToUiName,
   mapStopRegistryShelterTypeEnumToUiName,
-} from '../../../../../utils/i18n';
-import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
+} from '../../../../../../utils/i18n';
+import { CSVWriter } from '../../../../../common/ReportWriter/CSVWriter';
 import {
   EnrichedStopDetails,
   EnrichedStopDetailsWithSelectedInfoSpot,

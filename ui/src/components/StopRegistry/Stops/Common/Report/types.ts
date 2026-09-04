@@ -1,7 +1,8 @@
-import { DateLike } from '../../../../time';
-import { EnrichedQuay, EnrichedStopPlace } from '../../../../types';
-import { CSVWriter } from '../../../common/ReportWriter/CSVWriter';
-import { ResultSelection, StopSearchFilters } from '../Types';
+import { RouteDirectionEnum } from '../../../../../generated/graphql';
+import { DateLike } from '../../../../../time';
+import { EnrichedQuay, EnrichedStopPlace } from '../../../../../types';
+import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
+import { ResultSelection, StopSearchFilters } from '../../../Search/Types';
 
 export type TriggerDownloadFn = (filename: string) => void;
 
@@ -68,8 +69,18 @@ export interface ReportSection<
   writeRecordFields(writer: CSVWriter, record: StopDetails): void;
 }
 
+// Route context is set only for route based exports, where every row belongs to
+// the same route direction.
+export type ReportRouteContext = {
+  readonly label: string;
+  readonly variant: number | null;
+  readonly name: string | null;
+  readonly direction: RouteDirectionEnum;
+};
+
 export type ReportContext = {
   readonly observationDate: DateLike;
+  readonly route?: ReportRouteContext;
 };
 
 export type ReportSectionInstantiator<
@@ -84,6 +95,15 @@ export type ReportSectionInstantiator<
 export type GenerateReport = (
   filters: StopSearchFilters,
   selection: ResultSelection,
+  filename: string,
+  saveFileNamePrompt: string,
+  abortSignal: AbortSignal,
+  onProgress: OnProgress,
+) => Promise<string>;
+
+// The report-source agnostic part of a generation call, as consumed by the
+// shared download menu item.
+export type RunReportGeneration = (
   filename: string,
   saveFileNamePrompt: string,
   abortSignal: AbortSignal,
