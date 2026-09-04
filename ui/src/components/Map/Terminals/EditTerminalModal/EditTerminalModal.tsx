@@ -1,11 +1,11 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../types';
-import { useGetNextPrivateCode } from '../../../forms/stop-area';
 import { TerminalFormState } from '../../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
 import { mapTerminalDataToFormState } from '../../../stop-registry/Terminals/Components/BasicDetails/Edit/TerminalDetailsEdit';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
+import { useGetNextPrivateCode } from '../../Utils/useGetNextPrivateCode';
 import { TerminalForm } from './TerminalForm';
 
 const testIds = {

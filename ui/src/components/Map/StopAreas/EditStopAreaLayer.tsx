@@ -26,11 +26,12 @@ import {
   showSuccessToast,
 } from '../../../utils';
 import { ConfirmationDialog } from '../../common/Modals';
-import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
 import {
   DeleteStopArea,
+  StopAreaFormState,
   useStopAreaDeletion,
-} from '../../stop-registry/StopAreas/Common/DeleteStopArea';
+  useUpsertStopArea,
+} from '../../stop-registry/StopAreas/Common';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { useEnsureMapEntityTypeVisible } from '../Utils/useEnsureMapEntityTypeVisible';
 import { useEnsureStopVehicleModeVisible } from '../Utils/useEnsureStopVehicleModeVisible';

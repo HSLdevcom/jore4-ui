@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Operation, useLoader } from '../../../../../redux';
 import { EnrichedStopPlace } from '../../../../../types';
-import { ConfirmStopAreaDeletionDialog } from '../../../../forms/stop-area';
+import { ConfirmStopAreaDeletionDialog } from './ConfirmStopAreaDeletionDialog';
 import { useDeleteStopArea } from './useDeleteStopArea';
 
 type DeleteStopAreaProps = {

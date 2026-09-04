@@ -15,7 +15,7 @@ import {
 } from '../../../../Stops/StopDetails/StopVersion/Errors';
 import { useGetShelters } from '../../../../Stops/StopDetails/StopVersion/Utils/useGetShelterResolver';
 import { wrapErrors } from '../../../../Stops/StopDetails/StopVersion/Utils/wrapErrors';
-import { getEnrichedStopPlace } from '../../../StopAreaDetails/useGetStopAreaDetails';
+import { getEnrichedStopPlace } from '../../../Common';
 import { useCutStopAreaValidity } from '../../CutStopAreaValidity';
 import {
   CopyStopAreaResult,

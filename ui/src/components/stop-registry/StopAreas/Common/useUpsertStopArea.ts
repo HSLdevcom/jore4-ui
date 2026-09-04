@@ -7,18 +7,18 @@ import {
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
   useUpsertStopAreaMutation,
-} from '../../../generated/graphql';
-import { EnrichedStopPlace } from '../../../types';
+} from '../../../../generated/graphql';
+import { EnrichedStopPlace } from '../../../../types';
 import {
   KnownValueKey,
   mapPointToStopRegistryGeoJSON,
   patchAlternativeNames,
   patchKeyValues,
   showDangerToast,
-} from '../../../utils';
-import { getEnrichedStopPlace } from '../../stop-registry/StopAreas/StopAreaDetails/useGetStopAreaDetails';
+} from '../../../../utils';
+import { useStopAreaDetailsApolloErrorHandler } from './DeleteStopArea/stopAreaDetailsErrorHandler';
+import { getEnrichedStopPlace } from './getEnrichedStopPlace';
 import { StopAreaFormState } from './stopAreaFormSchema';
-import { useStopAreaDetailsApolloErrorHandler } from './util/stopAreaDetailsErrorHandler';
 
 const GQL_UPSERT_STOP_AREA = gql`
   mutation UpsertStopArea($input: stop_registry_StopPlaceInput!) {

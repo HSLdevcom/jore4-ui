@@ -8,8 +8,8 @@ import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../../common/Dropdowns';
-import { useUpsertStopArea } from '../../../../forms/stop-area';
 import { ShowOnMap } from '../../../search/components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
+import { useUpsertStopArea } from '../../Common';
 import {
   DeleteStopArea,
   useStopAreaDeletion,
