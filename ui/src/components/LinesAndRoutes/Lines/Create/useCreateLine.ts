@@ -12,8 +12,8 @@ import {
   mapDateInputToValidityEnd,
   showDangerToastWithError,
 } from '../../../../utils';
-import { FormState } from '../../../forms/line/LineForm';
 import { useGetConflictingLines } from '../../Common';
+import { FormState } from '../Components/LineForm/LineForm';
 
 const GQL_INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {

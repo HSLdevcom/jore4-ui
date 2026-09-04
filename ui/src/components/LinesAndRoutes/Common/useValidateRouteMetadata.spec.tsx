@@ -7,7 +7,7 @@ import {
   LineValidityFragment,
   RouteDirectionEnum,
 } from '../../../generated/graphql';
-import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
+import { RouteFormState } from './RoutePropertiesForm.types';
 import {
   assertRouteValidityIsInsideLineValidity,
   assertRouteValidityStartIsBeforeEnd,

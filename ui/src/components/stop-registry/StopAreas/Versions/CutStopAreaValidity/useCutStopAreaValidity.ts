@@ -6,7 +6,7 @@ import {
   useUpsertStopAreaMutation,
 } from '../../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../../types';
-import { getEnrichedStopPlace } from '../../StopAreaDetails/useGetStopAreaDetails';
+import { getEnrichedStopPlace } from '../../Common';
 import { CutDirection, CutStopAreaValidityResult } from './types';
 import {
   getScheduledStopPointIdsToEdit,

@@ -18,13 +18,13 @@ import {
   ValidityPeriodForm,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+import { AlternativeNamesEdit } from '../../../components/AlternativeNames/AlternativeNamesEdit';
 import {
   StopAreaFormState as FormState,
   StopAreaFormState,
   stopAreaFormSchema,
   useUpsertStopArea,
-} from '../../../../forms/stop-area';
-import { AlternativeNamesEdit } from '../../../components/AlternativeNames/AlternativeNamesEdit';
+} from '../../Common';
 
 const testIds = {
   privateCode: 'StopAreaDetailsEdit::privateCode',

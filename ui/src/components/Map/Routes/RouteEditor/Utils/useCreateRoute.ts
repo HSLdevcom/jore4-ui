@@ -12,8 +12,8 @@ import { MIN_DATE } from '../../../../../time';
 import { RouteInfraLink } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { buildJourneyPatternStopSequence } from '../../../../../utils';
-import { RouteFormState } from '../../../../forms/route/RoutePropertiesForm.types';
 import {
+  RouteFormState,
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,
   lineTypeAffectsMetatypes,

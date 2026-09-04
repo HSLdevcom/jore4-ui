@@ -15,8 +15,7 @@ import {
 import { isDateInRange } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 import { showSuccessToast, showWarningToast } from '../../../../../utils';
-import { RouteFormState } from '../../../../forms/route/RoutePropertiesForm.types';
-import { hasBlockers } from '../../../../LinesAndRoutes/Common/SaveBlockers';
+import { RouteFormState, hasBlockers } from '../../../../LinesAndRoutes/Common';
 import { useMapUrlStateContext } from '../../../Utils/mapUrlState';
 import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../../Utils';
 import { CreateChanges, useCreateRoute } from './useCreateRoute';

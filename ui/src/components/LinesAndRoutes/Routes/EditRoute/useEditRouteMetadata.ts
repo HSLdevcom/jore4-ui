@@ -12,8 +12,8 @@ import {
 import { MIN_DATE } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { illegalCast, showDangerToastWithError } from '../../../../utils';
-import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import {
+  RouteFormState,
   mapRouteFormToInput,
   useGetConflictingRoutes,
   useValidateRouteMetadata,

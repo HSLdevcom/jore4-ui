@@ -2,12 +2,10 @@ import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedStopPlace } from '../../../../types';
 import { getGeometryPoint, mapPointToGeoJSON } from '../../../../utils';
-import {
-  StopAreaFormState,
-  useGetNextPrivateCode,
-} from '../../../forms/stop-area';
+import { StopAreaFormState } from '../../../stop-registry/StopAreas/Common';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
+import { useGetNextPrivateCode } from '../../Utils/useGetNextPrivateCode';
 import { StopAreaForm, mapStopAreaDataToFormState } from './StopAreaForm';
 import { useNearbyTransportModes } from './useNearbyTransportModes';
 

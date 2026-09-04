@@ -1,0 +1,126 @@
+import { TFunction } from 'i18next';
+import compact from 'lodash/compact';
+import { DateTime } from 'luxon';
+import { FC, ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useObservationDateQueryParam } from '../../../../../hooks';
+import { Path, routeDetails } from '../../../../../router/routeDetails';
+import { EnrichedStopPlace } from '../../../../../types';
+import { DialogWithButtons } from '../../../../common/Modals';
+
+const testIds = {
+  // Reuse generic ConformDialog testIds, to minimize test changes.
+  cancelButton: 'ConfirmationDialog::cancelButton',
+  confirmButton: 'ConfirmationDialog::confirmButton',
+  linkToMemberStop: (publicCode: string) =>
+    `ConfirmStopAreaDeletionDialog::memberStopLink::${publicCode}`,
+};
+
+type ConfirmationContent = {
+  readonly body: ReactNode;
+  readonly isDeletable: boolean;
+};
+
+function getDeleteBlockedContent(
+  t: TFunction,
+  stopArea: EnrichedStopPlace,
+  observationDate: DateTime,
+): ConfirmationContent {
+  return {
+    body: (
+      <div>
+        <p>{t(($) => $.confirmStopAreaDeletionDialog.bodyCanNotBeDeleted)}</p>
+        <p className="mt-4 mb-2">
+          {t(($) => $.confirmStopAreaDeletionDialog.memberStops)}
+        </p>
+        <ul>
+          {compact(stopArea.quays).map((quay) => (
+            <li key={quay?.id}>
+              <a
+                href={routeDetails[Path.stopDetails].getLink(quay.publicCode, {
+                  observationDate,
+                })}
+                target="_blank"
+                rel="noreferrer"
+                data-testid={testIds.linkToMemberStop(quay.publicCode ?? '')}
+                title={t(($) => $.accessibility.stops.showStopDetails, {
+                  stopLabel: quay.publicCode,
+                })}
+              >
+                <b>{quay.publicCode}</b>{' '}
+                <span>{quay.description?.value ?? ''}</span>
+                <i className="icon-open-in-new" aria-hidden />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ),
+    isDeletable: false,
+  };
+}
+
+function getConfirmationContent(
+  t: TFunction,
+  stopArea: EnrichedStopPlace,
+  observationDate: DateTime,
+): ConfirmationContent {
+  if (compact(stopArea.quays).length) {
+    return getDeleteBlockedContent(t, stopArea, observationDate);
+  }
+
+  return {
+    body: t(($) => $.confirmStopAreaDeletionDialog.bodyCanBeDeleted),
+    isDeletable: true,
+  };
+}
+
+type ConfirmStopAreaDeletionDialogProps = {
+  readonly className?: string;
+  readonly isOpen: boolean;
+  readonly onCancel: () => void;
+  readonly onConfirm: () => void;
+  readonly stopArea: EnrichedStopPlace;
+};
+
+export const ConfirmStopAreaDeletionDialog: FC<
+  ConfirmStopAreaDeletionDialogProps
+> = ({ isOpen, onConfirm, onCancel, className, stopArea }) => {
+  const { t } = useTranslation();
+
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
+  const { body, isDeletable } = getConfirmationContent(
+    t,
+    stopArea,
+    observationDate,
+  );
+
+  return (
+    <DialogWithButtons
+      className={className}
+      isOpen={isOpen}
+      title={t(($) => $.confirmStopAreaDeletionDialog.title)}
+      description={body}
+      buttons={compact([
+        {
+          text: t(($) => $.cancel),
+          onClick: onCancel,
+          inverted: true,
+          testId: testIds.cancelButton,
+        },
+        isDeletable
+          ? {
+              text: t(($) => $.confirmStopAreaDeletionDialog.confirmText),
+              onClick: onConfirm,
+              testId: testIds.confirmButton,
+            }
+          : null,
+      ])}
+      onCancel={onCancel}
+      widthClassName="max-w-md"
+    />
+  );
+};

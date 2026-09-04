@@ -23,7 +23,7 @@ import { stopInJourneyPatternFieldsToRemove } from '../../../../utils';
 import {
   RouteFormState,
   routeFormSchema,
-} from '../../../forms/route/RoutePropertiesForm.types';
+} from '../../../LinesAndRoutes/Common';
 import { EditRouteModal } from './EditRouteModal';
 
 function areFormValuesValid(formData?: Partial<RouteFormState>) {
