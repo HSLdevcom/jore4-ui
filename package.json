@@ -21,7 +21,7 @@
     "lint": "eslint './**/*.{ts,tsx}' './ui/src/locales/**/*.json' --max-warnings=0",
     "test": "yarn ws:ui test:unit",
     "test:integration": "yarn ws:ui test:integration",
-    "test:e2e": "yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && CYPRESS=true yarn ws:e2e cypress run --browser chrome",
+    "test:e2e": "yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && CYPRESS=true yarn ws:e2e cypress run --browser chrome-for-testing",
     "test:e2e:fast": "yarn test:e2e --config-file cypress.config.fast.ts",
     "test:e2e:open": "yarn check-hasura-metadata --e2e && yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && CYPRESS=true yarn ws:e2e cypress open",
     "test:e2e:list": "yarn ws:e2e print-tests 'e2e/**.cy.ts'",
