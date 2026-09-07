@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { mapToShortDate } from '../../../../../time';
-import { StopVersion } from '../../../stops/versions/types';
+import { StopVersion } from '../../../Stops/Versions/Types';
 
 const testIds = {
   stopVersionsList: 'MemberStops::stopVersionsList',

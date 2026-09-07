@@ -7,8 +7,8 @@ import { Row } from '../../../../../common/LayoutComponents';
 import {
   PurposeFormFragment,
   SizeFormFragment,
-} from '../../../../stops/stop-details/info-spots/info-spots-form/FormFragments';
-import { PositionMoveControls } from '../../../../stops/stop-details/info-spots/PositionControls';
+} from '../../../../Stops/StopDetails/InfoSpots/Edit/FormFragments';
+import { PositionMoveControls } from '../../../../Stops/StopDetails/InfoSpots/PositionControls';
 import { TerminalInfoSpotFormState } from '../Types';
 
 const testIds = {

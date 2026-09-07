@@ -7,9 +7,9 @@ import {
   Row,
   Visible,
 } from '../../../common/LayoutComponents';
-import { formatSizedDbItem } from '../../stops/stop-details/info-spots/utils';
-import { formatPurposeForDisplay } from '../../stops/stop-details/info-spots/utils/infoSpotPurposeUtils';
-import { DetailRow, LabeledDetail } from '../../stops/stop-details/layout';
+import { DetailRow, LabeledDetail } from '../../Stops/Common';
+import { formatSizedDbItem } from '../../Stops/StopDetails/InfoSpots/Utils';
+import { formatPurposeForDisplay } from '../../Stops/StopDetails/InfoSpots/Utils/infoSpotPurposeUtils';
 
 const testIds = {
   posterContainer: 'InfoSpotPosterDetails::container',

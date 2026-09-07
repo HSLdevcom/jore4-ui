@@ -1,0 +1,79 @@
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Path, routeDetails } from '../../../../router/routeDetails';
+import { useNavigateBackSafely, useRequiredParams } from '../../../../utils';
+import { CloseIconButton } from '../../../common/Buttons';
+import { PageTitle } from '../../../common/Jore';
+import { Container, Row } from '../../../common/LayoutComponents';
+import { LoadingWrapper } from '../../../common/Loaders';
+import { StopVersionContainers } from './Components/StopVersionContainers';
+import { useGetStopVersionPageInfo } from './Queries/useGetStopVersionPageInfo';
+
+const testIds = {
+  container: 'StopVersionsPage::Container',
+  loadingWrapper: 'StopVersionsPage::LoadingWrapper',
+  title: 'StopVersionsPage::title',
+  returnButton: 'StopVersionsPage::returnButton',
+  names: 'StopVersionsPage::names',
+};
+
+export const StopVersionsPage: FC = () => {
+  const { t } = useTranslation();
+
+  const goBack = useNavigateBackSafely();
+
+  const { label: publicCode } = useRequiredParams<{ label: string }>();
+  const { loading, stopVersions, stopPlaceName } =
+    useGetStopVersionPageInfo(publicCode);
+
+  const titleText = stopPlaceName?.name
+    ? t(($) => $.stopVersion.titleWithName, {
+        publicCode,
+        name: stopPlaceName.name,
+      })
+    : t(($) => $.stopVersion.title, {
+        publicCode,
+      });
+  return (
+    <Container testId={testIds.container}>
+      <Row className="items-end justify-between">
+        <PageTitle.H1 titleText={titleText} testId={testIds.title}>
+          {t(($) => $.stopVersion.title, {
+            publicCode,
+          })}
+        </PageTitle.H1>
+
+        <CloseIconButton
+          className="font-bold text-brand [&>i]:text-xl"
+          onClick={() =>
+            goBack(routeDetails[Path.stopDetails].getLink(publicCode), {
+              replace: true,
+            })
+          }
+          testId={testIds.returnButton}
+          label={t(($) => $.versions.goBack)}
+        />
+      </Row>
+      <Row>
+        {stopPlaceName && (
+          <h2 data-testid={testIds.names}>
+            <span>{stopPlaceName.name}</span>
+            {' - '}
+            <span>{stopPlaceName.nameSwe}</span>
+          </h2>
+        )}
+      </Row>
+      <LoadingWrapper
+        className="flex justify-center"
+        loadingText={t(($) => $.versions.loading)}
+        loading={loading}
+        testId={testIds.loadingWrapper}
+      >
+        <StopVersionContainers
+          publicCode={publicCode}
+          stopVersions={stopVersions}
+        />
+      </LoadingWrapper>
+    </Container>
+  );
+};

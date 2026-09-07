@@ -19,9 +19,9 @@ import {
   diffKeyedValues,
   mapNullable,
 } from '../../../../common/ChangeHistory';
-import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
-import { formatPurposeForDisplay } from '../../../stops/stop-details/info-spots/utils/infoSpotPurposeUtils';
-import { optionalBooleanToUiText } from '../../../stops/stop-details/utils';
+import { optionalBooleanToUiText } from '../../../Stops/Common/utils';
+import { formatSizedDbItem } from '../../../Stops/StopDetails/InfoSpots/Utils';
+import { formatPurposeForDisplay } from '../../../Stops/StopDetails/InfoSpots/Utils/infoSpotPurposeUtils';
 import { normalizeZoneLabel } from '../../../types/utils';
 
 type FieldValueTuple = readonly [string, string];

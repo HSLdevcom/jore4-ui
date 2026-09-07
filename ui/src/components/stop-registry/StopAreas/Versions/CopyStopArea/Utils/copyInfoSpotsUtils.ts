@@ -1,7 +1,7 @@
 import compact from 'lodash/compact';
 import { QuayDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../../../types';
-import { FailedToResolveExistingShelter } from '../../../../stops/stop-details/stop-version/errors';
+import { FailedToResolveExistingShelter } from '../../../../Stops/StopDetails/StopVersion/Errors';
 import { mapCompactOrNull, mapInfoSpotToInput } from '../../../../utils';
 import { BidirectionalQuayMap, InfoSpotInput } from '../types';
 

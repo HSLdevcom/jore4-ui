@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { infoSpotSchema } from '../../../../stops/stop-details/info-spots/types';
+import { infoSpotSchema } from '../../../../Stops/StopDetails/InfoSpots/Types';
 
 export const terminalInfoSpotSchema = z
   .object({

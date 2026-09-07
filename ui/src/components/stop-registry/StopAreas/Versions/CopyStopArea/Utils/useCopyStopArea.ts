@@ -12,9 +12,9 @@ import { EnrichedStopPlace } from '../../../../../../types';
 import {
   FailedToResolveNewShelters,
   StopPlaceInsertFailed,
-} from '../../../../stops/stop-details/stop-version/errors';
-import { useGetShelters } from '../../../../stops/stop-details/stop-version/utils/useGetShelterResolver';
-import { wrapErrors } from '../../../../stops/stop-details/stop-version/utils/wrapErrors';
+} from '../../../../Stops/StopDetails/StopVersion/Errors';
+import { useGetShelters } from '../../../../Stops/StopDetails/StopVersion/Utils/useGetShelterResolver';
+import { wrapErrors } from '../../../../Stops/StopDetails/StopVersion/Utils/wrapErrors';
 import { getEnrichedStopPlace } from '../../../StopAreaDetails/useGetStopAreaDetails';
 import { useCutStopAreaValidity } from '../../CutStopAreaValidity';
 import {

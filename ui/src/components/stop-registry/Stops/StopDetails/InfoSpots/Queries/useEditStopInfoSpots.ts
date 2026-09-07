@@ -1,0 +1,145 @@
+import { gql } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
+import {
+  GetStopDetailsDocument,
+  InfoSpotDetailsFragment,
+  StopRegistryInfoSpotInput,
+  StopRegistryPosterInput,
+  useUpdateInfoSpotMutation,
+} from '../../../../../../generated/graphql';
+import {
+  KnownValueKey,
+  NullOptionEnum,
+  patchKeyValues,
+  showDangerToast,
+} from '../../../../../../utils';
+import { InfoSpotState, InfoSpotsFormState } from '../Types';
+import { mapPurposeToString } from '../Utils';
+
+const GQL_UPDATE_INFO_SPOTS = gql`
+  mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {
+    stop_registry {
+      mutateInfoSpots(infoSpot: $input) {
+        ...InfoSpotDetails
+      }
+    }
+  }
+`;
+
+function mapNullEnumOption<T>(
+  value: T | NullOptionEnum | null | undefined,
+): T | null {
+  if (value === null || value === undefined || value === NullOptionEnum.Null) {
+    return null;
+  }
+
+  return value;
+}
+
+function mapPosterInput(
+  poster: InfoSpotState['poster'],
+): Array<StopRegistryPosterInput> | null {
+  if (!poster?.length) {
+    return null;
+  }
+
+  return poster.map(
+    ({ id, label, size, lines }, index): StopRegistryPosterInput => ({
+      id,
+      label: mapPurposeToString(label),
+      width: size.width,
+      height: size.height,
+      lines,
+      keyValues: [
+        {
+          key: KnownValueKey.SortOrder,
+          values: [index.toString()],
+        },
+      ],
+    }),
+  );
+}
+
+function mapInfoSpotFormToInput(
+  infoSpot: InfoSpotState,
+  index: number,
+  originalInfoSpot: InfoSpotDetailsFragment | undefined,
+): StopRegistryInfoSpotInput {
+  return {
+    id: infoSpot.infoSpotId,
+    backlight: infoSpot.backlight,
+    description: {
+      lang: infoSpot.description?.lang,
+      value: infoSpot.description?.value,
+    },
+    displayType: mapNullEnumOption(infoSpot.displayType),
+    floor: infoSpot.floor,
+    label: infoSpot.label,
+    width: infoSpot.size.width,
+    height: infoSpot.size.height,
+    infoSpotLocations: infoSpot.infoSpotLocations,
+    infoSpotType: mapNullEnumOption(infoSpot.infoSpotType),
+    intendedUser: mapNullEnumOption(infoSpot.intendedUser),
+    railInformation: infoSpot.railInformation,
+    speechProperty: infoSpot.speechProperty,
+    zoneLabel: infoSpot.zoneLabel,
+    keyValues: patchKeyValues(originalInfoSpot ?? null, [
+      { key: KnownValueKey.SortOrder, values: [index.toString()] },
+    ]),
+    poster: mapPosterInput(infoSpot.poster),
+  };
+}
+
+function handleDeletions(
+  infoSpots: ReadonlyArray<InfoSpotState>,
+): ReadonlyArray<InfoSpotState> {
+  return infoSpots.map((spot) => ({
+    ...spot,
+    poster: spot.poster?.filter((poster) => !poster.toBeDeletedPoster) ?? [],
+    infoSpotLocations: spot.toBeDeleted ? [] : spot.infoSpotLocations,
+  }));
+}
+
+export function useEditStopInfoSpots() {
+  const { t } = useTranslation();
+  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
+    refetchQueries: [
+      GetStopDetailsDocument,
+      'GetLatestQuayChange',
+      'GetStopChangeHistory',
+    ],
+  });
+
+  const saveStopPlaceInfoSpots = async (params: {
+    state: InfoSpotsFormState;
+    infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
+  }) => {
+    const originalInfoSpotsById = new Map(
+      params.infoSpots.map((spot) => [spot.id, spot]),
+    );
+
+    await updateInfoSpotMutation({
+      variables: {
+        input: handleDeletions(params.state.infoSpots).map(
+          (infoSpot, index) => {
+            const originalInfoSpot = infoSpot.infoSpotId
+              ? originalInfoSpotsById.get(infoSpot.infoSpotId)
+              : undefined;
+            return mapInfoSpotFormToInput(infoSpot, index, originalInfoSpot);
+          },
+        ),
+      },
+    });
+  };
+
+  // default handler that can be used to show error messages as toast
+  // in case an exception is thrown
+  const defaultErrorHandler = (err: Error) => {
+    showDangerToast(`${t(($) => $.errors.saveFailed)}, ${err}`);
+  };
+
+  return {
+    saveStopPlaceInfoSpots,
+    defaultErrorHandler,
+  };
+}

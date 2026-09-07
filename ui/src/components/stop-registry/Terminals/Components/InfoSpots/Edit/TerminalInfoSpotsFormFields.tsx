@@ -17,9 +17,9 @@ import {
 } from '../../../../../common/Dropdowns';
 import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
-import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/FormFragments';
-import { PosterState } from '../../../../stops/stop-details/info-spots/types';
-import { mapStringToPurpose } from '../../../../stops/stop-details/info-spots/utils';
+import { SizeFormFragment } from '../../../../Stops/StopDetails/InfoSpots/Edit/FormFragments';
+import { PosterState } from '../../../../Stops/StopDetails/InfoSpots/Types';
+import { mapStringToPurpose } from '../../../../Stops/StopDetails/InfoSpots/Utils';
 import { ZoneLabel } from '../../../../types';
 import { TerminalInfoSpotFormState } from '../Types';
 import {

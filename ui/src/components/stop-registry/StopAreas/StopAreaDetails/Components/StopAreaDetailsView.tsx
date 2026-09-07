@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
-import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
+import { DetailRow, LabeledDetail } from '../../../Stops/Common';
 import { StopAreaComponentProps } from '../Types';
 
 const testIds = {

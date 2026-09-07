@@ -9,11 +9,11 @@ import {
 import { SimpleButton } from '../../../../common/Buttons';
 import { InputField } from '../../../../common/Inputs';
 import { Column, Visible } from '../../../../common/LayoutComponents';
+import { OrganisationDetailsModal } from '../../../Stops/StopDetails/Maintenance/OrganisationDetailsModal';
 import {
   CREATE_NEW_ORGANISATION_OPTION,
   ChooseOrganisationDropdown,
-} from '../../../stops/stop-details/maintenance/organisation-dropdown';
-import { OrganisationDetailsModal } from '../../../stops/stop-details/maintenance/OrganisationDetailsModal';
+} from '../../../Stops/StopDetails/Maintenance/OrganisationDropdown';
 import { TerminalOwnerFormState } from './terminalOwnerSchema';
 
 const testIds = {
