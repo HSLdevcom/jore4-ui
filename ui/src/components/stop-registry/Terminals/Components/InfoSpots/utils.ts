@@ -11,12 +11,12 @@ import {
   StopPlaceInfoSpots,
 } from '../../../../../types';
 import { getGeometryPoint } from '../../../../../utils';
-import { InfoSpotPurposeEnum } from '../../../stops/stop-details/info-spots/types/InfoSpotPurpose';
+import { InfoSpotPurposeEnum } from '../../../Stops/StopDetails/InfoSpots/Types/InfoSpotPurpose';
 import {
   formatSizedDbItem,
   mapInfoSpotDataToFormState,
-} from '../../../stops/stop-details/info-spots/utils';
-import { mapPurposeToString } from '../../../stops/stop-details/info-spots/utils/infoSpotPurposeUtils';
+} from '../../../Stops/StopDetails/InfoSpots/Utils';
+import { mapPurposeToString } from '../../../Stops/StopDetails/InfoSpots/Utils/infoSpotPurposeUtils';
 import { SortConfig, SortField, TerminalInfoSpotFormState } from './Types';
 
 export const CSS_CLASSES = {

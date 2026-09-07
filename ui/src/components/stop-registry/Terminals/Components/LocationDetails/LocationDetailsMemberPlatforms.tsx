@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../types';
-import { LabeledDetail } from '../../../stops/stop-details/layout';
+import { LabeledDetail } from '../../../Stops/Common';
 
 type MemberPlatformsProps = {
   readonly terminal: EnrichedParentStopPlace;

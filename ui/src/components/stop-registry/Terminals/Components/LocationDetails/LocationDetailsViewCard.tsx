@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../types';
-import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
+import { DetailRow, LabeledDetail } from '../../../Stops/Common';
 import { TerminalComponentProps } from '../../Types';
 import { MemberPlatforms } from './LocationDetailsMemberPlatforms';
 

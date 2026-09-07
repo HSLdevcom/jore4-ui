@@ -7,7 +7,7 @@ import {
   CloseIconButton,
   SimpleButton,
 } from '../../../../../common/Buttons';
-import { formatSizedDbItem } from '../../../../stops/stop-details/info-spots/utils';
+import { formatSizedDbItem } from '../../../../Stops/StopDetails/InfoSpots/Utils';
 import { TerminalInfoSpotRowHeaderProps } from '../Types';
 import {
   CSS_CLASSES,

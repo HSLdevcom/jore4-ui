@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 import { AllOptionEnum, NullOptionEnum } from '..';
 import { HastusApiErrorType } from '../../api/hastus';
-import { InfoSpotPurposeEnum } from '../../components/stop-registry/stops/stop-details/info-spots/types';
+import { InfoSpotPurposeEnum } from '../../components/stop-registry/Stops/StopDetails/InfoSpots/Types';
 import { TerminalType } from '../../components/stop-registry/types/TerminalType';
 import { ZoneLabel } from '../../components/stop-registry/types/ZoneLabel';
 import {

@@ -37,8 +37,8 @@ import {
 } from '../components/stop-registry';
 import { StopAreaChangeHistoryPage } from '../components/stop-registry/StopAreas/ChangeHistory/StopAreaChangeHistoryPage';
 import { StopAreaDetailsPage } from '../components/stop-registry/StopAreas/StopAreaDetails/StopAreaDetailsPage';
-import { StopChangeHistoryPage } from '../components/stop-registry/stops/change-history';
-import { StopVersionsPage } from '../components/stop-registry/stops/versions';
+import { StopChangeHistoryPage } from '../components/stop-registry/Stops/ChangeHistory';
+import { StopVersionsPage } from '../components/stop-registry/Stops/Versions';
 import { TerminalChangeHistoryPage } from '../components/stop-registry/Terminals/ChangeHistory/TerminalChangeHistoryPage';
 import { TerminalDetailsPage } from '../components/stop-registry/Terminals/TerminalDetailsPage';
 import {

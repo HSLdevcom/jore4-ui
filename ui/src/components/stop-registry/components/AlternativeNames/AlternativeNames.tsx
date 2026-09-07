@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DetailRow, LabeledDetail } from '../../stops/stop-details/layout';
+import { DetailRow, LabeledDetail } from '../../Stops/Common';
 
 const testIds = {
   nameEng: 'AlternativeNames::nameEng',

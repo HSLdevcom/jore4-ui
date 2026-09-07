@@ -6,9 +6,12 @@ import {
   mapZoneLabelToUiName,
 } from '../../../../../utils/i18n';
 import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
-import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
-import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
-import { optionalBooleanToUiText } from '../../../stops/stop-details/utils';
+import {
+  DetailRow,
+  LabeledDetail,
+  optionalBooleanToUiText,
+} from '../../../Stops/Common';
+import { formatSizedDbItem } from '../../../Stops/StopDetails/InfoSpots/Utils';
 import { normalizeZoneLabel } from '../../../types/utils';
 import { TerminalInfoSpotsViewCardProps } from './Types';
 import { getTerminalInfoSpotLocation } from './utils';

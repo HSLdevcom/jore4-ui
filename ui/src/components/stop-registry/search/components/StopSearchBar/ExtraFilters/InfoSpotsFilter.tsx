@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { AllOptionEnum, NullOptionEnum, none } from '../../../../../../utils';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
-import { useGetInfoSpotSizes } from '../../../../stops/stop-details/info-spots/queries/useGetInfoSpotSizes';
+import { useGetInfoSpotSizes } from '../../../../Stops/StopDetails/InfoSpots/Queries/useGetInfoSpotSizes';
 import {
   PosterSize,
   standardPosterSizes,
-} from '../../../../stops/stop-details/info-spots/types';
-import { formatSizeOption } from '../../../../stops/stop-details/info-spots/utils';
+} from '../../../../Stops/StopDetails/InfoSpots/Types';
+import { formatSizeOption } from '../../../../Stops/StopDetails/InfoSpots/Utils';
 import { StopSearchFilters } from '../../../types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';

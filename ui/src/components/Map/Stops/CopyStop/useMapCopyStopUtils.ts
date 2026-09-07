@@ -18,11 +18,11 @@ import { isDateInRange, parseDate } from '../../../../time';
 import { Point } from '../../../../types';
 import { showDangerToast, showWarningToast } from '../../../../utils';
 import { StopFormState } from '../../../forms/stop';
+import { useGetStopDetailsLazy } from '../../../stop-registry/Stops/Queries/useGetStopDetails';
 import {
   mapStopFormStateToInputs,
   useCopyStop,
-} from '../../../stop-registry/stops/stop-details/stop-version/utils';
-import { useGetStopDetailsLazy } from '../../../stop-registry/stops/stop-details/useGetStopDetails';
+} from '../../../stop-registry/Stops/StopDetails/StopVersion/Utils';
 import { useMapUrlStateContext } from '../../Utils/mapUrlState';
 import { CreateChanges, StopInfoForEditingOnMap } from '../Types';
 

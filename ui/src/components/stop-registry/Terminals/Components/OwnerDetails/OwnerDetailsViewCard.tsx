@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../../common/LayoutComponents';
-import { DetailRow } from '../../../stops/stop-details/layout';
+import { DetailRow } from '../../../Stops/Common';
 import { TerminalComponentProps } from '../../Types';
 
 const testIds = {

@@ -3,7 +3,7 @@ import {
   StopRegistryStopPlaceInput,
 } from '../../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../../types';
-import { InfoSpotInputHelper } from '../../../stops/stop-details/stop-version/types';
+import { InfoSpotInputHelper } from '../../../Stops/StopDetails/StopVersion/Types';
 import { CutDirection } from '../CutStopAreaValidity';
 import { StopAreaVersionFormState } from '../Types';
 

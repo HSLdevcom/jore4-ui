@@ -13,7 +13,7 @@ import { useDirtyFormBlockNavigation } from '../../../../../forms/common/Navigat
 import {
   FailedToResolveExistingShelter,
   FailedToResolveNewShelters,
-} from '../../../../stops/stop-details/stop-version/errors';
+} from '../../../../Stops/StopDetails/StopVersion/Errors';
 import {
   CopyStopAreaInvalidDateRangeError,
   CopyStopAreaSuccessResult,
