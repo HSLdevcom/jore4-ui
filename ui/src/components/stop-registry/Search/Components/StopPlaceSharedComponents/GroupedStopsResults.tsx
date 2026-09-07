@@ -1,0 +1,81 @@
+import { SelectorParam } from 'i18next';
+import { ComponentType, FC } from 'react';
+import { SortStopsBy } from '../../Types';
+import {
+  useGroupedResultSelection,
+  useStopSearchRouterState,
+} from '../../Utils';
+import { GroupedCountAndSortingRow } from './StopPlaceCountAndSortingRow';
+import { StopPlaceHeaderPublicPropsProps } from './StopPlaceHeader';
+import { StopPlaceSelector } from './StopPlaceSelector';
+import { StopsTable } from './StopsTable';
+import { NoStopsComponentProps } from './types';
+import { FindStopPlaceInfo } from './useFindStopPlaces';
+
+type SearchGroupedStopsResultsProps = {
+  readonly groupingField: SortStopsBy;
+  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
+  readonly translationLabel: SelectorParam;
+  readonly HeaderComponent: ComponentType<StopPlaceHeaderPublicPropsProps>;
+  readonly NoStopsComponent: ComponentType<NoStopsComponentProps>;
+};
+
+export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
+  groupingField,
+  stopPlaces,
+  translationLabel,
+  HeaderComponent,
+  NoStopsComponent,
+}) => {
+  const {
+    state: {
+      filters: { observationDate },
+    },
+    historyState: { resultSelection, selectedGroups, knownStopIds },
+  } = useStopSearchRouterState();
+
+  const {
+    onRegisterNewGroup,
+    onBatchUpdateSelection,
+    onToggleSelectAll,
+    onToggleSelection,
+  } = useGroupedResultSelection();
+
+  return (
+    <>
+      <GroupedCountAndSortingRow
+        allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
+        groupingField={groupingField}
+        onToggleSelectAll={onToggleSelectAll}
+        hasResults={selectedGroups.length > 0}
+        resultCount={knownStopIds.ids.length}
+        resultSelection={resultSelection}
+      />
+
+      <StopPlaceSelector
+        className="my-3"
+        stopPlaces={stopPlaces}
+        translationLabel={translationLabel}
+      />
+
+      {stopPlaces
+        .filter((stopPlace) =>
+          selectedGroups.includes(stopPlace.id.toString(10)),
+        )
+        .map((stopPlace, i) => (
+          <StopsTable
+            className={i > 0 ? 'mt-6' : ''}
+            key={stopPlace.id}
+            observationDate={observationDate}
+            onBatchUpdateSelection={onBatchUpdateSelection}
+            onRegisterNewGroup={onRegisterNewGroup}
+            onToggleSelection={onToggleSelection}
+            selection={resultSelection}
+            stopPlace={stopPlace}
+            HeaderComponent={HeaderComponent}
+            NoStopsComponent={NoStopsComponent}
+          />
+        ))}
+    </>
+  );
+};

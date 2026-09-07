@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { useGetStopResultsCountQuery } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
-import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
+import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/Search/Common';
 import {
   ResultSelection,
   StopSearchFilters,
   defaultFilters,
   defaultResultSelection,
-} from '../../stop-registry/search/types';
+} from '../../stop-registry/Search/Types';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { FloatingFooter } from './FloatingFooter';
 
