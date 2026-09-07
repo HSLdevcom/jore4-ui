@@ -7,8 +7,8 @@ import { SlimDropDownMenu } from '../../common/Dropdowns';
 import {
   EquipmentReportMenuItem,
   InfoSpotReportReportMenuItem,
-} from '../../stop-registry/search/components/ResultsActionMenuItems';
-import { ResultSelection } from '../../stop-registry/search/types';
+} from '../../stop-registry/Search/Components/ResultsActionMenuItems';
+import { ResultSelection } from '../../stop-registry/Search/Types';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { StopSelectionListing } from './StopSelectionListing';
 

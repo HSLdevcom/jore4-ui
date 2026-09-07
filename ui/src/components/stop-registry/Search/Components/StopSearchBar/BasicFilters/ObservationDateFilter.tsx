@@ -1,0 +1,15 @@
+import { FC } from 'react';
+import { DateInputField } from '../../../../../common/Inputs';
+import { StopSearchFilters } from '../../../Types';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
+import { ClassNameProps } from '../Types/ClassNameProps';
+
+export const ObservationDateFilter: FC<ClassNameProps> = ({ className }) => (
+  <DateInputField<StopSearchFilters>
+    className={className}
+    inputClassName="grow"
+    fieldPath="observationDate"
+    testId={stopSearchBarTestIds.observationDateInput}
+    translationPrefix="filters"
+  />
+);

@@ -1,0 +1,42 @@
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { LoadingWrapper } from '../../../common/Loaders';
+import { SortStopsBy } from '../Types';
+import { useStopSearchRouterState } from '../Utils';
+import { StopsByLineNongroupedStopsResults } from './StopsByLineNongroupedStopsResults';
+import { StopsByLineSearchGroupedStopsResults } from './StopsByLineSearchGroupedStopsResults';
+import { useFindLinesByStopSearch } from './useFindLinesByStopSearch';
+
+const testIds = {
+  loadingSearchResults: 'LoadingWrapper::loadingStopByLinesSearchResults',
+};
+
+export const StopsByLineSearchResults: FC = () => {
+  const { t } = useTranslation();
+
+  const {
+    state: {
+      filters,
+      sortingInfo: { sortBy },
+    },
+  } = useStopSearchRouterState();
+  const { lines, loading } = useFindLinesByStopSearch(filters);
+
+  const groupByLine =
+    sortBy === SortStopsBy.SEQUENCE_NUMBER || sortBy === SortStopsBy.DEFAULT;
+
+  return (
+    <LoadingWrapper
+      className="flex justify-center"
+      loadingText={t(($) => $.search.searching)}
+      loading={lines.length === 0 ? loading : false}
+      testId={testIds.loadingSearchResults}
+    >
+      {groupByLine ? (
+        <StopsByLineSearchGroupedStopsResults lines={lines} />
+      ) : (
+        <StopsByLineNongroupedStopsResults lines={lines} />
+      )}
+    </LoadingWrapper>
+  );
+};
