@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { mapZoneLabelToUiName } from '../../../../../utils/i18n';
-import { normalizeZoneLabel } from '../../../types/utils';
+import { normalizeZoneLabel } from '../../../types';
 import { DetailRow, LabeledDetail } from '../../Common';
 
 const testIds = {

@@ -2,12 +2,12 @@ import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
-import { parseVehicleMode } from '../../../../../utils';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../utils/i18n';
 import {
+  parseVehicleMode,
   showDangerToastWithError,
   showSuccessToast,
-} from '../../../../../utils/toastService';
+} from '../../../../../utils';
+import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../utils/i18n';
 import { SimpleButton } from '../../../../common/Buttons';
 import { JoreListbox, ListboxOptionItem } from '../../../../common/Dropdowns';
 import {

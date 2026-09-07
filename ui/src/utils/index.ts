@@ -29,3 +29,4 @@ export * from './useRequiredParams';
 export * from './useSafeBackNavigation';
 export * from './useViewState';
 export * from './validity';
+export { mapCompactOrNull } from './mapCompactOrNull';

@@ -8,7 +8,7 @@ import {
   LatestChangeHistoryItem,
   LoadingState,
 } from '../../../../common/ChangeHistory/latest';
-import { latestStopChangeSections } from '../Utils/latestStopChangeSections';
+import { latestStopChangeSections } from '../Utils';
 import {
   useHistoricalStopVersion,
   useRefetchFailedHistoricalStopVersions,

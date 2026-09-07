@@ -5,7 +5,7 @@ import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../../common/Dropdowns';
-import { isMirrorChild } from '../../../utils/mirrorRelation';
+import { isMirrorChild } from '../../../utils';
 import { MakeHybridStopModal } from '../HybridStop';
 import { CopyStopModal } from '../StopVersion';
 

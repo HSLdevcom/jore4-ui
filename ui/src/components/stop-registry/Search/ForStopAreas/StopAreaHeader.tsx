@@ -7,7 +7,7 @@ import { useShowStopAreaOnMap } from '../../utils';
 import {
   StopPlaceHeader,
   StopPlaceHeaderPublicPropsProps,
-} from '../Components/StopPlaceSharedComponents/StopPlaceHeader';
+} from '../Components';
 
 export const StopAreaHeader: FC<StopPlaceHeaderPublicPropsProps> = ({
   className,

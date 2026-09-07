@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { AllOptionEnum, NullOptionEnum, none } from '../../../../../../utils';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
-import { useGetInfoSpotSizes } from '../../../../Stops/StopDetails/InfoSpots/Queries/useGetInfoSpotSizes';
 import {
   PosterSize,
+  formatPosterSizeOption,
   standardPosterSizes,
-} from '../../../../Stops/StopDetails/InfoSpots/Types';
-import { formatSizeOption } from '../../../../Stops/StopDetails/InfoSpots/Utils';
+  useGetInfoSpotSizes,
+} from '../../../../components/InfoSpots';
 import { StopSearchFilters } from '../../../Types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';
@@ -52,7 +52,7 @@ function useFormatOption(t: TFunction) {
         return t(($) => $.stopRegistrySearch.noOptions.infoSpot);
       }
 
-      return formatSizeOption(option);
+      return formatPosterSizeOption(option);
     },
     [t],
   );

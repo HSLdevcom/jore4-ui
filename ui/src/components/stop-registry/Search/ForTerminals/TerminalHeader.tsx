@@ -7,7 +7,7 @@ import { useShowTerminalOnMap } from '../../utils/useShowTerminalOnMap';
 import {
   StopPlaceHeader,
   StopPlaceHeaderPublicPropsProps,
-} from '../Components/StopPlaceSharedComponents/StopPlaceHeader';
+} from '../Components';
 
 export const TerminalHeader: FC<StopPlaceHeaderPublicPropsProps> = ({
   className,

@@ -4,12 +4,12 @@ import {
   StopRegistryInfoSpotInput,
   StopRegistryPosterInput,
 } from '../../../generated/graphql';
-import { KnownValueKey, patchKeyValues } from '../../../utils';
 import {
+  KnownValueKey,
   mapCompactOrNull,
-  mapGeoJsonToInput,
-  omitTypeName,
-} from './copyEntityUtilities';
+  patchKeyValues,
+} from '../../../utils';
+import { mapGeoJsonToInput, omitTypeName } from './copyEntityUtilities';
 
 function mapPosterToInput(
   poster: ReadonlyArray<PosterDetailsFragment | null> | null | undefined,

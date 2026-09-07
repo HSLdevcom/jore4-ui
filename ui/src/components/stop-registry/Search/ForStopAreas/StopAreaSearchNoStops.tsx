@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
+import { FindStopPlaceInfoFragment } from '../../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { FindStopPlaceInfo } from '../Components/StopPlaceSharedComponents/useFindStopPlaces';
 
 const testIds = {
   noStopsInStopArea: 'StopAreaSearch:noStopsText',
@@ -14,7 +14,7 @@ const testIds = {
 
 type StopAreaSearchNoStopsProps = {
   readonly className?: string;
-  readonly stopPlace: FindStopPlaceInfo;
+  readonly stopPlace: FindStopPlaceInfoFragment;
 };
 
 export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({

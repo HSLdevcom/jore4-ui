@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
+import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { PathValue, routeDetails } from '../../../../../router/routeDetails';
 import { LocatorButton } from '../../../../common/Buttons';
 import { ResultSelection } from '../../Types';
@@ -10,7 +11,6 @@ import { SelectAllCheckbox } from '../SelectAllCheckbox';
 import { ActionMenu } from './ActionMenu/ActionMenu';
 import { OpenDetails } from './ActionMenu/OpenDetailsPage';
 import { ShowOnMap } from './ActionMenu/ShowOnMap';
-import { FindStopPlaceInfo } from './useFindStopPlaces';
 
 const testIds = {
   stopAreaLabel: 'StopPlaceSearch::label',
@@ -38,7 +38,7 @@ type StopPlaceHeaderContentProps = {
   readonly observationDate: DateTime;
   readonly implementationProps: ImplementationProps;
   readonly isRounded: boolean;
-  readonly stopPlace: FindStopPlaceInfo;
+  readonly stopPlace: FindStopPlaceInfoFragment;
 };
 
 const StopPlaceHeaderContent: FC<StopPlaceHeaderContentProps> = ({
@@ -102,7 +102,7 @@ type SelectAllStopPlaceStopsProps = {
   readonly onBatchUpdateSelection: BatchUpdateSelection;
   readonly selection: ResultSelection;
   readonly stopIds: ReadonlyArray<string>;
-  readonly stopPlace: FindStopPlaceInfo;
+  readonly stopPlace: FindStopPlaceInfoFragment;
 };
 
 const SelectAllStopPlaceStops: FC<SelectAllStopPlaceStopsProps> = ({
@@ -140,6 +140,7 @@ const SelectAllStopPlaceStops: FC<SelectAllStopPlaceStopsProps> = ({
 
 type StopPlaceHeaderProps = StopPlaceHeaderContentProps &
   SelectAllStopPlaceStopsProps;
+
 export type StopPlaceHeaderPublicPropsProps = Omit<
   StopPlaceHeaderProps,
   'implementationProps'

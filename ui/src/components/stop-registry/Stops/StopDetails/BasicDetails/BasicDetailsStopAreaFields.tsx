@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
-import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
+import { AlternativeNames } from '../../../components/AlternativeNames';
 import { DetailRow, LabeledDetail } from '../../Common';
 import {
   getFormattedQuayCodes,

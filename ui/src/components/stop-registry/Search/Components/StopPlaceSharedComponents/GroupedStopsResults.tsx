@@ -1,5 +1,6 @@
 import { SelectorParam } from 'i18next';
 import { ComponentType, FC } from 'react';
+import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { SortStopsBy } from '../../Types';
 import {
   useGroupedResultSelection,
@@ -10,11 +11,10 @@ import { StopPlaceHeaderPublicPropsProps } from './StopPlaceHeader';
 import { StopPlaceSelector } from './StopPlaceSelector';
 import { StopsTable } from './StopsTable';
 import { NoStopsComponentProps } from './types';
-import { FindStopPlaceInfo } from './useFindStopPlaces';
 
 type SearchGroupedStopsResultsProps = {
   readonly groupingField: SortStopsBy;
-  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
+  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfoFragment>;
   readonly translationLabel: SelectorParam;
   readonly HeaderComponent: ComponentType<StopPlaceHeaderPublicPropsProps>;
   readonly NoStopsComponent: ComponentType<NoStopsComponentProps>;

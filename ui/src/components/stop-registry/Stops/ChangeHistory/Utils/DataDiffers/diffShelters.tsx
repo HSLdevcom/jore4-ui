@@ -14,7 +14,7 @@ import {
   diffNestedItems,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
-import { optionalBooleanToUiText } from '../../../Common/utils';
+import { optionalBooleanToUiText } from '../../../Common';
 import { HistoricalStopData } from '../../Types';
 
 function diffShelterVersions(

@@ -1,6 +1,6 @@
-import { FindStopPlaceInfo } from './useFindStopPlaces';
+import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 
 export type NoStopsComponentProps = {
   readonly className?: string;
-  readonly stopPlace: FindStopPlaceInfo;
+  readonly stopPlace: FindStopPlaceInfoFragment;
 };

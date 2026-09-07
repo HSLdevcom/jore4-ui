@@ -15,15 +15,13 @@ import {
 import { mapTerminalTypeToUiName } from '../../../../../utils/i18n';
 import {
   ChangedValue,
+  ExternalLinksList,
   StopsList,
   diffKeyedValues,
+  formatLinks,
   mapNullable,
   normalizeEmptyValue,
 } from '../../../../common/ChangeHistory';
-import {
-  ExternalLinksList,
-  formatLinks,
-} from '../../../../common/ChangeHistory/utils/externalLinks';
 import { TerminalType } from '../../../types/TerminalType';
 
 function getNormalizedAlternativeName(

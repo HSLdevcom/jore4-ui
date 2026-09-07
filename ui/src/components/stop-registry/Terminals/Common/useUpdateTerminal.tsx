@@ -6,11 +6,11 @@ import {
   useUpdateTerminalMutation,
 } from '../../../../generated/graphql';
 import { showDangerToastWithError } from '../../../../utils';
-import { TerminalFormState } from '../Components/BasicDetails/Edit/schema';
-import { TerminalOwnerFormState } from '../Components/OwnerDetails/terminalOwnerSchema';
-import { TerminalValidityFormState } from '../Components/Versions/TerminalValidityFormState';
-import { useTerminalApolloErrorHandler } from '../Utils/terminalErrorHandler';
-import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
+import { TerminalFormState } from '../TerminalDetails/Components/BasicDetails/Edit/schema';
+import { TerminalOwnerFormState } from '../TerminalDetails/Components/OwnerDetails/terminalOwnerSchema';
+import { TerminalValidityFormState } from '../TerminalDetails/Components/Versions/TerminalValidityFormState';
+import { useTerminalApolloErrorHandler } from '../TerminalDetails/Utils/terminalErrorHandler';
+import { getEnrichedParentStopPlace } from './getEnrichedParentStopPlace';
 
 const GQL_UPDATE_TERMINAL = gql`
   mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {

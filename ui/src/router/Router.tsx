@@ -32,15 +32,15 @@ import { RouteVersionsPage } from '../components/LinesAndRoutes/Routes/RouteVers
 import { MainPage } from '../components/main/MainPage';
 import { MapPage } from '../components/Map';
 import {
+  StopAreaChangeHistoryPage,
+  StopAreaDetailsPage,
+  StopChangeHistoryPage,
   StopDetailsPage,
   StopSearchResultPage,
+  StopVersionsPage,
+  TerminalChangeHistoryPage,
+  TerminalDetailsPage,
 } from '../components/stop-registry';
-import { StopAreaChangeHistoryPage } from '../components/stop-registry/StopAreas/ChangeHistory/StopAreaChangeHistoryPage';
-import { StopAreaDetailsPage } from '../components/stop-registry/StopAreas/StopAreaDetails/StopAreaDetailsPage';
-import { StopChangeHistoryPage } from '../components/stop-registry/Stops/ChangeHistory';
-import { StopVersionsPage } from '../components/stop-registry/Stops/Versions';
-import { TerminalChangeHistoryPage } from '../components/stop-registry/Terminals/ChangeHistory/TerminalChangeHistoryPage';
-import { TerminalDetailsPage } from '../components/stop-registry/Terminals/TerminalDetailsPage';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,

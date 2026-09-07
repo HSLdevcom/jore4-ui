@@ -10,7 +10,7 @@ import { LocatorButton } from '../../../common/Buttons';
 import { useShowRoutesOnMap } from '../../../common/hooks';
 import { Row } from '../../../common/LayoutComponents';
 import { StopSearchRow } from '../../components';
-import { SelectAllCheckbox } from '../Components/SelectAllCheckbox';
+import { SelectAllCheckbox } from '../Components';
 import { ResultSelection } from '../Types';
 import { BatchUpdateSelection, areAllStopsSelected } from '../Utils';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';

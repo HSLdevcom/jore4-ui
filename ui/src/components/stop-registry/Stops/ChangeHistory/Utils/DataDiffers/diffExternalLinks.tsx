@@ -2,12 +2,10 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import {
   ChangedValue,
-  diffKeyedValues,
-} from '../../../../../common/ChangeHistory';
-import {
   ExternalLinksList,
+  diffKeyedValues,
   formatLinks,
-} from '../../../../../common/ChangeHistory/utils/externalLinks';
+} from '../../../../../common/ChangeHistory';
 import { HistoricalStopData } from '../../Types';
 
 export function diffStopExternalLinks(

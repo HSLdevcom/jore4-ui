@@ -19,10 +19,9 @@ import {
   diffKeyedValues,
   mapNullable,
 } from '../../../../common/ChangeHistory';
-import { optionalBooleanToUiText } from '../../../Stops/Common/utils';
-import { formatSizedDbItem } from '../../../Stops/StopDetails/InfoSpots/Utils';
-import { formatPurposeForDisplay } from '../../../Stops/StopDetails/InfoSpots/Utils/infoSpotPurposeUtils';
-import { normalizeZoneLabel } from '../../../types/utils';
+import { optionalBooleanToUiText } from '../../../Stops/Common';
+import { normalizeZoneLabel } from '../../../types';
+import { formatPurposeForDisplay, formatSizedDbItem } from '../../InfoSpots';
 
 type FieldValueTuple = readonly [string, string];
 type PosterInfo = {

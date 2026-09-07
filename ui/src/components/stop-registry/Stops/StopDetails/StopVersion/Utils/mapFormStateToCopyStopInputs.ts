@@ -11,6 +11,7 @@ import { parseDate } from '../../../../../../time';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   KnownValueKey,
+  mapCompactOrNull,
   mapDateInputToValidityEnd,
   mapPointToGeoJSON,
   mapPointToStopRegistryGeoJSON,
@@ -19,7 +20,6 @@ import {
 import { StopFormState } from '../../../../../forms/stop';
 import {
   mapAlternativeNames,
-  mapCompactOrNull,
   mapInfoSpotToInput,
   mapQuayToInput,
 } from '../../../../utils';

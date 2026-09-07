@@ -4,7 +4,7 @@ import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { Point } from '../../../../../types';
 import { NullOptionEnum } from '../../../../../utils';
 import { mapIntendedUserToUiName } from '../../../../../utils/i18n';
-import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
+import { InfoSpotPosters } from '../../../components/InfoSpots';
 import { DetailRow, LabeledDetail } from '../../Common';
 import { InfoSpotDetails } from './InfoSpotDetails';
 import { InfoSpotZoneDetails } from './InfoSpotZoneDetails';

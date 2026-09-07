@@ -1,1 +1,1 @@
-export * from '../../../components/ExternalLinks/ExternalLinks';
+export * from './StopExternalLinks';

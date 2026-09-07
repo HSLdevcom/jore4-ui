@@ -17,9 +17,10 @@ import { EnrichedStopPlace, StopPlace } from '../../../../types';
 import {
   AsyncTaskCancelledError,
   getStopPlacesFromQueryResult,
+  mapCompactOrNull,
 } from '../../../../utils';
 import { getEnrichedStopPlace } from '../../StopAreas/Common';
-import { mapCompactOrNull, mapToEnrichedQuay } from '../../utils';
+import { mapToEnrichedQuay } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../Common';
 import { ResultSelection, StopSearchFilters } from '../Types';
 import { SectionedReport } from './SectionedReport';

@@ -14,8 +14,7 @@ import {
 } from '../Common/stopInfoContainerColors';
 import { useStopStateChangeConfirmation } from '../Common/useStopStateChangeConfirmation';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
-import { StopBasicDetailsFormState } from './Edit/schema';
-import { StopBasicDetailsForm } from './Edit/StopBasicDetailsForm';
+import { StopBasicDetailsForm, StopBasicDetailsFormState } from './Edit';
 import { StopStateChangeConfirmationDialog } from './StopStateChangeConfirmationDialog';
 import { useEditStopBasicDetails } from './useEditStopBasicDetails';
 

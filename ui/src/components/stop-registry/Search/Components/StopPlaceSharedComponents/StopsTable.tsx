@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { ComponentType, FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { Visible } from '../../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../../common/Loaders';
 import { PgIdType, ResultSelection } from '../../Types';
@@ -9,7 +10,6 @@ import { LoadingStopsErrorRow } from '../LoadingStopsErrorRow';
 import { SelectableStopSearchResultStopsTable } from '../StopSearchResultStopsTable';
 import { StopPlaceHeaderPublicPropsProps } from './StopPlaceHeader';
 import { NoStopsComponentProps } from './types';
-import { FindStopPlaceInfo } from './useFindStopPlaces';
 import { useGetStopResultById } from './useGetStopResultsById';
 
 const testIds = {
@@ -26,7 +26,7 @@ type StopsTableProps = {
     ids: ReadonlyArray<string>,
   ) => void;
   readonly selection: ResultSelection;
-  readonly stopPlace: FindStopPlaceInfo;
+  readonly stopPlace: FindStopPlaceInfoFragment;
   readonly HeaderComponent: ComponentType<StopPlaceHeaderPublicPropsProps>;
   readonly NoStopsComponent: ComponentType<NoStopsComponentProps>;
 };

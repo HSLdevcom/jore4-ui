@@ -6,7 +6,7 @@ import {
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../utils/i18n';
 import { DetailRow, LabeledDetail, translateStopTypes } from '../../Common';
-import { useGetTimingPlaceLabel } from '../../Queries/useGetTimingPlaceLabel';
+import { useGetTimingPlaceLabel } from '../../Queries';
 
 type StopDetailsSectionProps = {
   readonly stop: StopWithDetails;

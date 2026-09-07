@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { defaultAccessibilityLevel } from '../../../../../utils';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../utils/i18n';
-import { useToggle } from '../../../../common/hooks/useToggle';
+import { useToggle } from '../../../../common/hooks';
 import { AccessibilityLevelDescriptionsDialog } from './AccessibilityLevelDescriptionsDialog';
 
 const testIds = {

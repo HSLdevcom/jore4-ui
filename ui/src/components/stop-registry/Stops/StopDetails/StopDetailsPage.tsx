@@ -12,9 +12,11 @@ import {
 import { Container, Visible } from '../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../common/Loaders';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
-import { HistoricalStopDataProvider } from '../ChangeHistory/Components/HistoricalStopDataProvider';
-import { LatestStopChangeHistoryTable } from '../ChangeHistory/Components/LatestStopChangeHistoryTable';
-import { useGetStopDetails } from '../Queries/useGetStopDetails';
+import {
+  HistoricalStopDataProvider,
+  LatestStopChangeHistoryTable,
+} from '../ChangeHistory/Components';
+import { useGetStopDetails } from '../Queries';
 import { BasicDetailsSection } from './BasicDetails';
 import {
   DetailTabSelector,
@@ -22,9 +24,9 @@ import {
   detailTabs,
 } from './DetailTabSelector';
 import { EditStopValidityButton } from './EditStopValidityButton';
-import { StopExternalLinks } from './ExternalLinks/StopExternalLinks';
+import { StopExternalLinks } from './ExternalLinks';
 import { MirroredQuayDetailsCard } from './HybridStop';
-import { SheltersInfoSpotsSection } from './InfoSpots/SheltersInfoSpots';
+import { SheltersInfoSpotsSection } from './InfoSpots';
 import { LocationDetailsSection } from './LocationDetails';
 import { MaintenanceSection } from './Maintenance';
 import { MeasurementsSection } from './Measurements';
@@ -32,7 +34,7 @@ import { SheltersSection } from './Shelters';
 import { SignageDetailsSection } from './SignageDetails';
 import { StopDetailsVersion } from './StopDetailsVersion';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
-import { StopTitleRow } from './TitleRow/StopTitleRow';
+import { StopTitleRow } from './TitleRow';
 
 const testIds = {
   page: 'StopDetailsPage::page',

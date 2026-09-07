@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
-import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
+import { AlternativeNames } from '../../../components/AlternativeNames';
 import { DetailRow, LabeledDetail } from '../../../Stops/Common';
 import { StopAreaComponentProps } from '../Types';
 

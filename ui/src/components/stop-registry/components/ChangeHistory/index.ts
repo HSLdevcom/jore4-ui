@@ -1,3 +1,5 @@
 export * from './DataDiffFailedToLoadSection';
 export * from './DataDiffSectionLoading';
-export * from './types/PreviousStopPlaceChangeHistoryItem';
+export * from './queries';
+export * from './types';
+export * from './utils';

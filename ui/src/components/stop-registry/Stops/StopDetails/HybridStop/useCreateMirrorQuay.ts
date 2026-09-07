@@ -9,8 +9,8 @@ import {
 import { Operation, useLoader } from '../../../../../redux';
 import { StopWithDetails } from '../../../../../types';
 import { KnownValueKey } from '../../../../../utils';
-import { useGetStopLinkAndDirection } from '../../../../Map/Stops/utils/useGetStopLinkAndDirection';
-import { setMirrorParent } from '../../../utils/mirrorRelation';
+import { useGetStopLinkAndDirection } from '../../../../Map/Stops/utils';
+import { setMirrorParent } from '../../../utils';
 
 type CreateMirrorQuayParams = {
   readonly targetStopPlaceId: string;

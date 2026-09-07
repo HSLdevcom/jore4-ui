@@ -11,7 +11,7 @@ import {
   diffSignageDetails,
   diffStopAreaAndTerminal,
   diffStopExternalLinks,
-} from '.';
+} from './DataDiffers';
 
 type StopChangeSection = {
   readonly title: string;

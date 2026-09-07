@@ -2,11 +2,13 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopSearchRow } from '../../components';
-import { OpenStopResultsOnMapButton } from '../Components/OpenStopResultsOnMapButton';
-import { ResultCountHeader } from '../Components/ResultCountHeader';
-import { ResultsActionMenu } from '../Components/ResultsActionMenu';
-import { SelectAllCheckbox } from '../Components/SelectAllCheckbox';
-import { SortResultsBy } from '../Components/SortResultsBy';
+import {
+  OpenStopResultsOnMapButton,
+  ResultCountHeader,
+  ResultsActionMenu,
+  SelectAllCheckbox,
+  SortResultsBy,
+} from '../Components';
 import {
   ResultSelection,
   SortStopsBy,

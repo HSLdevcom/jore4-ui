@@ -16,7 +16,7 @@ import {
 import {
   optionalBooleanToCustomUiText,
   optionalBooleanToUiText,
-} from '../../../Common/utils';
+} from '../../../Common';
 import { HistoricalStopData } from '../../Types';
 
 export function diffMeasurementDetails(

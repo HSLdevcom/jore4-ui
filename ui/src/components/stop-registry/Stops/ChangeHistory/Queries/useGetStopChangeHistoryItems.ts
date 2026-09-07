@@ -14,10 +14,10 @@ import {
 } from '../../../../common/ChangeHistory';
 import {
   historyItemIsDateRange,
+  sortByChangedTime,
   sortByVersion,
   useSortTiamatHistoryItems,
 } from '../../../utils';
-import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';
 
 const GQL_GET_STOP_CHANGE_HISTORY = gql`
   query GetStopChangeHistory($publicCode: String!) {

@@ -15,9 +15,9 @@ import {
   mapPointToStopRegistryGeoJSON,
   showDangerToastWithError,
 } from '../../../utils';
-import { getEnrichedParentStopPlace } from '../../stop-registry/Terminals/Common/useGetTerminalDetails';
-import { TerminalFormState } from '../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
-import { useTerminalApolloErrorHandler } from '../../stop-registry/Terminals/Utils/terminalErrorHandler';
+import { getEnrichedParentStopPlace } from '../../stop-registry/Terminals/Common';
+import { TerminalFormState } from '../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
+import { useTerminalApolloErrorHandler } from '../../stop-registry/Terminals/TerminalDetails/Utils/terminalErrorHandler';
 
 const GQL_CREATE_TERMINAL = gql`
   mutation CreateTerminal(

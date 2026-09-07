@@ -9,11 +9,11 @@ import {
   SimpleDropdownMenuItem,
 } from '../../../../common/Dropdowns';
 import { ShowOnMap } from '../../../Search/Components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
-import { useUpsertStopArea } from '../../Common';
 import {
   DeleteStopArea,
   useStopAreaDeletion,
-} from '../../Common/DeleteStopArea';
+  useUpsertStopArea,
+} from '../../Common';
 import { CopyStopAreaModal } from '../../Versions/CopyStopArea';
 
 const testIds = {

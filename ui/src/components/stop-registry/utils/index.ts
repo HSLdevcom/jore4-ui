@@ -6,6 +6,6 @@ export * from './mapQuayToInput';
 export * from './mapToEnrichedQuay';
 export * from './mirrorRelation';
 export * from './parseTerminalType';
-export { sortByVersion } from './sortTiamatChangeHistoryItems';
+export * from './sortTiamatChangeHistoryItems';
 export * from './useShowStopAreaOnMap';
 export * from './useSortTiamatHistoryItems';

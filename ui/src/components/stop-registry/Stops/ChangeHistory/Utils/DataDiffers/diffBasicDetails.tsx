@@ -13,8 +13,8 @@ import {
   diffKeyedValues,
   mapNullable,
 } from '../../../../../common/ChangeHistory';
-import { optionalBooleanToUiText } from '../../../Common/utils';
-import { useGetTimingPlaceLabel } from '../../../Queries/useGetTimingPlaceLabel';
+import { optionalBooleanToUiText } from '../../../Common';
+import { useGetTimingPlaceLabel } from '../../../Queries';
 import { HistoricalStopData } from '../../Types';
 
 type TimingPlaceLabelProps = { readonly timingPlaceId: string | null };

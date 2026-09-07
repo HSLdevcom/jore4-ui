@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import { useRemoveStopPointsByQuayRefMutation } from '../../../../../generated/graphql';
-import { useDeleteQuay } from '../../Queries/useDeleteQuay';
+import { useDeleteQuay } from '../../Queries';
 
 const GQL_REMOVE_STOP = gql`
   mutation RemoveStopPointsByQuayRef($ref: String!) {

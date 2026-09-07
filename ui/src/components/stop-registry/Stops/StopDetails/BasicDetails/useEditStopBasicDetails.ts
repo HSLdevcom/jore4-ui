@@ -26,10 +26,10 @@ import {
   patchKeyValues,
   showDangerToast,
 } from '../../../../../utils';
-import { useValidateTimingSettings } from '../../../../Map/Stops/utils/useValidateTimingSettings';
-import { decodeQuayPrivateCodeType } from '../../../utils/decodeQuayPrivateCodeType';
-import { getQuayIdsFromStopExcept } from '../../Queries/useGetStopDetails';
-import { StopBasicDetailsFormState } from './Edit/schema';
+import { useValidateTimingSettings } from '../../../../Map/Stops/utils';
+import { decodeQuayPrivateCodeType } from '../../../utils';
+import { getQuayIdsFromStopExcept } from '../../Queries';
+import { StopBasicDetailsFormState } from './Edit';
 
 type EditRoutesAndLinesParams = {
   readonly stopId: UUID;

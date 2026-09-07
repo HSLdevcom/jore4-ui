@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { mapToShortDate } from '../../../../time';
 import { mapDirectionToSymbol } from '../../../../utils/i18n';
-import { SelectAllCheckbox } from '../Components/SelectAllCheckbox';
+import { SelectAllCheckbox } from '../Components';
 import { ResultSelection } from '../Types';
 import { BatchUpdateSelection, areAllStopsSelected } from '../Utils';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';

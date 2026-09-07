@@ -1,0 +1,22 @@
+mutation InsertQuayIntoStopPlace(
+  $stopPlaceId: String!
+  $quayInput: stop_registry_QuayInput!
+) {
+  stop_registry {
+    mutateStopPlace(StopPlace: { id: $stopPlaceId, quays: [$quayInput] }) {
+      id
+      version
+
+      quays {
+        id
+        version
+
+        # Get keyValues to match the inserted Quay based on the 'imported-id'
+        keyValues {
+          key
+          values
+        }
+      }
+    }
+  }
+}

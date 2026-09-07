@@ -4,7 +4,7 @@ import { useUpdateStopPlaceMutation } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { showDangerToast } from '../../../../../utils';
 import { omitTypeName } from '../../../utils';
-import { getQuayIdsFromStopExcept } from '../../Queries/useGetStopDetails';
+import { getQuayIdsFromStopExcept } from '../../Queries';
 import { SignageDetailsFormState } from './schema';
 
 type EditTiamatParams = {

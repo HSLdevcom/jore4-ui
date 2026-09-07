@@ -17,8 +17,11 @@ import {
   useAppAction,
   useAppSelector,
 } from '../../../redux';
-import { ResultSelection, StopSearchFilters } from '../../stop-registry';
-import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/Search/Common';
+import {
+  ResultSelection,
+  StopSearchFilters,
+  filtersAndResultSelectionToQueryVariables,
+} from '../../stop-registry/Search/Common';
 import { DisplayedRouteParams } from '../Types';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 

@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router';
+import { FindStopPlaceInfoFragment } from '../../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { FindStopPlaceInfo } from '../Components/StopPlaceSharedComponents/useFindStopPlaces';
 
 const testIds = {
   noStopsInTerminal: 'TerminalSearch:noStopsText',
@@ -12,7 +12,7 @@ const testIds = {
 };
 
 type TerminalSearchNoStopsProps = {
-  readonly stopPlace: FindStopPlaceInfo;
+  readonly stopPlace: FindStopPlaceInfoFragment;
 };
 
 export const TerminalSearchNoStops: FC<TerminalSearchNoStopsProps> = ({

@@ -10,7 +10,7 @@ import { Pagination } from '../../../common/Pagination';
 import {
   useGetStopPlaceChangeHistory,
   useGetTodaysNameForStopPlace,
-} from '../../components/ChangeHistory/queries';
+} from '../../components/ChangeHistory';
 import {
   TerminalChangeHistoryPageTitleRow,
   TerminalChangeHistoryTable,

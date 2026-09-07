@@ -32,7 +32,7 @@ import {
   useTypedRouterState,
 } from '../../../common/hooks/typedRouterState';
 import { SimpleRecord } from '../../../common/hooks/typedRouterState/types';
-import { allKnownPosterSizes } from '../../Stops/StopDetails/InfoSpots/Types';
+import { allKnownPosterSizes } from '../../components/InfoSpots';
 import {
   KnownStopIds,
   ResultSelection,

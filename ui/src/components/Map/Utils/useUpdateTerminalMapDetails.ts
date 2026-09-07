@@ -16,7 +16,7 @@ import {
   useEditMembersOfTerminal,
   useUpdateTerminal,
 } from '../../stop-registry/Terminals/Common';
-import { TerminalFormState } from '../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
+import { TerminalFormState } from '../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
 
 type UpdateTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;

@@ -4,9 +4,12 @@ import { useFormContext } from 'react-hook-form';
 import { AddNewButton, SimpleButton } from '../../../../../common/Buttons';
 import { InputField } from '../../../../../common/Inputs';
 import { Row } from '../../../../../common/LayoutComponents';
-import { PositionMoveControls } from '../PositionControls';
-import { InfoSpotsFormState } from '../Types';
-import { PurposeFormFragment, SizeFormFragment } from './FormFragments';
+import {
+  InfoSpotsFormState,
+  PositionMoveControls,
+  PurposeFormFragment,
+  SizeFormFragment,
+} from '../../../../components/InfoSpots';
 
 const testIds = {
   addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',

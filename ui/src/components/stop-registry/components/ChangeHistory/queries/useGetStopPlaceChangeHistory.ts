@@ -11,8 +11,11 @@ import {
   ChangeHistorySortingInfo,
   GetUserNameById,
 } from '../../../../common/ChangeHistory';
-import { sortByVersion, useSortTiamatHistoryItems } from '../../../utils';
-import { sortByChangedTime } from '../../../utils/sortTiamatChangeHistoryItems';
+import {
+  sortByChangedTime,
+  sortByVersion,
+  useSortTiamatHistoryItems,
+} from '../../../utils';
 
 const GQL_GET_STOP_PLACE_CHANGE_HISTORY_QUERY = gql`
   query GetStopPlaceChangeHistory($privateCode: String!) {

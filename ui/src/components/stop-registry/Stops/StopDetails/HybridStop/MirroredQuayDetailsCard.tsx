@@ -11,7 +11,7 @@ import {
   useInfoContainerControls,
 } from '../../../../common/InfoContainer';
 import { ConfirmationDialog } from '../../../../common/Modals';
-import { MirroredQuayDetails } from '../../Queries/useGetStopDetails';
+import { MirroredQuayDetails } from '../../Queries';
 import { StopAreaDetailsSection } from '../BasicDetails/BasicDetailsStopAreaFields';
 import { StopDetailsSection } from '../BasicDetails/BasicDetailsStopFields';
 import { StopStateChangeConfirmationDialog } from '../BasicDetails/StopStateChangeConfirmationDialog';

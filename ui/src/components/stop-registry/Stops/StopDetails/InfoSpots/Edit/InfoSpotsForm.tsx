@@ -11,12 +11,13 @@ import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { InfoSpotsFormSchema, InfoSpotsFormState } from '../Types';
 import {
+  InfoSpotsFormSchema,
+  InfoSpotsFormState,
   defaultInfoSpotValues,
   getInfoSpotLabel,
   mapInfoSpotDataToFormState,
-} from '../Utils';
+} from '../../../../components/InfoSpots';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
 
 const testIds = {

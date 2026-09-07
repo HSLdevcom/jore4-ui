@@ -1,12 +1,12 @@
 import { SelectorParam } from 'i18next';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { StopGroupSelector, StopGroupSelectorItem } from '../StopGroupSelector';
-import { FindStopPlaceInfo } from './useFindStopPlaces';
 
 type StopPlaceSelectorProps = {
   readonly className?: string;
-  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
+  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfoFragment>;
   readonly translationLabel: SelectorParam;
 };
 

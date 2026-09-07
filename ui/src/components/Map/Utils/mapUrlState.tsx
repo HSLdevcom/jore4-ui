@@ -29,7 +29,7 @@ import {
   defaultFilters,
   defaultResultSelection,
   selectionStateValues,
-} from '../../stop-registry/Search/Types';
+} from '../../stop-registry/Search/Common';
 import {
   filterDeserializers,
   filterSerializers,

@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useGetTodaysNameForStopPlaceQuery } from '../../../../../generated/graphql';
-import { getNamesFromStopPlace } from '../../../Stops/ChangeHistory/Queries';
-import { TodaysName } from '../../../Stops/ChangeHistory/Types';
+import { TodaysName } from '../types';
+import { getNamesFromStopPlace } from '../utils';
 
 const GQL_GET_TODAYS_NAME_FOR_STOP_PLACE = gql`
   query GetTodaysNameForStopPlace($privateCode: String!, $today: String!) {

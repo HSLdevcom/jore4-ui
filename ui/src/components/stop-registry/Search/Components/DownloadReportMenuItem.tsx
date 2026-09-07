@@ -11,7 +11,7 @@ import {
   useRegisterAsyncTask,
 } from '../../../common/AsyncTaskList';
 import { SimpleDropdownMenuItem } from '../../../common/Dropdowns';
-import { GenerateReport } from '../CSVExport/types';
+import { GenerateReport } from '../CSVExport';
 import { ResultSelection, StopSearchFilters } from '../Types';
 
 const testIds = {

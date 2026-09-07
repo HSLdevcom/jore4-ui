@@ -8,7 +8,7 @@ import {
   getAddedInfoSpotHeading,
   getRemovedInfoSpotHeading,
   getUpdatedInfoSpotHeading,
-} from '../../../../components/ChangeHistory/utils/diffInfoSpotsCommon';
+} from '../../../../components/ChangeHistory';
 import { HistoricalStopData } from '../../Types';
 
 export function diffInfoSpots(

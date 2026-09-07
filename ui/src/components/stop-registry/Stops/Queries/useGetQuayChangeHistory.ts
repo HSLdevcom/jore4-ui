@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import {
   StopsDatabaseQuayBoolExp,
   useGetLatestQuayChangeQuery,
-  useGetQuayChangeHistoryQuery,
 } from '../../../../generated/graphql';
 
 const GQL_GET_QUAY_CHANGE_HISTORY = gql`
@@ -34,19 +33,6 @@ const GQL_GET_LATEST_QUAY_CHANGE = gql`
     }
   }
 `;
-
-export function useGetQuayChangeHistory(where: StopsDatabaseQuayBoolExp) {
-  const { data, ...rest } = useGetQuayChangeHistoryQuery({
-    variables: { where },
-  });
-
-  const quayVersions = data?.stopsDb?.quay ?? [];
-
-  return {
-    ...rest,
-    quayVersions,
-  };
-}
 
 export function useGetLatestQuayChange(where: StopsDatabaseQuayBoolExp) {
   const { data, ...rest } = useGetLatestQuayChangeQuery({

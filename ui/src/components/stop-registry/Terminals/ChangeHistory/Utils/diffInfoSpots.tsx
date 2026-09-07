@@ -10,7 +10,7 @@ import {
   getAddedInfoSpotHeading,
   getRemovedInfoSpotHeading,
   getUpdatedInfoSpotHeading,
-} from '../../../components/ChangeHistory/utils/diffInfoSpotsCommon';
+} from '../../../components/ChangeHistory';
 import { enrichInfoSpot } from '../../../utils';
 
 export function diffInfoSpots(

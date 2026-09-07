@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
+import { formatSizedDbItem } from '../../../components/InfoSpots';
 import { LabeledDetail, optionalBooleanToUiText } from '../../Common';
-import { formatSizedDbItem } from './Utils';
 
 const testIds = {
   backlight: 'InfoSpotDetails::backlight',

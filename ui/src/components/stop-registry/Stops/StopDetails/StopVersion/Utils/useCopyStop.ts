@@ -7,7 +7,7 @@ import {
   useUpdateInfoSpotMutation,
 } from '../../../../../../generated/graphql';
 import { KnownValueKey, findKeyValue } from '../../../../../../utils';
-import { useDeleteQuay } from '../../../Queries/useDeleteQuay';
+import { useDeleteQuay } from '../../../Queries';
 import {
   FailedToResolveNewShelters,
   StopPlaceInsertFailed,

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StopPlaceSearchResults } from '../Components/StopPlaceSharedComponents/StopPlaceSearchResults';
+import { StopPlaceSearchResults } from '../Components';
 import { SortStopsBy } from '../Types';
 import { TerminalHeader } from './TerminalHeader';
 import { TerminalSearchNoStops } from './TerminalSearchNoStops';

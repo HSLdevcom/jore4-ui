@@ -2,16 +2,14 @@ import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PagingInfo } from '../../../../../types';
 import {
+  CountAndSortingRowProps,
   PgIdType,
   SortStopsBy,
   SortingInfo,
   StopSearchFilters,
+  commonSortingFields,
   defaultFilters,
 } from '../../Types';
-import {
-  CountAndSortingRowProps,
-  commonSortingFields,
-} from '../../Types/CountAndSortingRow';
 import { useStopSearchRouterState } from '../../Utils';
 import { OpenStopResultsOnMapButton } from '../OpenStopResultsOnMapButton';
 import { ResultCountHeader } from '../ResultCountHeader';

@@ -14,7 +14,7 @@ import {
   showDangerToast,
 } from '../../../../../utils';
 import { mapPrivateCodeToInput, omitTypeName } from '../../../utils';
-import { getQuayIdsFromStopExcept } from '../../Queries/useGetStopDetails';
+import { getQuayIdsFromStopExcept } from '../../Queries';
 import { LocationDetailsFormState } from './schema';
 
 type EditTiamatParams = {

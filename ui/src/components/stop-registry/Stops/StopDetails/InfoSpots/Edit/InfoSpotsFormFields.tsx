@@ -16,11 +16,15 @@ import {
 } from '../../../../../common/Dropdowns';
 import { InputField } from '../../../../../common/Inputs';
 import { Column, Row } from '../../../../../common/LayoutComponents';
+import {
+  InfoSpotsFormState,
+  PositionMoveControls,
+  PosterState,
+  SizeFormFragment,
+  defaultInfoSpotPosterValues,
+  mapStringToPurpose,
+} from '../../../../components/InfoSpots';
 import { ZoneLabel } from '../../../../types';
-import { PositionMoveControls } from '../PositionControls';
-import { InfoSpotsFormState, PosterState } from '../Types';
-import { defaultInfoSpotPosterValues, mapStringToPurpose } from '../Utils';
-import { SizeFormFragment } from './FormFragments/SizeFormFragment';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
 
 const testIds = {

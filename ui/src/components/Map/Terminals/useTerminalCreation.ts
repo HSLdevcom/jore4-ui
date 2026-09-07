@@ -10,7 +10,7 @@ import {
   useLoader,
 } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
-import { TerminalFormState } from '../../stop-registry/Terminals/Components/BasicDetails/Edit/schema';
+import { TerminalFormState } from '../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
 import { useEnsureMapEntityTypeVisible } from '../Utils/useEnsureMapEntityTypeVisible';
 import { useSetMapObservationDate } from '../Utils/useSetObservationDate';
 import { useCreateTerminal } from './useCreateTerminal';

@@ -8,10 +8,10 @@ import {
   StopRegistryStopPlaceOrganisationRefInput,
 } from '../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../types';
+import { mapCompactOrNull } from '../../../../utils';
 import {
   mapAccessibilityAssessmentToInput,
   mapAlternativeNames,
-  mapCompactOrNull,
   mapGeoJsonToInput,
   mapPrivateCodeToInput,
   mapQuayToInput,

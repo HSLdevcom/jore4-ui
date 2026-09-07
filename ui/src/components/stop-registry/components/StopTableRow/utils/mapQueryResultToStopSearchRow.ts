@@ -18,10 +18,10 @@ import {
   getStopPlacesFromQueryResult,
   isValidGeoJSONPoint,
   log,
+  parseStopRegistryTransportMode,
   parseStopRegistryTransportModeJsonArray,
   requireValue,
 } from '../../../../../utils';
-import { parseStopRegistryTransportMode } from '../../../../../utils/stop-registry/transportMode';
 import { StopSearchRow } from '../types';
 
 function parsePriority(value: unknown): Priority {

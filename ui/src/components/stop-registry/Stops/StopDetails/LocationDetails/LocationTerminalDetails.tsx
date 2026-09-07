@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
-import { getEnrichedParentStopPlace } from '../../../Terminals/Common/useGetTerminalDetails';
-import { getMemberStops } from '../../../Terminals/Components/LocationDetails/LocationDetailsViewCard';
+import { getEnrichedParentStopPlace } from '../../../Terminals/Common';
+import { getMemberStops } from '../../../Terminals/TerminalDetails/Components/LocationDetails/LocationDetailsViewCard';
 import { DetailRow, LabeledDetail } from '../../Common';
 
 type LocationTerminalDetailsProps = {

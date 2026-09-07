@@ -5,7 +5,7 @@ import { useNavigateBackSafely } from '../../../../../utils';
 import { CloseIconButton } from '../../../../common/Buttons';
 import { PageTitle } from '../../../../common/Jore';
 import { Row } from '../../../../common/LayoutComponents';
-import { TodaysName } from '../../../Stops/ChangeHistory/Types';
+import { TodaysName } from '../../../components/ChangeHistory';
 
 const testIds = {
   returnButton: 'StopAreaChangeHistoryPage::ReturnButton',

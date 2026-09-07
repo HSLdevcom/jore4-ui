@@ -1,4 +1,4 @@
 export * from './useUpdateTerminal';
-export * from './useGetTerminalDetails';
+export * from './getEnrichedParentStopPlace';
 export * from './SelectTerminalMemberStopsDropdown';
 export * from './useEditMembersOfTerminal';

@@ -1,6 +1,9 @@
 import omit from 'lodash/omit';
 import { areEqual } from '../../../utils';
-import { StopSearchFilters, defaultFilters } from '../../stop-registry';
+import {
+  StopSearchFilters,
+  defaultFilters,
+} from '../../stop-registry/Search/Common';
 import { useMapUrlStateContext } from './mapUrlState';
 
 const defaultFiltersWithoutObservationDate = omit(

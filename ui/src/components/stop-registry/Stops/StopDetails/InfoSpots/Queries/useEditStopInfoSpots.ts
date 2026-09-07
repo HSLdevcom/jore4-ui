@@ -13,8 +13,11 @@ import {
   patchKeyValues,
   showDangerToast,
 } from '../../../../../../utils';
-import { InfoSpotState, InfoSpotsFormState } from '../Types';
-import { mapPurposeToString } from '../Utils';
+import {
+  InfoSpotState,
+  InfoSpotsFormState,
+  mapPurposeToString,
+} from '../../../../components/InfoSpots';
 
 const GQL_UPDATE_INFO_SPOTS = gql`
   mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {

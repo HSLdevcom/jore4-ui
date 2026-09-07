@@ -8,8 +8,6 @@ import { mapToSqlLikeValue } from '../../../../../utils';
 import { StopSearchFilters } from '../../Types';
 import { useNumericSortingCollator } from '../../Utils';
 
-export type FindStopPlaceInfo = FindStopPlaceInfoFragment;
-
 const GQL_FIND_STOP_PLACE_INFO_FRAGMENT = gql`
   fragment FindStopPlaceInfo on stops_database_stop_place_newest_version {
     id
@@ -80,13 +78,13 @@ export function useFindStopPlaces(
 
   const rawStopPlaces = data?.stops_database?.stopPlaces;
 
-  const stopPlaces: ReadonlyArray<FindStopPlaceInfo> = useMemo(() => {
+  const stopPlaces: ReadonlyArray<FindStopPlaceInfoFragment> = useMemo(() => {
     if (!rawStopPlaces) {
       return [];
     }
 
     return rawStopPlaces.toSorted(
-      (a: FindStopPlaceInfo, b: FindStopPlaceInfo) =>
+      (a: FindStopPlaceInfoFragment, b: FindStopPlaceInfoFragment) =>
         labelSortCollator.compare(a.private_code ?? '', b.private_code ?? ''),
     );
   }, [rawStopPlaces, labelSortCollator]);

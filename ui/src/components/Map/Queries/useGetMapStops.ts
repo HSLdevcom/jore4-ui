@@ -10,9 +10,11 @@ import { Operation, Viewport } from '../../../redux';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';
-import { parseStopRegistryTransportModeJsonArray } from '../../../utils';
+import {
+  mapCompactOrNull,
+  parseStopRegistryTransportModeJsonArray,
+} from '../../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/Search/Common';
-import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../Types';
 import { buildWithinViewportGqlGeometryFilter } from '../Utils/buildWithinViewportGqlGeometryFilter';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';

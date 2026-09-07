@@ -6,7 +6,7 @@ import {
   SelectMemberStopsDropdownProps,
   sortByPublicCode,
 } from '../../components/SelectMemberStops';
-import { SelectedStop } from '../../components/SelectMemberStops/common/schema';
+import { SelectedStop } from '../../components/SelectMemberStops/common';
 
 const testIds = {
   warningText: 'SelectTerminalMemberStopsDropdown::warningText',

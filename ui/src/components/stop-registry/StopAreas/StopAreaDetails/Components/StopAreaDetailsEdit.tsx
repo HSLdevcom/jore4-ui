@@ -18,7 +18,7 @@ import {
   ValidityPeriodForm,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
-import { AlternativeNamesEdit } from '../../../components/AlternativeNames/AlternativeNamesEdit';
+import { AlternativeNamesEdit } from '../../../components/AlternativeNames';
 import {
   StopAreaFormState as FormState,
   StopAreaFormState,

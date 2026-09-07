@@ -28,14 +28,18 @@ import {
   setViewPortAction,
   useAppDispatch,
 } from '../../../../redux';
-import { ValidGeoJsonPoint, isValidGeoJSONPoint, log } from '../../../../utils';
+import {
+  ValidGeoJsonPoint,
+  isValidGeoJSONPoint,
+  log,
+  mapCompactOrNull,
+} from '../../../../utils';
 import { useNavigateToMap } from '../../../common/hooks';
 import {
   ViewPortParams as UrlViewPort,
   defaultViewPortParams as defaultUrlViewPortParams,
 } from '../../../Map/Types';
 import { StopSearchRow } from '../../components';
-import { mapCompactOrNull } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../Common';
 import { ResultSelection, StopSearchFilters } from '../Types';
 

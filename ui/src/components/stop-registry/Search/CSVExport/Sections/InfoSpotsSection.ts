@@ -6,7 +6,7 @@ import { PosterWithSortOrder, StopPlaceInfoSpots } from '../../../../../types';
 import { getPointPosition } from '../../../../../utils';
 import { mapZoneLabelToUiName } from '../../../../../utils/i18n';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
-import { formatSizedDbItem } from '../../../Stops/StopDetails/InfoSpots/Utils';
+import { formatSizedDbItem } from '../../../components/InfoSpots';
 import { normalizeZoneLabel } from '../../../types';
 import {
   EnrichedQuayWithTimingPlace,

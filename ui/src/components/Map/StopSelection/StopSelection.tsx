@@ -10,7 +10,7 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { IconButton } from '../../common/Buttons';
-import { hasMeaningfulFilters } from '../../stop-registry';
+import { hasMeaningfulFilters } from '../../stop-registry/Search/Common';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { StopSelectionPanel } from './StopSelectionPanel';
 

@@ -13,17 +13,17 @@ import {
   InfoContainer,
   useInfoContainerControls,
 } from '../../../../common/InfoContainer';
+import {
+  InfoSpotsFormState,
+  defaultInfoSpotValues,
+  getInfoSpotLabel,
+  mapInfoSpotDataToFormState,
+} from '../../../components/InfoSpots';
 import { EmptyListHeaderButtons } from '../Common/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../Common/stopInfoContainerColors';
 import { InfoSpotsForm, InfoSpotsFormRef } from './Edit/InfoSpotsForm';
 import { InfoSpotsViewList } from './InfoSpotsViewList';
 import { useEditStopInfoSpots } from './Queries';
-import { InfoSpotsFormState } from './Types';
-import {
-  defaultInfoSpotValues,
-  getInfoSpotLabel,
-  mapInfoSpotDataToFormState,
-} from './Utils';
 
 const testIds = {
   addInfoSpot: 'InfoSpotsSection::addInfoSpot',

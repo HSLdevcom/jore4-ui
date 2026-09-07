@@ -12,10 +12,7 @@ import {
   StopsDatabaseStopPlaceNewestVersionBoolExp,
   useGetStopDetailsQuery,
 } from '../../../../generated/graphql';
-import {
-  useObservationDateQueryParam,
-  useUrlQuery,
-} from '../../../../hooks/urlQuery';
+import { useObservationDateQueryParam, useUrlQuery } from '../../../../hooks';
 import {
   EnrichedQuay,
   EnrichedStopPlace,
@@ -36,8 +33,11 @@ import {
   GetUserNameById,
   useGetUserNames,
 } from '../../../common/ChangeHistory';
-import { mapToEnrichedQuay } from '../../utils';
-import { getMirrorParentId, isMirrorChild } from '../../utils/mirrorRelation';
+import {
+  getMirrorParentId,
+  isMirrorChild,
+  mapToEnrichedQuay,
+} from '../../utils';
 import { useGetLatestQuayChange } from './useGetQuayChangeHistory';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`

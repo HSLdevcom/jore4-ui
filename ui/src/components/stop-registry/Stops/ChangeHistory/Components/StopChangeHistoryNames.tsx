@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TodaysName } from '../Types';
+import { TodaysName } from '../../../components/ChangeHistory';
 
 const testIds = {
   names: 'StopChangeHistoryPage::Names',

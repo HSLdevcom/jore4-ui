@@ -7,7 +7,7 @@ import { DateInput } from '../../../../common/Inputs';
 import { Row } from '../../../../common/LayoutComponents';
 import { Modal, ModalBody, NewModalFooter } from '../../../../common/Modals';
 import { SelectStopDropdown } from '../../../components/SelectMemberStops';
-import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
+import { SelectedStop } from '../../../components/SelectMemberStops/common';
 import { useGetStopVersions } from '../../../Stops/Versions/Queries/useGetStopVersions';
 import { StopVersion } from '../../../Stops/Versions/Types';
 import { useGetStopAreaVersions } from '../../Versions/Queries/useGetStopAreaVersions';

@@ -19,8 +19,8 @@ import {
   diffShelters,
   diffSignageDetails,
   diffStopAreaAndTerminal,
+  diffStopExternalLinks,
 } from '../Utils';
-import { diffStopExternalLinks } from '../Utils/DataDiffers/diffExternalLinks';
 import {
   useHistoricalStopVersion,
   useRefetchFailedHistoricalStopVersions,

@@ -1,5 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { Visible } from '../../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../../common/Loaders';
 import { Pagination } from '../../../../common/Pagination';
@@ -8,7 +9,6 @@ import { useResultSelection, useStopSearchRouterState } from '../../Utils';
 import { LoadingStopsErrorRow } from '../LoadingStopsErrorRow';
 import { SelectableStopSearchResultStopsTable } from '../StopSearchResultStopsTable';
 import { NonGroupedCountAndSortingRow } from './StopPlaceCountAndSortingRow';
-import { FindStopPlaceInfo } from './useFindStopPlaces';
 import { useStopSearchByStopPlacesResults } from './useStopSearchByStopPlacesResults';
 
 const testIds = {
@@ -16,7 +16,7 @@ const testIds = {
 };
 
 type NongroupedStopsResults = {
-  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
+  readonly stopPlaces: ReadonlyArray<FindStopPlaceInfoFragment>;
 };
 
 export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({

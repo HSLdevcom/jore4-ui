@@ -6,7 +6,7 @@ import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import { PageTitle } from '../../../../common/Jore';
 import { StopTransportModeIcon } from '../../../components';
-import { MirroredQuayDetails } from '../../Queries/useGetStopDetails';
+import { MirroredQuayDetails } from '../../Queries';
 import { ExtraActions } from './ExtraActions';
 import { OpenOnMapButton } from './OpenOnMapButton';
 
