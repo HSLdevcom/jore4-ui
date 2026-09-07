@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { BaseChangeHistoryItemDetails } from './types';
+import { BaseChangeHistoryItemDetails } from './Types';
 
 const testIds = { comment: 'ChangeHistory::SectionHeader::VersionComment' };
 

@@ -5,7 +5,7 @@ import { Path, routeDetails } from '../../../../../../router/routeDetails';
 import {
   ErrorLoadingState,
   LoadingState,
-} from '../../../../../common/ChangeHistory/latest';
+} from '../../../../../common/ChangeHistory/Latest';
 import { useGetLatestLineChangeHistory } from '../../Queries';
 import { findPreviousLineHistoryItemVersion } from '../../Utils';
 import { LatestLineChangeHistoryItem } from './LatestLineChangeHistoryItem';

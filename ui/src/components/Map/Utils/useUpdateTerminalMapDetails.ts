@@ -11,12 +11,12 @@ import {
   patchAlternativeNames,
   patchKeyValues,
 } from '../../../utils';
-import { SelectedStop } from '../../stop-registry/components/SelectMemberStops/common/schema';
+import { SelectedStop } from '../../StopRegistry/Components/SelectMemberStops/common/schema';
 import {
   useEditMembersOfTerminal,
   useUpdateTerminal,
-} from '../../stop-registry/Terminals/Common';
-import { TerminalFormState } from '../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
+} from '../../StopRegistry/Terminals/Common';
+import { TerminalFormState } from '../../StopRegistry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
 
 type UpdateTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;

@@ -4,7 +4,7 @@ import { useMap } from 'react-map-gl/maplibre';
 import { EnrichedParentStopPlace } from '../../../types';
 import { getGeometryPoint } from '../../../utils';
 import { ConfirmationDialog } from '../../common/Modals';
-import { TerminalFormState } from '../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
+import { TerminalFormState } from '../../StopRegistry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
 import { useTerminalEdit } from './useTerminalEdit';
 
 type EditTerminalProps = {

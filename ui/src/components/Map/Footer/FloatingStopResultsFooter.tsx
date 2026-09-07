@@ -9,7 +9,7 @@ import {
   defaultFilters,
   defaultResultSelection,
   filtersAndResultSelectionToQueryVariables,
-} from '../../stop-registry/Search/Common';
+} from '../../StopRegistry/Search/Common';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { FloatingFooter } from './FloatingFooter';
 

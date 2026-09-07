@@ -2,7 +2,7 @@ import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedStopPlace } from '../../../../types';
 import { getGeometryPoint, mapPointToGeoJSON } from '../../../../utils';
-import { StopAreaFormState } from '../../../stop-registry/StopAreas/Common';
+import { StopAreaFormState } from '../../../StopRegistry/StopAreas/Common';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
 import { useGetNextPrivateCode } from '../../Utils/useGetNextPrivateCode';

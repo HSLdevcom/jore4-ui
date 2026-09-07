@@ -3,7 +3,7 @@ import { Priority } from '../../../types/enums';
 import {
   ResultSelection,
   StopSearchFilters,
-} from '../../stop-registry/Search/Common';
+} from '../../StopRegistry/Search/Common';
 
 export type DisplayedRouteParams = {
   readonly lineLabel: string | null;

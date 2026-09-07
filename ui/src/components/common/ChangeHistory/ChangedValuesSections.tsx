@@ -8,7 +8,7 @@ import {
 } from './ChangedValuesWithHeaderRow';
 import { NoChangedValuesWithHeaderRow } from './NoChangedValuesWithHeaderRow';
 import { OptionalSimulatedEndOfTableBorder } from './OptionalSimulatedEndOfTableBorder';
-import { BaseChangeHistoryItemDetails, ChangedValue } from './types';
+import { BaseChangeHistoryItemDetails, ChangedValue } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
 type ChangedValueSection<HistoricalDataT> = {

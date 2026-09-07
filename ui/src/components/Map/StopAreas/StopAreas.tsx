@@ -23,8 +23,8 @@ import {
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
-import { useUpsertStopArea } from '../../stop-registry/StopAreas/Common';
-import { useGetStopPlaceDetailsById } from '../../stop-registry/StopAreas/StopAreaDetails/useGetStopAreaDetails';
+import { useUpsertStopArea } from '../../StopRegistry/StopAreas/Common';
+import { useGetStopPlaceDetailsById } from '../../StopRegistry/StopAreas/StopAreaDetails/useGetStopAreaDetails';
 import { EditStopAreaLayerRef, StopAreasRef } from '../refTypes';
 import { MapStopArea } from '../Types';
 import { useMapViewState } from '../Utils/useMapViewState';

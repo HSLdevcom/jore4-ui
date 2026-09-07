@@ -14,7 +14,7 @@ import {
   mapCompactOrNull,
   parseStopRegistryTransportModeJsonArray,
 } from '../../../utils';
-import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/Search/Common';
+import { filtersAndResultSelectionToQueryVariables } from '../../StopRegistry/Search/Common';
 import { MapStop } from '../Types';
 import { buildWithinViewportGqlGeometryFilter } from '../Utils/buildWithinViewportGqlGeometryFilter';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';

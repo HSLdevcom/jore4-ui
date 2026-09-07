@@ -40,7 +40,7 @@ import {
   StopVersionsPage,
   TerminalChangeHistoryPage,
   TerminalDetailsPage,
-} from '../components/stop-registry';
+} from '../components/StopRegistry';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,

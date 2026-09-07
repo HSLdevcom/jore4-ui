@@ -21,7 +21,7 @@ import {
   ResultSelection,
   StopSearchFilters,
   filtersAndResultSelectionToQueryVariables,
-} from '../../stop-registry/Search/Common';
+} from '../../StopRegistry/Search/Common';
 import { DisplayedRouteParams } from '../Types';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 

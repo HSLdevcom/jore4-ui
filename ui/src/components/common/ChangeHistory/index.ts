@@ -1,5 +1,5 @@
-export * from './types';
-export * from './utils';
+export * from './Types';
+export * from './Utils';
 export * from './ChangedValuesSections';
 export * from './ChangeHistoryItemSectionHeaderRow';
 export * from './ChangeHistoryTable';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Path, routeDetails } from '../../../../../../router/routeDetails';
-import { LatestChangeHistoryItem } from '../../../../../common/ChangeHistory/latest';
+import { LatestChangeHistoryItem } from '../../../../../common/ChangeHistory/Latest';
 import { LineChangeHistoryItem, LineData } from '../../Types';
 import { diffLine } from '../../Utils';
 

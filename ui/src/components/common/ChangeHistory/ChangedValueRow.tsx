@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { ChangedValueCell } from './ChangedValueCell';
-import { ChangedValue } from './types';
+import { ChangedValue } from './Types';
 
 const testIds = {
   dataRow: (testId: string, field: string) =>

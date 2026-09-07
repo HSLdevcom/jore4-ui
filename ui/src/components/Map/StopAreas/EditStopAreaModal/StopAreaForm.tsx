@@ -13,7 +13,7 @@ import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlo
 import {
   StopAreaFormState,
   stopAreaFormSchema,
-} from '../../../stop-registry/StopAreas/Common';
+} from '../../../StopRegistry/StopAreas/Common';
 import { StopAreaNames } from './StopAreaNames';
 import { TransportationModeField } from './TransportationModeFormField';
 

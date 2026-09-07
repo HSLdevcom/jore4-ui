@@ -31,7 +31,7 @@ import {
   StopAreaFormState,
   useStopAreaDeletion,
   useUpsertStopArea,
-} from '../../stop-registry/StopAreas/Common';
+} from '../../StopRegistry/StopAreas/Common';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { useEnsureMapEntityTypeVisible } from '../Utils/useEnsureMapEntityTypeVisible';
 import { useEnsureStopVehicleModeVisible } from '../Utils/useEnsureStopVehicleModeVisible';

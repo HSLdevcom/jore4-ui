@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { selectMapStopSelection, useAppSelector } from '../../../redux';
 import { SlimDropDownMenu } from '../../common/Dropdowns';
-import { ResultSelection } from '../../stop-registry/Search/Common';
+import { ResultSelection } from '../../StopRegistry/Search/Common';
 import {
   EquipmentReportMenuItem,
   InfoSpotReportReportMenuItem,
-} from '../../stop-registry/Search/Components/ResultsActionMenuItems';
+} from '../../StopRegistry/Search/Components/ResultsActionMenuItems';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
 import { StopSelectionListing } from './StopSelectionListing';
 

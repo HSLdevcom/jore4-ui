@@ -2,7 +2,7 @@ import { FC } from 'react';
 import {
   ErrorLoadingState,
   LoadingState,
-} from '../../../../../common/ChangeHistory/latest';
+} from '../../../../../common/ChangeHistory/Latest';
 import { useGetLineChangeHistoryItemData } from '../../Queries';
 import {
   LineChangeHistoryItem,

@@ -29,11 +29,11 @@ import {
   defaultFilters,
   defaultResultSelection,
   selectionStateValues,
-} from '../../stop-registry/Search/Common';
+} from '../../StopRegistry/Search/Common';
 import {
   filterDeserializers,
   filterSerializers,
-} from '../../stop-registry/Search/Utils/useStopSearchRouterState';
+} from '../../StopRegistry/Search/Utils/useStopSearchRouterState';
 import {
   DisplayedRouteParams,
   MapUrlState,

@@ -1,8 +1,8 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../types';
-import { TerminalFormState } from '../../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
-import { mapTerminalDataToFormState } from '../../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/TerminalDetailsEdit';
+import { TerminalFormState } from '../../../StopRegistry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
+import { mapTerminalDataToFormState } from '../../../StopRegistry/Terminals/TerminalDetails/Components/BasicDetails/Edit/TerminalDetailsEdit';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
 import { useGetNextPrivateCode } from '../../Utils/useGetNextPrivateCode';

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
-import { BaseChangeHistoryItemDetails } from './types';
+import { BaseChangeHistoryItemDetails } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
 const testIds = { noChanges: 'ChangeHistory::ChangedValues::NoChangedValues' };

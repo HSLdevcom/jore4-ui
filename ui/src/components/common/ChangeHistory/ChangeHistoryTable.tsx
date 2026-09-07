@@ -2,7 +2,7 @@ import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { SortByButton } from './SortByButton';
-import { ChangeHistorySortingInfo, SortChangeHistoryBy } from './types';
+import { ChangeHistorySortingInfo, SortChangeHistoryBy } from './Types';
 
 const testIds = {
   table: 'ChangeHistory::Table',

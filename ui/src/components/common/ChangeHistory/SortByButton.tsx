@@ -2,7 +2,7 @@ import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
 import { SortOrder } from '../../../types';
-import { ChangeHistorySortingInfo, SortChangeHistoryBy } from './types';
+import { ChangeHistorySortingInfo, SortChangeHistoryBy } from './Types';
 
 const testIds = {
   button: (value: SortChangeHistoryBy) =>

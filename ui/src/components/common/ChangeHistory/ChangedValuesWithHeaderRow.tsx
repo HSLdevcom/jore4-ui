@@ -5,7 +5,7 @@ import {
   getParityByArrayIndex,
 } from './ChangedValueRow';
 import { ChangeHistoryItemSectionHeaderRow } from './ChangeHistoryItemSectionHeaderRow';
-import { BaseChangeHistoryItemDetails, ChangedValue } from './types';
+import { BaseChangeHistoryItemDetails, ChangedValue } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
 export type ChangedValuesWithHeaderRowProps = {

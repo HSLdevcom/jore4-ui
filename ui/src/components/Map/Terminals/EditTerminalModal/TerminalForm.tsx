@@ -7,12 +7,12 @@ import { InputField } from '../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../common/LayoutComponents';
 import { FormActionButtons, ValidityPeriodForm } from '../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
-import { TerminalTypeDropdown } from '../../../stop-registry/components/TerminalTypeDropdown';
-import { SelectTerminalMemberStopsDropdown } from '../../../stop-registry/Terminals/Common';
+import { TerminalTypeDropdown } from '../../../StopRegistry/Components/TerminalTypeDropdown';
+import { SelectTerminalMemberStopsDropdown } from '../../../StopRegistry/Terminals/Common';
 import {
   TerminalFormState,
   terminalFormSchema,
-} from '../../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
+} from '../../../StopRegistry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
 import { TerminalNames } from './TerminalNames';
 
 const testIds = {

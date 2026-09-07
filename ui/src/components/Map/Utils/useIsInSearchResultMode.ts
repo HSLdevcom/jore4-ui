@@ -3,7 +3,7 @@ import { areEqual } from '../../../utils';
 import {
   StopSearchFilters,
   defaultFilters,
-} from '../../stop-registry/Search/Common';
+} from '../../StopRegistry/Search/Common';
 import { useMapUrlStateContext } from './mapUrlState';
 
 const defaultFiltersWithoutObservationDate = omit(

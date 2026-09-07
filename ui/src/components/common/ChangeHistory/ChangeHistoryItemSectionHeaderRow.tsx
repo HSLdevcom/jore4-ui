@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { mapToShortDate, mapToShortDateTime, parseDate } from '../../../time';
-import { BaseChangeHistoryItemDetails } from './types';
+import { BaseChangeHistoryItemDetails } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
 const testIds = {

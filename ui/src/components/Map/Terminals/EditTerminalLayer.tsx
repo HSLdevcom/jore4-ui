@@ -10,7 +10,7 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
-import { TerminalFormState } from '../../stop-registry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
+import { TerminalFormState } from '../../StopRegistry/Terminals/TerminalDetails/Components/BasicDetails/Edit/schema';
 import { EditTerminalLayerRef } from '../refTypes';
 import { DeleteTerminal } from './DeleteTerminal';
 import { EditTerminal } from './EditTerminal';

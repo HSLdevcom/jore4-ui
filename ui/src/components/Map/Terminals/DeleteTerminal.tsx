@@ -13,7 +13,7 @@ import {
 import { EnrichedParentStopPlace } from '../../../types';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { ConfirmationDialog } from '../../common/Modals';
-import { useEditMembersOfTerminal } from '../../stop-registry/Terminals/Common';
+import { useEditMembersOfTerminal } from '../../StopRegistry/Terminals/Common';
 import { useDeleteTerminal } from './useDeleteTerminal';
 
 function getMemberStops(terminal: EnrichedParentStopPlace): string {

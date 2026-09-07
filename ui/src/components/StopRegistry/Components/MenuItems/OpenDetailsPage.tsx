@@ -1,0 +1,42 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { Path, routeDetails } from '../../../../router/routeDetails';
+import { Priority } from '../../../../types/enums';
+import { SimpleDropdownMenuItem } from '../../../common/Dropdowns';
+import { LocatableStopWithObservationDateProps } from '../../Types';
+
+const testIds = {
+  showStopDetails: 'StopTableRow::ActionMenu::ShowStopDetails',
+};
+
+type OpenDetailsPageProps = LocatableStopWithObservationDateProps & {
+  readonly priority?: Priority;
+};
+
+const OpenDetailsPageImpl: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  OpenDetailsPageProps
+> = ({ className, observationDate, priority, stop }, ref) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  return (
+    <SimpleDropdownMenuItem
+      ref={ref}
+      className={className}
+      text={t(($) => $.stopRegistrySearch.stopRowActions.openDetails)}
+      onClick={() =>
+        navigate(
+          routeDetails[Path.stopDetails].getLink(stop.label, {
+            observationDate,
+            priority,
+          }),
+        )
+      }
+      testId={testIds.showStopDetails}
+    />
+  );
+};
+
+export const OpenDetailsPage = forwardRef(OpenDetailsPageImpl);

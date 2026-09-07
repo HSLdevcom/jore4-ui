@@ -17,7 +17,7 @@ import {
   showDangerToast,
   showDangerToastWithError,
 } from '../../../../utils';
-import { useDeleteQuay } from '../../../stop-registry/Stops/Queries';
+import { useDeleteQuay } from '../../../StopRegistry/Stops/Queries';
 
 const GQL_REMOVE_STOP = gql`
   mutation RemoveStop($stop_id: uuid!) {

@@ -32,7 +32,7 @@ import {
   showDangerToast,
 } from '../../../../utils';
 import { useGetConflictingStops } from '../../../LinesAndRoutes/Common';
-import { wrapErrors } from '../../../stop-registry/Stops/StopDetails/StopVersion/Utils/wrapErrors';
+import { wrapErrors } from '../../../StopRegistry/Stops/StopDetails/StopVersion/Utils/wrapErrors';
 import { EditChanges, EditParams } from '../Types';
 import { useGetRoutesBrokenByStopChange } from './useGetRoutesBrokenByStopChange';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';

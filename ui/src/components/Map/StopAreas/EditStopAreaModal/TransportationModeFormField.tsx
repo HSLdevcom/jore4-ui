@@ -6,7 +6,7 @@ import { JoreStopRegistryTransportModeType } from '../../../../types/stop-regist
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../utils/i18n';
 import { EnumDropdown } from '../../../common/Dropdowns';
 import { InputField } from '../../../common/Inputs';
-import { StopAreaFormState } from '../../../stop-registry/StopAreas/Common';
+import { StopAreaFormState } from '../../../StopRegistry/StopAreas/Common';
 
 const testId = 'StopAreaFormComponent::transportMode';
 
