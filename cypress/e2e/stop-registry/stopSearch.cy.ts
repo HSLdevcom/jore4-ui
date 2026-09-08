@@ -861,6 +861,22 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       SearchForStopAreas.getNoStopsInStopAreaLink().click();
       StopAreaDetailsPage.details.getName().should('contain', 'No quays');
     });
+
+    it('should filter by Transportation mode', () => {
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.transportationMode.setSelected(
+        StopRegistryTransportModeType.Bus,
+        false,
+      );
+
+      StopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
+
+      StopGroupSelector.shouldHaveGroups(['E2ER001', 'E2ER002', 'E2ER003']);
+    });
   });
 
   describe('for terminals', () => {
@@ -917,6 +933,22 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       SearchForTerminals.getActionMenuShowDetails().click();
 
       TerminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
+    });
+
+    it('should filter by Transportation mode', () => {
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.transportationMode.setSelected(
+        StopRegistryTransportModeType.Bus,
+        false,
+      );
+
+      StopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
+
+      StopGroupSelector.shouldHaveNoGroups();
     });
   });
 

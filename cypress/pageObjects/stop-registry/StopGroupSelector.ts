@@ -22,4 +22,8 @@ export class StopGroupSelector {
       shouldHaveLength,
     );
   }
+
+  static shouldHaveNoGroups() {
+    StopGroupSelector.shouldHaveGroups([]);
+  }
 }
