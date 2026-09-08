@@ -74,7 +74,6 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
           mdBasis,
           lgBasis,
         )}
-        disabled={notForStops}
       />
 
       <StopStateFilter className={genericFilterSizing} disabled={notForStops} />

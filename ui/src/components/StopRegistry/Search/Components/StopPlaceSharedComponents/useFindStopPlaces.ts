@@ -101,6 +101,16 @@ function transportationModeFilter({
   };
 }
 
+function municipalityFilter({
+  municipalities,
+}: StopSearchFilters): StopPlaceNewestVersionWhereConditions {
+  if (municipalities.includes(AllOptionEnum.All)) {
+    return [];
+  }
+
+  return { topographic_place: { name_value: { _in: municipalities } } };
+}
+
 const isArea: StopPlaceNewestVersionWhereConditions = {
   is_area: { _eq: true },
 };
@@ -118,6 +128,7 @@ function filtersToWhere(
       observationDateFilter(filters),
       queryFilter(filters),
       transportationModeFilter(filters),
+      municipalityFilter(filters),
       placeType === 'area' ? isArea : isTerminal,
     ].flat(1),
   };
