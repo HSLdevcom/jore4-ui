@@ -1,7 +1,7 @@
 import { StopsDatabaseQuayNewestVersionBoolExp } from '../../../generated/graphql';
 import {
   buildOptionalSearchConditionGqlFilter,
-  mapToSqlLikeValue,
+  queryToLike,
 } from '../../../utils';
 
 function buildPublicCodeFilter(
@@ -53,5 +53,5 @@ export function buildSearchStopByLabelOrNameFilter(
   return buildOptionalSearchConditionGqlFilter<
     string,
     StopsDatabaseQuayNewestVersionBoolExp
-  >(mapToSqlLikeValue(query), labelOrNameFilterToUse);
+  >(queryToLike(query), labelOrNameFilterToUse);
 }

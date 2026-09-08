@@ -1,10 +1,15 @@
 import { gql } from '@apollo/client';
+import { StopsDatabaseStopPlaceNewestVersionBoolExp } from '@hsl/jore4-test-db-manager';
 import { useMemo } from 'react';
 import {
   FindStopPlaceInfoFragment,
   useFindStopPlacesQuery,
 } from '../../../../../generated/graphql';
-import { mapToSqlLikeValue } from '../../../../../utils';
+import {
+  AllOptionEnum,
+  mapToSqlLikeValue,
+  queryToLike,
+} from '../../../../../utils';
 import { StopSearchFilters } from '../../Types';
 import { useNumericSortingCollator } from '../../Utils';
 

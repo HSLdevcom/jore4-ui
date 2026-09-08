@@ -5,7 +5,7 @@ import {
   AllOptionEnum,
   NullOptionEnum,
   buildOptionalSearchConditionGqlFilter,
-  mapToSqlLikeValue,
+  queryToLike,
 } from '../../../../utils';
 import { buildSearchStopByLabelOrNameFilter } from '../../Utils/buildSearchStopByLabelOrNameFilter';
 import {
@@ -36,7 +36,7 @@ function buildSearchStopsQueryFilter(
     return buildOptionalSearchConditionGqlFilter<
       string,
       StopsDatabaseQuayNewestVersionBoolExp
-    >(mapToSqlLikeValue(filters.query), buildAddressLikeFilter);
+    >(queryToLike(filters.query), buildAddressLikeFilter);
   }
 
   return {};
@@ -256,7 +256,7 @@ export function buildSearchStopsGqlQueryVariables(
   const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
     string,
     StopsDatabaseQuayNewestVersionBoolExp
-  >(mapToSqlLikeValue(filters.elyNumber), buildElyNumberFilter);
+  >(queryToLike(filters.elyNumber), buildElyNumberFilter);
 
   const municipalityFilter = buildSearchStopsMunicipalityFilter(filters);
   const observationDateFilter = buildSearchStopsObservationDateFilter(filters);
