@@ -44895,6 +44895,8 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   street_address?: Maybe<Scalars['String']['output']>;
   telecabin_submode?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
+  /** An object relationship */
+  topographic_place?: Maybe<StopsDatabaseTopographicPlace>;
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
@@ -45195,6 +45197,7 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   street_address?: InputMaybe<StringComparisonExp>;
   telecabin_submode?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
+  topographic_place?: InputMaybe<StopsDatabaseTopographicPlaceBoolExp>;
   topographic_place_id?: InputMaybe<BigintComparisonExp>;
   tram_submode?: InputMaybe<StringComparisonExp>;
   transport_mode?: InputMaybe<StringComparisonExp>;
@@ -45256,6 +45259,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   street_address?: InputMaybe<Scalars['String']['input']>;
   telecabin_submode?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  topographic_place?: InputMaybe<StopsDatabaseTopographicPlaceObjRelInsertInput>;
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   tram_submode?: InputMaybe<Scalars['String']['input']>;
   transport_mode?: InputMaybe<Scalars['String']['input']>;
@@ -45416,6 +45420,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   street_address?: InputMaybe<OrderBy>;
   telecabin_submode?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
+  topographic_place?: InputMaybe<StopsDatabaseTopographicPlaceOrderBy>;
   topographic_place_id?: InputMaybe<OrderBy>;
   tram_submode?: InputMaybe<OrderBy>;
   transport_mode?: InputMaybe<OrderBy>;

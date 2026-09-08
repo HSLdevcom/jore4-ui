@@ -44898,6 +44898,8 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   readonly street_address?: Maybe<Scalars['String']['output']>;
   readonly telecabin_submode?: Maybe<Scalars['String']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
+  /** An object relationship */
+  readonly topographic_place?: Maybe<StopsDatabaseTopographicPlace>;
   readonly topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   readonly tram_submode?: Maybe<Scalars['String']['output']>;
   readonly transport_mode?: Maybe<Scalars['String']['output']>;
@@ -45198,6 +45200,7 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   readonly street_address?: InputMaybe<StringComparisonExp>;
   readonly telecabin_submode?: InputMaybe<StringComparisonExp>;
   readonly to_date?: InputMaybe<TimestampComparisonExp>;
+  readonly topographic_place?: InputMaybe<StopsDatabaseTopographicPlaceBoolExp>;
   readonly topographic_place_id?: InputMaybe<BigintComparisonExp>;
   readonly tram_submode?: InputMaybe<StringComparisonExp>;
   readonly transport_mode?: InputMaybe<StringComparisonExp>;
@@ -45259,6 +45262,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   readonly street_address?: InputMaybe<Scalars['String']['input']>;
   readonly telecabin_submode?: InputMaybe<Scalars['String']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  readonly topographic_place?: InputMaybe<StopsDatabaseTopographicPlaceObjRelInsertInput>;
   readonly topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   readonly tram_submode?: InputMaybe<Scalars['String']['input']>;
   readonly transport_mode?: InputMaybe<Scalars['String']['input']>;
@@ -45419,6 +45423,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   readonly street_address?: InputMaybe<OrderBy>;
   readonly telecabin_submode?: InputMaybe<OrderBy>;
   readonly to_date?: InputMaybe<OrderBy>;
+  readonly topographic_place?: InputMaybe<StopsDatabaseTopographicPlaceOrderBy>;
   readonly topographic_place_id?: InputMaybe<OrderBy>;
   readonly tram_submode?: InputMaybe<OrderBy>;
   readonly transport_mode?: InputMaybe<OrderBy>;

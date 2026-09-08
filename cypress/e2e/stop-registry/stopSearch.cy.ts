@@ -877,6 +877,21 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
       StopGroupSelector.shouldHaveGroups(['E2ER001', 'E2ER002', 'E2ER003']);
     });
+
+    it('should filter by Municipality', () => {
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.municipality.openDropdown();
+      StopSearchBar.municipality.toggleOption('Espoo');
+      StopSearchBar.municipality.getDropdown().click();
+
+      StopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
+
+      StopGroupSelector.shouldHaveGroups(['E2E010']);
+    });
   });
 
   describe('for terminals', () => {
@@ -949,6 +964,28 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       StopGroupSelector.shouldHaveNoGroups();
+    });
+
+    it('should filter by Municipality', () => {
+      StopSearchBar.searchForDropdown.openSearchForDropdown();
+      StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+
+      StopSearchBar.getExpandToggle().click();
+      StopSearchBar.municipality.openDropdown();
+      StopSearchBar.municipality.toggleOption('Espoo');
+      StopSearchBar.municipality.getDropdown().click();
+
+      StopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
+      StopGroupSelector.shouldHaveNoGroups();
+
+      StopSearchBar.municipality.openDropdown();
+      StopSearchBar.municipality.toggleOption('Helsinki');
+      StopSearchBar.municipality.getDropdown().click();
+
+      StopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
+      StopGroupSelector.shouldHaveGroups(['T2']);
     });
   });
 
