@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -6,6 +7,7 @@ import {
   LineTableRowFragment,
   RouteTableRowFragment,
 } from '../../../../generated/graphql';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
 import { isRoute } from '../../../../utils';
@@ -48,6 +50,7 @@ function getDisplayInformation(
   lineId: UUID,
   rowItem: RowItem,
   hasTimetables?: boolean,
+  observationDate?: DateTime,
 ) {
   const routeLabel = isRoute(rowItem) ? rowItem.label : undefined;
 
@@ -62,10 +65,12 @@ function getDisplayInformation(
             lineId={lineId}
             routeLabel={routeLabel}
             label={rowItem.label}
+            observationDate={observationDate}
           />
         ),
         linkTo: routeDetails[Path.lineTimetables].getLink(lineId, {
           routeLabels: routeLabel,
+          observationDate,
         }),
         isDisabled: !hasTimetables,
       };
@@ -79,10 +84,12 @@ function getDisplayInformation(
             lineId={lineId}
             routeLabel={routeLabel}
             label={rowItem.label}
+            observationDate={observationDate}
           />
         ),
         linkTo: routeDetails[Path.lineDetails].getLink(lineId, {
           routeLabels: routeLabel,
+          observationDate,
         }),
         isDisabled: false,
       };
@@ -105,6 +112,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
   selectionDisabled = false,
   testId,
 }) => {
+  const { observationDate } = useObservationDateQueryParam();
   const { t } = useTranslation();
 
   const alertStatus = getAlertStatus(t, rowItem);
@@ -115,6 +123,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
     lineId,
     rowItem,
     hasTimetables,
+    observationDate,
   );
 
   const disabledStyle = 'pointer-events-none text-zinc-400';
