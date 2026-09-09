@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -15,6 +16,7 @@ type LineTimetablesButtonProps = {
   readonly lineId: UUID;
   readonly routeLabel?: string;
   readonly label: string;
+  readonly observationDate?: DateTime;
   readonly className?: string;
 };
 
@@ -25,6 +27,7 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   routeLabel,
   label,
   className,
+  observationDate,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -33,6 +36,7 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
     navigate(
       routeDetails[Path.lineTimetables].getLink(lineId, {
         routeLabels: routeLabel,
+        observationDate,
       }),
     );
   };
