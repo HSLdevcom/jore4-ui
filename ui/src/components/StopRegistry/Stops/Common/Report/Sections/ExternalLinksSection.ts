@@ -1,6 +1,6 @@
 import compact from 'lodash/compact';
-import { getParentStopPlacesFromQueryResult } from '../../../../../utils';
-import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
+import { getParentStopPlacesFromQueryResult } from '../../../../../../utils';
+import { CSVWriter } from '../../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails, ReportSectionInstantiator } from '../types';
 import { staticSection } from './utils';
 

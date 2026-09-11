@@ -5,8 +5,8 @@ import {
   mapStopRegistryPedestrianCrossingRampTypeToUiName,
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
-} from '../../../../../utils/i18n';
-import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
+} from '../../../../../../utils/i18n';
+import { CSVWriter } from '../../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
 
