@@ -22,6 +22,8 @@ DUMP_STOPS_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-stopdb.pgdump"
 INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/2025-09-24-infraLinks.sql"
 TRAM_INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/tram_infraLinks_2026-01-28.sql"
 
+POSTGIS_DUMP_RESTORE_LIST_FILE_DIR='./.dump_upgrade_helper_list_files'
+
 DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
 DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2e" "jore4-testdb-e2e")
@@ -311,6 +313,36 @@ download_dump() {
   fi
 }
 
+prepare_dump_postgis_upgrade_helper_list() {
+  local az_blob_filename="$1"
+  local list_file="$2"
+  local raw_list_file="${list_file}.raw"
+
+  if [[ -f "$list_file" ]]; then
+    return 0
+  fi
+
+  mkdir -p "$POSTGIS_DUMP_RESTORE_LIST_FILE_DIR"
+
+  docker exec -i testdb bash -c "
+    set -eux
+    pg_restore --username=dbadmin --dbname=postgres --format=custom --create -l
+  " < "$az_blob_filename" > "$raw_list_file"
+
+  grep -v \
+    -e addauth \
+    -e checkauth \
+    -e longtransactions \
+    -e gettransactionid \
+    -e lockrow \
+    -e unlockrows \
+    -e postgis_extensions_upgrade \
+    -e 'st_asgeojson(r record, geom_column text, maxdecimaldigits integer, pretty_bool boolean)' \
+    "$raw_list_file" > "$list_file"
+
+  rm "$raw_list_file"
+}
+
 import_dump() {
   local az_blob_filepath="$1"
   local target_database="$2"
@@ -333,10 +365,16 @@ import_dump() {
 
   echo "Importing database dump from the file '$az_blob_filename' to the '${target_database}' database..."
 
+  local az_blob_restore_list_filename="${az_blob_filename}.list"
+  local az_blob_restore_list_filepath="${POSTGIS_DUMP_RESTORE_LIST_FILE_DIR}/${az_blob_restore_list_filename}"
+  prepare_dump_postgis_upgrade_helper_list "$az_blob_filename" "$az_blob_restore_list_filepath"
+
+  docker cp "$az_blob_restore_list_filepath" "testdb:/tmp/$az_blob_restore_list_filename"
+
   docker exec -i testdb bash -c "
     set -eux
     dropdb --username=dbadmin --force $target_database
-    pg_restore --username=dbadmin --dbname=postgres --format=custom --create
+    pg_restore --username=dbadmin --dbname=postgres --format=custom --create -L /tmp/$az_blob_restore_list_filename
   " < "$az_blob_filename"
 }
 
