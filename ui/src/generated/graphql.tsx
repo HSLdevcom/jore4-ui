@@ -3407,6 +3407,10 @@ export type MutationRoot = {
   readonly delete_service_pattern_distance_between_stops_calculation?: Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>;
   /** delete single row from the table: "service_pattern.distance_between_stops_calculation" */
   readonly delete_service_pattern_distance_between_stops_calculation_by_pk?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
+  /** delete data from the table: "service_pattern.point_type" */
+  readonly delete_service_pattern_point_type?: Maybe<ServicePatternPointTypeMutationResponse>;
+  /** delete single row from the table: "service_pattern.point_type" */
+  readonly delete_service_pattern_point_type_by_pk?: Maybe<ServicePatternPointType>;
   /** delete data from the table: "service_pattern.scheduled_stop_point" */
   readonly delete_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** delete single row from the table: "service_pattern.scheduled_stop_point" */
@@ -3491,6 +3495,10 @@ export type MutationRoot = {
   readonly insert_service_pattern_distance_between_stops_calculation?: Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>;
   /** insert a single row into the table: "service_pattern.distance_between_stops_calculation" */
   readonly insert_service_pattern_distance_between_stops_calculation_one?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
+  /** insert data into the table: "service_pattern.point_type" */
+  readonly insert_service_pattern_point_type?: Maybe<ServicePatternPointTypeMutationResponse>;
+  /** insert a single row into the table: "service_pattern.point_type" */
+  readonly insert_service_pattern_point_type_one?: Maybe<ServicePatternPointType>;
   /** insert data into the table: "service_pattern.scheduled_stop_point" */
   readonly insert_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** insert a single row into the table: "service_pattern.scheduled_stop_point" */
@@ -3615,6 +3623,12 @@ export type MutationRoot = {
   readonly update_service_pattern_distance_between_stops_calculation_by_pk?: Maybe<ServicePatternDistanceBetweenStopsCalculation>;
   /** update multiples rows of table: "service_pattern.distance_between_stops_calculation" */
   readonly update_service_pattern_distance_between_stops_calculation_many?: Maybe<ReadonlyArray<Maybe<ServicePatternDistanceBetweenStopsCalculationMutationResponse>>>;
+  /** update data of the table: "service_pattern.point_type" */
+  readonly update_service_pattern_point_type?: Maybe<ServicePatternPointTypeMutationResponse>;
+  /** update single row of the table: "service_pattern.point_type" */
+  readonly update_service_pattern_point_type_by_pk?: Maybe<ServicePatternPointType>;
+  /** update multiples rows of table: "service_pattern.point_type" */
+  readonly update_service_pattern_point_type_many?: Maybe<ReadonlyArray<Maybe<ServicePatternPointTypeMutationResponse>>>;
   /** update data of the table: "service_pattern.scheduled_stop_point" */
   readonly update_service_pattern_scheduled_stop_point?: Maybe<ServicePatternScheduledStopPointMutationResponse>;
   /** update single row of the table: "service_pattern.scheduled_stop_point" */
@@ -3861,6 +3875,18 @@ export type MutationRootDeleteServicePatternDistanceBetweenStopsCalculationByPkA
   observation_date: Scalars['date']['input'];
   route_priority: Scalars['Int']['input'];
   stop_interval_sequence: Scalars['Int']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteServicePatternPointTypeArgs = {
+  where: ServicePatternPointTypeBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteServicePatternPointTypeByPkArgs = {
+  type: Scalars['String']['input'];
 };
 
 
@@ -4150,6 +4176,20 @@ export type MutationRootInsertServicePatternDistanceBetweenStopsCalculationArgs 
 export type MutationRootInsertServicePatternDistanceBetweenStopsCalculationOneArgs = {
   object: ServicePatternDistanceBetweenStopsCalculationInsertInput;
   on_conflict?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertServicePatternPointTypeArgs = {
+  objects: ReadonlyArray<ServicePatternPointTypeInsertInput>;
+  on_conflict?: InputMaybe<ServicePatternPointTypeOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertServicePatternPointTypeOneArgs = {
+  object: ServicePatternPointTypeInsertInput;
+  on_conflict?: InputMaybe<ServicePatternPointTypeOnConflict>;
 };
 
 
@@ -4620,6 +4660,26 @@ export type MutationRootUpdateServicePatternDistanceBetweenStopsCalculationManyA
 
 
 /** mutation root */
+export type MutationRootUpdateServicePatternPointTypeArgs = {
+  _set?: InputMaybe<ServicePatternPointTypeSetInput>;
+  where: ServicePatternPointTypeBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateServicePatternPointTypeByPkArgs = {
+  _set?: InputMaybe<ServicePatternPointTypeSetInput>;
+  pk_columns: ServicePatternPointTypePkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateServicePatternPointTypeManyArgs = {
+  updates: ReadonlyArray<ServicePatternPointTypeUpdates>;
+};
+
+
+/** mutation root */
 export type MutationRootUpdateServicePatternScheduledStopPointArgs = {
   _inc?: InputMaybe<ServicePatternScheduledStopPointIncInput>;
   _set?: InputMaybe<ServicePatternScheduledStopPointSetInput>;
@@ -5027,6 +5087,12 @@ export type QueryRoot = {
   readonly service_pattern_get_distances_between_stop_points_in_journey_patterns: ReadonlyArray<ServicePatternDistanceBetweenStopsCalculation>;
   /** execute function "service_pattern.get_distances_between_stop_points_in_journey_patterns" and query aggregates on result of table type "service_pattern.distance_between_stops_calculation" */
   readonly service_pattern_get_distances_between_stop_points_in_journey_patterns_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
+  /** fetch data from the table: "service_pattern.point_type" */
+  readonly service_pattern_point_type: ReadonlyArray<ServicePatternPointType>;
+  /** fetch aggregated fields from the table: "service_pattern.point_type" */
+  readonly service_pattern_point_type_aggregate: ServicePatternPointTypeAggregate;
+  /** fetch data from the table: "service_pattern.point_type" using primary key columns */
+  readonly service_pattern_point_type_by_pk?: Maybe<ServicePatternPointType>;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
   readonly service_pattern_scheduled_stop_point: ReadonlyArray<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
@@ -5570,6 +5636,29 @@ export type QueryRootServicePatternGetDistancesBetweenStopPointsInJourneyPattern
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<ReadonlyArray<ServicePatternDistanceBetweenStopsCalculationOrderBy>>;
   where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+};
+
+
+export type QueryRootServicePatternPointTypeArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<ServicePatternPointTypeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<ReadonlyArray<ServicePatternPointTypeOrderBy>>;
+  where?: InputMaybe<ServicePatternPointTypeBoolExp>;
+};
+
+
+export type QueryRootServicePatternPointTypeAggregateArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<ServicePatternPointTypeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<ReadonlyArray<ServicePatternPointTypeOrderBy>>;
+  where?: InputMaybe<ServicePatternPointTypeBoolExp>;
+};
+
+
+export type QueryRootServicePatternPointTypeByPkArgs = {
+  type: Scalars['String']['input'];
 };
 
 
@@ -9493,6 +9582,142 @@ export type ServicePatternGetDistancesBetweenStopPointsInJourneyPatternsArgs = {
   readonly observation_date?: InputMaybe<Scalars['date']['input']>;
 };
 
+/** columns and relationships of "service_pattern.point_type" */
+export type ServicePatternPointType = {
+  readonly __typename?: 'service_pattern_point_type';
+  readonly type: Scalars['String']['output'];
+};
+
+/** aggregated selection of "service_pattern.point_type" */
+export type ServicePatternPointTypeAggregate = {
+  readonly __typename?: 'service_pattern_point_type_aggregate';
+  readonly aggregate?: Maybe<ServicePatternPointTypeAggregateFields>;
+  readonly nodes: ReadonlyArray<ServicePatternPointType>;
+};
+
+/** aggregate fields of "service_pattern.point_type" */
+export type ServicePatternPointTypeAggregateFields = {
+  readonly __typename?: 'service_pattern_point_type_aggregate_fields';
+  readonly count: Scalars['Int']['output'];
+  readonly max?: Maybe<ServicePatternPointTypeMaxFields>;
+  readonly min?: Maybe<ServicePatternPointTypeMinFields>;
+};
+
+
+/** aggregate fields of "service_pattern.point_type" */
+export type ServicePatternPointTypeAggregateFieldsCountArgs = {
+  columns?: InputMaybe<ReadonlyArray<ServicePatternPointTypeSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "service_pattern.point_type". All fields are combined with a logical 'AND'. */
+export type ServicePatternPointTypeBoolExp = {
+  readonly _and?: InputMaybe<ReadonlyArray<ServicePatternPointTypeBoolExp>>;
+  readonly _not?: InputMaybe<ServicePatternPointTypeBoolExp>;
+  readonly _or?: InputMaybe<ReadonlyArray<ServicePatternPointTypeBoolExp>>;
+  readonly type?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "service_pattern.point_type" */
+export enum ServicePatternPointTypeConstraint {
+  /** unique or primary key constraint on columns "type" */
+  PointTypePkey = 'point_type_pkey'
+}
+
+export enum ServicePatternPointTypeEnum {
+  GaragePoint = 'garage_point',
+  TimingPoint = 'timing_point'
+}
+
+/** Boolean expression to compare columns of type "service_pattern_point_type_enum". All fields are combined with logical 'AND'. */
+export type ServicePatternPointTypeEnumComparisonExp = {
+  readonly _eq?: InputMaybe<ServicePatternPointTypeEnum>;
+  readonly _in?: InputMaybe<ReadonlyArray<ServicePatternPointTypeEnum>>;
+  readonly _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly _neq?: InputMaybe<ServicePatternPointTypeEnum>;
+  readonly _nin?: InputMaybe<ReadonlyArray<ServicePatternPointTypeEnum>>;
+};
+
+/** input type for inserting data into table "service_pattern.point_type" */
+export type ServicePatternPointTypeInsertInput = {
+  readonly type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type ServicePatternPointTypeMaxFields = {
+  readonly __typename?: 'service_pattern_point_type_max_fields';
+  readonly type?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type ServicePatternPointTypeMinFields = {
+  readonly __typename?: 'service_pattern_point_type_min_fields';
+  readonly type?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "service_pattern.point_type" */
+export type ServicePatternPointTypeMutationResponse = {
+  readonly __typename?: 'service_pattern_point_type_mutation_response';
+  /** number of rows affected by the mutation */
+  readonly affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  readonly returning: ReadonlyArray<ServicePatternPointType>;
+};
+
+/** on_conflict condition type for table "service_pattern.point_type" */
+export type ServicePatternPointTypeOnConflict = {
+  readonly constraint: ServicePatternPointTypeConstraint;
+  readonly update_columns?: ReadonlyArray<ServicePatternPointTypeUpdateColumn>;
+  readonly where?: InputMaybe<ServicePatternPointTypeBoolExp>;
+};
+
+/** Ordering options when selecting data from "service_pattern.point_type". */
+export type ServicePatternPointTypeOrderBy = {
+  readonly type?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: service_pattern.point_type */
+export type ServicePatternPointTypePkColumnsInput = {
+  readonly type: Scalars['String']['input'];
+};
+
+/** select columns of table "service_pattern.point_type" */
+export enum ServicePatternPointTypeSelectColumn {
+  /** column name */
+  Type = 'type'
+}
+
+/** input type for updating data in table "service_pattern.point_type" */
+export type ServicePatternPointTypeSetInput = {
+  readonly type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "service_pattern_point_type" */
+export type ServicePatternPointTypeStreamCursorInput = {
+  /** Stream column input with initial value */
+  readonly initial_value: ServicePatternPointTypeStreamCursorValueInput;
+  /** cursor ordering */
+  readonly ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type ServicePatternPointTypeStreamCursorValueInput = {
+  readonly type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "service_pattern.point_type" */
+export enum ServicePatternPointTypeUpdateColumn {
+  /** column name */
+  Type = 'type'
+}
+
+export type ServicePatternPointTypeUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  readonly _set?: InputMaybe<ServicePatternPointTypeSetInput>;
+  /** filter the rows which have to be updated */
+  readonly where: ServicePatternPointTypeBoolExp;
+};
+
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPoint = {
   readonly __typename?: 'service_pattern_scheduled_stop_point';
@@ -9514,6 +9739,7 @@ export type ServicePatternScheduledStopPoint = {
   readonly other_label_instances: ReadonlyArray<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
   readonly other_label_instances_aggregate: ServicePatternScheduledStopPointAggregate;
+  readonly point_type: ServicePatternPointTypeEnum;
   readonly priority: Scalars['Int']['output'];
   /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
   readonly relative_distance_from_infrastructure_link_start: Scalars['Float']['output'];
@@ -9717,6 +9943,7 @@ export type ServicePatternScheduledStopPointBoolExp = {
   readonly measured_location?: InputMaybe<GeographyComparisonExp>;
   readonly other_label_instances?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
   readonly other_label_instances_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateBoolExp>;
+  readonly point_type?: InputMaybe<ServicePatternPointTypeEnumComparisonExp>;
   readonly priority?: InputMaybe<IntComparisonExp>;
   readonly relative_distance_from_infrastructure_link_start?: InputMaybe<Float8ComparisonExp>;
   readonly scheduled_stop_point_id?: InputMaybe<UuidComparisonExp>;
@@ -9767,6 +9994,7 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location: Scalars['geography_point']['input'];
   readonly other_label_instances?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
+  readonly point_type?: InputMaybe<ServicePatternPointTypeEnum>;
   readonly priority: Scalars['Int']['input'];
   /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -9890,6 +10118,7 @@ export type ServicePatternScheduledStopPointOrderBy = {
   readonly located_on_infrastructure_link_id?: InputMaybe<OrderBy>;
   readonly measured_location?: InputMaybe<OrderBy>;
   readonly other_label_instances_aggregate?: InputMaybe<ServicePatternScheduledStopPointAggregateOrderBy>;
+  readonly point_type?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly relative_distance_from_infrastructure_link_start?: InputMaybe<OrderBy>;
   readonly scheduled_stop_point_id?: InputMaybe<OrderBy>;
@@ -9919,6 +10148,8 @@ export enum ServicePatternScheduledStopPointSelectColumn {
   /** column name */
   MeasuredLocation = 'measured_location',
   /** column name */
+  PointType = 'point_type',
+  /** column name */
   Priority = 'priority',
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
@@ -9942,6 +10173,7 @@ export type ServicePatternScheduledStopPointSetInput = {
   readonly located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location?: InputMaybe<Scalars['geography_point']['input']>;
+  readonly point_type?: InputMaybe<ServicePatternPointTypeEnum>;
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
   /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -10012,6 +10244,7 @@ export type ServicePatternScheduledStopPointStreamCursorValueInput = {
   readonly located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location?: InputMaybe<Scalars['geography']['input']>;
+  readonly point_type?: InputMaybe<ServicePatternPointTypeEnum>;
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
   /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -10048,6 +10281,8 @@ export enum ServicePatternScheduledStopPointUpdateColumn {
   LocatedOnInfrastructureLinkId = 'located_on_infrastructure_link_id',
   /** column name */
   MeasuredLocation = 'measured_location',
+  /** column name */
+  PointType = 'point_type',
   /** column name */
   Priority = 'priority',
   /** column name */
@@ -60767,6 +61002,14 @@ export type SubscriptionRoot = {
   readonly service_pattern_get_distances_between_stop_points_in_journey_patterns: ReadonlyArray<ServicePatternDistanceBetweenStopsCalculation>;
   /** execute function "service_pattern.get_distances_between_stop_points_in_journey_patterns" and query aggregates on result of table type "service_pattern.distance_between_stops_calculation" */
   readonly service_pattern_get_distances_between_stop_points_in_journey_patterns_aggregate: ServicePatternDistanceBetweenStopsCalculationAggregate;
+  /** fetch data from the table: "service_pattern.point_type" */
+  readonly service_pattern_point_type: ReadonlyArray<ServicePatternPointType>;
+  /** fetch aggregated fields from the table: "service_pattern.point_type" */
+  readonly service_pattern_point_type_aggregate: ServicePatternPointTypeAggregate;
+  /** fetch data from the table: "service_pattern.point_type" using primary key columns */
+  readonly service_pattern_point_type_by_pk?: Maybe<ServicePatternPointType>;
+  /** fetch data from the table in a streaming manner: "service_pattern.point_type" */
+  readonly service_pattern_point_type_stream: ReadonlyArray<ServicePatternPointType>;
   /** fetch data from the table: "service_pattern.scheduled_stop_point" */
   readonly service_pattern_scheduled_stop_point: ReadonlyArray<ServicePatternScheduledStopPoint>;
   /** fetch aggregated fields from the table: "service_pattern.scheduled_stop_point" */
@@ -61439,6 +61682,36 @@ export type SubscriptionRootServicePatternGetDistancesBetweenStopPointsInJourney
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<ReadonlyArray<ServicePatternDistanceBetweenStopsCalculationOrderBy>>;
   where?: InputMaybe<ServicePatternDistanceBetweenStopsCalculationBoolExp>;
+};
+
+
+export type SubscriptionRootServicePatternPointTypeArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<ServicePatternPointTypeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<ReadonlyArray<ServicePatternPointTypeOrderBy>>;
+  where?: InputMaybe<ServicePatternPointTypeBoolExp>;
+};
+
+
+export type SubscriptionRootServicePatternPointTypeAggregateArgs = {
+  distinct_on?: InputMaybe<ReadonlyArray<ServicePatternPointTypeSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<ReadonlyArray<ServicePatternPointTypeOrderBy>>;
+  where?: InputMaybe<ServicePatternPointTypeBoolExp>;
+};
+
+
+export type SubscriptionRootServicePatternPointTypeByPkArgs = {
+  type: Scalars['String']['input'];
+};
+
+
+export type SubscriptionRootServicePatternPointTypeStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: ReadonlyArray<InputMaybe<ServicePatternPointTypeStreamCursorInput>>;
+  where?: InputMaybe<ServicePatternPointTypeBoolExp>;
 };
 
 
