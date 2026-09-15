@@ -71,6 +71,10 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     setMapViewState({ stops: MapEntityEditorViewState.PLACE });
   };
 
+  const onAddDepotStop = () => {
+    setMapViewState({ depotStops: MapEntityEditorViewState.PLACE });
+  };
+
   const onAddStopArea = () => {
     setMapViewState({ stopAreas: MapEntityEditorViewState.PLACE });
   };
@@ -114,6 +118,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       </SimpleButton>
       <MapFooterAddStopDropdown
         onAddStops={onAddStops}
+        onAddDepotStop={onAddDepotStop}
         testId={testIds.addStopButton}
         disabled={
           drawingMode !== undefined ||
@@ -122,7 +127,8 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           isEditorOpen(mapViewState.stopAreas) ||
           // But nothing else must be selected on the map
           mapViewState.stops !== MapEntityEditorViewState.NONE ||
-          mapViewState.terminals !== MapEntityEditorViewState.NONE
+          mapViewState.terminals !== MapEntityEditorViewState.NONE ||
+          mapViewState.depotStops !== MapEntityEditorViewState.NONE
         }
         inverted={mapViewState.stops === MapEntityEditorViewState.NONE}
       />

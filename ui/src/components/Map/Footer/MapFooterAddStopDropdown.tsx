@@ -9,10 +9,12 @@ import {
 const testIds: Readonly<Record<string, string>> = {
   addBusStop: 'AddStopDropdownOption::addBusStop',
   addTramStop: 'AddStopDropdownOption::addTramStop',
+  addDepotStop: 'AddStopDropdownOption::addDepotStop',
 };
 
 type MapFooterAddStopDropdownProps = {
   readonly onAddStops: (vehicleMode: ReusableComponentsVehicleModeEnum) => void;
+  readonly onAddDepotStop: () => void;
   readonly testId: string;
   readonly disabled?: boolean;
   readonly inverted?: boolean;
@@ -20,6 +22,7 @@ type MapFooterAddStopDropdownProps = {
 
 export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
   onAddStops,
+  onAddDepotStop,
   testId,
   disabled,
   inverted,
@@ -46,6 +49,12 @@ export const MapFooterAddStopDropdown: FC<MapFooterAddStopDropdownProps> = ({
         onClick={() => onAddStops(ReusableComponentsVehicleModeEnum.Tram)}
       >
         {t(($) => $.map.addTramStop)}
+      </SimpleDropdownMenuItem>
+      <SimpleDropdownMenuItem
+        testId={testIds.addDepotStop}
+        onClick={onAddDepotStop}
+      >
+        {t(($) => $.map.addDepotStop)}
       </SimpleDropdownMenuItem>
     </SimpleButtonDropdownMenu>
   );

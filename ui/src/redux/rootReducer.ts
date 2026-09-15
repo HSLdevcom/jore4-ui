@@ -2,6 +2,7 @@ import { UnknownAction, combineReducers } from '@reduxjs/toolkit';
 import { errorModalReducer } from './slices/errorModal';
 import { exportReducer } from './slices/export';
 import { loaderReducer } from './slices/loader';
+import { mapDepotStopEditorReducer } from './slices/mapDepotStopEditor';
 import { mapFilterReducer } from './slices/mapFilter';
 import { mapModalReducer } from './slices/mapModal';
 import { mapRouteEditorReducer } from './slices/mapRouteEditor';
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
   loader: loaderReducer,
   mapStopAreaEditor: mapStopAreaEditorReducer,
   mapStopEditor: mapStopEditorReducer,
+  mapDepotStopEditor: mapDepotStopEditorReducer,
   mapTerminalEditor: mapTerminalEditorReducer,
   mapRouteEditor: mapRouteEditorReducer,
   mapFilter: mapFilterReducer,
