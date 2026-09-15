@@ -3,9 +3,11 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   MapEntityEditorViewState,
+  selectMapDepotStopViewState,
   selectMapStopAreaViewState,
   selectMapStopViewState,
   selectMapTerminalViewState,
+  setMapDepotStopViewStateAction,
   setMapStopAreaViewStateAction,
   setMapStopViewStateAction,
   setMapTerminalViewStateAction,
@@ -16,6 +18,7 @@ type MapViewState = {
   readonly stops: MapEntityEditorViewState;
   readonly stopAreas: MapEntityEditorViewState;
   readonly terminals: MapEntityEditorViewState;
+  readonly depotStops: MapEntityEditorViewState;
 };
 
 type SetMapViewStateFn = (changes: Partial<MapViewState>) => void;
@@ -24,7 +27,13 @@ const selectMapViewState = createSelector(
   selectMapStopViewState,
   selectMapStopAreaViewState,
   selectMapTerminalViewState,
-  (stops, stopAreas, terminals) => ({ stops, stopAreas, terminals }),
+  selectMapDepotStopViewState,
+  (stops, stopAreas, terminals, depotStops) => ({
+    stops,
+    stopAreas,
+    terminals,
+    depotStops,
+  }),
 );
 
 export function useMapViewState(): readonly [MapViewState, SetMapViewStateFn] {
@@ -43,6 +52,10 @@ export function useMapViewState(): readonly [MapViewState, SetMapViewStateFn] {
 
       if (changes.terminals) {
         dispatch(setMapTerminalViewStateAction(changes.terminals));
+      }
+
+      if (changes.depotStops) {
+        dispatch(setMapDepotStopViewStateAction(changes.depotStops));
       }
     },
     [dispatch],

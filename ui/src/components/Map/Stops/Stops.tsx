@@ -9,10 +9,12 @@ import {
   MapEntityEditorViewState,
   Operation,
   isEditorOpen,
+  isModalOpen,
   isPlacingOrMoving,
   selectDraftLocation,
   selectDraftVehicleMode,
   selectSelectedStopId,
+  setDepotStopDraftLocationAction,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
@@ -26,6 +28,7 @@ import { mapLngLatToPoint, mapPointToGeoJSON } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapStop, MapStopArea, MapTerminal } from '../Types';
 import { useMapViewState } from '../Utils/useMapViewState';
+import { AddDepotStopModal } from './AddDepotStop';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { ExistingStops } from './ExistingStops';
@@ -56,6 +59,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setDraftStopLocation = useAppAction(setDraftLocationAction);
+  const setDepotStopDraftLocation = useAppAction(
+    setDepotStopDraftLocationAction,
+  );
 
   const editStopLayerRef = useRef<EditStoplayerRef>(null);
 
@@ -90,6 +96,21 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     setFetchStopsLoadingState(LoadingState.NotLoading);
   };
 
+  const handlePlaceDepotStop = async (
+    e: MapLayerMouseEvent,
+    stopState: MapEntityEditorViewState,
+  ) => {
+    try {
+      const stopLocation = mapLngLatToPoint(e.lngLat.toArray());
+      await checkIsLocationValidForStop(mapPointToGeoJSON(stopLocation));
+
+      setDepotStopDraftLocation(stopLocation);
+      setMapViewState({ depotStops: stopState });
+    } catch (err) {
+      defaultErrorHandler(err as Error);
+    }
+  };
+
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapLayerMouseEvent) =>
       handleStopAction(e, MapEntityEditorViewState.CREATE),
@@ -97,6 +118,8 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       handleStopAction(e, MapEntityEditorViewState.COPY),
     onMoveStop: async (e: MapLayerMouseEvent) =>
       editStopLayerRef.current?.onMoveStop(e),
+    onPlaceDepotStop: async (e: MapLayerMouseEvent) =>
+      handlePlaceDepotStop(e, MapEntityEditorViewState.CREATE),
   }));
 
   const onPopupClose = () => {
@@ -122,6 +145,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       stops: selectedStopId
         ? MapEntityEditorViewState.POPUP
         : MapEntityEditorViewState.NONE,
+      depotStops: MapEntityEditorViewState.NONE,
     });
   };
 
@@ -155,12 +179,15 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       )}
 
       {/* Display hovering bus stop while in create mode */}
-      {isPlacingOrMoving(mapViewState.stops) && (
+      {(isPlacingOrMoving(mapViewState.stops) ||
+        isPlacingOrMoving(mapViewState.depotStops)) && (
         <CreateStopMarker
           onCancel={onCancelMoveOrPlacement}
           vehicleMode={draftVehicleMode ?? null}
         />
       )}
+
+      {isModalOpen(mapViewState.depotStops) && <AddDepotStopModal />}
     </>
   );
 };
