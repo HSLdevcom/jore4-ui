@@ -6,6 +6,7 @@ import {
   PassingTimeByStopFragment,
   RouteDirectionEnum,
   RouteWithJourneyPatternStopsFragment,
+  ServicePatternPointTypeEnum,
   VehicleJourneyByStopFragment,
 } from '../../../../generated/graphql';
 import { setShowArrivalTimesAction, useAppDispatch } from '../../../../redux';
@@ -36,6 +37,7 @@ function createScheduleStopPointInstance(timingPlaceLabel: string) {
     direction: InfrastructureNetworkDirectionEnum.Forward,
     label: '',
     located_on_infrastructure_link_id: '',
+    point_type: ServicePatternPointTypeEnum.TimingPoint,
     priority: 0,
     scheduled_stop_point_id: '',
     timing_place: {
