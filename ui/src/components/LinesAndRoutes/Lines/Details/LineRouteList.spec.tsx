@@ -11,6 +11,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
+  ServicePatternPointTypeEnum,
 } from '../../../../generated/graphql';
 import { RouteDirection } from '../../../../types/RouteDirection';
 import { render, sleep } from '../../../../utils/test-utils';
@@ -144,6 +145,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       validity_end: DateTime.fromISO('2050-12-13'),
                       located_on_infrastructure_link_id:
                         'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                      point_type: ServicePatternPointTypeEnum.TimingPoint,
                       __typename: 'service_pattern_scheduled_stop_point',
                       newest_quay: null,
                       measured_location: {
@@ -224,6 +226,7 @@ describe(`<${LineRouteList.name} />`, () => {
                           validity_end: DateTime.fromISO('2050-12-13'),
                           located_on_infrastructure_link_id:
                             'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                          point_type: ServicePatternPointTypeEnum.TimingPoint,
                           __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
@@ -281,6 +284,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       validity_end: DateTime.fromISO('2050-12-13'),
                       located_on_infrastructure_link_id:
                         '2feba2ae-c7af-4034-a299-9e592e67358f',
+                      point_type: ServicePatternPointTypeEnum.TimingPoint,
                       __typename: 'service_pattern_scheduled_stop_point',
                       newest_quay: null,
                       measured_location: {
@@ -349,6 +353,7 @@ describe(`<${LineRouteList.name} />`, () => {
                           validity_end: DateTime.fromISO('2050-12-13'),
                           located_on_infrastructure_link_id:
                             '2feba2ae-c7af-4034-a299-9e592e67358f',
+                          point_type: ServicePatternPointTypeEnum.TimingPoint,
                           __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
@@ -406,6 +411,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       validity_end: DateTime.fromISO('2050-12-13'),
                       located_on_infrastructure_link_id:
                         'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                      point_type: ServicePatternPointTypeEnum.TimingPoint,
                       __typename: 'service_pattern_scheduled_stop_point',
                       newest_quay: null,
                       measured_location: {
@@ -466,6 +472,7 @@ describe(`<${LineRouteList.name} />`, () => {
                           validity_end: DateTime.fromISO('2050-12-13'),
                           located_on_infrastructure_link_id:
                             'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                          point_type: ServicePatternPointTypeEnum.TimingPoint,
                           __typename: 'service_pattern_scheduled_stop_point',
                         },
                       ],
@@ -518,6 +525,7 @@ describe(`<${LineRouteList.name} />`, () => {
                         validity_end: DateTime.fromISO('2050-12-13'),
                         located_on_infrastructure_link_id:
                           'c63b749f-5060-4710-8b07-ec9ac017cb5f',
+                        point_type: ServicePatternPointTypeEnum.TimingPoint,
                         __typename: 'service_pattern_scheduled_stop_point',
                       },
                     ],
@@ -559,6 +567,7 @@ describe(`<${LineRouteList.name} />`, () => {
                         validity_end: DateTime.fromISO('2050-12-13'),
                         located_on_infrastructure_link_id:
                           'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
+                        point_type: ServicePatternPointTypeEnum.TimingPoint,
                         __typename: 'service_pattern_scheduled_stop_point',
                       },
                     ],

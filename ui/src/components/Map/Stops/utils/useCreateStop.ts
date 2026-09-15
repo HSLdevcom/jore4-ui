@@ -47,6 +47,7 @@ const GQL_INSERT_STOP_POINT = gql`
       priority
       measured_location
       label
+      point_type
       validity_start
       validity_end
       stop_place_ref

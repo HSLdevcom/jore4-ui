@@ -87,6 +87,7 @@ const GQL_EDIT_STOP = gql`
           timing_place_id
           label
         }
+        point_type
         validity_start
         validity_end
         located_on_infrastructure_link_id
