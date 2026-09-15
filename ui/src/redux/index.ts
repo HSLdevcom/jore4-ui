@@ -5,6 +5,7 @@ export * from './slices/errorModal';
 export * from './slices/export';
 export * from './slices/loader';
 export * from './slices/mapFilter';
+export * from './slices/mapDepotStopEditor';
 export * from './slices/mapModal';
 export * from './slices/mapRouteEditor';
 export * from './slices/mapStopAreaEditor';

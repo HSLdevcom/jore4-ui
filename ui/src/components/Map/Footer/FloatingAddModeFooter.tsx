@@ -30,6 +30,7 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
       stops: MapEntityEditorViewState.NONE,
       stopAreas: MapEntityEditorViewState.NONE,
       terminals: MapEntityEditorViewState.NONE,
+      depotStops: MapEntityEditorViewState.NONE,
     });
 
     // Reset copy stop mode
@@ -59,6 +60,9 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
     }
     if (mapViewState.stops === MapEntityEditorViewState.PLACECOPY) {
       return t(($) => $.map.copyStop);
+    }
+    if (mapViewState.depotStops === MapEntityEditorViewState.PLACE) {
+      return t(($) => $.map.addDepotStop);
     }
     if (mapViewState.stopAreas === MapEntityEditorViewState.PLACE) {
       return t(($) => $.map.createNewStopArea);

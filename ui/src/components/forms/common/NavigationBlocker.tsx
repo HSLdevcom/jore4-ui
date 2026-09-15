@@ -42,6 +42,7 @@ const knownNavigationContexts = [
   'CreateTimingPlaceForm',
   'EditStopForm',
   'ExternalLinksForm',
+  'DepotStopForm',
   'InfoSpotsForm',
   'LineForm',
   'LocationDetailsEdit',

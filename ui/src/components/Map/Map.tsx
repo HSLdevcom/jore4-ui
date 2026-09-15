@@ -16,6 +16,7 @@ import {
   MapEntityType,
   isPlacingOrMoving,
   selectHasDraftLocation,
+  selectMapDepotStopViewState,
   selectMapFilter,
   selectMapStopAreaViewState,
   selectMapStopViewState,
@@ -47,6 +48,7 @@ type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;
   readonly mapStopAreaViewState: MapEntityEditorViewState;
   readonly mapTerminalViewState: MapEntityEditorViewState;
+  readonly mapDepotStopViewState: MapEntityEditorViewState;
 };
 
 type EditorRefs = {
@@ -96,6 +98,7 @@ function useMapViewState(): MapViewState {
     mapStopViewState: useAppSelector(selectMapStopViewState),
     mapStopAreaViewState: useAppSelector(selectMapStopAreaViewState),
     mapTerminalViewState: useAppSelector(selectMapTerminalViewState),
+    mapDepotStopViewState: useAppSelector(selectMapDepotStopViewState),
   };
 }
 
@@ -136,11 +139,16 @@ function useOnClickMap(
     mapStopViewState,
     mapStopAreaViewState,
     mapTerminalViewState,
+    mapDepotStopViewState,
   }: MapViewState,
 ) {
   const handleMapRouteClick = useHandleMapRouteClick();
 
   return async (e: MapLayerMouseEvent): Promise<void> => {
+    if (mapDepotStopViewState === MapEntityEditorViewState.PLACE) {
+      return stopsRef.current?.onPlaceDepotStop(e);
+    }
+
     if (mapStopViewState === MapEntityEditorViewState.PLACE) {
       return stopsRef.current?.onCreateStop(e);
     }

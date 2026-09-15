@@ -2,6 +2,7 @@ export * from './errorModal';
 export * from './export';
 export * from './loader';
 export * from './mapFilter';
+export * from './mapDepotStopEditor';
 export * from './mapModal';
 export * from './mapRouteEditor';
 export * from './mapStopAreaEditor';
