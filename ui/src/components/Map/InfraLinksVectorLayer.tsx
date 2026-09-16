@@ -1,14 +1,18 @@
 import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
+import { ReusableComponentsVehicleSubmodeEnum } from '../../generated/graphql';
 import { theme } from '../../generated/theme';
+import { getInfraLinksMVTUrl } from './ApolloProtocol';
 
 const { colors } = theme;
 
-const BUS_NETWORK_TILES_URL =
-  '/api/mbtiles/services/dr_linkki/tiles/{z}/{x}/{y}.pbf';
+const BUS_INFRA_TILES_URL = getInfraLinksMVTUrl(
+  ReusableComponentsVehicleSubmodeEnum.GenericBus,
+);
 
-const TRAM_NETWORK_TILES_URL =
-  '/api/mbtiles/services/tram_links/tiles/{z}/{x}/{y}.pbf';
+const TRAM_INFRA_TILES_URL = getInfraLinksMVTUrl(
+  ReusableComponentsVehicleSubmodeEnum.GenericTram,
+);
 
 type InfraLinksVectorLayerProps = {
   readonly enableInfraLinkLayer: boolean;
@@ -28,13 +32,13 @@ export const InfraLinksVectorLayer: FC<InfraLinksVectorLayerProps> = ({
   return (
     <>
       {/* Bus network infrastructure links. */}
-      <Source id="dr_linkki_bus" type="vector" tiles={[BUS_NETWORK_TILES_URL]}>
+      <Source id="dr_linkki_bus" type="vector" tiles={[BUS_INFRA_TILES_URL]}>
         <Layer
           {...{
             id: 'digiroad_r_links_bus',
             type: 'line',
             source: 'dr_linkki_bus',
-            'source-layer': 'dr_linkki',
+            'source-layer': 'links',
             layout: {
               'line-join': 'round',
               'line-cap': 'round',
@@ -49,17 +53,13 @@ export const InfraLinksVectorLayer: FC<InfraLinksVectorLayerProps> = ({
       </Source>
 
       {/* Tram network infrastructure links. */}
-      <Source
-        id="mml_linkki_tram"
-        type="vector"
-        tiles={[TRAM_NETWORK_TILES_URL]}
-      >
+      <Source id="mml_linkki_tram" type="vector" tiles={[TRAM_INFRA_TILES_URL]}>
         <Layer
           {...{
             id: 'mml_links_tram',
             type: 'line',
             source: 'tram_links',
-            'source-layer': 'tram_links',
+            'source-layer': 'links',
             layout: {
               'line-join': 'round',
               'line-cap': 'round',

@@ -72034,6 +72034,20 @@ export type RouteVersionInfoFragment = {
   }>
 };
 
+export type GetInfraLinksMvtQueryVariables = Exact<{
+  args: GetLinkMvtArguments;
+}>;
+
+
+export type GetInfraLinksMvtQuery = {
+  readonly __typename?: 'query_root',
+  readonly getLinkMVT: ReadonlyArray<{
+    readonly __typename?: 'GetLinkMVTResult',
+    readonly id: string,
+    readonly data: string
+  }>
+};
+
 export type GetStopResultsCountQueryVariables = Exact<{
   where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
 }>;
@@ -86324,6 +86338,43 @@ export type GetRouteVersionsQueryHookResult = ReturnType<typeof useGetRouteVersi
 export type GetRouteVersionsLazyQueryHookResult = ReturnType<typeof useGetRouteVersionsLazyQuery>;
 export type GetRouteVersionsSuspenseQueryHookResult = ReturnType<typeof useGetRouteVersionsSuspenseQuery>;
 export type GetRouteVersionsQueryResult = Apollo.QueryResult<GetRouteVersionsQuery, GetRouteVersionsQueryVariables>;
+export const GetInfraLinksMvtDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetInfraLinksMVT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"args"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"getLinkMVT_arguments"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getLinkMVT"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"args"},"value":{"kind":"Variable","name":{"kind":"Name","value":"args"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetInfraLinksMvtQuery__
+ *
+ * To run a query within a React component, call `useGetInfraLinksMvtQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInfraLinksMvtQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInfraLinksMvtQuery({
+ *   variables: {
+ *      args: // value for 'args'
+ *   },
+ * });
+ */
+export function useGetInfraLinksMvtQuery(baseOptions: Apollo.QueryHookOptions<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables> & ({ variables: GetInfraLinksMvtQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>(GetInfraLinksMvtDocument, options);
+      }
+export function useGetInfraLinksMvtLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>(GetInfraLinksMvtDocument, options);
+        }
+// @ts-ignore
+export function useGetInfraLinksMvtSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>): Apollo.UseSuspenseQueryResult<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>;
+export function useGetInfraLinksMvtSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>): Apollo.UseSuspenseQueryResult<GetInfraLinksMvtQuery | undefined, GetInfraLinksMvtQueryVariables>;
+export function useGetInfraLinksMvtSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>(GetInfraLinksMvtDocument, options);
+        }
+export type GetInfraLinksMvtQueryHookResult = ReturnType<typeof useGetInfraLinksMvtQuery>;
+export type GetInfraLinksMvtLazyQueryHookResult = ReturnType<typeof useGetInfraLinksMvtLazyQuery>;
+export type GetInfraLinksMvtSuspenseQueryHookResult = ReturnType<typeof useGetInfraLinksMvtSuspenseQuery>;
+export type GetInfraLinksMvtQueryResult = Apollo.QueryResult<GetInfraLinksMvtQuery, GetInfraLinksMvtQueryVariables>;
 export const GetStopResultsCountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStopResultsCount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stopsDb"},"name":{"kind":"Name","value":"stops_database"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stops"},"name":{"kind":"Name","value":"stops_database_quay_newest_version_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
