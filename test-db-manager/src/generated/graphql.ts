@@ -82,6 +82,34 @@ export type FloatComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
+export type GetLinkMvtResult = {
+  __typename?: 'GetLinkMVTResult';
+  data: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the logical model for "GetLinkMVTResult". All fields are combined with a logical 'AND'. */
+export type GetLinkMvtResultBoolExpBoolExp = {
+  _and?: InputMaybe<Array<GetLinkMvtResultBoolExpBoolExp>>;
+  _not?: InputMaybe<GetLinkMvtResultBoolExpBoolExp>;
+  _or?: InputMaybe<Array<GetLinkMvtResultBoolExpBoolExp>>;
+  data?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<StringComparisonExp>;
+};
+
+export enum GetLinkMvtResultEnumName {
+  /** column name */
+  Data = 'data',
+  /** column name */
+  Id = 'id'
+}
+
+/** Ordering options when selecting data from "GetLinkMVTResult". */
+export type GetLinkMvtResultOrderBy = {
+  data?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
   _eq?: InputMaybe<Scalars['Int']['input']>;
@@ -544,6 +572,14 @@ export type GeometryComparisonExp = {
   _st_touches?: InputMaybe<Scalars['geometry']['input']>;
   /** is the column contained in the given geometry value */
   _st_within?: InputMaybe<Scalars['geometry']['input']>;
+};
+
+/** getLinkMVTNative Query Arguments */
+export type GetLinkMvtArguments = {
+  vehicle_submode: Scalars['String']['input'];
+  x: Scalars['Int']['input'];
+  y: Scalars['Int']['input'];
+  z: Scalars['Int']['input'];
 };
 
 export type GroupOfStopPlacesAlternativeNamesAggregateBoolExp = {
@@ -4956,6 +4992,7 @@ export type QuayKeyValuesAggregateBoolExpCount = {
 
 export type QueryRoot = {
   __typename?: 'query_root';
+  getLinkMVT: Array<GetLinkMvtResult>;
   /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" */
   hsl_route_legacy_hsl_municipality_code: Array<HslRouteLegacyHslMunicipalityCode>;
   /** fetch aggregated fields from the table: "hsl_route.legacy_hsl_municipality_code" */
@@ -5113,6 +5150,16 @@ export type QueryRoot = {
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
   toCombineTargetVehicleScheduleFrameId?: Maybe<ToCombineTargetVehicleScheduleFrameIdOutput>;
   toReplaceVehicleScheduleFrameIds?: Maybe<ToReplaceVehicleScheduleFrameIdsOutput>;
+};
+
+
+export type QueryRootGetLinkMvtArgs = {
+  args: GetLinkMvtArguments;
+  distinct_on?: InputMaybe<Array<GetLinkMvtResultEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<GetLinkMvtResultOrderBy>>;
+  where?: InputMaybe<GetLinkMvtResultBoolExpBoolExp>;
 };
 
 
@@ -60840,6 +60887,7 @@ export type StopsDatabaseValueVarianceFields = {
 
 export type SubscriptionRoot = {
   __typename?: 'subscription_root';
+  getLinkMVT: Array<GetLinkMvtResult>;
   /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" */
   hsl_route_legacy_hsl_municipality_code: Array<HslRouteLegacyHslMunicipalityCode>;
   /** fetch aggregated fields from the table: "hsl_route.legacy_hsl_municipality_code" */
@@ -61038,6 +61086,16 @@ export type SubscriptionRoot = {
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
   /** fetch data from the table in a streaming manner: "timing_pattern.timing_place" */
   timing_pattern_timing_place_stream: Array<TimingPatternTimingPlace>;
+};
+
+
+export type SubscriptionRootGetLinkMvtArgs = {
+  args: GetLinkMvtArguments;
+  distinct_on?: InputMaybe<Array<GetLinkMvtResultEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<GetLinkMvtResultOrderBy>>;
+  where?: InputMaybe<GetLinkMvtResultBoolExpBoolExp>;
 };
 
 

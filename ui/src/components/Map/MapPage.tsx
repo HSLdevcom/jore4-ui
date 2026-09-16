@@ -9,6 +9,7 @@ import {
 } from '../../redux';
 import { useNavigateBackSafely } from '../../utils';
 import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
+import { useRegisterApolloProtocol } from './ApolloProtocol';
 import { MapFooter } from './Footer';
 import { Map } from './Map';
 import { MapHeader } from './MapHeader';
@@ -25,6 +26,8 @@ export const MapPage: FC = () => {
 
   // For the map page we want to block navigation away for all dirty forms that may be open
   const wrapInContextNavigation = useWrapInContextNavigation('BlockForAll');
+
+  useRegisterApolloProtocol();
 
   const [, setMapViewState] = useMapViewState();
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
