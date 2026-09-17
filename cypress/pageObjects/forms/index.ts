@@ -4,6 +4,7 @@ export * from './CommonSubstitutePeriodForm';
 export * from './ConfirmPreviewedTimetablesImportForm';
 export * from './ConfirmTimetableImportForm';
 export * from './CreateTimingPlaceForm';
+export * from './DepotStopForm';
 export * from './LineForm';
 export * from './OccasionalSubstitutePeriodForm';
 export * from './ObservationPeriodForm';

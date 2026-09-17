@@ -37,6 +37,18 @@ export class MapFooter {
       .click();
   }
 
+  static addDepotStop() {
+    cy.getByTestId('MapFooter:addStopButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
+
+    return cy
+      .getByTestId('AddStopDropdownOption::addDepotStop')
+      .should('be.visible')
+      .click();
+  }
+
   static addStopArea() {
     cy.getByTestId('MapFooterActionsDropdown::menu')
       .should('be.visible')
