@@ -26,6 +26,7 @@ type StopMarkerBaseProps = {
   readonly centerDot?: boolean;
   readonly inSelection?: boolean;
   readonly showLabel?: boolean;
+  readonly depotStopLabel?: string;
   readonly transportModes?: ReadonlyArray<StopRegistryTransportModeType>;
   readonly trunkLine?: boolean;
   readonly speedTram?: boolean;
@@ -61,6 +62,7 @@ export const StopMarker: FC<StopMarkerProps> = ({
   onResolveTitle,
   stop,
   showLabel = false,
+  depotStopLabel,
   transportModes = [],
   trunkLine = false,
   speedTram = false,
@@ -104,15 +106,20 @@ export const StopMarker: FC<StopMarkerProps> = ({
     setIsMouseHovering(false);
   };
 
+  const hoverTitle = stop
+    ? (promisedTitle?.title ?? undefined)
+    : depotStopLabel;
+  const accessibleLabel = stop ? stop.label : depotStopLabel;
+
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       className="flex cursor-pointer items-center rounded-full"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      title={promisedTitle?.title ?? undefined}
+      title={hoverTitle}
       onClick={onClick ? () => onClick(stop) : undefined}
-      aria-label={stop?.label}
+      aria-label={accessibleLabel}
       data-testid={testId}
       data-transport-modes={transportModes.join(',')}
       data-trunk-line={trunkLine}

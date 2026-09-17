@@ -12,7 +12,8 @@ import { DepotStopFormState } from './DepotStopFormSchema';
 export function useCreateDepotStop() {
   const getStopLinkAndDirection = useGetStopLinkAndDirection();
   const [insertStopPointMutation] = useInsertStopPointMutation({
-    refetchQueries: ['GetMapStops'],
+    awaitRefetchQueries: true,
+    refetchQueries: ['GetMapDepotStops'],
   });
 
   return async (state: DepotStopFormState) => {

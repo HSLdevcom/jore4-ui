@@ -12,6 +12,7 @@ export enum Operation {
   FetchTerminalPageDetails = 'fetchTerminalPageDetails',
   FetchTerminals = 'fetchTerminals',
   FetchStops = 'fetchStops',
+  FetchDepotStops = 'fetchDepotStops',
   FetchStopInfo = 'fetchStopInfo',
   FetchRoutes = 'fetchRoutes',
   SaveStop = 'saveStop',

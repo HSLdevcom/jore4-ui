@@ -1,23 +1,35 @@
-import { GeometryComparisonExp } from '../../../generated/graphql';
+import {
+  GeographyComparisonExp,
+  GeometryComparisonExp,
+} from '../../../generated/graphql';
 import { Viewport } from '../../../redux';
+
+function viewportToPolygon(viewport: Viewport): GeoJSON.Polygon {
+  const [[west, south], [east, north]] = viewport.bounds;
+
+  return {
+    type: 'Polygon',
+    coordinates: [
+      [
+        [west, south],
+        [east, south],
+        [east, north],
+        [west, north],
+        [west, south],
+      ],
+    ],
+  };
+}
 
 export function buildWithinViewportGqlGeometryFilter(
   viewport: Viewport,
 ): GeometryComparisonExp {
-  const [[west, south], [east, north]] = viewport.bounds;
+  return { _st_within: viewportToPolygon(viewport) };
+}
 
-  return {
-    _st_within: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [west, south],
-          [east, south],
-          [east, north],
-          [west, north],
-          [west, south],
-        ],
-      ],
-    },
-  };
+// geography columns have no _st_within, so use _st_intersects instead
+export function buildWithinViewportGqlGeographyFilter(
+  viewport: Viewport,
+): GeographyComparisonExp {
+  return { _st_intersects: viewportToPolygon(viewport) };
 }

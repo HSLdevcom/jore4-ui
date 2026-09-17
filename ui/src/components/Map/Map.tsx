@@ -218,7 +218,8 @@ export const MapComponent: ForwardRefRenderFunction<
   const showTramNetwork = showMapEntityTypes[MapEntityType.TramNetwork];
   const showInfraLinks = showBusNetwork || showTramNetwork;
 
-  const { areas, displayedRouteIds, stops, terminals } = useGetMapData();
+  const { areas, displayedRouteIds, stops, terminals, depotStops } =
+    useGetMapData();
 
   return (
     <Maplibre
@@ -231,6 +232,7 @@ export const MapComponent: ForwardRefRenderFunction<
         areas={areas}
         stops={stops}
         terminals={terminals}
+        depotStops={depotStops}
         displayedRouteIds={displayedRouteIds}
         showRoute={showRoute}
         ref={editorRefs.stopsRef}

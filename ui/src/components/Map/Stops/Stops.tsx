@@ -26,12 +26,13 @@ import {
 import { LoadingState } from '../../../types';
 import { mapLngLatToPoint, mapPointToGeoJSON } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
-import { MapStop, MapStopArea, MapTerminal } from '../Types';
+import { MapDepotStop, MapStop, MapStopArea, MapTerminal } from '../Types';
 import { useMapViewState } from '../Utils/useMapViewState';
 import { AddDepotStopModal } from './AddDepotStop';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { ExistingStops } from './ExistingStops';
+import { ExistingDepotStops } from './ExistingStops/ExistingDepotStops';
 import {
   useCheckIsLocationValidForStop,
   useDefaultErrorHandler,
@@ -43,10 +44,11 @@ type StopsProps = {
   readonly showRoute: boolean;
   readonly stops: ReadonlyArray<MapStop>;
   readonly terminals: ReadonlyArray<MapTerminal>;
+  readonly depotStops: ReadonlyArray<MapDepotStop>;
 };
 
 export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
-  { areas, displayedRouteIds, showRoute, stops, terminals },
+  { areas, displayedRouteIds, showRoute, stops, terminals, depotStops },
   ref,
 ) => {
   const [mapViewState, setMapViewState] = useMapViewState();
@@ -165,6 +167,8 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
         stops={stops}
         terminals={terminals}
       />
+
+      <ExistingDepotStops depotStops={depotStops} />
 
       {/* Display edited stop + its editor components */}
       {(selectedStopId ?? draftLocation) && (

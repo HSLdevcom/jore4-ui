@@ -14,6 +14,7 @@ import { useFilterStopAreas } from '../StopAreas';
 import { useGetRoutesDisplayedInMap } from '../Stops/utils';
 import { isViewportLoaded } from '../Utils/isViewportLoaded';
 import { useFilterStops } from '../Utils/useFilterStops';
+import { useGetMapDepotStops } from './useGetMapDepotStops';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
 import { useGetMapTerminals } from './useGetMapTerminals';
@@ -52,6 +53,12 @@ export function useGetMapData() {
     viewport,
   });
 
+  const skipFetchingDepotStops = !showStops || !viewportIsLoaded;
+  const { depotStops, loading: depotStopsAreLoading } = useGetMapDepotStops({
+    skipFetching: skipFetchingDepotStops,
+    viewport,
+  });
+
   const { displayedRouteIds, loading: displayedRoutesAreLoading } =
     useGetRoutesDisplayedInMap();
 
@@ -63,6 +70,7 @@ export function useGetMapData() {
     stopsAreLoading ||
     areasAreLoading ||
     terminalsAreLoading ||
+    depotStopsAreLoading ||
     displayedRoutesAreLoading;
   useEffect(() => {
     setLoadingState(
@@ -82,5 +90,6 @@ export function useGetMapData() {
     areas: filteredAreas,
     displayedRouteIds,
     terminals,
+    depotStops,
   };
 }
