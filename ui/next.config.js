@@ -16,10 +16,6 @@ module.exports = {
       destination: 'http://127.0.0.1:3200/:path*',
     },
     {
-      source: '/api/mbtiles/:path*',
-      destination: 'http://127.0.0.1:3203/:path*',
-    },
-    {
       source: '/api/mapmatching/:path*',
       destination: 'http://127.0.0.1:3005/:path*',
     },
