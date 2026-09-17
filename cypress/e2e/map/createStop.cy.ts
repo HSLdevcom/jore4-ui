@@ -32,6 +32,7 @@ const testStopLabels = {
   tramLabel: 'T1001',
   tramStopAreaPrivateCode: 'Y1238',
   tramStopAreaName: 'Tram',
+  depotStopLabel: 'D001',
   manualCoordinatesLabel: 'T0002',
   endDateLabel: 'T0003',
   timingPlaceLabel: 'T0004',
@@ -42,6 +43,11 @@ const dbResources = { timingPlaces };
 const tramStopLocation = {
   lat: 60.15737558915313,
   lng: 24.91175322455062,
+};
+
+const depotStopLocation = {
+  lat: 60.16341342,
+  lng: 24.93454635,
 };
 
 const stopAreaInput: Array<StopAreaInput> = [
@@ -149,6 +155,30 @@ describe('Stop creation tests', rootOpts, () => {
     MapPage.gqlStopShouldBeCreatedSuccessfully();
 
     MapPage.checkStopSubmitSuccessToast();
+  });
+
+  it('Should create depot stop', () => {
+    MapPage.createDepotStopAtLocation({
+      depotStopFormInfo: {
+        label: testStopLabels.depotStopLabel,
+        latitude: String(depotStopLocation.lat),
+        longitude: String(depotStopLocation.lng),
+      },
+      clickRelativePoint: {
+        xPercentage: 50,
+        yPercentage: 50,
+      },
+    });
+
+    MapPage.gqlDepotStopShouldBeCreatedSuccessfully();
+
+    MapPage.checkStopSubmitSuccessToast();
+
+    FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Tram);
+
+    cy.getByTestId(
+      `Map::DepotStops::marker::${testStopLabels.depotStopLabel}`,
+    ).should('exist');
   });
 
   it(

@@ -1,5 +1,6 @@
 import { ReusableComponentsVehicleModeEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { DepotStopForm, NewDepotStopFormInfo } from '../forms/DepotStopForm';
 import { RoutePropertiesForm } from '../forms/RoutePropertiesForm';
 import { StopAreaForm } from '../forms/StopAreaForm';
 import { NewStopFormInfo, StopForm } from '../forms/StopForm';
@@ -21,6 +22,8 @@ export class MapPage {
   static routePropertiesForm = RoutePropertiesForm;
 
   static stopForm = StopForm;
+
+  static depotStopForm = DepotStopForm;
 
   static terminalForm = TerminalForm;
 
@@ -102,6 +105,32 @@ export class MapPage {
   static gqlStopShouldBeCreatedSuccessfully() {
     expectGraphQLCallToSucceed('@gqlInsertStopPoint');
     expectGraphQLCallToSucceed('@gqlInsertQuayIntoStopPlace');
+  }
+
+  /**
+   * This creates a depot stop at a location that is specified by percentages of the viewport's width and height.
+   */
+  static createDepotStopAtLocation({
+    depotStopFormInfo,
+    clickRelativePoint,
+  }: {
+    depotStopFormInfo: NewDepotStopFormInfo;
+    clickRelativePoint: { xPercentage: number; yPercentage: number };
+  }) {
+    MapFooter.addDepotStop();
+
+    Map.clickRelativePoint(
+      clickRelativePoint.xPercentage,
+      clickRelativePoint.yPercentage,
+    );
+
+    DepotStopForm.fillFormForNewDepotStop(depotStopFormInfo);
+
+    DepotStopForm.save();
+  }
+
+  static gqlDepotStopShouldBeCreatedSuccessfully() {
+    expectGraphQLCallToSucceed('@gqlInsertStopPoint');
   }
 
   static gqlTerminalShouldBeCreatedSuccessfully() {
