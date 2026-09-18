@@ -12,6 +12,8 @@ const { colors } = theme;
 // Offset from the markers left edge, to the center of the circle icon.
 // Needed to align the stop correctly, when the stop label is or isn't shown.
 const offset: PointLike = [-13, 0];
+// Larger marker (added to list) needs a matching offset to stay centered.
+const inSelectionOffset: PointLike = [-17, 0];
 
 function determineTransportModeColor(
   mode: StopRegistryTransportModeType,
@@ -64,6 +66,7 @@ function determineBorderColor(
   isTrunkLineStop: boolean,
   isSpeedTramStop: boolean,
   inSelection: boolean,
+  shouldBeGray: boolean,
 ) {
   if (inSelection) {
     return colors.tweakedBrand;
@@ -73,16 +76,35 @@ function determineBorderColor(
     return colors.grey;
   }
 
+  // Bus and hybrid stops use a dark selection ring, other modes keep their
+  // own color when selected.
   if (isSelected) {
+    const primaryMode = activeTransportModes.at(0);
+    const useModeColor =
+      activeTransportModes.length === 1 &&
+      (isTrunkLineStop || primaryMode === StopRegistryTransportModeType.Tram);
+
+    if (useModeColor && primaryMode) {
+      return determineTransportModeColor(
+        primaryMode,
+        isTrunkLineStop,
+        isSpeedTramStop,
+      );
+    }
+
     return colors.hslDark80;
   }
 
-  if (inSelection || asMemberStop) {
+  if (asMemberStop) {
     return colors.tweakedBrand;
   }
 
   if (isHighlighted) {
     return colors.selectedMapItem;
+  }
+
+  if (shouldBeGray) {
+    return colors.grey;
   }
 
   const primaryMode = activeTransportModes.at(0);
@@ -103,6 +125,7 @@ function determineFillColor(
   inSelection: boolean,
   shouldBeGray: boolean,
   activeTransportModes: ReadonlyArray<StopRegistryTransportModeType>,
+  isSpeedTramStop: boolean,
 ) {
   if (isSelected || asMemberStop || inSelection) {
     return 'white';
@@ -110,6 +133,16 @@ function determineFillColor(
 
   if (shouldBeGray || activeTransportModes.length === 0) {
     return colors.lightGrey;
+  }
+
+  // Tram and speed tram stops are filled with their own color, other modes
+  // stay white.
+  const primaryMode = activeTransportModes.at(0);
+  if (
+    activeTransportModes.length === 1 &&
+    primaryMode === StopRegistryTransportModeType.Tram
+  ) {
+    return determineTransportModeColor(primaryMode, false, isSpeedTramStop);
   }
 
   return 'white';
@@ -202,6 +235,7 @@ export const Stop: FC<StopProps> = ({
     isTrunkLineStop,
     isSpeedTramStop,
     inSelection,
+    shouldBeGray,
   );
 
   const iconFillColor = determineFillColor(
@@ -210,6 +244,7 @@ export const Stop: FC<StopProps> = ({
     inSelection,
     shouldBeGray,
     activeTransportModes,
+    isSpeedTramStop,
   );
 
   const secondaryFillColor = determineSecondaryFillColor(
@@ -224,7 +259,7 @@ export const Stop: FC<StopProps> = ({
   return (
     <Marker
       anchor="left"
-      offset={offset}
+      offset={inSelection ? inSelectionOffset : offset}
       longitude={longitude}
       latitude={latitude}
       className="z-2"
