@@ -85,6 +85,34 @@ export type FloatComparisonExp = {
   readonly _nin?: InputMaybe<ReadonlyArray<Scalars['Float']['input']>>;
 };
 
+export type GetLinkMvtResult = {
+  readonly __typename?: 'GetLinkMVTResult';
+  readonly data: Scalars['String']['output'];
+  readonly id: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the logical model for "GetLinkMVTResult". All fields are combined with a logical 'AND'. */
+export type GetLinkMvtResultBoolExpBoolExp = {
+  readonly _and?: InputMaybe<ReadonlyArray<GetLinkMvtResultBoolExpBoolExp>>;
+  readonly _not?: InputMaybe<GetLinkMvtResultBoolExpBoolExp>;
+  readonly _or?: InputMaybe<ReadonlyArray<GetLinkMvtResultBoolExpBoolExp>>;
+  readonly data?: InputMaybe<StringComparisonExp>;
+  readonly id?: InputMaybe<StringComparisonExp>;
+};
+
+export enum GetLinkMvtResultEnumName {
+  /** column name */
+  Data = 'data',
+  /** column name */
+  Id = 'id'
+}
+
+/** Ordering options when selecting data from "GetLinkMVTResult". */
+export type GetLinkMvtResultOrderBy = {
+  readonly data?: InputMaybe<OrderBy>;
+  readonly id?: InputMaybe<OrderBy>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
   readonly _eq?: InputMaybe<Scalars['Int']['input']>;
@@ -547,6 +575,14 @@ export type GeometryComparisonExp = {
   readonly _st_touches?: InputMaybe<Scalars['geometry']['input']>;
   /** is the column contained in the given geometry value */
   readonly _st_within?: InputMaybe<Scalars['geometry']['input']>;
+};
+
+/** getLinkMVTNative Query Arguments */
+export type GetLinkMvtArguments = {
+  readonly vehicle_submode: Scalars['String']['input'];
+  readonly x: Scalars['Int']['input'];
+  readonly y: Scalars['Int']['input'];
+  readonly z: Scalars['Int']['input'];
 };
 
 export type GroupOfStopPlacesAlternativeNamesAggregateBoolExp = {
@@ -3093,6 +3129,10 @@ export type JsonbComparisonExp = {
   readonly _has_keys_any?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
   readonly _in?: InputMaybe<ReadonlyArray<Scalars['jsonb']['input']>>;
   readonly _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  /** does the jsonpath return any item for the specified JSON value */
+  readonly _jsonb_path_exists?: InputMaybe<Scalars['String']['input']>;
+  /** does the jsonpath predicate check return true for the specified JSON value */
+  readonly _jsonb_path_match?: InputMaybe<Scalars['String']['input']>;
   readonly _lt?: InputMaybe<Scalars['jsonb']['input']>;
   readonly _lte?: InputMaybe<Scalars['jsonb']['input']>;
   readonly _neq?: InputMaybe<Scalars['jsonb']['input']>;
@@ -4959,6 +4999,7 @@ export type QuayKeyValuesAggregateBoolExpCount = {
 
 export type QueryRoot = {
   readonly __typename?: 'query_root';
+  readonly getLinkMVT: ReadonlyArray<GetLinkMvtResult>;
   /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" */
   readonly hsl_route_legacy_hsl_municipality_code: ReadonlyArray<HslRouteLegacyHslMunicipalityCode>;
   /** fetch aggregated fields from the table: "hsl_route.legacy_hsl_municipality_code" */
@@ -5116,6 +5157,16 @@ export type QueryRoot = {
   readonly timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
   readonly toCombineTargetVehicleScheduleFrameId?: Maybe<ToCombineTargetVehicleScheduleFrameIdOutput>;
   readonly toReplaceVehicleScheduleFrameIds?: Maybe<ToReplaceVehicleScheduleFrameIdsOutput>;
+};
+
+
+export type QueryRootGetLinkMvtArgs = {
+  args: GetLinkMvtArguments;
+  distinct_on?: InputMaybe<ReadonlyArray<GetLinkMvtResultEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<ReadonlyArray<GetLinkMvtResultOrderBy>>;
+  where?: InputMaybe<GetLinkMvtResultBoolExpBoolExp>;
 };
 
 
@@ -60843,6 +60894,7 @@ export type StopsDatabaseValueVarianceFields = {
 
 export type SubscriptionRoot = {
   readonly __typename?: 'subscription_root';
+  readonly getLinkMVT: ReadonlyArray<GetLinkMvtResult>;
   /** fetch data from the table: "hsl_route.legacy_hsl_municipality_code" */
   readonly hsl_route_legacy_hsl_municipality_code: ReadonlyArray<HslRouteLegacyHslMunicipalityCode>;
   /** fetch aggregated fields from the table: "hsl_route.legacy_hsl_municipality_code" */
@@ -61041,6 +61093,16 @@ export type SubscriptionRoot = {
   readonly timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
   /** fetch data from the table in a streaming manner: "timing_pattern.timing_place" */
   readonly timing_pattern_timing_place_stream: ReadonlyArray<TimingPatternTimingPlace>;
+};
+
+
+export type SubscriptionRootGetLinkMvtArgs = {
+  args: GetLinkMvtArguments;
+  distinct_on?: InputMaybe<ReadonlyArray<GetLinkMvtResultEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<ReadonlyArray<GetLinkMvtResultOrderBy>>;
+  where?: InputMaybe<GetLinkMvtResultBoolExpBoolExp>;
 };
 
 

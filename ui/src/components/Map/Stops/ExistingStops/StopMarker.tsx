@@ -1,5 +1,6 @@
 import { FC, MouseEventHandler, useEffect, useState } from 'react';
 import { StopRegistryTransportModeType } from '../../../../generated/graphql';
+import { theme } from '../../../../generated/theme';
 import { MapStop } from '../../Types';
 
 const testIds = {
@@ -106,6 +107,8 @@ export const StopMarker: FC<StopMarkerProps> = ({
     setIsMouseHovering(false);
   };
 
+  const dimension = inSelection ? 34 : 26;
+
   const hoverTitle = stop
     ? (promisedTitle?.title ?? undefined)
     : depotStopLabel;
@@ -127,34 +130,57 @@ export const StopMarker: FC<StopMarkerProps> = ({
     >
       <svg
         data-testid={testIds.icon}
-        height={26}
-        width={26}
-        className="p-[6px]"
+        height={dimension}
+        width={dimension}
+        className="overflow-visible p-[6px]"
         viewBox="0 0 14 14"
       >
         <circle
           cx={7}
           cy={7}
           r={6}
-          stroke={borderColor}
+          stroke={inSelection ? 'white' : borderColor}
           strokeDasharray={strokeDashArray}
-          strokeWidth={1}
-          fill={fillColor}
+          strokeWidth={inSelection ? 1.5 : 1}
+          fill={inSelection ? borderColor : fillColor}
         />
+
+        {inSelection && (
+          <circle
+            cx={7}
+            cy={7}
+            r={7.5}
+            stroke={borderColor}
+            strokeWidth={2}
+            fill="none"
+          />
+        )}
 
         {secondaryFillColor && (
           <path fill={secondaryFillColor} d="M 7 1 A 6 6 0 0 1 7 13 Z" />
         )}
 
-        {!inSelection && (centerDot || isMouseHovering) && (
+        {!inSelection && centerDot && (
           <circle cx={7} cy={7} r={3} fill={borderColor} />
+        )}
+
+        {isMouseHovering && (
+          <circle
+            cx={7}
+            cy={7}
+            r={8}
+            stroke={theme.colors.hslDark80}
+            strokeWidth={1}
+            fill="none"
+          />
         )}
 
         {inSelection && (
           <path
+            transform="translate(7 7) scale(0.65) translate(-7 -7)"
             fillRule="evenodd"
             d="M 9.834,3.799 5.851,7.78 4.128,6.057 C 3.758,5.688 3.211,5.675 2.829,6.018 L 2.787,6.057 C 2.404,6.44 2.404,7.014 2.787,7.397 L 5.851,10.46 11.213,5.139 C 11.582,4.77 11.595,4.222 11.252,3.841 L 11.213,3.799 C 10.791,3.454 10.217,3.454 9.834,3.799 Z"
-            fill={borderColor}
+            fill="white"
           />
         )}
       </svg>
