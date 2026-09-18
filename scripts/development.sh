@@ -25,7 +25,7 @@ TRAM_INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/tram_i
 POSTGIS_DUMP_RESTORE_LIST_FILE_DIR='./.dump_upgrade_helper_list_files'
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
-DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
+DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
 DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2e" "jore4-testdb-e2e")
 
 ROUTES_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
