@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
 import { Operation, useLoader } from '../../../../redux';
-import { Point } from '../../../../types';
 import { showSuccessToast } from '../../../../utils';
 import { mapVehicleModeToUiName } from '../../../../utils/i18n';
 import { InputField } from '../../../common/Inputs';
@@ -15,6 +14,7 @@ import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlo
 import { useDefaultErrorHandler } from '../utils';
 import { DepotStopFormState, depotStopFormSchema } from './DepotStopFormSchema';
 import { useCreateDepotStop } from './useCreateDepotStop';
+import { useEditDepotStop } from './useEditDepotStop';
 
 const testIds = {
   label: 'DepotStopForm::label',
@@ -24,13 +24,17 @@ const testIds = {
 
 type DepotStopFormProps = {
   readonly className?: string;
-  readonly defaultValues?: Point;
+  readonly editing?: boolean;
+  readonly depotStopId?: string;
+  readonly defaultValues?: Partial<DepotStopFormState>;
   readonly onCancel: () => void;
   readonly onCreated: () => void;
 };
 
 export const DepotStopForm: FC<DepotStopFormProps> = ({
   className,
+  editing = false,
+  depotStopId,
   defaultValues,
   onCancel,
   onCreated,
@@ -38,6 +42,7 @@ export const DepotStopForm: FC<DepotStopFormProps> = ({
   const { t } = useTranslation();
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const createDepotStop = useCreateDepotStop();
+  const editDepotStop = useEditDepotStop();
   const defaultErrorHandler = useDefaultErrorHandler();
 
   const methods = useForm<DepotStopFormState>({
@@ -51,8 +56,16 @@ export const DepotStopForm: FC<DepotStopFormProps> = ({
     setIsLoading(true);
 
     try {
-      await createDepotStop(state);
-      showSuccessToast(t(($) => $.stops.saveSuccess));
+      if (editing) {
+        if (!depotStopId) {
+          throw new Error('depotStopId is required when editing');
+        }
+        await editDepotStop(depotStopId, state);
+        showSuccessToast(t(($) => $.stops.editSuccess));
+      } else {
+        await createDepotStop(state);
+        showSuccessToast(t(($) => $.stops.saveSuccess));
+      }
       onCreated();
     } catch (err) {
       defaultErrorHandler(err as Error);

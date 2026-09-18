@@ -1,6 +1,13 @@
 import { FC } from 'react';
 import { StopRegistryTransportModeType } from '../../../../generated/graphql';
-import { FilterType, selectMapFilter, useAppSelector } from '../../../../redux';
+import {
+  FilterType,
+  MapEntityEditorViewState,
+  selectMapFilter,
+  setSelectedDepotStopIdAction,
+  useAppAction,
+  useAppSelector,
+} from '../../../../redux';
 import { MapDepotStop } from '../../Types';
 import { useMapViewState } from '../../Utils/useMapViewState';
 import { Stop } from './Stop';
@@ -17,12 +24,18 @@ type ExistingDepotStopsProps = {
 export const ExistingDepotStops: FC<ExistingDepotStopsProps> = ({
   depotStops,
 }) => {
-  const [mapViewState] = useMapViewState();
+  const [mapViewState, setMapViewState] = useMapViewState();
   const { stopFilters } = useAppSelector(selectMapFilter);
+  const setSelectedDepotStopId = useAppAction(setSelectedDepotStopIdAction);
 
   if (!stopFilters[FilterType.ShowAllTramStops]) {
     return null;
   }
+
+  const onClickDepotStop = (depotStop: MapDepotStop) => {
+    setSelectedDepotStopId(depotStop.id);
+    setMapViewState({ depotStops: MapEntityEditorViewState.POPUP });
+  };
 
   return (
     <>
@@ -36,6 +49,7 @@ export const ExistingDepotStops: FC<ExistingDepotStopsProps> = ({
           activeTransportModes={[StopRegistryTransportModeType.Tram]}
           shouldBeGray
           depotStopLabel={depotStop.label}
+          onDepotStopClick={() => onClickDepotStop(depotStop)}
         />
       ))}
     </>

@@ -8,16 +8,31 @@ import {
 } from '../../../../redux';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
+import { MapDepotStop } from '../../Types';
 import { DepotStopForm } from './DepotStopForm';
 
-const testIds = { modal: 'AddDepotStopModal' };
+const testIds = { modal: 'DepotStopModal' };
 
-export const AddDepotStopModal: FC = () => {
+type DepotStopModalProps = {
+  readonly editingDepotStop?: MapDepotStop;
+};
+
+export const DepotStopModal: FC<DepotStopModalProps> = ({
+  editingDepotStop,
+}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const location = useAppSelector(selectDepotStopDraftLocation);
+  const draftLocation = useAppSelector(selectDepotStopDraftLocation);
 
   const onClose = () => dispatch(resetMapDepotStopEditorStateAction());
+
+  const defaultValues = editingDepotStop
+    ? {
+        label: editingDepotStop.label,
+        latitude: editingDepotStop.location.coordinates[1],
+        longitude: editingDepotStop.location.coordinates[0],
+      }
+    : draftLocation;
 
   return (
     <CustomOverlay
@@ -30,11 +45,17 @@ export const AddDepotStopModal: FC = () => {
         bodyClassName="mx-0 my-0 flex flex-col"
         testId={testIds.modal}
         onClose={onClose}
-        heading={t(($) => $.map.addDepotStop)}
+        heading={
+          editingDepotStop
+            ? editingDepotStop.label
+            : t(($) => $.map.addDepotStop)
+        }
         navigationContext="DepotStopForm"
       >
         <DepotStopForm
-          defaultValues={location}
+          editing={!!editingDepotStop}
+          depotStopId={editingDepotStop?.id}
+          defaultValues={defaultValues}
           onCancel={onClose}
           onCreated={onClose}
           className="min-h-0"

@@ -9,10 +9,11 @@ import {
   MapEntityEditorViewState,
   Operation,
   isEditorOpen,
-  isModalOpen,
   isPlacingOrMoving,
+  selectDepotStopDraftLocation,
   selectDraftLocation,
   selectDraftVehicleMode,
+  selectSelectedDepotStopId,
   selectSelectedStopId,
   setDepotStopDraftLocationAction,
   setDraftLocationAction,
@@ -28,8 +29,8 @@ import { mapLngLatToPoint, mapPointToGeoJSON } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapDepotStop, MapStop, MapStopArea, MapTerminal } from '../Types';
 import { useMapViewState } from '../Utils/useMapViewState';
-import { AddDepotStopModal } from './AddDepotStop';
 import { CreateStopMarker } from './CreateStopMarker';
+import { EditDepotStopLayer } from './EditDepotStopLayer';
 import { EditStopLayer } from './EditStopLayer';
 import { ExistingStops } from './ExistingStops';
 import { ExistingDepotStops } from './ExistingStops/ExistingDepotStops';
@@ -54,7 +55,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   const [mapViewState, setMapViewState] = useMapViewState();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
+  const selectedDepotStopId = useAppSelector(selectSelectedDepotStopId);
   const draftLocation = useAppSelector(selectDraftLocation);
+  const depotStopDraftLocation = useAppSelector(selectDepotStopDraftLocation);
   const draftVehicleMode = useAppSelector(selectDraftVehicleMode);
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
@@ -191,7 +194,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
         />
       )}
 
-      {isModalOpen(mapViewState.depotStops) && <AddDepotStopModal />}
+      {(selectedDepotStopId ?? depotStopDraftLocation) && (
+        <EditDepotStopLayer depotStops={depotStops} />
+      )}
     </>
   );
 };
