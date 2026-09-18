@@ -187,6 +187,7 @@ type BaseStopProps = {
   readonly shouldBeGray?: boolean;
   readonly showLabel?: boolean;
   readonly depotStopLabel?: string;
+  readonly onDepotStopClick?: () => void;
 };
 
 type ExistingStopSpecialProps = {
@@ -223,6 +224,7 @@ export const Stop: FC<StopProps> = ({
   stop,
   showLabel = false,
   depotStopLabel,
+  onDepotStopClick,
 }) => {
   // If the stop is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
@@ -277,6 +279,7 @@ export const Stop: FC<StopProps> = ({
         inSelection={inSelection}
         showLabel={showLabel}
         depotStopLabel={depotStopLabel}
+        onDepotStopClick={onDepotStopClick}
         transportModes={activeTransportModes}
         trunkLine={isTrunkLineStop}
         speedTram={isSpeedTramStop}

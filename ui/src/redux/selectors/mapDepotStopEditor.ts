@@ -18,3 +18,8 @@ export const selectDepotStopDraftLocation = createSelector(
   selectMapDepotStopEditor,
   (mapDepotStopEditor) => mapDepotStopEditor.draftLocation,
 );
+
+export const selectSelectedDepotStopId = createSelector(
+  selectMapDepotStopEditor,
+  (mapDepotStopEditor) => mapDepotStopEditor.selectedDepotStopId,
+);
