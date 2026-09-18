@@ -73522,6 +73522,33 @@ export type RemoveStopMutation = {
   } | null
 };
 
+export type DeleteDepotStopMutationVariables = Exact<{
+  depotStopId: Scalars['uuid']['input'];
+}>;
+
+
+export type DeleteDepotStopMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly delete_service_pattern_scheduled_stop_point_by_pk?: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly scheduled_stop_point_id: UUID
+  } | null
+};
+
+export type EditDepotStopMutationVariables = Exact<{
+  depotStopId: Scalars['uuid']['input'];
+  patch: ServicePatternScheduledStopPointSetInput;
+}>;
+
+
+export type EditDepotStopMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly update_service_pattern_scheduled_stop_point_by_pk?: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly scheduled_stop_point_id: UUID
+  } | null
+};
+
 export type QueryAnyClosestLinkQueryVariables = Exact<{
   point: Scalars['geography']['input'];
 }>;
@@ -86891,6 +86918,61 @@ export function useRemoveStopMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveStopMutationHookResult = ReturnType<typeof useRemoveStopMutation>;
 export type RemoveStopMutationResult = Apollo.MutationResult<RemoveStopMutation>;
 export type RemoveStopMutationOptions = Apollo.BaseMutationOptions<RemoveStopMutation, RemoveStopMutationVariables>;
+export const DeleteDepotStopDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteDepotStop"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"depotStopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_service_pattern_scheduled_stop_point_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"depotStopId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}}]}}]}}]} as unknown as DocumentNode;
+export type DeleteDepotStopMutationFn = Apollo.MutationFunction<DeleteDepotStopMutation, DeleteDepotStopMutationVariables>;
+
+/**
+ * __useDeleteDepotStopMutation__
+ *
+ * To run a mutation, you first call `useDeleteDepotStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDepotStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDepotStopMutation, { data, loading, error }] = useDeleteDepotStopMutation({
+ *   variables: {
+ *      depotStopId: // value for 'depotStopId'
+ *   },
+ * });
+ */
+export function useDeleteDepotStopMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDepotStopMutation, DeleteDepotStopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDepotStopMutation, DeleteDepotStopMutationVariables>(DeleteDepotStopDocument, options);
+      }
+export type DeleteDepotStopMutationHookResult = ReturnType<typeof useDeleteDepotStopMutation>;
+export type DeleteDepotStopMutationResult = Apollo.MutationResult<DeleteDepotStopMutation>;
+export type DeleteDepotStopMutationOptions = Apollo.BaseMutationOptions<DeleteDepotStopMutation, DeleteDepotStopMutationVariables>;
+export const EditDepotStopDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EditDepotStop"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"depotStopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"patch"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"service_pattern_scheduled_stop_point_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_service_pattern_scheduled_stop_point_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"scheduled_stop_point_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"depotStopId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"patch"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_id"}}]}}]}}]} as unknown as DocumentNode;
+export type EditDepotStopMutationFn = Apollo.MutationFunction<EditDepotStopMutation, EditDepotStopMutationVariables>;
+
+/**
+ * __useEditDepotStopMutation__
+ *
+ * To run a mutation, you first call `useEditDepotStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditDepotStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editDepotStopMutation, { data, loading, error }] = useEditDepotStopMutation({
+ *   variables: {
+ *      depotStopId: // value for 'depotStopId'
+ *      patch: // value for 'patch'
+ *   },
+ * });
+ */
+export function useEditDepotStopMutation(baseOptions?: Apollo.MutationHookOptions<EditDepotStopMutation, EditDepotStopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditDepotStopMutation, EditDepotStopMutationVariables>(EditDepotStopDocument, options);
+      }
+export type EditDepotStopMutationHookResult = ReturnType<typeof useEditDepotStopMutation>;
+export type EditDepotStopMutationResult = Apollo.MutationResult<EditDepotStopMutation>;
+export type EditDepotStopMutationOptions = Apollo.BaseMutationOptions<EditDepotStopMutation, EditDepotStopMutationVariables>;
 export const QueryAnyClosestLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryAnyClosestLink"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"point"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"geography"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_network_infrastructure_link"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"shape"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_st_d_within"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"distance"},"value":{"kind":"IntValue","value":"100"}},{"kind":"ObjectField","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"point"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}}]}}]}}]} as unknown as DocumentNode;
 
 /**

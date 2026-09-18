@@ -6,7 +6,7 @@ export interface NewDepotStopFormInfo {
 
 export class DepotStopForm {
   static getModal() {
-    return cy.getByTestId('AddDepotStopModal');
+    return cy.getByTestId('DepotStopModal');
   }
 
   static getLabelInput() {

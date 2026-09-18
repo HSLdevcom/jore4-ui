@@ -28,6 +28,7 @@ type StopMarkerBaseProps = {
   readonly inSelection?: boolean;
   readonly showLabel?: boolean;
   readonly depotStopLabel?: string;
+  readonly onDepotStopClick?: () => void;
   readonly transportModes?: ReadonlyArray<StopRegistryTransportModeType>;
   readonly trunkLine?: boolean;
   readonly speedTram?: boolean;
@@ -51,6 +52,41 @@ type PlaceholderStopMarkerProps = StopMarkerBaseProps &
 
 type StopMarkerProps = PlaceholderStopMarkerProps | ExistingStopMarkerProps;
 
+type MarkerInteraction = {
+  readonly hoverTitle: string | undefined;
+  readonly accessibleLabel: string | undefined;
+  readonly onMarkerClick: (() => void) | undefined;
+};
+
+function resolveMarkerInteraction(
+  stop: MapStop | undefined,
+  onClick: ((stop: MapStop) => void) | undefined,
+  promisedTitle: PromisedTitle | null,
+  depotStopLabel: string | undefined,
+  onDepotStopClick: (() => void) | undefined,
+): MarkerInteraction {
+  switch (true) {
+    case !!stop:
+      return {
+        hoverTitle: promisedTitle?.title ?? undefined,
+        accessibleLabel: stop.label,
+        onMarkerClick: () => onClick?.(stop),
+      };
+    case !!depotStopLabel:
+      return {
+        hoverTitle: depotStopLabel,
+        accessibleLabel: depotStopLabel,
+        onMarkerClick: onDepotStopClick,
+      };
+    default:
+      return {
+        hoverTitle: undefined,
+        accessibleLabel: undefined,
+        onMarkerClick: undefined,
+      };
+  }
+}
+
 export const StopMarker: FC<StopMarkerProps> = ({
   testId,
   fillColor = 'white',
@@ -64,6 +100,7 @@ export const StopMarker: FC<StopMarkerProps> = ({
   stop,
   showLabel = false,
   depotStopLabel,
+  onDepotStopClick,
   transportModes = [],
   trunkLine = false,
   speedTram = false,
@@ -109,10 +146,14 @@ export const StopMarker: FC<StopMarkerProps> = ({
 
   const dimension = inSelection ? 34 : 26;
 
-  const hoverTitle = stop
-    ? (promisedTitle?.title ?? undefined)
-    : depotStopLabel;
-  const accessibleLabel = stop ? stop.label : depotStopLabel;
+  const { hoverTitle, accessibleLabel, onMarkerClick } =
+    resolveMarkerInteraction(
+      stop,
+      onClick,
+      promisedTitle,
+      depotStopLabel,
+      onDepotStopClick,
+    );
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -121,7 +162,7 @@ export const StopMarker: FC<StopMarkerProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       title={hoverTitle}
-      onClick={onClick ? () => onClick(stop) : undefined}
+      onClick={onMarkerClick}
       aria-label={accessibleLabel}
       data-testid={testId}
       data-transport-modes={transportModes.join(',')}
