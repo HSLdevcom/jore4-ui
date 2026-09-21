@@ -26,7 +26,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: start e2e env
-        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v10
+        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@seed-infrastructure-links-v6
 
       - name: Build test db manager module
         run: yarn ws:db build

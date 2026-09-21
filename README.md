@@ -5,6 +5,53 @@ Server-side rendering of Next.js is disabled as in this project it does not offe
 
 Next.js was still chosen over `create-react-app` as project template as it offers better tooling, better developer experience, much faster live reloads and better support for future needs.
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Tests & QA](#tests--qa)
+  - [TypeScript](#typescript)
+  - [Code formatting](#code-formatting)
+  - [Code style](#code-style)
+  - [Local tests](#local-tests)
+  - ["Integration" tests / "react hook e2e tests"](#integration-tests--react-hook-e2e-tests)
+  - [Cypress (e2e) tests](#cypress-e2e-tests)
+    - [E2E Map tests](#e2e-map-tests)
+  - [Separate database in local e2e tests](#separate-database-in-local-e2e-tests)
+  - [CI](#ci)
+  - [Recommended tooling](#recommended-tooling)
+    - [VSCode](#vscode)
+    - [IntelliJ IDEA](#intellij-idea)
+- [Setting up dependencies for local development](#setting-up-dependencies-for-local-development)
+- [Loading single dump into development database](#loading-single-dump-into-development-database)
+- [Updating dump files to initialise databases with data](#updating-dump-files-to-initialise-databases-with-data)
+- [Regenerating infraLinks.sql](#regenerating-infralinkssql)
+  - [Fixing timetables seed data (NEEDS UPDATE)](#fixing-timetables-seed-data-needs-update)
+- [Docker reference](#docker-reference)
+  - [Testing locally](#testing-locally)
+- [Updating Jest snapshots](#updating-jest-snapshots)
+- [Updating Node version](#updating-node-version)
+- [Graphql api/code generation](#graphql-apicode-generation)
+- [Icons](#icons)
+- [Map tiles](#map-tiles)
+- [Coding style](#coding-style)
+  - [Inline components](#inline-components)
+    - [Bad inline components](#bad-inline-components)
+    - [Good non-inline components](#good-non-inline-components)
+  - [Namespaced imports](#namespaced-imports)
+    - [Bad grouping](#bad-grouping)
+    - [Good grouping](#good-grouping)
+  - [Test ids](#test-ids)
+    - [Bad testIds](#bad-testids)
+    - [Good testIds](#good-testids)
+  - [TailwindCSS](#tailwindcss)
+  - [I18Next](#i18next)
+- [Loading state of async request handling / indication](#loading-state-of-async-request-handling--indication)
+- [Yarn workspaces / monorepo structure](#yarn-workspaces--monorepo-structure)
+- [Tips & Tricks](#tips--tricks)
+  - [Yarn lock changed (for no reason)](#yarn-lock-changed-for-no-reason)
+  - [Docker prune](#docker-prune)
+- [License](#license)
+
 ## Getting Started
 
 First, make sure you have the following apps installed:
