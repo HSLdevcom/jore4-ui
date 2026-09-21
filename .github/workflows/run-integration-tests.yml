@@ -9,7 +9,7 @@ permissions:
 jobs:
   run_integration_tests:
     name: Run ui's integration tests against Docker Compose environment
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     steps:
       - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: '24.19.0'
+          node-version: '24.21.0'
           cache: 'yarn'
 
       - name: Install dependencies && check that lockfile is up-to-date
