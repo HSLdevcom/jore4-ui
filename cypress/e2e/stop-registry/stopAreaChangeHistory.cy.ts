@@ -40,7 +40,7 @@ import {
 
 const testInfraLinks = [
   {
-    externalId: '7d29bd61-6cf7-4d2c-8bd8-b8e835fe90b7:1',
+    externalId: '7d29bd61-6cf7-4d2c-8bd8-b8e835fe90b7:2',
     coordinates: [24.92669962, 60.16418108, 10.09699999],
   },
 ];

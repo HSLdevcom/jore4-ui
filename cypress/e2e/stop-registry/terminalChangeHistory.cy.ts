@@ -50,7 +50,7 @@ import {
 
 const testInfraLinks = [
   {
-    externalId: '7d29bd61-6cf7-4d2c-8bd8-b8e835fe90b7:1',
+    externalId: '7d29bd61-6cf7-4d2c-8bd8-b8e835fe90b7:2',
     coordinates: [24.92669962, 60.16418108, 10.09699999],
   },
 ];
@@ -72,6 +72,7 @@ const buildScheduledStopPoints = (
     validity_end: DateTime.fromISO('2050-05-31'),
     scheduled_stop_point_id: '29dfb688-7ecc-4cb5-876d-c2c7f1a1f00a',
     timing_place_id: timingPlaces[0].timing_place_id,
+    located_on_infrastructure_link_id: infrastructureLinkIds[0],
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[0].coordinates,

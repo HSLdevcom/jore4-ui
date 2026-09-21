@@ -16,11 +16,10 @@ DOCKER_COMPOSE_BUNDLE_REF=${BUNDLE_REF:-main}
 # this project from others.
 export COMPOSE_PROJECT_NAME=jore4-ui
 
-DUMP_ROUTES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-jore4e2e.pgdump"
-DUMP_TIMETABLES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-timetablesdb-nodata.pgdump"
-DUMP_STOPS_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-stopdb.pgdump"
-INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/2025-09-24-infraLinks.sql"
-TRAM_INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/tram_infraLinks_2026-01-28.sql"
+DUMP_ROUTES_FILENAME="2026-09-18/2026-09-18-jore4-local-jore4e2e.pgdump"
+DUMP_TIMETABLES_FILENAME="2026-09-18/2026-09-18-jore4-local-timetablesdb.pgdump"
+DUMP_STOPS_FILENAME="/2026-09-18/2026-09-18-jore4-local-stopdb.pgdump"
+INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/infraLinks_digiroad_r_2026-01_mml_2026-08-04.sql"
 
 POSTGIS_DUMP_RESTORE_LIST_FILE_DIR='./.dump_upgrade_helper_list_files'
 
@@ -91,7 +90,7 @@ wait_for_external_source() {
   wait_for_database "$1" "$(where_exists_external_source "$2")"
 }
 
-download_bus_infralinks() {
+download_infralinks() {
   if [ -f "infraLinks.sql" ]; then
     echo "infraLinks.sql already exists, skipping download."
   else
@@ -100,54 +99,17 @@ download_bus_infralinks() {
   fi
 }
 
-download_tram_infralinks() {
-  if [ -f "tram_infraLinks.sql" ]; then
-    echo "tram_infraLinks.sql already exists, skipping download."
-  else
-    echo "Downloading tram_infraLinks.sql..."
-    curl "$TRAM_INFRALINKS_URL" -o "tram_infraLinks.sql"
-  fi
-}
+seed_infra_links() {
+  download_infralinks
 
-download_infralinks() {
-  download_bus_infralinks
-  download_tram_infralinks
-}
-
-seed_bus_infra_links() {
-  download_bus_infralinks
-
-  echo "$1: Seeding Bus infrastructure links..."
+  echo "$1: Seeding infrastructure links..."
 
   wait_for_database_table "$1" infrastructure_network infrastructure_link
 
   echo "$1: infraLinks.sql..."
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
 
-  echo "$1: Done Bus seeding infrastructure links."
-}
-
-seed_tram_infra_links() {
-  download_tram_infralinks
-
-  echo "$1: Seeding Tram infrastructure links..."
-
-  # hsl_tram eventually gets populated by Hasura migrations.
-  # We need to explicitly wait for the Hasura migration to happen before
-  # we can populate the dump in, as the Hasura migration breaks if there
-  # is already tram data in the table when it starts up.
-  wait_for_external_source "$1" hsl_tram
-
-  echo "$1: tram_infraLinks.sql..."
-  docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "tram_infraLinks.sql";
-
-  echo "$1: Done Tram seeding infrastructure links."
-}
-
-
-seed_infra_links() {
-  seed_bus_infra_links $1
-  seed_tram_infra_links $1
+  echo "$1: Done seeding infrastructure links."
 }
 
 check_pinned_image() {
@@ -249,7 +211,7 @@ download_docker_compose_bundle() {
 }
 
 start_docker_containers() {
-  echo "Running Docker Compose command: $DOCKER_COMPOSE_CMD"
+  echo "Running Docker Compose command: $DOCKER_COMPOSE_CMD up -d $*"
 
   $DOCKER_COMPOSE_CMD up -d "$@"
 }
@@ -416,11 +378,6 @@ setup_environment() {
   fi
 
   start_docker_containers "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
-
-  # Bus links are already in the above dump files.
-  # We need to wait for Hasura to run it's migrations,
-  # before we can inject in the tram network.
-  seed_tram_infra_links testdb
 
   if [ "$INCLUDE_E2E" = true ]; then
     seed_infra_links testdb-e2e
