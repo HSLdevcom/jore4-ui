@@ -5,6 +5,7 @@ export * from './useEditStop';
 export * from './useEditStopUtils';
 export * from './useGetRoutesDisplayedInMap';
 export * from './useGetStopInfoForEditingOnMap';
+export * from './useGetStopWithRoutes';
 export * from './useGetStopLinkAndDirection';
 export * from './useUpdateStopPriorityFilterIfNeeded';
 export * from './useValidateTimingSettings';
