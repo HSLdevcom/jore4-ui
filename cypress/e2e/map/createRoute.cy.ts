@@ -145,9 +145,7 @@ describe('Route creation', rootOpts, () => {
 
   it(
     'Should create a new bus route',
-    {
-      tags: [Tag.Smoke, Tag.Network],
-    },
+    { tags: [Tag.Smoke, Tag.Network] },
     () => {
       const versionComment = 'E2E create route reason';
 
@@ -182,12 +180,14 @@ describe('Route creation', rootOpts, () => {
       });
 
       MapPage.editRouteModal.save();
-      MapPage.map.getLoader().should('exist');
+
+      MapPage.routePropertiesForm.getForm().should('not.exists');
+      RouteStopsOverlay.getHeader().shouldBeVisible();
+      MapPage.map.getLoader().should('not.exist');
 
       // Create a geometry for route that includes dataset stops E2E001,
       // (exclude E2E002) E2E003, E2E004 and E2E005
       // Wait until loading has finished before starting to click on the map
-      MapPage.map.getLoader().should('not.exist');
       MapPage.map.clickAtCoordinates(
         stopCoordinatesByLabel.E2E001[0],
         stopCoordinatesByLabel.E2E001[1],
