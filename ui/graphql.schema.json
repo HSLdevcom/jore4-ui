@@ -4694,7 +4694,7 @@
         "inputFields": [
           {
             "name": "query",
-            "description": null,
+            "description": "",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -5401,7 +5401,7 @@
         "inputFields": [
           {
             "name": "vehicle_submode",
-            "description": null,
+            "description": "",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -5417,7 +5417,7 @@
           },
           {
             "name": "x",
-            "description": null,
+            "description": "",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -5433,7 +5433,7 @@
           },
           {
             "name": "y",
-            "description": null,
+            "description": "",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -5449,7 +5449,7 @@
           },
           {
             "name": "z",
-            "description": null,
+            "description": "",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -71334,7 +71334,7 @@
         "fields": [
           {
             "name": "addressablePlace",
-            "description": null,
+            "description": "",
             "args": [],
             "type": {
               "kind": "OBJECT",
