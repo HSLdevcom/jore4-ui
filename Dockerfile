@@ -1,4 +1,4 @@
-FROM node:24-alpine3.22 AS build
+FROM node:24-alpine3.24 AS build
 WORKDIR /app
 COPY package.json yarn.lock tsconfig.json ./
 COPY ./ui/package.json ./ui/
@@ -25,7 +25,7 @@ RUN yarn ws:ui run build
 RUN rm /app/ui/out/config.json && \
     ln -s /tmp/config.json /app/ui/out/config.json
 
-FROM nginxinc/nginx-unprivileged:1.29.3-alpine
+FROM nginxinc/nginx-unprivileged:1.31-alpine
 
 EXPOSE 8080
 
