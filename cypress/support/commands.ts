@@ -29,8 +29,30 @@ import type { DateTime } from 'luxon';
 import { formatShortDate } from '../utils/time';
 import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 
+const wordsThatMeanTrue = ['true', 'on', 'yes'];
+
+function isTrue(value: unknown) {
+  if (value === true) {
+    return true;
+  }
+
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+
+    if (wordsThatMeanTrue.includes(normalized)) {
+      return true;
+    }
+  }
+
+  return Number(value) > 0;
+}
+
+function isEnvExposedTrue(envName: string) {
+  return isTrue(Cypress.expose(envName));
+}
+
 function getHasuraEnvironment() {
-  if (Cypress.env('CI') === undefined && Cypress.env('CYPRESS') === 'true') {
+  if (!isEnvExposedTrue('CI') && isEnvExposedTrue('CYPRESS')) {
     return HasuraEnvironment.e2e;
   }
   return HasuraEnvironment.default;
@@ -195,7 +217,7 @@ Cypress.Commands.add('mockLogin', () => {
 Cypress.Commands.add('setupTests', () => {
   // In CI, the tests run faster and more reliably if we don't show the map tiles.
   // However the map tiles might come handy when running these tests locally.
-  if (Cypress.env('DISABLE_MAP_TILES')) {
+  if (isEnvExposedTrue('DISABLE_MAP_TILES')) {
     Cypress.log({ message: 'Disabling map tile rendering' });
     mockMapTileServerReponses();
   }

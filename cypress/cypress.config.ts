@@ -58,6 +58,11 @@ export default defineConfig({
 
       return config;
     },
-    env: process.env,
+    expose: {
+      CI: process.env.CI,
+      CYPRESS: process.env.CYPRESS,
+      DISABLE_MAP_TILES:
+        process.env.DISABLE_MAP_TILES ?? process.env.CYPRESS_DISABLE_MAP_TILES,
+    },
   },
 });
