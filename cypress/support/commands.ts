@@ -36,8 +36,8 @@ function getHasuraEnvironment() {
   return HasuraEnvironment.default;
 }
 
-Cypress.Commands.add('getByTestId', (selector, ...args) => {
-  return cy.get(`[data-testid="${selector}"]`, ...args);
+Cypress.Commands.add('getByTestId', (selector, options) => {
+  return cy.get(`[data-testid="${selector}"]`, options);
 });
 
 Cypress.Commands.add(

@@ -12,12 +12,19 @@ declare namespace Cypress {
     ReadDownloadedCSVOptions,
   } from './types';
 
+  type GetOptions = Partial<
+    Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
+  >;
+
   interface Chainable {
     /**
      * Custom command to select DOM element by data-testid attribute.
      * @example cy.getByTestId('exampleTestid')
      */
-    getByTestId(value: string): Chainable<JQuery<HTMLElement>>;
+    getByTestId<T extends HTMLElement>(
+      value: string,
+      options?: GetOptions,
+    ): Chainable<JQuery<T>>;
 
     /**
      * Custom command to select DOM element by data-testid attribute.

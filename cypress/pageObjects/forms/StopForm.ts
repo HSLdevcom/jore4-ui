@@ -81,8 +81,8 @@ export class StopForm {
     return cy.getByTestId('StopFormComponent::addTimingPlaceButton');
   }
 
-  static getModal() {
-    return cy.getByTestId('EditStopModal');
+  static getModal(options?: Cypress.GetOptions) {
+    return cy.getByTestId('EditStopModal', options);
   }
 
   static selectTimingPlace(timingPlaceName: string) {
@@ -128,6 +128,10 @@ export class StopForm {
   }
 
   static fillFormForNewStop(values: NewStopFormInfo) {
+    // Make sure the form has plenty of time to appear on the screen,
+    // even if Github Runner is being slow.
+    StopForm.getModal({ timeout: 20_000 }).shouldBeVisible();
+
     StopForm.getPublicCodeInput().clearAndType(values.publicCode);
 
     if (values.stopPlace) {
