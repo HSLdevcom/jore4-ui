@@ -7,7 +7,7 @@ export default defineConfig({
   e2e: {
     ...config.e2e,
   },
-  env: {
+  expose: {
     DISABLE_MAP_TILES: true,
   },
 });
