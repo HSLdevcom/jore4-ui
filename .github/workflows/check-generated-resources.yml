@@ -18,7 +18,7 @@ jobs:
           submodules: recursive
 
       - name: Start e2e env
-        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v10
+        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@main
         with:
           custom_docker_compose: ./docker/docker-compose.custom.yml
 
@@ -32,7 +32,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Wait for Hasura to be available
-        uses: HSLdevcom/jore4-tools/github-actions/healthcheck@healthcheck-v1
+        uses: HSLdevcom/jore4-tools/github-actions/healthcheck@main
         with:
           command: 'curl --fail http://localhost:3201/healthz --output /dev/null --silent'
           # hasura takes time to start up as it depends on the database
