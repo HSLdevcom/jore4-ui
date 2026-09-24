@@ -587,6 +587,11 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
 
       assertShowsAllResultsByDefault();
+
+      // Make sure we reset the selection by searching for an empty result set
+      StopSearchBar.getSearchInput().clearAndType('Nothing here{enter}');
+      expectGraphQLCallToSucceed('@gqlFindLinesByStopSearch');
+
       assertShowAllAndShowLessWork(allExtraLines);
     });
 
@@ -1337,7 +1342,9 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         },
       ];
 
+      cy.task('resetDbs');
       insertToDbHelper({ stops: extraPrioStops });
+      insertedData = 'custom';
 
       cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
         stopPlaces,

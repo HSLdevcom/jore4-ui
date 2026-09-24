@@ -255,48 +255,45 @@ describe('Route creation', rootOpts, () => {
     },
   );
 
-  it(
-    'Should create a new tram route',
-    {
-      tags: [Tag.Network],
-    },
-    () => {
-      const versionComment = 'E2E create tram route reason';
+  it('Should create a new tram route', { tags: [Tag.Network] }, () => {
+    const versionComment = 'E2E create tram route reason';
 
-      MapPage.map.visit(mapLocation);
-      MapPage.map.waitForLoadToComplete();
+    MapPage.map.visit(mapLocation);
+    MapPage.map.waitForLoadToComplete();
 
-      MapFooter.createRoute(ReusableComponentsVehicleModeEnum.Tram);
-      assertLineOptionsMatchVehicleMode(ReusableComponentsVehicleModeEnum.Tram);
+    MapFooter.createRoute(ReusableComponentsVehicleModeEnum.Tram);
+    assertLineOptionsMatchVehicleMode(ReusableComponentsVehicleModeEnum.Tram);
 
-      MapPage.routePropertiesForm.fillRouteProperties({
-        finnishName: 'Test tram route',
-        label: '1112Y',
-        variant: '56',
-        line: '8543',
-        direction: RouteDirectionEnum.Outbound,
-        origin: {
-          finnishName: 'Test tram origin FIN',
-          finnishShortName: 'Test tram origin FIN shortName',
-          swedishName: 'Test tram origin SWE',
-          swedishShortName: 'Test tram origin SWE shortName',
-        },
-        destination: {
-          finnishName: 'Test tram destination FIN',
-          finnishShortName: 'Test tram destination FIN shortName',
-          swedishName: 'Test tram destination SWE',
-          swedishShortName: 'Test tram destination SWE shortName',
-        },
-        priority: Priority.Standard,
-        versionComment,
-        validityStartISODate: '2025-01-01',
-        validityEndISODate: '2030-12-01',
-      });
+    MapPage.routePropertiesForm.fillRouteProperties({
+      finnishName: 'Test tram route',
+      label: '1112Y',
+      variant: '56',
+      line: '8543',
+      direction: RouteDirectionEnum.Outbound,
+      origin: {
+        finnishName: 'Test tram origin FIN',
+        finnishShortName: 'Test tram origin FIN shortName',
+        swedishName: 'Test tram origin SWE',
+        swedishShortName: 'Test tram origin SWE shortName',
+      },
+      destination: {
+        finnishName: 'Test tram destination FIN',
+        finnishShortName: 'Test tram destination FIN shortName',
+        swedishName: 'Test tram destination SWE',
+        swedishShortName: 'Test tram destination SWE shortName',
+      },
+      priority: Priority.Standard,
+      versionComment,
+      validityStartISODate: '2025-01-01',
+      validityEndISODate: '2030-12-01',
+    });
 
-      MapPage.editRouteModal.save();
-      MapPage.map.getLoader().should('exist');
-    },
-  );
+    MapPage.editRouteModal.save();
+
+    MapPage.routePropertiesForm.getForm().should('not.exists');
+    RouteStopsOverlay.getHeader().shouldBeVisible();
+    MapPage.map.getLoader().should('not.exist');
+  });
 
   it('should cancel creating a new route', () => {
     MapPage.map.visit(mapLocation);

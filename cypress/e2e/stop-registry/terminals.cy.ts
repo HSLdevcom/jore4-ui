@@ -1011,9 +1011,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
 
     it(
       'should hide info spots when toggle button is clicked',
-      {
-        tags: [Tag.StopRegistry],
-      },
+      { tags: [Tag.StopRegistry] },
       () => {
         TerminalDetailsPage.page().shouldBeVisible();
 
@@ -1022,7 +1020,7 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
         TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
         TerminalInfoSpotsSection.getToggleButton().click();
 
-        TerminalInfoSpotRow.getNthDetailsRow(0).should('not.be.visible');
+        TerminalInfoSpotRow.getDetailsRow().should('not.exists');
 
         TerminalInfoSpotsSection.getToggleButton().click();
         TerminalInfoSpotRow.getNthDetailsRow(0).shouldBeVisible();
