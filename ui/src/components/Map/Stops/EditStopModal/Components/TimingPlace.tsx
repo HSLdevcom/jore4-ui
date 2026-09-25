@@ -7,7 +7,7 @@ import {
 import { SimpleButton } from '../../../../common/Buttons';
 import { InputField } from '../../../../common/Inputs';
 import { Row } from '../../../../common/LayoutComponents';
-import { ChooseTimingPlaceDropdown } from '../../../../forms/stop/TimingPlace';
+import { ChooseTimingPlaceDropdown } from '../../../../StopRegistry/Stops/Common';
 
 const testIds = {
   latitude: 'StopFormComponent::latitude',
