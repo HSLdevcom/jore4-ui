@@ -26,7 +26,7 @@ import {
 } from '../../../redux';
 import { LoadingState } from '../../../types';
 import { mapLngLatToPoint, mapPointToGeoJSON } from '../../../utils';
-import { EditStoplayerRef, StopsRef } from '../refTypes';
+import { EditDepotStopLayerRef, EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapDepotStop, MapStop, MapStopArea, MapTerminal } from '../Types';
 import { useMapViewState } from '../Utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
@@ -69,6 +69,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   );
 
   const editStopLayerRef = useRef<EditStoplayerRef>(null);
+  const editDepotStopLayerRef = useRef<EditDepotStopLayerRef>(null);
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
@@ -125,6 +126,8 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       editStopLayerRef.current?.onMoveStop(e),
     onPlaceDepotStop: async (e: MapLayerMouseEvent) =>
       handlePlaceDepotStop(e, MapEntityEditorViewState.CREATE),
+    onMoveDepotStop: async (e: MapLayerMouseEvent) =>
+      editDepotStopLayerRef.current?.onMoveDepotStop(e),
   }));
 
   const onPopupClose = () => {
@@ -195,7 +198,10 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       )}
 
       {(selectedDepotStopId ?? depotStopDraftLocation) && (
-        <EditDepotStopLayer depotStops={depotStops} />
+        <EditDepotStopLayer
+          ref={editDepotStopLayerRef}
+          depotStops={depotStops}
+        />
       )}
     </>
   );

@@ -8,6 +8,7 @@ import { MapDepotStop } from '../../Types';
 
 const testIds = {
   label: 'DepotStopPopup::label',
+  moveButton: 'DepotStopPopup::moveButton',
   editButton: 'DepotStopPopup::editButton',
   deleteButton: 'DepotStopPopup::deleteButton',
   closeButton: 'DepotStopPopup::closeButton',
@@ -16,6 +17,7 @@ const testIds = {
 type DepotStopPopupProps = {
   readonly depotStop: MapDepotStop;
   readonly onEdit: () => void;
+  readonly onMove: () => void;
   readonly onDelete: () => void;
   readonly onClose: () => void;
   readonly isDeleting?: boolean;
@@ -24,6 +26,7 @@ type DepotStopPopupProps = {
 export const DepotStopPopup: FC<DepotStopPopupProps> = ({
   depotStop,
   onEdit,
+  onMove,
   onDelete,
   onClose,
   isDeleting = false,
@@ -65,6 +68,15 @@ export const DepotStopPopup: FC<DepotStopPopupProps> = ({
 
         <SimpleButton
           className="ml-auto"
+          inverted
+          onClick={onMove}
+          testId={testIds.moveButton}
+        >
+          {t(($) => $.move)}
+        </SimpleButton>
+
+        <SimpleButton
+          className="ml-2"
           onClick={onEdit}
           testId={testIds.editButton}
         >

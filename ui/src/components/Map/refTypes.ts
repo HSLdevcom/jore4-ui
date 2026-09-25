@@ -15,11 +15,15 @@ export type RouteEditorRef = {
 export type EditStoplayerRef = {
   readonly onMoveStop: (e: MapLayerMouseEvent) => Promise<void>;
 };
+export type EditDepotStopLayerRef = {
+  readonly onMoveDepotStop: (e: MapLayerMouseEvent) => Promise<void>;
+};
 export type StopsRef = {
   readonly onMoveStop: (e: MapLayerMouseEvent) => Promise<void>;
   readonly onCreateStop: (e: MapLayerMouseEvent) => Promise<void>;
   readonly onCopyStop: (e: MapLayerMouseEvent) => Promise<void>;
   readonly onPlaceDepotStop: (e: MapLayerMouseEvent) => Promise<void>;
+  readonly onMoveDepotStop: (e: MapLayerMouseEvent) => Promise<void>;
 };
 
 export type EditStopAreaLayerRef = {

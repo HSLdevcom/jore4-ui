@@ -149,6 +149,10 @@ function useOnClickMap(
       return stopsRef.current?.onPlaceDepotStop(e);
     }
 
+    if (mapDepotStopViewState === MapEntityEditorViewState.MOVE) {
+      return stopsRef.current?.onMoveDepotStop(e);
+    }
+
     if (mapStopViewState === MapEntityEditorViewState.PLACE) {
       return stopsRef.current?.onCreateStop(e);
     }

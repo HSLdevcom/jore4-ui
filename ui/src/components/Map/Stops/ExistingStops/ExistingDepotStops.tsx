@@ -4,6 +4,7 @@ import {
   FilterType,
   MapEntityEditorViewState,
   selectMapFilter,
+  selectSelectedDepotStopId,
   setSelectedDepotStopIdAction,
   useAppAction,
   useAppSelector,
@@ -26,6 +27,7 @@ export const ExistingDepotStops: FC<ExistingDepotStopsProps> = ({
 }) => {
   const [mapViewState, setMapViewState] = useMapViewState();
   const { stopFilters } = useAppSelector(selectMapFilter);
+  const selectedDepotStopId = useAppSelector(selectSelectedDepotStopId);
   const setSelectedDepotStopId = useAppAction(setSelectedDepotStopIdAction);
 
   if (!stopFilters[FilterType.ShowAllTramStops]) {
@@ -46,6 +48,7 @@ export const ExistingDepotStops: FC<ExistingDepotStopsProps> = ({
           longitude={depotStop.location.coordinates[0]}
           latitude={depotStop.location.coordinates[1]}
           mapStopViewState={mapViewState.depotStops}
+          selected={depotStop.id === selectedDepotStopId}
           activeTransportModes={[StopRegistryTransportModeType.Tram]}
           shouldBeGray
           depotStopLabel={depotStop.label}
