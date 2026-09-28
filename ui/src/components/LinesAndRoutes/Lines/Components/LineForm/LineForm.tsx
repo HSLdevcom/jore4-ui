@@ -16,7 +16,7 @@ import {
   refineValidityPeriodSchema,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
-import { lineTypesByVehicleMode } from '../../../../forms/line/LineTypeDropdown';
+import { lineTypesByVehicleMode } from '../../../Common';
 import {
   LinePropertiesForm,
   FormState as LinePropertiesFormState,
