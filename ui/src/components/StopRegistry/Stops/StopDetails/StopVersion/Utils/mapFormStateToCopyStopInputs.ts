@@ -17,12 +17,12 @@ import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../../../../utils';
-import { StopFormState } from '../../../../../forms/stop';
 import {
   mapAlternativeNames,
   mapInfoSpotToInput,
   mapQuayToInput,
 } from '../../../../Utils';
+import { StopFormState } from '../../../Common/StopForm';
 import { FailedToResolveExistingShelter } from '../Errors';
 import { InfoSpotInputHelper, StopVersionFormState } from '../Types';
 import { CopyStopInputs } from './useCopyStop';

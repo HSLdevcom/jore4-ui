@@ -1,15 +1,15 @@
 import { z } from 'zod';
-import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
+import { ReusableComponentsVehicleModeEnum } from '../../../../../../generated/graphql';
 import {
   REQUIRED_FIELD_ERROR_MESSAGE,
   requiredNumber,
   requiredString,
-} from '../../../../utils';
+} from '../../../../../../utils';
 import {
   changeValidityFormSchema,
   reasonForChangeFormSchema,
   refineValidityPeriodSchema,
-} from '../../common';
+} from '../../../../../forms/common';
 import { stopModalStopAreaFormSchema } from './StopModalStopAreaFormSchema';
 
 export const MISSING_ID = 'MISSING_ID';

@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
   useFindStopAreasByNamesQuery,
-} from '../../../../generated/graphql';
-import { parseVehicleMode } from '../../../../utils';
-import { StopModalStopAreaFormSchema } from '../types';
+} from '../../../../../../generated/graphql';
+import { parseVehicleMode } from '../../../../../../utils';
+import { StopModalStopAreaFormSchema } from '../Types';
 import { parseStopFormStopAreaInfo } from './parseStopFormStopAreaInfo';
 
 const GQL_STOP_FORM_STOP_AREA_INFO = gql`

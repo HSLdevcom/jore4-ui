@@ -12,8 +12,10 @@ import { MdOutlineSearch } from 'react-icons/md';
 import { ReusableComponentsVehicleModeEnum } from '../../../../../generated/graphql';
 import { mapToShortDate } from '../../../../../time';
 import { comboboxStyles } from '../../../../common/Dropdowns';
-import { StopModalStopAreaFormSchema } from '../../../../forms/stop/types';
-import { useFindStopAreas } from '../../../../forms/stop/utils';
+import {
+  StopModalStopAreaFormSchema,
+  useFindStopAreas,
+} from '../../Common/StopForm';
 
 type StopAreaSearchComboboxProps = {
   readonly vehicleMode: ReusableComponentsVehicleModeEnum | null | undefined;

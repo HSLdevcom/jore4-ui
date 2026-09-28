@@ -10,8 +10,8 @@ import { mapToShortDate } from '../../../../../time';
 import { mapVehicleModeToUiName } from '../../../../../utils/i18n';
 import { accordionClassNames } from '../../../../common';
 import { ExpandButton } from '../../../../common/Buttons';
-import { StopFormState } from '../../../../forms/stop';
 import { LabeledDetail } from '../../../../StopRegistry/Stops/Common';
+import { StopFormState } from '../../../../StopRegistry/Stops/Common/StopForm';
 
 const ID = 'StopAreaInfoSection';
 const HeaderId = 'StopAreaInfoSection::Header';

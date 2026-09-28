@@ -1,6 +1,6 @@
 import { StopInfoTimingPlaceInfoFragment } from '../../../../generated/graphql';
 import { RequiredNonNullableKeys } from '../../../../types';
-import { StopFormState } from '../../../forms/stop';
+import { StopFormState } from '../../../StopRegistry/Stops/Common/StopForm';
 
 export type ExistingStopFormState = RequiredNonNullableKeys<
   StopFormState,

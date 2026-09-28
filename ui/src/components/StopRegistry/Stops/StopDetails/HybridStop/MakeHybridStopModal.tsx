@@ -16,7 +16,7 @@ import {
   ModalHeader,
   NewModalFooter,
 } from '../../../../common/Modals';
-import { StopModalStopAreaFormSchema } from '../../../../forms/stop/types';
+import { StopModalStopAreaFormSchema } from '../../Common/StopForm';
 import { StopAreaSearchCombobox } from './StopAreaSearchCombobox';
 import { useCreateMirrorQuay } from './useCreateMirrorQuay';
 

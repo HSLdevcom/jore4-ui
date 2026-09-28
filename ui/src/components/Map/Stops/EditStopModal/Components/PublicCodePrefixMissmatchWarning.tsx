@@ -6,7 +6,7 @@ import { Column } from '../../../../common/LayoutComponents';
 import {
   StopFormState,
   StopPublicCodeState,
-} from '../../../../forms/stop/types';
+} from '../../../../StopRegistry/Stops/Common/StopForm';
 
 function selectedCodeHasValidPrefix({
   value,

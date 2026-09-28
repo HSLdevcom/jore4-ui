@@ -35,12 +35,12 @@ import { ValidationError } from '../../../../common/Inputs';
 import { Visible } from '../../../../common/LayoutComponents';
 import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+import { CreateTimingPlaceModal } from '../../../../StopRegistry/Stops/Common';
 import {
   MISSING_ID,
   StopFormState,
   stopFormSchema,
-} from '../../../../forms/stop/types';
-import { CreateTimingPlaceModal } from '../../../../StopRegistry/Stops/Common';
+} from '../../../../StopRegistry/Stops/Common/StopForm';
 import { CreateChanges, CreateStopPointInput, EditChanges } from '../../Types';
 import {
   useDefaultErrorHandler,

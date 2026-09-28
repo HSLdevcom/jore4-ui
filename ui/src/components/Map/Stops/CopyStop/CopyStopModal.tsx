@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopFormState as FormState, StopFormState } from '../../../forms/stop';
+import { StopFormState } from '../../../StopRegistry/Stops/Common/StopForm';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
 import { StopForm } from '../EditStopModal/Components/StopForm';
@@ -12,7 +12,7 @@ const testIds = {
 };
 
 type CopyStopModalProps = {
-  readonly defaultValues: Partial<FormState>;
+  readonly defaultValues: Partial<StopFormState>;
   readonly onCancel: () => void;
   readonly onClose: () => void;
   readonly onSubmit: (changes: CreateChanges, state: StopFormState) => void;

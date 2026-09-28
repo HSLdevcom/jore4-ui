@@ -6,8 +6,8 @@ import { useMemo } from 'react';
 import {
   GetExistingQuayPublicCodesQuery,
   useGetExistingQuayPublicCodesQuery,
-} from '../../../../generated/graphql';
-import { knownMunicipalityPrefixes } from '../../../../types/enums';
+} from '../../../../../../generated/graphql';
+import { knownMunicipalityPrefixes } from '../../../../../../types/enums';
 
 const GQL_GET_EXISTING_PUBLIC_CODES = gql`
   query GetExistingQuayPublicCodes(
