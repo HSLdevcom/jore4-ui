@@ -35,12 +35,12 @@ import { ValidationError } from '../../../../common/Inputs';
 import { Visible } from '../../../../common/LayoutComponents';
 import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
-import { TimingPlaceModal } from '../../../../forms/stop/TimingPlace';
 import {
   MISSING_ID,
   StopFormState,
   stopFormSchema,
 } from '../../../../forms/stop/types';
+import { CreateTimingPlaceModal } from '../../../../StopRegistry/Stops/Common';
 import { CreateChanges, CreateStopPointInput, EditChanges } from '../../Types';
 import {
   useDefaultErrorHandler,
@@ -399,7 +399,7 @@ const StopFormComponent: ForwardRefRenderFunction<
         />
       </form>
       <Visible visible={isTimingPlaceModalOpen}>
-        <TimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
+        <CreateTimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
       </Visible>
     </FormProvider>
   );

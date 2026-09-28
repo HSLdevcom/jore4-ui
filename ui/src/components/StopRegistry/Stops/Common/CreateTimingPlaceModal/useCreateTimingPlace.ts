@@ -8,8 +8,8 @@ import {
   NewTimingPlaceFragment,
   TimingPatternTimingPlaceInsertInput,
   useInsertTimingPlaceMutation,
-} from '../../../../generated/graphql';
-import { showDangerToast } from '../../../../utils';
+} from '../../../../../generated/graphql';
+import { showDangerToast } from '../../../../../utils';
 
 type CreateParams = {
   readonly input: NewTimingPlaceFragment;
