@@ -7,7 +7,7 @@ import { Operation, useLoader } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import {
   FailedToResolveExistingQuays,
   StopPlaceInsertFailed,

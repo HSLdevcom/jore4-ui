@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Operation, useLoader } from '../../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { showSuccessToast } from '../../../../../../utils';
+import { FormActionButtons } from '../../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../../common/Inputs';
 import { Column, FormRow } from '../../../../../common/LayoutComponents';
-import { FormActionButtons } from '../../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { OwnerOrganizationFields } from './OwnerOrganisationFields';
 import {
   TerminalOwnerFormState,

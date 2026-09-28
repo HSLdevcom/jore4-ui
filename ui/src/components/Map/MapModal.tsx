@@ -1,10 +1,10 @@
 import { FC, KeyboardEventHandler, ReactNode } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { ModalBody, ModalHeader } from '../common/Modals';
 import {
   NavigationContext,
   useWrapInContextNavigation,
-} from '../forms/common/NavigationBlocker';
+} from '../common/Forms/NavigationBlocker';
+import { ModalBody, ModalHeader } from '../common/Modals';
 
 function doOnEscape<E extends HTMLElement>(
   callback: () => void,

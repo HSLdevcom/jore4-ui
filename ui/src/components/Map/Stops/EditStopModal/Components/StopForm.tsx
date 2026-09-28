@@ -31,10 +31,10 @@ import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../../../utils';
+import { FormActionButtons } from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { ValidationError } from '../../../../common/Inputs';
 import { Visible } from '../../../../common/LayoutComponents';
-import { FormActionButtons } from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { CreateTimingPlaceModal } from '../../../../StopRegistry/Stops/Common';
 import {
   MISSING_ID,

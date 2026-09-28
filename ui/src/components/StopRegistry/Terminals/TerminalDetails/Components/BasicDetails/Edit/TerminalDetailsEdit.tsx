@@ -17,14 +17,14 @@ import {
   notNullish,
   showSuccessToast,
 } from '../../../../../../../utils';
+import { FormActionButtons } from '../../../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../../../common/Inputs';
 import {
   Column,
   FormColumn,
   FormRow,
 } from '../../../../../../common/LayoutComponents';
-import { FormActionButtons } from '../../../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../../Components/AlternativeNames';
 import { SelectedStop } from '../../../../../Components/SelectMemberStops/common';
 import { TerminalTypeDropdown } from '../../../../../Components/TerminalTypeDropdown';

@@ -4,7 +4,7 @@ import {
   ValidityPeriodFormState,
   refineValidityPeriodSchema,
   validityPeriodFormSchema,
-} from '../../../../../../forms/common';
+} from '../../../../../../common/Forms';
 import { selectedStopSchema } from '../../../../../Components/SelectMemberStops/common';
 import { TerminalType } from '../../../../../Types/TerminalType';
 

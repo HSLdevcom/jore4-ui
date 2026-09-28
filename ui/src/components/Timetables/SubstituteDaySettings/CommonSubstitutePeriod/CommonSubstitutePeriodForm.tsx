@@ -14,9 +14,9 @@ import { mapToISODate } from '../../../../time';
 import { DateRange } from '../../../../types';
 import { submitFormByRef } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Row } from '../../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../../common/Modals';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { commonSubstituteDayData } from '../common_substitute_day_data';
 import {
   mapDateTimeToFormState,

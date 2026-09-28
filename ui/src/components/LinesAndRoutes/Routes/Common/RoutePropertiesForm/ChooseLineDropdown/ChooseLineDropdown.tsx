@@ -8,7 +8,7 @@ import {
   ComboboxOptionItem,
   SearchableDropdown,
 } from '../../../../../common/Dropdowns';
-import { DateRange } from '../../../../../forms/common';
+import { DateRange } from '../../../../../common/Forms';
 import { useChooseLineDropdown } from './useChooseLineDropdown';
 
 type ChooseLineDropdownProps = ComboboxInputProps & {

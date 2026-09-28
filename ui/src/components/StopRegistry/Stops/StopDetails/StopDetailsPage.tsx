@@ -9,9 +9,9 @@ import {
   makeBackNavigationIsSafeState,
   useRequiredParams,
 } from '../../../../utils';
+import { navigationBlockerContext } from '../../../common/Forms/NavigationBlocker';
 import { Container, Visible } from '../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../common/Loaders';
-import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
 import {
   HistoricalStopDataProvider,
   LatestStopChangeHistoryTable,

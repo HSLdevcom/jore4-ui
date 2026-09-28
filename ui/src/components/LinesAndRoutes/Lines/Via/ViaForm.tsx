@@ -10,9 +10,9 @@ import {
   submitFormByRef,
 } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../common/Inputs';
 import { Row } from '../../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 
 export const schema = z.object({
   viaPointName: localizedStringRequired,

@@ -3,8 +3,8 @@ import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../../types';
-import { FormActionButtons } from '../../../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../../../forms/common/NavigationBlocker';
+import { FormActionButtons } from '../../../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../../../common/Forms/NavigationBlocker';
 import { TerminalInfoSpotFormState, terminalInfoSpotSchema } from '../Types';
 import { TerminalInfoSpotFormFields } from './TerminalInfoSpotsFormFields';
 

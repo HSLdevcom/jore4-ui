@@ -9,15 +9,15 @@ import {
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import {
+  FormActionButtons,
+  ReasonForChangeForm,
+} from '../../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
+import {
   FormColumn,
   HorizontalSeparator,
   Visible,
 } from '../../../../../common/LayoutComponents';
-import {
-  FormActionButtons,
-  ReasonForChangeForm,
-} from '../../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { CreateTimingPlaceModal } from '../../../Common';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';

@@ -12,8 +12,8 @@ import {
   useAppSelector,
 } from '../../../../redux';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
+import { useWrapInContextNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Modal, ModalHeader } from '../../../common/Modals';
-import { useWrapInContextNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   FormState,
   TimingSettingsForm,

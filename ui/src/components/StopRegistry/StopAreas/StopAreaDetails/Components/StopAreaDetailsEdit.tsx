@@ -7,17 +7,17 @@ import { Operation, useLoader } from '../../../../../redux';
 import { isDateInRange, mapToISODate, parseDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
+import {
+  FormActionButtons,
+  ValidityPeriodForm,
+} from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../common/Inputs';
 import {
   Column,
   FormColumn,
   FormRow,
 } from '../../../../common/LayoutComponents';
-import {
-  FormActionButtons,
-  ValidityPeriodForm,
-} from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../Components/AlternativeNames';
 import {
   StopAreaFormState as FormState,

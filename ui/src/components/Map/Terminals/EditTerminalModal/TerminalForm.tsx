@@ -3,10 +3,10 @@ import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { FormActionButtons, ValidityPeriodForm } from '../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../common/LayoutComponents';
-import { FormActionButtons, ValidityPeriodForm } from '../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { TerminalTypeDropdown } from '../../../StopRegistry/Components/TerminalTypeDropdown';
 import { SelectTerminalMemberStopsDropdown } from '../../../StopRegistry/Terminals/Common';
 import {

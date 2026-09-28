@@ -16,8 +16,8 @@ import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../utils';
+import { useWrapInContextNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Modal, ModalBody, ModalHeader } from '../../../common/Modals';
-import { useWrapInContextNavigation } from '../../../forms/common/NavigationBlocker';
 import { useEditViaInfo } from './useEditViaInfo';
 import { useRemoveViaInfo } from './useRemoveViaInfo';
 import {

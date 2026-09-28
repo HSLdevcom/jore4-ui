@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { requiredString, submitFormByRef } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../common/Forms/NavigationBlocker';
 import { InputField } from '../../common/Inputs';
 import {
   FormColumn,
@@ -12,7 +13,6 @@ import {
   Row,
   Visible,
 } from '../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { AffectedRouteLabels } from './AffectedRouteLabels';
 
 export const schema = z.object({

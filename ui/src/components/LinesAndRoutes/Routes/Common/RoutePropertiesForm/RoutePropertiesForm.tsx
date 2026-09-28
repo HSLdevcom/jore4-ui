@@ -11,15 +11,15 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../../redux';
-import { InputField } from '../../../../common/Inputs';
-import { Switch, SwitchLabel } from '../../../../common/Jore';
-import { FormColumn, FormRow, Row } from '../../../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   FormActionButtons,
   hasSavableDirtyFields,
-} from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+} from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
+import { InputField } from '../../../../common/Inputs';
+import { Switch, SwitchLabel } from '../../../../common/Jore';
+import { FormColumn, FormRow, Row } from '../../../../common/LayoutComponents';
 import { RouteFormState, routeFormSchema } from '../../../Common';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';

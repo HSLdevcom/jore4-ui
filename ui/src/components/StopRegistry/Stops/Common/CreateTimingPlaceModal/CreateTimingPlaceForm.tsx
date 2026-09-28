@@ -13,9 +13,9 @@ import {
   submitFormByRef,
 } from '../../../../../utils';
 import { SimpleButton } from '../../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../common/Inputs';
 import { FormRow, Row } from '../../../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { useCreateTimingPlace } from './useCreateTimingPlace';
 
 const testIds = {

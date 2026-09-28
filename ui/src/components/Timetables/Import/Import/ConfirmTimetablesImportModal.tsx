@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useWrapInContextNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Visible } from '../../../common/LayoutComponents';
 import { Modal, NewModalBody, NewModalHeader } from '../../../common/Modals';
-import { useWrapInContextNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   FormState,
   getDefaultValues,

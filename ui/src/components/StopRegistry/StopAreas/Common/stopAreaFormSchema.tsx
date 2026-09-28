@@ -5,7 +5,7 @@ import {
   ValidityPeriodFormState,
   refineValidityPeriodSchema,
   validityPeriodFormSchema,
-} from '../../../forms/common';
+} from '../../../common/Forms';
 
 export const stopAreaFormSchema = z
   .object({

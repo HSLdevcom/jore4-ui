@@ -16,7 +16,7 @@ import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../../../../utils';
-import { useDirtyFormBlockNavigation } from '../../../../../../forms/common/NavigationBlocker';
+import { useDirtyFormBlockNavigation } from '../../../../../../common/Forms/NavigationBlocker';
 import { SelectedStop } from '../../../../../Components/SelectMemberStops/common';
 import { useEditMembersOfTerminal } from '../../../../Common';
 import {

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Operation, useLoader } from '../../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { showToast } from '../../../../../../utils';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import { EditTerminalValidityResult } from '../../Types';
 import {
   TerminalValidityFormState,
