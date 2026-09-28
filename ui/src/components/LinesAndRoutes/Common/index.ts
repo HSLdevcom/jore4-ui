@@ -3,6 +3,7 @@ export * from './checkValidityAndPriorityConflicts';
 export * from './DirectionBadge';
 export * from './extractJourneyPatternCandidateStops';
 export * from './LineTitle';
+export * from './LineTypeDropdown';
 export * from './mapRouteFormUtils';
 export * from './RouteLabel';
 export * from './RoutePropertiesForm.types';
