@@ -4,8 +4,8 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { Priority } from '../../../types/enums';
-import { LabeledRadioButton, ValidationErrorList } from '../../common/Inputs';
-import { Column, Row } from '../../common/LayoutComponents';
+import { LabeledRadioButton, ValidationErrorList } from '../Inputs';
+import { Column, Row } from '../LayoutComponents';
 import { PriorityFormState } from './PriorityForm.schema';
 
 const testIds = {

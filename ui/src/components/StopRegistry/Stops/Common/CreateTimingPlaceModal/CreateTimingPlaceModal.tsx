@@ -4,8 +4,8 @@ import {
   closeTimingPlaceModalAction,
   useAppDispatch,
 } from '../../../../../redux';
+import { useWrapInContextNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
-import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
 const testIds = { modal: 'TimingPlaceModal' };

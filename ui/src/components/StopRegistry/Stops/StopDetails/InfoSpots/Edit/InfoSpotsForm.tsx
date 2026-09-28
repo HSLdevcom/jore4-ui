@@ -9,8 +9,8 @@ import {
 } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
-import { FormActionButtons } from '../../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { FormActionButtons } from '../../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import {
   InfoSpotsFormSchema,
   InfoSpotsFormState,

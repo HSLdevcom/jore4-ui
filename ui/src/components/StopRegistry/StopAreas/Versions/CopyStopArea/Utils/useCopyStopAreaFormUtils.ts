@@ -9,7 +9,7 @@ import { mapToISODate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import {
   FailedToResolveExistingShelter,
   FailedToResolveNewShelters,

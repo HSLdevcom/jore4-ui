@@ -7,13 +7,13 @@ import { StopWithDetails } from '../../../../../../types';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
 import { mapStopPlaceStateToUiName } from '../../../../../../utils/i18n';
 import { EnumDropdown } from '../../../../../common/Dropdowns';
-import { InputElement, InputField } from '../../../../../common/Inputs';
-import { FormColumn, FormRow } from '../../../../../common/LayoutComponents';
 import {
   FormActionButtons,
   ReasonForChangeForm,
-} from '../../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+} from '../../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
+import { InputElement, InputField } from '../../../../../common/Inputs';
+import { FormColumn, FormRow } from '../../../../../common/LayoutComponents';
 import { StopAreaDetailsSection } from '../../BasicDetails/BasicDetailsStopAreaFields';
 import { MirroredQuayFormState, mirroredQuayFormSchema } from './schema';
 

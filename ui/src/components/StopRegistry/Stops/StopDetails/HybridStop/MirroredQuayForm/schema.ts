@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
-import { reasonForChangeFormSchema } from '../../../../../forms/common';
+import { reasonForChangeFormSchema } from '../../../../../common/Forms';
 
 export const mirroredQuayFormSchema = z
   .object({

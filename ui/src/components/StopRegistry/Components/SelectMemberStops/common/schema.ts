@@ -2,7 +2,7 @@ import { z } from 'zod';
 import {
   refineValidityPeriodSchema,
   validityPeriodFormSchema,
-} from '../../../../forms/common';
+} from '../../../../common/Forms';
 
 export const selectedStopSchema = z
   .object({

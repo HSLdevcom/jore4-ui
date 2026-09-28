@@ -6,6 +6,11 @@ import { StopRegistrySignContentType } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { mapSignContentTypeToUiName } from '../../../../../utils/i18n';
 import { EnumDropdown } from '../../../../common/Dropdowns';
+import {
+  FormActionButtons,
+  ReasonForChangeForm,
+} from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputField, InputLabel } from '../../../../common/Inputs';
 import {
   Column,
@@ -13,11 +18,6 @@ import {
   HorizontalSeparator,
   Row,
 } from '../../../../common/LayoutComponents';
-import {
-  FormActionButtons,
-  ReasonForChangeForm,
-} from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { LocationTerminalDetails } from './LocationTerminalDetails';
 import { LocationDetailsFormState, locationDetailsFormSchema } from './schema';
 import { LocationSignContentType } from './types';

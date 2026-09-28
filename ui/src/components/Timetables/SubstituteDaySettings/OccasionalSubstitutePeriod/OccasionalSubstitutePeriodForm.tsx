@@ -20,9 +20,9 @@ import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { AllOptionEnum, submitFormByRef } from '../../../../utils';
 import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Row, Visible } from '../../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../../common/Modals';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   mapDateTimeToFormState,
   mapLineTypes,

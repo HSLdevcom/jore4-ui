@@ -8,7 +8,7 @@ import {
   useAppAction,
 } from '../../redux';
 import { useNavigateBackSafely } from '../../utils';
-import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
+import { useWrapInContextNavigation } from '../common/Forms/NavigationBlocker';
 import { useRegisterApolloProtocol } from './ApolloProtocol';
 import { MapFooter } from './Footer';
 import { Map } from './Map';

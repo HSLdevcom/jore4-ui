@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { InputField } from '../../common/Inputs';
-import { FormColumn, FormRow, Row } from '../../common/LayoutComponents';
+import { InputField } from '../Inputs';
+import { FormColumn, FormRow, Row } from '../LayoutComponents';
 import { ValidityPeriodFormState } from './ValidityPeriodForm.schema';
 
 const testIds = {

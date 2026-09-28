@@ -14,7 +14,7 @@ import {
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
-import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import { FailedToCutOverlappingStopVersion } from '../Errors/FailedToCutOverlappingStopVersion';
 import { QuayKeyValuesEditFailed } from '../Errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../Errors/ScheduledStopPointEditFailed';

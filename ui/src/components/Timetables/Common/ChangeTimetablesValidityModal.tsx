@@ -11,8 +11,8 @@ import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../utils/toastService';
+import { useWrapInContextNavigation } from '../../common/Forms/NavigationBlocker';
 import { Modal, ModalBody, ModalHeader } from '../../common/Modals';
-import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import {
   ChangeTimetablesValidityForm,
   FormState,

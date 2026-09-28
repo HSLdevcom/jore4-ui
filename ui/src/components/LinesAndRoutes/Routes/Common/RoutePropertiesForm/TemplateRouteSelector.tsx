@@ -4,14 +4,14 @@ import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Priority } from '../../../../../types/enums';
-import { ObservationDateInput } from '../../../../common/Inputs';
-import { Column, Row } from '../../../../common/LayoutComponents';
 import {
   PriorityForm,
   PriorityFormState,
   priorityFormSchema,
-} from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+} from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
+import { ObservationDateInput } from '../../../../common/Inputs';
+import { Column, Row } from '../../../../common/LayoutComponents';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 type TemplateRouteSelectorProps = {

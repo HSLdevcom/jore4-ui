@@ -7,10 +7,10 @@ import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql
 import { Operation, useLoader } from '../../../../redux';
 import { showSuccessToast } from '../../../../utils';
 import { mapVehicleModeToUiName } from '../../../../utils/i18n';
+import { FormActionButtons } from '../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../common/LayoutComponents';
-import { FormActionButtons } from '../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { useDefaultErrorHandler } from '../utils';
 import { DepotStopFormState, depotStopFormSchema } from './DepotStopFormSchema';
 import { useCreateDepotStop } from './useCreateDepotStop';

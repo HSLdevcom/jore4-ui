@@ -20,14 +20,14 @@ import {
   EnumDropdown,
   NullableBooleanDropdown,
 } from '../../../../common/Dropdowns';
+import { FormActionButtons } from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputElement, InputField } from '../../../../common/Inputs';
 import {
   Column,
   HorizontalSeparator,
   Row,
 } from '../../../../common/LayoutComponents';
-import { FormActionButtons } from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { MeasurementsFormState, measurementsFormSchema } from './schema';
 
 const testIds = {

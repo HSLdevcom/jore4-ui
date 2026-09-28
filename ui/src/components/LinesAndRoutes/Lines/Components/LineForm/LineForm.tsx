@@ -7,15 +7,15 @@ import { z } from 'zod';
 import { Priority } from '../../../../../types/enums';
 import { submitFormByRef } from '../../../../../utils';
 import { SimpleButton } from '../../../../common/Buttons';
-import { FormContainer, Row } from '../../../../common/LayoutComponents';
 import {
   ChangeValidityForm,
   ChangeValidityFormState,
   changeValidityFormSchema,
   hasSavableDirtyFields,
   refineValidityPeriodSchema,
-} from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+} from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
+import { FormContainer, Row } from '../../../../common/LayoutComponents';
 import { lineTypesByVehicleMode } from '../../../Common';
 import {
   LinePropertiesForm,

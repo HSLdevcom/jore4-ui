@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Operation, useLoader } from '../../../../redux';
 import { LoadingState } from '../../../../types';
+import { navigationBlockerContext } from '../../../common/Forms/NavigationBlocker';
 import { Container, Visible } from '../../../common/LayoutComponents';
-import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
 import { enrichInfoSpot } from '../../Utils';
 import {
   LocationDetails,

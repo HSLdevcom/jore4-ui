@@ -8,12 +8,12 @@ import {
   TerminalExternalLinksDetailsFragment,
 } from '../../../../generated/graphql';
 import { AddNewButton, SimpleButton } from '../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import {
   HorizontalSeparator,
   Row,
   Visible,
 } from '../../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { ExternalLinksFormFields } from './ExternalLinksFormFields';
 import {
   ExternalLinksFormState,

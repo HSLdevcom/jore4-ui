@@ -3,12 +3,12 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { SimpleButton } from '../../../../common/Buttons';
-import { FormRow, Row } from '../../../../common/LayoutComponents';
 import {
   PriorityForm,
   ReasonForChangeForm,
   ValidityPeriodForm,
-} from '../../../../forms/common';
+} from '../../../../common/Forms';
+import { FormRow, Row } from '../../../../common/LayoutComponents';
 import { AffectedRouteLabels } from '../../../../Timetables/Common/AffectedRouteLabels';
 import { ExistingStopValidityRange } from './Types';
 import { LinesByStop } from './Types/LinesByStopResult';

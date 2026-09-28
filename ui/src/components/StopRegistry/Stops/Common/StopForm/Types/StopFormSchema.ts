@@ -9,7 +9,7 @@ import {
   changeValidityFormSchema,
   reasonForChangeFormSchema,
   refineValidityPeriodSchema,
-} from '../../../../../forms/common';
+} from '../../../../../common/Forms';
 import { stopModalStopAreaFormSchema } from './StopModalStopAreaFormSchema';
 
 export const MISSING_ID = 'MISSING_ID';

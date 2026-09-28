@@ -5,9 +5,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { requiredString, submitFormByRef } from '../../../../../utils';
 import { SimpleButton } from '../../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../common/Inputs';
 import { FormRow, Row, Visible } from '../../../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 
 const testIds = {
   cancelButton: 'OrganisationDetailsForm::cancelButton',

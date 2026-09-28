@@ -4,7 +4,7 @@ import {
   reasonForChangeFormSchema,
   refineValidityPeriodSchema,
   validityPeriodFormSchema,
-} from '../../../../../forms/common';
+} from '../../../../../common/Forms';
 
 export const stopVersionSchema = z
   .object({})

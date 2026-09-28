@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../utils/i18n';
 import { EnumDropdown } from '../../../../common/Dropdowns';
+import { FormActionButtons } from '../../../../common/Forms';
+import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputElement, InputField } from '../../../../common/Inputs';
 import { Column, Row } from '../../../../common/LayoutComponents';
-import { FormActionButtons } from '../../../../forms/common';
-import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
 
 const testIds = {

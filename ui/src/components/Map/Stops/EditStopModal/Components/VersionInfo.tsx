@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormColumn, FormRow } from '../../../../common/LayoutComponents';
 import {
   PriorityForm,
   ReasonForChangeForm,
   ValidityPeriodForm,
-} from '../../../../forms/common';
+} from '../../../../common/Forms';
+import { FormColumn, FormRow } from '../../../../common/LayoutComponents';
 
 const testIds = {
   container: 'StopFormComponent::VersionInfoContainer',

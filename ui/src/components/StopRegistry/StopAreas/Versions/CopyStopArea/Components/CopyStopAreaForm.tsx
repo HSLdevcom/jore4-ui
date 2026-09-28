@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../common/Buttons';
-import { FormRow, Row } from '../../../../../common/LayoutComponents';
 import {
   ReasonForChangeForm,
   ValidityPeriodForm,
-} from '../../../../../forms/common';
+} from '../../../../../common/Forms';
+import { FormRow, Row } from '../../../../../common/LayoutComponents';
 import { CopyStopAreaSuccessResult } from '../../Types';
 import { useCopyStopAreaFormUtils } from '../Utils';
 import { CopyStopAreaCutConfirmationModal } from './CopyStopAreaCutConfirmationModal';

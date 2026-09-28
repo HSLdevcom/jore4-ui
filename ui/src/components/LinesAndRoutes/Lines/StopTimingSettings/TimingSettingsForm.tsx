@@ -7,9 +7,9 @@ import { ScheduledStopPointWithTimingSettingsFragment } from '../../../../genera
 import { openTimingPlaceModalAction, useAppDispatch } from '../../../../redux';
 import { submitFormByRef } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
+import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { InputElement, InputField } from '../../../common/Inputs';
 import { Row } from '../../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { ChooseTimingPlaceDropdown } from '../../../StopRegistry/Stops/Common';
 
 export const schema = z.object({

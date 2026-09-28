@@ -17,10 +17,10 @@ import {
 } from 'react-router';
 import { getUserInfo } from '../api/user';
 import { TaskListDisplay } from '../components/common/AsyncTaskList';
+import { NavigationBlocker } from '../components/common/Forms/NavigationBlocker';
 import { PageTitle } from '../components/common/Jore';
 import { SearchResultPage } from '../components/common/Jore/RouteLineSearch/SearchResultPage';
 import { Navbar } from '../components/common/Navbar';
-import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { LineChangeHistoryPage } from '../components/LinesAndRoutes/Lines/ChangeHistory/LineChangeHistoryPage';
 import { CreateNewLinePage } from '../components/LinesAndRoutes/Lines/Create/CreateNewLinePage';
 import { LineDetailsPage } from '../components/LinesAndRoutes/Lines/Details/LineDetailsPage';
