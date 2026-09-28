@@ -14,9 +14,11 @@ import { MdOutlineSearch } from 'react-icons/md';
 import { mapToShortDate } from '../../../../../time';
 import { comboboxStyles } from '../../../../common/Dropdowns';
 import { ValidationErrorList } from '../../../../common/Inputs';
-import { StopFormState } from '../../../../forms/stop';
-import { StopModalStopAreaFormSchema } from '../../../../forms/stop/types';
-import { useFindStopAreas } from '../../../../forms/stop/utils';
+import {
+  StopFormState,
+  StopModalStopAreaFormSchema,
+  useFindStopAreas,
+} from '../../../../StopRegistry/Stops/Common/StopForm';
 
 const testIds = {
   input: 'FindStopArea::input',

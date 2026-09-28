@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { InputField } from '../../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../../common/LayoutComponents';
-import { StopFormState } from '../../../../forms/stop';
+import { StopFormState } from '../../../../StopRegistry/Stops/Common/StopForm';
 import { TimingPlace } from './TimingPlace';
 
 const testIds = {

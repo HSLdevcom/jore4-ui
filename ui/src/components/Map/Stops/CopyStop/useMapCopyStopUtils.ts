@@ -17,7 +17,7 @@ import {
 import { isDateInRange, parseDate } from '../../../../time';
 import { Point } from '../../../../types';
 import { showDangerToast, showWarningToast } from '../../../../utils';
-import { StopFormState } from '../../../forms/stop';
+import { StopFormState } from '../../../StopRegistry/Stops/Common/StopForm';
 import { useGetStopDetailsLazy } from '../../../StopRegistry/Stops/Queries';
 import {
   mapStopFormStateToInputs,

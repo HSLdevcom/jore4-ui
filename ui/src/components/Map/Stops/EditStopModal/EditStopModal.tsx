@@ -1,7 +1,7 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapVehicleModeToStopTypeName } from '../../../../utils/i18n';
-import { StopFormState } from '../../../forms/stop';
+import { StopFormState } from '../../../StopRegistry/Stops/Common/StopForm';
 import { CustomOverlay } from '../../CustomOverlay';
 import { MapModal } from '../../MapModal';
 import { CreateChanges, EditChanges } from '../Types';

@@ -12,7 +12,7 @@ import {
   parseVehicleMode,
   requireValue,
 } from '../../../../utils';
-import { parseStopFormStopAreaInfo } from '../../../forms/stop/utils/parseStopFormStopAreaInfo';
+import { parseStopFormStopAreaInfo } from '../../../StopRegistry/Stops/Common/StopForm';
 import { ExistingStopFormState, StopInfoForEditingOnMap } from '../Types';
 
 const GQL_GET_STOP_INFO_FOR_EDITING_ON_MAP = gql`

@@ -26,13 +26,13 @@ import {
   showSuccessToast,
 } from '../../../utils';
 import {
-  StopFormState,
-  StopModalStopAreaFormSchema,
-} from '../../forms/stop/types';
-import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
 } from '../../LinesAndRoutes/Common/ConflictResolverModal';
+import {
+  StopFormState,
+  StopModalStopAreaFormSchema,
+} from '../../StopRegistry/Stops/Common/StopForm';
 import { EditStoplayerRef } from '../refTypes';
 import { useMapDataLayerLoader } from '../Utils/useMapDataLayerLoader';
 import { CopyStop } from './CopyStop';

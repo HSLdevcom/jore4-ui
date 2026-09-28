@@ -1,6 +1,9 @@
-import { StopFormStopAreaInfoFragment } from '../../../../generated/graphql';
-import { RawAlternativeName, findRawAlternativeName } from '../../../../utils';
-import { StopModalStopAreaFormSchema } from '../types';
+import { StopFormStopAreaInfoFragment } from '../../../../../../generated/graphql';
+import {
+  RawAlternativeName,
+  findRawAlternativeName,
+} from '../../../../../../utils';
+import { StopModalStopAreaFormSchema } from '../Types';
 
 export function parseStopFormStopAreaInfo(
   rawArea: StopFormStopAreaInfoFragment | null | undefined,
