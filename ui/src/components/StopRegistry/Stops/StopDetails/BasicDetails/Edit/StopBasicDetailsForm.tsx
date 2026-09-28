@@ -18,7 +18,7 @@ import {
   ReasonForChangeForm,
 } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlace';
+import { CreateTimingPlaceModal } from '../../../Common';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopLabelAndLocationFormRow } from './StopLabelAndLocationFormRow';
@@ -95,7 +95,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
         />
       </form>
       <Visible visible={isTimingPlaceModalOpen}>
-        <TimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
+        <CreateTimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
       </Visible>
     </FormProvider>
   );

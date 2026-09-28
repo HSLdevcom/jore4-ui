@@ -1,17 +1,20 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { closeTimingPlaceModalAction, useAppDispatch } from '../../../../redux';
-import { Modal, ModalBody, ModalHeader } from '../../../common/Modals';
-import { useWrapInContextNavigation } from '../../common/NavigationBlocker';
+import {
+  closeTimingPlaceModalAction,
+  useAppDispatch,
+} from '../../../../../redux';
+import { Modal, ModalBody, ModalHeader } from '../../../../common/Modals';
+import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
 const testIds = { modal: 'TimingPlaceModal' };
 
-type TimingPlaceModalProps = {
+type CreateTimingPlaceModalProps = {
   readonly onTimingPlaceCreated: (timingPlaceId: UUID) => void;
 };
 
-export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
+export const CreateTimingPlaceModal: FC<CreateTimingPlaceModalProps> = ({
   onTimingPlaceCreated,
 }) => {
   const { t } = useTranslation();

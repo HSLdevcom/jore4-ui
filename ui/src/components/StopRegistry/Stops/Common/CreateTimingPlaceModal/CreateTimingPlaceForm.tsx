@@ -4,18 +4,18 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
-import { Operation, useLoader } from '../../../../redux';
+import { Operation, useLoader } from '../../../../../redux';
 import {
   localizedStringOptional,
   requiredString,
   showDangerToast,
   showSuccessToast,
   submitFormByRef,
-} from '../../../../utils';
-import { SimpleButton } from '../../../common/Buttons';
-import { InputField } from '../../../common/Inputs';
-import { FormRow, Row } from '../../../common/LayoutComponents';
-import { useDirtyFormBlockNavigation } from '../../common/NavigationBlocker';
+} from '../../../../../utils';
+import { SimpleButton } from '../../../../common/Buttons';
+import { InputField } from '../../../../common/Inputs';
+import { FormRow, Row } from '../../../../common/LayoutComponents';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { useCreateTimingPlace } from './useCreateTimingPlace';
 
 const testIds = {
