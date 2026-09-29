@@ -18,7 +18,7 @@ export COMPOSE_PROJECT_NAME=jore4-ui
 
 DUMP_ROUTES_FILENAME="2026-09-18/2026-09-18-jore4-local-jore4e2e.pgdump"
 DUMP_TIMETABLES_FILENAME="2026-09-18/2026-09-18-jore4-local-timetablesdb.pgdump"
-DUMP_STOPS_FILENAME="/2026-09-18/2026-09-18-jore4-local-stopdb.pgdump"
+DUMP_STOPS_FILENAME="2026-09-18/2026-09-18-jore4-local-stopdb.pgdump"
 INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/infraLinks_digiroad_r_2026-01_mml_2026-08-04.sql"
 
 POSTGIS_DUMP_RESTORE_LIST_FILE_DIR='./.dump_upgrade_helper_list_files'
