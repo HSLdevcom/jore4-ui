@@ -5,7 +5,7 @@ import {
   useGetMapDepotStopsQuery,
 } from '../../../generated/graphql';
 import { Operation, Viewport } from '../../../redux';
-import { mapCompactOrNull } from '../../../utils';
+import { mapCompactOrNull, requireValue } from '../../../utils';
 import { MapDepotStop } from '../Types';
 import { buildWithinViewportGqlGeographyFilter } from '../Utils/buildWithinViewportGqlGeometryFilter';
 import { useMapDataLayerSimpleQueryLoader } from '../Utils/useMapDataLayerLoader';
@@ -26,6 +26,9 @@ const GQL_GET_MAP_DEPOT_STOPS = gql`
     scheduled_stop_point_id
     label
     measured_location
+    validity_start
+    validity_end
+    timing_place_id
   }
 `;
 
@@ -40,6 +43,9 @@ function mapRawDepotStopToMapDepotStop(
     id: raw.scheduled_stop_point_id,
     label: raw.label,
     location: raw.measured_location,
+    validityStart: requireValue(raw.validity_start).toISODate(),
+    validityEnd: raw.validity_end?.toISODate() ?? undefined,
+    timingPlaceId: raw.timing_place_id,
   };
 }
 

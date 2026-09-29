@@ -4,13 +4,20 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
-import { Operation, useLoader } from '../../../../redux';
+import {
+  Operation,
+  selectIsTimingPlaceModalOpen,
+  useAppSelector,
+  useLoader,
+} from '../../../../redux';
 import { showSuccessToast } from '../../../../utils';
 import { mapVehicleModeToUiName } from '../../../../utils/i18n';
-import { FormActionButtons } from '../../../common/Forms';
+import { FormActionButtons, ValidityPeriodForm } from '../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../common/Inputs';
-import { FormColumn, FormRow } from '../../../common/LayoutComponents';
+import { FormColumn, FormRow, Visible } from '../../../common/LayoutComponents';
+import { CreateTimingPlaceModal } from '../../../StopRegistry/Stops/Common';
+import { TimingPlace } from '../EditStopModal/Components/TimingPlace';
 import { useDefaultErrorHandler } from '../utils';
 import { DepotStopFormState, depotStopFormSchema } from './DepotStopFormSchema';
 import { useCreateDepotStop } from './useCreateDepotStop';
@@ -44,13 +51,18 @@ export const DepotStopForm: FC<DepotStopFormProps> = ({
   const createDepotStop = useCreateDepotStop();
   const editDepotStop = useEditDepotStop();
   const defaultErrorHandler = useDefaultErrorHandler();
+  const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
   const methods = useForm<DepotStopFormState>({
     defaultValues: { label: '', ...defaultValues },
     resolver: zodResolver(depotStopFormSchema),
   });
   useDirtyFormBlockNavigation(methods.formState, 'DepotStopForm');
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue } = methods;
+
+  const onTimingPlaceCreated = (timingPlaceId: UUID) => {
+    setValue('timingPlaceId', timingPlaceId, { shouldDirty: true });
+  };
 
   const onFormSubmit = async (state: DepotStopFormState) => {
     setIsLoading(true);
@@ -114,6 +126,11 @@ export const DepotStopForm: FC<DepotStopFormProps> = ({
               required
             />
           </FormRow>
+
+          <TimingPlace />
+        </FormColumn>
+        <FormColumn className="border-t border-light-grey px-4 py-2">
+          <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
         </FormColumn>
         <FormActionButtons
           onCancel={onCancel}
@@ -123,6 +140,9 @@ export const DepotStopForm: FC<DepotStopFormProps> = ({
           variant="modal"
         />
       </form>
+      <Visible visible={isTimingPlaceModalOpen}>
+        <CreateTimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />
+      </Visible>
     </FormProvider>
   );
 };

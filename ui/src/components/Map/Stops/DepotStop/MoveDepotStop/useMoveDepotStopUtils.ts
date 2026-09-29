@@ -74,6 +74,10 @@ export function useMoveDepotStopUtils(
     const { depotStop: movedDepotStop, newLocation } = moveChanges;
     const state: DepotStopFormState = {
       label: movedDepotStop.label,
+      validityStart: movedDepotStop.validityStart,
+      validityEnd: movedDepotStop.validityEnd,
+      indefinite: !movedDepotStop.validityEnd,
+      timingPlaceId: movedDepotStop.timingPlaceId,
       ...newLocation,
     };
 

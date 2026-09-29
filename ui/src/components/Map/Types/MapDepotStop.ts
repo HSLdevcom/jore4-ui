@@ -4,4 +4,7 @@ export type MapDepotStop = {
   readonly id: string;
   readonly label: string;
   readonly location: Point;
+  readonly validityStart: string;
+  readonly validityEnd?: string;
+  readonly timingPlaceId?: string | null;
 };
