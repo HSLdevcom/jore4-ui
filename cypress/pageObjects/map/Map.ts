@@ -1,6 +1,7 @@
 import { Priority } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import qs from 'qs';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { DepotStopPopUp } from '../stop-registry/DepotStopPopUp';
 import { StopPopUp } from '../stop-registry/StopPopUp';
 
 export interface ClickPointNearMapMarker {
@@ -11,6 +12,8 @@ export interface ClickPointNearMapMarker {
 
 export class Map {
   static stopPopUp = StopPopUp;
+
+  static depotStopPopUp = DepotStopPopUp;
 
   /**
    * Click on the map at specific MapLibre coordinates.
@@ -107,6 +110,10 @@ export class Map {
 
   static getStopMarkerLabel() {
     return cy.getByTestId('Map::Stops::stopMarker::Label');
+  }
+
+  static getDepotStopMarkerByLabel(depotStopLabel: string) {
+    return cy.getByTestId(`Map::DepotStops::marker::${depotStopLabel}`);
   }
 
   static getMemberStop(testStopLabel: string) {
