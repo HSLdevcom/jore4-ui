@@ -163,6 +163,11 @@ describe('Stop creation tests', rootOpts, () => {
         label: testStopLabels.depotStopLabel,
         latitude: String(depotStopLocation.lat),
         longitude: String(depotStopLocation.lng),
+        // seed timing places should always have label defined
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        timingPlace: timingPlaces[0].label!,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2040-12-31',
       },
       clickRelativePoint: {
         xPercentage: 50,
