@@ -2,7 +2,11 @@ import {
   ReusableComponentsVehicleModeEnum,
   useUpdateStopPointMutation,
 } from '../../../../generated/graphql';
-import { mapPointToGeoJSON } from '../../../../utils';
+import { parseDate } from '../../../../time';
+import {
+  mapDateInputToValidityEnd,
+  mapPointToGeoJSON,
+} from '../../../../utils';
 import { useGetStopLinkAndDirection } from '../utils';
 import { DepotStopFormState } from './DepotStopFormSchema';
 
@@ -29,6 +33,12 @@ export function useEditDepotStop() {
           measured_location: measuredLocation,
           located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
           direction,
+          validity_start: parseDate(state.validityStart),
+          validity_end: mapDateInputToValidityEnd(
+            state.validityEnd,
+            state.indefinite,
+          ),
+          timing_place_id: state.timingPlaceId ?? null,
         },
       },
     });

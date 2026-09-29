@@ -31,6 +31,10 @@ export const DepotStopModal: FC<DepotStopModalProps> = ({
         label: editingDepotStop.label,
         latitude: editingDepotStop.location.coordinates[1],
         longitude: editingDepotStop.location.coordinates[0],
+        validityStart: editingDepotStop.validityStart,
+        validityEnd: editingDepotStop.validityEnd,
+        indefinite: !editingDepotStop.validityEnd,
+        timingPlaceId: editingDepotStop.timingPlaceId,
       }
     : draftLocation;
 
