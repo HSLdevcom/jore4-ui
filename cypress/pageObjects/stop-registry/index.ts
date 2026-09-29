@@ -1,5 +1,6 @@
 export * from './AlternativeNames';
 export * from './AlternativeNamesEdit';
+export * from './DepotStopPopUp';
 export * from './ExternalLinksForm';
 export * from './ExternalLinksSection';
 export * from './search';
