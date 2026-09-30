@@ -38,7 +38,3 @@ export function findDuplicateJourneys({
     journeysAreEqual(stagingJourney, targetJourney),
   );
 }
-
-export function useFindDuplicateJourneys() {
-  return { findDuplicateJourneys };
-}

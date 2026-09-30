@@ -23,8 +23,8 @@ import {
   UrlStateSerializers,
 } from './types';
 import {
+  assertRouterHistoryStateIsSimple,
   useAssertProperSerializationData,
-  useAssertRouterHistoryStateIsSimple,
 } from './useAssertRouterStateShape';
 
 function useSetters<
@@ -150,7 +150,7 @@ export function useTypedRouterState<
     defaultSearchValues,
   );
   // eslint-disable-next-line @stylistic/spaced-comment
-  /*#__PURE__*/ useAssertRouterHistoryStateIsSimple(historyState);
+  /*#__PURE__*/ assertRouterHistoryStateIsSimple(historyState);
   // eslint-disable-next-line @stylistic/spaced-comment
   /*#__PURE__*/ assertHistoryStateShape(historyState);
 

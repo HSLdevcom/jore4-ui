@@ -59,7 +59,7 @@ type ExpectedPrefixResult = {
   readonly municipality: string;
 };
 
-function useExpectedPrefix(
+function getExpectedPrefix(
   data: GetExistingQuayPublicCodesQuery | undefined,
 ): ExpectedPrefixResult | null {
   const municipality = data?.stopsDatabase?.municipality.at(0)?.name ?? '';
@@ -261,7 +261,7 @@ export function useGetPublicCodeCandidates({
   );
 
   const { expectedPrefix = null, municipality = null } =
-    useExpectedPrefix(data) ?? {};
+    getExpectedPrefix(data) ?? {};
   const usedPublicCodes = useUsedPublicCodes(data);
   const nearbyStops = useNearbyStops(data, newStopLocation);
 

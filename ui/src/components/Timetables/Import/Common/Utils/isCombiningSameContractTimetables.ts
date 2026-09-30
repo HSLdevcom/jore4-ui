@@ -7,13 +7,13 @@ function getJourneys(frame: VehicleScheduleVehicleScheduleFrameWithJourneys) {
   );
 }
 
-export function useCombiningSameContractTimetables(
-  stagingAndTargetFramesForCombine: {
+export function isCombiningSameContractTimetables(
+  stagingAndTargetFramesForCombine: ReadonlyArray<{
     stagingFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
     targetFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
-  }[],
+  }>,
 ) {
-  const combiningSameContractTimetables = stagingAndTargetFramesForCombine.some(
+  return stagingAndTargetFramesForCombine.some(
     ({ stagingFrame, targetFrame }) => {
       const stagingContractNumbers = uniq(
         getJourneys(stagingFrame).map((j) => j.contract_number),
@@ -27,8 +27,4 @@ export function useCombiningSameContractTimetables(
       );
     },
   );
-
-  return {
-    combiningSameContractTimetables,
-  };
 }

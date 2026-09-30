@@ -106,7 +106,7 @@ function assertValueConsistOfSimpleValue(path: string, value: unknown) {
   }
 }
 
-export function useAssertRouterHistoryStateIsSimple(
+export function assertRouterHistoryStateIsSimple(
   state: unknown,
 ): asserts state is SimpleRecord {
   if (typeof state !== 'object' || state === null) {

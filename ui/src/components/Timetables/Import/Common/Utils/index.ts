@@ -1,4 +1,4 @@
-export * from './useCombiningSameContractTimetables';
+export * from './isCombiningSameContractTimetables';
 export * from './useStagingAndTargetFramesForCombine';
 export * from './useConfirmTimetablesImportUIAction';
 export * from './useTimetablesImport';

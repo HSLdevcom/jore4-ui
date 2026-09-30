@@ -5,7 +5,7 @@ import {
   RouteDirectionEnum,
   VehicleJourneyWithPatternAndRouteFragment,
 } from '../../../../../generated/graphql';
-import { useCombiningSameContractTimetables } from './useCombiningSameContractTimetables';
+import { isCombiningSameContractTimetables } from './isCombiningSameContractTimetables';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './useVehicleScheduleFrameWithJourneys';
 
 const route35JourneyPatternRef = {
@@ -73,14 +73,14 @@ function buildSingleBlockFrameWithJourneys(
 
 describe('useCombiningSameContractTimetables hook', () => {
   it('should return false when called with an empty array', async () => {
-    const { result } = renderHook(() => useCombiningSameContractTimetables([]));
+    const { result } = renderHook(() => isCombiningSameContractTimetables([]));
 
-    expect(result.current.combiningSameContractTimetables).toEqual(false);
+    expect(result.current).toEqual(false);
   });
 
   it('should return false when there are no same contract numbers between staging and target frames in given input', () => {
     const { result } = renderHook(() =>
-      useCombiningSameContractTimetables([
+      isCombiningSameContractTimetables([
         {
           stagingFrame: buildSingleBlockFrameWithJourneys([
             buildVehicleJourney({ contract_number: '111' }),
@@ -92,12 +92,12 @@ describe('useCombiningSameContractTimetables hook', () => {
       ]),
     );
 
-    expect(result.current.combiningSameContractTimetables).toEqual(false);
+    expect(result.current).toEqual(false);
   });
 
   it('should return false when there is same contract number in given input, bot not for any staging and target pair', () => {
     const { result } = renderHook(() =>
-      useCombiningSameContractTimetables([
+      isCombiningSameContractTimetables([
         {
           stagingFrame: buildSingleBlockFrameWithJourneys([
             buildVehicleJourney({ contract_number: '111' }),
@@ -118,12 +118,12 @@ describe('useCombiningSameContractTimetables hook', () => {
       ]),
     );
 
-    expect(result.current.combiningSameContractTimetables).toEqual(false);
+    expect(result.current).toEqual(false);
   });
 
   it('should return true when there is same contract number in all journeys of staging and target frame pair', () => {
     const { result } = renderHook(() =>
-      useCombiningSameContractTimetables([
+      isCombiningSameContractTimetables([
         {
           stagingFrame: buildSingleBlockFrameWithJourneys([
             buildVehicleJourney({ contract_number: '111' }),
@@ -135,12 +135,12 @@ describe('useCombiningSameContractTimetables hook', () => {
       ]),
     );
 
-    expect(result.current.combiningSameContractTimetables).toEqual(true);
+    expect(result.current).toEqual(true);
   });
 
   it('should return true when there is same contract number in only some journeys of staging and target frame pair', () => {
     const { result } = renderHook(() =>
-      useCombiningSameContractTimetables([
+      isCombiningSameContractTimetables([
         {
           stagingFrame: buildSingleBlockFrameWithJourneys([
             buildVehicleJourney({ contract_number: '11' }),
@@ -156,12 +156,12 @@ describe('useCombiningSameContractTimetables hook', () => {
       ]),
     );
 
-    expect(result.current.combiningSameContractTimetables).toEqual(true);
+    expect(result.current).toEqual(true);
   });
 
   it('should return true when there are some staging and target pairs with same contract number and some without', () => {
     const { result } = renderHook(() =>
-      useCombiningSameContractTimetables([
+      isCombiningSameContractTimetables([
         {
           stagingFrame: buildSingleBlockFrameWithJourneys([
             buildVehicleJourney({ contract_number: '111' }),
@@ -182,6 +182,6 @@ describe('useCombiningSameContractTimetables hook', () => {
       ]),
     );
 
-    expect(result.current.combiningSameContractTimetables).toEqual(true);
+    expect(result.current).toEqual(true);
   });
 });
