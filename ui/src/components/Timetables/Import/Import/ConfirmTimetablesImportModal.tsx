@@ -8,7 +8,7 @@ import {
   getDefaultValues,
 } from '../Common/TimetablesImportFormSchema';
 import {
-  useCombiningSameContractTimetables,
+  isCombiningSameContractTimetables,
   useConfirmTimetablesImportUIAction,
   useGetStagingVehicleScheduleFrameIds,
   useStagingAndTargetFramesForCombine,
@@ -54,8 +54,9 @@ export const ConfirmTimetablesImportModal: FC<
     fetchVehicleFramesWithJourneys,
     fetchStagingVehicleFrameIds,
   );
-  const { combiningSameContractTimetables } =
-    useCombiningSameContractTimetables(stagingAndTargetFramesForCombine);
+  const combiningSameContractTimetables = isCombiningSameContractTimetables(
+    stagingAndTargetFramesForCombine,
+  );
 
   // Default might be set incorrectly if data has not been fetched for the form.
   const formReadyForRender = !!vehicleScheduleFrames?.length;

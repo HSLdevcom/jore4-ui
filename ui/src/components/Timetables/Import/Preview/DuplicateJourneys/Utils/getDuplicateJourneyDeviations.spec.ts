@@ -3,7 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../../../Common/Utils/useVehicleScheduleFrameWithJourneys';
-import { useDuplicateJourneyDeviations } from './useDuplicateJourneyDeviations';
+import { getDuplicateJourneyDeviations } from './getDuplicateJourneyDeviations';
 
 const route35JourneyPatternRef = {
   journey_pattern_instance: {
@@ -103,14 +103,14 @@ const targetFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys = {
 
 describe('useDuplicateJourneyDeviations hook', () => {
   it('should return no duplicate journeys when there are no staging frames with target', async () => {
-    const { result } = renderHook(() => useDuplicateJourneyDeviations([]));
+    const { result } = renderHook(() => getDuplicateJourneyDeviations([]));
 
-    expect(result.current.duplicateJourneys).toEqual([]);
+    expect(result.current).toEqual([]);
   });
 
   it('should return duplicate journeys between the staging and target frame', async () => {
     const { result } = renderHook(() =>
-      useDuplicateJourneyDeviations([
+      getDuplicateJourneyDeviations([
         {
           stagingFrame: stagingFrameWithRoutes,
           targetFrame: targetFrameWithRoutes,
@@ -118,7 +118,7 @@ describe('useDuplicateJourneyDeviations hook', () => {
       ]),
     );
 
-    expect(result.current.duplicateJourneys).toEqual([
+    expect(result.current).toEqual([
       {
         stagingJourney: {
           vehicleJourneyId: 'fbceabaa-d14f-40f2-bfb7-ff0b56947642',

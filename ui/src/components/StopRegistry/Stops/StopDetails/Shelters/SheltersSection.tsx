@@ -24,13 +24,7 @@ type SheltersSectionProps = {
   readonly stop: StopWithDetails;
 };
 
-function useShelters(
-  stop: StopWithDetails,
-): Array<ShelterEquipmentDetailsFragment> {
-  return compact(stop.quay?.placeEquipments?.shelterEquipment ?? []);
-}
-
-function useShelterFormDefaultValues(
+function getShelterFormDefaultValues(
   shelters: ReadonlyArray<ShelterEquipmentDetailsFragment>,
 ) {
   if (shelters.length === 0) {
@@ -45,7 +39,7 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
 
   const { saveStopPlaceShelters, defaultErrorHandler } = useEditStopShelters();
 
-  const shelters = useShelters(stop);
+  const shelters = compact(stop.quay?.placeEquipments?.shelterEquipment);
   const [shelterCount, setShelterCount] = useState(shelters.length);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -77,7 +71,7 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
     }
   };
 
-  const shelterFormDefaultValues = useShelterFormDefaultValues(shelters);
+  const shelterFormDefaultValues = getShelterFormDefaultValues(shelters);
 
   const editAndAddShelter = () => {
     setIsInEditMode(true);

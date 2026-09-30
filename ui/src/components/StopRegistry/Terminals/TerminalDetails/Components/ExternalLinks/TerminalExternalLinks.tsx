@@ -1,7 +1,6 @@
 import compact from 'lodash/compact';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TerminalExternalLinksDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { showSuccessToast } from '../../../../../../utils';
 import { ExternalLinks } from '../../../../Components/ExternalLinks/ExternalLinks';
@@ -12,16 +11,8 @@ type ExternalLinksProps = {
   readonly terminal: EnrichedParentStopPlace;
 };
 
-function useExternalLinks(
-  terminal: EnrichedParentStopPlace,
-): Array<TerminalExternalLinksDetailsFragment> {
-  return compact(terminal?.externalLinks);
-}
-
 export const TerminalExternalLinks: FC<ExternalLinksProps> = ({ terminal }) => {
   const { t } = useTranslation();
-
-  const externalLinks = useExternalLinks(terminal);
 
   const { saveParentStopPlaceExternalLinks, defaultErrorHandler } =
     useEditTerminalExternalLinks();
@@ -36,5 +27,10 @@ export const TerminalExternalLinks: FC<ExternalLinksProps> = ({ terminal }) => {
     }
   };
 
-  return <ExternalLinks externalLinks={externalLinks} onSubmit={onSubmit} />;
+  return (
+    <ExternalLinks
+      externalLinks={compact(terminal.externalLinks)}
+      onSubmit={onSubmit}
+    />
+  );
 };

@@ -18,7 +18,7 @@ import {
   getDefaultValues,
 } from '../Common/TimetablesImportFormSchema';
 import {
-  useCombiningSameContractTimetables,
+  isCombiningSameContractTimetables,
   useConfirmTimetablesImportUIAction,
   useGetStagingVehicleScheduleFrameIds,
   useStagingAndTargetFramesForCombine,
@@ -28,7 +28,7 @@ import {
 } from '../Common/Utils';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './ContentsView';
-import { useDuplicateJourneyDeviations } from './DuplicateJourneys/Utils';
+import { getDuplicateJourneyDeviations } from './DuplicateJourneys/Utils';
 import {
   useReplaceDeviations,
   useToReplaceVehicleScheduleFrames,
@@ -81,11 +81,12 @@ export const PreviewTimetablesPage: FC = () => {
     fetchVehicleFramesWithJourneys,
     fetchStagingVehicleFrameIds,
   );
-  const { duplicateJourneys } = useDuplicateJourneyDeviations(
+  const duplicateJourneys = getDuplicateJourneyDeviations(
     stagingAndTargetFramesForCombine,
   );
-  const { combiningSameContractTimetables } =
-    useCombiningSameContractTimetables(stagingAndTargetFramesForCombine);
+  const combiningSameContractTimetables = isCombiningSameContractTimetables(
+    stagingAndTargetFramesForCombine,
+  );
 
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
   const vehicleJourneyCount = vehicleJourneys?.length ?? 0;

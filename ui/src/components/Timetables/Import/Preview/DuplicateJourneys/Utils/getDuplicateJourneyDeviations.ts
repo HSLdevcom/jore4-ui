@@ -2,13 +2,13 @@ import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../../../Common
 import { createVehicleJourneyInfo } from './createVehicleJourneyInfo';
 import { findDuplicateJourneys } from './findDuplicateJourneys';
 
-export function useDuplicateJourneyDeviations(
-  stagingAndTargetFramesForCombine: {
+export function getDuplicateJourneyDeviations(
+  stagingAndTargetFramesForCombine: ReadonlyArray<{
     stagingFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
     targetFrame: VehicleScheduleVehicleScheduleFrameWithJourneys;
-  }[],
+  }>,
 ) {
-  const duplicateJourneys = stagingAndTargetFramesForCombine.flatMap(
+  return stagingAndTargetFramesForCombine.flatMap(
     ({ stagingFrame, targetFrame }) => {
       return findDuplicateJourneys({
         stagingFrameJourneys: createVehicleJourneyInfo(stagingFrame),
@@ -16,6 +16,4 @@ export function useDuplicateJourneyDeviations(
       });
     },
   );
-
-  return { duplicateJourneys };
 }

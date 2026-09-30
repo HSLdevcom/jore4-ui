@@ -1,7 +1,6 @@
 import compact from 'lodash/compact';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExternalLinksDetailsFragment } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast } from '../../../../../utils';
 import { ExternalLinks } from '../../../Components/ExternalLinks/ExternalLinks';
@@ -12,16 +11,8 @@ type ExternalLinksProps = {
   readonly stop: StopWithDetails;
 };
 
-function useExternalLinks(
-  stop: StopWithDetails,
-): Array<ExternalLinksDetailsFragment> {
-  return compact(stop?.quay?.externalLinks);
-}
-
 export const StopExternalLinks: FC<ExternalLinksProps> = ({ stop }) => {
   const { t } = useTranslation();
-
-  const externalLinks = useExternalLinks(stop);
 
   const { saveStopPlaceExternalLinks, defaultErrorHandler } =
     useEditStopExternalLinks();
@@ -36,5 +27,10 @@ export const StopExternalLinks: FC<ExternalLinksProps> = ({ stop }) => {
     }
   };
 
-  return <ExternalLinks externalLinks={externalLinks} onSubmit={onSubmit} />;
+  return (
+    <ExternalLinks
+      externalLinks={compact(stop.quay?.externalLinks)}
+      onSubmit={onSubmit}
+    />
+  );
 };

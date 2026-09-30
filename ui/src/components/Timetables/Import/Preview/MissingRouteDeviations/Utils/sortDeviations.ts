@@ -10,7 +10,3 @@ export function sortDeviations(
     ['asc', 'desc'],
   );
 }
-
-export function useMissingRouteDeviationsSort() {
-  return { sortDeviations };
-}
