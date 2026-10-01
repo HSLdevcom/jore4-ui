@@ -109,6 +109,16 @@ function determineBorderColor(
   }
 
   if (primaryMode) {
+    // Solid-filled tram / speed tram stops get a darker stroke than their fill.
+    if (
+      activeTransportModes.length === 1 &&
+      primaryMode === StopRegistryTransportModeType.Tram
+    ) {
+      return isSpeedTramStop
+        ? colors.stopStrokes.speedTram
+        : colors.stopStrokes.tram;
+    }
+
     return determineTransportModeColor(
       primaryMode,
       isTrunkLineStop,
@@ -278,11 +288,11 @@ export const Stop: FC<StopProps> = ({
         centerDot={selected}
         inSelection={inSelection}
         showLabel={showLabel}
-        depotStopLabel={depotStopLabel}
-        onDepotStopClick={onDepotStopClick}
         transportModes={activeTransportModes}
         trunkLine={isTrunkLineStop}
         speedTram={isSpeedTramStop}
+        depotStopLabel={depotStopLabel}
+        onDepotStopClick={onDepotStopClick}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...(stop
           ? ({
