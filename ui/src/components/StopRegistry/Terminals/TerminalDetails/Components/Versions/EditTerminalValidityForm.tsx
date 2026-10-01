@@ -24,7 +24,6 @@ export const EditTerminalValidityForm: FC<EditTerminalValidityFormProps> = ({
   );
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <TerminalValidityForm
         className={className}

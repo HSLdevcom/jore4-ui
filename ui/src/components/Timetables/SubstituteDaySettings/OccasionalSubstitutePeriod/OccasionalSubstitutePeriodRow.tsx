@@ -105,9 +105,8 @@ export const OccasionalSubstitutePeriodRow: FC<
         className="col-span-2"
         testId={testIds.substituteDayOfWeekDropdown}
         fieldPath={`periods.${index}.substituteDayOfWeek`}
-        // eslint-disable-next-line react/no-unstable-nested-components
+
         inputElementRenderer={(props) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
           <SubstituteDayOfWeekDropdown disabled={tobeDeleted} {...props} />
         )}
       />
@@ -116,13 +115,9 @@ export const OccasionalSubstitutePeriodRow: FC<
         translationPrefix="timetables.settings"
         testId={testIds.lineTypesDropdown}
         fieldPath={`periods.${index}.lineTypes`}
-        // eslint-disable-next-line react/no-unstable-nested-components
+
         inputElementRenderer={(props) => (
-          <LineTypeMultiSelectDropdown
-            disabled={tobeDeleted}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-          />
+          <LineTypeMultiSelectDropdown disabled={tobeDeleted} {...props} />
         )}
       />
       <Column className="col-span-1 items-center justify-end">

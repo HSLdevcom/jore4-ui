@@ -81,7 +81,6 @@ export const JoreCombobox: FC<JoreComboboxProps> = ({
             }
           >
             {(optionProps) => (
-              // eslint-disable-next-line react/jsx-no-useless-fragment
               <>{'content' in item ? item.content : item.render(optionProps)}</>
             )}
           </ComboboxOption>

@@ -65,14 +65,12 @@ export const ExpandButton: FC<ExpandButtonProps> = ({
       type="button"
       testId={testId}
       onClick={onClick}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...(forSorting
         ? { 'aria-pressed': expanded }
         : {
             'aria-expanded': expanded,
             'aria-controls': ariaControls,
           })}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...buttonProps}
     />
   );

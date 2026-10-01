@@ -156,6 +156,7 @@ const CustomOverlayComponent: FC<CustomOverlayComponentProps> = ({
   order = 1,
   position,
 }) => {
+  // eslint-disable-next-line @eslint-react/use-state
   const [, setVersion] = useState(0);
   const id = useId();
 
@@ -179,7 +180,8 @@ const CustomOverlayComponent: FC<CustomOverlayComponentProps> = ({
   const newChildProps = typeof children.type === 'string' ? {} : { map };
 
   return map && ctrlElement
-    ? createPortal(cloneElement(children, newChildProps), ctrlElement)
+    ? // eslint-disable-next-line @eslint-react/no-clone-element
+      createPortal(cloneElement(children, newChildProps), ctrlElement)
     : null;
 };
 

@@ -9,6 +9,7 @@ import {
 import { twMerge } from 'tailwind-merge';
 
 function addClassName(element: ReactElement, newClassNames: string) {
+  // eslint-disable-next-line @eslint-react/no-clone-element
   return cloneElement(element, {
     className: twMerge(element.props.className, newClassNames),
   });

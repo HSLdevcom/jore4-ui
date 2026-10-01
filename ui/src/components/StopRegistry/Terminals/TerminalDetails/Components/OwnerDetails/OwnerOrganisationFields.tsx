@@ -101,12 +101,9 @@ export const OwnerOrganizationFields: FC<MaintainerFormFieldsProps> = ({
           customTitlePath="terminalDetails.owner.owner"
           fieldPath="ownerRef"
           testId={testIds.ownerDropdown}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
-            <ChooseOrganisationDropdown
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
+            <ChooseOrganisationDropdown {...props} />
           )}
         />
 

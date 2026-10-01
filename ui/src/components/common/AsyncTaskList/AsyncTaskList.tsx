@@ -92,6 +92,8 @@ export const AsyncTaskListProvider: FC<PropsWithChildren> = ({ children }) => {
         // Make sure the task does not make any synchronous or schedule Micro task
         // calls to the progress or unregistering hooks.
         // Schedule the startup in macro task.
+
+        // eslint-disable-next-line @eslint-react/web-api-no-leaked-timeout
         setTimeout(task.initialize),
       );
       markTasksAsInitialized(uninitializedIds);

@@ -72,7 +72,6 @@ export const TerminalNames: FC = () => {
         show={expanded}
         aria-hidden={!expanded}
         aria-labelledby={HeaderId}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...accordionClassNames}
       >
         <FormRow mdColumns={3} className="sm:gap-x-4 md:gap-x-4 lg:gap-x-4">

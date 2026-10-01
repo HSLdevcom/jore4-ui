@@ -101,9 +101,7 @@ const DateInputElement = <FormState extends FieldValues>({
 
   return (
     <CompatBaseDateInput
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...inputProps}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...field}
       className={twMerge(className, error ? inputErrorStyles : '')}
       data-testid={testId}
@@ -115,12 +113,10 @@ const DateInputElement = <FormState extends FieldValues>({
 export const InputElement = <FormState extends FieldValues>(
   props: InputElementProps<FormState>,
 ): ReactElement => {
-  // eslint-disable-next-line react/destructuring-assignment
+  // eslint-disable-next-line @eslint-react/kit/no-direct-access-props
   if (props.type === 'date') {
-    // eslint-disable-next-line react/jsx-props-no-spreading
     return <DateInputElement {...props} />;
   }
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <RawInputElement {...props} />;
 };

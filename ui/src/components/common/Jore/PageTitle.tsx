@@ -54,7 +54,7 @@ const PageTitleImpl: FC<PageTitleProps> = ({
           })}
         </title>
       </Helmet>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+
       <As className={className} {...testIdProps}>
         {children}
       </As>
@@ -81,7 +81,6 @@ function createFixedElementPageTitle(
   as: ElementType,
 ): FC<FixedElementPageTitleProps> {
   const FixedElementPageTitle: FC<FixedElementPageTitleProps> = (props) => (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <PageTitleImpl as={as} {...props} />
   );
 

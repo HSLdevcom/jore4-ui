@@ -95,7 +95,6 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
   const { handleSubmit } = methods;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         ref={ref}

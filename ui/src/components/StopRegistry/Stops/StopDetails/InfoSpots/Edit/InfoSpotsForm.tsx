@@ -133,7 +133,6 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
   const hasChanges = isDirty || hasNewInfoSpot;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className={className}

@@ -33,13 +33,12 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
     if (initialFilters.searchBy !== searchBy && query !== '') {
       formRef.current?.requestSubmit();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [searchBy]);
 
   const notForStops = methods.watch('searchFor') !== SearchFor.Stops;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className="container mx-auto flex flex-col py-10"

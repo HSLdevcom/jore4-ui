@@ -47,7 +47,6 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
       ]}
       observationDate={observationDate}
       stop={stop}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...(selectable
         ? { isSelected, onToggleSelection, selectable }
         : ({} as NonSelectableStopTableRowProps))}

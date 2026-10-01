@@ -87,7 +87,6 @@ export const InputField = <FormState extends FieldValues>({
         />
       ) : (
         <InputElement<FormState>
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...(inputHTMLAttributes as typeof type extends 'textarea'
             ? HTMLTextAreaProps
             : HTMLInputProps)}

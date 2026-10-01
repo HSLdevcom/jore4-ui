@@ -47,7 +47,7 @@ export function useDateQueryParam({
       setDateToUrl(defaultDate, true);
       return defaultDate;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [defaultDate, getDateTimeFromUrlQuery]);
 
   /** Determines and sets date to query parameters if it's not there */
@@ -56,7 +56,7 @@ export function useDateQueryParam({
     if (!queryParamValue || !date) {
       setDateToUrl(defaultDate, true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [defaultDate, date, queryParamValue]);
 
   useEffect(() => {

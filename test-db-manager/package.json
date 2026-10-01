@@ -38,7 +38,7 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/geojson": "^7946.0.16",
-    "@types/luxon": "^3.7.3",
+    "@types/luxon": "^3.7.6",
     "@types/pg": "^8.23.1",
     "rollup": "^4.63.5",
     "ts-node": "^10.9.2"

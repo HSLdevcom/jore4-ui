@@ -120,7 +120,6 @@ const SimpleButtonButtonImpl: ForwardRefRenderFunction<
 ) => {
   return (
     <button
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...buttonProps}
       className={getSimpleButtonClassNames(
         inverted,
@@ -132,7 +131,7 @@ const SimpleButtonButtonImpl: ForwardRefRenderFunction<
       data-testid={testId}
       disabled={disabled}
       ref={ref}
-      // eslint-disable-next-line react/button-has-type
+
       type={type}
     />
   );
@@ -170,7 +169,6 @@ export const SimpleLinkButtonImpl: ForwardRefRenderFunction<
 
   return (
     <Link
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...linkProps}
       className={getSimpleButtonClassNames(
         inverted,

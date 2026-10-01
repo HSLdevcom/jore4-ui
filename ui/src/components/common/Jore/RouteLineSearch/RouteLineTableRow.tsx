@@ -167,7 +167,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
           Hard coded width, so this column does not take too much space and
           checkbox is always aligned with "select all" checkbox above
          */}
-        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+        {/* eslint-disable-next-line jsx-a11y-x/control-has-associated-label */}
         <td className="w-14 pr-6">
           <input
             type="checkbox"

@@ -91,7 +91,6 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
   }, [timingPlaceId, setValue]);
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -103,13 +102,9 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
             translationPrefix="stops"
             fieldPath="timingPlaceId"
             testId={testIds.timingPlaceDropdown}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
-              <ChooseTimingPlaceDropdown
-                optionAmount={4}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
+              <ChooseTimingPlaceDropdown optionAmount={4} {...props} />
             )}
             className="w-[400px] max-w-full flex-1"
           />

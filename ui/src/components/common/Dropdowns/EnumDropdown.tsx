@@ -119,7 +119,6 @@ const EnumDropdownImpl = <TEnum extends string>(
       value={mappedValue as TEnum}
       buttonClassNames={buttonClassName}
       ref={ref}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

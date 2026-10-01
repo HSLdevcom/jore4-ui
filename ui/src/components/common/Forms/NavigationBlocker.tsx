@@ -315,7 +315,7 @@ export const NavigationBlocker: FC<PropsWithChildren> = ({ children }) => {
 
     // Trigger if block(ers) is changed or if ReactRouter's navigation blocker's
     // state changed (it can lag behind).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [blocks, blocker.state]);
 
   // Registers a new blocker form a nested scope, returns a cleanup function.

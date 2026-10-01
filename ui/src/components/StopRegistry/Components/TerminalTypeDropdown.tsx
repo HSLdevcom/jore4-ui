@@ -19,7 +19,6 @@ export const TerminalTypeDropdown: FC<TerminalTypeDropdownProps> = ({
       placeholder={t(($) => $.terminal.chooseTerminalType)}
       uiNameMapper={(val) => mapTerminalTypeToUiName(t, val)}
       value={value}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />
   );

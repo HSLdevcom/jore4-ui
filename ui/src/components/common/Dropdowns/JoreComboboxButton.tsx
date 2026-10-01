@@ -21,7 +21,6 @@ export const JoreComboboxButton = forwardRef<
       ref={ref}
       data-testid={testId}
       className={comboboxStyles.button(className)}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...internalProps}
     >
       {children}

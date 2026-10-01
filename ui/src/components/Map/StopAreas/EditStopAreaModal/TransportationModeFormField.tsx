@@ -90,7 +90,7 @@ export const TransportationModeField = ({
       translationPrefix="stopArea"
       fieldPath="transportMode"
       testId={testId}
-      // eslint-disable-next-line react/no-unstable-nested-components
+
       inputElementRenderer={(props) => (
         <EnumDropdown<JoreStopRegistryTransportModeType>
           enumType={filteredEnum}
@@ -99,7 +99,6 @@ export const TransportationModeField = ({
             mapStopRegistryTransportModeTypeToUiName(t, value)
           }
           disabled={isEditing || loadingTransportModes}
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
         />
       )}

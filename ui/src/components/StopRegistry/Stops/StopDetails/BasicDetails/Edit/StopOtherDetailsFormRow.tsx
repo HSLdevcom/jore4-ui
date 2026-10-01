@@ -40,7 +40,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
           translationPrefix="stopDetails.basicDetails"
           fieldPath="transportMode"
           testId={testIds.transportMode}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
             <EnumDropdown<JoreStopRegistryTransportModeType>
               enumType={JoreStopRegistryTransportModeType}
@@ -51,7 +51,6 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
               disabled={
                 isRailReplacement || isTrunkLine || isTransportModeLocked
               }
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}
@@ -71,12 +70,9 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
             translationPrefix="stops"
             fieldPath="timingPlaceId"
             testId={testIds.timingPlaceDropdown}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
-              <ChooseTimingPlaceDropdown
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
+              <ChooseTimingPlaceDropdown {...props} />
             )}
             className="flex-1"
           />

@@ -292,7 +292,6 @@ export const Stop: FC<StopProps> = ({
         speedTram={isSpeedTramStop}
         depotStopLabel={depotStopLabel}
         onDepotStopClick={onDepotStopClick}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...(stop
           ? ({
               onClick,

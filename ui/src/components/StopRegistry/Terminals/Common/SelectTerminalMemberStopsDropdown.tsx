@@ -137,7 +137,6 @@ export const SelectTerminalMemberStopsDropdown: FC<
       onSelectionChange={handleSelectionChange}
       renderWarning={renderWarning}
       inputAriaLabel={t(($) => $.terminalDetails.location.memberStops)}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...restProps}
     />
   );

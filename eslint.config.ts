@@ -6,48 +6,48 @@ import cypress from 'eslint-plugin-cypress';
 import importPlugin from 'eslint-plugin-import-x';
 import lodash from 'eslint-plugin-lodash';
 import jest from 'eslint-plugin-jest';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
+import jsxA11y from 'eslint-plugin-jsx-a11y-x';
 import n from 'eslint-plugin-n';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
+import react from '@eslint-react/eslint-plugin';
+import eslintReactKit from '@eslint-react/kit';
 import globals from 'globals';
 import tsEslint from 'typescript-eslint';
+import { InfiniteDepthConfigWithExtends } from 'typescript-eslint';
 import {
   uiRules,
   unitTestRules,
   cypressRules,
   nodeProjectRules,
-  i18nRules,
-} from './eslint/rules/index.js';
+  kits,
+} from './eslint/rules';
 
-// Import types
-/**
- * @typedef {import('typescript-eslint').ConfigWithExtends} ConfigWithExtends
- * @typedef {import('typescript-eslint').InfiniteDepthConfigWithExtends} InfiniteDepthConfigWithExtends
- */
+function useKits() {
+  return kits
+    .reduce((chain, kit) => chain.use(kit), eslintReactKit())
+    .getConfig();
+}
 
 /**
  * @param {boolean} useReact
  * @param {boolean} useNode
  * @param {boolean} useJest
  * @param {boolean} useCypress
- * @return {InfiniteDepthConfigWithExtends}
+ * @return {Array<InfiniteDepthConfigWithExtends>}
  */
 function getExtends({
   react: useReact = false,
   node: useNode = false,
   jest: useJest = false,
   cypress: useCypress = false,
-} = {}) {
+} = {}): Array<InfiniteDepthConfigWithExtends> {
   return [
     js.configs.recommended,
 
     ...(useReact
       ? [
-          react.configs.flat['recommended'],
-          react.configs.flat['jsx-runtime'],
-          reactHooks.configs.flat['recommended-latest'],
-          jsxA11y.flatConfigs['recommended'],
+          react.configs['recommended-typescript'],
+          useKits(),
+          jsxA11y.configs['recommended'],
         ]
       : []),
 
@@ -68,41 +68,6 @@ function getExtends({
   ];
 }
 
-/**
- * @param {string} tsconfigPath
- * @param {ConfigWithExtends} config
- * @return ConfigWithExtends
- */
-function tsConfig(tsconfigPath, config) {
-  const userLangOptions = config.languageOptions ?? {};
-  const userParserOptions = userLangOptions.parserOptions ?? {};
-  const userSettings = config.settings ?? {};
-  const userImportResolverSettings = userSettings['import/resolver'] ?? {};
-
-  return config;
-
-  return {
-    ...config,
-    languageOptions: {
-      ...userLangOptions,
-      parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
-        projectService: true,
-        // Allow overriding properties
-        ...userParserOptions,
-      },
-    },
-    settings: {
-      ...userSettings,
-      'import/resolver': {
-        typescript: tsconfigPath,
-        // Allow overriding properties
-        ...userImportResolverSettings,
-      },
-    },
-  };
-}
-
 export default tsEslint.config(
   // Global ignores
   {
@@ -116,6 +81,7 @@ export default tsEslint.config(
       'ui/next-env.d.ts',
       'ui/out',
       '**/.rollup.cache',
+      'eslint.config.ts',
     ],
   },
 
@@ -135,7 +101,7 @@ export default tsEslint.config(
         typescript: {},
       },
       react: { version: 'detect' },
-      node: { version: '>=23.9.0' },
+      node: { version: '>=24' },
     },
     plugins: {
       // Other plugins get automatically added in by the shared configs (extends)
@@ -145,17 +111,25 @@ export default tsEslint.config(
     },
   },
 
+  // ESLint config bits
+  {
+    files: ['eslint/**/*.ts'],
+    languageOptions: { globals: globals.node },
+    extends: getExtends({ node: true }),
+    rules: nodeProjectRules,
+  },
+
   // UI code
-  tsConfig('ui/tsconfig.json', {
+  {
     files: ['ui/**/*.{ts,tsx}'],
     ignores: ['ui/**/*.spec.{ts,tsx}'],
     languageOptions: { globals: globals.browser },
     extends: getExtends({ react: true }),
     rules: uiRules,
-  }),
+  },
 
   // Jest based unit/integration tests in UI dir
-  tsConfig('ui/tsconfig.json', {
+  {
     files: ['ui/**/*.spec.{ts,tsx}'],
     languageOptions: {
       globals: {
@@ -165,29 +139,29 @@ export default tsEslint.config(
     },
     extends: getExtends({ react: true, node: true, jest: true }),
     rules: unitTestRules,
-  }),
+  },
 
   // Cypress
-  tsConfig('cypress/tsconfig.json', {
+  {
     files: ['cypress/**/*.ts'],
     languageOptions: { globals: globals.node },
     extends: getExtends({ node: true, cypress: true }),
     rules: cypressRules,
-  }),
+  },
 
   // Test DB Manager
-  tsConfig('test-db-manager/tsconfig.json', {
+  {
     files: ['test-db-manager/**/*.ts'],
     languageOptions: { globals: globals.node },
     extends: getExtends({ node: true }),
     rules: nodeProjectRules,
-  }),
+  },
 
   // Codegen
-  tsConfig('codegen/tsconfig.json', {
+  {
     files: ['codegen/**/*.ts'],
     languageOptions: { globals: globals.node },
     extends: getExtends({ node: true }),
     rules: nodeProjectRules,
-  }),
+  },
 );

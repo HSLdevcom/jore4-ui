@@ -38,7 +38,6 @@ export const DayTypeDropdown: FC<DayTypeDropdownProps> = ({
       buttonContent={uiNameMapper(value)}
       options={options}
       value={value}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

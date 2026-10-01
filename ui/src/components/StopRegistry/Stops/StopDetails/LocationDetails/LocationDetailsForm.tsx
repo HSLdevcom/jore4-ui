@@ -61,7 +61,6 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
   const { handleSubmit } = methods;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <LocationTerminalDetails stop={stop} />
@@ -170,7 +169,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.location"
               fieldPath="signContentType"
               testId={testIds.signContentType}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistrySignContentType>
                   enumType={LocationSignContentType}
@@ -178,7 +177,6 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
                   uiNameMapper={(value) => mapSignContentTypeToUiName(t, value)}
                   buttonClassName="min-w-36"
                   includeNullOption
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}

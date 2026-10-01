@@ -55,7 +55,6 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         onSubmit={(e) => {

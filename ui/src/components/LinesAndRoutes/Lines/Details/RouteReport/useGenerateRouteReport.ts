@@ -38,6 +38,7 @@ function useResolveIdPairsByQuayNetexIds() {
     quayNetexIds: ReadonlyArray<string>,
     abortSignal: AbortSignal,
   ): Promise<ReadonlyArray<QuayAndStopPlaceIds>> => {
+    // eslint-disable-next-line @eslint-react/kit/no-direct-access-props
     if (quayNetexIds.length === 0) {
       return [];
     }

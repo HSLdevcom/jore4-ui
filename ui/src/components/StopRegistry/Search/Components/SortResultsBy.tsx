@@ -48,7 +48,6 @@ export const SortResultsBy: FC<SortResultsByProps> = ({
           setSortingInfo={setSortingInfo}
           sortBy={sortBy}
           sortOrder={sortOrder}
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...(groupOnlyFields
             ? {
                 groupOnly: groupOnlyFields.includes(sortBy),

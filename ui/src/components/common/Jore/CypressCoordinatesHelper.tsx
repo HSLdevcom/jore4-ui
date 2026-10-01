@@ -40,6 +40,7 @@ export const CypressCoordinatesHelper: FC = () => {
       const elements = getElements();
       if (elements) {
         setLocation(elements, e);
+        // eslint-disable-next-line @eslint-react/web-api-no-leaked-timeout
         setTimeout(() => setColor(elements, 'red'), 100);
       }
     };

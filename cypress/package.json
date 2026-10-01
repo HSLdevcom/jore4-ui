@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.25",
-    "@types/luxon": "^3.7.5",
+    "@types/luxon": "^3.7.6",
     "@types/qs": "^6.15.1",
     "find-test-names": "^1.29.19"
   }

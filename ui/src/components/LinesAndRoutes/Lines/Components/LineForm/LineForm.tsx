@@ -92,7 +92,6 @@ export const LineForm: FC<LineFormProps> = ({
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <Row className="mt-10">
