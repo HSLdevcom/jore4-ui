@@ -3,7 +3,6 @@ import comments from '@eslint-community/eslint-plugin-eslint-comments/configs';
 import stylistic from '@stylistic/eslint-plugin';
 import configPrettier from 'eslint-config-prettier/flat';
 import cypress from 'eslint-plugin-cypress';
-import i18nJson from 'eslint-plugin-i18n-json';
 import importPlugin from 'eslint-plugin-import-x';
 import lodash from 'eslint-plugin-lodash';
 import jest from 'eslint-plugin-jest';
@@ -20,47 +19,12 @@ import {
   nodeProjectRules,
   i18nRules,
 } from './eslint/rules/index.js';
-import packageJson from './package.json' with { type: 'json' };
 
 // Import types
 /**
  * @typedef {import('typescript-eslint').ConfigWithExtends} ConfigWithExtends
  * @typedef {import('typescript-eslint').InfiniteDepthConfigWithExtends} InfiniteDepthConfigWithExtends
- * @typedef {import('@typescript-eslint/utils/dist/ts-eslint/Config.d.ts').FlatConfig.Plugin} Plugin
  */
-
-const expectedI18nEslintPluginVersion = '4.0.1';
-const i18nEslintPluginVersion =
-  packageJson?.devDependencies?.['eslint-plugin-i18n-json'];
-
-// At the time of writing eslint-plugin-i18n-json does not provide proper
-// ESLint V9 compatible ESLint plugin implementation, so we need to manually
-// define a plugin for it. Future versions might provide a proper plugin upstream.
-// If you have updated the package, please see if it provides a proper plugin
-// implementation and get rid of this custom one, and this version assert.
-if (expectedI18nEslintPluginVersion !== i18nEslintPluginVersion) {
-  throw new Error(
-    `Expected to eslint-plugin-i18n-json version to be defined in the package.json devDependencies section and to have value '${expectedI18nEslintPluginVersion}' but value is '${i18nEslintPluginVersion}'! Please see eslint.config.mjs for more information.`,
-  );
-}
-
-/**
- * @type {Plugin}
- */
-const i18nPlugin = {
-  meta: {
-    name: 'eslint-plugin-i18n-json',
-    namespace: 'i18n-json',
-    version: expectedI18nEslintPluginVersion,
-  },
-  rules: i18nJson.rules,
-  processors: {
-    json: {
-      meta: { name: 'json', version: expectedI18nEslintPluginVersion },
-      ...i18nJson.processors['.json'],
-    },
-  },
-};
 
 /**
  * @param {boolean} useReact
@@ -202,17 +166,6 @@ export default tsEslint.config(
     extends: getExtends({ react: true, node: true, jest: true }),
     rules: unitTestRules,
   }),
-
-  // Localization files
-  {
-    files: ['ui/src/locales/**/*.json'],
-    plugins: { 'i18n-json': i18nPlugin },
-    processor: 'i18n-json/json',
-    rules: {
-      ...i18nJson.configs.recommended.rules,
-      ...i18nRules,
-    },
-  },
 
   // Cypress
   tsConfig('cypress/tsconfig.json', {
