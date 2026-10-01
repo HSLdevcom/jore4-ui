@@ -30,13 +30,23 @@ DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2
 ROUTES_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
 
 INCLUDE_E2E=true
-USE_VOLUME=false
+USE_VOLUMES=false
 
 LOGGED_IN=false
 
 for param in "$@"; do
-  if [ "$param" = "--volume" ]; then
-    USE_VOLUME=true
+  if [ "$param" = "--volumes" ]; then
+    USE_VOLUMES=true
+  fi
+  if [ "$param" == "--delete-volumes" ] ; then
+    read -p "Are you sure you want to delete the persistent volumes for testdb and mapmatchingdb? This will remove all data. [y/N]: " CONFIRM_DELETE
+    if [[ ! "$CONFIRM_DELETE" =~ ^[Yy]$ ]]; then
+      echo "Aborting."
+      exit 1
+    fi
+    echo "Deleting persistent volumes for testdb and mapmatchingdb"
+    rm -rf ./docker/dbs
+    continue
   fi
   if [ "$param" = "--skip-e2e" ]; then
     INCLUDE_E2E=false
@@ -45,9 +55,9 @@ done
 
 DOCKER_COMPOSE_CMD="docker compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
 
-if [ "$USE_VOLUME" = true ]; then
+if [ "$USE_VOLUMES" = true ]; then
   # start the testdb with mounted volume
-  DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.testdb-volume.yml"
+  DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.db-volumes.yml"
 fi
 
 # start up only services that are needed in local ui development
@@ -407,6 +417,13 @@ print_usage() {
   echo "
   Usage: $(basename "$0") <command>
 
+    jore4-testdb and jore4-mapmatchingdb are built by default without persistent database volumes in docker.
+    Enable persistent volumes with --volumes.
+
+    To clear persisted volumes, run with --delete-volumes.
+
+    Always add flags after the actual command to run and its arguments.
+
   start:deps
     Start dependencies but do not insert data to database.
 
@@ -519,6 +536,10 @@ check:images)
 
 help)
   print_usage
+  ;;
+
+--delete-volumes)
+  # Done in the parameter parsing loop above, so just exit here.
   ;;
 
 *)
