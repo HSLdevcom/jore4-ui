@@ -1,0 +1,10 @@
+services:
+  jore4-testdb:
+    # preserve db's state to local disk to avoid data loss if db container is removed
+    volumes:
+      - './dbs/testdb:/var/lib/postgresql/data'
+
+  jore4-mapmatchingdb:
+    # preserve db's state to local disk to avoid data loss if db container is removed
+    volumes:
+      - './dbs/mapmatchingdb:/var/lib/postgresql/data'
