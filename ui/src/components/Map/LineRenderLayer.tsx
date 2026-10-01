@@ -1,3 +1,4 @@
+import { LayerSpecification } from 'maplibre-gl';
 import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
 import { theme } from '../../generated/theme';
@@ -22,6 +23,7 @@ type LineRenderLayerProps = {
   readonly beforeId?: string;
   readonly layout?: Partial<LineLayout>;
   readonly paint?: Partial<LinePaint>;
+  readonly metadata?: LayerSpecification['metadata'];
 };
 
 const defaultLayout: LineLayout = {
@@ -42,6 +44,7 @@ export const LineRenderLayer: FC<LineRenderLayerProps> = ({
   beforeId,
   layout,
   paint,
+  metadata,
 }) => {
   return (
     <Source type="geojson" data={mapGeoJSONtoFeature(geometry)}>
@@ -51,6 +54,7 @@ export const LineRenderLayer: FC<LineRenderLayerProps> = ({
         paint={{ ...defaultPaint, ...paint }}
         layout={{ ...defaultLayout, ...layout }}
         beforeId={beforeId}
+        metadata={metadata}
       />
     </Source>
   );

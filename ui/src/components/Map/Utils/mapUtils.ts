@@ -9,7 +9,7 @@ export function isMapStyleReady(map: MapInstance) {
   return !!map?.style && map.isStyleLoaded() === true;
 }
 
-const isInteractive = Symbol('jore.map.layer.isInteractive');
+const isInteractive = 'jore.map.layer.isInteractive';
 
 export function interactiveLayerMetadata(
   metadata: Readonly<Record<string | symbol, unknown>> = {},

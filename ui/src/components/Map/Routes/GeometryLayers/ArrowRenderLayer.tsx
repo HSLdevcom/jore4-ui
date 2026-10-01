@@ -1,3 +1,4 @@
+import { LayerSpecification } from 'maplibre-gl';
 import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
 import { mapGeoJSONtoFeature } from '../../../../utils';
@@ -19,6 +20,7 @@ type ArrowRenderLayerProps = {
   readonly layout?: Partial<ArrowLayout>;
   readonly paint?: ArrowPaint;
   readonly minzoom?: number;
+  readonly metadata?: LayerSpecification['metadata'];
 };
 
 // this layer renders a static arrows
@@ -29,6 +31,7 @@ export const ArrowRenderLayer: FC<ArrowRenderLayerProps> = ({
   layout,
   paint,
   minzoom,
+  metadata,
 }) => {
   const defaultLayout: Partial<ArrowLayout> = {
     'symbol-placement': 'line',
@@ -46,6 +49,7 @@ export const ArrowRenderLayer: FC<ArrowRenderLayerProps> = ({
         layout={{ ...defaultLayout, ...layout }}
         beforeId={beforeId}
         minzoom={minzoom}
+        metadata={metadata}
       />
     </Source>
   );
