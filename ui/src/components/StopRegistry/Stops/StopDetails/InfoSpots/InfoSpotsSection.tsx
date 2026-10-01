@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { StopPlaceInfoSpots, StopWithDetails } from '../../../../../types';
@@ -103,7 +103,6 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
 
   const { saveStopPlaceInfoSpots, defaultErrorHandler } =
     useEditStopInfoSpots();
-  const [, setFormIsDirty] = useState(false);
 
   const { location } = stop;
 
@@ -176,7 +175,6 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           ref={infoSpotsFormRef}
           infoSpotLocations={infoSpotLocations}
           onSubmit={onSubmit}
-          setFormIsDirty={setFormIsDirty}
           onCancel={() => infoContainerControls.setIsInEditMode(false)}
           testIdPrefix="InfoSpotsSection"
           addNewButton={

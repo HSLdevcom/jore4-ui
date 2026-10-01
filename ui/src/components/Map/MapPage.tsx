@@ -62,7 +62,7 @@ export const MapPage: FC = () => {
       >
         <MapHeader onClose={onCloseMap} />
 
-        <Map ref={mapRef} className="grow" />
+        <Map ref={mapRef} />
 
         <MapFooter
           onDrawRoute={(vehicleMode) =>

@@ -39,9 +39,10 @@ export function useToCombineTargetVehicleScheduleFrameId() {
           data.toCombineTargetVehicleScheduleFrameId
             ?.toCombineTargetVehicleScheduleFrameId ?? null
         );
-      } catch (error) {
+      } catch (cause) {
         throw new Error(
-          `Failed to fetch to combine target vehicle schedule frames: ${error}`,
+          `Failed to fetch to combine target vehicle schedule frames: ${cause}`,
+          { cause },
         );
       }
     },

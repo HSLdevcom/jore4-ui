@@ -283,7 +283,6 @@ export const Stop: FC<StopProps> = ({
         borderColor={iconBorderColor}
         fillColor={iconFillColor}
         secondaryFillColor={secondaryFillColor}
-        borderWidth={3}
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}
         inSelection={inSelection}

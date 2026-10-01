@@ -33,7 +33,6 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(openByDefault ?? false);
-  const [, setFormIsDirty] = useState(false);
 
   const { saveTerminalInfoSpots, defaultErrorHandler } =
     useEditTerminalInfoSpots();
@@ -100,7 +99,6 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
                 onSubmit={onSubmit}
                 onCancel={() => infoContainerControls.onCancel()}
                 testIdPrefix="TerminalInfoSpotRow"
-                setFormIsDirty={setFormIsDirty}
               />
             </div>
           </td>

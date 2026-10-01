@@ -603,10 +603,11 @@ export const StopGroupSelector = ({
   useEffect(() => {
     // Defer to next render cycle after the component is mounted to make sure that
     // the target element is not counted as visible if it is not.
-    setTimeout(() => {
+    const scrollId = setTimeout(() => {
       // Scroll to the first selected group
       scrollSelectedIntoViewIfNeeded('instant');
     }, 0);
+    return () => clearTimeout(scrollId);
   }, [groups, scrollSelectedIntoViewIfNeeded]);
 
   useEffect(() => {

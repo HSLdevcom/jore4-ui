@@ -23,10 +23,10 @@ export const LineRouteListItem: FC<LineRouteListItemProps> = ({
   showUnusedStops,
   isLast,
 }) => {
-  const [isExpanded, expand] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const onToggle = () => {
-    expand(!isExpanded);
+    setIsExpanded(!isExpanded);
   };
 
   const { observationDate } = useObservationDateQueryParam();
