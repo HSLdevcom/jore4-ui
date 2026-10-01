@@ -3,6 +3,7 @@ import { useMap } from 'react-map-gl/maplibre';
 import { theme } from '../../../../generated/theme';
 import { selectMapRouteEditor, useAppSelector } from '../../../../redux';
 import { LinePaint, LineRenderLayer } from '../../LineRenderLayer';
+import { interactiveLayerMetadata } from '../../Utils/mapUtils';
 import {
   ACTIVE_LINE_STROKE_ID,
   NEW_ROUTE_ARROWS_ID,
@@ -55,6 +56,8 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
     'icon-color': color,
   };
 
+  const routeInteractiveMetadata = interactiveLayerMetadata();
+
   const lineRenderLayerId = routeId
     ? mapRouteIdToLineLayerId(routeId)
     : NEW_ROUTE_LINE_ID;
@@ -97,6 +100,7 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
         geometry={geometry}
         paint={linePaint}
         beforeId={beforeId}
+        metadata={routeInteractiveMetadata}
       />
       <ArrowRenderLayer
         layerId={arrowRenderLayerId}
@@ -105,6 +109,7 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
         paint={arrowPaint}
         beforeId={lineRenderLayerId}
         minzoom={12}
+        metadata={routeInteractiveMetadata}
       />
     </>
   );
