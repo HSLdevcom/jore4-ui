@@ -75,6 +75,10 @@ const theme = {
       train: '#924C9F',
       tram: '#336D00',
     },
+    stopStrokes: {
+      tram: '#00613D',
+      speedTram: '#005E5A',
+    },
     selectedMapItem: '#DC0451',
     accentSecondary: '#C53291',
   },
