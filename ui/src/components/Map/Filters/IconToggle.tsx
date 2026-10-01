@@ -31,7 +31,7 @@ export const IconToggle: FC<IconToggleProps> = ({
 
   return (
     // Button has a title attribute & visual icon
-    // eslint-disable-next-line jsx-a11y/control-has-associated-label
+    // eslint-disable-next-line jsx-a11y-x/control-has-associated-label
     <button
       data-testid={testId}
       type="button"

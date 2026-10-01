@@ -40,7 +40,6 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
   const { handleSubmit } = methods;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <Row className="flex-wrap gap-10">
@@ -50,7 +49,7 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
                 translationPrefix="stopDetails.signs"
                 fieldPath="signType"
                 testId={testIds.signType}
-                // eslint-disable-next-line react/no-unstable-nested-components
+
                 inputElementRenderer={(props) => (
                   <EnumDropdown<StopPlaceSignType>
                     enumType={StopPlaceSignType}
@@ -58,7 +57,6 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
                     uiNameMapper={(value) =>
                       mapStopPlaceSignTypeToUiName(t, value)
                     }
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
                   />
                 )}

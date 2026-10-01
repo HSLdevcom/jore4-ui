@@ -78,12 +78,9 @@ export const MaintainerFormFields: FC<MaintainerFormFieldsProps> = ({
           fieldPath={`maintainers.${maintainerType}`}
           testId={testIds.maintainerDropdown}
           className="[&>label]:leading-8"
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
-            <ChooseOrganisationDropdown
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
+            <ChooseOrganisationDropdown {...props} />
           )}
         />
         <div className="mt-4 text-sm">

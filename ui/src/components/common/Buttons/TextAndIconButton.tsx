@@ -30,9 +30,8 @@ export const TextAndIconButton: FC<TextAndIconButtonProps> = ({
         'flex items-center gap-2 disabled:cursor-default',
         className,
       )}
-      // eslint-disable-next-line react/button-has-type
+
       type={type}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...buttonProps}
     >
       {text}

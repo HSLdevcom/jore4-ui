@@ -29,7 +29,6 @@ export const JoreListboxButton = forwardRef<
         hasError ? buttonErrorStyles : '',
         className,
       )}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...internalProps}
     >
       {children}

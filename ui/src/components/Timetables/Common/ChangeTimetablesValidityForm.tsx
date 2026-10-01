@@ -58,7 +58,6 @@ export const ChangeTimetablesValidityForm: FC<
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         id="confirm-timetables-import-form"

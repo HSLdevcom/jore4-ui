@@ -111,7 +111,7 @@ export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
           )}
         >
           {/* TODO: Needs proper support accessibility. */}
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          {/* eslint-disable-next-line jsx-a11y-x/label-has-associated-control */}
           <label
             htmlFor="file-upload-input"
             className="absolute top-6 left-6 flex h-60 w-60 cursor-pointer items-center justify-center rounded-full bg-white p-5 text-center"

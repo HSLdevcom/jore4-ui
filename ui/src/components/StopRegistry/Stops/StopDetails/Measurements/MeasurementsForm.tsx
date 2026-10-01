@@ -81,7 +81,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
   const { handleSubmit } = methods;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         data-testid={testIds.container}
@@ -95,7 +94,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="stopType"
               testId={testIds.stopType}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryStopType>
                   enumType={StopRegistryStopType}
@@ -104,7 +103,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                     mapStopRegistryStopTypeToUiName(t, value)
                   }
                   includeNullOption
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}
@@ -113,12 +111,11 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="curvedStop"
               testId={testIds.curvedStop}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <NullableBooleanDropdown
                   placeholder={t(($) => $.unknown)}
                   buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}
@@ -127,7 +124,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="shelterType"
               testId={testIds.shelterType}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryShelterWidthType>
                   enumType={StopRegistryShelterWidthType}
@@ -136,7 +133,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                     mapStopRegistryShelterWidthTypeToUiName(t, value)
                   }
                   includeNullOption
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}
@@ -266,7 +262,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="pedestrianCrossingRampType"
               testId={testIds.pedestrianCrossingRampType}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryPedestrianCrossingRampType>
                   enumType={StopRegistryPedestrianCrossingRampType}
@@ -275,7 +271,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                     mapStopRegistryPedestrianCrossingRampTypeToUiName(t, value)
                   }
                   includeNullOption
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}
@@ -287,7 +282,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="stopAreaSurroundingsAccessible"
               testId={testIds.stopAreaSurroundingsAccessible}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <NullableBooleanDropdown
                   placeholder={t(($) => $.unknown)}
@@ -297,7 +292,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                     false: ($) => $.stopDetails.measurements.inaccessible,
                     null: ($) => $.unknown,
                   }}
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}
@@ -306,7 +300,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="guidanceType"
               testId={testIds.guidanceType}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryGuidanceType>
                   enumType={StopRegistryGuidanceType}
@@ -316,7 +310,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                   }
                   includeNullOption
                   buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}
@@ -325,7 +318,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               translationPrefix="stopDetails.measurements"
               fieldPath="mapType"
               testId={testIds.mapType}
-              // eslint-disable-next-line react/no-unstable-nested-components
+
               inputElementRenderer={(props) => (
                 <EnumDropdown<StopRegistryMapType>
                   enumType={StopRegistryMapType}
@@ -335,7 +328,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                   }
                   includeNullOption
                   buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
                 />
               )}

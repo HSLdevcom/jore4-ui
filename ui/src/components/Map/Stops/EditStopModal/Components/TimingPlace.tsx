@@ -28,12 +28,9 @@ export const TimingPlace: FC<TimingPlaceProps> = ({ className }) => {
         translationPrefix="stops"
         fieldPath="timingPlaceId"
         testId={testIds.timingPlaceDropdown}
-        // eslint-disable-next-line react/no-unstable-nested-components
+
         inputElementRenderer={(props) => (
-          <ChooseTimingPlaceDropdown
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-          />
+          <ChooseTimingPlaceDropdown {...props} />
         )}
         className="flex-1"
       />

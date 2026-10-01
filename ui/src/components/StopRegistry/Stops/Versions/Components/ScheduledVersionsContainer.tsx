@@ -75,7 +75,6 @@ export const ScheduledVersionsContainer: FC<
         show={expanded}
         aria-hidden={!expanded}
         aria-labelledby={HeaderId}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...accordionClassNames}
       >
         <StopVersionTable

@@ -96,7 +96,6 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
   const isLast = (idx: number) => idx === externalLinksFields.length - 1;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className={twMerge('space-y-4', className)}

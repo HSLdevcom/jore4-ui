@@ -31,7 +31,6 @@ export const VehicleModeDropdown: FC<VehicleModeDropdownProps> = ({
       placeholder={t(($) => $.lines.chooseVehicleMode)}
       uiNameMapper={(value) => mapVehicleModeToUiName(t, value)}
       includeAllOption={!!includeAllOption}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

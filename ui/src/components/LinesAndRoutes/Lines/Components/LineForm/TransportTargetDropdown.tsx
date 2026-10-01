@@ -21,7 +21,6 @@ export const TransportTargetDropdown: FC<TransportTargetDropdownProps> = ({
       enumType={HslRouteTransportTargetEnum}
       placeholder={t(($) => $.lines.transportTarget)}
       uiNameMapper={(value) => mapTransportTargetToUiName(t, value)}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

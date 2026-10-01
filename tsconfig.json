@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2024",
-    "lib": ["ES2024"],
+    "target": "esnext",
+    "lib": ["esnext"],
     "allowJs": false,
     "noEmit": true,
     "skipLibCheck": true,
@@ -21,6 +21,7 @@
   "references": [
     { "path": "./codegen" },
     { "path": "./cypress" },
+    { "path": "./eslint" },
     { "path": "./test-db-manager" },
     { "path": "./ui" }
   ]

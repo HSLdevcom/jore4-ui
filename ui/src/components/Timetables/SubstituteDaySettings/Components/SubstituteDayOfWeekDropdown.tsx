@@ -24,7 +24,6 @@ export const SubstituteDayOfWeekDropdown: FC<
       placeholder={t(($) => $.timetables.chooseSubstituteDay)}
       uiNameMapper={(value) => mapSubstituteDayOfWeekToUiName(t, value)}
       includeAllOption={!!includeAllOption}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

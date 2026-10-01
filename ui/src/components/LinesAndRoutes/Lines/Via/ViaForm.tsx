@@ -74,7 +74,6 @@ export const ViaForm: FC<ViaFormProps> = ({
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}

@@ -101,7 +101,6 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         id={id ?? 'route-properties-form'}
@@ -151,12 +150,9 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 translationPrefix="routes"
                 fieldPath="direction"
                 testId={testIds.directionDropdown}
-                // eslint-disable-next-line react/no-unstable-nested-components
+
                 inputElementRenderer={(props) => (
-                  <DirectionDropdown
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                  />
+                  <DirectionDropdown {...props} />
                 )}
                 className="col-span-2"
                 required
@@ -165,12 +161,9 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 translationPrefix="routes"
                 fieldPath="onLineId"
                 testId={testIds.lineChoiceDropdown}
-                // eslint-disable-next-line react/no-unstable-nested-components
+
                 inputElementRenderer={(props) => (
-                  <ChooseLineDropdown
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                  />
+                  <ChooseLineDropdown {...props} />
                 )}
                 className="sm:col-span-3"
                 required

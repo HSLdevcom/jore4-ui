@@ -39,7 +39,7 @@ const PageButton: FC<PageButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
+    // eslint-disable-next-line jsx-a11y-x/click-events-have-key-events,jsx-a11y-x/no-noninteractive-element-interactions
     <li
       className={twJoin('inline-block', className)}
       onClick={() => setPage(pageNumber)}
@@ -102,7 +102,7 @@ export const Pagination: FC<PaginationProps> = ({
     }
 
     // Ignore changes to setPagingInfo.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [currentPage, pageSize, totalPages]);
 
   const setPage = (page: number) => {

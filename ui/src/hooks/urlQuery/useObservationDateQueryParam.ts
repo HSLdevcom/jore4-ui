@@ -48,7 +48,7 @@ export function useObservationDateQueryParam(
       setObservationDateToUrl(defaultDate, true);
       return defaultDate;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [defaultDate, getDateTimeFromUrlQuery]);
 
   const updateObservationDateByValidityPeriodIfNeeded = ({
@@ -73,7 +73,7 @@ export function useObservationDateQueryParam(
     if (!queryParams.observationDate || !observationDate) {
       setObservationDateToUrl(defaultDate, true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [defaultDate, observationDate, queryParams.observationDate]);
 
   useEffect(() => {

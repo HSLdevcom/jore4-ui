@@ -61,13 +61,12 @@ export const StopLabelAndLocationFormRow = () => {
             translationPrefix="stopDetails.basicDetails"
             fieldPath="stopState"
             testId={testIds.stopPlaceState}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <EnumDropdown<StopPlaceState>
                 enumType={StopPlaceState}
                 placeholder={t(($) => $.stopDetails.basicDetails.stopState)}
                 uiNameMapper={(value) => mapStopPlaceStateToUiName(t, value)}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}

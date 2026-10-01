@@ -107,7 +107,6 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">

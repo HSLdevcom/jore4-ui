@@ -43,7 +43,7 @@ export function useGetRoutesDisplayedInList(
     if (!displayedRouteLabels && uniqueLineRouteLabels.length !== 0) {
       setDisplayedRoutesToUrl(uniqueLineRouteLabels);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [uniqueLineRouteLabels]);
 
   const toggleDisplayedRoute = (routeLabel: string) => {

@@ -35,7 +35,6 @@ export const RadioButton = <FormState extends FieldValues>({
       )}
       fieldPath={fieldPath}
       testId={testId}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...inputHTMLAttributes}
     />
   );

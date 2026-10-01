@@ -62,7 +62,6 @@ export const LoadingWrapper: FC<PropsWithChildren<LoadingWrapperProps>> = ({
   loading = true,
   ...loaderProps
 }) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <Suspense fallback={<Loader {...loaderProps} />}>
     {loading ? <TriggerSuspense /> : children}
   </Suspense>

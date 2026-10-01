@@ -78,7 +78,6 @@ export const TaskWithProgressBar: FC<TaskWithProgressBarProps> = ({
           isOpen
           onConfirm={onCancel}
           onCancel={() => setConfirmProps(null)}
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...confirmProps}
         />
       )}

@@ -98,7 +98,6 @@ export const GroupedCountAndSortingRow: FC<CountAndSortingRowProps> = (
 
   return (
     <StopPlaceCountAndSortingRowImpl
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       selectedGroups={selectedGroups}
       setPagingInfo={setPagingInfo}
@@ -123,7 +122,6 @@ export const NonGroupedCountAndSortingRow: FC<
 
   return (
     <StopPlaceCountAndSortingRowImpl
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       selectedGroups={stopPlaceIds}
       setPagingInfo={setPagingInfo}

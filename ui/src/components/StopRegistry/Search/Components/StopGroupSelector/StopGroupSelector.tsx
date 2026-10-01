@@ -85,7 +85,7 @@ function useSelection(groups: ReadonlyArray<StopGroupSelectorItem<string>>) {
       );
     });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [groups]);
 
   const handleSelect = useCallback(
@@ -614,7 +614,7 @@ export const StopGroupSelector = ({
     if (!groupIds.includes(lastToHaveFocus as string)) {
       setLastToHaveFocus(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [groupIds]);
 
   const focusableOption = resolveFocusableElementId(
@@ -642,7 +642,7 @@ export const StopGroupSelector = ({
           ? radioGroupLabel(selected.length)
           : radioGroupLabel}
       </label>
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      {/* eslint-disable-next-line jsx-a11y-x/no-static-element-interactions */}
       <div
         onMouseDown={onMouseDown}
         onFocus={onFocus}
