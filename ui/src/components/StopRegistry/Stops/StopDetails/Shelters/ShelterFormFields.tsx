@@ -76,7 +76,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterType`}
           testId={testIds.shelterType}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
             <EnumDropdown<StopRegistryShelterType>
               enumType={StopRegistryShelterType}
@@ -87,7 +87,6 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
               buttonClassName="min-w-36"
               includeNullOption
               disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}
@@ -96,7 +95,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterElectricity`}
           testId={testIds.shelterElectricity}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
             <EnumDropdown<StopRegistryShelterElectricity>
               enumType={StopRegistryShelterElectricity}
@@ -107,7 +106,6 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
               buttonClassName="min-w-44"
               includeNullOption
               disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}
@@ -116,13 +114,12 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterLighting`}
           testId={testIds.shelterLighting}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
             <NullableBooleanDropdown
               placeholder={t(($) => $.unknown)}
               buttonClassName="min-w-32"
               disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}
@@ -131,7 +128,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterCondition`}
           testId={testIds.shelterCondition}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
             <EnumDropdown<StopRegistryShelterCondition>
               enumType={StopRegistryShelterCondition}
@@ -142,7 +139,6 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
               includeNullOption
               disabled={toBeDeleted}
               buttonClassName="min-w-32"
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}

@@ -168,7 +168,6 @@ export const OccasionalSubstitutePeriodForm: FC<
 
   return (
     <div className="my-8">
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <FormProvider {...methods}>
         <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
           {fields.map((field, index) => (

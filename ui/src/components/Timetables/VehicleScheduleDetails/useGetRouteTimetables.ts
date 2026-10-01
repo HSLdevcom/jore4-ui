@@ -267,7 +267,7 @@ export function useGetRouteTimetables(journeyPatternId?: UUID) {
     if (journeyPatternId && !isNetworkRequestInFlight(networkStatus)) {
       refetch();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [lastModifiedVehicleScheduleFrame]);
 
   return useMemo((): TimetableWithMetadata | null => {

@@ -43,7 +43,6 @@ export const CopyStopAreaForm: FC<CopyStopAreaFormProps> = ({
   } = useCopyStopAreaFormUtils(stopArea, onCopyCreated);
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onFormSubmit)}

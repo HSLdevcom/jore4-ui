@@ -270,7 +270,6 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
         {mapStopViewState === MapEntityEditorViewState.POPUP && stopInfo && (
           <StopPopup
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...(mapStopSelection.byResultSelection
               ? { isSelectable: false }
               : {

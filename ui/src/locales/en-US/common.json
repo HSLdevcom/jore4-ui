@@ -195,9 +195,9 @@
     },
     "memberStops": {
       "title": "Stops",
+      "transferDate": "Set stop transfer date",
       "addStop": "Add a stop",
       "getStop": "Get stop",
-      "transferDate": "Set stop transfer date",
       "moveStopToArea": "Move a stop to stop area",
       "stopVersions": "Stop has the following transferable versions:",
       "menuActions": {
@@ -305,9 +305,9 @@
       "areaAbbreviationSwe": "Abbreviation (Swedish)",
       "areaAbbreviationEng": "Abbreviation (English)",
       "areaPrivateCode": "Stop area",
+      "areaPrivateCodeForm": "Stop area {{privateCode}}",
       "areaMemberStops": "Member stops ({{count}})",
-      "areaNoMemberStops": "No member stops",
-      "areaPrivateCodeForm": "Stop area {{privateCode}}"
+      "areaNoMemberStops": "No member stops"
     },
     "location": {
       "title": "Location",
@@ -691,8 +691,8 @@
       "fareZone": "Fare zone",
       "latitude": "Latitude",
       "longitude": "Longitude",
-      "memberStopsTotal": "Member stops ({{total}})",
       "memberStops": "Member stops",
+      "memberStopsTotal": "Member stops ({{total}})",
       "memberPlatforms": "Member platforms",
       "noMemberStopsSelected": "Terminal must have at least one member stop.",
       "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."

@@ -7,6 +7,6 @@ type EmptyColumnHeaderProps = {
 export const EmptyColumnHeader: FC<EmptyColumnHeaderProps> = ({
   className,
 }) => (
-  // eslint-disable-next-line jsx-a11y/control-has-associated-label
+  // eslint-disable-next-line jsx-a11y-x/control-has-associated-label
   <td className={className} />
 );

@@ -188,7 +188,6 @@ export const CommonSubstitutePeriodForm: FC<
 
   return (
     <div className={className}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <FormProvider {...methods}>
         <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap justify-between gap-8">

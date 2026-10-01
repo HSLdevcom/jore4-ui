@@ -30,7 +30,6 @@ const AddMemberStopsFormImpl: ForwardRefRenderFunction<
   });
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className="mx-8 my-8"

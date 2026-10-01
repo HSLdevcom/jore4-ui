@@ -44,7 +44,7 @@ export const MapModal: FC<ModalProps> = ({
   const requestNavigationOnClose = wrapInContextNavigation(onClose);
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    // eslint-disable-next-line jsx-a11y-x/no-static-element-interactions
     <div
       data-testid={testId}
       className={twMerge('overflow-hidden bg-white', className)}

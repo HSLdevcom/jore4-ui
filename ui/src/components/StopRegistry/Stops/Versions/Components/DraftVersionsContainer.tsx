@@ -60,7 +60,6 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
         show={expanded}
         aria-hidden={!expanded}
         aria-labelledby={HeaderId}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...accordionClassNames}
       >
         <StopVersionTable

@@ -255,7 +255,6 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
 
   return (
     <MapGL
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...viewport}
       style={{
         width,

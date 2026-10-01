@@ -70,7 +70,7 @@ function useIsVisible(
   const [visible, setVisible] = useState(
     resolvedLoadingState !== LoadingState.NotLoading,
   );
-  // eslint-disable-next-line react-hooks/purity
+  // eslint-disable-next-line @eslint-react/naming-convention-ref-name,@eslint-react/purity
   const shownAt = useRef(visible ? Date.now() : 0);
 
   useEffect(() => {

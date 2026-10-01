@@ -127,7 +127,6 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
     isOccasionalSubstitutePeriodFormDirty || isCommonSubstitutePeriodFormDirty;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...form}>
       <form onSubmit={onSubmit}>
         <div className="grid grid-flow-row">

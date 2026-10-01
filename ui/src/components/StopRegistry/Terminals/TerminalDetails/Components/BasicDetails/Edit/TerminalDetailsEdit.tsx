@@ -161,7 +161,6 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
   const { handleSubmit } = methods;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <FormColumn>
@@ -211,12 +210,9 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
                 translationPrefix="terminalDetails.basicDetails"
                 fieldPath="terminalType"
                 testId={testIds.terminalType}
-                // eslint-disable-next-line react/no-unstable-nested-components
+
                 inputElementRenderer={(props) => (
-                  <TerminalTypeDropdown
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                  />
+                  <TerminalTypeDropdown {...props} />
                 )}
               />
             </Column>

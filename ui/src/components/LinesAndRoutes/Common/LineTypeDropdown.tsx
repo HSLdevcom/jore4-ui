@@ -82,7 +82,6 @@ export const LineTypeDropdown: FC<LineTypeDropdownProps> = ({
       disabledOptions={
         vehicleMode && disabledRouteTypesByVehicleMode[vehicleMode]
       }
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

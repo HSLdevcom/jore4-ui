@@ -75,7 +75,6 @@ const OwnerDetailsEditImpl: ForwardRefRenderFunction<
   const noOwner = String(selectedOwnerRef) === 'null';
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className={className}

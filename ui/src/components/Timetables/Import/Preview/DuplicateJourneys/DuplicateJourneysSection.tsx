@@ -42,7 +42,7 @@ export const DuplicateJourneysSection: FC<DuplicateJourneysSectionProps> = ({
             <th className="px-8 py-2">
               {t(($) => $.timetablesPreview.tableHeaders.validityStarts)}
             </th>
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+            {/* eslint-disable-next-line jsx-a11y-x/control-has-associated-label */}
             <th className="px-2 py-2"> </th>
             <th className="py-2 pr-2 pl-0">
               {t(($) => $.timetablesPreview.tableHeaders.validityEnds)}

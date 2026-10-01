@@ -23,7 +23,6 @@ const Jore4App = ({ Component, pageProps }: AppProps) => {
   return (
     <StrictMode>
       <SafeHydrate>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...pageProps} />
       </SafeHydrate>
     </StrictMode>

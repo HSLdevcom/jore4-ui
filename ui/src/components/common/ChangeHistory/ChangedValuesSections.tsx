@@ -76,7 +76,6 @@ export const ChangeValueSections = <HistoricalDataT,>({
     <>
       {preparedSections.length > 0 ? (
         preparedSections.map((props) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
           <ChangedValuesWithHeaderRow key={props.testId} {...props} />
         ))
       ) : (

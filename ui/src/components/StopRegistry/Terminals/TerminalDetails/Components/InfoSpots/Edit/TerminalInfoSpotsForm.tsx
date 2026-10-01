@@ -64,7 +64,6 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <div data-testid={testIds.infoSpot} className="mt-0">

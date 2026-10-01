@@ -73,7 +73,6 @@ export const ScheduledVersionsContainer: FC<
         id={ID}
         aria-labelledby={HeaderId}
         show={expanded}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...accordionClassNames}
       >
         <RouteVersionTable

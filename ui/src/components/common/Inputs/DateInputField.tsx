@@ -45,9 +45,7 @@ export const DateInputField = <FormState extends FieldValues>({
         className={twMerge(inputClassName, invalid ? inputErrorStyles : '')}
         onChange={onChange}
         value={value}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...inputProps}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...fieldProps}
       />
     </Column>

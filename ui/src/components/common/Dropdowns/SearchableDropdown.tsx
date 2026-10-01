@@ -71,7 +71,6 @@ export const SearchableDropdown = <T,>({
       options={allOptions}
       onChange={onItemSelected}
       onQueryChange={onQueryChange}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...otherProps}
       onBlur={onBlur}
     />

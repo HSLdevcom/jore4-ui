@@ -54,7 +54,7 @@ function useSetters<
 
     // setInternalState is stable useState setter and
     // pendingNavigationUpdateRef is a stable ref
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [],
   );
 
@@ -179,7 +179,7 @@ export function useTypedRouterState<
         return { search: nextSearch, history: nextHistory };
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [search, routerState]);
 
   useEffect(() => {
@@ -197,7 +197,7 @@ export function useTypedRouterState<
         { replace: true, state: historyState },
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [searchState, historyState]);
 
   const setters = useSetters<SearchStateT, HistoryStateT>(

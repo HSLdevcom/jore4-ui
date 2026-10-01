@@ -148,7 +148,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.intendedUser`}
             testId={testIds.intendedUser}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <EnumDropdown<StopRegistryIntendedUser>
                 enumType={StopRegistryIntendedUser}
@@ -163,7 +163,6 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
                   StopRegistryIntendedUser.Vr,
                   StopRegistryIntendedUser.Muu,
                 ]}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}
@@ -179,13 +178,12 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.backlight`}
             testId={testIds.backlight}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <NullableBooleanDropdown
                 placeholder={t(($) => $.unknown)}
                 buttonClassName="min-w-32"
                 disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}
@@ -196,7 +194,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.zoneLabel`}
             testId={testIds.zoneLabel}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <EnumDropdown<ZoneLabel>
                 enumType={ZoneLabel}
@@ -204,7 +202,6 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
                 uiNameMapper={(val) => mapZoneLabelToUiName(t, val)}
                 buttonClassName="min-w-32"
                 disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}

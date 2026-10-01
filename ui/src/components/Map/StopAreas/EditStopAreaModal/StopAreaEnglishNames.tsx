@@ -58,7 +58,6 @@ export const StopAreaEnglishNames: FC = () => {
         show={expanded}
         aria-hidden={!expanded}
         aria-labelledby={HeaderId}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...accordionClassNames}
       >
         <FormRow mdColumns={3} className="sm:gap-x-3 md:gap-x-3 lg:gap-x-3">

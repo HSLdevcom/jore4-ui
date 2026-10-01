@@ -144,12 +144,9 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             translationPrefix="lines"
             fieldPath="transportTarget"
             testId={testIds.transportTargetDropdown}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
-              <TransportTargetDropdown
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
+              <TransportTargetDropdown {...props} />
             )}
             required
           />
@@ -157,23 +154,17 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
             translationPrefix="lines"
             fieldPath="primaryVehicleMode"
             testId={testIds.vehicleModeDropdown}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <VehicleModeDropdown
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
+
+            inputElementRenderer={(props) => <VehicleModeDropdown {...props} />}
             required
           />
           <InputField<FormState>
             translationPrefix="lines"
             fieldPath="typeOfLine"
             testId={testIds.lineTypeDropdown}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <LineTypeDropdown
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
                 vehicleMode={watch('primaryVehicleMode')}
               />

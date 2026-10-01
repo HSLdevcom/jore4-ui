@@ -29,7 +29,6 @@ export const EditStopForm: FC<EditStopFormProps> = ({
     useEditStopFormUtils(originalStop, onEditDone);
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <StopVersionForm
         className={className}

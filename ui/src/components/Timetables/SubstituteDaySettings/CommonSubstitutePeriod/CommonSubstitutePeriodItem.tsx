@@ -111,7 +111,7 @@ export const CommonSubstitutePeriodItem: FC<
           translationPrefix="timetables.settings"
           testId={testIds.substituteDayOfWeek}
           fieldPath={`commonDays.${index}.substituteDayOfWeek`}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={({ value, ...rest }) => (
             <SubstituteDayOfWeekDropdown
               disabled={
@@ -122,7 +122,6 @@ export const CommonSubstitutePeriodItem: FC<
               // which are not valid members of SubstituteDayOfWeek enum, nor a proper
               // placeholder for empty (should be null).
               value={value === '' ? undefined : value}
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...rest}
             />
           )}
@@ -132,14 +131,13 @@ export const CommonSubstitutePeriodItem: FC<
           translationPrefix="timetables.settings"
           testId={testIds.lineTypes}
           fieldPath={`commonDays.${index}.lineTypes`}
-          // eslint-disable-next-line react/no-unstable-nested-components
+
           inputElementRenderer={(props) => (
             <LineTypeMultiSelectDropdown
               disabled={
                 (!field.fromDatabase && !edited) ||
                 (field.fromDatabase && toBeDeleted)
               }
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}

@@ -65,7 +65,6 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
       buttonContent={getButtonContent(value)}
       options={options}
       value={mappedValue}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

@@ -61,7 +61,6 @@ const MirroredQuayBasicDetailsFormComponent: ForwardRefRenderFunction<
   const isTramStop = transportMode === StopRegistryTransportModeType.Tram;
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <FormColumn>
@@ -72,7 +71,7 @@ const MirroredQuayBasicDetailsFormComponent: ForwardRefRenderFunction<
                 translationPrefix="stopDetails.basicDetails"
                 fieldPath="stopState"
                 testId={testIds.stopPlaceState}
-                // eslint-disable-next-line react/no-unstable-nested-components
+
                 inputElementRenderer={(props) => (
                   <EnumDropdown<StopPlaceState>
                     enumType={StopPlaceState}
@@ -80,7 +79,6 @@ const MirroredQuayBasicDetailsFormComponent: ForwardRefRenderFunction<
                     uiNameMapper={(value) =>
                       mapStopPlaceStateToUiName(t, value)
                     }
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
                   />
                 )}

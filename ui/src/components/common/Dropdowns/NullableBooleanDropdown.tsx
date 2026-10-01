@@ -107,7 +107,6 @@ export const NullableBooleanDropdown: FC<NullableBooleanDropdownProps> = ({
       value={mappedValue}
       buttonClassNames={buttonClassName}
       onChange={typeConvertingOnChange}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );

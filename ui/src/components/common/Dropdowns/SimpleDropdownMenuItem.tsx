@@ -41,7 +41,6 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
       onClick={onClick}
       data-testid={testId}
       title={title}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...dataAttributes}
     >
       {text ?? children}

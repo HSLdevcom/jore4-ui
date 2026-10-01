@@ -49,7 +49,6 @@ export const TemplateRouteSelector: FC<TemplateRouteSelectorProps> = ({
       data-testid={testIds.container}
       className="relative w-full rounded-md border border-light-grey bg-background px-3 py-4"
     >
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <FormProvider {...methods}>
         <h3 className="mb-4">{t(($) => $.routes.searchTemplate)}</h3>
         <Row className="mb-4">

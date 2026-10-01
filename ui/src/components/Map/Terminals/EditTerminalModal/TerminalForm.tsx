@@ -60,7 +60,6 @@ const TerminalFormComponent: ForwardRefRenderFunction<
   });
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         data-testid={testIds.form}
@@ -118,12 +117,9 @@ const TerminalFormComponent: ForwardRefRenderFunction<
                 fieldPath="terminalType"
                 testId={testIds.terminalType}
                 className="md:col-span-2"
-                // eslint-disable-next-line react/no-unstable-nested-components
+
                 inputElementRenderer={(props) => (
-                  <TerminalTypeDropdown
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                  />
+                  <TerminalTypeDropdown {...props} />
                 )}
               />
             </FormRow>

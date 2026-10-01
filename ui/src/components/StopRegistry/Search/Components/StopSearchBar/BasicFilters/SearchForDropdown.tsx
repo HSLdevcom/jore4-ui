@@ -47,7 +47,6 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
         onChange={onChange}
         testId={stopSearchBarTestIds.searchForDropdown}
         uiNameMapper={(key) => trSearchFor(t, key) ?? ''}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...controls}
       />
     </Column>

@@ -125,7 +125,7 @@ export const TerminalInfoSpotFormFields: FC<
             translationPrefix="stopDetails.infoSpots"
             fieldPath="intendedUser"
             testId={testIds.intendedUser}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <EnumDropdown<StopRegistryIntendedUser>
                 enumType={StopRegistryIntendedUser}
@@ -140,7 +140,6 @@ export const TerminalInfoSpotFormFields: FC<
                   StopRegistryIntendedUser.Vr,
                   StopRegistryIntendedUser.Muu,
                 ]}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}
@@ -156,13 +155,12 @@ export const TerminalInfoSpotFormFields: FC<
             translationPrefix="stopDetails.infoSpots"
             fieldPath="backlight"
             testId={testIds.backlight}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <NullableBooleanDropdown
                 placeholder={t(($) => $.unknown)}
                 buttonClassName="min-w-32"
                 disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}
@@ -194,7 +192,7 @@ export const TerminalInfoSpotFormFields: FC<
             translationPrefix="stopDetails.infoSpots"
             fieldPath="zoneLabel"
             testId={testIds.zoneLabel}
-            // eslint-disable-next-line react/no-unstable-nested-components
+
             inputElementRenderer={(props) => (
               <EnumDropdown<ZoneLabel>
                 enumType={ZoneLabel}
@@ -202,7 +200,6 @@ export const TerminalInfoSpotFormFields: FC<
                 uiNameMapper={(val) => mapZoneLabelToUiName(t, val)}
                 buttonClassName="min-w-32"
                 disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
             )}
