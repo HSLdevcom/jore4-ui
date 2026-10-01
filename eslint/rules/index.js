@@ -13,8 +13,6 @@ const { rules: typescript } = require('./typescript');
 const { rules: cypress } = require('./cypress');
 const { rules: jest } = require('./jest');
 
-const { rules: i18nRules } = require('./i18n.js');
-
 const uiRules = {
   ...bestPractices,
   ...errors,
@@ -57,5 +55,4 @@ module.exports = {
   unitTestRules,
   cypressRules,
   nodeProjectRules,
-  i18nRules,
 };
