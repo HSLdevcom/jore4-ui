@@ -12,7 +12,7 @@ import {
 type DescriptionSectionProps = {
   readonly titlePrefix?: ReactNode;
   readonly title: ReactNode;
-  readonly items: ReadonlyArray<ReactNode>;
+  readonly items: ReadonlyArray<string>;
   readonly level?: AccessibilityLevelWithIcon | null;
 };
 
@@ -31,7 +31,7 @@ const DescriptionSection: FC<DescriptionSectionProps> = ({
         <Column>
           <ul className="list-disc pl-4">
             {items.map((item) => (
-              <li>{item}</li>
+              <li key={item}>{item}</li>
             ))}
           </ul>
         </Column>

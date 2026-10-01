@@ -65,14 +65,12 @@ function loadMapAssets(mapRef: RefObject<MapRef>) {
 }
 
 type MaplibreProps = {
-  readonly className?: string;
   // width and height are passed as params to `react-map-gl`.
   // It seems to support certain css features, e.g. "100vh" or "100px",
   // but in other hand "100%" doesn't seem to work...
   readonly width?: string;
   readonly height?: string;
   readonly onClick?: (e: MapLayerMouseEvent) => void;
-  readonly useVectorTilesAsBaseMap?: boolean;
 };
 
 type MaplibreViewport = {

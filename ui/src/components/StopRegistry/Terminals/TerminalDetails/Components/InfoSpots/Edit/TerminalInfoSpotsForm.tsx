@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../../types';
@@ -16,7 +16,6 @@ type TerminalInfoSpotsFormProps = {
   readonly className?: string;
   readonly defaultValues: TerminalInfoSpotFormState;
   readonly infoSpot?: InfoSpotDetailsFragment;
-  readonly setFormIsDirty?: (val: boolean) => void;
   readonly onSubmit: (state: TerminalInfoSpotFormState) => void;
   readonly terminal: EnrichedParentStopPlace;
   readonly onCancel: () => void;
@@ -31,7 +30,6 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
   {
     className,
     defaultValues,
-    setFormIsDirty,
     onSubmit,
     terminal,
     infoSpot,
@@ -64,12 +62,6 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
       shouldTouch: true,
     });
   };
-
-  useEffect(() => {
-    if (setFormIsDirty) {
-      setFormIsDirty(isDirty);
-    }
-  }, [isDirty, setFormIsDirty]);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

@@ -18,8 +18,6 @@ type PromisedTitle =
 
 type StopMarkerBaseProps = {
   readonly testId?: string;
-  readonly size?: number;
-  readonly borderWidth?: number;
   readonly fillColor?: string;
   readonly secondaryFillColor?: string | null;
   readonly borderColor?: string;

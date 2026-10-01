@@ -36,13 +36,12 @@ export const VehicleServiceRow: FC<VehicleServiceRowProps> = ({
       >
         {padToTwoDigits(hours)}
       </span>
-      {minutes.map((item, key) => (
+      {minutes.map((item) => (
         <span
           data-testid={testIds.minute}
           className="text-sm"
-          aria-label={`${item},`}
-          // eslint-disable-next-line react/no-array-index-key
-          key={`${item}-${key}`}
+          aria-label={padToTwoDigits(item)}
+          key={item}
         >
           {padToTwoDigits(item)}
         </span>

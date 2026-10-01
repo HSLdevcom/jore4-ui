@@ -147,12 +147,9 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
           </div>
         </div>
         <div className="overflow-y-auto">
-          {stopsToShow?.map((stop, index) => (
+          {stopsToShow?.map((stop) => (
             <RouteStopsOverlayRow
-              // This list is recreated every time when changes happen, so we can
-              // use index as key here
-              // eslint-disable-next-line react/no-array-index-key
-              key={`${stop.label}_${index}`}
+              key={stop.scheduled_stop_point_id}
               stop={stop}
               isReadOnly={!routeEditingInProgress}
               belongsToJourneyPattern={includedStopLabels.includes(stop.label)}

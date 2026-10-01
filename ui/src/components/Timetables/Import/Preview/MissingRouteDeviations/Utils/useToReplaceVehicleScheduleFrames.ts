@@ -43,9 +43,10 @@ export function useToReplaceVehicleScheduleFrames() {
         );
 
         return Promise.all(promisedIds).then((idLists) => idLists.flat());
-      } catch (error) {
+      } catch (cause) {
         throw new Error(
-          `Failed to fetch to replace vehicle schedule frames: ${error}`,
+          `Failed to fetch to replace vehicle schedule frames: ${cause}`,
+          { cause },
         );
       }
     },

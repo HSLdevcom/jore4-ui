@@ -86,17 +86,17 @@ const RedirectToStopSearch: FC = () => {
 export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
-  const [isLoading, setLoading] = useState(!userInfo);
+  const [isLoading, setIsLoading] = useState(!userInfo);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         await getUserInfo();
       } catch {
         showDangerToast(t(($) => $.errors.unauthorized));
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     if (!userInfo) {

@@ -64,7 +64,6 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
   const { isInEditMode } = infoContainerControls;
 
   const [latestAdded, setLatestAdded] = useState<string | undefined>();
-  const [, setFormIsDirty] = useState(false);
 
   const onSubmit = async (state: TerminalInfoSpotFormState) => {
     try {
@@ -110,7 +109,6 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
           ref={formRef}
           terminal={terminal}
           onSubmit={onSubmit}
-          setFormIsDirty={setFormIsDirty}
           onCancel={() => infoContainerControls.onCancel()}
           testIdPrefix="TerminalInfoSpotsSection"
         />

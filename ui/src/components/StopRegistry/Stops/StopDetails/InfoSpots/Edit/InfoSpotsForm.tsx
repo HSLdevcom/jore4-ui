@@ -3,7 +3,6 @@ import {
   ForwardRefRenderFunction,
   RefObject,
   forwardRef,
-  useEffect,
   useImperativeHandle,
   useRef,
 } from 'react';
@@ -34,7 +33,6 @@ type InfoSpotsFormProps = {
   readonly formRef: RefObject<HTMLFormElement>;
   readonly onSubmit: (state: InfoSpotsFormState) => void;
   readonly infoSpotLocations: (string | null)[];
-  readonly setFormIsDirty?: (val: boolean) => void;
   readonly onCancel: () => void;
   readonly testIdPrefix: string;
   readonly addNewButton?: React.ReactNode;
@@ -56,7 +54,6 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     infoSpotLocations,
     onSubmit,
     formRef,
-    setFormIsDirty,
     onCancel,
     testIdPrefix,
     addNewButton,
@@ -127,12 +124,6 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
       move(idx, idx + 1);
     }
   };
-
-  useEffect(() => {
-    if (setFormIsDirty) {
-      setFormIsDirty(isDirty);
-    }
-  }, [isDirty, setFormIsDirty]);
 
   const hasNewInfoSpot = getValues('infoSpots').some(
     (infoSpot) => !infoSpot.infoSpotId,

@@ -186,7 +186,6 @@ function useOnClickMap(
 }
 
 type MapProps = {
-  readonly className?: string;
   readonly width?: string;
   readonly height?: string;
 };
@@ -194,7 +193,7 @@ type MapProps = {
 export const MapComponent: ForwardRefRenderFunction<
   RouteEditorRef,
   MapProps
-> = ({ className, width = '100vw', height = '100vh' }, externalRef) => {
+> = ({ width = '100vw', height = '100vh' }, externalRef) => {
   const [showRoute, setShowRoute] = useState(true);
   const {
     state: {
@@ -226,12 +225,7 @@ export const MapComponent: ForwardRefRenderFunction<
     useGetMapData();
 
   return (
-    <Maplibre
-      width={width}
-      height={height}
-      onClick={onClick}
-      className={className}
-    >
+    <Maplibre width={width} height={height} onClick={onClick}>
       <Stops
         areas={areas}
         stops={stops}
