@@ -30,6 +30,7 @@ import {
   defaultTo,
   illegalOptionalCast,
   showDangerToast,
+  showDangerToastWithError,
 } from '../../../../utils';
 import { useGetConflictingStops } from '../../../LinesAndRoutes/Common';
 import { wrapErrors } from '../../../StopRegistry/Stops/StopDetails/StopVersion/Utils/wrapErrors';
@@ -450,9 +451,11 @@ export function useDefaultErrorHandler() {
       );
     }
 
-    // if other error happened, show the generic error message
-    return showDangerToast(
-      `${t(($) => $.errors.saveFailed)}, ${err}, ${err.message}`,
+    // if other error happened, show the generic error message with
+    // whatever detail we can extract from it (e.g. GraphQL/network error).
+    return showDangerToastWithError(
+      t(($) => $.errors.saveFailed),
+      err,
     );
   };
 }
