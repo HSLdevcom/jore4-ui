@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
 import { mapToShortDate } from '../../../../time';
+import { AllOptionEnum } from '../../../../utils';
 import { InputField } from '../../../common/Inputs';
 import {
   LineTypeMultiSelectDropdown,
@@ -126,7 +128,10 @@ export const CommonSubstitutePeriodItem: FC<
             />
           )}
         />
-        <InputField<FormState>
+        <InputField<
+          FormState,
+          ReadonlyArray<RouteTypeOfLineEnum | AllOptionEnum>
+        >
           className="basis-1/2"
           translationPrefix="timetables.settings"
           testId={testIds.lineTypes}

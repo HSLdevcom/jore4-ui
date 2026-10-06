@@ -59,26 +59,24 @@ function* dateRange(beginDate: DateLike, endDate: DateLike) {
   }
 }
 
-export function mapPeriodsToDayByLineTypes(
-  input: PeriodType | CommonSubstitutePeriodType,
-): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] {
-  const {
-    beginDate,
-    endDate,
-    beginTime,
-    endTime,
-    lineTypes: lineTypesString,
-    substituteDayOfWeek,
-    periodId,
-  } = input;
-
-  const lineTypes = lineTypesString
-    .split(',')
-    .filter((lineType) => lineType !== AllOptionEnum.All);
+export function mapPeriodsToDayByLineTypes({
+  beginDate,
+  endDate,
+  beginTime,
+  endTime,
+  lineTypes,
+  substituteDayOfWeek,
+  periodId,
+}:
+  | PeriodType
+  | CommonSubstitutePeriodType): TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput[] {
+  const actualLineTypes = lineTypes.includes(AllOptionEnum.All)
+    ? Object.values(RouteTypeOfLineEnum)
+    : lineTypes;
 
   return dateRange(beginDate, endDate)
     .flatMap((date) =>
-      lineTypes.map((lineType: string) => {
+      actualLineTypes.map((lineType: string) => {
         return {
           type_of_line: lineType,
           superseded_date: date,
@@ -104,16 +102,15 @@ const lineTypeEnumSize = Object.keys(RouteTypeOfLineEnum).length;
 
 export function mapLineTypes(
   period: SubstituteOperatingPeriodSettingsInfoFragment,
-) {
+): Array<RouteTypeOfLineEnum | AllOptionEnum> {
   const uniqLineTypes = uniq(
     period.substitute_operating_day_by_line_types.map(
-      (operatingDayByLineType) => operatingDayByLineType.type_of_line,
+      (operatingDayByLineType) =>
+        operatingDayByLineType.type_of_line as RouteTypeOfLineEnum,
     ),
   );
 
-  const lineTypes =
-    uniqLineTypes.length === lineTypeEnumSize
-      ? [AllOptionEnum.All]
-      : uniqLineTypes;
-  return lineTypes.join(',');
+  return uniqLineTypes.length === lineTypeEnumSize
+    ? [AllOptionEnum.All]
+    : uniqLineTypes;
 }

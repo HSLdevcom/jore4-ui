@@ -1,9 +1,11 @@
 import { z } from 'zod';
+import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import {
   requiredDate,
   requiredInterval,
   requiredString,
+  zEnumArrayWithAll,
 } from '../../../../utils';
 
 const periodSchema = z.object({
@@ -14,7 +16,7 @@ const periodSchema = z.object({
   beginTime: requiredInterval,
   endTime: requiredInterval,
   substituteDayOfWeek: z.nativeEnum(SubstituteDayOfWeek),
-  lineTypes: z.string(),
+  lineTypes: zEnumArrayWithAll(RouteTypeOfLineEnum),
   toBeDeleted: z.boolean(),
   isPreset: z.boolean(),
 });

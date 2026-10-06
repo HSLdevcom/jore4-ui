@@ -1,13 +1,16 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
+import { AllOptionEnum } from '../../../../utils';
 import { mapLineTypeToUiName } from '../../../../utils/i18n';
 import { EnumMultiSelectDropdown } from '../../../common/Dropdowns';
-import { FormInputProps } from '../../../common/Inputs';
+import { ValueFn } from '../../../common/Inputs';
 
-type LineTypeMultiSelectDropdownProps = FormInputProps & {
+type LineTypeMultiSelectDropdownProps = {
   readonly id?: string;
   readonly testId: string;
+  readonly value?: ReadonlyArray<RouteTypeOfLineEnum | AllOptionEnum>;
+  readonly onChange: ValueFn;
 };
 
 export const LineTypeMultiSelectDropdown: FC<
@@ -16,12 +19,15 @@ export const LineTypeMultiSelectDropdown: FC<
   const { t } = useTranslation();
 
   return (
-    <EnumMultiSelectDropdown<RouteTypeOfLineEnum>
+    <EnumMultiSelectDropdown
       id={id}
       testId={testId}
       enumType={RouteTypeOfLineEnum}
       placeholder={t(($) => $.lines.chooseTypeOfLine)}
-      uiNameMapper={(value) => mapLineTypeToUiName(t, value)}
+      includeAllOption
+      uiNameMapper={(value: RouteTypeOfLineEnum | AllOptionEnum) =>
+        mapLineTypeToUiName(t, value)
+      }
       {...formInputProps}
     />
   );

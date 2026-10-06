@@ -25,7 +25,7 @@ export type NullableBooleanDropdownProps = BaseFormInputProps & {
   readonly translationKeys?: DropdownTranslationKeys;
   readonly buttonClassName?: string;
   // Allow string in for compatability with old untyped use sites.
-  readonly value?: boolean | null | ValidStringValue | string;
+  readonly value?: boolean | null;
   readonly onChange: (newValue: boolean | null) => void;
 };
 

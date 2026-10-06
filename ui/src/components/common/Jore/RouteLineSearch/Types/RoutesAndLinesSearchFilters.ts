@@ -1,18 +1,13 @@
-import { EnumLike, z } from 'zod';
+import { z } from 'zod';
 import { RouteTypeOfLineEnum } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 import { JoreStopRegistryTransportModeType } from '../../../../../types/stop-registry';
 import {
-  AllOptionEnum,
+  allEnum,
   instanceOfDateTime,
   requiredString,
+  zEnumArrayWithAll,
 } from '../../../../../utils';
-
-const allEnum = z.nativeEnum(AllOptionEnum);
-
-function zEnumArrayWithAll<Elements extends EnumLike>(values: Elements) {
-  return z.array(z.union([z.nativeEnum(values), allEnum]));
-}
 
 export const routesAndLinesSearchFiltersSchema = z.object({
   query: requiredString,

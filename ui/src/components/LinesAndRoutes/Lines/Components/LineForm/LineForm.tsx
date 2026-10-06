@@ -38,11 +38,7 @@ const INVALID_LINE_TYPE = 'invalidLineType';
 
 const formSchema = linePropertiesFormSchema
   .merge(changeValidityFormSchema)
-  .merge(
-    z.object({
-      versionComment: z.string().optional(),
-    }),
-  )
+  .merge(z.object({ versionComment: z.string().optional() }))
   .superRefine(refineValidityPeriodSchema)
   .superRefine((line, ctx) => {
     const validLineTypes = lineTypesByVehicleMode[line.primaryVehicleMode];

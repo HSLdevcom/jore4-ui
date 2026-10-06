@@ -107,7 +107,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 />
               )}
             />
-            <InputField<MeasurementsFormState>
+            <InputField<MeasurementsFormState, boolean | null>
               translationPrefix="stopDetails.measurements"
               fieldPath="curvedStop"
               testId={testIds.curvedStop}
@@ -278,7 +278,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
           </Row>
           <HorizontalSeparator />
           <Row className="flex-wrap items-end gap-4">
-            <InputField<MeasurementsFormState>
+            <InputField<MeasurementsFormState, boolean | null>
               translationPrefix="stopDetails.measurements"
               fieldPath="stopAreaSurroundingsAccessible"
               testId={testIds.stopAreaSurroundingsAccessible}

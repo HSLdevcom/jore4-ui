@@ -25,16 +25,18 @@ type CommonInputProps<FormState extends FieldValues> = {
   readonly required?: boolean;
 };
 
-type ControlledInputProps = {
+type ControlledInputProps<ValueType> = {
   readonly inputElementRenderer: (
-    props: InputElementRenderProps,
+    props: InputElementRenderProps<ValueType>,
   ) => ReactElement;
   readonly type?: never;
 };
+
 type HTMLInputProps = Readonly<InputHTMLAttributes<HTMLInputElement>> & {
   readonly inputElementRenderer?: never;
   readonly type: HTMLInputTypeAttribute;
 };
+
 type HTMLTextAreaProps = Readonly<
   TextareaHTMLAttributes<HTMLTextAreaElement>
 > & {
@@ -42,11 +44,13 @@ type HTMLTextAreaProps = Readonly<
   readonly type: 'textarea';
 };
 
-type InputFieldProps<FormState extends FieldValues> =
-  CommonInputProps<FormState> &
-    (ControlledInputProps | HTMLInputProps | HTMLTextAreaProps);
+type InputFieldProps<
+  FormState extends FieldValues,
+  ValueType,
+> = CommonInputProps<FormState> &
+  (ControlledInputProps<ValueType> | HTMLInputProps | HTMLTextAreaProps);
 
-export const InputField = <FormState extends FieldValues>({
+export const InputField = <FormState extends FieldValues, ValueType = string>({
   className,
   inputClassName,
   fieldPath,
@@ -57,7 +61,7 @@ export const InputField = <FormState extends FieldValues>({
   inputElementRenderer,
   required,
   ...inputHTMLAttributes
-}: InputFieldProps<FormState>): ReactElement => {
+}: InputFieldProps<FormState, ValueType>): ReactElement => {
   if ((!inputElementRenderer && !type) || (inputElementRenderer && type)) {
     throw new Error(
       'You need to provide exactly one of the "inputElementRenderer" and "type" props',

@@ -14,24 +14,21 @@ import {
 import {
   AllOptionEnum,
   NullOptionEnum,
+  allEnum,
   areEqual,
   instanceOfDateTime,
   requiredString,
+  zEnumArrayWithAll,
 } from '../../../../utils';
 import { SearchBy } from './SearchBy';
 import { SearchFor } from './SearchFor';
 import { knownMunicipalities } from './StringMunicipality';
 
-const allEnum = z.nativeEnum(AllOptionEnum);
 const nullEnum = z.nativeEnum(NullOptionEnum);
 
 function zMunicipalityEnumArray() {
   const municipalityEnum = z.enum(knownMunicipalities);
   return z.array(z.union([municipalityEnum, allEnum]));
-}
-
-function zEnumArrayWithAll<Elements extends EnumLike>(values: Elements) {
-  return z.array(z.union([z.nativeEnum(values), allEnum]));
 }
 
 function zEnumArrayWithAllAndNull<Elements extends EnumLike>(values: Elements) {

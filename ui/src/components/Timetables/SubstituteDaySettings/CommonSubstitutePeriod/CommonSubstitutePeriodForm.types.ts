@@ -1,13 +1,18 @@
 import isEmpty from 'lodash/isEmpty';
 import { z } from 'zod';
+import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
-import { requiredDate } from '../../../../utils';
+import {
+  AllOptionEnum,
+  requiredDate,
+  zEnumArrayWithAll,
+} from '../../../../utils';
 
 type CommonDay = {
   readonly created: boolean;
   readonly fromDatabase: boolean;
   readonly substituteDayOfWeek: string | SubstituteDayOfWeek;
-  readonly lineTypes: string;
+  readonly lineTypes: ReadonlyArray<RouteTypeOfLineEnum | AllOptionEnum>;
   readonly periodId?: string;
   readonly periodName: string;
   readonly supersededDate: string;
@@ -32,7 +37,7 @@ const commonDay = z
     periodName: z.string(),
     supersededDate: requiredDate,
     substituteDayOfWeek: z.nativeEnum(SubstituteDayOfWeek).or(z.string()),
-    lineTypes: z.string(),
+    lineTypes: zEnumArrayWithAll(RouteTypeOfLineEnum),
     fromDatabase: z.boolean(),
     created: z.boolean(),
     isPreset: z.boolean(),

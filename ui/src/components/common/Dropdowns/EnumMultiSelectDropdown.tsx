@@ -1,9 +1,8 @@
-import first from 'lodash/first';
-import isUndefined from 'lodash/isUndefined';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCheck } from 'react-icons/md';
 import { AllOptionEnum, getEnumValues } from '../../../utils';
+import { ValueFn } from '../Inputs';
 import { EnumDropdownProps } from './EnumDropdown';
 import { ListboxOptionItem } from './JoreListboxOptions';
 import { MultiSelectListbox } from './MultiSelectListbox';
@@ -11,6 +10,15 @@ import { MultiSelectListbox } from './MultiSelectListbox';
 const testIds = {
   enumDropdown: 'EnumDropdown',
 };
+
+type EnumMultiSelectDropdownProps<TEnum extends string> = Omit<
+  EnumDropdownProps<TEnum>,
+  'value' | 'onChange'
+> & {
+  readonly value?: ReadonlyArray<TEnum>;
+  readonly onChange: ValueFn;
+};
+
 export const EnumMultiSelectDropdown = <TEnum extends string>({
   id,
   testId,
@@ -19,11 +27,8 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
   placeholder,
   value,
   ...formInputProps
-}: EnumDropdownProps<TEnum>): ReactElement => {
+}: EnumMultiSelectDropdownProps<TEnum>): ReactElement => {
   const { t } = useTranslation();
-
-  // To handle array values in multi select component
-  const mappedValue = value ? value.split(',') : [];
 
   const values = [...getEnumValues(AllOptionEnum), ...getEnumValues(enumType)];
 
@@ -37,34 +42,28 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
     ),
   });
 
-  const getButtonContent = (inputValue?: string): string => {
-    const enumValues = inputValue?.split(',');
-    if (
-      isUndefined(enumValues) ||
-      (first(enumValues) === '' && !!enumValues.length)
-    ) {
+  const options = values.map((item) => mapToOption(item));
+
+  const getButtonContent = (): string => {
+    if (!value || value.length === 0) {
       return placeholder;
     }
-    if (enumValues.length === values.length) {
-      return uiNameMapper(AllOptionEnum.All as unknown as TEnum);
-    }
-    if (enumValues.length > 1) {
-      return t(($) => $.selected, {
-        count: enumValues.length,
-      });
-    }
-    return uiNameMapper(enumValues[0] as unknown as TEnum);
-  };
 
-  const options = values.map((item) => mapToOption(item));
+    const typedAllOption = AllOptionEnum.All as unknown as TEnum;
+    if (value.includes(typedAllOption)) {
+      return uiNameMapper(typedAllOption);
+    }
+
+    return t(($) => $.selected, { count: value.length });
+  };
 
   return (
     <MultiSelectListbox
       id={id}
       testId={testId ?? testIds.enumDropdown}
-      buttonContent={getButtonContent(value)}
+      buttonContent={getButtonContent()}
       options={options}
-      value={mappedValue}
+      value={value}
       {...formInputProps}
     />
   );

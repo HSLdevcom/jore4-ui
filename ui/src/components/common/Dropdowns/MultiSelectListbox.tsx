@@ -84,11 +84,8 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
   fieldState,
   disabled,
 }) => {
-  const onItemSelect = (changedItems: ReadonlyArray<string>) => {
-    const updatedItems = createUpdatedItems(options, changedItems, value);
-    const updatedItemsString = updatedItems.join(',');
-    onChange({ target: { value: updatedItemsString } });
-  };
+  const onItemSelect = (changedItems: ReadonlyArray<string>) =>
+    onChange(createUpdatedItems(options, changedItems, value));
 
   const hasError = !!fieldState?.error;
 

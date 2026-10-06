@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdUndo } from 'react-icons/md';
+import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
+import { AllOptionEnum } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
 import { InputField } from '../../../common/Inputs';
 import {
@@ -110,7 +112,7 @@ export const OccasionalSubstitutePeriodRow: FC<
           <SubstituteDayOfWeekDropdown disabled={tobeDeleted} {...props} />
         )}
       />
-      <InputField<FormState>
+      <InputField<FormState, ReadonlyArray<RouteTypeOfLineEnum | AllOptionEnum>>
         className="col-span-2"
         translationPrefix="timetables.settings"
         testId={testIds.lineTypesDropdown}

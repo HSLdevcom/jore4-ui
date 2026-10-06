@@ -151,7 +151,7 @@ export const TerminalInfoSpotFormFields: FC<
             disabled={toBeDeleted}
           />
 
-          <InputField<TerminalInfoSpotFormState>
+          <InputField<TerminalInfoSpotFormState, boolean | null>
             translationPrefix="stopDetails.infoSpots"
             fieldPath="backlight"
             testId={testIds.backlight}

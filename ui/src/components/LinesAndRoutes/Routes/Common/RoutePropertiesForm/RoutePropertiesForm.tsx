@@ -157,7 +157,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 className="col-span-2"
                 required
               />
-              <InputField<RouteFormState>
+              <InputField<RouteFormState, string | null>
                 translationPrefix="routes"
                 fieldPath="onLineId"
                 testId={testIds.lineChoiceDropdown}

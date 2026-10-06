@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
-import { z } from 'zod';
-import { NullOptionEnum } from './enum';
+import { EnumLike, z } from 'zod';
+import { AllOptionEnum, NullOptionEnum } from './enum';
 
 export const REQUIRED_FIELD_ERROR_MESSAGE = 'Required';
 
@@ -93,3 +93,13 @@ export const nullablePositiveNumber = z
   });
 
 export const instanceOfDateTime = z.custom<DateTime>(DateTime.isDateTime);
+
+export function zEnumArray<Elements extends EnumLike>(values: Elements) {
+  return z.array(z.nativeEnum(values));
+}
+
+export const allEnum = z.nativeEnum(AllOptionEnum);
+
+export function zEnumArrayWithAll<Elements extends EnumLike>(values: Elements) {
+  return z.array(z.union([z.nativeEnum(values), allEnum]));
+}

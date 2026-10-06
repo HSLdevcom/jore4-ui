@@ -174,7 +174,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <InputField<InfoSpotsFormState>
+          <InputField<InfoSpotsFormState, boolean | null>
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.backlight`}
             testId={testIds.backlight}

@@ -41,8 +41,8 @@ const testIds = {
   addRowButton: 'OccasionalSubstitutePeriodForm::addRowButton',
 };
 
-function generateLineTypes(): string {
-  return [...Object.values(RouteTypeOfLineEnum), AllOptionEnum.All].join(',');
+function generateLineTypes(): Array<RouteTypeOfLineEnum | AllOptionEnum> {
+  return [...Object.values(RouteTypeOfLineEnum), AllOptionEnum.All];
 }
 
 const emptyRowObject: PeriodType = {

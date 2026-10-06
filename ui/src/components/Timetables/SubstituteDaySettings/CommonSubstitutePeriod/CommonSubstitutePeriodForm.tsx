@@ -91,7 +91,7 @@ function combineCommonDaysWithPresetDates(
     .map((presetDay) => ({
       periodName: presetDay.name,
       supersededDate: mapDateTimeToFormState(presetDay.date),
-      lineTypes: '',
+      lineTypes: [],
       substituteDayOfWeek: '',
       fromDatabase: false,
       created: false,

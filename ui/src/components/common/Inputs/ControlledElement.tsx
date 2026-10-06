@@ -1,28 +1,34 @@
 import { ReactElement } from 'react';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { FormInputProps } from './FormInputTypes';
+import { TypedFormInputProps } from './FormInputTypes';
 import { InputElementDefaultProps } from './InputElement';
 
 // Note: this does not contain 'fieldPath'
-export type InputElementRenderProps = FormInputProps & InputElementDefaultProps;
+export type InputElementRenderProps<ValueType = string> =
+  TypedFormInputProps<ValueType> & InputElementDefaultProps;
 
-type ControlledElementProps<FormState extends FieldValues> =
-  InputElementDefaultProps & {
-    readonly fieldPath: Path<FormState>;
-    readonly inputElementRenderer: (
-      props: InputElementRenderProps,
-    ) => ReactElement;
-    readonly required?: boolean;
-  };
+type ControlledElementProps<
+  FormState extends FieldValues,
+  ValueType,
+> = InputElementDefaultProps & {
+  readonly fieldPath: Path<FormState>;
+  readonly inputElementRenderer: (
+    props: InputElementRenderProps<ValueType>,
+  ) => ReactElement;
+  readonly required?: boolean;
+};
 
-export const ControlledElement = <FormState extends FieldValues>({
+export const ControlledElement = <
+  FormState extends FieldValues,
+  ValueType = string,
+>({
   className,
   id,
   fieldPath,
   testId,
   inputElementRenderer,
   required,
-}: ControlledElementProps<FormState>): ReactElement => {
+}: ControlledElementProps<FormState, ValueType>): ReactElement => {
   const { control } = useFormContext<FormState>();
 
   return (

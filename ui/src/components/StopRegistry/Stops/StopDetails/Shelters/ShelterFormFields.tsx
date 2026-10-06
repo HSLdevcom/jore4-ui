@@ -110,7 +110,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
             />
           )}
         />
-        <InputField<SheltersFormState>
+        <InputField<SheltersFormState, boolean | null>
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterLighting`}
           testId={testIds.shelterLighting}
