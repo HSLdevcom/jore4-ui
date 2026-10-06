@@ -9,6 +9,7 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { IconButton } from '../../common/Buttons';
+import { Switch } from '../../common/Jore';
 import { StopSelection } from '../StopSelection';
 import { useIsInSearchResultMode } from '../Utils/useIsInSearchResultMode';
 import { MapObservationDateControl } from './MapObservationDateControl';
@@ -23,13 +24,17 @@ const testIds = {
 const headingClassName = 'text-sm font-bold float-left mb-0';
 
 type FilterPanelProps = {
-  readonly routes: ReadonlyArray<IconToggleProps>;
+  readonly showRoutes: boolean;
+  readonly onToggleShowRoutes: (showRoutes: boolean) => void;
+  readonly routesToggleDisabled?: boolean;
   readonly stops: ReadonlyArray<IconToggleProps>;
   readonly className?: string;
 };
 
 export const FilterPanel: FC<FilterPanelProps> = ({
-  routes,
+  showRoutes,
+  onToggleShowRoutes,
+  routesToggleDisabled,
   stops,
   className,
 }) => {
@@ -65,7 +70,11 @@ export const FilterPanel: FC<FilterPanelProps> = ({
             <legend className={headingClassName}>
               {t(($) => $.map.showRoutes)}
             </legend>
-            <ToggleRow toggles={routes} />
+            <Switch
+              checked={showRoutes}
+              onChange={onToggleShowRoutes}
+              disabled={routesToggleDisabled}
+            />
           </fieldset>
 
           <IconButton

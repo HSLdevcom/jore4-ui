@@ -18,7 +18,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-:r1:"
-        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-grey"
+        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-grey disabled:cursor-default disabled:border-grey disabled:bg-grey disabled:opacity-50"
         data-headlessui-state=""
         data-testid="LineRouteList::showUnusedStopsSwitch"
         id="headlessui-control-:r0:"
@@ -254,7 +254,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
       <button
         aria-checked="false"
         aria-labelledby="headlessui-label-:r1:"
-        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-grey"
+        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-grey disabled:cursor-default disabled:border-grey disabled:bg-grey disabled:opacity-50"
         data-headlessui-state=""
         data-testid="LineRouteList::showUnusedStopsSwitch"
         id="headlessui-control-:r0:"
@@ -712,7 +712,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
       <button
         aria-checked="true"
         aria-labelledby="headlessui-label-:r1:"
-        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-brand bg-brand"
+        class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3 border-brand bg-brand disabled:cursor-default disabled:border-grey disabled:bg-grey disabled:opacity-50"
         data-changing=""
         data-checked=""
         data-headlessui-state="checked changing"
