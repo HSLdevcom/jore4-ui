@@ -6,6 +6,7 @@ type SwitchProps = {
   readonly className?: string;
   readonly checked: boolean;
   readonly onChange: (enabled: boolean) => void;
+  readonly disabled?: boolean;
   readonly testId?: string;
 };
 
@@ -15,14 +16,17 @@ export const Switch: FC<SwitchProps> = ({
   className,
   checked,
   onChange,
+  disabled = false,
 }) => {
   return (
     <HuiSwitch
       checked={checked}
       onChange={onChange}
+      disabled={disabled}
       className={twMerge(
         'relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3',
         checked ? 'border-brand bg-brand' : 'border-grey',
+        'disabled:cursor-default disabled:border-grey disabled:bg-grey disabled:opacity-50',
         className,
       )}
       data-testid={testId}
@@ -33,6 +37,7 @@ export const Switch: FC<SwitchProps> = ({
           checked
             ? 'translate-x-5 border-brand'
             : '-translate-x-0.5 border-grey',
+          disabled && 'border-grey',
         )}
       />
     </HuiSwitch>

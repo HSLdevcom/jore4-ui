@@ -27,20 +27,9 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
   return (
     <FilterPanel
       className={className}
-      routes={[
-        {
-          iconClassName: 'icon-bus',
-          active: showRoute,
-          onToggle: setShowRoute,
-          disabled: !routeDisplayed,
-          testId: 'FilterPanel::toggleShowBusRoutes',
-          tooltip: (t) => t(($) => $.vehicleModeEnum.bus),
-          colorClassNames: {
-            active: 'bg-tweaked-brand text-white',
-            inactive: 'bg-white text-tweaked-brand',
-          },
-        },
-      ]}
+      showRoutes={showRoute}
+      onToggleShowRoutes={setShowRoute}
+      routesToggleDisabled={!routeDisplayed}
       stops={[
         {
           iconClassName: 'icon-bus',
