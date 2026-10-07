@@ -208,6 +208,8 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
       });
 
       MapFooter.createRoute();
+      MapPage.routePropertiesForm.useTemplateRoute({ label: '901' });
+
       MapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Template route',
         label: '902',
@@ -225,13 +227,6 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
           swedishName: 'Template destination SWE',
           swedishShortName: 'Template destination SWE shortName',
         },
-      });
-
-      MapPage.routePropertiesForm
-        .getUseTemplateRouteButton()
-        .scrollIntoViewAndClick();
-      MapPage.routePropertiesForm.templateRouteSelector.fillForm({
-        label: '901',
       });
 
       MapPage.routePropertiesForm.changeValidityForm.setPriority(

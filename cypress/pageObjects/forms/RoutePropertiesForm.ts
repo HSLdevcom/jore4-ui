@@ -83,6 +83,11 @@ export class RoutePropertiesForm {
     cy.get('[role="option"]').contains(name).click();
   }
 
+  static useTemplateRoute(values: TemplateRouteSelectorInfo) {
+    RoutePropertiesForm.getUseTemplateRouteButton().scrollIntoViewAndClick();
+    TemplateRouteSelector.fillForm(values);
+  }
+
   static fillRouteProperties(values: RouteFormInfo) {
     const defaultTerminusOriginInput = {
       finnishName: 'Lähtöpaikka',
@@ -97,6 +102,12 @@ export class RoutePropertiesForm {
       finnishShortName: 'MP',
       swedishShortName: 'ÄS',
     };
+
+    if (values.templateRoute) {
+      RoutePropertiesForm.useTemplateRoute(
+        values.templateRoute.templateRouteSelectorInfo,
+      );
+    }
 
     if (values.finnishName) {
       RoutePropertiesForm.getFinnishNameInput().clearAndType(
@@ -121,15 +132,11 @@ export class RoutePropertiesForm {
       values.destination ?? defaultTerminusDestinationInput,
     );
 
-    if (values.priority) {
-      PriorityForm.setPriority(values.priority);
-    }
-
-    if (values.templateRoute) {
-      RoutePropertiesForm.getUseTemplateRouteButton().scrollIntoViewAndClick();
-      TemplateRouteSelector.fillForm(
-        values.templateRoute.templateRouteSelectorInfo,
-      );
+    const { priority } = values;
+    if (priority) {
+      cy.getByTestId('ChangeValidityForm::container').within(() => {
+        PriorityForm.setPriority(priority);
+      });
     }
 
     if (values.versionComment) {

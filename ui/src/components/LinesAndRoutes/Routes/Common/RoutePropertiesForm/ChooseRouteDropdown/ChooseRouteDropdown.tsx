@@ -15,7 +15,7 @@ type ChooseRouteDropdownProps = Omit<ComboboxInputProps, 'onChange'> & {
   readonly testId?: string;
   readonly date: DateTime;
   readonly priorities: ReadonlyArray<Priority>;
-  readonly onChange: (newValue: string) => void;
+  readonly onChange: (newValue: RouteAllFieldsFragment) => void;
 };
 
 function mapToOption(item: RouteAllFieldsFragment) {
@@ -59,6 +59,13 @@ export const ChooseRouteDropdown: FC<ChooseRouteDropdownProps> = ({
 
   const options = routes?.map(mapToOption) ?? [];
 
+  const onRouteSelected = (routeId: string) => {
+    const route = routes.find((item) => item.route_id === routeId);
+    if (route) {
+      onChange(route);
+    }
+  };
+
   const mapToButtonContent = (displayedRoute?: RouteAllFieldsFragment) => {
     // If no route is selected, show "Choose route"
     return (
@@ -78,7 +85,7 @@ export const ChooseRouteDropdown: FC<ChooseRouteDropdownProps> = ({
       mapToButtonContent={mapToButtonContent}
       options={options}
       value={value}
-      onChange={onChange}
+      onChange={onRouteSelected}
       onBlur={onBlur}
       onQueryChange={setQuery}
       selectedItem={selectedRoute}
