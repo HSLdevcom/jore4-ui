@@ -310,6 +310,8 @@ prepare_dump_postgis_upgrade_helper_list() {
     -e unlockrows \
     -e postgis_extensions_upgrade \
     -e 'st_asgeojson(r record, geom_column text, maxdecimaldigits integer, pretty_bool boolean)' \
+    -e 'st_concavehull(geometry)' \
+    -e 'st_concavehull(param_inputgeom public.geometry)' \
     "$raw_list_file" > "$list_file"
 
   rm "$raw_list_file"
@@ -337,7 +339,7 @@ import_dump() {
 
   echo "Importing database dump from the file '$az_blob_filename' to the '${target_database}' database..."
 
-  local az_blob_restore_list_filename="${az_blob_filename}.list"
+  local az_blob_restore_list_filename="${az_blob_filename}-$(git hash-object scripts/development.sh).list"
   local az_blob_restore_list_filepath="${POSTGIS_DUMP_RESTORE_LIST_FILE_DIR}/${az_blob_restore_list_filename}"
   prepare_dump_postgis_upgrade_helper_list "$az_blob_filename" "$az_blob_restore_list_filepath"
 
