@@ -36,6 +36,10 @@ export class LineDetailsPage {
     return cy.getByTestId('ActionsRow::showDraftsButton');
   }
 
+  static getCreateNewRouteButton() {
+    return cy.getByTestId('LineTitle::createRouteButton');
+  }
+
   static getChangeHistoryLink() {
     return cy.getByTestId('LineTitle::changeHistoryLink');
   }

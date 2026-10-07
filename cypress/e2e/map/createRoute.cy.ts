@@ -23,6 +23,7 @@ import {
   LineDetailsPage,
   MapFooter,
   MapPage,
+  RouteRow,
   RouteStopsOverlay,
   RouteStopsOverlayRow,
   StopsNeedingUpdateModal,
@@ -642,4 +643,90 @@ describe('Route creation', rootOpts, () => {
       );
     },
   );
+
+  it('Should display the newly created route in the line view on return from the map', () => {
+    const lineId = baseDbResources.lines[0].line_id;
+
+    cy.section('Open the line view; the new route is not yet displayed', () => {
+      LineDetailsPage.visit(lineId);
+
+      RouteRow.getRouteHeaderRow('901Y', RouteDirectionEnum.Outbound).should(
+        'not.exist',
+      );
+    });
+
+    cy.section('Open the map and fill in the route properties', () => {
+      // Open the map from the line view, so that closing it navigates back here.
+      LineDetailsPage.getCreateNewRouteButton().click();
+      MapPage.map.waitForLoadToComplete();
+
+      MapPage.routePropertiesForm.fillRouteProperties({
+        finnishName: 'Returned route',
+        label: '901Y',
+        line: '901',
+        direction: RouteDirectionEnum.Outbound,
+        versionComment: 'E2E show created route on return reason',
+        origin: {
+          finnishName: 'Test origin FIN',
+          finnishShortName: 'Test origin FIN shortName',
+          swedishName: 'Test origin SWE',
+          swedishShortName: 'Test origin SWE shortName',
+        },
+        destination: {
+          finnishName: 'Test destination FIN',
+          finnishShortName: 'Test destination FIN shortName',
+          swedishName: 'Test destination SWE',
+          swedishShortName: 'Test destination SWE shortName',
+        },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2030-12-01',
+      });
+
+      MapPage.editRouteModal.save();
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
+    });
+
+    cy.section('Draw and save a minimal valid route', () => {
+      // Draw a minimal valid route (E2E001 -> E2E002).
+      MapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E001[0],
+        stopCoordinatesByLabel.E2E001[1],
+      );
+      MapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
+      // Click the last added node again to finish the route.
+      MapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
+
+      MapFooter.save();
+
+      StopsNeedingUpdateModal.getConfirmButton().click();
+
+      MapPage.map.getLoader().should('exist');
+      MapPage.map.getLoader().should('not.exist');
+      Toast.expectSuccessToast('Reitti tallennettu');
+    });
+
+    cy.section(
+      'Close the map; the new route is now displayed in the line view',
+      () => {
+        MapPage.getCloseButton().click();
+
+        RouteRow.getRouteHeaderRow(
+          '901Y',
+          RouteDirectionEnum.Outbound,
+        ).shouldBeVisible();
+        LineDetailsPage.lineRouteList.assertRouteDirection(
+          '901Y',
+          RouteDirectionEnum.Outbound,
+        );
+      },
+    );
+  });
 });
