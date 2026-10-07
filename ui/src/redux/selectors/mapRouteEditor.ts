@@ -34,6 +34,11 @@ export const selectSelectedRouteId = createSelector(
   (mapRouteEditor) => mapRouteEditor.selectedRouteId,
 );
 
+export const selectLastCreatedRouteLabel = createSelector(
+  selectMapRouteEditor,
+  (mapRouteEditor) => mapRouteEditor.lastCreatedRouteLabel,
+);
+
 export const selectDrawingMode = createSelector(
   selectMapRouteEditor,
   (mapRouteEditor) => mapRouteEditor.drawingMode,
