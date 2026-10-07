@@ -8,4 +8,8 @@ export class RouteStopsOverlayRow {
       `RouteStopsOverlayRow::menu::toggleStopInJourneyPatternButton`,
     );
   }
+
+  static getOpenDetailsPageLink() {
+    return cy.getByTestId(`RouteStopsOverlayRow::menu::ShowDetails`);
+  }
 }
