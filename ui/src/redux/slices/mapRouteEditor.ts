@@ -100,6 +100,11 @@ export type MapRouteEditorState = {
    * Id of the route that has been selected in the map view
    */
   readonly selectedRouteId?: UUID;
+  /**
+   * Label of the most recently created route. Consumed once by the line view
+   * on return from the map to add the route to the displayed-routes selection.
+   */
+  readonly lastCreatedRouteLabel?: string;
 };
 
 type IState = StoreType<MapRouteEditorState>;
@@ -124,6 +129,7 @@ const initialState: IState = {
   },
   isRouteMetadataFormOpen: false,
   selectedRouteId: undefined,
+  lastCreatedRouteLabel: undefined,
 };
 
 export enum Mode {
@@ -345,6 +351,15 @@ const slice = createSlice({
       state.selectedRouteId = action.payload;
     },
     /**
+     * Set the label of the most recently created route.
+     */
+    setLastCreatedRouteLabel: (
+      state,
+      action: PayloadAction<string | undefined>,
+    ) => {
+      state.lastCreatedRouteLabel = action.payload;
+    },
+    /**
      * Set route metadata edit form open / closed.
      */
     setRouteMetadataFormOpen: (state, action: PayloadAction<boolean>) => {
@@ -368,6 +383,7 @@ export const {
   setDraftRouteGeometry: setDraftRouteGeometryAction,
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,
+  setLastCreatedRouteLabel: setLastCreatedRouteLabelAction,
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
   setDraftRouteJourneyPattern: setDraftRouteJourneyPatternAction,
   setRouteToEditMode: setRouteToEditModeAction,
