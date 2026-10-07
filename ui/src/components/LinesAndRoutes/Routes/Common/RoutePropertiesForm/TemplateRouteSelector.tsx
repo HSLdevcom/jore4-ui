@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { RouteAllFieldsFragment } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 import {
   PriorityForm,
@@ -16,7 +17,7 @@ import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 type TemplateRouteSelectorProps = {
   readonly value?: UUID;
-  readonly onChange: (newValue: UUID) => void;
+  readonly onChange: (newValue: RouteAllFieldsFragment) => void;
 };
 
 const testIds = {

@@ -4,6 +4,7 @@ import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { RouteAllFieldsFragment } from '../../../../../generated/graphql';
 import {
   selectEditedRouteData,
   selectMapRouteEditor,
@@ -20,7 +21,11 @@ import { useDirtyFormBlockNavigation } from '../../../../common/Forms/Navigation
 import { InputField } from '../../../../common/Inputs';
 import { Switch, SwitchLabel } from '../../../../common/Jore';
 import { FormColumn, FormRow, Row } from '../../../../common/LayoutComponents';
-import { RouteFormState, routeFormSchema } from '../../../Common';
+import {
+  RouteFormState,
+  mapRouteToFormState,
+  routeFormSchema,
+} from '../../../Common';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
@@ -96,8 +101,19 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     ignoredFields: ['versionComment'],
   });
 
-  const setTemplateRoute = (uuid?: UUID) => {
-    dispatch(setTemplateRouteIdAction(uuid));
+  const setTemplateRoute = (templateRoute?: RouteAllFieldsFragment) => {
+    dispatch(setTemplateRouteIdAction(templateRoute?.route_id));
+
+    if (!templateRoute) {
+      return;
+    }
+
+    methods.reset(
+      {
+        ...mapRouteToFormState(templateRoute),
+      },
+      { keepDefaultValues: true },
+    );
   };
 
   return (
@@ -117,6 +133,32 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             </Row>
           )}
           <FormColumn className={twMerge('p-4', className)}>
+            {creatingNewRoute && (
+              <>
+                <Field as={Row} className="flex-auto items-center">
+                  <SwitchLabel className="my-1 mr-2">
+                    {t(($) => $.routes.useTemplateRoute)}
+                  </SwitchLabel>
+                  <Switch
+                    checked={showTemplateRouteSelector}
+                    testId={testIds.useTemplateRouteButton}
+                    onChange={(enabled: boolean) => {
+                      setShowTemplateRouteSelector(enabled);
+
+                      if (!enabled) {
+                        setTemplateRoute(undefined);
+                      }
+                    }}
+                  />
+                </Field>
+                {showTemplateRouteSelector && (
+                  <TemplateRouteSelector
+                    value={templateRouteId}
+                    onChange={setTemplateRoute}
+                  />
+                )}
+              </>
+            )}
             <FormRow
               className="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
               mdColumns={5}
@@ -171,32 +213,6 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             </FormRow>
           </FormColumn>
           <TerminusNameInputs />
-          {creatingNewRoute && (
-            <>
-              <Field as={Row} className="flex-auto items-center px-4">
-                <SwitchLabel className="my-1 mr-2">
-                  {t(($) => $.routes.useTemplateRoute)}
-                </SwitchLabel>
-                <Switch
-                  checked={showTemplateRouteSelector}
-                  testId={testIds.useTemplateRouteButton}
-                  onChange={(enabled: boolean) => {
-                    setShowTemplateRouteSelector(enabled);
-
-                    if (!enabled) {
-                      setTemplateRoute(undefined);
-                    }
-                  }}
-                />
-              </Field>
-              {showTemplateRouteSelector && (
-                <TemplateRouteSelector
-                  value={templateRouteId}
-                  onChange={setTemplateRoute}
-                />
-              )}
-            </>
-          )}
           <FormRow className="border-t border-light-grey p-4">
             <ChangeValidityForm<RouteFormState>
               dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
