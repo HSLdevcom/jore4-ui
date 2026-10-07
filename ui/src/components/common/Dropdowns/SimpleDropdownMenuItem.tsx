@@ -1,9 +1,19 @@
 import { MenuItem } from '@headlessui/react';
-import { ForwardRefRenderFunction, ReactNode, forwardRef } from 'react';
+import {
+  ForwardRefRenderFunction,
+  MouseEventHandler,
+  ReactNode,
+  SyntheticEvent,
+  forwardRef,
+} from 'react';
+import { Link, To } from 'react-router';
 import { dropdownMenuStyles } from './headlessHelpers';
 
-type SimpleDropdownMenuItemProps = {
-  readonly onClick: () => void;
+function preventDefault<E extends SyntheticEvent<unknown>>(e: E) {
+  e.preventDefault();
+}
+
+type SimpleDropdownMenuItemBaseProps = {
   readonly disabled?: boolean;
   readonly testId: string;
   readonly className?: string;
@@ -15,14 +25,28 @@ type SimpleDropdownMenuItemProps = {
     readonly [key in `data-${string}`]?: string;
   };
 
+type SimpleDropdownMenuItemButtonProps = {
+  readonly onClick: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  readonly to?: never;
+};
+
+type SimpleDropdownMenuItemLinkProps = {
+  readonly onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  readonly to: To;
+};
+
+type SimpleDropdownMenuItemProps = SimpleDropdownMenuItemBaseProps &
+  (SimpleDropdownMenuItemButtonProps | SimpleDropdownMenuItemLinkProps);
+
 const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
-  HTMLButtonElement,
+  HTMLButtonElement | HTMLAnchorElement,
   SimpleDropdownMenuItemProps
 > = (
   {
+    onClick,
+    to,
     text,
     children,
-    onClick,
     disabled,
     testId,
     className,
@@ -31,16 +55,34 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
   },
   ref,
 ) => {
+  if (to) {
+    return (
+      <MenuItem
+        as={Link}
+        ref={ref}
+        className={dropdownMenuStyles.option('whitespace-nowrap', className)}
+        title={title}
+        data-testid={testId}
+        data-headlessui-state={!!disabled}
+        {...(disabled ? { to, onClick: preventDefault } : { to, onClick })}
+        {...dataAttributes}
+      >
+        {text ?? children}
+      </MenuItem>
+    );
+  }
+
   return (
     <MenuItem
       as="button"
       ref={ref}
-      disabled={disabled}
-      className={dropdownMenuStyles.option('whitespace-nowrap', className)}
       type="button"
-      onClick={onClick}
-      data-testid={testId}
+      className={dropdownMenuStyles.option('whitespace-nowrap', className)}
       title={title}
+      disabled={disabled}
+      data-testid={testId}
+      data-headlessui-state={!!disabled}
+      onClick={onClick}
       {...dataAttributes}
     >
       {text ?? children}
