@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
@@ -7,13 +7,15 @@ import {
   resetMapRouteEditorStateAction,
   selectIsTimingSettingsModalOpen,
   selectIsViaModalOpen,
+  selectLastCreatedRouteLabel,
+  setLastCreatedRouteLabelAction,
   setLineInfoAction,
   startRouteCreatingAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
-import { getTransportModeIcon, isPastEntity } from '../../../../utils';
+import { getTransportModeIcon, isPastEntity, none } from '../../../../utils';
 import { useNavigateToMap } from '../../../common/hooks';
 import {
   Column,
@@ -46,7 +48,33 @@ export const LineDetailsByIdPage: FC = () => {
 
   const { line, lineError } = useGetLineDetails();
 
-  const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
+  const { displayedRouteLabels, setDisplayedRoutesToUrl } =
+    useGetRoutesDisplayedInList(line);
+
+  const lastCreatedRouteLabel = useAppSelector(selectLastCreatedRouteLabel);
+
+  // When returning from the map after creating a route, add the new route to
+  // the displayed-routes selection (append) once it is present in the line's
+  // routes, then clear the one-time flag. Waiting for the route to appear is
+  // needed because the line query first returns stale cache (cache-and-network).
+  useEffect(() => {
+    if (!lastCreatedRouteLabel || !line) {
+      return;
+    }
+
+    if (
+      none((route) => route.label === lastCreatedRouteLabel, line.line_routes)
+    ) {
+      return;
+    }
+
+    if (!displayedRouteLabels.includes(lastCreatedRouteLabel)) {
+      setDisplayedRoutesToUrl([...displayedRouteLabels, lastCreatedRouteLabel]);
+    }
+
+    dispatch(setLastCreatedRouteLabelAction(undefined));
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
+  }, [lastCreatedRouteLabel, line, displayedRouteLabels]);
 
   const createRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapRouteEditorStateAction());

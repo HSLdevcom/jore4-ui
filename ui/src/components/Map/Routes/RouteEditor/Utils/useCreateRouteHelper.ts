@@ -7,6 +7,7 @@ import {
   resetRouteCreatingAction,
   selectEditedRouteData,
   selectMapRouteEditor,
+  setLastCreatedRouteLabelAction,
   setSelectedRouteIdAction,
   useAppDispatch,
   useAppSelector,
@@ -70,6 +71,10 @@ export function useCreateRouteHelper() {
 
     // Select created route
     dispatch(setSelectedRouteIdAction(newRoute.route_id));
+
+    // Remember the created route's label so the line view can add it to the
+    // displayed-routes selection when the user returns from the map.
+    dispatch(setLastCreatedRouteLabelAction(newRoute.label));
 
     setDisplayedRoute(() => ({
       routeId: newRoute.route_id,
