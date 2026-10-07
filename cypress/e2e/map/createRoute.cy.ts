@@ -584,34 +584,16 @@ describe('Route creation', rootOpts, () => {
       MapPage.map.waitForLoadToComplete();
 
       MapFooter.createRoute();
-      MapPage.routePropertiesForm.fillRouteProperties({
-        finnishName: 'Based on template test route',
-        label: '901T',
-        versionComment: 'E2E template route reason',
-        line: '901',
-        direction: RouteDirectionEnum.Outbound,
-        origin: {
-          finnishName: 'Test origin FIN',
-          finnishShortName: 'Test origin FIN shortName',
-          swedishName: 'Test origin SWE',
-          swedishShortName: 'Test origin SWE shortName',
-        },
-        destination: {
-          finnishName: 'Test destination FIN',
-          finnishShortName: 'Test destination FIN shortName',
-          swedishName: 'Test destination SWE',
-          swedishShortName: 'Test destination SWE shortName',
-        },
-        priority: Priority.Standard,
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
-      });
 
       // Use standard route 901 from dataset as template
-      MapPage.routePropertiesForm.getUseTemplateRouteButton().click();
-      MapPage.routePropertiesForm.templateRouteSelector.fillForm({
+      MapPage.routePropertiesForm.useTemplateRoute({
         priority: Priority.Standard,
         label: '901',
+      });
+
+      MapPage.routePropertiesForm.fillRouteProperties({
+        label: '901T',
+        finnishName: 'Based on template test route',
       });
 
       MapPage.editRouteModal.save();
