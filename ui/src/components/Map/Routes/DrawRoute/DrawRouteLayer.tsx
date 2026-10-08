@@ -180,6 +180,13 @@ export const DrawRouteLayer: FC = () => {
   useEffect(() => {
     const mapInstance = map?.getMap();
 
+    // Ensure prepare-draw loader does not leak when user exits draw phase
+    // before draw internals finish initializing.
+    if (!isNewRouteDrawPhase) {
+      setRouteDrawLoadingState(LoadingState.NotLoading);
+      return undefined;
+    }
+
     const isDrawReady = (): boolean => {
       const hasDrawRef = !!drawRef.current;
       const hasDrawHotSource = !!mapInstance?.getSource('mapbox-gl-draw-hot');
@@ -198,7 +205,11 @@ export const DrawRouteLayer: FC = () => {
       }
     };
 
+    // Fast path: draw can already be ready on first run of this effect.
+    // Clear loader immediately instead of waiting for sourcedata/idle events
+    // that may never fire after readiness has already been reached.
     if (isDrawReady()) {
+      setRouteDrawLoadingState(LoadingState.NotLoading);
       return undefined;
     }
 

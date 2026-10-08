@@ -9,6 +9,7 @@ import {
   GetRouteDetailsByIdQueryVariables,
 } from '../../../../generated/graphql';
 import {
+  Operation,
   finishRouteMetadataEditingAction,
   resetRouteCreatingAction,
   selectEditedRouteData,
@@ -18,7 +19,9 @@ import {
   setRouteMetadataFormOpenAction,
   useAppDispatch,
   useAppSelector,
+  useLoader,
 } from '../../../../redux';
+import { LoadingState } from '../../../../types';
 import { stopInJourneyPatternFieldsToRemove } from '../../../../utils';
 import {
   RouteFormState,
@@ -33,6 +36,9 @@ function areFormValuesValid(formData?: Partial<RouteFormState>) {
 export const EditRouteMetadataLayer: FC = () => {
   const apollo = useApolloClient();
   const dispatch = useAppDispatch();
+  const { setLoadingState: setRouteDrawLoadingState } = useLoader(
+    Operation.PrepareRouteDraw,
+  );
   const { isRouteMetadataFormOpen } = useAppSelector(selectMapRouteEditor);
   const {
     templateRouteId,
@@ -54,47 +60,56 @@ export const EditRouteMetadataLayer: FC = () => {
   };
 
   const onSuccess = async (formData: RouteFormState) => {
-    // The line might have been changed by the user, so have to refresh its data in the redux store
-    const results = await apollo.query<
-      GetLineDetailsByIdQuery,
-      GetLineDetailsByIdQueryVariables
-    >({
-      query: GetLineDetailsByIdDocument,
-      variables: { line_id: formData.onLineId },
-    });
-    if (!results.data.route_line_by_pk) {
-      throw new Error("Couldn't get line details!");
-    }
+    // Keep map loader visible from modal save until DrawRouteLayer confirms draw is ready.
+    setRouteDrawLoadingState(LoadingState.HighPriority);
 
-    dispatch(setLineInfoAction(results.data.route_line_by_pk));
-    dispatch(finishRouteMetadataEditingAction(formData));
-
-    /**
-     * Get journey pattern stop metadata (e.g. via info) from template route
-     */
-    if (templateRouteId) {
-      const routeDetailsResult = await apollo.query<
-        GetRouteDetailsByIdQuery,
-        GetRouteDetailsByIdQueryVariables
+    try {
+      // The line might have been changed by the user, so have to refresh its data in the redux store
+      const results = await apollo.query<
+        GetLineDetailsByIdQuery,
+        GetLineDetailsByIdQueryVariables
       >({
-        query: GetRouteDetailsByIdDocument,
-        variables: { routeId: templateRouteId },
+        query: GetLineDetailsByIdDocument,
+        variables: { line_id: formData.onLineId },
       });
-      if (!routeDetailsResult.data.route_route_by_pk) {
-        throw new Error("Can't find route and line details");
+      if (!results.data.route_line_by_pk) {
+        throw new Error("Couldn't get line details!");
       }
 
-      const newJourneyPatternStops =
-        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.map(
-          (stopInJourneyPattern) => ({
-            ...stopInJourneyPattern,
-            ...stopInJourneyPatternFieldsToRemove,
-          }),
-        );
+      dispatch(setLineInfoAction(results.data.route_line_by_pk));
+      dispatch(finishRouteMetadataEditingAction(formData));
 
-      dispatch(
-        setDraftRouteJourneyPatternAction({ stops: newJourneyPatternStops }),
-      );
+      /**
+       * Get journey pattern stop metadata (e.g. via info) from template route
+       */
+      if (templateRouteId) {
+        const routeDetailsResult = await apollo.query<
+          GetRouteDetailsByIdQuery,
+          GetRouteDetailsByIdQueryVariables
+        >({
+          query: GetRouteDetailsByIdDocument,
+          variables: { routeId: templateRouteId },
+        });
+        if (!routeDetailsResult.data.route_route_by_pk) {
+          throw new Error("Can't find route and line details");
+        }
+
+        const newJourneyPatternStops =
+          routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.map(
+            (stopInJourneyPattern) => ({
+              ...stopInJourneyPattern,
+              ...stopInJourneyPatternFieldsToRemove,
+            }),
+          );
+
+        dispatch(
+          setDraftRouteJourneyPatternAction({ stops: newJourneyPatternStops }),
+        );
+      }
+    } catch (error) {
+      // DrawRouteLayer is not guaranteed to mount on failed submit, so clear prepare-draw loader here.
+      setRouteDrawLoadingState(LoadingState.NotLoading);
+      throw error;
     }
   };
 
