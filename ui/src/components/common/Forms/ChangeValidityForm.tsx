@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
@@ -23,6 +24,7 @@ type ChangeValidityFormProps = {
   readonly modalLayout?: boolean;
   readonly title?: string;
   readonly versionCommentField?: VersionCommentFieldProps;
+  readonly validityPeriodError?: ReactNode;
 };
 
 /**
@@ -38,6 +40,7 @@ export const ChangeValidityForm = <
   modalLayout = false,
   title,
   versionCommentField,
+  validityPeriodError,
 }: ChangeValidityFormProps) => {
   const { t } = useTranslation();
 
@@ -72,6 +75,7 @@ export const ChangeValidityForm = <
             <ValidityPeriodForm dateInputRowClassName={dateInputRowClassName} />
           </Row>
         )}
+        {validityPeriodError}
       </div>
     </div>
   );

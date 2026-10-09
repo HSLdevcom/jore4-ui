@@ -273,31 +273,6 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
           'Päättymispäivämäärä ei voi olla ennen alkamispäivämäärää',
         );
     });
-
-    it('should validate route validity outside line validity', () => {
-      const { line } = visitPage();
-
-      fillTestValuesToForm();
-
-      const routeValidityStart = line.validity_start
-        ?.minus({ days: 1 })
-        ?.toISODate();
-
-      const routeValidityEnd = line.validity_end?.toISODate();
-
-      if (!routeValidityStart || !routeValidityEnd) {
-        throw new Error(
-          'Test configuration error. No validity period for line',
-        );
-      }
-      setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
-
-      EditRoutePage.getSaveRouteButton().click();
-
-      Toast.expectDangerToast(
-        'Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.',
-      );
-    });
   });
 
   describe('draft route', () => {

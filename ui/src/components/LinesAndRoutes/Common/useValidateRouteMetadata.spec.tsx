@@ -11,6 +11,7 @@ import { RouteFormState } from './RoutePropertiesForm.types';
 import {
   assertRouteValidityIsInsideLineValidity,
   assertRouteValidityStartIsBeforeEnd,
+  getRouteLineValidityViolation,
   useValidateRouteMetadata,
 } from './useValidateRouteMetadata';
 
@@ -110,6 +111,70 @@ describe('useValidateRouteMetadata', () => {
       expect(() =>
         assertRouteValidityIsInsideLineValidity(t, route, line),
       ).not.toThrow();
+    });
+  });
+
+  describe('getRouteLineValidityViolation', () => {
+    const line = {
+      validity_start: DateTime.local().minus({ days: 1 }),
+      validity_end: DateTime.local().plus({ days: 1 }),
+    };
+
+    test('should return startBeforeLine when route starts before line', () => {
+      expect(
+        getRouteLineValidityViolation(
+          { validity_start: DateTime.local().minus({ days: 2 }) },
+          line,
+        ),
+      ).toBe('startBeforeLine');
+    });
+
+    test('should return startBeforeLine when route has no start', () => {
+      expect(
+        getRouteLineValidityViolation({ validity_start: null }, line),
+      ).toBe('startBeforeLine');
+    });
+
+    test('should return endAfterLine when route ends after line', () => {
+      expect(
+        getRouteLineValidityViolation(
+          {
+            validity_start: DateTime.local(),
+            validity_end: DateTime.local().plus({ days: 2 }),
+          },
+          line,
+        ),
+      ).toBe('endAfterLine');
+    });
+
+    test('should return endAfterLine when route is indefinite but line is bounded', () => {
+      expect(
+        getRouteLineValidityViolation(
+          { validity_start: DateTime.local(), validity_end: null },
+          line,
+        ),
+      ).toBe('endAfterLine');
+    });
+
+    test('should return null when route validity is inside line validity', () => {
+      expect(
+        getRouteLineValidityViolation(
+          {
+            validity_start: DateTime.local(),
+            validity_end: DateTime.local(),
+          },
+          line,
+        ),
+      ).toBeNull();
+    });
+
+    test('should return null when line is valid indefinitely', () => {
+      expect(
+        getRouteLineValidityViolation(
+          { validity_start: DateTime.local(), validity_end: null },
+          { validity_start: line.validity_start, validity_end: null },
+        ),
+      ).toBeNull();
     });
   });
 
