@@ -108,6 +108,13 @@ describe('Route creation', rootOpts, () => {
     zoom: 15,
   };
 
+  // Location where tram test stops E2ER002-E2ER003 are visible.
+  const tramMapLocation = {
+    lng: 24.939645795,
+    lat: 60.198116695,
+    zoom: 15,
+  };
+
   before(() => {
     cy.task<UUID[]>(
       'getInfrastructureLinkIdsByExternalIds',
@@ -258,8 +265,11 @@ describe('Route creation', rootOpts, () => {
 
   it('Should create a new tram route', { tags: [Tag.Network] }, () => {
     const versionComment = 'E2E create tram route reason';
+    const tramLine = baseDbResources.lines.find(
+      (line) => line.label === '8543',
+    );
 
-    MapPage.map.visit(mapLocation);
+    MapPage.map.visit(tramMapLocation);
     MapPage.map.waitForLoadToComplete();
 
     MapFooter.createRoute(ReusableComponentsVehicleModeEnum.Tram);
@@ -293,7 +303,52 @@ describe('Route creation', rootOpts, () => {
 
     MapPage.routePropertiesForm.getForm().should('not.exists');
     RouteStopsOverlay.getHeader().shouldBeVisible();
+    MapPage.map.waitForLoadToComplete();
+
+    // Create a geometry for route that includes tram dataset stops E2ER002 and E2ER003.
+    MapPage.map.clickAtCoordinates(24.9392, 60.19895);
+    MapPage.map.clickAtCoordinates(
+      stopCoordinatesByLabel.E2ER002[0],
+      stopCoordinatesByLabel.E2ER002[1],
+    );
+    MapPage.map.clickAtCoordinates(
+      stopCoordinatesByLabel.E2ER003[0],
+      stopCoordinatesByLabel.E2ER003[1],
+    );
+    // Click the last added node again to finish the route
+    MapPage.map.clickAtCoordinates(
+      stopCoordinatesByLabel.E2ER003[0],
+      stopCoordinatesByLabel.E2ER003[1],
+    );
+
+    MapFooter.save();
+
+    MapPage.map.getLoader().should('exist');
     MapPage.map.getLoader().should('not.exist');
+
+    Toast.expectSuccessToast('Reitti tallennettu');
+
+    RouteStopsOverlay.getHeader()
+      .should('contain', '1112Y 56')
+      .and('contain', 'Test tram route');
+    RouteStopsOverlay.getRouteStopListHeader(
+      '1112Y',
+      RouteDirectionEnum.Outbound,
+    ).shouldBeVisible();
+    RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
+    RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
+      'E2ER002 E2ER002',
+    );
+    RouteStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText(
+      'E2ER003 E2ER003',
+    );
+
+    LineDetailsPage.visit(tramLine?.line_id);
+    LineDetailsPage.getChangeHistoryLink().click();
+    LineChangeHistory.changeHistoryTable.sectionHeader
+      .getVersionComment()
+      .should('be.visible')
+      .and('contain', versionComment);
   });
 
   it('should cancel creating a new route', () => {
