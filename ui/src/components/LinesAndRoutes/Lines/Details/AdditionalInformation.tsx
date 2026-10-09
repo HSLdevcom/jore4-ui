@@ -47,7 +47,7 @@ export const AdditionalInformation: FC<AdditionalInformationProps> = ({
           {t(($) => $.edit)}
         </SimpleButton>
       </Row>
-      <Row className="mb-5 gap-6">
+      <Row className="mb-5 gap-10">
         <FieldValue
           fieldName={t(($) => $.lines.label)}
           value={line.label}
@@ -64,7 +64,7 @@ export const AdditionalInformation: FC<AdditionalInformationProps> = ({
           testId={testIds.nameSwe}
         />
       </Row>
-      <Row className="mb-5 gap-6">
+      <Row className="mb-5 gap-10">
         <FieldValue
           fieldName={t(($) => $.lines.primaryVehicleMode)}
           value={mapVehicleModeToUiName(t, line.primary_vehicle_mode)}

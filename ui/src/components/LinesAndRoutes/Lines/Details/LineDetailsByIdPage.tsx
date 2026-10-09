@@ -38,7 +38,6 @@ import { CreateRouteBox } from './CreateRouteBox';
 import { LineDetailsEmptyMapPlaceholder } from './LineDetailsEmptyMapPlaceholder';
 import { LineMissingBox } from './LineMissingBox';
 import { LineRouteList } from './LineRouteList';
-import { MapPreview } from './MapPreview';
 
 export const LineDetailsByIdPage: FC = () => {
   const { t } = useTranslation();
@@ -133,8 +132,7 @@ export const LineDetailsByIdPage: FC = () => {
           <>
             <Row>
               <AdditionalInformation className="w-2/4" line={line} />
-              <LineLatestChanges className="w-1/4" label={line.label} />
-              <MapPreview className="w-1/4" />
+              <LineLatestChanges className="w-2/4" label={line.label} />
             </Row>
             <Row>
               <Column className="w-full">
