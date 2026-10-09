@@ -77,7 +77,7 @@ export const LineTitle: FC<LineTitleProps> = ({
           })}
         </PageTitle.H1>
 
-        <span className="mr-2 space-x-2">
+        <span className="mr-2 flex space-x-2">
           {lineRoutes?.length > 0 &&
             lineRoutes.map((item) => (
               <SimpleButton
