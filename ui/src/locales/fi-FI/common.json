@@ -61,6 +61,7 @@
     "tooFewStops": "Reitillä on oltava ainakin kaksi pysäkkiä.",
     "startNotInsideLineValidity": "Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.",
     "endNotInsideLineValidity": "Reitin voimassaoloaika ei voi jatkua linjan voimassaoloajan ulkopuolelle.",
+    "lineValidityNotEnough": "Linjan voimassaolo {{validity}} ei riitä. Päivitä reitin tai linjan voimassaoloa.",
     "validityStartIsAfterEnd": "Reitin voimassaoloaijan alku ei voi olla ennen loppua."
   },
   "lines": {

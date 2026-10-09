@@ -351,6 +351,39 @@ describe('Route creation', rootOpts, () => {
       .and('contain', versionComment);
   });
 
+  it(
+    'should warn and block saving when route validity exceeds line validity',
+    { tags: [Tag.Network] },
+    () => {
+      MapPage.map.visit(mapLocation);
+      MapPage.map.waitForLoadToComplete();
+
+      MapFooter.createRoute();
+
+      // Line 9999 is valid 2000-01-02 - 2054-12-24.
+      MapPage.routePropertiesForm.fillRouteProperties({
+        finnishName: 'Validity conflict route',
+        label: '9999Y',
+        line: '9999',
+        direction: RouteDirectionEnum.Outbound,
+        priority: Priority.Standard,
+        validityStartISODate: '2001-01-01',
+        validityEndISODate: '2060-01-01',
+      });
+
+      MapPage.routePropertiesForm.getLineValidityError().shouldBeVisible();
+      MapPage.editRouteModal.getSaveButton().should('be.disabled');
+
+      // Move the route's end date inside the line's validity period.
+      MapPage.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+        '2050-01-01',
+      );
+
+      MapPage.routePropertiesForm.getLineValidityError().should('not.exist');
+      MapPage.editRouteModal.getSaveButton().should('be.enabled');
+    },
+  );
+
   it('should cancel creating a new route', () => {
     MapPage.map.visit(mapLocation);
     MapPage.map.waitForLoadToComplete();
