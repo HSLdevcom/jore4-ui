@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import { RouteAllFieldsFragment } from '../../../../../generated/graphql';
 import {
   selectEditedRouteData,
+  selectHasDraftRouteGeometry,
   selectMapRouteEditor,
   setTemplateRouteIdAction,
   useAppDispatch,
@@ -82,6 +83,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
   const { templateRouteId } = useAppSelector(selectEditedRouteData);
+  const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const methods = useForm<RouteFormState>({
     defaultValues,
@@ -136,6 +138,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                   </SwitchLabel>
                   <Switch
                     checked={showTemplateRouteSelector}
+                    disabled={hasDraftRouteGeometry}
                     testId={testIds.useTemplateRouteButton}
                     onChange={(enabled: boolean) => {
                       setShowTemplateRouteSelector(enabled);
