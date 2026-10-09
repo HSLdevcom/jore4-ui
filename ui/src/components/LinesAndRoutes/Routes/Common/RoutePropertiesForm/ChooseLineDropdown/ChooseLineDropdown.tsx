@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../../../../generated/graphql';
 import { selectEditedRouteData, useAppSelector } from '../../../../../../redux';
@@ -13,6 +13,7 @@ import { useChooseLineDropdown } from './useChooseLineDropdown';
 
 type ChooseLineDropdownProps = ComboboxInputProps & {
   readonly testId?: string;
+  readonly onLineSelected?: (line: LineForComboboxFragment | undefined) => void;
 };
 
 function mapToOption(item: LineForComboboxFragment): ComboboxOptionItem {
@@ -37,6 +38,7 @@ export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
   value,
   onChange,
   onBlur,
+  onLineSelected,
 }) => {
   const { t } = useTranslation();
   const { vehicleMode } = useAppSelector(selectEditedRouteData);
@@ -48,6 +50,12 @@ export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
     value,
     vehicleMode,
   );
+
+  // Hand the resolved line (incl. its validity) up to the form so dependent
+  // checks can read it without re-fetching.
+  useEffect(() => {
+    onLineSelected?.(selectedLine);
+  }, [onLineSelected, selectedLine]);
 
   const options = lines?.map(mapToOption) ?? [];
 

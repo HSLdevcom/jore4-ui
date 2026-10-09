@@ -1,10 +1,18 @@
 import { Field } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useCallback,
+  useState,
+} from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { RouteAllFieldsFragment } from '../../../../../generated/graphql';
+import {
+  LineForComboboxFragment,
+  RouteAllFieldsFragment,
+} from '../../../../../generated/graphql';
 import {
   selectEditedRouteData,
   selectMapRouteEditor,
@@ -12,6 +20,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../../redux';
+import { mapToValidityPeriod } from '../../../../../utils';
 import {
   ChangeValidityForm,
   FormActionButtons,
@@ -30,6 +39,7 @@ import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
+import { useRouteLineValidityConflict } from './useRouteLineValidityConflict';
 
 export type RoutePropertiesFormProps = {
   readonly id?: string;
@@ -53,6 +63,7 @@ const testIds = {
   finnishName: 'RoutePropertiesFormComponent::finnishName',
   variant: 'RoutePropertiesFormComponent::variant',
   versionComment: 'RoutePropertiesFormComponent::versionComment',
+  lineValidityError: 'RoutePropertiesFormComponent::lineValidityError',
   useTemplateRouteButton:
     'RoutePropertiesFormComponent::useTemplateRouteButton',
 };
@@ -99,6 +110,27 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   const hasSavableChanges = hasSavableDirtyFields({
     dirtyFields: methods.formState.dirtyFields,
     ignoredFields: ['versionComment'],
+  });
+
+  const [validityStart, validityEnd, indefinite] = methods.watch([
+    'validityStart',
+    'validityEnd',
+    'indefinite',
+  ]);
+
+  const [selectedLine, setSelectedLine] =
+    useState<LineForComboboxFragment | null>(null);
+  const handleLineSelected = useCallback(
+    (line: LineForComboboxFragment | undefined) =>
+      setSelectedLine(line ?? null),
+    [],
+  );
+
+  const { hasConflict } = useRouteLineValidityConflict({
+    line: selectedLine,
+    validityStart,
+    validityEnd,
+    indefinite,
   });
 
   const setTemplateRoute = (templateRoute?: RouteAllFieldsFragment) => {
@@ -200,7 +232,10 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 testId={testIds.lineChoiceDropdown}
 
                 inputElementRenderer={(props) => (
-                  <ChooseLineDropdown {...props} />
+                  <ChooseLineDropdown
+                    {...props}
+                    onLineSelected={handleLineSelected}
+                  />
                 )}
                 className="sm:col-span-3"
                 required
@@ -218,13 +253,31 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 customTitlePath: 'reasonForChangeForm.reasonForChange',
                 testId: testIds.versionComment,
               }}
+              validityPeriodError={
+                hasConflict && selectedLine ? (
+                  <p
+                    className="mt-3.5 text-sm font-bold text-hsl-red"
+                    data-testid={testIds.lineValidityError}
+                  >
+                    {t(($) => $.routes.lineValidityNotEnough, {
+                      validity: mapToValidityPeriod(
+                        t,
+                        selectedLine.validity_start,
+                        selectedLine.validity_end,
+                      ),
+                    })}
+                  </p>
+                ) : undefined
+              }
             />
           </FormRow>
         </div>
         <FormActionButtons
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
-          isDisabled={!hasSavableChanges || methods.formState.isSubmitting}
+          isDisabled={
+            !hasSavableChanges || methods.formState.isSubmitting || hasConflict
+          }
           isSubmitting={methods.formState.isSubmitting}
           className={actionButtonsClassName}
           onDelete={onDelete}
