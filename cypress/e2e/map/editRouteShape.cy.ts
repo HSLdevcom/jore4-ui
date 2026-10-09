@@ -239,6 +239,17 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
       MapPage.map.getLoader().should('exist');
       MapPage.map.getLoader().should('not.exist');
 
+      // Wait until the template route's geometry has been map-matched and the
+      // stops are populated. Otherwise the first handle move can run before the
+      // snapping line is ready and end up being a no-op.
+      RouteStopsOverlay.stopsShouldBeIncludedInRoute([
+        'E2E001',
+        'E2E002',
+        'E2E003',
+        'E2E004',
+        'E2E005',
+      ]);
+
       // Move the two handles so that E2E002 should not be included in the route.
       MapPage.map.moveRouteEditorHandleByCoordinates({
         start: { longitude: 24.93737988831691, latitude: 60.16655610103186 },
