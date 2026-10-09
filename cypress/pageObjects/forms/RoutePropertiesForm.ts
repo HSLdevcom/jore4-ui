@@ -61,6 +61,10 @@ export class RoutePropertiesForm {
     return cy.getByTestId('RoutePropertiesFormComponent::versionComment');
   }
 
+  static getLineValidityError() {
+    return cy.getByTestId('RoutePropertiesFormComponent::lineValidityError');
+  }
+
   static selectDirection(direction: RouteDirectionEnum) {
     cy.getByTestId(
       'RoutePropertiesFormComponent::directionDropdown::ListboxButton',

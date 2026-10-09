@@ -12,6 +12,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../../redux';
+import { mapToValidityPeriod } from '../../../../../utils';
 import {
   ChangeValidityForm,
   FormActionButtons,
@@ -30,6 +31,7 @@ import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import { TemplateRouteSelector } from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
+import { useRouteLineValidityConflict } from './useRouteLineValidityConflict';
 
 export type RoutePropertiesFormProps = {
   readonly id?: string;
@@ -53,6 +55,7 @@ const testIds = {
   finnishName: 'RoutePropertiesFormComponent::finnishName',
   variant: 'RoutePropertiesFormComponent::variant',
   versionComment: 'RoutePropertiesFormComponent::versionComment',
+  lineValidityError: 'RoutePropertiesFormComponent::lineValidityError',
   useTemplateRouteButton:
     'RoutePropertiesFormComponent::useTemplateRouteButton',
 };
@@ -99,6 +102,19 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   const hasSavableChanges = hasSavableDirtyFields({
     dirtyFields: methods.formState.dirtyFields,
     ignoredFields: ['versionComment'],
+  });
+
+  const [onLineId, validityStart, validityEnd, indefinite] = methods.watch([
+    'onLineId',
+    'validityStart',
+    'validityEnd',
+    'indefinite',
+  ]);
+  const { hasConflict, line } = useRouteLineValidityConflict({
+    onLineId,
+    validityStart,
+    validityEnd,
+    indefinite,
   });
 
   const setTemplateRoute = (templateRoute?: RouteAllFieldsFragment) => {
@@ -218,13 +234,31 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 customTitlePath: 'reasonForChangeForm.reasonForChange',
                 testId: testIds.versionComment,
               }}
+              validityPeriodError={
+                hasConflict && line ? (
+                  <p
+                    className="mt-3.5 text-sm font-bold text-hsl-red"
+                    data-testid={testIds.lineValidityError}
+                  >
+                    {t(($) => $.routes.lineValidityNotEnough, {
+                      validity: mapToValidityPeriod(
+                        t,
+                        line.validity_start,
+                        line.validity_end,
+                      ),
+                    })}
+                  </p>
+                ) : undefined
+              }
             />
           </FormRow>
         </div>
         <FormActionButtons
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
-          isDisabled={!hasSavableChanges || methods.formState.isSubmitting}
+          isDisabled={
+            !hasSavableChanges || methods.formState.isSubmitting || hasConflict
+          }
           isSubmitting={methods.formState.isSubmitting}
           className={actionButtonsClassName}
           onDelete={onDelete}

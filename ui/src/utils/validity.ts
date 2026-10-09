@@ -8,8 +8,10 @@ export function mapToValidityPeriod(
   validityStart?: DateTime | null,
   validityEnd?: DateTime | null,
 ) {
-  return `${mapToShortDate(validityStart)} -  ${
-    mapToShortDate(validityEnd) ?? t(($) => $.saveChangesModal.indefinite)
+  const indefinite = t(($) => $.saveChangesModal.indefinite);
+
+  return `${mapToShortDate(validityStart) ?? indefinite} -  ${
+    mapToShortDate(validityEnd) ?? indefinite
   }`;
 }
 

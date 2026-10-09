@@ -61,6 +61,7 @@
     "tooFewStops": "There must be at least two stops on route.",
     "startNotInsideLineValidity": "Route's validity period cannot start before line's validity period.",
     "endNotInsideLineValidity": "Route's validity period cannot exceed the line's validity period.",
+    "lineValidityNotEnough": "The line's validity period {{validity}} is not enough. Update the route's or line's validity period.",
     "validityStartIsAfterEnd": "Route's validity period start cannot be after end."
   },
   "lines": {

@@ -31,17 +31,17 @@ type ValidityPeriodParams = {
   readonly validity_end?: DateTime | null;
 };
 
-// TODOO: Replace with custom errors and translate them at catch site.
-export function assertRouteValidityIsInsideLineValidity(
-  t: TFunction,
+export type RouteLineValidityViolation = 'startBeforeLine' | 'endAfterLine';
+
+export function getRouteLineValidityViolation(
   route: ValidityPeriodParams,
   line: ValidityPeriodParams,
-) {
+): RouteLineValidityViolation | null {
   if (
     !route.validity_start ||
     (line.validity_start && route.validity_start < line.validity_start)
   ) {
-    throw new Error(t(($) => $.routes.startNotInsideLineValidity));
+    return 'startBeforeLine';
   }
 
   const lineValidityEnd = line.validity_end?.endOf('day');
@@ -50,6 +50,24 @@ export function assertRouteValidityIsInsideLineValidity(
     lineValidityEnd &&
     (!route.validity_end || route.validity_end > lineValidityEnd)
   ) {
+    return 'endAfterLine';
+  }
+
+  return null;
+}
+
+export function assertRouteValidityIsInsideLineValidity(
+  t: TFunction,
+  route: ValidityPeriodParams,
+  line: ValidityPeriodParams,
+) {
+  const violation = getRouteLineValidityViolation(route, line);
+
+  if (violation === 'startBeforeLine') {
+    throw new Error(t(($) => $.routes.startNotInsideLineValidity));
+  }
+
+  if (violation === 'endAfterLine') {
     throw new Error(t(($) => $.routes.endNotInsideLineValidity));
   }
 }
