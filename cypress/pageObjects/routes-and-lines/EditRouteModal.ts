@@ -1,4 +1,10 @@
 export class EditRouteModal {
+  static getSaveButton() {
+    return cy
+      .getByTestId('EditRouteModal')
+      .findByTestId('EditRouteModal::saveButton');
+  }
+
   static save() {
     cy.getByTestId('EditRouteModal')
       .findByTestId('EditRouteModal::saveButton')
