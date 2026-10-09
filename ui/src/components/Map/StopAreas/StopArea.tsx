@@ -5,8 +5,8 @@ import {
   getGeometryPoint,
   parseStopRegistryTransportMode,
 } from '../../../utils';
+import { mapTransportModeToColor } from '../../../utils/colors';
 import { MapStopArea } from '../Types';
-import { mapTransportModeToColor } from '../Utils/colors';
 import { StopAreaMarker } from './StopAreaMarker';
 
 const testIds = {

@@ -15,6 +15,7 @@ import {
   filterHighestPriorityCurrentStops,
   getTransportModeIcon,
 } from '../../../../utils';
+import { mapVehicleModeToRouteColor } from '../../../../utils/colors';
 import { mapDirectionToSymbol } from '../../../../utils/i18n';
 import { EditButton } from '../../../common/Buttons';
 import { Row, Visible } from '../../../common/LayoutComponents';
@@ -23,7 +24,6 @@ import { CustomOverlay } from '../../CustomOverlay';
 import { MapOverlay, MapOverlayHeader } from '../../MapOverlay';
 import { PriorityBadge } from '../../PriorityBadge';
 import { useMapObservationDate } from '../../Utils/mapUrlState';
-import { mapVehicleModeToRouteColor } from '../Utils';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 import { useRouteInfo } from './useRouteInfo';
 
