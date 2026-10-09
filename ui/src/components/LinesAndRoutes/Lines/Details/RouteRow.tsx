@@ -108,7 +108,11 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         id={directionAndLabelId}
         className="col-span-2 ml-2 flex h-full items-center justify-evenly"
       >
-        <DirectionBadge direction={route.direction as RouteDirectionEnum} />
+        <DirectionBadge
+          direction={route.direction as RouteDirectionEnum}
+          vehicleMode={route.route_line.primary_vehicle_mode}
+          lineType={route.route_line.type_of_line}
+        />
         {/* Route label max is 6 characters including space and the variant */}
         <span className="ml-2 w-[6ch] text-xl" data-testid={testIds.label}>
           <RouteLabel label={label} variant={route.variant} />
