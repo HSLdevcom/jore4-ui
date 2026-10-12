@@ -270,7 +270,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                       ),
                     })}
                   </p>
-                ) : undefined
+                ) : null
               }
             />
           </FormRow>

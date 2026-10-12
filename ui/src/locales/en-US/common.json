@@ -147,7 +147,8 @@
     "tiamatUpdateFailed": "Saving the changes into the Stop Registry failed! Routes and lines database has not been updated. Reason: {{ errorMessage }}",
     "stopPointUpdateFailed": "The stop's details have been saved into the Stop Registry, but saving them into the routes and lines database failed! You ought to retry the saving! Reason: {{ errorMessage }}",
     "missingIds": "The Stop Registry and the Lines and Routes database are out of sync. This stop cannot currently be edited.",
-    "stopConflictsOnCopyError": "Copying the stop failed: validity period and priority cause an overlap with an existing version."
+    "stopConflictsOnCopyError": "Copying the stop failed: validity period and priority cause an overlap with an existing version.",
+    "stopAreaValidityNotEnough": "The stop area's validity period {{validity}} is not enough. Update the stop's or stop area's validity period."
   },
   "stopArea": {
     "stopArea": "Stop area",
