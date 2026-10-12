@@ -21,24 +21,26 @@ function mapFormStateToInput({
 }: UpdateTerminalOwnerInputs): StopRegistryParentStopPlaceInput {
   const { id } = terminal;
 
+  const organisations = compact(terminal.organisations)
+    .map((org) => pick(org, 'organisationRef', 'relationshipType'))
+    .filter(
+      (it) =>
+        it.relationshipType !==
+        StopRegistryStopPlaceOrganisationRelationshipType.Owner,
+    )
+    .concat(
+      state.ownerRef
+        ? {
+            organisationRef: state.ownerRef,
+            relationshipType:
+              StopRegistryStopPlaceOrganisationRelationshipType.Owner,
+          }
+        : [],
+    );
+
   return {
     id,
-    organisations: compact(terminal.organisations)
-      .map((org) => pick(org, 'organisationRef', 'relationshipType'))
-      .filter(
-        (it) =>
-          it.relationshipType !==
-          StopRegistryStopPlaceOrganisationRelationshipType.Owner,
-      )
-      .concat(
-        state.ownerRef
-          ? {
-              organisationRef: state.ownerRef,
-              relationshipType:
-                StopRegistryStopPlaceOrganisationRelationshipType.Owner,
-            }
-          : [],
-      ),
+    organisations: organisations.length ? organisations : [null],
     keyValues: patchKeyValues(terminal, [
       {
         key: KnownValueKey.OwnerContractId,

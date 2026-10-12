@@ -41,10 +41,12 @@ export const OwnerOrganizationFields: FC<MaintainerFormFieldsProps> = ({
   const { setValue, resetField, watch } =
     useFormContext<TerminalOwnerFormState>();
 
-  const selectedOwnerRef = watch('ownerRef') ?? String(null);
+  const selectedOwnerRef = watch('ownerRef') ?? null;
   const selectedOwner =
     organisations.find((o) => o?.id === selectedOwnerRef) ?? null;
-  const [previousValue, setPreviousValue] = useState<string>(selectedOwnerRef);
+  const [previousValue, setPreviousValue] = useState<string | null>(
+    selectedOwnerRef,
+  );
 
   const [isEditingOrganisation, setIsEditingOrganisation] = useState(false);
   const [editedOrganisation, setEditedOrganisation] =
