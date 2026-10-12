@@ -501,6 +501,27 @@ describe('Terminal details', { tags: [Tag.StopRegistry, Tag.Map] }, () => {
       view.getPhone().shouldHaveText('+3585645638');
       view.getEmail().shouldHaveText('jore4.testi.email@hsl.fi');
     });
+
+    it('should clear owner details', () => {
+      const {
+        owner,
+        owner: { view, edit },
+      } = TerminalDetailsPage;
+
+      TerminalDetailsPage.page().shouldBeVisible();
+      assertOwnerDetails();
+
+      owner.getEditButton().click();
+      edit.getOwnerDropdownButton().click();
+      edit.getOwnerDropdownOptions().contains('Ei toimijaa').click();
+      owner.getSaveButton().click();
+      Toast.expectSuccessToast('Terminaali muokattu');
+
+      view.getNotSelectedPlaceholder().shouldHaveText('-');
+      view.getName().should('not.exist');
+      view.getContractId().shouldHaveText('-');
+      view.getNote().shouldHaveText('-');
+    });
   });
 
   describe('external links', () => {
