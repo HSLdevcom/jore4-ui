@@ -26,6 +26,14 @@ const routeColors: Record<ReusableComponentsVehicleModeEnum, string> = {
   [ReusableComponentsVehicleModeEnum.Tram]: colors.routes.tram,
 };
 
+const routeColorClasses: Record<ReusableComponentsVehicleModeEnum, string> = {
+  [ReusableComponentsVehicleModeEnum.Bus]: 'bg-tweaked-brand',
+  [ReusableComponentsVehicleModeEnum.Ferry]: 'bg-hsl-ferry-blue',
+  [ReusableComponentsVehicleModeEnum.Metro]: 'bg-hsl-metro-orange',
+  [ReusableComponentsVehicleModeEnum.Train]: 'bg-hsl-train-purple',
+  [ReusableComponentsVehicleModeEnum.Tram]: 'bg-hsl-tram-green',
+};
+
 export function mapTransportModeToColor(
   transportMode?: StopRegistryTransportModeType | null,
 ): string {
@@ -51,3 +59,17 @@ export function mapVehicleModeToRouteColor(
   return routeColors[key];
 }
 
+export function mapVehicleModeToRouteColorClass(
+  key: ReusableComponentsVehicleModeEnum,
+  typeOfLine?: RouteTypeOfLineEnum,
+): string {
+  if (typeOfLine === RouteTypeOfLineEnum.ExpressBusService) {
+    return 'bg-hsl-trunk-line-orange';
+  }
+
+  if (typeOfLine === RouteTypeOfLineEnum.RegionalTramService) {
+    return 'bg-hsl-speed-tram-turquoise';
+  }
+
+  return routeColorClasses[key];
+}
