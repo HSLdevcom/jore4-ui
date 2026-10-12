@@ -10,6 +10,7 @@ import {
 } from '../../../generated/graphql';
 import { parseDate } from '../../../time';
 import { mapDateInputToValidityEnd } from '../../../utils';
+import { getValidityContainmentViolation } from '../../../utils/validity';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
 const GQL_GET_LINE_VALIDITY_BY_ID = gql`
@@ -37,19 +38,13 @@ export function getRouteLineValidityViolation(
   route: ValidityPeriodParams,
   line: ValidityPeriodParams,
 ): RouteLineValidityViolation | null {
-  if (
-    !route.validity_start ||
-    (line.validity_start && route.validity_start < line.validity_start)
-  ) {
+  const violation = getValidityContainmentViolation(route, line);
+
+  if (violation === 'startBeforeParent') {
     return 'startBeforeLine';
   }
 
-  const lineValidityEnd = line.validity_end?.endOf('day');
-
-  if (
-    lineValidityEnd &&
-    (!route.validity_end || route.validity_end > lineValidityEnd)
-  ) {
+  if (violation === 'endAfterParent') {
     return 'endAfterLine';
   }
 

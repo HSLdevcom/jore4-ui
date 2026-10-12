@@ -29,6 +29,7 @@ import {
   mapDateInputToValidityEnd,
   mapPointToGeoJSON,
   mapPointToStopRegistryGeoJSON,
+  mapToValidityPeriod,
   patchKeyValues,
 } from '../../../../../utils';
 import { FormActionButtons } from '../../../../common/Forms';
@@ -47,7 +48,12 @@ import {
   usePrepareCreate,
   usePrepareEdit,
 } from '../../utils';
-import { Location, PublicCodeAndArea, VersionInfo } from './index';
+import {
+  Location,
+  PublicCodeAndArea,
+  VersionInfo,
+  useStopAreaValidityConflict,
+} from './index';
 
 type StopFormStateStopPointMappedSetInput = Omit<
   ServicePatternScheduledStopPointInsertInput,
@@ -306,6 +312,32 @@ const StopFormComponent: ForwardRefRenderFunction<
   } = methods;
   const missingId = errors.stopId?.message === MISSING_ID;
 
+  const [validityStart, validityEnd, indefinite, stopArea] = methods.watch([
+    'validityStart',
+    'validityEnd',
+    'indefinite',
+    'stopArea',
+  ]);
+  const { hasConflict } = useStopAreaValidityConflict({
+    stopArea,
+    validityStart,
+    validityEnd,
+    indefinite,
+  });
+  const stopAreaValidityError =
+    hasConflict && stopArea ? (
+      <ValidationError
+        fieldPath="stopAreaValidity"
+        errorMessage={t(($) => $.stops.stopAreaValidityNotEnough, {
+          validity: mapToValidityPeriod(
+            t,
+            parseDate(stopArea.validityStart),
+            stopArea.validityEnd ? parseDate(stopArea.validityEnd) : null,
+          ),
+        })}
+      />
+    ) : null;
+
   const prepareEdit = usePrepareEdit();
   const defaultErrorHandler = useDefaultErrorHandler();
   const prepareCreate = usePrepareCreate();
@@ -378,7 +410,10 @@ const StopFormComponent: ForwardRefRenderFunction<
             stopAreaDisabled={!!defaultValues.stopArea}
           />
           <Location className="p-4" />
-          <VersionInfo className="border-t border-light-grey p-4" />
+          <VersionInfo
+            className="border-t border-light-grey p-4"
+            validityError={stopAreaValidityError}
+          />
 
           {missingId ?? (
             <ValidationError
@@ -391,7 +426,9 @@ const StopFormComponent: ForwardRefRenderFunction<
           onCancel={onCancel}
           testIdPrefix={testIdPrefix}
           isDisabled={
-            !methods.formState.isDirty || methods.formState.isSubmitting
+            !methods.formState.isDirty ||
+            methods.formState.isSubmitting ||
+            hasConflict
           }
           isSubmitting={methods.formState.isSubmitting}
           variant="modal"

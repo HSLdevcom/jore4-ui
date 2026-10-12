@@ -296,11 +296,14 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
   });
 
   it('Should create a new timing place', { scrollBehavior: 'bottom' }, () => {
+    // E2E008's stop area is indefinite, so the stop's open validity fits inside it.
+    const [stop] = stops.filter((it) => it.label === 'E2E008');
+
     FilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     Map.waitForLoadToComplete();
 
-    Map.getStopByStopLabelAndPriority(stops[0].label, stops[0].priority).click({
+    Map.getStopByStopLabelAndPriority(stop.label, stop.priority).click({
       force: true,
     });
 
@@ -323,7 +326,7 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
     StopForm.getModal().should('not.exist');
     expectGraphQLCallToSucceed('@gqlGetMapStops');
 
-    Map.getStopByStopLabelAndPriority(stops[0].label, stops[0].priority).click({
+    Map.getStopByStopLabelAndPriority(stop.label, stop.priority).click({
       force: true,
     });
     expectGraphQLCallToSucceed('@gqlGetStopInfoForEditingOnMap');

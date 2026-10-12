@@ -333,6 +333,7 @@ describe('Stop Change History', { tags }, () => {
           publicCode: 'T1234',
           stopPlace: 'AreaA',
           validityStartISODate: '2022-01-01',
+          validityEndISODate: '2050-01-01',
           priority: Priority.Standard,
           reasonForChange: 'Initial creation',
         },
