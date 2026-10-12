@@ -1,7 +1,12 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { RouteDirectionEnum } from '../../../generated/graphql';
+import {
+  ReusableComponentsVehicleModeEnum,
+  RouteDirectionEnum,
+  RouteTypeOfLineEnum,
+} from '../../../generated/graphql';
+import { mapVehicleModeToRouteColorClass } from '../../../utils/colors';
 import {
   mapDirectionToSymbol,
   mapDirectionToUiName,
@@ -17,21 +22,31 @@ export const directionBadgeTestIds = testIds;
 type DirectionBadgeProps = {
   readonly direction: RouteDirectionEnum;
   readonly className?: string;
+  readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
+  readonly lineType?: RouteTypeOfLineEnum;
 };
 
 export const DirectionBadge: FC<DirectionBadgeProps> = ({
   direction,
   className,
+  vehicleMode,
+  lineType,
 }) => {
   const { t } = useTranslation();
 
   const directionText = mapDirectionToUiName(t, direction);
+  const backgroundColor = mapVehicleModeToRouteColorClass(
+    vehicleMode ?? ReusableComponentsVehicleModeEnum.Bus,
+    lineType,
+  );
+
   return (
     <span
       title={directionText}
       data-testid={testIds.container}
       className={twMerge(
-        'flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white',
+        'flex h-9 w-9 items-center justify-center text-2xl font-bold text-white',
+        backgroundColor,
         className,
       )}
     >
