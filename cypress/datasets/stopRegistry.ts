@@ -72,8 +72,8 @@ const stopPlaceData: Array<StopAreaInput> = [
       alternativeNames: Annankatu15AltNames,
       transportMode: StopRegistryTransportModeType.Bus,
       keyValues: [
-        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
-        { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
+        { key: KnownValueKey.ValidityStart, values: ['2000-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
       ],
       geometry: {
         coordinates: [24.938927, 60.165433],
@@ -114,8 +114,8 @@ const stopPlaceData: Array<StopAreaInput> = [
       name: { lang: 'fin', value: 'Kalevankatu 32' },
       transportMode: StopRegistryTransportModeType.Bus,
       keyValues: [
-        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
-        { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
+        { key: KnownValueKey.ValidityStart, values: ['2000-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
       ],
       geometry: {
         coordinates: [24.93291498, 60.16553899],
@@ -355,7 +355,7 @@ const stopPlaceData: Array<StopAreaInput> = [
       name: { lang: 'fin', value: 'Eteläinen Hesperiankatu' },
       transportMode: StopRegistryTransportModeType.Bus,
       keyValues: [
-        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
+        { key: KnownValueKey.ValidityStart, values: ['2000-01-01'] },
         { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
       ],
       geometry: {
@@ -392,6 +392,10 @@ const stopPlaceData: Array<StopAreaInput> = [
       privateCode: { type: 'HSL/TEST', value: 'E2ENQ' },
       name: { lang: 'fin', value: 'No quays' },
       transportMode: StopRegistryTransportModeType.Bus,
+      keyValues: [
+        { key: KnownValueKey.ValidityStart, values: ['2000-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
+      ],
       quays: [],
       geometry: {
         coordinates: [60.16993495, 24.92596546],

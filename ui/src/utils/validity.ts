@@ -15,6 +15,42 @@ export function mapToValidityPeriod(
   }`;
 }
 
+type ValidityPeriodBounds = {
+  readonly validity_start?: DateTime | null;
+  readonly validity_end?: DateTime | null;
+};
+
+export type ValidityContainmentViolation =
+  'startBeforeParent' | 'endAfterParent';
+
+/**
+ * Check whether the `child` validity period fits fully inside the `parent`
+ * validity period. An indefinite (null) start or end on the parent means the
+ * period is unbounded in that direction.
+ */
+export function getValidityContainmentViolation(
+  child: ValidityPeriodBounds,
+  parent: ValidityPeriodBounds,
+): ValidityContainmentViolation | null {
+  if (
+    !child.validity_start ||
+    (parent.validity_start && child.validity_start < parent.validity_start)
+  ) {
+    return 'startBeforeParent';
+  }
+
+  const parentValidityEnd = parent.validity_end?.endOf('day');
+
+  if (
+    parentValidityEnd &&
+    (!child.validity_end || child.validity_end > parentValidityEnd)
+  ) {
+    return 'endAfterParent';
+  }
+
+  return null;
+}
+
 /**
  * Check if given `entity`'s validity starts in the future at given `observationDate`
  * @param observationDate Date related to which entity validity is checked

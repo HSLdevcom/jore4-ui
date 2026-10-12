@@ -354,23 +354,16 @@ function assembleStopPlace(
   return {
     ...stopPlace,
     quays: patchedQuays.length ? patchedQuays : [null],
-    keyValues: combineKeyValues(
-      [
-        {
-          key: KnownValueKey.Priority,
-          values: ['10'],
-        },
-        {
-          key: KnownValueKey.ValidityStart,
-          values: ['2000-01-01'],
-        },
-        {
-          key: KnownValueKey.ValidityEnd,
-          values: ['2052-01-01'],
-        },
-      ],
-      stopPlace.keyValues,
-    ),
+    keyValues: combineKeyValues(stopPlace.keyValues, [
+      {
+        key: KnownValueKey.Priority,
+        values: ['10'],
+      },
+      {
+        key: KnownValueKey.ValidityStart,
+        values: ['2000-01-01'],
+      },
+    ]),
   };
 }
 

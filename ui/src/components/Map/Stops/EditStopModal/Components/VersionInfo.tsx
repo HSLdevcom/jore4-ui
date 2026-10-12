@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   PriorityForm,
@@ -11,9 +11,15 @@ const testIds = {
   container: 'StopFormComponent::VersionInfoContainer',
 };
 
-type VersionInfoProps = { readonly className?: string };
+type VersionInfoProps = {
+  readonly className?: string;
+  readonly validityError?: ReactNode;
+};
 
-export const VersionInfo: FC<VersionInfoProps> = ({ className }) => {
+export const VersionInfo: FC<VersionInfoProps> = ({
+  className,
+  validityError,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -26,6 +32,7 @@ export const VersionInfo: FC<VersionInfoProps> = ({ className }) => {
         <PriorityForm />
       </FormRow>
       <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
+      {validityError}
     </FormColumn>
   );
 };
