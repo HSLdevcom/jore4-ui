@@ -19,6 +19,7 @@ export type AlertStatus = {
 type AlertStatusInput = {
   readonly priority: Priority;
   readonly validity_end?: DateLike | null | undefined;
+  readonly version_comment?: string | null | undefined;
 };
 
 function getAlertListItemBorder(alert: AlertLevel) {
@@ -79,7 +80,7 @@ export function getAlertStatus(
     return {
       alertLevel: AlertLevel.Warning,
       title: t(($) => $.alert.warning.topic),
-      description: t(($) => $.alert.warning.description),
+      description: input.version_comment?.trim() ?? '-',
     };
   }
 
