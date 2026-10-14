@@ -52,6 +52,7 @@ const GQL_ROUTE_TABLE_ROW = gql`
 type RouteTableRowProps = {
   readonly className?: string;
   readonly route: RouteTableRowFragment;
+  readonly hasContinuingVersion?: boolean;
   readonly isSelectable?: boolean;
   readonly rowVariant: RouteLineTableRowVariant;
 };
@@ -64,6 +65,7 @@ type RouteTableRowProps = {
 export const RouteTableRow: FC<RouteTableRowProps> = ({
   className,
   route,
+  hasContinuingVersion,
   isSelectable = false,
   rowVariant,
 }) => {
@@ -98,6 +100,7 @@ export const RouteTableRow: FC<RouteTableRowProps> = ({
       lineId={route.on_line_id}
       isSelected={isSelected}
       hasTimetables={hasTimetables}
+      hasContinuingVersion={hasContinuingVersion}
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
       testId={route.unique_label}
     />

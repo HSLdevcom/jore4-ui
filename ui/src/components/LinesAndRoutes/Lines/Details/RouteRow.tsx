@@ -50,6 +50,7 @@ type RouteRowProps = {
   readonly directionAndLabelId: string;
   readonly className?: string;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
+  readonly hasContinuingVersion: boolean;
   readonly observationDate: DateTime;
   readonly isExpanded: boolean;
   readonly isLast: boolean;
@@ -61,6 +62,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
   directionAndLabelId,
   className,
   route,
+  hasContinuingVersion,
   observationDate,
   isExpanded,
   isLast,
@@ -72,7 +74,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
 
   const { showRouteOnMap } = useShowRoutesOnMap();
 
-  const alertStatus = getAlertStatus(t, route);
+  const alertStatus = getAlertStatus(t, { ...route, hasContinuingVersion });
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
 
   const onClickShowRouteOnMap = () => {

@@ -1,4 +1,5 @@
 export * from './alertStatus';
+export * from './useContinuingVersions';
 export * from './useNavigateToMap';
 export * from './useReturnToQueryParam';
 export * from './useShowRoutesOnMap';
