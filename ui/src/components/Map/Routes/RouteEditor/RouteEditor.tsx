@@ -25,8 +25,10 @@ import {
   setDraftRouteJourneyPatternAction,
   setLineInfoAction,
   setRouteMetadataAction,
+  setRouteToDrawModeAction,
   setRouteToEditModeAction,
   setSelectedRouteIdAction,
+  setTemplateRouteIdAction,
   startRouteCreatingAction,
   startRouteEditingAction,
   stopRouteEditingAction,
@@ -69,6 +71,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
 
   const { resetUrlState } = useMapUrlStateContext();
 
+  const [isDeletingRouteGeometry, setIsDeletingRouteGeometry] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const {
@@ -151,6 +154,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
     dispatch(setRouteToEditModeAction());
   };
 
+  const onRedrawRoute = async () => {
+    if (creatingNewRoute) {
+      dispatch(setRouteToDrawModeAction());
+      return;
+    }
+
+    await onEditRoute();
+  };
+
   const onStopEditRoute = () => {
     dispatch(stopRouteEditingAction());
   };
@@ -178,8 +190,21 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
     }
   };
 
+  const onDeleteRouteGeometryConfirm = () => {
+    dispatch(resetDraftRouteGeometryAction());
+    dispatch(setTemplateRouteIdAction(undefined));
+    dispatch(stopRouteEditingAction());
+    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+    setIsDeletingRouteGeometry(false);
+  };
+
+  const onDeleteRouteGeometry = () => {
+    setIsDeletingRouteGeometry(true);
+  };
+
   const onDeleteConfirm = async () => {
     if (!editedRouteId) {
+      setIsDeleting(false);
       return;
     }
 
@@ -202,17 +227,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   };
 
   const onDeleteRoute = async () => {
-    if (creatingNewRoute) {
-      onCancel();
-    } else {
-      setIsDeleting(true);
-    }
+    setIsDeleting(true);
   };
 
   useImperativeHandle(externalRef, () => ({
     onDrawRoute,
+    onRedrawRoute,
     onEditRoute,
     onStopEditRoute,
+    onDeleteRouteGeometry,
     onDeleteRoute,
     onCancel,
     onSave,
@@ -220,6 +243,18 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
 
   return (
     <>
+      {/* Route geometry deletion dialog */}
+      <ConfirmationDialog
+        isOpen={isDeletingRouteGeometry}
+        onCancel={() => setIsDeletingRouteGeometry(false)}
+        onConfirm={onDeleteRouteGeometryConfirm}
+        title={t(($) => $.confirmDeleteDrawnRouteDialog.title)}
+        description={t(($) => $.confirmDeleteDrawnRouteDialog.description)}
+        confirmText={t(($) => $.confirmDeleteDrawnRouteDialog.confirmText)}
+        cancelText={t(($) => $.cancel)}
+      />
+
+      {/* Route deletion dialog */}
       <ConfirmationDialog
         isOpen={isDeleting}
         onCancel={() => setIsDeleting(false)}

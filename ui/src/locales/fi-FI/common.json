@@ -898,7 +898,7 @@
     "joreMap": "Jore 4.0 kartta",
     "pageTitle": "Kartta",
     "drawRoute": "Vedä reitti",
-    "addRoute": "Lisää reitti",
+    "redrawRoute": "Vedä reitti uudelleen",
     "addBusRoute": "Lisää bussireitti",
     "addTramRoute": "Lisää raitiovaunureitti",
     "editRoute": "Muokkaa reittiä",
@@ -910,6 +910,7 @@
     "depotStopLabel": "Pysäkin tunnus",
     "depotStopTransportMode": "Joukkoliikennemuoto",
     "deleteRoute": "Poista reitti",
+    "deleteDrawnRoute": "Poista piirretty reitti",
     "deleteStop": "Poista pysäkki",
     "copyStop": "Kopioi pysäkki",
     "location": "Sijainti",
@@ -952,6 +953,11 @@
     "title": "Poista reitti?",
     "description": "Reitti poistetaan sille kuuluvalta linjalta.",
     "confirmText": "Poista"
+  },
+  "confirmDeleteDrawnRouteDialog": {
+    "title": "Poistetaan piirretty reitti",
+    "description": "Perustiedot säilyvät.",
+    "confirmText": "Poista reitti"
   },
   "confirmDeleteStopDialog": {
     "title": "Poista pysäkki?",

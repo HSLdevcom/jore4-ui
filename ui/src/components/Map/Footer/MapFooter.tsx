@@ -41,8 +41,10 @@ type MapFooterProps = {
   readonly onDrawRoute: (
     vehicleMode: ReusableComponentsVehicleModeEnum,
   ) => void;
+  readonly onRedrawRoute: () => void;
   readonly onEditRoute: () => void;
   readonly onStopEditRoute: () => void;
+  readonly onDeleteRouteGeometry: () => void;
   readonly onDeleteRoute: () => void;
   readonly onCancel: () => void;
   readonly onSave: () => void;
@@ -50,8 +52,10 @@ type MapFooterProps = {
 
 export const MapFooter: FC<MapFooterProps> = ({
   onDrawRoute,
+  onRedrawRoute,
   onEditRoute,
   onStopEditRoute,
+  onDeleteRouteGeometry,
   onDeleteRoute,
   onCancel,
   onSave,
@@ -75,8 +79,10 @@ export const MapFooter: FC<MapFooterProps> = ({
   return (
     <MapFooterFullBar
       onDrawRoute={onDrawRoute}
+      onRedrawRoute={onRedrawRoute}
       onEditRoute={onEditRoute}
       onStopEditRoute={onStopEditRoute}
+      onDeleteRouteGeometry={onDeleteRouteGeometry}
       onDeleteRoute={onDeleteRoute}
       onCancel={onCancel}
       onSave={onSave}

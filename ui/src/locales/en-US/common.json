@@ -898,7 +898,7 @@
     "joreMap": "Jore 4.0 map",
     "pageTitle": "Map",
     "drawRoute": "Draw route",
-    "addRoute": "Add route",
+    "redrawRoute": "Redraw route",
     "addBusRoute": "Add bus route",
     "addTramRoute": "Add tram route",
     "editRoute": "Edit route",
@@ -910,6 +910,7 @@
     "depotStopLabel": "Stop label",
     "depotStopTransportMode": "Transport mode",
     "deleteRoute": "Remove route",
+    "deleteDrawnRoute": "Remove drawn route",
     "deleteStop": "Remove stop",
     "copyStop": "Copy stop",
     "location": "Location",
@@ -952,6 +953,11 @@
     "title": "Delete route?",
     "description": "Route will be deleted from the line it belongs to.",
     "confirmText": "Delete"
+  },
+  "confirmDeleteDrawnRouteDialog": {
+    "title": "Delete drawn route",
+    "description": "Route metadata will be kept.",
+    "confirmText": "Delete route"
   },
   "confirmDeleteStopDialog": {
     "title": "Delete stop?",
