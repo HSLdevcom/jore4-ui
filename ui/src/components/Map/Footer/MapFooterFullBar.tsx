@@ -35,8 +35,10 @@ type MapFooterFullBarProps = {
   readonly onDrawRoute: (
     vehicleMode: ReusableComponentsVehicleModeEnum,
   ) => void;
+  readonly onRedrawRoute: () => void;
   readonly onEditRoute: () => void;
   readonly onStopEditRoute: () => void;
+  readonly onDeleteRouteGeometry: () => void;
   readonly onDeleteRoute: () => void;
   readonly onCancel: () => void;
   readonly onSave: () => void;
@@ -44,8 +46,10 @@ type MapFooterFullBarProps = {
 
 export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
   onDrawRoute,
+  onRedrawRoute,
   onEditRoute,
   onStopEditRoute,
+  onDeleteRouteGeometry,
   onDeleteRoute,
   onCancel,
   onSave,
@@ -88,11 +92,21 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     (state) => state !== MapEntityEditorViewState.NONE,
   );
 
-  const isEditingExistingRoute = drawingMode === Mode.Edit && !creatingNewRoute;
+  const isInRouteEditMode = drawingMode === Mode.Edit;
+  const isEditingExistingRoute = isInRouteEditMode && !creatingNewRoute;
+
   const isEditRouteActionAvailable =
     hasDraftRouteGeometry ||
     !!selectedRouteId ||
     (creatingNewRoute && !isRouteMetadataFormOpen);
+  const showRedrawRouteButton = !!selectedRouteId || creatingNewRoute;
+  const hasGeometryForCurrentRouteContext = creatingNewRoute
+    ? hasDraftRouteGeometry
+    : !!selectedRouteId;
+  const canRedrawRoute =
+    showRedrawRouteButton &&
+    !hasGeometryForCurrentRouteContext &&
+    !isRouteMetadataFormOpen;
 
   const handleEditRouteClick =
     drawingMode === Mode.Edit && !isEditingExistingRoute
@@ -101,16 +115,30 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
 
   return (
     <Row testId={testIds.mapFooter} className="gap-4 bg-white px-10 py-5">
-      <MapFooterAddRouteDropdown
-        testId={testIds.drawRouteButton}
-        onAddRoute={onDrawRoute}
-        disabled={!isInViewMode || creatingNewRoute || someItemIsSelected}
-        inverted={drawingMode !== Mode.Draw}
-      />
+      {showRedrawRouteButton ? (
+        <SimpleButton
+          testId={testIds.drawRouteButton}
+          onClick={onRedrawRoute}
+          disabled={!canRedrawRoute}
+        >
+          {t(($) => $.map.redrawRoute)}
+        </SimpleButton>
+      ) : (
+        <MapFooterAddRouteDropdown
+          testId={testIds.drawRouteButton}
+          onAddRoute={onDrawRoute}
+          disabled={!isInViewMode || creatingNewRoute || someItemIsSelected}
+          inverted={drawingMode !== Mode.Draw}
+        />
+      )}
       <SimpleButton
         testId={testIds.editRouteButton}
         onClick={handleEditRouteClick}
-        disabled={isEditingExistingRoute || !isEditRouteActionAvailable}
+        disabled={
+          canRedrawRoute ||
+          isEditingExistingRoute ||
+          !isEditRouteActionAvailable
+        }
       >
         {drawingMode === Mode.Edit && !isEditingExistingRoute
           ? t(($) => $.map.stopEditing)
@@ -143,14 +171,17 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         onCreateNewStopArea={onAddStopArea}
         onCreateNewTerminal={onAddTerminal}
       />
-      <SimpleButton
-        shape="round"
-        className="h-full text-xl"
-        onClick={onDeleteRoute}
-        disabled={!hasChangesInProgress || isRouteMetadataFormOpen}
-      >
-        <MdDelete aria-label={t(($) => $.map.deleteRoute)} />
-      </SimpleButton>
+      <Visible visible={isInRouteEditMode}>
+        <SimpleButton
+          shape="round"
+          className="h-full text-xl"
+          onClick={onDeleteRouteGeometry}
+          disabled={isRouteMetadataFormOpen}
+          tooltip={t(($) => $.map.deleteDrawnRoute)}
+        >
+          <MdDelete aria-label={t(($) => $.map.deleteDrawnRoute)} />
+        </SimpleButton>
+      </Visible>
       <Visible visible={hasChangesInProgress && !isRouteMetadataFormOpen}>
         <SimpleButton
           className="ml-auto"
