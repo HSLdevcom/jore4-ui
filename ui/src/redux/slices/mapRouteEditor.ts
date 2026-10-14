@@ -183,6 +183,12 @@ const slice = createSlice({
         drawingMode: Mode.Edit,
       };
     },
+    setRouteToDrawMode: (state) => {
+      return {
+        ...state,
+        drawingMode: Mode.Draw,
+      };
+    },
     /**
      * Stop editing route geometry.
      */
@@ -387,6 +393,7 @@ export const {
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
   setDraftRouteJourneyPattern: setDraftRouteJourneyPatternAction,
   setRouteToEditMode: setRouteToEditModeAction,
+  setRouteToDrawMode: setRouteToDrawModeAction,
 } = slice.actions;
 
 export const mapRouteEditorReducer = slice.reducer;

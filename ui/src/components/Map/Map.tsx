@@ -75,11 +75,17 @@ function useRouteEditorImperativeHandle(
     onDrawRoute: (vehicleMode: ReusableComponentsVehicleModeEnum) => {
       routeEditorRef.current?.onDrawRoute(vehicleMode);
     },
+    onRedrawRoute: () => {
+      routeEditorRef.current?.onRedrawRoute();
+    },
     onEditRoute: () => {
       routeEditorRef.current?.onEditRoute();
     },
     onStopEditRoute: () => {
       routeEditorRef.current?.onStopEditRoute();
+    },
+    onDeleteRouteGeometry: () => {
+      routeEditorRef.current?.onDeleteRouteGeometry();
     },
     onDeleteRoute: () => {
       routeEditorRef.current?.onDeleteRoute();

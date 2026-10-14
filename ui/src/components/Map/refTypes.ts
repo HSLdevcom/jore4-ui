@@ -5,8 +5,10 @@ export type RouteEditorRef = {
   readonly onDrawRoute: (
     vehicleMode: ReusableComponentsVehicleModeEnum,
   ) => void;
+  readonly onRedrawRoute: () => void;
   readonly onEditRoute: () => void;
   readonly onStopEditRoute: () => void;
+  readonly onDeleteRouteGeometry: () => void;
   readonly onDeleteRoute: () => void;
   readonly onCancel: () => void;
   readonly onSave: () => void;
