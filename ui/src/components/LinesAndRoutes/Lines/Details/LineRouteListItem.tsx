@@ -11,6 +11,7 @@ import { RouteStopListItem } from './RouteStopListItem';
 
 type LineRouteListItemProps = {
   readonly routeId: UUID;
+  readonly hasContinuingVersion: boolean;
   readonly showUnusedStops: boolean;
   readonly isLast: boolean;
 };
@@ -20,6 +21,7 @@ const testIds = {
 };
 export const LineRouteListItem: FC<LineRouteListItemProps> = ({
   routeId,
+  hasContinuingVersion,
   showUnusedStops,
   isLast,
 }) => {
@@ -73,6 +75,7 @@ export const LineRouteListItem: FC<LineRouteListItemProps> = ({
         directionAndLabelId={directionAndLabelElementId}
         key={routeId}
         route={route}
+        hasContinuingVersion={hasContinuingVersion}
         observationDate={observationDate}
         isExpanded={isExpanded}
         onToggle={onToggle}

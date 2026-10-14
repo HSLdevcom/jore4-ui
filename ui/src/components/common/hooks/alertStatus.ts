@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
-import { DateLike, parseDate } from '../../../time';
+import { DateLike } from '../../../time';
 import { Priority } from '../../../types/enums';
+import { isEndingSoon } from '../../../utils';
 
 enum AlertLevel {
   NoAlert,
@@ -20,6 +20,7 @@ type AlertStatusInput = {
   readonly priority: Priority;
   readonly validity_end?: DateLike | null | undefined;
   readonly version_comment?: string | null | undefined;
+  readonly hasContinuingVersion?: boolean;
 };
 
 function getAlertListItemBorder(alert: AlertLevel) {
@@ -57,17 +58,8 @@ export function getAlertStatus(
   t: TFunction,
   input: AlertStatusInput,
 ): AlertStatus {
-  // TODO: this logic is actually pretty far from the desired functionality, but at least
-  // will let us demo the different highlighting
-
-  // if there's less than 20 days until the validity end and is currently valid, it's "Important"
-  const validityEnd = parseDate(input.validity_end);
-  const now = DateTime.now();
-  if (
-    validityEnd && // has an end
-    validityEnd < now.plus({ days: 20 }) && // end is coming in 20 days
-    validityEnd > now // still active
-  ) {
+  // if validity ends within 20 days and nothing continues after it, it's "Important"
+  if (isEndingSoon(input.validity_end) && !input.hasContinuingVersion) {
     return {
       alertLevel: AlertLevel.Important,
       title: t(($) => $.alert.important.topic),

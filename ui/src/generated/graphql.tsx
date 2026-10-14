@@ -84933,6 +84933,25 @@ export type SearchLinesAndRoutesQuery = {
   }>
 };
 
+export type GetRouteContinuationCandidatesQueryVariables = Exact<{
+  where: RouteRouteBoolExp;
+}>;
+
+
+export type GetRouteContinuationCandidatesQuery = {
+  readonly __typename?: 'query_root',
+  readonly route_route: ReadonlyArray<{
+    readonly __typename?: 'route_route',
+    readonly route_id: UUID,
+    readonly label: string,
+    readonly direction: RouteDirectionEnum,
+    readonly variant?: number | null,
+    readonly priority: number,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null
+  }>
+};
+
 export type RouteMapParamsFragment = {
   readonly __typename?: 'route_route',
   readonly route_id: UUID,
@@ -90615,3 +90634,40 @@ export type SearchLinesAndRoutesQueryHookResult = ReturnType<typeof useSearchLin
 export type SearchLinesAndRoutesLazyQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesLazyQuery>;
 export type SearchLinesAndRoutesSuspenseQueryHookResult = ReturnType<typeof useSearchLinesAndRoutesSuspenseQuery>;
 export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<SearchLinesAndRoutesQuery, SearchLinesAndRoutesQueryVariables>;
+export const GetRouteContinuationCandidatesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteContinuationCandidates"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetRouteContinuationCandidatesQuery__
+ *
+ * To run a query within a React component, call `useGetRouteContinuationCandidatesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteContinuationCandidatesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRouteContinuationCandidatesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetRouteContinuationCandidatesQuery(baseOptions: Apollo.QueryHookOptions<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables> & ({ variables: GetRouteContinuationCandidatesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>(GetRouteContinuationCandidatesDocument, options);
+      }
+export function useGetRouteContinuationCandidatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>(GetRouteContinuationCandidatesDocument, options);
+        }
+// @ts-ignore
+export function useGetRouteContinuationCandidatesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>;
+export function useGetRouteContinuationCandidatesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteContinuationCandidatesQuery | undefined, GetRouteContinuationCandidatesQueryVariables>;
+export function useGetRouteContinuationCandidatesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>(GetRouteContinuationCandidatesDocument, options);
+        }
+export type GetRouteContinuationCandidatesQueryHookResult = ReturnType<typeof useGetRouteContinuationCandidatesQuery>;
+export type GetRouteContinuationCandidatesLazyQueryHookResult = ReturnType<typeof useGetRouteContinuationCandidatesLazyQuery>;
+export type GetRouteContinuationCandidatesSuspenseQueryHookResult = ReturnType<typeof useGetRouteContinuationCandidatesSuspenseQuery>;
+export type GetRouteContinuationCandidatesQueryResult = Apollo.QueryResult<GetRouteContinuationCandidatesQuery, GetRouteContinuationCandidatesQueryVariables>;

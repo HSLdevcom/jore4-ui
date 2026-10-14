@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { RouteTableRowFragment } from '../../../../generated/graphql';
+import { useRouteContinuations } from '../../hooks';
 import { RoutesTable } from './RoutesTable';
 import { RouteTableRow } from './RouteTableRow';
 import { RouteLineTableRowVariant } from './Types';
@@ -18,15 +19,20 @@ export const RoutesList: FC<RoutesListProps> = ({
   routes,
   areItemsSelectable = false,
   rowVariant,
-}) => (
-  <RoutesTable testId={testIds.table}>
-    {routes?.map((item: RouteTableRowFragment) => (
-      <RouteTableRow
-        rowVariant={rowVariant}
-        key={item.route_id}
-        route={item}
-        isSelectable={areItemsSelectable}
-      />
-    ))}
-  </RoutesTable>
-);
+}) => {
+  const hasContinuingVersion = useRouteContinuations(routes ?? []);
+
+  return (
+    <RoutesTable testId={testIds.table}>
+      {routes?.map((item: RouteTableRowFragment) => (
+        <RouteTableRow
+          rowVariant={rowVariant}
+          key={item.route_id}
+          route={item}
+          hasContinuingVersion={hasContinuingVersion(item)}
+          isSelectable={areItemsSelectable}
+        />
+      ))}
+    </RoutesTable>
+  );
+};

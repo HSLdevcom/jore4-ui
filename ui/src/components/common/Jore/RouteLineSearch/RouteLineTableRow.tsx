@@ -32,6 +32,7 @@ type RouteLineTableRowProps = {
   readonly className?: string;
   readonly lineId: UUID;
   readonly hasTimetables?: boolean;
+  readonly hasContinuingVersion?: boolean;
   readonly onLocatorButtonClick?: () => void;
   readonly locatorButtonTestId: string;
   readonly rowItem: RowItem;
@@ -103,6 +104,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
   className,
   lineId,
   hasTimetables,
+  hasContinuingVersion = false,
   onLocatorButtonClick,
   onSelectChanged,
   locatorButtonTestId,
@@ -115,7 +117,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
   const { observationDate } = useObservationDateQueryParam();
   const { t } = useTranslation();
 
-  const alertStatus = getAlertStatus(t, rowItem);
+  const alertStatus = getAlertStatus(t, { ...rowItem, hasContinuingVersion });
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
 
   const displayInformation = getDisplayInformation(

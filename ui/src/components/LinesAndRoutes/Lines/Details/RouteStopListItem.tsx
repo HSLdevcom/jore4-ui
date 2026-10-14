@@ -20,6 +20,7 @@ import {
   mapToShortDate,
   mapToShortDateTime,
 } from '../../../../time';
+import { hasContinuingVersion } from '../../../../utils';
 import { IconButton } from '../../../common/Buttons';
 import { getAlertStatus, getAlertStyle } from '../../../common/hooks';
 import { Visible } from '../../../common/LayoutComponents';
@@ -71,7 +72,13 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   const isUsedAsTimingPoint =
     scheduledStopPointInJourneyPattern?.is_used_as_timing_point;
 
-  const alertStatus = getAlertStatus(t, stop);
+  const alertStatus = getAlertStatus(t, {
+    ...stop,
+    hasContinuingVersion: hasContinuingVersion(
+      stop,
+      stop.other_label_instances,
+    ),
+  });
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
   const hastusCode = stop.timing_place?.label;
 
