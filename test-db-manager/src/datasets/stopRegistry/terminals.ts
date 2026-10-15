@@ -11,7 +11,7 @@ import {
 } from '../../generated/graphql';
 import { KnownValueKey } from '../../types';
 import { mapToAlternativeNames } from './mapAlternativeNames';
-import { defaultAccessibilityLimitations } from './stopPlaces';
+import { mapAccessibilityLimitations } from './stopPlaces';
 import { getKeyValue } from './utils';
 
 type TerminalOwnerDetails = {
@@ -124,10 +124,7 @@ function mapToTerminalInput(seedTerminal: TerminalSeedData): TerminalInput {
           ? {
               hslAccessibilityProperties:
                 seedTerminal.accessibilityProperties ?? null,
-              limitations: seedTerminal.accessibilityLimitations && {
-                ...defaultAccessibilityLimitations,
-                ...seedTerminal.accessibilityLimitations,
-              },
+              limitations: mapAccessibilityLimitations(seedTerminal),
             }
           : undefined,
     },
