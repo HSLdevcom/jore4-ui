@@ -121,6 +121,7 @@ const GQL_HSL_ACCESSIBILITY_ASSESSMENT_DETAILS = gql`
       escalatorFreeAccess
       liftFreeAccess
       stepFreeAccess
+      visualSignsAvailable
       wheelchairAccess
     }
   }
