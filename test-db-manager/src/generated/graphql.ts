@@ -9877,6 +9877,7 @@ export type ServicePatternScheduledStopPointStopPlaceArgs = {
   versionValidity?: InputMaybe<StopRegistryVersionValidity>;
   withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
   withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withQuayPublicAndPrivateCodes?: InputMaybe<Scalars['Boolean']['input']>;
   withTags?: InputMaybe<Scalars['Boolean']['input']>;
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
@@ -11012,6 +11013,7 @@ export type StopRegistryStopPlaceRegisterStopPlaceArgs = {
   versionValidity?: InputMaybe<StopRegistryVersionValidity>;
   withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
   withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withQuayPublicAndPrivateCodes?: InputMaybe<Scalars['Boolean']['input']>;
   withTags?: InputMaybe<Scalars['Boolean']['input']>;
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
@@ -11051,6 +11053,19 @@ export type StopRegistryStopPlaceRegisterTopographicPlaceArgs = {
   topographicPlaceType?: InputMaybe<StopRegistryTopographicPlaceType>;
 };
 
+export enum StopRegistryAccessModeEnum {
+  Bicycle = 'bicycle',
+  Boat = 'boat',
+  Car = 'car',
+  Foot = 'foot',
+  Motorcycle = 'motorcycle',
+  Scooter = 'scooter',
+  Shuttle = 'shuttle',
+  Skate = 'skate',
+  Ski = 'ski',
+  Taxi = 'taxi'
+}
+
 export type StopRegistryAccessibilityAssessment = {
   __typename?: 'stop_registry_AccessibilityAssessment';
   hslAccessibilityProperties?: Maybe<StopRegistryHslAccessibilityProperties>;
@@ -11074,6 +11089,7 @@ export type StopRegistryAccessibilityLimitations = {
   liftFreeAccess?: Maybe<StopRegistryLimitationStatusType>;
   stepFreeAccess?: Maybe<StopRegistryLimitationStatusType>;
   version?: Maybe<Scalars['String']['output']>;
+  visualSignsAvailable?: Maybe<StopRegistryLimitationStatusType>;
   wheelchairAccess?: Maybe<StopRegistryLimitationStatusType>;
 };
 
@@ -11083,6 +11099,7 @@ export type StopRegistryAccessibilityLimitationsInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   liftFreeAccess: StopRegistryLimitationStatusType;
   stepFreeAccess: StopRegistryLimitationStatusType;
+  visualSignsAvailable: StopRegistryLimitationStatusType;
   wheelchairAccess: StopRegistryLimitationStatusType;
 };
 
@@ -11091,10 +11108,12 @@ export type StopRegistryAddressablePlace = {
   /** This field is set either on StopPlace (i.e. all Quays are equal), or on every Quay. */
   accessibilityAssessment?: Maybe<StopRegistryAccessibilityAssessment>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  facilities?: Maybe<Array<Maybe<StopRegistrySiteFacilitySet>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  localServices?: Maybe<StopRegistryLocalServices>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
@@ -11115,6 +11134,37 @@ export type StopRegistryAlternativeName = {
 export type StopRegistryAlternativeNameInput = {
   name: StopRegistryEmbeddableMultilingualStringInput;
   nameType?: InputMaybe<StopRegistryNameType>;
+};
+
+export type StopRegistryAssistanceService = {
+  __typename?: 'stop_registry_AssistanceService';
+  assistanceAvailability?: Maybe<StopRegistryAssistanceAvailabilityType>;
+  assistanceFacilityList?: Maybe<Array<Maybe<StopRegistryAssistanceFacilityType>>>;
+  id?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistryAssistanceServiceInput = {
+  assistanceAvailability?: InputMaybe<StopRegistryAssistanceAvailabilityType>;
+  assistanceFacilityList?: InputMaybe<Array<InputMaybe<StopRegistryAssistanceFacilityType>>>;
+};
+
+export type StopRegistryAvailabilityCondition = {
+  __typename?: 'stop_registry_AvailabilityCondition';
+  /** Number of days after startTime that endTime falls on. Use 1 for a period ending at the end of the day, which distinguishes an endTime of 00:00 from one at the very start of the same day. */
+  dayOffset?: Maybe<Scalars['Int']['output']>;
+  dayTypeRef: Scalars['String']['output'];
+  endTime?: Maybe<Scalars['String']['output']>;
+  isAvailable?: Maybe<Scalars['Boolean']['output']>;
+  startTime?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistryAvailabilityConditionInput = {
+  /** Number of days after startTime that endTime falls on. Use 1 for a period ending at the end of the day, which distinguishes an endTime of 00:00 from one at the very start of the same day. An endTime of 24:00 is accepted as shorthand for 00:00 with dayOffset 1. */
+  dayOffset?: InputMaybe<Scalars['Int']['input']>;
+  dayTypeRef: Scalars['String']['input'];
+  endTime?: InputMaybe<Scalars['String']['input']>;
+  isAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  startTime?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StopRegistryBoardingPosition = {
@@ -11202,6 +11252,18 @@ export type StopRegistryEntityRefInput = {
   /** The version of the referenced entity. */
   version?: InputMaybe<Scalars['String']['input']>;
 };
+
+export enum StopRegistryEntranceType {
+  AutomaticDoor = 'automaticDoor',
+  Door = 'door',
+  Gate = 'gate',
+  OpenDoor = 'openDoor',
+  Opening = 'opening',
+  Other = 'other',
+  RevolvingDoor = 'revolvingDoor',
+  SwingDoor = 'swingDoor',
+  TicketBarrier = 'ticketBarrier'
+}
 
 export type StopRegistryFareZone = {
   __typename?: 'stop_registry_FareZone';
@@ -11405,6 +11467,33 @@ export type StopRegistryHslAccessibilityPropertiesInput = {
   structureLaneDistance?: InputMaybe<Scalars['Float']['input']>;
 };
 
+export type StopRegistryInfoLink = {
+  __typename?: 'stop_registry_InfoLink';
+  typeOfInfoLink?: Maybe<StopRegistryInfoLinkType>;
+  uri: Scalars['String']['output'];
+};
+
+export type StopRegistryInfoLinkInput = {
+  typeOfInfoLink?: InputMaybe<StopRegistryInfoLinkType>;
+  uri: Scalars['String']['input'];
+};
+
+export enum StopRegistryInfoLinkType {
+  Contact = 'contact',
+  DataLicence = 'dataLicence',
+  Document = 'document',
+  FareSheet = 'fareSheet',
+  Icon = 'icon',
+  Image = 'image',
+  Info = 'info',
+  Map = 'map',
+  MobileAppDownload = 'mobileAppDownload',
+  MobileAppInstallCheck = 'mobileAppInstallCheck',
+  Other = 'other',
+  Resource = 'resource',
+  TimetableDocument = 'timetableDocument'
+}
+
 export enum StopRegistryInterchangeWeightingType {
   InterchangeAllowed = 'interchangeAllowed',
   NoInterchange = 'noInterchange',
@@ -11423,12 +11512,29 @@ export type StopRegistryKeyValuesInput = {
   values?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export enum StopRegistryLightingEnumeration {
+  Other = 'other',
+  PoorlyLit = 'poorlyLit',
+  Unknown = 'unknown',
+  Unlit = 'unlit',
+  WellLit = 'wellLit'
+}
+
 export enum StopRegistryLimitationStatusType {
   False = 'FALSE',
   Partial = 'PARTIAL',
   True = 'TRUE',
   Unknown = 'UNKNOWN'
 }
+
+export type StopRegistryLocalServices = {
+  __typename?: 'stop_registry_LocalServices';
+  assistanceService?: Maybe<Array<Maybe<StopRegistryAssistanceService>>>;
+};
+
+export type StopRegistryLocalServicesInput = {
+  assistanceService?: InputMaybe<Array<InputMaybe<StopRegistryAssistanceServiceInput>>>;
+};
 
 /** Version-aware reference to a location (read-only) */
 export type StopRegistryLocationRef = {
@@ -11439,11 +11545,26 @@ export type StopRegistryLocationRef = {
   version?: Maybe<Scalars['String']['output']>;
 };
 
+export enum StopRegistryMobilityFacilityEnumerationInputType {
+  BoardingAssistance = 'boardingAssistance',
+  LowFloor = 'lowFloor',
+  OnboardAssistance = 'onboardAssistance',
+  StepFreeAccess = 'stepFreeAccess',
+  SuitableForHeaviliyDisabled = 'suitableForHeaviliyDisabled',
+  SuitableForPushchairs = 'suitableForPushchairs',
+  SuitableForWheelchairs = 'suitableForWheelchairs',
+  TactileGuidingStrips = 'tactileGuidingStrips',
+  TactilePlatformEdges = 'tactilePlatformEdges',
+  UnaccompaniedMinorAssistance = 'unaccompaniedMinorAssistance',
+  Unknown = 'unknown'
+}
+
 export enum StopRegistryModificationEnumerationType {
   Delete = 'delete',
   Delta = 'delta',
   New = 'new',
-  Revise = 'revise'
+  Revise = 'revise',
+  Unchanged = 'unchanged'
 }
 
 export type StopRegistryOrganisation = {
@@ -11482,6 +11603,7 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
   /** External links */
   externalLinks?: Maybe<Array<Maybe<StopRegistryStopPlaceExternalLink>>>;
+  facilities?: Maybe<Array<Maybe<StopRegistrySiteFacilitySet>>>;
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
@@ -11489,18 +11611,21 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  localServices?: Maybe<StopRegistryLocalServices>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   organisations?: Maybe<Array<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
   permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
+  postalAddress?: Maybe<StopRegistryPostalAddress>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
   publicCode?: Maybe<Scalars['String']['output']>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   tags?: Maybe<Array<Maybe<StopRegistryTag>>>;
   tariffZones?: Maybe<Array<Maybe<StopRegistryTariffZone>>>;
   topographicPlace?: Maybe<StopRegistryTopographicPlace>;
+  url?: Maybe<Scalars['String']['output']>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
   versionComment?: Maybe<Scalars['String']['output']>;
@@ -11513,28 +11638,37 @@ export type StopRegistryParentStopPlaceInput = {
   children?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
+  facilities?: InputMaybe<Array<InputMaybe<StopRegistrySiteFacilitySetInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
   keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
+  localServices?: InputMaybe<StopRegistryLocalServicesInput>;
   name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   organisations?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceOrganisationRefInput>>>;
   placeEquipments?: InputMaybe<StopRegistryPlaceEquipmentsInput>;
+  postalAddress?: InputMaybe<StopRegistryPostalAddressInput>;
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   publicCode?: InputMaybe<Scalars['String']['input']>;
   shortName?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   submode?: InputMaybe<StopRegistrySubmodeType>;
   transportMode?: InputMaybe<StopRegistryTransportModeType>;
+  url?: InputMaybe<Scalars['String']['input']>;
   validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
   versionComment?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StopRegistryParking = {
   __typename?: 'stop_registry_Parking';
+  accessibilityAssessment?: Maybe<StopRegistryAccessibilityAssessment>;
+  alternativeNames?: Maybe<Array<Maybe<StopRegistryAlternativeName>>>;
+  availabilityConditions?: Maybe<Array<Maybe<StopRegistryAvailabilityCondition>>>;
   bookingUrl?: Maybe<Scalars['String']['output']>;
   freeParkingOutOfHours?: Maybe<Scalars['Boolean']['output']>;
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
+  infoLinks?: Maybe<Array<Maybe<StopRegistryInfoLink>>>;
+  lighting?: Maybe<StopRegistryLightingEnumeration>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   overnightParkingPermitted?: Maybe<Scalars['Boolean']['output']>;
   parentSiteRef?: Maybe<Scalars['String']['output']>;
@@ -11545,12 +11679,15 @@ export type StopRegistryParking = {
   parkingReservation?: Maybe<StopRegistryParkingReservationType>;
   parkingType?: Maybe<StopRegistryParkingType>;
   parkingVehicleTypes?: Maybe<Array<Maybe<StopRegistryParkingVehicleType>>>;
+  paymentMethods?: Maybe<Array<Maybe<StopRegistryPaymentMethodEnum>>>;
+  placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   principalCapacity?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
   realTimeOccupancyAvailable?: Maybe<Scalars['Boolean']['output']>;
   rechargingAvailable?: Maybe<Scalars['Boolean']['output']>;
   secure?: Maybe<Scalars['Boolean']['output']>;
   totalCapacity?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
   validBetween?: Maybe<StopRegistryValidBetween>;
+  vehicleEntrances?: Maybe<Array<Maybe<StopRegistryParkingVehicleEntrance>>>;
   version?: Maybe<Scalars['String']['output']>;
 };
 
@@ -11585,10 +11722,15 @@ export type StopRegistryParkingCapacityInput = {
 };
 
 export type StopRegistryParkingInput = {
+  accessibilityAssessment?: InputMaybe<StopRegistryAccessibilityAssessmentInput>;
+  alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
+  availabilityConditions?: InputMaybe<Array<InputMaybe<StopRegistryAvailabilityConditionInput>>>;
   bookingUrl?: InputMaybe<Scalars['String']['input']>;
   freeParkingOutOfHours?: InputMaybe<Scalars['Boolean']['input']>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   id?: InputMaybe<Scalars['String']['input']>;
+  infoLinks?: InputMaybe<Array<InputMaybe<StopRegistryInfoLinkInput>>>;
+  lighting?: InputMaybe<StopRegistryLightingEnumeration>;
   name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   overnightParkingPermitted?: InputMaybe<Scalars['Boolean']['input']>;
   parentSiteRef?: InputMaybe<Scalars['String']['input']>;
@@ -11599,11 +11741,14 @@ export type StopRegistryParkingInput = {
   parkingReservation?: InputMaybe<StopRegistryParkingReservationType>;
   parkingType?: InputMaybe<StopRegistryParkingType>;
   parkingVehicleTypes?: InputMaybe<Array<InputMaybe<StopRegistryParkingVehicleType>>>;
+  paymentMethods?: InputMaybe<Array<InputMaybe<StopRegistryPaymentMethodEnum>>>;
+  placeEquipments?: InputMaybe<StopRegistryPlaceEquipmentsInput>;
   principalCapacity?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
   realTimeOccupancyAvailable?: InputMaybe<Scalars['Boolean']['input']>;
   rechargingAvailable?: InputMaybe<Scalars['Boolean']['input']>;
   secure?: InputMaybe<Scalars['Boolean']['input']>;
   validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
+  vehicleEntrances?: InputMaybe<Array<InputMaybe<StopRegistryParkingVehicleEntranceInput>>>;
 };
 
 export enum StopRegistryParkingLayoutType {
@@ -11692,6 +11837,29 @@ export enum StopRegistryParkingUserType {
   Visitors = 'visitors'
 }
 
+export type StopRegistryParkingVehicleEntrance = {
+  __typename?: 'stop_registry_ParkingVehicleEntrance';
+  accessModes?: Maybe<Array<Maybe<StopRegistryAccessModeEnum>>>;
+  entranceType?: Maybe<StopRegistryEntranceType>;
+  height?: Maybe<Scalars['Float']['output']>;
+  isEntry?: Maybe<Scalars['Boolean']['output']>;
+  isExit?: Maybe<Scalars['Boolean']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  publicCode?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type StopRegistryParkingVehicleEntranceInput = {
+  accessModes?: InputMaybe<Array<InputMaybe<StopRegistryAccessModeEnum>>>;
+  entranceType?: InputMaybe<StopRegistryEntranceType>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  isEntry?: InputMaybe<Scalars['Boolean']['input']>;
+  isExit?: InputMaybe<Scalars['Boolean']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  publicCode?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
 export enum StopRegistryParkingVehicleType {
   AgriculturalVehicle = 'agriculturalVehicle',
   All = 'all',
@@ -11730,6 +11898,23 @@ export enum StopRegistryParkingVehicleType {
   VehicleWithTrailer = 'vehicleWithTrailer'
 }
 
+export enum StopRegistryPassengerInformationEquipmentEnumerationType {
+  FareInformation = 'fareInformation',
+  InformationDesk = 'informationDesk',
+  LineNetworkPlan = 'lineNetworkPlan',
+  LineTimetable = 'lineTimetable',
+  Other = 'other',
+  RealTimeDepartures = 'realTimeDepartures'
+}
+
+export enum StopRegistryPassengerInformationFacilityEnumerationType {
+  NextStopIndicator = 'nextStopIndicator',
+  Other = 'other',
+  PassengerInformationDisplay = 'passengerInformationDisplay',
+  RealTimeConnections = 'realTimeConnections',
+  StopAnnouncements = 'stopAnnouncements'
+}
+
 export type StopRegistryPathLink = {
   __typename?: 'stop_registry_PathLink';
   from?: Maybe<StopRegistryPathLinkEnd>;
@@ -11759,6 +11944,36 @@ export type StopRegistryPathLinkInput = {
   transferDuration?: InputMaybe<StopRegistryTransferDurationInput>;
 };
 
+export enum StopRegistryPaymentMethodEnum {
+  BankTransfer = 'bankTransfer',
+  Banknote = 'banknote',
+  CardsOnly = 'cardsOnly',
+  Cash = 'cash',
+  CashAndCard = 'cashAndCard',
+  CashExactChangeOnly = 'cashExactChangeOnly',
+  Cheque = 'cheque',
+  Coin = 'coin',
+  CompanyCheque = 'companyCheque',
+  ContactlessPaymentCard = 'contactlessPaymentCard',
+  ContactlessTravelCard = 'contactlessTravelCard',
+  CreditCard = 'creditCard',
+  DebitCard = 'debitCard',
+  DirectDebit = 'directDebit',
+  EpayAccount = 'epayAccount',
+  EpayDevice = 'epayDevice',
+  MileagePoints = 'mileagePoints',
+  MobileApp = 'mobileApp',
+  MobilePhone = 'mobilePhone',
+  Other = 'other',
+  PostalOrder = 'postalOrder',
+  Sms = 'sms',
+  Token = 'token',
+  TravelCard = 'travelCard',
+  TravellersCheque = 'travellersCheque',
+  Voucher = 'voucher',
+  Warrant = 'warrant'
+}
+
 export type StopRegistryPlaceEquipments = {
   __typename?: 'stop_registry_PlaceEquipments';
   cycleStorageEquipment?: Maybe<Array<Maybe<StopRegistryCycleStorageEquipment>>>;
@@ -11777,6 +11992,19 @@ export type StopRegistryPlaceEquipmentsInput = {
   shelterEquipment?: InputMaybe<Array<InputMaybe<StopRegistryShelterEquipmentInput>>>;
   ticketingEquipment?: InputMaybe<Array<InputMaybe<StopRegistryTicketingEquipmentInput>>>;
   waitingRoomEquipment?: InputMaybe<Array<InputMaybe<StopRegistryWaitingRoomEquipmentInput>>>;
+};
+
+export type StopRegistryPostalAddress = {
+  __typename?: 'stop_registry_PostalAddress';
+  addressLine1?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  postCode?: Maybe<Scalars['String']['output']>;
+  town?: Maybe<StopRegistryEmbeddableMultilingualString>;
+};
+
+export type StopRegistryPostalAddressInput = {
+  addressLine1?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  postCode?: InputMaybe<Scalars['String']['input']>;
+  town?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
 };
 
 export type StopRegistryPrivateCode = {
@@ -11817,12 +12045,15 @@ export type StopRegistryQuay = {
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
   /** External links */
   externalLinks?: Maybe<Array<Maybe<StopRegistryExternalLink>>>;
+  facilities?: Maybe<Array<Maybe<StopRegistrySiteFacilitySet>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** Info spots */
   infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  lighting?: Maybe<StopRegistryLightingEnumeration>;
+  localServices?: Maybe<StopRegistryLocalServices>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   /** Organisations associated with this quay */
@@ -11855,10 +12086,13 @@ export type StopRegistryQuayInput = {
   compassBearing?: InputMaybe<Scalars['stop_registry_BigDecimal']['input']>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
+  facilities?: InputMaybe<Array<InputMaybe<StopRegistrySiteFacilitySetInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
   keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
+  lighting?: InputMaybe<StopRegistryLightingEnumeration>;
+  localServices?: InputMaybe<StopRegistryLocalServicesInput>;
   name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   organisations?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceOrganisationRefInput>>>;
   placeEquipments?: InputMaybe<StopRegistryPlaceEquipmentsInput>;
@@ -11873,6 +12107,7 @@ export type StopRegistrySanitaryEquipment = {
   gender?: Maybe<StopRegistryGender>;
   id?: Maybe<Scalars['String']['output']>;
   numberOfToilets?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
+  sanitaryFacilityList?: Maybe<Array<Maybe<StopRegistrySanitaryFacilityEnumeration>>>;
   version?: Maybe<Scalars['String']['output']>;
 };
 
@@ -11880,7 +12115,20 @@ export type StopRegistrySanitaryEquipmentInput = {
   gender?: InputMaybe<StopRegistryGender>;
   id?: InputMaybe<Scalars['String']['input']>;
   numberOfToilets?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
+  sanitaryFacilityList?: InputMaybe<Array<InputMaybe<StopRegistrySanitaryFacilityEnumeration>>>;
 };
+
+export enum StopRegistrySanitaryFacilityEnumeration {
+  BabyChange = 'babyChange',
+  None = 'none',
+  Other = 'other',
+  ShoeShiner = 'shoeShiner',
+  Shower = 'shower',
+  Toilet = 'toilet',
+  WashingAndChangeFacilities = 'washingAndChangeFacilities',
+  WheelchairAccessToilet = 'wheelchairAccessToilet',
+  WheelchairBabyChange = 'wheelchairBabyChange'
+}
 
 export enum StopRegistryScopingMethodEnumerationType {
   ExplicitPeripheryStops = 'explicitPeripheryStops',
@@ -11957,6 +12205,23 @@ export type StopRegistryShelterEquipmentInput = {
   trashCan?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type StopRegistrySiteFacilitySet = {
+  __typename?: 'stop_registry_SiteFacilitySet';
+  id?: Maybe<Scalars['String']['output']>;
+  mobilityFacilityList?: Maybe<Array<Maybe<StopRegistryMobilityFacilityEnumerationInputType>>>;
+  passengerInformationEquipmentList?: Maybe<Array<Maybe<StopRegistryPassengerInformationEquipmentEnumerationType>>>;
+  passengerInformationFacilityList?: Maybe<Array<Maybe<StopRegistryPassengerInformationFacilityEnumerationType>>>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistrySiteFacilitySetInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  mobilityFacilityList?: InputMaybe<Array<InputMaybe<StopRegistryMobilityFacilityEnumerationInputType>>>;
+  passengerInformationEquipmentList?: InputMaybe<Array<InputMaybe<StopRegistryPassengerInformationEquipmentEnumerationType>>>;
+  passengerInformationFacilityList?: InputMaybe<Array<InputMaybe<StopRegistryPassengerInformationFacilityEnumerationType>>>;
+  version?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   __typename?: 'stop_registry_StopPlace';
   /** This field is set either on StopPlace (i.e. all Quays are equal), or on every Quay. */
@@ -11968,6 +12233,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
   /** External links */
   externalLinks?: Maybe<Array<Maybe<StopRegistryStopPlaceExternalLink>>>;
+  facilities?: Maybe<Array<Maybe<StopRegistrySiteFacilitySet>>>;
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
@@ -11975,6 +12241,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  localServices?: Maybe<StopRegistryLocalServices>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   organisations?: Maybe<Array<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
@@ -11983,6 +12250,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
+  postalAddress?: Maybe<StopRegistryPostalAddress>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
   publicCode?: Maybe<Scalars['String']['output']>;
   quays?: Maybe<Array<Maybe<StopRegistryQuay>>>;
@@ -11994,6 +12262,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   tariffZones?: Maybe<Array<Maybe<StopRegistryTariffZone>>>;
   topographicPlace?: Maybe<StopRegistryTopographicPlace>;
   transportMode?: Maybe<StopRegistryTransportModeType>;
+  url?: Maybe<Scalars['String']['output']>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
   versionComment?: Maybe<Scalars['String']['output']>;
@@ -12022,6 +12291,7 @@ export type StopRegistryStopPlaceParentStopPlaceArgs = {
   versionValidity?: InputMaybe<StopRegistryVersionValidity>;
   withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
   withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withQuayPublicAndPrivateCodes?: InputMaybe<Scalars['Boolean']['input']>;
   withTags?: InputMaybe<Scalars['Boolean']['input']>;
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
@@ -12035,14 +12305,17 @@ export type StopRegistryStopPlaceInput = {
   alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
+  facilities?: InputMaybe<Array<InputMaybe<StopRegistrySiteFacilitySetInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
   keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
+  localServices?: InputMaybe<StopRegistryLocalServicesInput>;
   name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   organisations?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceOrganisationRefInput>>>;
   parentSiteRef?: InputMaybe<Scalars['String']['input']>;
   placeEquipments?: InputMaybe<StopRegistryPlaceEquipmentsInput>;
+  postalAddress?: InputMaybe<StopRegistryPostalAddressInput>;
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   publicCode?: InputMaybe<Scalars['String']['input']>;
   quays?: InputMaybe<Array<InputMaybe<StopRegistryQuayInput>>>;
@@ -12053,6 +12326,7 @@ export type StopRegistryStopPlaceInput = {
   tariffZones?: InputMaybe<Array<InputMaybe<StopRegistryVersionLessEntityRefInput>>>;
   topographicPlace?: InputMaybe<StopRegistryTopographicPlaceInput>;
   transportMode?: InputMaybe<StopRegistryTransportModeType>;
+  url?: InputMaybe<Scalars['String']['input']>;
   validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
   versionComment?: InputMaybe<Scalars['String']['input']>;
   weighting?: InputMaybe<StopRegistryInterchangeWeightingType>;
@@ -12066,6 +12340,7 @@ export type StopRegistryStopPlaceInterface = {
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
   /** External links */
   externalLinks?: Maybe<Array<Maybe<StopRegistryStopPlaceExternalLink>>>;
+  facilities?: Maybe<Array<Maybe<StopRegistrySiteFacilitySet>>>;
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
@@ -12073,18 +12348,21 @@ export type StopRegistryStopPlaceInterface = {
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  localServices?: Maybe<StopRegistryLocalServices>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   organisations?: Maybe<Array<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
   permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
+  postalAddress?: Maybe<StopRegistryPostalAddress>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
   publicCode?: Maybe<Scalars['String']['output']>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   tags?: Maybe<Array<Maybe<StopRegistryTag>>>;
   tariffZones?: Maybe<Array<Maybe<StopRegistryTariffZone>>>;
   topographicPlace?: Maybe<StopRegistryTopographicPlace>;
+  url?: Maybe<Scalars['String']['output']>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
   versionComment?: Maybe<Scalars['String']['output']>;
@@ -12126,6 +12404,7 @@ export enum StopRegistrySubmode {
 
 export enum StopRegistrySubmodeType {
   AirportLinkBus = 'airportLinkBus',
+  CityTram = 'cityTram',
   DomesticFlight = 'domesticFlight',
   ExpressBus = 'expressBus',
   Funicular = 'funicular',
@@ -12192,22 +12471,35 @@ export type StopRegistryTariffZone = {
 
 export type StopRegistryTicketingEquipment = {
   __typename?: 'stop_registry_TicketingEquipment';
+  audioInterfaceAvailable?: Maybe<Scalars['Boolean']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  inductionLoops?: Maybe<Scalars['Boolean']['output']>;
+  lowCounterAccess?: Maybe<Scalars['Boolean']['output']>;
   numberOfMachines?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
+  tactileInterfaceAvailable?: Maybe<Scalars['Boolean']['output']>;
+  ticketCounter?: Maybe<Scalars['Boolean']['output']>;
   ticketMachines?: Maybe<Scalars['Boolean']['output']>;
   ticketOffice?: Maybe<Scalars['Boolean']['output']>;
   version?: Maybe<Scalars['String']['output']>;
+  wheelchairSuitable?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type StopRegistryTicketingEquipmentInput = {
+  audioInterfaceAvailable?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  inductionLoops?: InputMaybe<Scalars['Boolean']['input']>;
+  lowCounterAccess?: InputMaybe<Scalars['Boolean']['input']>;
   numberOfMachines?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
+  tactileInterfaceAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  ticketCounter?: InputMaybe<Scalars['Boolean']['input']>;
   ticketMachines?: InputMaybe<Scalars['Boolean']['input']>;
   ticketOffice?: InputMaybe<Scalars['Boolean']['input']>;
+  wheelchairSuitable?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type StopRegistryTopographicPlace = {
   __typename?: 'stop_registry_TopographicPlace';
+  geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   parentTopographicPlace?: Maybe<StopRegistryTopographicPlace>;
@@ -12293,6 +12585,7 @@ export type StopRegistryUserPermissions = {
   __typename?: 'stop_registry_UserPermissions';
   allowNewStopEverywhere?: Maybe<Scalars['Boolean']['output']>;
   isGuest?: Maybe<Scalars['Boolean']['output']>;
+  preferredName?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryValidBetween = {
@@ -12373,14 +12666,37 @@ export type StopRegistryAddToMultiModalStopPlaceInput = {
   versionComment?: InputMaybe<Scalars['String']['input']>;
 };
 
+export enum StopRegistryAssistanceAvailabilityType {
+  Available = 'available',
+  AvailableAtCertainTimes = 'availableAtCertainTimes',
+  AvailableIfBooked = 'availableIfBooked',
+  None = 'none',
+  Unknown = 'unknown'
+}
+
+export enum StopRegistryAssistanceFacilityType {
+  Any = 'any',
+  BoardingAssistance = 'boardingAssistance',
+  Conductor = 'conductor',
+  Information = 'information',
+  None = 'none',
+  Other = 'other',
+  PersonalAssistance = 'personalAssistance',
+  UnaccompaniedMinorAssistance = 'unaccompaniedMinorAssistance',
+  WheelchairAssistance = 'wheelchairAssistance',
+  WheelchairUse = 'wheelchairUse'
+}
+
 export type StopRegistryCreateMultiModalStopPlaceInput = {
   alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
   name: StopRegistryEmbeddableMultilingualStringInput;
+  postalAddress?: InputMaybe<StopRegistryPostalAddressInput>;
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   stopPlaceIds: Array<InputMaybe<Scalars['String']['input']>>;
+  url?: InputMaybe<Scalars['String']['input']>;
   validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
   versionComment?: InputMaybe<Scalars['String']['input']>;
 };
@@ -12746,6 +13062,7 @@ export type StopsDatabaseAccessSpace = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -13148,6 +13465,7 @@ export type StopsDatabaseAccessSpaceAvgFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -13181,6 +13499,7 @@ export type StopsDatabaseAccessSpaceBoolExp = {
   label_value?: InputMaybe<StringComparisonExp>;
   level_ref?: InputMaybe<StringComparisonExp>;
   level_ref_version?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -13700,6 +14019,7 @@ export type StopsDatabaseAccessSpaceIncInput = {
   accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
@@ -13727,6 +14047,7 @@ export type StopsDatabaseAccessSpaceInsertInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -14070,6 +14391,7 @@ export type StopsDatabaseAccessSpaceMaxFields = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -14102,6 +14424,7 @@ export type StopsDatabaseAccessSpaceMinFields = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -14163,6 +14486,7 @@ export type StopsDatabaseAccessSpaceOrderBy = {
   label_value?: InputMaybe<OrderBy>;
   level_ref?: InputMaybe<OrderBy>;
   level_ref_version?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -14218,6 +14542,8 @@ export enum StopsDatabaseAccessSpaceSelectColumn {
   /** column name */
   LevelRefVersion = 'level_ref_version',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -14264,6 +14590,7 @@ export type StopsDatabaseAccessSpaceSetInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -14286,6 +14613,7 @@ export type StopsDatabaseAccessSpaceStddevFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -14297,6 +14625,7 @@ export type StopsDatabaseAccessSpaceStddevPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -14308,6 +14637,7 @@ export type StopsDatabaseAccessSpaceStddevSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -14338,6 +14668,7 @@ export type StopsDatabaseAccessSpaceStreamCursorValueInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -14360,6 +14691,7 @@ export type StopsDatabaseAccessSpaceSumFields = {
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
@@ -14397,6 +14729,8 @@ export enum StopsDatabaseAccessSpaceUpdateColumn {
   LevelRef = 'level_ref',
   /** column name */
   LevelRefVersion = 'level_ref_version',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -14442,6 +14776,7 @@ export type StopsDatabaseAccessSpaceVarPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -14453,6 +14788,7 @@ export type StopsDatabaseAccessSpaceVarSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -14464,6 +14800,7 @@ export type StopsDatabaseAccessSpaceVarianceFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -15962,6 +16299,7 @@ export type StopsDatabaseBoardingPosition = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -16365,6 +16703,7 @@ export type StopsDatabaseBoardingPositionAvgFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -16398,6 +16737,7 @@ export type StopsDatabaseBoardingPositionBoolExp = {
   label_value?: InputMaybe<StringComparisonExp>;
   level_ref?: InputMaybe<StringComparisonExp>;
   level_ref_version?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -16918,6 +17258,7 @@ export type StopsDatabaseBoardingPositionIncInput = {
   accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
@@ -16945,6 +17286,7 @@ export type StopsDatabaseBoardingPositionInsertInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -17290,6 +17632,7 @@ export type StopsDatabaseBoardingPositionMaxFields = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -17324,6 +17667,7 @@ export type StopsDatabaseBoardingPositionMinFields = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -17386,6 +17730,7 @@ export type StopsDatabaseBoardingPositionOrderBy = {
   label_value?: InputMaybe<OrderBy>;
   level_ref?: InputMaybe<OrderBy>;
   level_ref_version?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -17444,6 +17789,8 @@ export enum StopsDatabaseBoardingPositionSelectColumn {
   /** column name */
   LevelRefVersion = 'level_ref_version',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -17493,6 +17840,7 @@ export type StopsDatabaseBoardingPositionSetInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -17516,6 +17864,7 @@ export type StopsDatabaseBoardingPositionStddevFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -17527,6 +17876,7 @@ export type StopsDatabaseBoardingPositionStddevPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -17538,6 +17888,7 @@ export type StopsDatabaseBoardingPositionStddevSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -17569,6 +17920,7 @@ export type StopsDatabaseBoardingPositionStreamCursorValueInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -17592,6 +17944,7 @@ export type StopsDatabaseBoardingPositionSumFields = {
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
@@ -17631,6 +17984,8 @@ export enum StopsDatabaseBoardingPositionUpdateColumn {
   LevelRef = 'level_ref',
   /** column name */
   LevelRefVersion = 'level_ref_version',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -17678,6 +18033,7 @@ export type StopsDatabaseBoardingPositionVarPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -17689,6 +18045,7 @@ export type StopsDatabaseBoardingPositionVarSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -17700,6 +18057,7 @@ export type StopsDatabaseBoardingPositionVarianceFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -18889,6 +19247,7 @@ export type StopsDatabaseEquipmentPlace = {
   equipment_place_key_values_aggregate: StopsDatabaseEquipmentPlaceKeyValuesAggregate;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -18978,6 +19337,7 @@ export type StopsDatabaseEquipmentPlaceAggregateFieldsCountArgs = {
 export type StopsDatabaseEquipmentPlaceAvgFields = {
   __typename?: 'stops_database_equipment_place_avg_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -18999,6 +19359,7 @@ export type StopsDatabaseEquipmentPlaceBoolExp = {
   equipment_place_key_values_aggregate?: InputMaybe<EquipmentPlaceKeyValuesAggregateBoolExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -19312,6 +19673,7 @@ export type StopsDatabaseEquipmentPlaceEquipmentPositionsVarianceOrderBy = {
 /** input type for incrementing numeric columns in table "equipment_place" */
 export type StopsDatabaseEquipmentPlaceIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -19328,6 +19690,7 @@ export type StopsDatabaseEquipmentPlaceInsertInput = {
   equipment_place_key_values?: InputMaybe<StopsDatabaseEquipmentPlaceKeyValuesArrRelInsertInput>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -19662,6 +20025,7 @@ export type StopsDatabaseEquipmentPlaceMaxFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -19685,6 +20049,7 @@ export type StopsDatabaseEquipmentPlaceMinFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -19733,6 +20098,7 @@ export type StopsDatabaseEquipmentPlaceOrderBy = {
   equipment_place_key_values_aggregate?: InputMaybe<StopsDatabaseEquipmentPlaceKeyValuesAggregateOrderBy>;
   from_date?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -19771,6 +20137,8 @@ export enum StopsDatabaseEquipmentPlaceSelectColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -19804,6 +20172,7 @@ export type StopsDatabaseEquipmentPlaceSetInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -19821,6 +20190,7 @@ export type StopsDatabaseEquipmentPlaceSetInput = {
 export type StopsDatabaseEquipmentPlaceStddevFields = {
   __typename?: 'stops_database_equipment_place_stddev_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -19829,6 +20199,7 @@ export type StopsDatabaseEquipmentPlaceStddevFields = {
 export type StopsDatabaseEquipmentPlaceStddevPopFields = {
   __typename?: 'stops_database_equipment_place_stddev_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -19837,6 +20208,7 @@ export type StopsDatabaseEquipmentPlaceStddevPopFields = {
 export type StopsDatabaseEquipmentPlaceStddevSampFields = {
   __typename?: 'stops_database_equipment_place_stddev_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -19859,6 +20231,7 @@ export type StopsDatabaseEquipmentPlaceStreamCursorValueInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -19876,6 +20249,7 @@ export type StopsDatabaseEquipmentPlaceStreamCursorValueInput = {
 export type StopsDatabaseEquipmentPlaceSumFields = {
   __typename?: 'stops_database_equipment_place_sum_fields';
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -19898,6 +20272,8 @@ export enum StopsDatabaseEquipmentPlaceUpdateColumn {
   FromDate = 'from_date',
   /** column name */
   Id = 'id',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -19935,6 +20311,7 @@ export type StopsDatabaseEquipmentPlaceUpdates = {
 export type StopsDatabaseEquipmentPlaceVarPopFields = {
   __typename?: 'stops_database_equipment_place_var_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -19943,6 +20320,7 @@ export type StopsDatabaseEquipmentPlaceVarPopFields = {
 export type StopsDatabaseEquipmentPlaceVarSampFields = {
   __typename?: 'stops_database_equipment_place_var_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -19951,6 +20329,7 @@ export type StopsDatabaseEquipmentPlaceVarSampFields = {
 export type StopsDatabaseEquipmentPlaceVarianceFields = {
   __typename?: 'stops_database_equipment_place_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -20985,6 +21364,7 @@ export type StopsDatabaseFareZone = {
   fare_zone_neighbours_aggregate: StopsDatabaseFareZoneNeighboursAggregate;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -21097,6 +21477,7 @@ export type StopsDatabaseFareZoneAggregateFieldsCountArgs = {
 export type StopsDatabaseFareZoneAvgFields = {
   __typename?: 'stops_database_fare_zone_avg_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -21120,6 +21501,7 @@ export type StopsDatabaseFareZoneBoolExp = {
   fare_zone_neighbours_aggregate?: InputMaybe<FareZoneNeighboursAggregateBoolExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -21146,6 +21528,7 @@ export enum StopsDatabaseFareZoneConstraint {
 /** input type for incrementing numeric columns in table "fare_zone" */
 export type StopsDatabaseFareZoneIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -21163,6 +21546,7 @@ export type StopsDatabaseFareZoneInsertInput = {
   fare_zone_neighbours?: InputMaybe<StopsDatabaseFareZoneNeighboursArrRelInsertInput>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -21500,6 +21884,7 @@ export type StopsDatabaseFareZoneMaxFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -21786,6 +22171,7 @@ export type StopsDatabaseFareZoneMinFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -22098,6 +22484,7 @@ export type StopsDatabaseFareZoneOrderBy = {
   fare_zone_neighbours_aggregate?: InputMaybe<StopsDatabaseFareZoneNeighboursAggregateOrderBy>;
   from_date?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -22139,6 +22526,8 @@ export enum StopsDatabaseFareZoneSelectColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -22178,6 +22567,7 @@ export type StopsDatabaseFareZoneSetInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -22198,6 +22588,7 @@ export type StopsDatabaseFareZoneSetInput = {
 export type StopsDatabaseFareZoneStddevFields = {
   __typename?: 'stops_database_fare_zone_stddev_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -22206,6 +22597,7 @@ export type StopsDatabaseFareZoneStddevFields = {
 export type StopsDatabaseFareZoneStddevPopFields = {
   __typename?: 'stops_database_fare_zone_stddev_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -22214,6 +22606,7 @@ export type StopsDatabaseFareZoneStddevPopFields = {
 export type StopsDatabaseFareZoneStddevSampFields = {
   __typename?: 'stops_database_fare_zone_stddev_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -22236,6 +22629,7 @@ export type StopsDatabaseFareZoneStreamCursorValueInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -22256,6 +22650,7 @@ export type StopsDatabaseFareZoneStreamCursorValueInput = {
 export type StopsDatabaseFareZoneSumFields = {
   __typename?: 'stops_database_fare_zone_sum_fields';
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -22278,6 +22673,8 @@ export enum StopsDatabaseFareZoneUpdateColumn {
   FromDate = 'from_date',
   /** column name */
   Id = 'id',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -22321,6 +22718,7 @@ export type StopsDatabaseFareZoneUpdates = {
 export type StopsDatabaseFareZoneVarPopFields = {
   __typename?: 'stops_database_fare_zone_var_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -22329,6 +22727,7 @@ export type StopsDatabaseFareZoneVarPopFields = {
 export type StopsDatabaseFareZoneVarSampFields = {
   __typename?: 'stops_database_fare_zone_var_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -22337,6 +22736,7 @@ export type StopsDatabaseFareZoneVarSampFields = {
 export type StopsDatabaseFareZoneVarianceFields = {
   __typename?: 'stops_database_fare_zone_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -26308,6 +26708,7 @@ export type StopsDatabaseInfoSpot = {
   /** An aggregate relationship */
   locations_aggregate: StopsDatabaseInfoSpotLocationAggregate;
   maintenance?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -26379,6 +26780,7 @@ export type StopsDatabaseInfoSpotAvgFields = {
   __typename?: 'stops_database_info_spot_avg_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -26408,6 +26810,7 @@ export type StopsDatabaseInfoSpotBoolExp = {
   locations?: InputMaybe<StopsDatabaseInfoSpotLocationBoolExp>;
   locations_aggregate?: InputMaybe<InfoSpotLocationAggregateBoolExp>;
   maintenance?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -26434,6 +26837,7 @@ export enum StopsDatabaseInfoSpotConstraint {
 export type StopsDatabaseInfoSpotIncInput = {
   height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   width?: InputMaybe<Scalars['Int']['input']>;
@@ -26459,6 +26863,7 @@ export type StopsDatabaseInfoSpotInsertInput = {
   label?: InputMaybe<Scalars['String']['input']>;
   locations?: InputMaybe<StopsDatabaseInfoSpotLocationArrRelInsertInput>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -26753,6 +27158,7 @@ export type StopsDatabaseInfoSpotMaxFields = {
   intended_user?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   maintenance?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -26786,6 +27192,7 @@ export type StopsDatabaseInfoSpotMinFields = {
   intended_user?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   maintenance?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -26844,6 +27251,7 @@ export type StopsDatabaseInfoSpotOrderBy = {
   label?: InputMaybe<OrderBy>;
   locations_aggregate?: InputMaybe<StopsDatabaseInfoSpotLocationAggregateOrderBy>;
   maintenance?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -27258,6 +27666,8 @@ export enum StopsDatabaseInfoSpotSelectColumn {
   /** column name */
   Maintenance = 'maintenance',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -27306,6 +27716,7 @@ export type StopsDatabaseInfoSpotSetInput = {
   intended_user?: InputMaybe<Scalars['String']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -27327,6 +27738,7 @@ export type StopsDatabaseInfoSpotStddevFields = {
   __typename?: 'stops_database_info_spot_stddev_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -27337,6 +27749,7 @@ export type StopsDatabaseInfoSpotStddevPopFields = {
   __typename?: 'stops_database_info_spot_stddev_pop_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -27347,6 +27760,7 @@ export type StopsDatabaseInfoSpotStddevSampFields = {
   __typename?: 'stops_database_info_spot_stddev_samp_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -27379,6 +27793,7 @@ export type StopsDatabaseInfoSpotStreamCursorValueInput = {
   intended_user?: InputMaybe<Scalars['String']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   maintenance?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -27400,6 +27815,7 @@ export type StopsDatabaseInfoSpotSumFields = {
   __typename?: 'stops_database_info_spot_sum_fields';
   height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   width?: Maybe<Scalars['Int']['output']>;
@@ -27441,6 +27857,8 @@ export enum StopsDatabaseInfoSpotUpdateColumn {
   Label = 'label',
   /** column name */
   Maintenance = 'maintenance',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -27485,6 +27903,7 @@ export type StopsDatabaseInfoSpotVarPopFields = {
   __typename?: 'stops_database_info_spot_var_pop_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -27495,6 +27914,7 @@ export type StopsDatabaseInfoSpotVarSampFields = {
   __typename?: 'stops_database_info_spot_var_samp_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -27505,6 +27925,7 @@ export type StopsDatabaseInfoSpotVarianceFields = {
   __typename?: 'stops_database_info_spot_variance_fields';
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
@@ -27695,6 +28116,7 @@ export type StopsDatabaseInstalledEquipmentVarianceFields = {
 export type StopsDatabaseInstalledEquipmentVersionStructure = {
   __typename?: 'stops_database_installed_equipment_version_structure';
   air_conditioned?: Maybe<Scalars['Boolean']['output']>;
+  audio_interface_available?: Maybe<Scalars['Boolean']['output']>;
   /** Pyöräpysäköinti */
   bicycle_parking?: Maybe<Scalars['Boolean']['output']>;
   brand_graphic?: Maybe<Scalars['String']['output']>;
@@ -27713,6 +28135,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   height?: Maybe<Scalars['numeric']['output']>;
   height_from_floor?: Maybe<Scalars['numeric']['output']>;
   id: Scalars['bigint']['output'];
+  induction_loops?: Maybe<Scalars['Boolean']['output']>;
   /** An array relationship */
   installed_equipment_version_structure_installed_equipments: Array<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipment>;
   /** An aggregate relationship */
@@ -27721,6 +28144,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   leaning_rail?: Maybe<Scalars['Boolean']['output']>;
   length?: Maybe<Scalars['numeric']['output']>;
   line_signage?: Maybe<Scalars['Boolean']['output']>;
+  low_counter_access?: Maybe<Scalars['Boolean']['output']>;
   machine_readable?: Maybe<Scalars['Boolean']['output']>;
   main_line_sign?: Maybe<Scalars['Boolean']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -27757,6 +28181,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   sign_graphic?: Maybe<Scalars['String']['output']>;
   smoking_allowed?: Maybe<Scalars['Boolean']['output']>;
   step_free?: Maybe<Scalars['Boolean']['output']>;
+  tactile_interface_available?: Maybe<Scalars['Boolean']['output']>;
+  ticket_counter?: Maybe<Scalars['Boolean']['output']>;
   ticket_machines?: Maybe<Scalars['Boolean']['output']>;
   ticket_office?: Maybe<Scalars['Boolean']['output']>;
   /** Aikataulukaappien lukumäärä */
@@ -27768,6 +28194,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   version_comment?: Maybe<Scalars['String']['output']>;
   wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
   wheelchair_area_width?: Maybe<Scalars['numeric']['output']>;
+  wheelchair_suitable?: Maybe<Scalars['Boolean']['output']>;
   width?: Maybe<Scalars['numeric']['output']>;
   women_only?: Maybe<Scalars['Boolean']['output']>;
 };
@@ -27852,6 +28279,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
   _not?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureBoolExp>;
   _or?: InputMaybe<Array<StopsDatabaseInstalledEquipmentVersionStructureBoolExp>>;
   air_conditioned?: InputMaybe<BooleanComparisonExp>;
+  audio_interface_available?: InputMaybe<BooleanComparisonExp>;
   bicycle_parking?: InputMaybe<BooleanComparisonExp>;
   brand_graphic?: InputMaybe<StringComparisonExp>;
   changed?: InputMaybe<TimestampComparisonExp>;
@@ -27869,11 +28297,13 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
   height?: InputMaybe<NumericComparisonExp>;
   height_from_floor?: InputMaybe<NumericComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
+  induction_loops?: InputMaybe<BooleanComparisonExp>;
   installed_equipment_version_structure_installed_equipments?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentBoolExp>;
   installed_equipment_version_structure_installed_equipments_aggregate?: InputMaybe<InstalledEquipmentVersionStructureInstalledEquipmentAggregateBoolExp>;
   leaning_rail?: InputMaybe<BooleanComparisonExp>;
   length?: InputMaybe<NumericComparisonExp>;
   line_signage?: InputMaybe<BooleanComparisonExp>;
+  low_counter_access?: InputMaybe<BooleanComparisonExp>;
   machine_readable?: InputMaybe<BooleanComparisonExp>;
   main_line_sign?: InputMaybe<BooleanComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -27901,6 +28331,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
   sign_graphic?: InputMaybe<StringComparisonExp>;
   smoking_allowed?: InputMaybe<BooleanComparisonExp>;
   step_free?: InputMaybe<BooleanComparisonExp>;
+  tactile_interface_available?: InputMaybe<BooleanComparisonExp>;
+  ticket_counter?: InputMaybe<BooleanComparisonExp>;
   ticket_machines?: InputMaybe<BooleanComparisonExp>;
   ticket_office?: InputMaybe<BooleanComparisonExp>;
   timetable_cabinets?: InputMaybe<IntComparisonExp>;
@@ -27910,6 +28342,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
   version_comment?: InputMaybe<StringComparisonExp>;
   wheelchair_area_length?: InputMaybe<NumericComparisonExp>;
   wheelchair_area_width?: InputMaybe<NumericComparisonExp>;
+  wheelchair_suitable?: InputMaybe<BooleanComparisonExp>;
   width?: InputMaybe<NumericComparisonExp>;
   women_only?: InputMaybe<BooleanComparisonExp>;
 };
@@ -27948,6 +28381,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureIncInput = {
 /** input type for inserting data into table "installed_equipment_version_structure" */
 export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
+  audio_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
   /** Pyöräpysäköinti */
   bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
   brand_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -27966,11 +28400,13 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   height?: InputMaybe<Scalars['numeric']['input']>;
   height_from_floor?: InputMaybe<Scalars['numeric']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  induction_loops?: InputMaybe<Scalars['Boolean']['input']>;
   installed_equipment_version_structure_installed_equipments?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentArrRelInsertInput>;
   /** Nojailutanko */
   leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
   length?: InputMaybe<Scalars['numeric']['input']>;
   line_signage?: InputMaybe<Scalars['Boolean']['input']>;
+  low_counter_access?: InputMaybe<Scalars['Boolean']['input']>;
   machine_readable?: InputMaybe<Scalars['Boolean']['input']>;
   main_line_sign?: InputMaybe<Scalars['Boolean']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -28007,6 +28443,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   sign_graphic?: InputMaybe<Scalars['String']['input']>;
   smoking_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   step_free?: InputMaybe<Scalars['Boolean']['input']>;
+  tactile_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
+  ticket_counter?: InputMaybe<Scalars['Boolean']['input']>;
   ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
   ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
   /** Aikataulukaappien lukumäärä */
@@ -28018,6 +28456,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   version_comment?: InputMaybe<Scalars['String']['input']>;
   wheelchair_area_length?: InputMaybe<Scalars['numeric']['input']>;
   wheelchair_area_width?: InputMaybe<Scalars['numeric']['input']>;
+  wheelchair_suitable?: InputMaybe<Scalars['Boolean']['input']>;
   width?: InputMaybe<Scalars['numeric']['input']>;
   women_only?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -28439,6 +28878,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOnConflict = {
 /** Ordering options when selecting data from "installed_equipment_version_structure". */
 export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   air_conditioned?: InputMaybe<OrderBy>;
+  audio_interface_available?: InputMaybe<OrderBy>;
   bicycle_parking?: InputMaybe<OrderBy>;
   brand_graphic?: InputMaybe<OrderBy>;
   changed?: InputMaybe<OrderBy>;
@@ -28456,10 +28896,12 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   height?: InputMaybe<OrderBy>;
   height_from_floor?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  induction_loops?: InputMaybe<OrderBy>;
   installed_equipment_version_structure_installed_equipments_aggregate?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentAggregateOrderBy>;
   leaning_rail?: InputMaybe<OrderBy>;
   length?: InputMaybe<OrderBy>;
   line_signage?: InputMaybe<OrderBy>;
+  low_counter_access?: InputMaybe<OrderBy>;
   machine_readable?: InputMaybe<OrderBy>;
   main_line_sign?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -28487,6 +28929,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   sign_graphic?: InputMaybe<OrderBy>;
   smoking_allowed?: InputMaybe<OrderBy>;
   step_free?: InputMaybe<OrderBy>;
+  tactile_interface_available?: InputMaybe<OrderBy>;
+  ticket_counter?: InputMaybe<OrderBy>;
   ticket_machines?: InputMaybe<OrderBy>;
   ticket_office?: InputMaybe<OrderBy>;
   timetable_cabinets?: InputMaybe<OrderBy>;
@@ -28496,6 +28940,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   version_comment?: InputMaybe<OrderBy>;
   wheelchair_area_length?: InputMaybe<OrderBy>;
   wheelchair_area_width?: InputMaybe<OrderBy>;
+  wheelchair_suitable?: InputMaybe<OrderBy>;
   width?: InputMaybe<OrderBy>;
   women_only?: InputMaybe<OrderBy>;
 };
@@ -28509,6 +28954,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructurePkColumnsInput = {
 export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   AirConditioned = 'air_conditioned',
+  /** column name */
+  AudioInterfaceAvailable = 'audio_interface_available',
   /** column name */
   BicycleParking = 'bicycle_parking',
   /** column name */
@@ -28544,11 +28991,15 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  InductionLoops = 'induction_loops',
+  /** column name */
   LeaningRail = 'leaning_rail',
   /** column name */
   Length = 'length',
   /** column name */
   LineSignage = 'line_signage',
+  /** column name */
+  LowCounterAccess = 'low_counter_access',
   /** column name */
   MachineReadable = 'machine_readable',
   /** column name */
@@ -28604,6 +29055,10 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   StepFree = 'step_free',
   /** column name */
+  TactileInterfaceAvailable = 'tactile_interface_available',
+  /** column name */
+  TicketCounter = 'ticket_counter',
+  /** column name */
   TicketMachines = 'ticket_machines',
   /** column name */
   TicketOffice = 'ticket_office',
@@ -28622,6 +29077,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   WheelchairAreaWidth = 'wheelchair_area_width',
   /** column name */
+  WheelchairSuitable = 'wheelchair_suitable',
+  /** column name */
   Width = 'width',
   /** column name */
   WomenOnly = 'women_only'
@@ -28630,6 +29087,7 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
 /** input type for updating data in table "installed_equipment_version_structure" */
 export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
+  audio_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
   /** Pyöräpysäköinti */
   bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
   brand_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -28648,10 +29106,12 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   height?: InputMaybe<Scalars['numeric']['input']>;
   height_from_floor?: InputMaybe<Scalars['numeric']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  induction_loops?: InputMaybe<Scalars['Boolean']['input']>;
   /** Nojailutanko */
   leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
   length?: InputMaybe<Scalars['numeric']['input']>;
   line_signage?: InputMaybe<Scalars['Boolean']['input']>;
+  low_counter_access?: InputMaybe<Scalars['Boolean']['input']>;
   machine_readable?: InputMaybe<Scalars['Boolean']['input']>;
   main_line_sign?: InputMaybe<Scalars['Boolean']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -28688,6 +29148,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   sign_graphic?: InputMaybe<Scalars['String']['input']>;
   smoking_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   step_free?: InputMaybe<Scalars['Boolean']['input']>;
+  tactile_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
+  ticket_counter?: InputMaybe<Scalars['Boolean']['input']>;
   ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
   ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
   /** Aikataulukaappien lukumäärä */
@@ -28699,6 +29161,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   version_comment?: InputMaybe<Scalars['String']['input']>;
   wheelchair_area_length?: InputMaybe<Scalars['numeric']['input']>;
   wheelchair_area_width?: InputMaybe<Scalars['numeric']['input']>;
+  wheelchair_suitable?: InputMaybe<Scalars['Boolean']['input']>;
   width?: InputMaybe<Scalars['numeric']['input']>;
   women_only?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -28786,6 +29249,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInput = {
   air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
+  audio_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
   /** Pyöräpysäköinti */
   bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
   brand_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -28804,10 +29268,12 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
   height?: InputMaybe<Scalars['numeric']['input']>;
   height_from_floor?: InputMaybe<Scalars['numeric']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  induction_loops?: InputMaybe<Scalars['Boolean']['input']>;
   /** Nojailutanko */
   leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
   length?: InputMaybe<Scalars['numeric']['input']>;
   line_signage?: InputMaybe<Scalars['Boolean']['input']>;
+  low_counter_access?: InputMaybe<Scalars['Boolean']['input']>;
   machine_readable?: InputMaybe<Scalars['Boolean']['input']>;
   main_line_sign?: InputMaybe<Scalars['Boolean']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -28844,6 +29310,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
   sign_graphic?: InputMaybe<Scalars['String']['input']>;
   smoking_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   step_free?: InputMaybe<Scalars['Boolean']['input']>;
+  tactile_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
+  ticket_counter?: InputMaybe<Scalars['Boolean']['input']>;
   ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
   ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
   /** Aikataulukaappien lukumäärä */
@@ -28855,6 +29323,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
   version_comment?: InputMaybe<Scalars['String']['input']>;
   wheelchair_area_length?: InputMaybe<Scalars['numeric']['input']>;
   wheelchair_area_width?: InputMaybe<Scalars['numeric']['input']>;
+  wheelchair_suitable?: InputMaybe<Scalars['Boolean']['input']>;
   width?: InputMaybe<Scalars['numeric']['input']>;
   women_only?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -28887,6 +29356,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSumFields = {
 export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   AirConditioned = 'air_conditioned',
+  /** column name */
+  AudioInterfaceAvailable = 'audio_interface_available',
   /** column name */
   BicycleParking = 'bicycle_parking',
   /** column name */
@@ -28922,11 +29393,15 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  InductionLoops = 'induction_loops',
+  /** column name */
   LeaningRail = 'leaning_rail',
   /** column name */
   Length = 'length',
   /** column name */
   LineSignage = 'line_signage',
+  /** column name */
+  LowCounterAccess = 'low_counter_access',
   /** column name */
   MachineReadable = 'machine_readable',
   /** column name */
@@ -28982,6 +29457,10 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   StepFree = 'step_free',
   /** column name */
+  TactileInterfaceAvailable = 'tactile_interface_available',
+  /** column name */
+  TicketCounter = 'ticket_counter',
+  /** column name */
   TicketMachines = 'ticket_machines',
   /** column name */
   TicketOffice = 'ticket_office',
@@ -28999,6 +29478,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   WheelchairAreaLength = 'wheelchair_area_length',
   /** column name */
   WheelchairAreaWidth = 'wheelchair_area_width',
+  /** column name */
+  WheelchairSuitable = 'wheelchair_suitable',
   /** column name */
   Width = 'width',
   /** column name */
@@ -30870,6 +31351,8 @@ export type StopsDatabaseParking = {
   id: Scalars['bigint']['output'];
   /** An object relationship */
   installed_equipment_version_structure?: Maybe<StopsDatabaseInstalledEquipmentVersionStructure>;
+  lighting?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -31589,6 +32072,7 @@ export type StopsDatabaseParkingArea = {
   installed_equipment_version_structure?: Maybe<StopsDatabaseInstalledEquipmentVersionStructure>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -32009,6 +32493,7 @@ export type StopsDatabaseParkingAreaAvgFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -32036,6 +32521,7 @@ export type StopsDatabaseParkingAreaBoolExp = {
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureBoolExp>;
   level_ref?: InputMaybe<StringComparisonExp>;
   level_ref_version?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -32565,6 +33051,7 @@ export type StopsDatabaseParkingAreaIncInput = {
   accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   parking_properties_id?: InputMaybe<Scalars['bigint']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
@@ -32589,6 +33076,7 @@ export type StopsDatabaseParkingAreaInsertInput = {
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureObjRelInsertInput>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -32937,6 +33425,7 @@ export type StopsDatabaseParkingAreaMaxFields = {
   id?: Maybe<Scalars['bigint']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -32969,6 +33458,7 @@ export type StopsDatabaseParkingAreaMinFields = {
   id?: Maybe<Scalars['bigint']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -33020,6 +33510,7 @@ export type StopsDatabaseParkingAreaOrderBy = {
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureOrderBy>;
   level_ref?: InputMaybe<OrderBy>;
   level_ref_version?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -33078,6 +33569,8 @@ export enum StopsDatabaseParkingAreaSelectColumn {
   /** column name */
   LevelRefVersion = 'level_ref_version',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -33126,6 +33619,7 @@ export type StopsDatabaseParkingAreaSetInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -33150,6 +33644,7 @@ export type StopsDatabaseParkingAreaStddevFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -33163,6 +33658,7 @@ export type StopsDatabaseParkingAreaStddevPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -33176,6 +33672,7 @@ export type StopsDatabaseParkingAreaStddevSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -33206,6 +33703,7 @@ export type StopsDatabaseParkingAreaStreamCursorValueInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -33230,6 +33728,7 @@ export type StopsDatabaseParkingAreaSumFields = {
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   parking_properties_id?: Maybe<Scalars['bigint']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
@@ -33265,6 +33764,8 @@ export enum StopsDatabaseParkingAreaUpdateColumn {
   LevelRef = 'level_ref',
   /** column name */
   LevelRefVersion = 'level_ref_version',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -33314,6 +33815,7 @@ export type StopsDatabaseParkingAreaVarPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -33327,6 +33829,7 @@ export type StopsDatabaseParkingAreaVarSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -33340,6 +33843,7 @@ export type StopsDatabaseParkingAreaVarianceFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   parking_properties_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
@@ -33353,6 +33857,7 @@ export type StopsDatabaseParkingAvgFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -33384,6 +33889,8 @@ export type StopsDatabaseParkingBoolExp = {
   from_date?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureBoolExp>;
+  lighting?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -34104,6 +34611,7 @@ export type StopsDatabaseParkingIncInput = {
   accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   number_of_parking_levels?: InputMaybe<Scalars['numeric']['input']>;
   parking_layout?: InputMaybe<Scalars['Int']['input']>;
   parking_reservation?: InputMaybe<Scalars['Int']['input']>;
@@ -34132,6 +34640,8 @@ export type StopsDatabaseParkingInsertInput = {
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureObjRelInsertInput>;
+  lighting?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -34487,6 +34997,8 @@ export type StopsDatabaseParkingMaxFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  lighting?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -34523,6 +35035,8 @@ export type StopsDatabaseParkingMinFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  lighting?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -34579,6 +35093,8 @@ export type StopsDatabaseParkingOrderBy = {
   from_date?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureOrderBy>;
+  lighting?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -36380,6 +36896,10 @@ export enum StopsDatabaseParkingSelectColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  Lighting = 'lighting',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -36448,6 +36968,8 @@ export type StopsDatabaseParkingSetInput = {
   free_parking_out_of_hours?: InputMaybe<Scalars['Boolean']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  lighting?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -36482,6 +37004,7 @@ export type StopsDatabaseParkingStddevFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -36499,6 +37022,7 @@ export type StopsDatabaseParkingStddevPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -36516,6 +37040,7 @@ export type StopsDatabaseParkingStddevSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -36550,6 +37075,8 @@ export type StopsDatabaseParkingStreamCursorValueInput = {
   free_parking_out_of_hours?: InputMaybe<Scalars['Boolean']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  lighting?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -36584,6 +37111,7 @@ export type StopsDatabaseParkingSumFields = {
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   number_of_parking_levels?: Maybe<Scalars['numeric']['output']>;
   parking_layout?: Maybe<Scalars['Int']['output']>;
   parking_reservation?: Maybe<Scalars['Int']['output']>;
@@ -36623,6 +37151,10 @@ export enum StopsDatabaseParkingUpdateColumn {
   FromDate = 'from_date',
   /** column name */
   Id = 'id',
+  /** column name */
+  Lighting = 'lighting',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -36692,6 +37224,7 @@ export type StopsDatabaseParkingVarPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -36709,6 +37242,7 @@ export type StopsDatabaseParkingVarSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -36726,6 +37260,7 @@ export type StopsDatabaseParkingVarianceFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   number_of_parking_levels?: Maybe<Scalars['Float']['output']>;
   parking_layout?: Maybe<Scalars['Float']['output']>;
   parking_reservation?: Maybe<Scalars['Float']['output']>;
@@ -37256,15 +37791,15 @@ export type StopsDatabasePathLink = {
   changed?: Maybe<Scalars['timestamp']['output']>;
   changed_by?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
-  default_duration?: Maybe<Scalars['bytea']['output']>;
-  frequent_traveller_duration?: Maybe<Scalars['bytea']['output']>;
+  default_duration?: Maybe<Scalars['bigint']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   from_id: Scalars['bigint']['output'];
   id: Scalars['bigint']['output'];
   line_string?: Maybe<Scalars['geometry']['output']>;
-  mobility_restricted_traveller_duration?: Maybe<Scalars['bytea']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
-  occasional_traveller_duration?: Maybe<Scalars['bytea']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   to_id: Scalars['bigint']['output'];
   version: Scalars['bigint']['output'];
@@ -37304,8 +37839,12 @@ export type StopsDatabasePathLinkAggregateFieldsCountArgs = {
 /** aggregate avg on columns */
 export type StopsDatabasePathLinkAvgFields = {
   __typename?: 'stops_database_path_link_avg_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -37318,15 +37857,15 @@ export type StopsDatabasePathLinkBoolExp = {
   changed?: InputMaybe<TimestampComparisonExp>;
   changed_by?: InputMaybe<StringComparisonExp>;
   created?: InputMaybe<TimestampComparisonExp>;
-  default_duration?: InputMaybe<ByteaComparisonExp>;
-  frequent_traveller_duration?: InputMaybe<ByteaComparisonExp>;
+  default_duration?: InputMaybe<BigintComparisonExp>;
+  frequent_traveller_duration?: InputMaybe<BigintComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
   from_id?: InputMaybe<BigintComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   line_string?: InputMaybe<GeometryComparisonExp>;
-  mobility_restricted_traveller_duration?: InputMaybe<ByteaComparisonExp>;
+  mobility_restricted_traveller_duration?: InputMaybe<BigintComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
-  occasional_traveller_duration?: InputMaybe<ByteaComparisonExp>;
+  occasional_traveller_duration?: InputMaybe<BigintComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
   to_id?: InputMaybe<BigintComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
@@ -37587,8 +38126,12 @@ export type StopsDatabasePathLinkEndVarianceFields = {
 
 /** input type for incrementing numeric columns in table "path_link" */
 export type StopsDatabasePathLinkIncInput = {
+  default_duration?: InputMaybe<Scalars['bigint']['input']>;
+  frequent_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   from_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
+  occasional_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   to_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -37598,15 +38141,15 @@ export type StopsDatabasePathLinkInsertInput = {
   changed?: InputMaybe<Scalars['timestamp']['input']>;
   changed_by?: InputMaybe<Scalars['String']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
-  default_duration?: InputMaybe<Scalars['bytea']['input']>;
-  frequent_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  default_duration?: InputMaybe<Scalars['bigint']['input']>;
+  frequent_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   from_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   line_string?: InputMaybe<Scalars['geometry']['input']>;
-  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
-  occasional_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  occasional_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   to_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
@@ -37840,10 +38383,14 @@ export type StopsDatabasePathLinkMaxFields = {
   changed?: Maybe<Scalars['timestamp']['output']>;
   changed_by?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
+  default_duration?: Maybe<Scalars['bigint']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   from_id?: Maybe<Scalars['bigint']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   to_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
@@ -37856,10 +38403,14 @@ export type StopsDatabasePathLinkMinFields = {
   changed?: Maybe<Scalars['timestamp']['output']>;
   changed_by?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
+  default_duration?: Maybe<Scalars['bigint']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   from_id?: Maybe<Scalars['bigint']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   to_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
@@ -37948,15 +38499,15 @@ export type StopsDatabasePathLinkSetInput = {
   changed?: InputMaybe<Scalars['timestamp']['input']>;
   changed_by?: InputMaybe<Scalars['String']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
-  default_duration?: InputMaybe<Scalars['bytea']['input']>;
-  frequent_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  default_duration?: InputMaybe<Scalars['bigint']['input']>;
+  frequent_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   from_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   line_string?: InputMaybe<Scalars['geometry']['input']>;
-  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
-  occasional_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  occasional_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   to_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
@@ -37966,8 +38517,12 @@ export type StopsDatabasePathLinkSetInput = {
 /** aggregate stddev on columns */
 export type StopsDatabasePathLinkStddevFields = {
   __typename?: 'stops_database_path_link_stddev_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -37975,8 +38530,12 @@ export type StopsDatabasePathLinkStddevFields = {
 /** aggregate stddev_pop on columns */
 export type StopsDatabasePathLinkStddevPopFields = {
   __typename?: 'stops_database_path_link_stddev_pop_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -37984,8 +38543,12 @@ export type StopsDatabasePathLinkStddevPopFields = {
 /** aggregate stddev_samp on columns */
 export type StopsDatabasePathLinkStddevSampFields = {
   __typename?: 'stops_database_path_link_stddev_samp_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -38003,15 +38566,15 @@ export type StopsDatabasePathLinkStreamCursorValueInput = {
   changed?: InputMaybe<Scalars['timestamp']['input']>;
   changed_by?: InputMaybe<Scalars['String']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
-  default_duration?: InputMaybe<Scalars['bytea']['input']>;
-  frequent_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  default_duration?: InputMaybe<Scalars['bigint']['input']>;
+  frequent_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   from_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   line_string?: InputMaybe<Scalars['geometry']['input']>;
-  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  mobility_restricted_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
-  occasional_traveller_duration?: InputMaybe<Scalars['bytea']['input']>;
+  occasional_traveller_duration?: InputMaybe<Scalars['bigint']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   to_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
@@ -38021,8 +38584,12 @@ export type StopsDatabasePathLinkStreamCursorValueInput = {
 /** aggregate sum on columns */
 export type StopsDatabasePathLinkSumFields = {
   __typename?: 'stops_database_path_link_sum_fields';
+  default_duration?: Maybe<Scalars['bigint']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   from_id?: Maybe<Scalars['bigint']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['bigint']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['bigint']['output']>;
   to_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -38075,8 +38642,12 @@ export type StopsDatabasePathLinkUpdates = {
 /** aggregate var_pop on columns */
 export type StopsDatabasePathLinkVarPopFields = {
   __typename?: 'stops_database_path_link_var_pop_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -38084,8 +38655,12 @@ export type StopsDatabasePathLinkVarPopFields = {
 /** aggregate var_samp on columns */
 export type StopsDatabasePathLinkVarSampFields = {
   __typename?: 'stops_database_path_link_var_samp_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -38093,8 +38668,12 @@ export type StopsDatabasePathLinkVarSampFields = {
 /** aggregate variance on columns */
 export type StopsDatabasePathLinkVarianceFields = {
   __typename?: 'stops_database_path_link_variance_fields';
+  default_duration?: Maybe<Scalars['Float']['output']>;
+  frequent_traveller_duration?: Maybe<Scalars['Float']['output']>;
   from_id?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  mobility_restricted_traveller_duration?: Maybe<Scalars['Float']['output']>;
+  occasional_traveller_duration?: Maybe<Scalars['Float']['output']>;
   to_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -39581,6 +40160,8 @@ export type StopsDatabaseQuay = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  lighting?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -40021,6 +40602,7 @@ export type StopsDatabaseQuayAvgFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -40337,6 +40919,8 @@ export type StopsDatabaseQuayBoolExp = {
   label_value?: InputMaybe<StringComparisonExp>;
   level_ref?: InputMaybe<StringComparisonExp>;
   level_ref_version?: InputMaybe<StringComparisonExp>;
+  lighting?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -40866,6 +41450,7 @@ export type StopsDatabaseQuayIncInput = {
   compass_bearing?: InputMaybe<Scalars['Float']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
@@ -40891,6 +41476,8 @@ export type StopsDatabaseQuayInsertInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  lighting?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -41240,6 +41827,8 @@ export type StopsDatabaseQuayMaxFields = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  lighting?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -41274,6 +41863,8 @@ export type StopsDatabaseQuayMinFields = {
   label_value?: Maybe<Scalars['String']['output']>;
   level_ref?: Maybe<Scalars['String']['output']>;
   level_ref_version?: Maybe<Scalars['String']['output']>;
+  lighting?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -42025,6 +42616,8 @@ export type StopsDatabaseQuayOrderBy = {
   label_value?: InputMaybe<OrderBy>;
   level_ref?: InputMaybe<OrderBy>;
   level_ref_version?: InputMaybe<OrderBy>;
+  lighting?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -42087,6 +42680,10 @@ export enum StopsDatabaseQuaySelectColumn {
   /** column name */
   LevelRefVersion = 'level_ref_version',
   /** column name */
+  Lighting = 'lighting',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -42136,6 +42733,8 @@ export type StopsDatabaseQuaySetInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  lighting?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -42160,6 +42759,7 @@ export type StopsDatabaseQuayStddevFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -42172,6 +42772,7 @@ export type StopsDatabaseQuayStddevPopFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -42184,6 +42785,7 @@ export type StopsDatabaseQuayStddevSampFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -42215,6 +42817,8 @@ export type StopsDatabaseQuayStreamCursorValueInput = {
   label_value?: InputMaybe<Scalars['String']['input']>;
   level_ref?: InputMaybe<Scalars['String']['input']>;
   level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  lighting?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -42239,6 +42843,7 @@ export type StopsDatabaseQuaySumFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
@@ -42278,6 +42883,10 @@ export enum StopsDatabaseQuayUpdateColumn {
   LevelRef = 'level_ref',
   /** column name */
   LevelRefVersion = 'level_ref_version',
+  /** column name */
+  Lighting = 'lighting',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -42326,6 +42935,7 @@ export type StopsDatabaseQuayVarPopFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -42338,6 +42948,7 @@ export type StopsDatabaseQuayVarSampFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -42350,6 +42961,7 @@ export type StopsDatabaseQuayVarianceFields = {
   compass_bearing?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
@@ -42932,6 +43544,7 @@ export type StopsDatabaseStopPlace = {
   installed_equipment_version_structure?: Maybe<StopsDatabaseInstalledEquipmentVersionStructure>;
   metro_submode?: Maybe<Scalars['String']['output']>;
   modification_enumeration?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -42942,6 +43555,7 @@ export type StopsDatabaseStopPlace = {
   persistable_polygon?: Maybe<StopsDatabasePersistablePolygon>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_address_id?: Maybe<Scalars['bigint']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -42986,6 +43600,7 @@ export type StopsDatabaseStopPlace = {
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
   version: Scalars['bigint']['output'];
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
@@ -43013,6 +43628,7 @@ export type StopsDatabaseStopPlaceTiamatStopPlaceArgs = {
   versionValidity?: InputMaybe<StopRegistryVersionValidity>;
   withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
   withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withQuayPublicAndPrivateCodes?: InputMaybe<Scalars['Boolean']['input']>;
   withTags?: InputMaybe<Scalars['Boolean']['input']>;
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
@@ -43951,8 +44567,10 @@ export type StopsDatabaseStopPlaceAvgFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -43982,6 +44600,7 @@ export type StopsDatabaseStopPlaceBoolExp = {
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureBoolExp>;
   metro_submode?: InputMaybe<StringComparisonExp>;
   modification_enumeration?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -43991,6 +44610,7 @@ export type StopsDatabaseStopPlaceBoolExp = {
   persistable_polygon?: InputMaybe<StopsDatabasePersistablePolygonBoolExp>;
   place_equipments_id?: InputMaybe<BigintComparisonExp>;
   polygon_id?: InputMaybe<BigintComparisonExp>;
+  postal_address_id?: InputMaybe<BigintComparisonExp>;
   private_code_type?: InputMaybe<StringComparisonExp>;
   private_code_value?: InputMaybe<StringComparisonExp>;
   public_code?: InputMaybe<StringComparisonExp>;
@@ -44019,6 +44639,7 @@ export type StopsDatabaseStopPlaceBoolExp = {
   topographic_place_id?: InputMaybe<BigintComparisonExp>;
   tram_submode?: InputMaybe<StringComparisonExp>;
   transport_mode?: InputMaybe<StringComparisonExp>;
+  url?: InputMaybe<StringComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
   water_submode?: InputMaybe<StringComparisonExp>;
@@ -44338,7 +44959,9 @@ export enum StopsDatabaseStopPlaceConstraint {
   /** unique or primary key constraint on columns "netex_id", "version" */
   StopPlaceNetexIdVersionConstraint = 'stop_place_netex_id_version_constraint',
   /** unique or primary key constraint on columns "id" */
-  StopPlacePkey = 'stop_place_pkey'
+  StopPlacePkey = 'stop_place_pkey',
+  /** unique or primary key constraint on columns "postal_address_id" */
+  Uk1g41j82qdnyk6egvqoq926xks = 'uk1g41j82qdnyk6egvqoq926xks'
 }
 
 /** columns and relationships of "stop_place_equipment_places" */
@@ -44634,8 +45257,10 @@ export type StopsDatabaseStopPlaceIncInput = {
   accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  postal_address_id?: InputMaybe<Scalars['bigint']['input']>;
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -44662,6 +45287,7 @@ export type StopsDatabaseStopPlaceInsertInput = {
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureObjRelInsertInput>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -44671,6 +45297,7 @@ export type StopsDatabaseStopPlaceInsertInput = {
   persistable_polygon?: InputMaybe<StopsDatabasePersistablePolygonObjRelInsertInput>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  postal_address_id?: InputMaybe<Scalars['bigint']['input']>;
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
@@ -44692,6 +45319,7 @@ export type StopsDatabaseStopPlaceInsertInput = {
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   tram_submode?: InputMaybe<Scalars['String']['input']>;
   transport_mode?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
   water_submode?: InputMaybe<Scalars['String']['input']>;
@@ -45026,6 +45654,7 @@ export type StopsDatabaseStopPlaceMaxFields = {
   id?: Maybe<Scalars['bigint']['output']>;
   metro_submode?: Maybe<Scalars['String']['output']>;
   modification_enumeration?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -45033,6 +45662,7 @@ export type StopsDatabaseStopPlaceMaxFields = {
   parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_address_id?: Maybe<Scalars['bigint']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -45045,6 +45675,7 @@ export type StopsDatabaseStopPlaceMaxFields = {
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
@@ -45069,6 +45700,7 @@ export type StopsDatabaseStopPlaceMinFields = {
   id?: Maybe<Scalars['bigint']['output']>;
   metro_submode?: Maybe<Scalars['String']['output']>;
   modification_enumeration?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -45076,6 +45708,7 @@ export type StopsDatabaseStopPlaceMinFields = {
   parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_address_id?: Maybe<Scalars['bigint']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -45088,6 +45721,7 @@ export type StopsDatabaseStopPlaceMinFields = {
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
@@ -45215,6 +45849,7 @@ export type StopsDatabaseStopPlaceNewestVersionTiamatStopPlaceArgs = {
   versionValidity?: InputMaybe<StopRegistryVersionValidity>;
   withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
   withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withQuayPublicAndPrivateCodes?: InputMaybe<Scalars['Boolean']['input']>;
   withTags?: InputMaybe<Scalars['Boolean']['input']>;
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
@@ -45998,6 +46633,7 @@ export type StopsDatabaseStopPlaceOrderBy = {
   installed_equipment_version_structure?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureOrderBy>;
   metro_submode?: InputMaybe<OrderBy>;
   modification_enumeration?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -46007,6 +46643,7 @@ export type StopsDatabaseStopPlaceOrderBy = {
   persistable_polygon?: InputMaybe<StopsDatabasePersistablePolygonOrderBy>;
   place_equipments_id?: InputMaybe<OrderBy>;
   polygon_id?: InputMaybe<OrderBy>;
+  postal_address_id?: InputMaybe<OrderBy>;
   private_code_type?: InputMaybe<OrderBy>;
   private_code_value?: InputMaybe<OrderBy>;
   public_code?: InputMaybe<OrderBy>;
@@ -46028,6 +46665,7 @@ export type StopsDatabaseStopPlaceOrderBy = {
   topographic_place_id?: InputMaybe<OrderBy>;
   tram_submode?: InputMaybe<OrderBy>;
   transport_mode?: InputMaybe<OrderBy>;
+  url?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
   version_comment?: InputMaybe<OrderBy>;
   water_submode?: InputMaybe<OrderBy>;
@@ -46585,6 +47223,8 @@ export enum StopsDatabaseStopPlaceSelectColumn {
   /** column name */
   ModificationEnumeration = 'modification_enumeration',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -46600,6 +47240,8 @@ export enum StopsDatabaseStopPlaceSelectColumn {
   PlaceEquipmentsId = 'place_equipments_id',
   /** column name */
   PolygonId = 'polygon_id',
+  /** column name */
+  PostalAddressId = 'postal_address_id',
   /** column name */
   PrivateCodeType = 'private_code_type',
   /** column name */
@@ -46624,6 +47266,8 @@ export enum StopsDatabaseStopPlaceSelectColumn {
   TramSubmode = 'tram_submode',
   /** column name */
   TransportMode = 'transport_mode',
+  /** column name */
+  Url = 'url',
   /** column name */
   Version = 'version',
   /** column name */
@@ -46654,6 +47298,7 @@ export type StopsDatabaseStopPlaceSetInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -46662,6 +47307,7 @@ export type StopsDatabaseStopPlaceSetInput = {
   parent_stop_place?: InputMaybe<Scalars['Boolean']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  postal_address_id?: InputMaybe<Scalars['bigint']['input']>;
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
@@ -46674,6 +47320,7 @@ export type StopsDatabaseStopPlaceSetInput = {
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   tram_submode?: InputMaybe<Scalars['String']['input']>;
   transport_mode?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
   water_submode?: InputMaybe<Scalars['String']['input']>;
@@ -46686,8 +47333,10 @@ export type StopsDatabaseStopPlaceStddevFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -46698,8 +47347,10 @@ export type StopsDatabaseStopPlaceStddevPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -46710,8 +47361,10 @@ export type StopsDatabaseStopPlaceStddevSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -46744,6 +47397,7 @@ export type StopsDatabaseStopPlaceStreamCursorValueInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -46752,6 +47406,7 @@ export type StopsDatabaseStopPlaceStreamCursorValueInput = {
   parent_stop_place?: InputMaybe<Scalars['Boolean']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  postal_address_id?: InputMaybe<Scalars['bigint']['input']>;
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
@@ -46764,6 +47419,7 @@ export type StopsDatabaseStopPlaceStreamCursorValueInput = {
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   tram_submode?: InputMaybe<Scalars['String']['input']>;
   transport_mode?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
   water_submode?: InputMaybe<Scalars['String']['input']>;
@@ -46776,8 +47432,10 @@ export type StopsDatabaseStopPlaceSumFields = {
   accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_address_id?: Maybe<Scalars['bigint']['output']>;
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -47076,6 +47734,8 @@ export enum StopsDatabaseStopPlaceUpdateColumn {
   /** column name */
   ModificationEnumeration = 'modification_enumeration',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -47091,6 +47751,8 @@ export enum StopsDatabaseStopPlaceUpdateColumn {
   PlaceEquipmentsId = 'place_equipments_id',
   /** column name */
   PolygonId = 'polygon_id',
+  /** column name */
+  PostalAddressId = 'postal_address_id',
   /** column name */
   PrivateCodeType = 'private_code_type',
   /** column name */
@@ -47116,6 +47778,8 @@ export enum StopsDatabaseStopPlaceUpdateColumn {
   /** column name */
   TransportMode = 'transport_mode',
   /** column name */
+  Url = 'url',
+  /** column name */
   Version = 'version',
   /** column name */
   VersionComment = 'version_comment',
@@ -47140,8 +47804,10 @@ export type StopsDatabaseStopPlaceVarPopFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -47152,8 +47818,10 @@ export type StopsDatabaseStopPlaceVarSampFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -47164,8 +47832,10 @@ export type StopsDatabaseStopPlaceVarianceFields = {
   accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
   covered?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   place_equipments_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
+  postal_address_id?: Maybe<Scalars['Float']['output']>;
   topographic_place_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -58829,6 +59499,7 @@ export type StopsDatabaseTariffZone = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -58902,6 +59573,7 @@ export type StopsDatabaseTariffZoneAggregateFieldsCountArgs = {
 export type StopsDatabaseTariffZoneAvgFields = {
   __typename?: 'stops_database_tariff_zone_avg_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -58919,6 +59591,7 @@ export type StopsDatabaseTariffZoneBoolExp = {
   description_value?: InputMaybe<StringComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -58946,6 +59619,7 @@ export enum StopsDatabaseTariffZoneConstraint {
 /** input type for incrementing numeric columns in table "tariff_zone" */
 export type StopsDatabaseTariffZoneIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -58960,6 +59634,7 @@ export type StopsDatabaseTariffZoneInsertInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -59295,6 +59970,7 @@ export type StopsDatabaseTariffZoneMaxFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -59318,6 +59994,7 @@ export type StopsDatabaseTariffZoneMinFields = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -59357,6 +60034,7 @@ export type StopsDatabaseTariffZoneOrderBy = {
   description_value?: InputMaybe<OrderBy>;
   from_date?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -59396,6 +60074,8 @@ export enum StopsDatabaseTariffZoneSelectColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -59429,6 +60109,7 @@ export type StopsDatabaseTariffZoneSetInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -59446,6 +60127,7 @@ export type StopsDatabaseTariffZoneSetInput = {
 export type StopsDatabaseTariffZoneStddevFields = {
   __typename?: 'stops_database_tariff_zone_stddev_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59454,6 +60136,7 @@ export type StopsDatabaseTariffZoneStddevFields = {
 export type StopsDatabaseTariffZoneStddevPopFields = {
   __typename?: 'stops_database_tariff_zone_stddev_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59462,6 +60145,7 @@ export type StopsDatabaseTariffZoneStddevPopFields = {
 export type StopsDatabaseTariffZoneStddevSampFields = {
   __typename?: 'stops_database_tariff_zone_stddev_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59484,6 +60168,7 @@ export type StopsDatabaseTariffZoneStreamCursorValueInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -59501,6 +60186,7 @@ export type StopsDatabaseTariffZoneStreamCursorValueInput = {
 export type StopsDatabaseTariffZoneSumFields = {
   __typename?: 'stops_database_tariff_zone_sum_fields';
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -59523,6 +60209,8 @@ export enum StopsDatabaseTariffZoneUpdateColumn {
   FromDate = 'from_date',
   /** column name */
   Id = 'id',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -59560,6 +60248,7 @@ export type StopsDatabaseTariffZoneUpdates = {
 export type StopsDatabaseTariffZoneVarPopFields = {
   __typename?: 'stops_database_tariff_zone_var_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59568,6 +60257,7 @@ export type StopsDatabaseTariffZoneVarPopFields = {
 export type StopsDatabaseTariffZoneVarSampFields = {
   __typename?: 'stops_database_tariff_zone_var_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59576,6 +60266,7 @@ export type StopsDatabaseTariffZoneVarSampFields = {
 export type StopsDatabaseTariffZoneVarianceFields = {
   __typename?: 'stops_database_tariff_zone_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59594,6 +60285,7 @@ export type StopsDatabaseTopographicPlace = {
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
   iso_code?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -59670,6 +60362,7 @@ export type StopsDatabaseTopographicPlaceAggregateFieldsCountArgs = {
 export type StopsDatabaseTopographicPlaceAvgFields = {
   __typename?: 'stops_database_topographic_place_avg_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -59690,6 +60383,7 @@ export type StopsDatabaseTopographicPlaceBoolExp = {
   from_date?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   iso_code?: InputMaybe<StringComparisonExp>;
+  multi_surface_id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -59720,6 +60414,7 @@ export enum StopsDatabaseTopographicPlaceConstraint {
 /** input type for incrementing numeric columns in table "topographic_place" */
 export type StopsDatabaseTopographicPlaceIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -59737,6 +60432,7 @@ export type StopsDatabaseTopographicPlaceInsertInput = {
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   iso_code?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -60078,6 +60774,7 @@ export type StopsDatabaseTopographicPlaceMaxFields = {
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   iso_code?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -60107,6 +60804,7 @@ export type StopsDatabaseTopographicPlaceMinFields = {
   from_date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   iso_code?: Maybe<Scalars['String']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
@@ -60159,6 +60857,7 @@ export type StopsDatabaseTopographicPlaceOrderBy = {
   from_date?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   iso_code?: InputMaybe<OrderBy>;
+  multi_surface_id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -60207,6 +60906,8 @@ export enum StopsDatabaseTopographicPlaceSelectColumn {
   /** column name */
   IsoCode = 'iso_code',
   /** column name */
+  MultiSurfaceId = 'multi_surface_id',
+  /** column name */
   NameLang = 'name_lang',
   /** column name */
   NameValue = 'name_value',
@@ -60249,6 +60950,7 @@ export type StopsDatabaseTopographicPlaceSetInput = {
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   iso_code?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -60269,6 +60971,7 @@ export type StopsDatabaseTopographicPlaceSetInput = {
 export type StopsDatabaseTopographicPlaceStddevFields = {
   __typename?: 'stops_database_topographic_place_stddev_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -60277,6 +60980,7 @@ export type StopsDatabaseTopographicPlaceStddevFields = {
 export type StopsDatabaseTopographicPlaceStddevPopFields = {
   __typename?: 'stops_database_topographic_place_stddev_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -60285,6 +60989,7 @@ export type StopsDatabaseTopographicPlaceStddevPopFields = {
 export type StopsDatabaseTopographicPlaceStddevSampFields = {
   __typename?: 'stops_database_topographic_place_stddev_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -60310,6 +61015,7 @@ export type StopsDatabaseTopographicPlaceStreamCursorValueInput = {
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   iso_code?: InputMaybe<Scalars['String']['input']>;
+  multi_surface_id?: InputMaybe<Scalars['bigint']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
@@ -60330,6 +61036,7 @@ export type StopsDatabaseTopographicPlaceStreamCursorValueInput = {
 export type StopsDatabaseTopographicPlaceSumFields = {
   __typename?: 'stops_database_topographic_place_sum_fields';
   id?: Maybe<Scalars['bigint']['output']>;
+  multi_surface_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -60358,6 +61065,8 @@ export enum StopsDatabaseTopographicPlaceUpdateColumn {
   Id = 'id',
   /** column name */
   IsoCode = 'iso_code',
+  /** column name */
+  MultiSurfaceId = 'multi_surface_id',
   /** column name */
   NameLang = 'name_lang',
   /** column name */
@@ -60401,6 +61110,7 @@ export type StopsDatabaseTopographicPlaceUpdates = {
 export type StopsDatabaseTopographicPlaceVarPopFields = {
   __typename?: 'stops_database_topographic_place_var_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -60409,6 +61119,7 @@ export type StopsDatabaseTopographicPlaceVarPopFields = {
 export type StopsDatabaseTopographicPlaceVarSampFields = {
   __typename?: 'stops_database_topographic_place_var_samp_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
@@ -60417,6 +61128,7 @@ export type StopsDatabaseTopographicPlaceVarSampFields = {
 export type StopsDatabaseTopographicPlaceVarianceFields = {
   __typename?: 'stops_database_topographic_place_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
+  multi_surface_id?: Maybe<Scalars['Float']['output']>;
   polygon_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
