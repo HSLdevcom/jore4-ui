@@ -70297,6 +70297,18 @@
             "deprecationReason": null
           },
           {
+            "name": "visualSignsAvailable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "stop_registry_LimitationStatusType",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "wheelchairAccess",
             "description": null,
             "args": [],
@@ -70383,6 +70395,22 @@
           },
           {
             "name": "stepFreeAccess",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "stop_registry_LimitationStatusType",
+                "kind": "ENUM",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visualSignsAvailable",
             "description": null,
             "type": {
               "kind": "NON_NULL",
