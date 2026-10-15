@@ -10,6 +10,7 @@ import {
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import { showDangerToast } from '../../../../../utils';
+import { getVisualSignsAvailable } from '../../../Utils/getVisualSignsAvailable';
 import { getQuayIdsFromStopExcept } from '../../Queries';
 import { calculateStopAccessibilityLevel } from './calculateStopAccessibilityLevel';
 import { MeasurementsFormState } from './schema';
@@ -57,6 +58,10 @@ function mapStopEditChangesToTiamatDbInput({ state, stop }: EditTiamatParams) {
             stepFreeAccess:
               limitations?.stepFreeAccess ??
               StopRegistryLimitationStatusType.Unknown,
+            visualSignsAvailable: getVisualSignsAvailable(
+              limitations?.visualSignsAvailable,
+              state,
+            ),
             wheelchairAccess:
               limitations?.wheelchairAccess ??
               StopRegistryLimitationStatusType.Unknown,

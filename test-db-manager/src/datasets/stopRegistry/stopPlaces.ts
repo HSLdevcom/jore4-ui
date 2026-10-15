@@ -81,8 +81,34 @@ export const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitatio
     escalatorFreeAccess: StopRegistryLimitationStatusType.Unknown,
     liftFreeAccess: StopRegistryLimitationStatusType.Unknown,
     stepFreeAccess: StopRegistryLimitationStatusType.Unknown,
+    visualSignsAvailable: StopRegistryLimitationStatusType.False,
     wheelchairAccess: StopRegistryLimitationStatusType.Unknown,
   };
+
+export function mapAccessibilityLimitations({
+  accessibilityProperties,
+  accessibilityLimitations,
+}: Pick<
+  StopPlaceQuaySeedData,
+  'accessibilityProperties' | 'accessibilityLimitations'
+>): StopRegistryAccessibilityLimitationsInput {
+  const hasVisualSigns =
+    (Boolean(accessibilityProperties?.guidanceType) &&
+      accessibilityProperties?.guidanceType !==
+        StopRegistryGuidanceType.None) ||
+    accessibilityProperties?.guidanceStripe === true ||
+    accessibilityProperties?.guidanceTiles === true;
+
+  return {
+    ...defaultAccessibilityLimitations,
+    ...accessibilityLimitations,
+    visualSignsAvailable:
+      accessibilityLimitations?.visualSignsAvailable ??
+      (hasVisualSigns
+        ? StopRegistryLimitationStatusType.True
+        : StopRegistryLimitationStatusType.False),
+  };
+}
 
 export type StopPlaceNetexRef = {
   label: string;
@@ -178,10 +204,7 @@ function mapToQuayInput(seedStopPlace: StopPlaceQuaySeedData): QuayInput {
         seedStopPlace.accessibilityLimitations) && {
         hslAccessibilityProperties:
           seedStopPlace.accessibilityProperties ?? null,
-        limitations: seedStopPlace.accessibilityLimitations && {
-          ...defaultAccessibilityLimitations,
-          ...seedStopPlace.accessibilityLimitations,
-        },
+        limitations: mapAccessibilityLimitations(seedStopPlace),
       },
 
       externalLinks: seedStopPlace.externalLinks,
