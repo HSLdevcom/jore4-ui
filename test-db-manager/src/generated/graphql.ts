@@ -11074,6 +11074,7 @@ export type StopRegistryAccessibilityLimitations = {
   liftFreeAccess?: Maybe<StopRegistryLimitationStatusType>;
   stepFreeAccess?: Maybe<StopRegistryLimitationStatusType>;
   version?: Maybe<Scalars['String']['output']>;
+  visualSignsAvailable?: Maybe<StopRegistryLimitationStatusType>;
   wheelchairAccess?: Maybe<StopRegistryLimitationStatusType>;
 };
 
@@ -11083,6 +11084,7 @@ export type StopRegistryAccessibilityLimitationsInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   liftFreeAccess: StopRegistryLimitationStatusType;
   stepFreeAccess: StopRegistryLimitationStatusType;
+  visualSignsAvailable: StopRegistryLimitationStatusType;
   wheelchairAccess: StopRegistryLimitationStatusType;
 };
 
