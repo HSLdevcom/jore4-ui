@@ -48,6 +48,7 @@ const GQL_ROUTES_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS_AND_JPS = gql`
   fragment RouteWithInfrastructureLinksWithStopsAndJps on route_route {
     ...RouteWithInfrastructureLinksWithStops
     ...RouteWithJourneyPatternStops
+    ...RouteLatestChangeInfo
   }
 `;
 

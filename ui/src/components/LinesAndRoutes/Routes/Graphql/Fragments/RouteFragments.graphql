@@ -29,6 +29,13 @@ fragment RouteAllFields on route_route {
   route_shape
 }
 
+fragment RouteLatestChangeInfo on route_route {
+  change_history(order_by: [{ changed: desc }], limit: 1) {
+    changed
+    changed_by
+  }
+}
+
 fragment RouteWithJourneyPatternStops on route_route {
   ...RouteAllFields
 

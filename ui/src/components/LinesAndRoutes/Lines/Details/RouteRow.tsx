@@ -18,7 +18,6 @@ import {
   MIN_DATE,
   mapToShortDate,
   mapToShortDateTime,
-  now,
 } from '../../../../utils/time';
 import {
   AccordionButton,
@@ -128,7 +127,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         className="col-span-3 text-center text-sm text-brand hover:underline"
         data-testid={testIds.lastEdited}
       >
-        !{mapToShortDateTime(now())}
+        {mapToShortDateTime(route.change_history.at(0)?.changed)}
         <MdHistory
           aria-hidden
           className="ml-1 inline text-xl text-tweaked-brand"
