@@ -22,6 +22,7 @@ type LineTableRowProps = {
 
 const GQL_LINE_TABLE_ROW = gql`
   fragment LineTableRow on route_line {
+    ...LineLatestChangeInfo
     name_i18n
     short_name_i18n
     validity_start

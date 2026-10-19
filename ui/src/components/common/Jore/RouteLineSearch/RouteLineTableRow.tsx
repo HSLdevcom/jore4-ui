@@ -9,9 +9,15 @@ import {
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { isRoute } from '../../../../utils';
-import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../utils/time';
+import {
+  MAX_DATE,
+  MIN_DATE,
+  mapToShortDate,
+  mapToShortDateTime,
+} from '../../../../utils/time';
 import { AlertPopover, RouteLabel } from '../../../LinesAndRoutes/Common';
 import { LocatorButton } from '../../Buttons';
+import { useGetUserNames } from '../../ChangeHistory';
 import { Column, Row, Visible } from '../../LayoutComponents';
 import { getAlertStatus, getAlertStyle } from '../../Utils';
 import { LineDetailsButton } from './LineDetailsButton';
@@ -115,6 +121,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
 }) => {
   const { observationDate } = useObservationDateQueryParam();
   const { t } = useTranslation();
+  const getUserNameById = useGetUserNames();
 
   const alertStatus = getAlertStatus(t, { ...rowItem, hasContinuingVersion });
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
@@ -219,7 +226,11 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
                   endDate: mapToShortDate(rowItem.validity_end ?? MAX_DATE),
                 })}
               </p>
-              <p>!Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija</p>
+              <p>
+                {mapToShortDateTime(rowItem.change_history.at(0)?.changed)} |{' '}
+                {getUserNameById(rowItem.change_history.at(0)?.changed_by) ??
+                  'HSL'}
+              </p>
             </Column>
           </Row>
         </Link>

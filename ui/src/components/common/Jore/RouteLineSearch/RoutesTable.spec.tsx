@@ -1,4 +1,5 @@
 import { buildLocalizedString, buildRoute } from '@hsl/jore4-test-db-manager';
+import { screen } from '@testing-library/react';
 import {
   LineTableRowFragment,
   ReusableComponentsVehicleModeEnum,
@@ -8,6 +9,7 @@ import {
 } from '../../../../generated/graphql';
 import { Priority } from '../../../../types/enums';
 import { render } from '../../../../utils/test-utils';
+import { parseDateTime } from '../../../../utils/time';
 import { LineTableRow } from './LineTableRow';
 import { RoutesTable } from './RoutesTable';
 import { RouteTableRow } from './RouteTableRow';
@@ -27,6 +29,12 @@ describe(`<${RoutesTable.name} />`, () => {
     {
       __typename: 'route_route',
       ...buildRoute({ label: '1' }),
+      change_history: [
+        {
+          changed: parseDateTime('2026-10-15T14:30:00+03:00'),
+          changed_by: null,
+        },
+      ],
       unique_label: '1',
       route_id: route1Id,
       on_line_id: lineId,
@@ -57,6 +65,9 @@ describe(`<${RoutesTable.name} />`, () => {
       </RoutesTable>,
     );
 
+    expect(screen.getByTestId('RouteLineTableRow::row::1')).toHaveTextContent(
+      '15.10.2026 14.30',
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -81,6 +92,13 @@ describe(`<${RoutesTable.name} />`, () => {
   const linesResponseMock: ReadonlyArray<LineTableRowFragment> = [
     {
       line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
+      change_history: [
+        {
+          id: 1,
+          changed: parseDateTime('2026-10-15T14:30:00+03:00'),
+          changed_by: null,
+        },
+      ],
       label: '65',
       priority: Priority.Standard,
       name_i18n: buildLocalizedString('Rautatientori - Veräjälaakso'),
@@ -92,6 +110,7 @@ describe(`<${RoutesTable.name} />`, () => {
     },
     {
       line_id: '9058c328-efdd-412c-9b2b-37b0f6a2c6fb',
+      change_history: [],
       label: '71',
       priority: Priority.Standard,
       name_i18n: buildLocalizedString('Rautatientori - Malmi as.'),
@@ -103,6 +122,7 @@ describe(`<${RoutesTable.name} />`, () => {
     },
     {
       line_id: 'bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2',
+      change_history: [],
       label: '785K',
       priority: Priority.Standard,
       name_i18n: buildLocalizedString('Rautatientori - Nikkilä'),
@@ -114,6 +134,7 @@ describe(`<${RoutesTable.name} />`, () => {
     },
     {
       line_id: 'db748c5c-42e3-429f-baa0-e0db227dc2c8',
+      change_history: [],
       label: '1234',
       priority: Priority.Standard,
       name_i18n: buildLocalizedString('Erottaja - Arkkadiankatu'),
@@ -140,6 +161,9 @@ describe(`<${RoutesTable.name} />`, () => {
       </RoutesTable>,
     );
 
+    expect(screen.getByTestId('RouteLineTableRow::row::65')).toHaveTextContent(
+      '15.10.2026 14.30',
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });
