@@ -17,12 +17,12 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@main
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@native-arm-build
     with:
       docker_image_name: jore4-ui
       # Currently (2025-05) gyp tries to build something on arm64 and this would require at least Python to be
       # installed in the Docker container, i.e. building arm64 fails currently
-      build_arm64_image: false
+      build_arm64_image: true
       build_args: |
         NEXT_PUBLIC_GIT_HASH=${{ github.sha }}
     secrets:
@@ -63,7 +63,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@main
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@native-arm-build
     with:
       docker_image_name: jore4-cypress
       build_arm64_image: ${{ github.ref_name == 'main' || startsWith(github.ref_name, 'releases/') }}
