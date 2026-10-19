@@ -1,19 +1,31 @@
 FROM node:24-alpine3.24 AS build
 WORKDIR /app
-COPY package.json yarn.lock tsconfig.json ./
-COPY ./ui/package.json ./ui/
-COPY ./test-db-manager/package.json ./test-db-manager/
-RUN yarn install --frozen-lockfile
-COPY ./ui/src ./ui/src
-COPY ./test-db-manager/src ./test-db-manager/src
-COPY ./ui/public ./ui/public
-COPY ./ui/tsconfig.json ./ui/next.config.js ./ui/tailwind.config.js ./ui/postcss.config.js ./ui/convert-theme-to-ts.js ./ui/theme.js ./ui/graphql.schema.json ./ui/
-COPY ./test-db-manager/rollup.config.mjs ./test-db-manager/tsconfig.json ./test-db-manager/
 
+# Copy over files needed to install dependecies.
+COPY package.json yarn.lock tsconfig.json ./
+COPY ./test-db-manager/docker.minimal.package.json ./test-db-manager/package.json
+COPY ./ui/package.json ./ui/
+
+# Install the depdencies
+RUN yarn install --frozen-lockfile
+
+# Copy over the actual UI code
+COPY ./ui/tsconfig.json \
+     ./ui/next.config.js \
+     ./ui/tailwind.config.js \
+     ./ui/postcss.config.js \
+     ./ui/convert-theme-to-ts.js \
+     ./ui/theme.js \
+     ./ui/graphql.schema.json \
+     ./ui/
+COPY ./ui/public ./ui/public
+# but skip unit test files.
+COPY --exclude=**/*.spec.ts* --exclude=**/integration-tests/* ./ui/src ./ui/src
+
+# Package up the UI code.
 ARG NEXT_PUBLIC_GIT_HASH=unknown
 ARG NEXT_PUBLIC_BUILD_TIME
-RUN yarn ws:db run build
-RUN yarn ws:ui run build
+RUN NEXT_TELEMETRY_DISABLED=1 yarn ws:ui run build
 
 # This is a silly thing to do, but nginx-unprivileged base image
 # makes it difficult to RUN commans in it's Dockerfile section.
@@ -25,15 +37,17 @@ RUN yarn ws:ui run build
 RUN rm /app/ui/out/config.json && \
     ln -s /tmp/config.json /app/ui/out/config.json
 
+
+# Setup the final nginx image to serve the UI from.
 FROM nginxinc/nginx-unprivileged:1.31-alpine
 
 EXPOSE 8080
 
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build --chown=10001:0 /app/ui/out /usr/share/nginx/html
-
 COPY --chmod=755 scripts/docker/generateConfigJSON.sh /tmp
 ADD --chmod=755 https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/read-secrets.sh /tmp/read-secrets.sh
+
+COPY --from=build --chown=10001:0 /app/ui/out /usr/share/nginx/html
 
 ENV NEXT_PUBLIC_DIGITRANSIT_API_KEY="PLACEHOLDER"
 ENV NEXT_PUBLIC_HASURA_URL=""

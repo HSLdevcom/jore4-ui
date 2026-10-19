@@ -1,0 +1,5 @@
+{
+  "name": "@hsl/jore4-test-db-manager",
+  "description": "Placeholder package.json file to satisfy ui module's unit test dependency on the test-db-manager, without having to bundle in and compile the actual tdm itself as it is not used by the real UI code.",
+  "version": "1.0.0"
+}

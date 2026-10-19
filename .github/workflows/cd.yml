@@ -20,11 +20,8 @@ jobs:
     uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@main
     with:
       docker_image_name: jore4-ui
-      # Currently (2025-05) gyp tries to build something on arm64 and this would require at least Python to be
-      # installed in the Docker container, i.e. building arm64 fails currently
-      build_arm64_image: false
-      build_args: |
-        NEXT_PUBLIC_GIT_HASH=${{ github.sha }}
+      build_arm64_image: true
+      build_args: NEXT_PUBLIC_GIT_HASH=${{ github.sha }}
     secrets:
       azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
       azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
@@ -68,8 +65,7 @@ jobs:
       docker_image_name: jore4-cypress
       build_arm64_image: ${{ github.ref_name == 'main' || startsWith(github.ref_name, 'releases/') }}
       file: Dockerfile.cypress
-      build_args: |
-        CHROME_VERSION=${{ needs.set_variables.outputs.chrome_version }}
+      build_args: CHROME_VERSION=${{ needs.set_variables.outputs.chrome_version }}
     secrets:
       azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
       azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
