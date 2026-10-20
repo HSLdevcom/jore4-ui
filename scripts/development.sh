@@ -380,7 +380,7 @@ setup_environment() {
 
   start_docker_containers $DOCKER_TESTDB_IMAGE
 
-  wait_for_database_table testdb topology topology
+  wait_for_database_table testdb public spatial_ref_sys
   import_dump $DUMP_ROUTES_FILENAME jore4e2e
   import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
   import_dump $DUMP_STOPS_FILENAME stopdb
