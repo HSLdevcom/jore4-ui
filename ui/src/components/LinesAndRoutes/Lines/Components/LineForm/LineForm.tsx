@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { Priority } from '../../../../../types/enums';
-import { submitFormByRef } from '../../../../../utils';
 import { SimpleButton } from '../../../../common/Buttons';
 import {
   ChangeValidityForm,
@@ -13,6 +12,7 @@ import {
   changeValidityFormSchema,
   hasSavableDirtyFields,
   refineValidityPeriodSchema,
+  submitFormByRef,
 } from '../../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { FormContainer, Row } from '../../../../common/LayoutComponents';

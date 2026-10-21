@@ -12,8 +12,8 @@ import {
 } from '../../../../redux';
 import { mapToISODate } from '../../../../time';
 import { DateRange } from '../../../../types';
-import { submitFormByRef } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
+import { submitFormByRef } from '../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Row } from '../../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../../common/Modals';

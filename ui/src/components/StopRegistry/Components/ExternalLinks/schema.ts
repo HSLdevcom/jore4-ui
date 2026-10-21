@@ -3,7 +3,7 @@ import {
   ExternalLinksDetailsFragment,
   TerminalExternalLinksDetailsFragment,
 } from '../../../../generated/graphql';
-import { requiredString } from '../../../../utils';
+import { requiredString } from '../../../common/Forms';
 
 export const externalLinksSchema = z.object({
   name: requiredString,

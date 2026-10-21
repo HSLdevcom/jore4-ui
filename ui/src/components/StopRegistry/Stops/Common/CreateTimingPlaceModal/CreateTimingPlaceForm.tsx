@@ -5,14 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { Operation, useLoader } from '../../../../../redux';
+import { showDangerToast, showSuccessToast } from '../../../../../utils';
+import { SimpleButton } from '../../../../common/Buttons';
 import {
   localizedStringOptional,
   requiredString,
-  showDangerToast,
-  showSuccessToast,
   submitFormByRef,
-} from '../../../../../utils';
-import { SimpleButton } from '../../../../common/Buttons';
+} from '../../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../common/Inputs';
 import { FormRow, Row } from '../../../../common/LayoutComponents';

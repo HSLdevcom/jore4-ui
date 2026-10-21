@@ -18,8 +18,9 @@ import {
 } from '../../../../redux';
 import { mapDurationToShortTime, mapToISODate } from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
-import { AllOptionEnum, submitFormByRef } from '../../../../utils';
+import { AllOptionEnum } from '../../../../utils';
 import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
+import { submitFormByRef } from '../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { Row, Visible } from '../../../common/LayoutComponents';
 import { ConfirmationDialog } from '../../../common/Modals';

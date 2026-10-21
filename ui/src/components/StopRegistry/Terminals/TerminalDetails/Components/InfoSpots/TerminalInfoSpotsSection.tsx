@@ -1,12 +1,13 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { showSuccessToast, submitFormByRef } from '../../../../../../utils';
+import { showSuccessToast } from '../../../../../../utils';
+import { submitFormByRef } from '../../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,
 } from '../../../../../common/InfoContainer';
-import { terminalInfoContainerColors } from '../../Utils/terminalInfoContainerColors';
+import { terminalInfoContainerColors } from '../../Utils';
 import { TerminalInfoSpotsForm } from './Edit/TerminalInfoSpotsForm';
 import { useEditTerminalInfoSpots } from './Queries';
 import { TerminalInfoSpotsHeaderButtons } from './TerminalInfoSpotsHeaderButtons';

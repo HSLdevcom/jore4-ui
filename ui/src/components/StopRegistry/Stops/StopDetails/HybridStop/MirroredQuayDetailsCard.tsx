@@ -4,8 +4,9 @@ import { InfrastructureNetworkDirectionEnum } from '../../../../../generated/gra
 import { StopWithDetails } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { StopPlaceState } from '../../../../../types/stop-registry';
-import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { showSuccessToast } from '../../../../../utils';
 import { mapTransportModeToStopTypeName } from '../../../../../utils/i18n';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,

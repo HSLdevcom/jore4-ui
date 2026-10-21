@@ -1,8 +1,10 @@
 import { z } from 'zod';
 import { StopRegistryTransportModeType } from '../../../../../../generated/graphql';
 import { StopPlaceState } from '../../../../../../types/stop-registry';
-import { requiredString } from '../../../../../../utils';
-import { reasonForChangeFormSchema } from '../../../../../common/Forms';
+import {
+  reasonForChangeFormSchema,
+  requiredString,
+} from '../../../../../common/Forms';
 
 export const schema = z
   .object({

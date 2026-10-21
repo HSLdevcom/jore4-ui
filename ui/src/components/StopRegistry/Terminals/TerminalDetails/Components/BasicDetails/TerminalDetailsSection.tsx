@@ -1,13 +1,13 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { submitFormByRef } from '../../../../../../utils';
+import { submitFormByRef } from '../../../../../common/Forms';
 import {
   InfoContainer,
   InfoContainerControls,
   useInfoContainerControls,
 } from '../../../../../common/InfoContainer';
 import { TerminalComponentProps } from '../../Types';
-import { terminalInfoContainerColors } from '../../Utils/terminalInfoContainerColors';
+import { terminalInfoContainerColors } from '../../Utils';
 import { TerminalDetailsEdit } from './Edit/TerminalDetailsEdit';
 import { TerminalDetailsView } from './TerminalDetailsViewCard';
 

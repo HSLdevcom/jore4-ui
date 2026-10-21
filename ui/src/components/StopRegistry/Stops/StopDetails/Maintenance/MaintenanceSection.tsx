@@ -3,7 +3,8 @@ import mapValues from 'lodash/mapValues';
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
-import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { showSuccessToast } from '../../../../../utils';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,

@@ -9,8 +9,8 @@ import {
   GetLineValidityByIdQueryVariables,
 } from '../../../generated/graphql';
 import { parseDate } from '../../../time';
-import { mapDateInputToValidityEnd } from '../../../utils';
 import { getValidityContainmentViolation } from '../../../utils/validity';
+import { mapDateInputToValidityEnd } from '../../common/Forms';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
 const GQL_GET_LINE_VALIDITY_BY_ID = gql`

@@ -6,8 +6,8 @@ import {
   useAppSelector,
 } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { submitFormByRef } from '../../../../utils';
 import { AccordionButton, SimpleButton } from '../../../common/Buttons';
+import { submitFormByRef } from '../../../common/Forms';
 import { useToggle } from '../../../common/hooks';
 import { PageTitle } from '../../../common/Jore';
 import { Container, Row, Visible } from '../../../common/LayoutComponents';

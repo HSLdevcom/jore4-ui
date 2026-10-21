@@ -1,7 +1,10 @@
 import { z } from 'zod';
 import { StopRegistrySignContentType } from '../../../../../generated/graphql';
-import { createNullableEnum, requiredNumber } from '../../../../../utils';
-import { reasonForChangeFormSchema } from '../../../../common/Forms';
+import {
+  createNullableEnum,
+  reasonForChangeFormSchema,
+  requiredNumber,
+} from '../../../../common/Forms';
 
 export const locationDetailsFormSchema = z
   .object({

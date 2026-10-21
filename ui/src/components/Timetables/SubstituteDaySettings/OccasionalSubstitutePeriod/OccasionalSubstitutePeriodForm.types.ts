@@ -6,7 +6,7 @@ import {
   requiredInterval,
   requiredString,
   zEnumArrayWithAll,
-} from '../../../../utils';
+} from '../../../common/Forms';
 
 const periodSchema = z.object({
   periodId: z.string().optional(),

@@ -10,8 +10,9 @@ import { z } from 'zod';
 import { selectTimetable, useAppSelector } from '../../../../redux';
 import { parseDate } from '../../../../time';
 import { DateRange } from '../../../../types';
-import { areEqual, requiredDate } from '../../../../utils';
+import { areEqual } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
+import { requiredDate } from '../../../common/Forms';
 import { InputField } from '../../../common/Inputs';
 import { Row, Visible } from '../../../common/LayoutComponents';
 

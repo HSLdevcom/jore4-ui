@@ -3,10 +3,8 @@ import {
   useUpdateStopPointMutation,
 } from '../../../../generated/graphql';
 import { parseDate } from '../../../../time';
-import {
-  mapDateInputToValidityEnd,
-  mapPointToGeoJSON,
-} from '../../../../utils';
+import { mapPointToGeoJSON } from '../../../../utils';
+import { mapDateInputToValidityEnd } from '../../../common/Forms';
 import { useGetStopLinkAndDirection } from '../utils';
 import { DepotStopFormState } from './DepotStopFormSchema';
 

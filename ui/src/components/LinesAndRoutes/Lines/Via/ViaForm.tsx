@@ -4,12 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { JourneyPatternScheduledStopPointInJourneyPattern } from '../../../../generated/graphql';
+import { defaultLocalizedString } from '../../../../utils';
+import { SimpleButton } from '../../../common/Buttons';
 import {
-  defaultLocalizedString,
   localizedStringRequired,
   submitFormByRef,
-} from '../../../../utils';
-import { SimpleButton } from '../../../common/Buttons';
+} from '../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../common/Inputs';
 import { Row } from '../../../common/LayoutComponents';

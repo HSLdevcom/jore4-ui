@@ -26,13 +26,15 @@ import { parseDate } from '../../../../../time';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import {
   KnownValueKey,
-  mapDateInputToValidityEnd,
   mapPointToGeoJSON,
   mapPointToStopRegistryGeoJSON,
   mapToValidityPeriod,
   patchKeyValues,
 } from '../../../../../utils';
-import { FormActionButtons } from '../../../../common/Forms';
+import {
+  FormActionButtons,
+  mapDateInputToValidityEnd,
+} from '../../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../../common/Forms/NavigationBlocker';
 import { ValidationError } from '../../../../common/Inputs';
 import { Visible } from '../../../../common/LayoutComponents';

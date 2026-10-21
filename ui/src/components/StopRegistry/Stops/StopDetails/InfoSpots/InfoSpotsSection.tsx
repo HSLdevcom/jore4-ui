@@ -2,13 +2,10 @@ import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { StopPlaceInfoSpots, StopWithDetails } from '../../../../../types';
-import {
-  NullOptionEnum,
-  showSuccessToast,
-  submitFormByRef,
-} from '../../../../../utils';
+import { NullOptionEnum, showSuccessToast } from '../../../../../utils';
 import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../utils/i18n';
 import { AddNewButton } from '../../../../common/Buttons';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,

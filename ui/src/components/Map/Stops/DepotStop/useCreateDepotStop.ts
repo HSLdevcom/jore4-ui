@@ -5,10 +5,8 @@ import {
 } from '../../../../generated/graphql';
 import { parseDate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
-import {
-  mapDateInputToValidityEnd,
-  mapPointToGeoJSON,
-} from '../../../../utils';
+import { mapPointToGeoJSON } from '../../../../utils';
+import { mapDateInputToValidityEnd } from '../../../common/Forms';
 import { useGetStopLinkAndDirection } from '../utils';
 import { DepotStopFormState } from './DepotStopFormSchema';
 

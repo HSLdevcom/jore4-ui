@@ -7,8 +7,11 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../../../generated/graphql';
-import { localizedStringRequired, requiredString } from '../../../../../utils';
 import { AccordionButton } from '../../../../common/Buttons';
+import {
+  localizedStringRequired,
+  requiredString,
+} from '../../../../common/Forms';
 import { InputField } from '../../../../common/Inputs';
 import { FormColumn, FormRow, Row } from '../../../../common/LayoutComponents';
 import { LineTypeDropdown } from '../../../Common';

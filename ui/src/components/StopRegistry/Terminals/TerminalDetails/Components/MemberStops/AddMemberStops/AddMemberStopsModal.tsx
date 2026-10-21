@@ -1,11 +1,11 @@
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../../../types';
-import { submitFormByRef } from '../../../../../../../utils';
 import {
   CloseIconButton,
   SimpleButton,
 } from '../../../../../../common/Buttons';
+import { submitFormByRef } from '../../../../../../common/Forms';
 import { useWrapInContextNavigation } from '../../../../../../common/Forms/NavigationBlocker';
 import { Row } from '../../../../../../common/LayoutComponents';
 import {

@@ -1,15 +1,13 @@
 import { z } from 'zod';
 import { RouteDirection } from '../../../types/RouteDirection';
 import {
-  localizedStringRequired,
-  nullablePositiveNumber,
-  requiredString,
-  requiredUuid,
-} from '../../../utils';
-import {
   ChangeValidityFormState,
   changeValidityFormSchema,
+  localizedStringRequired,
+  nullablePositiveNumber,
   refineValidityPeriodSchema,
+  requiredString,
+  requiredUuid,
 } from '../../common/Forms';
 
 const namesSchema = z.object({

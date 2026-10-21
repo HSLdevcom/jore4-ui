@@ -1,9 +1,10 @@
 import { z } from 'zod';
 import { StopRegistryTransportModeType } from '../../../../generated/graphql';
-import { requiredNumber, requiredString } from '../../../../utils';
 import {
   ValidityPeriodFormState,
   refineValidityPeriodSchema,
+  requiredNumber,
+  requiredString,
   validityPeriodFormSchema,
 } from '../../../common/Forms';
 

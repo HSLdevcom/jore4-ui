@@ -8,7 +8,8 @@ import {
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
-import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { showSuccessToast } from '../../../../../utils';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,

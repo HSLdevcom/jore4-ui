@@ -3,8 +3,9 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
-import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { showSuccessToast } from '../../../../../utils';
 import { AddNewButton } from '../../../../common/Buttons';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,

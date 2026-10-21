@@ -1,4 +1,4 @@
-import { mapDateInputToValidityEnd } from './forms';
+import { mapDateInputToValidityEnd } from './utils';
 
 describe(`${mapDateInputToValidityEnd.name}()`, () => {
   const isoDate = '2017-04-20';

@@ -2,8 +2,9 @@ import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceState } from '../../../../../types/stop-registry';
-import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { showSuccessToast } from '../../../../../utils';
 import { mapTransportModeToStopTypeName } from '../../../../../utils/i18n';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   useInfoContainerControls,

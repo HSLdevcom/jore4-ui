@@ -4,7 +4,8 @@ import {
   EnrichedParentStopPlace,
   StopPlaceInfoSpots,
 } from '../../../../../../../types';
-import { showSuccessToast, submitFormByRef } from '../../../../../../../utils';
+import { showSuccessToast } from '../../../../../../../utils';
+import { submitFormByRef } from '../../../../../../common/Forms';
 import { useInfoContainerControls } from '../../../../../../common/InfoContainer';
 import { TerminalInfoSpotsForm } from '../Edit/TerminalInfoSpotsForm';
 import { useEditTerminalInfoSpots } from '../Queries';

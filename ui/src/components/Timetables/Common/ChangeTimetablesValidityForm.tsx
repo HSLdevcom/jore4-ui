@@ -3,8 +3,8 @@ import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { requiredString, submitFormByRef } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
+import { requiredString, submitFormByRef } from '../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../common/Forms/NavigationBlocker';
 import { InputField } from '../../common/Inputs';
 import {
@@ -53,9 +53,7 @@ export const ChangeTimetablesValidityForm: FC<
 
   const { handleSubmit } = methods;
 
-  const onSave = () => {
-    submitFormByRef(formRef);
-  };
+  const onSave = () => submitFormByRef(formRef);
 
   return (
     <FormProvider {...methods}>

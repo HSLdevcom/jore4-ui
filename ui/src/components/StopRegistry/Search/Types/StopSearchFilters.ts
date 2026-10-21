@@ -11,15 +11,13 @@ import {
   StopOwner,
   StopPlaceState,
 } from '../../../../types/stop-registry';
+import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
 import {
-  AllOptionEnum,
-  NullOptionEnum,
   allEnum,
-  areEqual,
   instanceOfDateTime,
   requiredString,
   zEnumArrayWithAll,
-} from '../../../../utils';
+} from '../../../common/Forms';
 import { SearchBy } from './SearchBy';
 import { SearchFor } from './SearchFor';
 import { knownMunicipalities } from './StringMunicipality';

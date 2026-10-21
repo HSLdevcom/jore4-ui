@@ -12,11 +12,11 @@ import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   KnownValueKey,
   mapCompactOrNull,
-  mapDateInputToValidityEnd,
   mapPointToGeoJSON,
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../../../../utils';
+import { mapDateInputToValidityEnd } from '../../../../../common/Forms';
 import {
   mapAlternativeNames,
   mapInfoSpotToInput,

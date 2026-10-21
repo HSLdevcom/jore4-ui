@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon';
 import { EnumLike, z } from 'zod';
-import { AllOptionEnum, NullOptionEnum } from './enum';
-
-export const REQUIRED_FIELD_ERROR_MESSAGE = 'Required';
+import {
+  AllOptionEnum,
+  NullOptionEnum,
+  REQUIRED_FIELD_ERROR_MESSAGE,
+} from '../../../utils';
 
 export const requiredString = z.string().min(1, REQUIRED_FIELD_ERROR_MESSAGE);
 

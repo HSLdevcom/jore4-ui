@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
 import { theme } from '../../../../../generated/theme';
-import { submitFormByRef } from '../../../../../utils';
+import { submitFormByRef } from '../../../../common/Forms';
 import {
   InfoContainer,
   InfoContainerControls,

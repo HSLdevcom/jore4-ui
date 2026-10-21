@@ -4,7 +4,7 @@ import {
   StopRegistryInfoSpotType,
   StopRegistryIntendedUser,
 } from '../../../../../generated/graphql';
-import { createNullableEnum, nullableBoolean } from '../../../../../utils';
+import { createNullableEnum, nullableBoolean } from '../../../../common/Forms';
 import { InfoSpotPurposeEnum } from './InfoSpotPurpose';
 
 export const itemSizeUiState = z.enum([
