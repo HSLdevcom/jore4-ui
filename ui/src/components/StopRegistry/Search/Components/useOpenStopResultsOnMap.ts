@@ -34,7 +34,7 @@ import {
   log,
   mapCompactOrNull,
 } from '../../../../utils';
-import { useNavigateToMap } from '../../../common/hooks';
+import { useNavigateToMap } from '../../../common/Utils';
 import {
   ViewPortParams as UrlViewPort,
   defaultViewPortParams as defaultUrlViewPortParams,

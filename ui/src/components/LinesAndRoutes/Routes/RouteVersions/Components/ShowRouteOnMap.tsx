@@ -1,7 +1,7 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SimpleDropdownMenuItem } from '../../../../common/Dropdowns';
-import { useShowRoutesOnMap } from '../../../../common/hooks';
+import { useShowRoutesOnMap } from '../../../../common/Utils';
 import { RouteVersion } from '../Types';
 
 const testIds = {

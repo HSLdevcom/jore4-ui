@@ -16,13 +16,13 @@ import {
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
 import { getTransportModeIcon, isPastEntity, none } from '../../../../utils';
-import { useNavigateToMap } from '../../../common/hooks';
 import {
   Column,
   Container,
   Row,
   Visible,
 } from '../../../common/LayoutComponents';
+import { useNavigateToMap } from '../../../common/Utils';
 import {
   LineFetchError,
   LineTitle,

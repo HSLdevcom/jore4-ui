@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { RouteTableRowFragment } from '../../../../generated/graphql';
-import { useRouteContinuations } from '../../hooks';
+import { useRouteContinuations } from '../../Utils';
 import { RoutesTable } from './RoutesTable';
 import { RouteTableRow } from './RouteTableRow';
 import { RouteLineTableRowVariant } from './Types';

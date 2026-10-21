@@ -8,9 +8,9 @@ import { LoadingState } from '../../../types';
 import { DayType } from '../../../types/enums';
 import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { AccordionButton } from '../../common/Buttons';
-import { useToggle } from '../../common/hooks/useToggle';
 import { Row, Visible } from '../../common/LayoutComponents';
 import { LoadingWrapper } from '../../common/Loaders';
+import { useToggle } from '../../common/Utils/useToggle';
 import { DirectionBadge, RouteLabel } from '../../LinesAndRoutes/Common';
 import {
   TimetablesView,

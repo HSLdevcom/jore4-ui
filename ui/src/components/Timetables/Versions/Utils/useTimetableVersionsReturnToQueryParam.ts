@@ -1,6 +1,6 @@
 import { useUrlQuery } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { useReturnToQueryParam } from '../../../common/hooks';
+import { useReturnToQueryParam } from '../../../common/Utils';
 
 /**
  * Used to persist the line ID which was used to get to timetable versions.

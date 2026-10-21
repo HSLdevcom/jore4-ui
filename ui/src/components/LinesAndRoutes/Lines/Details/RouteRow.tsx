@@ -29,7 +29,7 @@ import {
   getAlertStatus,
   getAlertStyle,
   useShowRoutesOnMap,
-} from '../../../common/hooks';
+} from '../../../common/Utils';
 import { AlertPopover, DirectionBadge, RouteLabel } from '../../Common';
 import { RouteReportDownloadMenu } from './RouteReport';
 

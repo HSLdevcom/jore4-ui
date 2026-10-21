@@ -9,7 +9,7 @@ import {
   useAppDispatch,
 } from '../../../redux';
 import { Point } from '../../../types';
-import { useNavigateToMap } from '../../common/hooks';
+import { useNavigateToMap } from '../../common/Utils';
 
 export function useShowTerminalOnMap() {
   const dispatch = useAppDispatch();

@@ -8,7 +8,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../redux';
-import { useShowRoutesOnMap } from '../../hooks';
+import { useShowRoutesOnMap } from '../../Utils';
 import { RouteLineTableRow } from './RouteLineTableRow';
 import { RouteLineTableRowVariant } from './Types';
 import { routeHasTimetables } from './Utils';

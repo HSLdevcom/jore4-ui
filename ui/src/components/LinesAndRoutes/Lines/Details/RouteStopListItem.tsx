@@ -22,8 +22,8 @@ import {
 } from '../../../../time';
 import { hasContinuingVersion } from '../../../../utils';
 import { IconButton } from '../../../common/Buttons';
-import { getAlertStatus, getAlertStyle } from '../../../common/hooks';
 import { Visible } from '../../../common/LayoutComponents';
+import { getAlertStatus, getAlertStyle } from '../../../common/Utils';
 import { AlertPopover } from '../../Common/AlertPopover';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';

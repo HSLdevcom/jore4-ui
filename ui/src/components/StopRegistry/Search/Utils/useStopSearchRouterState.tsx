@@ -30,8 +30,8 @@ import {
   splitString,
   toEnum,
   useTypedRouterState,
-} from '../../../common/hooks/typedRouterState';
-import { SimpleRecord } from '../../../common/hooks/typedRouterState/types';
+} from '../../../common/Utils/typedRouterState';
+import { SimpleRecord } from '../../../common/Utils/typedRouterState/types';
 import { allKnownPosterSizes } from '../../Components/InfoSpots';
 import {
   KnownStopIds,

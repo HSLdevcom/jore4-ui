@@ -6,7 +6,7 @@ import {
   useAppDispatch,
 } from '../../../redux';
 import { SimpleButton } from '../Buttons';
-import { useNavigateToMap } from '../hooks';
+import { useNavigateToMap } from '../Utils';
 
 type OpenDefaultMapButtonProps = {
   readonly className?: string;

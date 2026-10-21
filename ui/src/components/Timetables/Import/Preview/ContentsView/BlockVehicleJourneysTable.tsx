@@ -7,8 +7,8 @@ import {
 } from '../../../../../generated/graphql';
 import { useGetLocalizedTextFromDbBlob } from '../../../../../utils/i18n';
 import { AccordionButton } from '../../../../common/Buttons';
-import { useToggle } from '../../../../common/hooks';
 import { Row, Visible } from '../../../../common/LayoutComponents';
+import { useToggle } from '../../../../common/Utils';
 import { VehicleJourneyRow } from './VehicleJourneyRow';
 
 const testIds = {

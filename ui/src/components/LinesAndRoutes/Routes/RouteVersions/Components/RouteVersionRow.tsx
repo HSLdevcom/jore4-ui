@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { LocatorButton } from '../../../../common/Buttons';
-import { useShowRoutesOnMap } from '../../../../common/hooks';
+import { useShowRoutesOnMap } from '../../../../common/Utils';
 import { VersionRowCells } from '../../../../common/Versions';
 import { RouteVersion } from '../Types';
 import { RouteVersionActionMenu } from './RouteVersionActionMenu';

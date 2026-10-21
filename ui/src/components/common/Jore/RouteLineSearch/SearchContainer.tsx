@@ -2,7 +2,6 @@ import { FC, useId } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
-import { useToggle } from '../../hooks/useToggle';
 import { DateInputField } from '../../Inputs';
 import { Row, Visible } from '../../LayoutComponents';
 import { ExpandedSearchButtons } from '../../Search';
@@ -11,6 +10,7 @@ import {
   TransportationModeFilter,
 } from '../../Search/ExtraFilters';
 import { ExtraFiltersToggle, SearchQueryFilter } from '../../Search/SearchBar';
+import { useToggle } from '../../Utils/useToggle';
 import { LineTypeFilter } from './Filters/LineTypeFilter';
 import { routesAndLinesTestIds } from './routesAndLinesTestIds';
 import { RoutesAndLinesSearchFilters, SearchNavigationState } from './Types';

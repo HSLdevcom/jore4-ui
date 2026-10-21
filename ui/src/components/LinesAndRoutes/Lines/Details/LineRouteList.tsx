@@ -3,8 +3,8 @@ import orderBy from 'lodash/orderBy';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../../generated/graphql';
-import { useRouteContinuations } from '../../../common/hooks';
 import { Switch, SwitchLabel } from '../../../common/Jore';
+import { useRouteContinuations } from '../../../common/Utils';
 import { LineRouteListItem } from './LineRouteListItem';
 
 type LineRouteListProps = {

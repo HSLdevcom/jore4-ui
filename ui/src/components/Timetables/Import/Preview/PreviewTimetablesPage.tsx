@@ -8,9 +8,9 @@ import {
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../common/Buttons';
 import { submitFormByRef } from '../../../common/Forms';
-import { useToggle } from '../../../common/hooks';
 import { PageTitle } from '../../../common/Jore';
 import { Container, Row, Visible } from '../../../common/LayoutComponents';
+import { useToggle } from '../../../common/Utils';
 import { CombineSameContractWarning } from '../Common/CombineSameContractWarning';
 import { SpecialDayMixedPrioritiesWarning } from '../Common/SpecialDayMixedPrioritiesWarning';
 import {

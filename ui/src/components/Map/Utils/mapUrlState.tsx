@@ -22,7 +22,7 @@ import {
   splitString,
   toEnum,
   useTypedUrlState,
-} from '../../common/hooks/typedRouterState';
+} from '../../common/Utils/typedRouterState';
 import {
   ResultSelection,
   StopSearchFilters,

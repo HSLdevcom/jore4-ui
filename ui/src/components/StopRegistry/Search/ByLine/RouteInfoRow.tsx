@@ -7,8 +7,8 @@ import {
   mapDirectionToSymbol,
 } from '../../../../utils/i18n';
 import { LocatorButton } from '../../../common/Buttons';
-import { useShowRoutesOnMap } from '../../../common/hooks';
 import { Row } from '../../../common/LayoutComponents';
+import { useShowRoutesOnMap } from '../../../common/Utils';
 import { StopSearchRow } from '../../Components';
 import { SelectAllCheckbox } from '../Components';
 import { ResultSelection } from '../Types';

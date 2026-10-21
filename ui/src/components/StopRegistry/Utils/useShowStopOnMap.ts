@@ -7,7 +7,7 @@ import {
   setSelectedStopIdAction,
   useAppDispatch,
 } from '../../../redux';
-import { useNavigateToMap } from '../../common/hooks';
+import { useNavigateToMap } from '../../common/Utils';
 import { useUpdateStopPriorityFilterIfNeeded } from '../../Map/Stops/utils';
 import { useEnsureStopVehicleModeVisible } from '../../Map/Utils/useEnsureStopVehicleModeVisible';
 import { LocatableStop } from '../Types';

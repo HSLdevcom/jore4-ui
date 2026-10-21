@@ -10,7 +10,7 @@ import {
   UrlStateSerializers,
   toEnum,
   useTypedRouterState,
-} from '../../hooks/typedRouterState';
+} from '../../Utils/typedRouterState';
 import {
   ChangeHistoryFilters,
   ChangeHistorySortingInfo,
