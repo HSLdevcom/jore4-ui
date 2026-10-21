@@ -1,6 +1,6 @@
 import { NavigateOptions, To, useLocation, useNavigate } from 'react-router';
 
-export function isBackNavigationSafe(state: unknown): boolean {
+function isBackNavigationSafe(state: unknown): boolean {
   return !!(
     state &&
     typeof state === 'object' &&

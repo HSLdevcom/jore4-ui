@@ -18,7 +18,7 @@ const GQL_ROUTE_HELPER_FRAGMENTS = gql`
   }
 `;
 
-export function hasRouteVariant(route: RouteLabelAndVariantFragment) {
+function hasRouteVariant(route: RouteLabelAndVariantFragment) {
   return Number.isInteger(route?.variant);
 }
 

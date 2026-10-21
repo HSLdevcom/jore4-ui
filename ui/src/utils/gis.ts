@@ -1,3 +1,4 @@
+import { Feature, Point as GeoJSONPoint, Geometry, Position } from 'geojson';
 import flow from 'lodash/flow';
 import {
   StopRegistryGeoJson,
@@ -10,15 +11,15 @@ export function mapPointToGeoJSON({
   latitude,
   elevation = 0,
 }: Point) {
-  const geoJsonPoint: GeoJSON.Point = {
+  const geoJsonPoint: GeoJSONPoint = {
     type: 'Point',
     coordinates: [longitude, latitude, elevation],
   };
   return geoJsonPoint;
 }
 
-export type StopRegistryGeoJsonDefined = {
-  coordinates: GeoJSON.Position;
+type StopRegistryGeoJsonDefined = {
+  coordinates: Position;
   type: StopRegistryGeoJsonType;
 };
 
@@ -26,14 +27,13 @@ export function mapPointToStopRegistryGeoJSON({
   longitude,
   latitude,
 }: Point): StopRegistryGeoJsonDefined {
-  const coordinates: GeoJSON.Position = [
-    longitude,
-    latitude,
-    /* Tiamat does not support altitude, and currently breaks quite badly if one attempts to persist it. */
-  ];
   return {
-    coordinates,
     type: StopRegistryGeoJsonType.Point,
+    coordinates: [
+      longitude,
+      latitude,
+      /* Tiamat does not support altitude, and currently breaks quite badly if one attempts to persist it. */
+    ],
   };
 }
 
@@ -58,8 +58,8 @@ export function mapLngLatToPoint(
 
 export const mapLngLatToGeoJSON = flow(mapLngLatToPoint, mapPointToGeoJSON);
 
-export function mapGeoJSONtoFeature<T extends GeoJSON.Geometry>(geoJson: T) {
-  const feature: GeoJSON.Feature<T> = {
+export function mapGeoJSONtoFeature<T extends Geometry>(geoJson: T) {
+  const feature: Feature<T> = {
     type: 'Feature',
     geometry: geoJson,
     properties: {},
@@ -72,7 +72,7 @@ export type ValidGeoJsonPoint = Required<
 > & { type: StopRegistryGeoJsonType.Point };
 
 export function isValidGeoJSONPoint(
-  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
+  geometry: Geometry | StopRegistryGeoJson | null | undefined,
 ): geometry is ValidGeoJsonPoint {
   return (
     !!geometry && geometry.type === 'Point' && !!geometry.coordinates?.length
@@ -81,12 +81,12 @@ export function isValidGeoJSONPoint(
 
 export function getGeometryPoint(geometry: undefined): null;
 export function getGeometryPoint(geometry: null): null;
-export function getGeometryPoint(geometry: GeoJSON.Point): Point;
+export function getGeometryPoint(geometry: GeoJSONPoint): Point;
 export function getGeometryPoint(
-  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
+  geometry: Geometry | StopRegistryGeoJson | null | undefined,
 ): Point | null;
 export function getGeometryPoint(
-  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
+  geometry: Geometry | StopRegistryGeoJson | null | undefined,
 ): Point | null {
   if (isValidGeoJSONPoint(geometry)) {
     return mapLngLatToPoint(geometry.coordinates);
@@ -96,8 +96,8 @@ export function getGeometryPoint(
 }
 
 export function getPointPosition(
-  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
-): GeoJSON.Position | null {
+  geometry: Geometry | StopRegistryGeoJson | null | undefined,
+): Position | null {
   if (isValidGeoJSONPoint(geometry)) {
     return geometry.coordinates;
   }

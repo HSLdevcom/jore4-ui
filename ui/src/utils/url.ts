@@ -2,7 +2,7 @@ function toStringWithoutTrailingSlash(url: URL): string {
   return url.toString().replace(/\/$/, '');
 }
 
-export function mapHttpUrlToWs(url: URL): string {
+function mapHttpUrlToWs(url: URL): string {
   const copy = new URL(url);
 
   if (copy.protocol === 'http:') {
