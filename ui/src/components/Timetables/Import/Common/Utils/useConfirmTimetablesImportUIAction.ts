@@ -8,12 +8,12 @@ import {
 } from '../../../../../redux';
 import { TimetablePriority } from '../../../../../types/enums';
 import { showSuccessToast } from '../../../../../utils';
+import { TimetableImportStrategy } from '../TimetableImportStrategyForm';
 import {
   TimetablesApiErrorType,
   extractErrorType,
   extractRawSqlError,
-} from '../../../../../utils/timetablesApiErrors';
-import { TimetableImportStrategy } from '../TimetableImportStrategyForm';
+} from './timetablesApiErrors';
 import { useTimetablesImport } from './useTimetablesImport';
 
 export function useConfirmTimetablesImportUIAction() {

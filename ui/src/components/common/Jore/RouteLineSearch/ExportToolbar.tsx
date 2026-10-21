@@ -12,12 +12,12 @@ import {
 } from '../../../../redux';
 import { LoadingState } from '../../../../types';
 import {
-  DisplayedSearchResultType,
   isRouteActiveOnObservationDate,
   showDangerToast,
 } from '../../../../utils';
 import { SimpleButton } from '../../Buttons';
 import { Row, Visible } from '../../LayoutComponents';
+import { DisplayedSearchResultType } from './Types';
 import {
   findNotEligibleRoutesForExport,
   useExportRoutes,

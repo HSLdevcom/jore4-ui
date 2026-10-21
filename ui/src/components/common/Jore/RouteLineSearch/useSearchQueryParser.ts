@@ -5,11 +5,8 @@ import {
 } from '../../../../generated/graphql';
 import { useUrlQuery } from '../../../../hooks';
 import { Priority } from '../../../../types/enums';
-import {
-  AllOptionEnum,
-  DisplayedSearchResultType,
-  SearchConditions,
-} from '../../../../utils';
+import { AllOptionEnum } from '../../../../utils';
+import { DisplayedSearchResultType, SearchConditions } from './Types';
 
 export type FilterConditions = {
   readonly displayedType: DisplayedSearchResultType;

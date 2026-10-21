@@ -7,12 +7,12 @@ import {
   useUrlQuery,
 } from '../../../../hooks';
 import { Priority } from '../../../../types/enums';
+import { AllOptionEnum } from '../../../../utils';
 import {
-  AllOptionEnum,
   DisplayedSearchResultType,
   SearchConditions,
-} from '../../../../utils';
-import { SearchNavigationState } from './Types';
+  SearchNavigationState,
+} from './Types';
 import { useBasePath } from './useBasePath';
 import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
 

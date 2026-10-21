@@ -4,10 +4,9 @@ import {
   RouteTableRowFragment,
 } from '../../../../generated/graphql';
 import { selectExport, useAppSelector } from '../../../../redux';
-import { DisplayedSearchResultType } from '../../../../utils';
 import { LinesList } from './LinesList';
 import { RoutesList } from './RoutesList';
-import { RouteLineTableRowVariant } from './Types';
+import { DisplayedSearchResultType, RouteLineTableRowVariant } from './Types';
 
 type ResultListProps = {
   readonly lines?: ReadonlyArray<LineTableRowFragment>;

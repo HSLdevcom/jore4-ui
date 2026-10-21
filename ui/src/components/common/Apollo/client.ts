@@ -20,8 +20,8 @@ import introspectionResult from '../../../../graphql.schema.json';
 import { joreConfig } from '../../../config';
 import tiamatTypeInfo from '../../../generated/versionedTiamatEntities';
 import { isDateLike, parseDate } from '../../../time';
-import { mapHttpToWs } from '../../../utils';
 import { roleHeaderMap, userHasuraRole } from './auth';
+import { mapHttpToWs } from './url';
 
 const { embeddedTypes, typesWithId, typesWithVersion } = tiamatTypeInfo;
 

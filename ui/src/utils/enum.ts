@@ -16,9 +16,3 @@ export enum AllOptionEnum {
 export enum NullOptionEnum {
   Null = 'null',
 }
-
-/** Enum for different search result options */
-export enum DisplayedSearchResultType {
-  Routes = 'routes',
-  Lines = 'lines',
-}

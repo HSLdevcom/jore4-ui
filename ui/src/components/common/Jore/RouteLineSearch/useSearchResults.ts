@@ -5,11 +5,9 @@ import {
   RouteTableRowFragment,
   useSearchLinesAndRoutesQuery,
 } from '../../../../generated/graphql';
-import {
-  DisplayedSearchResultType,
-  buildSearchLinesAndRoutesGqlQueryVariables,
-} from '../../../../utils';
+import { DisplayedSearchResultType } from './Types';
 import { useSearchQueryParser } from './useSearchQueryParser';
+import { buildSearchLinesAndRoutesGqlQueryVariables } from './Utils';
 
 const GQL_SEARCH_LINES_AND_ROUTES = gql`
   query SearchLinesAndRoutes(

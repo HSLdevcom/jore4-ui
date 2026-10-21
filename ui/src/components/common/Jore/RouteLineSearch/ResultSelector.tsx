@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { resetSelectedRowsAction, useAppDispatch } from '../../../../redux';
-import { DisplayedSearchResultType } from '../../../../utils';
 import { SimpleButton } from '../../Buttons';
+import { DisplayedSearchResultType } from './Types';
 import { useSearch } from './useSearch';
 import { SearchQueryParameterNames } from './useSearchQueryParser';
 

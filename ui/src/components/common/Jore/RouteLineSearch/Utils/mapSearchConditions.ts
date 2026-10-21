@@ -1,7 +1,7 @@
 import { ReusableComponentsVehicleModeEnum } from '../../../../../generated/graphql';
 import { JoreStopRegistryTransportModeType } from '../../../../../types/stop-registry';
-import { AllOptionEnum, SearchConditions } from '../../../../../utils';
-import { RoutesAndLinesSearchFilters } from '../Types';
+import { AllOptionEnum } from '../../../../../utils';
+import { RoutesAndLinesSearchFilters, SearchConditions } from '../Types';
 
 function mapVehicleModeToJoreTransportMode(
   mode?: ReadonlyArray<ReusableComponentsVehicleModeEnum | AllOptionEnum>,
