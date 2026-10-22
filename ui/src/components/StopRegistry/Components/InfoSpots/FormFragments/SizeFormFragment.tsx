@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import { useCallback, useMemo } from 'react';
 import {
   FieldPathByValue,
@@ -9,7 +8,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../../i18n';
-import { none } from '../../../../../utils';
+import { areEqual, none } from '../../../../../utils';
 import { InputField, InputLabel } from '../../../../common/Inputs';
 import { Column } from '../../../../common/LayoutComponents';
 import { useGetInfoSpotSizes } from '../Queries';
@@ -50,7 +49,7 @@ function usePosterSizeMenu() {
           ...sizes
             .filter((size) =>
               none(
-                (standardSize) => isEqual(standardSize.size, size),
+                (standardSize) => areEqual(standardSize.size, size),
                 standardPosterSizes,
               ),
             )
@@ -74,7 +73,7 @@ function getSelectedOption(
 ): ItemSizeState {
   const allMenuOptions = menu.flatMap((subMenu) => subMenu.options);
   const selectedOption = allMenuOptions.find((option) =>
-    isEqual(option, state),
+    areEqual(option, state),
   );
 
   // Unknown always has null size and will be found from the menu items,

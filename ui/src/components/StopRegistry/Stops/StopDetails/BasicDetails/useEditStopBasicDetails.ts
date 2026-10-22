@@ -1,5 +1,4 @@
 import { gql, useApolloClient } from '@apollo/client';
-import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
@@ -20,6 +19,7 @@ import {
   InternalError,
   KnownValueKey,
   TimingPlaceRequiredError,
+  areEqual,
   defaultTo,
   illegalOptionalCast,
   patchAlternativeNames,
@@ -218,7 +218,7 @@ export function usePrepareEditForRoutesAndLinesDb() {
     // validate stop's timing settings in journey patterns if stop's timing place has been changed
     const newTimingPlaceId = patch.timing_place_id;
     const oldTimingPlaceId = stopWithRouteGraphData.timing_place_id;
-    const hasTimingPlaceIdChanged = !isEqual(
+    const hasTimingPlaceIdChanged = !areEqual(
       newTimingPlaceId,
       oldTimingPlaceId,
     );

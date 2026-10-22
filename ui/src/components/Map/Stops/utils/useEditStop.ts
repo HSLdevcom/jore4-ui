@@ -1,6 +1,5 @@
 import { gql, useApolloClient } from '@apollo/client';
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import {
@@ -27,6 +26,7 @@ import {
   StopPointUpdateFailed,
   TiamatUpdateFailedError,
   TimingPlaceRequiredError,
+  areEqual,
   defaultTo,
   illegalOptionalCast,
   showDangerToast,
@@ -157,7 +157,7 @@ function quayPatchToStopPlacePatch(
     .filter(([_, value]) => value)
     .map(([key]) => key);
 
-  if (isEqual(changedFields, ['id'])) {
+  if (areEqual(changedFields, ['id'])) {
     return null;
   }
 
@@ -268,7 +268,8 @@ function useGetLocationChanges() {
     const oldLocation = stopWithRouteGraphData.measured_location;
 
     const hasLocationChanged =
-      newLocation && !isEqual(newLocation.coordinates, oldLocation.coordinates);
+      newLocation &&
+      !areEqual(newLocation.coordinates, oldLocation.coordinates);
 
     if (!hasLocationChanged) {
       return {};
@@ -293,7 +294,7 @@ function useValidateTimingPlaceChanges() {
     const newTimingPlaceId = patch.timing_place_id;
     const oldTimingPlaceId = stopWithRouteGraphData.timing_place_id;
 
-    const hasTimingPlaceIdChanged = !isEqual(
+    const hasTimingPlaceIdChanged = !areEqual(
       newTimingPlaceId,
       oldTimingPlaceId,
     );
