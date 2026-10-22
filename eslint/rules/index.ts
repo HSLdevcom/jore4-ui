@@ -9,10 +9,12 @@ import { rules as react } from './react';
 import { rules as reactA11y } from './react-a11y';
 import { rules as strict } from './strict';
 import { rules as style } from './style';
+import { rules as temporal } from './temporal';
 import { rules as typescript } from './typescript';
 import { rules as variables } from './variables';
 
 export { kits } from './react';
+export { uiRestrictedSyntaxAllowingDate } from './temporal';
 
 export const uiRules = {
   ...bestPractices,
@@ -25,6 +27,7 @@ export const uiRules = {
   ...react,
   ...reactA11y,
   ...typescript,
+  ...temporal,
 };
 
 export const unitTestRules = {

@@ -19,6 +19,7 @@ import {
   cypressRules,
   nodeProjectRules,
   kits,
+  uiRestrictedSyntaxAllowingDate,
 } from './eslint/rules';
 
 function useKits() {
@@ -126,6 +127,12 @@ export default tsEslint.config(
     languageOptions: { globals: globals.browser },
     extends: getExtends({ react: true }),
     rules: uiRules,
+  },
+
+  // Date is only used for measuring UI timings, not for domain values
+  {
+    files: ['ui/src/components/common/Loaders/LoadingOverlay.tsx'],
+    rules: { 'no-restricted-syntax': uiRestrictedSyntaxAllowingDate },
   },
 
   // Jest based unit/integration tests in UI dir

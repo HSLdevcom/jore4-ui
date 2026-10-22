@@ -1,8 +1,43 @@
 /* eslint-disable no-restricted-syntax */
 import type { SharedConfig } from '@typescript-eslint/utils/ts-eslint';
 
+export type RestrictedSyntax = {
+  readonly selector: string;
+  readonly message: string;
+};
+
 const netexMisspelledMessage =
   "Did you misspell 'netex' as netexT with an additional T at the end?";
+
+export const restrictedSyntax: ReadonlyArray<RestrictedSyntax> = [
+  {
+    selector: 'ForInStatement',
+    message:
+      'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+  },
+  {
+    selector: 'LabeledStatement',
+    message:
+      'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
+  },
+  {
+    selector: 'WithStatement',
+    message:
+      '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
+  },
+  {
+    selector: 'Literal[value=/(netext|Netext)/]',
+    message: netexMisspelledMessage,
+  },
+  {
+    selector: 'Identifier[name=/(netext|Netext)/]',
+    message: netexMisspelledMessage,
+  },
+  {
+    selector: 'TemplateElement[value.raw=/(netext|Netext)/]',
+    message: netexMisspelledMessage,
+  },
+];
 
 export const rules: SharedConfig.RulesRecord = {
   // Original rules from Airbnb config
@@ -59,36 +94,7 @@ export const rules: SharedConfig.RulesRecord = {
 
   // disallow certain syntax forms
   // https://eslint.org/docs/rules/no-restricted-syntax
-  'no-restricted-syntax': [
-    'error',
-    {
-      selector: 'ForInStatement',
-      message:
-        'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
-    },
-    {
-      selector: 'LabeledStatement',
-      message:
-        'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
-    },
-    {
-      selector: 'WithStatement',
-      message:
-        '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
-    },
-    {
-      selector: 'Literal[value=/(netext|Netext)/]',
-      message: netexMisspelledMessage,
-    },
-    {
-      selector: 'Identifier[name=/(netext|Netext)/]',
-      message: netexMisspelledMessage,
-    },
-    {
-      selector: 'TemplateElement[value.raw=/(netext|Netext)/]',
-      message: netexMisspelledMessage,
-    },
-  ],
+  'no-restricted-syntax': ['error', ...restrictedSyntax],
 
   // disallow dangling underscores in identifiers
   // https://eslint.org/docs/rules/no-underscore-dangle

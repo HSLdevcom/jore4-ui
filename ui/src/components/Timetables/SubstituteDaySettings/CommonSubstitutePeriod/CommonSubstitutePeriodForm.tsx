@@ -133,6 +133,7 @@ export const CommonSubstitutePeriodForm: FC<
       generatedPresetDates,
     );
 
+    // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Replace with an explicit date comparator when migrating to Temporal
     return orderBy(displayedCommonDays, ['supersededDate'], ['asc']);
   }, [generatedPresetDates, commonDays]);
 

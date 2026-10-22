@@ -25,6 +25,7 @@ import {
 function findEarliestDate(
   periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>,
 ) {
+  // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Use minDate when migrating to Temporal
   const periodWithEarliestdate = minBy(periods, 'beginDate');
   return DateTime.fromISO(periodWithEarliestdate?.beginDate ?? '');
 }
@@ -32,6 +33,7 @@ function findEarliestDate(
 function findLatestDate(
   periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>,
 ) {
+  // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Use maxDate when migrating to Temporal
   const periodWithlatestDate = maxBy(periods, 'endDate');
   return DateTime.fromISO(periodWithlatestDate?.endDate ?? '');
 }
