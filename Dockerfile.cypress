@@ -1,10 +1,11 @@
 # Cypress factory image usage info: https://hub.docker.com/r/cypress/factory/
-ARG NODE_VERSION='24.21.0'
-ARG YARN_VERSION='1.22.22'
+ARG NODE_VERSION='26.12.1'
 # Latest stable Chrome version is passed as a --build-arg in docker-build.yml workflow
 
 FROM cypress/factory:8.6.0
 WORKDIR /e2e
+
+RUN npm install --global yarn@1.22.22
 
 # for dependent modules, copy and build them
 # for cypress module, only download the node_module dependencies
