@@ -151,6 +151,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         disabled={
           drawingMode !== undefined ||
           creatingNewRoute ||
+          (!!selectedRouteId && !creatingNewRoute) ||
           // Allow stop area to be pre-selected
           isEditorOpen(mapViewState.stopAreas) ||
           // But nothing else must be selected on the map
@@ -165,6 +166,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           someItemIsSelected ||
           drawingMode !== undefined ||
           creatingNewRoute ||
+          (!!selectedRouteId && !creatingNewRoute) ||
           hasChangesInProgress ||
           isRouteMetadataFormOpen
         }
