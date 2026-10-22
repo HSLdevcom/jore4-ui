@@ -1,5 +1,7 @@
-FROM node:24-alpine3.24 AS build
+FROM node:26.12.1-alpine3.24 AS build
 WORKDIR /app
+
+RUN npm install --global yarn@1.22.22
 
 # Copy over files needed to install dependecies.
 COPY package.json yarn.lock tsconfig.json ./
