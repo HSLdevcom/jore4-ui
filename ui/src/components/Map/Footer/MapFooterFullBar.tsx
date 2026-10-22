@@ -183,22 +183,28 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         </SimpleButton>
       </Visible>
       <Visible visible={hasChangesInProgress && !isRouteMetadataFormOpen}>
-        <SimpleButton
-          className="ml-auto"
-          onClick={onCancel}
-          disabled={!hasChangesInProgress}
-          testId={testIds.cancelButton}
-          inverted
-        >
-          {t(($) => $.cancel)}
-        </SimpleButton>
-        <SimpleButton
-          onClick={onSave}
-          disabled={!(hasChangesInProgress && hasDraftRouteGeometry)}
-          testId={testIds.saveButton}
-        >
-          {t(($) => $.routes.save)}
-        </SimpleButton>
+        <Row className="ml-auto gap-4">
+          <Visible visible={isEditingExistingRoute}>
+            <SimpleButton onClick={onDeleteRoute} inverted>
+              {t(($) => $.map.deleteRoute)}
+            </SimpleButton>
+          </Visible>
+          <SimpleButton
+            onClick={onCancel}
+            disabled={!hasChangesInProgress}
+            testId={testIds.cancelButton}
+            inverted
+          >
+            {t(($) => $.cancel)}
+          </SimpleButton>
+          <SimpleButton
+            onClick={onSave}
+            disabled={!(hasChangesInProgress && hasDraftRouteGeometry)}
+            testId={testIds.saveButton}
+          >
+            {t(($) => $.routes.save)}
+          </SimpleButton>
+        </Row>
       </Visible>
     </Row>
   );
