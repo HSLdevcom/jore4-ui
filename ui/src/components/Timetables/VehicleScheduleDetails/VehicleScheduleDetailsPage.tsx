@@ -10,6 +10,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../redux';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { makeBackNavigationIsSafeState } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';
 import { ObservationDateControl, Switch, SwitchLabel } from '../../common/Jore';
 import {
@@ -29,7 +31,6 @@ import {
   TimetablesView,
   useTimetablesViewState,
 } from '../Common/useTimetablesViewState';
-import { useTimetableVersionsReturnToQueryParam } from '../Versions/Utils/useTimetableVersionsReturnToQueryParam';
 import { RouteTimetableList } from './RouteTimetableList';
 import { TimetableNavigation } from './TimetableNavigation';
 
@@ -44,8 +45,6 @@ export const VehicleScheduleDetailsPage: FC = () => {
   const dispatch = useAppDispatch();
 
   const { line } = useGetLineDetails();
-
-  const { getVersionsUrl } = useTimetableVersionsReturnToQueryParam();
 
   const { routeLabel, setShowDefaultView, activeView } =
     useTimetablesViewState();
@@ -133,7 +132,11 @@ export const VehicleScheduleDetailsPage: FC = () => {
             {line && (
               <SimpleButton
                 inverted
-                href={getVersionsUrl(line.label, line.line_id)}
+                href={routeDetails[Path.lineTimetableVersions].getLink(
+                  line.label,
+                  { returnTo: line.line_id },
+                )}
+                state={makeBackNavigationIsSafeState()}
                 testId={testIds.showVersionsButton}
               >
                 {t(($) => $.timetables.showVersions)}

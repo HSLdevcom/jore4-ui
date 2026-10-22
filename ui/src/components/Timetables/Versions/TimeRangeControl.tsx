@@ -1,15 +1,24 @@
-import { FC } from 'react';
+import { DateTime } from 'luxon';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
-import { QueryParameterName, useTimeRangeQueryParams } from '../../../hooks';
-import { ValidationError } from '../../common/Inputs';
+import { useTimeRangeQueryParams } from '../../../hooks';
+import { DateInput, ValidationError } from '../../common/Inputs';
 import { Row } from '../../common/LayoutComponents';
-import { DateControl } from './DateControl';
+import { TimetableVersionsRouterState } from './Utils';
 
 type TimeRangeControlProps = {
   readonly className?: string;
+  readonly startDate: DateTime;
+  readonly endDate: DateTime;
+  readonly onChange: Dispatch<SetStateAction<TimetableVersionsRouterState>>;
 };
 
-export const TimeRangeControl: FC<TimeRangeControlProps> = ({ className }) => {
+export const TimeRangeControl: FC<TimeRangeControlProps> = ({
+  className,
+  startDate,
+  endDate,
+  onChange,
+}) => {
   const { t } = useTranslation();
   const testIds = {
     startDate: 'TimeRangeControl::startDate',
@@ -20,21 +29,29 @@ export const TimeRangeControl: FC<TimeRangeControlProps> = ({ className }) => {
   return (
     <div className={className}>
       <Row className="gap-8">
-        <DateControl
+        <DateInput
           label={t(($) => $.validityPeriod.validityStart)}
           dateInputId="startDate"
           className="max-w-max"
           testId={testIds.startDate}
-          queryParamName={QueryParameterName.StartDate}
+          value={startDate}
+          onChange={(newStartDate) => {
+            onChange((prev) => ({ ...prev, startDate: newStartDate }));
+          }}
         />
-        <DateControl
+
+        <DateInput
           label={t(($) => $.validityPeriod.validityEnd)}
           dateInputId="endDate"
           className="max-w-max"
           testId={testIds.endDate}
-          queryParamName={QueryParameterName.EndDate}
+          value={endDate}
+          onChange={(newEndDate) => {
+            onChange((prev) => ({ ...prev, endDate: newEndDate }));
+          }}
         />
       </Row>
+
       {isInvalidDateRange && (
         <ValidationError
           fieldPath="timeRange"

@@ -1,15 +1,15 @@
 import orderBy from 'lodash/orderBy';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTimeRangeQueryParams } from '../../../hooks';
 import {
   closeChangeTimetableValidityModalAction,
   selectChangeTimetableValidityModal,
   useAppDispatch,
   useAppSelector,
 } from '../../../redux';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { TimetablePriority } from '../../../types/enums';
-import { useRequiredParams } from '../../../utils';
+import { useNavigateBackSafely, useRequiredParams } from '../../../utils';
 import { CloseIconButton } from '../../common/Buttons';
 import { PageTitle } from '../../common/Jore';
 import { Container, FormColumn, FormRow } from '../../common/LayoutComponents';
@@ -22,7 +22,7 @@ import {
   TimetableVersionRowData,
   useGetJourneyPatternIdsByLineLabel,
   useGetTimetableVersions,
-  useTimetableVersionsReturnToQueryParam,
+  useTimetableVersionsRouterState,
 } from './Utils';
 
 const testIds = {
@@ -46,8 +46,20 @@ export const TimetableVersionsPage: FC = () => {
   const { t } = useTranslation();
 
   const { label } = useRequiredParams<{ label: string }>();
-  const { startDate, endDate } = useTimeRangeQueryParams();
-  const { onClose } = useTimetableVersionsReturnToQueryParam();
+  const {
+    state: {
+      search: { startDate, endDate, returnTo },
+    },
+    setSearchState,
+  } = useTimetableVersionsRouterState();
+
+  const goBack = useNavigateBackSafely();
+  const onClose = () =>
+    goBack(
+      returnTo
+        ? routeDetails[Path.lineTimetables].getLink(returnTo)
+        : routeDetails[Path.timetables].getLink(),
+    );
 
   const dispatch = useAppDispatch();
 
@@ -118,7 +130,12 @@ export const TimetableVersionsPage: FC = () => {
       </FormRow>
       <Container>
         <h2 className="text-xl">{t(($) => $.timetables.timeline)}</h2>
-        <TimeRangeControl className="mb-8" />
+        <TimeRangeControl
+          startDate={startDate}
+          endDate={endDate}
+          onChange={setSearchState}
+          className="mb-8"
+        />
         <h2 className="text-xl">{t(($) => $.timetables.operatingCalendar)}</h2>
         <TimetableVersionTable
           className="mb-8 w-full"

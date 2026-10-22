@@ -23,6 +23,7 @@ export enum QueryParameterName {
   EndDate = 'endDate',
   // eslint-disable-next-line @typescript-eslint/no-shadow
   Priority = 'priority',
+  ReturnTo = 'returnTo',
 }
 
 export type QueryParameter<TType> = { paramName: string; value: TType };
