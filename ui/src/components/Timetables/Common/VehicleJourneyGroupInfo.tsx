@@ -57,6 +57,7 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
 
   const hasTimetables = !!vehicleJourneys;
   const tripCount = vehicleJourneys?.length;
+  // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Sort by durationToSeconds when migrating to Temporal
   const orderedVehicleJourneys = orderBy(vehicleJourneys, 'start_time');
 
   const firstTrip = orderedVehicleJourneys[0];

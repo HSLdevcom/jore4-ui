@@ -73,11 +73,13 @@ function convertToPeriodSchema(
     periods: periods.map((period) => {
       const periodBeginDate = minBy(
         period.substitute_operating_day_by_line_types,
+        // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Replace with an explicit date comparator when migrating to Temporal
         'superseded_date',
       )?.superseded_date;
 
       const periodEndDate = maxBy(
         period.substitute_operating_day_by_line_types,
+        // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Replace with an explicit date comparator when migrating to Temporal
         'superseded_date',
       )?.superseded_date;
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports -- compares against lodash behaviour
 import isEqual from 'lodash/isEqual';
 import { DateTime } from 'luxon';
 import { areEqual } from './areEqual';
