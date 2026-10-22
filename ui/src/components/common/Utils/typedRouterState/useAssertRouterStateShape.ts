@@ -1,3 +1,5 @@
+import uniq from 'lodash/uniq';
+import without from 'lodash/without';
 import xor from 'lodash/xor';
 import { useRef } from 'react';
 import { TypedRouterHistoryStateShapeError } from './TypedRouterStateError';
@@ -11,6 +13,7 @@ export function useAssertProperSerializationData<StateT extends object>(
   serializers: UrlStateSerializers<StateT>,
   deserializers: UrlStateDeserializers<StateT>,
   defaultValues: StateT,
+  alwaysSerialize: ReadonlyArray<keyof StateT> = [],
 ) {
   const stableInputRef = useRef({
     serializers,
@@ -39,6 +42,22 @@ export function useAssertProperSerializationData<StateT extends object>(
   ) {
     throw new Error(
       'Serializers, deserializers and defaultValues all need to have the same keys!',
+    );
+  }
+
+  if (uniq(alwaysSerialize).length !== alwaysSerialize.length) {
+    throw new Error(
+      `Duplicate keys found in alwaysSerialize=(${alwaysSerialize.join(', ')})`,
+    );
+  }
+
+  const unknownAlwaysSerializeFields = without(
+    alwaysSerialize as ReadonlyArray<string>,
+    ...expectedKeys,
+  );
+  if (unknownAlwaysSerializeFields.length) {
+    throw new Error(
+      `Unknown keys defined in alwaysSerialize=(${unknownAlwaysSerializeFields.join(', ')}); Valid keys are=(${expectedKeys.join(', ')})`,
     );
   }
 }

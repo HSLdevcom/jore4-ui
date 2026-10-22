@@ -52,19 +52,27 @@ export function warnOrThrow(cause: unknown) {
  * @param serializers state to url param mappers
  * @param defaultValues default values
  * @param state current state
+ * @param alwaysSerialize fields that should always be serialized onto the URL
  * @returns URLSearchParams that can be transformed into the search string
  */
 export function serializeUrlSearchState<StateT extends object>(
   serializers: UrlStateSerializers<StateT>,
   defaultValues: StateT,
   state: StateT,
+  alwaysSerialize: ReadonlyArray<keyof StateT> = [],
 ): URLSearchParams {
   const serializableKeys = Object.keys(serializers) as unknown as ReadonlyArray<
     keyof StateT
   >;
 
   const serializedParams = serializableKeys
-    .filter((knownKey) => !areEqual(defaultValues[knownKey], state[knownKey]))
+    .filter((knownKey) => {
+      if (alwaysSerialize.includes(knownKey)) {
+        return true;
+      }
+
+      return !areEqual(defaultValues[knownKey], state[knownKey]);
+    })
     .map((knownKey) => [
       knownKey as string,
       TypedUrlStateSerializationError.try(knownKey, state[knownKey], () =>

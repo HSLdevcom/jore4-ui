@@ -108,6 +108,9 @@ type UseTypedRouterStateOptions<
     readonly defaultValues: HistoryStateT;
     readonly assertShape: (value: SimpleRecord) => void;
   };
+  readonly options?: {
+    readonly alwaysSerialize?: ReadonlyArray<keyof SearchStateT>;
+  };
 };
 
 export function useTypedRouterState<
@@ -119,6 +122,7 @@ export function useTypedRouterState<
     defaultValues: defaultHistoryValues,
     assertShape: assertHistoryStateShape,
   },
+  options: { alwaysSerialize } = {},
 }: UseTypedRouterStateOptions<
   SearchStateT,
   HistoryStateT
@@ -148,6 +152,7 @@ export function useTypedRouterState<
     serializers,
     deserializers,
     defaultSearchValues,
+    alwaysSerialize,
   );
   // eslint-disable-next-line @stylistic/spaced-comment
   /*#__PURE__*/ assertRouterHistoryStateIsSimple(historyState);
@@ -190,6 +195,7 @@ export function useTypedRouterState<
         serializers,
         defaultSearchValues,
         searchState,
+        alwaysSerialize,
       ).toString()}`;
 
       navigate(
