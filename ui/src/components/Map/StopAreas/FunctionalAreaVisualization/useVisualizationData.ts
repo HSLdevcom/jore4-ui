@@ -6,10 +6,9 @@ import {
   featureCollection,
 } from '@turf/turf';
 import type { BBox, Geometry } from 'geojson';
-import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 import { useMemo } from 'react';
-import { memoizeOne } from '../../../../utils';
+import { areEqual, memoizeOne } from '../../../../utils';
 import { MapStop } from '../../Types';
 import {
   areaCirclePadding,
@@ -88,7 +87,7 @@ function calculateCircles(
   };
 }
 
-// Are the given values Arrays with items that compare true with `_.isEqual` in any order.
+// Are the given values Arrays with items that compare true with `areEqual` in any order.
 function arraysContainEqualItems(a: unknown, b: unknown): boolean {
   if (a === b) {
     return true;
@@ -103,7 +102,7 @@ function arraysContainEqualItems(a: unknown, b: unknown): boolean {
   }
 
   return a.every((aItem: unknown) =>
-    b.some((bItem: unknown) => isEqual(aItem, bItem)),
+    b.some((bItem: unknown) => areEqual(aItem, bItem)),
   );
 }
 
@@ -133,7 +132,7 @@ function useCircles(
 
     if (mapped) {
       // Duplicates break the rendering
-      const deduped = uniqWith(mapped, isEqual);
+      const deduped = uniqWith(mapped, areEqual);
       return stabilizeResult(deduped);
     }
 

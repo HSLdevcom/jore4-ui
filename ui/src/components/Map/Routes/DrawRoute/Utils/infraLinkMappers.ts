@@ -1,13 +1,12 @@
 import { along, length } from '@turf/turf';
 import type { Feature, LineString, Point } from 'geojson';
-import isEqual from 'lodash/isEqual';
 import {
   InfrastructureLinkAllFieldsFragment,
   InfrastructureNetworkDirectionEnum,
   RouteWithInfrastructureLinksFragment,
 } from '../../../../../generated/graphql';
 import { RouteInfraLink } from '../../../../../types';
-import { mapGeoJSONtoFeature } from '../../../../../utils';
+import { areEqual, mapGeoJSONtoFeature } from '../../../../../utils';
 import { LineStringFeature } from '../types';
 
 /**
@@ -72,7 +71,7 @@ function getSnapPointCalculateParamsForInfraLink(
   // Helper constants for deciding which points to use
   const isFirstLink = index === 0;
   const isLastLink = index === linkCount - 1;
-  const isLoopLink = isEqual(
+  const isLoopLink = areEqual(
     coordinates[0],
     coordinates[coordinates.length - 1],
   );

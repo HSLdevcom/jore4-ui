@@ -1,10 +1,14 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import isEqual from 'lodash/isEqual';
 import { FC, useCallback, useMemo } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { AllOptionEnum, NullOptionEnum, none } from '../../../../../../utils';
+import {
+  AllOptionEnum,
+  NullOptionEnum,
+  areEqual,
+  none,
+} from '../../../../../../utils';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
 import {
@@ -68,7 +72,7 @@ function useOptionGroups(t: TFunction) {
 
     const extraOptions = sizes.filter((size) =>
       none(
-        (standardSize) => isEqual(standardSize.size, size),
+        (standardSize) => areEqual(standardSize.size, size),
         standardPosterSizes,
       ),
     );
