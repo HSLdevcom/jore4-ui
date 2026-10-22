@@ -28,8 +28,8 @@ import { StopGroupSelectorItem } from './StopGroupSelectorItem';
 import { VisibilityMap, useVisibilityMap } from './useVisibilityMap';
 
 const testIds = {
-  showAll: `StopGroupSelector::showAllButton`,
-  showLess: `StopGroupSelector::showLessButton`,
+  showAll: 'StopGroupSelector::showAllButton',
+  showLess: 'StopGroupSelector::showLessButton',
 };
 
 function resolveNewGroupSelection(

@@ -42,13 +42,13 @@ function getShapeClassNames(shape: SimpleButtonShape) {
 function getColorClassNames(inverted: boolean, shape: SimpleButtonShape) {
   if (inverted) {
     if (shape === 'compact' || shape === 'square') {
-      return `text-gray-900 bg-white border-grey active:border-brand`;
+      return 'text-gray-900 bg-white border-grey active:border-brand';
     }
 
-    return `text-brand bg-white border-grey active:border-brand`;
+    return 'text-brand bg-white border-grey active:border-brand';
   }
 
-  return `text-white bg-brand border-brand active:bg-brand/50`;
+  return 'text-white bg-brand border-brand active:bg-brand/50';
 }
 
 export function getHoverStyles(inverted: boolean, disabled: boolean) {

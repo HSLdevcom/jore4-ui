@@ -12,7 +12,7 @@ export function getDbConnection(knexConfig: DatabaseConnectionInfo): Knex {
  * e.g. infrastructure link related tables, vehicle modes, etc.
  */
 export async function resetRoutesAndLinesDb(db: Knex) {
-  console.log(`Resetting routes and lines db...`);
+  console.log('Resetting routes and lines db...');
 
   // list of tables has to be manually updated if schema changes
   const tableNames = [
@@ -32,7 +32,7 @@ export async function resetRoutesAndLinesDb(db: Knex) {
     const res = await db.raw(
       `TRUNCATE TABLE ${tableNames.join(',')} RESTART IDENTITY`,
     );
-    console.log(`db truncated`);
+    console.log('db truncated');
     return res;
   } catch (err) {
     console.log('Error when truncating db, err');

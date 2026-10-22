@@ -20,7 +20,7 @@ function expectDateTimeToBeDeserialized(input: unknown, output: unknown) {
   expect((output as DateTime).toISO()).toEqual(input);
 }
 
-describe(`redux object de/serializing`, () => {
+describe('redux object de/serializing', () => {
   const serializer: SerializerFunction = <
     T extends PlainObject = PlainObject,
     TValue = ValueOf<T>,
@@ -213,7 +213,7 @@ describe(`redux object de/serializing`, () => {
     });
   });
 
-  describe(`reversibility`, () => {
+  describe('reversibility', () => {
     it('should be able to retrieve the same input object after serializing and deserializing', () => {
       const input = {
         str: '2022-08-11T06:39:39.766+03:00',

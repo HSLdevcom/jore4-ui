@@ -196,7 +196,7 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
 
     // Open copied version
     cy.visit(
-      `/stop-registry/stops/E2E008?observationDate=2020-03-20&priority=20`,
+      '/stop-registry/stops/E2E008?observationDate=2020-03-20&priority=20',
     );
 
     // Check that info spots were correctly copied

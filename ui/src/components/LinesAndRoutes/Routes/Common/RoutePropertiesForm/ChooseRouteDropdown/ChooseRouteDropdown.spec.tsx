@@ -138,15 +138,15 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
 
     expect(
       items[0].querySelector('[data-testid="label-and-name"]')?.textContent,
-    ).toBe(`123 | route 123`);
+    ).toBe('123 | route 123');
     expect(items[0].querySelector('.text-sm')?.textContent).toBe(
-      `21.3.2022 - 29.3.2022`,
+      '21.3.2022 - 29.3.2022',
     );
     expect(
       items[1].querySelector('[data-testid="label-and-name"]')?.textContent,
-    ).toBe(`456 | route 456`);
+    ).toBe('456 | route 456');
     expect(items[1].querySelector('.text-sm')?.textContent).toBe(
-      `2.1.2021 - 31.12.2022`,
+      '2.1.2021 - 31.12.2022',
     );
     expect(items.length).toBe(2);
 
@@ -195,9 +195,9 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
 
     expect(
       items[0].querySelector('[data-testid="label-and-name"]')?.textContent,
-    ).toBe(`123 | route 123`);
+    ).toBe('123 | route 123');
     expect(items[0].querySelector('.text-sm')?.textContent).toBe(
-      `21.3.2022 - 29.3.2022`,
+      '21.3.2022 - 29.3.2022',
     );
     expect(items.length).toBe(1);
 

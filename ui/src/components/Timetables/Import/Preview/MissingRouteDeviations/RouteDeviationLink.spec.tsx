@@ -59,7 +59,7 @@ describe(`<${RouteDeviationLink.name} />`, () => {
 
     expect(
       getByTestId('RouteDeviationLink::1::link').getAttribute('href'),
-    ).toBe(`/timetables/lines/123?routeLabels=108N`);
+    ).toBe('/timetables/lines/123?routeLabels=108N');
   });
 
   test('should render correct title', () => {

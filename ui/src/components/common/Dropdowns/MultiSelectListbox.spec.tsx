@@ -4,7 +4,7 @@ import { MultiSelectListbox } from './MultiSelectListbox';
 
 describe('<MultiSelectListbox />', () => {
   const testId = 'multiselectlistbox';
-  const buttonContent = `button`;
+  const buttonContent = 'button';
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onChange = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -226,7 +226,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      StopSearchBar.getSearchInput().type(`E2E001{enter}`);
+      StopSearchBar.getSearchInput().type('E2E001{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -238,7 +238,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       'should be able to search with an asterisk',
       { tags: [Tag.StopRegistry, Tag.Smoke] },
       () => {
-        StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+        StopSearchBar.getSearchInput().type('E2E00*{enter}');
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         StopSearchResultsPage.getContainer().should('be.visible');
@@ -258,7 +258,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     );
 
     it('should show no results when search does not match any stops', () => {
-      StopSearchBar.getSearchInput().type(`*404*{enter}`);
+      StopSearchBar.getSearchInput().type('*404*{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -273,7 +273,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should be able to search with an exact ELY number', () => {
       StopSearchBar.getExpandToggle().click();
-      StopSearchBar.getElyInput().type(`E2E001`);
+      StopSearchBar.getElyInput().type('E2E001');
       StopSearchBar.getSearchButton().click();
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
@@ -305,7 +305,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should show no results when search does not match any stops', () => {
       StopSearchBar.getExpandToggle().click();
-      StopSearchBar.getElyInput().type(`not-an-ELY-number`);
+      StopSearchBar.getElyInput().type('not-an-ELY-number');
       StopSearchBar.getSearchButton().click();
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
@@ -320,7 +320,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should be able to search with an exact address', () => {
       StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
-      StopSearchBar.getSearchInput().type(`Annankatu 15{enter}`);
+      StopSearchBar.getSearchInput().type('Annankatu 15{enter}');
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -332,7 +332,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should be able to search with an asterix', () => {
       StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
-      StopSearchBar.getSearchInput().type(`Annankatu*{enter}`);
+      StopSearchBar.getSearchInput().type('Annankatu*{enter}');
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -345,7 +345,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should show no results when search does not match any stops', () => {
       StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
-      StopSearchBar.getSearchInput().type(`no address 22{enter}`);
+      StopSearchBar.getSearchInput().type('no address 22{enter}');
 
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -358,7 +358,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('Should trigger search when the search criteria is changed and the search input field contains text', () => {
-      StopSearchBar.getSearchInput().type(`Albertinkatu 38`);
+      StopSearchBar.getSearchInput().type('Albertinkatu 38');
       StopSearchBar.searchCriteriaRadioButtons.getAddressRadioButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -368,7 +368,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     });
 
     it('Should not trigger a search when the search criteria is changed if the search input field is empty', () => {
-      StopSearchBar.getSearchInput().type(`E2E004{enter}`);
+      StopSearchBar.getSearchInput().type('E2E004{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
       StopSearchResultsPage.getContainer().should('be.visible');
       StopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -387,7 +387,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     beforeEach(initWithHardcodedData);
 
     it('Should search by all municipalities by default', () => {
-      StopSearchBar.getSearchInput().type(`*`);
+      StopSearchBar.getSearchInput().type('*');
       StopSearchBar.getExpandToggle().click();
       StopSearchBar.municipality.openDropdown();
       StopSearchBar.municipality.isSelected('Kaikki');
@@ -420,7 +420,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      StopSearchBar.getSearchInput().type(`Albertinkatu 38{enter}`);
+      StopSearchBar.getSearchInput().type('Albertinkatu 38{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -432,7 +432,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      StopSearchBar.getSearchInput().type(`Albertsgatan 38{enter}`);
+      StopSearchBar.getSearchInput().type('Albertsgatan 38{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -444,7 +444,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      StopSearchBar.getSearchInput().type(`Albertinkatu 38 (pitkä){enter}`);
+      StopSearchBar.getSearchInput().type('Albertinkatu 38 (pitkä){enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -456,7 +456,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchCriteriaRadioButtons
         .getLabelRadioButton()
         .should('be.checked');
-      StopSearchBar.getSearchInput().type(`Albertsgatan 38 (lång){enter}`);
+      StopSearchBar.getSearchInput().type('Albertsgatan 38 (lång){enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -528,7 +528,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     }
 
     function assertShowsAllResultsByDefault() {
-      StopSearchBar.getSearchInput().clearAndType(`LE*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('LE*{enter}');
       expectGraphQLCallToSucceed('@gqlFindLinesByStopSearch');
 
       // Should contain and show all LE -lines
@@ -542,7 +542,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     function assertShowAllAndShowLessWork(
       allExtraLines: ReadonlyArray<string>,
     ) {
-      StopSearchBar.getSearchInput().clearAndType(`L*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('L*{enter}');
       expectGraphQLCallToSucceed('@gqlFindLinesByStopSearch');
 
       // Changes in CSS styles, viewport size, and the line labels can influence
@@ -676,7 +676,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should find and display line 901 routes', () => {
       StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      StopSearchBar.getSearchInput().clearAndType(`901{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('901{enter}');
 
       StopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
       StopSearchByLine.getActiveLineValidity().should(
@@ -700,7 +700,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should be able to select multiple lines', () => {
       StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      StopSearchBar.getSearchInput().clearAndType(`9*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('9*{enter}');
 
       StopGroupSelector.getGroupSelectors().contains('901').click();
       StopGroupSelector.getGroupSelectors().contains('9999').click();
@@ -717,7 +717,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should be able to select and deselect stops on line', () => {
       StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      StopSearchBar.getSearchInput().clearAndType(`901{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('901{enter}');
 
       StopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
       StopSearchByLine.getActiveLineValidity().should(
@@ -782,7 +782,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
-      StopSearchBar.getSearchInput().clearAndType(`*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('*{enter}');
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       StopGroupSelector.shouldHaveGroups([
@@ -806,7 +806,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
-      StopSearchBar.getSearchInput().clearAndType(`X0004{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('X0004{enter}');
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       StopGroupSelector.shouldHaveGroups(['X0004']);
@@ -851,7 +851,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
-      StopSearchBar.getSearchInput().clearAndType(`E2ENQ{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('E2ENQ{enter}');
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       StopGroupSelector.shouldHaveGroups(['E2ENQ']);
@@ -906,7 +906,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
 
-      StopSearchBar.getSearchInput().clearAndType(`*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('*{enter}');
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       StopGroupSelector.shouldHaveGroups(['T2']);
@@ -916,7 +916,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
 
-      StopSearchBar.getSearchInput().clearAndType(`T2{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('T2{enter}');
       expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       StopGroupSelector.shouldHaveGroups(['T2']);
@@ -1009,7 +1009,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     }
 
     it('should sort on basic stop search', () => {
-      StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      StopSearchBar.getSearchInput().type('E2E00*{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       // Label ascending
@@ -1048,7 +1048,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     });
 
     it('should page on basic stop search', () => {
-      StopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      StopSearchBar.getSearchInput().type('E2E00*{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       // Label ascending
@@ -1063,7 +1063,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
     it('should sort on stop search by line', () => {
       StopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-      StopSearchBar.getSearchInput().type(`*{enter}`);
+      StopSearchBar.getSearchInput().type('*{enter}');
 
       SortByButton.assertSorting('sequenceNumber', 'groupOnly');
       StopSearchByLine.getRouteContainer(
@@ -1087,7 +1087,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     it('should sort on search for stop areas', () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
-      StopSearchBar.getSearchInput().type(`X*{enter}`);
+      StopSearchBar.getSearchInput().type('X*{enter}');
       StopGroupSelector.getGroupSelectors().contains('X0003').click();
       SearchForStopAreas.getStopAreaLabel();
 
@@ -1109,7 +1109,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     it('should be able to select multiple stop areas', () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
-      StopSearchBar.getSearchInput().clearAndType(`X*{enter}`);
+      StopSearchBar.getSearchInput().clearAndType('X*{enter}');
       StopGroupSelector.getGroupSelectors().contains('X0003').click();
 
       SearchForStopAreas.getStopAreaLabel().should('contain', 'X0003');
@@ -1127,7 +1127,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
     it('should sort on search for terminals', () => {
       StopSearchBar.searchForDropdown.openSearchForDropdown();
       StopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
-      StopSearchBar.getSearchInput().type(`T*{enter}`);
+      StopSearchBar.getSearchInput().type('T*{enter}');
       StopGroupSelector.getGroupSelectors().contains('T2').click();
       SearchForTerminals.getTerminalLabel();
 
@@ -2297,7 +2297,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
       const observationDate = '2025-01-01';
       StopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      StopSearchBar.getSearchInput().type(`E2E0*{enter}`);
+      StopSearchBar.getSearchInput().type('E2E0*{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -2331,7 +2331,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
       const observationDate = '2025-01-01';
       StopSearchBar.getObservationDateInput().clearAndType(observationDate);
-      StopSearchBar.getSearchInput().type(`E2E0*{enter}`);
+      StopSearchBar.getSearchInput().type('E2E0*{enter}');
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       StopSearchResultsPage.getContainer().should('be.visible');
@@ -2368,7 +2368,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         // Search for stops
         const observationDate = '2025-01-01';
         StopSearchBar.getObservationDateInput().clearAndType(observationDate);
-        StopSearchBar.getSearchInput().type(`E2E0*{enter}`);
+        StopSearchBar.getSearchInput().type('E2E0*{enter}');
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         StopSearchResultsPage.getContainer().should('be.visible');

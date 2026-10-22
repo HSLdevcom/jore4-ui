@@ -43,7 +43,7 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
   return (
     <form
       onSubmit={onSubmit}
-      className={twMerge(`space-y-4`, className)}
+      className={twMerge('space-y-4', className)}
       data-testid={testIds.form}
     >
       <FormRow>

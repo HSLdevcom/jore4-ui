@@ -1,15 +1,15 @@
 export class RouteStopsOverlayRow {
   static getMenuButton() {
-    return cy.getByTestId(`RouteStopsOverlayRow::menu`);
+    return cy.getByTestId('RouteStopsOverlayRow::menu');
   }
 
   static getToggleStopInJourneyPatternButton() {
     return cy.getByTestId(
-      `RouteStopsOverlayRow::menu::toggleStopInJourneyPatternButton`,
+      'RouteStopsOverlayRow::menu::toggleStopInJourneyPatternButton',
     );
   }
 
   static getOpenDetailsPageLink() {
-    return cy.getByTestId(`RouteStopsOverlayRow::menu::ShowDetails`);
+    return cy.getByTestId('RouteStopsOverlayRow::menu::ShowDetails');
   }
 }

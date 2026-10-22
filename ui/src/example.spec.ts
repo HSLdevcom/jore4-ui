@@ -6,6 +6,6 @@ describe('Example test suite', () => {
   });
 
   test('Example snapshot test', () => {
-    expect(1 + 2).toMatchInlineSnapshot(`3`);
+    expect(1 + 2).toMatchInlineSnapshot('3');
   });
 });

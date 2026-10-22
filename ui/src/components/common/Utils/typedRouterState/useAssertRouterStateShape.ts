@@ -113,7 +113,7 @@ export function assertRouterHistoryStateIsSimple(
     throw new TypedRouterHistoryStateShapeError(
       '',
       state,
-      `The root Router history state value must be a simple nested object!`,
+      'The root Router history state value must be a simple nested object!',
     );
   }
 

@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
 
 const testIds = {
-  name: `MaintainerViewCard::name`,
-  phone: `MaintainerViewCard::phone`,
-  email: `MaintainerViewCard::email`,
-  notSelectedPlaceholder: `MaintainerViewCard::notSelectedPlaceholder`,
+  name: 'MaintainerViewCard::name',
+  phone: 'MaintainerViewCard::phone',
+  email: 'MaintainerViewCard::email',
+  notSelectedPlaceholder: 'MaintainerViewCard::notSelectedPlaceholder',
 };
 
 type MaintainerViewCardProps = {

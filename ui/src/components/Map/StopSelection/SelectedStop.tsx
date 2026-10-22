@@ -12,7 +12,8 @@ const testIds = {
   removeButton: 'Map::StopSelection::RemoveSelection',
 };
 
-const baseIconClasses = `text-3xl min-w-[48px] flex justify-center items-center`;
+const baseIconClasses =
+  'text-3xl min-w-[48px] flex justify-center items-center';
 
 const knownPriorityIconsClasses: Readonly<Record<string, string>> = {
   [Priority.Temporary]: `${baseIconClasses} text-city-bicycle-yellow icon-temporary-alt`,

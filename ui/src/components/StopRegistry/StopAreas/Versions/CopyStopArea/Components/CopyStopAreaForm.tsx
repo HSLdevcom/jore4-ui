@@ -46,7 +46,7 @@ export const CopyStopAreaForm: FC<CopyStopAreaFormProps> = ({
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onFormSubmit)}
-        className={twMerge(`space-y-4`, className)}
+        className={twMerge('space-y-4', className)}
         data-testid={testIds.form}
       >
         <FormRow>

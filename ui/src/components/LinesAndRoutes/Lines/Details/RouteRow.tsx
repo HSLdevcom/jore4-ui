@@ -92,7 +92,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
   return (
     <div
       className={twMerge(
-        `relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24`,
+        'relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24',
         pseudoBottomBorderClassName,
         alertStyle.listItemBorder,
         className,

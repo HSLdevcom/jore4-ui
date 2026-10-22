@@ -22,7 +22,7 @@ describe('Verify that route and line search works', rootTags, () => {
     'Searches for a line with exact label',
     { tags: [Tag.Lines, Tag.Smoke] },
     () => {
-      RoutesAndLinesPage.searchContainer.getSearchInput().type(`9999{enter}`);
+      RoutesAndLinesPage.searchContainer.getSearchInput().type('9999{enter}');
       expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
       SearchResultsPage.getSearchResultsContainer().should(
@@ -30,7 +30,7 @@ describe('Verify that route and line search works', rootTags, () => {
         '1 hakutulosta',
       );
       SearchResultsPage.getLinesSearchResultTable()
-        .should('contain', `line 9999`)
+        .should('contain', 'line 9999')
         .and('not.contain', 'line 9998');
     },
   );
@@ -56,7 +56,7 @@ describe('Verify that route and line search works', rootTags, () => {
     'Searches for a route with an exact label',
     { tags: [Tag.Routes, Tag.Smoke] },
     () => {
-      RoutesAndLinesPage.searchContainer.getSearchInput().type(`1999{enter}`);
+      RoutesAndLinesPage.searchContainer.getSearchInput().type('1999{enter}');
       expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
       SearchResultsPage.getRoutesResultsButton().click();

@@ -4,7 +4,7 @@ import { JoreCombobox, testIds } from './JoreCombobox';
 
 describe('<JoreCombobox />', () => {
   const testId = 'combobox1';
-  const buttonContent = `button`;
+  const buttonContent = 'button';
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onQueryChange = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function

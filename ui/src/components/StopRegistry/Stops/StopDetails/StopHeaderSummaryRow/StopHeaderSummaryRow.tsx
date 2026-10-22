@@ -47,7 +47,7 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
   const showStopTypeOrState = showStopState || showStopType;
 
   return (
-    <div className={twMerge(`flex items-center gap-3`, className)}>
+    <div className={twMerge('flex items-center gap-3', className)}>
       <Visible visible={anyIconsShown}>
         <div className="flex items-center gap-0">
           <Visible visible={isAccessible}>

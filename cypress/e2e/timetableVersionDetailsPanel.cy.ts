@@ -47,7 +47,7 @@ describe('Timetable version details panel', { tags: [Tag.Timetables] }, () => {
     cy.setupTests();
     cy.mockLogin();
     cy.visit(
-      `/timetables/lines/901/versions?startDate=2023-03-04&endDate=2024-03-04`,
+      '/timetables/lines/901/versions?startDate=2023-03-04&endDate=2024-03-04',
     );
   });
 

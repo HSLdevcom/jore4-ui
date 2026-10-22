@@ -304,7 +304,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
     locationView
       .getTerminalLink()
       .shouldBeVisible()
-      .should('have.attr', 'href', `/stop-registry/terminals/TH2003`);
+      .should('have.attr', 'href', '/stop-registry/terminals/TH2003');
     locationView.getTerminalName().shouldHaveText('E2ETH2003');
     locationView.getTerminalStops().shouldHaveText('H2003');
   };
@@ -2980,7 +2980,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
       // Reopen Temp version
       cy.visit(
-        `/stop-registry/stops/H2003?observationDate=2020-03-20&priority=20`,
+        '/stop-registry/stops/H2003?observationDate=2020-03-20&priority=20',
       );
       StopDetailsPage.loadingStopDetails().should('not.exist');
       StopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-');
@@ -3083,7 +3083,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
       // Check that priority has changed
       cy.visit(
-        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=30`,
+        '/stop-registry/stops/H2003?observationDate=2030-01-01&priority=30',
       );
       StopDetailsPage.loadingStopDetails().should('not.exist');
       StopDetailsPage.page().should(
@@ -3092,7 +3092,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       );
 
       cy.visit(
-        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=20`,
+        '/stop-registry/stops/H2003?observationDate=2030-01-01&priority=20',
       );
       StopDetailsPage.loadingStopDetails().should('not.exist');
       StopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
@@ -3165,7 +3165,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
 
       // Check that priority has changed
       cy.visit(
-        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=30`,
+        '/stop-registry/stops/H2003?observationDate=2030-01-01&priority=30',
       );
       StopDetailsPage.loadingStopDetails().should('not.exist');
       StopDetailsPage.page().should(
@@ -3174,7 +3174,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
       );
 
       cy.visit(
-        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=20`,
+        '/stop-registry/stops/H2003?observationDate=2030-01-01&priority=20',
       );
       StopDetailsPage.loadingStopDetails().should('not.exist');
       StopDetailsPage.validityPeriod().should('contain', '1.1.2030-28.2.2030');

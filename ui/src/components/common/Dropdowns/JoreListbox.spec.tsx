@@ -4,7 +4,7 @@ import { JoreListbox } from './JoreListbox';
 
 describe('<JoreListbox />', () => {
   const testId = 'listbox1';
-  const buttonContent = `button`;
+  const buttonContent = 'button';
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onChange = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function
