@@ -81,6 +81,7 @@ jobs:
       ui_version: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
       cypress_version: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
       update_e2e_test_durations: ${{ github.ref == 'refs/heads/main' }}
+      tiamat_version: 'crjore4prod001.azurecr.io/jore4-tiamat:rebasing-2026-10-23-26b7796439abe26aa436aa7fb779a3fb79cc3b30'
       test-tags: ''
     secrets:
       jore4_ci_data_repo_ssh_key: ${{ secrets.JORE4_CI_DATA_REPO_DEPLOY_KEY }}

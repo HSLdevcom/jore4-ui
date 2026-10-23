@@ -22,6 +22,7 @@ import {
   StopRegistryStopPlaceOrganisationRefInput,
 } from '../../../generated/graphql';
 import { mapCompactOrNull } from '../../../utils';
+import { getVisualSignsAvailable } from './getVisualSignsAvailable';
 
 export function omitTypeName<T extends object>(
   value: T | null | undefined,
@@ -96,6 +97,10 @@ export function mapAccessibilityAssessmentToInput(
           stepFreeAccess:
             limitations.stepFreeAccess ??
             StopRegistryLimitationStatusType.Unknown,
+          visualSignsAvailable: getVisualSignsAvailable(
+            limitations.visualSignsAvailable,
+            hslAccessibilityProperties,
+          ),
           wheelchairAccess:
             limitations.wheelchairAccess ??
             StopRegistryLimitationStatusType.Unknown,
