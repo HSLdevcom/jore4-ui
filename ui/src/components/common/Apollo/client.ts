@@ -15,7 +15,7 @@ import { FunctionsMap } from 'apollo-link-scalars/src/types/functions-map';
 import { IntrospectionQuery, buildClientSchema } from 'graphql';
 import { createClient as createWsClient } from 'graphql-ws';
 import isString from 'lodash/isString';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import introspectionResult from '../../../../graphql.schema.json';
 import { joreConfig } from '../../../config';
 import tiamatTypeInfo from '../../../generated/versionedTiamatEntities';
@@ -61,12 +61,12 @@ export function buildScalarMappingLink() {
   const typesMap: FunctionsMap = {
     // automatically (de)serializing between graphql date <-> luxon.DateTime types
     date: dateMapper,
-    // automatically (de)serializing between graphql interval <-> luxon.Duration types
+    // automatically (de)serializing between graphql interval <-> Temporal.Duration types
     interval: {
       serialize: (parsed: unknown) => {
-        // if it's a luxon Duration, serialize it to ISO string
-        if (Duration.isDuration(parsed)) {
-          return parsed.toISO();
+        // if it's a Temporal.Duration, serialize it to ISO string
+        if (parsed instanceof Temporal.Duration) {
+          return parsed.toString();
         }
         // otherwise (string, null, undefined) just pass it on as is
         return parsed;
@@ -76,7 +76,7 @@ export function buildScalarMappingLink() {
           throw new Error(`Invalid graphql time input: '${raw}'`);
         }
 
-        return Duration.fromISO(raw);
+        return Temporal.Duration.from(raw);
       },
     },
     stop_registry_DateTime: dateTimeMapper,

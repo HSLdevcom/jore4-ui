@@ -8,7 +8,8 @@ import {
   openChangeTimetableValidityModalAction,
   useAppDispatch,
 } from '../../../redux';
-import { mapDurationToShortTime, mapToShortDate } from '../../../time';
+import { mapToShortDate } from '../../../time';
+import { mapDurationToShortTime } from '../../../time/format';
 import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { IconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
@@ -57,8 +58,9 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
 
   const hasTimetables = !!vehicleJourneys;
   const tripCount = vehicleJourneys?.length;
-  // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Sort by durationToSeconds when migrating to Temporal
-  const orderedVehicleJourneys = orderBy(vehicleJourneys, 'start_time');
+  const orderedVehicleJourneys = orderBy(vehicleJourneys, (journey) =>
+    journey.start_time.total('nanoseconds'),
+  );
 
   const firstTrip = orderedVehicleJourneys[0];
   const lastTrip = orderedVehicleJourneys[orderedVehicleJourneys.length - 1];

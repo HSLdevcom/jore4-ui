@@ -5,7 +5,7 @@ import {
   buildLocalizedString,
 } from '@hsl/jore4-test-db-manager';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import {
   RouteDirectionEnum,
   VehicleJourneyWithRouteInfoFragment,
@@ -95,22 +95,22 @@ const testFrame1: VehicleScheduleFrameWithRouteInfoFragment = {
           vehicle_journeys: [
             {
               vehicle_journey_id: 'cd28a717-615e-418e-b0e6-c1897aeaae80',
-              start_time: Duration.fromISO('PT15H00M'),
-              end_time: Duration.fromISO('PT15H25M'),
+              start_time: Temporal.Duration.from('PT15H00M'),
+              end_time: Temporal.Duration.from('PT15H25M'),
               contract_number: 'CONTRACT_1',
               journey_pattern_ref: cloneDeep(route35JourneyPatternRef),
             },
             {
               vehicle_journey_id: '806276a3-5308-45d0-b25b-e80787139fc7',
-              start_time: Duration.fromISO('PT15H30M'),
-              end_time: Duration.fromISO('PT15H55M'),
+              start_time: Temporal.Duration.from('PT15H30M'),
+              end_time: Temporal.Duration.from('PT15H55M'),
               contract_number: 'CONTRACT_1',
               journey_pattern_ref: cloneDeep(route35ReturnJourneyPatternRef),
             },
             {
               vehicle_journey_id: 'cfc9b82c-6b6b-494c-9f4d-bb80d8385232',
-              start_time: Duration.fromISO('PT16H00M'),
-              end_time: Duration.fromISO('PT16H25M'),
+              start_time: Temporal.Duration.from('PT16H00M'),
+              end_time: Temporal.Duration.from('PT16H25M'),
               contract_number: 'CONTRACT_1',
               journey_pattern_ref: cloneDeep(route35JourneyPatternRef),
             },
@@ -138,8 +138,8 @@ const testFrame1: VehicleScheduleFrameWithRouteInfoFragment = {
           vehicle_journeys: [
             {
               vehicle_journey_id: 'cc77a08e-3e59-4dc7-84a2-fc0d65b5a649',
-              start_time: Duration.fromISO('PT08H00M'),
-              end_time: Duration.fromISO('PT08H25M'),
+              start_time: Temporal.Duration.from('PT08H00M'),
+              end_time: Temporal.Duration.from('PT08H25M'),
               contract_number: 'CONTRACT_1',
               journey_pattern_ref: cloneDeep(route35JourneyPatternRef),
             },
@@ -178,8 +178,8 @@ const testFrame2: VehicleScheduleFrameWithRouteInfoFragment = {
           vehicle_journeys: [
             {
               vehicle_journey_id: '048264df-ae24-43bd-a06b-96674973c1f2',
-              start_time: Duration.fromISO('PT10H00M'),
-              end_time: Duration.fromISO('PT10H45M'),
+              start_time: Temporal.Duration.from('PT10H00M'),
+              end_time: Temporal.Duration.from('PT10H45M'),
               contract_number: 'CONTRACT_2',
               journey_pattern_ref: cloneDeep(route35JourneyPatternRef),
             },
