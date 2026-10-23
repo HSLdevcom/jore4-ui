@@ -107,13 +107,13 @@ export function isCurrentEntity(
   );
 }
 
-// True if validityEnd is in the future, but less than 20 days away.
+// True if validity ends today or within the next 20 days.
 export function isEndingSoon(validityEnd: DateLike | null | undefined) {
   const end = parseDate(validityEnd);
   const currentDate = today();
   return (
     !!end &&
-    Temporal.PlainDate.compare(end, currentDate) > 0 &&
+    Temporal.PlainDate.compare(end, currentDate) >= 0 &&
     Temporal.PlainDate.compare(end, currentDate.add({ days: 20 })) <= 0
   );
 }

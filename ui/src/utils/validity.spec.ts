@@ -1,5 +1,5 @@
 import { TFunction, keyFromSelector } from 'i18next';
-import { mapToValidityPeriod } from './validity';
+import { isEndingSoon, mapToValidityPeriod } from './validity';
 
 function mockT(selector: ExplicitAny) {
   return keyFromSelector(selector);
@@ -26,4 +26,30 @@ describe(`${mapToValidityPeriod.name}()`, () => {
       'saveChangesModal.indefinite -  31.12.2025',
     );
   });
+});
+
+describe(`${isEndingSoon.name}()`, () => {
+  beforeEach(() => {
+    jest
+      .spyOn(Temporal.Now, 'instant')
+      .mockReturnValue(Temporal.Instant.from('2024-06-15T09:00:00Z'));
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test.each`
+    validityEnd     | expected
+    ${'2024-06-14'} | ${false}
+    ${'2024-06-15'} | ${true}
+    ${'2024-07-05'} | ${true}
+    ${'2024-07-06'} | ${false}
+    ${null}         | ${false}
+  `(
+    'is $expected for validity ending $validityEnd',
+    ({ validityEnd, expected }) => {
+      expect(isEndingSoon(validityEnd)).toBe(expected);
+    },
+  );
 });
