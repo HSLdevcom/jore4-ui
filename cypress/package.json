@@ -8,7 +8,7 @@
     "cypress": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build",
-    "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check",
+    "qa": "yarn --immutable && yarn ts:check && yarn prettier:check",
     "cy:run": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome",
     "cy:run:video": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome --config-file ./cypress.config.video.ts"
   },
@@ -20,14 +20,15 @@
     "cypress": "^16.2.0",
     "cypress-ctrf-json-reporter": "^0.2.0",
     "cypress-split": "^1.25.0",
-    "lodash": "^4.18.1",
-    "luxon": "^3.7.2",
-    "qs": "^6.16.1"
+    "lodash": "catalog:",
+    "luxon": "catalog:",
+    "qs": "catalog:"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.27",
-    "@types/luxon": "^3.7.6",
-    "@types/qs": "^6.15.1",
-    "find-test-names": "^1.29.19"
+    "@types/lodash": "catalog:",
+    "@types/luxon": "catalog:",
+    "@types/qs": "catalog:",
+    "find-test-names": "^1.29.19",
+    "typescript": "catalog:"
   }
 }

@@ -1,15 +1,19 @@
 FROM node:26.12.1-alpine3.24 AS build
 WORKDIR /app
 
-RUN npm install --global yarn@1.22.22
+RUN npm install --global corepack@0.36.0 && corepack enable
 
 # Copy over files needed to install dependecies.
-COPY package.json yarn.lock tsconfig.json ./
-COPY ./test-db-manager/docker.minimal.package.json ./test-db-manager/package.json
+COPY package.json yarn.lock .yarnrc.yml tsconfig.json ./
 COPY ./ui/package.json ./ui/
 
-# Install the depdencies
-RUN yarn install --frozen-lockfile
+# Due to changes in Yarn 4 we need to provide all package.json files
+# from all of the workspaces. In inslatall phase, we can skip installing
+# non ui deps tough.
+COPY ./test-db-manager/docker.minimal.package.json ./test-db-manager/package.json
+
+# Install the depdencies for the UI project
+RUN yarn workspaces focus @hsl/jore4-ui
 
 # Copy over the actual UI code
 COPY ./ui/tsconfig.json \
@@ -22,7 +26,7 @@ COPY ./ui/tsconfig.json \
      ./ui/
 COPY ./ui/public ./ui/public
 # but skip unit test files.
-COPY --exclude=**/*.spec.ts* --exclude=**/integration-tests/* ./ui/src ./ui/src
+COPY --exclude=**/*.spec.ts* --exclude=**/test-utils/* ./ui/src ./ui/src
 
 # Package up the UI code.
 ARG NEXT_PUBLIC_GIT_HASH=unknown

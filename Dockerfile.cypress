@@ -5,18 +5,19 @@ ARG NODE_VERSION='26.12.1'
 FROM cypress/factory:8.6.0
 WORKDIR /e2e
 
-RUN npm install --global yarn@1.22.22
+RUN npm install --global corepack@0.36.0 && corepack enable
 
 # for dependent modules, copy and build them
 # for cypress module, only download the node_module dependencies
 COPY --chown=node:node ./test-db-manager  ./test-db-manager
-COPY --chown=node:node ./jore4-hasura ./jore4-hasura
+COPY --chown=node:node ./jore4-hasura/test/hasura ./jore4-hasura/test/hasura
 COPY --chown=node:node ./cypress/package.json ./cypress/package.json
-COPY --chown=node:node ./package.json ./yarn.lock tsconfig.json ./
+COPY --chown=node:node ./package.json ./yarn.lock ./.yarnrc.yml tsconfig.json ./
 
 # download the dependencies + build the dependent modules
-RUN yarn install --frozen-lockfile \
-  && yarn ws:db build && yarn ws:tdi timetables-data-inserter:build
+RUN yarn workspaces focus @hsl/jore4-cypress @hsl/jore4-test-db-manager
+RUN yarn ws:db build
+RUN cd jore4-hasura/test/hasura && yarn --immutable && yarn timetables-data-inserter:build
 
 # copy the cypress test files from host
 COPY --chown=node:node ./cypress ./cypress
