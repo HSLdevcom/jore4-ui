@@ -1,8 +1,7 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { MdHistory } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
-import { mapToShortDateTime } from '../../../../time';
+import { mapToShortDateTime } from '../../../../time/format';
 import { TimetablePriority } from '../../../../types/enums';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { Column, Row } from '../../../common/LayoutComponents';
@@ -11,7 +10,7 @@ import { getTimetableHeadingBgColor } from '../../VehicleScheduleDetails';
 type TimetableHeadingProps = {
   readonly priority: TimetablePriority;
   readonly dayTypeI18n: LocalizedString;
-  readonly createdAt: DateTime | null;
+  readonly createdAt: Temporal.ZonedDateTime | null;
   readonly className?: string;
 };
 

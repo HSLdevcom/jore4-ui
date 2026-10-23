@@ -20,12 +20,13 @@ import introspectionResult from '../../../../graphql.schema.json';
 import { joreConfig } from '../../../config';
 import tiamatTypeInfo from '../../../generated/versionedTiamatEntities';
 import { isDateLike, parseDate } from '../../../time';
+import { parseDateTime } from '../../../time/dateTime';
 import { roleHeaderMap, userHasuraRole } from './auth';
 import { mapHttpToWs } from './url';
 
 const { embeddedTypes, typesWithId, typesWithVersion } = tiamatTypeInfo;
 
-function parseDateTime(raw: unknown) {
+function parseGraphQLDate(raw: unknown) {
   if (!isDateLike(raw)) {
     throw new Error(`Invalid graphql date input: '${raw}'`);
   }
@@ -43,19 +44,28 @@ export function buildScalarMappingLink() {
       return parsed;
     },
 
-    parseValue: parseDateTime,
+    parseValue: parseGraphQLDate,
   };
 
-  const dateTimeMapper: ParsingFunctionsObject<DateTime, unknown> = {
+  const dateTimeMapper: ParsingFunctionsObject<
+    Temporal.ZonedDateTime,
+    unknown
+  > = {
     serialize: (parsed: unknown) => {
-      if (DateTime.isDateTime(parsed)) {
-        return parsed.toISO({ includeOffset: true });
+      if (parsed instanceof Temporal.ZonedDateTime) {
+        return parsed.toString({ timeZoneName: 'never' });
       }
 
       return parsed;
     },
 
-    parseValue: parseDateTime,
+    parseValue: (raw: unknown) => {
+      if (!isString(raw)) {
+        throw new Error(`Invalid graphql date time input: '${raw}'`);
+      }
+
+      return parseDateTime(raw);
+    },
   };
 
   const typesMap: FunctionsMap = {

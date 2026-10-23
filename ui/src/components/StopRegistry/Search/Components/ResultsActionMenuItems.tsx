@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate, mapToShortTime } from '../../../../time';
+import { now } from '../../../../time/dateTime';
+import { mapToShortDate, mapToShortTime } from '../../../../time/format';
 import {
   useGenerateEquipmentReport,
   useGenerateInfoSpotReport,
@@ -40,10 +40,10 @@ const EquipmentReportMenuItemImpl: ForwardRefRenderFunction<
       selection={resultSelection}
       generateReport={generateEquipmentReport}
       genFilename={() => {
-        const now = DateTime.now();
+        const currentTime = now();
         return t(($) => $.stopRegistrySearch.csv.equipmentReportFileName, {
-          today: mapToShortDate(now),
-          now: mapToShortTime(now),
+          today: mapToShortDate(currentTime.toPlainDate()),
+          now: mapToShortTime(currentTime),
         });
       }}
       text={t(($) => $.stopRegistrySearch.csv.downloadEquipmentReport)}
@@ -71,10 +71,10 @@ const InfoSpotReportReportMenuItemImpl: ForwardRefRenderFunction<
       selection={resultSelection}
       generateReport={generateInfoSpotReport}
       genFilename={() => {
-        const now = DateTime.now();
+        const currentTime = now();
         return t(($) => $.stopRegistrySearch.csv.infoSpotReportFileName, {
-          today: mapToShortDate(now),
-          now: mapToShortTime(now),
+          today: mapToShortDate(currentTime.toPlainDate()),
+          now: mapToShortTime(currentTime),
         });
       }}
       text={t(($) => $.stopRegistrySearch.csv.downloadInfoSpotReport)}

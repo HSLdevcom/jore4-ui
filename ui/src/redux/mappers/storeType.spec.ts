@@ -61,6 +61,29 @@ describe('redux object de/serializing', () => {
       expect(output).toEqual(input);
     });
 
+    it('should not recurse into ZonedDateTimes', () => {
+      const date = Temporal.ZonedDateTime.from(
+        '2022-08-11T06:39:39.766+03:00[Europe/Helsinki]',
+      );
+
+      const output = mapToStoreType({ date }, serializer);
+
+      expect(output.date).toBe(date);
+    });
+
+    it('should serialize the change time of line change history by default', () => {
+      const input = {
+        __typename: 'route_line_change_history',
+        changed: Temporal.ZonedDateTime.from(
+          '2022-08-11T06:39:39.766+03:00[Europe/Helsinki]',
+        ),
+      };
+
+      const output = mapToStoreType(input);
+
+      expect(output.changed).toEqual('2022-08-11T06:39:39.766+03:00');
+    });
+
     it('should serialize attributes that are part of the serializer function', () => {
       const input = {
         toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),

@@ -31,7 +31,7 @@ export const LineChangeHistoryDataRows: FC<LineChangeHistoryDataRowsProps> = ({
     <tbody
       key={historyItem.id}
       data-testid={testIds.group(
-        `${historyItem.lineId}-${historyItem.routeId}-${historyItem.changed.valueOf()}`,
+        `${historyItem.lineId}-${historyItem.routeId}-${historyItem.changed.epochMilliseconds}`,
       )}
       data-line-label={historyItem.lineLabel}
       data-route-label={historyItem.routeLabel}

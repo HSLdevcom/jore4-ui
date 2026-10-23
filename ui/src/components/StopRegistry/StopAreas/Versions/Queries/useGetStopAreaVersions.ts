@@ -9,6 +9,7 @@ import {
   useGetStopPlaceVersionsQuery,
 } from '../../../../../generated/graphql';
 import { parseDate } from '../../../../../time';
+import { parseDateTime } from '../../../../../time/dateTime';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
 import { StopAreaVersion } from '../Types';
 
@@ -57,8 +58,8 @@ function mapRawStopAreaToStopAreaVersion(
 
     location: requireValue(getGeometryPoint(rawStopArea.centroid)),
 
-    created: requireValue(parseDate(rawStopArea.created)),
-    changed: requireValue(parseDate(rawStopArea.changed)),
+    created: requireValue(parseDateTime(rawStopArea.created)),
+    changed: requireValue(parseDateTime(rawStopArea.changed)),
     changed_by: rawStopArea.changed_by ?? '',
     version_comment: rawStopArea.version_comment ?? '',
   };

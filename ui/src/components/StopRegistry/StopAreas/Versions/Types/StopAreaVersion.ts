@@ -12,8 +12,8 @@ export type StopAreaVersion = {
 
   readonly location: Point;
 
-  readonly created: DateTime;
-  readonly changed: DateTime;
+  readonly created: Temporal.ZonedDateTime;
+  readonly changed: Temporal.ZonedDateTime;
   readonly changed_by: string;
   readonly version_comment: string;
 };

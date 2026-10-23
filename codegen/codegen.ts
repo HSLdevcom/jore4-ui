@@ -39,6 +39,8 @@ const scalars = {
 const uiScalars = {
   ...scalars,
   interval: 'Temporal.Duration',
+  timestamptz: 'Temporal.ZonedDateTime',
+  stop_registry_DateTime: 'Temporal.ZonedDateTime',
 };
 
 const defaultConfig = {

@@ -9,12 +9,9 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import {
-  MAX_DATE,
-  MIN_DATE,
-  mapToShortDate,
-  mapToShortDateTime,
-} from '../../../../time';
+import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
+import { now } from '../../../../time/dateTime';
+import { mapToShortDateTime } from '../../../../time/format';
 import { makeBackNavigationIsSafeState } from '../../../../utils';
 import {
   mapDirectionToSymbol,
@@ -128,7 +125,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         className="col-span-3 text-center text-sm text-brand hover:underline"
         data-testid={testIds.lastEdited}
       >
-        !{mapToShortDateTime(DateTime.now())}
+        !{mapToShortDateTime(now())}
         <MdHistory
           aria-hidden
           className="ml-1 inline text-xl text-tweaked-brand"

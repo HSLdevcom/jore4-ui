@@ -2,7 +2,9 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { mapToShortDate, mapToShortDateTime } from '../../../time';
+import { mapToShortDate } from '../../../time';
+import { DateTimeLike, parseDateTime } from '../../../time/dateTime';
+import { mapToShortDateTime } from '../../../time/format';
 import { statusToCellClasses } from './statusToCellClasses';
 import { trStatus } from './trStatus';
 import { VersionStatus } from './VersionStatus';
@@ -21,7 +23,7 @@ type VersionWithDisplayFields = {
   readonly validity_start: DateTime;
   readonly validity_end: DateTime | null;
   readonly version_comment: string;
-  readonly changed: DateTime | string | null;
+  readonly changed: DateTimeLike | null;
   readonly changedByUserName: string | null;
 };
 
@@ -75,7 +77,7 @@ export const VersionRowCells: FC<VersionRowCellsProps> = ({
         className="border-x px-4 py-2 text-center"
         data-testid={testIds.changed(testIdPrefix)}
       >
-        {mapToShortDateTime(version.changed)}
+        {mapToShortDateTime(parseDateTime(version.changed))}
       </td>
 
       <td

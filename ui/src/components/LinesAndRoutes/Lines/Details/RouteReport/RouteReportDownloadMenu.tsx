@@ -2,7 +2,8 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../../generated/graphql';
-import { mapToShortDate, mapToShortTime } from '../../../../../time';
+import { now } from '../../../../../time/dateTime';
+import { mapToShortDate, mapToShortTime } from '../../../../../time/format';
 import { getRouteLabelVariantText } from '../../../../../utils';
 import { mapDirectionToSymbol } from '../../../../../utils/i18n';
 import { SimpleDropdownMenu } from '../../../../common/Dropdowns';
@@ -48,13 +49,13 @@ export const RouteReportDownloadMenu: FC<RouteReportDownloadMenuProps> = ({
         observationDate={observationDate}
         generateReport={generateEquipmentReport}
         genFilename={() => {
-          const now = DateTime.now();
+          const currentTime = now();
           return t(
             ($) => $.stopRegistrySearch.csv.routeReport.equipmentFileName,
             {
               route: routeIdentifier,
-              today: mapToShortDate(now),
-              now: mapToShortTime(now),
+              today: mapToShortDate(currentTime.toPlainDate()),
+              now: mapToShortTime(currentTime),
             },
           );
         }}
@@ -66,13 +67,13 @@ export const RouteReportDownloadMenu: FC<RouteReportDownloadMenuProps> = ({
         observationDate={observationDate}
         generateReport={generateInfoSpotReport}
         genFilename={() => {
-          const now = DateTime.now();
+          const currentTime = now();
           return t(
             ($) => $.stopRegistrySearch.csv.routeReport.infoSpotFileName,
             {
               route: routeIdentifier,
-              today: mapToShortDate(now),
-              now: mapToShortTime(now),
+              today: mapToShortDate(currentTime.toPlainDate()),
+              now: mapToShortTime(currentTime),
             },
           );
         }}
