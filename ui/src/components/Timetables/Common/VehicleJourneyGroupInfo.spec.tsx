@@ -1,4 +1,4 @@
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
 import { TimetablePriority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
@@ -33,8 +33,8 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
       },
       vehicle_service_id: '',
     },
-    start_time: Duration.fromISO('PT08H'),
-    end_time: Duration.fromISO('PT09H'),
+    start_time: Temporal.Duration.from('PT08H'),
+    end_time: Temporal.Duration.from('PT09H'),
     timetabled_passing_times: [],
   };
 
@@ -57,15 +57,15 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
     vehicleJourneys: [
       {
         ...baseVehicleJourney,
-        start_time: Duration.fromISO('PT08H10M'),
+        start_time: Temporal.Duration.from('PT08H10M'),
       },
       {
         ...baseVehicleJourney,
-        start_time: Duration.fromISO('PT08H15M'),
+        start_time: Temporal.Duration.from('PT08H15M'),
       },
       {
         ...baseVehicleJourney,
-        start_time: Duration.fromISO('PT08H20M'),
+        start_time: Temporal.Duration.from('PT08H20M'),
       },
     ],
   };

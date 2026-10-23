@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import {
   RouteDirectionEnum,
   VehicleJourneyWithPatternAndRouteFragment,
@@ -42,7 +42,7 @@ function buildVehicleJourney(
 ): VehicleJourneyWithPatternAndRouteFragment {
   return {
     journey_pattern_ref: route35JourneyPatternRef,
-    start_time: Duration.fromISO('PT12H00M'),
+    start_time: Temporal.Duration.from('PT12H00M'),
     contract_number: 'DEFAULT_CONTRACT',
     vehicle_journey_id: 'ca57b921-ce13-4715-9546-3077887dbd4d',
     ...input,

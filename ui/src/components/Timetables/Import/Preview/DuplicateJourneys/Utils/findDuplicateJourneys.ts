@@ -1,3 +1,4 @@
+import { areEqual } from '../../../../../../utils';
 import { VehicleJourneyInfo } from './createVehicleJourneyInfo';
 
 export type VehicleJourneyDuplicate = {
@@ -14,7 +15,7 @@ function journeysAreEqual(
   // backend checks this when fetching the target frame.
   return (
     journeyA.routeId === journeyB.routeId && // Check that route and direction (due to being same route) are same.
-    journeyA.startTime.equals(journeyB.startTime) &&
+    areEqual(journeyA.startTime, journeyB.startTime) &&
     journeyA.contractNumber === journeyB.contractNumber
   );
 }

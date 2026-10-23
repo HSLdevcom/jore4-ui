@@ -30,4 +30,13 @@ describe('areEqual', () => {
     expect(areEqual({ now }, {})).toBeFalsy();
     expect(areEqual({}, { now })).toBeFalsy();
   });
+
+  it('should compare Durations by length', () => {
+    const duration = (iso: string) => Temporal.Duration.from(iso);
+
+    expect(areEqual(duration('PT1H'), duration('PT1H'))).toBeTruthy();
+    expect(areEqual(duration('PT1H'), duration('PT60M'))).toBeTruthy();
+    expect(areEqual(duration('PT1H'), duration('PT2H'))).toBeFalsy();
+    expect(areEqual({ time: duration('PT1H') }, { time: null })).toBeFalsy();
+  });
 });

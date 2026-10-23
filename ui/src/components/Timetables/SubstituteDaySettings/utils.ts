@@ -1,5 +1,5 @@
 import uniq from 'lodash/uniq';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import {
   Maybe,
   RouteTypeOfLineEnum,
@@ -30,14 +30,16 @@ export function parseSubstituteDayOfWeek(
   return SubstituteDayOfWeek.NoTraffic;
 }
 
+// Parses a form validated time (H:mm or HH:mm), which may be past 24:00.
 function parseOptionalInterval(
   str: string | undefined | null,
-): Duration | null {
+): Temporal.Duration | null {
   if (!str) {
     return null;
   }
 
-  return Duration.fromISOTime(str);
+  const [hours, minutes] = str.split(':').map(Number);
+  return Temporal.Duration.from({ hours, minutes });
 }
 
 function* dateRange(beginDate: DateLike, endDate: DateLike) {

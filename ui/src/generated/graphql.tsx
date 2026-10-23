@@ -26,7 +26,7 @@ export type Scalars = {
   geography_linestring: { input: GeoJSON.LineString; output: GeoJSON.LineString; }
   geography_point: { input: GeoJSON.Point; output: GeoJSON.Point; }
   geometry: { input: GeoJSON.Geometry; output: GeoJSON.Geometry; }
-  interval: { input: luxon.Duration; output: luxon.Duration; }
+  interval: { input: Temporal.Duration; output: Temporal.Duration; }
   jsonb: { input: any; output: any; }
   localized_string: { input: LocalizedString; output: LocalizedString; }
   name: { input: any; output: any; }
@@ -83398,8 +83398,8 @@ export type UpdateVehicleScheduleFrameValidityMutation = {
 
 export type VehicleJourneyWithRouteInfoFragment = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-  readonly start_time: luxon.Duration,
-  readonly end_time: luxon.Duration,
+  readonly start_time: Temporal.Duration,
+  readonly end_time: Temporal.Duration,
   readonly contract_number: string,
   readonly vehicle_journey_id: UUID,
   readonly journey_pattern_ref: {
@@ -83445,8 +83445,8 @@ export type VehicleServiceWithJourneysFragment = {
     readonly block_id: UUID,
     readonly vehicle_journeys: ReadonlyArray<{
       readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-      readonly start_time: luxon.Duration,
-      readonly end_time: luxon.Duration,
+      readonly start_time: Temporal.Duration,
+      readonly end_time: Temporal.Duration,
       readonly contract_number: string,
       readonly vehicle_journey_id: UUID,
       readonly journey_pattern_ref: {
@@ -83507,8 +83507,8 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
       readonly block_id: UUID,
       readonly vehicle_journeys: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-        readonly start_time: luxon.Duration,
-        readonly end_time: luxon.Duration,
+        readonly start_time: Temporal.Duration,
+        readonly end_time: Temporal.Duration,
         readonly contract_number: string,
         readonly vehicle_journey_id: UUID,
         readonly journey_pattern_ref: {
@@ -83577,8 +83577,8 @@ export type GetStagingVehicleScheduleFramesQuery = {
           readonly block_id: UUID,
           readonly vehicle_journeys: ReadonlyArray<{
             readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
-            readonly start_time: luxon.Duration,
-            readonly end_time: luxon.Duration,
+            readonly start_time: Temporal.Duration,
+            readonly end_time: Temporal.Duration,
             readonly contract_number: string,
             readonly vehicle_journey_id: UUID,
             readonly journey_pattern_ref: {
@@ -83731,7 +83731,7 @@ export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
           readonly vehicle_journeys: ReadonlyArray<{
             readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
             readonly vehicle_journey_id: UUID,
-            readonly start_time: luxon.Duration,
+            readonly start_time: Temporal.Duration,
             readonly contract_number: string,
             readonly journey_pattern_ref: {
               readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
@@ -83780,7 +83780,7 @@ export type VehicleScheduleFrameWithJourneyInfoFragment = {
       readonly vehicle_journeys: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
         readonly vehicle_journey_id: UUID,
-        readonly start_time: luxon.Duration,
+        readonly start_time: Temporal.Duration,
         readonly contract_number: string,
         readonly journey_pattern_ref: {
           readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
@@ -83810,7 +83810,7 @@ export type VehicleScheduleFrameWithJourneyInfoFragment = {
 export type VehicleJourneyWithPatternAndRouteFragment = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
   readonly vehicle_journey_id: UUID,
-  readonly start_time: luxon.Duration,
+  readonly start_time: Temporal.Duration,
   readonly contract_number: string,
   readonly journey_pattern_ref: {
     readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
@@ -83934,8 +83934,8 @@ export type GetSubstituteOperatingPeriodsQuery = {
       readonly substitute_operating_period_id: UUID,
       readonly substitute_operating_day_by_line_types: ReadonlyArray<{
         readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-        readonly begin_time?: luxon.Duration | null,
-        readonly end_time?: luxon.Duration | null,
+        readonly begin_time?: Temporal.Duration | null,
+        readonly end_time?: Temporal.Duration | null,
         readonly substitute_day_of_week?: number | null,
         readonly substitute_operating_day_by_line_type_id: UUID,
         readonly superseded_date: luxon.DateTime,
@@ -83952,8 +83952,8 @@ export type SubstituteOperatingPeriodSettingsInfoFragment = {
   readonly substitute_operating_period_id: UUID,
   readonly substitute_operating_day_by_line_types: ReadonlyArray<{
     readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-    readonly begin_time?: luxon.Duration | null,
-    readonly end_time?: luxon.Duration | null,
+    readonly begin_time?: Temporal.Duration | null,
+    readonly end_time?: Temporal.Duration | null,
     readonly substitute_day_of_week?: number | null,
     readonly substitute_operating_day_by_line_type_id: UUID,
     readonly superseded_date: luxon.DateTime,
@@ -83979,8 +83979,8 @@ export type CreateSubstituteOperatingPeriodMutation = {
         readonly is_preset: boolean,
         readonly substitute_operating_day_by_line_types: ReadonlyArray<{
           readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
-          readonly begin_time?: luxon.Duration | null,
-          readonly end_time?: luxon.Duration | null,
+          readonly begin_time?: Temporal.Duration | null,
+          readonly end_time?: Temporal.Duration | null,
           readonly substitute_day_of_week?: number | null,
           readonly substitute_operating_day_by_line_type_id: UUID,
           readonly superseded_date: luxon.DateTime,
@@ -84039,9 +84039,9 @@ export type VehicleJourneyByStopFragment = {
   readonly vehicle_journey_id: UUID,
   readonly timetabled_passing_times: ReadonlyArray<{
     readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-    readonly arrival_time?: luxon.Duration | null,
-    readonly departure_time?: luxon.Duration | null,
-    readonly passing_time: luxon.Duration,
+    readonly arrival_time?: Temporal.Duration | null,
+    readonly departure_time?: Temporal.Duration | null,
+    readonly passing_time: Temporal.Duration,
     readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
     readonly timetabled_passing_time_id: UUID,
     readonly vehicle_journey_id: UUID,
@@ -84091,9 +84091,9 @@ export type VehicleJourneyByStopFragment = {
 
 export type PassingTimeByStopFragment = {
   readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-  readonly arrival_time?: luxon.Duration | null,
-  readonly departure_time?: luxon.Duration | null,
-  readonly passing_time: luxon.Duration,
+  readonly arrival_time?: Temporal.Duration | null,
+  readonly departure_time?: Temporal.Duration | null,
+  readonly passing_time: Temporal.Duration,
   readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
   readonly timetabled_passing_time_id: UUID,
   readonly vehicle_journey_id: UUID,
@@ -84218,8 +84218,8 @@ export type DayTypeAllFieldsFragment = {
 export type VehicleJourneyWithServiceFragment = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
   readonly vehicle_journey_id: UUID,
-  readonly start_time: luxon.Duration,
-  readonly end_time: luxon.Duration,
+  readonly start_time: Temporal.Duration,
+  readonly end_time: Temporal.Duration,
   readonly journey_pattern_ref_id: UUID,
   readonly journey_pattern_ref: {
     readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
@@ -84253,9 +84253,9 @@ export type VehicleJourneyWithServiceFragment = {
   },
   readonly timetabled_passing_times: ReadonlyArray<{
     readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-    readonly arrival_time?: luxon.Duration | null,
-    readonly departure_time?: luxon.Duration | null,
-    readonly passing_time: luxon.Duration,
+    readonly arrival_time?: Temporal.Duration | null,
+    readonly departure_time?: Temporal.Duration | null,
+    readonly passing_time: Temporal.Duration,
     readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
     readonly timetabled_passing_time_id: UUID,
     readonly vehicle_journey_id: UUID,
@@ -84313,8 +84313,8 @@ export type VehicleScheduleFragment = {
   readonly vehicle_journey?: {
     readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
     readonly vehicle_journey_id: UUID,
-    readonly start_time: luxon.Duration,
-    readonly end_time: luxon.Duration,
+    readonly start_time: Temporal.Duration,
+    readonly end_time: Temporal.Duration,
     readonly journey_pattern_ref_id: UUID,
     readonly journey_pattern_ref: {
       readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
@@ -84348,9 +84348,9 @@ export type VehicleScheduleFragment = {
     },
     readonly timetabled_passing_times: ReadonlyArray<{
       readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-      readonly arrival_time?: luxon.Duration | null,
-      readonly departure_time?: luxon.Duration | null,
-      readonly passing_time: luxon.Duration,
+      readonly arrival_time?: Temporal.Duration | null,
+      readonly departure_time?: Temporal.Duration | null,
+      readonly passing_time: Temporal.Duration,
       readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
       readonly timetabled_passing_time_id: UUID,
       readonly vehicle_journey_id: UUID,
@@ -84425,8 +84425,8 @@ export type GetVehicleSchedulesForDateQuery = {
       readonly vehicle_journey?: {
         readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
         readonly vehicle_journey_id: UUID,
-        readonly start_time: luxon.Duration,
-        readonly end_time: luxon.Duration,
+        readonly start_time: Temporal.Duration,
+        readonly end_time: Temporal.Duration,
         readonly journey_pattern_ref_id: UUID,
         readonly journey_pattern_ref: {
           readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
@@ -84460,9 +84460,9 @@ export type GetVehicleSchedulesForDateQuery = {
         },
         readonly timetabled_passing_times: ReadonlyArray<{
           readonly __typename?: 'timetables_passing_times_timetabled_passing_time',
-          readonly arrival_time?: luxon.Duration | null,
-          readonly departure_time?: luxon.Duration | null,
-          readonly passing_time: luxon.Duration,
+          readonly arrival_time?: Temporal.Duration | null,
+          readonly departure_time?: Temporal.Duration | null,
+          readonly passing_time: Temporal.Duration,
           readonly scheduled_stop_point_in_journey_pattern_ref_id: UUID,
           readonly timetabled_passing_time_id: UUID,
           readonly vehicle_journey_id: UUID,
@@ -84554,7 +84554,7 @@ export type GetVehicleScheduleFrameSchedulesQuery = {
           readonly vehicle_journeys: ReadonlyArray<{
             readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
             readonly vehicle_journey_id: UUID,
-            readonly start_time: luxon.Duration,
+            readonly start_time: Temporal.Duration,
             readonly journey_pattern_ref: {
               readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
               readonly journey_pattern_ref_id: UUID,
@@ -84587,7 +84587,7 @@ export type DayTypeDetailsFragment = {
 export type VehicleJourneyWithStartTimeInfoFragment = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
   readonly vehicle_journey_id: UUID,
-  readonly start_time: luxon.Duration,
+  readonly start_time: Temporal.Duration,
   readonly journey_pattern_ref: {
     readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
     readonly journey_pattern_ref_id: UUID,
