@@ -1,10 +1,9 @@
-import { Duration } from 'luxon';
 import { FC } from 'react';
-import { mapDurationToShortTime } from '../../../../time';
+import { mapDurationToShortTime } from '../../../../time/format';
 import { Popover } from './Popover';
 
 type VehicleJourneyPopoverProps = {
-  readonly passingTime: Duration;
+  readonly passingTime: Temporal.Duration;
   readonly vehicleTypeDescription: string;
   readonly onClose: () => void;
 };

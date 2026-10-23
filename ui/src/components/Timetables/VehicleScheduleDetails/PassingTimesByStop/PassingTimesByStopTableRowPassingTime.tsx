@@ -19,9 +19,8 @@ type PassingTimesByStopTableRowPassingTimeProps = {
 export const PassingTimesByStopTableRowPassingTime: FC<
   PassingTimesByStopTableRowPassingTimeProps
 > = ({ hour, passingTimes, selectedPassingTime, setSelectedPassingTime }) => {
-  const sortedPassingTimes = sortBy(
-    passingTimes,
-    (passingTime) => passingTime.passing_time,
+  const sortedPassingTimes = sortBy(passingTimes, (passingTime) =>
+    passingTime.passing_time.total('nanoseconds'),
   );
 
   return (

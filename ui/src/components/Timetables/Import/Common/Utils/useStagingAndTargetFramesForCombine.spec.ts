@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../generated/graphql';
 import { TimetablePriority } from '../../../../../types/enums';
 import { useStagingAndTargetFramesForCombine } from './useStagingAndTargetFramesForCombine';
@@ -49,14 +49,14 @@ const stagingFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys =
               {
                 // Only in staging.
                 journey_pattern_ref: cloneDeep(route35JourneyPatternRef),
-                start_time: Duration.fromISO('PT8H30M'),
+                start_time: Temporal.Duration.from('PT8H30M'),
                 contract_number: 'DEFAULT_CONTRACT',
                 vehicle_journey_id: '5bcdf78f-b855-4e0b-9886-2456ed473069',
               },
               {
                 // Exists in target as well.
                 journey_pattern_ref: route35JourneyPatternRef,
-                start_time: Duration.fromISO('PT10H00M'),
+                start_time: Temporal.Duration.from('PT10H00M'),
                 contract_number: 'DEFAULT_CONTRACT',
                 vehicle_journey_id: 'fbceabaa-d14f-40f2-bfb7-ff0b56947642',
               },
@@ -82,14 +82,14 @@ const targetFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys = {
             {
               // Exists in staging as well.
               journey_pattern_ref: cloneDeep(route35JourneyPatternRef),
-              start_time: Duration.fromISO('PT10H00M'),
+              start_time: Temporal.Duration.from('PT10H00M'),
               contract_number: 'DEFAULT_CONTRACT',
               vehicle_journey_id: '267a34c5-7475-446e-b055-3f80ded19490',
             },
             {
               // Only in target.
               journey_pattern_ref: route35JourneyPatternRef,
-              start_time: Duration.fromISO('PT15H30M'),
+              start_time: Temporal.Duration.from('PT15H30M'),
               contract_number: 'DEFAULT_CONTRACT',
               vehicle_journey_id: 'ca57b921-ce13-4715-9546-3077887dbd4d',
             },
