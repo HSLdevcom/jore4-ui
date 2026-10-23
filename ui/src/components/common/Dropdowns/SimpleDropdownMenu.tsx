@@ -19,7 +19,7 @@ function resolveAnchor(anchorItems: AnchorProps): string {
 }
 
 const baseButtonClassNames =
-  'flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand';
+  'flex justify-center items-center rounded-full disabled:cursor-default text-3xl enabled:text-brand disabled:text-white';
 
 const anchorRoundingClassNames = twJoin(
   'transition-[border-radius] duration-100 ease-in-out',
