@@ -43,8 +43,8 @@ function mapRawDepotStopToMapDepotStop(
     id: raw.scheduled_stop_point_id,
     label: raw.label,
     location: raw.measured_location,
-    validityStart: requireValue(raw.validity_start).toISODate(),
-    validityEnd: raw.validity_end?.toISODate() ?? undefined,
+    validityStart: requireValue(raw.validity_start).toString(),
+    validityEnd: raw.validity_end?.toString() ?? undefined,
     timingPlaceId: raw.timing_place_id,
   };
 }

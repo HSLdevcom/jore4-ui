@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { LineForComboboxFragment } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
 import { mapDateInputToValidityEnd } from '../../../../common/Forms';
 import { RouteFormState, getRouteLineValidityViolation } from '../../../Common';
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time';
+import { mapToShortDate } from '../../../../../time/format';
 import { useGetLocalizedTextFromDbBlob } from '../../../../../utils/i18n';
 import { AccordionButton } from '../../../../common/Buttons';
 import { Row, Visible } from '../../../../common/LayoutComponents';

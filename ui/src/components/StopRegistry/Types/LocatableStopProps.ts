@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { LocatableStop } from './LocatableStop';
 
 export type LocatableStopProps = {
@@ -7,5 +6,5 @@ export type LocatableStopProps = {
 };
 
 export type LocatableStopWithObservationDateProps = LocatableStopProps & {
-  readonly observationDate?: DateTime;
+  readonly observationDate?: Temporal.PlainDate;
 };

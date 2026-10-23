@@ -1,4 +1,4 @@
-import { parseDate } from '../../../time';
+import { parseDate } from '../../../time/date';
 
 // Submits form implemented with `react-hook-form` by ref
 // useful in cases where ui designs prevent us from defining
@@ -11,7 +11,7 @@ export function submitFormByRef(formRef: ExplicitAny) {
 }
 
 // maps ISO date string (yyyy-mm-dd, returned e.g. from <input type="date" />)
-// to validity end DateTime object
+// to validity end date
 export function mapDateInputToValidityEnd(
   isoDate?: string,
   isIndefinite = false,
@@ -24,5 +24,5 @@ export function mapDateInputToValidityEnd(
     throw new Error('End date must either be indefinite or set!');
   }
 
-  return parseDate(isoDate).endOf('day');
+  return parseDate(isoDate);
 }

@@ -1,7 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import maxBy from 'lodash/maxBy';
-import minBy from 'lodash/minBy';
-import { DateTime } from 'luxon';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +13,12 @@ import {
   setIsOccasionalSubstitutePeriodFormDirtyAction,
   useAppDispatch,
 } from '../../../../redux';
-import { mapToISODate } from '../../../../time';
+import {
+  findEarliestTime,
+  findLatestTime,
+  mapToISODate,
+  today,
+} from '../../../../time/date';
 import { mapDurationToShortTime } from '../../../../time/format';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
@@ -51,8 +53,8 @@ const emptyRowObject: PeriodType = {
   periodName: '',
   lineTypes: generateLineTypes(),
   substituteDayOfWeek: SubstituteDayOfWeek.NoTraffic,
-  beginDate: mapToISODate(DateTime.now()) ?? '',
-  endDate: mapToISODate(DateTime.now()) ?? '',
+  beginDate: mapToISODate(today()) ?? '',
+  endDate: mapToISODate(today()) ?? '',
   beginTime: '04:30',
   endTime: '28:30',
   toBeDeleted: false,
@@ -72,17 +74,17 @@ function convertToPeriodSchema(
 ): FormState {
   return {
     periods: periods.map((period) => {
-      const periodBeginDate = minBy(
-        period.substitute_operating_day_by_line_types,
-        // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Replace with an explicit date comparator when migrating to Temporal
-        'superseded_date',
-      )?.superseded_date;
+      const supersededDates = period.substitute_operating_day_by_line_types.map(
+        (day) => day.superseded_date,
+      );
 
-      const periodEndDate = maxBy(
-        period.substitute_operating_day_by_line_types,
-        // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Replace with an explicit date comparator when migrating to Temporal
-        'superseded_date',
-      )?.superseded_date;
+      const periodBeginDate = supersededDates.length
+        ? findEarliestTime(supersededDates)
+        : undefined;
+
+      const periodEndDate = supersededDates.length
+        ? findLatestTime(supersededDates)
+        : undefined;
 
       return {
         periodId: period.substitute_operating_period_id,

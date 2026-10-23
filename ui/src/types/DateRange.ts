@@ -1,6 +1,4 @@
-import { DateTime } from 'luxon';
-
 export type DateRange = {
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
 };

@@ -1,11 +1,10 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   StopVersionInfoFragment,
   useGetQuayVersionsQuery,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time';
+import { today as getToday, parseDate } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
 import {
@@ -87,16 +86,16 @@ function mapQuayToStopVersionInfoItem(
 function resolveActiveVersionId(
   rawQuays: ReadonlyArray<StopVersionInfoFragment>,
 ): number | null {
-  const today = DateTime.now().startOf('day');
+  const today = getToday();
 
   // prettier-ignore
   const quay = rawQuays.findLast((rawQuay) =>
     // Is Standard or Temporary
     (Number(rawQuay.priority) < Priority.Draft) &&
     // Started before or at today
-    (rawQuay.validity_start && rawQuay.validity_start <= today) &&
+    (rawQuay.validity_start && Temporal.PlainDate.compare(rawQuay.validity_start, today) <= 0) &&
     // Has not ended yet
-    (!rawQuay.validity_end || rawQuay.validity_end >= today)
+    (!rawQuay.validity_end || Temporal.PlainDate.compare(rawQuay.validity_end, today) >= 0)
   );
 
   return quay?.id ?? null;

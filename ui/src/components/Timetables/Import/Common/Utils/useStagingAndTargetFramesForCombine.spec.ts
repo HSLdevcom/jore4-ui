@@ -1,6 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../generated/graphql';
 import { TimetablePriority } from '../../../../../types/enums';
 import { useStagingAndTargetFramesForCombine } from './useStagingAndTargetFramesForCombine';
@@ -37,8 +36,8 @@ const saturdayDayType = {
 
 const stagingFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys =
   {
-    validity_start: DateTime.fromISO('2023-07-13'),
-    validity_end: DateTime.fromISO('2023-12-24'),
+    validity_start: Temporal.PlainDate.from('2023-07-13'),
+    validity_end: Temporal.PlainDate.from('2023-12-24'),
     vehicle_schedule_frame_id: '58634201-f971-4765-bad7-5ffb34205d25',
     vehicle_services: [
       {
@@ -70,8 +69,8 @@ const stagingFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys =
   };
 
 const targetFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys = {
-  validity_start: DateTime.fromISO('2023-07-13'),
-  validity_end: DateTime.fromISO('2023-12-24'),
+  validity_start: Temporal.PlainDate.from('2023-07-13'),
+  validity_end: Temporal.PlainDate.from('2023-12-24'),
   vehicle_schedule_frame_id: '65252ff7-a699-4e6f-ad56-b086d9878bb4',
   vehicle_services: [
     {

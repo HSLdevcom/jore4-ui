@@ -52,7 +52,9 @@ function toTiamatDBEnumCase(str: string) {
 function observationDateFilter({
   observationDate,
 }: StopSearchFilters): StopPlaceNewestVersionWhereConditions {
-  const validOn = observationDate.toISO();
+  // The validity columns are text. Like the previous Luxon date-time value, the
+  // time part makes a validity ending on the observation date not match.
+  const validOn = `${observationDate.toString()}T00:00`;
 
   return [
     { validity_start: { _lte: validOn } },

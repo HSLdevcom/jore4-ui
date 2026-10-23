@@ -1,6 +1,6 @@
-import { DateTime } from 'luxon';
+import isString from 'lodash/isString';
 import { SerializerFunction } from '..';
-import { isDateLike, parseDate } from '../../time';
+import { parseDate } from '../../time/date';
 import {
   DeserializerFunction,
   PlainObject,
@@ -8,16 +8,16 @@ import {
   mapToStoreType,
 } from './storeType';
 
-function expectDateTimeToBeSerialized(input: unknown, output: unknown) {
-  expect(input).toBeInstanceOf(DateTime);
+function expectDateToBeSerialized(input: unknown, output: unknown) {
+  expect(input).toBeInstanceOf(Temporal.PlainDate);
   expect(typeof output).toEqual('string');
-  expect((input as DateTime).toISO()).toEqual(output);
+  expect((input as Temporal.PlainDate).toString()).toEqual(output);
 }
 
-function expectDateTimeToBeDeserialized(input: unknown, output: unknown) {
+function expectDateToBeDeserialized(input: unknown, output: unknown) {
   expect(typeof input).toEqual('string');
-  expect(output).toBeInstanceOf(DateTime);
-  expect((output as DateTime).toISO()).toEqual(input);
+  expect(output).toBeInstanceOf(Temporal.PlainDate);
+  expect((output as Temporal.PlainDate).toString()).toEqual(input);
 }
 
 describe('redux object de/serializing', () => {
@@ -28,8 +28,8 @@ describe('redux object de/serializing', () => {
     key: StringKeyOf<T>,
     value: TValue,
   ) => {
-    if (key === 'toSerialize' && DateTime.isDateTime(value)) {
-      return value.toISO();
+    if (key === 'toSerialize' && value instanceof Temporal.PlainDate) {
+      return value.toString();
     }
     return value;
   };
@@ -41,19 +41,19 @@ describe('redux object de/serializing', () => {
     key: StringKeyOf<T>,
     value: TValue,
   ) => {
-    if (key === 'toSerialize' && isDateLike(value)) {
+    if (key === 'toSerialize' && isString(value)) {
       return parseDate(value);
     }
     return value;
   };
 
   describe(`${mapToStoreType.name}`, () => {
-    it('should not touch attributes that are not part of the serializer function (even DateTimes)', () => {
+    it('should not touch attributes that are not part of the serializer function (even dates)', () => {
       const input = {
-        str: '2022-08-11T06:39:39.766+03:00',
+        str: '2022-08-11',
         num: 1660546539855,
-        func: () => DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-        date: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+        func: () => Temporal.PlainDate.from('2022-08-11'),
+        date: Temporal.PlainDate.from('2022-08-11'),
       };
 
       const output = mapToStoreType(input, serializer);
@@ -86,20 +86,20 @@ describe('redux object de/serializing', () => {
 
     it('should serialize attributes that are part of the serializer function', () => {
       const input = {
-        toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+        toSerialize: Temporal.PlainDate.from('2022-08-11'),
       };
 
       const output = mapToStoreType(input, serializer);
 
       expect(input).not.toEqual(output);
-      expectDateTimeToBeSerialized(input.toSerialize, output.toSerialize);
+      expectDateToBeSerialized(input.toSerialize, output.toSerialize);
     });
 
     it('should recurse into objects', () => {
       const input = {
         embedded: {
-          toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-          otherDate: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+          toSerialize: Temporal.PlainDate.from('2022-08-11'),
+          otherDate: Temporal.PlainDate.from('2022-08-11'),
         },
       };
 
@@ -107,7 +107,7 @@ describe('redux object de/serializing', () => {
 
       expect(input).not.toEqual(output);
       expect(input.embedded.otherDate).toEqual(output.embedded.otherDate);
-      expectDateTimeToBeSerialized(
+      expectDateToBeSerialized(
         input.embedded.toSerialize,
         output.embedded.toSerialize,
       );
@@ -117,8 +117,8 @@ describe('redux object de/serializing', () => {
       const input = {
         embedded: [
           {
-            toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-            otherDate: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+            toSerialize: Temporal.PlainDate.from('2022-08-11'),
+            otherDate: Temporal.PlainDate.from('2022-08-11'),
           },
         ],
       };
@@ -127,7 +127,7 @@ describe('redux object de/serializing', () => {
 
       expect(input).not.toEqual(output);
       expect(input.embedded[0].otherDate).toEqual(output.embedded[0].otherDate);
-      expectDateTimeToBeSerialized(
+      expectDateToBeSerialized(
         input.embedded[0].toSerialize,
         output.embedded[0].toSerialize,
       );
@@ -136,10 +136,10 @@ describe('redux object de/serializing', () => {
     it('should not serialize array of scalars', () => {
       const input = {
         array: [
-          '2022-08-11T06:39:39.766+03:00',
+          '2022-08-11',
           1660546539855,
-          () => DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-          DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+          () => Temporal.PlainDate.from('2022-08-11'),
+          Temporal.PlainDate.from('2022-08-11'),
         ],
       };
 
@@ -150,12 +150,12 @@ describe('redux object de/serializing', () => {
   });
 
   describe(`${mapFromStoreType.name}`, () => {
-    it('should not touch attributes that are not part of the deserializer function (even DateTimes)', () => {
+    it('should not touch attributes that are not part of the deserializer function (even dates)', () => {
       const input = {
-        str: '2022-08-11T06:39:39.766+03:00',
+        str: '2022-08-11',
         num: 1660546539855,
-        func: () => DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-        date: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+        func: () => Temporal.PlainDate.from('2022-08-11'),
+        date: Temporal.PlainDate.from('2022-08-11'),
       };
 
       const output = mapFromStoreType(
@@ -169,20 +169,20 @@ describe('redux object de/serializing', () => {
 
     it('should deserialize attributes that are part of the serializer function', () => {
       const input = {
-        toSerialize: '2022-08-11T06:39:39.766+03:00',
+        toSerialize: '2022-08-11',
       };
 
       const output = mapFromStoreType(input, deserializer);
 
       expect(input).not.toEqual(output);
-      expectDateTimeToBeDeserialized(input.toSerialize, output.toSerialize);
+      expectDateToBeDeserialized(input.toSerialize, output.toSerialize);
     });
 
     it('should recurse into objects', () => {
       const input = {
         embedded: {
-          toSerialize: '2022-08-11T06:39:39.766+03:00',
-          otherDate: '2022-08-11T06:39:39.766+03:00',
+          toSerialize: '2022-08-11',
+          otherDate: '2022-08-11',
         },
       };
 
@@ -190,7 +190,7 @@ describe('redux object de/serializing', () => {
 
       expect(input).not.toEqual(output);
       expect(input.embedded.otherDate).toEqual(output.embedded.otherDate);
-      expectDateTimeToBeDeserialized(
+      expectDateToBeDeserialized(
         input.embedded.toSerialize,
         output.embedded.toSerialize,
       );
@@ -200,8 +200,8 @@ describe('redux object de/serializing', () => {
       const input = {
         embedded: [
           {
-            toSerialize: '2022-08-11T06:39:39.766+03:00',
-            otherDate: '2022-08-11T06:39:39.766+03:00',
+            toSerialize: '2022-08-11',
+            otherDate: '2022-08-11',
           },
         ],
       };
@@ -210,7 +210,7 @@ describe('redux object de/serializing', () => {
 
       expect(input).not.toEqual(output);
       expect(input.embedded[0].otherDate).toEqual(output.embedded[0].otherDate);
-      expectDateTimeToBeDeserialized(
+      expectDateToBeDeserialized(
         input.embedded[0].toSerialize,
         output.embedded[0].toSerialize,
       );
@@ -219,10 +219,10 @@ describe('redux object de/serializing', () => {
     it('should not deserialize array of scalars', () => {
       const input = {
         array: [
-          '2022-08-11T06:39:39.766+03:00',
+          '2022-08-11',
           1660546539855,
-          () => DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-          DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+          () => Temporal.PlainDate.from('2022-08-11'),
+          Temporal.PlainDate.from('2022-08-11'),
         ],
       };
 
@@ -239,19 +239,19 @@ describe('redux object de/serializing', () => {
   describe('reversibility', () => {
     it('should be able to retrieve the same input object after serializing and deserializing', () => {
       const input = {
-        str: '2022-08-11T06:39:39.766+03:00',
+        str: '2022-08-11',
         num: 1660546539855,
-        func: () => DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-        date: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
-        toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+        func: () => Temporal.PlainDate.from('2022-08-11'),
+        date: Temporal.PlainDate.from('2022-08-11'),
+        toSerialize: Temporal.PlainDate.from('2022-08-11'),
         obj: {
-          str: '2022-08-11T06:39:39.766+03:00',
-          toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+          str: '2022-08-11',
+          toSerialize: Temporal.PlainDate.from('2022-08-11'),
         },
         arr: [
           {
-            str: '2022-08-11T06:39:39.766+03:00',
-            toSerialize: DateTime.fromISO('2022-08-11T06:39:39.766+03:00'),
+            str: '2022-08-11',
+            toSerialize: Temporal.PlainDate.from('2022-08-11'),
           },
         ],
       };

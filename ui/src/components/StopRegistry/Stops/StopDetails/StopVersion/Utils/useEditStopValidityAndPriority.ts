@@ -1,7 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import { pick } from 'lodash/fp';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
   GetQuayDocument,
@@ -10,6 +9,7 @@ import {
   useEditKeyValuesOfQuayMutation,
   useEditScheduledStopPointValidityMutation,
 } from '../../../../../../generated/graphql';
+import { parseDate } from '../../../../../../time/date';
 import { KnownValueKey, setMultipleKeyValues } from '../../../../../../utils';
 import { QuayKeyValuesEditFailed } from '../Errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../Errors/ScheduledStopPointEditFailed';
@@ -27,8 +27,8 @@ function useEditScheduledStopPointValidityAndPriority() {
     async (
       quayId: string,
       priority: number,
-      validityStart: DateTime,
-      validityEnd?: DateTime,
+      validityStart: Temporal.PlainDate,
+      validityEnd?: Temporal.PlainDate,
       indefinite?: boolean,
     ) => {
       const response = await wrapErrors(
@@ -71,8 +71,8 @@ function useEditQuayValidity() {
     async (
       quayId: string,
       priority: number,
-      validityStart: DateTime,
-      validityEnd?: DateTime,
+      validityStart: Temporal.PlainDate,
+      validityEnd?: Temporal.PlainDate,
       indefinite?: boolean,
       reasonForChange?: string | null,
     ) => {
@@ -115,12 +115,12 @@ function useEditQuayValidity() {
         compact([
           {
             key: KnownValueKey.ValidityStart,
-            values: [validityStart.toISODate()],
+            values: [validityStart.toString()],
           },
           validityEnd && !indefinite
             ? {
                 key: KnownValueKey.ValidityEnd,
-                values: [validityEnd.toISODate()],
+                values: [validityEnd.toString()],
               }
             : null,
           { key: KnownValueKey.Priority, values: [priority.toString()] },
@@ -169,14 +169,9 @@ export function useEditStopValidityAndPriority() {
         throw new Error('Stop place ref missing for the quay being edited!');
       }
 
-      const validityStartDateTime = DateTime.fromFormat(
-        validityStart,
-        'yyyy-MM-dd',
-      );
+      const validityStartDateTime = parseDate(validityStart);
       const validityEndDateTime =
-        validityEnd && !indefinite
-          ? DateTime.fromFormat(validityEnd, 'yyyy-MM-dd')
-          : undefined;
+        validityEnd && !indefinite ? parseDate(validityEnd) : undefined;
 
       const { stopId, priority: newPriority } =
         await editScheduledStopPointValidityAndPriority(

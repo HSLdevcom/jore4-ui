@@ -1,12 +1,11 @@
-import { DateTime } from 'luxon';
 import { FC, MouseEventHandler } from 'react';
 import { Column } from '../LayoutComponents';
 import { BaseDateInput } from './BaseDateInput';
 
 type DateInputProps = {
-  readonly value: DateTime;
+  readonly value: Temporal.PlainDate;
   readonly label: string;
-  readonly onChange: (value: DateTime) => void;
+  readonly onChange: (value: Temporal.PlainDate) => void;
   readonly className?: string;
   readonly testId: string;
   readonly required?: boolean;

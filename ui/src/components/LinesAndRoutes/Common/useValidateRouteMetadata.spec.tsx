@@ -1,12 +1,12 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { renderHook } from '@testing-library/react';
 import { TFunction, keyFromSelector } from 'i18next';
-import { DateTime } from 'luxon';
 import {
   GetLineValidityByIdDocument,
   LineValidityFragment,
   RouteDirectionEnum,
 } from '../../../generated/graphql';
+import { today } from '../../../time/date';
 import { RouteFormState } from './RoutePropertiesForm.types';
 import {
   assertRouteValidityIsInsideLineValidity,
@@ -33,8 +33,8 @@ jest.mock('react-i18next', () => ({
 }));
 
 type GetLineDetailsByIdMockData = {
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate;
 };
 
 type GetLineDetailsByIdMockResponse = {
@@ -77,13 +77,13 @@ describe('useValidateRouteMetadata', () => {
 
   describe('assertRouteValidityIsInsideLineValidity', () => {
     const line = {
-      validity_start: DateTime.local().minus({ days: 1 }),
-      validity_end: DateTime.local().plus({ days: 1 }),
+      validity_start: today().subtract({ days: 1 }),
+      validity_end: today().add({ days: 1 }),
     };
 
     test('should throw an error if route validity start is before line validity start', () => {
       const route = {
-        validity_start: DateTime.local().minus({ days: 2 }),
+        validity_start: today().subtract({ days: 2 }),
       };
 
       expect(() =>
@@ -93,8 +93,8 @@ describe('useValidateRouteMetadata', () => {
 
     test('should throw an error if route validity end is after line validity end', () => {
       const route = {
-        validity_start: DateTime.local(),
-        validity_end: DateTime.local().plus({ days: 2 }),
+        validity_start: today(),
+        validity_end: today().add({ days: 2 }),
       };
 
       expect(() =>
@@ -104,8 +104,8 @@ describe('useValidateRouteMetadata', () => {
 
     test('should not throw an error if route validity is within line validity', () => {
       const route = {
-        validity_start: DateTime.local(),
-        validity_end: DateTime.local(),
+        validity_start: today(),
+        validity_end: today(),
       };
 
       expect(() =>
@@ -116,14 +116,14 @@ describe('useValidateRouteMetadata', () => {
 
   describe('getRouteLineValidityViolation', () => {
     const line = {
-      validity_start: DateTime.local().minus({ days: 1 }),
-      validity_end: DateTime.local().plus({ days: 1 }),
+      validity_start: today().subtract({ days: 1 }),
+      validity_end: today().add({ days: 1 }),
     };
 
     test('should return startBeforeLine when route starts before line', () => {
       expect(
         getRouteLineValidityViolation(
-          { validity_start: DateTime.local().minus({ days: 2 }) },
+          { validity_start: today().subtract({ days: 2 }) },
           line,
         ),
       ).toBe('startBeforeLine');
@@ -139,8 +139,8 @@ describe('useValidateRouteMetadata', () => {
       expect(
         getRouteLineValidityViolation(
           {
-            validity_start: DateTime.local(),
-            validity_end: DateTime.local().plus({ days: 2 }),
+            validity_start: today(),
+            validity_end: today().add({ days: 2 }),
           },
           line,
         ),
@@ -150,7 +150,7 @@ describe('useValidateRouteMetadata', () => {
     test('should return endAfterLine when route is indefinite but line is bounded', () => {
       expect(
         getRouteLineValidityViolation(
-          { validity_start: DateTime.local(), validity_end: null },
+          { validity_start: today(), validity_end: null },
           line,
         ),
       ).toBe('endAfterLine');
@@ -160,8 +160,8 @@ describe('useValidateRouteMetadata', () => {
       expect(
         getRouteLineValidityViolation(
           {
-            validity_start: DateTime.local(),
-            validity_end: DateTime.local(),
+            validity_start: today(),
+            validity_end: today(),
           },
           line,
         ),
@@ -171,7 +171,7 @@ describe('useValidateRouteMetadata', () => {
     test('should return null when line is valid indefinitely', () => {
       expect(
         getRouteLineValidityViolation(
-          { validity_start: DateTime.local(), validity_end: null },
+          { validity_start: today(), validity_end: null },
           { validity_start: line.validity_start, validity_end: null },
         ),
       ).toBeNull();
@@ -181,8 +181,8 @@ describe('useValidateRouteMetadata', () => {
   describe('checkIsRouteValidityStartIsBeforeEnd', () => {
     test('should throw an error if route validity start is not before validity end', () => {
       const route = {
-        validity_start: DateTime.local().plus({ days: 1 }),
-        validity_end: DateTime.local(),
+        validity_start: today().add({ days: 1 }),
+        validity_end: today(),
       };
 
       expect(() => assertRouteValidityStartIsBeforeEnd(t, route)).toThrow(
@@ -192,8 +192,8 @@ describe('useValidateRouteMetadata', () => {
 
     test('should not throw an error if route validity start is before validity end', () => {
       const route = {
-        validity_start: DateTime.local(),
-        validity_end: DateTime.local().plus({ days: 1 }),
+        validity_start: today(),
+        validity_end: today().add({ days: 1 }),
       };
 
       expect(() => assertRouteValidityStartIsBeforeEnd(t, route)).not.toThrow();
@@ -234,15 +234,15 @@ describe('useValidateRouteMetadata', () => {
       const routeMetadata: RouteFormState = {
         ...defaultRouteParams,
         onLineId: lineId,
-        validityStart: DateTime.local().toISO(),
-        validityEnd: DateTime.local().toISO(),
+        validityStart: today().toString(),
+        validityEnd: today().toString(),
         indefinite: false,
       };
 
       const validateRouteMetadata = renderValidationHook({
         line_id: lineId,
-        validity_start: DateTime.local().minus({ days: 1 }),
-        validity_end: DateTime.local().plus({ days: 1 }),
+        validity_start: today().subtract({ days: 1 }),
+        validity_end: today().add({ days: 1 }),
       });
 
       await expect(
@@ -254,15 +254,15 @@ describe('useValidateRouteMetadata', () => {
       const routeMetadata: RouteFormState = {
         ...defaultRouteParams,
         onLineId: lineId,
-        validityStart: DateTime.local().plus({ days: 2 }).toISO(),
-        validityEnd: DateTime.local().plus({ days: 3 }).toISO(),
+        validityStart: today().add({ days: 2 }).toString(),
+        validityEnd: today().add({ days: 3 }).toString(),
         indefinite: false,
       };
 
       const validateRouteMetadata = renderValidationHook({
         line_id: lineId,
-        validity_start: DateTime.local(),
-        validity_end: DateTime.local().plus({ days: 1 }),
+        validity_start: today(),
+        validity_end: today().add({ days: 1 }),
       });
 
       await expect(validateRouteMetadata(routeMetadata)).rejects.toThrow(

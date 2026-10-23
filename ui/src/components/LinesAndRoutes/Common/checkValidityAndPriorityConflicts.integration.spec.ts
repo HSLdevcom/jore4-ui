@@ -6,7 +6,6 @@ import {
   buildRoute,
 } from '@hsl/jore4-test-db-manager';
 import { act, renderHook } from '@testing-library/react';
-import { DateTime } from 'luxon';
 import { OptionalKeys } from '../../../types';
 import {
   insertToDbHelper,
@@ -34,8 +33,8 @@ jest.mock('graphql', () => ({
 // type to be Maybe<> and optional
 type TestLine = RouteLineInsertInput & {
   label: string;
-  validity_start?: DateTime;
-  validity_end?: DateTime;
+  validity_start?: Temporal.PlainDate;
+  validity_end?: Temporal.PlainDate;
   line_id: UUID;
   priority: Priority;
 };
@@ -47,36 +46,36 @@ const indefiniteLine = {
 const indefiniteEndLine = {
   ...buildLine({ label: 'indefiniteEnd' }),
   line_id: '1ba4e1c8-63b1-4a4f-8658-0c34cfa80b62',
-  validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+02:00'),
+  validity_start: Temporal.PlainDate.from('2022-08-11'),
 } as TestLine;
 const indefiniteStartLine = {
   ...buildLine({ label: 'indefiniteStart' }),
   line_id: '3c6d03a9-9f7f-49dc-b125-506d0eab1854',
-  validity_end: DateTime.fromISO('2022-08-11T13:08:43.315+02:00'),
+  validity_end: Temporal.PlainDate.from('2022-08-11'),
 } as TestLine;
 const boundedLine = {
   ...buildLine({ label: 'bounded' }),
   line_id: 'cb427403-696c-46a6-b1f8-a54ef189fb17',
-  validity_start: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
-  validity_end: DateTime.fromISO('2022-01-31T13:08:43.315+02:00'),
+  validity_start: Temporal.PlainDate.from('2022-01-01'),
+  validity_end: Temporal.PlainDate.from('2022-01-31'),
 } as TestLine;
 const boundedLine2V1 = {
   ...buildLine({ label: 'bounded2' }),
   line_id: '53125ee7-3320-45e6-838d-6e0c2ff1dcd6',
-  validity_start: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
-  validity_end: DateTime.fromISO('2022-01-31T13:08:43.315+02:00'),
+  validity_start: Temporal.PlainDate.from('2022-01-01'),
+  validity_end: Temporal.PlainDate.from('2022-01-31'),
 } as TestLine;
 const boundedLine2V2 = {
   ...buildLine({ label: 'bounded2' }),
   line_id: 'bc6b7767-1f20-41cd-8cf9-1d73e262ed33',
-  validity_start: boundedLine.validity_start?.plus({ months: 1 }),
-  validity_end: boundedLine.validity_end?.plus({ months: 1 }),
+  validity_start: boundedLine.validity_start?.add({ months: 1 }),
+  validity_end: boundedLine.validity_end?.add({ months: 1 }),
 } as TestLine;
 const draftLine = {
   ...buildLine({ label: 'draft' }),
   line_id: 'b3734679-1a15-412f-b3ce-1deeade51e89',
-  validity_start: DateTime.fromISO('2022-02-01T13:08:43.315+02:00'),
-  validity_end: DateTime.fromISO('2023-02-28T13:08:43.315+02:00'),
+  validity_start: Temporal.PlainDate.from('2022-02-01'),
+  validity_end: Temporal.PlainDate.from('2023-02-28'),
   priority: Priority.Draft,
 } as TestLine;
 
@@ -158,8 +157,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: indefiniteLine.label,
-            validityStart: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
-            validityEnd: DateTime.fromISO('2023-01-31T13:08:43.315+02:00'),
+            validityStart: Temporal.PlainDate.from('2022-01-01'),
+            validityEnd: Temporal.PlainDate.from('2023-01-31'),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -200,10 +199,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.plus({
-              milliseconds: 1,
-            }),
-            validityEnd: boundedLine.validity_end?.minus({ milliseconds: 1 }),
+            validityStart: boundedLine.validity_start?.add({ days: 1 }),
+            validityEnd: boundedLine.validity_end?.subtract({ days: 1 }),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -216,10 +213,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.minus({
-              milliseconds: 1,
-            }),
-            validityEnd: boundedLine.validity_end?.plus({ millisecond: 1 }),
+            validityStart: boundedLine.validity_start?.subtract({ days: 1 }),
+            validityEnd: boundedLine.validity_end?.add({ days: 1 }),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -246,7 +241,7 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end?.plus({ days: 1 }),
+            validityStart: boundedLine.validity_end?.add({ days: 1 }),
             validityEnd: undefined,
           }),
         );
@@ -259,8 +254,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end?.plus({ days: 1 }),
-            validityEnd: boundedLine.validity_end?.plus({ months: 1 }),
+            validityStart: boundedLine.validity_end?.add({ days: 1 }),
+            validityEnd: boundedLine.validity_end?.add({ months: 1 }),
           }),
         );
         expect(conflicts.length).toBe(0);
@@ -286,8 +281,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.minus({ months: 1 }),
-            validityEnd: boundedLine.validity_start?.minus({ days: 1 }),
+            validityStart: boundedLine.validity_start?.subtract({ months: 1 }),
+            validityEnd: boundedLine.validity_start?.subtract({ days: 1 }),
           }),
         );
         expect(conflicts.length).toBe(0);
@@ -300,7 +295,7 @@ describe('useGetConflictingLines()', () => {
           buildQuery({
             label: boundedLine.label,
             validityStart: undefined,
-            validityEnd: boundedLine.validity_start?.minus({ days: 1 }),
+            validityEnd: boundedLine.validity_start?.subtract({ days: 1 }),
           }),
         );
         expect(conflicts.length).toBe(0);

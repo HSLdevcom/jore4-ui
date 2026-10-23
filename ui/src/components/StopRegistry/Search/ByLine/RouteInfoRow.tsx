@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate } from '../../../../time';
+import { mapToShortDate } from '../../../../time/format';
 import {
   mapDirectionToLabel,
   mapDirectionToSymbol,

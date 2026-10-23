@@ -15,36 +15,32 @@ import { FunctionsMap } from 'apollo-link-scalars/src/types/functions-map';
 import { IntrospectionQuery, buildClientSchema } from 'graphql';
 import { createClient as createWsClient } from 'graphql-ws';
 import isString from 'lodash/isString';
-import { DateTime } from 'luxon';
 import introspectionResult from '../../../../graphql.schema.json';
 import { joreConfig } from '../../../config';
 import tiamatTypeInfo from '../../../generated/versionedTiamatEntities';
-import { isDateLike, parseDate } from '../../../time';
 import { parseDateTime } from '../../../time/dateTime';
 import { roleHeaderMap, userHasuraRole } from './auth';
 import { mapHttpToWs } from './url';
 
 const { embeddedTypes, typesWithId, typesWithVersion } = tiamatTypeInfo;
 
-function parseGraphQLDate(raw: unknown) {
-  if (!isDateLike(raw)) {
-    throw new Error(`Invalid graphql date input: '${raw}'`);
-  }
-
-  return parseDate(raw);
-}
-
 export function buildScalarMappingLink() {
-  const dateMapper: ParsingFunctionsObject<DateTime, unknown> = {
+  const dateMapper: ParsingFunctionsObject<Temporal.PlainDate, unknown> = {
     serialize: (parsed: unknown) => {
-      if (DateTime.isDateTime(parsed)) {
-        return parsed.toISODate();
+      if (parsed instanceof Temporal.PlainDate) {
+        return parsed.toString();
       }
 
       return parsed;
     },
 
-    parseValue: parseGraphQLDate,
+    parseValue: (raw: unknown) => {
+      if (!isString(raw)) {
+        throw new Error(`Invalid graphql date input: '${raw}'`);
+      }
+
+      return Temporal.PlainDate.from(raw);
+    },
   };
 
   const dateTimeMapper: ParsingFunctionsObject<
@@ -69,7 +65,7 @@ export function buildScalarMappingLink() {
   };
 
   const typesMap: FunctionsMap = {
-    // automatically (de)serializing between graphql date <-> luxon.DateTime types
+    // automatically (de)serializing between graphql date <-> Temporal.PlainDate types
     date: dateMapper,
     // automatically (de)serializing between graphql interval <-> Temporal.Duration types
     interval: {

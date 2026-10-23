@@ -1,13 +1,12 @@
 import compact from 'lodash/compact';
 import pick from 'lodash/pick';
-import { DateTime } from 'luxon';
 import {
   ServicePatternScheduledStopPointInsertInput,
   StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   KnownValueKey,
@@ -40,8 +39,8 @@ function getStopPlaceId(originalStop: StopWithDetails): string {
 }
 
 type ValidityInput = {
-  validityStart: DateTime;
-  validityEnd: DateTime | null;
+  validityStart: Temporal.PlainDate;
+  validityEnd: Temporal.PlainDate | null;
 };
 
 function getValidity(
@@ -51,7 +50,7 @@ function getValidity(
   if (!validityStart) {
     throw new Error('Cannot map state with null validityStart');
   }
-  const validityEnd: DateTime | null =
+  const validityEnd: Temporal.PlainDate | null =
     mapDateInputToValidityEnd(state.validityEnd, state.indefinite) ?? null;
 
   return { validityStart, validityEnd };

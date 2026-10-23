@@ -16,6 +16,11 @@ describe(`${mapToShortDate.name}()`, () => {
     );
     expect(mapToShortDate(null)).toBeUndefined();
   });
+
+  test('accepts ISO date strings', () => {
+    expect(mapToShortDate('2024-02-01')).toBe('1.2.2024');
+    expect(mapToShortDate('')).toBeUndefined();
+  });
 });
 
 describe(`${mapToShortTime.name}()`, () => {

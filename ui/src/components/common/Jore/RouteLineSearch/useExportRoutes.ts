@@ -134,7 +134,7 @@ export function useExportRoutes() {
       const filename = `${routeLabels[0]}_${mapPriorityToUiName(
         t,
         priorities[0],
-      )}_${observationDate.toISODate()}.csv`;
+      )}_${observationDate.toString()}.csv`;
 
       downloadFile(response.data, filename);
     } catch (error) {

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getGeometryPoint } from '../../../../utils';
@@ -19,7 +18,7 @@ const testIds = {
 };
 
 type StopSearchResultRowProps = {
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly stop: StopSearchRow;
 } & (SelectableStopTableRowProps | NonSelectableStopTableRowProps);
 
@@ -56,7 +55,7 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
 
 type StopSearchResultStopsTableProps = {
   readonly className?: string;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly stops: ReadonlyArray<StopSearchRow>;
 };
 

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { forwardRef } from 'react';
 import { useNavigate } from 'react-router';
 import { PathValue, routeDetails } from '../../../../../../router/routeDetails';
@@ -6,7 +5,7 @@ import { SimpleDropdownMenuItem } from '../../../../../common/Dropdowns';
 
 type OpenDetailsProps = {
   readonly className?: string;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly privateCode: string | null | undefined;
   readonly testId: string;
   readonly text: string;

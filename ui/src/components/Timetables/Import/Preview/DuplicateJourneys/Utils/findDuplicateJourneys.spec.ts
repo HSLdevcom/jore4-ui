@@ -1,5 +1,4 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { VehicleJourneyInfo } from './createVehicleJourneyInfo';
 import { findDuplicateJourneys } from './findDuplicateJourneys';
@@ -8,8 +7,8 @@ const baseVehicleJourneyInfo: VehicleJourneyInfo = {
   vehicleJourneyId: 'c9107f53-5199-43b0-96c4-e05738fdc7a2',
   startTime: Temporal.Duration.from('PT8H30M'),
   contractNumber: 'DEFAULT_CONTRACT',
-  validityStart: DateTime.fromISO('2023-01-01'),
-  validityEnd: DateTime.fromISO('2023-12-31'),
+  validityStart: Temporal.PlainDate.from('2023-01-01'),
+  validityEnd: Temporal.PlainDate.from('2023-12-31'),
   dayTypeLabel: 'LA',
   dayTypeName: {
     fi_FI: 'Lauantai',

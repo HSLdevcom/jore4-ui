@@ -1,10 +1,9 @@
 import { produce } from 'immer';
-import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { parseDate } from '../../time';
+import { parseDate } from '../../time/date';
 import { Priority } from '../../types/enums';
 
 export enum QueryParameterName {
@@ -30,7 +29,7 @@ export type QueryParameter<TType> = { paramName: string; value: TType };
 export type QueryParameterTypes =
   | string
   | boolean
-  | DateTime
+  | Temporal.PlainDate
   | number
   | undefined
   | ReadonlyArray<number>
@@ -110,21 +109,21 @@ export function useUrlQuery() {
     setToUrlQuery({ paramName, value: value.toString(), replace });
   };
 
-  /** Sets DateTime parameter to URL query as ISO Date
+  /** Sets date parameter to URL query as ISO Date
    * replace flag can be given to replace the earlier url query instead
    * of pushing it. This affects how the back button or history.back() works.
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
   const setDateTimeToUrlQuery = (
-    { paramName, value }: QueryParameter<DateTime>,
+    { paramName, value }: QueryParameter<Temporal.PlainDate>,
     { replace }: ParameterWriteOptions = {},
   ) => {
-    setToUrlQuery({ paramName, value: value.toISODate(), replace });
+    setToUrlQuery({ paramName, value: value.toString(), replace });
   };
 
   /** Sets multiple parameters to URL query
-   * Converts booleans, DateTimes and numbers in to string format
+   * Converts booleans, dates and numbers in to string format
    * replace flag can be given to replace the earlier url query instead
    * of pushing it. This affects how the back button or history.back() works.
    * If the history is replaced, it means that back button will not go to the
@@ -150,8 +149,8 @@ export function useUrlQuery() {
           }
 
           // Convert based on the type of the value
-          if (DateTime.isDateTime(parameter.value)) {
-            draft[parameter.paramName] = parameter.value.toISODate();
+          if (parameter.value instanceof Temporal.PlainDate) {
+            draft[parameter.paramName] = parameter.value.toString();
           } else if (Array.isArray(parameter.value)) {
             draft[parameter.paramName] = parameter.value.join(',');
           } else {
@@ -235,7 +234,7 @@ export function useUrlQuery() {
     return queryParams[paramName] === 'true';
   };
 
-  /** Returns DateTime query parameter if exists, otherwise returns undefined */
+  /** Returns date query parameter if exists, otherwise returns undefined */
   const getDateTimeFromUrlQuery = useCallback(
     (paramName: string) => {
       return queryParams[paramName]

@@ -1,11 +1,11 @@
-import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { today } from '../../time/date';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 type Props = {
   readonly initialize?: boolean;
   readonly queryParamName: QueryParameterName;
-  readonly initialDate?: DateTime;
+  readonly initialDate?: Temporal.PlainDate;
 };
 
 /**
@@ -22,7 +22,7 @@ export function useDateQueryParam({
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
 
-  const [defaultDate] = useState(initialDate ?? DateTime.now().startOf('day'));
+  const [defaultDate] = useState(() => initialDate ?? today());
 
   /**
    * Sets date to URL query
@@ -31,7 +31,7 @@ export function useDateQueryParam({
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setDateToUrl = (date: DateTime, replace = false) => {
+  const setDateToUrl = (date: Temporal.PlainDate, replace = false) => {
     setDateTimeToUrlQuery(
       { paramName: queryParamName, value: date },
       { replace },

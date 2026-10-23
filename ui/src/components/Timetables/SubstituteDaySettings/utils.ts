@@ -1,12 +1,11 @@
 import uniq from 'lodash/uniq';
-import { DateTime } from 'luxon';
 import {
   Maybe,
   RouteTypeOfLineEnum,
   SubstituteOperatingPeriodSettingsInfoFragment,
   TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput,
 } from '../../../generated/graphql';
-import { DateLike, mapToISODate, parseDate } from '../../../time';
+import { DateLike, mapToISODate, parseDate, today } from '../../../time/date';
 import { SubstituteDayOfWeek } from '../../../types/enums';
 import { AllOptionEnum } from '../../../utils';
 import {
@@ -54,8 +53,8 @@ function* dateRange(beginDate: DateLike, endDate: DateLike) {
 
   for (
     let date = parsedBegin;
-    date <= parsedEnd;
-    date = date.plus({ days: 1 })
+    Temporal.PlainDate.compare(date, parsedEnd) <= 0;
+    date = date.add({ days: 1 })
   ) {
     yield date;
   }
@@ -94,9 +93,9 @@ export function mapPeriodsToDayByLineTypes({
 }
 
 export function mapDateTimeToFormState(
-  date: Maybe<DateTime> | undefined,
+  date: Maybe<Temporal.PlainDate> | undefined,
 ): string {
-  const stringDate = date ? mapToISODate(date) : mapToISODate(DateTime.now());
+  const stringDate = date ? mapToISODate(date) : mapToISODate(today());
   return stringDate ?? '';
 }
 

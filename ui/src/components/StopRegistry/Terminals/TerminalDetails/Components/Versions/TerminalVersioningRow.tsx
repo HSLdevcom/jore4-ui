@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../../router/routeDetails';
-import { mapToShortDate } from '../../../../../../time';
 import { parseDateTime } from '../../../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../../../time/format';
+import {
+  mapToShortDate,
+  mapToShortDateTime,
+} from '../../../../../../time/format';
 import { TerminalComponentProps } from '../../Types';
 import { EditTerminalValidityButton } from './EditTerminalValidityButton';
 

@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { isDateInRange } from '../../../time/date';
+import { parseDateTime } from '../../../time/dateTime';
 import { useCollator } from '../../../utils';
 import {
   ChangeHistoryFilters,
@@ -15,12 +17,9 @@ export function historyItemIsDateRange({
   from,
   to,
 }: ChangeHistoryFilters): (item: BaseTiamatChangeHistoryItem) => boolean {
-  const fromStr = from.startOf('day').toUTC().toISO({ includeOffset: false });
-  const toStr = to.endOf('day').toUTC().toISO({ includeOffset: false });
-
   return (item) =>
-    // Changed is a ISO 8601 date-time string and be compared as string.
-    !!item.changed && fromStr <= item.changed && item.changed <= toStr;
+    !!item.changed &&
+    isDateInRange(parseDateTime(item.changed).toPlainDate(), from, to);
 }
 
 export function useSortTiamatHistoryItems<

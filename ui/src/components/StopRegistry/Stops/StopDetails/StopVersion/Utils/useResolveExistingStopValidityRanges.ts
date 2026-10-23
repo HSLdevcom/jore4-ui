@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useResolveExistingStopValidityRangesQuery } from '../../../../../../generated/graphql';
+import { today as getToday } from '../../../../../../time/date';
 import { ExistingStopValidityRange } from '../Types';
 
 const GQL_RESOLVE_EXISTING_VALIDITY_RANGES_QUERY = gql`
@@ -35,7 +35,7 @@ export function useResolveExistingStopValidityRanges({
   readonly stopPlaceId: string | null | undefined;
   readonly skip: boolean;
 }) {
-  const today = useMemo(() => DateTime.now().startOf('day'), []);
+  const today = useMemo(() => getToday(), []);
 
   const { data, ...rest } = useResolveExistingStopValidityRangesQuery(
     stopPlaceId

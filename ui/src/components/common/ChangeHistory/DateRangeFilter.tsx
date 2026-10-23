@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BaseDateInput } from '../Inputs';
@@ -24,36 +23,20 @@ export const DateRangeFilter: FC<DateRangeFilterProps> = ({
 
   const id = useId();
 
-  const onFromChange = (newDate: DateTime) => {
-    const newFromDate = newDate.startOf('day');
-
+  const onFromChange = (newFromDate: Temporal.PlainDate) => {
     setFilters((p) => {
-      const currentToDate = p.to.startOf('day');
-
-      if (currentToDate.valueOf() < newFromDate.valueOf()) {
-        return {
-          ...p,
-          from: newFromDate,
-          to: newFromDate.endOf('day'),
-        };
+      if (Temporal.PlainDate.compare(p.to, newFromDate) < 0) {
+        return { ...p, from: newFromDate, to: newFromDate };
       }
 
       return { ...p, from: newFromDate };
     });
   };
 
-  const onToChange = (newDate: DateTime) => {
-    const newToDate = newDate.endOf('day');
-
+  const onToChange = (newToDate: Temporal.PlainDate) => {
     setFilters((p) => {
-      const currentFromDate = p.from.endOf('day');
-
-      if (currentFromDate.valueOf() > newToDate.valueOf()) {
-        return {
-          ...p,
-          from: newToDate.startOf('day'),
-          to: newToDate,
-        };
+      if (Temporal.PlainDate.compare(p.from, newToDate) > 0) {
+        return { ...p, from: newToDate, to: newToDate };
       }
 
       return { ...p, to: newToDate };

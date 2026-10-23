@@ -1,7 +1,6 @@
 import noop from 'lodash/noop';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { parseDate } from '../../../../time';
+import { today } from '../../../../time/date';
 import { PagingInfo, SortOrder } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { memoizeStatePicker } from '../../../../utils';
@@ -27,8 +26,8 @@ type FlatChangeHistoryState = ChangeHistoryFilters &
 
 export const defaultValues: FlatChangeHistoryState = {
   // Filters
-  from: DateTime.now().minus({ months: 6 }).startOf('month').startOf('day'),
-  to: DateTime.now().endOf('day'),
+  from: today().subtract({ months: 6 }).with({ day: 1 }),
+  to: today(),
   priority: Priority.Standard,
 
   // Sorting
@@ -41,8 +40,8 @@ export const defaultValues: FlatChangeHistoryState = {
 
 const serializers: UrlStateSerializers<FlatChangeHistoryState> = {
   // Filters
-  from: (v) => v.toISODate(),
-  to: (v) => v.toISODate(),
+  from: (v) => v.toString(),
+  to: (v) => v.toString(),
   priority: String,
 
   // Sorting
@@ -56,8 +55,8 @@ const serializers: UrlStateSerializers<FlatChangeHistoryState> = {
 
 const deserializers: UrlStateDeserializers<FlatChangeHistoryState> = {
   // Filters
-  from: (str) => parseDate(str).startOf('day'),
-  to: (str) => parseDate(str).endOf('day'),
+  from: (str) => Temporal.PlainDate.from(str),
+  to: (str) => Temporal.PlainDate.from(str),
   priority: Number,
 
   // Sorting

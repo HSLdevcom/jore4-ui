@@ -1,7 +1,6 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { buildRoute } from '@hsl/jore4-test-db-manager';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { DateTime } from 'luxon';
 import {
   GetRouteDetailsByLabelWildcardDocument,
   GetRouteDetailsByLabelWildcardQuery,
@@ -34,7 +33,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
       variableMatcher: (args) =>
         areEqual(args, {
           labelPattern: '%',
-          date: DateTime.fromISO('2022-03-23T00:00:00.000+02:00'),
+          date: Temporal.PlainDate.from('2022-03-23'),
           priorities: [10],
         }),
       result: {
@@ -44,8 +43,8 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               ...buildRoute({ label: '123' }),
               __typename: 'route_route',
               route_id: 'route1',
-              validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
-              validity_end: DateTime.fromISO('2022-03-29T20:59:59.999+00:00'),
+              validity_start: Temporal.PlainDate.from('2022-03-21'),
+              validity_end: Temporal.PlainDate.from('2022-03-29'),
               priority: Priority.Standard,
               direction: RouteDirectionEnum.Outbound,
               route_shape: null,
@@ -56,8 +55,8 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               ...buildRoute({ label: '456' }),
               __typename: 'route_route',
               route_id: 'route2',
-              validity_start: DateTime.fromISO('2021-01-01T22:00:00+00:00'),
-              validity_end: DateTime.fromISO('2022-12-31T21:59:59.999+00:00'),
+              validity_start: Temporal.PlainDate.from('2021-01-02'),
+              validity_end: Temporal.PlainDate.from('2022-12-31'),
               priority: Priority.Standard,
               direction: RouteDirectionEnum.Outbound,
               route_shape: null,
@@ -73,7 +72,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
       variableMatcher: (args) =>
         areEqual(args, {
           labelPattern: '1%',
-          date: DateTime.fromISO('2022-03-23T00:00:00.000+02:00'),
+          date: Temporal.PlainDate.from('2022-03-23'),
           priorities: [10],
         }),
       result: {
@@ -84,8 +83,8 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               label: '123',
               __typename: 'route_route',
               route_id: 'route1',
-              validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
-              validity_end: DateTime.fromISO('2022-03-29T20:59:59.999+00:00'),
+              validity_start: Temporal.PlainDate.from('2022-03-21'),
+              validity_end: Temporal.PlainDate.from('2022-03-29'),
               priority: Priority.Standard,
               direction: RouteDirectionEnum.Outbound,
               route_shape: null,
@@ -106,7 +105,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          date={DateTime.fromISO('2022-03-23T00:00:00.000+02:00')}
+          date={Temporal.PlainDate.from('2022-03-23')}
           priorities={[Priority.Standard]}
         />
       </MockedProvider>,
@@ -161,7 +160,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          date={DateTime.fromISO('2022-03-23T00:00:00.000+02:00')}
+          date={Temporal.PlainDate.from('2022-03-23')}
           priorities={[Priority.Standard]}
         />
       </MockedProvider>,

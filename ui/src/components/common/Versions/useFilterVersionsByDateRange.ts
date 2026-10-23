@@ -1,29 +1,24 @@
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
+import { areValidityPeriodsOverlapping } from '../../../time/date';
 import { DateRange } from '../../../types';
 
 type VersionWithValidity = {
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime | null;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate | null;
 };
 
 export function useFilterVersionsByDateRange<T extends VersionWithValidity>(
   versions: ReadonlyArray<T>,
   dateRange: DateRange,
 ): ReadonlyArray<T> {
-  const from = dateRange.startDate.valueOf();
-  const to = dateRange.endDate.valueOf();
-
   return useMemo(() => {
-    return versions.filter((version) => {
-      const versionFrom = version.validity_start.valueOf();
-      const versionTo =
-        version.validity_end?.valueOf() ?? Number.POSITIVE_INFINITY;
+    const range = {
+      validity_start: dateRange.startDate,
+      validity_end: dateRange.endDate,
+    };
 
-      return !(
-        // End before range start
-        versionTo < from || versionFrom > to // Starts after range end
-      );
-    });
-  }, [versions, from, to]);
+    return versions.filter((version) =>
+      areValidityPeriodsOverlapping(version, range),
+    );
+  }, [versions, dateRange]);
 }

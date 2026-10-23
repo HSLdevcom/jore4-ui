@@ -1,6 +1,6 @@
 import { Combobox, ComboboxInput, ComboboxOptions } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
-import { mapToShortDate } from '../../../../../time';
+import { mapToShortDate } from '../../../../../time/format';
 import { log } from '../../../../../utils';
 import {
   JoreComboboxButton,
