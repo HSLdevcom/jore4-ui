@@ -7,8 +7,12 @@ export function sleep<T>(timeout: number) {
 }
 
 // mock the current date to be static
+const mockedNowMillis = 1487076708000;
 // eslint-disable-next-line no-restricted-syntax -- mocking the clock, not a domain value
-Date.now = jest.fn(() => 1487076708000);
+Date.now = jest.fn(() => mockedNowMillis);
+Temporal.Now.instant = jest.fn(() =>
+  Temporal.Instant.fromEpochMilliseconds(mockedNowMillis),
+);
 
 export function getAssertedElement<T>(obj: T | null | undefined): T {
   expect(obj).toBeDefined();

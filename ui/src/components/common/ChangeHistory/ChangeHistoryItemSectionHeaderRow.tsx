@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate, mapToShortDateTime, parseDate } from '../../../time';
+import { mapToShortDate } from '../../../time';
+import { parseDateTime } from '../../../time/dateTime';
+import { mapToShortDateTime } from '../../../time/format';
 import { BaseChangeHistoryItemDetails } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
@@ -32,11 +34,15 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
   sectionTitle,
   testId,
 }: ChangeHistoryItemSectionHeaderRowProps) => {
+  const changed = parseDateTime(historyItem.changed);
+
   return (
     <tr
       className={twMerge('bg-hsl-neutral-blue align-top', className)}
       data-testid={testIds.row(testId)}
-      data-timestamp={parseDate(historyItem.changed)?.toUTC().toISO()}
+      data-timestamp={changed
+        ?.toInstant()
+        .toString({ fractionalSecondDigits: 3 })}
       data-validity-start={historyItem.validityStart}
       data-validity-end={historyItem.validityEnd}
     >
@@ -81,14 +87,14 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
         className="hidden py-3 pr-2 pl-2 text-right text-nowrap lg:table-cell xl:pl-5"
         data-testid={testIds.changed}
       >
-        {mapToShortDateTime(historyItem.changed)}
+        {mapToShortDateTime(changed)}
       </td>
       <td
         className="py-3 pr-2 pl-2 text-right text-nowrap lg:hidden xl:pl-5"
         data-testid={testIds.changedCombined}
       >
         <div>{getUserNameById(historyItem.changedBy) ?? 'HSL'}</div>
-        <div>{mapToShortDateTime(historyItem.changed)}</div>
+        <div>{mapToShortDateTime(changed)}</div>
       </td>
     </tr>
   );

@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { mapToShortDate, mapToShortDateTime } from '../../../../../time';
+import { mapToShortDate } from '../../../../../time';
+import { parseDateTime } from '../../../../../time/dateTime';
+import { mapToShortDateTime } from '../../../../../time/format';
 import { StopAreaComponentProps } from '../Types';
 
 const testIds = {
@@ -35,7 +37,8 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
         className="ml-auto flex items-center text-base text-tweaked-brand hover:underline"
         data-testid={testIds.changeHistoryLink}
       >
-        {mapToShortDateTime(area.changed)} | {area.changedByUserName ?? 'HSL'}{' '}
+        {mapToShortDateTime(parseDateTime(area.changed))} |{' '}
+        {area.changedByUserName ?? 'HSL'}{' '}
         <i className="icon-history mx-2 text-xl" aria-hidden />
       </Link>
     </div>

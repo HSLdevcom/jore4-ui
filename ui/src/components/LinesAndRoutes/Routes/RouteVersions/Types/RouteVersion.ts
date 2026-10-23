@@ -17,7 +17,7 @@ export type RouteVersion = {
   readonly version_comment: string;
   readonly lineName: string;
   readonly lineLabel: string;
-  readonly changed: DateTime | null;
+  readonly changed: Temporal.ZonedDateTime | null;
   readonly changedByUserName: string | null;
   readonly route_shape: LineString | null | undefined; // GeoJSON geometry
 };

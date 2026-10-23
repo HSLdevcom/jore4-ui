@@ -169,7 +169,7 @@ function createTimetableRowInfo(
 type VehicleScheduleFrameSchedulesFound = {
   readonly timetableRowInfo: ReadonlyArray<RouteTimetableRowInfo>;
   readonly dayType: DayTypeDetailsFragment;
-  readonly createdAt: DateTime;
+  readonly createdAt: Temporal.ZonedDateTime;
   readonly validityStart: DateTime;
   readonly validityEnd: DateTime;
 };

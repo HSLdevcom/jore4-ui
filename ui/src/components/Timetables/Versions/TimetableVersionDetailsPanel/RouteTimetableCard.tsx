@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { VehicleJourneyGroupInfo } from '../../Common/VehicleJourneyGroupInfo';
@@ -10,7 +9,7 @@ import { RouteTimetableRowInfo } from './useVehicleScheduleFrameSchedules';
 type RouteTimetableCardProps = {
   readonly routeTimetableRowInfo: RouteTimetableRowInfo;
   readonly dayTypeNameI18n: LocalizedString;
-  readonly createdAt: DateTime | null;
+  readonly createdAt: Temporal.ZonedDateTime | null;
 };
 
 export const RouteTimetableCard: FC<RouteTimetableCardProps> = ({

@@ -14,12 +14,9 @@ import {
   useAppDispatch,
 } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import {
-  MAX_DATE,
-  MIN_DATE,
-  mapToShortDate,
-  mapToShortDateTime,
-} from '../../../../time';
+import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
+import { now } from '../../../../time/dateTime';
+import { mapToShortDateTime } from '../../../../time/format';
 import { hasContinuingVersion } from '../../../../utils';
 import { IconButton } from '../../../common/Buttons';
 import { Visible } from '../../../common/LayoutComponents';
@@ -160,7 +157,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         />
       </div>
       <span className="col-span-4 text-center" data-testid={testIds.lastEdited}>
-        !{mapToShortDateTime(DateTime.now())}
+        !{mapToShortDateTime(now())}
         <MdHistory
           aria-hidden
           className="ml-1 inline text-xl text-tweaked-brand"

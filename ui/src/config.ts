@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { parseDateTime } from './time/dateTime';
 
 type JoreConfig = {
   // Here, but if you want to enable some check during dev only
@@ -13,7 +13,7 @@ type JoreConfig = {
   readonly hasuraUrl: string;
   readonly applicationInsightsConnectionString: string | null;
 
-  readonly buildTime: DateTime | null;
+  readonly buildTime: Temporal.ZonedDateTime | null;
   readonly gitHash: string | null;
 };
 
@@ -185,25 +185,21 @@ function readFiniteNumber(
 function readDateTime(
   name: string,
   ...fallBackValues: ReadonlyArray<unknown>
-): DateTime {
-  return readConfigValue<DateTime>(
+): Temporal.ZonedDateTime {
+  return readConfigValue<Temporal.ZonedDateTime>(
     name,
     (value) => {
-      // if already DateTime, return as is
-      if (DateTime.isDateTime(value)) {
-        return value;
-      }
-
-      if (typeof value === 'string') {
-        const dt = DateTime.fromISO(value.trim());
-        if (dt.isValid) {
-          return dt;
+      if (typeof value === 'string' && value.trim()) {
+        try {
+          return parseDateTime(value.trim());
+        } catch {
+          return notValidValue;
         }
       }
 
       return notValidValue;
     },
-    'Expected to find a valid Date or DateTime value.',
+    'Expected to find a valid date time value.',
     ...fallBackValues,
   );
 }

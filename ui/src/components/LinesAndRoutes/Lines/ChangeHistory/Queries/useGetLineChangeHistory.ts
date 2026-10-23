@@ -5,6 +5,7 @@ import {
   LineChangeHistoryItemDetailsFragment,
   useGetLineChangeHistoryQuery,
 } from '../../../../../generated/graphql';
+import { isDateInRange, parseDate } from '../../../../../time/date';
 import { SortOrder } from '../../../../../types';
 import {
   Comparator,
@@ -73,7 +74,8 @@ function diffDateTime(a: DateTime, b: DateTime) {
 }
 
 function byChanged(): Comparator<LineChangeHistoryItem> {
-  return (a, b) => compareValues(a.changed, b.changed, diffDateTime);
+  return (a, b) =>
+    compareValues(a.changed, b.changed, Temporal.ZonedDateTime.compare);
 }
 
 function byValidityStart(): Comparator<LineChangeHistoryItem> {
@@ -234,14 +236,14 @@ function sortByVersion(): Comparator<LineChangeHistoryItem> {
 function filterHistoryItems(
   filters: ChangeHistoryFilters,
 ): (item: LineChangeHistoryItem) => boolean {
-  const from = filters.from.startOf('day');
-  const to = filters.to.endOf('day');
+  // TODO(temporal): Use the filter dates as is, once they are PlainDates.
+  const from = parseDate(filters.from.toISODate());
+  const to = parseDate(filters.to.toISODate());
   const { priority } = filters;
 
   return (item) =>
     item.linePriority === priority &&
-    from <= item.changed &&
-    item.changed <= to;
+    isDateInRange(item.changed.toPlainDate(), from, to);
 }
 
 const noopGetUserNameById: GetUserNameById = () => null;

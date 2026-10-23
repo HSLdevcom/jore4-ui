@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
+import { parseDateTime } from '../../../time/dateTime';
 import { TimetablePriority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
 import { VehicleJourneyGroup } from '../VehicleScheduleDetails/useGetRouteTimetables';
@@ -23,7 +24,7 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
           priority: TimetablePriority.Standard,
           validity_start: DateTime.fromISO('2023-01-01'),
           validity_end: DateTime.fromISO('2023-05-31'),
-          created_at: DateTime.fromISO('2023-01-01'),
+          created_at: parseDateTime('2023-01-01T00:00:00+02:00'),
         },
         day_type: {
           label: '',

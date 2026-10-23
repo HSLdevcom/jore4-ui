@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import { twJoin } from 'tailwind-merge';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToShortDateTime } from '../../../time';
+import { mapToShortDateTime } from '../../../time/format';
 import { Priority } from '../../../types/enums';
 import { makeBackNavigationIsSafeState } from '../../../utils';
 import { SimpleButton } from '../../common/Buttons';

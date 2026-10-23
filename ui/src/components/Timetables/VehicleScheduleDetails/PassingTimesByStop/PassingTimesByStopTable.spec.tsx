@@ -10,6 +10,7 @@ import {
   VehicleJourneyByStopFragment,
 } from '../../../../generated/graphql';
 import { setShowArrivalTimesAction, useAppDispatch } from '../../../../redux';
+import { parseDateTime } from '../../../../time/dateTime';
 import {
   fireEvent,
   getAssertedElement,
@@ -66,7 +67,7 @@ function createTimetabledPassingTime({
     scheduled_stop_point_in_journey_pattern_ref: {
       journey_pattern_ref: {
         journey_pattern_ref_id: '',
-        observation_timestamp: DateTime.fromISO('2022-12-31T22:00:00+00:00'),
+        observation_timestamp: parseDateTime('2022-12-31T22:00:00+00:00'),
       },
       scheduled_stop_point_in_journey_pattern_ref_id: '',
       scheduled_stop_point_instances: [],

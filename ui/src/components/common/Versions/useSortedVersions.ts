@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { parseDate } from '../../../time';
+import { DateTimeLike, parseDateTime } from '../../../time/dateTime';
 import { SortOrder } from '../../../types';
 import { trStatus } from './trStatus';
 import { VersionTableSortingInfo } from './useVersionContainerControls';
@@ -12,13 +12,14 @@ type VersionWithSortableFields = {
   readonly validity_start: DateTime;
   readonly validity_end: DateTime | null;
   readonly version_comment: string;
-  readonly changed: DateTime | string | null;
+  readonly changed: DateTimeLike | null;
   readonly changedByUserName: string | null;
 };
 
-function compareDates(
-  dateA: DateTime | null,
-  dateB: DateTime | null,
+function compareNullable<T>(
+  dateA: T | null,
+  dateB: T | null,
+  compare: (a: T, b: T) => number,
   nullsLast = false,
 ): number {
   if (dateA === null && dateB === null) {
@@ -33,12 +34,18 @@ function compareDates(
     return nullsLast ? -1 : 1;
   }
 
-  return dateA.valueOf() - dateB.valueOf();
+  return compare(dateA, dateB);
 }
 
-// Route version has DateTime, stop version has string
-function ensureDateTime(value: DateTime | string | null): DateTime | null {
-  return parseDate(value) ?? null;
+function compareDates(a: DateTime, b: DateTime) {
+  return a.valueOf() - b.valueOf();
+}
+
+// Route version has ZonedDateTime, stop version has string
+function ensureDateTime(
+  value: DateTimeLike | null,
+): Temporal.ZonedDateTime | null {
+  return parseDateTime(value) ?? null;
 }
 
 export function useSortedVersions<TVersion extends VersionWithSortableFields>(
@@ -58,15 +65,25 @@ export function useSortedVersions<TVersion extends VersionWithSortableFields>(
         case 'STATUS':
           return collator.compare(trStatus(t, a.status), trStatus(t, b.status));
         case 'VALIDITY_START':
-          return compareDates(a.validity_start, b.validity_start);
+          return compareNullable(
+            a.validity_start,
+            b.validity_start,
+            compareDates,
+          );
         case 'VALIDITY_END':
-          return compareDates(a.validity_end, b.validity_end, true);
+          return compareNullable(
+            a.validity_end,
+            b.validity_end,
+            compareDates,
+            true,
+          );
         case 'VERSION_COMMENT':
           return collator.compare(a.version_comment, b.version_comment);
         case 'CHANGED':
-          return compareDates(
+          return compareNullable(
             ensureDateTime(a.changed),
             ensureDateTime(b.changed),
+            Temporal.ZonedDateTime.compare,
           );
         case 'CHANGED_BY':
           return collator.compare(

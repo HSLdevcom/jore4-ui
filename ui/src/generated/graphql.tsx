@@ -39,13 +39,13 @@ export type Scalars = {
   /** GeoJSON Coordinates */
   stop_registry_Coordinates: { input: GeoJSON.Position; output: GeoJSON.Position; }
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
-  stop_registry_DateTime: { input: luxon.DateTime; output: luxon.DateTime; }
+  stop_registry_DateTime: { input: Temporal.ZonedDateTime; output: Temporal.ZonedDateTime; }
   /** Date using the format: yyyy-MM-dd. Example: 2025-04-23 */
   stop_registry_LocalDate: { input: luxon.DateTime; output: luxon.DateTime; }
   /** Legacy GeoJSON Coordinates */
   stop_registry_legacyCoordinates: { input: any; output: any; }
   timestamp: { input: any; output: any; }
-  timestamptz: { input: luxon.DateTime; output: luxon.DateTime; }
+  timestamptz: { input: Temporal.ZonedDateTime; output: Temporal.ZonedDateTime; }
   uuid: { input: UUID; output: UUID; }
 };
 
@@ -70232,7 +70232,7 @@ export type LineWithRoutesUniqueFieldsFragment = {
   readonly change_history: ReadonlyArray<{
     readonly __typename?: 'route_line_change_history',
     readonly id: any,
-    readonly changed: luxon.DateTime,
+    readonly changed: Temporal.ZonedDateTime,
     readonly changed_by?: string | null
   }>
 };
@@ -70636,7 +70636,7 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
     readonly change_history: ReadonlyArray<{
       readonly __typename?: 'route_line_change_history',
       readonly id: any,
-      readonly changed: luxon.DateTime,
+      readonly changed: Temporal.ZonedDateTime,
       readonly changed_by?: string | null
     }>
   }>
@@ -70799,7 +70799,7 @@ export type GetLineChangeHistoryQuery = {
     readonly __typename?: 'route_line_change_history',
     readonly id: any,
     readonly name?: string | null,
-    readonly changed: luxon.DateTime,
+    readonly changed: Temporal.ZonedDateTime,
     readonly tgOperation: string,
     readonly lineId: UUID,
     readonly lineLabel: string,
@@ -70820,7 +70820,7 @@ export type LineChangeHistoryItemDetailsFragment = {
   readonly __typename?: 'route_line_change_history',
   readonly id: any,
   readonly name?: string | null,
-  readonly changed: luxon.DateTime,
+  readonly changed: Temporal.ZonedDateTime,
   readonly tgOperation: string,
   readonly lineId: UUID,
   readonly lineLabel: string,
@@ -71079,7 +71079,7 @@ export type LineLatestChangeInfoFragment = {
   readonly change_history: ReadonlyArray<{
     readonly __typename?: 'route_line_change_history',
     readonly id: any,
-    readonly changed: luxon.DateTime,
+    readonly changed: Temporal.ZonedDateTime,
     readonly changed_by?: string | null
   }>
 };
@@ -71108,7 +71108,7 @@ export type GetLineDetailsByIdQuery = {
     readonly change_history: ReadonlyArray<{
       readonly __typename?: 'route_line_change_history',
       readonly id: any,
-      readonly changed: luxon.DateTime,
+      readonly changed: Temporal.ZonedDateTime,
       readonly changed_by?: string | null
     }>
   } | null
@@ -71999,7 +71999,7 @@ export type GetRouteVersionsQuery = {
     readonly change_history: ReadonlyArray<{
       readonly __typename?: 'route_line_change_history',
       readonly route_id?: UUID | null,
-      readonly changed: luxon.DateTime,
+      readonly changed: Temporal.ZonedDateTime,
       readonly changed_by?: string | null
     }>
   }>
@@ -72029,7 +72029,7 @@ export type RouteVersionInfoFragment = {
   readonly change_history: ReadonlyArray<{
     readonly __typename?: 'route_line_change_history',
     readonly route_id?: UUID | null,
-    readonly changed: luxon.DateTime,
+    readonly changed: Temporal.ZonedDateTime,
     readonly changed_by?: string | null
   }>
 };
@@ -84052,7 +84052,7 @@ export type VehicleJourneyByStopFragment = {
       readonly journey_pattern_ref: {
         readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
         readonly journey_pattern_ref_id: UUID,
-        readonly observation_timestamp: luxon.DateTime
+        readonly observation_timestamp: Temporal.ZonedDateTime
       },
       readonly scheduled_stop_point_instances: ReadonlyArray<{
         readonly __typename?: 'service_pattern_scheduled_stop_point',
@@ -84104,7 +84104,7 @@ export type PassingTimeByStopFragment = {
     readonly journey_pattern_ref: {
       readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
       readonly journey_pattern_ref_id: UUID,
-      readonly observation_timestamp: luxon.DateTime
+      readonly observation_timestamp: Temporal.ZonedDateTime
     },
     readonly scheduled_stop_point_instances: ReadonlyArray<{
       readonly __typename?: 'service_pattern_scheduled_stop_point',
@@ -84241,7 +84241,7 @@ export type VehicleJourneyWithServiceFragment = {
         readonly validity_start: luxon.DateTime,
         readonly priority: number,
         readonly name_i18n?: any | null,
-        readonly created_at: luxon.DateTime
+        readonly created_at: Temporal.ZonedDateTime
       },
       readonly day_type: {
         readonly __typename?: 'timetables_service_calendar_day_type',
@@ -84266,7 +84266,7 @@ export type VehicleJourneyWithServiceFragment = {
       readonly journey_pattern_ref: {
         readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
         readonly journey_pattern_ref_id: UUID,
-        readonly observation_timestamp: luxon.DateTime
+        readonly observation_timestamp: Temporal.ZonedDateTime
       },
       readonly scheduled_stop_point_instances: ReadonlyArray<{
         readonly __typename?: 'service_pattern_scheduled_stop_point',
@@ -84308,7 +84308,7 @@ export type VehicleScheduleFragment = {
   readonly priority: number,
   readonly validity_start: luxon.DateTime,
   readonly validity_end: luxon.DateTime,
-  readonly created_at?: luxon.DateTime | null,
+  readonly created_at?: Temporal.ZonedDateTime | null,
   readonly vehicle_schedule_frame_id?: UUID | null,
   readonly vehicle_journey?: {
     readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
@@ -84336,7 +84336,7 @@ export type VehicleScheduleFragment = {
           readonly validity_start: luxon.DateTime,
           readonly priority: number,
           readonly name_i18n?: any | null,
-          readonly created_at: luxon.DateTime
+          readonly created_at: Temporal.ZonedDateTime
         },
         readonly day_type: {
           readonly __typename?: 'timetables_service_calendar_day_type',
@@ -84361,7 +84361,7 @@ export type VehicleScheduleFragment = {
         readonly journey_pattern_ref: {
           readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
           readonly journey_pattern_ref_id: UUID,
-          readonly observation_timestamp: luxon.DateTime
+          readonly observation_timestamp: Temporal.ZonedDateTime
         },
         readonly scheduled_stop_point_instances: ReadonlyArray<{
           readonly __typename?: 'service_pattern_scheduled_stop_point',
@@ -84420,7 +84420,7 @@ export type GetVehicleSchedulesForDateQuery = {
       readonly priority: number,
       readonly validity_start: luxon.DateTime,
       readonly validity_end: luxon.DateTime,
-      readonly created_at?: luxon.DateTime | null,
+      readonly created_at?: Temporal.ZonedDateTime | null,
       readonly vehicle_schedule_frame_id?: UUID | null,
       readonly vehicle_journey?: {
         readonly __typename?: 'timetables_vehicle_journey_vehicle_journey',
@@ -84448,7 +84448,7 @@ export type GetVehicleSchedulesForDateQuery = {
               readonly validity_start: luxon.DateTime,
               readonly priority: number,
               readonly name_i18n?: any | null,
-              readonly created_at: luxon.DateTime
+              readonly created_at: Temporal.ZonedDateTime
             },
             readonly day_type: {
               readonly __typename?: 'timetables_service_calendar_day_type',
@@ -84473,7 +84473,7 @@ export type GetVehicleSchedulesForDateQuery = {
             readonly journey_pattern_ref: {
               readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref',
               readonly journey_pattern_ref_id: UUID,
-              readonly observation_timestamp: luxon.DateTime
+              readonly observation_timestamp: Temporal.ZonedDateTime
             },
             readonly scheduled_stop_point_instances: ReadonlyArray<{
               readonly __typename?: 'service_pattern_scheduled_stop_point',
@@ -84538,7 +84538,7 @@ export type GetVehicleScheduleFrameSchedulesQuery = {
       readonly validity_start: luxon.DateTime,
       readonly validity_end: luxon.DateTime,
       readonly priority: number,
-      readonly created_at: luxon.DateTime,
+      readonly created_at: Temporal.ZonedDateTime,
       readonly vehicle_services: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_service_vehicle_service',
         readonly vehicle_service_id: UUID,

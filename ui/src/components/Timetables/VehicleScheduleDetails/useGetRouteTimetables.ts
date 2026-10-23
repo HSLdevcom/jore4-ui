@@ -112,7 +112,7 @@ export type VehicleJourneyGroup = {
   readonly priority: TimetablePriority;
   readonly validity: Validity;
   readonly vehicleScheduleFrameId?: UUID | null;
-  readonly createdAt?: DateTime | null | undefined;
+  readonly createdAt?: Temporal.ZonedDateTime | null | undefined;
   readonly inEffect?: boolean;
 };
 

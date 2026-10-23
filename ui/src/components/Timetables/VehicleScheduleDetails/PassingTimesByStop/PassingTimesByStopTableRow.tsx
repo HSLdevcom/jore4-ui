@@ -6,6 +6,7 @@ import {
   JourneyPatternStopFragment,
   PassingTimeByStopFragment,
 } from '../../../../generated/graphql';
+import { parseDate } from '../../../../time';
 import { filterHighestPriorityCurrentStops } from '../../../../utils';
 import { Column } from '../../../common/LayoutComponents';
 import { HighlightProps } from './PassingTimesByStopTableRowPassingMinute';
@@ -82,10 +83,16 @@ export const PassingTimesByStopTableRow: FC<
     (passingTime) => passingTime.passing_time.hours,
   );
 
+  // TODO(temporal): Pass the PlainDate as is, once the stop filter takes one.
+  const observationDate = parseDate(
+    scheduledStopPointInJourneyPatternRef.journey_pattern_ref.observation_timestamp
+      .toPlainDate()
+      .toString(),
+  );
+
   const stopMetadata = filterHighestPriorityCurrentStops(
     scheduledStopPointInJourneyPatternRef.scheduled_stop_point_instances,
-    scheduledStopPointInJourneyPatternRef.journey_pattern_ref
-      .observation_timestamp,
+    observationDate,
   )[0];
 
   const isUsedAsTimingPoint = journeyPatternStop?.is_used_as_timing_point;

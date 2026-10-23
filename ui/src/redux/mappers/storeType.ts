@@ -10,7 +10,7 @@ import {
 } from '../../utils';
 
 // types that must be serialized
-type SerializedTypes = DateTime;
+type SerializedTypes = DateTime | Temporal.ZonedDateTime;
 
 // recursively replaces DateTime property types with strings within the input type
 export type StoreType<T> = T extends SerializedTypes // serializable property -> convert to string
@@ -57,10 +57,15 @@ const defaultSerializer: SerializerFunction = <
       'fromDate',
       'toDate',
       'changed',
-    ].includes(key) &&
-    DateTime.isDateTime(value)
+    ].includes(key)
   ) {
-    return value.toISO();
+    if (DateTime.isDateTime(value)) {
+      return value.toISO();
+    }
+
+    if (value instanceof Temporal.ZonedDateTime) {
+      return value.toString({ timeZoneName: 'never' });
+    }
   }
 
   return value;
@@ -101,7 +106,8 @@ function isPlainObject(input: unknown): input is PlainObject {
     typeof input === 'object' &&
     input !== null &&
     !Array.isArray(input) &&
-    !DateTime.isDateTime(input)
+    !DateTime.isDateTime(input) &&
+    !(input instanceof Temporal.ZonedDateTime)
   );
 }
 
