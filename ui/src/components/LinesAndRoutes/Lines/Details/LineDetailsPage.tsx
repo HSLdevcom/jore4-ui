@@ -1,10 +1,9 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { Navigate, useSearchParams } from 'react-router';
 import { useResolveLineIdByLabelQuery } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { parseDate } from '../../../../time';
+import { parseDate, today } from '../../../../time/date';
 import { useRequiredParams } from '../../../../utils';
 import { LineDetailsByIdPage } from './LineDetailsByIdPage';
 
@@ -35,8 +34,7 @@ const RedirectToLineDetailsByIdPageByLabel: FC<{
 }> = ({ label }) => {
   const [searchParams] = useSearchParams();
   const observationDate =
-    parseDate(searchParams.get('observationDate')) ??
-    DateTime.now().startOf('day');
+    parseDate(searchParams.get('observationDate')) ?? today();
 
   const { data, loading } = useResolveLineIdByLabelQuery({
     variables: { label, observationDate },

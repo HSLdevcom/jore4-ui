@@ -1,7 +1,8 @@
 import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate, parseDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
+import { mapToShortDate } from '../../../../../../time/format';
 import { ConfirmModal } from '../../../../../common/Modals';
 import { CopyStopAreaCutConfirmationModalState } from '../types';
 
@@ -16,15 +17,15 @@ function modalStateToDisplay(
   modalState: CopyStopAreaCutConfirmationModalState,
 ) {
   const currentVersion =
-    `${mapToShortDate(modalState.currentVersion.start)} - ${mapToShortDate(modalState.currentVersion.end) ?? ''}`.trimEnd();
+    `${mapToShortDate(parseDate(modalState.currentVersion.start))} - ${mapToShortDate(parseDate(modalState.currentVersion.end)) ?? ''}`.trimEnd();
   const newVersion =
-    `${mapToShortDate(modalState.newVersion.start)} - ${mapToShortDate(modalState.newVersion.end) ?? ''}`.trimEnd();
+    `${mapToShortDate(parseDate(modalState.newVersion.start))} - ${mapToShortDate(parseDate(modalState.newVersion.end)) ?? ''}`.trimEnd();
 
   const startDateMinusOne = mapToShortDate(
-    parseDate(modalState.newVersion.start).minus({ days: 1 }),
+    parseDate(modalState.newVersion.start).subtract({ days: 1 }),
   );
   const endDatePlusOne = mapToShortDate(
-    parseDate(modalState.newVersion.end)?.plus({ days: 1 }),
+    parseDate(modalState.newVersion.end)?.add({ days: 1 }),
   );
   const cutDate =
     modalState.currentVersion.cutDirection === 'end'

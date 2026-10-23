@@ -1,7 +1,6 @@
 import { t } from 'i18next';
-import { DateTime } from 'luxon';
 import { FC } from 'react';
-import { mapToShortDate } from '../../../../time';
+import { mapToShortDate } from '../../../../time/format';
 import { CloseIconButton } from '../../../common/Buttons';
 import { Row } from '../../../common/LayoutComponents';
 
@@ -12,8 +11,8 @@ const testIds = {
 
 type TimetableVersionPanelHeadingProps = {
   readonly onClose: () => void;
-  readonly validityStart: DateTime | null;
-  readonly validityEnd: DateTime | null;
+  readonly validityStart: Temporal.PlainDate | null;
+  readonly validityEnd: Temporal.PlainDate | null;
 };
 
 export const TimetableVersionPanelHeading: FC<

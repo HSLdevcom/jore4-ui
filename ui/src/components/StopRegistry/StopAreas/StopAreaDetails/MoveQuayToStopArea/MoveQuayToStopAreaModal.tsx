@@ -1,6 +1,6 @@
-import { DateTime } from 'luxon';
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isDateInRange, today } from '../../../../../time/date';
 import { showSuccessToast } from '../../../../../utils';
 import { CloseIconButton, SimpleButton } from '../../../../common/Buttons';
 import { DateInput } from '../../../../common/Inputs';
@@ -35,19 +35,19 @@ type MoveQuayToStopAreaModalProps = {
 
 type ModalState = {
   readonly selectedStop: SelectedStop | null;
-  readonly selectedDate: DateTime;
+  readonly selectedDate: Temporal.PlainDate;
   readonly showVersions: boolean;
 };
 
 const initialState: ModalState = {
   selectedStop: null,
-  selectedDate: DateTime.now().startOf('day'),
+  selectedDate: today(),
   showVersions: false,
 };
 
 function useFilteredStopVersions(
   stopVersions: ReadonlyArray<StopVersion> | null | undefined,
-  selectedDate: DateTime,
+  selectedDate: Temporal.PlainDate,
 ): ReadonlyArray<StopVersion> | null | undefined {
   return useMemo(() => {
     if (!stopVersions || !selectedDate) {
@@ -55,10 +55,13 @@ function useFilteredStopVersions(
     }
 
     return stopVersions.filter((version: StopVersion) => {
-      const isValidOnDate =
-        version.validity_start <= selectedDate &&
-        (version.validity_end === null || version.validity_end >= selectedDate);
-      const isFutureVersion = version.validity_start > selectedDate;
+      const isValidOnDate = isDateInRange(
+        selectedDate,
+        version.validity_start,
+        version.validity_end,
+      );
+      const isFutureVersion =
+        Temporal.PlainDate.compare(version.validity_start, selectedDate) > 0;
       return isValidOnDate ?? isFutureVersion;
     });
   }, [stopVersions, selectedDate]);
@@ -67,7 +70,7 @@ function useFilteredStopVersions(
 // Remove versions that end before the selected date
 function useRemovePastStopAreaVersions(
   stopAreaVersions: ReadonlyArray<StopAreaVersion> | null | undefined,
-  selectedDate: DateTime,
+  selectedDate: Temporal.PlainDate,
 ): ReadonlyArray<StopAreaVersion> | null | undefined {
   return useMemo(() => {
     if (!stopAreaVersions || !selectedDate) {
@@ -76,7 +79,8 @@ function useRemovePastStopAreaVersions(
 
     return stopAreaVersions?.filter(
       (version) =>
-        version.validity_end === null || version.validity_end >= selectedDate,
+        version.validity_end === null ||
+        Temporal.PlainDate.compare(version.validity_end, selectedDate) >= 0,
     );
   }, [selectedDate, stopAreaVersions]);
 }
@@ -176,7 +180,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
     [updateState],
   );
 
-  const onDateChange = (newDate: DateTime) =>
+  const onDateChange = (newDate: Temporal.PlainDate) =>
     updateState({ selectedDate: newDate });
 
   const handleGetStopVersions = () => {

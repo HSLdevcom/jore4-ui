@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -12,7 +11,7 @@ const testIds = {
 };
 
 type LabelAndTimingPlaceTdProps = StopRowTdProps & {
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({

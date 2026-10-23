@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
@@ -35,7 +34,7 @@ type ImplementationProps = {
 
 type StopPlaceHeaderContentProps = {
   readonly className?: string;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly implementationProps: ImplementationProps;
   readonly isRounded: boolean;
   readonly stopPlace: FindStopPlaceInfoFragment;

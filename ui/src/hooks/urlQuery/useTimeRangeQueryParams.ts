@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
+import { today } from '../../time/date';
 import { showWarningToast } from '../../utils/toastService';
 import { useDateQueryParam } from './useDateQueryParam';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
@@ -13,16 +13,20 @@ export function useTimeRangeQueryParams() {
     });
   const { date: endDate, setDateToUrl: setEndDateToUrl } = useDateQueryParam({
     queryParamName: QueryParameterName.EndDate,
-    initialDate: DateTime.now().startOf('day').plus({ year: 1 }),
+    initialDate: today().add({ years: 1 }),
   });
 
-  const isInvalidDateRange = startDate > endDate;
+  const isInvalidDateRange = Temporal.PlainDate.compare(startDate, endDate) > 0;
 
   const updateTimeRangeIfNeeded = (
-    newStartDate: DateTime,
-    newEndDate: DateTime,
+    newStartDate: Temporal.PlainDate,
+    newEndDate: Temporal.PlainDate,
   ) => {
-    if (newStartDate < startDate && newEndDate > endDate) {
+    const startsEarlier =
+      Temporal.PlainDate.compare(newStartDate, startDate) < 0;
+    const endsLater = Temporal.PlainDate.compare(newEndDate, endDate) > 0;
+
+    if (startsEarlier && endsLater) {
       setMultipleParametersToUrlQuery({
         parameters: [
           {
@@ -38,12 +42,12 @@ export function useTimeRangeQueryParams() {
       showWarningToast(
         t(($) => $.timetables.observationPeriodForm.observationPeriodAdjusted),
       );
-    } else if (newStartDate < startDate) {
+    } else if (startsEarlier) {
       setStartDateToUrl(newStartDate);
       showWarningToast(
         t(($) => $.timetables.observationPeriodForm.observationPeriodAdjusted),
       );
-    } else if (newEndDate > endDate) {
+    } else if (endsLater) {
       setEndDateToUrl(newEndDate);
       showWarningToast(
         t(($) => $.timetables.observationPeriodForm.observationPeriodAdjusted),

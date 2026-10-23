@@ -1,6 +1,5 @@
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import { renderHook } from '@testing-library/react';
-import { DateTime } from 'luxon';
 import { LineForComboboxFragment } from '../../../../../generated/graphql';
 import { useRouteLineValidityConflict } from './useRouteLineValidityConflict';
 
@@ -10,8 +9,8 @@ const line: LineForComboboxFragment = {
   line_id: 'line1',
   label: '1',
   name_i18n: buildLocalizedString('Line1 name'),
-  validity_start: DateTime.fromISO('2020-01-01'),
-  validity_end: DateTime.fromISO('2030-01-01'),
+  validity_start: Temporal.PlainDate.from('2020-01-01'),
+  validity_end: Temporal.PlainDate.from('2030-01-01'),
 };
 
 // Line 2 is valid indefinitely from the start until 2030-01-01.

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteStopFieldsFragment } from '../../../../../generated/graphql';
@@ -12,7 +11,7 @@ const testIds = {
 type ShowDetailsPageProps = {
   readonly isReadOnly?: boolean;
   readonly stop: RouteStopFieldsFragment;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 export const ShowDetailsPage: FC<ShowDetailsPageProps> = ({

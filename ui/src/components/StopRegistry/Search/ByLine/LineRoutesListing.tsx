@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC, useDeferredValue } from 'react';
 import { ResultSelection, SortingInfo } from '../Types';
 import { RouteStopsTable } from './RouteStopsTable';
@@ -6,7 +5,7 @@ import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
 type LineRoutesListingProps = {
   readonly line: FindStopByLineInfo;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly sortingInfo: SortingInfo;
   readonly selection: ResultSelection;
 };

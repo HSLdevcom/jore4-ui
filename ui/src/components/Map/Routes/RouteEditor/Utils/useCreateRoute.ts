@@ -8,7 +8,7 @@ import {
   RouteTypeOfLineEnum,
   useInsertRouteOneMutation,
 } from '../../../../../generated/graphql';
-import { MIN_DATE } from '../../../../../time';
+import { MIN_DATE } from '../../../../../time/date';
 import { RouteInfraLink } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { buildJourneyPatternStopSequence } from '../../../../../utils';

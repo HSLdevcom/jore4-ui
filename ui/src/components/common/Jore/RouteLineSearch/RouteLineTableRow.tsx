@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -9,7 +8,8 @@ import {
 } from '../../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
+import { MAX_DATE, MIN_DATE } from '../../../../time/date';
+import { mapToShortDate } from '../../../../time/format';
 import { isRoute } from '../../../../utils';
 import { AlertPopover, RouteLabel } from '../../../LinesAndRoutes/Common';
 import { LocatorButton } from '../../Buttons';
@@ -51,7 +51,7 @@ function getDisplayInformation(
   lineId: UUID,
   rowItem: RowItem,
   hasTimetables?: boolean,
-  observationDate?: DateTime,
+  observationDate?: Temporal.PlainDate,
 ) {
   const routeLabel = isRoute(rowItem) ? rowItem.label : undefined;
 

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { getGeometryPoint } from '../../../../../utils';
 import {
@@ -12,7 +11,7 @@ import { LocatableStop } from '../../../Types';
 
 type StopAreaMemberStopRowProps = {
   readonly member: StopSearchRow;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({

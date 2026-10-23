@@ -1,5 +1,4 @@
 import uniqueId from 'lodash/uniqueId';
-import { DateTime } from 'luxon';
 import { FC, PropsWithChildren } from 'react';
 import {
   InfrastructureNetworkDirectionEnum,
@@ -45,8 +44,8 @@ function createScheduleStopPointInstance(timingPlaceLabel: string) {
       label: timingPlaceLabel,
       timing_place_id: '',
     },
-    validity_end: DateTime.fromISO('2051-01-01T00:00:00.000+02:00'),
-    validity_start: DateTime.fromISO('1990-01-01T00:00:00.000+02:00'),
+    validity_end: Temporal.PlainDate.from('2051-01-01'),
+    validity_start: Temporal.PlainDate.from('1990-01-01'),
   };
 }
 function createTimetabledPassingTime({

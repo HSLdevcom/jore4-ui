@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
 import uniq from 'lodash/uniq';
 import uniqWith from 'lodash/uniqWith';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   GetRouteInfoForTimetableVersionsQuery,
@@ -44,8 +43,8 @@ function buildRouteLineLabelGqlFilter(label: string): RouteRouteBoolExp {
  * results which are not active on the given date range
  */
 export function buildActiveDateRangeGqlFilter(
-  startDate: DateTime,
-  endDate: DateTime,
+  startDate: Temporal.PlainDate,
+  endDate: Temporal.PlainDate,
 ): RouteRouteBoolExp {
   return {
     _or: [
@@ -99,8 +98,8 @@ function removeSecondDirectionRouteFromResult(
       curr.label === next.label &&
       curr.variant === next.variant &&
       curr.priority === next.priority &&
-      curr.validity_start?.toISODate() === next.validity_start?.toISODate() &&
-      curr.validity_end?.toISODate() === next.validity_end?.toISODate(),
+      curr.validity_start?.toString() === next.validity_start?.toString() &&
+      curr.validity_end?.toString() === next.validity_end?.toString(),
   );
 }
 
@@ -141,8 +140,8 @@ export function useGetJourneyPatternIdsByLineLabel({
   endDate,
 }: {
   readonly label: string;
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
 }) {
   const { data, ...rest } = useGetRouteInfoForTimetableVersionsQuery({
     variables: {

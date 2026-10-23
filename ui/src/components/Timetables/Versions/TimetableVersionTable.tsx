@@ -10,8 +10,8 @@ const testIds = {
 // Uniqueness is determined by validity period, label and variant, priority and day type.
 function getRowKey(row: TimetableVersionRowData) {
   const validity = row.substituteDay?.supersededDate
-    ? row.substituteDay.supersededDate.toISODate()
-    : `${row.vehicleScheduleFrame.validityStart?.toISODate()}${row.vehicleScheduleFrame.validityEnd?.toISODate()}`;
+    ? row.substituteDay.supersededDate.toString()
+    : `${row.vehicleScheduleFrame.validityStart?.toString()}${row.vehicleScheduleFrame.validityEnd?.toString()}`;
 
   return (
     row.routeLabelAndVariant +

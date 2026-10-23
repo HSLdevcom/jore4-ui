@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
 import { RouteDirectionEnum, ValidityPeriod } from '../generated/graphql';
-import { DateLike, mapToShortDate, parseDate } from '../time';
+import { DateLike, parseDate, today } from '../time/date';
+import { mapToShortDate } from '../time/format';
 import { Priority } from '../types/enums';
 
 export function mapToValidityPeriod(
   t: TFunction,
-  validityStart?: DateTime | null,
-  validityEnd?: DateTime | null,
+  validityStart?: Temporal.PlainDate | null,
+  validityEnd?: Temporal.PlainDate | null,
 ) {
   const indefinite = t(($) => $.saveChangesModal.indefinite);
 
@@ -17,8 +17,8 @@ export function mapToValidityPeriod(
 }
 
 type ValidityPeriodBounds = {
-  readonly validity_start?: DateTime | null;
-  readonly validity_end?: DateTime | null;
+  readonly validity_start?: Temporal.PlainDate | null;
+  readonly validity_end?: Temporal.PlainDate | null;
 };
 
 export type ValidityContainmentViolation =
@@ -35,16 +35,17 @@ export function getValidityContainmentViolation(
 ): ValidityContainmentViolation | null {
   if (
     !child.validity_start ||
-    (parent.validity_start && child.validity_start < parent.validity_start)
+    (parent.validity_start &&
+      Temporal.PlainDate.compare(child.validity_start, parent.validity_start) <
+        0)
   ) {
     return 'startBeforeParent';
   }
 
-  const parentValidityEnd = parent.validity_end?.endOf('day');
-
   if (
-    parentValidityEnd &&
-    (!child.validity_end || child.validity_end > parentValidityEnd)
+    parent.validity_end &&
+    (!child.validity_end ||
+      Temporal.PlainDate.compare(child.validity_end, parent.validity_end) > 0)
   ) {
     return 'endAfterParent';
   }
@@ -59,7 +60,7 @@ export function getValidityContainmentViolation(
  * @returns True if `entity`'s validity start is in the future
  */
 export function isFutureEntity(
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   entity: ValidityPeriod,
 ) {
   // if entity has been valid indefinitely from the start, it can never be a future entity
@@ -68,7 +69,7 @@ export function isFutureEntity(
   }
 
   // otherwise its validity has to start after the observation date
-  return entity.validity_start > observationDate;
+  return Temporal.PlainDate.compare(entity.validity_start, observationDate) > 0;
 }
 
 /**
@@ -78,7 +79,7 @@ export function isFutureEntity(
  * @returns True if `entity`'s validity end is in the past
  */
 export function isPastEntity(
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   entity: ValidityPeriod,
 ) {
   // if entity is valid indefinitely, it can never be a past entity
@@ -87,7 +88,7 @@ export function isPastEntity(
   }
 
   // otherwise its validity has to end before the observation date
-  return entity.validity_end < observationDate;
+  return Temporal.PlainDate.compare(entity.validity_end, observationDate) < 0;
 }
 
 /**
@@ -97,7 +98,7 @@ export function isPastEntity(
  * @returns True if `entity` is valid at the given `observationDate`
  */
 export function isCurrentEntity(
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   entity: ValidityPeriod,
 ) {
   return (
@@ -109,8 +110,12 @@ export function isCurrentEntity(
 // True if validityEnd is in the future, but less than 20 days away.
 export function isEndingSoon(validityEnd: DateLike | null | undefined) {
   const end = parseDate(validityEnd);
-  const now = DateTime.now();
-  return !!end && end > now && end < now.plus({ days: 20 });
+  const currentDate = today();
+  return (
+    !!end &&
+    Temporal.PlainDate.compare(end, currentDate) > 0 &&
+    Temporal.PlainDate.compare(end, currentDate.add({ days: 20 })) <= 0
+  );
 }
 
 export type VersionedEntity = {
@@ -163,12 +168,15 @@ export function hasContinuingVersion(
 
     // The other version has to be valid for longer than this one.
     const otherEnd = parseDate(other.validity_end);
-    if (otherEnd && otherEnd <= validityEnd) {
+    if (otherEnd && Temporal.PlainDate.compare(otherEnd, validityEnd) <= 0) {
       return false;
     }
 
     // ...and it has to start at latest on the day after this one ends.
     const otherStart = parseDate(other.validity_start);
-    return !otherStart || otherStart <= validityEnd.plus({ days: 1 });
+    return (
+      !otherStart ||
+      Temporal.PlainDate.compare(otherStart, validityEnd.add({ days: 1 })) <= 0
+    );
   });
 }

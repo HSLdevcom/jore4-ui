@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import orderBy from 'lodash/orderBy';
 import range from 'lodash/range';
-import { DateTime } from 'luxon';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,7 @@ import {
   setIsCommonSubstitutePeriodFormDirtyAction,
   useAppDispatch,
 } from '../../../../redux';
-import { mapToISODate } from '../../../../time';
+import { isDateInRange, mapToISODate } from '../../../../time/date';
 import { DateRange } from '../../../../types';
 import { SimpleButton } from '../../../common/Buttons';
 import { submitFormByRef } from '../../../common/Forms';
@@ -36,11 +35,11 @@ const testIds = {
   saveButton: 'CommonSubstitutePeriodForm::saveButton',
 };
 
-type GeneratedDate = { name: string; date: DateTime };
+type GeneratedDate = { name: string; date: Temporal.PlainDate };
 
 function generatePresetDatesForDateRange(
-  startDate: DateTime,
-  endDate: DateTime,
+  startDate: Temporal.PlainDate,
+  endDate: Temporal.PlainDate,
 ): Array<GeneratedDate> {
   const years = range(startDate.year, endDate.year + 1);
 
@@ -50,10 +49,10 @@ function generatePresetDatesForDateRange(
     .flatMap((year) =>
       commonSubstituteDayData.map<GeneratedDate>(({ name, month, day }) => ({
         name: `${name} ${year}`,
-        date: DateTime.fromObject({ year, month, day }),
+        date: Temporal.PlainDate.from({ year, month, day }),
       })),
     )
-    .filter(({ date }) => date >= startDate && date <= endDate);
+    .filter(({ date }) => isDateInRange(date, startDate, endDate));
 }
 
 export function mapCommonSubstituteOperatingPeriodsToCommonDays(
@@ -133,8 +132,7 @@ export const CommonSubstitutePeriodForm: FC<
       generatedPresetDates,
     );
 
-    // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Replace with an explicit date comparator when migrating to Temporal
-    return orderBy(displayedCommonDays, ['supersededDate'], ['asc']);
+    return orderBy(displayedCommonDays, (day) => day.supersededDate, ['asc']);
   }, [generatedPresetDates, commonDays]);
 
   const methods = useForm<FormState>({

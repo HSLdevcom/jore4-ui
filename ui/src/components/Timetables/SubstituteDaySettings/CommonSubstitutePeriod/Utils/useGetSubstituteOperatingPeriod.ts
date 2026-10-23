@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   GetSubstituteOperatingPeriodsQueryVariables,
@@ -47,8 +46,8 @@ const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
 `;
 
 type DateRange = {
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
 };
 
 function useGetSubstituteOperatingPeriods({
@@ -83,8 +82,8 @@ function useGetSubstituteOperatingPeriods({
       // to Apollo at all. Casts are needed to mask as the GraphQL type generator
       // has been configured not to accept string as input for the PostgeSQL
       // `date` type.
-      startDate: startDate.toISODate() as unknown as DateTime,
-      endDate: endDate.toISODate() as unknown as DateTime,
+      startDate: startDate.toString() as unknown as Temporal.PlainDate,
+      endDate: endDate.toString() as unknown as Temporal.PlainDate,
     },
   });
 

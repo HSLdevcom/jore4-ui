@@ -7,7 +7,7 @@ import {
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time';
+import { parseDate } from '../../../../time/date';
 import { showDangerToastWithError } from '../../../../utils';
 import { mapDateInputToValidityEnd } from '../../../common/Forms';
 import { useGetConflictingLines } from '../../Common';

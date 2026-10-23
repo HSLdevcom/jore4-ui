@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../../generated/graphql';
@@ -21,7 +20,7 @@ const testIds = {
 
 type RouteReportDownloadMenuProps = {
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly className?: string;
 };
 

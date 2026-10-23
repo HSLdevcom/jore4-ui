@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate } from '../../../time';
+import { parseDate } from '../../../time/date';
 import { parseDateTime } from '../../../time/dateTime';
-import { mapToShortDateTime } from '../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../time/format';
 import { BaseChangeHistoryItemDetails } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
@@ -43,8 +43,8 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
       data-timestamp={changed
         ?.toInstant()
         .toString({ fractionalSecondDigits: 3 })}
-      data-validity-start={historyItem.validityStart}
-      data-validity-end={historyItem.validityEnd}
+      data-validity-start={historyItem.validityStart?.toString()}
+      data-validity-end={historyItem.validityEnd?.toString()}
     >
       {/* Title spans all the way through the name and value fields */}
       <td
@@ -60,20 +60,20 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
         className="hidden px-2 py-3 text-right lg:table-cell xl:px-5"
         data-testid={testIds.validityStart}
       >
-        {mapToShortDate(historyItem.validityStart)}
+        {mapToShortDate(parseDate(historyItem.validityStart))}
       </td>
       <td
         className="hidden px-2 py-3 text-right lg:table-cell xl:px-5"
         data-testid={testIds.validityEnd}
       >
-        {mapToShortDate(historyItem.validityEnd)}
+        {mapToShortDate(parseDate(historyItem.validityEnd))}
       </td>
       <td
         className="px-2 py-3 text-right lg:hidden xl:px-5"
         data-testid={testIds.validityCombined}
       >
-        <div>{mapToShortDate(historyItem.validityStart)}</div>
-        <div>{mapToShortDate(historyItem.validityEnd)}</div>
+        <div>{mapToShortDate(parseDate(historyItem.validityStart))}</div>
+        <div>{mapToShortDate(parseDate(historyItem.validityEnd))}</div>
       </td>
 
       {/* See the <ChangeHistoryTable> component for more details. */}

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { EnumLike, z } from 'zod';
 import {
   AllOptionEnum,
@@ -94,7 +93,7 @@ export const nullablePositiveNumber = z
     return Number.isNaN(value) ? null : value;
   });
 
-export const instanceOfDateTime = z.custom<DateTime>(DateTime.isDateTime);
+export const instanceOfPlainDate = z.instanceof(Temporal.PlainDate);
 
 export function zEnumArray<Elements extends EnumLike>(values: Elements) {
   return z.array(z.nativeEnum(values));

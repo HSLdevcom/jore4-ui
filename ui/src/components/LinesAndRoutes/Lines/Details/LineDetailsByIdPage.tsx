@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
@@ -14,6 +13,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../redux';
+import { today } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { getTransportModeIcon, isPastEntity, none } from '../../../../utils';
 import {
@@ -87,7 +87,8 @@ export const LineDetailsByIdPage: FC = () => {
     selectIsTimingSettingsModalOpen,
   );
 
-  const isRouteCreationAllowed = line && !isPastEntity(DateTime.now(), line);
+  const isRouteCreationAllowed =
+    line && !isPastEntity(today().add({ days: 1 }), line);
   const onCreateRoute = isRouteCreationAllowed
     ? () => createRoute(line)
     : undefined;

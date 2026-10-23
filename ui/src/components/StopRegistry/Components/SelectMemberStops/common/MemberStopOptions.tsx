@@ -2,7 +2,8 @@ import { ComboboxOption } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineAddCircle } from 'react-icons/md';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import { comboboxStyles } from '../../../../common/Dropdowns';
 import { SelectedStop } from './schema';
 
@@ -41,9 +42,9 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
         <span>
           <strong>{stop.publicCode}</strong> {stop.name}
           <br />
-          {mapToShortDate(stop.validityStart)}
+          {mapToShortDate(parseDate(stop.validityStart))}
           <span className="mx-1">-</span>
-          {mapToShortDate(stop.validityEnd)}
+          {mapToShortDate(parseDate(stop.validityEnd))}
         </span>
         <div className="grow" />
         {!isDisabled && (

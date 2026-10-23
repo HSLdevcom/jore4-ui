@@ -8,8 +8,8 @@ import {
   RouteValidityFragment,
   ScheduledStopPointAllFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
+  ValidityPeriod,
 } from '../../../generated/graphql';
-import { areValidityPeriodsOverlapping } from '../../../time';
 import { RouteInfraLink } from '../../../types';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';
@@ -30,6 +30,18 @@ function isStopTraversalCompatible(
       stop.direction === InfrastructureNetworkDirectionEnum.Forward) ||
     (!isTraversalForwards &&
       stop.direction === InfrastructureNetworkDirectionEnum.Backward)
+  );
+}
+
+// The end date is excluded, as in the Luxon Interval used before.
+function areValidityPeriodsOverlapping(a: ValidityPeriod, b: ValidityPeriod) {
+  return (
+    (!a.validity_start ||
+      !b.validity_end ||
+      Temporal.PlainDate.compare(a.validity_start, b.validity_end) < 0) &&
+    (!b.validity_start ||
+      !a.validity_end ||
+      Temporal.PlainDate.compare(b.validity_start, a.validity_end) < 0)
   );
 }
 

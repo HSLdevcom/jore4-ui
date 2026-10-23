@@ -4,7 +4,8 @@ import {
   HistoricalStopAreaDetailsFragment,
   StopRegistryNameType,
 } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import {
   KnownValueKey,
   findAlternativeName,
@@ -43,14 +44,14 @@ export function diffStopAreaBasicDetails(
       field: t(($) => $.changeHistory.tableHeaders.validityStart),
       oldValue: findKeyValue(previous, KnownValueKey.ValidityStart),
       newValue: findKeyValue(current, KnownValueKey.ValidityStart),
-      mapper: mapToShortDate,
+      mapper: (v) => mapToShortDate(parseDate(v)),
     }),
     diffKeyedValues({
       key: 'ValidityEnd',
       field: t(($) => $.changeHistory.tableHeaders.validityEnd),
       oldValue: findKeyValue(previous, KnownValueKey.ValidityEnd),
       newValue: findKeyValue(current, KnownValueKey.ValidityEnd),
-      mapper: mapToShortDate,
+      mapper: (v) => mapToShortDate(parseDate(v)),
     }),
 
     diffKeyedValues({

@@ -1,7 +1,6 @@
 import { gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
-import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import {
   GetStopDetailsDocument,
@@ -13,6 +12,7 @@ import {
   useGetStopDetailsQuery,
 } from '../../../../generated/graphql';
 import { useObservationDateQueryParam, useUrlQuery } from '../../../../hooks';
+import { isDateInRange, parseDate } from '../../../../time/date';
 import {
   EnrichedQuay,
   EnrichedStopPlace,
@@ -362,33 +362,29 @@ function getEnrichedStopPlace(
   };
 }
 
-function validOn(observationDateTs: number) {
+function validOn(observationDate: Temporal.PlainDate) {
   return (quay: Quay) => {
     const validityStart = quay.scheduled_stop_point?.validity_start;
     const validityEnd = quay.scheduled_stop_point?.validity_end;
 
-    if (!validityStart || validityStart.valueOf() > observationDateTs) {
+    if (!validityStart) {
       return false;
     }
 
-    if (validityEnd && validityEnd.valueOf() < observationDateTs) {
-      return false;
-    }
-
-    return true;
+    return isDateInRange(observationDate, validityStart, validityEnd);
   };
 }
 
 function getCorrectQuay(
   quays: ReadonlyArray<Quay | null | undefined> | null | undefined,
   requestedPublicCode: string,
-  observationDateTs: number,
+  observationDate: Temporal.PlainDate,
   priority: number,
 ): Quay | null {
   const validQuays = compact(quays)
     .filter((it) => it.publicCode === requestedPublicCode)
     .filter((it) => !isMirrorChild(it))
-    .filter(validOn(observationDateTs));
+    .filter(validOn(observationDate));
 
   if (Number.isFinite(priority)) {
     return (
@@ -414,7 +410,7 @@ function getCorrectQuay(
 
 function getStopDetails(
   data: GetStopDetailsQuery | undefined,
-  observationDateTs: number,
+  observationDate: Temporal.PlainDate,
   priority: number,
   label: string,
   getUserNameById: GetUserNameById,
@@ -438,7 +434,7 @@ function getStopDetails(
       const selectedQuay = getCorrectQuay(
         stopPlace.quays,
         label,
-        observationDateTs,
+        observationDate,
         priority,
       );
 
@@ -541,12 +537,12 @@ export function useGetStopDetails() {
     public_code: { _eq: label },
   });
 
-  const observationDateTs = observationDate.valueOf();
+  const observationDateStr = observationDate.toString();
   const stopDetails = useMemo(
     () =>
       getStopDetails(
         data,
-        observationDateTs,
+        parseDate(observationDateStr),
         priority,
         label,
         getUserNameById,
@@ -554,7 +550,7 @@ export function useGetStopDetails() {
       ),
     [
       data,
-      observationDateTs,
+      observationDateStr,
       priority,
       label,
       getUserNameById,
@@ -577,7 +573,7 @@ export function useGetStopDetailsLazy() {
   return useCallback(
     async (
       label: string,
-      observationDate: DateTime,
+      observationDate: Temporal.PlainDate,
       priority: number,
       quayChangeData?: {
         changed: string | null;
@@ -590,10 +586,9 @@ export function useGetStopDetailsLazy() {
         GetStopDetailsQueryVariables
       >({ query: GetStopDetailsDocument, variables: { where } });
 
-      const observationDateTs = observationDate.valueOf();
       const stopDetails = getStopDetails(
         data,
-        observationDateTs,
+        observationDate,
         priority,
         label,
         getUserNameById,

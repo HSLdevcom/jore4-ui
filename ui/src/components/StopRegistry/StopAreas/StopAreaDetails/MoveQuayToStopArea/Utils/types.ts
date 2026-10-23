@@ -1,16 +1,15 @@
-import { DateTime } from 'luxon';
 import { GetStopPointsByQuayIdQuery } from '../../../../../../generated/graphql';
 
 export type MoveQuayParams = {
   toStopPlaceId: string;
   quayIds: ReadonlyArray<string>;
-  moveQuayFromDate: DateTime;
+  moveQuayFromDate: Temporal.PlainDate;
 };
 
 export type QuayInfo = {
   id: string;
   publicCode: string;
-  validityStart?: DateTime;
+  validityStart?: Temporal.PlainDate;
 };
 
 export type StopPointInfo =

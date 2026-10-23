@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon';
 import { useState } from 'react';
+import { today } from '../../../time/date';
 import { DateRange, SortOrder } from '../../../types';
 import { VersionTableColumn } from './VersionTableColumn';
 
@@ -11,10 +11,12 @@ export type VersionTableSortingInfo = {
 export function useVersionContainerControls() {
   const [expanded, setExpanded] = useState<boolean>(true);
 
-  const [dateRange, setDateRange] = useState<DateRange>(() => ({
-    startDate: DateTime.now().minus({ month: 1 }).startOf('month'),
-    endDate: DateTime.now().plus({ months: 12 }).endOf('month'),
-  }));
+  const [dateRange, setDateRange] = useState<DateRange>(() => {
+    const startDate = today().subtract({ months: 1 }).with({ day: 1 });
+    const endDate = today().add({ months: 12 });
+
+    return { startDate, endDate: endDate.with({ day: endDate.daysInMonth }) };
+  });
 
   const [sortingInfo, setSortingInfo] = useState<VersionTableSortingInfo>({
     sortBy: 'VALIDITY_START',

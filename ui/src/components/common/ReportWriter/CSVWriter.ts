@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { TFunction } from 'i18next';
-import { DateLike, mapToShortDate } from '../../../time';
+import { DateLike, parseDate } from '../../../time/date';
+import { mapToShortDate } from '../../../time/format';
 import { Translatable, TranslationMapper } from '../../../utils/i18n';
 
 // Excel requires BOM to recognize the data as UTF-8, and not try
@@ -200,7 +201,7 @@ export class CSVWriter {
    * If the report has already been closed.
    */
   writeDateField(value: DateLike | null | undefined) {
-    this.writeField(mapToShortDate(value) ?? '');
+    this.writeField(mapToShortDate(parseDate(value)) ?? '');
   }
 
   /**

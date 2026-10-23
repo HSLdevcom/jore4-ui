@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import {
   ChangeEventHandler,
   ClipboardEventHandler,
@@ -10,20 +9,21 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { DateLike, mapToShortDate, tryToParseDate } from '../../../time';
+import { DateLike, today, tryToParseDate } from '../../../time/date';
+import { mapToShortDate } from '../../../time/format';
 
 type ParsedNotNull = {
   readonly parsed: true;
   readonly nullable?: false | never;
-  readonly value: DateTime;
-  readonly onChange: (value: DateTime) => void;
+  readonly value: Temporal.PlainDate;
+  readonly onChange: (value: Temporal.PlainDate) => void;
 };
 
 type ParsedNullable = {
   readonly parsed: true;
   readonly nullable: true;
-  readonly value: DateTime | null | undefined;
-  readonly onChange: (value: DateTime | null) => void;
+  readonly value: Temporal.PlainDate | null | undefined;
+  readonly onChange: (value: Temporal.PlainDate | null) => void;
 };
 
 type RawNotNull = {
@@ -49,7 +49,7 @@ type BaseDateInputProps = GenericInputProps &
   (ParsedNotNull | ParsedNullable | RawNotNull | RawNullable);
 
 function valueToString(value: DateLike | null | undefined): string {
-  return tryToParseDate(value)?.toISODate() ?? '';
+  return tryToParseDate(value)?.toString() ?? '';
 }
 
 const typeISODate = 'hus/ISOData';
@@ -60,7 +60,7 @@ const cleanIsoDateRegexp = /^\d{4}-\d{2}-\d{2}$/;
 const formattedDateRegexp = /(\d{1,2}).(\d{1,2}).(\d{4})/;
 
 type DateValuePair = {
-  readonly parsed: DateTime;
+  readonly parsed: Temporal.PlainDate;
   readonly str: string;
 };
 
@@ -161,7 +161,7 @@ const BaseDateInputImpl: ForwardRefRenderFunction<
         setStr('');
         onChange(null);
       } else {
-        setStr(typeof value === 'string' ? value : value.toISODate());
+        setStr(typeof value === 'string' ? value : value.toString());
       }
     }
     onBlur?.(e);
@@ -171,11 +171,11 @@ const BaseDateInputImpl: ForwardRefRenderFunction<
   const augmentedOnKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
     const normalizedKey = e.key.toLowerCase();
     if (normalizedKey === 't' || normalizedKey === 'n') {
-      const today = DateTime.now().startOf('day');
-      const todayStr = today.toISODate();
+      const currentDate = today();
+      const todayStr = currentDate.toString();
       setStr(todayStr);
       if (parsed) {
-        onChange(today);
+        onChange(currentDate);
       } else {
         onChange(todayStr);
       }
@@ -188,7 +188,10 @@ const BaseDateInputImpl: ForwardRefRenderFunction<
   const augmentedOnCopy: ClipboardEventHandler<HTMLInputElement> = (e) => {
     if (str.match(cleanIsoDateRegexp)) {
       e.clipboardData.setData(typeISODate, str);
-      e.clipboardData.setData(typePlainText, mapToShortDate(str) ?? '');
+      e.clipboardData.setData(
+        typePlainText,
+        mapToShortDate(tryToParseDate(str)) ?? '',
+      );
       e.preventDefault();
     }
     onCopy?.(e);

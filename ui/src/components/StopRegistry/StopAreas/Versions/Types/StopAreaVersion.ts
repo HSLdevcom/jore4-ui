@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { Point } from '../../../../../types';
 
 export type StopAreaVersion = {
@@ -7,8 +6,8 @@ export type StopAreaVersion = {
   readonly private_code: string;
   readonly name: string;
 
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime | null;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate | null;
 
   readonly location: Point;
 

@@ -3,9 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../../router/routeDetails';
-import { mapToShortDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
 import { parseDateTime } from '../../../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../../../time/format';
+import {
+  mapToShortDate,
+  mapToShortDateTime,
+} from '../../../../../../time/format';
 import { TerminalComponentProps } from '../../Types';
 import { EditTerminalValidityButton } from './EditTerminalValidityButton';
 
@@ -27,9 +30,9 @@ export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
         title={t(($) => $.accessibility.terminals.validityPeriod)}
         data-testid={testIds.validityPeriod}
       >
-        {mapToShortDate(terminal.validityStart)}
+        {mapToShortDate(parseDate(terminal.validityStart))}
         <span className="mx-1">-</span>
-        {mapToShortDate(terminal.validityEnd)}
+        {mapToShortDate(parseDate(terminal.validityEnd))}
       </div>
       <EditTerminalValidityButton terminal={terminal} />
       <Link

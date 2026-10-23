@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC, KeyboardEventHandler, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../LayoutComponents';
@@ -6,8 +5,8 @@ import { BaseDateInput } from './BaseDateInput';
 
 type ObservationDateInputProps = {
   readonly id?: string;
-  readonly value: DateTime;
-  readonly onChange: (value: DateTime) => void;
+  readonly value: Temporal.PlainDate;
+  readonly onChange: (value: Temporal.PlainDate) => void;
   readonly className?: string;
   readonly containerClassName?: string;
   readonly inputClassName?: string;

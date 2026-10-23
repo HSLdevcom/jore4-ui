@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../common/LayoutComponents';
@@ -23,7 +22,7 @@ type RouteStopsTableProps = {
   // Enable asynchronous rendering of the result tables on the background.
   // Aka, do not lock up the ui.
   readonly lineTransitionInProgress: boolean;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly route: FindStopByLineRouteInfo;
   readonly sortingInfo: SortingInfo;
   readonly selection: ResultSelection;

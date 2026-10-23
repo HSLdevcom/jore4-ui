@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   RouteVersionInfoFragment,
   TimetablesRouteDirectionEnum,
   useGetRouteVersionsQuery,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time';
+import { parseDate, today } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 import { defaultLocalizedString, requireValue } from '../../../../../utils';
 import {
@@ -110,14 +109,15 @@ function mapRouteToVersionInfoItem(
 function resolveActiveVersionId(
   rawRoutes: ReadonlyArray<RouteVersionInfoFragment>,
 ): string | null {
-  const today = DateTime.now().startOf('day');
+  const currentDate = today();
 
   const route = rawRoutes.findLast(
     (rawRoute) =>
       Number(rawRoute.priority) < Priority.Draft &&
       rawRoute.validity_start &&
-      rawRoute.validity_start.startOf('day') <= today &&
-      (!rawRoute.validity_end || rawRoute.validity_end.startOf('day') >= today),
+      Temporal.PlainDate.compare(rawRoute.validity_start, currentDate) <= 0 &&
+      (!rawRoute.validity_end ||
+        Temporal.PlainDate.compare(rawRoute.validity_end, currentDate) >= 0),
   );
 
   return route?.route_id ?? null;

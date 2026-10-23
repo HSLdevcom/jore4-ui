@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../../generated/graphql';
 import { useUrlQuery } from '../../../../hooks';
+import { today } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
 import { DisplayedSearchResultType, SearchConditions } from './Types';
@@ -31,7 +31,7 @@ const DEFAULT_TRANSPORT_MODE = [AllOptionEnum.All];
 const DEFAULT_TYPE_OF_LINE = AllOptionEnum.All;
 const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
 const DEFAULT_LABEL = '';
-const DEFAULT_OBSERVATION_DATE = DateTime.now().startOf('day');
+const DEFAULT_OBSERVATION_DATE = today();
 
 export function useSearchQueryParser(): SearchParameters {
   const {

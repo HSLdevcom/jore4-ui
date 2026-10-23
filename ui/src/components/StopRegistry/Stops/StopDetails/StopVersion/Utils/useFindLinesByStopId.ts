@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useFindLinesByStopQuery } from '../../../../../../generated/graphql';
 import { LinesByStop } from '../Types/LinesByStopResult';
 
@@ -67,7 +66,7 @@ const GQL_FIND_LINES_BY_STOP_PLACE_REF = gql`
 
 type FindLinesByStopLabelProps = {
   readonly stopPlaceId: string | null | undefined;
-  readonly validOn: DateTime;
+  readonly validOn: Temporal.PlainDate;
   readonly skip: boolean;
 };
 

@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
 import { parseDateTime } from '../../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../../../time/format';
 import { StopAreaComponentProps } from '../Types';
 
 const testIds = {
@@ -26,9 +26,9 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
         title={t(($) => $.accessibility.stops.validityPeriod)}
         data-testid={testIds.validityPeriod}
       >
-        {mapToShortDate(area.validityStart)}
+        {mapToShortDate(parseDate(area.validityStart))}
         <span className="mx-1">-</span>
-        {mapToShortDate(area.validityEnd)}
+        {mapToShortDate(parseDate(area.validityEnd))}
       </div>
       <Link
         to={routeDetails[Path.stopAreaChangeHistory].getLink(

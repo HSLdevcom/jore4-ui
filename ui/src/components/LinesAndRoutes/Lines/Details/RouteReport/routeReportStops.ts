@@ -1,5 +1,4 @@
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import {
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
@@ -20,7 +19,7 @@ import {
  */
 export function getRouteJourneyPatternStops(
   route: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
 ): ReadonlyArray<RouteStopFieldsFragment> {
   const links = mapInfrastructureLinksAlongRouteToRouteInfraLinks(
     route.infrastructure_links_along_route,

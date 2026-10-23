@@ -27,6 +27,8 @@ describe(`<${RoutesTable.name} />`, () => {
     {
       __typename: 'route_route',
       ...buildRoute({ label: '1' }),
+      validity_start: null,
+      validity_end: null,
       unique_label: '1',
       route_id: route1Id,
       on_line_id: lineId,

@@ -1,8 +1,7 @@
-import { DateTime } from 'luxon';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteAllFieldsFragment } from '../../../../../../generated/graphql';
-import { MAX_DATE, MIN_DATE } from '../../../../../../time';
+import { MAX_DATE, MIN_DATE } from '../../../../../../time/date';
 import { Priority } from '../../../../../../types/enums';
 import {
   ComboboxInputProps,
@@ -13,7 +12,7 @@ import { useChooseRouteDropdown } from './useChooseRouteDropdown';
 
 type ChooseRouteDropdownProps = Omit<ComboboxInputProps, 'onChange'> & {
   readonly testId?: string;
-  readonly date: DateTime;
+  readonly date: Temporal.PlainDate;
   readonly priorities: ReadonlyArray<Priority>;
   readonly onChange: (newValue: RouteAllFieldsFragment) => void;
 };

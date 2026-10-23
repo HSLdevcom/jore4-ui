@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import type { LineString } from 'geojson';
 import merge from 'lodash/merge';
-import { DateTime } from 'luxon';
 import {
   LineTableRowFragment,
   RouteMapParamsFragment,
@@ -12,7 +11,7 @@ import {
   setSelectedRouteIdAction,
   useAppDispatch,
 } from '../../../redux';
-import { isDateInRange } from '../../../time';
+import { isDateInRange } from '../../../time/date';
 import { Priority } from '../../../types/enums';
 import {
   DisplayedRouteParams,
@@ -71,8 +70,8 @@ function getRouteShapeFirstCoordinates(
 type ShowRoutesOnMapParams = {
   readonly viewPort: OpenMapViewPortParams | undefined;
   readonly displayedRoute: Partial<DisplayedRouteParams>;
-  readonly validityStart: DateTime;
-  readonly validityEnd: DateTime | null | undefined;
+  readonly validityStart: Temporal.PlainDate;
+  readonly validityEnd: Temporal.PlainDate | null | undefined;
 };
 
 export function useShowRoutesOnMap() {

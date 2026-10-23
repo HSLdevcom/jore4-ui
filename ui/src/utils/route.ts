@@ -1,10 +1,9 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import {
   RouteLabelAndVariantFragment,
   RouteValidityPeriodFragment,
 } from '../generated/graphql';
-import { isDateInRange } from '../time';
+import { isDateInRange } from '../time/date';
 
 const GQL_ROUTE_HELPER_FRAGMENTS = gql`
   fragment RouteLabelAndVariant on route_route {
@@ -32,7 +31,7 @@ export function getRouteLabelVariantText(route: RouteLabelAndVariantFragment) {
 
 export function isRouteActiveOnObservationDate(
   route: RouteValidityPeriodFragment,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
 ) {
   return isDateInRange(
     observationDate,

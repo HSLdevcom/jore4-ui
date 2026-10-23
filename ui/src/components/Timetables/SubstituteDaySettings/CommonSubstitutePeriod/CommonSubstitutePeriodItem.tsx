@@ -2,7 +2,8 @@ import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
-import { mapToShortDate } from '../../../../time';
+import { parseDate } from '../../../../time/date';
+import { mapToShortDate } from '../../../../time/format';
 import { AllOptionEnum } from '../../../../utils';
 import { InputField } from '../../../common/Inputs';
 import {
@@ -53,7 +54,7 @@ const PeriodNameAndDateLabel = ({
         {periodName}
       </span>
       <span data-testid={testIds.supersededDate}>
-        {mapToShortDate(supersededDate)}
+        {mapToShortDate(parseDate(supersededDate))}
       </span>
     </div>
   );

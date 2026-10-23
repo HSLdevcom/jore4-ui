@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -14,9 +13,9 @@ import {
   useAppDispatch,
 } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
+import { MAX_DATE, MIN_DATE } from '../../../../time/date';
 import { now } from '../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../../time/format';
 import { hasContinuingVersion } from '../../../../utils';
 import { IconButton } from '../../../common/Buttons';
 import { Visible } from '../../../common/LayoutComponents';
@@ -41,7 +40,7 @@ type RouteStopListItemProps = {
   readonly stop: RouteStopFieldsFragment;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   readonly labelledBy: string;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 export const RouteStopListItem: FC<RouteStopListItemProps> = ({

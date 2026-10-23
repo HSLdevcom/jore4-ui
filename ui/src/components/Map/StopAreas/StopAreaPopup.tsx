@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { MdAddCircle, MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { parseDate } from '../../../time';
+import { parseDate } from '../../../time/date';
 import { EnrichedStopPlace } from '../../../types';
 import {
   KnownValueKey,

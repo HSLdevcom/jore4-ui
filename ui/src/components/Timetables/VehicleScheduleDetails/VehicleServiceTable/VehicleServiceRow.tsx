@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { padToTwoDigits } from '../../../../time';
+import { padToTwoDigits } from '../../../../time/format';
 import { Row } from '../../../common/LayoutComponents';
 
 export type VehicleServiceRowData = {

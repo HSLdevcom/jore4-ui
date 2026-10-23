@@ -25,22 +25,27 @@ const scalars = {
   geography_point: 'GeoJSON.Point',
   geography_linestring: 'GeoJSON.LineString',
   localized_string: 'LocalizedString',
-  timestamptz: 'luxon.DateTime',
-  date: 'luxon.DateTime',
-  interval: 'luxon.Duration',
-  stop_registry_DateTime: 'luxon.DateTime',
-  stop_registry_LocalDate: 'luxon.DateTime',
   stop_registry_Coordinates: 'GeoJSON.Position',
   float8: 'number',
   smallint: 'number',
 };
 
-// The ui is being migrated from Luxon to Temporal one scalar at a time.
 const uiScalars = {
   ...scalars,
-  interval: 'Temporal.Duration',
   timestamptz: 'Temporal.ZonedDateTime',
+  date: 'Temporal.PlainDate',
+  interval: 'Temporal.Duration',
   stop_registry_DateTime: 'Temporal.ZonedDateTime',
+  stop_registry_LocalDate: 'Temporal.PlainDate',
+};
+
+const testDbManagerScalars = {
+  ...scalars,
+  timestamptz: 'luxon.DateTime',
+  date: 'luxon.DateTime',
+  interval: 'luxon.Duration',
+  stop_registry_DateTime: 'luxon.DateTime',
+  stop_registry_LocalDate: 'luxon.DateTime',
 };
 
 const defaultConfig = {
@@ -81,7 +86,6 @@ const config: CodegenConfig = {
         '../ui/src/**/*.graphql',
       ],
       plugins: [
-        luxonImportPlugin,
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
@@ -100,7 +104,7 @@ const config: CodegenConfig = {
       config: {
         ...defaultConfig,
         withHooks: false,
-        scalars,
+        scalars: testDbManagerScalars,
       },
     },
     '../ui/graphql.schema.json': {

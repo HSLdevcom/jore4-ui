@@ -1,6 +1,5 @@
 import noop from 'lodash/noop';
-import { DateTime } from 'luxon';
-import { parseDate } from '../../../../time';
+import { today } from '../../../../time/date';
 import {
   UrlStateDeserializers,
   UrlStateSerializers,
@@ -8,26 +7,26 @@ import {
 } from '../../../common/Utils/typedRouterState';
 
 export type TimetableVersionsRouterState = {
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
   readonly returnTo: UUID | null;
 };
 
 const serializers: UrlStateSerializers<TimetableVersionsRouterState> = {
-  startDate: (value) => value.toISODate(),
-  endDate: (value) => value.toISODate(),
+  startDate: (value) => value.toString(),
+  endDate: (value) => value.toString(),
   returnTo: (value) => value ?? '',
 };
 
 const deserializers: UrlStateDeserializers<TimetableVersionsRouterState> = {
-  startDate: (str) => parseDate(str).startOf('day'),
-  endDate: (str) => parseDate(str).endOf('day'),
+  startDate: (str) => Temporal.PlainDate.from(str),
+  endDate: (str) => Temporal.PlainDate.from(str),
   returnTo: (str) => (str.length ? str : null),
 };
 
 const defaultValues: TimetableVersionsRouterState = {
-  startDate: DateTime.now().startOf('day'),
-  endDate: DateTime.now().plus({ years: 1 }).endOf('day'),
+  startDate: today(),
+  endDate: today().add({ years: 1 }),
   returnTo: null,
 };
 
