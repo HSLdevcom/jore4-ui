@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import maxBy from 'lodash/maxBy';
 import minBy from 'lodash/minBy';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,8 @@ import {
   setIsOccasionalSubstitutePeriodFormDirtyAction,
   useAppDispatch,
 } from '../../../../redux';
-import { mapDurationToShortTime, mapToISODate } from '../../../../time';
+import { mapToISODate } from '../../../../time';
+import { mapDurationToShortTime } from '../../../../time/format';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
 import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
@@ -58,7 +59,7 @@ const emptyRowObject: PeriodType = {
   isPreset: false,
 };
 
-function mapDurationToString(duration: Maybe<Duration> | undefined) {
+function mapDurationToString(duration: Maybe<Temporal.Duration> | undefined) {
   if (duration) {
     return mapDurationToShortTime(duration);
   }

@@ -1,5 +1,5 @@
 import uniqueId from 'lodash/uniqueId';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import { FC, PropsWithChildren } from 'react';
 import {
   InfrastructureNetworkDirectionEnum,
@@ -55,9 +55,9 @@ function createTimetabledPassingTime({
   departureTime,
 }: {
   label: string;
-  passingTime: Duration;
-  arrivalTime?: Duration;
-  departureTime?: Duration;
+  passingTime: Temporal.Duration;
+  arrivalTime?: Temporal.Duration;
+  departureTime?: Temporal.Duration;
 }): PassingTimeByStopFragment {
   return {
     arrival_time: arrivalTime,
@@ -88,9 +88,9 @@ function createTimetabledPassingTimeWithStopPoint({
 }: {
   label: string;
   timingPlaceLabel: string;
-  passingTime: Duration;
-  arrivalTime?: Duration;
-  departureTime?: Duration;
+  passingTime: Temporal.Duration;
+  arrivalTime?: Temporal.Duration;
+  departureTime?: Temporal.Duration;
 }) {
   const timetabledPassingTime = createTimetabledPassingTime({
     label,
@@ -119,35 +119,35 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
         createTimetabledPassingTimeWithStopPoint({
           label: 'H2210',
           timingPlaceLabel: '1ELIEL',
-          passingTime: Duration.fromISO('PT9H37M'),
-          arrivalTime: Duration.fromISO('PT9H37M'),
+          passingTime: Temporal.Duration.from('PT9H37M'),
+          arrivalTime: Temporal.Duration.from('PT9H37M'),
         }),
         createTimetabledPassingTimeWithStopPoint({
           label: 'H2210',
           timingPlaceLabel: '1ELIEL',
-          passingTime: Duration.fromISO('PT9H42M'),
-          arrivalTime: Duration.fromISO('PT9H42M'),
+          passingTime: Temporal.Duration.from('PT9H42M'),
+          arrivalTime: Temporal.Duration.from('PT9H42M'),
         }),
         createTimetabledPassingTime({
           label: 'H221',
-          passingTime: Duration.fromISO('PT13H19M'),
-          departureTime: Duration.fromISO('PT13H19M'),
+          passingTime: Temporal.Duration.from('PT13H19M'),
+          departureTime: Temporal.Duration.from('PT13H19M'),
         }),
         createTimetabledPassingTime({
           label: 'H221',
-          passingTime: Duration.fromISO('PT13H25M'),
-          departureTime: Duration.fromISO('PT13H25M'),
+          passingTime: Temporal.Duration.from('PT13H25M'),
+          departureTime: Temporal.Duration.from('PT13H25M'),
         }),
         createTimetabledPassingTime({
           label: 'H221',
-          passingTime: Duration.fromISO('PT14H55M'),
-          arrivalTime: Duration.fromISO('PT14H58M'),
-          departureTime: Duration.fromISO('PT14H59M'),
+          passingTime: Temporal.Duration.from('PT14H55M'),
+          arrivalTime: Temporal.Duration.from('PT14H58M'),
+          departureTime: Temporal.Duration.from('PT14H59M'),
         }),
         createTimetabledPassingTime({
           label: 'H221',
-          passingTime: Duration.fromISO('PT14H25M'),
-          departureTime: Duration.fromISO('PT14H25M'),
+          passingTime: Temporal.Duration.from('PT14H25M'),
+          departureTime: Temporal.Duration.from('PT14H25M'),
         }),
       ],
       vehicle_journey_id: '',

@@ -35,6 +35,12 @@ const scalars = {
   smallint: 'number',
 };
 
+// The ui is being migrated from Luxon to Temporal one scalar at a time.
+const uiScalars = {
+  ...scalars,
+  interval: 'Temporal.Duration',
+};
+
 const defaultConfig = {
   skipTypename: false,
   withHOC: false,
@@ -83,7 +89,7 @@ const config: CodegenConfig = {
         withHooks: true,
         immutableTypes: true,
         documentMode: 'documentNode',
-        scalars,
+        scalars: uiScalars,
       },
     },
     '../test-db-manager/src/generated/graphql.ts': {

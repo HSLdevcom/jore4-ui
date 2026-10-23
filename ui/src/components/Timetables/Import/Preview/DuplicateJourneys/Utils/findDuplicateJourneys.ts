@@ -14,7 +14,7 @@ function journeysAreEqual(
   // backend checks this when fetching the target frame.
   return (
     journeyA.routeId === journeyB.routeId && // Check that route and direction (due to being same route) are same.
-    journeyA.startTime.equals(journeyB.startTime) &&
+    Temporal.Duration.compare(journeyA.startTime, journeyB.startTime) === 0 &&
     journeyA.contractNumber === journeyB.contractNumber
   );
 }

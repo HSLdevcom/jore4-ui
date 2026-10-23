@@ -1,12 +1,12 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { VehicleJourneyInfo } from './createVehicleJourneyInfo';
 import { findDuplicateJourneys } from './findDuplicateJourneys';
 
 const baseVehicleJourneyInfo: VehicleJourneyInfo = {
   vehicleJourneyId: 'c9107f53-5199-43b0-96c4-e05738fdc7a2',
-  startTime: Duration.fromISO('PT8H30M'),
+  startTime: Temporal.Duration.from('PT8H30M'),
   contractNumber: 'DEFAULT_CONTRACT',
   validityStart: DateTime.fromISO('2023-01-01'),
   validityEnd: DateTime.fromISO('2023-12-31'),
@@ -61,7 +61,7 @@ describe('findDuplicateJourneys', () => {
     const stagingJourney1 = cloneDeep(baseVehicleJourneyInfo);
     const targetJourney1 = {
       ...cloneDeep(baseVehicleJourneyInfo),
-      startTime: Duration.fromISO('PT9H15M'),
+      startTime: Temporal.Duration.from('PT9H15M'),
     };
 
     const duplicateJourneys = findDuplicateJourneys({

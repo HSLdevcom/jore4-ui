@@ -2,7 +2,10 @@ import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../../generated/graphql';
 import { selectTimetable, useAppSelector } from '../../../../redux';
-import { mapDurationToShortTime, padToTwoDigits } from '../../../../time';
+import {
+  mapDurationToShortTime,
+  padToTwoDigits,
+} from '../../../../time/format';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { Visible } from '../../../common/LayoutComponents';
 import { VehicleJourneyPopover } from './VehicleJourneyPopover';
@@ -50,7 +53,8 @@ export const PassingTimesByStopTableRowPassingMinute: FC<
   // Display arrival time only if it differs from passing time (!== operator does not work here, since the departure
   // time can be explicitly specified to be the same as the arrival time. So we do not want to test for object equality,
   // but for equal values.)
-  const displayArrival = showArrivalTimes && !passing.equals(arrival);
+  const displayArrival =
+    showArrivalTimes && Temporal.Duration.compare(passing, arrival) !== 0;
 
   // If arrival time is not at the same hour as passing, display also arrival hours,
   // otherwise only display minutes

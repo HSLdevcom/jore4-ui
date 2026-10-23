@@ -56,9 +56,7 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
   const sortedDepartureTimes =
     vehicleJourneys
       ?.flatMap((item) => item.start_time)
-      .sort(
-        (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
-      ) ?? [];
+      .sort((time1, time2) => Temporal.Duration.compare(time1, time2)) ?? [];
 
   const departureTimesByHour = groupBy(
     sortedDepartureTimes,
