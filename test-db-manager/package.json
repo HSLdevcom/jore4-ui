@@ -29,18 +29,20 @@
     "graphql": "^17.0.2",
     "graphql-tag": "^2.12.7",
     "knex": "^3.3.0",
-    "lodash": "^4.18.1",
-    "luxon": "^3.7.2",
-    "pg": "^8.23.0"
+    "lodash": "catalog:",
+    "luxon": "catalog:",
+    "pg": "^8.23.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-typescript": "^12.3.0",
+    "@rollup/plugin-typescript": "^12.3.1",
     "@types/geojson": "^7946.0.16",
-    "@types/luxon": "^3.7.6",
+    "@types/luxon": "catalog:",
+    "@types/node": "catalog:",
     "@types/pg": "^8.23.1",
-    "rollup": "^4.63.5",
-    "ts-node": "^10.9.2"
+    "rollup": "^4.65.0",
+    "ts-node": "^10.9.2",
+    "typescript": "catalog:"
   }
 }

@@ -54,9 +54,9 @@ Next.js was still chosen over `create-react-app` as project template as it offer
 
 ## Getting Started
 
-First, make sure you have the following apps installed:
+First, make sure you have the following apps installed and enabled:
 
-- [yarn](https://yarnpkg.com/)
+- [corepack](https://github.com/nodejs/corepack) for [yarn](https://yarnpkg.com/)
 - [GithHub CLI](https://cli.github.com/), to authenticate to GitHub
   - On Mac, Homebrew command: `brew install gh`
 - [PostgreSQL](https://www.postgresql.org/download/), to get required commands

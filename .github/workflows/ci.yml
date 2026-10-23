@@ -21,22 +21,25 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Enable corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v7
         with:
-          node-version: '26.12.1'
+          node-version-file: package.json
           cache: 'yarn'
 
       - name: Install dependencies && check that lockfile is up-to-date
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
 
       - name: Build test db manager module
         run: yarn ws:db build
 
       - name: Build timetables data inserter module
-        run: yarn ws:tdi timetables-data-inserter:build
+        run: cd jore4-hasura/test/hasura && yarn --immutable && yarn timetables-data-inserter:build
 
       - name: Run Next.js typegen
-        run: yarn run next typegen ui
+        run: yarn ws:ui next typegen
 
       - name: Check ts syntax
         run: yarn ts:check
