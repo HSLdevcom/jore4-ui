@@ -1,5 +1,4 @@
 import { Description, DialogTitle } from '@headlessui/react';
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -9,7 +8,7 @@ import {
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToShortDate } from '../../../time';
+import { mapToShortDate } from '../../../time/format';
 import { Priority } from '../../../types/enums';
 import { mapPriorityToUiName } from '../../../utils/i18n';
 import { CloseIconButton, SimpleButton } from '../../common/Buttons';
@@ -22,8 +21,8 @@ const testIds = {
 };
 
 type CommonConflictItem = {
-  readonly validityStart?: DateTime;
-  readonly validityEnd?: DateTime;
+  readonly validityStart?: Temporal.PlainDate;
+  readonly validityEnd?: Temporal.PlainDate;
   readonly priority: Priority;
   readonly label: string;
   readonly variant?: number | null;

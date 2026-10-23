@@ -1,5 +1,4 @@
 import { produce } from 'immer';
-import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
 import {
@@ -30,7 +29,7 @@ export function useSearch() {
     value:
       | string
       | ReadonlyArray<Priority>
-      | DateTime
+      | Temporal.PlainDate
       | ReadonlyArray<ReusableComponentsVehicleModeEnum>
       | AllOptionEnum,
   ) => {

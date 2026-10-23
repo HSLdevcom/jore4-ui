@@ -1,10 +1,8 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { mapToShortDate } from '../../../time';
 import { DateTimeLike, parseDateTime } from '../../../time/dateTime';
-import { mapToShortDateTime } from '../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../time/format';
 import { statusToCellClasses } from './statusToCellClasses';
 import { trStatus } from './trStatus';
 import { VersionStatus } from './VersionStatus';
@@ -20,8 +18,8 @@ const testIds = {
 
 type VersionWithDisplayFields = {
   readonly status: VersionStatus;
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime | null;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate | null;
   readonly version_comment: string;
   readonly changed: DateTimeLike | null;
   readonly changedByUserName: string | null;

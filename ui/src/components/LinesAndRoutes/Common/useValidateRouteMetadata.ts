@@ -1,6 +1,5 @@
 import { gql, useApolloClient } from '@apollo/client';
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -8,7 +7,7 @@ import {
   GetLineValidityByIdQuery,
   GetLineValidityByIdQueryVariables,
 } from '../../../generated/graphql';
-import { parseDate } from '../../../time';
+import { parseDate } from '../../../time/date';
 import { getValidityContainmentViolation } from '../../../utils/validity';
 import { mapDateInputToValidityEnd } from '../../common/Forms';
 import { RouteFormState } from './RoutePropertiesForm.types';
@@ -28,8 +27,8 @@ const GQL_GET_LINE_VALIDITY_BY_ID = gql`
 `;
 
 type ValidityPeriodParams = {
-  readonly validity_start?: DateTime | null;
-  readonly validity_end?: DateTime | null;
+  readonly validity_start?: Temporal.PlainDate | null;
+  readonly validity_end?: Temporal.PlainDate | null;
 };
 
 export type RouteLineValidityViolation = 'startBeforeLine' | 'endAfterLine';
@@ -74,7 +73,7 @@ export function assertRouteValidityStartIsBeforeEnd(
   if (
     route.validity_start &&
     route.validity_end &&
-    route.validity_start > route.validity_end
+    Temporal.PlainDate.compare(route.validity_start, route.validity_end) > 0
   ) {
     throw new Error(t(($) => $.routes.validityStartIsAfterEnd));
   }

@@ -1,6 +1,5 @@
 import maxBy from 'lodash/maxBy';
 import minBy from 'lodash/minBy';
-import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateRange } from '../../../../types';
@@ -25,17 +24,15 @@ import {
 function findEarliestDate(
   periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>,
 ) {
-  // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Use minDate when migrating to Temporal
-  const periodWithEarliestdate = minBy(periods, 'beginDate');
-  return DateTime.fromISO(periodWithEarliestdate?.beginDate ?? '');
+  const periodWithEarliestdate = minBy(periods, (period) => period.beginDate);
+  return Temporal.PlainDate.from(periodWithEarliestdate?.beginDate ?? '');
 }
 
 function findLatestDate(
   periods: ReadonlyArray<PeriodType | CommonSubstitutePeriodType>,
 ) {
-  // eslint-disable-next-line no-restricted-syntax -- TODO(temporal): Use maxDate when migrating to Temporal
-  const periodWithlatestDate = maxBy(periods, 'endDate');
-  return DateTime.fromISO(periodWithlatestDate?.endDate ?? '');
+  const periodWithlatestDate = maxBy(periods, (period) => period.endDate);
+  return Temporal.PlainDate.from(periodWithlatestDate?.endDate ?? '');
 }
 
 type OccasionalSubstitutePeriodSectionProps = {

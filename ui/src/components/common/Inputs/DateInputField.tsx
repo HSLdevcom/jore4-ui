@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { DetailedHTMLProps, InputHTMLAttributes, ReactElement } from 'react';
 import { FieldPathByValue, FieldValues, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
@@ -9,7 +8,7 @@ import { inputErrorStyles } from './InputElement';
 import { InputLabel } from './InputLabel';
 
 type DateInputFieldProps<FormState extends FieldValues> = {
-  readonly fieldPath: FieldPathByValue<FormState, DateTime>;
+  readonly fieldPath: FieldPathByValue<FormState, Temporal.PlainDate>;
   readonly inputClassName?: string;
   readonly testId: string;
   readonly translationPrefix: TranslationKey;

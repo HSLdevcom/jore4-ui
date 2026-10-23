@@ -1,5 +1,4 @@
 import { LineString } from 'geojson';
-import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 import { VersionStatus } from '../../../../common/Versions';
@@ -10,8 +9,8 @@ export type RouteVersion = {
   readonly label: string;
   readonly direction: RouteDirectionEnum;
   readonly variant: number | null;
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime | null;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate | null;
   readonly priority: Priority;
   readonly status: VersionStatus;
   readonly version_comment: string;

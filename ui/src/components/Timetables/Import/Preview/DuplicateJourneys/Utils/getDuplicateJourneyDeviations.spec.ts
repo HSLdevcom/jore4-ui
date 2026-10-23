@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../../../Common/Utils/useVehicleScheduleFrameWithJourneys';
 import { getDuplicateJourneyDeviations } from './getDuplicateJourneyDeviations';
@@ -36,8 +35,8 @@ const saturdayDayType = {
 
 const stagingFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys =
   {
-    validity_start: DateTime.fromISO('2023-07-13'),
-    validity_end: DateTime.fromISO('2023-12-24'),
+    validity_start: Temporal.PlainDate.from('2023-07-13'),
+    validity_end: Temporal.PlainDate.from('2023-12-24'),
     vehicle_schedule_frame_id: '58634201-f971-4765-bad7-5ffb34205d25',
     vehicle_services: [
       {
@@ -69,8 +68,8 @@ const stagingFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys =
   };
 
 const targetFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys = {
-  validity_start: DateTime.fromISO('2023-07-13'),
-  validity_end: DateTime.fromISO('2023-12-24'),
+  validity_start: Temporal.PlainDate.from('2023-07-13'),
+  validity_end: Temporal.PlainDate.from('2023-12-24'),
   vehicle_schedule_frame_id: '65252ff7-a699-4e6f-ad56-b086d9878bb4',
   vehicle_services: [
     {
@@ -124,8 +123,8 @@ describe('useDuplicateJourneyDeviations hook', () => {
           vehicleJourneyId: 'fbceabaa-d14f-40f2-bfb7-ff0b56947642',
           startTime: Temporal.Duration.from('PT10H00M'),
           contractNumber: 'DEFAULT_CONTRACT',
-          validityStart: DateTime.fromISO('2023-07-13'),
-          validityEnd: DateTime.fromISO('2023-12-24'),
+          validityStart: Temporal.PlainDate.from('2023-07-13'),
+          validityEnd: Temporal.PlainDate.from('2023-12-24'),
           dayTypeLabel: 'LA',
           dayTypeName: saturdayDayType.name_i18n,
           uniqueLabel: '35',
@@ -140,8 +139,8 @@ describe('useDuplicateJourneyDeviations hook', () => {
           vehicleJourneyId: '267a34c5-7475-446e-b055-3f80ded19490',
           startTime: Temporal.Duration.from('PT10H00M'),
           contractNumber: 'DEFAULT_CONTRACT',
-          validityStart: DateTime.fromISO('2023-07-13'),
-          validityEnd: DateTime.fromISO('2023-12-24'),
+          validityStart: Temporal.PlainDate.from('2023-07-13'),
+          validityEnd: Temporal.PlainDate.from('2023-12-24'),
           dayTypeLabel: 'LA',
           dayTypeName: saturdayDayType.name_i18n,
           uniqueLabel: '35',

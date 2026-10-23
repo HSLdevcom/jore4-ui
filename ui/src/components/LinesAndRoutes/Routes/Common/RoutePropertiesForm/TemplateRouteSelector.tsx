@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DateTime } from 'luxon';
 import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RouteAllFieldsFragment } from '../../../../../generated/graphql';
+import { today } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 import {
   PriorityForm,
@@ -43,7 +43,7 @@ export const TemplateRouteSelector: FC<TemplateRouteSelectorProps> = ({
   });
   useDirtyFormBlockNavigation(methods.formState, 'TemplateRouteSelector');
 
-  const [observationDate, setObservationDate] = useState(DateTime.now());
+  const [observationDate, setObservationDate] = useState(today);
 
   return (
     <div

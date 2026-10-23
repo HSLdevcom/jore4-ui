@@ -6,7 +6,7 @@ import {
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../../../../generated/graphql';
-import { MIN_DATE } from '../../../../time';
+import { MIN_DATE, parseDate } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { showDangerToastWithError } from '../../../../utils';
 import {
@@ -67,8 +67,8 @@ export function useEditLine() {
         {
           label: form.label,
           priority: form.priority,
-          validityStart: input.validity_start ?? MIN_DATE,
-          validityEnd: input.validity_end ?? undefined,
+          validityStart: parseDate(input.validity_start) ?? MIN_DATE,
+          validityEnd: parseDate(input.validity_end),
         },
         lineId,
       );

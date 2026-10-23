@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DateTime } from 'luxon';
 import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +7,7 @@ import {
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../../generated/graphql';
 import { Operation, useLoader } from '../../../../../../../redux';
-import { mapToISODate } from '../../../../../../../time';
+import { mapToISODate, today } from '../../../../../../../time/date';
 import { EnrichedParentStopPlace } from '../../../../../../../types';
 import {
   KnownValueKey,
@@ -102,8 +101,7 @@ export function mapTerminalDataToFormState(
     abbreviationFin: terminal.abbreviationFin,
     abbreviationSwe: terminal.abbreviationSwe,
     abbreviationEng: terminal.abbreviationEng,
-    validityStart:
-      mapToISODate(terminal.validityStart) ?? DateTime.now().toISODate(),
+    validityStart: mapToISODate(terminal.validityStart) ?? today().toString(),
     validityEnd: mapToISODate(terminal.validityEnd),
     indefinite: !terminal.validityEnd,
     terminalType: terminal.terminalType

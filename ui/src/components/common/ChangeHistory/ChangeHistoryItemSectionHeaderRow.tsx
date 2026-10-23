@@ -1,8 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate } from '../../../time';
 import { parseDateTime } from '../../../time/dateTime';
-import { mapToShortDateTime } from '../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../time/format';
 import { BaseChangeHistoryItemDetails } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 
@@ -43,8 +42,8 @@ export const ChangeHistoryItemSectionHeaderRow: FC<
       data-timestamp={changed
         ?.toInstant()
         .toString({ fractionalSecondDigits: 3 })}
-      data-validity-start={historyItem.validityStart}
-      data-validity-end={historyItem.validityEnd}
+      data-validity-start={historyItem.validityStart?.toString()}
+      data-validity-end={historyItem.validityEnd?.toString()}
     >
       {/* Title spans all the way through the name and value fields */}
       <td

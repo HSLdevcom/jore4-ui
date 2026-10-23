@@ -1,4 +1,5 @@
 import padStart from 'lodash/padStart';
+import { DateLike, parseDate } from './date';
 
 // Formatted by hand, so that the output does not depend on the browser locale.
 
@@ -7,8 +8,11 @@ export function padToTwoDigits(number: number) {
 }
 
 // "shortDate" means format "D.M.YYYY"
-export function mapToShortDate(date?: Temporal.PlainDate | null) {
-  return date ? `${date.day}.${date.month}.${date.year}` : undefined;
+export function mapToShortDate(date?: DateLike | null) {
+  const plainDate = parseDate(date);
+  return plainDate
+    ? `${plainDate.day}.${plainDate.month}.${plainDate.year}`
+    : undefined;
 }
 
 // "shortTime" means format "H.mm"

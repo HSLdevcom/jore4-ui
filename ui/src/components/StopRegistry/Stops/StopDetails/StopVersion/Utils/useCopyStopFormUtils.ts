@@ -26,13 +26,11 @@ function useDefaultValues(
   originalStop: StopWithDetails,
 ): Omit<StopVersionFormState, 'priority'> {
   return useMemo(() => {
-    const validityStart = originalStop.validity_end
-      ?.plus({ days: 1 })
-      .startOf('day');
+    const validityStart = originalStop.validity_end?.add({ days: 1 });
 
     return {
       indefinite: originalStop.validity_end === null,
-      validityStart: validityStart?.toISODate() ?? '',
+      validityStart: validityStart?.toString() ?? '',
       validityEnd: '',
       reasonForChange: null,
     };

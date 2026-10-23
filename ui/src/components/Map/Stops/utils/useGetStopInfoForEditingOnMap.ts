@@ -131,8 +131,8 @@ function parseResult(
     timingPlaceId: timingPlaceInfo?.id ?? null,
 
     priority: Number(requireValue(rawQuay.priority)),
-    validityStart: requireValue(rawQuay.validityStart).toISODate(),
-    validityEnd: rawQuay.validityEnd?.toISODate(),
+    validityStart: requireValue(rawQuay.validityStart).toString(),
+    validityEnd: rawQuay.validityEnd?.toString(),
     indefinite: !rawQuay.validityEnd,
 
     keyValues: rawQuay.keyValues.map((rawKeyValue) => ({

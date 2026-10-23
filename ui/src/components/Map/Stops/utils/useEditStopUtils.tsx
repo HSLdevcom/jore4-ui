@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useLoader,
 } from '../../../../redux';
-import { isDateInRange } from '../../../../time';
+import { isDateInRange } from '../../../../time/date';
 import {
   mapLngLatToGeoJSON,
   showSuccessToast,

@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { mapToShortDate } from '../../../../time';
 import { parseDateTime } from '../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../../time/format';
 import { Priority } from '../../../../types/enums';
 import {
   makeBackNavigationIsSafeState,

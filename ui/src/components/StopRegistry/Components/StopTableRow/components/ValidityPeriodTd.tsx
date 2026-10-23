@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate } from '../../../../../time';
+import { mapToShortDate } from '../../../../../time/format';
 import { StopRowTdProps } from '../types';
 
 export const ValidityPeriodTd: FC<StopRowTdProps> = ({ className, stop }) => {

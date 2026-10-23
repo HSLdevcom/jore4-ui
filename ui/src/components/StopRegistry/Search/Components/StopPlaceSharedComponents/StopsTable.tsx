@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { ComponentType, FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
@@ -18,7 +17,7 @@ const testIds = {
 
 type StopsTableProps = {
   readonly className?: string;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly onBatchUpdateSelection: BatchUpdateSelection;
   readonly onToggleSelection: (rowId: string) => void;
   readonly onRegisterNewGroup: (

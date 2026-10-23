@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
@@ -9,9 +8,9 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
+import { MAX_DATE, MIN_DATE } from '../../../../time/date';
 import { now } from '../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../time/format';
+import { mapToShortDate, mapToShortDateTime } from '../../../../time/format';
 import { makeBackNavigationIsSafeState } from '../../../../utils';
 import {
   mapDirectionToSymbol,
@@ -48,7 +47,7 @@ type RouteRowProps = {
   readonly className?: string;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   readonly hasContinuingVersion: boolean;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly isExpanded: boolean;
   readonly isLast: boolean;
   readonly onToggle: () => void;
@@ -143,7 +142,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
       <div className="col-span-4 flex h-full items-center justify-center gap-2 border-l-4 border-white">
         <EditButton
           href={routeDetails[Path.editRoute].getLink(route.route_id, {
-            observationDate: observationDate.toISODate(),
+            observationDate: observationDate.toString(),
           })}
           testId={testIds.editRouteButton}
           tooltip={t(($) => $.accessibility.routes.editRouteDirection, {

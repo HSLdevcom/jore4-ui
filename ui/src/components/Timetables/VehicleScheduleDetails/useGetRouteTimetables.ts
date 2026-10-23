@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import { isNetworkRequestInFlight } from '@apollo/client/core/networkStatus';
-import { DateTime } from 'luxon';
 import { useEffect, useMemo } from 'react';
 import {
   DayTypeAllFieldsFragment,
@@ -15,7 +14,7 @@ import {
   useAppSelector,
   useLoader,
 } from '../../../redux';
-import { findEarliestTime, findLatestTime } from '../../../time';
+import { findEarliestTime, findLatestTime } from '../../../time/date';
 import { TimetablePriority } from '../../../types/enums';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
@@ -117,8 +116,8 @@ export type VehicleJourneyGroup = {
 };
 
 type Validity = {
-  validityStart: DateTime;
-  validityEnd: DateTime;
+  validityStart: Temporal.PlainDate;
+  validityEnd: Temporal.PlainDate;
 };
 
 /**

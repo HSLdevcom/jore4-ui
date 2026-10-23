@@ -1,5 +1,4 @@
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { RouteDirection } from '../../../../../../types/RouteDirection';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../../../Common/Utils';
@@ -8,8 +7,8 @@ export type VehicleJourneyInfo = {
   readonly vehicleJourneyId: UUID;
   readonly startTime: Temporal.Duration;
   readonly contractNumber: string;
-  readonly validityStart: DateTime;
-  readonly validityEnd: DateTime;
+  readonly validityStart: Temporal.PlainDate;
+  readonly validityEnd: Temporal.PlainDate;
   readonly dayTypeLabel: string;
   readonly dayTypeName: LocalizedString;
   readonly uniqueLabel: string;

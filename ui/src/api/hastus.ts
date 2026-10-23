@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { DateTime } from 'luxon';
 import {
   roleHeaderMap,
   userHasuraRole,
@@ -16,7 +15,7 @@ type ExportBody = CommonExportParams & {
 };
 
 type ExportParams = CommonExportParams & {
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 // See fi.hsl.jore4.hastus.api.util.HastusApiErrorType enum in the jore4-hastus repository.
@@ -53,7 +52,7 @@ export function exportRoutesToHastus({
   return exportRoutes({
     uniqueLabels,
     priority,
-    observationDate: observationDate.toISODate(),
+    observationDate: observationDate.toString(),
   });
 }
 

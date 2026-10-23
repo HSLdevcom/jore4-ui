@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import { useGetTodaysNameForLineQuery } from '../../../../../generated/graphql';
+import { today } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 
 const GQL_GET_TODAYS_NAME_FOR_LINE = gql`
@@ -24,8 +25,9 @@ const GQL_GET_TODAYS_NAME_FOR_LINE = gql`
 `;
 
 export function useGetTodaysNameForLine(label: string, priority: Priority) {
+  const todayDate = useMemo(today, []);
   const { data, ...rest } = useGetTodaysNameForLineQuery({
-    variables: { label, priority, today: DateTime.now().startOf('day') },
+    variables: { label, priority, today: todayDate },
   });
 
   const todaysNameForLine = data?.route_line.at(0)?.name_i18n ?? null;

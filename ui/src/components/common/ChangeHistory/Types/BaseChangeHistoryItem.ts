@@ -1,4 +1,4 @@
-import { DateLike } from '../../../../time';
+import { DateLike } from '../../../../time/date';
 import { DateTimeLike } from '../../../../time/dateTime';
 
 export type BaseChangeHistoryItemDetails = {

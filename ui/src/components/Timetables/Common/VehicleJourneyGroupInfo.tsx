@@ -1,5 +1,4 @@
 import orderBy from 'lodash/orderBy';
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
@@ -8,8 +7,7 @@ import {
   openChangeTimetableValidityModalAction,
   useAppDispatch,
 } from '../../../redux';
-import { mapToShortDate } from '../../../time';
-import { mapDurationToShortTime } from '../../../time/format';
+import { mapDurationToShortTime, mapToShortDate } from '../../../time/format';
 import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { IconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
@@ -27,8 +25,8 @@ export type VehicleJourneyGroupInfoProps = {
   readonly vehicleJourneys: ReadonlyArray<
     Pick<VehicleJourneyWithServiceFragment, 'start_time'>
   > | null;
-  readonly validityStart: DateTime;
-  readonly validityEnd: DateTime;
+  readonly validityStart: Temporal.PlainDate;
+  readonly validityEnd: Temporal.PlainDate;
   readonly dayTypeNameI18n: LocalizedString;
   readonly className?: string;
 };

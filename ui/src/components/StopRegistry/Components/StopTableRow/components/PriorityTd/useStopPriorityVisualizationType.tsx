@@ -1,7 +1,7 @@
 import { gql, skipToken } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../../generated/graphql';
+import { today as getToday } from '../../../../../../time/date';
 import { Priority } from '../../../../../../types/enums';
 import { StopSearchRow } from '../../types';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
@@ -46,11 +46,9 @@ export function useStopPriorityVisualizationType({
 }: StopSearchRow): PriorityVisualizationType {
   const isDraft = priority === Priority.Draft;
   const isEnding =
-    !validityEnd ||
-    validityEnd.diff(DateTime.now().startOf('day'), 'days').get('days') <
-      ABOUT_TO_END_THRESHOLD;
+    !validityEnd || getToday().until(validityEnd).days < ABOUT_TO_END_THRESHOLD;
 
-  const today = useMemo(() => DateTime.now().startOf('day'), []);
+  const today = useMemo(() => getToday(), []);
   const validAfter = validityEnd ?? today;
 
   const { data } = useDoesStopHaveNextValidAlternativeSuspenseQuery(

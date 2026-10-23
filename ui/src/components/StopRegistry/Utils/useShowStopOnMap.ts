@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { useObservationDateQueryParam } from '../../../hooks';
 import {
   MapEntityEditorViewState,
@@ -26,7 +25,7 @@ export function useShowStopOnMap() {
 
   return (
     { netexId, location, priority, transportMode }: LocatableStop,
-    observeOnDate: DateTime | null = null,
+    observeOnDate: Temporal.PlainDate | null = null,
   ) => {
     dispatch(resetMapState()).then(() => {
       if (netexId) {

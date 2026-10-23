@@ -16,6 +16,7 @@ import {
   useEditStopMutation,
   useEditStopPlaceMutation,
 } from '../../../../generated/graphql';
+import { parseDate } from '../../../../time/date';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -198,10 +199,12 @@ function useGetConflictingStopsOnPrepare() {
       {
         label,
         priority: patch.priority ?? existing.priority,
-        validityStart:
-          defaultTo(patch.validity_start, existing.validity_start) ?? undefined,
-        validityEnd:
-          defaultTo(patch.validity_end, existing.validity_end) ?? undefined,
+        validityStart: parseDate(
+          defaultTo(patch.validity_start, existing.validity_start),
+        ),
+        validityEnd: parseDate(
+          defaultTo(patch.validity_end, existing.validity_end),
+        ),
       },
       stopId,
     );

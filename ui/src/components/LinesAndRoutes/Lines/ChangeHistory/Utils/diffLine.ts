@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import { mapToShortDate } from '../../../../../time';
+import { mapToShortDate } from '../../../../../time/format';
 import {
   mapLineTypeToUiName,
   mapPriorityToUiName,
@@ -57,14 +57,14 @@ export function diffLine(
       field: t(($) => $.changeHistory.tableHeaders.validityStart),
       oldValue: previous.validity_start,
       newValue: current.validity_start,
-      mapper: mapToShortDate,
+      mapper: (date) => mapToShortDate(date),
     }),
     diffKeyedValues({
       key: 'ValidityEnd',
       field: t(($) => $.changeHistory.tableHeaders.validityEnd),
       oldValue: previous.validity_end,
       newValue: current.validity_end,
-      mapper: mapToShortDate,
+      mapper: (date) => mapToShortDate(date),
     }),
     diffKeyedValues({
       key: 'Priority',

@@ -1,5 +1,5 @@
 import { QuayDetailsFragment } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
 import { KnownValueKey, findKeyValue } from '../../../../../../utils';
 import { BidirectionalQuayMap } from '../types';
 
@@ -21,13 +21,13 @@ function matchQuayDates(
   const startsOneDayAfterOldEnd =
     !!oldQuayValidityEnd &&
     parseDate(newQuayValidityStart).equals(
-      parseDate(oldQuayValidityEnd).plus({ days: 1 }),
+      parseDate(oldQuayValidityEnd).add({ days: 1 }),
     );
 
   const endsOneDayBeforeOldStart =
     !!newQuayValidityEnd &&
     parseDate(newQuayValidityEnd).equals(
-      parseDate(oldQuayValidityStart).minus({ days: 1 }),
+      parseDate(oldQuayValidityStart).subtract({ days: 1 }),
     );
 
   return startsOneDayAfterOldEnd || endsOneDayBeforeOldStart;

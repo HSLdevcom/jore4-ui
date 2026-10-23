@@ -3,7 +3,8 @@ import {
   JourneyPatternRouteFieldsFragment,
   QuayDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
+import { TIME_ZONE } from '../../../../../../time/dateTime';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { useGetJourneyPatternsOfStopPointDuringTimePeriod } from '../../Queries/useGetJourneyPatternsOfStopPointDuringTimePeriod';
 import { useGetStopAreaVersionsLazy } from '../../Queries/useGetStopAreaVersions';
@@ -39,7 +40,8 @@ function getEarliestRouteStartDate(
 ): number {
   return routes.reduce((earliest, route) => {
     const routeStart =
-      route.validity_start?.toMillis() ?? Number.NEGATIVE_INFINITY;
+      route.validity_start?.toZonedDateTime(TIME_ZONE).epochMilliseconds ??
+      Number.NEGATIVE_INFINITY;
 
     return routeStart < earliest ? routeStart : earliest;
   }, Number.POSITIVE_INFINITY);
@@ -49,7 +51,9 @@ function getLatestRouteEndDate(
   routes: ReadonlyArray<JourneyPatternRouteFieldsFragment>,
 ): number {
   return routes.reduce((latest, route) => {
-    const routeEnd = route.validity_end?.toMillis() ?? Number.POSITIVE_INFINITY;
+    const routeEnd =
+      route.validity_end?.toZonedDateTime(TIME_ZONE).epochMilliseconds ??
+      Number.POSITIVE_INFINITY;
 
     return routeEnd > latest ? routeEnd : latest;
   }, Number.NEGATIVE_INFINITY);
@@ -80,9 +84,13 @@ export function useAssertForCopyStopArea() {
       return true;
     }
 
-    const stopPointStartDateMillis = parseDate(stopPointStartDate).toMillis();
+    const stopPointStartDateMillis =
+      parseDate(stopPointStartDate).toZonedDateTime(
+        TIME_ZONE,
+      ).epochMilliseconds;
     const stopPointEndDateMillis =
-      parseDate(stopPointEndDate)?.toMillis() ?? Number.POSITIVE_INFINITY;
+      parseDate(stopPointEndDate)?.toZonedDateTime(TIME_ZONE)
+        .epochMilliseconds ?? Number.POSITIVE_INFINITY;
 
     if (
       !isStopPointValidityShortened(
@@ -112,9 +120,11 @@ export function useAssertForCopyStopArea() {
       return false;
     }
 
-    const cutStartMillis = parseDate(cutStartDate).toMillis();
+    const cutStartMillis =
+      parseDate(cutStartDate).toZonedDateTime(TIME_ZONE).epochMilliseconds;
     const cutEndMillis =
-      parseDate(cutEndDate)?.toMillis() ?? Number.POSITIVE_INFINITY;
+      parseDate(cutEndDate)?.toZonedDateTime(TIME_ZONE).epochMilliseconds ??
+      Number.POSITIVE_INFINITY;
 
     // For comparison, take the earliest start date and the latest end date. When handling
     // cut start date and stop point start date, we want to use the more limiting of these
@@ -156,14 +166,18 @@ export function useAssertForCopyStopArea() {
       (v) => v.netexId !== currentVersionNetexId,
     );
 
-    const currentStart = parseDate(validityStart).toMillis();
+    const currentStart =
+      parseDate(validityStart).toZonedDateTime(TIME_ZONE).epochMilliseconds;
     const currentEnd =
-      parseDate(validityEnd)?.toMillis() ?? Number.POSITIVE_INFINITY;
+      parseDate(validityEnd)?.toZonedDateTime(TIME_ZONE).epochMilliseconds ??
+      Number.POSITIVE_INFINITY;
 
     const overlap = currentVersionRemoved.some((version) => {
-      const versionStart = version.validityStart.toMillis();
+      const versionStart =
+        version.validityStart.toZonedDateTime(TIME_ZONE).epochMilliseconds;
       const versionEnd =
-        version.validityEnd?.toMillis() ?? Number.POSITIVE_INFINITY;
+        version.validityEnd?.toZonedDateTime(TIME_ZONE).epochMilliseconds ??
+        Number.POSITIVE_INFINITY;
 
       //    If the new one ends before the current one has even started → No overlap
       // or If the new one starts after the current one has ended → No overlap
@@ -189,9 +203,11 @@ export function useAssertForCopyStopArea() {
     newStartDate: string,
     newEndDate: string | null,
   ): Promise<void> => {
-    const newStartDateMillis = parseDate(newStartDate).toMillis();
+    const newStartDateMillis =
+      parseDate(newStartDate).toZonedDateTime(TIME_ZONE).epochMilliseconds;
     const newEndDateMillis =
-      parseDate(newEndDate)?.toMillis() ?? Number.POSITIVE_INFINITY;
+      parseDate(newEndDate)?.toZonedDateTime(TIME_ZONE).epochMilliseconds ??
+      Number.POSITIVE_INFINITY;
 
     const allQuays = compact(stopArea.quays);
     const quayCheckPromises = allQuays.map(async (quay) =>

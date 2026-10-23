@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
   RouteRouteBoolExp,
@@ -30,7 +29,7 @@ const GQL_GET_ROUTE_CONTINUATION_CANDIDATES = gql`
 `;
 
 type RouteVersion = RouteVersionKey &
-  VersionedEntity & { readonly validity_end?: DateTime | null };
+  VersionedEntity & { readonly validity_end?: Temporal.PlainDate | null };
 
 function buildRouteContinuationFilter(route: RouteVersion): RouteRouteBoolExp {
   return {

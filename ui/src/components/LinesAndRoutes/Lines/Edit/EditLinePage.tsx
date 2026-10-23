@@ -7,7 +7,7 @@ import {
 } from '../../../../generated/graphql';
 import { Operation, useLoader } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { mapToISODate } from '../../../../time';
+import { mapToISODate } from '../../../../time/date';
 import {
   defaultLocalizedString,
   getTransportModeIcon,

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
-import { DateLike, mapToShortDate } from '../../../../time';
+import { mapToShortDate } from '../../../../time/format';
 import { Priority } from '../../../../types/enums';
 import { mapPriorityToUiName } from '../../../../utils/i18n';
 import { Row } from '../../../common/LayoutComponents';
@@ -12,8 +12,8 @@ const testIds = {
 };
 
 function buildValidityPeriod(
-  validityStart?: DateLike | null,
-  validityEnd?: DateLike | null,
+  validityStart?: Temporal.PlainDate | null,
+  validityEnd?: Temporal.PlainDate | null,
 ) {
   return `${mapToShortDate(validityStart) ?? ''} - ${
     mapToShortDate(validityEnd) ?? ''

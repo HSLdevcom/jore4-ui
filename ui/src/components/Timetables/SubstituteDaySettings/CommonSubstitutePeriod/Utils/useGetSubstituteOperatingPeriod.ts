@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   GetSubstituteOperatingPeriodsQueryVariables,
@@ -47,8 +46,8 @@ const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
 `;
 
 type DateRange = {
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
 };
 
 function useGetSubstituteOperatingPeriods({
@@ -60,31 +59,11 @@ function useGetSubstituteOperatingPeriods({
     variables: {
       isPreset,
 
-      // TODO: Find better fix === stabilize inputs
-      // Hack to fix Luxon.DateTime⋄Apollo cache interaction.
-      // Same problem exists everywhere where raw DateTime is used to represent
-      // a Postgres `date` type in a query variable. But this is the only
-      // one that is currently actively triggering a race condition in E2E tests.
-
-      // Simple description of the problem: Initially Apollo.useQuery tries
-      // to refetch the potentially previously fetched data from its cache
-      // serialising the variables into a cache key. This process eventually
-      // calls DateTime.prototype.toJSON() to serialize the date+time into full
-      // ISO 8601 date-time string. But after the actual query is made and
-      // dispatched into the Apollo Link-chain, the DateTime's get serialised
-      // into date only ISO 8601 string by calling `DateTime.prototype.toISODate()`
-      // as per apollo-link-scalars config.
-      // Thus, the 'read-data' and 'write-data' cache keys do not match, and
-      // sometimes, under yet fully understood conditions, wrong/stale data can
-      // get written in the cache as Apollo can't match the request to the network
-      // response.
-
-      // Fix: Manually perform the date serializations before handing the variables
-      // to Apollo at all. Casts are needed to mask as the GraphQL type generator
-      // has been configured not to accept string as input for the PostgeSQL
-      // `date` type.
-      startDate: startDate.toISODate() as unknown as DateTime,
-      endDate: endDate.toISODate() as unknown as DateTime,
+      // Pass the dates as ISO date strings to keep the variables stable:
+      // Apollo compares variables by value, and two distinct but equal
+      // Temporal.PlainDates are never equal.
+      startDate: startDate.toString(),
+      endDate: endDate.toString(),
     },
   });
 

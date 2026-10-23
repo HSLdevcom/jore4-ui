@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -15,7 +14,7 @@ type LineDetailsButtonProps = {
   readonly lineId: UUID;
   readonly label: string;
   readonly routeLabel?: string;
-  readonly observationDate?: DateTime;
+  readonly observationDate?: Temporal.PlainDate;
   readonly className?: string;
 };
 
