@@ -27,7 +27,7 @@ const temporalSyntax: ReadonlyArray<RestrictedSyntax> = [
   {
     selector: `CallExpression[callee.name=${LODASH_ORDERING_FN}] > Literal.arguments[value=${DATE_FIELD}], CallExpression[callee.name=${LODASH_ORDERING_FN}] > ArrayExpression.arguments > Literal[value=${DATE_FIELD}]`,
     message:
-      'Ordering dates/times/durations by a property path compares them with valueOf(), which throws for Temporal objects. Use an explicit comparator (compareDates, compareDateTimes, …) or a numeric key (e.g. durationToSeconds) instead.',
+      'Ordering dates/times/durations by a property path compares them with valueOf(), which throws for Temporal objects. Use an explicit comparator (e.g. Temporal.PlainDate.compare) or a numeric key (e.g. duration.total("seconds")) instead.',
   },
 ];
 
