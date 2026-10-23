@@ -87,8 +87,7 @@ export const LineDetailsByIdPage: FC = () => {
     selectIsTimingSettingsModalOpen,
   );
 
-  const isRouteCreationAllowed =
-    line && !isPastEntity(today().add({ days: 1 }), line);
+  const isRouteCreationAllowed = line && !isPastEntity(today(), line);
   const onCreateRoute = isRouteCreationAllowed
     ? () => createRoute(line)
     : undefined;

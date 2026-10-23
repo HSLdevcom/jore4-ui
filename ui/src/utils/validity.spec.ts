@@ -1,5 +1,5 @@
 import { TFunction, keyFromSelector } from 'i18next';
-import { isEndingSoon, mapToValidityPeriod } from './validity';
+import { isEndingSoon, isPastEntity, mapToValidityPeriod } from './validity';
 
 function mockT(selector: ExplicitAny) {
   return keyFromSelector(selector);
@@ -52,4 +52,23 @@ describe(`${isEndingSoon.name}()`, () => {
       expect(isEndingSoon(validityEnd)).toBe(expected);
     },
   );
+});
+
+describe(`${isPastEntity.name}()`, () => {
+  const observationDate = Temporal.PlainDate.from('2024-06-15');
+  const endingOn = (date: string | null) => ({
+    validity_end: date ? Temporal.PlainDate.from(date) : null,
+  });
+
+  test('is not past on the last day of validity', () => {
+    expect(isPastEntity(observationDate, endingOn('2024-06-15'))).toBe(false);
+  });
+
+  test('is past after the last day of validity', () => {
+    expect(isPastEntity(observationDate, endingOn('2024-06-14'))).toBe(true);
+  });
+
+  test('is never past with an indefinite validity', () => {
+    expect(isPastEntity(observationDate, endingOn(null))).toBe(false);
+  });
 });
