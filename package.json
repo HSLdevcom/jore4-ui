@@ -4,9 +4,15 @@
   "private": true,
   "license": "EUPL-1.2",
   "engines": {
-    "node": "^26.12.1",
-    "yarn": "1.x"
+    "node": "^26.12.1"
   },
+  "devEngines": {
+    "packageManager": {
+      "name": "yarn",
+      "version": "^4.18.1"
+    }
+  },
+  "packageManager": "yarn@4.18.1+sha512.b2e1e7524f654f2749d32b4ebcb4622473cb5bcbc485df2007e12a154e50162a4d795526768bc5f5b8f81717bfd79deb2472813d86fb5ae2eb551fa9c872b08f",
   "scripts": {
     "ws:codegen": "yarn workspace @hsl/jore4-codegen",
     "ws:db": "yarn workspace @hsl/jore4-test-db-manager",
@@ -25,9 +31,10 @@
     "test:e2e:fast": "yarn test:e2e --config-file cypress.config.fast.ts",
     "test:e2e:open": "yarn check-hasura-metadata --e2e && yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && CYPRESS=true yarn ws:e2e cypress open",
     "test:e2e:list": "yarn ws:e2e print-tests 'e2e/**.cy.ts'",
-    "qa": "yarn --frozen-lockfile && yarn ws:db build && yarn ws:tdi  timetables-data-inserter:build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e",
+    "qa": "yarn --immutable && yarn ws:db build && yarn ws:tdi  timetables-data-inserter:build && yarn ts:check && yarn prettier:check && yarn lint && yarn test && yarn test:integration && yarn test:e2e",
     "qa:fast": "yarn qa --config-file cypress.config.fast.ts",
-    "qa:fix": "yarn lint --fix --cache && yarn prettier --log-level warn --cache"
+    "qa:fix": "yarn lint --fix --cache && yarn prettier --log-level warn --cache",
+    "cypress": "yarn ws:e2e cypress"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
@@ -57,7 +64,7 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "ts-jest": "^29.4.15",
     "ts-node": "^10.9.2",
-    "typescript": "^6.0.3",
+    "typescript": "catalog:",
     "typescript-eslint": "^8.72.0",
     "zod": "^3.25.76"
   },

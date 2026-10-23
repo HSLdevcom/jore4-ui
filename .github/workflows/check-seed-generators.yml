@@ -23,6 +23,9 @@ jobs:
           custom_docker_compose: ./docker/docker-compose.custom.yml
           tiamat_version: 'crjore4prod001.azurecr.io/jore4-tiamat:rebasing-2026-10-21-566c9fe787201ef3ea44c21bf0ce93080ad51754'
 
+      - name: Enable corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v7
         with:
           node-version-file: package.json
@@ -30,7 +33,7 @@ jobs:
 
       - name: Install node_modules
         # making sure that we do have the proper set of node_modules installed regardless of what's cached
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build test-db-manager
         run: yarn ws:db build
