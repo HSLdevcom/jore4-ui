@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { parseDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
 import { getValidityContainmentViolation } from '../../../../../utils';
 import { mapDateInputToValidityEnd } from '../../../../common/Forms';
 import {

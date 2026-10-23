@@ -9,6 +9,7 @@ import {
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
 } from '../../../../generated/graphql';
+import { parseDate } from '../../../../time/date';
 import {
   IncompatibleWithExistingRoutesError,
   KnownValueKey,
@@ -92,8 +93,8 @@ export function usePrepareCreate() {
           // these form values always exist
           label: stopPoint.label,
           priority: stopPoint.priority,
-          validityStart: stopPoint.validity_start ?? undefined,
-          validityEnd: stopPoint.validity_end ?? undefined,
+          validityStart: parseDate(stopPoint.validity_start),
+          validityEnd: parseDate(stopPoint.validity_end),
         }),
 
         // we need to fetch the infra link and direction for the stop

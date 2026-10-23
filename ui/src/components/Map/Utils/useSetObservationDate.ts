@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isDateInRange, parseDate } from '../../../time';
+import { isDateInRange, parseDate } from '../../../time/date';
 import { EnrichedParentStopPlace, EnrichedStopPlace } from '../../../types';
 import { showWarningToast } from '../../../utils';
 import { useMapUrlStateContext } from './mapUrlState';

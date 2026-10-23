@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useObservationDateQueryParam } from '../../../hooks';
 import { ObservationDateInput } from '../Inputs';
@@ -25,12 +24,7 @@ export const ObservationDateControl: FC<ObservationDateControlProps> = ({
 }) => {
   const { observationDate, setObservationDateToUrl } =
     useObservationDateQueryParam();
-  const onDateChange = (date: DateTime) => {
-    // Do not allow setting empty value to observation date
-    if (!date.isValid) {
-      return;
-    }
-
+  const onDateChange = (date: Temporal.PlainDate) => {
     setObservationDateToUrl(date);
   };
 

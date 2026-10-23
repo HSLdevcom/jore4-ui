@@ -5,7 +5,6 @@ import {
   buildLocalizedString,
 } from '@hsl/jore4-test-db-manager';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime } from 'luxon';
 import {
   RouteDirectionEnum,
   VehicleJourneyWithRouteInfoFragment,
@@ -70,8 +69,8 @@ const route35ReturnJourneyPatternRef: VehicleJourneyWithRouteInfoFragment['journ
 const testFrame1: VehicleScheduleFrameWithRouteInfoFragment = {
   vehicle_schedule_frame_id: '0d55f677-d8c5-4917-b73d-a055411d96f3',
   label: 'SUMMER_SCHEDULES',
-  validity_start: DateTime.fromISO('2023-06-01'),
-  validity_end: DateTime.fromISO('2023-08-31'),
+  validity_start: Temporal.PlainDate.from('2023-06-01'),
+  validity_end: Temporal.PlainDate.from('2023-08-31'),
   name_i18n: buildLocalizedString('Summer schedules'),
   priority: TimetablePriority.Standard,
   vehicle_services: [
@@ -153,8 +152,8 @@ const testFrame1: VehicleScheduleFrameWithRouteInfoFragment = {
 const testFrame2: VehicleScheduleFrameWithRouteInfoFragment = {
   vehicle_schedule_frame_id: '3014ef8b-7e1e-43f5-a9ec-5e2e2dfb69d5',
   label: 'AUTUMN_SCHEDULES',
-  validity_start: DateTime.fromISO('2023-09-01'),
-  validity_end: DateTime.fromISO('2023-12-31'),
+  validity_start: Temporal.PlainDate.from('2023-09-01'),
+  validity_end: Temporal.PlainDate.from('2023-12-31'),
   name_i18n: buildLocalizedString('Autumn schedules'),
   priority: TimetablePriority.Standard,
   vehicle_services: [

@@ -1,8 +1,7 @@
-import { DateTime } from 'luxon';
 import { Priority } from '../../../../types/enums';
 
 export type ChangeHistoryFilters = {
-  readonly from: DateTime;
-  readonly to: DateTime;
+  readonly from: Temporal.PlainDate;
+  readonly to: Temporal.PlainDate;
   readonly priority: Priority;
 };

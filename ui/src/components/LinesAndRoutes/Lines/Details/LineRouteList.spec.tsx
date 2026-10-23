@@ -1,6 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, screen, within } from '@testing-library/react';
-import { DateTime } from 'luxon';
 import { act } from 'react';
 import {
   GetRouteDetailsByIdDocument,
@@ -40,8 +39,8 @@ describe(`<${LineRouteList.name} />`, () => {
       result: {
         data: {
           route_route_by_pk: {
-            validity_start: DateTime.fromISO('2000-01-01'),
-            validity_end: DateTime.fromISO('2050-12-13'),
+            validity_start: Temporal.PlainDate.from('2000-01-01'),
+            validity_end: Temporal.PlainDate.from('2050-12-13'),
             priority: 10,
             __typename: 'route_route',
             label: '65x',
@@ -86,8 +85,8 @@ describe(`<${LineRouteList.name} />`, () => {
                 sv_FI: 'Rautatientori - Veräjälaakso short SV',
               },
               description: 'Description kenttä',
-              validity_start: DateTime.fromISO('2000-01-01'),
-              validity_end: DateTime.fromISO('2050-12-13'),
+              validity_start: Temporal.PlainDate.from('2000-01-01'),
+              validity_end: Temporal.PlainDate.from('2050-12-13'),
               priority: 10,
               __typename: 'route_line',
               primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
@@ -141,8 +140,8 @@ describe(`<${LineRouteList.name} />`, () => {
                         timing_place_id: 'd094b604-3860-4e2f-a601-9dad6f9827b9',
                         label: '1KOSKS',
                       },
-                      validity_start: DateTime.fromISO('2000-01-01'),
-                      validity_end: DateTime.fromISO('2050-12-13'),
+                      validity_start: Temporal.PlainDate.from('2000-01-01'),
+                      validity_end: Temporal.PlainDate.from('2050-12-13'),
                       located_on_infrastructure_link_id:
                         'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                       point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -222,8 +221,8 @@ describe(`<${LineRouteList.name} />`, () => {
                               'd094b604-3860-4e2f-a601-9dad6f9827b9',
                             label: '1KOSKS',
                           },
-                          validity_start: DateTime.fromISO('2000-01-01'),
-                          validity_end: DateTime.fromISO('2050-12-13'),
+                          validity_start: Temporal.PlainDate.from('2000-01-01'),
+                          validity_end: Temporal.PlainDate.from('2050-12-13'),
                           located_on_infrastructure_link_id:
                             'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                           point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -280,8 +279,8 @@ describe(`<${LineRouteList.name} />`, () => {
                         timing_place_id: '651a693b-b18b-4daa-a6da-c3677bfd2113',
                         label: '1OLK',
                       },
-                      validity_start: DateTime.fromISO('2000-01-01'),
-                      validity_end: DateTime.fromISO('2050-12-13'),
+                      validity_start: Temporal.PlainDate.from('2000-01-01'),
+                      validity_end: Temporal.PlainDate.from('2050-12-13'),
                       located_on_infrastructure_link_id:
                         '2feba2ae-c7af-4034-a299-9e592e67358f',
                       point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -349,8 +348,8 @@ describe(`<${LineRouteList.name} />`, () => {
                               '651a693b-b18b-4daa-a6da-c3677bfd2113',
                             label: '1OLK',
                           },
-                          validity_start: DateTime.fromISO('2000-01-01'),
-                          validity_end: DateTime.fromISO('2050-12-13'),
+                          validity_start: Temporal.PlainDate.from('2000-01-01'),
+                          validity_end: Temporal.PlainDate.from('2050-12-13'),
                           located_on_infrastructure_link_id:
                             '2feba2ae-c7af-4034-a299-9e592e67358f',
                           point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -407,8 +406,8 @@ describe(`<${LineRouteList.name} />`, () => {
                         timing_place_id: '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                         label: '1ESIM',
                       },
-                      validity_start: DateTime.fromISO('2000-01-01'),
-                      validity_end: DateTime.fromISO('2050-12-13'),
+                      validity_start: Temporal.PlainDate.from('2000-01-01'),
+                      validity_end: Temporal.PlainDate.from('2050-12-13'),
                       located_on_infrastructure_link_id:
                         'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                       point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -468,8 +467,8 @@ describe(`<${LineRouteList.name} />`, () => {
                               '77dcdda2-bfc4-4aec-b24d-0dcff317857d',
                             label: '1ESIM',
                           },
-                          validity_start: DateTime.fromISO('2000-01-01'),
-                          validity_end: DateTime.fromISO('2050-12-13'),
+                          validity_start: Temporal.PlainDate.from('2000-01-01'),
+                          validity_end: Temporal.PlainDate.from('2050-12-13'),
                           located_on_infrastructure_link_id:
                             'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                           point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -521,8 +520,8 @@ describe(`<${LineRouteList.name} />`, () => {
                             'd094b604-3860-4e2f-a601-9dad6f9827b9',
                           label: '1KOSKS',
                         },
-                        validity_start: DateTime.fromISO('2000-01-01'),
-                        validity_end: DateTime.fromISO('2050-12-13'),
+                        validity_start: Temporal.PlainDate.from('2000-01-01'),
+                        validity_end: Temporal.PlainDate.from('2050-12-13'),
                         located_on_infrastructure_link_id:
                           'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                         point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -563,8 +562,8 @@ describe(`<${LineRouteList.name} />`, () => {
                             '651a693b-b18b-4daa-a6da-c3677bfd2113',
                           label: '1ESIM',
                         },
-                        validity_start: DateTime.fromISO('2000-01-01'),
-                        validity_end: DateTime.fromISO('2050-12-13'),
+                        validity_start: Temporal.PlainDate.from('2000-01-01'),
+                        validity_end: Temporal.PlainDate.from('2050-12-13'),
                         located_on_infrastructure_link_id:
                           'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                         point_type: ServicePatternPointTypeEnum.TimingPoint,
@@ -584,8 +583,8 @@ describe(`<${LineRouteList.name} />`, () => {
 
   const routes = [
     {
-      validity_start: DateTime.fromISO('2000-01-01'),
-      validity_end: DateTime.fromISO('2050-12-13'),
+      validity_start: Temporal.PlainDate.from('2000-01-01'),
+      validity_end: Temporal.PlainDate.from('2050-12-13'),
       priority: 10,
       label: '65x',
       direction: RouteDirection.Outbound,

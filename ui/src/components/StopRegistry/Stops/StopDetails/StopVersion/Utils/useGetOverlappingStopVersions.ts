@@ -6,7 +6,7 @@ import {
   GetOverlappingStopVersionsQueryVariables,
   ServicePatternScheduledStopPointBoolExp,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
 import { OverlappingStopVersionResult } from '../Types/OverlappingStopVersionResult';
 
 const GQL_GET_OVERLAPPING_STOP_VERSIONS_QUERY = gql`

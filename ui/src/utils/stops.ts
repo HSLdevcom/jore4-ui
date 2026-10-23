@@ -1,6 +1,5 @@
 import groupBy from 'lodash/groupBy';
 import maxBy from 'lodash/maxBy';
-import { DateTime } from 'luxon';
 import { FilterableStopInfo } from '../types';
 import { Priority } from '../types/enums';
 import { isCurrentEntity } from './validity';
@@ -18,7 +17,7 @@ export function filterHighestPriorityCurrentStops<
   TStop extends FilterableStopInfo,
 >(
   stops: ReadonlyArray<TStop>,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   allowDrafts = false,
 ): Array<TStop> {
   // Get all current stops, remove drafts if they are not allowed

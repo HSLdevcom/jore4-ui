@@ -5,7 +5,7 @@ import {
   StopRegistryNameType,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time';
+import { mapToShortDate } from '../../../../../time/format';
 import {
   KnownValueKey,
   findAlternativeName,
@@ -47,14 +47,14 @@ export function diffTerminalBasicDetails(
       field: t(($) => $.changeHistory.tableHeaders.validityStart),
       oldValue: findKeyValue(previous, KnownValueKey.ValidityStart),
       newValue: findKeyValue(current, KnownValueKey.ValidityStart),
-      mapper: mapToShortDate,
+      mapper: (v) => mapToShortDate(v),
     }),
     diffKeyedValues({
       key: 'ValidityEnd',
       field: t(($) => $.changeHistory.tableHeaders.validityEnd),
       oldValue: findKeyValue(previous, KnownValueKey.ValidityEnd),
       newValue: findKeyValue(current, KnownValueKey.ValidityEnd),
-      mapper: mapToShortDate,
+      mapper: (v) => mapToShortDate(v),
     }),
 
     diffKeyedValues({

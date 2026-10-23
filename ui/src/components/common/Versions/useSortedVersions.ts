@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTimeLike, parseDateTime } from '../../../time/dateTime';
@@ -9,8 +8,8 @@ import { VersionStatus } from './VersionStatus';
 
 type VersionWithSortableFields = {
   readonly status: VersionStatus;
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime | null;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate | null;
   readonly version_comment: string;
   readonly changed: DateTimeLike | null;
   readonly changedByUserName: string | null;
@@ -35,10 +34,6 @@ function compareNullable<T>(
   }
 
   return compare(dateA, dateB);
-}
-
-function compareDates(a: DateTime, b: DateTime) {
-  return a.valueOf() - b.valueOf();
 }
 
 // Route version has ZonedDateTime, stop version has string
@@ -68,13 +63,13 @@ export function useSortedVersions<TVersion extends VersionWithSortableFields>(
           return compareNullable(
             a.validity_start,
             b.validity_start,
-            compareDates,
+            Temporal.PlainDate.compare,
           );
         case 'VALIDITY_END':
           return compareNullable(
             a.validity_end,
             b.validity_end,
-            compareDates,
+            Temporal.PlainDate.compare,
             true,
           );
         case 'VERSION_COMMENT':

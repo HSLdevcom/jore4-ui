@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useState } from 'react';
 import {
   RouteAllFieldsFragment,
@@ -43,7 +42,7 @@ const GQL_GET_SELECTED_ROUTE_DETAILS_BY_ID = gql`
 
 type Props = {
   readonly query: string;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly priorities: ReadonlyArray<Priority>;
   readonly routeId?: string;
 };

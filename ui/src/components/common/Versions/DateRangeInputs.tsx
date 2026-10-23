@@ -1,6 +1,3 @@
-import max from 'lodash/max';
-import min from 'lodash/min';
-import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
@@ -26,16 +23,22 @@ export const DateRangeInputs: FC<DateRangeInputsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const onStartDateChange = (newFromDate: DateTime) => {
+  const onStartDateChange = (newFromDate: Temporal.PlainDate) => {
     setDateRange((prevState) => ({
       startDate: newFromDate,
-      endDate: max([newFromDate, prevState.endDate]) as DateTime,
+      endDate:
+        Temporal.PlainDate.compare(newFromDate, prevState.endDate) > 0
+          ? newFromDate
+          : prevState.endDate,
     }));
   };
 
-  const onEndDateChange = (newToDate: DateTime) => {
+  const onEndDateChange = (newToDate: Temporal.PlainDate) => {
     setDateRange((prevState) => ({
-      startDate: min([prevState.startDate, newToDate]) as DateTime,
+      startDate:
+        Temporal.PlainDate.compare(prevState.startDate, newToDate) > 0
+          ? newToDate
+          : prevState.startDate,
       endDate: newToDate,
     }));
   };

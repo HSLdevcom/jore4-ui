@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEntityType, Operation, useLoader } from '../../../../redux';
-import { isDateInRange } from '../../../../time';
+import { isDateInRange, parseDate } from '../../../../time/date';
 import { showSuccessToast, showWarningToast } from '../../../../utils';
 import { useMapUrlStateContext } from '../../Utils/mapUrlState';
 import { useEnsureMapEntityTypeVisible } from '../../Utils/useEnsureMapEntityTypeVisible';
@@ -52,15 +52,15 @@ export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
       if (
         !isDateInRange(
           observationDate,
-          changes.stopPoint.validity_start,
-          changes.stopPoint.validity_end,
+          parseDate(changes.stopPoint.validity_start),
+          parseDate(changes.stopPoint.validity_end),
         )
       ) {
         setFlatUrlState((p) => ({
           ...p,
           observationDate:
-            changes.stopPoint.validity_start ??
-            changes.stopPoint.validity_end ??
+            parseDate(changes.stopPoint.validity_start) ??
+            parseDate(changes.stopPoint.validity_end) ??
             observationDate,
         }));
         showWarningToast(t(($) => $.filters.observationDateAdjusted));

@@ -1,8 +1,7 @@
-import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ValidityPeriod } from '../../generated/graphql';
-import { isDateInRange } from '../../time';
+import { isDateInRange, today } from '../../time/date';
 import { showWarningToast } from '../../utils';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
@@ -21,7 +20,7 @@ export function useObservationDateQueryParam(
     useUrlQuery();
   const { t } = useTranslation();
 
-  const [defaultDate] = useState(DateTime.now().startOf('day'));
+  const [defaultDate] = useState(today);
 
   /** Sets observationDate to URL query
    * replace flag can be given to replace the earlier url query instead
@@ -29,7 +28,10 @@ export function useObservationDateQueryParam(
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setObservationDateToUrl = (date: DateTime, replace = false) => {
+  const setObservationDateToUrl = (
+    date: Temporal.PlainDate,
+    replace = false,
+  ) => {
     setDateTimeToUrlQuery(
       { paramName: QueryParameterName.ObservationDate, value: date },
       { replace },

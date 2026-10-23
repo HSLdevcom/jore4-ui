@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { Point } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { VersionStatus } from '../../../../common/Versions';
@@ -9,8 +8,8 @@ export type StopVersion = {
   readonly netex_id: string;
   readonly stop_place_netex_id: string;
   readonly stop_place_name: string;
-  readonly validity_start: DateTime;
-  readonly validity_end: DateTime | null;
+  readonly validity_start: Temporal.PlainDate;
+  readonly validity_end: Temporal.PlainDate | null;
   readonly priority: Priority;
   readonly status: VersionStatus;
   readonly location: Point;

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { FC, ReactNode } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 import {
@@ -19,7 +18,7 @@ type StopTableRowBaseProps = {
   readonly actionButtons: ReactNode;
   readonly className?: string;
   readonly menuItems: ReactNode;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly stop: StopSearchRow;
 };
 

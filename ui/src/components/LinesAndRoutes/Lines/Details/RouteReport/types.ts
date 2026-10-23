@@ -1,10 +1,9 @@
-import { DateTime } from 'luxon';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../../generated/graphql';
 import { OnProgress } from '../../../../StopRegistry/Stops/Common/Report/types';
 
 export type GenerateRouteReport = (
   route: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   filename: string,
   saveFileNamePrompt: string,
   abortSignal: AbortSignal,

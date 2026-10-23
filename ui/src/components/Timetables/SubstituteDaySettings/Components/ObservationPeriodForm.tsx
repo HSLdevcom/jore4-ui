@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import noop from 'lodash/noop';
-import { DateTime, Duration } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +7,7 @@ import { MdWarning } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { selectTimetable, useAppSelector } from '../../../../redux';
-import { parseDate } from '../../../../time';
+import { parseDate } from '../../../../time/date';
 import { DateRange } from '../../../../types';
 import { areEqual } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';
@@ -41,18 +40,17 @@ const WarningText: FC<WarningTextProps> = ({ warningMessage, className }) => {
 
 const DATE_ORDER = 'timeRange';
 const RANGE_TOO_LONG = 'timeRangeTooLong';
-const MAX_RANGE = Duration.fromObject({ years: 100 });
+// 100 years of 365 days, in days
+const MAX_RANGE = 100 * 365;
 
 function checkMaxDateRange(
-  maxLength: Duration,
+  maxLength: number,
   startDate: string,
   endDate: string,
 ) {
-  const actualDuration = DateTime.fromISO(endDate).diff(
-    DateTime.fromISO(startDate),
-  );
+  const actualDuration = parseDate(startDate).until(parseDate(endDate));
 
-  return maxLength.toMillis() >= actualDuration.toMillis();
+  return maxLength >= actualDuration.days;
 }
 
 const observationPeriodSchema = z
@@ -80,8 +78,8 @@ type ObservationPeriodSchema = z.infer<typeof observationPeriodSchema>;
 
 function toDefaultValues(dateRange: DateRange) {
   return {
-    startDate: dateRange.startDate.toISODate(),
-    endDate: dateRange.endDate.toISODate(),
+    startDate: dateRange.startDate.toString(),
+    endDate: dateRange.endDate.toString(),
   };
 }
 

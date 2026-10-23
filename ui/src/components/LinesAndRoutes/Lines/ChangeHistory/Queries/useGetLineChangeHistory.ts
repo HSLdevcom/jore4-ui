@@ -1,11 +1,10 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   LineChangeHistoryItemDetailsFragment,
   useGetLineChangeHistoryQuery,
 } from '../../../../../generated/graphql';
-import { isDateInRange, parseDate } from '../../../../../time/date';
+import { isDateInRange } from '../../../../../time/date';
 import { SortOrder } from '../../../../../types';
 import {
   Comparator,
@@ -69,10 +68,6 @@ function parseRawLineChangeHistoryItem(
   };
 }
 
-function diffDateTime(a: DateTime, b: DateTime) {
-  return a.valueOf() - b.valueOf();
-}
-
 function byChanged(): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
     compareValues(a.changed, b.changed, Temporal.ZonedDateTime.compare);
@@ -80,11 +75,12 @@ function byChanged(): Comparator<LineChangeHistoryItem> {
 
 function byValidityStart(): Comparator<LineChangeHistoryItem> {
   return (a, b) =>
-    compareValues(a.validityStart, b.validityStart, diffDateTime);
+    compareValues(a.validityStart, b.validityStart, Temporal.PlainDate.compare);
 }
 
 function byValidityEnd(): Comparator<LineChangeHistoryItem> {
-  return (a, b) => compareValues(a.validityEnd, b.validityEnd, diffDateTime);
+  return (a, b) =>
+    compareValues(a.validityEnd, b.validityEnd, Temporal.PlainDate.compare);
 }
 
 function byDbId(): Comparator<LineChangeHistoryItem> {
@@ -236,10 +232,7 @@ function sortByVersion(): Comparator<LineChangeHistoryItem> {
 function filterHistoryItems(
   filters: ChangeHistoryFilters,
 ): (item: LineChangeHistoryItem) => boolean {
-  // TODO(temporal): Use the filter dates as is, once they are PlainDates.
-  const from = parseDate(filters.from.toISODate());
-  const to = parseDate(filters.to.toISODate());
-  const { priority } = filters;
+  const { from, to, priority } = filters;
 
   return (item) =>
     item.linePriority === priority &&

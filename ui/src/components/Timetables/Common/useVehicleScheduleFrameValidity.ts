@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 import uniq from 'lodash/uniq';
-import { DateTime } from 'luxon';
 import {
   useGetVehicleScheduleFrameWithRoutesQuery,
   useUpdateVehicleScheduleFrameValidityMutation,
 } from '../../../generated/graphql';
+import { parseDate } from '../../../time/date';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
   fragment VehicleScheduleFrameWithRoutes on timetables_vehicle_schedule_vehicle_schedule_frame {
@@ -106,8 +106,8 @@ export function useVehicleScheduleFrameValidity(vehicleScheduleFrameId?: UUID) {
     await updateVehicleScheduleValidityMutation({
       variables: {
         vehicle_schedule_frame_id: vehicleScheduleFrameId,
-        validity_start: DateTime.fromISO(validityStart),
-        validity_end: DateTime.fromISO(validityEnd),
+        validity_start: parseDate(validityStart),
+        validity_end: parseDate(validityEnd),
       },
     });
   };

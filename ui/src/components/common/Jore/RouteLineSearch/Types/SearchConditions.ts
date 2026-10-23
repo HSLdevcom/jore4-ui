@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
@@ -13,5 +12,5 @@ export type SearchConditions = {
     ReusableComponentsVehicleModeEnum | AllOptionEnum
   >;
   readonly typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };

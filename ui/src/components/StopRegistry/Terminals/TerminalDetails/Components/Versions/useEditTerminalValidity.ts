@@ -1,7 +1,7 @@
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../../../generated/graphql';
+import { parseDate } from '../../../../../../time/date';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { KnownValueKey, patchKeyValues } from '../../../../../../utils';
 import { useUpdateTerminal } from '../../../Common';
@@ -62,9 +62,9 @@ export function useEditTerminalValidity() {
 
       return {
         privateCode: updatedTerminal?.privateCode?.value ?? '',
-        validityStart: DateTime.fromISO(state.validityStart),
+        validityStart: parseDate(state.validityStart),
         validityEnd: state.validityEnd
-          ? DateTime.fromISO(state.validityEnd)
+          ? parseDate(state.validityEnd)
           : undefined,
         indefinite: state.indefinite,
       };

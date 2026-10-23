@@ -1,5 +1,4 @@
 import { gql, useApolloClient } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
   DateComparisonExp,
@@ -61,8 +60,8 @@ type ItemWithValidityBoolExp = {
 export type CommonParams = {
   readonly label: string;
   readonly priority: Priority;
-  readonly validityStart?: DateTime;
-  readonly validityEnd?: DateTime;
+  readonly validityStart?: Temporal.PlainDate;
+  readonly validityEnd?: Temporal.PlainDate;
 };
 
 type RouteParams = CommonParams & {

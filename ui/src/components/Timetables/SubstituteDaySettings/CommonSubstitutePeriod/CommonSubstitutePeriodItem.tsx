@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../../generated/graphql';
-import { mapToShortDate } from '../../../../time';
+import { mapToShortDate } from '../../../../time/format';
 import { AllOptionEnum } from '../../../../utils';
 import { InputField } from '../../../common/Inputs';
 import {

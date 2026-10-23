@@ -8,7 +8,7 @@ import {
   StopAreaVersionInfoFragment,
   useGetStopPlaceVersionsQuery,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
 import { parseDateTime } from '../../../../../time/dateTime';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
 import { StopAreaVersion } from '../Types';

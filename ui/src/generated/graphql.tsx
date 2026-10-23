@@ -1,4 +1,3 @@
-import * as luxon from 'luxon';
 import { DocumentNode } from 'graphql';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -19,7 +18,7 @@ export type Scalars = {
   _uuid: { input: any; output: any; }
   bigint: { input: any; output: any; }
   bytea: { input: any; output: any; }
-  date: { input: luxon.DateTime; output: luxon.DateTime; }
+  date: { input: Temporal.PlainDate | string; output: Temporal.PlainDate; }
   daterange: { input: any; output: any; }
   float8: { input: number; output: number; }
   geography: { input: GeoJSON.Geometry; output: GeoJSON.Geometry; }
@@ -41,7 +40,7 @@ export type Scalars = {
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
   stop_registry_DateTime: { input: Temporal.ZonedDateTime; output: Temporal.ZonedDateTime; }
   /** Date using the format: yyyy-MM-dd. Example: 2025-04-23 */
-  stop_registry_LocalDate: { input: luxon.DateTime; output: luxon.DateTime; }
+  stop_registry_LocalDate: { input: Temporal.PlainDate | string; output: Temporal.PlainDate; }
   /** Legacy GeoJSON Coordinates */
   stop_registry_legacyCoordinates: { input: any; output: any; }
   timestamp: { input: any; output: any; }
@@ -70471,8 +70470,8 @@ export type ScheduledStopPointDefaultFieldsFragment = {
   readonly label: string,
   readonly timing_place_id?: UUID | null,
   readonly point_type: ServicePatternPointTypeEnum,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly located_on_infrastructure_link_id: UUID,
   readonly stop_place_ref?: string | null,
   readonly timing_place?: {
@@ -70493,8 +70492,8 @@ export type ScheduledStopPointAllFieldsFragment = {
   readonly label: string,
   readonly timing_place_id?: UUID | null,
   readonly point_type: ServicePatternPointTypeEnum,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly located_on_infrastructure_link_id: UUID,
   readonly stop_place_ref?: string | null,
   readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
@@ -70519,8 +70518,8 @@ export type StopWithJourneyPatternFieldsFragment = {
   readonly label: string,
   readonly timing_place_id?: UUID | null,
   readonly point_type: ServicePatternPointTypeEnum,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly located_on_infrastructure_link_id: UUID,
   readonly stop_place_ref?: string | null,
   readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
@@ -70562,8 +70561,8 @@ export type RouteStopFieldsFragment = {
   readonly label: string,
   readonly timing_place_id?: UUID | null,
   readonly point_type: ServicePatternPointTypeEnum,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly located_on_infrastructure_link_id: UUID,
   readonly stop_place_ref?: string | null,
   readonly newest_quay?: {
@@ -70601,8 +70600,8 @@ export type RouteStopFieldsFragment = {
     readonly label: string,
     readonly timing_place_id?: UUID | null,
     readonly point_type: ServicePatternPointTypeEnum,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly timing_place?: {
@@ -70679,8 +70678,8 @@ export type GetRoutesWithStopsQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly route_line: {
       readonly __typename?: 'route_line',
@@ -70690,8 +70689,8 @@ export type GetRoutesWithStopsQuery = {
       readonly version_comment?: string | null,
       readonly name_i18n: LocalizedString,
       readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       readonly type_of_line: RouteTypeOfLineEnum,
@@ -70721,8 +70720,8 @@ export type GetRoutesWithStopsQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly newest_quay?: {
@@ -70760,8 +70759,8 @@ export type GetRoutesWithStopsQuery = {
             readonly label: string,
             readonly timing_place_id?: UUID | null,
             readonly point_type: ServicePatternPointTypeEnum,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly timing_place?: {
@@ -70822,8 +70821,8 @@ export type GetRoutesWithStopsQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -70860,8 +70859,8 @@ export type GetStopWithRouteGraphDataByIdQuery = {
     readonly label: string,
     readonly timing_place_id?: UUID | null,
     readonly point_type: ServicePatternPointTypeEnum,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
@@ -70893,8 +70892,8 @@ export type GetStopWithRouteGraphDataByIdQuery = {
           readonly direction: RouteDirectionEnum,
           readonly variant?: number | null,
           readonly route_id: UUID,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly priority: number,
           readonly infrastructure_links_along_route: ReadonlyArray<{
             readonly __typename?: 'route_infrastructure_link_along_route',
@@ -70925,8 +70924,8 @@ export type LineWithRoutesUniqueFieldsFragment = {
   readonly version_comment?: string | null,
   readonly name_i18n: LocalizedString,
   readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
   readonly type_of_line: RouteTypeOfLineEnum,
@@ -70937,8 +70936,8 @@ export type LineWithRoutesUniqueFieldsFragment = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number
   }>,
   readonly change_history: ReadonlyArray<{
@@ -70964,8 +70963,8 @@ export type GetLinesByValidityQuery = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -70994,8 +70993,8 @@ export type GetRoutesByValidityQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number
   }>
 };
@@ -71018,8 +71017,8 @@ export type GetStopsByValidityQuery = {
     readonly label: string,
     readonly timing_place_id?: UUID | null,
     readonly point_type: ServicePatternPointTypeEnum,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
@@ -71069,8 +71068,8 @@ export type InfrastructureLinkWithStopsFragment = {
     readonly label: string,
     readonly timing_place_id?: UUID | null,
     readonly point_type: ServicePatternPointTypeEnum,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly other_label_instances: ReadonlyArray<{
@@ -71081,8 +71080,8 @@ export type InfrastructureLinkWithStopsFragment = {
       readonly label: string,
       readonly timing_place_id?: UUID | null,
       readonly point_type: ServicePatternPointTypeEnum,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly timing_place?: {
@@ -71128,8 +71127,8 @@ export type LineWithRoutesFragment = {
   readonly version_comment?: string | null,
   readonly name_i18n: LocalizedString,
   readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
   readonly type_of_line: RouteTypeOfLineEnum,
@@ -71149,8 +71148,8 @@ export type LineWithRoutesFragment = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly route_line: {
       readonly __typename?: 'route_line',
@@ -71160,8 +71159,8 @@ export type LineWithRoutesFragment = {
       readonly version_comment?: string | null,
       readonly name_i18n: LocalizedString,
       readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       readonly type_of_line: RouteTypeOfLineEnum,
@@ -71191,8 +71190,8 @@ export type LineWithRoutesFragment = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly newest_quay?: {
@@ -71230,8 +71229,8 @@ export type LineWithRoutesFragment = {
             readonly label: string,
             readonly timing_place_id?: UUID | null,
             readonly point_type: ServicePatternPointTypeEnum,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly timing_place?: {
@@ -71292,8 +71291,8 @@ export type LineWithRoutesFragment = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -71329,8 +71328,8 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -71341,8 +71340,8 @@ export type GetHighestPriorityLineDetailsWithRoutesQuery = {
       readonly direction: RouteDirectionEnum,
       readonly variant?: number | null,
       readonly route_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number
     }>,
     readonly change_history: ReadonlyArray<{
@@ -71488,16 +71487,16 @@ export type GetLineValidityByIdQuery = {
   readonly line?: {
     readonly __typename?: 'route_line',
     readonly line_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   } | null
 };
 
 export type LineValidityFragment = {
   readonly __typename?: 'route_line',
   readonly line_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null
 };
 
 export type GetLineChangeHistoryQueryVariables = Exact<{
@@ -71516,13 +71515,13 @@ export type GetLineChangeHistoryQuery = {
     readonly lineId: UUID,
     readonly lineLabel: string,
     readonly linePriority: number,
-    readonly lineValidityStart?: luxon.DateTime | null,
-    readonly lineValidityEnd?: luxon.DateTime | null,
+    readonly lineValidityStart?: Temporal.PlainDate | null,
+    readonly lineValidityEnd?: Temporal.PlainDate | null,
     readonly routeId?: UUID | null,
     readonly routeLabel?: string | null,
     readonly routeDirection?: string | null,
-    readonly routeValidityStart?: luxon.DateTime | null,
-    readonly routeValidityEnd?: luxon.DateTime | null,
+    readonly routeValidityStart?: Temporal.PlainDate | null,
+    readonly routeValidityEnd?: Temporal.PlainDate | null,
     readonly versionComment?: string | null,
     readonly changedBy?: string | null
   }>
@@ -71537,13 +71536,13 @@ export type LineChangeHistoryItemDetailsFragment = {
   readonly lineId: UUID,
   readonly lineLabel: string,
   readonly linePriority: number,
-  readonly lineValidityStart?: luxon.DateTime | null,
-  readonly lineValidityEnd?: luxon.DateTime | null,
+  readonly lineValidityStart?: Temporal.PlainDate | null,
+  readonly lineValidityEnd?: Temporal.PlainDate | null,
   readonly routeId?: UUID | null,
   readonly routeLabel?: string | null,
   readonly routeDirection?: string | null,
-  readonly routeValidityStart?: luxon.DateTime | null,
-  readonly routeValidityEnd?: luxon.DateTime | null,
+  readonly routeValidityStart?: Temporal.PlainDate | null,
+  readonly routeValidityEnd?: Temporal.PlainDate | null,
   readonly versionComment?: string | null,
   readonly changedBy?: string | null
 };
@@ -71608,8 +71607,8 @@ export type InsertLineOneMutation = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -71647,8 +71646,8 @@ export type PatchLineMutation = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -71671,8 +71670,8 @@ export type GetLineDetailsWithRoutesByIdQuery = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -71692,8 +71691,8 @@ export type GetLineDetailsWithRoutesByIdQuery = {
       readonly direction: RouteDirectionEnum,
       readonly variant?: number | null,
       readonly route_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly infrastructure_links_along_route: ReadonlyArray<{
         readonly __typename?: 'route_infrastructure_link_along_route',
@@ -71715,8 +71714,8 @@ export type GetLineDetailsWithRoutesByIdQuery = {
             readonly label: string,
             readonly timing_place_id?: UUID | null,
             readonly point_type: ServicePatternPointTypeEnum,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
@@ -71744,8 +71743,8 @@ export type GetLineDetailsWithRoutesByIdQuery = {
               readonly label: string,
               readonly timing_place_id?: UUID | null,
               readonly point_type: ServicePatternPointTypeEnum,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
+              readonly validity_start?: Temporal.PlainDate | null,
+              readonly validity_end?: Temporal.PlainDate | null,
               readonly located_on_infrastructure_link_id: UUID,
               readonly stop_place_ref?: string | null,
               readonly timing_place?: {
@@ -71778,8 +71777,8 @@ export type LineAllFieldsFragment = {
   readonly version_comment?: string | null,
   readonly name_i18n: LocalizedString,
   readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
   readonly type_of_line: RouteTypeOfLineEnum,
@@ -71811,8 +71810,8 @@ export type GetLineDetailsByIdQuery = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -72049,8 +72048,8 @@ export type ListChangingRoutesQuery = {
     readonly route_id: UUID,
     readonly label: string,
     readonly route_shape?: GeoJSON.LineString | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly route_line: {
       readonly __typename?: 'route_line',
       readonly line_id: UUID,
@@ -72089,8 +72088,8 @@ export type ListOwnLinesQuery = {
     readonly __typename?: 'route_line',
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -72103,8 +72102,8 @@ export type ListOwnLinesQuery = {
       readonly route_id: UUID,
       readonly route_shape?: GeoJSON.LineString | null,
       readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly route_journey_patterns: ReadonlyArray<{
         readonly __typename?: 'journey_pattern_journey_pattern',
@@ -72142,8 +72141,8 @@ export type GetLinesForComboboxQuery = {
     readonly line_id: UUID,
     readonly name_i18n: LocalizedString,
     readonly label: string,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   }>
 };
 
@@ -72159,8 +72158,8 @@ export type GetSelectedLineDetailsByIdQuery = {
     readonly line_id: UUID,
     readonly name_i18n: LocalizedString,
     readonly label: string,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   } | null
 };
 
@@ -72169,8 +72168,8 @@ export type LineForComboboxFragment = {
   readonly line_id: UUID,
   readonly name_i18n: LocalizedString,
   readonly label: string,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null
 };
 
 export type GetRouteDetailsByLabelWildcardQueryVariables = Exact<{
@@ -72197,8 +72196,8 @@ export type GetRouteDetailsByLabelWildcardQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number
   }>
 };
@@ -72225,8 +72224,8 @@ export type GetSelectedRouteDetailsByIdQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number
   } | null
 };
@@ -72284,8 +72283,8 @@ export type PatchRouteMutation = {
       readonly direction: RouteDirectionEnum,
       readonly variant?: number | null,
       readonly route_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number
     }>
   } | null
@@ -72313,8 +72312,8 @@ export type GetScheduledStopsOnRouteQuery = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -72329,8 +72328,8 @@ export type GetScheduledStopsOnRouteQuery = {
 
 export type RouteValidityFragment = {
   readonly __typename?: 'route_route',
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number
 };
 
@@ -72340,8 +72339,8 @@ export type RouteUniqueFieldsFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number
 };
 
@@ -72359,8 +72358,8 @@ export type RouteDefaultFieldsFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number
 };
 
@@ -72379,8 +72378,8 @@ export type RouteAllFieldsFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number
 };
 
@@ -72399,8 +72398,8 @@ export type RouteWithJourneyPatternStopsFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly route_journey_patterns: ReadonlyArray<{
     readonly __typename?: 'journey_pattern_journey_pattern',
@@ -72425,8 +72424,8 @@ export type RouteWithJourneyPatternStopsFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -72459,8 +72458,8 @@ export type RouteWithInfrastructureLinksFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly route_line: {
     readonly __typename?: 'route_line',
@@ -72470,8 +72469,8 @@ export type RouteWithInfrastructureLinksFragment = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -72516,8 +72515,8 @@ export type GetRouteDetailsByIdQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly route_line: {
       readonly __typename?: 'route_line',
@@ -72527,8 +72526,8 @@ export type GetRouteDetailsByIdQuery = {
       readonly version_comment?: string | null,
       readonly name_i18n: LocalizedString,
       readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       readonly type_of_line: RouteTypeOfLineEnum,
@@ -72558,8 +72557,8 @@ export type GetRouteDetailsByIdQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly newest_quay?: {
@@ -72597,8 +72596,8 @@ export type GetRouteDetailsByIdQuery = {
             readonly label: string,
             readonly timing_place_id?: UUID | null,
             readonly point_type: ServicePatternPointTypeEnum,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly timing_place?: {
@@ -72659,8 +72658,8 @@ export type GetRouteDetailsByIdQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -72693,8 +72692,8 @@ export type GetRouteVersionsQuery = {
     readonly label: string,
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
@@ -72723,8 +72722,8 @@ export type RouteVersionInfoFragment = {
   readonly label: string,
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly version_comment?: string | null,
   readonly name_i18n: LocalizedString,
@@ -72791,8 +72790,8 @@ export type GetMapDepotStopsQuery = {
     readonly scheduled_stop_point_id: UUID,
     readonly label: string,
     readonly measured_location: GeoJSON.Point,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly timing_place_id?: UUID | null
   }>
 };
@@ -72802,8 +72801,8 @@ export type MapMinimalDepotStopDetailsFragment = {
   readonly scheduled_stop_point_id: UUID,
   readonly label: string,
   readonly measured_location: GeoJSON.Point,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly timing_place_id?: UUID | null
 };
 
@@ -72852,8 +72851,8 @@ export type GetMapStopsQuery = {
       readonly id?: any | null,
       readonly netex_id?: string | null,
       readonly stop_place_netex_id?: string | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority?: number | null,
       readonly stop_state?: string | null,
       readonly centroid?: GeoJSON.Geometry | null,
@@ -72872,8 +72871,8 @@ export type MapStopMinimalDetailsFragment = {
   readonly id?: any | null,
   readonly netex_id?: string | null,
   readonly stop_place_netex_id?: string | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority?: number | null,
   readonly stop_state?: string | null,
   readonly centroid?: GeoJSON.Geometry | null,
@@ -73124,8 +73123,8 @@ export type GetTerminalDetailsByNetexIdQuery = {
               readonly scheduled_stop_point_id: UUID,
               readonly label: string,
               readonly timing_place_id?: UUID | null,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
+              readonly validity_start?: Temporal.PlainDate | null,
+              readonly validity_end?: Temporal.PlainDate | null,
               readonly located_on_infrastructure_link_id: UUID,
               readonly stop_place_ref?: string | null,
               readonly measured_location: GeoJSON.Point,
@@ -73315,8 +73314,8 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       readonly label: string,
       readonly timing_place_id?: UUID | null,
       readonly point_type: ServicePatternPointTypeEnum,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly newest_quay?: {
@@ -73354,8 +73353,8 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -73420,8 +73419,8 @@ export type GetStopsAlongInfrastructureLinksQuery = {
     readonly label: string,
     readonly timing_place_id?: UUID | null,
     readonly point_type: ServicePatternPointTypeEnum,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
@@ -73488,8 +73487,8 @@ export type InsertRouteOneMutation = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number
   } | null
 };
@@ -73553,8 +73552,8 @@ export type RouteMetadataFragment = {
   readonly name_i18n: LocalizedString,
   readonly label: string,
   readonly priority: number,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null
 };
@@ -73574,8 +73573,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly route_line: {
     readonly __typename?: 'route_line',
@@ -73585,8 +73584,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -73616,8 +73615,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly newest_quay?: {
@@ -73655,8 +73654,8 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -73711,8 +73710,8 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
   readonly direction: RouteDirectionEnum,
   readonly variant?: number | null,
   readonly route_id: UUID,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly route_line: {
     readonly __typename?: 'route_line',
@@ -73722,8 +73721,8 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
     readonly version_comment?: string | null,
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -73753,8 +73752,8 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly newest_quay?: {
@@ -73792,8 +73791,8 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -73854,8 +73853,8 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -73897,8 +73896,8 @@ export type InfraLinkAlongRouteWithStopsFragment = {
       readonly label: string,
       readonly timing_place_id?: UUID | null,
       readonly point_type: ServicePatternPointTypeEnum,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly newest_quay?: {
@@ -73936,8 +73935,8 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -73998,8 +73997,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly route_line: {
       readonly __typename?: 'route_line',
@@ -74009,8 +74008,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
       readonly version_comment?: string | null,
       readonly name_i18n: LocalizedString,
       readonly short_name_i18n: LocalizedString,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       readonly type_of_line: RouteTypeOfLineEnum,
@@ -74040,8 +74039,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly newest_quay?: {
@@ -74079,8 +74078,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             readonly label: string,
             readonly timing_place_id?: UUID | null,
             readonly point_type: ServicePatternPointTypeEnum,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly timing_place?: {
@@ -74141,8 +74140,8 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -74297,8 +74296,8 @@ export type InsertStopPointMutation = {
     readonly measured_location: GeoJSON.Point,
     readonly label: string,
     readonly point_type: ServicePatternPointTypeEnum,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly stop_place_ref?: string | null
   } | null
 };
@@ -74343,8 +74342,8 @@ export type EditStopMutation = {
       readonly label: string,
       readonly timing_place_id?: UUID | null,
       readonly point_type: ServicePatternPointTypeEnum,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly measured_location: GeoJSON.Point,
@@ -74446,8 +74445,8 @@ export type GetRoutesBrokenByStopChangeQuery = {
       readonly direction: RouteDirectionEnum,
       readonly variant?: number | null,
       readonly route_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number
     } | null
   }>
@@ -74469,8 +74468,8 @@ export type GetLineRoutesByLabelQuery = {
       readonly route_id: UUID,
       readonly label: string,
       readonly variant?: number | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly direction: RouteDirectionEnum,
       readonly route_journey_patterns: ReadonlyArray<{
@@ -74499,8 +74498,8 @@ export type GetRouteByFiltersQuery = {
     readonly route_id: UUID,
     readonly label: string,
     readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly direction: RouteDirectionEnum,
     readonly route_journey_patterns: ReadonlyArray<{
@@ -74521,8 +74520,8 @@ export type DisplayedRouteFragment = {
   readonly route_id: UUID,
   readonly label: string,
   readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly direction: RouteDirectionEnum,
   readonly route_journey_patterns: ReadonlyArray<{
@@ -74558,8 +74557,8 @@ export type GetStopInfoForEditingOnMapQuery = {
       readonly label?: string | null,
       readonly locationValue?: string | null,
       readonly locationLang?: string | null,
-      readonly validityStart?: luxon.DateTime | null,
-      readonly validityEnd?: luxon.DateTime | null,
+      readonly validityStart?: Temporal.PlainDate | null,
+      readonly validityEnd?: Temporal.PlainDate | null,
       readonly alternativeLocations: ReadonlyArray<{
         readonly __typename?: 'stops_database_quay_alternative_names',
         readonly location: {
@@ -74873,8 +74872,8 @@ export type CreateTerminalMutation = {
             readonly scheduled_stop_point_id: UUID,
             readonly label: string,
             readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly measured_location: GeoJSON.Point,
@@ -75227,8 +75226,8 @@ export type StopTableRowQuayDetailsFragment = {
   readonly id?: any | null,
   readonly netex_id?: string | null,
   readonly public_code?: string | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority?: number | null,
   readonly centroid?: GeoJSON.Geometry | null,
   readonly description_value?: string | null,
@@ -75463,8 +75462,8 @@ export type FindLinesByStopSearchQuery = {
     readonly line_id: UUID,
     readonly label: string,
     readonly name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly line_routes: ReadonlyArray<{
       readonly __typename?: 'route_route',
       readonly route_id: UUID,
@@ -75472,8 +75471,8 @@ export type FindLinesByStopSearchQuery = {
       readonly name_i18n: LocalizedString,
       readonly direction: RouteDirectionEnum,
       readonly priority: number,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null
     }>
   }>
 };
@@ -75483,8 +75482,8 @@ export type FindStopByLineInfoFragment = {
   readonly line_id: UUID,
   readonly label: string,
   readonly name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly line_routes: ReadonlyArray<{
     readonly __typename?: 'route_route',
     readonly route_id: UUID,
@@ -75492,8 +75491,8 @@ export type FindStopByLineInfoFragment = {
     readonly name_i18n: LocalizedString,
     readonly direction: RouteDirectionEnum,
     readonly priority: number,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   }>
 };
 
@@ -75504,8 +75503,8 @@ export type FindStopByLineRouteInfoFragment = {
   readonly name_i18n: LocalizedString,
   readonly direction: RouteDirectionEnum,
   readonly priority: number,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null
 };
 
 export type GetLineRouteStopCountsQueryVariables = Exact<{
@@ -75568,8 +75567,8 @@ export type GetStopsByRouteIdQuery = {
       readonly id?: any | null,
       readonly netex_id?: string | null,
       readonly public_code?: string | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority?: number | null,
       readonly centroid?: GeoJSON.Geometry | null,
       readonly description_value?: string | null,
@@ -75663,8 +75662,8 @@ export type GetStopByRouteIdSearchResultFragment = {
     readonly id?: any | null,
     readonly netex_id?: string | null,
     readonly public_code?: string | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority?: number | null,
     readonly centroid?: GeoJSON.Geometry | null,
     readonly description_value?: string | null,
@@ -75810,8 +75809,8 @@ export type GetStopsByIdQuery = {
       readonly id?: any | null,
       readonly netex_id?: string | null,
       readonly public_code?: string | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority?: number | null,
       readonly centroid?: GeoJSON.Geometry | null,
       readonly description_value?: string | null,
@@ -75938,8 +75937,8 @@ export type SearchStopsQuery = {
       readonly id?: any | null,
       readonly netex_id?: string | null,
       readonly public_code?: string | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority?: number | null,
       readonly centroid?: GeoJSON.Geometry | null,
       readonly description_value?: string | null,
@@ -76036,8 +76035,8 @@ export type StopTableRowQuayFragment = {
   readonly id?: any | null,
   readonly netex_id?: string | null,
   readonly public_code?: string | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority?: number | null,
   readonly centroid?: GeoJSON.Geometry | null,
   readonly description_value?: string | null,
@@ -76555,8 +76554,8 @@ export type StopPlaceDetailsFragment = {
       readonly scheduled_stop_point_id: UUID,
       readonly label: string,
       readonly timing_place_id?: UUID | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly measured_location: GeoJSON.Point,
@@ -76643,8 +76642,8 @@ export type StopPlaceDetailsFragment = {
             readonly scheduled_stop_point_id: UUID,
             readonly label: string,
             readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly measured_location: GeoJSON.Point,
@@ -76886,8 +76885,8 @@ export type TerminalDetailsFragment = {
         readonly scheduled_stop_point_id: UUID,
         readonly label: string,
         readonly timing_place_id?: UUID | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly measured_location: GeoJSON.Point,
@@ -77259,8 +77258,8 @@ export type UpsertStopAreaMutation = {
           readonly scheduled_stop_point_id: UUID,
           readonly label: string,
           readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly measured_location: GeoJSON.Point,
@@ -77347,8 +77346,8 @@ export type UpsertStopAreaMutation = {
                 readonly scheduled_stop_point_id: UUID,
                 readonly label: string,
                 readonly timing_place_id?: UUID | null,
-                readonly validity_start?: luxon.DateTime | null,
-                readonly validity_end?: luxon.DateTime | null,
+                readonly validity_start?: Temporal.PlainDate | null,
+                readonly validity_end?: Temporal.PlainDate | null,
                 readonly located_on_infrastructure_link_id: UUID,
                 readonly stop_place_ref?: string | null,
                 readonly measured_location: GeoJSON.Point,
@@ -77596,8 +77595,8 @@ export type GetStopPointsByQuayIdQuery = {
     readonly direction: InfrastructureNetworkDirectionEnum,
     readonly label: string,
     readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly measured_location: GeoJSON.Point,
@@ -77621,7 +77620,7 @@ export type UpdateStopPointMutation = {
     readonly returning: ReadonlyArray<{
       readonly __typename?: 'service_pattern_scheduled_stop_point',
       readonly scheduled_stop_point_id: UUID,
-      readonly validity_end?: luxon.DateTime | null
+      readonly validity_end?: Temporal.PlainDate | null
     }>
   } | null
 };
@@ -77909,8 +77908,8 @@ export type GetStopPlaceDetailsQuery = {
               readonly scheduled_stop_point_id: UUID,
               readonly label: string,
               readonly timing_place_id?: UUID | null,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
+              readonly validity_start?: Temporal.PlainDate | null,
+              readonly validity_end?: Temporal.PlainDate | null,
               readonly located_on_infrastructure_link_id: UUID,
               readonly stop_place_ref?: string | null,
               readonly measured_location: GeoJSON.Point,
@@ -77997,8 +77996,8 @@ export type GetStopPlaceDetailsQuery = {
                     readonly scheduled_stop_point_id: UUID,
                     readonly label: string,
                     readonly timing_place_id?: UUID | null,
-                    readonly validity_start?: luxon.DateTime | null,
-                    readonly validity_end?: luxon.DateTime | null,
+                    readonly validity_start?: Temporal.PlainDate | null,
+                    readonly validity_end?: Temporal.PlainDate | null,
                     readonly located_on_infrastructure_link_id: UUID,
                     readonly stop_place_ref?: string | null,
                     readonly measured_location: GeoJSON.Point,
@@ -78215,8 +78214,8 @@ export type EditMultipleStopPointsMutation = {
       readonly priority: number,
       readonly measured_location: GeoJSON.Point,
       readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly stop_place_ref?: string | null
     }>
   } | null> | null
@@ -78243,8 +78242,8 @@ export type GetJourneyPatternsOfScheduledStopPointQuery = {
         readonly route_id: UUID,
         readonly label: string,
         readonly variant?: number | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null
       } | null
     }
   }>
@@ -78255,8 +78254,8 @@ export type JourneyPatternRouteFieldsFragment = {
   readonly route_id: UUID,
   readonly label: string,
   readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null
 };
 
 export type JourneyPatternFieldsFragment = {
@@ -78268,8 +78267,8 @@ export type JourneyPatternFieldsFragment = {
     readonly route_id: UUID,
     readonly label: string,
     readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   } | null
 };
 
@@ -78287,8 +78286,8 @@ export type JourneyPatternStopPointFragment = {
       readonly route_id: UUID,
       readonly label: string,
       readonly variant?: number | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null
     } | null
   }
 };
@@ -78353,8 +78352,8 @@ export type InsertMultipleStopPointsMutation = {
       readonly priority: number,
       readonly measured_location: GeoJSON.Point,
       readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly stop_place_ref?: string | null
     }>
   } | null
@@ -78566,8 +78565,8 @@ export type GetVersionedStopPlaceAndQuaysQuery = {
             readonly scheduled_stop_point_id: UUID,
             readonly label: string,
             readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly measured_location: GeoJSON.Point,
@@ -78701,8 +78700,8 @@ export type GetVersionedStopPlaceAndQuaysQuery = {
                   readonly scheduled_stop_point_id: UUID,
                   readonly label: string,
                   readonly timing_place_id?: UUID | null,
-                  readonly validity_start?: luxon.DateTime | null,
-                  readonly validity_end?: luxon.DateTime | null,
+                  readonly validity_start?: Temporal.PlainDate | null,
+                  readonly validity_end?: Temporal.PlainDate | null,
                   readonly located_on_infrastructure_link_id: UUID,
                   readonly stop_place_ref?: string | null,
                   readonly measured_location: GeoJSON.Point,
@@ -79093,8 +79092,8 @@ export type DetailsForHistoricalStopVersionFragment = {
       readonly scheduled_stop_point_id: UUID,
       readonly label: string,
       readonly timing_place_id?: UUID | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly measured_location: GeoJSON.Point,
@@ -79228,8 +79227,8 @@ export type DetailsForHistoricalStopVersionFragment = {
             readonly scheduled_stop_point_id: UUID,
             readonly label: string,
             readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly measured_location: GeoJSON.Point,
@@ -79809,8 +79808,8 @@ export type GetStopPlaceAndRelatedQuaysQuery = {
             readonly scheduled_stop_point_id: UUID,
             readonly label: string,
             readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly measured_location: GeoJSON.Point,
@@ -79944,8 +79943,8 @@ export type GetStopPlaceAndRelatedQuaysQuery = {
                   readonly scheduled_stop_point_id: UUID,
                   readonly label: string,
                   readonly timing_place_id?: UUID | null,
-                  readonly validity_start?: luxon.DateTime | null,
-                  readonly validity_end?: luxon.DateTime | null,
+                  readonly validity_start?: Temporal.PlainDate | null,
+                  readonly validity_end?: Temporal.PlainDate | null,
                   readonly located_on_infrastructure_link_id: UUID,
                   readonly stop_place_ref?: string | null,
                   readonly measured_location: GeoJSON.Point,
@@ -80275,8 +80274,8 @@ export type EditScheduledStopPointValidityMutation = {
       readonly priority: number,
       readonly stop_place_ref?: string | null,
       readonly scheduled_stop_point_id: UUID,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null
     }>
   } | null
 };
@@ -80417,8 +80416,8 @@ export type ScheduledStopPointDetailFieldsFragment = {
   readonly scheduled_stop_point_id: UUID,
   readonly label: string,
   readonly timing_place_id?: UUID | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly located_on_infrastructure_link_id: UUID,
   readonly stop_place_ref?: string | null,
   readonly measured_location: GeoJSON.Point,
@@ -80641,8 +80640,8 @@ export type GetStopDetailsQuery = {
               readonly scheduled_stop_point_id: UUID,
               readonly label: string,
               readonly timing_place_id?: UUID | null,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
+              readonly validity_start?: Temporal.PlainDate | null,
+              readonly validity_end?: Temporal.PlainDate | null,
               readonly located_on_infrastructure_link_id: UUID,
               readonly stop_place_ref?: string | null,
               readonly measured_location: GeoJSON.Point,
@@ -80776,8 +80775,8 @@ export type GetStopDetailsQuery = {
                     readonly scheduled_stop_point_id: UUID,
                     readonly label: string,
                     readonly timing_place_id?: UUID | null,
-                    readonly validity_start?: luxon.DateTime | null,
-                    readonly validity_end?: luxon.DateTime | null,
+                    readonly validity_start?: Temporal.PlainDate | null,
+                    readonly validity_end?: Temporal.PlainDate | null,
                     readonly located_on_infrastructure_link_id: UUID,
                     readonly stop_place_ref?: string | null,
                     readonly measured_location: GeoJSON.Point,
@@ -81230,8 +81229,8 @@ export type QuayDetailsFragment = {
     readonly scheduled_stop_point_id: UUID,
     readonly label: string,
     readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly measured_location: GeoJSON.Point,
@@ -81420,7 +81419,7 @@ export type GetScheduledStopPointByQuayNetexIdQuery = {
   readonly service_pattern_scheduled_stop_point: ReadonlyArray<{
     readonly __typename?: 'service_pattern_scheduled_stop_point',
     readonly scheduled_stop_point_id: UUID,
-    readonly validity_start?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null
   }>
 };
 
@@ -81435,7 +81434,7 @@ export type DeactivateScheduledStopPointMutation = {
   readonly update_service_pattern_scheduled_stop_point_by_pk?: {
     readonly __typename?: 'service_pattern_scheduled_stop_point',
     readonly scheduled_stop_point_id: UUID,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_end?: Temporal.PlainDate | null
   } | null
 };
 
@@ -81450,7 +81449,7 @@ export type ReactivateScheduledStopPointMutation = {
   readonly update_service_pattern_scheduled_stop_point_by_pk?: {
     readonly __typename?: 'service_pattern_scheduled_stop_point',
     readonly scheduled_stop_point_id: UUID,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_end?: Temporal.PlainDate | null
   } | null
 };
 
@@ -81702,8 +81701,8 @@ export type UpdateStopPlaceMutation = {
           readonly scheduled_stop_point_id: UUID,
           readonly label: string,
           readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly measured_location: GeoJSON.Point,
@@ -81790,8 +81789,8 @@ export type UpdateStopPlaceMutation = {
                 readonly scheduled_stop_point_id: UUID,
                 readonly label: string,
                 readonly timing_place_id?: UUID | null,
-                readonly validity_start?: luxon.DateTime | null,
-                readonly validity_end?: luxon.DateTime | null,
+                readonly validity_start?: Temporal.PlainDate | null,
+                readonly validity_end?: Temporal.PlainDate | null,
                 readonly located_on_infrastructure_link_id: UUID,
                 readonly stop_place_ref?: string | null,
                 readonly measured_location: GeoJSON.Point,
@@ -82146,8 +82145,8 @@ export type FindLinesByStopQuery = {
     readonly stop_place_ref?: string | null,
     readonly label: string,
     readonly priority: number,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly scheduled_stop_point_id: UUID,
     readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<{
       readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -82160,8 +82159,8 @@ export type FindLinesByStopQuery = {
           readonly __typename?: 'route_route',
           readonly label: string,
           readonly priority: number,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly route_id: UUID
         } | null
       }
@@ -82174,8 +82173,8 @@ export type StopPointDetailsFragment = {
   readonly stop_place_ref?: string | null,
   readonly label: string,
   readonly priority: number,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly scheduled_stop_point_id: UUID
 };
 
@@ -82192,8 +82191,8 @@ export type JourneyRouteInfoFragment = {
         readonly __typename?: 'route_route',
         readonly label: string,
         readonly priority: number,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly route_id: UUID
       } | null
     }
@@ -82204,8 +82203,8 @@ export type JourneyPatternRouteFragment = {
   readonly __typename?: 'route_route',
   readonly label: string,
   readonly priority: number,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly route_id: UUID
 };
 
@@ -82222,8 +82221,8 @@ export type GetOverlappingStopVersionsQuery = {
     readonly label: string,
     readonly priority: number,
     readonly stop_place_ref?: string | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly stop_place?: ReadonlyArray<
       | {
         readonly __typename?: 'stop_registry_ParentStopPlace',
@@ -82245,8 +82244,8 @@ export type OverlappingStopVersionsDataFragment = {
   readonly label: string,
   readonly priority: number,
   readonly stop_place_ref?: string | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly stop_place?: ReadonlyArray<
     | {
       readonly __typename?: 'stop_registry_ParentStopPlace',
@@ -82326,8 +82325,8 @@ export type ResolveExistingStopValidityRangesQuery = {
     readonly __typename?: 'service_pattern_scheduled_stop_point',
     readonly scheduled_stop_point_id: UUID,
     readonly priority: number,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   }>
 };
 
@@ -82396,8 +82395,8 @@ export type GetQuayVersionsQuery = {
       readonly __typename?: 'stops_database_quay_newest_version',
       readonly id?: any | null,
       readonly netex_id?: string | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority?: number | null,
       readonly public_code?: string | null,
       readonly centroid?: GeoJSON.Geometry | null,
@@ -82419,8 +82418,8 @@ export type StopVersionInfoFragment = {
   readonly __typename?: 'stops_database_quay_newest_version',
   readonly id?: any | null,
   readonly netex_id?: string | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority?: number | null,
   readonly public_code?: string | null,
   readonly centroid?: GeoJSON.Geometry | null,
@@ -82911,8 +82910,8 @@ export type ParentStopPlaceDetailsFragment = {
         readonly scheduled_stop_point_id: UUID,
         readonly label: string,
         readonly timing_place_id?: UUID | null,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly measured_location: GeoJSON.Point,
@@ -83086,8 +83085,8 @@ export type MemberStopStopPlaceDetailsFragment = {
       readonly scheduled_stop_point_id: UUID,
       readonly label: string,
       readonly timing_place_id?: UUID | null,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly measured_location: GeoJSON.Point,
@@ -83220,8 +83219,8 @@ export type MemberStopQuayDetailsFragment = {
     readonly scheduled_stop_point_id: UUID,
     readonly label: string,
     readonly timing_place_id?: UUID | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly located_on_infrastructure_link_id: UUID,
     readonly stop_place_ref?: string | null,
     readonly measured_location: GeoJSON.Point,
@@ -83563,8 +83562,8 @@ export type UpdateTerminalMutation = {
             readonly scheduled_stop_point_id: UUID,
             readonly label: string,
             readonly timing_place_id?: UUID | null,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly located_on_infrastructure_link_id: UUID,
             readonly stop_place_ref?: string | null,
             readonly measured_location: GeoJSON.Point,
@@ -83901,8 +83900,8 @@ export type GetParentStopPlaceDetailsQuery = {
                 readonly scheduled_stop_point_id: UUID,
                 readonly label: string,
                 readonly timing_place_id?: UUID | null,
-                readonly validity_start?: luxon.DateTime | null,
-                readonly validity_end?: luxon.DateTime | null,
+                readonly validity_start?: Temporal.PlainDate | null,
+                readonly validity_end?: Temporal.PlainDate | null,
                 readonly located_on_infrastructure_link_id: UUID,
                 readonly stop_place_ref?: string | null,
                 readonly measured_location: GeoJSON.Point,
@@ -84054,8 +84053,8 @@ export type GetParentStopPlaceDetailsQuery = {
 export type VehicleScheduleFrameWithRoutesFragment = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
   readonly vehicle_schedule_frame_id: UUID,
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
+  readonly validity_start: Temporal.PlainDate,
+  readonly validity_end: Temporal.PlainDate,
   readonly vehicle_services: ReadonlyArray<{
     readonly __typename?: 'timetables_vehicle_service_vehicle_service',
     readonly vehicle_service_id: UUID,
@@ -84086,8 +84085,8 @@ export type GetVehicleScheduleFrameWithRoutesQuery = {
     readonly timetables_vehicle_schedule_vehicle_schedule_frame: ReadonlyArray<{
       readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
       readonly vehicle_schedule_frame_id: UUID,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
+      readonly validity_start: Temporal.PlainDate,
+      readonly validity_end: Temporal.PlainDate,
       readonly vehicle_services: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_service_vehicle_service',
         readonly vehicle_service_id: UUID,
@@ -84124,8 +84123,8 @@ export type UpdateVehicleScheduleFrameValidityMutation = {
       readonly returning: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
         readonly vehicle_schedule_frame_id: UUID,
-        readonly validity_start: luxon.DateTime,
-        readonly validity_end: luxon.DateTime
+        readonly validity_start: Temporal.PlainDate,
+        readonly validity_end: Temporal.PlainDate
       }>
     } | null
   } | null
@@ -84157,8 +84156,8 @@ export type VehicleJourneyWithRouteInfoFragment = {
         readonly label: string,
         readonly variant?: number | null,
         readonly route_id: UUID,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly priority: number
       } | null
     } | null
@@ -84204,8 +84203,8 @@ export type VehicleServiceWithJourneysFragment = {
             readonly label: string,
             readonly variant?: number | null,
             readonly route_id: UUID,
-            readonly validity_start?: luxon.DateTime | null,
-            readonly validity_end?: luxon.DateTime | null,
+            readonly validity_start?: Temporal.PlainDate | null,
+            readonly validity_end?: Temporal.PlainDate | null,
             readonly priority: number
           } | null
         } | null
@@ -84222,8 +84221,8 @@ export type VehicleServiceWithJourneysFragment = {
 export type VehicleScheduleFrameWithRouteInfoFragment = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
   readonly label: string,
-  readonly validity_end: luxon.DateTime,
-  readonly validity_start: luxon.DateTime,
+  readonly validity_end: Temporal.PlainDate,
+  readonly validity_start: Temporal.PlainDate,
   readonly name_i18n?: any | null,
   readonly vehicle_schedule_frame_id: UUID,
   readonly priority: number,
@@ -84266,8 +84265,8 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
               readonly label: string,
               readonly variant?: number | null,
               readonly route_id: UUID,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
+              readonly validity_start?: Temporal.PlainDate | null,
+              readonly validity_end?: Temporal.PlainDate | null,
               readonly priority: number
             } | null
           } | null
@@ -84292,8 +84291,8 @@ export type GetStagingVehicleScheduleFramesQuery = {
     readonly timetables_vehicle_schedule_vehicle_schedule_frame: ReadonlyArray<{
       readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
       readonly label: string,
-      readonly validity_end: luxon.DateTime,
-      readonly validity_start: luxon.DateTime,
+      readonly validity_end: Temporal.PlainDate,
+      readonly validity_start: Temporal.PlainDate,
       readonly name_i18n?: any | null,
       readonly vehicle_schedule_frame_id: UUID,
       readonly priority: number,
@@ -84336,8 +84335,8 @@ export type GetStagingVehicleScheduleFramesQuery = {
                   readonly label: string,
                   readonly variant?: number | null,
                   readonly route_id: UUID,
-                  readonly validity_start?: luxon.DateTime | null,
-                  readonly validity_end?: luxon.DateTime | null,
+                  readonly validity_start?: Temporal.PlainDate | null,
+                  readonly validity_end?: Temporal.PlainDate | null,
                   readonly priority: number
                 } | null
               } | null
@@ -84368,8 +84367,8 @@ export type ChangeStagingVehicleScheduleFramePriorityMutation = {
       readonly returning: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
         readonly priority: number,
-        readonly validity_end: luxon.DateTime,
-        readonly validity_start: luxon.DateTime,
+        readonly validity_end: Temporal.PlainDate,
+        readonly validity_start: Temporal.PlainDate,
         readonly name_i18n?: any | null,
         readonly vehicle_schedule_frame_id: UUID
       }>
@@ -84449,8 +84448,8 @@ export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
     readonly frames: ReadonlyArray<{
       readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
       readonly vehicle_schedule_frame_id: UUID,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
+      readonly validity_start: Temporal.PlainDate,
+      readonly validity_end: Temporal.PlainDate,
       readonly vehicle_services: ReadonlyArray<{
         readonly __typename?: 'timetables_vehicle_service_vehicle_service',
         readonly vehicle_service_id: UUID,
@@ -84498,8 +84497,8 @@ export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
 export type VehicleScheduleFrameWithJourneyInfoFragment = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
   readonly vehicle_schedule_frame_id: UUID,
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
+  readonly validity_start: Temporal.PlainDate,
+  readonly validity_end: Temporal.PlainDate,
   readonly vehicle_services: ReadonlyArray<{
     readonly __typename?: 'timetables_vehicle_service_vehicle_service',
     readonly vehicle_service_id: UUID,
@@ -84673,7 +84672,7 @@ export type GetSubstituteOperatingPeriodsQuery = {
         readonly end_time?: Temporal.Duration | null,
         readonly substitute_day_of_week?: number | null,
         readonly substitute_operating_day_by_line_type_id: UUID,
-        readonly superseded_date: luxon.DateTime,
+        readonly superseded_date: Temporal.PlainDate,
         readonly type_of_line: string
       }>
     }>
@@ -84691,7 +84690,7 @@ export type SubstituteOperatingPeriodSettingsInfoFragment = {
     readonly end_time?: Temporal.Duration | null,
     readonly substitute_day_of_week?: number | null,
     readonly substitute_operating_day_by_line_type_id: UUID,
-    readonly superseded_date: luxon.DateTime,
+    readonly superseded_date: Temporal.PlainDate,
     readonly type_of_line: string
   }>
 };
@@ -84718,7 +84717,7 @@ export type CreateSubstituteOperatingPeriodMutation = {
           readonly end_time?: Temporal.Duration | null,
           readonly substitute_day_of_week?: number | null,
           readonly substitute_operating_day_by_line_type_id: UUID,
-          readonly superseded_date: luxon.DateTime,
+          readonly superseded_date: Temporal.PlainDate,
           readonly type_of_line: string
         }>
       }>
@@ -84797,8 +84796,8 @@ export type VehicleJourneyByStopFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -84849,8 +84848,8 @@ export type PassingTimeByStopFragment = {
       readonly label: string,
       readonly timing_place_id?: UUID | null,
       readonly point_type: ServicePatternPointTypeEnum,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly located_on_infrastructure_link_id: UUID,
       readonly stop_place_ref?: string | null,
       readonly timing_place?: {
@@ -84897,8 +84896,8 @@ export type GetRouteWithJourneyPatternQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly route_id: UUID,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly route_journey_patterns: ReadonlyArray<{
       readonly __typename?: 'journey_pattern_journey_pattern',
@@ -84923,8 +84922,8 @@ export type GetRouteWithJourneyPatternQuery = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -84972,8 +84971,8 @@ export type VehicleJourneyWithServiceFragment = {
       readonly vehicle_schedule_frame: {
         readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
         readonly vehicle_schedule_frame_id: UUID,
-        readonly validity_end: luxon.DateTime,
-        readonly validity_start: luxon.DateTime,
+        readonly validity_end: Temporal.PlainDate,
+        readonly validity_start: Temporal.PlainDate,
         readonly priority: number,
         readonly name_i18n?: any | null,
         readonly created_at: Temporal.ZonedDateTime
@@ -85011,8 +85010,8 @@ export type VehicleJourneyWithServiceFragment = {
         readonly label: string,
         readonly timing_place_id?: UUID | null,
         readonly point_type: ServicePatternPointTypeEnum,
-        readonly validity_start?: luxon.DateTime | null,
-        readonly validity_end?: luxon.DateTime | null,
+        readonly validity_start?: Temporal.PlainDate | null,
+        readonly validity_end?: Temporal.PlainDate | null,
         readonly located_on_infrastructure_link_id: UUID,
         readonly stop_place_ref?: string | null,
         readonly timing_place?: {
@@ -85041,8 +85040,8 @@ export type VehicleJourneyWithServiceFragment = {
 export type VehicleScheduleFragment = {
   readonly __typename?: 'timetables_return_value_vehicle_schedule',
   readonly priority: number,
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
+  readonly validity_start: Temporal.PlainDate,
+  readonly validity_end: Temporal.PlainDate,
   readonly created_at?: Temporal.ZonedDateTime | null,
   readonly vehicle_schedule_frame_id?: UUID | null,
   readonly vehicle_journey?: {
@@ -85067,8 +85066,8 @@ export type VehicleScheduleFragment = {
         readonly vehicle_schedule_frame: {
           readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
           readonly vehicle_schedule_frame_id: UUID,
-          readonly validity_end: luxon.DateTime,
-          readonly validity_start: luxon.DateTime,
+          readonly validity_end: Temporal.PlainDate,
+          readonly validity_start: Temporal.PlainDate,
           readonly priority: number,
           readonly name_i18n?: any | null,
           readonly created_at: Temporal.ZonedDateTime
@@ -85106,8 +85105,8 @@ export type VehicleScheduleFragment = {
           readonly label: string,
           readonly timing_place_id?: UUID | null,
           readonly point_type: ServicePatternPointTypeEnum,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
+          readonly validity_start?: Temporal.PlainDate | null,
+          readonly validity_end?: Temporal.PlainDate | null,
           readonly located_on_infrastructure_link_id: UUID,
           readonly stop_place_ref?: string | null,
           readonly timing_place?: {
@@ -85153,8 +85152,8 @@ export type GetVehicleSchedulesForDateQuery = {
     readonly timetables_vehicle_journey_get_vehicle_schedules_on_date: ReadonlyArray<{
       readonly __typename?: 'timetables_return_value_vehicle_schedule',
       readonly priority: number,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
+      readonly validity_start: Temporal.PlainDate,
+      readonly validity_end: Temporal.PlainDate,
       readonly created_at?: Temporal.ZonedDateTime | null,
       readonly vehicle_schedule_frame_id?: UUID | null,
       readonly vehicle_journey?: {
@@ -85179,8 +85178,8 @@ export type GetVehicleSchedulesForDateQuery = {
             readonly vehicle_schedule_frame: {
               readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
               readonly vehicle_schedule_frame_id: UUID,
-              readonly validity_end: luxon.DateTime,
-              readonly validity_start: luxon.DateTime,
+              readonly validity_end: Temporal.PlainDate,
+              readonly validity_start: Temporal.PlainDate,
               readonly priority: number,
               readonly name_i18n?: any | null,
               readonly created_at: Temporal.ZonedDateTime
@@ -85218,8 +85217,8 @@ export type GetVehicleSchedulesForDateQuery = {
               readonly label: string,
               readonly timing_place_id?: UUID | null,
               readonly point_type: ServicePatternPointTypeEnum,
-              readonly validity_start?: luxon.DateTime | null,
-              readonly validity_end?: luxon.DateTime | null,
+              readonly validity_start?: Temporal.PlainDate | null,
+              readonly validity_end?: Temporal.PlainDate | null,
               readonly located_on_infrastructure_link_id: UUID,
               readonly stop_place_ref?: string | null,
               readonly timing_place?: {
@@ -85270,8 +85269,8 @@ export type GetVehicleScheduleFrameSchedulesQuery = {
     readonly timetables_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
       readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame',
       readonly vehicle_schedule_frame_id: UUID,
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
+      readonly validity_start: Temporal.PlainDate,
+      readonly validity_end: Temporal.PlainDate,
       readonly priority: number,
       readonly created_at: Temporal.ZonedDateTime,
       readonly vehicle_services: ReadonlyArray<{
@@ -85361,9 +85360,9 @@ export type RouteInfoForTimetableVersionFragment = {
   readonly route_id: UUID,
   readonly label: string,
   readonly variant?: number | null,
-  readonly validity_start?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
   readonly priority: number,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly route_journey_patterns: ReadonlyArray<{
     readonly __typename?: 'journey_pattern_journey_pattern',
     readonly journey_pattern_id: UUID
@@ -85382,9 +85381,9 @@ export type GetRouteInfoForTimetableVersionsQuery = {
     readonly route_id: UUID,
     readonly label: string,
     readonly variant?: number | null,
-    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
     readonly priority: number,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly route_journey_patterns: ReadonlyArray<{
       readonly __typename?: 'journey_pattern_journey_pattern',
       readonly journey_pattern_id: UUID
@@ -85394,8 +85393,8 @@ export type GetRouteInfoForTimetableVersionsQuery = {
 
 export type TimetableVersionFragment = {
   readonly __typename?: 'timetables_return_value_timetable_version',
-  readonly validity_start: luxon.DateTime,
-  readonly validity_end: luxon.DateTime,
+  readonly validity_start: Temporal.PlainDate,
+  readonly validity_end: Temporal.PlainDate,
   readonly priority: number,
   readonly in_effect: boolean,
   readonly day_type?: {
@@ -85407,7 +85406,7 @@ export type TimetableVersionFragment = {
   readonly substitute_operating_day_by_line_type?: {
     readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
     readonly substitute_operating_day_by_line_type_id: UUID,
-    readonly superseded_date: luxon.DateTime,
+    readonly superseded_date: Temporal.PlainDate,
     readonly substitute_day_of_week?: number | null
   } | null,
   readonly vehicle_schedule_frame?: {
@@ -85431,8 +85430,8 @@ export type GetTimetableVersionsByJourneyPatternIdsQuery = {
     readonly __typename?: 'timetables_timetables_query',
     readonly versions: ReadonlyArray<{
       readonly __typename?: 'timetables_return_value_timetable_version',
-      readonly validity_start: luxon.DateTime,
-      readonly validity_end: luxon.DateTime,
+      readonly validity_start: Temporal.PlainDate,
+      readonly validity_end: Temporal.PlainDate,
       readonly priority: number,
       readonly in_effect: boolean,
       readonly day_type?: {
@@ -85444,7 +85443,7 @@ export type GetTimetableVersionsByJourneyPatternIdsQuery = {
       readonly substitute_operating_day_by_line_type?: {
         readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type',
         readonly substitute_operating_day_by_line_type_id: UUID,
-        readonly superseded_date: luxon.DateTime,
+        readonly superseded_date: Temporal.PlainDate,
         readonly substitute_day_of_week?: number | null
       } | null,
       readonly vehicle_schedule_frame?: {
@@ -85478,8 +85477,8 @@ export type LineTableRowFragment = {
   readonly __typename?: 'route_line',
   readonly name_i18n: LocalizedString,
   readonly short_name_i18n: LocalizedString,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
   readonly type_of_line: RouteTypeOfLineEnum,
@@ -85492,8 +85491,8 @@ export type LineTableRowFragment = {
     readonly route_id: UUID,
     readonly route_shape?: GeoJSON.LineString | null,
     readonly label: string,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly route_journey_patterns: ReadonlyArray<{
       readonly __typename?: 'journey_pattern_journey_pattern',
@@ -85527,8 +85526,8 @@ export type RouteTableRowFragment = {
   readonly route_id: UUID,
   readonly label: string,
   readonly route_shape?: GeoJSON.LineString | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly route_line: {
     readonly __typename?: 'route_line',
     readonly line_id: UUID,
@@ -85591,8 +85590,8 @@ export type SearchLinesAndRoutesQuery = {
     readonly __typename?: 'route_line',
     readonly name_i18n: LocalizedString,
     readonly short_name_i18n: LocalizedString,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
     readonly type_of_line: RouteTypeOfLineEnum,
@@ -85605,8 +85604,8 @@ export type SearchLinesAndRoutesQuery = {
       readonly route_id: UUID,
       readonly route_shape?: GeoJSON.LineString | null,
       readonly label: string,
-      readonly validity_start?: luxon.DateTime | null,
-      readonly validity_end?: luxon.DateTime | null,
+      readonly validity_start?: Temporal.PlainDate | null,
+      readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly route_journey_patterns: ReadonlyArray<{
         readonly __typename?: 'journey_pattern_journey_pattern',
@@ -85639,8 +85638,8 @@ export type SearchLinesAndRoutesQuery = {
     readonly route_id: UUID,
     readonly label: string,
     readonly route_shape?: GeoJSON.LineString | null,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null,
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null,
     readonly route_line: {
       readonly __typename?: 'route_line',
       readonly line_id: UUID,
@@ -85682,8 +85681,8 @@ export type GetRouteContinuationCandidatesQuery = {
     readonly direction: RouteDirectionEnum,
     readonly variant?: number | null,
     readonly priority: number,
-    readonly validity_start?: luxon.DateTime | null,
-    readonly validity_end?: luxon.DateTime | null
+    readonly validity_start?: Temporal.PlainDate | null,
+    readonly validity_end?: Temporal.PlainDate | null
   }>
 };
 
@@ -85692,8 +85691,8 @@ export type RouteMapParamsFragment = {
   readonly route_id: UUID,
   readonly label: string,
   readonly route_shape?: GeoJSON.LineString | null,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number
 };
 
@@ -85701,8 +85700,8 @@ export type LineMapParamsFragment = {
   readonly __typename?: 'route_line',
   readonly line_id: UUID,
   readonly label: string,
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null,
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null,
   readonly line_routes: ReadonlyArray<{
     readonly __typename?: 'route_route',
     readonly route_id: UUID,
@@ -85728,8 +85727,8 @@ export type RouteLabelAndVariantFragment = {
 
 export type RouteValidityPeriodFragment = {
   readonly __typename?: 'route_route',
-  readonly validity_start?: luxon.DateTime | null,
-  readonly validity_end?: luxon.DateTime | null
+  readonly validity_start?: Temporal.PlainDate | null,
+  readonly validity_end?: Temporal.PlainDate | null
 };
 
 export const InfraLinkAlongRouteDefaultFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InfraLinkAlongRouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_infrastructure_link_along_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infrastructure_link_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"is_traversal_forwards"}}]}}]} as unknown as DocumentNode;

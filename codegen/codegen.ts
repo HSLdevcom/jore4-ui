@@ -30,14 +30,19 @@ const baseScalars = {
   smallint: 'number',
 };
 
-// The ui is being migrated from Luxon to Temporal one scalar at a time.
+// Dates are also accepted as ISO date strings (`YYYY-MM-DD`) in query
+// variables. Apollo compares variables by value, and two distinct but equal
+// `Temporal.PlainDate`s are never equal, so a string keeps the variables stable.
 const uiScalars = {
   ...baseScalars,
-  date: 'luxon.DateTime',
-  stop_registry_LocalDate: 'luxon.DateTime',
-  interval: 'Temporal.Duration',
   timestamptz: 'Temporal.ZonedDateTime',
+  date: { input: 'Temporal.PlainDate | string', output: 'Temporal.PlainDate' },
+  interval: 'Temporal.Duration',
   stop_registry_DateTime: 'Temporal.ZonedDateTime',
+  stop_registry_LocalDate: {
+    input: 'Temporal.PlainDate | string',
+    output: 'Temporal.PlainDate',
+  },
 };
 
 // The test code (test-db-manager and cypress) has been fully migrated to Temporal.
@@ -75,14 +80,6 @@ const defaultConfig = {
   printFieldsOnNewLines: true,
 };
 
-const luxonImportPlugin = {
-  // importing luxon to be able to use its DateTime type
-  // using the "add" plugin to inject text to the beginning of the generated file
-  add: {
-    content: "import * as luxon from 'luxon';",
-  },
-};
-
 const config: CodegenConfig = {
   schema: [
     {
@@ -103,7 +100,6 @@ const config: CodegenConfig = {
         '../ui/src/**/*.graphql',
       ],
       plugins: [
-        luxonImportPlugin,
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',

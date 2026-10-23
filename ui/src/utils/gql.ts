@@ -1,9 +1,7 @@
-import { DateTime } from 'luxon';
-
 /** Builds an object for gql to filter out all
  * results which are not active on the given date
  */
-export function buildActiveDateGqlFilter(date?: DateTime | null) {
+export function buildActiveDateGqlFilter(date?: Temporal.PlainDate | null) {
   return {
     _and: [
       {

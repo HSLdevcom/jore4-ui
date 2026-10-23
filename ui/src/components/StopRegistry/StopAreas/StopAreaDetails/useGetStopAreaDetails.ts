@@ -74,7 +74,7 @@ function useGetStopPlaceDetailsWhereConditions(): StopsDatabaseStopPlaceNewestVe
 function useGetStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseStopPlaceNewestVersionBoolExp {
   const { id = '' } = useRequiredParams<{ id: string }>();
   const { observationDate } = useObservationDateQueryParam();
-  const observationDateStr = observationDate.toISODate();
+  const observationDateStr = observationDate.toString();
 
   if (id.startsWith('HSL')) {
     return {

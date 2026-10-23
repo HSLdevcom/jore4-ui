@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   DayTypeDetailsFragment,
@@ -71,8 +70,8 @@ export type RouteTimetableRowInfo = {
   readonly priority: TimetablePriority;
   readonly vehicleScheduleFrameId: UUID;
   readonly validity: {
-    readonly validityStart: DateTime;
-    readonly validityEnd: DateTime;
+    readonly validityStart: Temporal.PlainDate;
+    readonly validityEnd: Temporal.PlainDate;
   };
 };
 
@@ -117,8 +116,8 @@ function createTimetableRowInfo(
   allJourneys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>,
   priority: TimetablePriority,
   vehicleScheduleFrameId: UUID,
-  validityStart: DateTime,
-  validityEnd: DateTime,
+  validityStart: Temporal.PlainDate,
+  validityEnd: Temporal.PlainDate,
 ): Array<RouteTimetableRowInfo> {
   const timetableRowInfo: RouteTimetableRowInfo[] = [];
 
@@ -170,8 +169,8 @@ type VehicleScheduleFrameSchedulesFound = {
   readonly timetableRowInfo: ReadonlyArray<RouteTimetableRowInfo>;
   readonly dayType: DayTypeDetailsFragment;
   readonly createdAt: Temporal.ZonedDateTime;
-  readonly validityStart: DateTime;
-  readonly validityEnd: DateTime;
+  readonly validityStart: Temporal.PlainDate;
+  readonly validityEnd: Temporal.PlainDate;
 };
 
 type VehicleScheduleFrameSchedulesNotFound = {

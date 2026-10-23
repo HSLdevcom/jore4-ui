@@ -13,7 +13,8 @@ function hasEquals(value: unknown): value is HasEquals {
 
 /**
  * Lodash isEqual with proper handling for classes with custom equals methods.
- * Such as Luxon DateTime and Temporal.PlainDate. Also handles Temporal.Duration.
+ * Such as Temporal.PlainDate. Also handles Temporal.Duration, which has no
+ * equals method.
  *
  * @param a
  * @param b

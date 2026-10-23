@@ -7,7 +7,7 @@ import {
   RouteTypeOfLineEnum,
   useInsertLineOneMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time';
+import { parseDate } from '../../../../time/date';
 import { showDangerToastWithError } from '../../../../utils';
 import { mapDateInputToValidityEnd } from '../../../common/Forms';
 import { useGetConflictingLines } from '../../Common';
@@ -61,8 +61,8 @@ export function useCreateLine() {
       priority: form.priority,
       // this form value always exists
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      validityStart: input.validity_start!,
-      validityEnd: input.validity_end ?? undefined,
+      validityStart: parseDate(input.validity_start!),
+      validityEnd: parseDate(input.validity_end),
     });
 
     const changes: CreateChanges = {

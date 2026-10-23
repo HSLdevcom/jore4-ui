@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTimeRangeQueryParams } from '../../../hooks';
@@ -8,8 +7,8 @@ import { TimetableVersionsRouterState } from './Utils';
 
 type TimeRangeControlProps = {
   readonly className?: string;
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
   readonly onChange: Dispatch<SetStateAction<TimetableVersionsRouterState>>;
 };
 

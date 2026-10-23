@@ -8,7 +8,7 @@ import {
   RouteTypeOfLineEnum,
   useInsertRouteOneMutation,
 } from '../../../../../generated/graphql';
-import { MIN_DATE } from '../../../../../time';
+import { MIN_DATE, parseDate } from '../../../../../time/date';
 import { RouteInfraLink } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { buildJourneyPatternStopSequence } from '../../../../../utils';
@@ -124,8 +124,8 @@ export function useCreateRoute() {
       // For some reason form state is saved as Partial<> so we have to use non-null assertions here...
       label: form.label,
       priority: form.priority,
-      validityStart: input.object.validity_start ?? MIN_DATE,
-      validityEnd: input.object.validity_end ?? undefined,
+      validityStart: parseDate(input.object.validity_start) ?? MIN_DATE,
+      validityEnd: parseDate(input.object.validity_end),
       direction: form.direction,
       variant: form.variant,
     });

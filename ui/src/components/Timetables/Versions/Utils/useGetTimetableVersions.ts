@@ -1,5 +1,4 @@
 import { gql, useApolloClient } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -8,6 +7,7 @@ import {
   GetTimetableVersionsByJourneyPatternIdsQueryVariables,
   TimetableVersionFragment,
 } from '../../../../generated/graphql';
+import { today } from '../../../../time/date';
 import { DayOfWeek, TimetablePriority } from '../../../../types/enums';
 import {
   convertArrayTypeForHasura,
@@ -75,12 +75,12 @@ export type TimetableVersionRowData = {
     readonly id: UUID | undefined;
     readonly nameI18n: LocalizedString;
     readonly priority: TimetablePriority;
-    readonly validityStart?: DateTime | null;
-    readonly validityEnd?: DateTime | null;
+    readonly validityStart?: Temporal.PlainDate | null;
+    readonly validityEnd?: Temporal.PlainDate | null;
   };
   readonly substituteDay?: {
     readonly substituteDayOfWeek: DayOfWeek;
-    readonly supersededDate: DateTime;
+    readonly supersededDate: Temporal.PlainDate;
   };
   readonly inEffect?: boolean;
 };
@@ -155,8 +155,8 @@ function mapToTimetableVersionRowData(
 
 type GetTimetableVersionsParams = {
   readonly journeyPatternIdsGroupedByRouteLabel: Record<string, UUID[]>;
-  readonly startDate: DateTime;
-  readonly endDate: DateTime;
+  readonly startDate: Temporal.PlainDate;
+  readonly endDate: Temporal.PlainDate;
 };
 
 function useFetchTimetableVersions() {
@@ -180,7 +180,7 @@ function useFetchTimetableVersions() {
             journey_pattern_ids: convertArrayTypeForHasura<UUID>(ids),
             start_date: startDate,
             end_date: endDate,
-            observation_date: DateTime.now().startOf('day'),
+            observation_date: today(),
           },
         });
 
@@ -210,7 +210,7 @@ export function useGetTimetableVersions(params: GetTimetableVersionsParams) {
 
   const fetchTimetableVersions = useFetchTimetableVersions();
   const refetch = useCallback(() => {
-    if (params.startDate <= params.endDate) {
+    if (Temporal.PlainDate.compare(params.startDate, params.endDate) <= 0) {
       fetchTimetableVersions(params)
         .then(setVersions)
         .catch((error) => {

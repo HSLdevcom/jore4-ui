@@ -1,10 +1,10 @@
 import omit from 'lodash/omit';
-import { DateTime } from 'luxon';
 import { EnumLike, z } from 'zod';
 import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
 } from '../../../../generated/graphql';
+import { today } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import {
   JoreStopRegistryTransportModeType,
@@ -14,7 +14,7 @@ import {
 import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
 import {
   allEnum,
-  instanceOfDateTime,
+  instanceOfPlainDate,
   requiredString,
   zEnumArrayWithAll,
 } from '../../../common/Forms';
@@ -44,7 +44,7 @@ export const stopSearchFiltersSchema = z.object({
   query: requiredString,
   searchBy: z.nativeEnum(SearchBy),
   searchFor: z.nativeEnum(SearchFor),
-  observationDate: instanceOfDateTime,
+  observationDate: instanceOfPlainDate,
   elyNumber: z.string().readonly(),
   municipalities: zMunicipalityEnumArray(),
   priorities: z.array(z.nativeEnum(Priority)).min(1),
@@ -68,7 +68,7 @@ export const defaultFilters: StopSearchFilters = {
   query: '',
   searchBy: SearchBy.LabelOrName,
   searchFor: SearchFor.Stops,
-  observationDate: DateTime.now().startOf('day'),
+  observationDate: today(),
   elyNumber: '',
   municipalities: [AllOptionEnum.All],
   priorities: [Priority.Standard, Priority.Temporary],

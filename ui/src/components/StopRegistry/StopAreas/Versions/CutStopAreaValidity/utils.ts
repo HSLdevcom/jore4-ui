@@ -1,11 +1,11 @@
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import {
   QuayDetailsFragment,
   ServicePatternScheduledStopPointUpdates,
   StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
 } from '../../../../../generated/graphql';
+import { parseDate } from '../../../../../time/date';
 import { EnrichedStopPlace } from '../../../../../types';
 import {
   KnownValueKey,
@@ -240,12 +240,12 @@ export function getScheduledStopPointIdsToEdit(
 
   const startDateUpdates = {
     where: { scheduled_stop_point_id: { _in: startDateIds } },
-    _set: { validity_start: DateTime.fromISO(validityStart) },
+    _set: { validity_start: parseDate(validityStart) },
   };
 
   const endDateUpdates = {
     where: { scheduled_stop_point_id: { _in: endDateIds } },
-    _set: { validity_end: validityEnd ? DateTime.fromISO(validityEnd) : null },
+    _set: { validity_end: validityEnd ? parseDate(validityEnd) : null },
   };
 
   return {

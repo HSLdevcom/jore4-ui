@@ -6,6 +6,7 @@ import {
   GetLineDetailsWithRoutesByIdQueryVariables,
   RouteLineSetInput,
 } from '../../../../generated/graphql';
+import { parseDate } from '../../../../time/date';
 import { assertRouteValidityIsInsideLineValidity } from '../../Common';
 
 const GQL_GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`
@@ -66,8 +67,8 @@ export function useValidateLine() {
       .filter((route) => {
         try {
           assertRouteValidityIsInsideLineValidity(t, route, {
-            validity_start: input.validity_start,
-            validity_end: input.validity_end,
+            validity_start: parseDate(input.validity_start),
+            validity_end: parseDate(input.validity_end),
           });
         } catch {
           return true;

@@ -1,6 +1,5 @@
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +10,8 @@ import {
   useAppDispatch,
   useLoader,
 } from '../../../../../../redux';
+import { parseDate } from '../../../../../../time/date';
+import { padToTwoDigits } from '../../../../../../time/format';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
@@ -30,13 +31,13 @@ function useDefaultValues(
   originalStop: StopWithDetails,
 ): Omit<StopVersionFormState, 'priority'> {
   return useMemo(() => {
-    const validityStart = originalStop.validity_start?.startOf('day');
-    const validityEnd = originalStop.validity_end?.startOf('day');
+    const validityStart = originalStop.validity_start;
+    const validityEnd = originalStop.validity_end;
 
     return {
       indefinite: originalStop.validity_end === null,
-      validityStart: validityStart?.toISODate() ?? '',
-      validityEnd: validityEnd?.toISODate() ?? '',
+      validityStart: validityStart?.toString() ?? '',
+      validityEnd: validityEnd?.toString() ?? '',
       reasonForChange: null,
     };
   }, [originalStop]);
@@ -149,7 +150,10 @@ export function useEditStopFormUtils(
     state: StopVersionFormState,
     overlap: OverlappingCutDatesResult,
   ) => {
-    const formatDate = (date?: DateTime) => date?.toFormat('dd.MM.yyyy');
+    const formatDate = (date?: Temporal.PlainDate) =>
+      date
+        ? `${padToTwoDigits(date.day)}.${padToTwoDigits(date.month)}.${date.year}`
+        : undefined;
 
     try {
       if (overlap) {
@@ -157,8 +161,8 @@ export function useEditStopFormUtils(
           ? `${formatDate(overlap.currentVersion.start)} -`
           : `${formatDate(overlap.currentVersion.start)} - ${formatDate(overlap.currentVersion.end)}`;
         const newVersion = state.indefinite
-          ? `${formatDate(DateTime.fromISO(state.validityStart))} -`
-          : `${formatDate(DateTime.fromISO(state.validityStart))} - ${formatDate(DateTime.fromISO(state.validityEnd ?? ''))}`;
+          ? `${formatDate(parseDate(state.validityStart))} -`
+          : `${formatDate(parseDate(state.validityStart))} - ${formatDate(parseDate(state.validityEnd))}`;
 
         dispatch(
           openCutStopVersionValidityModalAction({
@@ -241,8 +245,8 @@ export function useEditStopFormUtils(
           await editStopValidityAndPriority(
             versionToCut.stop_place_ref,
             versionToCut.priority,
-            cutDates.newVersion.start.toISODate(),
-            cutDates.newVersion.end?.toISODate(),
+            cutDates.newVersion.start.toString(),
+            cutDates.newVersion.end?.toString(),
             cutDates.newVersion.indefinite,
             state.reasonForChange,
           );
