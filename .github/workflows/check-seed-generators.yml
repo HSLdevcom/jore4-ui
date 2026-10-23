@@ -22,6 +22,9 @@ jobs:
         with:
           custom_docker_compose: ./docker/docker-compose.custom.yml
 
+      - name: Enable corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v7
         with:
           node-version-file: package.json
@@ -29,7 +32,7 @@ jobs:
 
       - name: Install node_modules
         # making sure that we do have the proper set of node_modules installed regardless of what's cached
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build test-db-manager
         run: yarn ws:db build

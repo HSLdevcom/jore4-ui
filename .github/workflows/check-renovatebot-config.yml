@@ -11,4 +11,5 @@ jobs:
     name: Validate renovatebot config
     uses: HSLdevcom/jore4-tools/.github/workflows/shared-check-renovatebot-config.yml@main
     with:
-      config_file_path: .github/renovate.json5
+      checkout_path: 'jore4-ui'
+      config_file_path: jore4-ui/.github/renovate.json5
