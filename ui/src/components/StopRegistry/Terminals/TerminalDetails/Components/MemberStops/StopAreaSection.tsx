@@ -1,5 +1,4 @@
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -29,7 +28,7 @@ type StopAreaSectionProps = {
   readonly privateCode: string;
   readonly name: string;
   readonly stops: ReadonlyArray<StopSearchRow>;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 type StopAreaHeaderProps = {
@@ -38,12 +37,12 @@ type StopAreaHeaderProps = {
   readonly privateCode: string;
   readonly name: string;
   readonly stops: ReadonlyArray<StopSearchRow>;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 type StopRowProps = {
   readonly stop: StopSearchRow;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
 };
 
 function buildRemoveStopAreaDescription(

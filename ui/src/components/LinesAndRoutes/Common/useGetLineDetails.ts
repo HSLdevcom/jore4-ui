@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
-import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
 import {
   LineAllFieldsFragment,
@@ -128,7 +127,7 @@ function buildDraftPriorityGqlFilter(priority?: Priority): RouteLineBoolExp {
 
 function buildLineDetailsGqlFilters(
   line?: LineAllFieldsFragment,
-  observationDate?: DateTime | null,
+  observationDate?: Temporal.PlainDate | null,
 ) {
   const lineFilters: RouteLineBoolExp = {
     label: { _eq: line?.label },

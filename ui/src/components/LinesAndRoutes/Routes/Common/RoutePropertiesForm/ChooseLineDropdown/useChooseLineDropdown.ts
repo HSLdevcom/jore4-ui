@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import {
   LineForComboboxFragment,
@@ -7,6 +6,7 @@ import {
   useGetLinesForComboboxQuery,
   useGetSelectedLineDetailsByIdQuery,
 } from '../../../../../../generated/graphql';
+import { today } from '../../../../../../time/date';
 import { mapToSqlLikeValue, useDebouncedString } from '../../../../../../utils';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
@@ -58,7 +58,7 @@ export function useChooseLineDropdown(
   lines: ReadonlyArray<LineForComboboxFragment>;
   selectedLine?: LineForComboboxFragment;
 } {
-  const today = useMemo(() => DateTime.now().startOf('day'), []);
+  const currentDate = useMemo(() => today(), []);
 
   const [debouncedQuery] = useDebouncedString(query, 300);
 
@@ -68,7 +68,7 @@ export function useChooseLineDropdown(
   const linesResult = useGetLinesForComboboxQuery({
     variables: {
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
-      date: today,
+      date: currentDate,
       primary_vehicle_mode: vehicleMode,
     },
   });

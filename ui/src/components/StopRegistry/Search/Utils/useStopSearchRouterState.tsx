@@ -1,7 +1,6 @@
 import identity from 'lodash/identity';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
-import { DateTime } from 'luxon';
 import {
   Dispatch,
   FC,
@@ -87,7 +86,7 @@ export const filterSerializers: UrlStateSerializers<StopSearchFilters> = {
   elyNumber: identity,
   searchBy: identity,
   searchFor: identity,
-  observationDate: (date) => date.toISODate(),
+  observationDate: (date) => date.toString(),
   municipalities: serializeArray,
   priorities: serializeArray,
   transportationMode: serializeArray,
@@ -234,7 +233,7 @@ export const filterDeserializers: UrlStateDeserializers<StopSearchFilters> = {
   elyNumber: identity,
   searchBy: toEnum(Object.values(SearchBy)),
   searchFor: toEnum(Object.values(SearchFor)),
-  observationDate: (value) => DateTime.fromISO(value),
+  observationDate: (value) => Temporal.PlainDate.from(value),
   municipalities: parseMunicipalities,
   priorities: parsePriorities,
   transportationMode: parseTransportationMode,

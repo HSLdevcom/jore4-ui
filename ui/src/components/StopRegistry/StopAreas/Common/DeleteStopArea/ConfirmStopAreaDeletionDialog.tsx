@@ -1,6 +1,5 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
@@ -24,7 +23,7 @@ type ConfirmationContent = {
 function getDeleteBlockedContent(
   t: TFunction,
   stopArea: EnrichedStopPlace,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
 ): ConfirmationContent {
   return {
     body: (
@@ -63,7 +62,7 @@ function getDeleteBlockedContent(
 function getConfirmationContent(
   t: TFunction,
   stopArea: EnrichedStopPlace,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
 ): ConfirmationContent {
   if (compact(stopArea.quays).length) {
     return getDeleteBlockedContent(t, stopArea, observationDate);

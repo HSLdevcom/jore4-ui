@@ -91,7 +91,7 @@ export function useMoveQuayToStopPlace() {
       );
 
       // Update the original stop point
-      const validityEndDate = params.moveQuayFromDate.minus({ day: 1 });
+      const validityEndDate = params.moveQuayFromDate.subtract({ days: 1 });
       await updateStopPointValidity(
         stopPointNeedingUpdate.scheduled_stop_point_id,
         validityEndDate,

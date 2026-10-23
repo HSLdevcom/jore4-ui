@@ -6,7 +6,8 @@ import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import { mapVehicleModeToUiName } from '../../../../../utils/i18n';
 import { accordionClassNames } from '../../../../common';
 import { ExpandButton } from '../../../../common/Buttons';
@@ -69,9 +70,9 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
         <span className="mr-2 font-bold">{stopArea.privateCode}</span>
         <span className="mr-2">{stopArea.nameFin ?? stopArea.nameSwe}</span>
         <span className="mr-2 font-bold">
-          {`(${mapToShortDate(stopArea.validityStart)}`}
+          {`(${mapToShortDate(parseDate(stopArea.validityStart))}`}
           {stopArea.validityEnd
-            ? ` - ${mapToShortDate(stopArea.validityEnd)})`
+            ? ` - ${mapToShortDate(parseDate(stopArea.validityEnd))})`
             : ' - )'}
         </span>
         <i className="icon-open-in-new" role="presentation" />

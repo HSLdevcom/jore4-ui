@@ -22,7 +22,7 @@ import {
   useAppSelector,
   useLoader,
 } from '../../../../../redux';
-import { parseDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
 import { StopPlaceState } from '../../../../../types/stop-registry';
 import {
   KnownValueKey,

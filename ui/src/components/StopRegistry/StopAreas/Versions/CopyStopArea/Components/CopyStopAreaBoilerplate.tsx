@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
+import { mapToShortDate } from '../../../../../../time/format';
 import { EnrichedStopPlace } from '../../../../../../types';
 
 const testIds = {
@@ -29,9 +30,9 @@ export const CopyStopAreaBoilerplate: FC<CopyStopAreaBoilerplateProps> = ({
         </p>
         <p data-testid={testIds.validity}>
           <span>
-            {mapToShortDate(stopArea.validityStart)}
+            {mapToShortDate(parseDate(stopArea.validityStart))}
             <span className="mx-1">-</span>
-            {mapToShortDate(stopArea.validityEnd)}
+            {mapToShortDate(parseDate(stopArea.validityEnd))}
           </span>
         </p>
       </div>

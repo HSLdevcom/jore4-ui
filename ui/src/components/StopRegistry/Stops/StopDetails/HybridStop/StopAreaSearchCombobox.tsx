@@ -10,7 +10,8 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
 import { ReusableComponentsVehicleModeEnum } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import { comboboxStyles } from '../../../../common/Dropdowns';
 import {
   StopModalStopAreaFormSchema,
@@ -122,7 +123,7 @@ export const StopAreaSearchCombobox: FC<StopAreaSearchComboboxProps> = ({
             <div className="mx-2 flex grow flex-col">
               <span>{area.nameFin ?? area.nameSwe}</span>
               <span className="font-bold">
-                {`${mapToShortDate(area.validityStart)} - ${mapToShortDate(area.validityEnd)}`}
+                {`${mapToShortDate(parseDate(area.validityStart))} - ${mapToShortDate(parseDate(area.validityEnd))}`}
               </span>
             </div>
           </ComboboxOption>

@@ -1,7 +1,7 @@
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { StopRegistryQuayInput } from '../../../../../../generated/graphql';
-import { mapToISODate, parseDate } from '../../../../../../time';
+import { mapToISODate, parseDate } from '../../../../../../time/date';
 import { EnrichedStopPlace } from '../../../../../../types';
 import {
   ElementWithKeyValues,
@@ -31,15 +31,16 @@ function isObjectValidDuringPeriod(
     return false;
   }
 
-  const objectStart = parseDate(objectValidityStart).toMillis();
-  const objectEnd =
-    parseDate(objectValidityEnd)?.toMillis() ?? Number.POSITIVE_INFINITY;
+  const objectStart = parseDate(objectValidityStart);
+  const objectEnd = parseDate(objectValidityEnd);
 
-  const periodStart = parseDate(validityStart).toMillis();
-  const periodEnd =
-    parseDate(validityEnd)?.toMillis() ?? Number.POSITIVE_INFINITY;
+  const periodStart = parseDate(validityStart);
+  const periodEnd = parseDate(validityEnd);
 
-  if (objectEnd < periodStart || objectStart > periodEnd) {
+  if (
+    (objectEnd && Temporal.PlainDate.compare(objectEnd, periodStart) < 0) ||
+    (periodEnd && Temporal.PlainDate.compare(objectStart, periodEnd) > 0)
+  ) {
     return false;
   }
 
@@ -151,7 +152,7 @@ export function mapToStopAreaCopyInput(
 }
 
 function addDaysToISODate(date: string, addDays: number): string {
-  return mapToISODate(parseDate(date).plus({ days: addDays }));
+  return mapToISODate(parseDate(date).add({ days: addDays }));
 }
 
 function determineCutEndDate(

@@ -1,6 +1,6 @@
 import isArray from 'lodash/isArray';
-import { DateTime } from 'luxon';
-import { isDateLike, parseDate } from '../../time';
+import isString from 'lodash/isString';
+import { parseDate } from '../../time/date';
 import {
   isLine,
   isRoute,
@@ -10,9 +10,9 @@ import {
 } from '../../utils';
 
 // types that must be serialized
-type SerializedTypes = DateTime | Temporal.ZonedDateTime;
+type SerializedTypes = Temporal.PlainDate | Temporal.ZonedDateTime;
 
-// recursively replaces DateTime property types with strings within the input type
+// recursively replaces date and date-time property types with strings within the input type
 export type StoreType<T> = T extends SerializedTypes // serializable property -> convert to string
   ? string
   : T extends Array<infer U> // array -> recurse
@@ -59,8 +59,8 @@ const defaultSerializer: SerializerFunction = <
       'changed',
     ].includes(key)
   ) {
-    if (DateTime.isDateTime(value)) {
-      return value.toISO();
+    if (value instanceof Temporal.PlainDate) {
+      return value.toString();
     }
 
     if (value instanceof Temporal.ZonedDateTime) {
@@ -84,7 +84,7 @@ const defaultDeserializer: DeserializerFunction = <
       isRoute(parentObject) ||
       isLine(parentObject)) &&
     ['validity_start', 'validity_end'].includes(key) &&
-    isDateLike(value)
+    isString(value)
   ) {
     return parseDate(value);
   }
@@ -106,7 +106,7 @@ function isPlainObject(input: unknown): input is PlainObject {
     typeof input === 'object' &&
     input !== null &&
     !Array.isArray(input) &&
-    !DateTime.isDateTime(input) &&
+    !(input instanceof Temporal.PlainDate) &&
     !(input instanceof Temporal.ZonedDateTime)
   );
 }
@@ -127,7 +127,7 @@ export function mapToStoreType<T extends PlainObject>(
     const value = input[key];
 
     // serialize the attribute value
-    // Note: this has to be done first, so that object-like values like DateTime are serialized
+    // Note: this has to be done first, so that object-like values like dates are serialized
     // and we wouldn't recurse into them
     const serializedValue = serializerFunc(key, value, input);
 
@@ -193,7 +193,7 @@ export function mapFromStoreType<T extends PlainObject>(
     }
 
     // serialize the attribute value
-    // Note: this has to be done last, so that object-like values like DateTime are deserialized
+    // Note: this has to be done last, so that object-like values like dates are deserialized
     // only afterwards and we wouldn't recurse into them
     const deserializedValue = deserializerFunc(key, value, input);
 

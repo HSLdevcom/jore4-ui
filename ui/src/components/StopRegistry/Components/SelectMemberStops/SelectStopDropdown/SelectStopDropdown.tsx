@@ -1,6 +1,7 @@
 import { Combobox, ComboboxInput, ComboboxOptions } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import { log } from '../../../../../utils';
 import {
   JoreComboboxButton,
@@ -133,8 +134,8 @@ export const SelectStopDropdown: FC<SelectStopDropdown> = ({
               <strong>
                 {value.publicCode} {value.name}
               </strong>{' '}
-              {mapToShortDate(value.validityStart)} -{' '}
-              {mapToShortDate(value.validityEnd)}
+              {mapToShortDate(parseDate(value.validityStart))} -{' '}
+              {mapToShortDate(parseDate(value.validityEnd))}
             </span>
           </div>
         )}

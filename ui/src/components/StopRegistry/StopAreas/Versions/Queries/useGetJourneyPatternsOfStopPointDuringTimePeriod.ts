@@ -1,6 +1,5 @@
 import { gql, useApolloClient } from '@apollo/client';
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
   GetJourneyPatternsOfScheduledStopPointDocument,
@@ -52,8 +51,8 @@ const GQL_GET_JOURNEY_PATTERNS_OF_STOP_POINT_WITH_END_DATE = gql`
 
 function getWhere(
   label: string,
-  startDate: DateTime,
-  endDate: DateTime | null,
+  startDate: Temporal.PlainDate,
+  endDate: Temporal.PlainDate | null,
 ): JourneyPatternScheduledStopPointInJourneyPatternBoolExp {
   const startDateCondition: RouteRouteBoolExp = {
     _or: [
@@ -82,8 +81,8 @@ export function useGetJourneyPatternsOfStopPointDuringTimePeriod() {
   return useCallback(
     async (
       label: string,
-      startDate: DateTime,
-      endDate: DateTime | null,
+      startDate: Temporal.PlainDate,
+      endDate: Temporal.PlainDate | null,
     ): Promise<JourneyPatternFieldsFragment[]> => {
       const result = await apollo.query<
         GetJourneyPatternsOfScheduledStopPointQuery,

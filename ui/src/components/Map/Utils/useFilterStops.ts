@@ -1,5 +1,4 @@
 import partial from 'lodash/partial';
-import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
   ActiveStopFilters,
@@ -28,7 +27,7 @@ type TypeAndFilterFn = {
 };
 
 function getActiveTimeFilters(
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   stopFilters: ActiveStopFilters,
 ): ReadonlyArray<TypeAndFilterFn> {
   return [
@@ -75,7 +74,7 @@ function getActivePriorityFilters(
 
 function filterStopsByAnyTimeAndPriority<TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   stopFilters: ActiveStopFilters,
 ): Array<TStop> {
   const activeTimeFilters = getActiveTimeFilters(observationDate, stopFilters);
@@ -90,7 +89,7 @@ function filterStopsByAnyTimeAndPriority<TStop extends FilterableStopInfo>(
 
 function filterStopsByTimeAndPriority<TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,
-  observationDate: DateTime,
+  observationDate: Temporal.PlainDate,
   stopFilters: ActiveStopFilters,
 ): Array<TStop> {
   // If "Show situation on the selected date" filter is selected,

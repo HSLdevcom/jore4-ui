@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../../generated/graphql';
 import { ReportDownloadMenuItem } from '../../../../StopRegistry/Stops/Common/Report';
@@ -8,7 +7,7 @@ type RouteDownloadReportMenuItemProps = {
   readonly className?: string;
   readonly disabled?: boolean;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  readonly observationDate: DateTime;
+  readonly observationDate: Temporal.PlainDate;
   readonly generateReport: GenerateRouteReport;
   readonly genFilename: () => string;
   readonly text: string;

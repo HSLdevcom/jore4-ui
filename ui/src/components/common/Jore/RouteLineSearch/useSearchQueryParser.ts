@@ -1,9 +1,10 @@
-import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../../../../generated/graphql';
 import { useUrlQuery } from '../../../../hooks';
+import { today } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
 import { DisplayedSearchResultType, SearchConditions } from './Types';
@@ -31,7 +32,7 @@ const DEFAULT_TRANSPORT_MODE = [AllOptionEnum.All];
 const DEFAULT_TYPE_OF_LINE = AllOptionEnum.All;
 const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
 const DEFAULT_LABEL = '';
-const DEFAULT_OBSERVATION_DATE = DateTime.now().startOf('day');
+const DEFAULT_OBSERVATION_DATE = today();
 
 export function useSearchQueryParser(): SearchParameters {
   const {
@@ -67,9 +68,13 @@ export function useSearchQueryParser(): SearchParameters {
       SearchQueryParameterNames.DisplayedType,
       DisplayedSearchResultType,
     ) ?? DEFAULT_DISPLAYED_DATA;
-  const observationDate =
-    getDateTimeFromUrlQuery(SearchQueryParameterNames.ObservationDate) ??
-    DEFAULT_OBSERVATION_DATE;
+  // Apollo compares Temporal query variables by identity, so keep the date stable.
+  const observationDate = useMemo(
+    () =>
+      getDateTimeFromUrlQuery(SearchQueryParameterNames.ObservationDate) ??
+      DEFAULT_OBSERVATION_DATE,
+    [getDateTimeFromUrlQuery],
+  );
 
   return {
     search: {

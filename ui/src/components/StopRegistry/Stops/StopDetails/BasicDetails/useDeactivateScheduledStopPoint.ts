@@ -1,5 +1,4 @@
 import { gql, useApolloClient } from '@apollo/client';
-import { DateTime } from 'luxon';
 import {
   GetScheduledStopPointByQuayNetexIdDocument,
   GetScheduledStopPointByQuayNetexIdQuery,
@@ -58,7 +57,7 @@ type DeactivateParams = {
   readonly quayNetexId: string;
   readonly stopPlaceNetexId: string;
   readonly quayKeyValues: ReadonlyArray<StopRegistryKeyValues | null>;
-  readonly inactiveStart: DateTime;
+  readonly inactiveStart: Temporal.PlainDate;
 };
 
 export function useDeactivateScheduledStopPoint() {
@@ -88,7 +87,7 @@ export function useDeactivateScheduledStopPoint() {
       return;
     }
 
-    const dayBeforeInactive = inactiveStart.minus({ days: 1 });
+    const dayBeforeInactive = inactiveStart.subtract({ days: 1 });
 
     await deactivateScheduledStopPoint({
       variables: {
@@ -97,7 +96,7 @@ export function useDeactivateScheduledStopPoint() {
       },
     });
 
-    const validityEndDate = dayBeforeInactive.toISODate();
+    const validityEndDate = dayBeforeInactive.toString();
 
     const updatedKeyValues = patchKeyValues({ keyValues: quayKeyValues }, [
       {
@@ -120,7 +119,7 @@ type ReactivateParams = {
   readonly quayNetexId: string;
   readonly stopPlaceNetexId: string;
   readonly quayKeyValues: ReadonlyArray<StopRegistryKeyValues | null>;
-  readonly quayValidityEnd: DateTime | null;
+  readonly quayValidityEnd: Temporal.PlainDate | null;
 };
 
 export function useReactivateScheduledStopPoint() {
@@ -160,7 +159,7 @@ export function useReactivateScheduledStopPoint() {
     const updatedKeyValues = patchKeyValues({ keyValues: quayKeyValues }, [
       {
         key: KnownValueKey.ValidityEnd,
-        values: quayValidityEnd ? [quayValidityEnd.toISODate() ?? ''] : [],
+        values: quayValidityEnd ? [quayValidityEnd.toString()] : [],
       },
     ]);
 

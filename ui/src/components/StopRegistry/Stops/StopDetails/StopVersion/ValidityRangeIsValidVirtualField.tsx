@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
 import { FC, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate } from '../../../../../time';
+import { today as getToday } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import { Priority } from '../../../../../types/enums';
 import { ValidationErrorList } from '../../../../common/Inputs';
 import { ExistingStopValidityRange, StopVersionFormState } from './Types';
@@ -46,9 +46,9 @@ function getOverlappingValidityRange(
 
       return doISODateRangesOverlap(formInfo.dateRange, {
         // start should newer be null, but DB field is nullable so ¯\_(ツ)_/¯
-        start: dbRange.validity_start?.toISODate() ?? '0000-00-00',
+        start: dbRange.validity_start?.toString() ?? '0000-00-00',
         // Replace indefinite with "max" value to simplify comparisons.
-        end: dbRange.validity_end?.toISODate() ?? '9999-99-99',
+        end: dbRange.validity_end?.toString() ?? '9999-99-99',
       });
     }) ?? null
   );
@@ -71,7 +71,7 @@ function resolveErrorMessage(
   }
 
   // If start is before today
-  const today = DateTime.now().startOf('day').toISODate();
+  const today = getToday().toString();
   if (validityStart < today) {
     return t(($) => $.formValidation.validityDateRangeInPast);
   }

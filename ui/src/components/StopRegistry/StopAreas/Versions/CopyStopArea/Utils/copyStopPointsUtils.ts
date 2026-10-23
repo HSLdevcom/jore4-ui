@@ -5,7 +5,7 @@ import {
   ScheduledStopPointDetailFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { KnownValueKey, findKeyValue } from '../../../../../../utils';
 import { BidirectionalQuayMap } from '../types';

@@ -4,14 +4,14 @@ import { Priority } from '../../../../../types/enums';
 import { JoreStopRegistryTransportModeType } from '../../../../../types/stop-registry';
 import {
   allEnum,
-  instanceOfDateTime,
+  instanceOfPlainDate,
   requiredString,
   zEnumArrayWithAll,
 } from '../../../Forms';
 
 export const routesAndLinesSearchFiltersSchema = z.object({
   query: requiredString,
-  observationDate: instanceOfDateTime,
+  observationDate: instanceOfPlainDate,
   priorities: z.array(z.nativeEnum(Priority)).min(1),
   transportMode: zEnumArrayWithAll(JoreStopRegistryTransportModeType),
   typeOfLine: z.union([z.nativeEnum(RouteTypeOfLineEnum), allEnum]),

@@ -1,5 +1,4 @@
 import { useApolloClient } from '@apollo/client';
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import {
   ResolveSearchResultNetexIdsDocument,
@@ -73,7 +72,7 @@ function useResolveRouteExportInput() {
 
   return (
     route: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
-    observationDate: DateTime,
+    observationDate: Temporal.PlainDate,
   ): RouteExportInput => {
     const stops = getRouteJourneyPatternStops(route, observationDate);
     const quayNetexIds = routeStopsToOrderedQuayNetexIds(stops);

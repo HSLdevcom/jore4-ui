@@ -7,6 +7,7 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { act, renderHook } from '@testing-library/react';
 import { DateTime } from 'luxon';
+import { parseDate } from '../../../time/date';
 import { OptionalKeys } from '../../../types';
 import {
   insertToDbHelper,
@@ -158,8 +159,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: indefiniteLine.label,
-            validityStart: DateTime.fromISO('2022-01-01T13:08:43.315+02:00'),
-            validityEnd: DateTime.fromISO('2023-01-31T13:08:43.315+02:00'),
+            validityStart: Temporal.PlainDate.from('2022-01-01'),
+            validityEnd: Temporal.PlainDate.from('2023-01-31'),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -174,7 +175,9 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: indefiniteEndLine.label,
-            validityStart: indefiniteEndLine.validity_start,
+            validityStart: parseDate(
+              indefiniteEndLine.validity_start?.toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -187,7 +190,9 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: indefiniteStartLine.label,
-            validityEnd: indefiniteStartLine.validity_end,
+            validityEnd: parseDate(
+              indefiniteStartLine.validity_end?.toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -200,10 +205,12 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.plus({
-              milliseconds: 1,
-            }),
-            validityEnd: boundedLine.validity_end?.minus({ milliseconds: 1 }),
+            validityStart: parseDate(
+              boundedLine.validity_start?.plus({ milliseconds: 1 }).toISODate(),
+            ),
+            validityEnd: parseDate(
+              boundedLine.validity_end?.minus({ milliseconds: 1 }).toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -216,10 +223,14 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.minus({
-              milliseconds: 1,
-            }),
-            validityEnd: boundedLine.validity_end?.plus({ millisecond: 1 }),
+            validityStart: parseDate(
+              boundedLine.validity_start
+                ?.minus({ milliseconds: 1 })
+                .toISODate(),
+            ),
+            validityEnd: parseDate(
+              boundedLine.validity_end?.plus({ millisecond: 1 }).toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -232,7 +243,7 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end,
+            validityStart: parseDate(boundedLine.validity_end?.toISODate()),
             validityEnd: undefined,
           }),
         );
@@ -246,7 +257,9 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end?.plus({ days: 1 }),
+            validityStart: parseDate(
+              boundedLine.validity_end?.plus({ days: 1 }).toISODate(),
+            ),
             validityEnd: undefined,
           }),
         );
@@ -259,8 +272,12 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_end?.plus({ days: 1 }),
-            validityEnd: boundedLine.validity_end?.plus({ months: 1 }),
+            validityStart: parseDate(
+              boundedLine.validity_end?.plus({ days: 1 }).toISODate(),
+            ),
+            validityEnd: parseDate(
+              boundedLine.validity_end?.plus({ months: 1 }).toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(0);
@@ -273,7 +290,7 @@ describe('useGetConflictingLines()', () => {
           buildQuery({
             label: boundedLine.label,
             validityStart: undefined,
-            validityEnd: boundedLine.validity_start,
+            validityEnd: parseDate(boundedLine.validity_start?.toISODate()),
           }),
         );
         expect(conflicts.length).toBe(1);
@@ -286,8 +303,12 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start?.minus({ months: 1 }),
-            validityEnd: boundedLine.validity_start?.minus({ days: 1 }),
+            validityStart: parseDate(
+              boundedLine.validity_start?.minus({ months: 1 }).toISODate(),
+            ),
+            validityEnd: parseDate(
+              boundedLine.validity_start?.minus({ days: 1 }).toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(0);
@@ -300,7 +321,9 @@ describe('useGetConflictingLines()', () => {
           buildQuery({
             label: boundedLine.label,
             validityStart: undefined,
-            validityEnd: boundedLine.validity_start?.minus({ days: 1 }),
+            validityEnd: parseDate(
+              boundedLine.validity_start?.minus({ days: 1 }).toISODate(),
+            ),
           }),
         );
         expect(conflicts.length).toBe(0);
@@ -314,8 +337,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start,
-            validityEnd: boundedLine.validity_end,
+            validityStart: parseDate(boundedLine.validity_start?.toISODate()),
+            validityEnd: parseDate(boundedLine.validity_end?.toISODate()),
             priority: Priority.Temporary,
           }),
         );
@@ -328,8 +351,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: draftLine.label,
-            validityStart: draftLine.validity_start,
-            validityEnd: draftLine.validity_end,
+            validityStart: parseDate(draftLine.validity_start?.toISODate()),
+            validityEnd: parseDate(draftLine.validity_end?.toISODate()),
             priority: draftLine.priority,
           }),
         );
@@ -345,8 +368,8 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine.label,
-            validityStart: boundedLine.validity_start,
-            validityEnd: boundedLine.validity_end,
+            validityStart: parseDate(boundedLine.validity_start?.toISODate()),
+            validityEnd: parseDate(boundedLine.validity_end?.toISODate()),
           }),
           boundedLine.line_id,
         );
@@ -359,8 +382,10 @@ describe('useGetConflictingLines()', () => {
         const conflicts = await result.current(
           buildQuery({
             label: boundedLine2V1.label,
-            validityStart: boundedLine2V2.validity_start,
-            validityEnd: boundedLine2V2.validity_end,
+            validityStart: parseDate(
+              boundedLine2V2.validity_start?.toISODate(),
+            ),
+            validityEnd: parseDate(boundedLine2V2.validity_end?.toISODate()),
           }),
           boundedLine2V1.line_id,
         );

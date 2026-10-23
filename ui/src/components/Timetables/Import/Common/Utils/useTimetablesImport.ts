@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import { AxiosError } from 'axios';
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { sendFileToHastusImporter } from '../../../../../api/hastus';
 import {
@@ -154,13 +153,13 @@ export type HastusImportFailure = {
 };
 
 function shouldBeSpecialDay(vsf: {
-  validity_start: DateTime;
-  validity_end: DateTime;
+  validity_start: Temporal.PlainDate;
+  validity_end: Temporal.PlainDate;
 }) {
   return (
     vsf.validity_start &&
     vsf.validity_end &&
-    vsf.validity_start?.valueOf() === vsf.validity_end?.valueOf()
+    vsf.validity_start.equals(vsf.validity_end)
   );
 }
 

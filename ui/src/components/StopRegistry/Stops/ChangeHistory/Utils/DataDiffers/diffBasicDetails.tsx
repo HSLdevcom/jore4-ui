@@ -3,7 +3,8 @@ import compact from 'lodash/compact';
 import { FC } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../../../../../../generated/theme';
-import { mapToShortDate } from '../../../../../../time';
+import { parseDate } from '../../../../../../time/date';
+import { mapToShortDate } from '../../../../../../time/format';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
@@ -112,14 +113,14 @@ export function diffBasicDetails(
       field: t(($) => $.changeHistory.tableHeaders.validityStart),
       oldValue: previous.quay.validityStart,
       newValue: current.quay.validityStart,
-      mapper: mapToShortDate,
+      mapper: (v) => mapToShortDate(parseDate(v)),
     }),
     diffKeyedValues({
       key: 'ValidityEnd',
       field: t(($) => $.changeHistory.tableHeaders.validityEnd),
       oldValue: previous.quay.validityEnd,
       newValue: current.quay.validityEnd,
-      mapper: mapToShortDate,
+      mapper: (v) => mapToShortDate(parseDate(v)),
     }),
   ];
 

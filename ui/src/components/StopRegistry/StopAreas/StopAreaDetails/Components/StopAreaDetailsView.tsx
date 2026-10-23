@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
+import { mapToShortDate } from '../../../../../time/format';
 import { EnrichedStopPlace } from '../../../../../types';
 import { AlternativeNames } from '../../../Components/AlternativeNames';
 import { DetailRow, LabeledDetail } from '../../../Stops/Common';
@@ -16,8 +17,8 @@ const testIds = {
 };
 
 function validityPeriod(area: EnrichedStopPlace) {
-  const from = mapToShortDate(area.validityStart);
-  const to = mapToShortDate(area.validityEnd);
+  const from = mapToShortDate(parseDate(area.validityStart));
+  const to = mapToShortDate(parseDate(area.validityEnd));
 
   if (from ?? to) {
     return `${from ?? ''}-${to ?? ''}`;

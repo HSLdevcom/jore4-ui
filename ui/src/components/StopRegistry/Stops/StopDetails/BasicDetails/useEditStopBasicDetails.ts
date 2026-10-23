@@ -123,11 +123,11 @@ function mapStopEditChangesToTiamatDbInput({
     keyValues: patchKeyValues(stop.stop_place, [
       {
         key: KnownValueKey.ValidityStart,
-        values: stop.validity_start ? [stop.validity_start.toISODate()] : [],
+        values: stop.validity_start ? [stop.validity_start.toString()] : [],
       },
       {
         key: KnownValueKey.ValidityEnd,
-        values: stop.validity_end ? [stop.validity_end.toISODate()] : [],
+        values: stop.validity_end ? [stop.validity_end.toString()] : [],
       },
     ]),
     quays: [

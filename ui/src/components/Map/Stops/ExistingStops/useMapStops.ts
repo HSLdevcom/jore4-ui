@@ -1,5 +1,4 @@
 // TODO: memoization is broken in this file.
-import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
@@ -25,7 +24,7 @@ import { useMapObservationDate } from '../../Utils/mapUrlState';
 
 function extractHighestPriorityStopsFromRoute<
   TRoute extends RouteWithJourneyPatternStopsFragment,
->(route: TRoute, observationDate: DateTime) {
+>(route: TRoute, observationDate: Temporal.PlainDate) {
   const routeStopPoints =
     route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.flatMap(
       (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,

@@ -72,7 +72,7 @@ function useGetParentStopPlaceDetailsWhereConditions(): StopsDatabaseStopPlaceNe
 function useGetParentStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseStopPlaceNewestVersionBoolExp {
   const { privateCode = '' } = useRequiredParams<{ privateCode: string }>();
   const { observationDate } = useObservationDateQueryParam();
-  const observationDateStr = observationDate.toISODate();
+  const observationDateStr = observationDate.toString();
 
   return {
     _and: [

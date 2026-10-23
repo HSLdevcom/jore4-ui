@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapEntityType, Operation, useLoader } from '../../../../redux';
-import { isDateInRange } from '../../../../time';
+import { isDateInRange } from '../../../../time/date';
 import { showSuccessToast, showWarningToast } from '../../../../utils';
 import { useMapUrlStateContext } from '../../Utils/mapUrlState';
 import { useEnsureMapEntityTypeVisible } from '../../Utils/useEnsureMapEntityTypeVisible';

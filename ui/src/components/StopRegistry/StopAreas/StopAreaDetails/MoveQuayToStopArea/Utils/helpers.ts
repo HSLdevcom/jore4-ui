@@ -1,5 +1,4 @@
 import { useApolloClient } from '@apollo/client';
-import { DateTime } from 'luxon';
 import {
   GetOriginalQuaysDocument,
   GetOriginalQuaysQuery,
@@ -13,7 +12,7 @@ import {
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
 } from '../../../../../../generated/graphql';
-import { tryToParseDate } from '../../../../../../time';
+import { tryToParseDate } from '../../../../../../time/date';
 import { KnownValueKey, areEqual, findKeyValue } from '../../../../../../utils';
 import {
   MoveQuayParams,
@@ -49,7 +48,7 @@ export function extractStopPlaceQuays(
 export function extractQuayValidityEnd(
   stopPlace: MoveStopPlace | null | undefined,
   quayId: string,
-): DateTime | null | undefined {
+): Temporal.PlainDate | null | undefined {
   // eslint-disable-next-line no-underscore-dangle
   if (stopPlace?.__typename !== 'stop_registry_StopPlace') {
     return undefined;
@@ -71,7 +70,7 @@ export function extractQuayValidityEnd(
 export function createQuayMappingForCopiedQuay(
   originalQuays: ReadonlyArray<QuayInfo>,
   newQuays: ReadonlyArray<QuayInfo>,
-  moveQuayFromDate: DateTime,
+  moveQuayFromDate: Temporal.PlainDate,
 ): ReadonlyMap<string, string> {
   const mapping = new Map<string, string>();
 
@@ -153,7 +152,7 @@ export async function executeQuayMove(
 
 export async function updateStopPointValidity(
   stopPointId: string,
-  validityEnd: DateTime,
+  validityEnd: Temporal.PlainDate,
   updateStopPointMutation: ReturnType<typeof useUpdateStopPointMutation>[0],
 ): Promise<void> {
   const updateChanges: ServicePatternScheduledStopPointSetInput = {
@@ -181,8 +180,8 @@ export async function updateStopPointValidity(
 export async function createAndInsertStopPoint(
   originalStopPoint: StopPointInfo,
   newQuayId: string,
-  moveFromDate: DateTime,
-  validityEnd: DateTime | null | undefined,
+  moveFromDate: Temporal.PlainDate,
+  validityEnd: Temporal.PlainDate | null | undefined,
   insertStopPointMutation: ReturnType<typeof useInsertStopPointMutation>[0],
 ) {
   const baseStopPoint: ServicePatternScheduledStopPointInsertInput = {

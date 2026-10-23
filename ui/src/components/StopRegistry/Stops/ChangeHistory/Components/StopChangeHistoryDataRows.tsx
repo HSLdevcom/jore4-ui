@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time';
+import { parseDate } from '../../../../../time/date';
 import { PagingInfo } from '../../../../../types';
 import {
   GetUserNameById,
@@ -23,8 +23,8 @@ function findPreviousInstance(
 
   if (item.importedId === importedIdIfMoved) {
     const previousInstanceEndData = parseDate(item.validityStart)
-      ?.minus({ day: 1 })
-      ?.toISODate();
+      ?.subtract({ days: 1 })
+      .toString();
 
     if (previousInstanceEndData) {
       const previousInstance = historyItemsSortedByVersion.find(

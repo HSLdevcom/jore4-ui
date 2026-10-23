@@ -1,8 +1,8 @@
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { today } from '../../../../../../time/date';
 import { StopRowTdProps, StopSearchRow } from '../../types';
 import { PriorityIcon } from './PriorityIcon';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
@@ -13,11 +13,10 @@ const testIds = {
   priorityTd: 'StopTableRow::priority',
 };
 
-function remainingValidityDays(validityEnd: DateTime | null) {
+function remainingValidityDays(validityEnd: Temporal.PlainDate | null) {
   // Logically should always be defined
   if (validityEnd) {
-    const diff = validityEnd.diff(DateTime.now().startOf('day'), 'days');
-    const days = diff.get('days');
+    const { days } = today().until(validityEnd);
 
     if (days >= 0) {
       return Math.floor(days);
@@ -31,7 +30,7 @@ function remainingValidityDays(validityEnd: DateTime | null) {
 
 function getAboutToEndTitle(
   t: TFunction,
-  validityEnd: DateTime | null,
+  validityEnd: Temporal.PlainDate | null,
 ): string {
   const remainingDays = remainingValidityDays(validityEnd);
 

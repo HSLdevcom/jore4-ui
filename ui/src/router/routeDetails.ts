@@ -1,5 +1,4 @@
 import { SelectorParam } from 'i18next';
-import { DateTime } from 'luxon';
 import qs from 'qs';
 import { QueryParameterName } from '../hooks/urlQuery';
 
@@ -46,7 +45,10 @@ export const Path = {
 export type PathValue = (typeof Path)[keyof typeof Path];
 type QueryParams = Partial<
   Readonly<
-    Record<QueryParameterName, string | number | boolean | DateTime | undefined>
+    Record<
+      QueryParameterName,
+      string | number | boolean | Temporal.PlainDate | undefined
+    >
   >
 >;
 type GetLinkFn = (id?: string | null, queryParams?: QueryParams) => string;
@@ -63,8 +65,8 @@ function genVariableLinkGenerator(
     const search = queryParams
       ? qs.stringify(queryParams, {
           filter: (_prefix, value) => {
-            if (value instanceof DateTime) {
-              return value.toISODate();
+            if (value instanceof Temporal.PlainDate) {
+              return value.toString();
             }
 
             return value;

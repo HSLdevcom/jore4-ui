@@ -1,11 +1,11 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import { act, screen } from '@testing-library/react';
-import { DateTime } from 'luxon';
 import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
 } from '../../../../../../generated/graphql';
+import { today } from '../../../../../../time/date';
 import { areEqual } from '../../../../../../utils';
 import {
   fireFullMouseClickSequence,
@@ -29,7 +29,7 @@ describe('<ChooseLineDropdown />', () => {
       variableMatcher: (args) =>
         areEqual(args, {
           labelPattern: '%',
-          date: DateTime.now().startOf('day'),
+          date: today(),
           primary_vehicle_mode: undefined,
         }),
       result: {
@@ -40,7 +40,7 @@ describe('<ChooseLineDropdown />', () => {
               line_id: 'line1',
               label: '1',
               name_i18n: buildLocalizedString('Line1 name'),
-              validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
+              validity_start: Temporal.PlainDate.from('2017-02-13'),
               validity_end: null,
             },
             {
@@ -48,7 +48,7 @@ describe('<ChooseLineDropdown />', () => {
               line_id: 'line2',
               label: '2',
               name_i18n: buildLocalizedString('Line2 name'),
-              validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
+              validity_start: Temporal.PlainDate.from('2017-02-13'),
               validity_end: null,
             },
           ],
@@ -67,7 +67,7 @@ describe('<ChooseLineDropdown />', () => {
             line_id: 'line1',
             label: '1',
             name_i18n: buildLocalizedString('Line1 name'),
-            validity_start: DateTime.fromISO('2017-02-13T12:51:48.000Z'),
+            validity_start: Temporal.PlainDate.from('2017-02-13'),
             validity_end: null,
           },
         },

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../../hooks';
-import { isDateInRange } from '../../../../../../time';
+import { isDateInRange } from '../../../../../../time/date';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { useWrapInContextNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import { LoadingWrapper } from '../../../../../common/Loaders';

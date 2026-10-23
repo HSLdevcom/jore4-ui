@@ -2,7 +2,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   useUpdateStopPointMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time';
+import { parseDate } from '../../../../time/date';
 import { mapPointToGeoJSON } from '../../../../utils';
 import { mapDateInputToValidityEnd } from '../../../common/Forms';
 import { useGetStopLinkAndDirection } from '../utils';
