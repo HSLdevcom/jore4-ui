@@ -1,9 +1,9 @@
-import { FC, ForwardRefRenderFunction, forwardRef } from 'react';
+import { FC, ForwardRefRenderFunction, forwardRef, useRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
 import { selectMapRouteEditor, useAppSelector } from '../../../redux';
 import { Visible } from '../../common/LayoutComponents';
 import { RouteEditorRef } from '../refTypes';
-import { DrawRouteLayer } from './DrawRoute';
+import { DrawRouteLayer, DrawRouteLayerRef } from './DrawRoute';
 import {
   DraftRouteGeometryLayer,
   ExistingRouteGeometryLayers,
@@ -35,6 +35,11 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
   ref,
 ) => {
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
+  const drawRouteLayerRef = useRef<DrawRouteLayerRef>(null);
+
+  const onClearDrawnRouteGeometry = () => {
+    drawRouteLayerRef.current?.clearDrawnRouteGeometry();
+  };
 
   return (
     <>
@@ -49,9 +54,12 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
       />
       <DraftRouteGeometryLayer />
 
-      <RouteEditor ref={ref} />
+      <RouteEditor
+        ref={ref}
+        onClearDrawnRouteGeometry={onClearDrawnRouteGeometry}
+      />
       <Visible visible={drawingMode !== undefined}>
-        <DrawRouteLayer />
+        <DrawRouteLayer ref={drawRouteLayerRef} />
       </Visible>
     </>
   );

@@ -105,6 +105,10 @@ export type MapRouteEditorState = {
    * on return from the map to add the route to the displayed-routes selection.
    */
   readonly lastCreatedRouteLabel?: string;
+  /**
+   * The existing route's geometry was cleared and must stay absent during redraw.
+   */
+  readonly geometryClearedForRedraw: boolean;
 };
 
 type IState = StoreType<MapRouteEditorState>;
@@ -130,6 +134,7 @@ const initialState: IState = {
   isRouteMetadataFormOpen: false,
   selectedRouteId: undefined,
   lastCreatedRouteLabel: undefined,
+  geometryClearedForRedraw: false,
 };
 
 export enum Mode {
@@ -154,6 +159,7 @@ const slice = createSlice({
       state.creatingNewRoute = true;
       state.selectedRouteId = undefined;
       state.editedRouteData.vehicleMode = action.payload;
+      state.geometryClearedForRedraw = false;
     },
     /**
      * Quit route creation mode. Reset draw mode and metadata.
@@ -163,6 +169,7 @@ const slice = createSlice({
       drawingMode: initialState.drawingMode,
       creatingNewRoute: false,
       editedRouteData: initialState.editedRouteData,
+      geometryClearedForRedraw: false,
     }),
     /**
      * Start editing route geometry. Could be existing route or freshly drawn draft route.
@@ -176,6 +183,7 @@ const slice = createSlice({
         ...state.editedRouteData,
         id: routeToEdit,
       };
+      state.geometryClearedForRedraw = false;
     },
     setRouteToEditMode: (state) => {
       return {
@@ -190,6 +198,26 @@ const slice = createSlice({
       };
     },
     /**
+     * Start redraw flow for an existing route after geometry has been cleared.
+     * Uses draw-mode creation UX while preserving edited route identity for save/edit.
+     */
+    startExistingRouteRedraw: (state) => {
+      state.creatingNewRoute = true;
+      state.drawingMode = Mode.Draw;
+      state.isRouteMetadataFormOpen = false;
+      state.geometryClearedForRedraw = true;
+    },
+    /**
+     * Stop redraw draw-mode for an existing route and return to edit mode
+     * without restoring original backend geometry yet.
+     */
+    stopExistingRouteRedraw: (state) => {
+      state.creatingNewRoute = false;
+      state.drawingMode = Mode.Edit;
+      state.isRouteMetadataFormOpen = false;
+      state.geometryClearedForRedraw = true;
+    },
+    /**
      * Stop editing route geometry.
      */
     stopRouteEditing: (state) =>
@@ -198,8 +226,13 @@ const slice = createSlice({
             ...state,
             drawingMode: undefined,
             editedRouteData: initialState.editedRouteData,
+            geometryClearedForRedraw: false,
           }
-        : { ...state, drawingMode: undefined },
+        : {
+            ...state,
+            drawingMode: undefined,
+            geometryClearedForRedraw: false,
+          },
     /**
      * Set template route to be used when drawing a new route.
      */
@@ -344,7 +377,6 @@ const slice = createSlice({
       state.editedRouteData = {
         ...state.editedRouteData,
         includedStopLabels: [],
-        journeyPattern: { id: undefined, stops: [] },
         stopsEligibleForJourneyPattern: [],
         infraLinks: [],
         geometry: undefined,
@@ -371,6 +403,12 @@ const slice = createSlice({
     setRouteMetadataFormOpen: (state, action: PayloadAction<boolean>) => {
       state.isRouteMetadataFormOpen = action.payload;
     },
+    /**
+     * Mark whether the existing route's geometry was cleared for redraw.
+     */
+    setGeometryClearedForRedraw: (state, action: PayloadAction<boolean>) => {
+      state.geometryClearedForRedraw = action.payload;
+    },
   },
 });
 
@@ -394,6 +432,9 @@ export const {
   setDraftRouteJourneyPattern: setDraftRouteJourneyPatternAction,
   setRouteToEditMode: setRouteToEditModeAction,
   setRouteToDrawMode: setRouteToDrawModeAction,
+  startExistingRouteRedraw: startExistingRouteRedrawAction,
+  stopExistingRouteRedraw: stopExistingRouteRedrawAction,
+  setGeometryClearedForRedraw: setGeometryClearedForRedrawAction,
 } = slice.actions;
 
 export const mapRouteEditorReducer = slice.reducer;

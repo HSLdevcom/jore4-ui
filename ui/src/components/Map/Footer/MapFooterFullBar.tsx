@@ -7,9 +7,11 @@ import {
   MapEntityEditorViewState,
   Mode,
   isEditorOpen,
+  selectEditedRouteData,
   selectHasChangesInProgress,
   selectHasDraftRouteGeometry,
   selectIsInViewMode,
+  selectIsRedrawingExistingRoute,
   selectMapRouteEditor,
   setDraftVehicleModeAction,
   useAppAction,
@@ -62,7 +64,11 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     isRouteMetadataFormOpen,
     selectedRouteId,
   } = useAppSelector(selectMapRouteEditor);
+  const isRedrawingExistingRoute = useAppSelector(
+    selectIsRedrawingExistingRoute,
+  );
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
+  const editedRouteData = useAppSelector(selectEditedRouteData);
 
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
   const isInViewMode = useAppSelector(selectIsInViewMode);
@@ -99,10 +105,10 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     hasDraftRouteGeometry ||
     !!selectedRouteId ||
     (creatingNewRoute && !isRouteMetadataFormOpen);
-  const showRedrawRouteButton = !!selectedRouteId || creatingNewRoute;
-  const hasGeometryForCurrentRouteContext = creatingNewRoute
-    ? hasDraftRouteGeometry
-    : !!selectedRouteId;
+  const showRedrawRouteButton = isInRouteEditMode || creatingNewRoute;
+  const hasGeometryForCurrentRouteContext =
+    hasDraftRouteGeometry ||
+    (!!editedRouteData.infraLinks?.length && !isRedrawingExistingRoute);
   const canRedrawRoute =
     showRedrawRouteButton &&
     !hasGeometryForCurrentRouteContext &&
@@ -151,7 +157,6 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         disabled={
           drawingMode !== undefined ||
           creatingNewRoute ||
-          (!!selectedRouteId && !creatingNewRoute) ||
           // Allow stop area to be pre-selected
           isEditorOpen(mapViewState.stopAreas) ||
           // But nothing else must be selected on the map
@@ -166,7 +171,6 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           someItemIsSelected ||
           drawingMode !== undefined ||
           creatingNewRoute ||
-          (!!selectedRouteId && !creatingNewRoute) ||
           hasChangesInProgress ||
           isRouteMetadataFormOpen
         }
@@ -178,7 +182,9 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           shape="round"
           className="h-full text-xl"
           onClick={onDeleteRouteGeometry}
-          disabled={isRouteMetadataFormOpen}
+          disabled={
+            isRouteMetadataFormOpen || !hasGeometryForCurrentRouteContext
+          }
           tooltip={t(($) => $.map.deleteDrawnRoute)}
         >
           <MdDelete aria-label={t(($) => $.map.deleteDrawnRoute)} />

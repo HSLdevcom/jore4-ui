@@ -1,6 +1,7 @@
 import { gql, useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
+import { useStore } from 'react-redux';
 import {
   GetStopsAlongInfrastructureLinksDocument,
   GetStopsAlongInfrastructureLinksQuery,
@@ -10,12 +11,14 @@ import {
   useGetRouteDetailsByIdQuery,
 } from '../../../../../generated/graphql';
 import {
+  Mode,
   selectEditedRouteData,
   selectMapRouteEditor,
   setDraftRouteGeometryAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../../../redux';
+import type { RootState } from '../../../../../redux/store';
 import { RouteInfraLink } from '../../../../../types';
 import { log } from '../../../../../utils';
 import { extractJourneyPatternCandidateStops } from '../../../../LinesAndRoutes/Common';
@@ -23,6 +26,7 @@ import {
   SNAPPING_LINE_LAYER_ID,
   addRoute,
   getRouteStopLabels,
+  removeRoute,
 } from '../../Utils';
 import { LineStringFeature } from '../types';
 import { getStopLabelsIncludedInRoute } from './getStopLabelsIncludedInRoute';
@@ -41,6 +45,25 @@ const GQL_GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`
     }
   }
 `;
+
+function canApplyResolvedGeometryUpdate(
+  editorState: RootState['mapRouteEditor'],
+  startedInCreationFlow: boolean,
+) {
+  if (editorState.creatingNewRoute) {
+    return true;
+  }
+
+  if (editorState.drawingMode !== Mode.Edit) {
+    return false;
+  }
+
+  return (
+    !editorState.geometryClearedForRedraw ||
+    startedInCreationFlow ||
+    !!editorState.editedRouteData.geometry
+  );
+}
 
 function getOldRouteGeometryVariables(
   previouslyEditedStopLabels: ReadonlyArray<string>,
@@ -98,14 +121,17 @@ function useGetRemovedStopLabels() {
 export function useRouteGeometryUpdater(
   map: MapRef | undefined,
   removeSnappingLine: () => void,
+  onDrawGeometryRejected?: () => void,
 ) {
   const dispatch = useAppDispatch();
+  const store = useStore<RootState>();
   const editedRouteData = useAppSelector(selectEditedRouteData);
   const getRemovedStopLabels = useGetRemovedStopLabels();
 
   const routeMetadata = useRouteMetadata();
   const fetchInfraLinksWithStops = useFetchInfraLinksWithStops();
-  const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
+  const { creatingNewRoute, drawingMode } =
+    useAppSelector(selectMapRouteEditor);
   const baseRouteId = editedRouteData.id ?? editedRouteData.templateRouteId;
 
   const baseRouteResult = useGetRouteDetailsByIdQuery({
@@ -117,7 +143,15 @@ export function useRouteGeometryUpdater(
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
   return useCallback(
-    async (snappingLineFeature: LineStringFeature) => {
+    async (
+      snappingLineFeature: LineStringFeature,
+      // Preserve the mode at draw time when a debounced call runs after a transition.
+      startedInCreationFlowAtDrawTime?: boolean,
+    ) => {
+      const startedInCreationFlow =
+        startedInCreationFlowAtDrawTime ??
+        (creatingNewRoute || drawingMode === Mode.Draw);
+
       if (!baseRoute && !creatingNewRoute) {
         log.warn(
           'Trying to edit an existing route but could not find a base route (yet)',
@@ -136,6 +170,10 @@ export function useRouteGeometryUpdater(
         snappingLineFeature.geometry,
       );
       if (!response) {
+        if (startedInCreationFlow) {
+          removeSnappingLine();
+          onDrawGeometryRejected?.();
+        }
         return;
       }
 
@@ -158,6 +196,19 @@ export function useRouteGeometryUpdater(
         removedStopLabels,
       );
 
+      // Read current state after awaits so canceled flows cannot apply stale results.
+      const currentMapRouteEditor = store.getState().mapRouteEditor;
+      // Allow active edits and in-flight redraws, but reject callbacks after exiting.
+      const canApplyGeometryUpdate = canApplyResolvedGeometryUpdate(
+        currentMapRouteEditor,
+        startedInCreationFlow,
+      );
+      if (!canApplyGeometryUpdate) {
+        // Remove only the stale layer; preserve the current editor state.
+        removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+        return;
+      }
+
       dispatch(
         setDraftRouteGeometryAction({
           includedStopLabels,
@@ -176,6 +227,7 @@ export function useRouteGeometryUpdater(
     [
       baseRoute,
       creatingNewRoute,
+      drawingMode,
       routeMetadata,
       fetchInfraLinksWithStops,
       editedRouteData.includedStopLabels,
@@ -183,7 +235,10 @@ export function useRouteGeometryUpdater(
       getRemovedStopLabels,
       dispatch,
       map,
+      onDrawGeometryRejected,
       removeSnappingLine,
+      // Used to read current Redux state after the async requests complete.
+      store,
     ],
   );
 }
