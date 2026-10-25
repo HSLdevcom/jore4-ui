@@ -4,6 +4,7 @@ import {
   Mode,
   selectEditedRouteData,
   selectHasDraftRouteGeometry,
+  selectIsRedrawingExistingRoute,
   selectMapRouteEditor,
   selectSelectedRouteId,
   useAppSelector,
@@ -22,6 +23,9 @@ export const ExistingRouteGeometryLayers: FC<
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { drawingMode, creatingNewRoute } =
     useAppSelector(selectMapRouteEditor);
+  const isRedrawingExistingRoute = useAppSelector(
+    selectIsRedrawingExistingRoute,
+  );
   const { id: editedRouteId } = useAppSelector(selectEditedRouteData);
   const isEditingExistingRoute = drawingMode === Mode.Edit && !creatingNewRoute;
 
@@ -33,7 +37,9 @@ export const ExistingRouteGeometryLayers: FC<
     ...displayedRouteIds,
     ...(selectedRouteId ? [selectedRouteId] : []),
     ...(isEditingExistingRoute && editedRouteId ? [editedRouteId] : []),
-  ]);
+  ]).filter(
+    (routeId) => !(isRedrawingExistingRoute && editedRouteId === routeId),
+  );
 
   return renderedRouteIds.map((item) => (
     <ExistingRouteGeometryLayer
