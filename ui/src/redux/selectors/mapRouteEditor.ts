@@ -44,6 +44,11 @@ export const selectDrawingMode = createSelector(
   (mapRouteEditor) => mapRouteEditor.drawingMode,
 );
 
+export const selectIsRedrawingExistingRoute = createSelector(
+  selectMapRouteEditor,
+  (mapRouteEditor) => mapRouteEditor.geometryClearedForRedraw,
+);
+
 export const selectEditedRouteIncludedStops = createSelector(
   selectMapRouteEditor,
   ({ editedRouteData }) =>

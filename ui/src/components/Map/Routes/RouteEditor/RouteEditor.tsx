@@ -23,12 +23,14 @@ import {
   selectMapRouteEditor,
   selectSelectedRouteId,
   setDraftRouteJourneyPatternAction,
+  setGeometryClearedForRedrawAction,
   setLineInfoAction,
   setRouteMetadataAction,
   setRouteToDrawModeAction,
   setRouteToEditModeAction,
   setSelectedRouteIdAction,
   setTemplateRouteIdAction,
+  startExistingRouteRedrawAction,
   startRouteCreatingAction,
   startRouteEditingAction,
   stopRouteEditingAction,
@@ -50,20 +52,26 @@ import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
 } from '../../../LinesAndRoutes/Common/ConflictResolverModal';
+import { RouteEditorRef } from '../../refTypes';
 import { useMapUrlStateContext } from '../../Utils/mapUrlState';
 import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../Utils';
 import { useSaveHelpers } from './Utils';
 
-const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
-  _,
-  externalRef,
-) => {
+type RouteEditorProps = {
+  readonly onClearDrawnRouteGeometry: () => void;
+};
+
+const RouteEditorComponent: ForwardRefRenderFunction<
+  RouteEditorRef,
+  RouteEditorProps
+> = ({ onClearDrawnRouteGeometry }, externalRef) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { current: map } = useMap();
   const apollo = useApolloClient();
 
-  const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
+  const { creatingNewRoute, geometryClearedForRedraw } =
+    useAppSelector(selectMapRouteEditor);
   const drawingMode = useAppSelector(selectDrawingMode);
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
 
@@ -89,6 +97,15 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
 
   const { setIsLoading } = useLoader(Operation.SaveRoute);
 
+  const removeSnappingLineFromMap = () => {
+    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+  };
+
+  const clearDraftGeometryAndSnappingLine = () => {
+    dispatch(resetDraftRouteGeometryAction());
+    removeSnappingLineFromMap();
+  };
+
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
   const onDrawRoute = (vehicleMode: ReusableComponentsVehicleModeEnum) => {
     if (drawingMode === Mode.Draw) {
@@ -104,13 +121,13 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   const onEditRoute = async () => {
     dispatch(startRouteEditingAction());
 
-    // if editing a route that is just being created, we should already have the line info and the route metadata available
+    // New routes already have line and metadata in state.
     if (!selectedRouteId) {
       dispatch(setRouteToEditModeAction());
       return;
     }
 
-    // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
+    // Existing routes need metadata and line info from backend before edit mode.
     const routeDetailsResult = await apollo.query<
       GetRouteDetailsByIdQuery,
       GetRouteDetailsByIdQueryVariables
@@ -118,25 +135,17 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
       query: GetRouteDetailsByIdDocument,
       variables: { routeId: selectedRouteId },
     });
+    const route = routeDetailsResult.data.route_route_by_pk;
 
-    if (!routeDetailsResult.data.route_route_by_pk?.route_line) {
+    if (!route?.route_line) {
       throw new Error("Can't find route and line details");
     }
 
-    dispatch(
-      setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),
-    );
-    dispatch(
-      setRouteMetadataAction(
-        mapRouteToFormState(routeDetailsResult.data.route_route_by_pk),
-      ),
-    );
+    dispatch(setLineInfoAction(route.route_line));
+    dispatch(setRouteMetadataAction(mapRouteToFormState(route)));
 
     // In our data model route has always exactly one journey pattern
-    const editedRouteJourneyPattern =
-      routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
-
-    // Preserve journey pattern stop metadata (e.g. via info)
+    const editedRouteJourneyPattern = route.route_journey_patterns[0];
 
     const newJourneyPatternStops =
       editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns.map(
@@ -161,6 +170,12 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
       return;
     }
 
+    if (geometryClearedForRedraw) {
+      // Redraw as a new geometry flow while preserving the existing route identity.
+      dispatch(startExistingRouteRedrawAction());
+      return;
+    }
+
     await onEditRoute();
   };
 
@@ -170,16 +185,23 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
 
   const onCancelConfirm = () => {
     setIsCancelling(false);
-    dispatch(resetDraftRouteGeometryAction());
+    const isCancelingExistingRouteRedraw =
+      geometryClearedForRedraw && creatingNewRoute && drawingMode === Mode.Draw;
+    if (isCancelingExistingRouteRedraw) {
+      clearDraftGeometryAndSnappingLine();
+      dispatch(resetRouteCreatingAction());
+      return;
+    }
+
+    clearDraftGeometryAndSnappingLine();
     if (!creatingNewRoute && drawingMode === Mode.Edit) {
       dispatch(stopRouteEditingAction());
-    } else {
-      dispatch(resetRouteCreatingAction());
-      dispatch(resetDraftRouteGeometryAction());
-      // TODO: This should be only a temporary solution and the core issue should be fixed which has something to do with the debounced route updates and async calls.
-      // Fallback to removing snapping line if it wasn't removed when canceling drawing.
-      removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+      return;
     }
+
+    dispatch(resetRouteCreatingAction());
+    // TODO: This should be only a temporary solution and the core issue should be fixed which has something to do with the debounced route updates and async calls.
+    removeSnappingLineFromMap();
   };
 
   const onCancel = () => {
@@ -187,20 +209,28 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   };
 
   const onSave = async () => {
-    if (!saveBlockers) {
-      if (editedRouteId) {
-        await onDoEdit();
-      } else {
-        await onDoCreate();
-      }
+    if (saveBlockers) {
+      return;
     }
+
+    await (editedRouteId ? onDoEdit : onDoCreate)();
   };
 
   const onDeleteRouteGeometryConfirm = () => {
-    dispatch(resetDraftRouteGeometryAction());
+    onClearDrawnRouteGeometry();
+    clearDraftGeometryAndSnappingLine();
+
+    // Prevent backend data from restoring deleted geometry before redraw.
+    if (!creatingNewRoute) {
+      dispatch(setGeometryClearedForRedrawAction(true));
+    }
+
     dispatch(setTemplateRouteIdAction(undefined));
-    dispatch(stopRouteEditingAction());
-    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+
+    if (creatingNewRoute) {
+      dispatch(stopRouteEditingAction());
+    }
+
     setIsDeletingRouteGeometry(false);
   };
 
@@ -209,11 +239,6 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   };
 
   const onDeleteConfirm = async () => {
-    if (!editedRouteId) {
-      setIsDeleting(false);
-      return;
-    }
-
     setIsLoading(true);
     try {
       // delete the route from the backend
@@ -232,7 +257,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
     setIsLoading(false);
   };
 
-  const onDeleteRoute = async () => {
+  const onDeleteRoute = () => {
     setIsDeleting(true);
   };
 

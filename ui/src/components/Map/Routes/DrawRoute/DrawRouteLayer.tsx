@@ -1,5 +1,12 @@
 import isEmpty from 'lodash/isEmpty';
-import { FC, useCallback, useEffect, useRef } from 'react';
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../../../generated/graphql';
 import {
@@ -7,12 +14,14 @@ import {
   Operation,
   selectEditedRouteData,
   selectMapRouteEditor,
+  stopExistingRouteRedrawAction,
   stopRouteEditingAction,
   useAppDispatch,
   useAppSelector,
   useLoader,
 } from '../../../../redux';
 import { LoadingState } from '../../../../types';
+import { useDefaultErrorHandler } from '../RouteEditor/Utils/useDefaultErrorHandler';
 import {
   ACTIVE_LINE_STROKE_ID,
   DRAW_VERTEX_LAYER_IDS,
@@ -28,6 +37,8 @@ import {
   mapRouteToInfraLinksAlongRoute,
   useSnappingLine,
 } from './Utils';
+
+type DrawEvent = { features: ReadonlyArray<object> };
 
 function setCursor(map: MapRef | undefined, drawingMode: Mode | undefined) {
   if (!map) {
@@ -46,17 +57,25 @@ function setCursor(map: MapRef | undefined, drawingMode: Mode | undefined) {
   }
 }
 
-export const DrawRouteLayer: FC = () => {
+export type DrawRouteLayerRef = {
+  readonly clearDrawnRouteGeometry: () => void;
+};
+
+const DrawRouteLayerComponent: ForwardRefRenderFunction<DrawRouteLayerRef> = (
+  _,
+  externalRef,
+) => {
   const drawRef = useRef<MapboxDraw | null>(null);
   const { current: map } = useMap();
   const dispatch = useAppDispatch();
+  const defaultErrorHandler = useDefaultErrorHandler();
   const { setLoadingState: setRouteDrawLoadingState } = useLoader(
     Operation.PrepareRouteDraw,
   );
 
   const editedRouteData = useAppSelector(selectEditedRouteData);
-  const { drawingMode } = useAppSelector(selectMapRouteEditor);
-  const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
+  const { drawingMode, creatingNewRoute, geometryClearedForRedraw } =
+    useAppSelector(selectMapRouteEditor);
   const isNewRouteDrawPhase =
     creatingNewRoute && !editedRouteData.geometry && drawingMode !== undefined;
 
@@ -85,8 +104,27 @@ export const DrawRouteLayer: FC = () => {
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
 
-  const { debouncedOnAddRoute, snappingLine, setSnappingLine } =
-    useSnappingLine(map);
+  const clearDrawControlFeatures = useCallback(() => {
+    drawRef.current?.deleteAll();
+  }, []);
+
+  const {
+    updateRouteGeometry,
+    debouncedOnAddRoute,
+    snappingLine,
+    setSnappingLine,
+  } = useSnappingLine(map, clearDrawControlFeatures);
+
+  const clearDrawnRouteGeometry = useCallback(() => {
+    debouncedOnAddRoute.cancel();
+    drawRef.current?.deleteAll();
+    setSnappingLine(null);
+    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+  }, [debouncedOnAddRoute, map, setSnappingLine]);
+
+  useImperativeHandle(externalRef, () => ({ clearDrawnRouteGeometry }), [
+    clearDrawnRouteGeometry,
+  ]);
 
   const addSnappingLineToMap = (infraSnappingLine: LineStringFeature) => {
     drawRef.current?.add({
@@ -119,30 +157,29 @@ export const DrawRouteLayer: FC = () => {
       NEW_ROUTE_LINE_ID,
     ]);
 
-    // If creating new route (without a template) or snapping line already exists,
-    // no need to initialize snapping line
-    if (!snappingLine) {
-      if (
-        creatingNewRoute &&
-        !templateRouteId &&
-        editedRouteData.infraLinks &&
-        !isEmpty(editedRouteData.infraLinks)
-      ) {
-        const infraSnappingLine = mapInfraLinksToFeature(
-          editedRouteData.infraLinks,
-        );
-        setSnappingLine(infraSnappingLine);
-        addSnappingLineToMap(infraSnappingLine);
-      }
+    const shouldHydrateFromDraftInfraLinks =
+      creatingNewRoute &&
+      !templateRouteId &&
+      editedRouteData.infraLinks &&
+      !isEmpty(editedRouteData.infraLinks);
+    const shouldHydrateFromBaseRoute =
+      drawingMode === Mode.Edit && baseRoute && !geometryClearedForRedraw;
 
-      if (drawingMode === Mode.Edit && baseRoute) {
-        // Starting to edit a route, generate snapping line from infra links
-        const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
-        const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
-        setSnappingLine(infraSnappingLine);
-        debouncedOnAddRoute(infraSnappingLine);
-        addSnappingLineToMap(infraSnappingLine);
-      }
+    if (!snappingLine && shouldHydrateFromDraftInfraLinks) {
+      const infraSnappingLine = mapInfraLinksToFeature(
+        editedRouteData.infraLinks,
+      );
+      setSnappingLine(infraSnappingLine);
+      addSnappingLineToMap(infraSnappingLine);
+    }
+
+    if (!snappingLine && shouldHydrateFromBaseRoute) {
+      // Starting to edit a route, generate snapping line from infra links
+      const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
+      const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
+      setSnappingLine(infraSnappingLine);
+      debouncedOnAddRoute(infraSnappingLine);
+      addSnappingLineToMap(infraSnappingLine);
     }
 
     // Remove snapping line on unmount
@@ -159,6 +196,7 @@ export const DrawRouteLayer: FC = () => {
     moveLayers,
     setSnappingLine,
     snappingLine,
+    geometryClearedForRedraw,
     templateRouteId,
   ]);
 
@@ -279,26 +317,69 @@ export const DrawRouteLayer: FC = () => {
     };
   }, [drawingMode, map]);
 
+  useEffect(() => {
+    if (drawingMode !== Mode.Draw) {
+      return;
+    }
+
+    // DrawControl can remain mounted when switching Edit -> Draw,
+    // so explicitly force line draw mode for redraw/new draw flows.
+    drawRef.current?.changeMode('draw_line_string');
+  }, [drawingMode]);
+
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state
   if (!editedRouteData.metaData) {
     return null;
   }
 
-  const stopRouteEditing = () => {
+  const finishDrawing = () => {
+    // In existing-route redraw flow, return to edit mode after drawing is complete.
+    if (geometryClearedForRedraw && creatingNewRoute) {
+      dispatch(stopExistingRouteRedrawAction());
+      setCursor(map, Mode.Edit);
+      return;
+    }
+
+    // Default behavior for regular draw/create flow.
     dispatch(stopRouteEditingAction());
     setCursor(map, Mode.Edit);
   };
 
-  const updateLineOnMap = (e: { features: ReadonlyArray<object> }) => {
-    const snappingLineFeature = e.features[0] as LineStringFeature;
+  const queueGeometryUpdateFromDrawEvent = (event: DrawEvent) => {
+    const snappingLineFeature = event.features[0] as LineStringFeature;
+    const startedInCreationFlowAtDrawTime =
+      creatingNewRoute || drawingMode === Mode.Draw;
     setSnappingLine(snappingLineFeature);
-    debouncedOnAddRoute(snappingLineFeature);
+    // Capture draw/create state at enqueue time. The debounced handler runs
+    // later and editor mode may already have transitioned back to edit.
+    debouncedOnAddRoute(snappingLineFeature, startedInCreationFlowAtDrawTime);
   };
 
-  const onCreate = (e: { features: ReadonlyArray<object> }) => {
-    updateLineOnMap(e);
-    stopRouteEditing();
+  const onCreate = async (event: DrawEvent) => {
+    const snappingLineFeature = event.features[0] as LineStringFeature;
+    const startedInCreationFlowAtDrawTime =
+      creatingNewRoute || drawingMode === Mode.Draw;
+    setSnappingLine(snappingLineFeature);
+
+    // Creation/redraw updates remain valid after leaving Draw mode.
+    if (startedInCreationFlowAtDrawTime) {
+      finishDrawing();
+    }
+
+    try {
+      await updateRouteGeometry(
+        snappingLineFeature,
+        startedInCreationFlowAtDrawTime,
+      );
+    } catch (error) {
+      defaultErrorHandler(error);
+    } finally {
+      // Existing-route updates require edit mode until the updater resolves.
+      if (!startedInCreationFlowAtDrawTime) {
+        finishDrawing();
+      }
+    }
   };
 
   const onModeChange = () => {
@@ -318,7 +399,9 @@ export const DrawRouteLayer: FC = () => {
       defaultMode="draw_line_string"
       onCreate={onCreate}
       onModeChange={onModeChange}
-      onUpdate={updateLineOnMap}
+      onUpdate={queueGeometryUpdateFromDrawEvent}
     />
   );
 };
+
+export const DrawRouteLayer = forwardRef(DrawRouteLayerComponent);
