@@ -7,6 +7,7 @@ import {
   MapEntityEditorViewState,
   Mode,
   isEditorOpen,
+  selectEditedRouteData,
   selectHasChangesInProgress,
   selectHasDraftRouteGeometry,
   selectIsInViewMode,
@@ -61,8 +62,10 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     creatingNewRoute,
     isRouteMetadataFormOpen,
     selectedRouteId,
+    suppressBaseRouteRehydrate,
   } = useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
+  const editedRouteData = useAppSelector(selectEditedRouteData);
 
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
   const isInViewMode = useAppSelector(selectIsInViewMode);
@@ -100,9 +103,13 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
     !!selectedRouteId ||
     (creatingNewRoute && !isRouteMetadataFormOpen);
   const showRedrawRouteButton = !!selectedRouteId || creatingNewRoute;
+  const hasDraftInfraLinks = !!editedRouteData.infraLinks?.length;
+  // After explicit geometry delete in existing-route edit mode,
+  // treat route geometry as absent so redraw can be triggered.
   const hasGeometryForCurrentRouteContext = creatingNewRoute
-    ? hasDraftRouteGeometry
-    : !!selectedRouteId;
+    ? hasDraftRouteGeometry || hasDraftInfraLinks
+    : (!!selectedRouteId && !suppressBaseRouteRehydrate) ||
+      hasDraftRouteGeometry;
   const canRedrawRoute =
     showRedrawRouteButton &&
     !hasGeometryForCurrentRouteContext &&
@@ -178,7 +185,9 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
           shape="round"
           className="h-full text-xl"
           onClick={onDeleteRouteGeometry}
-          disabled={isRouteMetadataFormOpen}
+          disabled={
+            isRouteMetadataFormOpen || !hasGeometryForCurrentRouteContext
+          }
           tooltip={t(($) => $.map.deleteDrawnRoute)}
         >
           <MdDelete aria-label={t(($) => $.map.deleteDrawnRoute)} />
