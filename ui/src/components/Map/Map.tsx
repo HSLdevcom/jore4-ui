@@ -14,7 +14,9 @@ import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import {
   MapEntityEditorViewState,
   MapEntityType,
+  Mode,
   isPlacingOrMoving,
+  selectDrawingMode,
   selectHasDraftLocation,
   selectMapDepotStopViewState,
   selectMapFilter,
@@ -111,6 +113,7 @@ function useMapViewState(): MapViewState {
 function useHandleMapRouteClick() {
   const dispatch = useAppDispatch();
   const routeIsSelected = !!useAppSelector(selectSelectedRouteId);
+  const drawingMode = useAppSelector(selectDrawingMode);
 
   return (e: MapLayerMouseEvent) => {
     // Retrieve all rendered features on the map
@@ -132,8 +135,8 @@ function useHandleMapRouteClick() {
       return;
     }
 
-    // If clicked away, unselect route (if any)
-    if (routeIsSelected) {
+    // While editing, keep current route selection locked until user explicitly cancels/stops editing.
+    if (routeIsSelected && drawingMode !== Mode.Edit) {
       dispatch(setSelectedRouteIdAction(undefined));
     }
   };
