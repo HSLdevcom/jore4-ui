@@ -14,7 +14,6 @@ import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import {
   MapEntityEditorViewState,
   MapEntityType,
-  Mode,
   isPlacingOrMoving,
   selectDrawingMode,
   selectHasDraftLocation,
@@ -112,31 +111,28 @@ function useMapViewState(): MapViewState {
 
 function useHandleMapRouteClick() {
   const dispatch = useAppDispatch();
-  const routeIsSelected = !!useAppSelector(selectSelectedRouteId);
+  const hasSelectedRoute = !!useAppSelector(selectSelectedRouteId);
   const drawingMode = useAppSelector(selectDrawingMode);
 
   return (e: MapLayerMouseEvent) => {
-    // Retrieve all rendered features on the map
     const { features } = e;
 
-    // If the clicked feature was a route, select it
     if (features?.length) {
-      const routeFeatures = features.filter((feature) =>
+      const clickedRouteFeature = features.find((feature) =>
         isRouteGeometryLayer(feature.layer.id),
       );
 
-      if (routeFeatures.length) {
-        const routeId = mapLayerIdToRouteId(routeFeatures[0].layer.id);
-
-        // set clicked route as selected
+      if (clickedRouteFeature) {
+        const routeId = mapLayerIdToRouteId(clickedRouteFeature.layer.id);
         dispatch(setSelectedRouteIdAction(routeId));
       }
 
       return;
     }
 
-    // While editing, keep current route selection locked until user explicitly cancels/stops editing.
-    if (routeIsSelected && drawingMode !== Mode.Edit) {
+    const shouldDeselectRouteInViewMode =
+      hasSelectedRoute && drawingMode === undefined;
+    if (shouldDeselectRouteInViewMode) {
       dispatch(setSelectedRouteIdAction(undefined));
     }
   };
