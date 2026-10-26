@@ -1,7 +1,7 @@
 import type { SharedConfig } from '@typescript-eslint/utils/ts-eslint';
 import { RestrictedSyntax, restrictedSyntax } from './style';
 
-// Guardrails for the Luxon -> Temporal migration of the ui project.
+// Guardrails for the Luxon -> Temporal migration.
 
 const LODASH_ORDERING_FN = '/^(orderBy|sortBy|minBy|maxBy)$/';
 
@@ -43,6 +43,23 @@ const dateSyntax: ReadonlyArray<RestrictedSyntax> = [
 const useAreEqualMessage =
   'Use areEqual from utils instead. lodash isEqual considers any two Temporal objects equal.';
 
+const restrictedImportPaths = [
+  { name: 'lodash/isEqual', message: useAreEqualMessage },
+  { name: 'lodash/fp/isEqual', message: useAreEqualMessage },
+  {
+    name: 'lodash',
+    importNames: ['isEqual'],
+    message: useAreEqualMessage,
+  },
+  {
+    name: 'lodash/fp',
+    importNames: ['isEqual'],
+    message: useAreEqualMessage,
+  },
+];
+
+const useTemporalMessage = 'Use Temporal through the time.ts helpers instead.';
+
 // Date is allowed for measuring UI timings that are not domain values.
 export const uiRestrictedSyntaxAllowingDate: SharedConfig.RuleEntry = [
   'error',
@@ -56,19 +73,22 @@ export const rules: SharedConfig.RulesRecord = {
   'no-restricted-imports': [
     'error',
     {
+      paths: restrictedImportPaths,
+    },
+  ],
+};
+
+// The cypress and test-db-manager projects have been fully migrated to
+// Temporal, so Luxon is banned there. The ui still uses it for the date scalar.
+export const testProjectRules: SharedConfig.RulesRecord = {
+  ...rules,
+
+  'no-restricted-imports': [
+    'error',
+    {
       paths: [
-        { name: 'lodash/isEqual', message: useAreEqualMessage },
-        { name: 'lodash/fp/isEqual', message: useAreEqualMessage },
-        {
-          name: 'lodash',
-          importNames: ['isEqual'],
-          message: useAreEqualMessage,
-        },
-        {
-          name: 'lodash/fp',
-          importNames: ['isEqual'],
-          message: useAreEqualMessage,
-        },
+        ...restrictedImportPaths,
+        { name: 'luxon', message: useTemporalMessage },
       ],
     },
   ],

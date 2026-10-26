@@ -7,7 +7,6 @@ import {
   StopRegistryQuayInput,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import compact from 'lodash/compact';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -26,6 +25,7 @@ import {
 } from '../../pageObjects/stop-registry';
 import { UUID } from '../../types';
 import { insertToDbHelper } from '../../utils';
+import { today } from '../../utils/time';
 import { InsertedStopRegistryIds } from '../utils';
 import {
   active,
@@ -41,8 +41,8 @@ import {
 // Make stop version utilities
 type StopVersionInfo = {
   readonly priority: Priority;
-  readonly validityStart: DateTime;
-  readonly validityEnd: DateTime | null;
+  readonly validityStart: Temporal.PlainDate;
+  readonly validityEnd: Temporal.PlainDate | null;
   readonly comment: string;
 };
 
@@ -60,12 +60,12 @@ function makeStopVersion(info: StopVersionInfo): StopVersionOutput {
       { key: KnownValueKey.Priority, values: [priority.toString(10)] },
       {
         key: KnownValueKey.ValidityStart,
-        values: [validityStart.toISODate()],
+        values: [validityStart.toString()],
       },
       validityEnd
         ? {
             key: KnownValueKey.ValidityEnd,
-            values: [validityEnd.toISODate()],
+            values: [validityEnd.toString()],
           }
         : null,
       {
@@ -85,12 +85,12 @@ function makeStopVersion(info: StopVersionInfo): StopVersionOutput {
 }
 
 // Base validity period values
-const today = DateTime.now().startOf('day');
-const areaValidityStart = today.minus({ years: 10 });
-const areaValidityEnd = today.plus({ years: 10 });
+const todaysDate = today();
+const areaValidityStart = todaysDate.subtract({ years: 10 });
+const areaValidityEnd = todaysDate.add({ years: 10 });
 
 // Base stop versions
-const pastStandardEnd = today.minus({ year: 1 });
+const pastStandardEnd = todaysDate.subtract({ years: 1 });
 const pastStandardVersion = makeStopVersion({
   priority: Priority.Standard,
   validityStart: areaValidityStart,
@@ -98,36 +98,38 @@ const pastStandardVersion = makeStopVersion({
   comment: 'Past Standard Version',
 });
 
-const currentStandardEnd = today.plus({ years: 5 });
+const currentStandardEnd = todaysDate.add({ years: 5 });
 const currentStandardVersion = makeStopVersion({
   priority: Priority.Standard,
-  validityStart: pastStandardEnd.plus({ day: 1 }),
+  validityStart: pastStandardEnd.add({ days: 1 }),
   validityEnd: currentStandardEnd,
   comment: 'Current Standard Version',
 });
 
 const futureStandardVersion = makeStopVersion({
   priority: Priority.Standard,
-  validityStart: currentStandardEnd.plus({ days: 1 }),
+  validityStart: currentStandardEnd.add({ days: 1 }),
   validityEnd: null,
   comment: 'Future Standard Version',
 });
 
+const nextMonth = todaysDate.add({ months: 1 });
+
 const todayTempVersion = makeStopVersion({
   priority: Priority.Temporary,
-  validityStart: today,
-  validityEnd: today,
+  validityStart: todaysDate,
+  validityEnd: todaysDate,
   comment: 'Temporarily out of use due to a parade',
 });
 
 const nextMonthTempVersion = makeStopVersion({
   priority: Priority.Temporary,
-  validityStart: today.plus({ month: 1 }).startOf('month'),
-  validityEnd: today.plus({ month: 1 }).endOf('month'),
+  validityStart: nextMonth.with({ day: 1 }),
+  validityEnd: nextMonth.with({ day: nextMonth.daysInMonth }),
   comment: 'Temporarily out of use due to sewer works',
 });
 
-const draftOneEnd = areaValidityStart.plus({ years: 6, months: 8 });
+const draftOneEnd = areaValidityStart.add({ years: 6, months: 8 });
 const draftOneVersion = makeStopVersion({
   priority: Priority.Draft,
   validityStart: areaValidityStart,
@@ -135,17 +137,17 @@ const draftOneVersion = makeStopVersion({
   comment: '1st Draft Version',
 });
 
-const draftTwoEnd = draftOneEnd.plus({ years: 6, months: 8 });
+const draftTwoEnd = draftOneEnd.add({ years: 6, months: 8 });
 const draftTwoVersion = makeStopVersion({
   priority: Priority.Draft,
-  validityStart: draftOneEnd.plus({ day: 1 }),
+  validityStart: draftOneEnd.add({ days: 1 }),
   validityEnd: draftTwoEnd,
   comment: '2nd Draft Version',
 });
 
 const draftThreeVersion = makeStopVersion({
   priority: Priority.Draft,
-  validityStart: draftTwoEnd.plus({ day: 1 }),
+  validityStart: draftTwoEnd.add({ days: 1 }),
   validityEnd: areaValidityEnd,
   comment: '3rd Draft Version',
 });
@@ -180,11 +182,11 @@ function makeStopArea(
       keyValues: [
         {
           key: KnownValueKey.ValidityStart,
-          values: [areaValidityStart.toISODate()],
+          values: [areaValidityStart.toString()],
         },
         {
           key: KnownValueKey.ValidityEnd,
-          values: [areaValidityEnd.toISODate()],
+          values: [areaValidityEnd.toString()],
         },
       ],
       geometry: {
@@ -287,8 +289,8 @@ describe('Stop Versions Page', { tags: [Tag.StopRegistry] }, () => {
 
     it('should filter and list versions', () => {
       // Limit to today
-      StopVersionPage.startDate().inputDateValue(today);
-      StopVersionPage.endDate().inputDateValue(today);
+      StopVersionPage.startDate().inputDateValue(todaysDate);
+      StopVersionPage.endDate().inputDateValue(todaysDate);
 
       checkScheduledRow(
         StopVersionPage,

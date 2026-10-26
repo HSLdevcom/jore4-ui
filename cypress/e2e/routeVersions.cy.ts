@@ -4,7 +4,6 @@ import {
   RouteInsertInput,
   buildLine,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import {
   RouteVersionPage,
@@ -12,6 +11,7 @@ import {
   RouteVersionsTableHeader,
 } from '../pageObjects/routes-and-lines';
 import { insertToDbHelper } from '../utils';
+import { today } from '../utils/time';
 import {
   active,
   checkDraftRow,
@@ -25,8 +25,8 @@ import {
 
 type RouteVersionInfo = {
   readonly priority: Priority;
-  readonly validityStart: DateTime;
-  readonly validityEnd: DateTime | null;
+  readonly validityStart: Temporal.PlainDate;
+  readonly validityEnd: Temporal.PlainDate | null;
   readonly comment: string;
 };
 
@@ -38,7 +38,7 @@ type RouteVersionOutput = {
 const testLine = {
   ...buildLine({ label: 'RV999' }),
   line_id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
-  validity_start: DateTime.fromISO('2016-01-01'),
+  validity_start: Temporal.PlainDate.from('2016-01-01'),
   validity_end: null, // Always valid
 };
 
@@ -80,12 +80,12 @@ function makeRouteVersion(info: RouteVersionInfo): RouteVersionOutput {
 }
 
 // Base validity period values
-const today = DateTime.now().startOf('day');
-const lineValidityStart = today.minus({ years: 10 });
-const lineValidityEnd = today.plus({ years: 10 });
+const todaysDate = today();
+const lineValidityStart = todaysDate.subtract({ years: 10 });
+const lineValidityEnd = todaysDate.add({ years: 10 });
 
 // Base route versions
-const pastStandardEnd = today.minus({ years: 1 });
+const pastStandardEnd = todaysDate.subtract({ years: 1 });
 const pastStandardVersion = makeRouteVersion({
   priority: Priority.Standard,
   validityStart: lineValidityStart,
@@ -93,36 +93,38 @@ const pastStandardVersion = makeRouteVersion({
   comment: 'Past Standard Version',
 });
 
-const currentStandardEnd = today.plus({ years: 5 });
+const currentStandardEnd = todaysDate.add({ years: 5 });
 const currentStandardVersion = makeRouteVersion({
   priority: Priority.Standard,
-  validityStart: pastStandardEnd.plus({ days: 1 }),
+  validityStart: pastStandardEnd.add({ days: 1 }),
   validityEnd: currentStandardEnd,
   comment: 'Current Standard Version',
 });
 
 const futureStandardVersion = makeRouteVersion({
   priority: Priority.Standard,
-  validityStart: currentStandardEnd.plus({ days: 1 }),
+  validityStart: currentStandardEnd.add({ days: 1 }),
   validityEnd: null,
   comment: 'Future Standard Version',
 });
 
+const nextMonth = todaysDate.add({ months: 1 });
+
 const todayTempVersion = makeRouteVersion({
   priority: Priority.Temporary,
-  validityStart: today,
-  validityEnd: today,
+  validityStart: todaysDate,
+  validityEnd: todaysDate,
   comment: 'Temporarily out of use due to a parade',
 });
 
 const nextMonthTempVersion = makeRouteVersion({
   priority: Priority.Temporary,
-  validityStart: today.plus({ months: 1 }).startOf('month'),
-  validityEnd: today.plus({ months: 1 }).endOf('month'),
+  validityStart: nextMonth.with({ day: 1 }),
+  validityEnd: nextMonth.with({ day: nextMonth.daysInMonth }),
   comment: 'Temporarily out of use due to road works',
 });
 
-const draftOneEnd = lineValidityStart.plus({ years: 6, months: 8 });
+const draftOneEnd = lineValidityStart.add({ years: 6, months: 8 });
 const draftOneVersion = makeRouteVersion({
   priority: Priority.Draft,
   validityStart: lineValidityStart,
@@ -130,17 +132,17 @@ const draftOneVersion = makeRouteVersion({
   comment: '1st Draft Version',
 });
 
-const draftTwoEnd = draftOneEnd.plus({ years: 6, months: 8 });
+const draftTwoEnd = draftOneEnd.add({ years: 6, months: 8 });
 const draftTwoVersion = makeRouteVersion({
   priority: Priority.Draft,
-  validityStart: draftOneEnd.plus({ days: 1 }),
+  validityStart: draftOneEnd.add({ days: 1 }),
   validityEnd: draftTwoEnd,
   comment: '2nd Draft Version',
 });
 
 const draftThreeVersion = makeRouteVersion({
   priority: Priority.Draft,
-  validityStart: draftTwoEnd.plus({ days: 1 }),
+  validityStart: draftTwoEnd.add({ days: 1 }),
   validityEnd: lineValidityEnd,
   comment: '3rd Draft Version',
 });
@@ -206,8 +208,8 @@ describe('Route Versions Page', { tags: [Tag.Routes] }, () => {
 
     it('should filter and list versions', () => {
       // Limit to today
-      RouteVersionPage.startDate().inputDateValue(today);
-      RouteVersionPage.endDate().inputDateValue(today);
+      RouteVersionPage.startDate().inputDateValue(todaysDate);
+      RouteVersionPage.endDate().inputDateValue(todaysDate);
 
       checkScheduledRow(
         RouteVersionPage,

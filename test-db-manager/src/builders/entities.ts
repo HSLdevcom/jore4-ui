@@ -13,6 +13,7 @@ import {
   LegacyHslMunicipality,
   Priority,
   StopInJourneyPatternInsertInput,
+  StripSerializedTypes,
 } from '../types';
 
 export function buildLocalizedString(str: string): LocalizedString {
@@ -24,7 +25,7 @@ export function buildLocalizedString(str: string): LocalizedString {
 
 export const buildRoute = (
   requiredFields: Pick<RouteRouteInsertInput, 'label'>,
-): RouteRouteInsertInput => {
+): StripSerializedTypes<RouteRouteInsertInput> => {
   const { label } = requiredFields;
   return {
     name_i18n: buildLocalizedString(`route ${label}`),
@@ -45,7 +46,7 @@ export const buildRoute = (
 
 export const buildLine = (
   requiredFields: Pick<RouteLineInsertInput, 'label'>,
-): RouteLineInsertInput => {
+): StripSerializedTypes<RouteLineInsertInput> => {
   const { label } = requiredFields;
   return {
     name_i18n: buildLocalizedString(`line ${label}`),
@@ -66,7 +67,7 @@ export const buildStop = (
     ServicePatternScheduledStopPointInsertInput,
     'located_on_infrastructure_link_id' | 'label'
   >,
-): ServicePatternScheduledStopPointInsertInput => ({
+): StripSerializedTypes<ServicePatternScheduledStopPointInsertInput> => ({
   measured_location: {
     type: 'Point',
     coordinates: [24.92832655782573, 60.16391811339392, 0],

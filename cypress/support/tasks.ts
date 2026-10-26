@@ -8,6 +8,7 @@ import {
   StopPlaceMaintenance,
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
+  StripTemporalTypes,
   TerminalIdsByName,
   TerminalInput,
   buildTerminalCreateInput,
@@ -123,6 +124,8 @@ type InternalInsertedStopRegistryIds = {
   organisationIdsByName: OrganisationIdsByName;
 };
 
+// The arguments have been through JSON.stringify on their way here, so all
+// the time values of the test data are in their serialized form.
 export async function insertStopRegistryData({
   organisations = [],
   terminals = [],
@@ -130,15 +133,16 @@ export async function insertStopRegistryData({
   infoSpots = [],
   stopPointsRequired = true,
 }: {
-  organisations?: Array<StopRegistryOrganisationInput>;
-  terminals?: Array<TerminalInput>;
-  stopPlaces?: Array<StopAreaInput>;
-  infoSpots?: Array<InfoSpotInput>;
+  organisations?: Array<StripTemporalTypes<StopRegistryOrganisationInput>>;
+  terminals?: Array<StripTemporalTypes<TerminalInput>>;
+  stopPlaces?: Array<StripTemporalTypes<StopAreaInput>>;
+  infoSpots?: Array<StripTemporalTypes<InfoSpotInput>>;
   stopPointsRequired?: boolean;
 }): Promise<InternalInsertedStopRegistryIds> {
-  const organisationIdsByName = await insertStopRegistryOrganisations(
-    organisations.concat(mapTerminalOwnersToOrganisations(terminals)),
-  );
+  const organisationIdsByName = await insertStopRegistryOrganisations([
+    ...organisations,
+    ...mapTerminalOwnersToOrganisations(terminals),
+  ]);
 
   const stopPlaceInputs = stopPlaces.map((sp) => {
     const stopPlaceWithOrgs = setStopPlaceOrganisations(
@@ -270,7 +274,7 @@ export function emptyDownloadsFolder() {
 }
 
 export async function insertInfoSpots(
-  infoSpots: Array<Partial<StopRegistryInfoSpotInput>>,
+  infoSpots: Array<StripTemporalTypes<Partial<StopRegistryInfoSpotInput>>>,
 ) {
   await insertStopRegistryInfoSpots(infoSpots);
   return null;

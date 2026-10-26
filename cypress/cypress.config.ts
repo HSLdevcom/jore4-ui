@@ -6,6 +6,7 @@ import { GenerateCtrfReport } from 'cypress-ctrf-json-reporter';
 import cypressSplit from 'cypress-split';
 import { CompositeCypressEventHandler } from './support/compositeEventHandler';
 import { onLaunchBrowser } from './support/launchBrowser';
+import { withNormalizedTimeValues } from './support/taskArguments';
 import * as tasks from './support/tasks';
 
 // eslint-disable-next-line import-x/no-default-export
@@ -42,7 +43,7 @@ export default defineConfig({
 
       cypressSplit(compositeOn, config);
 
-      on('task', tasks);
+      on('task', withNormalizedTimeValues(tasks));
       on('before:browser:launch', onLaunchBrowser);
       if (process.env.JORE4_CYPRESS_GENERATE_CTRF_REPORT === 'true') {
         // eslint-disable-next-line no-new

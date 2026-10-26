@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import Chainable = Cypress.Chainable;
 
 export type TranslatedStatus =
@@ -6,8 +5,8 @@ export type TranslatedStatus =
 
 export type VersionRowValues = {
   readonly status?: TranslatedStatus;
-  readonly validityStart?: string | DateTime | null;
-  readonly validityEnd?: string | DateTime | null;
+  readonly validityStart?: string | Temporal.PlainDate | null;
+  readonly validityEnd?: string | Temporal.PlainDate | null;
   readonly versionComment?: string | null;
   readonly changed?: string | null;
   readonly changedBy?: string | null;
@@ -25,11 +24,11 @@ export const draft: VersionRowValues = { status: 'Luonnos' };
  */
 export function checkColumn(
   column: Chainable<JQuery>,
-  value: string | DateTime | undefined | null,
+  value: string | Temporal.PlainDate | undefined | null,
 ) {
   if (value === null || value === '') {
     column.should('be.empty');
-  } else if (value instanceof DateTime) {
+  } else if (value instanceof Temporal.PlainDate) {
     column.shouldHaveDate(value);
   } else if (typeof value === 'string') {
     column.shouldHaveText(value);
@@ -141,7 +140,7 @@ export function getTdsByTableColumn<TColumn extends string>(
 export function checkSortedOnColumn<TColumn extends string>(
   versionRow: VersionRowPageObject,
   column: TColumn,
-  expectedValues: ReadonlyArray<string | DateTime | null>,
+  expectedValues: ReadonlyArray<string | Temporal.PlainDate | null>,
 ) {
   const rows = versionRow.rows();
 
@@ -166,7 +165,7 @@ export function checkSortingWorksOnColumnInBothDirections<
   versionTableHeader: VersionTableHeaderPageObject<TColumn>,
   table: 'scheduled' | 'drafts',
   column: TColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
+  expectedAscendingOrder: ReadonlyArray<string | Temporal.PlainDate | null>,
 ) {
   (table === 'scheduled'
     ? versionPage.scheduledVersions()
@@ -189,7 +188,7 @@ export function testScheduledVersionsSorting<TColumn extends string>(
   versionRow: VersionRowPageObject,
   versionTableHeader: VersionTableHeaderPageObject<TColumn>,
   column: TColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
+  expectedAscendingOrder: ReadonlyArray<string | Temporal.PlainDate | null>,
 ) {
   checkSortingWorksOnColumnInBothDirections(
     versionPage,
@@ -206,7 +205,7 @@ export function testDraftVersionsSorting<TColumn extends string>(
   versionRow: VersionRowPageObject,
   versionTableHeader: VersionTableHeaderPageObject<TColumn>,
   column: TColumn,
-  expectedAscendingOrder: ReadonlyArray<string | DateTime | null>,
+  expectedAscendingOrder: ReadonlyArray<string | Temporal.PlainDate | null>,
 ) {
   checkSortingWorksOnColumnInBothDirections(
     versionPage,

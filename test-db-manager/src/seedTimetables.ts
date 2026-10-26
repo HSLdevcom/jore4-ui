@@ -1,5 +1,4 @@
 import reverse from 'lodash/reverse';
-import { DateTime, Duration } from 'luxon';
 import { buildLabelArray } from './builders/common';
 import {
   buildJourneyPatternRefDeep,
@@ -16,13 +15,14 @@ import {
 import { TimetablesRouteDirectionEnum } from './generated/graphql';
 import { getVehicleTypes } from './queries';
 import { Priority } from './types';
+import { today } from './utils/time';
 
 function vehicleScheduleFrameBase(label: string) {
   return {
     label,
     priority: Priority.Standard,
-    validity_start: DateTime.now().startOf('year'),
-    validity_end: DateTime.now().endOf('year'),
+    validity_start: today().with({ month: 1, day: 1 }),
+    validity_end: today().with({ month: 12, day: 31 }),
   };
 }
 
@@ -70,7 +70,7 @@ export async function seedTimetables() {
       [MON_FRI_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
         journeyPatternRefList: [jpRef1, jpRef2],
-        startTime: Duration.fromISO('PT5H15M'),
+        startTime: Temporal.Duration.from('PT5H15M'),
         hastusStopLabels,
         blockBase,
       },
@@ -82,7 +82,7 @@ export async function seedTimetables() {
     vehicleServiceByDayType: {
       [SAT_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
-        startTime: Duration.fromISO('PT4H45M'),
+        startTime: Temporal.Duration.from('PT4H45M'),
         vehicleServiceCount: { min: 4, max: 6 }, // less buses ride today
         journeyPatternRefList: [jpRef1, jpRef2],
         hastusStopLabels,
@@ -96,7 +96,7 @@ export async function seedTimetables() {
     vehicleServiceByDayType: {
       [SUN_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
-        startTime: Duration.fromISO('PT8H15M'), // first bus departs late
+        startTime: Temporal.Duration.from('PT8H15M'), // first bus departs late
         vehicleServiceCount: { min: 4, max: 6 }, // less buses ride today
         journeyPatternRefList: [jpRef1, jpRef2],
         hastusStopLabels,
@@ -110,13 +110,13 @@ export async function seedTimetables() {
     vehicleScheduleFrameBase: {
       label: '641 temporary',
       priority: Priority.Temporary,
-      validity_start: DateTime.now().startOf('month'),
-      validity_end: DateTime.now().endOf('month'),
+      validity_start: today().with({ day: 1 }),
+      validity_end: today().with({ day: today().daysInMonth }),
     },
     vehicleServiceByDayType: {
       [SAT_DAY_TYPE]: {
         ...defaultVehicleServiceByDayTypeParams,
-        startTime: Duration.fromISO('PT4H45M'),
+        startTime: Temporal.Duration.from('PT4H45M'),
         vehicleServiceCount: { min: 14, max: 16 }, // more buses ride today
         journeyPatternRefList: [jpRef1, jpRef2],
         hastusStopLabels,
