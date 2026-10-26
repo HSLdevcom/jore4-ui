@@ -5,7 +5,6 @@ import {
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import identity from 'lodash/identity';
 import range from 'lodash/range';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -173,7 +172,7 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
         };
 
         modifiedDbResources.lines[0].validity_end =
-          DateTime.fromISO('2032-12-31');
+          Temporal.PlainDate.from('2032-12-31');
 
         dbResources = {
           ...modifiedDbResources,
@@ -247,20 +246,14 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
       const { line } = visitPage();
       fillTestValuesToForm();
 
-      const endTime = line.validity_end?.minus({ months: 1 });
+      const endTime = line.validity_end?.subtract({ months: 1 });
       if (!endTime) {
         throw new Error('Test configuration error. No end time for line');
       }
 
-      const routeValidityEnd = endTime.toISODate();
+      const routeValidityEnd = endTime.toString();
 
-      const routeValidityStart = endTime?.plus({ days: 1 })?.toISODate();
-
-      if (!routeValidityStart || !routeValidityEnd) {
-        throw new Error(
-          'Test configuration error. No validity period for line',
-        );
-      }
+      const routeValidityStart = endTime.add({ days: 1 }).toString();
 
       setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
 

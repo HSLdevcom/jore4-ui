@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
 import {
   JourneyPatternRefInsertInput,
   JourneyPatternRefInsertInputDeep,
 } from '../../types';
 import { expectValue } from '../../utils';
+import { parseDateTime } from '../../utils/time';
 import {
   StopInJourneyPatternSequenceBuilder,
   buildStopInJourneyPatternSequence,
@@ -16,8 +16,8 @@ export const buildJourneyPatternRefInstance = (
   journeyPatternRefBase: JourneyPatternRefInstanceBuilder,
 ): JourneyPatternRefInsertInput => ({
   journey_pattern_ref_id: crypto.randomUUID(),
-  observation_timestamp: DateTime.fromISO('2023-01-01'),
-  snapshot_timestamp: DateTime.fromISO('2022-12-01'),
+  observation_timestamp: parseDateTime('2023-01-01T00:00:00Z'),
+  snapshot_timestamp: parseDateTime('2022-12-01T00:00:00Z'),
   ...journeyPatternRefBase,
   journey_pattern_id: journeyPatternId,
 });

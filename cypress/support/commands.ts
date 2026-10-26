@@ -25,7 +25,6 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { HasuraEnvironment } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import type { DateTime } from 'luxon';
 import { formatShortDate } from '../utils/time';
 import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 
@@ -86,10 +85,10 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   'inputDateValue',
   { prevSubject: 'element' },
-  (subject, date: DateTime<true>) => {
+  (subject, date: Temporal.PlainDate) => {
     cy.wrap(subject).scrollIntoView();
     cy.wrap(subject).clear();
-    cy.wrap(subject).type(date.toISODate());
+    cy.wrap(subject).type(date.toString());
     return cy.wrap(subject);
   },
 );
@@ -114,7 +113,7 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   'shouldHaveDate',
   { prevSubject: true },
-  (subject, expectedDate: DateTime | null | undefined) => {
+  (subject, expectedDate: Temporal.PlainDate | null | undefined) => {
     const formattedDate = formatShortDate(expectedDate);
     cy.wrap(subject).should('have.text', formattedDate);
   },

@@ -4,7 +4,6 @@ import {
   StopRegistryGeoJsonType,
   minimalQuayKeyValues,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -32,6 +31,8 @@ import {
   SupportedResources,
   formatShortDate,
   insertToDbHelper,
+  taskDateTime,
+  today,
 } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
@@ -59,6 +60,9 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
+  const testStopAreaValidFrom = Temporal.PlainDate.from('2000-01-01');
+  const testStopAreaValidTo = Temporal.PlainDate.from('2052-01-01');
+
   const stopAreaData: Array<StopAreaInput> = [
     {
       StopArea: {
@@ -66,8 +70,8 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         name: { lang: 'fin', value: 'Annankatu 15' },
         alternativeNames: Annankatu15AltNames,
         validBetween: {
-          fromDate: DateTime.fromISO('2000-01-01'),
-          toDate: DateTime.fromISO('2052-01-01'),
+          fromDate: taskDateTime(testStopAreaValidFrom),
+          toDate: taskDateTime(testStopAreaValidTo),
         },
         geometry: {
           coordinates: [24.938927, 60.165433],
@@ -157,8 +161,8 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       (name) => name?.nameType === 'other' && name?.name.lang === 'eng',
     )?.name.value as string,
     privateCode: testStopArea.StopArea.privateCode?.value as string,
-    validFrom: testStopArea.StopArea.validBetween?.fromDate as DateTime,
-    validTo: testStopArea.StopArea.validBetween?.toDate as DateTime,
+    validFrom: testStopAreaValidFrom,
+    validTo: testStopAreaValidTo,
     areaSize: '-',
     parentTerminal: '-',
     longitude: testStopArea.StopArea.geometry?.coordinates?.at(0) ?? 0,
@@ -256,7 +260,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
           .should(
             'have.attr',
             'href',
-            `/stop-registry/stops/${label}?observationDate=${DateTime.now().toISODate()}&priority=10`,
+            `/stop-registry/stops/${label}?observationDate=${today().toString()}&priority=10`,
           );
 
         memberStops.getShowOnMapButton().shouldBeVisible();
@@ -312,7 +316,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
       // Edit basic details
       StopAreaDetailsPage.details.getEditButton().click();
-      setValidity(DateTime.fromISO('2030-01-01'), null);
+      setValidity(Temporal.PlainDate.from('2030-01-01'), null);
       StopAreaDetailsPage.details.edit.getSaveButton().click();
       waitForSaveToBeFinished();
 
@@ -342,9 +346,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
       StopAreaDetailsPage.memberStops.modal
         .getTransferDateInput()
         .shouldBeVisible();
-      StopAreaDetailsPage.memberStops.modal.setTransferDate(
-        DateTime.now().toISODate() ?? '',
-      );
+      StopAreaDetailsPage.memberStops.modal.setTransferDate(today().toString());
       StopAreaDetailsPage.memberStops.modal.getStopVersionsButton().click();
 
       StopAreaDetailsPage.memberStops.modal
@@ -1008,7 +1010,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
           .getTransferDateInput()
           .shouldBeVisible();
         StopAreaDetailsPage.memberStops.modal.setTransferDate(
-          DateTime.now().toISODate() ?? '',
+          today().toString(),
         );
         StopAreaDetailsPage.memberStops.modal.getStopVersionsButton().click();
 
@@ -1022,7 +1024,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
       cy.section('Change: Validity period', () => {
         StopAreaDetailsPage.details.getEditButton().click();
-        setValidity(DateTime.fromISO('2030-01-01'), null);
+        setValidity(Temporal.PlainDate.from('2030-01-01'), null);
         StopAreaDetailsPage.details.edit.getSaveButton().click();
         waitForSaveToBeFinished();
       });

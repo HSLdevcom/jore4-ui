@@ -18,18 +18,13 @@ async function pluginLoader(name: string) {
 
 // https://hasura.io/learn/graphql/typescript-react-apollo/codegen/
 
-const scalars = {
+const baseScalars = {
   uuid: 'UUID',
   geography: 'GeoJSON.Geometry',
   geometry: 'GeoJSON.Geometry',
   geography_point: 'GeoJSON.Point',
   geography_linestring: 'GeoJSON.LineString',
   localized_string: 'LocalizedString',
-  timestamptz: 'luxon.DateTime',
-  date: 'luxon.DateTime',
-  interval: 'luxon.Duration',
-  stop_registry_DateTime: 'luxon.DateTime',
-  stop_registry_LocalDate: 'luxon.DateTime',
   stop_registry_Coordinates: 'GeoJSON.Position',
   float8: 'number',
   smallint: 'number',
@@ -37,7 +32,19 @@ const scalars = {
 
 // The ui is being migrated from Luxon to Temporal one scalar at a time.
 const uiScalars = {
-  ...scalars,
+  ...baseScalars,
+  date: 'luxon.DateTime',
+  stop_registry_LocalDate: 'luxon.DateTime',
+  interval: 'Temporal.Duration',
+  timestamptz: 'Temporal.ZonedDateTime',
+  stop_registry_DateTime: 'Temporal.ZonedDateTime',
+};
+
+// The test code (test-db-manager and cypress) has been fully migrated to Temporal.
+const testScalars = {
+  ...baseScalars,
+  date: 'Temporal.PlainDate',
+  stop_registry_LocalDate: 'Temporal.PlainDate',
   interval: 'Temporal.Duration',
   timestamptz: 'Temporal.ZonedDateTime',
   stop_registry_DateTime: 'Temporal.ZonedDateTime',
@@ -96,11 +103,11 @@ const config: CodegenConfig = {
     },
     '../test-db-manager/src/generated/graphql.ts': {
       documents: ['../test-db-manager/src/**/*.ts'],
-      plugins: [luxonImportPlugin, 'typescript', 'typescript-operations'],
+      plugins: ['typescript', 'typescript-operations'],
       config: {
         ...defaultConfig,
         withHooks: false,
-        scalars,
+        scalars: testScalars,
       },
     },
     '../ui/graphql.schema.json': {

@@ -16,7 +16,6 @@ import {
   quayV1562,
   seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
@@ -39,6 +38,7 @@ import {
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { today } from '../../utils/time';
 import { InsertedStopRegistryIds } from '../utils';
 import {
   ExternalLinkData,
@@ -77,8 +77,8 @@ const buildScheduledStopPoints = (
       label: 'H2003',
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
+    validity_end: Temporal.PlainDate.from('2050-05-31'),
     scheduled_stop_point_id: '29dfb688-7ecc-4cb5-876d-c2c7f1a1f00a',
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
@@ -357,7 +357,7 @@ describe('Stop Change History', { tags }, () => {
           .click();
 
         StopAreaDetailsPage.memberStops.modal.setTransferDate(
-          DateTime.now().toISODate() ?? '',
+          today().toString(),
         );
         StopAreaDetailsPage.memberStops.modal.getStopVersionsButton().click();
 
@@ -1423,14 +1423,14 @@ describe('Stop Change History', { tags }, () => {
       StopDetailsPage.visit('H2003');
       StopDetailsPage.page().shouldBeVisible();
 
-      const today = DateTime.now();
+      const todaysDate = today();
 
       cy.section('Make changes', () => {
         // First validity period change.
         StopDetailsPage.editStopValidityButton().click();
         StopDetailsPage.editStopModal.form.priority.setAsStandard();
         StopDetailsPage.editStopModal.form.validity.setStartDate(
-          today.toISODate(),
+          todaysDate.toString(),
         );
         StopDetailsPage.editStopModal.form.validity.setEndDate('2029-12-31');
         StopDetailsPage.editStopModal.form.submitButton().click();
@@ -1579,7 +1579,7 @@ describe('Stop Change History', { tags }, () => {
         StopChangeHistoryPage.dateFilter
           .getToDate()
           .focus()
-          .inputDateValue(DateTime.now().minus({ months: 1 }));
+          .inputDateValue(today().subtract({ months: 1 }));
 
         StopChangeHistoryPage.changeHistoryTable.sectionHeader
           .getBasicDetails()

@@ -1,5 +1,4 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -225,8 +224,8 @@ describe('Timetable replacement and combination', rootTags, () => {
           year2023Sat: {
             // eslint-disable-next-line no-underscore-dangle
             ...baseTimetableDataInput._vehicle_schedule_frames.year2023Sat,
-            validity_start: DateTime.fromISO('2023-04-01'),
-            validity_end: DateTime.fromISO('2023-06-30'),
+            validity_start: Temporal.PlainDate.from('2023-04-01'),
+            validity_end: Temporal.PlainDate.from('2023-06-30'),
           },
         },
       });
@@ -565,8 +564,8 @@ describe('Timetable replacement and combination', rootTags, () => {
             year2023Sat: {
               // eslint-disable-next-line no-underscore-dangle
               ...baseTimetableDataInput._vehicle_schedule_frames.year2023Sat,
-              validity_start: DateTime.fromISO('2023-04-01'),
-              validity_end: DateTime.fromISO('2023-06-30'),
+              validity_start: Temporal.PlainDate.from('2023-04-01'),
+              validity_end: Temporal.PlainDate.from('2023-06-30'),
             },
           },
         });

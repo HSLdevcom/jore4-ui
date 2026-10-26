@@ -16,8 +16,8 @@ import {
   buildTimingPlace,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeepWith from 'lodash/cloneDeepWith';
-import { DateTime } from 'luxon';
 import { UUID } from '../types';
+import { isTemporalValue } from '../utils/time';
 
 export const testInfraLinkExternalIds = [
   '145c33b2-5d2a-4668-b922-6117408772e0:2', // on Annankatu, between Bulevardi and Lönnrotinkatu and
@@ -67,7 +67,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E001',
       located_on_infrastructure_link_id: testInfraLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: '2dc9f032-24a7-423d-b034-ca07673d23c1',
     timing_place_id: timingPlaces[0].timing_place_id,
@@ -81,7 +81,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E002',
       located_on_infrastructure_link_id: testInfraLinkIds[1],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: 'a92c7c8f-352b-432d-a6f6-a91a894dbb83',
     measured_location: {
@@ -94,7 +94,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E003',
       located_on_infrastructure_link_id: testInfraLinkIds[3],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: 'a00cdd88-0a65-43e6-862d-ec201ff09294',
     timing_place_id: timingPlaces[1].timing_place_id,
@@ -108,7 +108,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E004',
       located_on_infrastructure_link_id: testInfraLinkIds[4],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: '31d84532-43e4-47d2-b7fd-ba8184ae9e70',
     measured_location: {
@@ -121,7 +121,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E005',
       located_on_infrastructure_link_id: testInfraLinkIds[5],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: 'a7fa228e-5090-4823-9134-cdd89fcbb35d',
     timing_place_id: timingPlaces[2].timing_place_id,
@@ -136,7 +136,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E006',
       located_on_infrastructure_link_id: testInfraLinkIds[3],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: 'a86abf00-e81c-4d76-a8ad-82ef6b6bcb06',
     timing_place_id: timingPlaces[1].timing_place_id,
@@ -150,7 +150,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E007',
       located_on_infrastructure_link_id: testInfraLinkIds[2],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: '43dc3fd1-2cfe-40fe-9431-dd8d85c124f2',
     measured_location: {
@@ -163,7 +163,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E008',
       located_on_infrastructure_link_id: testInfraLinkIds[1],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: '8d60a644-fce6-460b-ad1c-30b5a39dee17',
     measured_location: {
@@ -176,7 +176,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E009',
       located_on_infrastructure_link_id: testInfraLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: 'a689ec3a-336a-4491-a0d5-8792e15a7b7e',
     timing_place_id: timingPlaces[0].timing_place_id,
@@ -190,7 +190,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E010',
       located_on_infrastructure_link_id: testInfraLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: '75afcec1-68a3-4411-bad2-f4f235c37215',
     timing_place_id: timingPlaces[0].timing_place_id,
@@ -204,8 +204,8 @@ export const buildStopsOnInfraLinks = (
       label: 'E2E011',
       located_on_infrastructure_link_id: testInfraLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    validity_end: DateTime.fromISO('2052-01-01'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
+    validity_end: Temporal.PlainDate.from('2052-01-01'),
     direction: InfrastructureNetworkDirectionEnum.Backward,
     scheduled_stop_point_id: 'f4059163-52bc-4b8f-8152-8558e7931b71',
     timing_place_id: timingPlaces[0].timing_place_id,
@@ -220,7 +220,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2ER001',
       located_on_infrastructure_link_id: testInfraLinkIds[8],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: '9b6b3e8f-123a-4567-89ab-cdef01234567',
     measured_location: {
@@ -236,7 +236,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2ER002',
       located_on_infrastructure_link_id: testInfraLinkIds[9],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: '8a7c6d5e-234b-5678-9abc-def012345678',
     measured_location: {
@@ -252,7 +252,7 @@ export const buildStopsOnInfraLinks = (
       label: 'E2ER003',
       located_on_infrastructure_link_id: testInfraLinkIds[10],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     direction: InfrastructureNetworkDirectionEnum.Forward,
     scheduled_stop_point_id: '7b8d9e0f-345c-6789-abcd-ef0123456789',
     measured_location: {
@@ -271,7 +271,7 @@ const lines: LineInsertInput[] = [
     ...buildLine({ label: '901' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2022-01-01'),
+    validity_start: Temporal.PlainDate.from('2022-01-01'),
   },
 
   // Raw lines
@@ -280,43 +280,43 @@ const lines: LineInsertInput[] = [
     ...buildLine({ label: '1666' }),
     line_id: '5dfa82f1-b3f7-4e26-b31d-0d7bd78da0be',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2022-01-02'),
-    validity_end: DateTime.fromISO('2022-12-24'),
+    validity_start: Temporal.PlainDate.from('2022-01-02'),
+    validity_end: Temporal.PlainDate.from('2022-12-24'),
   },
   // Valid in 2023
   {
     ...buildLine({ label: '2666' }),
     line_id: '61e4d95e-34e5-11ed-a261-0242ac120002',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2023-01-02'),
-    validity_end: DateTime.fromISO('2023-12-24'),
+    validity_start: Temporal.PlainDate.from('2023-01-02'),
+    validity_end: Temporal.PlainDate.from('2023-12-24'),
   },
   // Valid in 2024
   {
     ...buildLine({ label: '1777' }),
     line_id: '47c5fe92-e630-430b-a2da-2c6739acbb2b',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2024-01-02'),
-    validity_end: DateTime.fromISO('2024-12-24'),
+    validity_start: Temporal.PlainDate.from('2024-01-02'),
+    validity_end: Temporal.PlainDate.from('2024-12-24'),
   },
   // Valid between 2000 and 2054
   {
     ...buildLine({ label: '9999' }),
     line_id: '7f5aa870-891a-433e-bd9b-f864162a2adf',
-    validity_start: DateTime.fromISO('2000-01-02'),
-    validity_end: DateTime.fromISO('2054-12-24'),
+    validity_start: Temporal.PlainDate.from('2000-01-02'),
+    validity_end: Temporal.PlainDate.from('2054-12-24'),
   },
   {
     ...buildLine({ label: '9888' }),
     line_id: 'a627dfbf-8db6-4519-b968-56b4a4988d91',
-    validity_start: DateTime.fromISO('2000-01-02'),
-    validity_end: DateTime.fromISO('2054-12-24'),
+    validity_start: Temporal.PlainDate.from('2000-01-02'),
+    validity_end: Temporal.PlainDate.from('2054-12-24'),
   },
   {
     ...buildLine({ label: '8888' }),
     line_id: '69141b10-98cb-4319-9fe9-95cddbd46987',
-    validity_start: DateTime.fromISO('2000-01-02'),
-    validity_end: DateTime.fromISO('2054-12-24'),
+    validity_start: Temporal.PlainDate.from('2000-01-02'),
+    validity_end: Temporal.PlainDate.from('2054-12-24'),
   },
   // Always valid.
   {
@@ -332,7 +332,7 @@ const lines: LineInsertInput[] = [
     line_id: 'cc143f94-b6f4-4eef-a8f4-f3705d6d141a',
     primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Tram,
     type_of_line: RouteTypeOfLineEnum.CityTramService,
-    validity_start: DateTime.fromISO('2022-01-01'),
+    validity_start: Temporal.PlainDate.from('2022-01-01'),
   },
 ];
 
@@ -343,16 +343,16 @@ export const routes: RouteInsertInput[] = [
     route_id: '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
     direction: RouteDirectionEnum.Outbound,
     on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2022-08-11'),
-    validity_end: DateTime.fromISO('2032-08-11'),
+    validity_start: Temporal.PlainDate.from('2022-08-11'),
+    validity_end: Temporal.PlainDate.from('2032-08-11'),
   },
   {
     ...buildRoute({ label: '901' }),
     route_id: '5f1fff1a-2449-4a8f-8107-15edc6f46fce',
     direction: RouteDirectionEnum.Inbound,
     on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2022-08-11'),
-    validity_end: DateTime.fromISO('2032-08-11'),
+    validity_start: Temporal.PlainDate.from('2022-08-11'),
+    validity_end: Temporal.PlainDate.from('2032-08-11'),
   },
 
   // Tram route
@@ -632,7 +632,8 @@ const baseDbResources = {
  */
 export function getClonedBaseDbResources(): typeof baseDbResources {
   return cloneDeepWith(baseDbResources, (value) => {
-    if (value instanceof DateTime) {
+    // Temporal values are immutable, so they can be shared as is.
+    if (isTemporalValue(value)) {
       return value;
     }
 

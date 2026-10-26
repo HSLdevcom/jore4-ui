@@ -1,4 +1,3 @@
-import { Duration } from 'luxon';
 import {
   BlockInsertInputDeep,
   VehicleServiceBlockInsertInput,
@@ -66,7 +65,7 @@ export function getBlockTimes(block: BlockInsertInputDeep) {
     .find(isNotNullish);
 
   const duration =
-    blockStart && blockEnd ? blockEnd.minus(blockStart) : undefined;
+    blockStart && blockEnd ? blockEnd.subtract(blockStart) : undefined;
 
   return { start: blockStart, end: blockEnd, duration };
 }
@@ -80,8 +79,8 @@ export const defaultBlockSequenceParams = {
   blockBase: {},
   blockCount: { min: 1, max: 3 },
   blockWaitSequenceBuilder: {
-    minTime: Duration.fromISO('PT1H'),
-    maxTime: Duration.fromISO('PT5H'),
+    minTime: Temporal.Duration.from('PT1H'),
+    maxTime: Temporal.Duration.from('PT5H'),
   },
 } satisfies Partial<BlockSequenceBuilder>;
 
@@ -101,7 +100,7 @@ export const buildBlockSequence = (
 
   // calculate the waiting times after each block before the next one starts
   const waitSequence = buildTimeSequence(
-    Duration.fromISO('PT0S'),
+    Temporal.Duration.from('PT0S'),
     count,
     blockWaitSequenceBuilder,
   );
@@ -117,9 +116,9 @@ export const buildBlockSequence = (
 
     // wait after the block before the next one starts
     const blockDuration =
-      getBlockTimes(block).duration ?? Duration.fromMillis(0);
+      getBlockTimes(block).duration ?? Temporal.Duration.from('PT0S');
     const waitAfter = waitSequence[i];
-    currentTime = currentTime.plus(blockDuration).plus(waitAfter);
+    currentTime = currentTime.add(blockDuration).add(waitAfter);
   }
   return blocks;
 };

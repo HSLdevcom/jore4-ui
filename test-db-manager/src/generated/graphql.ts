@@ -1,4 +1,3 @@
-import * as luxon from 'luxon';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -16,14 +15,14 @@ export type Scalars = {
   _uuid: { input: any; output: any; }
   bigint: { input: any; output: any; }
   bytea: { input: any; output: any; }
-  date: { input: luxon.DateTime; output: luxon.DateTime; }
+  date: { input: Temporal.PlainDate; output: Temporal.PlainDate; }
   daterange: { input: any; output: any; }
   float8: { input: number; output: number; }
   geography: { input: GeoJSON.Geometry; output: GeoJSON.Geometry; }
   geography_linestring: { input: GeoJSON.LineString; output: GeoJSON.LineString; }
   geography_point: { input: GeoJSON.Point; output: GeoJSON.Point; }
   geometry: { input: GeoJSON.Geometry; output: GeoJSON.Geometry; }
-  interval: { input: luxon.Duration; output: luxon.Duration; }
+  interval: { input: Temporal.Duration; output: Temporal.Duration; }
   jsonb: { input: any; output: any; }
   localized_string: { input: LocalizedString; output: LocalizedString; }
   name: { input: any; output: any; }
@@ -36,13 +35,13 @@ export type Scalars = {
   /** GeoJSON Coordinates */
   stop_registry_Coordinates: { input: GeoJSON.Position; output: GeoJSON.Position; }
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
-  stop_registry_DateTime: { input: luxon.DateTime; output: luxon.DateTime; }
+  stop_registry_DateTime: { input: Temporal.ZonedDateTime; output: Temporal.ZonedDateTime; }
   /** Date using the format: yyyy-MM-dd. Example: 2025-04-23 */
-  stop_registry_LocalDate: { input: luxon.DateTime; output: luxon.DateTime; }
+  stop_registry_LocalDate: { input: Temporal.PlainDate; output: Temporal.PlainDate; }
   /** Legacy GeoJSON Coordinates */
   stop_registry_legacyCoordinates: { input: any; output: any; }
   timestamp: { input: any; output: any; }
-  timestamptz: { input: luxon.DateTime; output: luxon.DateTime; }
+  timestamptz: { input: Temporal.ZonedDateTime; output: Temporal.ZonedDateTime; }
   uuid: { input: UUID; output: UUID; }
 };
 
@@ -69754,8 +69753,8 @@ export type InsertLinesMutation = {
       priority: number,
       primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       transport_target: HslRouteTransportTargetEnum,
-      validity_start?: luxon.DateTime | null,
-      validity_end?: luxon.DateTime | null
+      validity_start?: Temporal.PlainDate | null,
+      validity_end?: Temporal.PlainDate | null
     }>
   } | null
 };
@@ -69780,8 +69779,8 @@ export type InsertRoutesMutation = {
       destination_short_name_i18n: LocalizedString,
       route_shape?: GeoJSON.LineString | null,
       on_line_id: UUID,
-      validity_start?: luxon.DateTime | null,
-      validity_end?: luxon.DateTime | null,
+      validity_start?: Temporal.PlainDate | null,
+      validity_end?: Temporal.PlainDate | null,
       priority: number,
       label: string,
       direction: RouteDirectionEnum
@@ -69872,8 +69871,8 @@ export type InsertStopsMutation = {
       priority: number,
       measured_location: GeoJSON.Point,
       label: string,
-      validity_start?: luxon.DateTime | null,
-      validity_end?: luxon.DateTime | null
+      validity_start?: Temporal.PlainDate | null,
+      validity_end?: Temporal.PlainDate | null
     }>
   } | null
 };
@@ -70316,8 +70315,8 @@ export type GetStopPointByLabelQuery = {
     scheduled_stop_point_id: UUID,
     label: string,
     stop_place_ref?: string | null,
-    validity_start?: luxon.DateTime | null,
-    validity_end?: luxon.DateTime | null,
+    validity_start?: Temporal.PlainDate | null,
+    validity_end?: Temporal.PlainDate | null,
     priority: number
   }>
 };

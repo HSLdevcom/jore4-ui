@@ -1,4 +1,3 @@
-import { Duration } from 'luxon';
 import {
   PartialKeys,
   RequiredKeysOnly,
@@ -48,7 +47,7 @@ export type TimetabledPassingTimeSequenceBuilder = {
   /** Time sequence building parameters (e.g. regular/random time interval between stops) */
   timetabledPassingTimeSequenceBuilder: TimeSequenceParams;
   /** Departure time for the first timetabled passing time in the sequence */
-  startTime: Duration;
+  startTime: Temporal.Duration;
   /** Stops for which the timetabled passing times are created */
   stops: StopInJourneyPatternRefInsertInput[];
   /** List of Hastus stops (e.g. for knowing at which stop should be arrival time differ from the departure time) */
@@ -58,8 +57,8 @@ export type TimetabledPassingTimeSequenceBuilder = {
 export const defaultTimetabledPassingTimeParams = {
   timetabledPassingTimeBase: {},
   timetabledPassingTimeSequenceBuilder: {
-    minTime: Duration.fromISO('PT1M'),
-    maxTime: Duration.fromISO('PT8M'),
+    minTime: Temporal.Duration.from('PT1M'),
+    maxTime: Temporal.Duration.from('PT8M'),
   },
 } satisfies Partial<TimetabledPassingTimeSequenceBuilder>;
 
@@ -96,8 +95,8 @@ export const buildTimetabledPassingTimeSequence = (
       passingTime.arrival_time &&
       passingTime.departure_time
     ) {
-      passingTime.departure_time = passingTime.arrival_time.plus(
-        Duration.fromISO('PT1M'),
+      passingTime.departure_time = passingTime.arrival_time.add(
+        Temporal.Duration.from('PT1M'),
       );
     }
 

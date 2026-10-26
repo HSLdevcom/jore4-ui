@@ -1,5 +1,6 @@
 import { DocumentNode } from 'graphql';
 import { getGqlString } from './builders/mutations/utils';
+import { serializeDateTime } from './utils/time';
 
 enum HasuraURL {
   Dev = 'http://127.0.0.1:3201/v1/graphql',
@@ -77,6 +78,28 @@ type HasuraBodyRequestInit<
 const contentTypeHeader = 'content-type';
 const contentTypeJson = 'application/json; charset=utf-8';
 
+/**
+ * `Temporal.ZonedDateTime.toJSON()` appends a `[Europe/Helsinki]` time zone
+ * annotation, which Hasura and Postgres do not understand. `JSON.stringify`
+ * calls `toJSON` before the replacer, so the original value has to be read
+ * from the holder object.
+ */
+function replaceTemporalJsonValue(
+  this: Record<string, unknown>,
+  key: string,
+  value: unknown,
+) {
+  const original = this[key];
+
+  return original instanceof Temporal.ZonedDateTime
+    ? serializeDateTime(original)
+    : value;
+}
+
+function serializeHasuraRequestBody(body: unknown): string {
+  return JSON.stringify(body, replaceTemporalJsonValue);
+}
+
 class HasuraException extends Error {
   readonly request: HasuraBodyRequestInit<Readonly<Record<string, unknown>>>;
 
@@ -131,7 +154,7 @@ export async function hasuraApi<
 
   const response = await fetch(getHasuraURL(), {
     ...reqWithRawBody,
-    body: JSON.stringify(reqWithRawBody.body),
+    body: serializeHasuraRequestBody(reqWithRawBody.body),
   });
 
   if (
