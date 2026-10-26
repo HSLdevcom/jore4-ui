@@ -11687,6 +11687,13 @@ __metadata:
     typescript: "catalog:"
     typescript-eslint: "npm:^8.72.0"
     zod: "npm:^3.25.76"
+  dependenciesMeta:
+    cypress:
+      built: true
+    esbuild:
+      built: true
+    unrs-resolver:
+      built: true
   languageName: unknown
   linkType: soft
 

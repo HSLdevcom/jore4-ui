@@ -71,6 +71,17 @@
   "resolutions": {
     "@types/node": "26.6.5"
   },
+  "dependenciesMeta": {
+    "cypress": {
+      "built": true
+    },
+    "esbuild": {
+      "built": true
+    },
+    "unrs-resolver": {
+      "built": true
+    }
+  },
   "workspaces": [
     "codegen",
     "cypress",
