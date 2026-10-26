@@ -13,7 +13,6 @@ import {
   quayV1562,
   seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
@@ -32,6 +31,7 @@ import {
   SupportedResources,
   formatShortDate,
   insertToDbHelper,
+  today,
 } from '../../utils';
 import { InsertedStopRegistryIds } from '../utils';
 import {
@@ -68,8 +68,8 @@ const buildScheduledStopPoints = (
       label: 'H2003',
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
+    validity_end: Temporal.PlainDate.from('2050-05-31'),
     scheduled_stop_point_id: '29dfb688-7ecc-4cb5-876d-c2c7f1a1f00a',
     timing_place_id: timingPlaces[0].timing_place_id,
     located_on_infrastructure_link_id: infrastructureLinkIds[0],
@@ -83,8 +83,8 @@ const buildScheduledStopPoints = (
       label: 'V1562',
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
+    validity_end: Temporal.PlainDate.from('2050-05-31'),
     scheduled_stop_point_id: 'e3528755-711f-4e2e-832c-eb2becf6b953',
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
@@ -94,8 +94,8 @@ const buildScheduledStopPoints = (
   },
 ];
 
-const initialValidityStart = DateTime.fromISO('2020-01-01');
-const initialValidityEnd = DateTime.fromISO('2050-01-01');
+const initialValidityStart = Temporal.PlainDate.from('2020-01-01');
+const initialValidityEnd = Temporal.PlainDate.from('2050-01-01');
 
 const stopAreaInputs: StopAreaInput[] = [
   {
@@ -106,11 +106,11 @@ const stopAreaInputs: StopAreaInput[] = [
       keyValues: [
         {
           key: KnownValueKey.ValidityStart,
-          values: [initialValidityStart.toISODate()],
+          values: [initialValidityStart.toString()],
         },
         {
           key: KnownValueKey.ValidityEnd,
-          values: [initialValidityEnd.toISODate()],
+          values: [initialValidityEnd.toString()],
         },
       ],
       geometry: quayH2003.quay.geometry,
@@ -126,11 +126,11 @@ const stopAreaInputs: StopAreaInput[] = [
       keyValues: [
         {
           key: KnownValueKey.ValidityStart,
-          values: [initialValidityStart.toISODate()],
+          values: [initialValidityStart.toString()],
         },
         {
           key: KnownValueKey.ValidityEnd,
-          values: [initialValidityEnd.toISODate()],
+          values: [initialValidityEnd.toString()],
         },
       ],
       geometry: quayV1562.quay.geometry,
@@ -177,8 +177,8 @@ function assertValueChanged([oldValue, newValue]: readonly [string, string]) {
 
 function assertGroupValidityPeriod(
   index: number,
-  start: DateTime,
-  end: DateTime | null,
+  start: Temporal.PlainDate,
+  end: Temporal.PlainDate | null,
 ) {
   TerminalChangeHistory.changeHistoryTable.group
     .getAllGroupElements()
@@ -841,8 +841,8 @@ describe('Terminal Change History', { tags }, () => {
 
     TerminalDetailsPage.visit('T2');
 
-    const newStart = DateTime.local(2025, 1, 1);
-    const newEnd = DateTime.local(2045, 12, 31);
+    const newStart = Temporal.PlainDate.from({ year: 2025, month: 1, day: 1 });
+    const newEnd = Temporal.PlainDate.from({ year: 2045, month: 12, day: 31 });
 
     cy.section('Make changes', () => {
       TerminalDetailsPage.versioningRow.getEditValidityButton().click();
@@ -851,8 +851,8 @@ describe('Terminal Change History', { tags }, () => {
         .getReasonForChangeInput()
         .clearAndType('Validity change test');
       TerminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
-        validityStartISODate: newStart.toISODate() ?? '',
-        validityEndISODate: newEnd.toISODate() ?? '',
+        validityStartISODate: newStart.toString(),
+        validityEndISODate: newEnd.toString(),
       });
       TerminalDetailsPage.editTerminalValidityModal.form.submitButton().click();
 
@@ -944,7 +944,7 @@ describe('Terminal Change History', { tags }, () => {
       TerminalChangeHistory.dateFilter
         .getToDate()
         .focus()
-        .inputDateValue(DateTime.now().minus({ months: 1 }));
+        .inputDateValue(today().subtract({ months: 1 }));
 
       TerminalChangeHistory.changeHistoryTable.group
         .getAllGroupElements()
@@ -957,9 +957,9 @@ describe('Terminal Change History', { tags }, () => {
 
     TerminalDetailsPage.visit('T2');
 
-    const start = DateTime.local(2026, 1, 1);
-    const mid = DateTime.local(2026, 6, 15);
-    const end = DateTime.local(2026, 10, 31);
+    const start = Temporal.PlainDate.from({ year: 2026, month: 1, day: 1 });
+    const mid = Temporal.PlainDate.from({ year: 2026, month: 6, day: 15 });
+    const end = Temporal.PlainDate.from({ year: 2026, month: 10, day: 31 });
 
     cy.section('Make changes to validity period', () => {
       TerminalDetailsPage.versioningRow.getEditValidityButton().click();
@@ -967,8 +967,8 @@ describe('Terminal Change History', { tags }, () => {
         .getReasonForChangeInput()
         .clearAndType('First validity change');
       TerminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
-        validityStartISODate: start.toISODate() ?? '',
-        validityEndISODate: mid.toISODate() ?? '',
+        validityStartISODate: start.toString(),
+        validityEndISODate: mid.toString(),
       });
       TerminalDetailsPage.editTerminalValidityModal.form.submitButton().click();
       waitForValidityEditToBeFinished();
@@ -978,8 +978,8 @@ describe('Terminal Change History', { tags }, () => {
         .getReasonForChangeInput()
         .clearAndType('Second validity change');
       TerminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
-        validityStartISODate: mid.toISODate() ?? '',
-        validityEndISODate: end.toISODate() ?? '',
+        validityStartISODate: mid.toString(),
+        validityEndISODate: end.toString(),
       });
       TerminalDetailsPage.editTerminalValidityModal.form.submitButton().click();
       waitForValidityEditToBeFinished();

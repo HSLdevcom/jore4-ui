@@ -1,8 +1,11 @@
 import type { CyHttpMessages, Interception } from 'cypress/types/net-stubbing';
-import { DateTime } from 'luxon';
 import { debug } from './templateStringHelpers';
+import { TIME_ZONE } from './time';
 
 class CustomAssertionError extends Error {}
+
+const HAS_TIME = /T/;
+const HAS_OFFSET = /T.*([zZ]|[+-]\d{2}(:?\d{2})?)$/;
 
 // Cypress has a bug, and it does not export the expect.fail() function.
 // This is a custom implementation.
@@ -169,14 +172,29 @@ export function expectGraphQLCallToReturnError(alias: `@${string}`) {
 }
 
 // Either returns or throws with fail
-function parseDate(timeyValue: unknown): DateTime {
-  if (DateTime.isDateTime(timeyValue)) {
-    return timeyValue;
+function extractHelsinkiDate(timeyValue: unknown): string {
+  if (timeyValue instanceof Temporal.PlainDate) {
+    return timeyValue.toString();
   }
 
-  // Luxon has been set up to throw on invalid date times.
+  if (timeyValue instanceof Temporal.ZonedDateTime) {
+    return timeyValue.withTimeZone(TIME_ZONE).toPlainDate().toString();
+  }
+
   try {
-    return DateTime.fromISO(timeyValue as string);
+    const value = timeyValue as string;
+
+    // Date only values are already Helsinki dates, other values are moments in
+    // time that have to be converted to the Helsinki time zone first. Values
+    // without an offset are assumed to be in UTC.
+    if (!HAS_TIME.test(value)) {
+      return Temporal.PlainDate.from(value).toString();
+    }
+
+    return Temporal.Instant.from(HAS_OFFSET.test(value) ? value : `${value}Z`)
+      .toZonedDateTimeISO(TIME_ZONE)
+      .toPlainDate()
+      .toString();
   } catch (e) {
     const message = e instanceof Error ? e.message : e;
     throw new CustomAssertionError(
@@ -192,7 +210,7 @@ function extractHelsinkiDateFromTimeyValue(
     return timeyValue;
   }
 
-  return parseDate(timeyValue).setZone('Europe/Helsinki').toISODate();
+  return extractHelsinkiDate(timeyValue);
 }
 
 export function expectDateTimeyValuesToBeSameHelsinkiDateOrNullish(

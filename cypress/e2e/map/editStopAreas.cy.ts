@@ -3,7 +3,6 @@ import {
   StopAreaInput,
   StopRegistryGeoJsonType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -29,6 +28,7 @@ import {
   expectGraphQLCallToReturnError,
   expectGraphQLCallToSucceed,
 } from '../../utils/assertions';
+import { startOfDay } from '../../utils/time';
 
 describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
   let dbResources: SupportedResources;
@@ -42,8 +42,8 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       description: { lang: 'fin', value: 'Reserved Private Code Street' },
       privateCode: { type: 'HSL/JORE-4', value: '700000' },
       validBetween: {
-        fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-        toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
+        fromDate: startOfDay(Temporal.PlainDate.from('2020-01-01')),
+        toDate: startOfDay(Temporal.PlainDate.from('2050-01-01')),
       },
       geometry: {
         coordinates: [24.1, 60.1],

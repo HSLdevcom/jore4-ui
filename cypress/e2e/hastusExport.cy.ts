@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -18,8 +17,9 @@ import {
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
+import { today } from '../utils/time';
 
-const exportDate = DateTime.now().toISODate();
+const exportDate = today().toString();
 const exportFilePath = `${Cypress.config(
   'downloadsFolder',
 )}/901_Perusversio_${exportDate}.csv`;

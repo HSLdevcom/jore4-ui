@@ -19,7 +19,6 @@ import {
   seedInfoSpots,
   seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
 import {
   AlternativeNames,
@@ -52,6 +51,7 @@ import { StopTransportModeIcon } from '../../pageObjects/stop-registry/StopTrans
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { today } from '../../utils/time';
 import { InsertedStopRegistryIds } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -192,7 +192,7 @@ const buildScheduledStopPoints = (
       label: 'H1122',
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
     scheduled_stop_point_id: 'd4e6478a-adce-4c76-8579-c8ca2a6bb70f',
     timing_place_id: timingPlaces[0].timing_place_id,
     priority: Priority.Draft,
@@ -206,8 +206,8 @@ const buildScheduledStopPoints = (
       label: 'H2003',
       located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
+    validity_end: Temporal.PlainDate.from('2050-05-31'),
     scheduled_stop_point_id: '29dfb688-7ecc-4cb5-876d-c2c7f1a1f00a',
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
@@ -220,8 +220,8 @@ const buildScheduledStopPoints = (
       label: 'V1562',
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
+    validity_start: Temporal.PlainDate.from('2020-03-20'),
+    validity_end: Temporal.PlainDate.from('2050-05-31'),
     scheduled_stop_point_id: '603c8ea9-63f2-469b-9790-790e368a3c7e',
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
@@ -2755,7 +2755,7 @@ describe('Stop details', { tags: [Tag.StopRegistry] }, () => {
     const validityPeriodValidationTests: ReadonlyArray<ValidityPeriodValidationTestData> =
       [
         {
-          startDate: DateTime.now().minus({ day: 1 }).toISODate(),
+          startDate: today().subtract({ days: 1 }).toString(),
           endDate: undefined,
           indefinite: true,
           expectedError: 'Voimassaolo ei voi alkaa menneisyydestä',

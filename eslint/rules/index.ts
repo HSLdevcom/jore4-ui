@@ -9,7 +9,10 @@ import { rules as react } from './react';
 import { rules as reactA11y } from './react-a11y';
 import { rules as strict } from './strict';
 import { rules as style } from './style';
-import { rules as temporal } from './temporal';
+import {
+  rules as temporal,
+  testProjectRules as temporalTestProject,
+} from './temporal';
 import { rules as typescript } from './typescript';
 import { rules as variables } from './variables';
 
@@ -46,6 +49,7 @@ export const nodeProjectRules = {
   ...imports,
   ...strict,
   ...typescript,
+  ...temporalTestProject,
 };
 
 export const cypressRules = {
