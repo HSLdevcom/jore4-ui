@@ -1,4 +1,3 @@
-import { Duration } from 'luxon';
 import { DayTypeId } from '../../datasets';
 import {
   VehicleServiceInsertInput,
@@ -62,8 +61,8 @@ export const defaultVehicleServiceSequenceParams = {
   vehicleServiceBase: {},
   vehicleServiceCount: { min: 10, max: 20 },
   vehicleServiceDeparturesSequenceBuilder: {
-    minTime: Duration.fromISO('PT2M'),
-    maxTime: Duration.fromISO('PT10M'),
+    minTime: Temporal.Duration.from('PT2M'),
+    maxTime: Temporal.Duration.from('PT10M'),
   },
 } satisfies Partial<VehicleServiceSequenceBuilder>;
 

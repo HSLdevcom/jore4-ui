@@ -1,11 +1,10 @@
-import { Duration } from 'luxon';
 import {
   JourneyPatternRefInsertInputDeep,
   JourneyType,
   VehicleJourneyInsertInput,
   VehicleJourneyInsertInputDeep,
 } from '../../types';
-import { expectValue } from '../../utils';
+import { expectValue, toDuration } from '../../utils';
 import {
   ArrayItemPickMethod,
   Count,
@@ -101,7 +100,7 @@ export const getVehicleJourneyTimes = (
     return {
       start: undefined,
       end: undefined,
-      duration: Duration.fromMillis(0),
+      duration: Temporal.Duration.from('PT0S'),
     };
   }
 
@@ -109,10 +108,10 @@ export const getVehicleJourneyTimes = (
 
   // we do know that the first timetabled passing time always has departure time and the last always has an arrival time, can skip the null check
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const start = passingTimes[0].departure_time!;
+  const start = toDuration(passingTimes[0].departure_time!);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const end = passingTimes[passingTimes.length - 1].arrival_time!;
-  const duration = end.minus(start);
+  const end = toDuration(passingTimes[passingTimes.length - 1].arrival_time!);
+  const duration = end.subtract(start);
 
   return { start, end, duration };
 };
@@ -131,8 +130,8 @@ export const defaultVehicleJourneySequenceParams = {
   vehicleJourneyBase: {},
   vehicleJourneyCount: { min: 6, max: 8 },
   vehicleJourneyWaitSequenceBuilder: {
-    minTime: Duration.fromISO('PT2M'),
-    maxTime: Duration.fromISO('PT10M'),
+    minTime: Temporal.Duration.from('PT2M'),
+    maxTime: Temporal.Duration.from('PT10M'),
   },
   journeyPatternPickMethod: 'modulo',
 } satisfies Partial<VehicleJourneySequenceBuilder>;
@@ -156,7 +155,7 @@ export const buildVehicleJourneySequence = (
 
   // calculate the waiting times after each vehicle journey before the next one starts
   const waitSequence = buildTimeSequence(
-    Duration.fromISO('PT0S'),
+    Temporal.Duration.from('PT0S'),
     count,
     vehicleJourneyWaitSequenceBuilder,
   );
@@ -187,7 +186,7 @@ export const buildVehicleJourneySequence = (
     const vehicleJourneyDuration =
       getVehicleJourneyTimes(vehicleJourney).duration;
     const waitAfter = waitSequence[i];
-    currentTime = currentTime.plus(vehicleJourneyDuration).plus(waitAfter);
+    currentTime = currentTime.add(vehicleJourneyDuration).add(waitAfter);
   }
   return vehicleJourneys;
 };

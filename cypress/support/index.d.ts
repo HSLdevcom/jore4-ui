@@ -1,11 +1,7 @@
 // load type definitions that come with Cypress module
 /// <reference types="cypress" />
 
-// load type definitions for Luxon
-/// <reference types="@types/luxon" />
-
 declare namespace Cypress {
-  import type { DateTime } from 'luxon';
   import type {
     InsertQuaysResult,
     InsertQuaysWithRealIdsParams,
@@ -42,7 +38,7 @@ declare namespace Cypress {
     /**
      * Custom command to clear an input field and type the date
      */
-    inputDateValue(value: DateTime): Chainable<JQuery<HtmlElement>>;
+    inputDateValue(value: Temporal.PlainDate): Chainable<JQuery<HtmlElement>>;
 
     /**
      * Custom command to scroll the element into view and then click it.
@@ -55,11 +51,11 @@ declare namespace Cypress {
     shouldHaveText(value: string): Chainable<JQuery<HtmlElement>>;
 
     /**
-     * Custom command to check if element has date formatted as d.L.yyyy
-     * @example cy.get('.date').shouldHaveDate(DateTime.local(2026, 5, 7))
+     * Custom command to check if element has date formatted as d.M.yyyy
+     * @example cy.get('.date').shouldHaveDate(Temporal.PlainDate.from('2026-05-07'))
      */
     shouldHaveDate(
-      value: DateTime | null | undefined,
+      value: Temporal.PlainDate | null | undefined,
     ): Chainable<JQuery<HtmlElement>>;
 
     /**
@@ -186,11 +182,5 @@ declare namespace Cypress {
       event: 'readDownloadedCSV',
       options: ReadDownloadedCSVOptions,
     ): Chainable<string>;
-  }
-}
-
-declare namespace luxon {
-  interface TSSettings {
-    throwOnInvalid: true;
   }
 }

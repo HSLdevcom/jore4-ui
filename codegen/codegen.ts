@@ -18,18 +18,13 @@ async function pluginLoader(name: string) {
 
 // https://hasura.io/learn/graphql/typescript-react-apollo/codegen/
 
-const scalars = {
+const baseScalars = {
   uuid: 'UUID',
   geography: 'GeoJSON.Geometry',
   geometry: 'GeoJSON.Geometry',
   geography_point: 'GeoJSON.Point',
   geography_linestring: 'GeoJSON.LineString',
   localized_string: 'LocalizedString',
-  timestamptz: 'luxon.DateTime',
-  date: 'luxon.DateTime',
-  interval: 'luxon.Duration',
-  stop_registry_DateTime: 'luxon.DateTime',
-  stop_registry_LocalDate: 'luxon.DateTime',
   stop_registry_Coordinates: 'GeoJSON.Position',
   float8: 'number',
   smallint: 'number',
@@ -37,10 +32,37 @@ const scalars = {
 
 // The ui is being migrated from Luxon to Temporal one scalar at a time.
 const uiScalars = {
-  ...scalars,
+  ...baseScalars,
+  date: 'luxon.DateTime',
+  stop_registry_LocalDate: 'luxon.DateTime',
   interval: 'Temporal.Duration',
   timestamptz: 'Temporal.ZonedDateTime',
   stop_registry_DateTime: 'Temporal.ZonedDateTime',
+};
+
+// The test code (test-db-manager and cypress) has been fully migrated to Temporal.
+//
+// Inputs are built in Cypress spec code (the browser) and in Node, but a part
+// of them is passed to the database through `cy.task`, which serializes its
+// arguments with `JSON.stringify`. Temporal values therefore reach the Node
+// side as strings, and both forms have to be allowed. `StripTemporalTypes` and
+// `StripSerializedTypes` can be used to pick the form that is in use at hand.
+//
+// Query results come straight from `JSON.parse`, so every scalar that Temporal
+// models is a string on the way out.
+const testScalars = {
+  ...baseScalars,
+  date: { input: 'Temporal.PlainDate | string', output: 'string' },
+  stop_registry_LocalDate: {
+    input: 'Temporal.PlainDate | string',
+    output: 'string',
+  },
+  interval: { input: 'Temporal.Duration | string', output: 'string' },
+  timestamptz: { input: 'Temporal.ZonedDateTime | string', output: 'string' },
+  stop_registry_DateTime: {
+    input: 'Temporal.ZonedDateTime | string',
+    output: 'string',
+  },
 };
 
 const defaultConfig = {
@@ -96,11 +118,11 @@ const config: CodegenConfig = {
     },
     '../test-db-manager/src/generated/graphql.ts': {
       documents: ['../test-db-manager/src/**/*.ts'],
-      plugins: [luxonImportPlugin, 'typescript', 'typescript-operations'],
+      plugins: ['typescript', 'typescript-operations'],
       config: {
         ...defaultConfig,
         withHooks: false,
-        scalars,
+        scalars: testScalars,
       },
     },
     '../ui/graphql.schema.json': {
