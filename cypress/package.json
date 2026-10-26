@@ -21,12 +21,10 @@
     "cypress-ctrf-json-reporter": "^0.2.0",
     "cypress-split": "^1.25.0",
     "lodash": "catalog:",
-    "luxon": "catalog:",
     "qs": "catalog:"
   },
   "devDependencies": {
     "@types/lodash": "catalog:",
-    "@types/luxon": "catalog:",
     "@types/qs": "catalog:",
     "find-test-names": "^1.29.19",
     "typescript": "catalog:"

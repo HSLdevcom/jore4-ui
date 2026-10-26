@@ -1,23 +1,26 @@
 import isNumber from 'lodash/isNumber';
 import range from 'lodash/range';
-import { Duration } from 'luxon';
 import { randomInt } from '../utils';
 
 export function buildLabelArray(labelPrefix: string, labelCount: number) {
   return range(1, labelCount + 1).map((no) => `${labelPrefix}${no}`);
 }
 
-export function buildRandomDuration(min: Duration, max: Duration) {
-  const unroundedDuration = Duration.fromMillis(
-    randomInt(min.toMillis(), max.toMillis()),
+export function buildRandomDuration(
+  min: Temporal.Duration,
+  max: Temporal.Duration,
+) {
+  const milliseconds = randomInt(
+    min.total({ unit: 'milliseconds' }),
+    max.total({ unit: 'milliseconds' }),
   );
 
   // We only want to handle durations in minute precision, currently.
-  const durationParts = unroundedDuration.rescale().toObject();
-  delete durationParts.seconds;
-  delete durationParts.milliseconds;
-
-  return Duration.fromObject(durationParts);
+  return Temporal.Duration.from({ milliseconds }).round({
+    largestUnit: 'hours',
+    smallestUnit: 'minutes',
+    roundingMode: 'trunc',
+  });
 }
 
 type ConstantCount = number;

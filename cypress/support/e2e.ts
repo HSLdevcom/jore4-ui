@@ -19,9 +19,7 @@ import './commands';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { register as registerCypressGrep } from '@cypress/grep';
-import { Settings } from 'luxon';
 import { registerBaseStyles } from './PrintLog';
 
 registerCypressGrep();
 registerBaseStyles();
-Settings.throwOnInvalid = true;

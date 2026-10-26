@@ -1,5 +1,4 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -234,8 +233,8 @@ describe('Timetable validity period', () => {
           ...baseTimetableDataInput._vehicle_schedule_frames,
           year2024Sat: {
             ...satVehicleScheduleFrame,
-            validity_start: DateTime.fromISO('2024-01-01'),
-            validity_end: DateTime.fromISO('2024-12-31'),
+            validity_start: Temporal.PlainDate.from('2024-01-01'),
+            validity_end: Temporal.PlainDate.from('2024-12-31'),
             name: '2024 sat',
             booking_label: '2024 booking label sat',
           },

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { buildRoute } from '../../builders';
 import {
   RouteDirectionEnum,
@@ -16,7 +15,7 @@ export const routes: RouteRouteInsertInput[] = [
     on_line_id: lines[0].line_id,
     direction: RouteDirectionEnum.Northbound,
     priority: Priority.Standard,
-    validity_start: DateTime.fromISO('2044-05-02T23:11:32Z'),
+    validity_start: Temporal.PlainDate.from('2044-05-02'),
     validity_end: null,
   },
   {
@@ -25,8 +24,8 @@ export const routes: RouteRouteInsertInput[] = [
     on_line_id: lines[1].line_id,
     direction: RouteDirectionEnum.Southbound,
     priority: Priority.Temporary,
-    validity_start: DateTime.fromISO('2044-06-02T23:11:32Z'),
-    validity_end: DateTime.fromISO('2045-04-02T23:11:32Z'),
+    validity_start: Temporal.PlainDate.from('2044-06-02'),
+    validity_end: Temporal.PlainDate.from('2045-04-02'),
   },
 ];
 

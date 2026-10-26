@@ -19,7 +19,6 @@ import compact from 'lodash/compact';
 import range from 'lodash/range';
 import uniqBy from 'lodash/uniqBy';
 import without from 'lodash/without';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -49,6 +48,7 @@ import { InsertQuayInput, InsertQuaysResult } from '../../support/types';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { today } from '../../utils/time';
 import { InsertedStopRegistryIds } from '../utils';
 
 const baseDbResources = getClonedBaseDbResources();
@@ -478,7 +478,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
         }),
         line_id: getUuid(i),
         type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-        validity_start: DateTime.fromISO('2000-01-01'),
+        validity_start: Temporal.PlainDate.from('2000-01-01'),
       }));
       insertToDbHelper({ lines });
       return lines.map((line) => line.label as string);
@@ -1148,8 +1148,8 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
   });
 
   describe('Priority visualization', () => {
-    const today = DateTime.now().startOf('day');
-    const startDate = today.minus({ years: 1 });
+    const todaysDate = today();
+    const startDate = todaysDate.subtract({ years: 1 });
 
     beforeEach(() => {
       const extraPrioStops: StopInsertInput[] = [
@@ -1198,7 +1198,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
           priority: Priority.Standard,
           validity_start: startDate,
-          validity_end: today.plus({ days: 10 }),
+          validity_end: todaysDate.add({ days: 10 }),
 
           direction: InfrastructureNetworkDirectionEnum.Backward,
           scheduled_stop_point_id: getUuid(3),
@@ -1216,7 +1216,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
           priority: Priority.Standard,
           validity_start: startDate,
-          validity_end: today.plus({ days: 1 }),
+          validity_end: todaysDate.add({ days: 1 }),
 
           direction: InfrastructureNetworkDirectionEnum.Backward,
           scheduled_stop_point_id: getUuid(4),
@@ -1234,7 +1234,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
           priority: Priority.Standard,
           validity_start: startDate,
-          validity_end: today,
+          validity_end: todaysDate,
 
           direction: InfrastructureNetworkDirectionEnum.Backward,
           scheduled_stop_point_id: getUuid(5),
@@ -1268,8 +1268,8 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
           }),
 
           priority: Priority.Temporary,
-          validity_start: startDate.plus({ days: 1 }),
-          validity_end: today,
+          validity_start: startDate.add({ days: 1 }),
+          validity_end: todaysDate,
 
           direction: InfrastructureNetworkDirectionEnum.Backward,
           scheduled_stop_point_id: getUuid(7),
@@ -1287,7 +1287,7 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
 
           priority: Priority.Temporary,
           validity_start: startDate,
-          validity_end: today,
+          validity_end: todaysDate,
 
           direction: InfrastructureNetworkDirectionEnum.Backward,
           scheduled_stop_point_id: getUuid(8),
@@ -1319,11 +1319,11 @@ describe('Stop search', { tags: [Tag.StopRegistry, Tag.Search] }, () => {
                 },
                 {
                   key: KnownValueKey.ValidityStart,
-                  values: [stopPoint.validity_start?.toISODate() ?? null],
+                  values: [stopPoint.validity_start?.toString() ?? null],
                 },
                 {
                   key: KnownValueKey.ValidityEnd,
-                  values: [stopPoint.validity_end?.toISODate() ?? null],
+                  values: [stopPoint.validity_end?.toString() ?? null],
                 },
                 {
                   key: KnownValueKey.StopState,

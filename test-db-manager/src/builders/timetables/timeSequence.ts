@@ -1,41 +1,40 @@
-import { Duration } from 'luxon';
 import { TimetabledPassingTimeInsertInput } from '../../types';
 import { buildRandomDuration } from '../common';
 
 export type RegularTimeSequenceParams = {
-  interval: Duration;
+  interval: Temporal.Duration;
 };
 export const buildRegularTimeSequence = (
-  startTime: Duration,
+  startTime: Temporal.Duration,
   count: number,
   { interval }: RegularTimeSequenceParams,
 ) => {
-  let current: Duration = startTime;
-  const timeSequence: Duration[] = [current];
+  let current: Temporal.Duration = startTime;
+  const timeSequence: Temporal.Duration[] = [current];
 
   for (let i = 1; i < count; i++) {
-    current = current.plus(interval);
+    current = current.add(interval);
     timeSequence.push(current);
   }
   return timeSequence;
 };
 
 export type RandomTimeSequenceParams = {
-  minTime: Duration;
-  maxTime: Duration;
+  minTime: Temporal.Duration;
+  maxTime: Temporal.Duration;
 };
 
 export const buildRandomTimeSequence = (
-  startTime: Duration,
+  startTime: Temporal.Duration,
   count: number,
   { minTime, maxTime }: RandomTimeSequenceParams,
 ) => {
-  let current: Duration = startTime;
-  const timeSequence: Duration[] = [current];
+  let current: Temporal.Duration = startTime;
+  const timeSequence: Temporal.Duration[] = [current];
 
   for (let i = 1; i < count; i++) {
     const increment = buildRandomDuration(minTime, maxTime);
-    current = current.plus(increment);
+    current = current.add(increment);
     timeSequence.push(current);
   }
   return timeSequence;
@@ -46,7 +45,7 @@ export type PassingTime = Required<
 >;
 
 export const buildPassingTimeSequence = (
-  timeSequence: Duration[],
+  timeSequence: Temporal.Duration[],
 ): PassingTime[] => {
   // we cannot generate a valid sequence with less than 2 stops
   if (timeSequence.length < 2) {
@@ -74,7 +73,7 @@ export function isRandomTimeSequenceBuilder(
 }
 
 export const buildTimeSequence = (
-  startTime: Duration,
+  startTime: Temporal.Duration,
   count: number,
   tsBuilder: TimeSequenceParams,
 ) =>

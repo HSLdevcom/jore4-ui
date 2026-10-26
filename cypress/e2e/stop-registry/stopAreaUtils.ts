@@ -1,10 +1,10 @@
-import { DateTime } from 'luxon';
 import {
   AlternativeNamesEdit,
   StopAreaDetailsPage,
   Toast,
 } from '../../pageObjects';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { today } from '../../utils/time';
 
 export type EditableBasicDetails = {
   readonly name: string;
@@ -16,8 +16,8 @@ export type EditableBasicDetails = {
   readonly abbreviationFin: string;
   readonly abbreviationSwe: string;
   readonly abbreviationEng: string;
-  readonly validFrom: DateTime;
-  readonly validTo: DateTime | null;
+  readonly validFrom: Temporal.PlainDate;
+  readonly validTo: Temporal.PlainDate | null;
 };
 
 export type ExpectedBasicDetails = EditableBasicDetails & {
@@ -28,13 +28,14 @@ export type ExpectedBasicDetails = EditableBasicDetails & {
   readonly latitude: number;
 };
 
-export function setValidity(from: DateTime, to: DateTime | null) {
-  StopAreaDetailsPage.details.edit.validity.setStartDate(
-    from.toISODate() ?? '',
-  );
+export function setValidity(
+  from: Temporal.PlainDate,
+  to: Temporal.PlainDate | null,
+) {
+  StopAreaDetailsPage.details.edit.validity.setStartDate(from.toString());
   if (to) {
     StopAreaDetailsPage.details.edit.validity.setAsIndefinite(false);
-    StopAreaDetailsPage.details.edit.validity.setEndDate(to.toISODate() ?? '');
+    StopAreaDetailsPage.details.edit.validity.setEndDate(to.toString());
   } else {
     StopAreaDetailsPage.details.edit.validity.setAsIndefinite(true);
   }
@@ -77,6 +78,6 @@ export const changedBasicDetails: EditableBasicDetails = {
   abbreviationFin: 'New abbreviation swe',
   abbreviationSwe: 'New abbreviation swe',
   abbreviationEng: 'New abbreviation eng',
-  validFrom: DateTime.now(),
+  validFrom: today(),
   validTo: null,
 };
