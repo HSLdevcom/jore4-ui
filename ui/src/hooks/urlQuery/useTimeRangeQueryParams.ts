@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { today } from '../../time/date';
+import { today } from '../../time';
 import { showWarningToast } from '../../utils/toastService';
 import { useDateQueryParam } from './useDateQueryParam';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';

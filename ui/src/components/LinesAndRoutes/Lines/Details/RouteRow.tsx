@@ -8,9 +8,13 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { MAX_DATE, MIN_DATE } from '../../../../time/date';
-import { now } from '../../../../time/dateTime';
-import { mapToShortDate, mapToShortDateTime } from '../../../../time/format';
+import {
+  MAX_DATE,
+  MIN_DATE,
+  mapToShortDate,
+  mapToShortDateTime,
+  now,
+} from '../../../../time';
 import { makeBackNavigationIsSafeState } from '../../../../utils';
 import {
   mapDirectionToSymbol,

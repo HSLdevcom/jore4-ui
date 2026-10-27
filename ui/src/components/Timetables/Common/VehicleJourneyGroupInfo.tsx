@@ -7,7 +7,7 @@ import {
   openChangeTimetableValidityModalAction,
   useAppDispatch,
 } from '../../../redux';
-import { mapDurationToShortTime, mapToShortDate } from '../../../time/format';
+import { mapDurationToShortTime, mapToShortDate } from '../../../time';
 import { useGetLocalizedTextFromDbBlob } from '../../../utils/i18n';
 import { IconButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';

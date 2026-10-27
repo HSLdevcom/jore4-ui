@@ -1,6 +1,6 @@
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
-import { parseDate } from '../../time/date';
+import { parseDate } from '../../time';
 import {
   isLine,
   isRoute,

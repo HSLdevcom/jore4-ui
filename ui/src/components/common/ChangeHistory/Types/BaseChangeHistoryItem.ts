@@ -1,5 +1,4 @@
-import { DateLike } from '../../../../time/date';
-import { DateTimeLike } from '../../../../time/dateTime';
+import { DateLike, DateTimeLike } from '../../../../time';
 
 export type BaseChangeHistoryItemDetails = {
   readonly changed?: DateTimeLike | null;

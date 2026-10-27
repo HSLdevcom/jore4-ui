@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ValidityPeriod } from '../../generated/graphql';
-import { isDateInRange, today } from '../../time/date';
+import { isDateInRange, today } from '../../time';
 import { showWarningToast } from '../../utils';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 

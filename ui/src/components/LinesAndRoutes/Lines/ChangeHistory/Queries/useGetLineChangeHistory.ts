@@ -4,7 +4,7 @@ import {
   LineChangeHistoryItemDetailsFragment,
   useGetLineChangeHistoryQuery,
 } from '../../../../../generated/graphql';
-import { isDateInRange } from '../../../../../time/date';
+import { isDateInRange } from '../../../../../time';
 import { SortOrder } from '../../../../../types';
 import {
   Comparator,

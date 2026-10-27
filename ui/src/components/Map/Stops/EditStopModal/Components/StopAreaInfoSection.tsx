@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { mapToShortDate } from '../../../../../time/format';
+import { mapToShortDate } from '../../../../../time';
 import { mapVehicleModeToUiName } from '../../../../../utils/i18n';
 import { accordionClassNames } from '../../../../common';
 import { ExpandButton } from '../../../../common/Buttons';

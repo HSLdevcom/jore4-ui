@@ -5,7 +5,7 @@ import {
   StopRegistryNameType,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time/format';
+import { mapToShortDate } from '../../../../../time';
 import {
   KnownValueKey,
   findAlternativeName,

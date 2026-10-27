@@ -16,7 +16,7 @@ import {
   useEditStopMutation,
   useEditStopPlaceMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
+import { parseDate } from '../../../../time';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -171,7 +171,7 @@ function hasStopPointFieldChanged(
   field: 'priority' | 'validity_start' | 'validity_end',
 ) {
   if (field in patch) {
-    return patch[field] !== existing[field];
+    return !areEqual(patch[field], existing[field]);
   }
 
   return false;

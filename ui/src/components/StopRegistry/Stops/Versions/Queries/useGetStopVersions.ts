@@ -4,7 +4,7 @@ import {
   StopVersionInfoFragment,
   useGetQuayVersionsQuery,
 } from '../../../../../generated/graphql';
-import { today as getToday, parseDate } from '../../../../../time/date';
+import { today as getToday, parseDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
 import {

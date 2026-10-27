@@ -10,8 +10,7 @@ import {
   useAppDispatch,
   useLoader,
 } from '../../../../../../redux';
-import { parseDate } from '../../../../../../time/date';
-import { padToTwoDigits } from '../../../../../../time/format';
+import { padToTwoDigits, parseDate } from '../../../../../../time';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';

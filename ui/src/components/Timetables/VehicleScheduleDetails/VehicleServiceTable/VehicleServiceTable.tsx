@@ -3,7 +3,7 @@ import { FC, KeyboardEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDateTime } from '../../../../time/format';
+import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { Column, Visible } from '../../../common/LayoutComponents';

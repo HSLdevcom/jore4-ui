@@ -1,8 +1,7 @@
 import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { parseDate } from '../../../../../../time/date';
-import { mapToShortDate } from '../../../../../../time/format';
+import { mapToShortDate, parseDate } from '../../../../../../time';
 import { ConfirmModal } from '../../../../../common/Modals';
 import { CopyStopAreaCutConfirmationModalState } from '../types';
 

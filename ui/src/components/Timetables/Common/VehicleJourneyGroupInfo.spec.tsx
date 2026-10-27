@@ -1,5 +1,5 @@
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
-import { parseDateTime } from '../../../time/dateTime';
+import { parseDateTime } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
 import { VehicleJourneyGroup } from '../VehicleScheduleDetails/useGetRouteTimetables';

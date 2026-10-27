@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useGetTodaysNameForLineQuery } from '../../../../../generated/graphql';
-import { today } from '../../../../../time/date';
+import { today } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 
 const GQL_GET_TODAYS_NAME_FOR_LINE = gql`

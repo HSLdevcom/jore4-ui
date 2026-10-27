@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { today } from '../../../time/date';
+import { today } from '../../../time';
 import { DateRange, SortOrder } from '../../../types';
 import { VersionTableColumn } from './VersionTableColumn';
 

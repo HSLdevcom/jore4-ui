@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
-import { mapToShortDate } from '../../../../time/format';
+import { mapToShortDate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { mapPriorityToUiName } from '../../../../utils/i18n';
 import { Row } from '../../../common/LayoutComponents';

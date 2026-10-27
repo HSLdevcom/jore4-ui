@@ -3,7 +3,7 @@ import {
   ServicePatternPointTypeEnum,
   useInsertStopPointMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
+import { parseDate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { mapPointToGeoJSON } from '../../../../utils';
 import { mapDateInputToValidityEnd } from '../../../common/Forms';

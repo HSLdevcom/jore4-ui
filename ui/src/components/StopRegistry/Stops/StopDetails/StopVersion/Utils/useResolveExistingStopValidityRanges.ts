@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useResolveExistingStopValidityRangesQuery } from '../../../../../../generated/graphql';
-import { today as getToday } from '../../../../../../time/date';
+import { today as getToday } from '../../../../../../time';
 import { ExistingStopValidityRange } from '../Types';
 
 const GQL_RESOLVE_EXISTING_VALIDITY_RANGES_QUERY = gql`

@@ -3,8 +3,7 @@ import {
   JourneyPatternRouteFieldsFragment,
   QuayDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
-import { TIME_ZONE } from '../../../../../../time/dateTime';
+import { TIME_ZONE, parseDate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { useGetJourneyPatternsOfStopPointDuringTimePeriod } from '../../Queries/useGetJourneyPatternsOfStopPointDuringTimePeriod';
 import { useGetStopAreaVersionsLazy } from '../../Queries/useGetStopAreaVersions';

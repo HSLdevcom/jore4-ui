@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { isDateInRange } from '../../../time/date';
-import { parseDateTime } from '../../../time/dateTime';
+import { isDateInRange, parseDateTime } from '../../../time';
 import { useCollator } from '../../../utils';
 import {
   ChangeHistoryFilters,

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { twMerge } from 'tailwind-merge';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
-import { mapToShortDate } from '../../../../time/format';
+import { mapToShortDate } from '../../../../time';
 import { mapDirectionToSymbol } from '../../../../utils/i18n';
 import { SelectAllCheckbox } from '../Components';
 import { ResultSelection } from '../Types';

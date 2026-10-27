@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import { mapToShortDate } from '../../../../../time/format';
+import { mapToShortDate } from '../../../../../time';
 import {
   mapDirectionToUiName,
   mapPriorityToUiName,

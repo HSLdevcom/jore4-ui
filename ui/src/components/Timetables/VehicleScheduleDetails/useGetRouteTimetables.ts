@@ -14,7 +14,7 @@ import {
   useAppSelector,
   useLoader,
 } from '../../../redux';
-import { findEarliestTime, findLatestTime } from '../../../time/date';
+import { findEarliestTime, findLatestTime } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`

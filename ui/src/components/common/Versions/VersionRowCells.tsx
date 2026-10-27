@@ -1,8 +1,12 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { DateTimeLike, parseDateTime } from '../../../time/dateTime';
-import { mapToShortDate, mapToShortDateTime } from '../../../time/format';
+import {
+  DateTimeLike,
+  mapToShortDate,
+  mapToShortDateTime,
+  parseDateTime,
+} from '../../../time';
 import { statusToCellClasses } from './statusToCellClasses';
 import { trStatus } from './trStatus';
 import { VersionStatus } from './VersionStatus';

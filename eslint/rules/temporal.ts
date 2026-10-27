@@ -16,7 +16,7 @@ const temporalSyntax: ReadonlyArray<RestrictedSyntax> = [
     selector:
       "CallExpression[arguments.length=0] > MemberExpression.callee[object.type='MemberExpression'][object.object.name='Temporal'][object.property.name='Now'][property.name=/ISO$|^timeZoneId$/]",
     message:
-      "This reads the system time zone, which differs from Europe/Helsinki e.g. when working abroad. Use today()/now() from time.ts, or pass 'Europe/Helsinki' explicitly.",
+      "This reads the system time zone, which differs from Europe/Helsinki e.g. when working abroad. Use today()/now() from the time module (ui/src/time), or pass 'Europe/Helsinki' explicitly.",
   },
   {
     selector:
@@ -36,9 +36,12 @@ const dateSyntax: ReadonlyArray<RestrictedSyntax> = [
     selector:
       "NewExpression[callee.name='Date'], CallExpression[callee.name='Date'], MemberExpression[object.name='Date'][property.name=/^(now|parse)$/]",
     message:
-      'Date depends on the system time zone. Use Temporal values through the time.ts helpers (today(), now(), …) instead.',
+      'Date depends on the system time zone. Use Temporal values through the time module helpers (today(), now(), …) instead.',
   },
 ];
+
+const useTemporalMessage =
+  'Use Temporal instead (in ui, through the time module helpers).';
 
 const useAreEqualMessage =
   'Use areEqual from utils instead. lodash isEqual considers any two Temporal objects equal.';
@@ -56,9 +59,8 @@ const restrictedImportPaths = [
     importNames: ['isEqual'],
     message: useAreEqualMessage,
   },
+  { name: 'luxon', message: useTemporalMessage },
 ];
-
-const useTemporalMessage = 'Use Temporal through the time.ts helpers instead.';
 
 // Date is allowed for measuring UI timings that are not domain values.
 export const uiRestrictedSyntaxAllowingDate: SharedConfig.RuleEntry = [
@@ -74,22 +76,6 @@ export const rules: SharedConfig.RulesRecord = {
     'error',
     {
       paths: restrictedImportPaths,
-    },
-  ],
-};
-
-// The cypress and test-db-manager projects have been fully migrated to
-// Temporal, so Luxon is banned there. The ui still uses it for the date scalar.
-export const testProjectRules: SharedConfig.RulesRecord = {
-  ...rules,
-
-  'no-restricted-imports': [
-    'error',
-    {
-      paths: [
-        ...restrictedImportPaths,
-        { name: 'luxon', message: useTemporalMessage },
-      ],
     },
   ],
 };

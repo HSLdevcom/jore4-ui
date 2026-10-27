@@ -5,7 +5,7 @@ import {
   SubstituteOperatingPeriodSettingsInfoFragment,
   TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput,
 } from '../../../generated/graphql';
-import { DateLike, mapToISODate, parseDate, today } from '../../../time/date';
+import { DateLike, mapToISODate, parseDate, today } from '../../../time';
 import { SubstituteDayOfWeek } from '../../../types/enums';
 import { AllOptionEnum } from '../../../utils';
 import {

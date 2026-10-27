@@ -7,7 +7,7 @@ import {
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
 import { Operation, Viewport } from '../../../redux';
-import { parseDate } from '../../../time/date';
+import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';
 import {

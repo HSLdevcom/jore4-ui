@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../../hooks';
 import { Operation, useLoader } from '../../../../../../redux';
-import { mapToISODate } from '../../../../../../time/date';
+import { mapToISODate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';

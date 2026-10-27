@@ -3,7 +3,7 @@ import { FC, useMemo } from 'react';
 import { Navigate, useSearchParams } from 'react-router';
 import { useResolveLineIdByLabelQuery } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { parseDate, today } from '../../../../time/date';
+import { parseDate, today } from '../../../../time';
 import { useRequiredParams } from '../../../../utils';
 import { LineDetailsByIdPage } from './LineDetailsByIdPage';
 

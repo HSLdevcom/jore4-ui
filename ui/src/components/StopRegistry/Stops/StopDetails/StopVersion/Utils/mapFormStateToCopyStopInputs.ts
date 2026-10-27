@@ -6,7 +6,7 @@ import {
   StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
+import { parseDate } from '../../../../../../time';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   KnownValueKey,

@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { DateLike } from '../../../time/date';
+import { DateLike } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { isEndingSoon } from '../../../utils';
 

@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../../generated/graphql';
-import { now } from '../../../../../time/dateTime';
-import { mapToShortDate, mapToShortTime } from '../../../../../time/format';
+import { mapToShortDate, mapToShortTime, now } from '../../../../../time';
 import { getRouteLabelVariantText } from '../../../../../utils';
 import { mapDirectionToSymbol } from '../../../../../utils/i18n';
 import { SimpleDropdownMenu } from '../../../../common/Dropdowns';

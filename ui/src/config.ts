@@ -1,4 +1,4 @@
-import { parseDateTime } from './time/dateTime';
+import { parseDateTime } from './time';
 
 type JoreConfig = {
   // Here, but if you want to enable some check during dev only

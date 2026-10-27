@@ -9,7 +9,7 @@ import {
   useEditKeyValuesOfQuayMutation,
   useEditScheduledStopPointValidityMutation,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
+import { parseDate } from '../../../../../../time';
 import { KnownValueKey, setMultipleKeyValues } from '../../../../../../utils';
 import { QuayKeyValuesEditFailed } from '../Errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../Errors/ScheduledStopPointEditFailed';

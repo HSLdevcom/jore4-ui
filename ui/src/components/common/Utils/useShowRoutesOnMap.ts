@@ -11,7 +11,7 @@ import {
   setSelectedRouteIdAction,
   useAppDispatch,
 } from '../../../redux';
-import { isDateInRange } from '../../../time/date';
+import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';
 import {
   DisplayedRouteParams,

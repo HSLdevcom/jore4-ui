@@ -5,7 +5,7 @@ import { MdControlPointDuplicate, MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { FilterType, selectMapFilter, useAppSelector } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { parseDate } from '../../../../time/date';
+import { parseDate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { mapToValidityPeriod } from '../../../../utils';
 import { CloseIconButton, SimpleButton } from '../../../common/Buttons';

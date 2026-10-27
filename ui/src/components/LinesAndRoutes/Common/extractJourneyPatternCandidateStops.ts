@@ -9,7 +9,7 @@ import {
   ScheduledStopPointAllFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
-import { areValidityPeriodsOverlapping } from '../../../time/date';
+import { areValidityPeriodsOverlapping } from '../../../time';
 import { RouteInfraLink } from '../../../types';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';

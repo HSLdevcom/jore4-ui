@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { today } from '../../../../../../time/date';
+import { today } from '../../../../../../time';
 import { StopRowTdProps, StopSearchRow } from '../../types';
 import { PriorityIcon } from './PriorityIcon';
 import { PriorityVisualizationType } from './PriorityVisualizationType';

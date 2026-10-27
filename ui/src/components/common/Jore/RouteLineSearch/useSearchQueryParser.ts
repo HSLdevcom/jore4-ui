@@ -4,7 +4,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../../../../generated/graphql';
 import { useUrlQuery } from '../../../../hooks';
-import { today } from '../../../../time/date';
+import { today } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
 import { DisplayedSearchResultType, SearchConditions } from './Types';

@@ -9,7 +9,7 @@ import {
   ServicePatternScheduledStopPoint,
   usePatchRouteMutation,
 } from '../../../../generated/graphql';
-import { MIN_DATE } from '../../../../time/date';
+import { MIN_DATE } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { illegalCast, showDangerToastWithError } from '../../../../utils';
 import {

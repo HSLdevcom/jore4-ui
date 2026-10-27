@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate } from '../../../../../../time/format';
+import { mapToShortDate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 
 const testIds = {

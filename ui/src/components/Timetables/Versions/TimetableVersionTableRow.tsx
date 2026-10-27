@@ -5,7 +5,7 @@ import {
   openVersionPanelAction,
   useAppDispatch,
 } from '../../../redux';
-import { mapToShortDate } from '../../../time/format';
+import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 import {
   mapDayOfWeekToUiName,

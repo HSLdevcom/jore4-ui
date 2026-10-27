@@ -9,7 +9,7 @@ import {
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
+import { parseDate } from '../../../../time';
 import {
   IncompatibleWithExistingRoutesError,
   KnownValueKey,

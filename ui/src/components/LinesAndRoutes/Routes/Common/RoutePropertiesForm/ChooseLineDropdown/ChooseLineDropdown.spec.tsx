@@ -5,7 +5,7 @@ import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
 } from '../../../../../../generated/graphql';
-import { today } from '../../../../../../time/date';
+import { today } from '../../../../../../time';
 import { areEqual } from '../../../../../../utils';
 import {
   fireFullMouseClickSequence,

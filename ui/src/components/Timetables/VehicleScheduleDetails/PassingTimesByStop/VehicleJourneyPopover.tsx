@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { mapDurationToShortTime } from '../../../../time/format';
+import { mapDurationToShortTime } from '../../../../time';
 import { Popover } from './Popover';
 
 type VehicleJourneyPopoverProps = {

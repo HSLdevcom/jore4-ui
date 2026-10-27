@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { areValidityPeriodsOverlapping } from '../../../time/date';
+import { areValidityPeriodsOverlapping } from '../../../time';
 import { DateRange } from '../../../types';
 
 type VersionWithValidity = {

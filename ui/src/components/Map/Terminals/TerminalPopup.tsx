@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { parseDate } from '../../../time/date';
+import { parseDate } from '../../../time';
 import { EnrichedParentStopPlace } from '../../../types';
 import {
   KnownValueKey,

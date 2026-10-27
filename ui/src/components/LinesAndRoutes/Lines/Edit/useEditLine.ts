@@ -6,7 +6,7 @@ import {
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../../../../generated/graphql';
-import { MIN_DATE, parseDate } from '../../../../time/date';
+import { MIN_DATE, parseDate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { showDangerToastWithError } from '../../../../utils';
 import {

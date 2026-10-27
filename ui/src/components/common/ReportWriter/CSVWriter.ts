@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { TFunction } from 'i18next';
-import { DateLike } from '../../../time/date';
-import { mapToShortDate } from '../../../time/format';
+import { DateLike, mapToShortDate } from '../../../time';
 import { Translatable, TranslationMapper } from '../../../utils/i18n';
 
 // Excel requires BOM to recognize the data as UTF-8, and not try

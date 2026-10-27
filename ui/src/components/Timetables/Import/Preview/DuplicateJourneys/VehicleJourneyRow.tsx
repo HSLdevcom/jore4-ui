@@ -1,8 +1,5 @@
 import { FC } from 'react';
-import {
-  mapDurationToShortTime,
-  mapToShortDate,
-} from '../../../../../time/format';
+import { mapDurationToShortTime, mapToShortDate } from '../../../../../time';
 import { useGetLocalizedTextFromDbBlob } from '../../../../../utils/i18n';
 import { VehicleJourneyInfo } from './Utils';
 

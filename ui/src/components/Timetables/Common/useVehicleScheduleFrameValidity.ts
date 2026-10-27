@@ -4,7 +4,7 @@ import {
   useGetVehicleScheduleFrameWithRoutesQuery,
   useUpdateVehicleScheduleFrameValidityMutation,
 } from '../../../generated/graphql';
-import { parseDate } from '../../../time/date';
+import { parseDate } from '../../../time';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
   fragment VehicleScheduleFrameWithRoutes on timetables_vehicle_schedule_vehicle_schedule_frame {

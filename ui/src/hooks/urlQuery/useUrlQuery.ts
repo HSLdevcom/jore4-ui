@@ -3,7 +3,7 @@ import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { parseDate } from '../../time/date';
+import { parseDate } from '../../time';
 import { Priority } from '../../types/enums';
 
 export enum QueryParameterName {

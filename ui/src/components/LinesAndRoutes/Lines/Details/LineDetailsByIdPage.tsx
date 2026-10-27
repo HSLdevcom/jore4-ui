@@ -13,7 +13,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../redux';
-import { today } from '../../../../time/date';
+import { today } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { getTransportModeIcon, isPastEntity, none } from '../../../../utils';
 import {

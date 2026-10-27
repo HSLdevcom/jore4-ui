@@ -4,11 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Operation, useLoader } from '../../../../../redux';
-import {
-  isDateInRange,
-  mapToISODate,
-  parseDate,
-} from '../../../../../time/date';
+import { isDateInRange, mapToISODate, parseDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
 import {

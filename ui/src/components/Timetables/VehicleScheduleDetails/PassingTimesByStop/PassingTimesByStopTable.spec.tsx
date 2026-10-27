@@ -9,7 +9,7 @@ import {
   VehicleJourneyByStopFragment,
 } from '../../../../generated/graphql';
 import { setShowArrivalTimesAction, useAppDispatch } from '../../../../redux';
-import { parseDateTime } from '../../../../time/dateTime';
+import { parseDateTime } from '../../../../time';
 import {
   fireEvent,
   getAssertedElement,

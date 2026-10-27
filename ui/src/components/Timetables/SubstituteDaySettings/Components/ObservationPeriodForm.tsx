@@ -7,7 +7,7 @@ import { MdWarning } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { selectTimetable, useAppSelector } from '../../../../redux';
-import { parseDate } from '../../../../time/date';
+import { parseDate } from '../../../../time';
 import { DateRange } from '../../../../types';
 import { areEqual } from '../../../../utils';
 import { SimpleButton } from '../../../common/Buttons';

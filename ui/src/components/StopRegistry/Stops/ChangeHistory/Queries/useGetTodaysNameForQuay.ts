@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useGetTodaysNameForQuayQuery } from '../../../../../generated/graphql';
-import { today as getToday } from '../../../../../time/date';
+import { today as getToday } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
 import {
   TodaysName,

@@ -8,7 +8,7 @@ import {
   StopTableRowStopAreaDetailsFragment,
   StopTableRowStopAreaQuayDetailsFragment,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time/date';
+import { parseDate } from '../../../../../time';
 import { EnrichedStopPlace, StopPlace } from '../../../../../types';
 import { Priority, knownPriorityValues } from '../../../../../types/enums';
 import {

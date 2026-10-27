@@ -4,7 +4,7 @@ import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
 } from '../../../../generated/graphql';
-import { today } from '../../../../time/date';
+import { today } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import {
   JoreStopRegistryTransportModeType,

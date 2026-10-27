@@ -4,7 +4,7 @@ import {
   HistoricalStopAreaDetailsFragment,
   StopRegistryNameType,
 } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time/format';
+import { mapToShortDate } from '../../../../../time';
 import {
   KnownValueKey,
   findAlternativeName,

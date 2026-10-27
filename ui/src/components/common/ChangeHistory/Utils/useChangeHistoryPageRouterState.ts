@@ -1,6 +1,6 @@
 import noop from 'lodash/noop';
 import { useMemo } from 'react';
-import { today } from '../../../../time/date';
+import { today } from '../../../../time';
 import { PagingInfo, SortOrder } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import { memoizeStatePicker } from '../../../../utils';

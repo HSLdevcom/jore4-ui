@@ -14,7 +14,7 @@ import {
   useAppAction,
   useAppSelector,
 } from '../../../../redux';
-import { isDateInRange, parseDate } from '../../../../time/date';
+import { isDateInRange, parseDate } from '../../../../time';
 import { Point } from '../../../../types';
 import { showDangerToast, showWarningToast } from '../../../../utils';
 import { StopFormState } from '../../../StopRegistry/Stops/Common/StopForm';

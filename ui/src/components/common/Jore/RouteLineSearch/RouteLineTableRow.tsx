@@ -8,8 +8,7 @@ import {
 } from '../../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { MAX_DATE, MIN_DATE } from '../../../../time/date';
-import { mapToShortDate } from '../../../../time/format';
+import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../../../time';
 import { isRoute } from '../../../../utils';
 import { AlertPopover, RouteLabel } from '../../../LinesAndRoutes/Common';
 import { LocatorButton } from '../../Buttons';

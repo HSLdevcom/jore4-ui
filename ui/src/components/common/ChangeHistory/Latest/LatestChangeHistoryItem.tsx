@@ -1,8 +1,7 @@
 import { FC, isValidElement } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { Link, To } from 'react-router';
-import { parseDateTime } from '../../../../time/dateTime';
-import { mapToShortDateTime } from '../../../../time/format';
+import { mapToShortDateTime, parseDateTime } from '../../../../time';
 import { EmptyCell } from '../EmptyCell';
 import { BaseChangeHistoryItemDetails, ChangedValue } from '../Types';
 import { useGetUserNames } from '../UserNamesProvider';

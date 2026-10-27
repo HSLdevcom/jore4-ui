@@ -7,7 +7,7 @@ import {
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../../generated/graphql';
 import { Operation, useLoader } from '../../../../../../../redux';
-import { mapToISODate, today } from '../../../../../../../time/date';
+import { mapToISODate, today } from '../../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../../types';
 import {
   KnownValueKey,

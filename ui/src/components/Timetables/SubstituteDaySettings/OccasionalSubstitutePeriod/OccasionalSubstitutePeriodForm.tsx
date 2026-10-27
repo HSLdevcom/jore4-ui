@@ -16,10 +16,10 @@ import {
 import {
   findEarliestTime,
   findLatestTime,
+  mapDurationToShortTime,
   mapToISODate,
   today,
-} from '../../../../time/date';
-import { mapDurationToShortTime } from '../../../../time/format';
+} from '../../../../time';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
 import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';

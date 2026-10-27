@@ -1,7 +1,7 @@
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
+import { parseDate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { KnownValueKey, patchKeyValues } from '../../../../../../utils';
 import { useUpdateTerminal } from '../../../Common';

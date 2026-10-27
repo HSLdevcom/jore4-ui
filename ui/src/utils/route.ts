@@ -3,7 +3,7 @@ import {
   RouteLabelAndVariantFragment,
   RouteValidityPeriodFragment,
 } from '../generated/graphql';
-import { isDateInRange } from '../time/date';
+import { isDateInRange } from '../time';
 
 const GQL_ROUTE_HELPER_FRAGMENTS = gql`
   fragment RouteLabelAndVariant on route_route {
