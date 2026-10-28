@@ -8,9 +8,8 @@ import {
   StopAreaVersionInfoFragment,
   useGetStopPlaceVersionsQuery,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time/date';
-import { parseDateTime } from '../../../../../time/dateTime';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
+import { parseDate, parseDateTime } from '../../../../../utils/time';
 import { StopAreaVersion } from '../Types';
 
 const GQL_GET_STOP_PLACE_VERSIONS = gql`

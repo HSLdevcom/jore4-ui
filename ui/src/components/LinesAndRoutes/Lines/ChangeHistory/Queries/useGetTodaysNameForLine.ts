@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useGetTodaysNameForLineQuery } from '../../../../../generated/graphql';
-import { today } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
+import { today } from '../../../../../utils/time';
 
 const GQL_GET_TODAYS_NAME_FOR_LINE = gql`
   query GetTodaysNameForLine($label: String!, $priority: Int!, $today: date!) {

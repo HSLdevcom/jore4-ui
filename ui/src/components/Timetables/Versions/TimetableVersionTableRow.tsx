@@ -5,13 +5,13 @@ import {
   openVersionPanelAction,
   useAppDispatch,
 } from '../../../redux';
-import { mapToShortDate } from '../../../time/format';
 import { TimetablePriority } from '../../../types/enums';
 import {
   mapDayOfWeekToUiName,
   mapTimetablePriorityToUiName,
   useGetLocalizedTextFromDbBlob,
 } from '../../../utils/i18n';
+import { mapToShortDate } from '../../../utils/time';
 import { IconButton } from '../../common/Buttons';
 import {
   SimpleDropdownMenu,

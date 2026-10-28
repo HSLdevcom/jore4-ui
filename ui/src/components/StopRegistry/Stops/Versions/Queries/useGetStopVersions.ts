@@ -4,9 +4,9 @@ import {
   StopVersionInfoFragment,
   useGetQuayVersionsQuery,
 } from '../../../../../generated/graphql';
-import { today as getToday, parseDate } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 import { getGeometryPoint, requireValue } from '../../../../../utils';
+import { today as getToday, parseDate } from '../../../../../utils/time';
 import {
   GetUserNameById,
   useGetUserNames,

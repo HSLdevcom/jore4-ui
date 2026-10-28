@@ -6,7 +6,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../redux';
-import { mapToISODate } from '../../../time/date';
+import { mapToISODate } from '../../../utils/time';
 import {
   showDangerToastWithError,
   showSuccessToast,

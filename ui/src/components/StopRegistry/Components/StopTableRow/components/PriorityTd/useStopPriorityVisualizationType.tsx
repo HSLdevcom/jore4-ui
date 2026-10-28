@@ -1,8 +1,8 @@
 import { gql, skipToken } from '@apollo/client';
 import { useMemo } from 'react';
 import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../../generated/graphql';
-import { today as getToday } from '../../../../../../time/date';
 import { Priority } from '../../../../../../types/enums';
+import { today as getToday } from '../../../../../../utils/time';
 import { StopSearchRow } from '../../types';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
 

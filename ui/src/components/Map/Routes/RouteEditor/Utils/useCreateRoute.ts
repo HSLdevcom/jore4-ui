@@ -8,10 +8,10 @@ import {
   RouteTypeOfLineEnum,
   useInsertRouteOneMutation,
 } from '../../../../../generated/graphql';
-import { MIN_DATE, parseDate } from '../../../../../time/date';
 import { RouteInfraLink } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { buildJourneyPatternStopSequence } from '../../../../../utils';
+import { MIN_DATE, parseDate } from '../../../../../utils/time';
 import {
   RouteFormState,
   StopMetaTypeUpdateInfo,

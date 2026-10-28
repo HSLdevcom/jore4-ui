@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isDateInRange, parseDate } from '../../../time/date';
 import { EnrichedParentStopPlace, EnrichedStopPlace } from '../../../types';
 import { showWarningToast } from '../../../utils';
+import { isDateInRange, parseDate } from '../../../utils/time';
 import { useMapUrlStateContext } from './mapUrlState';
 
 export function useSetMapObservationDate() {

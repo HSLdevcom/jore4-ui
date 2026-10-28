@@ -1,4 +1,4 @@
-import { parseDate } from '../../../time/date';
+import { parseDate } from '../../../utils/time';
 
 // Submits form implemented with `react-hook-form` by ref
 // useful in cases where ui designs prevent us from defining

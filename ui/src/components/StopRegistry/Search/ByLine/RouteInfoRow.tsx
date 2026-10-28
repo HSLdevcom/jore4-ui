@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate } from '../../../../time/format';
 import {
   mapDirectionToLabel,
   mapDirectionToSymbol,
 } from '../../../../utils/i18n';
+import { mapToShortDate } from '../../../../utils/time';
 import { LocatorButton } from '../../../common/Buttons';
 import { Row } from '../../../common/LayoutComponents';
 import { useShowRoutesOnMap } from '../../../common/Utils';

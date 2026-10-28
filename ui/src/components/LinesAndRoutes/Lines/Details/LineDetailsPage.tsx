@@ -3,8 +3,8 @@ import { FC, useMemo } from 'react';
 import { Navigate, useSearchParams } from 'react-router';
 import { useResolveLineIdByLabelQuery } from '../../../../generated/graphql';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { parseDate, today } from '../../../../time/date';
 import { useRequiredParams } from '../../../../utils';
+import { parseDate, today } from '../../../../utils/time';
 import { LineDetailsByIdPage } from './LineDetailsByIdPage';
 
 const uuidLength = 36;

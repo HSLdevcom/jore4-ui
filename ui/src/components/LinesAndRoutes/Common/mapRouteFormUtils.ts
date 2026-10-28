@@ -1,7 +1,7 @@
 import { RouteAllFieldsFragment } from '../../../generated/graphql';
-import { mapToISODate, parseDate } from '../../../time/date';
 import { RouteDirection } from '../../../types/RouteDirection';
 import { defaultLocalizedString } from '../../../utils';
+import { mapToISODate, parseDate } from '../../../utils/time';
 import { mapDateInputToValidityEnd } from '../../common/Forms';
 import { RouteFormState } from './RoutePropertiesForm.types';
 

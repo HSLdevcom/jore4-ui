@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../../generated/graphql';
-import { now } from '../../../../../time/dateTime';
-import { mapToShortDate, mapToShortTime } from '../../../../../time/format';
 import { getRouteLabelVariantText } from '../../../../../utils';
 import { mapDirectionToSymbol } from '../../../../../utils/i18n';
+import { mapToShortDate, mapToShortTime, now } from '../../../../../utils/time';
 import { SimpleDropdownMenu } from '../../../../common/Dropdowns';
 import { RouteDownloadReportMenuItem } from './RouteDownloadReportMenuItem';
 import {

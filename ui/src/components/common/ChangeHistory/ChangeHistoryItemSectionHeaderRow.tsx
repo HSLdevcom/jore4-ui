@@ -1,7 +1,10 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { parseDateTime } from '../../../time/dateTime';
-import { mapToShortDate, mapToShortDateTime } from '../../../time/format';
+import {
+  mapToShortDate,
+  mapToShortDateTime,
+  parseDateTime,
+} from '../../../utils/time';
 import { BaseChangeHistoryItemDetails } from './Types';
 import { GetUserNameById } from './UserNamesProvider';
 

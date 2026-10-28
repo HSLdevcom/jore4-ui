@@ -6,7 +6,7 @@ import {
   GetLineDetailsWithRoutesByIdQueryVariables,
   RouteLineSetInput,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
+import { parseDate } from '../../../../utils/time';
 import { assertRouteValidityIsInsideLineValidity } from '../../Common';
 
 const GQL_GET_LINE_DETAILS_WITH_ROUTES_BY_ID = gql`

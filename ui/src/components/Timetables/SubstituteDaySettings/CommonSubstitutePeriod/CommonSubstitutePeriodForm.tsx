@@ -9,8 +9,8 @@ import {
   setIsCommonSubstitutePeriodFormDirtyAction,
   useAppDispatch,
 } from '../../../../redux';
-import { isDateInRange, mapToISODate } from '../../../../time/date';
 import { DateRange } from '../../../../types';
+import { isDateInRange, mapToISODate } from '../../../../utils/time';
 import { SimpleButton } from '../../../common/Buttons';
 import { submitFormByRef } from '../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';

@@ -13,15 +13,15 @@ import {
   setIsOccasionalSubstitutePeriodFormDirtyAction,
   useAppDispatch,
 } from '../../../../redux';
+import { SubstituteDayOfWeek } from '../../../../types/enums';
+import { AllOptionEnum } from '../../../../utils';
 import {
   findEarliestTime,
   findLatestTime,
+  mapDurationToShortTime,
   mapToISODate,
   today,
-} from '../../../../time/date';
-import { mapDurationToShortTime } from '../../../../time/format';
-import { SubstituteDayOfWeek } from '../../../../types/enums';
-import { AllOptionEnum } from '../../../../utils';
+} from '../../../../utils/time';
 import { SimpleButton, TextAndIconButton } from '../../../common/Buttons';
 import { submitFormByRef } from '../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlocker';

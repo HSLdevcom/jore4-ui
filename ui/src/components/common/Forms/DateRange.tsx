@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { DateLike } from '../../../time/date';
-import { mapToShortDate } from '../../../time/format';
+import { DateLike, mapToShortDate } from '../../../utils/time';
 
 type DateRangeProps = {
   readonly startDate?: DateLike;

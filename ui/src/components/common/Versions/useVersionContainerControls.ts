@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { today } from '../../../time/date';
 import { DateRange, SortOrder } from '../../../types';
+import { today } from '../../../utils/time';
 import { VersionTableColumn } from './VersionTableColumn';
 
 export type VersionTableSortingInfo = {

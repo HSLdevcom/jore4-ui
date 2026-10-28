@@ -5,13 +5,13 @@ import {
   StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time/date';
 import { EnrichedStopPlace } from '../../../../../types';
 import {
   KnownValueKey,
   findKeyValue,
   patchKeyValues,
 } from '../../../../../utils';
+import { parseDate } from '../../../../../utils/time';
 import { omitTypeName } from '../../../Utils';
 import { CutDirection } from './types';
 

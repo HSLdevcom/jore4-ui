@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { areValidityPeriodsOverlapping } from '../../../time/date';
 import { DateRange } from '../../../types';
+import { areValidityPeriodsOverlapping } from '../../../utils/time';
 
 type VersionWithValidity = {
   readonly validity_start: Temporal.PlainDate;

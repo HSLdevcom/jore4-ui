@@ -1,6 +1,6 @@
 import { QuayDetailsFragment } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
 import { KnownValueKey, findKeyValue } from '../../../../../../utils';
+import { parseDate } from '../../../../../../utils/time';
 import { BidirectionalQuayMap } from '../types';
 
 function matchQuayDates(

@@ -12,7 +12,6 @@ import {
   useGetStopDetailsQuery,
 } from '../../../../generated/graphql';
 import { useObservationDateQueryParam, useUrlQuery } from '../../../../hooks';
-import { isDateInRange, parseDate } from '../../../../time/date';
 import {
   EnrichedQuay,
   EnrichedStopPlace,
@@ -29,6 +28,7 @@ import {
   getStopPlacesFromQueryResult,
   useRequiredParams,
 } from '../../../../utils';
+import { isDateInRange, parseDate } from '../../../../utils/time';
 import {
   GetUserNameById,
   useGetUserNames,

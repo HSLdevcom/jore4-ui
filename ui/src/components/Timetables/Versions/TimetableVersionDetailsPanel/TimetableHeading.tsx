@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { MdHistory } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
-import { mapToShortDateTime } from '../../../../time/format';
 import { TimetablePriority } from '../../../../types/enums';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
+import { mapToShortDateTime } from '../../../../utils/time';
 import { Column, Row } from '../../../common/LayoutComponents';
 import { getTimetableHeadingBgColor } from '../../VehicleScheduleDetails';
 

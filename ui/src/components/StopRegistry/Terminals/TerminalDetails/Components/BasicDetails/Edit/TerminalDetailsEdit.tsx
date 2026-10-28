@@ -7,7 +7,6 @@ import {
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../../generated/graphql';
 import { Operation, useLoader } from '../../../../../../../redux';
-import { mapToISODate, today } from '../../../../../../../time/date';
 import { EnrichedParentStopPlace } from '../../../../../../../types';
 import {
   KnownValueKey,
@@ -16,6 +15,7 @@ import {
   notNullish,
   showSuccessToast,
 } from '../../../../../../../utils';
+import { mapToISODate, today } from '../../../../../../../utils/time';
 import { FormActionButtons } from '../../../../../../common/Forms';
 import { useDirtyFormBlockNavigation } from '../../../../../../common/Forms/NavigationBlocker';
 import { InputField } from '../../../../../../common/Inputs';

@@ -6,7 +6,6 @@ import {
   StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   KnownValueKey,
@@ -15,6 +14,7 @@ import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../../../../utils';
+import { parseDate } from '../../../../../../utils/time';
 import { mapDateInputToValidityEnd } from '../../../../../common/Forms';
 import {
   mapAlternativeNames,

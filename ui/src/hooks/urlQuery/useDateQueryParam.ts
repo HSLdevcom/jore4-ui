@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { today } from '../../time/date';
+import { today } from '../../utils/time';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 type Props = {

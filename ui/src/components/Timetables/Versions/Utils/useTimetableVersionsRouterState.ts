@@ -1,5 +1,5 @@
 import noop from 'lodash/noop';
-import { today } from '../../../../time/date';
+import { today } from '../../../../utils/time';
 import {
   UrlStateDeserializers,
   UrlStateSerializers,

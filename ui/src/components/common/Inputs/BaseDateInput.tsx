@@ -9,8 +9,12 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { DateLike, today, tryToParseDate } from '../../../time/date';
-import { mapToShortDate } from '../../../time/format';
+import {
+  DateLike,
+  mapToShortDate,
+  today,
+  tryToParseDate,
+} from '../../../utils/time';
 
 type ParsedNotNull = {
   readonly parsed: true;

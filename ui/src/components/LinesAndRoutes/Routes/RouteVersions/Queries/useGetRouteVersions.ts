@@ -5,9 +5,9 @@ import {
   TimetablesRouteDirectionEnum,
   useGetRouteVersionsQuery,
 } from '../../../../../generated/graphql';
-import { parseDate, today } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 import { defaultLocalizedString, requireValue } from '../../../../../utils';
+import { parseDate, today } from '../../../../../utils/time';
 import {
   GetUserNameById,
   useGetUserNames,

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
-import { mapToShortDate } from '../../../../time/format';
 import { Priority } from '../../../../types/enums';
 import { mapPriorityToUiName } from '../../../../utils/i18n';
+import { mapToShortDate } from '../../../../utils/time';
 import { Row } from '../../../common/LayoutComponents';
 
 const testIds = {

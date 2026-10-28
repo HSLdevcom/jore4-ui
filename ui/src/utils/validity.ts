@@ -1,8 +1,7 @@
 import { TFunction } from 'i18next';
 import { RouteDirectionEnum, ValidityPeriod } from '../generated/graphql';
-import { DateLike, parseDate, today } from '../time/date';
-import { mapToShortDate } from '../time/format';
 import { Priority } from '../types/enums';
+import { DateLike, mapToShortDate, parseDate, today } from './time';
 
 export function mapToValidityPeriod(
   t: TFunction,

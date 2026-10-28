@@ -3,8 +3,8 @@ import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
-import { parseDate } from '../../time/date';
 import { Priority } from '../../types/enums';
+import { parseDate } from '../../utils/time';
 
 export enum QueryParameterName {
   Longitude = 'lng',

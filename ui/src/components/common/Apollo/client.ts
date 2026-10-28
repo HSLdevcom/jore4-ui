@@ -18,7 +18,7 @@ import isString from 'lodash/isString';
 import introspectionResult from '../../../../graphql.schema.json';
 import { joreConfig } from '../../../config';
 import tiamatTypeInfo from '../../../generated/versionedTiamatEntities';
-import { parseDateTime } from '../../../time/dateTime';
+import { parseDateTime } from '../../../utils/time';
 import { roleHeaderMap, userHasuraRole } from './auth';
 import { mapHttpToWs } from './url';
 

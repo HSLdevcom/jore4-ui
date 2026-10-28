@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
-import { DateLike } from '../../../time/date';
 import { Priority } from '../../../types/enums';
 import { isEndingSoon } from '../../../utils';
+import { DateLike } from '../../../utils/time';
 
 enum AlertLevel {
   NoAlert,

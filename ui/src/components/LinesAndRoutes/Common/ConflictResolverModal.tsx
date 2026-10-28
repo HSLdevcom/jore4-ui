@@ -8,9 +8,9 @@ import {
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { mapToShortDate } from '../../../time/format';
 import { Priority } from '../../../types/enums';
 import { mapPriorityToUiName } from '../../../utils/i18n';
+import { mapToShortDate } from '../../../utils/time';
 import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { Row } from '../../common/LayoutComponents';
 import { Modal, ModalBody } from '../../common/Modals';

@@ -7,7 +7,6 @@ import {
 } from '../../../../generated/graphql';
 import { Operation, useLoader } from '../../../../redux';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { mapToISODate } from '../../../../time/date';
 import {
   defaultLocalizedString,
   getTransportModeIcon,
@@ -15,6 +14,7 @@ import {
   useNavigateBackSafely,
   useRequiredParams,
 } from '../../../../utils';
+import { mapToISODate } from '../../../../utils/time';
 import { PageTitle } from '../../../common/Jore';
 import { Container } from '../../../common/LayoutComponents';
 import {

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { QuayChangeHistoryItem } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time/date';
 import { PagingInfo } from '../../../../../types';
+import { parseDate } from '../../../../../utils/time';
 import {
   GetUserNameById,
   NoEarlierVersionExists,

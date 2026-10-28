@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { parseDate } from '../../../../../time/date';
 import { getValidityContainmentViolation } from '../../../../../utils';
+import { parseDate } from '../../../../../utils/time';
 import { mapDateInputToValidityEnd } from '../../../../common/Forms';
 import {
   StopFormState,

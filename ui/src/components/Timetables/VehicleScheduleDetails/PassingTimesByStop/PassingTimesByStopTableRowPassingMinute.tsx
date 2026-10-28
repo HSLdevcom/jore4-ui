@@ -2,12 +2,9 @@ import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../../generated/graphql';
 import { selectTimetable, useAppSelector } from '../../../../redux';
-import {
-  mapDurationToShortTime,
-  padToTwoDigits,
-} from '../../../../time/format';
 import { areEqual } from '../../../../utils';
 import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
+import { mapDurationToShortTime, padToTwoDigits } from '../../../../utils/time';
 import { Visible } from '../../../common/LayoutComponents';
 import { VehicleJourneyPopover } from './VehicleJourneyPopover';
 

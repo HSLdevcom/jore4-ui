@@ -1,6 +1,6 @@
 import { RouteDirectionEnum } from '../../../../../generated/graphql';
-import { DateLike } from '../../../../../time/date';
 import { EnrichedQuay, EnrichedStopPlace } from '../../../../../types';
+import { DateLike } from '../../../../../utils/time';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { ResultSelection, StopSearchFilters } from '../../../Search/Types';
 

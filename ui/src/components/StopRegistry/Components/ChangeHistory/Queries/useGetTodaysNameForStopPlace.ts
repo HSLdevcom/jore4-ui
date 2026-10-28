@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useGetTodaysNameForStopPlaceQuery } from '../../../../../generated/graphql';
-import { today as getToday } from '../../../../../time/date';
+import { today as getToday } from '../../../../../utils/time';
 import { TodaysName } from '../Types';
 import { getNamesFromStopPlace } from '../Utils';
 

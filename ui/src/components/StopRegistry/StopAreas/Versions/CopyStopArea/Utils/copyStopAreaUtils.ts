@@ -1,7 +1,6 @@
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { StopRegistryQuayInput } from '../../../../../../generated/graphql';
-import { mapToISODate, parseDate } from '../../../../../../time/date';
 import { EnrichedStopPlace } from '../../../../../../types';
 import {
   ElementWithKeyValues,
@@ -9,6 +8,7 @@ import {
   findKeyValue,
   patchKeyValues,
 } from '../../../../../../utils';
+import { mapToISODate, parseDate } from '../../../../../../utils/time';
 import { mapStopPlaceToInput } from '../../../StopAreaDetails/mapStopPlaceToInput';
 import { CutDirection } from '../../CutStopAreaValidity';
 import {

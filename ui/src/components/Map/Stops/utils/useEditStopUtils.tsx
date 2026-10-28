@@ -9,12 +9,12 @@ import {
   useAppDispatch,
   useLoader,
 } from '../../../../redux';
-import { isDateInRange } from '../../../../time/date';
 import {
   mapLngLatToGeoJSON,
   showSuccessToast,
   showWarningToast,
 } from '../../../../utils';
+import { isDateInRange } from '../../../../utils/time';
 import { useMapUrlStateContext } from '../../Utils/mapUrlState';
 import { EditChanges, StopInfoForEditingOnMap } from '../Types';
 import {

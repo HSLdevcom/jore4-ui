@@ -9,11 +9,11 @@ import {
   ScheduledStopPointAllFieldsFragment,
   ScheduledStopPointDefaultFieldsFragment,
 } from '../../../generated/graphql';
-import { areValidityPeriodsOverlapping } from '../../../time/date';
 import { RouteInfraLink } from '../../../types';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';
 import { Comparator } from '../../../utils';
+import { areValidityPeriodsOverlapping } from '../../../utils/time';
 
 /**
  * Verifies that stop is on the correct side of the road for the route

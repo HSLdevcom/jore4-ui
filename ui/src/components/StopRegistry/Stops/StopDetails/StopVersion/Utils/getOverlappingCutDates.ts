@@ -1,5 +1,5 @@
 import { OverlappingStopVersionsDataFragment } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
+import { parseDate } from '../../../../../../utils/time';
 import { UnableToCutOverlappingStopVersion } from '../Errors/UnableToCutOverlappingStopVersion';
 import { StopVersionFormState } from '../Types';
 import { OverlappingCutDatesResult } from '../Types/OverLappingCutDatesResult';
