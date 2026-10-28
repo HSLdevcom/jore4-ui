@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isDateInRange, today } from '../../../../../time/date';
 import { showSuccessToast } from '../../../../../utils';
+import { isDateInRange, today } from '../../../../../utils/time';
 import { CloseIconButton, SimpleButton } from '../../../../common/Buttons';
 import { DateInput } from '../../../../common/Inputs';
 import { Row } from '../../../../common/LayoutComponents';
@@ -62,7 +62,7 @@ function useFilteredStopVersions(
       );
       const isFutureVersion =
         Temporal.PlainDate.compare(version.validity_start, selectedDate) > 0;
-      return isValidOnDate ?? isFutureVersion;
+      return isValidOnDate || isFutureVersion;
     });
   }, [stopVersions, selectedDate]);
 }
