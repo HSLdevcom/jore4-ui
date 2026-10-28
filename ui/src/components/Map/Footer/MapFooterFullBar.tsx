@@ -30,6 +30,8 @@ const testIds = {
   saveButton: 'MapFooter::saveButton',
   cancelButton: 'MapFooter::cancelButton',
   addStopButton: 'MapFooter:addStopButton',
+  deleteRouteGeometryButton: 'MapFooter::deleteRouteGeometryButton',
+  deleteRouteButton: 'MapFooter::deleteRouteButton',
 };
 
 type MapFooterFullBarProps = {
@@ -182,6 +184,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       />
       <Visible visible={isInRouteEditMode}>
         <SimpleButton
+          testId={testIds.deleteRouteGeometryButton}
           shape="round"
           className="h-full text-xl"
           onClick={onDeleteRouteGeometry}
@@ -196,7 +199,11 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       <Visible visible={hasChangesInProgress && !isRouteMetadataFormOpen}>
         <Row className="ml-auto gap-4">
           <Visible visible={isEditingExistingRoute}>
-            <SimpleButton onClick={onDeleteRoute} inverted>
+            <SimpleButton
+              testId={testIds.deleteRouteButton}
+              onClick={onDeleteRoute}
+              inverted
+            >
               {t(($) => $.map.deleteRoute)}
             </SimpleButton>
           </Visible>
