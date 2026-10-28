@@ -11204,6 +11204,14 @@ export type StopRegistryContactInput = {
   readonly url?: InputMaybe<Scalars['String']['input']>;
 };
 
+export enum StopRegistryCoveredEnumeration {
+  Covered = 'covered',
+  Indoors = 'indoors',
+  Mixed = 'mixed',
+  Outdoors = 'outdoors',
+  Unknown = 'unknown'
+}
+
 export type StopRegistryCycleStorageEquipment = {
   readonly __typename?: 'stop_registry_CycleStorageEquipment';
   readonly cycleStorageType?: Maybe<StopRegistryCycleStorageType>;
@@ -11666,12 +11674,14 @@ export type StopRegistryParking = {
   readonly alternativeNames?: Maybe<ReadonlyArray<Maybe<StopRegistryAlternativeName>>>;
   readonly availabilityConditions?: Maybe<ReadonlyArray<Maybe<StopRegistryAvailabilityCondition>>>;
   readonly bookingUrl?: Maybe<Scalars['String']['output']>;
+  readonly covered?: Maybe<StopRegistryCoveredEnumeration>;
   readonly freeParkingOutOfHours?: Maybe<Scalars['Boolean']['output']>;
   readonly geometry?: Maybe<StopRegistryGeoJson>;
   readonly id?: Maybe<Scalars['String']['output']>;
   readonly infoLinks?: Maybe<ReadonlyArray<Maybe<StopRegistryInfoLink>>>;
   readonly lighting?: Maybe<StopRegistryLightingEnumeration>;
   readonly name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  readonly organisationRef?: Maybe<Scalars['String']['output']>;
   readonly overnightParkingPermitted?: Maybe<Scalars['Boolean']['output']>;
   readonly parentSiteRef?: Maybe<Scalars['String']['output']>;
   readonly parkingAreas?: Maybe<ReadonlyArray<Maybe<StopRegistryParkingArea>>>;
@@ -11728,12 +11738,14 @@ export type StopRegistryParkingInput = {
   readonly alternativeNames?: InputMaybe<ReadonlyArray<InputMaybe<StopRegistryAlternativeNameInput>>>;
   readonly availabilityConditions?: InputMaybe<ReadonlyArray<InputMaybe<StopRegistryAvailabilityConditionInput>>>;
   readonly bookingUrl?: InputMaybe<Scalars['String']['input']>;
+  readonly covered?: InputMaybe<StopRegistryCoveredEnumeration>;
   readonly freeParkingOutOfHours?: InputMaybe<Scalars['Boolean']['input']>;
   readonly geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly infoLinks?: InputMaybe<ReadonlyArray<InputMaybe<StopRegistryInfoLinkInput>>>;
   readonly lighting?: InputMaybe<StopRegistryLightingEnumeration>;
   readonly name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  readonly organisationRef?: InputMaybe<Scalars['String']['input']>;
   readonly overnightParkingPermitted?: InputMaybe<Scalars['Boolean']['input']>;
   readonly parentSiteRef?: InputMaybe<Scalars['String']['input']>;
   readonly parkingAreas?: InputMaybe<ReadonlyArray<InputMaybe<StopRegistryParkingAreaInput>>>;
@@ -31359,6 +31371,8 @@ export type StopsDatabaseParking = {
   readonly name_value?: Maybe<Scalars['String']['output']>;
   readonly netex_id?: Maybe<Scalars['String']['output']>;
   readonly number_of_parking_levels?: Maybe<Scalars['numeric']['output']>;
+  readonly organisation_ref?: Maybe<Scalars['String']['output']>;
+  readonly organisation_ref_version?: Maybe<Scalars['String']['output']>;
   readonly overnight_parking_permitted?: Maybe<Scalars['Boolean']['output']>;
   readonly parent_site_ref?: Maybe<Scalars['String']['output']>;
   readonly parent_site_ref_version?: Maybe<Scalars['String']['output']>;
@@ -33897,6 +33911,8 @@ export type StopsDatabaseParkingBoolExp = {
   readonly name_value?: InputMaybe<StringComparisonExp>;
   readonly netex_id?: InputMaybe<StringComparisonExp>;
   readonly number_of_parking_levels?: InputMaybe<NumericComparisonExp>;
+  readonly organisation_ref?: InputMaybe<StringComparisonExp>;
+  readonly organisation_ref_version?: InputMaybe<StringComparisonExp>;
   readonly overnight_parking_permitted?: InputMaybe<BooleanComparisonExp>;
   readonly parent_site_ref?: InputMaybe<StringComparisonExp>;
   readonly parent_site_ref_version?: InputMaybe<StringComparisonExp>;
@@ -34648,6 +34664,8 @@ export type StopsDatabaseParkingInsertInput = {
   readonly name_value?: InputMaybe<Scalars['String']['input']>;
   readonly netex_id?: InputMaybe<Scalars['String']['input']>;
   readonly number_of_parking_levels?: InputMaybe<Scalars['numeric']['input']>;
+  readonly organisation_ref?: InputMaybe<Scalars['String']['input']>;
+  readonly organisation_ref_version?: InputMaybe<Scalars['String']['input']>;
   readonly overnight_parking_permitted?: InputMaybe<Scalars['Boolean']['input']>;
   readonly parent_site_ref?: InputMaybe<Scalars['String']['input']>;
   readonly parent_site_ref_version?: InputMaybe<Scalars['String']['input']>;
@@ -35005,6 +35023,8 @@ export type StopsDatabaseParkingMaxFields = {
   readonly name_value?: Maybe<Scalars['String']['output']>;
   readonly netex_id?: Maybe<Scalars['String']['output']>;
   readonly number_of_parking_levels?: Maybe<Scalars['numeric']['output']>;
+  readonly organisation_ref?: Maybe<Scalars['String']['output']>;
+  readonly organisation_ref_version?: Maybe<Scalars['String']['output']>;
   readonly parent_site_ref?: Maybe<Scalars['String']['output']>;
   readonly parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   readonly parking_layout?: Maybe<Scalars['Int']['output']>;
@@ -35043,6 +35063,8 @@ export type StopsDatabaseParkingMinFields = {
   readonly name_value?: Maybe<Scalars['String']['output']>;
   readonly netex_id?: Maybe<Scalars['String']['output']>;
   readonly number_of_parking_levels?: Maybe<Scalars['numeric']['output']>;
+  readonly organisation_ref?: Maybe<Scalars['String']['output']>;
+  readonly organisation_ref_version?: Maybe<Scalars['String']['output']>;
   readonly parent_site_ref?: Maybe<Scalars['String']['output']>;
   readonly parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   readonly parking_layout?: Maybe<Scalars['Int']['output']>;
@@ -35101,6 +35123,8 @@ export type StopsDatabaseParkingOrderBy = {
   readonly name_value?: InputMaybe<OrderBy>;
   readonly netex_id?: InputMaybe<OrderBy>;
   readonly number_of_parking_levels?: InputMaybe<OrderBy>;
+  readonly organisation_ref?: InputMaybe<OrderBy>;
+  readonly organisation_ref_version?: InputMaybe<OrderBy>;
   readonly overnight_parking_permitted?: InputMaybe<OrderBy>;
   readonly parent_site_ref?: InputMaybe<OrderBy>;
   readonly parent_site_ref_version?: InputMaybe<OrderBy>;
@@ -36910,6 +36934,10 @@ export enum StopsDatabaseParkingSelectColumn {
   /** column name */
   NumberOfParkingLevels = 'number_of_parking_levels',
   /** column name */
+  OrganisationRef = 'organisation_ref',
+  /** column name */
+  OrganisationRefVersion = 'organisation_ref_version',
+  /** column name */
   OvernightParkingPermitted = 'overnight_parking_permitted',
   /** column name */
   ParentSiteRef = 'parent_site_ref',
@@ -36976,6 +37004,8 @@ export type StopsDatabaseParkingSetInput = {
   readonly name_value?: InputMaybe<Scalars['String']['input']>;
   readonly netex_id?: InputMaybe<Scalars['String']['input']>;
   readonly number_of_parking_levels?: InputMaybe<Scalars['numeric']['input']>;
+  readonly organisation_ref?: InputMaybe<Scalars['String']['input']>;
+  readonly organisation_ref_version?: InputMaybe<Scalars['String']['input']>;
   readonly overnight_parking_permitted?: InputMaybe<Scalars['Boolean']['input']>;
   readonly parent_site_ref?: InputMaybe<Scalars['String']['input']>;
   readonly parent_site_ref_version?: InputMaybe<Scalars['String']['input']>;
@@ -37083,6 +37113,8 @@ export type StopsDatabaseParkingStreamCursorValueInput = {
   readonly name_value?: InputMaybe<Scalars['String']['input']>;
   readonly netex_id?: InputMaybe<Scalars['String']['input']>;
   readonly number_of_parking_levels?: InputMaybe<Scalars['numeric']['input']>;
+  readonly organisation_ref?: InputMaybe<Scalars['String']['input']>;
+  readonly organisation_ref_version?: InputMaybe<Scalars['String']['input']>;
   readonly overnight_parking_permitted?: InputMaybe<Scalars['Boolean']['input']>;
   readonly parent_site_ref?: InputMaybe<Scalars['String']['input']>;
   readonly parent_site_ref_version?: InputMaybe<Scalars['String']['input']>;
@@ -37165,6 +37197,10 @@ export enum StopsDatabaseParkingUpdateColumn {
   NetexId = 'netex_id',
   /** column name */
   NumberOfParkingLevels = 'number_of_parking_levels',
+  /** column name */
+  OrganisationRef = 'organisation_ref',
+  /** column name */
+  OrganisationRefVersion = 'organisation_ref_version',
   /** column name */
   OvernightParkingPermitted = 'overnight_parking_permitted',
   /** column name */
