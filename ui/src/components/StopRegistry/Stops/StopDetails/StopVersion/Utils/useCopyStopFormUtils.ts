@@ -141,17 +141,18 @@ export function useCopyStopFormUtils(
     onCopyCreated(result);
   };
 
-  const onFormSubmit = (state: StopVersionFormState) => {
+  const onFormSubmit = async (state: StopVersionFormState) => {
     setIsLoading(true);
 
-    const { quayInput, stopPointInput, infoSpotInputs, originalStopPlaceId } =
-      mapCreateCopyFormStateToInputs(state, originalStop);
-
-    copyStop({ quayInput, stopPointInput, infoSpotInputs, originalStopPlaceId })
-      .then(handleSuccess)
-      .catch(handleError);
-
-    setIsLoading(false);
+    try {
+      const inputs = mapCreateCopyFormStateToInputs(state, originalStop);
+      const result = await copyStop(inputs);
+      handleSuccess(result);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return {

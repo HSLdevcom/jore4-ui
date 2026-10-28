@@ -61,6 +61,7 @@ function resolveErrorMessage(
   validityEnd: string | undefined,
   indefinite: boolean,
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
+  validityEndTouched: boolean,
   isEditing?: boolean,
 ): string | null {
   // If end is before start
@@ -78,7 +79,9 @@ function resolveErrorMessage(
 
   // If end date or indefinite not set yet.
   if (!indefinite && !validityEnd) {
-    return t(($) => $.formValidation.stopValidityEndNotDefined);
+    return validityEndTouched
+      ? t(($) => $.formValidation.stopValidityEndNotDefined)
+      : null;
   }
 
   const overlappingRange = getOverlappingValidityRange(existingValidityRanges, {
@@ -107,8 +110,14 @@ function useValidateValidityPeriod(
 ) {
   const { t } = useTranslation();
 
-  const { clearErrors, setError, watch } =
+  const { clearErrors, setError, watch, formState } =
     useFormContext<StopVersionFormState>();
+
+  const validityEndTouched =
+    formState.isSubmitted ||
+    !!formState.touchedFields.validityEnd ||
+    !!formState.touchedFields.indefinite ||
+    !!formState.dirtyFields.indefinite;
 
   const [priority, validityStart, validityEnd, indefinite] = watch([
     'priority',
@@ -126,6 +135,7 @@ function useValidateValidityPeriod(
         validityEnd,
         indefinite,
         existingValidityRanges,
+        validityEndTouched,
         isEditing,
       ),
     [
@@ -135,6 +145,7 @@ function useValidateValidityPeriod(
       validityEnd,
       indefinite,
       existingValidityRanges,
+      validityEndTouched,
       isEditing,
     ],
   );
