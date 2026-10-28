@@ -9,6 +9,30 @@ export class MapFooter {
     return cy.getByTestId('MapFooter::drawRouteButton');
   }
 
+  static getEditRouteButton() {
+    return cy.getByTestId('MapFooter::editRouteButton');
+  }
+
+  static getDeleteRouteGeometryButton() {
+    return cy.getByTestId('MapFooter::deleteRouteGeometryButton');
+  }
+
+  static getDeleteRouteButton() {
+    return cy.getByTestId('MapFooter::deleteRouteButton');
+  }
+
+  static getSaveButton() {
+    return cy.getByTestId('MapFooter::saveButton');
+  }
+
+  static redrawRoute() {
+    return MapFooter.getCreateRouteButton()
+      .should('have.text', 'Vedä reitti uudelleen')
+      .and('be.visible')
+      .and('be.enabled')
+      .click();
+  }
+
   static createRoute(
     vehicleMode: ReusableComponentsVehicleModeEnum = ReusableComponentsVehicleModeEnum.Bus,
   ) {
@@ -70,15 +94,14 @@ export class MapFooter {
   }
 
   static editRoute() {
-    cy.getByTestId('MapFooter::editRouteButton')
+    MapFooter.getEditRouteButton()
       .should('be.visible')
       .and('be.enabled')
       .click();
   }
 
   static save() {
-    return cy
-      .getByTestId('MapFooter::saveButton')
+    return MapFooter.getSaveButton()
       .should('be.visible')
       .and('be.enabled')
       .click();
