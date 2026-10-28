@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { mapToShortDate } from '../../../../../time/format';
+import { mapToShortDate } from '../../../../../utils/time';
 import { StopVersion } from '../../../Stops/Versions/Types';
 
 const testIds = {

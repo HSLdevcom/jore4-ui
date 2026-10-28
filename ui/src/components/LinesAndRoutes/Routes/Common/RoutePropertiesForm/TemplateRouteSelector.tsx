@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RouteAllFieldsFragment } from '../../../../../generated/graphql';
-import { today } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
+import { today } from '../../../../../utils/time';
 import {
   PriorityForm,
   PriorityFormState,

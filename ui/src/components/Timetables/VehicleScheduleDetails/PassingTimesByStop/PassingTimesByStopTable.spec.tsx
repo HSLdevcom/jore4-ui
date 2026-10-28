@@ -9,12 +9,12 @@ import {
   VehicleJourneyByStopFragment,
 } from '../../../../generated/graphql';
 import { setShowArrivalTimesAction, useAppDispatch } from '../../../../redux';
-import { parseDateTime } from '../../../../time/dateTime';
 import {
   fireEvent,
   getAssertedElement,
   render,
 } from '../../../../utils/test-utils';
+import { parseDateTime } from '../../../../utils/time';
 import { PassingTimesByStopTable } from './PassingTimesByStopTable';
 
 function vehicleJourney(vehicleTypeName: string) {

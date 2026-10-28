@@ -6,8 +6,8 @@ import {
   useGetLinesForComboboxQuery,
   useGetSelectedLineDetailsByIdQuery,
 } from '../../../../../../generated/graphql';
-import { today } from '../../../../../../time/date';
 import { mapToSqlLikeValue, useDebouncedString } from '../../../../../../utils';
+import { today } from '../../../../../../utils/time';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
   query GetLinesForCombobox(

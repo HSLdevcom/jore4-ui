@@ -1,9 +1,9 @@
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../../../generated/graphql';
-import { parseDate } from '../../../../../../time/date';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { KnownValueKey, patchKeyValues } from '../../../../../../utils';
+import { parseDate } from '../../../../../../utils/time';
 import { useUpdateTerminal } from '../../../Common';
 import { EditTerminalValidityResult } from '../../Types';
 import { TerminalValidityFormState } from './TerminalValidityFormState';

@@ -5,13 +5,13 @@ import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
 } from '../../../../../../generated/graphql';
-import { today } from '../../../../../../time/date';
 import { areEqual } from '../../../../../../utils';
 import {
   fireFullMouseClickSequence,
   render,
   sleep,
 } from '../../../../../../utils/test-utils';
+import { today } from '../../../../../../utils/time';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {

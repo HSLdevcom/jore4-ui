@@ -14,8 +14,8 @@ import {
   useAppSelector,
   useLoader,
 } from '../../../redux';
-import { findEarliestTime, findLatestTime } from '../../../time/date';
 import { TimetablePriority } from '../../../types/enums';
+import { findEarliestTime, findLatestTime } from '../../../utils/time';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
   fragment DayTypeAllFields on timetables_service_calendar_day_type {

@@ -8,7 +8,6 @@ import {
   StopTableRowStopAreaDetailsFragment,
   StopTableRowStopAreaQuayDetailsFragment,
 } from '../../../../../generated/graphql';
-import { parseDate } from '../../../../../time/date';
 import { EnrichedStopPlace, StopPlace } from '../../../../../types';
 import { Priority, knownPriorityValues } from '../../../../../types/enums';
 import {
@@ -22,6 +21,7 @@ import {
   parseStopRegistryTransportModeJsonArray,
   requireValue,
 } from '../../../../../utils';
+import { parseDate } from '../../../../../utils/time';
 import { StopSearchRow } from '../types';
 
 function parsePriority(value: unknown): Priority {

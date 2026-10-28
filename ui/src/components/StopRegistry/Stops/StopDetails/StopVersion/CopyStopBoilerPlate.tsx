@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { mapToShortDate } from '../../../../../time/format';
 import { StopWithDetails } from '../../../../../types';
 import { mapPriorityToUiName } from '../../../../../utils/i18n';
+import { mapToShortDate } from '../../../../../utils/time';
 
 const testIds = {
   names: 'CopyStopModal::names',

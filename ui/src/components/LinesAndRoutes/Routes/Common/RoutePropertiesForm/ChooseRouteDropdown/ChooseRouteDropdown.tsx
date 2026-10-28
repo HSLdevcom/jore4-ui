@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteAllFieldsFragment } from '../../../../../../generated/graphql';
-import { MAX_DATE, MIN_DATE } from '../../../../../../time/date';
 import { Priority } from '../../../../../../types/enums';
+import { MAX_DATE, MIN_DATE } from '../../../../../../utils/time';
 import {
   ComboboxInputProps,
   SearchableDropdown,

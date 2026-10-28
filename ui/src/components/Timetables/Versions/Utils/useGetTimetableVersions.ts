@@ -7,13 +7,13 @@ import {
   GetTimetableVersionsByJourneyPatternIdsQueryVariables,
   TimetableVersionFragment,
 } from '../../../../generated/graphql';
-import { today } from '../../../../time/date';
 import { DayOfWeek, TimetablePriority } from '../../../../types/enums';
 import {
   convertArrayTypeForHasura,
   log,
   showDangerToastWithError,
 } from '../../../../utils';
+import { today } from '../../../../utils/time';
 
 const GQL_TIMETABLE_VERSIONS_FRAGMENT = gql`
   fragment TimetableVersion on timetables_return_value_timetable_version {

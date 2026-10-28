@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ValidityPeriod } from '../../generated/graphql';
-import { isDateInRange, today } from '../../time/date';
 import { showWarningToast } from '../../utils';
+import { isDateInRange, today } from '../../utils/time';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 type Props = {

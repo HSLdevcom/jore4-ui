@@ -3,11 +3,11 @@ import compact from 'lodash/compact';
 import { FC } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../../../../../../generated/theme';
-import { mapToShortDate } from '../../../../../../time/format';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../../utils/i18n';
+import { mapToShortDate } from '../../../../../../utils/time';
 import {
   ChangedValue,
   diffKeyedValues,

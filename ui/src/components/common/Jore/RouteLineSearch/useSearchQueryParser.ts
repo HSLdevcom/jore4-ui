@@ -4,9 +4,9 @@ import {
   RouteTypeOfLineEnum,
 } from '../../../../generated/graphql';
 import { useUrlQuery } from '../../../../hooks';
-import { today } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { AllOptionEnum } from '../../../../utils';
+import { today } from '../../../../utils/time';
 import { DisplayedSearchResultType, SearchConditions } from './Types';
 
 export type FilterConditions = {

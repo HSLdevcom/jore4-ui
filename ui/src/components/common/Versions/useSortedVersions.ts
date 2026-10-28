@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DateTimeLike, parseDateTime } from '../../../time/dateTime';
 import { SortOrder } from '../../../types';
+import { DateTimeLike, parseDateTime } from '../../../utils/time';
 import { trStatus } from './trStatus';
 import { VersionTableSortingInfo } from './useVersionContainerControls';
 import { VersionStatus } from './VersionStatus';

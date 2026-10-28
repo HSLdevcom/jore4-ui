@@ -1,7 +1,6 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { now } from '../../../../time/dateTime';
-import { mapToShortDate, mapToShortTime } from '../../../../time/format';
+import { mapToShortDate, mapToShortTime, now } from '../../../../utils/time';
 import {
   useGenerateEquipmentReport,
   useGenerateInfoSpotReport,

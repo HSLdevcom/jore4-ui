@@ -10,11 +10,10 @@ import {
   useAppDispatch,
   useLoader,
 } from '../../../../../../redux';
-import { parseDate } from '../../../../../../time/date';
-import { padToTwoDigits } from '../../../../../../time/format';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
+import { padToTwoDigits, parseDate } from '../../../../../../utils/time';
 import { useDirtyFormBlockNavigation } from '../../../../../common/Forms/NavigationBlocker';
 import { FailedToCutOverlappingStopVersion } from '../Errors/FailedToCutOverlappingStopVersion';
 import { QuayKeyValuesEditFailed } from '../Errors/QuayKeyValuesEditFailed';

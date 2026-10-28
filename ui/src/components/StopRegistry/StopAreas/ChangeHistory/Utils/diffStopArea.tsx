@@ -4,7 +4,6 @@ import {
   HistoricalStopAreaDetailsFragment,
   StopRegistryNameType,
 } from '../../../../../generated/graphql';
-import { mapToShortDate } from '../../../../../time/format';
 import {
   KnownValueKey,
   findAlternativeName,
@@ -12,6 +11,7 @@ import {
   getGeometryPoint,
 } from '../../../../../utils';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../utils/i18n';
+import { mapToShortDate } from '../../../../../utils/time';
 import {
   ChangedValue,
   StopsList,

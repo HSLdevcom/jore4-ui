@@ -1,6 +1,5 @@
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
-import { parseDate } from '../../time/date';
 import {
   isLine,
   isRoute,
@@ -8,6 +7,7 @@ import {
   isScheduledStopPoint,
   isValidBetween,
 } from '../../utils';
+import { parseDate } from '../../utils/time';
 
 // types that must be serialized
 type SerializedTypes = Temporal.PlainDate | Temporal.ZonedDateTime;

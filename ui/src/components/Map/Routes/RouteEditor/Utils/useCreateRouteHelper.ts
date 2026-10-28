@@ -13,9 +13,9 @@ import {
   useAppSelector,
   useLoader,
 } from '../../../../../redux';
-import { isDateInRange } from '../../../../../time/date';
 import { Priority } from '../../../../../types/enums';
 import { showSuccessToast, showWarningToast } from '../../../../../utils';
+import { isDateInRange } from '../../../../../utils/time';
 import { RouteFormState, hasBlockers } from '../../../../LinesAndRoutes/Common';
 import { useMapUrlStateContext } from '../../../Utils/mapUrlState';
 import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../../Utils';

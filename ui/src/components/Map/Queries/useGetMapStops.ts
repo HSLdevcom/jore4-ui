@@ -7,13 +7,13 @@ import {
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
 import { Operation, Viewport } from '../../../redux';
-import { parseDate } from '../../../time/date';
 import { Priority } from '../../../types/enums';
 import { StopPlaceState } from '../../../types/stop-registry';
 import {
   mapCompactOrNull,
   parseStopRegistryTransportModeJsonArray,
 } from '../../../utils';
+import { parseDate } from '../../../utils/time';
 import { filtersAndResultSelectionToQueryVariables } from '../../StopRegistry/Search/Common';
 import { MapStop } from '../Types';
 import { buildWithinViewportGqlGeometryFilter } from '../Utils/buildWithinViewportGqlGeometryFilter';

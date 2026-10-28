@@ -51,8 +51,8 @@ import { PreviewTimetablesPage } from '../components/Timetables/Import/Preview/P
 import { TimetableVersionsPage } from '../components/Timetables/Versions';
 import { joreConfig } from '../config';
 import { selectUser, useAppSelector } from '../redux';
-import { mapToShortDateTime } from '../time/format';
 import { showDangerToast } from '../utils';
+import { mapToShortDateTime } from '../utils/time';
 import { JoreErrorModal } from './Components/JoreErrorModal';
 import { JoreLoader } from './Components/JoreLoader';
 import { Spinner } from './Components/Spinner';

@@ -4,7 +4,6 @@ import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
 } from '../../../../generated/graphql';
-import { today } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import {
   JoreStopRegistryTransportModeType,
@@ -12,6 +11,7 @@ import {
   StopPlaceState,
 } from '../../../../types/stop-registry';
 import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
+import { today } from '../../../../utils/time';
 import {
   allEnum,
   instanceOfPlainDate,

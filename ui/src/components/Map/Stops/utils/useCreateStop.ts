@@ -9,7 +9,6 @@ import {
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
 import {
   IncompatibleWithExistingRoutesError,
   KnownValueKey,
@@ -17,6 +16,7 @@ import {
   findKeyValue,
   getRouteLabelVariantText,
 } from '../../../../utils';
+import { parseDate } from '../../../../utils/time';
 import { useGetConflictingStops } from '../../../LinesAndRoutes/Common';
 import { BrokenRouteCheckParams, CreateChanges, CreateParams } from '../Types';
 import { useGetNextQuayPrivateCode } from './useGetNextQuayPrivateCode';

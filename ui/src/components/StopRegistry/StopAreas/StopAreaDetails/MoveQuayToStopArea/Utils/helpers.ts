@@ -12,8 +12,8 @@ import {
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
 } from '../../../../../../generated/graphql';
-import { tryToParseDate } from '../../../../../../time/date';
 import { KnownValueKey, areEqual, findKeyValue } from '../../../../../../utils';
+import { tryToParseDate } from '../../../../../../utils/time';
 import {
   MoveQuayParams,
   MoveStopPlace,

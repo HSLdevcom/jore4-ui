@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../../../../generated/graphql';
 import { selectEditedRouteData, useAppSelector } from '../../../../../../redux';
-import { MAX_DATE, MIN_DATE } from '../../../../../../time/date';
+import { MAX_DATE, MIN_DATE } from '../../../../../../utils/time';
 import {
   ComboboxInputProps,
   ComboboxOptionItem,

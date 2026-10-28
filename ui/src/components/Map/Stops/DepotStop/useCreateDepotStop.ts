@@ -3,9 +3,9 @@ import {
   ServicePatternPointTypeEnum,
   useInsertStopPointMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { mapPointToGeoJSON } from '../../../../utils';
+import { parseDate } from '../../../../utils/time';
 import { mapDateInputToValidityEnd } from '../../../common/Forms';
 import { useGetStopLinkAndDirection } from '../utils';
 import { DepotStopFormState } from './DepotStopFormSchema';

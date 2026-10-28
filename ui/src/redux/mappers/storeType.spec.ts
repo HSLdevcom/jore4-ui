@@ -1,6 +1,6 @@
 import isString from 'lodash/isString';
 import { SerializerFunction } from '..';
-import { parseDate } from '../../time/date';
+import { parseDate } from '../../utils/time';
 import {
   DeserializerFunction,
   PlainObject,

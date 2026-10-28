@@ -6,9 +6,9 @@ import {
   RouteLineSetInput,
   usePatchLineMutation,
 } from '../../../../generated/graphql';
-import { MIN_DATE, parseDate } from '../../../../time/date';
 import { Priority } from '../../../../types/enums';
 import { showDangerToastWithError } from '../../../../utils';
+import { MIN_DATE, parseDate } from '../../../../utils/time';
 import {
   StopMetaTypeUpdateInfo,
   filterNeedUpdateByLineType,

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { parseDate } from '../../../time/date';
 import { EnrichedParentStopPlace } from '../../../types';
 import {
   KnownValueKey,
@@ -11,6 +10,7 @@ import {
   getGeometryPoint,
   mapToValidityPeriod,
 } from '../../../utils';
+import { parseDate } from '../../../utils/time';
 import { CloseIconButton, SimpleButton } from '../../common/Buttons';
 import { Column, Row } from '../../common/LayoutComponents';
 import { useMapObservationDate } from '../Utils/mapUrlState';

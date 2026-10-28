@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { FC } from 'react';
-import { mapToShortDate } from '../../../../time/format';
+import { mapToShortDate } from '../../../../utils/time';
 import { CloseIconButton } from '../../../common/Buttons';
 import { Row } from '../../../common/LayoutComponents';
 

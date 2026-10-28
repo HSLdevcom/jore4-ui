@@ -2,9 +2,8 @@ import { TFunction } from 'i18next';
 import { FC, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { today as getToday } from '../../../../../time/date';
-import { mapToShortDate } from '../../../../../time/format';
 import { Priority } from '../../../../../types/enums';
+import { today as getToday, mapToShortDate } from '../../../../../utils/time';
 import { ValidationErrorList } from '../../../../common/Inputs';
 import { ExistingStopValidityRange, StopVersionFormState } from './Types';
 
