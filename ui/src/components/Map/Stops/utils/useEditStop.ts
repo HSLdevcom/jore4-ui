@@ -16,7 +16,6 @@ import {
   useEditStopMutation,
   useEditStopPlaceMutation,
 } from '../../../../generated/graphql';
-import { parseDate } from '../../../../time/date';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -33,6 +32,7 @@ import {
   showDangerToast,
   showDangerToastWithError,
 } from '../../../../utils';
+import { parseDate } from '../../../../utils/time';
 import { useGetConflictingStops } from '../../../LinesAndRoutes/Common';
 import { wrapErrors } from '../../../StopRegistry/Stops/StopDetails/StopVersion/Utils/wrapErrors';
 import { EditChanges, EditParams } from '../Types';
@@ -171,7 +171,7 @@ function hasStopPointFieldChanged(
   field: 'priority' | 'validity_start' | 'validity_end',
 ) {
   if (field in patch) {
-    return patch[field] !== existing[field];
+    return !areEqual(patch[field], existing[field]);
   }
 
   return false;
