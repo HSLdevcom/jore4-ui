@@ -39,7 +39,8 @@ function extractHighestPriorityStopsFromRoute<
 }
 
 export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
-  const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
+  const { selectedRouteId, suppressBaseRouteRehydrate } =
+    useAppSelector(selectMapRouteEditor);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const observationDate = useMapObservationDate();
   const selectedStopId = useAppSelector(selectSelectedStopId);
@@ -110,10 +111,25 @@ export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
   // If editing a route, highlight stops on edited route
   // Otherwise highlight stops belonging to selected route
   // Also highlight selectedRoute stops until editedRouteData is loaded
-  const highlightedStopIds =
-    editedRouteIncludedStops.length > 0
-      ? editedRouteStopIds
-      : selectedRouteActiveStopIds;
+  const highlightedStopIds = useMemo(() => {
+    // After explicit geometry deletion for an existing route,
+    // avoid falling back to selected-route highlights.
+    if (suppressBaseRouteRehydrate && editedRouteIncludedStops.length === 0) {
+      return [];
+    }
+
+    if (editedRouteIncludedStops.length > 0) {
+      return editedRouteStopIds;
+    }
+
+    return selectedRouteActiveStopIds;
+  }, [
+    editedRouteIncludedStops.length,
+    editedRouteStopIds,
+    selectedRouteActiveStopIds,
+    suppressBaseRouteRehydrate,
+  ]);
+
   const getStopHighlighted = useCallback(
     (stop: MapStop): boolean =>
       selectedStopAreaId === stop.stop_place_netex_id ||

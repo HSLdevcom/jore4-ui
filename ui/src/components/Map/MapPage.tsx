@@ -68,8 +68,10 @@ export const MapPage: FC = () => {
           onDrawRoute={(vehicleMode) =>
             mapRef.current?.onDrawRoute(vehicleMode)
           }
+          onRedrawRoute={() => mapRef.current?.onRedrawRoute()}
           onEditRoute={() => mapRef.current?.onEditRoute()}
           onStopEditRoute={() => mapRef.current?.onStopEditRoute()}
+          onDeleteRouteGeometry={() => mapRef.current?.onDeleteRouteGeometry()}
           onDeleteRoute={() => mapRef.current?.onDeleteRoute()}
           onCancel={() => mapRef.current?.onCancel()}
           onSave={() => mapRef.current?.onSave()}

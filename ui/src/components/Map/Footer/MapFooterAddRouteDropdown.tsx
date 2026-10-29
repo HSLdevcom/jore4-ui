@@ -28,7 +28,7 @@ export const MapFooterAddRouteDropdown: FC<MapFooterAddRouteDropdownProps> = ({
 
   return (
     <SimpleButtonDropdownMenu
-      buttonText={t(($) => $.map.addRoute)}
+      buttonText={t(($) => $.map.drawRoute)}
       disabled={disabled}
       inverted={inverted}
       testId={testId}
