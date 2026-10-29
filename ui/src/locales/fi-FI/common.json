@@ -948,6 +948,16 @@
     "validityConflictTitle": "Tallennus sisältää päällekkäisyyksiä",
     "validityConflictBody": "Muokkaa olemassa olevien resurssien voimassaoloaikoja tai tallenna nykyiset muutokset luonnoksena."
   },
+  "confirmCancelRouteDialog": {
+    "newRoute": {
+      "title": "Keskeytä reitin lisääminen",
+      "description": "Reitin tiedot eivät tallennu."
+    },
+    "existingRoute": {
+      "title": "Poistu tallentamatta?",
+      "description": "Tekemäsi muutokset eivät tallennu"
+    }
+  },
   "confirmDeleteRouteDialog": {
     "title": "Poista reitti?",
     "description": "Reitti poistetaan sille kuuluvalta linjalta.",
