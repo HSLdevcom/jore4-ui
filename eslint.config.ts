@@ -152,6 +152,7 @@ export default tsEslint.config(
   {
     files: ['cypress/**/*.ts'],
     languageOptions: { globals: globals.node },
+    plugins: { jest },
     extends: getExtends({ node: true, cypress: true }),
     rules: cypressRules,
   },
