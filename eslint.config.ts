@@ -1,25 +1,25 @@
-import js from '@eslint/js';
 import comments from '@eslint-community/eslint-plugin-eslint-comments/configs';
+import react from '@eslint-react/eslint-plugin';
+import eslintReactKit from '@eslint-react/kit';
+import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import configPrettier from 'eslint-config-prettier/flat';
 import cypress from 'eslint-plugin-cypress';
 import importPlugin from 'eslint-plugin-import-x';
-import lodash from 'eslint-plugin-lodash';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y-x';
+import lodash from 'eslint-plugin-lodash';
+import mocha from 'eslint-plugin-mocha';
 import n from 'eslint-plugin-n';
-import react from '@eslint-react/eslint-plugin';
-import eslintReactKit from '@eslint-react/kit';
 import globals from 'globals';
-import tsEslint from 'typescript-eslint';
-import { InfiniteDepthConfigWithExtends } from 'typescript-eslint';
+import tsEslint, { InfiniteDepthConfigWithExtends } from 'typescript-eslint';
 import {
+  cypressRules,
+  kits,
+  nodeProjectRules,
+  uiRestrictedSyntaxAllowingDate,
   uiRules,
   unitTestRules,
-  cypressRules,
-  nodeProjectRules,
-  kits,
-  uiRestrictedSyntaxAllowingDate,
 } from './eslint/rules';
 
 function useKits() {
@@ -153,6 +153,7 @@ export default tsEslint.config(
     files: ['cypress/**/*.ts'],
     languageOptions: { globals: globals.node },
     extends: getExtends({ node: true, cypress: true }),
+    plugins: { mocha },
     rules: cypressRules,
   },
 
