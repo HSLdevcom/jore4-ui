@@ -19,6 +19,7 @@ import {
 } from '../../datasets/base';
 import { Tag } from '../../enums';
 import {
+  ConfirmationDialog,
   LineChangeHistory,
   LineDetailsPage,
   MapFooter,
@@ -384,40 +385,86 @@ describe('Route creation', rootOpts, () => {
     },
   );
 
-  it('should cancel creating a new route', () => {
-    MapPage.map.visit(mapLocation);
-    MapPage.map.waitForLoadToComplete();
+  ['empty', 'unfinished', 'finished'].forEach((drawingState) => {
+    it(`should confirm cancelling a new route with ${drawingState} geometry`, () => {
+      MapPage.map.visit(mapLocation);
+      MapPage.map.waitForLoadToComplete();
 
-    MapFooter.createRoute();
-    MapPage.routePropertiesForm.fillRouteProperties({
-      finnishName: 'Test route',
-      label: '901Y',
-      variant: '56',
-      versionComment: 'E2E cancel create route reason',
-      line: '901',
-      direction: RouteDirectionEnum.Outbound,
-      origin: {
-        finnishName: 'Test origin FIN',
-        finnishShortName: 'Test origin FIN shortName',
-        swedishName: 'Test origin SWE',
-        swedishShortName: 'Test origin SWE shortName',
-      },
-      destination: {
-        finnishName: 'Test destination FIN',
-        finnishShortName: 'Test destination FIN shortName',
-        swedishName: 'Test destination SWE',
-        swedishShortName: 'Test destination SWE shortName',
-      },
-      priority: Priority.Standard,
-      validityStartISODate: '2025-01-01',
-      validityEndISODate: '2030-12-01',
+      MapFooter.createRoute();
+      MapPage.routePropertiesForm.fillRouteProperties({
+        finnishName: 'Test route',
+        label: '901Y',
+        variant: '56',
+        versionComment: 'E2E cancel create route reason',
+        line: '901',
+        direction: RouteDirectionEnum.Outbound,
+        origin: {
+          finnishName: 'Test origin FIN',
+          finnishShortName: 'Test origin FIN shortName',
+          swedishName: 'Test origin SWE',
+          swedishShortName: 'Test origin SWE shortName',
+        },
+        destination: {
+          finnishName: 'Test destination FIN',
+          finnishShortName: 'Test destination FIN shortName',
+          swedishName: 'Test destination SWE',
+          swedishShortName: 'Test destination SWE shortName',
+        },
+        priority: Priority.Standard,
+        validityStartISODate: '2025-01-01',
+        validityEndISODate: '2030-12-01',
+      });
+
+      MapPage.editRouteModal.save();
+      MapFooter.getMapFooter().should('not.exist');
+
+      MapPage.map.waitForLoadToComplete();
+      if (drawingState !== 'empty') {
+        [
+          stopCoordinatesByLabel.E2E001,
+          stopCoordinatesByLabel.E2E003,
+          stopCoordinatesByLabel.E2E005,
+        ].forEach(([longitude, latitude]) => {
+          MapPage.map.clickAtCoordinates(longitude, latitude);
+        });
+      }
+      if (drawingState === 'finished') {
+        const [longitude, latitude] = stopCoordinatesByLabel.E2E005;
+        MapPage.map.clickAtCoordinates(longitude, latitude);
+        MapPage.map.waitForLoadToComplete();
+        RouteStopsOverlay.getHeader().should('contain', '901Y 56');
+      }
+
+      const cancelDrawing = () => {
+        if (drawingState === 'finished') {
+          MapFooter.cancel();
+        } else {
+          MapFooter.cancelAddMode();
+        }
+      };
+
+      cancelDrawing();
+      ConfirmationDialog.getCancelButton().click();
+      ConfirmationDialog.getConfirmButton().should('not.exist');
+      RouteStopsOverlay.getHeader().should('contain', '901Y 56');
+
+      cancelDrawing();
+      ConfirmationDialog.getConfirmButton()
+        .should('have.text', 'Keskeytä')
+        .click();
+      ConfirmationDialog.getConfirmButton().should('not.exist');
+      RouteStopsOverlay.getHeader().should('not.exist');
+      MapFooter.getMapFooter().shouldBeVisible();
+      MapFooter.createRoute();
+      MapPage.routePropertiesForm.getLabelInput().should('have.value', '');
+      MapPage.routePropertiesForm
+        .getFinnishNameInput()
+        .should('have.value', '');
+      MapPage.routePropertiesForm.getVariantInput().should('have.value', '');
+      MapPage.routePropertiesForm
+        .getVersionCommentInput()
+        .should('have.value', '');
     });
-
-    MapPage.editRouteModal.save();
-    MapFooter.getMapFooter().should('not.exist');
-
-    MapFooter.cancelAddMode();
-    MapFooter.getMapFooter().shouldBeVisible();
   });
 
   it(

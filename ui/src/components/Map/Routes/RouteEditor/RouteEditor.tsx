@@ -70,6 +70,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   const { resetUrlState } = useMapUrlStateContext();
 
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
 
   const {
     pendingChanges,
@@ -88,7 +89,7 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
   // The "Draw Route" button has been clicked/toggled -> start drawing a new route OR cancel existing drawing
   const onDrawRoute = (vehicleMode: ReusableComponentsVehicleModeEnum) => {
     if (drawingMode === Mode.Draw) {
-      dispatch(resetRouteCreatingAction());
+      setIsCancelling(true);
     } else {
       dispatch(startRouteCreatingAction(vehicleMode));
     }
@@ -155,7 +156,8 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
     dispatch(stopRouteEditingAction());
   };
 
-  const onCancel = () => {
+  const onCancelConfirm = () => {
+    setIsCancelling(false);
     dispatch(resetDraftRouteGeometryAction());
     if (!creatingNewRoute && drawingMode === Mode.Edit) {
       dispatch(stopRouteEditingAction());
@@ -166,6 +168,10 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
       // Fallback to removing snapping line if it wasn't removed when canceling drawing.
       removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
     }
+  };
+
+  const onCancel = () => {
+    setIsCancelling(true);
   };
 
   const onSave = async () => {
@@ -220,6 +226,23 @@ const RouteEditorComponent: ForwardRefRenderFunction<ExplicitAny> = (
 
   return (
     <>
+      <ConfirmationDialog
+        isOpen={isCancelling}
+        onCancel={() => setIsCancelling(false)}
+        onConfirm={onCancelConfirm}
+        title={t(($) =>
+          creatingNewRoute
+            ? $.confirmCancelRouteDialog.newRoute.title
+            : $.confirmCancelRouteDialog.existingRoute.title,
+        )}
+        description={t(($) =>
+          creatingNewRoute
+            ? $.confirmCancelRouteDialog.newRoute.description
+            : $.confirmCancelRouteDialog.existingRoute.description,
+        )}
+        confirmText={t(($) => $.abort)}
+        cancelText={t(($) => $.dontAbort)}
+      />
       <ConfirmationDialog
         isOpen={isDeleting}
         onCancel={() => setIsDeleting(false)}

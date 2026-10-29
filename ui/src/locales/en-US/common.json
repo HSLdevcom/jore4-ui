@@ -948,6 +948,16 @@
     "validityConflictTitle": "Check conflicts with existing data",
     "validityConflictBody": "Please change validity times of existing resources or save current changes as draft."
   },
+  "confirmCancelRouteDialog": {
+    "newRoute": {
+      "title": "Abort adding route",
+      "description": "The route information will not be saved."
+    },
+    "existingRoute": {
+      "title": "Leave without saving?",
+      "description": "Your changes will not be saved."
+    }
+  },
   "confirmDeleteRouteDialog": {
     "title": "Delete route?",
     "description": "Route will be deleted from the line it belongs to.",
