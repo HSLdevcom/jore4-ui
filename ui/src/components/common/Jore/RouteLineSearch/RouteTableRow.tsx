@@ -15,6 +15,7 @@ import { routeHasTimetables } from './Utils';
 
 const GQL_ROUTE_TABLE_ROW = gql`
   fragment RouteTableRow on route_route {
+    ...RouteLatestChangeInfo
     ...RouteMapParams
     ...LineRouteSearchRouteWithJourneyPatternDetails
 

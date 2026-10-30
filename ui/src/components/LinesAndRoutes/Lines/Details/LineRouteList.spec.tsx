@@ -14,6 +14,7 @@ import {
 } from '../../../../generated/graphql';
 import { RouteDirection } from '../../../../types/RouteDirection';
 import { render, sleep } from '../../../../utils/test-utils';
+import { parseDateTime } from '../../../../utils/time';
 import { LineRouteList } from './LineRouteList';
 
 // RouteRow pulls in TaskWithProgressBar via RouteReportDownloadMenu, whose CSS
@@ -47,6 +48,12 @@ describe(`<${LineRouteList.name} />`, () => {
             direction: RouteDirectionEnum.Outbound,
             variant: null,
             route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
+            change_history: [
+              {
+                changed: parseDateTime('2026-10-15T14:30:00+03:00'),
+                changed_by: null,
+              },
+            ],
             name_i18n: { fi_FI: 'Reitti A - B FI', sv_FI: 'Reitti A - B SV' },
             description_i18n: {
               fi_FI: 'Reitti A - B desc FI',
@@ -605,6 +612,9 @@ describe(`<${LineRouteList.name} />`, () => {
 
     // the stops don't show as the accordion is not open, 2 routes show
     expect(container.querySelectorAll('li')).toHaveLength(1);
+    expect(screen.getByTestId('RouteRow::lastEdited')).toHaveTextContent(
+      '15.10.2026 14.30',
+    );
     expect(asFragment()).toMatchSnapshot();
 
     const accordionButton = screen.getByTestId('RouteRow::toggleAccordion');

@@ -55,7 +55,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p>
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                  15.10.2026 14.30 | HSL
                 </p>
               </div>
             </div>
@@ -156,7 +156,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p>
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                   | HSL
                 </p>
               </div>
             </div>
@@ -257,7 +257,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p>
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                   | HSL
                 </p>
               </div>
             </div>
@@ -358,7 +358,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p>
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                   | HSL
                 </p>
               </div>
             </div>
@@ -473,7 +473,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p>
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                  15.10.2026 14.30 | HSL
                 </p>
               </div>
             </div>
@@ -590,7 +590,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
                   Voimassa 1.1.1970 - 31.12.2050
                 </p>
                 <p>
-                  !Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija
+                  15.10.2026 14.30 | HSL
                 </p>
               </div>
             </div>
