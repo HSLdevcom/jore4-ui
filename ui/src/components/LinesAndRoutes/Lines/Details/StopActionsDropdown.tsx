@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../generated/graphql';
 import {
@@ -41,7 +41,10 @@ type StopActionsDropdownProps = {
 };
 
 // TODO: Fix this to be a simple presentation component, and externalize the actial update logic.
-export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
+export const StopActionsDropdown: FC<
+  PropsWithChildren<StopActionsDropdownProps>
+> = ({
+  children,
   journeyPatternId,
   scheduledStopPointSequence,
   stopLabel,
@@ -145,6 +148,7 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
         disabled={isLoading}
         tooltip={tooltip}
       >
+        {children}
         {stopBelongsToJourneyPattern ? (
           <SimpleDropdownMenuItem
             onClick={onRemoveFromRoute}

@@ -38,7 +38,7 @@ fragment RouteStopFields on service_pattern_scheduled_stop_point {
   ...StopWithJourneyPatternFields
 
   newest_quay {
-    netex_id
+    ...StopTableRowQuayDetails
     stop_state
   }
 

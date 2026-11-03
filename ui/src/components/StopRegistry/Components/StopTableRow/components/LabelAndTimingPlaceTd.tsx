@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
@@ -12,12 +12,14 @@ const testIds = {
 
 type LabelAndTimingPlaceTdProps = StopRowTdProps & {
   readonly observationDate: Temporal.PlainDate;
+  readonly timingPlaceContent?: ReactNode;
 };
 
 export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
   className,
   observationDate,
   stop,
+  timingPlaceContent,
 }) => {
   const { t } = useTranslation();
 
@@ -49,16 +51,17 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
           <h2>{stop.publicCode}</h2>
         </Link>
       </Row>
-      {stop.timingPlace && (
-        <Row className="mt-2 items-center">
-          <span
-            className="h-4 text-sm leading-none"
-            title={t(($) => $.accessibility.stops.timingPlace)}
-          >
-            {stop.timingPlace?.label}
-          </span>
-        </Row>
-      )}
+      {timingPlaceContent ??
+        (stop.timingPlace && (
+          <Row className="mt-2 items-center">
+            <span
+              className="h-4 text-sm leading-none"
+              title={t(($) => $.accessibility.stops.timingPlace)}
+            >
+              {stop.timingPlace?.label}
+            </span>
+          </Row>
+        ))}
     </td>
   );
 };

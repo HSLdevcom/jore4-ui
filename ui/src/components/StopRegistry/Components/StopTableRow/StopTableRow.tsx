@@ -17,10 +17,19 @@ import { StopSearchRow } from './types';
 type StopTableRowBaseProps = {
   readonly actionButtons: ReactNode;
   readonly className?: string;
-  readonly menuItems: ReactNode;
   readonly observationDate: Temporal.PlainDate;
   readonly stop: StopSearchRow;
+  readonly timingPlaceContent?: ReactNode;
+  readonly validityPeriodContent?: ReactNode;
+  readonly rowTestId?: string;
+  readonly labelledBy?: string;
+  readonly additionalNameContent?: ReactNode;
 };
+
+// Either provide items for the default action menu, or a fully custom menu.
+type StopTableRowMenuProps =
+  | { readonly menuItems: ReactNode; readonly actionMenu?: never }
+  | { readonly actionMenu: ReactNode; readonly menuItems?: never };
 
 export type SelectableStopTableRowProps = {
   readonly selectable: true;
@@ -36,6 +45,7 @@ export type NonSelectableStopTableRowProps = {
 };
 
 type StopTableRowProps = StopTableRowBaseProps &
+  StopTableRowMenuProps &
   (SelectableStopTableRowProps | NonSelectableStopTableRowProps);
 
 const testIds = {
@@ -56,11 +66,18 @@ export const StopTableRow: FC<StopTableRowProps> = ({
   onToggleSelection,
   selectable,
   stop,
+  timingPlaceContent,
+  validityPeriodContent,
+  rowTestId,
+  labelledBy,
+  actionMenu,
+  additionalNameContent,
 }) => {
   return (
     <tr
       className={twMerge('text-hsl-dark-80', className)}
-      data-testid={testIds.row(stop.publicCode)}
+      data-testid={rowTestId ?? testIds.row(stop.publicCode)}
+      aria-labelledby={labelledBy}
       data-netex-id={stop.netexId}
       data-scheduled-stop-point-id={stop.scheduledStopPointId}
     >
@@ -79,6 +96,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
         className={twJoin(yBorder, 'w-0 p-3 align-top')}
         observationDate={observationDate}
         stop={stop}
+        timingPlaceContent={timingPlaceContent}
       />
 
       <PlatformNumberTd className={twJoin(yBorder, 'p-3 pl-0')} stop={stop} />
@@ -91,6 +109,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
           'w-full p-3 align-top text-sm @5xl:px-8',
         )}
         stop={stop}
+        additionalNameContent={additionalNameContent}
       />
 
       <IconsTd
@@ -111,28 +130,31 @@ export const StopTableRow: FC<StopTableRowProps> = ({
           'w-full p-3 align-top whitespace-nowrap',
         )}
         stop={stop}
+        additionalNameContent={additionalNameContent}
       />
 
       <ValidityPeriodTd
         className={twJoin(
           yBorder,
           lBorder,
-          'w-auto p-3 align-top @5xl:px-8',
-          // Align to the center of the action buttons/menu
-          // calc: (h-10)[action btn height] - 1rem [text height] / 2 + pt-3
-          '@5xl:pt-[calc((((var(--spacing)*10)-1rem)/2)+(var(--spacing)*3))]',
+          'w-auto p-3 align-middle @5xl:px-8',
         )}
         stop={stop}
+        validityPeriodContent={validityPeriodContent}
       />
 
       <ActionButtonsTd
         actionButtons={actionButtons}
-        className={twJoin(yBorder, 'w-0 py-3 pr-1 align-top @max-5xl:hidden')}
+        className={twJoin(
+          yBorder,
+          'w-0 py-3 pr-1 align-middle @max-5xl:hidden',
+        )}
       />
 
       <ActionMenuTd
-        className={twJoin(yBorder, 'w-0 p-3 pr-4 align-top')}
+        className={twJoin(yBorder, 'w-0 p-3 pr-4 align-middle')}
         menuItems={menuItems}
+        actionMenu={actionMenu}
       />
     </tr>
   );

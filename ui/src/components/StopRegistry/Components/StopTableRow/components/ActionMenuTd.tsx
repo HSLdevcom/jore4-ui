@@ -8,24 +8,27 @@ const testIds = {
 
 type ActionMenuTdProps = {
   readonly className?: string;
-  readonly menuItems: ReactNode;
+  readonly menuItems?: ReactNode;
+  readonly actionMenu?: ReactNode;
 };
 
 export const ActionMenuTd: FC<ActionMenuTdProps> = ({
   className,
   menuItems,
+  actionMenu,
 }) => {
   const { t } = useTranslation();
 
   return (
     <td className={className}>
-      <SimpleDropdownMenu
-        className="@5xl:mt-[4px]"
-        tooltip={t(($) => $.accessibility.common.actionMenu)}
-        testId={testIds.actionMenu}
-      >
-        {menuItems}
-      </SimpleDropdownMenu>
+      {actionMenu ?? (
+        <SimpleDropdownMenu
+          tooltip={t(($) => $.accessibility.common.actionMenu)}
+          testId={testIds.actionMenu}
+        >
+          {menuItems}
+        </SimpleDropdownMenu>
+      )}
     </td>
   );
 };

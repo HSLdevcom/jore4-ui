@@ -15,6 +15,6 @@ export class LineRouteListItem {
   }
 
   static getLabel() {
-    return cy.getByTestId('RouteStopListItem::label');
+    return cy.getByTestId('StopTableRow::link');
   }
 }

@@ -23,6 +23,10 @@ jest.mock(
   '../../../common/AsyncTaskList/TaskWithProgressBar.module.css',
   () => new Proxy({}, { get: (_target, prop) => prop }),
 );
+jest.mock(
+  '../../../StopRegistry/Components/StopTableRow/components/PriorityTd/SideBar.module.css',
+  () => new Proxy({}, { get: (_target, prop) => prop }),
+);
 
 describe(`<${LineRouteList.name} />`, () => {
   // These responses are copy-pasted from the actual graphql response.
@@ -621,7 +625,9 @@ describe(`<${LineRouteList.name} />`, () => {
     fireEvent.click(accordionButton);
 
     // the stops on journey pattern should show when the accordion opens
-    expect(container.querySelectorAll('li')).toHaveLength(3);
+    expect(screen.getAllByTestId('RouteStopListItem::container')).toHaveLength(
+      2,
+    );
     expect(asFragment()).toMatchSnapshot();
 
     const showUnusedStopsToggle = screen.getByTestId(
@@ -630,7 +636,9 @@ describe(`<${LineRouteList.name} />`, () => {
     fireEvent.click(showUnusedStopsToggle);
 
     // all the stops should show when unused stops toggle has been clicked
-    expect(container.querySelectorAll('li')).toHaveLength(4);
+    expect(screen.getAllByTestId('RouteStopListItem::container')).toHaveLength(
+      3,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -649,12 +657,12 @@ describe(`<${LineRouteList.name} />`, () => {
 
     const label = within(
       screen.getAllByTestId('RouteStopListItem::container')[0],
-    ).getByTestId('RouteStopListItem::label');
+    ).getByTestId('StopTableRow::link');
     expect(label).toHaveTextContent('H1234');
     expect(label.title).toContain('H1234');
     expect(label).toHaveAttribute(
       'href',
-      '/stop-registry/stops/H1234?observationDate=2017-02-14',
+      '/stop-registry/stops/H1234?observationDate=2017-02-14&priority=10',
     );
   });
 });
