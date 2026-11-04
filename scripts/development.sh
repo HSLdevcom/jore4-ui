@@ -203,7 +203,8 @@ download_docker_compose_bundle() {
   unzip -q "$zip_file" -d /tmp
 
   # Clean untracked files from `docker` directory even if they are git-ignored.
-  git clean -fx ./docker
+  # Leave persisted db volumes intact.
+  git clean -fx -e dbs -e 'dbs_*' ./docker
 
   echo "Copying JORE4 Docker Compose bundle files to ./docker directory..."
 
