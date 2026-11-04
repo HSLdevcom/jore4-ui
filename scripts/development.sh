@@ -16,11 +16,11 @@ DOCKER_COMPOSE_BUNDLE_REF=${BUNDLE_REF:-main}
 # this project from others.
 export COMPOSE_PROJECT_NAME=jore4-ui
 
-DUMP_FILENAME_BASE="2026-10-09/2026-10-09-jore4-local-"
+DUMP_FILENAME_BASE="2026-11-03/2026-11-03-jore4-local-"
 DUMP_ROUTES_FILENAME="${DUMP_FILENAME_BASE}jore4e2e.pgdump"
 DUMP_TIMETABLES_FILENAME="${DUMP_FILENAME_BASE}timetablesdb.pgdump"
 DUMP_STOPS_FILENAME="${DUMP_FILENAME_BASE}stopdb.pgdump"
-INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/infraLinks_digiroad_r_2026-01_mml_2026-08-04.sql"
+INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/infraLinks_digiroad_r_2026-01_mml_2026-10-26.sql"
 
 POSTGIS_DUMP_RESTORE_LIST_FILE_DIR='./.dump_upgrade_helper_list_files'
 
