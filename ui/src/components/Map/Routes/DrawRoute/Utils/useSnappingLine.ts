@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import {
   resetDraftRouteGeometryAction,
@@ -9,7 +9,12 @@ import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../../Utils';
 import { LineStringFeature } from '../types';
 import { useRouteGeometryUpdater } from './useRouteGeometryUpdater';
 
-export function useSnappingLine(map: MapRef | undefined) {
+const ROUTE_GEOMETRY_UPDATE_DEBOUNCE_MS = 500;
+
+export function useSnappingLine(
+  map: MapRef | undefined,
+  onDrawGeometryRejected?: () => void,
+) {
   const dispatch = useAppDispatch();
   const [snappingLine, setSnappingLine] = useState<LineStringFeature | null>(
     null,
@@ -26,12 +31,41 @@ export function useSnappingLine(map: MapRef | undefined) {
   const onUpdateRouteGeometry = useRouteGeometryUpdater(
     map,
     removeSnappingLine,
+    onDrawGeometryRejected,
   );
 
+  // Keep latest updater function behind a ref while preserving one stable
+  // debouncer instance. This avoids losing pending timer cancellation across
+  // rerenders when callback identity changes.
+  const routeGeometryUpdaterRef = useRef(onUpdateRouteGeometry);
+
+  useEffect(() => {
+    routeGeometryUpdaterRef.current = onUpdateRouteGeometry;
+  }, [onUpdateRouteGeometry]);
+
   const debouncedOnAddRoute = useMemo(
-    () => debounce(onUpdateRouteGeometry, 500),
-    [onUpdateRouteGeometry],
+    () =>
+      debounce(
+        (
+          feature: LineStringFeature,
+          startedInCreationFlowAtDrawTime?: boolean,
+        ) => {
+          routeGeometryUpdaterRef.current(
+            feature,
+            startedInCreationFlowAtDrawTime,
+          );
+        },
+        ROUTE_GEOMETRY_UPDATE_DEBOUNCE_MS,
+      ),
+    [],
   );
+
+  useEffect(() => {
+    return () => {
+      // Avoid late async geometry updates after layer teardown.
+      debouncedOnAddRoute.cancel();
+    };
+  }, [debouncedOnAddRoute]);
 
   return {
     snappingLine,

@@ -7,6 +7,7 @@ import {
   Operation,
   selectEditedRouteData,
   selectMapRouteEditor,
+  stopExistingRouteRedrawAction,
   stopRouteEditingAction,
   useAppDispatch,
   useAppSelector,
@@ -29,6 +30,8 @@ import {
   useSnappingLine,
 } from './Utils';
 
+type DrawEvent = { features: ReadonlyArray<object> };
+
 function setCursor(map: MapRef | undefined, drawingMode: Mode | undefined) {
   if (!map) {
     return;
@@ -48,6 +51,10 @@ function setCursor(map: MapRef | undefined, drawingMode: Mode | undefined) {
 
 export const DrawRouteLayer: FC = () => {
   const drawRef = useRef<MapboxDraw | null>(null);
+  // Tracks the latest delete version already processed in this mounted layer,
+  // so the same delete event is handled once while still allowing repeated
+  // delete confirmations to trigger cleanup.
+  const handledDeleteVersionRef = useRef(0);
   const { current: map } = useMap();
   const dispatch = useAppDispatch();
   const { setLoadingState: setRouteDrawLoadingState } = useLoader(
@@ -55,8 +62,12 @@ export const DrawRouteLayer: FC = () => {
   );
 
   const editedRouteData = useAppSelector(selectEditedRouteData);
-  const { drawingMode } = useAppSelector(selectMapRouteEditor);
-  const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
+  const {
+    drawingMode,
+    creatingNewRoute,
+    suppressBaseRouteRehydrate,
+    routeGeometryDeleteVersion,
+  } = useAppSelector(selectMapRouteEditor);
   const isNewRouteDrawPhase =
     creatingNewRoute && !editedRouteData.geometry && drawingMode !== undefined;
 
@@ -85,8 +96,46 @@ export const DrawRouteLayer: FC = () => {
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
 
+  const clearDrawControlFeatures = useCallback(() => {
+    drawRef.current?.deleteAll();
+  }, []);
+
   const { debouncedOnAddRoute, snappingLine, setSnappingLine } =
-    useSnappingLine(map);
+    useSnappingLine(map, clearDrawControlFeatures);
+
+  const clearDrawnRouteGeometry = useCallback(() => {
+    drawRef.current?.deleteAll();
+    setSnappingLine(null);
+    removeRoute(map?.getMap(), SNAPPING_LINE_LAYER_ID);
+  }, [map, setSnappingLine]);
+
+  const hasPendingGeometryDeleteEvent =
+    routeGeometryDeleteVersion !== handledDeleteVersionRef.current;
+  const shouldHandleGeometryDeleteEvent =
+    hasPendingGeometryDeleteEvent &&
+    suppressBaseRouteRehydrate &&
+    !creatingNewRoute &&
+    drawingMode === Mode.Edit;
+
+  useEffect(() => {
+    if (!shouldHandleGeometryDeleteEvent) {
+      return;
+    }
+
+    // Consume this delete event version so it is not re-applied on rerender.
+    handledDeleteVersionRef.current = routeGeometryDeleteVersion;
+
+    // Prevent delayed geometry updates from re-adding the deleted snapping line.
+    debouncedOnAddRoute.cancel();
+
+    // Remove route geometry from DrawControl internals as well as map layers.
+    clearDrawnRouteGeometry();
+  }, [
+    clearDrawnRouteGeometry,
+    debouncedOnAddRoute,
+    routeGeometryDeleteVersion,
+    shouldHandleGeometryDeleteEvent,
+  ]);
 
   const addSnappingLineToMap = (infraSnappingLine: LineStringFeature) => {
     drawRef.current?.add({
@@ -119,30 +168,29 @@ export const DrawRouteLayer: FC = () => {
       NEW_ROUTE_LINE_ID,
     ]);
 
-    // If creating new route (without a template) or snapping line already exists,
-    // no need to initialize snapping line
-    if (!snappingLine) {
-      if (
-        creatingNewRoute &&
-        !templateRouteId &&
-        editedRouteData.infraLinks &&
-        !isEmpty(editedRouteData.infraLinks)
-      ) {
-        const infraSnappingLine = mapInfraLinksToFeature(
-          editedRouteData.infraLinks,
-        );
-        setSnappingLine(infraSnappingLine);
-        addSnappingLineToMap(infraSnappingLine);
-      }
+    const shouldHydrateFromDraftInfraLinks =
+      creatingNewRoute &&
+      !templateRouteId &&
+      editedRouteData.infraLinks &&
+      !isEmpty(editedRouteData.infraLinks);
+    const shouldHydrateFromBaseRoute =
+      drawingMode === Mode.Edit && baseRoute && !suppressBaseRouteRehydrate;
 
-      if (drawingMode === Mode.Edit && baseRoute) {
-        // Starting to edit a route, generate snapping line from infra links
-        const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
-        const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
-        setSnappingLine(infraSnappingLine);
-        debouncedOnAddRoute(infraSnappingLine);
-        addSnappingLineToMap(infraSnappingLine);
-      }
+    if (!snappingLine && shouldHydrateFromDraftInfraLinks) {
+      const infraSnappingLine = mapInfraLinksToFeature(
+        editedRouteData.infraLinks,
+      );
+      setSnappingLine(infraSnappingLine);
+      addSnappingLineToMap(infraSnappingLine);
+    }
+
+    if (!snappingLine && shouldHydrateFromBaseRoute) {
+      // Starting to edit a route, generate snapping line from infra links
+      const infraLinks = mapRouteToInfraLinksAlongRoute(baseRoute);
+      const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
+      setSnappingLine(infraSnappingLine);
+      debouncedOnAddRoute(infraSnappingLine);
+      addSnappingLineToMap(infraSnappingLine);
     }
 
     // Remove snapping line on unmount
@@ -159,6 +207,7 @@ export const DrawRouteLayer: FC = () => {
     moveLayers,
     setSnappingLine,
     snappingLine,
+    suppressBaseRouteRehydrate,
     templateRouteId,
   ]);
 
@@ -279,26 +328,51 @@ export const DrawRouteLayer: FC = () => {
     };
   }, [drawingMode, map]);
 
+  useEffect(() => {
+    if (drawingMode !== Mode.Draw) {
+      return;
+    }
+
+    // DrawControl can remain mounted when switching Edit -> Draw,
+    // so explicitly force line draw mode for redraw/new draw flows.
+    drawRef.current?.changeMode('draw_line_string');
+  }, [drawingMode]);
+
   // If we don't have metadata, we should not render <DrawControl>
   // useControl hook inside <DrawControl> do not rerender correctly and have an incorrect state
   if (!editedRouteData.metaData) {
     return null;
   }
 
-  const stopRouteEditing = () => {
+  const finishDrawing = () => {
+    // In existing-route redraw flow, return to edit mode after drawing is complete.
+    if (suppressBaseRouteRehydrate && creatingNewRoute) {
+      dispatch(stopExistingRouteRedrawAction());
+      setCursor(map, Mode.Edit);
+      return;
+    }
+
+    // Default behavior for regular draw/create flow.
     dispatch(stopRouteEditingAction());
     setCursor(map, Mode.Edit);
   };
 
-  const updateLineOnMap = (e: { features: ReadonlyArray<object> }) => {
-    const snappingLineFeature = e.features[0] as LineStringFeature;
+  const queueGeometryUpdateFromDrawEvent = (event: DrawEvent) => {
+    const snappingLineFeature = event.features[0] as LineStringFeature;
+    const startedInCreationFlowAtDrawTime =
+      creatingNewRoute || drawingMode === Mode.Draw;
     setSnappingLine(snappingLineFeature);
-    debouncedOnAddRoute(snappingLineFeature);
+    // Capture draw/create state at enqueue time. The debounced handler runs
+    // later and editor mode may already have transitioned back to edit.
+    debouncedOnAddRoute(snappingLineFeature, startedInCreationFlowAtDrawTime);
   };
 
-  const onCreate = (e: { features: ReadonlyArray<object> }) => {
-    updateLineOnMap(e);
-    stopRouteEditing();
+  const onCreate = (event: DrawEvent) => {
+    queueGeometryUpdateFromDrawEvent(event);
+    // A new-route draw unmounts this layer on completion; start the queued
+    // geometry update before its unmount cleanup cancels the debounce timer.
+    debouncedOnAddRoute.flush();
+    finishDrawing();
   };
 
   const onModeChange = () => {
@@ -318,7 +392,7 @@ export const DrawRouteLayer: FC = () => {
       defaultMode="draw_line_string"
       onCreate={onCreate}
       onModeChange={onModeChange}
-      onUpdate={updateLineOnMap}
+      onUpdate={queueGeometryUpdateFromDrawEvent}
     />
   );
 };

@@ -45,7 +45,9 @@ export function useEditRouteHelper() {
   };
 
   const onDoEdit = async () => {
-    if (!infraLinks || !journeyPattern.id || !routeDetails || !lineInfo) {
+    const hasMissingEditDependencies =
+      !infraLinks || !journeyPattern.id || !routeDetails || !lineInfo;
+    if (hasMissingEditDependencies) {
       const fields = JSON.stringify(
         {
           infraLinks,
