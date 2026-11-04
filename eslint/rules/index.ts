@@ -14,7 +14,6 @@ import { rules as typescript } from './typescript';
 import { rules as variables } from './variables';
 
 export { kits } from './react';
-export { uiRestrictedSyntaxAllowingDate } from './temporal';
 
 export const uiRules = {
   ...bestPractices,

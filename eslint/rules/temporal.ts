@@ -58,15 +58,13 @@ const restrictedImportPaths = [
   },
 ];
 
-// Date is allowed for measuring UI timings that are not domain values.
-export const uiRestrictedSyntaxAllowingDate: SharedConfig.RuleEntry = [
-  'error',
-  ...restrictedSyntax,
-  ...temporalSyntax,
-];
-
 export const rules: SharedConfig.RulesRecord = {
-  'no-restricted-syntax': [...uiRestrictedSyntaxAllowingDate, ...dateSyntax],
+  'no-restricted-syntax': [
+    'error',
+    ...restrictedSyntax,
+    ...temporalSyntax,
+    ...dateSyntax,
+  ],
 
   'no-restricted-imports': [
     'error',

@@ -54,7 +54,7 @@ function resolveTransitionTimeout(
 
   if (loadingState === LoadingState.NotLoading) {
     // No need for delay if the loader has already been on the screen for long enough.
-    const onScreen = Date.now() - lastShown;
+    const onScreen = performance.now() - lastShown;
     return Math.max(0, baseDelay - onScreen);
   }
 
@@ -71,7 +71,7 @@ function useIsVisible(
     resolvedLoadingState !== LoadingState.NotLoading,
   );
   // eslint-disable-next-line @eslint-react/naming-convention-ref-name,@eslint-react/purity
-  const shownAt = useRef(visible ? Date.now() : 0);
+  const shownAt = useRef(visible ? performance.now() : 0);
 
   useEffect(() => {
     const timeout = setTimeout(
@@ -79,7 +79,7 @@ function useIsVisible(
         const nextIsVisible = resolvedLoadingState !== LoadingState.NotLoading;
         setVisible(nextIsVisible);
         if (nextIsVisible) {
-          shownAt.current = Date.now();
+          shownAt.current = performance.now();
         }
       },
       resolveTransitionTimeout(shownAt.current, resolvedLoadingState),
