@@ -639,7 +639,7 @@ export type GroupOfTariffZonesMembersAggregateBoolExpCount = {
   readonly predicate: IntComparisonExp;
 };
 
-/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+/** columns and relationships of "hsl_route.legacy_hsl_municipality_code" */
 export type HslRouteLegacyHslMunicipalityCode = {
   readonly __typename?: 'hsl_route_legacy_hsl_municipality_code';
   readonly hsl_municipality: Scalars['String']['output'];
@@ -655,7 +655,7 @@ export type HslRouteLegacyHslMunicipalityCode = {
 };
 
 
-/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+/** columns and relationships of "hsl_route.legacy_hsl_municipality_code" */
 export type HslRouteLegacyHslMunicipalityCodeLinesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -665,7 +665,7 @@ export type HslRouteLegacyHslMunicipalityCodeLinesArgs = {
 };
 
 
-/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+/** columns and relationships of "hsl_route.legacy_hsl_municipality_code" */
 export type HslRouteLegacyHslMunicipalityCodeLinesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -675,7 +675,7 @@ export type HslRouteLegacyHslMunicipalityCodeLinesAggregateArgs = {
 };
 
 
-/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+/** columns and relationships of "hsl_route.legacy_hsl_municipality_code" */
 export type HslRouteLegacyHslMunicipalityCodeRoutesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -685,7 +685,7 @@ export type HslRouteLegacyHslMunicipalityCodeRoutesArgs = {
 };
 
 
-/** Legacy, avoid using. Main use nowadays is to enable support for eg. data exports that still need this. Originally this was used to represent the primary region for routes/lines. */
+/** columns and relationships of "hsl_route.legacy_hsl_municipality_code" */
 export type HslRouteLegacyHslMunicipalityCodeRoutesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -899,7 +899,7 @@ export type HslRouteLegacyHslMunicipalityCodeVarianceFields = {
   readonly jore3_code?: Maybe<Scalars['Float']['output']>;
 };
 
-/** Transport target, can be used e.g. for cost sharing. */
+/** columns and relationships of "hsl_route.transport_target" */
 export type HslRouteTransportTarget = {
   readonly __typename?: 'hsl_route_transport_target';
   /** An array relationship */
@@ -910,7 +910,7 @@ export type HslRouteTransportTarget = {
 };
 
 
-/** Transport target, can be used e.g. for cost sharing. */
+/** columns and relationships of "hsl_route.transport_target" */
 export type HslRouteTransportTargetLinesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -920,7 +920,7 @@ export type HslRouteTransportTargetLinesArgs = {
 };
 
 
-/** Transport target, can be used e.g. for cost sharing. */
+/** columns and relationships of "hsl_route.transport_target" */
 export type HslRouteTransportTargetLinesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1094,7 +1094,7 @@ export type InfoSpotLocationAggregateBoolExpCount = {
   readonly predicate: IntComparisonExp;
 };
 
-/** The direction in which an e.g. infrastructure link can be traversed */
+/** columns and relationships of "infrastructure_network.direction" */
 export type InfrastructureNetworkDirection = {
   readonly __typename?: 'infrastructure_network_direction';
   /** An array relationship */
@@ -1105,7 +1105,7 @@ export type InfrastructureNetworkDirection = {
 };
 
 
-/** The direction in which an e.g. infrastructure link can be traversed */
+/** columns and relationships of "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionInfrastructureLinksArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1115,7 +1115,7 @@ export type InfrastructureNetworkDirectionInfrastructureLinksArgs = {
 };
 
 
-/** The direction in which an e.g. infrastructure link can be traversed */
+/** columns and relationships of "infrastructure_network.direction" */
 export type InfrastructureNetworkDirectionInfrastructureLinksAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1266,7 +1266,7 @@ export type InfrastructureNetworkDirectionUpdates = {
   readonly where: InfrastructureNetworkDirectionBoolExp;
 };
 
-/** An external source from which infrastructure network parts are imported */
+/** columns and relationships of "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSource = {
   readonly __typename?: 'infrastructure_network_external_source';
   /** An array relationship */
@@ -1277,7 +1277,7 @@ export type InfrastructureNetworkExternalSource = {
 };
 
 
-/** An external source from which infrastructure network parts are imported */
+/** columns and relationships of "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceInfrastructureLinksArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1287,7 +1287,7 @@ export type InfrastructureNetworkExternalSourceInfrastructureLinksArgs = {
 };
 
 
-/** An external source from which infrastructure network parts are imported */
+/** columns and relationships of "infrastructure_network.external_source" */
 export type InfrastructureNetworkExternalSourceInfrastructureLinksAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1445,14 +1445,12 @@ export type InfrastructureNetworkFindPointDirectionOnLinkArgs = {
   readonly point_of_interest?: InputMaybe<Scalars['geography']['input']>;
 };
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLink = {
   readonly __typename?: 'infrastructure_network_infrastructure_link';
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction: InfrastructureNetworkDirectionEnum;
   /** An object relationship */
   readonly directionByDirection: InfrastructureNetworkDirection;
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['float8']['output']>;
   readonly external_link_id: Scalars['String']['output'];
   readonly external_link_source: InfrastructureNetworkExternalSourceEnum;
@@ -1462,13 +1460,11 @@ export type InfrastructureNetworkInfrastructureLink = {
   readonly infrastructure_link_along_routes: ReadonlyArray<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   readonly infrastructure_link_along_routes_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id: Scalars['uuid']['output'];
   /** An array relationship */
   readonly scheduled_stop_points_located_on_infrastructure_link: ReadonlyArray<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
   readonly scheduled_stop_points_located_on_infrastructure_link_aggregate: ServicePatternScheduledStopPointAggregate;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   readonly shape: Scalars['geography_linestring']['output'];
   /** An array relationship */
   readonly vehicle_submode_on_infrastructure_link: ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
@@ -1481,7 +1477,7 @@ export type InfrastructureNetworkInfrastructureLink = {
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1491,7 +1487,7 @@ export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutes
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1501,7 +1497,7 @@ export type InfrastructureNetworkInfrastructureLinkInfrastructureLinkAlongRoutes
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1511,7 +1507,7 @@ export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnI
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnInfrastructureLinkAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1521,7 +1517,7 @@ export type InfrastructureNetworkInfrastructureLinkScheduledStopPointsLocatedOnI
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1531,7 +1527,7 @@ export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructur
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinkAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1541,7 +1537,7 @@ export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructur
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1551,7 +1547,7 @@ export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructur
 };
 
 
-/** The infrastructure links, e.g. road or rail elements: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:1:1:453 */
+/** columns and relationships of "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVehicleSubmodeOnInfrastructureLinksAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1700,13 +1696,11 @@ export type InfrastructureNetworkInfrastructureLinkArrRelInsertInput = {
 /** aggregate avg on columns */
 export type InfrastructureNetworkInfrastructureLinkAvgFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_avg_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkAvgOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
@@ -1743,25 +1737,20 @@ export enum InfrastructureNetworkInfrastructureLinkConstraint {
 
 /** input type for incrementing numeric columns in table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkIncInput = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<Scalars['float8']['input']>;
 };
 
 /** input type for inserting data into table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkInsertInput = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
   readonly directionByDirection?: InputMaybe<InfrastructureNetworkDirectionObjRelInsertInput>;
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly external_link_id?: InputMaybe<Scalars['String']['input']>;
   readonly external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
   readonly external_source?: InputMaybe<InfrastructureNetworkExternalSourceObjRelInsertInput>;
   readonly infrastructure_link_along_routes?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_points_located_on_infrastructure_link?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   readonly shape?: InputMaybe<Scalars['geography']['input']>;
   readonly vehicle_submode_on_infrastructure_link?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
   readonly vehicle_submode_on_infrastructure_links?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
@@ -1770,38 +1759,30 @@ export type InfrastructureNetworkInfrastructureLinkInsertInput = {
 /** aggregate max on columns */
 export type InfrastructureNetworkInfrastructureLinkMaxFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_max_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['float8']['output']>;
   readonly external_link_id?: Maybe<Scalars['String']['output']>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkMaxOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
   readonly external_link_id?: InputMaybe<OrderBy>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type InfrastructureNetworkInfrastructureLinkMinFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_min_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['float8']['output']>;
   readonly external_link_id?: Maybe<Scalars['String']['output']>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkMinOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
   readonly external_link_id?: InputMaybe<OrderBy>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<OrderBy>;
 };
 
@@ -1846,7 +1827,6 @@ export type InfrastructureNetworkInfrastructureLinkOrderBy = {
 
 /** primary key columns input for table: infrastructure_network.infrastructure_link */
 export type InfrastructureNetworkInfrastructureLinkPkColumnsInput = {
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id: Scalars['uuid']['input'];
 };
 
@@ -1916,54 +1896,44 @@ export enum InfrastructureNetworkInfrastructureLinkSelectColumnInfrastructureNet
 
 /** input type for updating data in table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkSetInput = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly external_link_id?: InputMaybe<Scalars['String']['input']>;
   readonly external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   readonly shape?: InputMaybe<Scalars['geography']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type InfrastructureNetworkInfrastructureLinkStddevFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_stddev_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkStddevOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type InfrastructureNetworkInfrastructureLinkStddevPopFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_stddev_pop_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkStddevPopOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type InfrastructureNetworkInfrastructureLinkStddevSampFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_stddev_samp_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkStddevSampOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
@@ -1977,28 +1947,22 @@ export type InfrastructureNetworkInfrastructureLinkStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type InfrastructureNetworkInfrastructureLinkStreamCursorValueInput = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly external_link_id?: InputMaybe<Scalars['String']['input']>;
   readonly external_link_source?: InputMaybe<InfrastructureNetworkExternalSourceEnum>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** A PostGIS LinestringZ geography in EPSG:4326 describing the infrastructure link. */
   readonly shape?: InputMaybe<Scalars['geography']['input']>;
 };
 
 /** aggregate sum on columns */
 export type InfrastructureNetworkInfrastructureLinkSumFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_sum_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['float8']['output']>;
 };
 
 /** order by sum() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkSumOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
@@ -2030,39 +1994,33 @@ export type InfrastructureNetworkInfrastructureLinkUpdates = {
 /** aggregate var_pop on columns */
 export type InfrastructureNetworkInfrastructureLinkVarPopFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_var_pop_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVarPopOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type InfrastructureNetworkInfrastructureLinkVarSampFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_var_samp_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVarSampOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type InfrastructureNetworkInfrastructureLinkVarianceFields = {
   readonly __typename?: 'infrastructure_network_infrastructure_link_variance_fields';
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "infrastructure_network.infrastructure_link" */
 export type InfrastructureNetworkInfrastructureLinkVarianceOrderBy = {
-  /** The estimated length of the infrastructure link in metres. */
   readonly estimated_length_in_metres?: InputMaybe<OrderBy>;
 };
 
@@ -2071,16 +2029,14 @@ export type InfrastructureNetworkResolvePointToClosestLinkArgs = {
   readonly geog?: InputMaybe<Scalars['geography']['input']>;
 };
 
-/** Which infrastructure links are safely traversed by which vehicle submodes? */
+/** columns and relationships of "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLink = {
   readonly __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link';
   /** An object relationship */
   readonly infrastructure_link: InfrastructureNetworkInfrastructureLink;
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id: Scalars['uuid']['output'];
   /** An object relationship */
   readonly vehicleSubmodeByVehicleSubmode: ReusableComponentsVehicleSubmode;
-  /** The vehicle submode that can safely traverse the infrastructure link. */
   readonly vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
@@ -2151,36 +2107,30 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkConstraint {
 /** input type for inserting data into table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkInsertInput = {
   readonly infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicleSubmodeByVehicleSubmode?: InputMaybe<ReusableComponentsVehicleSubmodeObjRelInsertInput>;
-  /** The vehicle submode that can safely traverse the infrastructure link. */
   readonly vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
 };
 
 /** aggregate max on columns */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxFields = {
   readonly __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_max_fields';
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMaxOrderBy = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinFields = {
   readonly __typename?: 'infrastructure_network_vehicle_submode_on_infrastructure_link_min_fields';
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkMinOrderBy = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: InputMaybe<OrderBy>;
 };
 
@@ -2210,9 +2160,7 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkOrderBy = {
 
 /** primary key columns input for table: infrastructure_network.vehicle_submode_on_infrastructure_link */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkPkColumnsInput = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id: Scalars['uuid']['input'];
-  /** The vehicle submode that can safely traverse the infrastructure link. */
   readonly vehicle_submode: ReusableComponentsVehicleSubmodeEnum;
 };
 
@@ -2226,9 +2174,7 @@ export enum InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn 
 
 /** input type for updating data in table "infrastructure_network.vehicle_submode_on_infrastructure_link" */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSetInput = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The vehicle submode that can safely traverse the infrastructure link. */
   readonly vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
 };
 
@@ -2242,9 +2188,7 @@ export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorI
 
 /** Initial value of the column from where the streaming should start */
 export type InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkStreamCursorValueInput = {
-  /** The infrastructure link that can be safely traversed by the vehicle submode. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The vehicle submode that can safely traverse the infrastructure link. */
   readonly vehicle_submode?: InputMaybe<ReusableComponentsVehicleSubmodeEnum>;
 };
 
@@ -2299,10 +2243,9 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = 
   readonly replace_scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPattern = {
   readonly __typename?: 'journey_pattern_journey_pattern';
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id: Scalars['uuid']['output'];
   readonly journey_pattern_refs: ReadonlyArray<TimetablesJourneyPatternJourneyPatternRef>;
   readonly journey_pattern_refs_aggregate: TimetablesJourneyPatternJourneyPatternRefAggregate;
@@ -2310,7 +2253,6 @@ export type JourneyPatternJourneyPattern = {
   readonly journey_pattern_route?: Maybe<RouteRoute>;
   readonly journey_pattern_vehicle_services: ReadonlyArray<TimetablesVehicleServiceJourneyPatternsInVehicleService>;
   readonly journey_pattern_vehicle_services_aggregate: TimetablesVehicleServiceJourneyPatternsInVehicleServiceAggregate;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id: Scalars['uuid']['output'];
   /** An array relationship */
   readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPattern>;
@@ -2319,7 +2261,7 @@ export type JourneyPatternJourneyPattern = {
 };
 
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternJourneyPatternRefsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesJourneyPatternJourneyPatternRefSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2329,7 +2271,7 @@ export type JourneyPatternJourneyPatternJourneyPatternRefsArgs = {
 };
 
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternJourneyPatternRefsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesJourneyPatternJourneyPatternRefSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2339,7 +2281,7 @@ export type JourneyPatternJourneyPatternJourneyPatternRefsAggregateArgs = {
 };
 
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternJourneyPatternVehicleServicesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceJourneyPatternsInVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2349,7 +2291,7 @@ export type JourneyPatternJourneyPatternJourneyPatternVehicleServicesArgs = {
 };
 
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternJourneyPatternVehicleServicesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceJourneyPatternsInVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2359,7 +2301,7 @@ export type JourneyPatternJourneyPatternJourneyPatternVehicleServicesAggregateAr
 };
 
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2369,7 +2311,7 @@ export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsArgs 
 };
 
 
-/** The journey patterns, i.e. the ordered lists of stops and timing points along routes: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 */
+/** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternScheduledStopPointInJourneyPatternsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2447,10 +2389,8 @@ export enum JourneyPatternJourneyPatternConstraint {
 
 /** input type for inserting data into table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternInsertInput = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly journey_pattern_route?: InputMaybe<RouteRouteObjRelInsertInput>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
 };
@@ -2458,34 +2398,26 @@ export type JourneyPatternJourneyPatternInsertInput = {
 /** aggregate max on columns */
 export type JourneyPatternJourneyPatternMaxFields = {
   readonly __typename?: 'journey_pattern_journey_pattern_max_fields';
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternMaxOrderBy = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type JourneyPatternJourneyPatternMinFields = {
   readonly __typename?: 'journey_pattern_journey_pattern_min_fields';
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternMinOrderBy = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: InputMaybe<OrderBy>;
 };
 
@@ -2522,7 +2454,6 @@ export type JourneyPatternJourneyPatternOrderBy = {
 
 /** primary key columns input for table: journey_pattern.journey_pattern */
 export type JourneyPatternJourneyPatternPkColumnsInput = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id: Scalars['uuid']['input'];
 };
 
@@ -2536,9 +2467,7 @@ export enum JourneyPatternJourneyPatternSelectColumn {
 
 /** input type for updating data in table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternSetInput = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -2552,9 +2481,7 @@ export type JourneyPatternJourneyPatternStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternJourneyPatternStreamCursorValueInput = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The ID of the route the journey pattern is on. */
   readonly on_route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -2573,23 +2500,17 @@ export type JourneyPatternJourneyPatternUpdates = {
   readonly where: JourneyPatternJourneyPatternBoolExp;
 };
 
-/** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPattern = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
   readonly is_loading_time_allowed: Scalars['Boolean']['output'];
-  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
   readonly is_regulated_timing_point: Scalars['Boolean']['output'];
-  /** Is this scheduled stop point used as a timing point in the journey pattern? */
   readonly is_used_as_timing_point: Scalars['Boolean']['output'];
-  /** Is this scheduled stop point a via point? */
   readonly is_via_point: Scalars['Boolean']['output'];
   /** An object relationship */
   readonly journey_pattern: JourneyPatternJourneyPattern;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id: Scalars['uuid']['output'];
   readonly scheduled_stop_point_label: Scalars['String']['output'];
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence: Scalars['Int']['output'];
   /** An array relationship */
   readonly scheduled_stop_points: ReadonlyArray<ServicePatternScheduledStopPoint>;
@@ -2600,7 +2521,7 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
 };
 
 
-/** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2610,7 +2531,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsA
 };
 
 
-/** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2620,13 +2541,13 @@ export type JourneyPatternScheduledStopPointInJourneyPatternScheduledStopPointsA
 };
 
 
-/** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternViaPointNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The scheduled stop points that form the journey pattern, in order: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:1:813 . For HSL, all timing points are stops, hence journey pattern instead of service pattern. */
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternViaPointShortNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2719,13 +2640,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput = 
 /** aggregate avg on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternAvgFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_avg_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternAvgOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -2774,25 +2693,18 @@ export type JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput = {
 
 /** input type for incrementing numeric columns in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
-  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
   readonly is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
   readonly is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this scheduled stop point used as a timing point in the journey pattern? */
   readonly is_used_as_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this scheduled stop point a via point? */
   readonly is_via_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly journey_pattern?: InputMaybe<JourneyPatternJourneyPatternObjRelInsertInput>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_label?: InputMaybe<Scalars['String']['input']>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
   readonly scheduled_stop_points?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
@@ -2802,38 +2714,30 @@ export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
 /** aggregate max on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternMaxFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_max_fields';
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
   readonly scheduled_stop_point_label?: Maybe<Scalars['String']['output']>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by max() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternMaxOrderBy = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
   readonly scheduled_stop_point_label?: InputMaybe<OrderBy>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternMinFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_min_fields';
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
   readonly scheduled_stop_point_label?: Maybe<Scalars['String']['output']>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by min() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternMinOrderBy = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
   readonly scheduled_stop_point_label?: InputMaybe<OrderBy>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -2870,9 +2774,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
 
 /** primary key columns input for table: journey_pattern.scheduled_stop_point_in_journey_pattern */
 export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id: Scalars['uuid']['input'];
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence: Scalars['Int']['input'];
 };
 
@@ -2930,18 +2832,12 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
-  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
   readonly is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
   readonly is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this scheduled stop point used as a timing point in the journey pattern? */
   readonly is_used_as_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this scheduled stop point a via point? */
   readonly is_via_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_label?: InputMaybe<Scalars['String']['input']>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly via_point_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
@@ -2950,39 +2846,33 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
 /** aggregate stddev on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_stddev_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevPopFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_stddev_pop_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevPopOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_stddev_samp_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternStddevSampOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -2996,18 +2886,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput = 
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInput = {
-  /** Is adding loading time to this scheduled stop point in the journey pattern allowed? */
   readonly is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this stop point passing time regulated so that it cannot be passed before scheduled time? */
   readonly is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this scheduled stop point used as a timing point in the journey pattern? */
   readonly is_used_as_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is this scheduled stop point a via point? */
   readonly is_via_point?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_label?: InputMaybe<Scalars['String']['input']>;
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly via_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -3016,13 +2900,11 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInp
 /** aggregate sum on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternSumFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_sum_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -3070,39 +2952,33 @@ export type JourneyPatternScheduledStopPointInJourneyPatternUpdates = {
 /** aggregate var_pop on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarPopFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_var_pop_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarPopOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarSampFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_var_samp_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarSampOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarianceFields = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_variance_fields';
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternVarianceOrderBy = {
-  /** The order of the scheduled stop point within the journey pattern. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -5791,10 +5667,9 @@ export type QueryRootToReplaceVehicleScheduleFrameIdsArgs = {
   arg1: ToReplaceVehicleScheduleFrameIdsInput;
 };
 
-/** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
+/** columns and relationships of "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleMode = {
   readonly __typename?: 'reusable_components_vehicle_mode';
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode: Scalars['String']['output'];
   /** An array relationship */
   readonly vehicle_submodes: ReadonlyArray<ReusableComponentsVehicleSubmode>;
@@ -5803,7 +5678,7 @@ export type ReusableComponentsVehicleMode = {
 };
 
 
-/** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
+/** columns and relationships of "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeVehicleSubmodesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5813,7 +5688,7 @@ export type ReusableComponentsVehicleModeVehicleSubmodesArgs = {
 };
 
 
-/** The vehicle modes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
+/** columns and relationships of "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeVehicleSubmodesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ReusableComponentsVehicleSubmodeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5879,7 +5754,6 @@ export type ReusableComponentsVehicleModeEnumComparisonExp = {
 
 /** input type for inserting data into table "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeInsertInput = {
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_submodes?: InputMaybe<ReusableComponentsVehicleSubmodeArrRelInsertInput>;
 };
@@ -5887,14 +5761,12 @@ export type ReusableComponentsVehicleModeInsertInput = {
 /** aggregate max on columns */
 export type ReusableComponentsVehicleModeMaxFields = {
   readonly __typename?: 'reusable_components_vehicle_mode_max_fields';
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type ReusableComponentsVehicleModeMinFields = {
   readonly __typename?: 'reusable_components_vehicle_mode_min_fields';
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode?: Maybe<Scalars['String']['output']>;
 };
 
@@ -5929,7 +5801,6 @@ export type ReusableComponentsVehicleModeOrderBy = {
 
 /** primary key columns input for table: reusable_components.vehicle_mode */
 export type ReusableComponentsVehicleModePkColumnsInput = {
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode: Scalars['String']['input'];
 };
 
@@ -5941,7 +5812,6 @@ export enum ReusableComponentsVehicleModeSelectColumn {
 
 /** input type for updating data in table "reusable_components.vehicle_mode" */
 export type ReusableComponentsVehicleModeSetInput = {
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5955,7 +5825,6 @@ export type ReusableComponentsVehicleModeStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ReusableComponentsVehicleModeStreamCursorValueInput = {
-  /** The vehicle mode from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly vehicle_mode?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5972,14 +5841,12 @@ export type ReusableComponentsVehicleModeUpdates = {
   readonly where: ReusableComponentsVehicleModeBoolExp;
 };
 
-/** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
+/** columns and relationships of "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmode = {
   readonly __typename?: 'reusable_components_vehicle_submode';
-  /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly belonging_to_vehicle_mode: ReusableComponentsVehicleModeEnum;
   /** An object relationship */
   readonly vehicle_mode: ReusableComponentsVehicleMode;
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode: Scalars['String']['output'];
   /** An array relationship */
   readonly vehicle_submode_on_infrastructure_links: ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLink>;
@@ -5988,7 +5855,7 @@ export type ReusableComponentsVehicleSubmode = {
 };
 
 
-/** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
+/** columns and relationships of "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5998,7 +5865,7 @@ export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksA
 };
 
 
-/** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
+/** columns and relationships of "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeVehicleSubmodeOnInfrastructureLinksAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6098,10 +5965,8 @@ export type ReusableComponentsVehicleSubmodeEnumComparisonExp = {
 
 /** input type for inserting data into table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeInsertInput = {
-  /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   readonly vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_submode_on_infrastructure_links?: InputMaybe<InfrastructureNetworkVehicleSubmodeOnInfrastructureLinkArrRelInsertInput>;
 };
@@ -6109,26 +5974,22 @@ export type ReusableComponentsVehicleSubmodeInsertInput = {
 /** aggregate max on columns */
 export type ReusableComponentsVehicleSubmodeMaxFields = {
   readonly __typename?: 'reusable_components_vehicle_submode_max_fields';
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeMaxOrderBy = {
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type ReusableComponentsVehicleSubmodeMinFields = {
   readonly __typename?: 'reusable_components_vehicle_submode_min_fields';
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeMinOrderBy = {
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: InputMaybe<OrderBy>;
 };
 
@@ -6165,7 +6026,6 @@ export type ReusableComponentsVehicleSubmodeOrderBy = {
 
 /** primary key columns input for table: reusable_components.vehicle_submode */
 export type ReusableComponentsVehicleSubmodePkColumnsInput = {
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode: Scalars['String']['input'];
 };
 
@@ -6179,9 +6039,7 @@ export enum ReusableComponentsVehicleSubmodeSelectColumn {
 
 /** input type for updating data in table "reusable_components.vehicle_submode" */
 export type ReusableComponentsVehicleSubmodeSetInput = {
-  /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -6195,9 +6053,7 @@ export type ReusableComponentsVehicleSubmodeStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ReusableComponentsVehicleSubmodeStreamCursorValueInput = {
-  /** The vehicle mode the vehicle submode belongs to: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:1:283 */
   readonly belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** The vehicle submode, which may have implications on which infrastructure links the vehicle can traverse */
   readonly vehicle_submode?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -6216,10 +6072,9 @@ export type ReusableComponentsVehicleSubmodeUpdates = {
   readonly where: ReusableComponentsVehicleSubmodeBoolExp;
 };
 
-/** The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480 */
+/** columns and relationships of "route.direction" */
 export type RouteDirection = {
   readonly __typename?: 'route_direction';
-  /** The name of the route direction. */
   readonly direction: Scalars['String']['output'];
   /** An object relationship */
   readonly directionByTheOppositeOfDirection?: Maybe<RouteDirection>;
@@ -6227,12 +6082,11 @@ export type RouteDirection = {
   readonly directions: ReadonlyArray<RouteDirection>;
   /** An aggregate relationship */
   readonly directions_aggregate: RouteDirectionAggregate;
-  /** The opposite direction. */
   readonly the_opposite_of_direction?: Maybe<RouteDirectionEnum>;
 };
 
 
-/** The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480 */
+/** columns and relationships of "route.direction" */
 export type RouteDirectionDirectionsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteDirectionSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6242,7 +6096,7 @@ export type RouteDirectionDirectionsArgs = {
 };
 
 
-/** The route directions from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:480 */
+/** columns and relationships of "route.direction" */
 export type RouteDirectionDirectionsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteDirectionSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6337,37 +6191,31 @@ export enum RouteDirectionEnum {
 
 /** input type for inserting data into table "route.direction" */
 export type RouteDirectionInsertInput = {
-  /** The name of the route direction. */
   readonly direction?: InputMaybe<Scalars['String']['input']>;
   readonly directionByTheOppositeOfDirection?: InputMaybe<RouteDirectionObjRelInsertInput>;
   readonly directions?: InputMaybe<RouteDirectionArrRelInsertInput>;
-  /** The opposite direction. */
   readonly the_opposite_of_direction?: InputMaybe<RouteDirectionEnum>;
 };
 
 /** aggregate max on columns */
 export type RouteDirectionMaxFields = {
   readonly __typename?: 'route_direction_max_fields';
-  /** The name of the route direction. */
   readonly direction?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "route.direction" */
 export type RouteDirectionMaxOrderBy = {
-  /** The name of the route direction. */
   readonly direction?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteDirectionMinFields = {
   readonly __typename?: 'route_direction_min_fields';
-  /** The name of the route direction. */
   readonly direction?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "route.direction" */
 export type RouteDirectionMinOrderBy = {
-  /** The name of the route direction. */
   readonly direction?: InputMaybe<OrderBy>;
 };
 
@@ -6404,7 +6252,6 @@ export type RouteDirectionOrderBy = {
 
 /** primary key columns input for table: route.direction */
 export type RouteDirectionPkColumnsInput = {
-  /** The name of the route direction. */
   readonly direction: Scalars['String']['input'];
 };
 
@@ -6418,9 +6265,7 @@ export enum RouteDirectionSelectColumn {
 
 /** input type for updating data in table "route.direction" */
 export type RouteDirectionSetInput = {
-  /** The name of the route direction. */
   readonly direction?: InputMaybe<Scalars['String']['input']>;
-  /** The opposite direction. */
   readonly the_opposite_of_direction?: InputMaybe<RouteDirectionEnum>;
 };
 
@@ -6434,9 +6279,7 @@ export type RouteDirectionStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteDirectionStreamCursorValueInput = {
-  /** The name of the route direction. */
   readonly direction?: InputMaybe<Scalars['String']['input']>;
-  /** The opposite direction. */
   readonly the_opposite_of_direction?: InputMaybe<RouteDirectionEnum>;
 };
 
@@ -6455,18 +6298,14 @@ export type RouteDirectionUpdates = {
   readonly where: RouteDirectionBoolExp;
 };
 
-/** The infrastructure links along which the routes are defined. */
+/** columns and relationships of "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRoute = {
   readonly __typename?: 'route_infrastructure_link_along_route';
   /** An object relationship */
   readonly infrastructure_link: InfrastructureNetworkInfrastructureLink;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id: Scalars['uuid']['output'];
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence: Scalars['Int']['output'];
-  /** Is the infrastructure link traversed in the direction of its linestring? */
   readonly is_traversal_forwards: Scalars['Boolean']['output'];
-  /** The ID of the route. */
   readonly route_id: Scalars['uuid']['output'];
 };
 
@@ -6552,13 +6391,11 @@ export type RouteInfrastructureLinkAlongRouteArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteInfrastructureLinkAlongRouteAvgFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_avg_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteAvgOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -6582,62 +6419,45 @@ export enum RouteInfrastructureLinkAlongRouteConstraint {
 
 /** input type for incrementing numeric columns in table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteIncInput = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteInsertInput = {
   readonly infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<Scalars['Int']['input']>;
-  /** Is the infrastructure link traversed in the direction of its linestring? */
   readonly is_traversal_forwards?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type RouteInfrastructureLinkAlongRouteMaxFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_max_fields';
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Int']['output']>;
-  /** The ID of the route. */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteMaxOrderBy = {
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<OrderBy>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteInfrastructureLinkAlongRouteMinFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_min_fields';
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Int']['output']>;
-  /** The ID of the route. */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteMinOrderBy = {
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<OrderBy>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<OrderBy>;
 };
 
@@ -6668,9 +6488,7 @@ export type RouteInfrastructureLinkAlongRouteOrderBy = {
 
 /** primary key columns input for table: route.infrastructure_link_along_route */
 export type RouteInfrastructureLinkAlongRoutePkColumnsInput = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence: Scalars['Int']['input'];
-  /** The ID of the route. */
   readonly route_id: Scalars['uuid']['input'];
 };
 
@@ -6700,52 +6518,42 @@ export enum RouteInfrastructureLinkAlongRouteSelectColumnRouteInfrastructureLink
 
 /** input type for updating data in table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteSetInput = {
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<Scalars['Int']['input']>;
-  /** Is the infrastructure link traversed in the direction of its linestring? */
   readonly is_traversal_forwards?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type RouteInfrastructureLinkAlongRouteStddevFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_stddev_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteStddevOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RouteInfrastructureLinkAlongRouteStddevPopFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_stddev_pop_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteStddevPopOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RouteInfrastructureLinkAlongRouteStddevSampFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_stddev_samp_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteStddevSampOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -6759,26 +6567,20 @@ export type RouteInfrastructureLinkAlongRouteStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteInfrastructureLinkAlongRouteStreamCursorValueInput = {
-  /** The ID of the infrastructure link. */
   readonly infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<Scalars['Int']['input']>;
-  /** Is the infrastructure link traversed in the direction of its linestring? */
   readonly is_traversal_forwards?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate sum on columns */
 export type RouteInfrastructureLinkAlongRouteSumFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_sum_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteSumOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -6806,90 +6608,72 @@ export type RouteInfrastructureLinkAlongRouteUpdates = {
 /** aggregate var_pop on columns */
 export type RouteInfrastructureLinkAlongRouteVarPopFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_var_pop_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteVarPopOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type RouteInfrastructureLinkAlongRouteVarSampFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_var_samp_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteVarSampOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type RouteInfrastructureLinkAlongRouteVarianceFields = {
   readonly __typename?: 'route_infrastructure_link_along_route_variance_fields';
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "route.infrastructure_link_along_route" */
 export type RouteInfrastructureLinkAlongRouteVarianceOrderBy = {
-  /** The order of the infrastructure link within the journey pattern. */
   readonly infrastructure_link_sequence?: InputMaybe<OrderBy>;
 };
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLine = {
   readonly __typename?: 'route_line';
   /** An array relationship */
   readonly change_history: ReadonlyArray<RouteLineChangeHistory>;
   /** An aggregate relationship */
   readonly change_history_aggregate: RouteLineChangeHistoryAggregate;
-  /** The line text description of the line. */
   readonly description?: Maybe<Scalars['String']['output']>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label: Scalars['String']['output'];
   /** An object relationship */
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: Maybe<HslRouteLegacyHslMunicipalityCode>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
-  /** The ID of the line. */
   readonly line_id: Scalars['uuid']['output'];
   /** An array relationship */
   readonly line_routes: ReadonlyArray<RouteRoute>;
   /** An aggregate relationship */
   readonly line_routes_aggregate: RouteRouteAggregate;
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n: Scalars['localized_string']['output'];
-  /** The mode of the vehicles used as primary on the line. */
   readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority: Scalars['Int']['output'];
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n: Scalars['localized_string']['output'];
   /** An object relationship */
   readonly transportTargetByTransportTarget: HslRouteTransportTarget;
   readonly transport_target: HslRouteTransportTargetEnum;
   /** An object relationship */
   readonly typeOfLineByTypeOfLine: RouteTypeOfLine;
-  /** The type of the line. */
   readonly type_of_line: RouteTypeOfLineEnum;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
   /** An object relationship */
   readonly vehicle_mode: ReusableComponentsVehicleMode;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLineChangeHistoryArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineChangeHistorySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6899,7 +6683,7 @@ export type RouteLineChangeHistoryArgs = {
 };
 
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLineChangeHistoryAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineChangeHistorySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6909,7 +6693,7 @@ export type RouteLineChangeHistoryAggregateArgs = {
 };
 
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLineLineRoutesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6919,7 +6703,7 @@ export type RouteLineLineRoutesArgs = {
 };
 
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLineLineRoutesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6929,13 +6713,13 @@ export type RouteLineLineRoutesAggregateArgs = {
 };
 
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLineNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
+/** columns and relationships of "route.line" */
 export type RouteLineShortNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
@@ -6998,9 +6782,7 @@ export type RouteLineAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type RouteLineAppendInput = {
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -7014,13 +6796,11 @@ export type RouteLineArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteLineAvgFields = {
   readonly __typename?: 'route_line_avg_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "route.line" */
 export type RouteLineAvgOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
@@ -7052,46 +6832,30 @@ export type RouteLineBoolExp = {
   readonly version_comment?: InputMaybe<StringComparisonExp>;
 };
 
-/** Collects and represents the historical states of an HSL Lines. */
+/** columns and relationships of "route.line_change_history" */
 export type RouteLineChangeHistory = {
   readonly __typename?: 'route_line_change_history';
-  /** Time when this history item was recorded / the change occurred */
   readonly changed: Scalars['timestamptz']['output'];
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: Maybe<Scalars['String']['output']>;
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data: Scalars['jsonb']['output'];
-  /** Auto-incremented serial db row ID. */
   readonly id: Scalars['bigint']['output'];
   readonly line_id: Scalars['uuid']['output'];
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label: Scalars['String']['output'];
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority: Scalars['Int']['output'];
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: Maybe<Scalars['date']['output']>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: Maybe<Scalars['date']['output']>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: Maybe<Scalars['String']['output']>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: Maybe<Scalars['String']['output']>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: Maybe<Scalars['String']['output']>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: Maybe<Scalars['date']['output']>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: Maybe<Scalars['date']['output']>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation: Scalars['String']['output'];
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** Collects and represents the historical states of an HSL Lines. */
+/** columns and relationships of "route.line_change_history" */
 export type RouteLineChangeHistoryDataArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
@@ -7154,7 +6918,6 @@ export type RouteLineChangeHistoryAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type RouteLineChangeHistoryAppendInput = {
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -7168,17 +6931,13 @@ export type RouteLineChangeHistoryArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteLineChangeHistoryAvgFields = {
   readonly __typename?: 'route_line_change_history_avg_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryAvgOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
@@ -7216,206 +6975,125 @@ export enum RouteLineChangeHistoryConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type RouteLineChangeHistoryDeleteAtPathInput = {
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type RouteLineChangeHistoryDeleteElemInput = {
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type RouteLineChangeHistoryDeleteKeyInput = {
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** input type for incrementing numeric columns in table "route.line_change_history" */
 export type RouteLineChangeHistoryIncInput = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "route.line_change_history" */
 export type RouteLineChangeHistoryInsertInput = {
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: InputMaybe<Scalars['String']['input']>;
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
   readonly line_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: InputMaybe<Scalars['String']['input']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: InputMaybe<Scalars['String']['input']>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: InputMaybe<Scalars['String']['input']>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: InputMaybe<Scalars['String']['input']>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: InputMaybe<Scalars['String']['input']>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type RouteLineChangeHistoryMaxFields = {
   readonly __typename?: 'route_line_change_history_max_fields';
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: Maybe<Scalars['timestamptz']['output']>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: Maybe<Scalars['String']['output']>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['bigint']['output']>;
   readonly line_id?: Maybe<Scalars['uuid']['output']>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: Maybe<Scalars['String']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Int']['output']>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: Maybe<Scalars['date']['output']>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: Maybe<Scalars['date']['output']>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: Maybe<Scalars['String']['output']>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: Maybe<Scalars['String']['output']>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: Maybe<Scalars['String']['output']>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: Maybe<Scalars['date']['output']>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: Maybe<Scalars['date']['output']>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: Maybe<Scalars['String']['output']>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryMaxOrderBy = {
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: InputMaybe<OrderBy>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: InputMaybe<OrderBy>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
   readonly line_id?: InputMaybe<OrderBy>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: InputMaybe<OrderBy>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: InputMaybe<OrderBy>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: InputMaybe<OrderBy>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: InputMaybe<OrderBy>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: InputMaybe<OrderBy>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: InputMaybe<OrderBy>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: InputMaybe<OrderBy>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: InputMaybe<OrderBy>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: InputMaybe<OrderBy>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteLineChangeHistoryMinFields = {
   readonly __typename?: 'route_line_change_history_min_fields';
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: Maybe<Scalars['timestamptz']['output']>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: Maybe<Scalars['String']['output']>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['bigint']['output']>;
   readonly line_id?: Maybe<Scalars['uuid']['output']>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: Maybe<Scalars['String']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Int']['output']>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: Maybe<Scalars['date']['output']>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: Maybe<Scalars['date']['output']>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: Maybe<Scalars['String']['output']>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: Maybe<Scalars['String']['output']>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: Maybe<Scalars['String']['output']>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: Maybe<Scalars['date']['output']>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: Maybe<Scalars['date']['output']>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: Maybe<Scalars['String']['output']>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryMinOrderBy = {
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: InputMaybe<OrderBy>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: InputMaybe<OrderBy>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
   readonly line_id?: InputMaybe<OrderBy>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: InputMaybe<OrderBy>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: InputMaybe<OrderBy>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: InputMaybe<OrderBy>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: InputMaybe<OrderBy>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: InputMaybe<OrderBy>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: InputMaybe<OrderBy>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: InputMaybe<OrderBy>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: InputMaybe<OrderBy>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: InputMaybe<OrderBy>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: InputMaybe<OrderBy>;
 };
 
@@ -7458,13 +7136,11 @@ export type RouteLineChangeHistoryOrderBy = {
 
 /** primary key columns input for table: route.line_change_history */
 export type RouteLineChangeHistoryPkColumnsInput = {
-  /** Auto-incremented serial db row ID. */
   readonly id: Scalars['bigint']['input'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type RouteLineChangeHistoryPrependInput = {
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -7508,89 +7184,61 @@ export enum RouteLineChangeHistorySelectColumn {
 
 /** input type for updating data in table "route.line_change_history" */
 export type RouteLineChangeHistorySetInput = {
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: InputMaybe<Scalars['String']['input']>;
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
   readonly line_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: InputMaybe<Scalars['String']['input']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: InputMaybe<Scalars['String']['input']>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: InputMaybe<Scalars['String']['input']>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: InputMaybe<Scalars['String']['input']>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: InputMaybe<Scalars['String']['input']>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type RouteLineChangeHistoryStddevFields = {
   readonly __typename?: 'route_line_change_history_stddev_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryStddevOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RouteLineChangeHistoryStddevPopFields = {
   readonly __typename?: 'route_line_change_history_stddev_pop_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryStddevPopOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RouteLineChangeHistoryStddevSampFields = {
   readonly __typename?: 'route_line_change_history_stddev_samp_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryStddevSampOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
@@ -7604,55 +7252,35 @@ export type RouteLineChangeHistoryStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteLineChangeHistoryStreamCursorValueInput = {
-  /** Time when this history item was recorded / the change occurred */
   readonly changed?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** UserID of the user who made the change, empty on automated system operations */
   readonly changed_by?: InputMaybe<Scalars['String']['input']>;
-  /** JSONB blob containing any and all relevant data from the associated line row with full graphs of any extra data (routes) needed to visualize the changes made. See `route.collect_line_info_for_history` function for implementation details. */
   readonly data?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
   readonly line_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Label of the HSL Line this historical record represents. */
   readonly line_label?: InputMaybe<Scalars['String']['input']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** Validity end date of the HSL line as it was at time of the change. */
   readonly line_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** Validity start date of the HSL line as it was at time of the change. */
   readonly line_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** Finnish name of the HSL line or route, if a route change triggered this history item. */
   readonly name?: InputMaybe<Scalars['String']['input']>;
-  /** Label of the HSL route that was changed. */
   readonly route_direction?: InputMaybe<Scalars['String']['input']>;
-  /** DB ID of the HSL route that was changed (inserted, updated, deleted). */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Label of the HSL route that was changed. */
   readonly route_label?: InputMaybe<Scalars['String']['input']>;
-  /** Validity end date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** Validity start date of the HSL route as it was at time of the change, if a route change triggered this history item. */
   readonly route_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** DB operation type (INSERT,UPDATE,DELETE) that triggered the creation of this history item. */
   readonly tg_operation?: InputMaybe<Scalars['String']['input']>;
-  /** Version comment of the line or route, if a route change triggered this history item. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
 export type RouteLineChangeHistorySumFields = {
   readonly __typename?: 'route_line_change_history_sum_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['bigint']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistorySumOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
@@ -7716,51 +7344,39 @@ export type RouteLineChangeHistoryUpdates = {
 /** aggregate var_pop on columns */
 export type RouteLineChangeHistoryVarPopFields = {
   readonly __typename?: 'route_line_change_history_var_pop_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryVarPopOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type RouteLineChangeHistoryVarSampFields = {
   readonly __typename?: 'route_line_change_history_var_samp_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryVarSampOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type RouteLineChangeHistoryVarianceFields = {
   readonly __typename?: 'route_line_change_history_variance_fields';
-  /** Auto-incremented serial db row ID. */
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "route.line_change_history" */
 export type RouteLineChangeHistoryVarianceOrderBy = {
-  /** Auto-incremented serial db row ID. */
   readonly id?: InputMaybe<OrderBy>;
-  /** Priority of the HSL Line this historical record represents. */
   readonly line_priority?: InputMaybe<OrderBy>;
 };
 
@@ -7772,148 +7388,97 @@ export enum RouteLineConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type RouteLineDeleteAtPathInput = {
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type RouteLineDeleteElemInput = {
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<Scalars['Int']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type RouteLineDeleteKeyInput = {
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<Scalars['String']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** input type for incrementing numeric columns in table "route.line" */
 export type RouteLineIncInput = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "route.line" */
 export type RouteLineInsertInput = {
   readonly change_history?: InputMaybe<RouteLineChangeHistoryArrRelInsertInput>;
-  /** The line text description of the line. */
   readonly description?: InputMaybe<Scalars['String']['input']>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the line. */
   readonly line_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly line_routes?: InputMaybe<RouteRouteArrRelInsertInput>;
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n: Scalars['localized_string']['input'];
-  /** The mode of the vehicles used as primary on the line. */
   readonly primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n: Scalars['localized_string']['input'];
   readonly transportTargetByTransportTarget?: InputMaybe<HslRouteTransportTargetObjRelInsertInput>;
   readonly transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
   readonly typeOfLineByTypeOfLine?: InputMaybe<RouteTypeOfLineObjRelInsertInput>;
-  /** The type of the line. */
   readonly type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
   readonly vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type RouteLineMaxFields = {
   readonly __typename?: 'route_line_max_fields';
-  /** The line text description of the line. */
   readonly description?: Maybe<Scalars['String']['output']>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
-  /** The ID of the line. */
   readonly line_id?: Maybe<Scalars['uuid']['output']>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "route.line" */
 export type RouteLineMaxOrderBy = {
-  /** The line text description of the line. */
   readonly description?: InputMaybe<OrderBy>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: InputMaybe<OrderBy>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
-  /** The ID of the line. */
   readonly line_id?: InputMaybe<OrderBy>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: InputMaybe<OrderBy>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: InputMaybe<OrderBy>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteLineMinFields = {
   readonly __typename?: 'route_line_min_fields';
-  /** The line text description of the line. */
   readonly description?: Maybe<Scalars['String']['output']>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
-  /** The ID of the line. */
   readonly line_id?: Maybe<Scalars['uuid']['output']>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "route.line" */
 export type RouteLineMinOrderBy = {
-  /** The line text description of the line. */
   readonly description?: InputMaybe<OrderBy>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: InputMaybe<OrderBy>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
-  /** The ID of the line. */
   readonly line_id?: InputMaybe<OrderBy>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: InputMaybe<OrderBy>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: InputMaybe<OrderBy>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: InputMaybe<OrderBy>;
 };
 
@@ -7965,15 +7530,12 @@ export type RouteLineOrderBy = {
 
 /** primary key columns input for table: route.line */
 export type RouteLinePkColumnsInput = {
-  /** The ID of the line. */
   readonly line_id: Scalars['uuid']['input'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type RouteLinePrependInput = {
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -8009,69 +7571,51 @@ export enum RouteLineSelectColumn {
 
 /** input type for updating data in table "route.line" */
 export type RouteLineSetInput = {
-  /** The line text description of the line. */
   readonly description?: InputMaybe<Scalars['String']['input']>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the line. */
   readonly line_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
-  /** The mode of the vehicles used as primary on the line. */
   readonly primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
-  /** The type of the line. */
   readonly type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type RouteLineStddevFields = {
   readonly __typename?: 'route_line_stddev_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "route.line" */
 export type RouteLineStddevOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RouteLineStddevPopFields = {
   readonly __typename?: 'route_line_stddev_pop_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "route.line" */
 export type RouteLineStddevPopOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RouteLineStddevSampFields = {
   readonly __typename?: 'route_line_stddev_samp_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "route.line" */
 export type RouteLineStddevSampOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
@@ -8085,43 +7629,29 @@ export type RouteLineStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteLineStreamCursorValueInput = {
-  /** The line text description of the line. */
   readonly description?: InputMaybe<Scalars['String']['input']>;
-  /** The label of the line definition. The label is unique for a certain priority and validity period. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the line. */
   readonly line_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The name of the line. Placeholder for multilingual strings. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The mode of the vehicles used as primary on the line. */
   readonly primary_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The shorted name of the line. Placeholder for multilingual strings. */
   readonly short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly transport_target?: InputMaybe<HslRouteTransportTargetEnum>;
-  /** The type of the line. */
   readonly type_of_line?: InputMaybe<RouteTypeOfLineEnum>;
-  /** The point in time from which onwards the line is no longer valid (inclusive). If NULL, the line will be always valid. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The point in time when the line becomes valid (inclusive). If NULL, the line has been always valid. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** An extra comment describing the latest change to the Line's details. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
 export type RouteLineSumFields = {
   readonly __typename?: 'route_line_sum_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "route.line" */
 export type RouteLineSumOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
@@ -8177,73 +7707,60 @@ export type RouteLineUpdates = {
 /** aggregate var_pop on columns */
 export type RouteLineVarPopFields = {
   readonly __typename?: 'route_line_var_pop_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "route.line" */
 export type RouteLineVarPopOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type RouteLineVarSampFields = {
   readonly __typename?: 'route_line_var_samp_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "route.line" */
 export type RouteLineVarSampOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type RouteLineVarianceFields = {
   readonly __typename?: 'route_line_variance_fields';
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "route.line" */
 export type RouteLineVarianceOrderBy = {
-  /** The priority of the line definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
 };
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRoute = {
   readonly __typename?: 'route_route';
   /** An array relationship */
   readonly change_history: ReadonlyArray<RouteLineChangeHistory>;
   /** An aggregate relationship */
   readonly change_history_aggregate: RouteLineChangeHistoryAggregate;
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: Maybe<Scalars['localized_string']['output']>;
   readonly destination_name_i18n: Scalars['localized_string']['output'];
   readonly destination_short_name_i18n: Scalars['localized_string']['output'];
-  /** The direction of the route definition. */
   readonly direction: RouteDirectionEnum;
   /** An array relationship */
   readonly infrastructure_links_along_route: ReadonlyArray<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   readonly infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
-  /** The label of the route definition. */
   readonly label: Scalars['String']['output'];
   /** An object relationship */
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: Maybe<HslRouteLegacyHslMunicipalityCode>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
   readonly name_i18n: Scalars['localized_string']['output'];
-  /** The line to which this route belongs. */
   readonly on_line_id: Scalars['uuid']['output'];
   readonly origin_name_i18n: Scalars['localized_string']['output'];
   readonly origin_short_name_i18n: Scalars['localized_string']['output'];
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority: Scalars['Int']['output'];
-  /** The ID of the route. */
   readonly route_id: Scalars['uuid']['output'];
   /** An array relationship */
   readonly route_journey_patterns: ReadonlyArray<JourneyPatternJourneyPattern>;
@@ -8253,20 +7770,15 @@ export type RouteRoute = {
   readonly route_line: RouteLine;
   /** A computed field, executes function "route.route_shape" */
   readonly route_shape?: Maybe<Scalars['geography_linestring']['output']>;
-  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   readonly unique_label: Scalars['String']['output'];
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['smallint']['output']>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteChangeHistoryArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineChangeHistorySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8276,7 +7788,7 @@ export type RouteRouteChangeHistoryArgs = {
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteChangeHistoryAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineChangeHistorySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8286,25 +7798,25 @@ export type RouteRouteChangeHistoryAggregateArgs = {
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteDescriptionI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteDestinationNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteDestinationShortNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteInfrastructureLinksAlongRouteArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8314,7 +7826,7 @@ export type RouteRouteInfrastructureLinksAlongRouteArgs = {
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteInfrastructureLinkAlongRouteSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8324,25 +7836,25 @@ export type RouteRouteInfrastructureLinksAlongRouteAggregateArgs = {
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteOriginNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteOriginShortNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteRouteJourneyPatternsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8352,7 +7864,7 @@ export type RouteRouteRouteJourneyPatternsArgs = {
 };
 
 
-/** The routes from Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:483 */
+/** columns and relationships of "route.route" */
 export type RouteRouteRouteJourneyPatternsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<JourneyPatternJourneyPatternSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8419,7 +7931,6 @@ export type RouteRouteAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type RouteRouteAppendInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -8438,17 +7949,13 @@ export type RouteRouteArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteRouteAvgFields = {
   readonly __typename?: 'route_route_avg_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "route.route" */
 export type RouteRouteAvgOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
@@ -8493,7 +8000,6 @@ export enum RouteRouteConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type RouteRouteDeleteAtPathInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
   readonly destination_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
   readonly destination_short_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
@@ -8504,7 +8010,6 @@ export type RouteRouteDeleteAtPathInput = {
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type RouteRouteDeleteElemInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['Int']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['Int']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['Int']['input']>;
@@ -8515,7 +8020,6 @@ export type RouteRouteDeleteElemInput = {
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type RouteRouteDeleteKeyInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['String']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['String']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['String']['input']>;
@@ -8526,143 +8030,90 @@ export type RouteRouteDeleteKeyInput = {
 
 /** input type for incrementing numeric columns in table "route.route" */
 export type RouteRouteIncInput = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<Scalars['smallint']['input']>;
 };
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
   readonly change_history?: InputMaybe<RouteLineChangeHistoryArrRelInsertInput>;
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_name_i18n: Scalars['localized_string']['input'];
   readonly destination_short_name_i18n: Scalars['localized_string']['input'];
-  /** The direction of the route definition. */
   readonly direction?: InputMaybe<RouteDirectionEnum>;
   readonly infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
-  /** The label of the route definition. */
   readonly label: Scalars['String']['input'];
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   readonly name_i18n: Scalars['localized_string']['input'];
-  /** The line to which this route belongs. */
   readonly on_line_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly origin_name_i18n: Scalars['localized_string']['input'];
   readonly origin_short_name_i18n: Scalars['localized_string']['input'];
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly route_journey_patterns?: InputMaybe<JourneyPatternJourneyPatternArrRelInsertInput>;
   readonly route_line?: InputMaybe<RouteLineObjRelInsertInput>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<Scalars['smallint']['input']>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type RouteRouteMaxFields = {
   readonly __typename?: 'route_route_max_fields';
-  /** The label of the route definition. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
-  /** The line to which this route belongs. */
   readonly on_line_id?: Maybe<Scalars['uuid']['output']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The ID of the route. */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   readonly unique_label?: Maybe<Scalars['String']['output']>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['smallint']['output']>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
-  /** The label of the route definition. */
   readonly label?: InputMaybe<OrderBy>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
-  /** The line to which this route belongs. */
   readonly on_line_id?: InputMaybe<OrderBy>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<OrderBy>;
-  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   readonly unique_label?: InputMaybe<OrderBy>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: InputMaybe<OrderBy>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type RouteRouteMinFields = {
   readonly __typename?: 'route_route_min_fields';
-  /** The label of the route definition. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
-  /** The line to which this route belongs. */
   readonly on_line_id?: Maybe<Scalars['uuid']['output']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The ID of the route. */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   readonly unique_label?: Maybe<Scalars['String']['output']>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['smallint']['output']>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
-  /** The label of the route definition. */
   readonly label?: InputMaybe<OrderBy>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
-  /** The line to which this route belongs. */
   readonly on_line_id?: InputMaybe<OrderBy>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<OrderBy>;
-  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   readonly unique_label?: InputMaybe<OrderBy>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: InputMaybe<OrderBy>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: InputMaybe<OrderBy>;
 };
 
@@ -8718,13 +8169,11 @@ export type RouteRouteOrderBy = {
 
 /** primary key columns input for table: route.route */
 export type RouteRoutePkColumnsInput = {
-  /** The ID of the route. */
   readonly route_id: Scalars['uuid']['input'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type RouteRoutePrependInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -8773,83 +8222,60 @@ export enum RouteRouteSelectColumn {
 
 /** input type for updating data in table "route.route" */
 export type RouteRouteSetInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
-  /** The direction of the route definition. */
   readonly direction?: InputMaybe<RouteDirectionEnum>;
-  /** The label of the route definition. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   readonly name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
-  /** The line to which this route belongs. */
   readonly on_line_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly origin_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly origin_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<Scalars['smallint']['input']>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type RouteRouteStddevFields = {
   readonly __typename?: 'route_route_stddev_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "route.route" */
 export type RouteRouteStddevOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RouteRouteStddevPopFields = {
   readonly __typename?: 'route_route_stddev_pop_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "route.route" */
 export type RouteRouteStddevPopOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RouteRouteStddevSampFields = {
   readonly __typename?: 'route_route_stddev_samp_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "route.route" */
 export type RouteRouteStddevSampOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
@@ -8863,51 +8289,35 @@ export type RouteRouteStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteRouteStreamCursorValueInput = {
-  /** The description of the route in the form of starting location - destination. Placeholder for multilingual strings. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The direction of the route definition. */
   readonly direction?: InputMaybe<RouteDirectionEnum>;
-  /** The label of the route definition. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Defines the legacy municipality that is mainly used for data exports. */
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The line to which this route belongs. */
   readonly on_line_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly origin_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly origin_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The ID of the route. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Derived from label and variant. Routes are unique for each unique label for a certain direction, priority and validity period */
   readonly unique_label?: InputMaybe<Scalars['String']['input']>;
-  /** The point in time (inclusive) from which onwards the route is no longer valid. If NULL, the route is valid indefinitely after the start time of the validity period. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The point in time (inclusive) when the route becomes valid. If NULL, the route has been always valid before end time of validity period. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<Scalars['smallint']['input']>;
-  /** An extra comment describing the latest change to the Route's details. */
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
 export type RouteRouteSumFields = {
   readonly __typename?: 'route_route_sum_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['smallint']['output']>;
 };
 
 /** order by sum() on columns of table "route.route" */
 export type RouteRouteSumOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
@@ -8969,55 +8379,43 @@ export type RouteRouteUpdates = {
 /** aggregate var_pop on columns */
 export type RouteRouteVarPopFields = {
   readonly __typename?: 'route_route_var_pop_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "route.route" */
 export type RouteRouteVarPopOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type RouteRouteVarSampFields = {
   readonly __typename?: 'route_route_var_samp_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "route.route" */
 export type RouteRouteVarSampOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type RouteRouteVarianceFields = {
   readonly __typename?: 'route_route_variance_fields';
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The variant for route definition. */
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "route.route" */
 export type RouteRouteVarianceOrderBy = {
-  /** The priority of the route definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<OrderBy>;
-  /** The variant for route definition. */
   readonly variant?: InputMaybe<OrderBy>;
 };
 
-/** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
+/** columns and relationships of "route.type_of_line" */
 export type RouteTypeOfLine = {
   readonly __typename?: 'route_type_of_line';
   readonly belonging_to_vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -9025,14 +8423,13 @@ export type RouteTypeOfLine = {
   readonly lines: ReadonlyArray<RouteLine>;
   /** An aggregate relationship */
   readonly lines_aggregate: RouteLineAggregate;
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line: Scalars['String']['output'];
   /** An object relationship */
   readonly vehicle_mode: ReusableComponentsVehicleMode;
 };
 
 
-/** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
+/** columns and relationships of "route.type_of_line" */
 export type RouteTypeOfLineLinesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9042,7 +8439,7 @@ export type RouteTypeOfLineLinesArgs = {
 };
 
 
-/** Type of line. https://www.transmodel-cen.eu/model/EARoot/EA2/EA1/EA3/EA491.htm */
+/** columns and relationships of "route.type_of_line" */
 export type RouteTypeOfLineLinesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<RouteLineSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9129,7 +8526,6 @@ export type RouteTypeOfLineEnumComparisonExp = {
 export type RouteTypeOfLineInsertInput = {
   readonly belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
   readonly lines?: InputMaybe<RouteLineArrRelInsertInput>;
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeObjRelInsertInput>;
 };
@@ -9137,14 +8533,12 @@ export type RouteTypeOfLineInsertInput = {
 /** aggregate max on columns */
 export type RouteTypeOfLineMaxFields = {
   readonly __typename?: 'route_type_of_line_max_fields';
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type RouteTypeOfLineMinFields = {
   readonly __typename?: 'route_type_of_line_min_fields';
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
@@ -9181,7 +8575,6 @@ export type RouteTypeOfLineOrderBy = {
 
 /** primary key columns input for table: route.type_of_line */
 export type RouteTypeOfLinePkColumnsInput = {
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line: Scalars['String']['input'];
 };
 
@@ -9196,7 +8589,6 @@ export enum RouteTypeOfLineSelectColumn {
 /** input type for updating data in table "route.type_of_line" */
 export type RouteTypeOfLineSetInput = {
   readonly belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -9211,7 +8603,6 @@ export type RouteTypeOfLineStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type RouteTypeOfLineStreamCursorValueInput = {
   readonly belonging_to_vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -9252,24 +8643,16 @@ export type ServiceCalendarSubstituteOperatingDayByLineTypeAggregateBoolExpCount
   readonly predicate: IntComparisonExp;
 };
 
-/** A dummy table that models the results of calculating the lengths of stop intervals from the given journey patterns. The table exists due to the limitations of Hasura and there is no intention to insert anything to it. */
+/** columns and relationships of "service_pattern.distance_between_stops_calculation" */
 export type ServicePatternDistanceBetweenStopsCalculation = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres: Scalars['float8']['output'];
-  /** The label of the end stop of the stop interval. */
   readonly end_stop_label: Scalars['String']['output'];
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id: Scalars['uuid']['output'];
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date: Scalars['date']['output'];
-  /** The ID of the route related to the journey pattern. */
   readonly route_id: Scalars['uuid']['output'];
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority: Scalars['Int']['output'];
-  /** The label of the start stop of the stop interval. */
   readonly start_stop_label: Scalars['String']['output'];
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence: Scalars['Int']['output'];
 };
 
@@ -9306,11 +8689,8 @@ export type ServicePatternDistanceBetweenStopsCalculationAggregateFieldsCountArg
 /** aggregate avg on columns */
 export type ServicePatternDistanceBetweenStopsCalculationAvgFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_avg_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -9337,73 +8717,46 @@ export enum ServicePatternDistanceBetweenStopsCalculationConstraint {
 
 /** input type for incrementing numeric columns in table "service_pattern.distance_between_stops_calculation" */
 export type ServicePatternDistanceBetweenStopsCalculationIncInput = {
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "service_pattern.distance_between_stops_calculation" */
 export type ServicePatternDistanceBetweenStopsCalculationInsertInput = {
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
-  /** The label of the end stop of the stop interval. */
   readonly end_stop_label?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date?: InputMaybe<Scalars['date']['input']>;
-  /** The ID of the route related to the journey pattern. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The label of the start stop of the stop interval. */
   readonly start_stop_label?: InputMaybe<Scalars['String']['input']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** aggregate max on columns */
 export type ServicePatternDistanceBetweenStopsCalculationMaxFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_max_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['float8']['output']>;
-  /** The label of the end stop of the stop interval. */
   readonly end_stop_label?: Maybe<Scalars['String']['output']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date?: Maybe<Scalars['date']['output']>;
-  /** The ID of the route related to the journey pattern. */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Int']['output']>;
-  /** The label of the start stop of the stop interval. */
   readonly start_stop_label?: Maybe<Scalars['String']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
 /** aggregate min on columns */
 export type ServicePatternDistanceBetweenStopsCalculationMinFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_min_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['float8']['output']>;
-  /** The label of the end stop of the stop interval. */
   readonly end_stop_label?: Maybe<Scalars['String']['output']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date?: Maybe<Scalars['date']['output']>;
-  /** The ID of the route related to the journey pattern. */
   readonly route_id?: Maybe<Scalars['uuid']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Int']['output']>;
-  /** The label of the start stop of the stop interval. */
   readonly start_stop_label?: Maybe<Scalars['String']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -9437,13 +8790,9 @@ export type ServicePatternDistanceBetweenStopsCalculationOrderBy = {
 
 /** primary key columns input for table: service_pattern.distance_between_stops_calculation */
 export type ServicePatternDistanceBetweenStopsCalculationPkColumnsInput = {
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id: Scalars['uuid']['input'];
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date: Scalars['date']['input'];
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority: Scalars['Int']['input'];
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence: Scalars['Int']['input'];
 };
 
@@ -9469,54 +8818,37 @@ export enum ServicePatternDistanceBetweenStopsCalculationSelectColumn {
 
 /** input type for updating data in table "service_pattern.distance_between_stops_calculation" */
 export type ServicePatternDistanceBetweenStopsCalculationSetInput = {
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
-  /** The label of the end stop of the stop interval. */
   readonly end_stop_label?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date?: InputMaybe<Scalars['date']['input']>;
-  /** The ID of the route related to the journey pattern. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The label of the start stop of the stop interval. */
   readonly start_stop_label?: InputMaybe<Scalars['String']['input']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type ServicePatternDistanceBetweenStopsCalculationStddevFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_stddev_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type ServicePatternDistanceBetweenStopsCalculationStddevPopFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_stddev_pop_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type ServicePatternDistanceBetweenStopsCalculationStddevSampFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_stddev_samp_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -9530,32 +8862,21 @@ export type ServicePatternDistanceBetweenStopsCalculationStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternDistanceBetweenStopsCalculationStreamCursorValueInput = {
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
-  /** The label of the end stop of the stop interval. */
   readonly end_stop_label?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the journey pattern. */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The observation date for the state of the route related to the journey pattern. */
   readonly observation_date?: InputMaybe<Scalars['date']['input']>;
-  /** The ID of the route related to the journey pattern. */
   readonly route_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The label of the start stop of the stop interval. */
   readonly start_stop_label?: InputMaybe<Scalars['String']['input']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** aggregate sum on columns */
 export type ServicePatternDistanceBetweenStopsCalculationSumFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_sum_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['float8']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Int']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -9591,33 +8912,24 @@ export type ServicePatternDistanceBetweenStopsCalculationUpdates = {
 /** aggregate var_pop on columns */
 export type ServicePatternDistanceBetweenStopsCalculationVarPopFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_var_pop_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
 export type ServicePatternDistanceBetweenStopsCalculationVarSampFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_var_samp_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
 export type ServicePatternDistanceBetweenStopsCalculationVarianceFields = {
   readonly __typename?: 'service_pattern_distance_between_stops_calculation_variance_fields';
-  /** The length of the stop interval in metres. */
   readonly distance_in_metres?: Maybe<Scalars['Float']['output']>;
-  /** The priority of the route related to the journey pattern. */
   readonly route_priority?: Maybe<Scalars['Float']['output']>;
-  /** The sequence number of the stop interval within the journey pattern. */
   readonly stop_interval_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -9768,20 +9080,16 @@ export type ServicePatternPointTypeUpdates = {
   readonly where: ServicePatternPointTypeBoolExp;
 };
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPoint = {
   readonly __typename?: 'service_pattern_scheduled_stop_point';
-  /** The point on the infrastructure link closest to measured_location. A PostGIS PointZ geography in EPSG:4326. */
+  /** A computed field, executes function "service_pattern.scheduled_stop_point_closest_point_on_infrastructure_link" */
   readonly closest_point_on_infrastructure_link?: Maybe<Scalars['geography_point']['output']>;
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction: InfrastructureNetworkDirectionEnum;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label: Scalars['String']['output'];
   /** An object relationship */
   readonly located_on_infrastructure_link: InfrastructureNetworkInfrastructureLink;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id: Scalars['uuid']['output'];
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location: Scalars['geography_point']['output'];
   readonly newest_quay?: Maybe<StopsDatabaseQuayNewestVersion>;
   readonly newest_stop_place?: Maybe<StopsDatabaseQuayNewestVersion>;
@@ -9791,24 +9099,19 @@ export type ServicePatternScheduledStopPoint = {
   readonly other_label_instances_aggregate: ServicePatternScheduledStopPointAggregate;
   readonly point_type: ServicePatternPointTypeEnum;
   readonly priority: Scalars['Int']['output'];
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start: Scalars['Float']['output'];
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id: Scalars['uuid']['output'];
   /** An array relationship */
   readonly scheduled_stop_point_in_journey_patterns: ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   readonly scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   readonly stop_place?: Maybe<ReadonlyArray<Maybe<StopRegistryStopPlaceInterface>>>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
   readonly timing_place?: Maybe<TimingPatternTimingPlace>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: Maybe<Scalars['uuid']['output']>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
   /** An array relationship */
   readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<ServicePatternVehicleModeOnScheduledStopPoint>;
@@ -9817,7 +9120,7 @@ export type ServicePatternScheduledStopPoint = {
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9827,7 +9130,7 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesArgs = {
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9837,7 +9140,7 @@ export type ServicePatternScheduledStopPointOtherLabelInstancesAggregateArgs = {
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9847,7 +9150,7 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9857,7 +9160,7 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointStopPlaceArgs = {
   allVersions?: InputMaybe<Scalars['Boolean']['input']>;
   code?: InputMaybe<Scalars['String']['input']>;
@@ -9886,7 +9189,7 @@ export type ServicePatternScheduledStopPointStopPlaceArgs = {
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9896,7 +9199,7 @@ export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs 
 };
 
 
-/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+/** columns and relationships of "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternVehicleModeOnScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9972,7 +9275,7 @@ export type ServicePatternScheduledStopPointArrRelInsertInput = {
 export type ServicePatternScheduledStopPointAvgFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_avg_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10035,29 +9338,20 @@ export type ServicePatternScheduledStopPointIncInput = {
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointInsertInput = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction: InfrastructureNetworkDirectionEnum;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label: Scalars['String']['input'];
   readonly located_on_infrastructure_link?: InputMaybe<InfrastructureNetworkInfrastructureLinkObjRelInsertInput>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id: Scalars['uuid']['input'];
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location: Scalars['geography_point']['input'];
   readonly other_label_instances?: InputMaybe<ServicePatternScheduledStopPointArrRelInsertInput>;
   readonly point_type?: InputMaybe<ServicePatternPointTypeEnum>;
   readonly priority: Scalars['Int']['input'];
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: InputMaybe<Scalars['String']['input']>;
   readonly timing_place?: InputMaybe<TimingPatternTimingPlaceObjRelInsertInput>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
   readonly vehicle_mode_on_scheduled_stop_point?: InputMaybe<ServicePatternVehicleModeOnScheduledStopPointArrRelInsertInput>;
 };
@@ -10065,82 +9359,54 @@ export type ServicePatternScheduledStopPointInsertInput = {
 /** aggregate max on columns */
 export type ServicePatternScheduledStopPointMaxFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_max_fields';
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: Maybe<Scalars['uuid']['output']>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: Maybe<Scalars['String']['output']>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: Maybe<Scalars['uuid']['output']>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
 };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMaxOrderBy = {
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label?: InputMaybe<OrderBy>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<OrderBy>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: InputMaybe<OrderBy>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: InputMaybe<OrderBy>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: InputMaybe<OrderBy>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type ServicePatternScheduledStopPointMinFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_min_fields';
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id?: Maybe<Scalars['uuid']['output']>;
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: Maybe<Scalars['uuid']['output']>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: Maybe<Scalars['String']['output']>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: Maybe<Scalars['uuid']['output']>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
 };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointMinOrderBy = {
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label?: InputMaybe<OrderBy>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<OrderBy>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: InputMaybe<OrderBy>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: InputMaybe<OrderBy>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: InputMaybe<OrderBy>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: InputMaybe<OrderBy>;
 };
 
@@ -10184,7 +9450,6 @@ export type ServicePatternScheduledStopPointOrderBy = {
 
 /** primary key columns input for table: service_pattern.scheduled_stop_point */
 export type ServicePatternScheduledStopPointPkColumnsInput = {
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id: Scalars['uuid']['input'];
 };
 
@@ -10216,25 +9481,16 @@ export enum ServicePatternScheduledStopPointSelectColumn {
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point" */
 export type ServicePatternScheduledStopPointSetInput = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location?: InputMaybe<Scalars['geography_point']['input']>;
   readonly point_type?: InputMaybe<ServicePatternPointTypeEnum>;
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: InputMaybe<Scalars['String']['input']>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
 };
 
@@ -10242,7 +9498,7 @@ export type ServicePatternScheduledStopPointSetInput = {
 export type ServicePatternScheduledStopPointStddevFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_stddev_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10255,7 +9511,7 @@ export type ServicePatternScheduledStopPointStddevOrderBy = {
 export type ServicePatternScheduledStopPointStddevPopFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_stddev_pop_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10268,7 +9524,7 @@ export type ServicePatternScheduledStopPointStddevPopOrderBy = {
 export type ServicePatternScheduledStopPointStddevSampFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_stddev_samp_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10287,25 +9543,16 @@ export type ServicePatternScheduledStopPointStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternScheduledStopPointStreamCursorValueInput = {
-  /** The direction(s) of traffic with respect to the digitization, i.e. the direction of the specified line string. */
   readonly direction?: InputMaybe<InfrastructureNetworkDirectionEnum>;
-  /** The label is the short code that identifies the stop to the passengers. There can be at most one stop with the same label at a time. The label matches the GTFS stop_code. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** The infrastructure link on which the stop is located. */
   readonly located_on_infrastructure_link_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   readonly measured_location?: InputMaybe<Scalars['geography']['input']>;
   readonly point_type?: InputMaybe<ServicePatternPointTypeEnum>;
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** The ID of the scheduled stop point. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The id of the related stop place in stop registry database. */
   readonly stop_place_ref?: InputMaybe<Scalars['String']['input']>;
-  /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   readonly timing_place_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** end of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** start of the operating date span in the scheduled stop point's local time (inclusive). */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
 };
 
@@ -10313,7 +9560,7 @@ export type ServicePatternScheduledStopPointStreamCursorValueInput = {
 export type ServicePatternScheduledStopPointSumFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_sum_fields';
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10361,7 +9608,7 @@ export type ServicePatternScheduledStopPointUpdates = {
 export type ServicePatternScheduledStopPointVarPopFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_var_pop_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10374,7 +9621,7 @@ export type ServicePatternScheduledStopPointVarPopOrderBy = {
 export type ServicePatternScheduledStopPointVarSampFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_var_samp_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10387,7 +9634,7 @@ export type ServicePatternScheduledStopPointVarSampOrderBy = {
 export type ServicePatternScheduledStopPointVarianceFields = {
   readonly __typename?: 'service_pattern_scheduled_stop_point_variance_fields';
   readonly priority?: Maybe<Scalars['Float']['output']>;
-  /** The relative distance of the stop from the start of the linestring along the infrastructure link. Regardless of the specified direction, this value is the distance from the beginning of the linestring. The distance is normalized to the closed interval [0, 1]. */
+  /** A computed field, executes function "service_pattern.ssp_relative_distance_from_infrastructure_link_start" */
   readonly relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']['output']>;
 };
 
@@ -10396,12 +9643,10 @@ export type ServicePatternScheduledStopPointVarianceOrderBy = {
   readonly priority?: InputMaybe<OrderBy>;
 };
 
-/** Which scheduled stop points are serviced by which vehicle modes? */
+/** columns and relationships of "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPoint = {
   readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id: Scalars['uuid']['output'];
-  /** The vehicle mode servicing the scheduled stop point. */
   readonly vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
@@ -10469,35 +9714,29 @@ export enum ServicePatternVehicleModeOnScheduledStopPointConstraint {
 
 /** input type for inserting data into table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointInsertInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The vehicle mode servicing the scheduled stop point. */
   readonly vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
 };
 
 /** aggregate max on columns */
 export type ServicePatternVehicleModeOnScheduledStopPointMaxFields = {
   readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_max_fields';
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointMaxOrderBy = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type ServicePatternVehicleModeOnScheduledStopPointMinFields = {
   readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point_min_fields';
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointMinOrderBy = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: InputMaybe<OrderBy>;
 };
 
@@ -10525,9 +9764,7 @@ export type ServicePatternVehicleModeOnScheduledStopPointOrderBy = {
 
 /** primary key columns input for table: service_pattern.vehicle_mode_on_scheduled_stop_point */
 export type ServicePatternVehicleModeOnScheduledStopPointPkColumnsInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id: Scalars['uuid']['input'];
-  /** The vehicle mode servicing the scheduled stop point. */
   readonly vehicle_mode: ReusableComponentsVehicleModeEnum;
 };
 
@@ -10541,9 +9778,7 @@ export enum ServicePatternVehicleModeOnScheduledStopPointSelectColumn {
 
 /** input type for updating data in table "service_pattern.vehicle_mode_on_scheduled_stop_point" */
 export type ServicePatternVehicleModeOnScheduledStopPointSetInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The vehicle mode servicing the scheduled stop point. */
   readonly vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
 };
 
@@ -10557,9 +9792,7 @@ export type ServicePatternVehicleModeOnScheduledStopPointStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ServicePatternVehicleModeOnScheduledStopPointStreamCursorValueInput = {
-  /** The scheduled stop point that is serviced by the vehicle mode. */
   readonly scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The vehicle mode servicing the scheduled stop point. */
   readonly vehicle_mode?: InputMaybe<ReusableComponentsVehicleModeEnum>;
 };
 
@@ -25579,61 +24812,36 @@ export type StopsDatabaseGroupOfTariffZonesVarianceFields = {
 /** columns and relationships of "hsl_accessibility_properties" */
 export type StopsDatabaseHslAccessibilityProperties = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties';
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
   readonly accessibility_level: Scalars['String']['output'];
   readonly changed?: Maybe<Scalars['timestamp']['output']>;
   readonly changed_by?: Maybe<Scalars['String']['output']>;
   readonly created?: Maybe<Scalars['timestamp']['output']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Kaareva pysäkki */
   readonly curved_stop?: Maybe<Scalars['Boolean']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
   readonly from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Opasteraita */
   readonly guidance_stripe?: Maybe<Scalars['Boolean']['output']>;
-  /** Opaslaatat */
   readonly guidance_tiles?: Maybe<Scalars['Boolean']['output']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
   readonly guidance_type?: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['bigint']['output'];
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
   readonly map_type?: Maybe<Scalars['String']['output']>;
   readonly netex_id?: Maybe<Scalars['String']['output']>;
-  /** Suojatien luiskaus */
   readonly pedestrian_crossing_ramp_type?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkialueen varoitusalue */
   readonly platform_edge_warning_area?: Maybe<Scalars['Boolean']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen raidoitus */
   readonly service_area_stripes?: Maybe<Scalars['Boolean']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
   readonly shelter_type?: Maybe<Scalars['String']['output']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
   readonly sidewalk_accessible_connection?: Maybe<Scalars['Boolean']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
   readonly stop_area_surroundings_accessible?: Maybe<Scalars['Boolean']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
   readonly stop_type?: Maybe<Scalars['String']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
   readonly version: Scalars['bigint']['output'];
@@ -25673,30 +24881,18 @@ export type StopsDatabaseHslAccessibilityPropertiesAggregateFieldsCountArgs = {
 /** aggregate avg on columns */
 export type StopsDatabaseHslAccessibilityPropertiesAvgFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_avg_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -25752,91 +24948,54 @@ export enum StopsDatabaseHslAccessibilityPropertiesConstraint {
 
 /** input type for incrementing numeric columns in table "hsl_accessibility_properties" */
 export type StopsDatabaseHslAccessibilityPropertiesIncInput = {
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "hsl_accessibility_properties" */
 export type StopsDatabaseHslAccessibilityPropertiesInsertInput = {
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
   readonly accessibility_level?: InputMaybe<Scalars['String']['input']>;
   readonly changed?: InputMaybe<Scalars['timestamp']['input']>;
   readonly changed_by?: InputMaybe<Scalars['String']['input']>;
   readonly created?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kaareva pysäkki */
   readonly curved_stop?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
   readonly from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Opasteraita */
   readonly guidance_stripe?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opaslaatat */
   readonly guidance_tiles?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
   readonly guidance_type?: InputMaybe<Scalars['String']['input']>;
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
   readonly map_type?: InputMaybe<Scalars['String']['input']>;
   readonly netex_id?: InputMaybe<Scalars['String']['input']>;
-  /** Suojatien luiskaus */
   readonly pedestrian_crossing_ramp_type?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkialueen varoitusalue */
   readonly platform_edge_warning_area?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen raidoitus */
   readonly service_area_stripes?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
   readonly shelter_type?: InputMaybe<Scalars['String']['input']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
   readonly sidewalk_accessible_connection?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
   readonly stop_area_surroundings_accessible?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
   readonly stop_type?: InputMaybe<Scalars['String']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
@@ -25846,47 +25005,29 @@ export type StopsDatabaseHslAccessibilityPropertiesInsertInput = {
 /** aggregate max on columns */
 export type StopsDatabaseHslAccessibilityPropertiesMaxFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_max_fields';
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
   readonly accessibility_level?: Maybe<Scalars['String']['output']>;
   readonly changed?: Maybe<Scalars['timestamp']['output']>;
   readonly changed_by?: Maybe<Scalars['String']['output']>;
   readonly created?: Maybe<Scalars['timestamp']['output']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
   readonly from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
   readonly guidance_type?: Maybe<Scalars['String']['output']>;
   readonly id?: Maybe<Scalars['bigint']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
   readonly map_type?: Maybe<Scalars['String']['output']>;
   readonly netex_id?: Maybe<Scalars['String']['output']>;
-  /** Suojatien luiskaus */
   readonly pedestrian_crossing_ramp_type?: Maybe<Scalars['String']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
   readonly shelter_type?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
   readonly stop_type?: Maybe<Scalars['String']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
   readonly version?: Maybe<Scalars['bigint']['output']>;
@@ -25896,47 +25037,29 @@ export type StopsDatabaseHslAccessibilityPropertiesMaxFields = {
 /** aggregate min on columns */
 export type StopsDatabaseHslAccessibilityPropertiesMinFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_min_fields';
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
   readonly accessibility_level?: Maybe<Scalars['String']['output']>;
   readonly changed?: Maybe<Scalars['timestamp']['output']>;
   readonly changed_by?: Maybe<Scalars['String']['output']>;
   readonly created?: Maybe<Scalars['timestamp']['output']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
   readonly from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
   readonly guidance_type?: Maybe<Scalars['String']['output']>;
   readonly id?: Maybe<Scalars['bigint']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
   readonly map_type?: Maybe<Scalars['String']['output']>;
   readonly netex_id?: Maybe<Scalars['String']['output']>;
-  /** Suojatien luiskaus */
   readonly pedestrian_crossing_ramp_type?: Maybe<Scalars['String']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
   readonly shelter_type?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
   readonly stop_type?: Maybe<Scalars['String']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
   readonly version?: Maybe<Scalars['bigint']['output']>;
@@ -26076,61 +25199,36 @@ export enum StopsDatabaseHslAccessibilityPropertiesSelectColumn {
 
 /** input type for updating data in table "hsl_accessibility_properties" */
 export type StopsDatabaseHslAccessibilityPropertiesSetInput = {
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
   readonly accessibility_level?: InputMaybe<Scalars['String']['input']>;
   readonly changed?: InputMaybe<Scalars['timestamp']['input']>;
   readonly changed_by?: InputMaybe<Scalars['String']['input']>;
   readonly created?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kaareva pysäkki */
   readonly curved_stop?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
   readonly from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Opasteraita */
   readonly guidance_stripe?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opaslaatat */
   readonly guidance_tiles?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
   readonly guidance_type?: InputMaybe<Scalars['String']['input']>;
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
   readonly map_type?: InputMaybe<Scalars['String']['input']>;
   readonly netex_id?: InputMaybe<Scalars['String']['input']>;
-  /** Suojatien luiskaus */
   readonly pedestrian_crossing_ramp_type?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkialueen varoitusalue */
   readonly platform_edge_warning_area?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen raidoitus */
   readonly service_area_stripes?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
   readonly shelter_type?: InputMaybe<Scalars['String']['input']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
   readonly sidewalk_accessible_connection?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
   readonly stop_area_surroundings_accessible?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
   readonly stop_type?: InputMaybe<Scalars['String']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
@@ -26140,30 +25238,18 @@ export type StopsDatabaseHslAccessibilityPropertiesSetInput = {
 /** aggregate stddev on columns */
 export type StopsDatabaseHslAccessibilityPropertiesStddevFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_stddev_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -26171,30 +25257,18 @@ export type StopsDatabaseHslAccessibilityPropertiesStddevFields = {
 /** aggregate stddev_pop on columns */
 export type StopsDatabaseHslAccessibilityPropertiesStddevPopFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_stddev_pop_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -26202,30 +25276,18 @@ export type StopsDatabaseHslAccessibilityPropertiesStddevPopFields = {
 /** aggregate stddev_samp on columns */
 export type StopsDatabaseHslAccessibilityPropertiesStddevSampFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_stddev_samp_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -26240,61 +25302,36 @@ export type StopsDatabaseHslAccessibilityPropertiesStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type StopsDatabaseHslAccessibilityPropertiesStreamCursorValueInput = {
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
   readonly accessibility_level?: InputMaybe<Scalars['String']['input']>;
   readonly changed?: InputMaybe<Scalars['timestamp']['input']>;
   readonly changed_by?: InputMaybe<Scalars['String']['input']>;
   readonly created?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kaareva pysäkki */
   readonly curved_stop?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
   readonly from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Opasteraita */
   readonly guidance_stripe?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opaslaatat */
   readonly guidance_tiles?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
   readonly guidance_type?: InputMaybe<Scalars['String']['input']>;
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
   readonly map_type?: InputMaybe<Scalars['String']['input']>;
   readonly netex_id?: InputMaybe<Scalars['String']['input']>;
-  /** Suojatien luiskaus */
   readonly pedestrian_crossing_ramp_type?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkialueen varoitusalue */
   readonly platform_edge_warning_area?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen raidoitus */
   readonly service_area_stripes?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
   readonly shelter_type?: InputMaybe<Scalars['String']['input']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
   readonly sidewalk_accessible_connection?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
   readonly stop_area_surroundings_accessible?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
   readonly stop_type?: InputMaybe<Scalars['String']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
@@ -26304,30 +25341,18 @@ export type StopsDatabaseHslAccessibilityPropertiesStreamCursorValueInput = {
 /** aggregate sum on columns */
 export type StopsDatabaseHslAccessibilityPropertiesSumFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_sum_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
   readonly id?: Maybe<Scalars['bigint']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
   readonly version?: Maybe<Scalars['bigint']['output']>;
 };
@@ -26416,30 +25441,18 @@ export type StopsDatabaseHslAccessibilityPropertiesUpdates = {
 /** aggregate var_pop on columns */
 export type StopsDatabaseHslAccessibilityPropertiesVarPopFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_var_pop_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -26447,30 +25460,18 @@ export type StopsDatabaseHslAccessibilityPropertiesVarPopFields = {
 /** aggregate var_samp on columns */
 export type StopsDatabaseHslAccessibilityPropertiesVarSampFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_var_samp_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -26478,30 +25479,18 @@ export type StopsDatabaseHslAccessibilityPropertiesVarSampFields = {
 /** aggregate variance on columns */
 export type StopsDatabaseHslAccessibilityPropertiesVarianceFields = {
   readonly __typename?: 'stops_database_hsl_accessibility_properties_variance_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
   readonly curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
   readonly curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
   readonly end_ramp_slope?: Maybe<Scalars['Float']['output']>;
   readonly id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
   readonly lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
   readonly service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
   readonly service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
   readonly shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
   readonly stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
   readonly stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
   readonly stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
   readonly stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
   readonly structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
 };
@@ -28131,7 +27120,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   readonly __typename?: 'stops_database_installed_equipment_version_structure';
   readonly air_conditioned?: Maybe<Scalars['Boolean']['output']>;
   readonly audio_interface_available?: Maybe<Scalars['Boolean']['output']>;
-  /** Pyöräpysäköinti */
   readonly bicycle_parking?: Maybe<Scalars['Boolean']['output']>;
   readonly brand_graphic?: Maybe<Scalars['String']['output']>;
   readonly changed?: Maybe<Scalars['timestamp']['output']>;
@@ -28154,7 +27142,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   readonly installed_equipment_version_structure_installed_equipments: ReadonlyArray<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipment>;
   /** An aggregate relationship */
   readonly installed_equipment_version_structure_installed_equipments_aggregate: StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentAggregate;
-  /** Nojailutanko */
   readonly leaning_rail?: Maybe<Scalars['Boolean']['output']>;
   readonly length?: Maybe<Scalars['numeric']['output']>;
   readonly line_signage?: Maybe<Scalars['Boolean']['output']>;
@@ -28169,27 +27156,18 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   readonly number_of_spaces?: Maybe<Scalars['numeric']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['numeric']['output']>;
   readonly out_of_service?: Maybe<Scalars['Boolean']['output']>;
-  /** Ulkopenkki */
   readonly outside_bench?: Maybe<Scalars['Boolean']['output']>;
   readonly private_code_type?: Maybe<Scalars['String']['output']>;
   readonly private_code_value?: Maybe<Scalars['String']['output']>;
   readonly replaces_rail_sign?: Maybe<Scalars['Boolean']['output']>;
   readonly seats?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
   readonly shelter_condition?: Maybe<Scalars['String']['output']>;
-  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
   readonly shelter_electricity?: Maybe<Scalars['String']['output']>;
-  /** Extrernal shelter id */
   readonly shelter_external_id?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkikatoksen otsalaudan teippaus */
   readonly shelter_fascia_board_taping?: Maybe<Scalars['Boolean']['output']>;
-  /** Katoksesssa näyttö */
   readonly shelter_has_display?: Maybe<Scalars['Boolean']['output']>;
-  /** Katoksessa valot */
   readonly shelter_lighting?: Maybe<Scalars['Boolean']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Int']['output']>;
-  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
   readonly shelter_type?: Maybe<Scalars['String']['output']>;
   readonly sign_content_type?: Maybe<Scalars['String']['output']>;
   readonly sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -28199,10 +27177,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   readonly ticket_counter?: Maybe<Scalars['Boolean']['output']>;
   readonly ticket_machines?: Maybe<Scalars['Boolean']['output']>;
   readonly ticket_office?: Maybe<Scalars['Boolean']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Int']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Katoksessa roska-astia */
   readonly trash_can?: Maybe<Scalars['Boolean']['output']>;
   readonly version: Scalars['bigint']['output'];
   readonly version_comment?: Maybe<Scalars['String']['output']>;
@@ -28277,9 +27253,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureAvgFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -28382,9 +27356,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureIncInput = {
   readonly number_of_spaces?: InputMaybe<Scalars['numeric']['input']>;
   readonly number_of_toilets?: InputMaybe<Scalars['numeric']['input']>;
   readonly seats?: InputMaybe<Scalars['numeric']['input']>;
-  /** Internal shelter number */
   readonly shelter_number?: InputMaybe<Scalars['Int']['input']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: InputMaybe<Scalars['Int']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
   readonly wheelchair_area_length?: InputMaybe<Scalars['numeric']['input']>;
@@ -28396,7 +27368,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructureIncInput = {
 export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   readonly air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
   readonly audio_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pyöräpysäköinti */
   readonly bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
   readonly brand_graphic?: InputMaybe<Scalars['String']['input']>;
   readonly changed?: InputMaybe<Scalars['timestamp']['input']>;
@@ -28416,7 +27387,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
   readonly induction_loops?: InputMaybe<Scalars['Boolean']['input']>;
   readonly installed_equipment_version_structure_installed_equipments?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentArrRelInsertInput>;
-  /** Nojailutanko */
   readonly leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
   readonly length?: InputMaybe<Scalars['numeric']['input']>;
   readonly line_signage?: InputMaybe<Scalars['Boolean']['input']>;
@@ -28431,27 +27401,18 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   readonly number_of_spaces?: InputMaybe<Scalars['numeric']['input']>;
   readonly number_of_toilets?: InputMaybe<Scalars['numeric']['input']>;
   readonly out_of_service?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Ulkopenkki */
   readonly outside_bench?: InputMaybe<Scalars['Boolean']['input']>;
   readonly private_code_type?: InputMaybe<Scalars['String']['input']>;
   readonly private_code_value?: InputMaybe<Scalars['String']['input']>;
   readonly replaces_rail_sign?: InputMaybe<Scalars['Boolean']['input']>;
   readonly seats?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
   readonly shelter_condition?: InputMaybe<Scalars['String']['input']>;
-  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
   readonly shelter_electricity?: InputMaybe<Scalars['String']['input']>;
-  /** Extrernal shelter id */
   readonly shelter_external_id?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkikatoksen otsalaudan teippaus */
   readonly shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Katoksesssa näyttö */
   readonly shelter_has_display?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Katoksessa valot */
   readonly shelter_lighting?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Internal shelter number */
   readonly shelter_number?: InputMaybe<Scalars['Int']['input']>;
-  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
   readonly shelter_type?: InputMaybe<Scalars['String']['input']>;
   readonly sign_content_type?: InputMaybe<Scalars['String']['input']>;
   readonly sign_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -28461,10 +27422,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   readonly ticket_counter?: InputMaybe<Scalars['Boolean']['input']>;
   readonly ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
   readonly ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: InputMaybe<Scalars['Int']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Katoksessa roska-astia */
   readonly trash_can?: InputMaybe<Scalars['Boolean']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
@@ -28795,19 +27754,13 @@ export type StopsDatabaseInstalledEquipmentVersionStructureMaxFields = {
   readonly private_code_type?: Maybe<Scalars['String']['output']>;
   readonly private_code_value?: Maybe<Scalars['String']['output']>;
   readonly seats?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
   readonly shelter_condition?: Maybe<Scalars['String']['output']>;
-  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
   readonly shelter_electricity?: Maybe<Scalars['String']['output']>;
-  /** Extrernal shelter id */
   readonly shelter_external_id?: Maybe<Scalars['String']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Int']['output']>;
-  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
   readonly shelter_type?: Maybe<Scalars['String']['output']>;
   readonly sign_content_type?: Maybe<Scalars['String']['output']>;
   readonly sign_graphic?: Maybe<Scalars['String']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Int']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
   readonly version?: Maybe<Scalars['bigint']['output']>;
@@ -28844,19 +27797,13 @@ export type StopsDatabaseInstalledEquipmentVersionStructureMinFields = {
   readonly private_code_type?: Maybe<Scalars['String']['output']>;
   readonly private_code_value?: Maybe<Scalars['String']['output']>;
   readonly seats?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
   readonly shelter_condition?: Maybe<Scalars['String']['output']>;
-  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
   readonly shelter_electricity?: Maybe<Scalars['String']['output']>;
-  /** Extrernal shelter id */
   readonly shelter_external_id?: Maybe<Scalars['String']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Int']['output']>;
-  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
   readonly shelter_type?: Maybe<Scalars['String']['output']>;
   readonly sign_content_type?: Maybe<Scalars['String']['output']>;
   readonly sign_graphic?: Maybe<Scalars['String']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Int']['output']>;
   readonly to_date?: Maybe<Scalars['timestamp']['output']>;
   readonly version?: Maybe<Scalars['bigint']['output']>;
@@ -29102,7 +28049,6 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
 export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   readonly air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
   readonly audio_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pyöräpysäköinti */
   readonly bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
   readonly brand_graphic?: InputMaybe<Scalars['String']['input']>;
   readonly changed?: InputMaybe<Scalars['timestamp']['input']>;
@@ -29121,7 +28067,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   readonly height_from_floor?: InputMaybe<Scalars['numeric']['input']>;
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
   readonly induction_loops?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Nojailutanko */
   readonly leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
   readonly length?: InputMaybe<Scalars['numeric']['input']>;
   readonly line_signage?: InputMaybe<Scalars['Boolean']['input']>;
@@ -29136,27 +28081,18 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   readonly number_of_spaces?: InputMaybe<Scalars['numeric']['input']>;
   readonly number_of_toilets?: InputMaybe<Scalars['numeric']['input']>;
   readonly out_of_service?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Ulkopenkki */
   readonly outside_bench?: InputMaybe<Scalars['Boolean']['input']>;
   readonly private_code_type?: InputMaybe<Scalars['String']['input']>;
   readonly private_code_value?: InputMaybe<Scalars['String']['input']>;
   readonly replaces_rail_sign?: InputMaybe<Scalars['Boolean']['input']>;
   readonly seats?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
   readonly shelter_condition?: InputMaybe<Scalars['String']['input']>;
-  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
   readonly shelter_electricity?: InputMaybe<Scalars['String']['input']>;
-  /** Extrernal shelter id */
   readonly shelter_external_id?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkikatoksen otsalaudan teippaus */
   readonly shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Katoksesssa näyttö */
   readonly shelter_has_display?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Katoksessa valot */
   readonly shelter_lighting?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Internal shelter number */
   readonly shelter_number?: InputMaybe<Scalars['Int']['input']>;
-  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
   readonly shelter_type?: InputMaybe<Scalars['String']['input']>;
   readonly sign_content_type?: InputMaybe<Scalars['String']['input']>;
   readonly sign_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -29166,10 +28102,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   readonly ticket_counter?: InputMaybe<Scalars['Boolean']['input']>;
   readonly ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
   readonly ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: InputMaybe<Scalars['Int']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Katoksessa roska-astia */
   readonly trash_can?: InputMaybe<Scalars['Boolean']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
@@ -29194,9 +28128,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStddevFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -29218,9 +28150,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStddevPopFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -29242,9 +28172,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStddevSampFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -29264,7 +28192,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorInput = {
 export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInput = {
   readonly air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
   readonly audio_interface_available?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pyöräpysäköinti */
   readonly bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
   readonly brand_graphic?: InputMaybe<Scalars['String']['input']>;
   readonly changed?: InputMaybe<Scalars['timestamp']['input']>;
@@ -29283,7 +28210,6 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
   readonly height_from_floor?: InputMaybe<Scalars['numeric']['input']>;
   readonly id?: InputMaybe<Scalars['bigint']['input']>;
   readonly induction_loops?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Nojailutanko */
   readonly leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
   readonly length?: InputMaybe<Scalars['numeric']['input']>;
   readonly line_signage?: InputMaybe<Scalars['Boolean']['input']>;
@@ -29298,27 +28224,18 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
   readonly number_of_spaces?: InputMaybe<Scalars['numeric']['input']>;
   readonly number_of_toilets?: InputMaybe<Scalars['numeric']['input']>;
   readonly out_of_service?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Ulkopenkki */
   readonly outside_bench?: InputMaybe<Scalars['Boolean']['input']>;
   readonly private_code_type?: InputMaybe<Scalars['String']['input']>;
   readonly private_code_value?: InputMaybe<Scalars['String']['input']>;
   readonly replaces_rail_sign?: InputMaybe<Scalars['Boolean']['input']>;
   readonly seats?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
   readonly shelter_condition?: InputMaybe<Scalars['String']['input']>;
-  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
   readonly shelter_electricity?: InputMaybe<Scalars['String']['input']>;
-  /** Extrernal shelter id */
   readonly shelter_external_id?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkikatoksen otsalaudan teippaus */
   readonly shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Katoksesssa näyttö */
   readonly shelter_has_display?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Katoksessa valot */
   readonly shelter_lighting?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Internal shelter number */
   readonly shelter_number?: InputMaybe<Scalars['Int']['input']>;
-  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
   readonly shelter_type?: InputMaybe<Scalars['String']['input']>;
   readonly sign_content_type?: InputMaybe<Scalars['String']['input']>;
   readonly sign_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -29328,10 +28245,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
   readonly ticket_counter?: InputMaybe<Scalars['Boolean']['input']>;
   readonly ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
   readonly ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: InputMaybe<Scalars['Int']['input']>;
   readonly to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Katoksessa roska-astia */
   readonly trash_can?: InputMaybe<Scalars['Boolean']['input']>;
   readonly version?: InputMaybe<Scalars['bigint']['input']>;
   readonly version_comment?: InputMaybe<Scalars['String']['input']>;
@@ -29356,9 +28271,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSumFields = {
   readonly number_of_spaces?: Maybe<Scalars['numeric']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['numeric']['output']>;
   readonly seats?: Maybe<Scalars['numeric']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Int']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Int']['output']>;
   readonly version?: Maybe<Scalars['bigint']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
@@ -29523,9 +28436,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureVarPopFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -29547,9 +28458,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureVarSampFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -29571,9 +28480,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureVarianceFields = {
   readonly number_of_spaces?: Maybe<Scalars['Float']['output']>;
   readonly number_of_toilets?: Maybe<Scalars['Float']['output']>;
   readonly seats?: Maybe<Scalars['Float']['output']>;
-  /** Internal shelter number */
   readonly shelter_number?: Maybe<Scalars['Float']['output']>;
-  /** Aikataulukaappien lukumäärä */
   readonly timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   readonly version?: Maybe<Scalars['Float']['output']>;
   readonly wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -62664,30 +61571,22 @@ export enum TimetablesCursorOrdering {
   Desc = 'DESC'
 }
 
-/** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRef = {
   readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref';
-  /** The ID of the referenced JOURNEY PATTERN */
   readonly journey_pattern_id: Scalars['uuid']['output'];
   readonly journey_pattern_instance?: Maybe<JourneyPatternJourneyPattern>;
   readonly journey_pattern_ref_id: Scalars['uuid']['output'];
-  /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   readonly observation_timestamp: Scalars['timestamptz']['output'];
-  /** The direction of the route associated with the referenced journey pattern */
   readonly route_direction: TimetablesRouteDirectionEnum;
-  /** The label of the route associated with the referenced journey pattern */
   readonly route_label: Scalars['String']['output'];
-  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
   readonly route_validity_end?: Maybe<Scalars['date']['output']>;
-  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
   readonly route_validity_start?: Maybe<Scalars['date']['output']>;
   /** An array relationship */
   readonly scheduled_stop_point_in_journey_pattern_refs: ReadonlyArray<TimetablesServicePatternScheduledStopPointInJourneyPatternRef>;
   /** An aggregate relationship */
   readonly scheduled_stop_point_in_journey_pattern_refs_aggregate: TimetablesServicePatternScheduledStopPointInJourneyPatternRefAggregate;
-  /** The timestamp when the snapshot was taken */
   readonly snapshot_timestamp: Scalars['timestamptz']['output'];
-  /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line: Scalars['String']['output'];
   /** An array relationship */
   readonly vehicle_journeys: ReadonlyArray<TimetablesVehicleJourneyVehicleJourney>;
@@ -62696,7 +61595,7 @@ export type TimetablesJourneyPatternJourneyPatternRef = {
 };
 
 
-/** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefScheduledStopPointInJourneyPatternRefsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -62706,7 +61605,7 @@ export type TimetablesJourneyPatternJourneyPatternRefScheduledStopPointInJourney
 };
 
 
-/** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefScheduledStopPointInJourneyPatternRefsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -62716,7 +61615,7 @@ export type TimetablesJourneyPatternJourneyPatternRefScheduledStopPointInJourney
 };
 
 
-/** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefVehicleJourneysArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleJourneyVehicleJourneySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -62726,7 +61625,7 @@ export type TimetablesJourneyPatternJourneyPatternRefVehicleJourneysArgs = {
 };
 
 
-/** Reference to a given snapshot of a JOURNEY PATTERN for a given operating day. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefVehicleJourneysAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleJourneyVehicleJourneySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -62785,23 +61684,15 @@ export enum TimetablesJourneyPatternJourneyPatternRefConstraint {
 
 /** input type for inserting data into table "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefInsertInput = {
-  /** The ID of the referenced JOURNEY PATTERN */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   readonly observation_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The direction of the route associated with the referenced journey pattern */
   readonly route_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
-  /** The label of the route associated with the referenced journey pattern */
   readonly route_label?: InputMaybe<Scalars['String']['input']>;
-  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
   readonly route_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
   readonly route_validity_start?: InputMaybe<Scalars['date']['input']>;
   readonly scheduled_stop_point_in_journey_pattern_refs?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelInsertInput>;
-  /** The timestamp when the snapshot was taken */
   readonly snapshot_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
 };
@@ -62809,40 +61700,26 @@ export type TimetablesJourneyPatternJourneyPatternRefInsertInput = {
 /** aggregate max on columns */
 export type TimetablesJourneyPatternJourneyPatternRefMaxFields = {
   readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref_max_fields';
-  /** The ID of the referenced JOURNEY PATTERN */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
   readonly journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
-  /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   readonly observation_timestamp?: Maybe<Scalars['timestamptz']['output']>;
-  /** The label of the route associated with the referenced journey pattern */
   readonly route_label?: Maybe<Scalars['String']['output']>;
-  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
   readonly route_validity_end?: Maybe<Scalars['date']['output']>;
-  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
   readonly route_validity_start?: Maybe<Scalars['date']['output']>;
-  /** The timestamp when the snapshot was taken */
   readonly snapshot_timestamp?: Maybe<Scalars['timestamptz']['output']>;
-  /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type TimetablesJourneyPatternJourneyPatternRefMinFields = {
   readonly __typename?: 'timetables_journey_pattern_journey_pattern_ref_min_fields';
-  /** The ID of the referenced JOURNEY PATTERN */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
   readonly journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
-  /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   readonly observation_timestamp?: Maybe<Scalars['timestamptz']['output']>;
-  /** The label of the route associated with the referenced journey pattern */
   readonly route_label?: Maybe<Scalars['String']['output']>;
-  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
   readonly route_validity_end?: Maybe<Scalars['date']['output']>;
-  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
   readonly route_validity_start?: Maybe<Scalars['date']['output']>;
-  /** The timestamp when the snapshot was taken */
   readonly snapshot_timestamp?: Maybe<Scalars['timestamptz']['output']>;
-  /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
@@ -62913,22 +61790,14 @@ export enum TimetablesJourneyPatternJourneyPatternRefSelectColumn {
 
 /** input type for updating data in table "journey_pattern.journey_pattern_ref" */
 export type TimetablesJourneyPatternJourneyPatternRefSetInput = {
-  /** The ID of the referenced JOURNEY PATTERN */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   readonly observation_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The direction of the route associated with the referenced journey pattern */
   readonly route_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
-  /** The label of the route associated with the referenced journey pattern */
   readonly route_label?: InputMaybe<Scalars['String']['input']>;
-  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
   readonly route_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
   readonly route_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** The timestamp when the snapshot was taken */
   readonly snapshot_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -62942,22 +61811,14 @@ export type TimetablesJourneyPatternJourneyPatternRefStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesJourneyPatternJourneyPatternRefStreamCursorValueInput = {
-  /** The ID of the referenced JOURNEY PATTERN */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The user-given point of time used to pick one journey pattern (with route and scheduled stop points) among possibly many variants. The selected, unambiguous journey pattern variant is used as a basis for schedule planning. */
   readonly observation_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The direction of the route associated with the referenced journey pattern */
   readonly route_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
-  /** The label of the route associated with the referenced journey pattern */
   readonly route_label?: InputMaybe<Scalars['String']['input']>;
-  /** The end date of the validity period of the route associated with the referenced journey pattern. If NULL, then the end of the validity period is unbounded (infinity). */
   readonly route_validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** The start date of the validity period of the route associated with the referenced journey pattern. If NULL, then the start of the validity period is unbounded (-infinity). */
   readonly route_validity_start?: InputMaybe<Scalars['date']['input']>;
-  /** The timestamp when the snapshot was taken */
   readonly snapshot_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The type of line (GTFS route type): https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -62990,23 +61851,18 @@ export type TimetablesJourneyPatternJourneyPatternRefUpdates = {
   readonly where: TimetablesJourneyPatternJourneyPatternRefBoolExp;
 };
 
-/** Long-term planned time data concerning public transport vehicles passing a particular POINT IN JOURNEY PATTERN on a specified VEHICLE JOURNEY for a certain DAY TYPE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:4:946  */
+/** columns and relationships of "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTime = {
   readonly __typename?: 'timetables_passing_times_timetabled_passing_time';
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   readonly arrival_time?: Maybe<Scalars['interval']['output']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
   readonly departure_time?: Maybe<Scalars['interval']['output']>;
-  /** The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL. */
   readonly passing_time: Scalars['interval']['output'];
   /** An object relationship */
   readonly scheduled_stop_point_in_journey_pattern_ref: TimetablesServicePatternScheduledStopPointInJourneyPatternRef;
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id: Scalars['uuid']['output'];
   readonly timetabled_passing_time_id: Scalars['uuid']['output'];
   /** An object relationship */
   readonly vehicle_journey: TimetablesVehicleJourneyVehicleJourney;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id: Scalars['uuid']['output'];
 };
 
@@ -63071,54 +61927,42 @@ export enum TimetablesPassingTimesTimetabledPassingTimeConstraint {
 
 /** input type for inserting data into table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeInsertInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   readonly arrival_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
   readonly departure_time?: InputMaybe<Scalars['interval']['input']>;
   readonly scheduled_stop_point_in_journey_pattern_ref?: InputMaybe<TimetablesServicePatternScheduledStopPointInJourneyPatternRefObjRelInsertInput>;
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly timetabled_passing_time_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicle_journey?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyObjRelInsertInput>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type TimetablesPassingTimesTimetabledPassingTimeMaxFields = {
   readonly __typename?: 'timetables_passing_times_timetabled_passing_time_max_fields';
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
   readonly timetabled_passing_time_id?: Maybe<Scalars['uuid']['output']>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeMaxOrderBy = {
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
   readonly timetabled_passing_time_id?: InputMaybe<OrderBy>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type TimetablesPassingTimesTimetabledPassingTimeMinFields = {
   readonly __typename?: 'timetables_passing_times_timetabled_passing_time_min_fields';
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
   readonly timetabled_passing_time_id?: Maybe<Scalars['uuid']['output']>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeMinOrderBy = {
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
   readonly timetabled_passing_time_id?: InputMaybe<OrderBy>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: InputMaybe<OrderBy>;
 };
 
@@ -63173,14 +62017,10 @@ export enum TimetablesPassingTimesTimetabledPassingTimeSelectColumn {
 
 /** input type for updating data in table "passing_times.timetabled_passing_time" */
 export type TimetablesPassingTimesTimetabledPassingTimeSetInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   readonly arrival_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
   readonly departure_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly timetabled_passing_time_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -63194,16 +62034,11 @@ export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesPassingTimesTimetabledPassingTimeStreamCursorValueInput = {
-  /** The time when the vehicle arrives to the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the departure time is defined for the passing time. E.g. in case this is the first SCHEDULED STOP POINT of the journey. */
   readonly arrival_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The time when the vehicle departs from the SCHEDULED STOP POINT. Measured as interval counted from the midnight of the OPERATING DAY. When NULL, only the arrival time is defined for the passing time. E.g. in case this is the last SCHEDULED STOP POINT of the journey. */
   readonly departure_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The time when the vehicle can be considered as passing a SCHEDULED STOP POINT. Computed field to ease development; it can never be NULL. */
   readonly passing_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The SCHEDULED STOP POINT of the JOURNEY PATTERN where the vehicle passes */
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly timetabled_passing_time_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The VEHICLE JOURNEY to which this TIMETABLED PASSING TIME belongs */
   readonly vehicle_journey_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -63228,22 +62063,7 @@ export type TimetablesPassingTimesTimetabledPassingTimeUpdates = {
   readonly where: TimetablesPassingTimesTimetabledPassingTimeBoolExp;
 };
 
-/**
- * This return value is used for functions that determine what timetable versions are in effect. In effect will be true for all the timetable version rows that
- * are valid on given observation day and are the highest priority of that day type. As an example if we have:
- * Saturday Standard priority valid for 1.1.2023 - 30.6.2023
- * Saturday Temporary priority valid for 1.5.2023 - 31.5.2023
- * Saturday Special priority valid for 20.5.2023 - 20.5.2023
- *
- * If we check the timetable versions for the date 1.2.2023, for Saturday we only get the Standard priority, beacuse it is the only one valid on that time. So that
- * row would have in_effect = true.
- * If we check the timetable versions for the date 1.5.2023, for Saturday we would get the Standard and the Temporary priority for this date, as they are both valid.
- * But only the higher priority is in effect on this date. So the Saturday Temporary priority would have in_effect = true, and the Saturday Standard priority would
- * have in_effect = false.
- * If we check the timetable versions for the date 20.5.2023, for Saturday we have all three valid, but only one can be in_effect, and that would be the Special
- * priority in this case.
- *
- */
+/** columns and relationships of "return_value.timetable_version" */
 export type TimetablesReturnValueTimetableVersion = {
   readonly __typename?: 'timetables_return_value_timetable_version';
   /** An object relationship */
@@ -63477,10 +62297,7 @@ export type TimetablesReturnValueTimetableVersionVarianceFields = {
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
-/**
- * This return value table is used in function vehicle_journey.get_vehicle_schedules_on_date. It consists of vehicle_journey_id, vehicle_schedule_frame_id or
- * substitute_operating_day_by_line_type_id and also enriched with data, which are used in the UI side.
- */
+/** columns and relationships of "return_value.vehicle_schedule" */
 export type TimetablesReturnValueVehicleSchedule = {
   readonly __typename?: 'timetables_return_value_vehicle_schedule';
   readonly created_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -63721,12 +62538,10 @@ export type TimetablesReturnValueVehicleScheduleVarianceFields = {
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
-/** The route directions from Transmodel */
+/** columns and relationships of "route.direction" */
 export type TimetablesRouteDirection = {
   readonly __typename?: 'timetables_route_direction';
-  /** The name of the route direction */
   readonly direction: Scalars['String']['output'];
-  /** The opposite direction */
   readonly the_opposite_of_direction?: Maybe<TimetablesRouteDirectionEnum>;
 };
 
@@ -63797,23 +62612,19 @@ export type TimetablesRouteDirectionEnumComparisonExp = {
 
 /** input type for inserting data into table "route.direction" */
 export type TimetablesRouteDirectionInsertInput = {
-  /** The name of the route direction */
   readonly direction?: InputMaybe<Scalars['String']['input']>;
-  /** The opposite direction */
   readonly the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
 };
 
 /** aggregate max on columns */
 export type TimetablesRouteDirectionMaxFields = {
   readonly __typename?: 'timetables_route_direction_max_fields';
-  /** The name of the route direction */
   readonly direction?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type TimetablesRouteDirectionMinFields = {
   readonly __typename?: 'timetables_route_direction_min_fields';
-  /** The name of the route direction */
   readonly direction?: Maybe<Scalars['String']['output']>;
 };
 
@@ -63841,7 +62652,6 @@ export type TimetablesRouteDirectionOrderBy = {
 
 /** primary key columns input for table: route.direction */
 export type TimetablesRouteDirectionPkColumnsInput = {
-  /** The name of the route direction */
   readonly direction: Scalars['String']['input'];
 };
 
@@ -63855,9 +62665,7 @@ export enum TimetablesRouteDirectionSelectColumn {
 
 /** input type for updating data in table "route.direction" */
 export type TimetablesRouteDirectionSetInput = {
-  /** The name of the route direction */
   readonly direction?: InputMaybe<Scalars['String']['input']>;
-  /** The opposite direction */
   readonly the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
 };
 
@@ -63871,9 +62679,7 @@ export type TimetablesRouteDirectionStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesRouteDirectionStreamCursorValueInput = {
-  /** The name of the route direction */
   readonly direction?: InputMaybe<Scalars['String']['input']>;
-  /** The opposite direction */
   readonly the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnum>;
 };
 
@@ -63892,10 +62698,9 @@ export type TimetablesRouteDirectionUpdates = {
   readonly where: TimetablesRouteDirectionBoolExp;
 };
 
-/** Type of line. https://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:424 */
+/** columns and relationships of "route.type_of_line" */
 export type TimetablesRouteTypeOfLine = {
   readonly __typename?: 'timetables_route_type_of_line';
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line: Scalars['String']['output'];
 };
 
@@ -63937,21 +62742,18 @@ export enum TimetablesRouteTypeOfLineConstraint {
 
 /** input type for inserting data into table "route.type_of_line" */
 export type TimetablesRouteTypeOfLineInsertInput = {
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type TimetablesRouteTypeOfLineMaxFields = {
   readonly __typename?: 'timetables_route_type_of_line_max_fields';
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type TimetablesRouteTypeOfLineMinFields = {
   readonly __typename?: 'timetables_route_type_of_line_min_fields';
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
@@ -63978,7 +62780,6 @@ export type TimetablesRouteTypeOfLineOrderBy = {
 
 /** primary key columns input for table: route.type_of_line */
 export type TimetablesRouteTypeOfLinePkColumnsInput = {
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line: Scalars['String']['input'];
 };
 
@@ -63990,7 +62791,6 @@ export enum TimetablesRouteTypeOfLineSelectColumn {
 
 /** input type for updating data in table "route.type_of_line" */
 export type TimetablesRouteTypeOfLineSetInput = {
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -64004,7 +62804,6 @@ export type TimetablesRouteTypeOfLineStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesRouteTypeOfLineStreamCursorValueInput = {
-  /** GTFS route type: https://developers.google.com/transit/gtfs/reference/extended-route-types */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -64021,7 +62820,7 @@ export type TimetablesRouteTypeOfLineUpdates = {
   readonly where: TimetablesRouteTypeOfLineBoolExp;
 };
 
-/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+/** columns and relationships of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayType = {
   readonly __typename?: 'timetables_service_calendar_day_type';
   /** An array relationship */
@@ -64029,9 +62828,7 @@ export type TimetablesServiceCalendarDayType = {
   /** An aggregate relationship */
   readonly active_on_days_of_week_aggregate: TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAggregate;
   readonly day_type_id: Scalars['uuid']['output'];
-  /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   readonly label: Scalars['String']['output'];
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n: Scalars['jsonb']['output'];
   /** An array relationship */
   readonly vehicle_services: ReadonlyArray<TimetablesVehicleServiceVehicleService>;
@@ -64040,7 +62837,7 @@ export type TimetablesServiceCalendarDayType = {
 };
 
 
-/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+/** columns and relationships of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -64050,7 +62847,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekArgs = {
 };
 
 
-/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+/** columns and relationships of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -64060,13 +62857,13 @@ export type TimetablesServiceCalendarDayTypeActiveOnDaysOfWeekAggregateArgs = {
 };
 
 
-/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+/** columns and relationships of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+/** columns and relationships of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeVehicleServicesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -64076,7 +62873,7 @@ export type TimetablesServiceCalendarDayTypeVehicleServicesArgs = {
 };
 
 
-/** A type of day characterised by one or more properties which affect public transport operation. For example: weekday in school holidays. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=1:6:3:299  */
+/** columns and relationships of "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeVehicleServicesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -64085,14 +62882,12 @@ export type TimetablesServiceCalendarDayTypeVehicleServicesAggregateArgs = {
   where?: InputMaybe<TimetablesVehicleServiceVehicleServiceBoolExp>;
 };
 
-/** Tells on which days of week a particular DAY TYPE is active */
+/** columns and relationships of "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeek = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week: Scalars['Int']['output'];
   /** An object relationship */
   readonly day_type: TimetablesServiceCalendarDayType;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id: Scalars['uuid']['output'];
 };
 
@@ -64151,13 +62946,11 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput =
 /** aggregate avg on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_avg_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekAvgOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -64179,50 +62972,39 @@ export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekConstraint {
 
 /** input type for incrementing numeric columns in table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekIncInput = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekInsertInput = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<Scalars['Int']['input']>;
   readonly day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_max_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Int']['output']>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMaxOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_min_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Int']['output']>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekMinOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: InputMaybe<OrderBy>;
 };
 
@@ -64251,9 +63033,7 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekOrderBy = {
 
 /** primary key columns input for table: service_calendar.day_type_active_on_day_of_week */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekPkColumnsInput = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week: Scalars['Int']['input'];
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id: Scalars['uuid']['input'];
 };
 
@@ -64267,48 +63047,40 @@ export enum TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSelectColumn {
 
 /** input type for updating data in table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSetInput = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<Scalars['Int']['input']>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_stddev_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_stddev_pop_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevPopOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_stddev_samp_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStddevSampOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -64322,22 +63094,18 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorInput =
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekStreamCursorValueInput = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<Scalars['Int']['input']>;
-  /** The DAY TYPE for which we define the activeness */
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate sum on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_sum_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekSumOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -64361,39 +63129,33 @@ export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekUpdates = {
 /** aggregate var_pop on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_var_pop_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarPopOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_var_samp_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarSampOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_active_on_day_of_week_variance_fields';
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "service_calendar.day_type_active_on_day_of_week" */
 export type TimetablesServiceCalendarDayTypeActiveOnDayOfWeekVarianceOrderBy = {
-  /** ISO week day definition (1 = Monday, 7 = Sunday) */
   readonly day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -64421,7 +63183,6 @@ export type TimetablesServiceCalendarDayTypeAggregateFieldsCountArgs = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesServiceCalendarDayTypeAppendInput = {
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -64449,19 +63210,16 @@ export enum TimetablesServiceCalendarDayTypeConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesServiceCalendarDayTypeDeleteAtPathInput = {
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesServiceCalendarDayTypeDeleteElemInput = {
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesServiceCalendarDayTypeDeleteKeyInput = {
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -64469,9 +63227,7 @@ export type TimetablesServiceCalendarDayTypeDeleteKeyInput = {
 export type TimetablesServiceCalendarDayTypeInsertInput = {
   readonly active_on_days_of_week?: InputMaybe<TimetablesServiceCalendarDayTypeActiveOnDayOfWeekArrRelInsertInput>;
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
 };
@@ -64480,7 +63236,6 @@ export type TimetablesServiceCalendarDayTypeInsertInput = {
 export type TimetablesServiceCalendarDayTypeMaxFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_max_fields';
   readonly day_type_id?: Maybe<Scalars['uuid']['output']>;
-  /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   readonly label?: Maybe<Scalars['String']['output']>;
 };
 
@@ -64488,7 +63243,6 @@ export type TimetablesServiceCalendarDayTypeMaxFields = {
 export type TimetablesServiceCalendarDayTypeMinFields = {
   readonly __typename?: 'timetables_service_calendar_day_type_min_fields';
   readonly day_type_id?: Maybe<Scalars['uuid']['output']>;
-  /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   readonly label?: Maybe<Scalars['String']['output']>;
 };
 
@@ -64531,7 +63285,6 @@ export type TimetablesServiceCalendarDayTypePkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesServiceCalendarDayTypePrependInput = {
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -64548,9 +63301,7 @@ export enum TimetablesServiceCalendarDayTypeSelectColumn {
 /** input type for updating data in table "service_calendar.day_type" */
 export type TimetablesServiceCalendarDayTypeSetInput = {
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -64565,9 +63316,7 @@ export type TimetablesServiceCalendarDayTypeStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServiceCalendarDayTypeStreamCursorValueInput = {
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The label for the DAY TYPE. Used for identifying the DAY TYPE when importing data from Hastus. Includes both basic (e.g. "Monday-Thursday") and special ("Easter Sunday") day types */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the DAY TYPE */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -64602,27 +63351,19 @@ export type TimetablesServiceCalendarGetActiveDayTypesForDateArgs = {
   readonly observation_date?: InputMaybe<Scalars['date']['input']>;
 };
 
-/** Models substitute public transit as (1) a reference day or (2) indicating that public transit does not occur on certain date. Substitute operating days are always bound to a type of line. */
+/** columns and relationships of "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineType = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
-  /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
   readonly begin_datetime: Scalars['timestamptz']['output'];
-  /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
   readonly begin_time?: Maybe<Scalars['interval']['output']>;
   readonly created_at: Scalars['timestamptz']['output'];
-  /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   readonly end_datetime: Scalars['timestamptz']['output'];
-  /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
   readonly end_time?: Maybe<Scalars['interval']['output']>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Int']['output']>;
   readonly substitute_operating_day_by_line_type_id: Scalars['uuid']['output'];
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id: Scalars['uuid']['output'];
-  /** The date of operating day being superseded. */
   readonly superseded_date: Scalars['date']['output'];
   readonly timezone: Scalars['String']['output'];
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line: Scalars['String']['output'];
 };
 
@@ -64681,13 +63422,11 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeArrRelInser
 /** aggregate avg on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeAvgFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_avg_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeAvgOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -64717,104 +63456,73 @@ export enum TimetablesServiceCalendarSubstituteOperatingDayByLineTypeConstraint 
 
 /** input type for incrementing numeric columns in table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeIncInput = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeInsertInput = {
-  /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
   readonly begin_time?: InputMaybe<Scalars['interval']['input']>;
   readonly created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
   readonly end_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<Scalars['Int']['input']>;
   readonly substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: InputMaybe<Scalars['date']['input']>;
   readonly timezone?: InputMaybe<Scalars['String']['input']>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMaxFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_max_fields';
-  /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
   readonly begin_datetime?: Maybe<Scalars['timestamptz']['output']>;
   readonly created_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   readonly end_datetime?: Maybe<Scalars['timestamptz']['output']>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Int']['output']>;
   readonly substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']['output']>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: Maybe<Scalars['uuid']['output']>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: Maybe<Scalars['date']['output']>;
   readonly timezone?: Maybe<Scalars['String']['output']>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMaxOrderBy = {
-  /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
   readonly begin_datetime?: InputMaybe<OrderBy>;
   readonly created_at?: InputMaybe<OrderBy>;
-  /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   readonly end_datetime?: InputMaybe<OrderBy>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
   readonly substitute_operating_day_by_line_type_id?: InputMaybe<OrderBy>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: InputMaybe<OrderBy>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: InputMaybe<OrderBy>;
   readonly timezone?: InputMaybe<OrderBy>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMinFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_min_fields';
-  /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
   readonly begin_datetime?: Maybe<Scalars['timestamptz']['output']>;
   readonly created_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   readonly end_datetime?: Maybe<Scalars['timestamptz']['output']>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Int']['output']>;
   readonly substitute_operating_day_by_line_type_id?: Maybe<Scalars['uuid']['output']>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: Maybe<Scalars['uuid']['output']>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: Maybe<Scalars['date']['output']>;
   readonly timezone?: Maybe<Scalars['String']['output']>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeMinOrderBy = {
-  /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
   readonly begin_datetime?: InputMaybe<OrderBy>;
   readonly created_at?: InputMaybe<OrderBy>;
-  /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   readonly end_datetime?: InputMaybe<OrderBy>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
   readonly substitute_operating_day_by_line_type_id?: InputMaybe<OrderBy>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: InputMaybe<OrderBy>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: InputMaybe<OrderBy>;
   readonly timezone?: InputMaybe<OrderBy>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: InputMaybe<OrderBy>;
 };
 
@@ -64889,59 +63597,47 @@ export enum TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSelectColum
 
 /** input type for updating data in table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSetInput = {
-  /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
   readonly begin_time?: InputMaybe<Scalars['interval']['input']>;
   readonly created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
   readonly end_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<Scalars['Int']['input']>;
   readonly substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: InputMaybe<Scalars['date']['input']>;
   readonly timezone?: InputMaybe<Scalars['String']['input']>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStddevFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_stddev_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStddevOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStddevPopFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_stddev_pop_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStddevPopOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStddevSampFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_stddev_samp_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStddevSampOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -64955,37 +63651,27 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStreamCurso
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeStreamCursorValueInput = {
-  /** Calculated timestamp for the instant from which the substituting public transit comes into effect. */
   readonly begin_datetime?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The time from which the substituting public transit comes into effect. If NULL, the substitution is in effect from the start of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys prior to this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys before this time are operated as usual. */
   readonly begin_time?: InputMaybe<Scalars['interval']['input']>;
   readonly created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** Calculated timestamp for the instant (exclusive) until which the substituting public transit is in effect. */
   readonly end_datetime?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** The time (exclusive) until which the substituting public transit is valid. If NULL, the substitution is in effect until the end of the operating day. When substitute_day_of_week is not NULL (reference day case), vehicle journeys starting from this time are not operated. When substitute_day_of_week is NULL (no traffic case), the vehicle journeys starting from this time are operated as usual. */
   readonly end_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<Scalars['Int']['input']>;
   readonly substitute_operating_day_by_line_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The id of the substitute operating period */
   readonly substitute_operating_period_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The date of operating day being superseded. */
   readonly superseded_date?: InputMaybe<Scalars['date']['input']>;
   readonly timezone?: InputMaybe<Scalars['String']['input']>;
-  /** The type of line this substitute operating day is bound to. */
   readonly type_of_line?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSumFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_sum_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSumOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
@@ -65023,48 +63709,40 @@ export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeUpdates = {
 /** aggregate var_pop on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeVarPopFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_var_pop_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeVarPopOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeVarSampFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_var_samp_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeVarSampOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeVarianceFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_variance_fields';
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "service_calendar.substitute_operating_day_by_line_type" */
 export type TimetablesServiceCalendarSubstituteOperatingDayByLineTypeVarianceOrderBy = {
-  /** The ISO day of week (1=Monday, ... , 7=Sunday) of the day type used as the basis for operating day substitution. A NULL value indicates that there is no public transit at all, i.e. no vehicle journeys are operated within the given time period. */
   readonly substitute_day_of_week?: InputMaybe<OrderBy>;
 };
 
-/** Models substitute operating period that consists of substitute operating days by line types. */
+/** columns and relationships of "service_calendar.substitute_operating_period" */
 export type TimetablesServiceCalendarSubstituteOperatingPeriod = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_period';
-  /** Flag indicating whether operating period is preset or not. Preset operating periods have restrictions on the UI */
   readonly is_preset: Scalars['Boolean']['output'];
-  /** Substitute operating period's name */
   readonly period_name: Scalars['String']['output'];
   /** An array relationship */
   readonly substitute_operating_day_by_line_types: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingDayByLineType>;
@@ -65074,7 +63752,7 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriod = {
 };
 
 
-/** Models substitute operating period that consists of substitute operating days by line types. */
+/** columns and relationships of "service_calendar.substitute_operating_period" */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodSubstituteOperatingDayByLineTypesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -65084,7 +63762,7 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodSubstituteOperatin
 };
 
 
-/** Models substitute operating period that consists of substitute operating days by line types. */
+/** columns and relationships of "service_calendar.substitute_operating_period" */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodSubstituteOperatingDayByLineTypesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -65137,9 +63815,7 @@ export enum TimetablesServiceCalendarSubstituteOperatingPeriodConstraint {
 
 /** input type for inserting data into table "service_calendar.substitute_operating_period" */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput = {
-  /** Flag indicating whether operating period is preset or not. Preset operating periods have restrictions on the UI */
   readonly is_preset?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Substitute operating period's name */
   readonly period_name?: InputMaybe<Scalars['String']['input']>;
   readonly substitute_operating_day_by_line_types?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingDayByLineTypeArrRelInsertInput>;
   readonly substitute_operating_period_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -65148,7 +63824,6 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput = {
 /** aggregate max on columns */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodMaxFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_period_max_fields';
-  /** Substitute operating period's name */
   readonly period_name?: Maybe<Scalars['String']['output']>;
   readonly substitute_operating_period_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -65156,7 +63831,6 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodMaxFields = {
 /** aggregate min on columns */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodMinFields = {
   readonly __typename?: 'timetables_service_calendar_substitute_operating_period_min_fields';
-  /** Substitute operating period's name */
   readonly period_name?: Maybe<Scalars['String']['output']>;
   readonly substitute_operating_period_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -65202,9 +63876,7 @@ export enum TimetablesServiceCalendarSubstituteOperatingPeriodSelectColumn {
 
 /** input type for updating data in table "service_calendar.substitute_operating_period" */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodSetInput = {
-  /** Flag indicating whether operating period is preset or not. Preset operating periods have restrictions on the UI */
   readonly is_preset?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Substitute operating period's name */
   readonly period_name?: InputMaybe<Scalars['String']['input']>;
   readonly substitute_operating_period_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -65219,9 +63891,7 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodStreamCursorInput 
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServiceCalendarSubstituteOperatingPeriodStreamCursorValueInput = {
-  /** Flag indicating whether operating period is preset or not. Preset operating periods have restrictions on the UI */
   readonly is_preset?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Substitute operating period's name */
   readonly period_name?: InputMaybe<Scalars['String']['input']>;
   readonly substitute_operating_period_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -65243,30 +63913,26 @@ export type TimetablesServiceCalendarSubstituteOperatingPeriodUpdates = {
   readonly where: TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp;
 };
 
-/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRef = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref';
   /** An object relationship */
   readonly journey_pattern_ref: TimetablesJourneyPatternJourneyPatternRef;
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id: Scalars['uuid']['output'];
   readonly scheduled_stop_point_in_journey_pattern_ref_id: Scalars['uuid']['output'];
   readonly scheduled_stop_point_instances: ReadonlyArray<ServicePatternScheduledStopPoint>;
   readonly scheduled_stop_point_instances_aggregate: ServicePatternScheduledStopPointAggregate;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label: Scalars['String']['output'];
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence: Scalars['Int']['output'];
   /** An array relationship */
   readonly timetabled_passing_times: ReadonlyArray<TimetablesPassingTimesTimetabledPassingTime>;
   /** An aggregate relationship */
   readonly timetabled_passing_times_aggregate: TimetablesPassingTimesTimetabledPassingTimeAggregate;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefScheduledStopPointInstancesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -65276,7 +63942,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSchedul
 };
 
 
-/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefScheduledStopPointInstancesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -65286,7 +63952,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSchedul
 };
 
 
-/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefTimetabledPassingTimesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -65296,7 +63962,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefTimetab
 };
 
 
-/** Reference the a SCHEDULED STOP POINT within a JOURNEY PATTERN. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:729  */
+/** columns and relationships of "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefTimetabledPassingTimesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -65360,13 +64026,11 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefArrRelI
 /** aggregate avg on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_avg_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefAvgOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -65395,76 +64059,55 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstra
 
 /** input type for incrementing numeric columns in table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefIncInput = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefInsertInput = {
   readonly journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: InputMaybe<Scalars['String']['input']>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
   readonly timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_max_fields';
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: Maybe<Scalars['String']['output']>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Int']['output']>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMaxOrderBy = {
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: InputMaybe<OrderBy>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: InputMaybe<OrderBy>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_min_fields';
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: Maybe<Scalars['String']['output']>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Int']['output']>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefMinOrderBy = {
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: InputMaybe<OrderBy>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<OrderBy>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: InputMaybe<OrderBy>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: InputMaybe<OrderBy>;
 };
 
@@ -65523,53 +64166,43 @@ export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefSelectC
 
 /** input type for updating data in table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSetInput = {
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: InputMaybe<Scalars['String']['input']>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stddev_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stddev_pop_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevPopOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_stddev_samp_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStddevSampOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -65583,27 +64216,21 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamC
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefStreamCursorValueInput = {
-  /** JOURNEY PATTERN to which the SCHEDULED STOP POINT belongs */
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly scheduled_stop_point_in_journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The label of the SCHEDULED STOP POINT */
   readonly scheduled_stop_point_label?: InputMaybe<Scalars['String']['input']>;
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<Scalars['Int']['input']>;
-  /** The label of the timing place associated with the referenced scheduled stop point in journey pattern */
   readonly timing_place_label?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate sum on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_sum_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefSumOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -65633,39 +64260,33 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefUpdates
 /** aggregate var_pop on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_var_pop_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarPopOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_var_samp_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarSampOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceFields = {
   readonly __typename?: 'timetables_service_pattern_scheduled_stop_point_in_journey_pattern_ref_variance_fields';
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "service_pattern.scheduled_stop_point_in_journey_pattern_ref" */
 export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefVarianceOrderBy = {
-  /** The order of the SCHEDULED STOP POINT within the JOURNEY PATTERN. */
   readonly scheduled_stop_point_sequence?: InputMaybe<OrderBy>;
 };
 
@@ -67926,34 +66547,24 @@ export type TimetablesVehicleJourneyGetVehicleSchedulesOnDateArgs = {
   readonly observation_date?: InputMaybe<Scalars['date']['input']>;
 };
 
-/** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
+/** columns and relationships of "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourney = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey';
   /** An object relationship */
   readonly block: TimetablesVehicleServiceBlock;
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id: Scalars['uuid']['output'];
-  /** The contract number for this vehicle journey. */
   readonly contract_number: Scalars['String']['output'];
-  /** Displayed name of the journey. */
   readonly displayed_name?: Maybe<Scalars['String']['output']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
   readonly end_time: Scalars['interval']['output'];
-  /** Is the journey a backup journey. */
   readonly is_backup_journey: Scalars['Boolean']['output'];
-  /** Is the journey an extra journey. */
   readonly is_extra_journey: Scalars['Boolean']['output'];
-  /** It is required to use the same vehicle type as required in vehicle service. */
   readonly is_vehicle_type_mandatory: Scalars['Boolean']['output'];
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: Maybe<Scalars['jsonb']['output']>;
   /** An object relationship */
   readonly journey_pattern_ref: TimetablesJourneyPatternJourneyPatternRef;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id: Scalars['uuid']['output'];
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type: Scalars['String']['output'];
-  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
   readonly layover_time?: Maybe<Scalars['interval']['output']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
   readonly start_time: Scalars['interval']['output'];
@@ -67961,19 +66572,18 @@ export type TimetablesVehicleJourneyVehicleJourney = {
   readonly timetabled_passing_times: ReadonlyArray<TimetablesPassingTimesTimetabledPassingTime>;
   /** An aggregate relationship */
   readonly timetabled_passing_times_aggregate: TimetablesPassingTimesTimetabledPassingTimeAggregate;
-  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
   readonly turnaround_time?: Maybe<Scalars['interval']['output']>;
   readonly vehicle_journey_id: Scalars['uuid']['output'];
 };
 
 
-/** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
+/** columns and relationships of "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyJourneyNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
+/** columns and relationships of "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyTimetabledPassingTimesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -67983,7 +66593,7 @@ export type TimetablesVehicleJourneyVehicleJourneyTimetabledPassingTimesArgs = {
 };
 
 
-/** The planned movement of a public transport vehicle on a DAY TYPE from the start point to the end point of a JOURNEY PATTERN on a specified ROUTE. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:1:1:831  */
+/** columns and relationships of "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyTimetabledPassingTimesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesPassingTimesTimetabledPassingTimeSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -68023,7 +66633,6 @@ export type TimetablesVehicleJourneyVehicleJourneyAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleJourneyVehicleJourneyAppendInput = {
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -68067,48 +66676,34 @@ export enum TimetablesVehicleJourneyVehicleJourneyConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesVehicleJourneyVehicleJourneyDeleteAtPathInput = {
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesVehicleJourneyVehicleJourneyDeleteElemInput = {
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesVehicleJourneyVehicleJourneyDeleteKeyInput = {
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** input type for inserting data into table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyInsertInput = {
   readonly block?: InputMaybe<TimetablesVehicleServiceBlockObjRelInsertInput>;
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: InputMaybe<Scalars['String']['input']>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: InputMaybe<Scalars['String']['input']>;
-  /** Is the journey a backup journey. */
   readonly is_backup_journey?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is the journey an extra journey. */
   readonly is_extra_journey?: InputMaybe<Scalars['Boolean']['input']>;
-  /** It is required to use the same vehicle type as required in vehicle service. */
   readonly is_vehicle_type_mandatory?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly journey_pattern_ref?: InputMaybe<TimetablesJourneyPatternJourneyPatternRefObjRelInsertInput>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: InputMaybe<Scalars['String']['input']>;
-  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
   readonly layover_time?: InputMaybe<Scalars['interval']['input']>;
   readonly timetabled_passing_times?: InputMaybe<TimetablesPassingTimesTimetabledPassingTimeArrRelInsertInput>;
-  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
   readonly turnaround_time?: InputMaybe<Scalars['interval']['input']>;
   readonly vehicle_journey_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -68116,17 +66711,12 @@ export type TimetablesVehicleJourneyVehicleJourneyInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey_max_fields';
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: Maybe<Scalars['uuid']['output']>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: Maybe<Scalars['String']['output']>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: Maybe<Scalars['String']['output']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
   readonly end_time?: Maybe<Scalars['String']['output']>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: Maybe<Scalars['String']['output']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
   readonly start_time?: Maybe<Scalars['String']['output']>;
@@ -68135,15 +66725,10 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
 
 /** order by max() on columns of table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyMaxOrderBy = {
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: InputMaybe<OrderBy>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: InputMaybe<OrderBy>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: InputMaybe<OrderBy>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: InputMaybe<OrderBy>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: InputMaybe<OrderBy>;
   readonly vehicle_journey_id?: InputMaybe<OrderBy>;
 };
@@ -68151,17 +66736,12 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxOrderBy = {
 /** aggregate min on columns */
 export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
   readonly __typename?: 'timetables_vehicle_journey_vehicle_journey_min_fields';
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: Maybe<Scalars['uuid']['output']>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: Maybe<Scalars['String']['output']>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: Maybe<Scalars['String']['output']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
   readonly end_time?: Maybe<Scalars['String']['output']>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: Maybe<Scalars['uuid']['output']>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: Maybe<Scalars['String']['output']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_start_time" */
   readonly start_time?: Maybe<Scalars['String']['output']>;
@@ -68170,15 +66750,10 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
 
 /** order by min() on columns of table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneyMinOrderBy = {
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: InputMaybe<OrderBy>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: InputMaybe<OrderBy>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: InputMaybe<OrderBy>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: InputMaybe<OrderBy>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: InputMaybe<OrderBy>;
   readonly vehicle_journey_id?: InputMaybe<OrderBy>;
 };
@@ -68234,7 +66809,6 @@ export type TimetablesVehicleJourneyVehicleJourneyPkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleJourneyVehicleJourneyPrependInput = {
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -68288,27 +66862,16 @@ export enum TimetablesVehicleJourneyVehicleJourneySelectColumnVehicleJourneyVehi
 
 /** input type for updating data in table "vehicle_journey.vehicle_journey" */
 export type TimetablesVehicleJourneyVehicleJourneySetInput = {
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: InputMaybe<Scalars['String']['input']>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: InputMaybe<Scalars['String']['input']>;
-  /** Is the journey a backup journey. */
   readonly is_backup_journey?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is the journey an extra journey. */
   readonly is_extra_journey?: InputMaybe<Scalars['Boolean']['input']>;
-  /** It is required to use the same vehicle type as required in vehicle service. */
   readonly is_vehicle_type_mandatory?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: InputMaybe<Scalars['String']['input']>;
-  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
   readonly layover_time?: InputMaybe<Scalars['interval']['input']>;
-  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
   readonly turnaround_time?: InputMaybe<Scalars['interval']['input']>;
   readonly vehicle_journey_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -68323,27 +66886,16 @@ export type TimetablesVehicleJourneyVehicleJourneyStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleJourneyVehicleJourneyStreamCursorValueInput = {
-  /** The BLOCK to which this VEHICLE JOURNEY belongs */
   readonly block_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** The contract number for this vehicle journey. */
   readonly contract_number?: InputMaybe<Scalars['String']['input']>;
-  /** Displayed name of the journey. */
   readonly displayed_name?: InputMaybe<Scalars['String']['input']>;
-  /** Is the journey a backup journey. */
   readonly is_backup_journey?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Is the journey an extra journey. */
   readonly is_extra_journey?: InputMaybe<Scalars['Boolean']['input']>;
-  /** It is required to use the same vehicle type as required in vehicle service. */
   readonly is_vehicle_type_mandatory?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Name that user can give to the vehicle journey. */
   readonly journey_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
   readonly journey_pattern_ref_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** STANDARD | DRY_RUN | SERVICE_JOURNEY */
   readonly journey_type?: InputMaybe<Scalars['String']['input']>;
-  /** LAYOVER TIMEs describe a certain time allowance that may be given at the end of each VEHICLE JOURNEY, before starting the next one, to compensate delays or for other purposes (e.g. rest time for the driver). This “layover time” can be regarded as a buffer time, which may or may not be actually consumed in real time operation. */
   readonly layover_time?: InputMaybe<Scalars['interval']['input']>;
-  /** Turnaround time is the time taken by a vehicle to proceed from the end of a ROUTE to the start of another. */
   readonly turnaround_time?: InputMaybe<Scalars['interval']['input']>;
   readonly vehicle_journey_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -68393,31 +66945,17 @@ export type TimetablesVehicleJourneyVehicleJourneyUpdates = {
   readonly where: TimetablesVehicleJourneyVehicleJourneyBoolExp;
 };
 
-/** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
+/** columns and relationships of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrame = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: Maybe<Scalars['jsonb']['output']>;
-  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   readonly booking_label: Scalars['String']['output'];
   readonly created_at: Scalars['timestamptz']['output'];
-  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   readonly label: Scalars['String']['output'];
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: Maybe<Scalars['jsonb']['output']>;
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority: Scalars['Int']['output'];
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   readonly validity_end: Scalars['date']['output'];
-  /**
-   *
-   * A denormalized column for actual daterange when vehicle schedule frame is valid,
-   * that is, a closed date range [validity_start, validity_end].
-   * Added to make working with PostgreSQL functions easier:
-   * they typically expect ranges to be half closed.
-   */
   readonly validity_range: Scalars['daterange']['output'];
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   readonly validity_start: Scalars['date']['output'];
   readonly vehicle_schedule_frame_id: Scalars['uuid']['output'];
   /** An array relationship */
@@ -68427,19 +66965,19 @@ export type TimetablesVehicleScheduleVehicleScheduleFrame = {
 };
 
 
-/** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
+/** columns and relationships of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameBookingDescriptionI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
+/** columns and relationships of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
+/** columns and relationships of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVehicleServicesArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -68449,7 +66987,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameVehicleServicesArgs = {
 };
 
 
-/** A coherent set of BLOCKS, COMPOUND BLOCKs, COURSEs of JOURNEY and VEHICLE SCHEDULEs to which the same set of VALIDITY CONDITIONs have been assigned. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:7:2:993  */
+/** columns and relationships of "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVehicleServicesAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -68490,16 +67028,13 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameAggregateFieldsCountArg
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleScheduleVehicleScheduleFrameAppendInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** aggregate avg on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameAvgFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_avg_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -68530,50 +67065,36 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteAtPathInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteElemInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['Int']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesVehicleScheduleVehicleScheduleFrameDeleteKeyInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** input type for incrementing numeric columns in table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameIncInput = {
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   readonly booking_label?: InputMaybe<Scalars['String']['input']>;
   readonly created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
   readonly vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicle_services?: InputMaybe<TimetablesVehicleServiceVehicleServiceArrRelInsertInput>;
@@ -68582,16 +67103,11 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_max_fields';
-  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   readonly booking_label?: Maybe<Scalars['String']['output']>;
   readonly created_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
   readonly vehicle_schedule_frame_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -68599,16 +67115,11 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameMaxFields = {
 /** aggregate min on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameMinFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_min_fields';
-  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   readonly booking_label?: Maybe<Scalars['String']['output']>;
   readonly created_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   readonly label?: Maybe<Scalars['String']['output']>;
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   readonly validity_end?: Maybe<Scalars['date']['output']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   readonly validity_start?: Maybe<Scalars['date']['output']>;
   readonly vehicle_schedule_frame_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -68658,9 +67169,7 @@ export type TimetablesVehicleScheduleVehicleScheduleFramePkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleScheduleVehicleScheduleFramePrependInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -68690,20 +67199,13 @@ export enum TimetablesVehicleScheduleVehicleScheduleFrameSelectColumn {
 
 /** input type for updating data in table "vehicle_schedule.vehicle_schedule_frame" */
 export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   readonly booking_label?: InputMaybe<Scalars['String']['input']>;
   readonly created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
   readonly vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -68711,21 +67213,18 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameSetInput = {
 /** aggregate stddev on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStddevFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_stddev_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStddevPopFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_stddev_pop_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStddevSampFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_stddev_samp_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -68739,28 +67238,14 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput = {
-  /** Booking description for the vehicle schedule frame. Comes from BookingRecord vsc_booking_desc field from Hastus. */
   readonly booking_description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Booking label for the vehicle schedule frame. Comes from BookingRecord vsc_booking field from Hastus. */
   readonly booking_label?: InputMaybe<Scalars['String']['input']>;
   readonly created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  /** Label for the vehicle schedule frame. Comes from BookingRecord vsc_name field from Hastus. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity ends (inclusive). Null if always will be valid. */
   readonly validity_end?: InputMaybe<Scalars['date']['input']>;
-  /**
-   *
-   * A denormalized column for actual daterange when vehicle schedule frame is valid,
-   * that is, a closed date range [validity_start, validity_end].
-   * Added to make working with PostgreSQL functions easier:
-   * they typically expect ranges to be half closed.
-   */
   readonly validity_range?: InputMaybe<Scalars['daterange']['input']>;
-  /** OPERATING DAY when the VEHICLE SCHEDULE FRAME validity starts (inclusive). Null if always has been valid. */
   readonly validity_start?: InputMaybe<Scalars['date']['input']>;
   readonly vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -68768,7 +67253,6 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameStreamCursorValueInput 
 /** aggregate sum on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameSumFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_sum_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -68816,31 +67300,26 @@ export type TimetablesVehicleScheduleVehicleScheduleFrameUpdates = {
 /** aggregate var_pop on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVarPopFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_var_pop_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVarSampFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_var_samp_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
 export type TimetablesVehicleScheduleVehicleScheduleFrameVarianceFields = {
   readonly __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame_variance_fields';
-  /** The priority of the timetable definition. The definition may be overridden by higher priority definitions. */
   readonly priority?: Maybe<Scalars['Float']['output']>;
 };
 
-/** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
+/** columns and relationships of "vehicle_service.block" */
 export type TimetablesVehicleServiceBlock = {
   readonly __typename?: 'timetables_vehicle_service_block';
   readonly block_id: Scalars['uuid']['output'];
-  /** Finishing time after end of vehicle service block. */
   readonly finishing_time?: Maybe<Scalars['interval']['output']>;
-  /** Preparation time before start of vehicle service block. */
   readonly preparing_time?: Maybe<Scalars['interval']['output']>;
   /** An array relationship */
   readonly vehicle_journeys: ReadonlyArray<TimetablesVehicleJourneyVehicleJourney>;
@@ -68848,16 +67327,14 @@ export type TimetablesVehicleServiceBlock = {
   readonly vehicle_journeys_aggregate: TimetablesVehicleJourneyVehicleJourneyAggregate;
   /** An object relationship */
   readonly vehicle_service: TimetablesVehicleServiceVehicleService;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id: Scalars['uuid']['output'];
   /** An object relationship */
   readonly vehicle_type?: Maybe<TimetablesVehicleTypeVehicleType>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 
-/** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
+/** columns and relationships of "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockVehicleJourneysArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleJourneyVehicleJourneySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -68867,7 +67344,7 @@ export type TimetablesVehicleServiceBlockVehicleJourneysArgs = {
 };
 
 
-/** The work of a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. Any subsequent departure from a PARKING POINT after parking marks the start of a new BLOCK. The period of a BLOCK has to be covered by DUTies. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:958  */
+/** columns and relationships of "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockVehicleJourneysAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleJourneyVehicleJourneySelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -68937,16 +67414,12 @@ export enum TimetablesVehicleServiceBlockConstraint {
 /** input type for inserting data into table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockInsertInput = {
   readonly block_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Finishing time after end of vehicle service block. */
   readonly finishing_time?: InputMaybe<Scalars['interval']['input']>;
-  /** Preparation time before start of vehicle service block. */
   readonly preparing_time?: InputMaybe<Scalars['interval']['input']>;
   readonly vehicle_journeys?: InputMaybe<TimetablesVehicleJourneyVehicleJourneyArrRelInsertInput>;
   readonly vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceObjRelInsertInput>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicle_type?: InputMaybe<TimetablesVehicleTypeVehicleTypeObjRelInsertInput>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -68954,18 +67427,14 @@ export type TimetablesVehicleServiceBlockInsertInput = {
 export type TimetablesVehicleServiceBlockMaxFields = {
   readonly __typename?: 'timetables_vehicle_service_block_max_fields';
   readonly block_id?: Maybe<Scalars['uuid']['output']>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: Maybe<Scalars['uuid']['output']>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockMaxOrderBy = {
   readonly block_id?: InputMaybe<OrderBy>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: InputMaybe<OrderBy>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: InputMaybe<OrderBy>;
 };
 
@@ -68973,18 +67442,14 @@ export type TimetablesVehicleServiceBlockMaxOrderBy = {
 export type TimetablesVehicleServiceBlockMinFields = {
   readonly __typename?: 'timetables_vehicle_service_block_min_fields';
   readonly block_id?: Maybe<Scalars['uuid']['output']>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: Maybe<Scalars['uuid']['output']>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockMinOrderBy = {
   readonly block_id?: InputMaybe<OrderBy>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: InputMaybe<OrderBy>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: InputMaybe<OrderBy>;
 };
 
@@ -69045,13 +67510,9 @@ export enum TimetablesVehicleServiceBlockSelectColumn {
 /** input type for updating data in table "vehicle_service.block" */
 export type TimetablesVehicleServiceBlockSetInput = {
   readonly block_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Finishing time after end of vehicle service block. */
   readonly finishing_time?: InputMaybe<Scalars['interval']['input']>;
-  /** Preparation time before start of vehicle service block. */
   readonly preparing_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -69066,13 +67527,9 @@ export type TimetablesVehicleServiceBlockStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleServiceBlockStreamCursorValueInput = {
   readonly block_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Finishing time after end of vehicle service block. */
   readonly finishing_time?: InputMaybe<Scalars['interval']['input']>;
-  /** Preparation time before start of vehicle service block. */
   readonly preparing_time?: InputMaybe<Scalars['interval']['input']>;
-  /** The VEHICLE SERVICE to which this BLOCK belongs. */
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Reference to vehicle_type.vehicle_type. */
   readonly vehicle_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -69110,23 +67567,11 @@ export type TimetablesVehicleServiceGetTimetablesAndSubstituteOperatingDaysArgs 
   readonly start_date?: InputMaybe<Scalars['date']['input']>;
 };
 
-/**
- * A denormalized table containing relationships between vehicle_services and journey_patterns (via journey_pattern_ref.journey_pattern_id).
- *  Without this table this relationship could be found via vehicle_service -> block -> vehicle_journey -> journey_pattern_ref.
- *  Kept up to date with triggers, should not be updated manually.
- */
+/** columns and relationships of "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleService = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service';
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id: Scalars['uuid']['output'];
   readonly journey_pattern_instance?: Maybe<JourneyPatternJourneyPattern>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count: Scalars['Int']['output'];
   /** An object relationship */
   readonly vehicle_service: TimetablesVehicleServiceVehicleService;
@@ -69188,19 +67633,11 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceArrRelInsertI
 /** aggregate avg on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceAvgFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_avg_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceAvgOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
@@ -69223,24 +67660,12 @@ export enum TimetablesVehicleServiceJourneyPatternsInVehicleServiceConstraint {
 
 /** input type for incrementing numeric columns in table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceIncInput = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceInsertInput = {
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<Scalars['Int']['input']>;
   readonly vehicle_service?: InputMaybe<TimetablesVehicleServiceVehicleServiceObjRelInsertInput>;
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -69249,30 +67674,14 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceInsertInput =
 /** aggregate max on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceMaxFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_max_fields';
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Int']['output']>;
   readonly vehicle_service_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceMaxOrderBy = {
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
   readonly vehicle_service_id?: InputMaybe<OrderBy>;
 };
@@ -69280,30 +67689,14 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceMaxOrderBy = 
 /** aggregate min on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceMinFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_min_fields';
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: Maybe<Scalars['uuid']['output']>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Int']['output']>;
   readonly vehicle_service_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceMinOrderBy = {
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
   readonly vehicle_service_id?: InputMaybe<OrderBy>;
 };
@@ -69334,10 +67727,6 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceOrderBy = {
 
 /** primary key columns input for table: vehicle_service.journey_patterns_in_vehicle_service */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServicePkColumnsInput = {
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id: Scalars['uuid']['input'];
   readonly vehicle_service_id: Scalars['uuid']['input'];
 };
@@ -69354,15 +67743,7 @@ export enum TimetablesVehicleServiceJourneyPatternsInVehicleServiceSelectColumn 
 
 /** input type for updating data in table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceSetInput = {
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<Scalars['Int']['input']>;
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -69370,57 +67751,33 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceSetInput = {
 /** aggregate stddev on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStddevFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_stddev_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStddevOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStddevPopFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_stddev_pop_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStddevPopOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStddevSampFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_stddev_samp_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStddevSampOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
@@ -69434,15 +67791,7 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStreamCursorI
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStreamCursorValueInput = {
-  /**
-   * The journey_pattern_id from journey_pattern.journey_pattern_ref.
-   *  No foreign key reference is set because the target column is not unique.
-   */
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<Scalars['Int']['input']>;
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -69450,19 +67799,11 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceStreamCursorV
 /** aggregate sum on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceSumFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_sum_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceSumOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
@@ -69488,61 +67829,37 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceUpdates = {
 /** aggregate var_pop on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceVarPopFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_var_pop_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceVarPopOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceVarSampFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_var_samp_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceVarSampOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceVarianceFields = {
   readonly __typename?: 'timetables_vehicle_service_journey_patterns_in_vehicle_service_variance_fields';
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "vehicle_service.journey_patterns_in_vehicle_service" */
 export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceVarianceOrderBy = {
-  /**
-   * The amount of unique references between the journey_pattern and vehicle_service.
-   *   When this reaches 0 the row will be deleted.
-   */
   readonly reference_count?: InputMaybe<OrderBy>;
 };
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** columns and relationships of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleService = {
   readonly __typename?: 'timetables_vehicle_service_vehicle_service';
   /** An array relationship */
@@ -69551,23 +67868,20 @@ export type TimetablesVehicleServiceVehicleService = {
   readonly blocks_aggregate: TimetablesVehicleServiceBlockAggregate;
   /** An object relationship */
   readonly day_type: TimetablesServiceCalendarDayType;
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id: Scalars['uuid']['output'];
   /** An array relationship */
   readonly journey_patterns_in_vehicle_service: ReadonlyArray<TimetablesVehicleServiceJourneyPatternsInVehicleService>;
   /** An aggregate relationship */
   readonly journey_patterns_in_vehicle_service_aggregate: TimetablesVehicleServiceJourneyPatternsInVehicleServiceAggregate;
-  /** Name for vehicle service. */
   readonly name_i18n?: Maybe<Scalars['jsonb']['output']>;
   /** An object relationship */
   readonly vehicle_schedule_frame: TimetablesVehicleScheduleVehicleScheduleFrame;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id: Scalars['uuid']['output'];
   readonly vehicle_service_id: Scalars['uuid']['output'];
 };
 
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** columns and relationships of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceBlocksArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceBlockSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -69577,7 +67891,7 @@ export type TimetablesVehicleServiceVehicleServiceBlocksArgs = {
 };
 
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** columns and relationships of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceBlocksAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceBlockSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -69587,7 +67901,7 @@ export type TimetablesVehicleServiceVehicleServiceBlocksAggregateArgs = {
 };
 
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** columns and relationships of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceJourneyPatternsInVehicleServiceArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceJourneyPatternsInVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -69597,7 +67911,7 @@ export type TimetablesVehicleServiceVehicleServiceJourneyPatternsInVehicleServic
 };
 
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** columns and relationships of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceJourneyPatternsInVehicleServiceAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<TimetablesVehicleServiceJourneyPatternsInVehicleServiceSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -69607,7 +67921,7 @@ export type TimetablesVehicleServiceVehicleServiceJourneyPatternsInVehicleServic
 };
 
 
-/** A work plan for a single vehicle for a whole day, planned for a specific DAY TYPE. A VEHICLE SERVICE includes one or several BLOCKs. If there is no service on a given day, it does not include any BLOCKs. Transmodel: https://www.transmodel-cen.eu/model/index.htm?goto=3:5:965  */
+/** columns and relationships of "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceNameI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
@@ -69643,7 +67957,6 @@ export type TimetablesVehicleServiceVehicleServiceAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleServiceVehicleServiceAppendInput = {
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -69679,19 +67992,16 @@ export enum TimetablesVehicleServiceVehicleServiceConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesVehicleServiceVehicleServiceDeleteAtPathInput = {
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesVehicleServiceVehicleServiceDeleteElemInput = {
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesVehicleServiceVehicleServiceDeleteKeyInput = {
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -69699,13 +68009,10 @@ export type TimetablesVehicleServiceVehicleServiceDeleteKeyInput = {
 export type TimetablesVehicleServiceVehicleServiceInsertInput = {
   readonly blocks?: InputMaybe<TimetablesVehicleServiceBlockArrRelInsertInput>;
   readonly day_type?: InputMaybe<TimetablesServiceCalendarDayTypeObjRelInsertInput>;
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly journey_patterns_in_vehicle_service?: InputMaybe<TimetablesVehicleServiceJourneyPatternsInVehicleServiceArrRelInsertInput>;
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly vehicle_schedule_frame?: InputMaybe<TimetablesVehicleScheduleVehicleScheduleFrameObjRelInsertInput>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -69713,18 +68020,14 @@ export type TimetablesVehicleServiceVehicleServiceInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleServiceVehicleServiceMaxFields = {
   readonly __typename?: 'timetables_vehicle_service_vehicle_service_max_fields';
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: Maybe<Scalars['uuid']['output']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: Maybe<Scalars['uuid']['output']>;
   readonly vehicle_service_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceMaxOrderBy = {
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: InputMaybe<OrderBy>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
   readonly vehicle_service_id?: InputMaybe<OrderBy>;
 };
@@ -69732,18 +68035,14 @@ export type TimetablesVehicleServiceVehicleServiceMaxOrderBy = {
 /** aggregate min on columns */
 export type TimetablesVehicleServiceVehicleServiceMinFields = {
   readonly __typename?: 'timetables_vehicle_service_vehicle_service_min_fields';
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: Maybe<Scalars['uuid']['output']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: Maybe<Scalars['uuid']['output']>;
   readonly vehicle_service_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceMinOrderBy = {
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: InputMaybe<OrderBy>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: InputMaybe<OrderBy>;
   readonly vehicle_service_id?: InputMaybe<OrderBy>;
 };
@@ -69790,7 +68089,6 @@ export type TimetablesVehicleServiceVehicleServicePkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleServiceVehicleServicePrependInput = {
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -69808,11 +68106,8 @@ export enum TimetablesVehicleServiceVehicleServiceSelectColumn {
 
 /** input type for updating data in table "vehicle_service.vehicle_service" */
 export type TimetablesVehicleServiceVehicleServiceSetInput = {
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -69827,11 +68122,8 @@ export type TimetablesVehicleServiceVehicleServiceStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleServiceVehicleServiceStreamCursorValueInput = {
-  /** The DAY TYPE for the VEHICLE SERVICE. */
   readonly day_type_id?: InputMaybe<Scalars['uuid']['input']>;
-  /** Name for vehicle service. */
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** Human-readable name for the VEHICLE SCHEDULE FRAME */
   readonly vehicle_schedule_frame_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly vehicle_service_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -69865,20 +68157,17 @@ export type TimetablesVehicleServiceVehicleServiceUpdates = {
   readonly where: TimetablesVehicleServiceVehicleServiceBoolExp;
 };
 
-/** The VEHICLE entity is used to describe the physical public transport vehicles available for short-term planning of operations and daily assignment (in contrast to logical vehicles considered for resource planning of operations and daily assignment (in contrast to logical vehicles cplanning). Each VEHICLE shall be classified as of a particular VEHICLE TYPE. */
+/** columns and relationships of "vehicle_type.vehicle_type" */
 export type TimetablesVehicleTypeVehicleType = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type';
-  /** Description of the vehicle type. */
   readonly description_i18n?: Maybe<Scalars['jsonb']['output']>;
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id: Scalars['smallint']['output'];
-  /** Label of the vehicle type. */
   readonly label: Scalars['String']['output'];
   readonly vehicle_type_id: Scalars['uuid']['output'];
 };
 
 
-/** The VEHICLE entity is used to describe the physical public transport vehicles available for short-term planning of operations and daily assignment (in contrast to logical vehicles considered for resource planning of operations and daily assignment (in contrast to logical vehicles cplanning). Each VEHICLE shall be classified as of a particular VEHICLE TYPE. */
+/** columns and relationships of "vehicle_type.vehicle_type" */
 export type TimetablesVehicleTypeVehicleTypeDescriptionI18nArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
@@ -69915,14 +68204,12 @@ export type TimetablesVehicleTypeVehicleTypeAggregateFieldsCountArgs = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleTypeVehicleTypeAppendInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** aggregate avg on columns */
 export type TimetablesVehicleTypeVehicleTypeAvgFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_avg_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -69949,35 +68236,28 @@ export enum TimetablesVehicleTypeVehicleTypeConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TimetablesVehicleTypeVehicleTypeDeleteAtPathInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TimetablesVehicleTypeVehicleTypeDeleteElemInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TimetablesVehicleTypeVehicleTypeDeleteKeyInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** input type for incrementing numeric columns in table "vehicle_type.vehicle_type" */
 export type TimetablesVehicleTypeVehicleTypeIncInput = {
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: InputMaybe<Scalars['smallint']['input']>;
 };
 
 /** input type for inserting data into table "vehicle_type.vehicle_type" */
 export type TimetablesVehicleTypeVehicleTypeInsertInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: InputMaybe<Scalars['smallint']['input']>;
-  /** Label of the vehicle type. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -69985,9 +68265,7 @@ export type TimetablesVehicleTypeVehicleTypeInsertInput = {
 /** aggregate max on columns */
 export type TimetablesVehicleTypeVehicleTypeMaxFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_max_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['smallint']['output']>;
-  /** Label of the vehicle type. */
   readonly label?: Maybe<Scalars['String']['output']>;
   readonly vehicle_type_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -69995,9 +68273,7 @@ export type TimetablesVehicleTypeVehicleTypeMaxFields = {
 /** aggregate min on columns */
 export type TimetablesVehicleTypeVehicleTypeMinFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_min_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['smallint']['output']>;
-  /** Label of the vehicle type. */
   readonly label?: Maybe<Scalars['String']['output']>;
   readonly vehicle_type_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -70040,7 +68316,6 @@ export type TimetablesVehicleTypeVehicleTypePkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TimetablesVehicleTypeVehicleTypePrependInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
@@ -70058,11 +68333,8 @@ export enum TimetablesVehicleTypeVehicleTypeSelectColumn {
 
 /** input type for updating data in table "vehicle_type.vehicle_type" */
 export type TimetablesVehicleTypeVehicleTypeSetInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: InputMaybe<Scalars['smallint']['input']>;
-  /** Label of the vehicle type. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -70070,21 +68342,18 @@ export type TimetablesVehicleTypeVehicleTypeSetInput = {
 /** aggregate stddev on columns */
 export type TimetablesVehicleTypeVehicleTypeStddevFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_stddev_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type TimetablesVehicleTypeVehicleTypeStddevPopFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_stddev_pop_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type TimetablesVehicleTypeVehicleTypeStddevSampFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_stddev_samp_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -70098,11 +68367,8 @@ export type TimetablesVehicleTypeVehicleTypeStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TimetablesVehicleTypeVehicleTypeStreamCursorValueInput = {
-  /** Description of the vehicle type. */
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: InputMaybe<Scalars['smallint']['input']>;
-  /** Label of the vehicle type. */
   readonly label?: InputMaybe<Scalars['String']['input']>;
   readonly vehicle_type_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -70110,7 +68376,6 @@ export type TimetablesVehicleTypeVehicleTypeStreamCursorValueInput = {
 /** aggregate sum on columns */
 export type TimetablesVehicleTypeVehicleTypeSumFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_sum_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['smallint']['output']>;
 };
 
@@ -70148,25 +68413,22 @@ export type TimetablesVehicleTypeVehicleTypeUpdates = {
 /** aggregate var_pop on columns */
 export type TimetablesVehicleTypeVehicleTypeVarPopFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_var_pop_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
 export type TimetablesVehicleTypeVehicleTypeVarSampFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_var_samp_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
 export type TimetablesVehicleTypeVehicleTypeVarianceFields = {
   readonly __typename?: 'timetables_vehicle_type_vehicle_type_variance_fields';
-  /** ID used in Hastus to represent the vehicle type. */
   readonly hsl_id?: Maybe<Scalars['Float']['output']>;
 };
 
-/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+/** columns and relationships of "timing_pattern.timing_place" */
 export type TimingPatternTimingPlace = {
   readonly __typename?: 'timing_pattern_timing_place';
   readonly description?: Maybe<Scalars['jsonb']['output']>;
@@ -70179,13 +68441,13 @@ export type TimingPatternTimingPlace = {
 };
 
 
-/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+/** columns and relationships of "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceDescriptionArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+/** columns and relationships of "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceScheduledStopPointsArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -70195,7 +68457,7 @@ export type TimingPatternTimingPlaceScheduledStopPointsArgs = {
 };
 
 
-/** A set of SCHEDULED STOP POINTs against which the timing information necessary to build schedules may be recorded. In HSL context this is "Hastus paikka". Based on Transmodel entity TIMING POINT: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:2:709  */
+/** columns and relationships of "timing_pattern.timing_place" */
 export type TimingPatternTimingPlaceScheduledStopPointsAggregateArgs = {
   distinct_on?: InputMaybe<ReadonlyArray<ServicePatternScheduledStopPointSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
