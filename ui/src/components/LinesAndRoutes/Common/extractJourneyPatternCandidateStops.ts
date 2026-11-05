@@ -11,7 +11,6 @@ import {
 } from '../../../generated/graphql';
 import { RouteInfraLink } from '../../../types';
 import { Priority } from '../../../types/enums';
-import { StopPlaceState } from '../../../types/stop-registry';
 import { Comparator } from '../../../utils';
 import { areValidityPeriodsOverlapping } from '../../../utils/time';
 
@@ -43,13 +42,6 @@ function isStopValidDuringRouteValidity(
   routeValidity: RouteValidityFragment,
 ) {
   return areValidityPeriodsOverlapping(routeValidity, stop);
-}
-
-function isStopActive(stop: RouteStopFieldsFragment) {
-  return (
-    !stop.newest_quay?.stop_state ||
-    stop.newest_quay.stop_state === StopPlaceState.InOperation
-  );
 }
 
 /**
@@ -142,6 +134,8 @@ function sortStopsOnInfraLinkComparator(
  * - only keeps stops that are on the correct side of the road
  * - only keeps stops that are compatible with the route's vehicle mode
  * - only keeps stops that are valid during the route's validity period
+ * - stops that are not in operation are kept as candidates, but they are left out of the
+ *   journey pattern by default and have to be added to it manually
  * - for draft routes, no journey pattern integrity checks are done
  * - for non-draft routes, we verify that all stops' other instances are also along the same route
  * We don't check/filter however that:
@@ -175,8 +169,7 @@ export function extractJourneyPatternCandidateStops(
       .filter(
         (stop) =>
           isStopTraversalCompatible(stop, isTraversalForwards) &&
-          isStopValidDuringRouteValidity(stop, routeMetadata) &&
-          isStopActive(stop),
+          isStopValidDuringRouteValidity(stop, routeMetadata),
       )
       .sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
   });

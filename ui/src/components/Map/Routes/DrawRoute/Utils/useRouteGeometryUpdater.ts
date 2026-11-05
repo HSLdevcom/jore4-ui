@@ -7,7 +7,6 @@ import {
   GetStopsAlongInfrastructureLinksQueryVariables,
   InfrastructureLinkAllFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
-  StopWithJourneyPatternFieldsFragment,
   useGetRouteDetailsByIdQuery,
 } from '../../../../../generated/graphql';
 import {
@@ -26,6 +25,7 @@ import {
   getRouteStopLabels,
 } from '../../Utils';
 import { LineStringFeature } from '../types';
+import { getStopLabelsIncludedInRoute } from './getStopLabelsIncludedInRoute';
 import { mapRouteToInfraLinksAlongRoute } from './infraLinkMappers';
 import { useFetchInfraLinksWithStops } from './useFetchInfraLinksWithStops';
 import { useRouteMetadata } from './useRouteMetadata';
@@ -69,23 +69,6 @@ function getOldRouteGeometryVariables(
     oldStopLabels: previouslyEditedStopLabels,
     oldInfraLinks: previouslyEditedRouteInfrastructureLinks,
   };
-}
-
-/**
- * Get RouteStops for stops along route geometry
- * @param stops List of stops along route geometry
- * @param removedStopLabels List of stop labels that have been removed from the route
- * @returns List of RouteStops
- */
-function getStopLabelsIncludedInRoute<
-  TStop extends StopWithJourneyPatternFieldsFragment,
->(
-  stops: ReadonlyArray<TStop>,
-  removedStopLabels?: ReadonlyArray<string>,
-): string[] {
-  return stops
-    .filter((item) => !removedStopLabels?.includes(item.label))
-    .map((item) => item.label);
 }
 
 function useGetRemovedStopLabels() {
