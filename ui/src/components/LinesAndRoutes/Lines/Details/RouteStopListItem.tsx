@@ -1,8 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { MdHistory } from 'react-icons/md';
-import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import {
   RouteStopFieldsFragment,
@@ -12,38 +10,78 @@ import {
   openTimingSettingsModalAction,
   useAppDispatch,
 } from '../../../../redux';
-import { Path, routeDetails } from '../../../../router/routeDetails';
 import { hasContinuingVersion } from '../../../../utils';
-import {
-  MAX_DATE,
-  MIN_DATE,
-  mapToShortDate,
-  mapToShortDateTime,
-  now,
-} from '../../../../utils/time';
+import { MAX_DATE, MIN_DATE } from '../../../../utils/time';
 import { IconButton } from '../../../common/Buttons';
 import { Visible } from '../../../common/LayoutComponents';
 import { getAlertStatus, getAlertStyle } from '../../../common/Utils';
+import {
+  LocatorActionButton,
+  OpenDetailsPage,
+  ShowOnMap,
+} from '../../../StopRegistry/Components';
+import {
+  StopSearchRow,
+  stopTableCellClassNames as cells,
+  mapQueryResultToStopSearchRow,
+  mapStopSearchRowToLocatableStop,
+} from '../../../StopRegistry/Components/StopTableRow';
+import {
+  ActionButtonsTd,
+  IconsTd,
+  NameAndIconsTd,
+  NameTd,
+  PlatformNumberTd,
+  PriorityTd,
+  StopLabelLink,
+  ValidityPeriodTd,
+} from '../../../StopRegistry/Components/StopTableRow/components';
 import { AlertPopover } from '../../Common/AlertPopover';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
 const testIds = {
   container: 'RouteStopListItem::container',
-  label: 'RouteStopListItem::label',
-  name: 'RouteStopListItem::name',
-  validityPeriod: 'RouteStopListItem::validityPeriod',
-  lastEdited: 'RouteStopListItem::lastEdited',
+  notPartOfRoute: 'RouteStopListItem::notPartOfRoute',
   hastusCode: 'RouteStopListItem::hastusCode',
   openTimingSettingsButton: 'RouteStopListItem::openTimingSettingsButton',
   viaIcon: 'RouteStopListItem::viaIcon',
 };
 
+function mapRouteStopToStopSearchRow(
+  stop: RouteStopFieldsFragment,
+): StopSearchRow {
+  const registryStop = mapQueryResultToStopSearchRow(
+    stop.newest_quay,
+    stop,
+  ) ?? {
+    id: stop.scheduled_stop_point_id,
+    netexId: stop.newest_quay?.netex_id ?? '',
+    scheduledStopPointId: stop.scheduled_stop_point_id,
+    publicCode: stop.label,
+    nameFin: stop.stop_place?.at(0)?.name?.value ?? '-',
+    nameSwe: null,
+    location: stop.measured_location,
+    transportModes: [],
+    activeTransportModes: [],
+    trunkLineStop: false,
+    speedTramStop: false,
+    timingPlace: null,
+  };
+
+  // The route view shows the scheduled stop point's own validity and priority
+  return {
+    ...registryStop,
+    validityStart: stop.validity_start ?? MIN_DATE,
+    validityEnd: stop.validity_end ?? MAX_DATE,
+    priority: stop.priority,
+  };
+}
+
 type RouteStopListItemProps = {
   readonly className?: string;
   readonly stop: RouteStopFieldsFragment;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  readonly labelledBy: string;
   readonly observationDate: Temporal.PlainDate;
 };
 
@@ -51,7 +89,6 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   className,
   stop,
   route,
-  labelledBy,
   observationDate,
 }) => {
   const { t } = useTranslation();
@@ -89,6 +126,8 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
     scheduledStopPointInJourneyPattern?.scheduled_stop_point_sequence;
 
   const stopLabel = stop.label;
+  const rowStop = mapRouteStopToStopSearchRow(stop);
+  const locatableStop = mapStopSearchRowToLocatableStop(rowStop);
 
   const showTimingSettingsModal = () => {
     if (journeyPatternId && scheduledStopPointSequence !== undefined) {
@@ -102,107 +141,120 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
     }
   };
 
-  // alertStyle left border is different colour than what we want the bottom border to be
-  // and to achieve the correct visual design for the borders, we need to add it with pseudo classes
-  const pseudoBottomBorderClassName =
-    'after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100';
+  const nameExtras = (
+    <>
+      <AlertPopover
+        title={alertStatus.title}
+        description={alertStatus.description}
+        alertIcon={alertStyle.icon}
+      />
+      <Visible visible={isViaPoint}>
+        <i
+          data-testid={testIds.viaIcon}
+          className="icon-via mx-2 text-4xl text-hsl-dark-green"
+        />
+      </Visible>
+    </>
+  );
 
   return (
-    <li
+    <tr
       className={twMerge(
-        'relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24',
-        pseudoBottomBorderClassName,
+        cells.row,
         alertStyle.listItemBorder,
+        'border-r border-r-light-grey',
         stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey',
         className,
       )}
-      aria-labelledby={labelledBy}
       data-testid={testIds.container}
     >
-      <div className="col-span-3 items-center justify-center text-center text-2xl">
-        <Link
-          to={routeDetails[Path.stopDetails].getLink(stop.label, {
-            observationDate,
-          })}
-          data-testid={testIds.label}
-          title={t(($) => $.accessibility.stops.showStopDetails, {
+      <PriorityTd className={cells.priority} stop={rowStop} />
+
+      <td className={cells.label}>
+        <StopLabelLink observationDate={observationDate} stop={rowStop} />
+        <div className="mt-2 flex items-center text-sm">
+          {hastusCode ? (
+            <HastusCode
+              hastusCode={hastusCode}
+              isUsedAsTimingPoint={isUsedAsTimingPoint}
+              testId={testIds.hastusCode}
+            />
+          ) : (
+            <IconButton
+              testId={testIds.openTimingSettingsButton}
+              icon={
+                <AiFillPlusCircle
+                  className={`text-xl ${
+                    stopBelongsToJourneyPattern ? 'text-brand' : 'text-gray-300'
+                  }`}
+                />
+              }
+              tooltip={`${t(($) => $.accessibility.routes.openTimingSettings, {
+                stopLabel,
+              })}`}
+              onClick={showTimingSettingsModal}
+              className="ml-2 rounded-full leading-none"
+              disabled={!stopBelongsToJourneyPattern}
+            />
+          )}
+        </div>
+      </td>
+
+      <PlatformNumberTd className={cells.platformNumber} stop={rowStop} />
+
+      <NameTd className={cells.nameWide} stop={rowStop}>
+        {nameExtras}
+      </NameTd>
+
+      <IconsTd className={cells.iconsWide} stop={rowStop} />
+
+      <NameAndIconsTd className={cells.nameAndIconsNarrow} stop={rowStop}>
+        {nameExtras}
+      </NameAndIconsTd>
+
+      {stopBelongsToJourneyPattern ? (
+        <ValidityPeriodTd className={cells.validity} stop={rowStop} />
+      ) : (
+        <td className={cells.validity}>
+          <span
+            className="text-sm whitespace-nowrap"
+            data-testid={testIds.notPartOfRoute}
+          >
+            {t(($) => $.stops.notPartOfRoute)}
+          </span>
+        </td>
+      )}
+
+      <ActionButtonsTd
+        actionButtons={
+          <LocatorActionButton
+            stop={locatableStop}
+            observationDate={observationDate}
+          />
+        }
+        className={cells.actionButtons}
+      />
+
+      <td className={cells.actionMenu}>
+        <StopActionsDropdown
+          tooltip={t(($) => $.accessibility.routes.showStopActions, {
             stopLabel,
           })}
+          stopLabel={stopLabel}
+          stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
+          isViaPoint={isViaPoint}
+          route={route}
+          journeyPatternId={journeyPatternId}
+          scheduledStopPointSequence={scheduledStopPointSequence}
         >
-          {stop.label}
-        </Link>
-      </div>
-      <div className="col-span-9 flex items-center" data-testid={testIds.name}>
-        <span>{stop.stop_place?.at(0)?.name?.value ?? '-'}</span>
-        <Visible visible={isViaPoint}>
-          <i
-            data-testid={testIds.viaIcon}
-            className="icon-via mx-2 text-4xl text-hsl-dark-green"
+          <ShowOnMap stop={locatableStop} observationDate={observationDate} />
+          <OpenDetailsPage
+            stop={locatableStop}
+            observationDate={observationDate}
+            priority={rowStop.priority}
           />
-        </Visible>
-      </div>
-      <span
-        className="col-span-4 text-center"
-        data-testid={testIds.validityPeriod}
-      >
-        {stopBelongsToJourneyPattern
-          ? t(($) => $.validity.validDuring, {
-              startDate: mapToShortDate(stop.validity_start ?? MIN_DATE),
-              endDate: mapToShortDate(stop.validity_end ?? MAX_DATE),
-            })
-          : t(($) => $.stops.notPartOfRoute)}
-      </span>
-      <div className="items-center">
-        <AlertPopover
-          title={alertStatus.title}
-          description={alertStatus.description}
-          alertIcon={alertStyle.icon}
-        />
-      </div>
-      <span className="col-span-4 text-center" data-testid={testIds.lastEdited}>
-        !{mapToShortDateTime(now())}
-        <MdHistory
-          aria-hidden
-          className="ml-1 inline text-xl text-tweaked-brand"
-        />
-      </span>
-      <div className="col-span-2 flex justify-center">
-        {hastusCode ? (
-          <HastusCode
-            hastusCode={hastusCode}
-            isUsedAsTimingPoint={isUsedAsTimingPoint}
-            testId={testIds.hastusCode}
-          />
-        ) : (
-          <IconButton
-            testId={testIds.openTimingSettingsButton}
-            icon={
-              <AiFillPlusCircle
-                className={`text-xl ${
-                  stopBelongsToJourneyPattern ? 'text-brand' : 'text-gray-300'
-                }`}
-              />
-            }
-            tooltip={`${t(($) => $.accessibility.routes.openTimingSettings, {
-              stopLabel,
-            })}`}
-            onClick={showTimingSettingsModal}
-            className="ml-2 rounded-full leading-none"
-            disabled={!stopBelongsToJourneyPattern}
-          />
-        )}
-      </div>
-      <StopActionsDropdown
-        tooltip={t(($) => $.accessibility.routes.showStopActions, {
-          stopLabel,
-        })}
-        stopLabel={stopLabel}
-        stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
-        isViaPoint={isViaPoint}
-        route={route}
-        journeyPatternId={journeyPatternId}
-        scheduledStopPointSequence={scheduledStopPointSequence}
-      />
-    </li>
+        </StopActionsDropdown>
+      </td>
+    </tr>
   );
 };

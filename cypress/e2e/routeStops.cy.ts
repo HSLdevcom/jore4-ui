@@ -93,22 +93,26 @@ describe('Line details page: stops on route', rootTags, () => {
         lineRouteListItem
           .getNthRouteStopListItem(0)
           .should('contain', 'E2E001')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          .and('contain', '20.3.2020')
+          .and('contain', '31.12.2050');
 
         lineRouteListItem
           .getNthRouteStopListItem(1)
           .should('contain', 'E2E002')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          .and('contain', '20.3.2020')
+          .and('contain', '31.12.2050');
 
         lineRouteListItem
           .getNthRouteStopListItem(2)
           .should('contain', 'E2E004')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          .and('contain', '20.3.2020')
+          .and('contain', '31.12.2050');
 
         lineRouteListItem
           .getNthRouteStopListItem(3)
           .should('contain', 'E2E005')
-          .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+          .and('contain', '20.3.2020')
+          .and('contain', '31.12.2050');
       });
 
       // Toggle show unused stops to see also the stop E2E003
@@ -155,7 +159,8 @@ describe('Line details page: stops on route', rootTags, () => {
       lineRouteListItem
         .getNthRouteStopListItem(2)
         .should('contain', 'E2E003')
-        .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
+        .and('contain', '20.3.2020')
+        .and('contain', '31.12.2050');
 
       // Then lets remove E2E004 from the route
       lineRouteListItem

@@ -83,17 +83,23 @@ export const LineRouteListItem: FC<LineRouteListItemProps> = ({
         controls={routeStopListElementId}
       />
       {isExpanded && (
-        <ul id={routeStopListElementId}>
-          {displayedStops.map((item) => (
-            <RouteStopListItem
-              key={item.scheduled_stop_point_id}
-              stop={item}
-              route={route}
-              labelledBy={directionAndLabelElementId}
-              observationDate={observationDate}
-            />
-          ))}
-        </ul>
+        <div className="@container overflow-x-auto" id={routeStopListElementId}>
+          <table
+            className="w-full border-collapse"
+            aria-labelledby={directionAndLabelElementId}
+          >
+            <tbody>
+              {displayedStops.map((item) => (
+                <RouteStopListItem
+                  key={item.scheduled_stop_point_id}
+                  stop={item}
+                  route={route}
+                  observationDate={observationDate}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </li>
   );

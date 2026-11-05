@@ -1,17 +1,18 @@
 import { FC, ReactNode } from 'react';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 import {
   ActionButtonsTd,
   ActionMenuTd,
+  IconsTd,
   LabelAndTimingPlaceTd,
+  NameAndIconsTd,
   NameTd,
+  PlatformNumberTd,
   PriorityTd,
   ValidityPeriodTd,
 } from './components';
-import { IconsTd } from './components/IconsTd';
-import { NameAndIconsTd } from './components/NameAndIconsTd';
-import { PlatformNumberTd } from './components/PlatformNumberTd';
 import { SelectRowTd } from './components/SelectRowTd';
+import { stopTableCellClassNames as cells } from './stopTableCellClassNames';
 import { StopSearchRow } from './types';
 
 type StopTableRowBaseProps = {
@@ -42,11 +43,6 @@ const testIds = {
   row: (label: string) => `StopTableRow::row::${label}`,
 };
 
-const yBorder = 'border-y border-y-light-grey';
-const lBorder = 'border-l border-l-background';
-const atWide = '@max-5xl:hidden';
-const atNarrow = '@5xl:hidden';
-
 export const StopTableRow: FC<StopTableRowProps> = ({
   actionButtons,
   className,
@@ -59,7 +55,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
 }) => {
   return (
     <tr
-      className={twMerge('text-hsl-dark-80', className)}
+      className={twMerge(cells.row, className)}
       data-testid={testIds.row(stop.publicCode)}
       data-netex-id={stop.netexId}
       data-scheduled-stop-point-id={stop.scheduledStopPointId}
@@ -73,67 +69,30 @@ export const StopTableRow: FC<StopTableRowProps> = ({
         />
       )}
 
-      <PriorityTd className={twJoin(yBorder, 'w-0')} stop={stop} />
+      <PriorityTd className={cells.priority} stop={stop} />
 
       <LabelAndTimingPlaceTd
-        className={twJoin(yBorder, 'w-0 p-3 align-top')}
+        className={cells.label}
         observationDate={observationDate}
         stop={stop}
       />
 
-      <PlatformNumberTd className={twJoin(yBorder, 'p-3 pl-0')} stop={stop} />
+      <PlatformNumberTd className={cells.platformNumber} stop={stop} />
 
-      <NameTd
-        className={twJoin(
-          yBorder,
-          lBorder,
-          atWide,
-          'w-full p-3 align-top text-sm @5xl:px-8',
-        )}
-        stop={stop}
-      />
+      <NameTd className={cells.nameWide} stop={stop} />
 
-      <IconsTd
-        className={twJoin(
-          yBorder,
-          lBorder,
-          atWide,
-          'w-auto p-3 whitespace-nowrap',
-        )}
-        stop={stop}
-      />
+      <IconsTd className={cells.iconsWide} stop={stop} />
 
-      <NameAndIconsTd
-        className={twJoin(
-          yBorder,
-          lBorder,
-          atNarrow,
-          'w-full p-3 align-top whitespace-nowrap',
-        )}
-        stop={stop}
-      />
+      <NameAndIconsTd className={cells.nameAndIconsNarrow} stop={stop} />
 
-      <ValidityPeriodTd
-        className={twJoin(
-          yBorder,
-          lBorder,
-          'w-auto p-3 align-top @5xl:px-8',
-          // Align to the center of the action buttons/menu
-          // calc: (h-10)[action btn height] - 1rem [text height] / 2 + pt-3
-          '@5xl:pt-[calc((((var(--spacing)*10)-1rem)/2)+(var(--spacing)*3))]',
-        )}
-        stop={stop}
-      />
+      <ValidityPeriodTd className={cells.validity} stop={stop} />
 
       <ActionButtonsTd
         actionButtons={actionButtons}
-        className={twJoin(yBorder, 'w-0 py-3 pr-1 align-top @max-5xl:hidden')}
+        className={cells.actionButtons}
       />
 
-      <ActionMenuTd
-        className={twJoin(yBorder, 'w-0 p-3 pr-4 align-top')}
-        menuItems={menuItems}
-      />
+      <ActionMenuTd className={cells.actionMenu} menuItems={menuItems} />
     </tr>
   );
 };
