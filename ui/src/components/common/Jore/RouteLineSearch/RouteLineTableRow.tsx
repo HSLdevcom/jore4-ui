@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { MdHistory } from 'react-icons/md';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -17,7 +18,6 @@ import {
 } from '../../../../utils/time';
 import { AlertPopover, RouteLabel } from '../../../LinesAndRoutes/Common';
 import { LocatorButton } from '../../Buttons';
-import { useGetUserNames } from '../../ChangeHistory';
 import { Column, Row, Visible } from '../../LayoutComponents';
 import { getAlertStatus, getAlertStyle } from '../../Utils';
 import { LineDetailsButton } from './LineDetailsButton';
@@ -121,7 +121,6 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
 }) => {
   const { observationDate } = useObservationDateQueryParam();
   const { t } = useTranslation();
-  const getUserNameById = useGetUserNames();
 
   const alertStatus = getAlertStatus(t, { ...rowItem, hasContinuingVersion });
   const alertStyle = getAlertStyle(alertStatus.alertLevel);
@@ -227,9 +226,11 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
                 })}
               </p>
               <p>
-                {mapToShortDateTime(rowItem.change_history.at(0)?.changed)} |{' '}
-                {getUserNameById(rowItem.change_history.at(0)?.changed_by) ??
-                  'HSL'}
+                {mapToShortDateTime(rowItem.change_history.at(0)?.changed)}
+                <MdHistory
+                  aria-hidden
+                  className="ml-1 inline text-xl text-tweaked-brand"
+                />
               </p>
             </Column>
           </Row>
