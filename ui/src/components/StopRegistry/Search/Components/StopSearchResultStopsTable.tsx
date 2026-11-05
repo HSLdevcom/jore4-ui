@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { getGeometryPoint } from '../../../../utils';
 import {
   LocatorActionButton,
   NonSelectableStopTableRowProps,
@@ -9,8 +8,8 @@ import {
   ShowOnMap,
   StopSearchRow,
   StopTableRow,
+  mapStopSearchRowToLocatableStop,
 } from '../../Components';
-import { LocatableStop } from '../../Types';
 import { ResultSelection } from '../Types';
 
 const testIds = {
@@ -29,13 +28,7 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
   selectable,
   stop,
 }) => {
-  const locatableStop: LocatableStop = {
-    label: stop.publicCode,
-    netexId: stop.netexId,
-    location: getGeometryPoint(stop.location),
-    priority: stop.priority,
-    transportMode: stop.transportMode,
-  };
+  const locatableStop = mapStopSearchRowToLocatableStop(stop);
 
   return (
     <StopTableRow

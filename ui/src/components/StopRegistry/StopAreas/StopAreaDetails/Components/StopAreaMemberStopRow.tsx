@@ -1,13 +1,12 @@
 import { FC } from 'react';
-import { getGeometryPoint } from '../../../../../utils';
 import {
   LocatorActionButton,
   OpenDetailsPage,
   ShowOnMap,
   StopSearchRow,
   StopTableRow,
+  mapStopSearchRowToLocatableStop,
 } from '../../../Components';
-import { LocatableStop } from '../../../Types';
 
 type StopAreaMemberStopRowProps = {
   readonly member: StopSearchRow;
@@ -18,13 +17,7 @@ export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
   member,
   observationDate,
 }) => {
-  const locatableStop: LocatableStop = {
-    label: member.publicCode,
-    netexId: member.netexId,
-    location: getGeometryPoint(member.location),
-    priority: member.priority,
-    transportMode: member.transportMode,
-  };
+  const locatableStop = mapStopSearchRowToLocatableStop(member);
 
   return (
     <StopTableRow
