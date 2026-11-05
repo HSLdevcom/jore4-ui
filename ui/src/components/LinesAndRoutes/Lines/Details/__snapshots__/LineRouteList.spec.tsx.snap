@@ -466,228 +466,468 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             </svg>
           </button>
         </div>
-        <ul
+        <div
+          class="@container overflow-x-auto"
           id="route-stop-list"
         >
-          <li
+          <table
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green"
-            data-testid="RouteStopListItem::container"
+            class="w-full border-collapse"
           >
-            <div
-              class="col-span-3 items-center justify-center text-center text-2xl"
-            >
-              <a
-                data-discover="true"
-                data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1234?observationDate=2017-02-14"
-                title="Näytä pysäkin H1234 tiedot"
+            <tbody>
+              <tr
+                class="text-hsl-dark-80 border-l-10 border-hsl-dark-green border-r border-r-light-grey"
+                data-testid="RouteStopListItem::container"
               >
-                H1234
-              </a>
-            </div>
-            <div
-              class="col-span-9 flex items-center"
-              data-testid="RouteStopListItem::name"
-            >
-              <span>
-                Pysäkkialue 0
-              </span>
-            </div>
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::validityPeriod"
-            >
-              Voimassa 1.1.2000 - 13.12.2050
-            </span>
-            <div
-              class="items-center"
-            />
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::lastEdited"
-            >
-              !14.2.2017 14.51
-              <svg
-                aria-hidden="true"
-                class="ml-1 inline text-xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18m-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z"
-                />
-              </svg>
-            </span>
-            <div
-              class="col-span-2 flex justify-center"
-            >
-              <div>
-                <span
-                  class="text-grey"
-                  data-testid="RouteStopListItem::hastusCode"
+                <td
+                  class="p-0 border-y border-y-light-grey w-0"
+                  data-testid="StopTableRow::priority"
+                  title="Prioriteetti: Perusversio"
                 >
-                  1KOSKS
-                </span>
-              </div>
-            </div>
-             
-            <div
-              class=""
-              data-headlessui-state=""
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="Lisää toimintoja pysäkille H1234"
-                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
-                data-anchor="bottom end"
-                data-headlessui-state=""
-                data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rb:"
-                title="Lisää toimintoja pysäkille H1234"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="flex h-full"
+                  >
+                    <div
+                      class="w-2"
+                    />
+                    <span
+                      class="mx-2 mt-2 self-start text-3xl text-light-grey icon-placeholder-dot"
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 align-top"
                 >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
-                  />
-                </svg>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green"
-            data-testid="RouteStopListItem::container"
-          >
-            <div
-              class="col-span-3 items-center justify-center text-center text-2xl"
-            >
-              <a
-                data-discover="true"
-                data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1236?observationDate=2017-02-14"
-                title="Näytä pysäkin H1236 tiedot"
-              >
-                H1236
-              </a>
-            </div>
-            <div
-              class="col-span-9 flex items-center"
-              data-testid="RouteStopListItem::name"
-            >
-              <span>
-                Pysäkkialue 2
-              </span>
-            </div>
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::validityPeriod"
-            >
-              Voimassa 1.1.2000 - 13.12.2050
-            </span>
-            <div
-              class="items-center"
-            />
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::lastEdited"
-            >
-              !14.2.2017 14.51
-              <svg
-                aria-hidden="true"
-                class="ml-1 inline text-xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
+                  <div
+                    class="flex flex-row items-center leading-none font-bold"
+                    title=""
+                  >
+                    <a
+                      class="ml-1"
+                      data-discover="true"
+                      data-testid="StopTableRow::link"
+                      href="/stop-registry/stops/H1234?observationDate=2017-02-14&priority=10"
+                      title="Näytä pysäkin H1234 tiedot"
+                    >
+                      <h2>
+                        H1234
+                      </h2>
+                    </a>
+                  </div>
+                  <div
+                    class="mt-2 flex items-center text-sm"
+                  >
+                    <div>
+                      <span
+                        class="text-grey"
+                        data-testid="RouteStopListItem::hastusCode"
+                      >
+                        1KOSKS
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="align-text-top font-bold border-y border-y-light-grey p-3 pl-0"
                 />
-                <path
-                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18m-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z"
-                />
-              </svg>
-            </span>
-            <div
-              class="col-span-2 flex justify-center"
-            >
-              <div>
-                <span
-                  class="text-grey"
-                  data-testid="RouteStopListItem::hastusCode"
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
-                  1ESIM
-                </span>
-              </div>
-            </div>
-             
-            <div
-              class=""
-              data-headlessui-state=""
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="Lisää toimintoja pysäkille H1236"
-                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
-                data-anchor="bottom end"
-                data-headlessui-state=""
-                data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rh:"
-                title="Lisää toimintoja pysäkille H1236"
-                type="button"
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 0 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-auto p-3 whitespace-nowrap"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 0 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background w-auto p-3 align-middle @5xl:px-8"
+                >
+                  <div
+                    class="flex flex-row whitespace-nowrap @max-3xl:flex-col"
+                    title="Voimassaolo"
+                  >
+                    <span>
+                      1.1.2000
+                    </span>
+                    <span
+                      class="mx-1 @max-3xl:hidden"
+                    >
+                      -
+                    </span>
+                    <span>
+                      13.12.2050
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 py-3 pr-1 align-middle @max-5xl:hidden"
+                >
+                  <div>
+                    <button
+                      class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+                      data-testid="LocatorButton::button"
+                      title="Näytä kartalla H1234"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="text-2xl inline text-center"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11m-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0M5 20v2h14v-2z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 pr-4 align-middle"
+                >
+                  <div
+                    class=""
+                    data-headlessui-state=""
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-haspopup="menu"
+                      aria-label="Lisää toimintoja pysäkille H1234"
+                      class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                      data-anchor="bottom end"
+                      data-headlessui-state=""
+                      data-testid="StopActionsDropdown::menu"
+                      id="headlessui-menu-button-:rb:"
+                      title="Lisää toimintoja pysäkille H1234"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="text-hsl-dark-80 border-l-10 border-hsl-dark-green border-r border-r-light-grey"
+                data-testid="RouteStopListItem::container"
               >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                <td
+                  class="p-0 border-y border-y-light-grey w-0"
+                  data-testid="StopTableRow::priority"
+                  title="Prioriteetti: Perusversio"
                 >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
+                  <div
+                    class="flex h-full"
+                  >
+                    <div
+                      class="w-2"
+                    />
+                    <span
+                      class="mx-2 mt-2 self-start text-3xl text-light-grey icon-placeholder-dot"
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 align-top"
+                >
+                  <div
+                    class="flex flex-row items-center leading-none font-bold"
+                    title=""
+                  >
+                    <a
+                      class="ml-1"
+                      data-discover="true"
+                      data-testid="StopTableRow::link"
+                      href="/stop-registry/stops/H1236?observationDate=2017-02-14&priority=10"
+                      title="Näytä pysäkin H1236 tiedot"
+                    >
+                      <h2>
+                        H1236
+                      </h2>
+                    </a>
+                  </div>
+                  <div
+                    class="mt-2 flex items-center text-sm"
+                  >
+                    <div>
+                      <span
+                        class="text-grey"
+                        data-testid="RouteStopListItem::hastusCode"
+                      >
+                        1ESIM
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="align-text-top font-bold border-y border-y-light-grey p-3 pl-0"
+                />
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 2 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-auto p-3 whitespace-nowrap"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
                   />
-                  <path
-                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
                   />
-                </svg>
-              </button>
-            </div>
-          </li>
-        </ul>
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 2 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background w-auto p-3 align-middle @5xl:px-8"
+                >
+                  <div
+                    class="flex flex-row whitespace-nowrap @max-3xl:flex-col"
+                    title="Voimassaolo"
+                  >
+                    <span>
+                      1.1.2000
+                    </span>
+                    <span
+                      class="mx-1 @max-3xl:hidden"
+                    >
+                      -
+                    </span>
+                    <span>
+                      13.12.2050
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 py-3 pr-1 align-middle @max-5xl:hidden"
+                >
+                  <div>
+                    <button
+                      class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+                      data-testid="LocatorButton::button"
+                      title="Näytä kartalla H1236"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="text-2xl inline text-center"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11m-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0M5 20v2h14v-2z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 pr-4 align-middle"
+                >
+                  <div
+                    class=""
+                    data-headlessui-state=""
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-haspopup="menu"
+                      aria-label="Lisää toimintoja pysäkille H1236"
+                      class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                      data-anchor="bottom end"
+                      data-headlessui-state=""
+                      data-testid="StopActionsDropdown::menu"
+                      id="headlessui-menu-button-:rh:"
+                      title="Lisää toimintoja pysäkille H1236"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </li>
     </ul>
   </div>
@@ -926,337 +1166,683 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             </svg>
           </button>
         </div>
-        <ul
+        <div
+          class="@container overflow-x-auto"
           id="route-stop-list"
         >
-          <li
+          <table
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green"
-            data-testid="RouteStopListItem::container"
+            class="w-full border-collapse"
           >
-            <div
-              class="col-span-3 items-center justify-center text-center text-2xl"
-            >
-              <a
-                data-discover="true"
-                data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1234?observationDate=2017-02-14"
-                title="Näytä pysäkin H1234 tiedot"
+            <tbody>
+              <tr
+                class="text-hsl-dark-80 border-l-10 border-hsl-dark-green border-r border-r-light-grey"
+                data-testid="RouteStopListItem::container"
               >
-                H1234
-              </a>
-            </div>
-            <div
-              class="col-span-9 flex items-center"
-              data-testid="RouteStopListItem::name"
-            >
-              <span>
-                Pysäkkialue 0
-              </span>
-            </div>
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::validityPeriod"
-            >
-              Voimassa 1.1.2000 - 13.12.2050
-            </span>
-            <div
-              class="items-center"
-            />
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::lastEdited"
-            >
-              !14.2.2017 14.51
-              <svg
-                aria-hidden="true"
-                class="ml-1 inline text-xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18m-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z"
-                />
-              </svg>
-            </span>
-            <div
-              class="col-span-2 flex justify-center"
-            >
-              <div>
-                <span
-                  class="text-grey"
-                  data-testid="RouteStopListItem::hastusCode"
+                <td
+                  class="p-0 border-y border-y-light-grey w-0"
+                  data-testid="StopTableRow::priority"
+                  title="Prioriteetti: Perusversio"
                 >
-                  1KOSKS
-                </span>
-              </div>
-            </div>
-             
-            <div
-              class=""
-              data-headlessui-state=""
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="Lisää toimintoja pysäkille H1234"
-                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
-                data-anchor="bottom end"
-                data-headlessui-state=""
-                data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rb:"
-                title="Lisää toimintoja pysäkille H1234"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="flex h-full"
+                  >
+                    <div
+                      class="w-2"
+                    />
+                    <span
+                      class="mx-2 mt-2 self-start text-3xl text-light-grey icon-placeholder-dot"
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 align-top"
                 >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
-                  />
-                </svg>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green bg-background text-dark-grey"
-            data-testid="RouteStopListItem::container"
-          >
-            <div
-              class="col-span-3 items-center justify-center text-center text-2xl"
-            >
-              <a
-                data-discover="true"
-                data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1235?observationDate=2017-02-14"
-                title="Näytä pysäkin H1235 tiedot"
-              >
-                H1235
-              </a>
-            </div>
-            <div
-              class="col-span-9 flex items-center"
-              data-testid="RouteStopListItem::name"
-            >
-              <span>
-                Pysäkkialue 1
-              </span>
-            </div>
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::validityPeriod"
-            >
-              Ei reitin käytössä
-            </span>
-            <div
-              class="items-center"
-            />
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::lastEdited"
-            >
-              !14.2.2017 14.51
-              <svg
-                aria-hidden="true"
-                class="ml-1 inline text-xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
+                  <div
+                    class="flex flex-row items-center leading-none font-bold"
+                    title=""
+                  >
+                    <a
+                      class="ml-1"
+                      data-discover="true"
+                      data-testid="StopTableRow::link"
+                      href="/stop-registry/stops/H1234?observationDate=2017-02-14&priority=10"
+                      title="Näytä pysäkin H1234 tiedot"
+                    >
+                      <h2>
+                        H1234
+                      </h2>
+                    </a>
+                  </div>
+                  <div
+                    class="mt-2 flex items-center text-sm"
+                  >
+                    <div>
+                      <span
+                        class="text-grey"
+                        data-testid="RouteStopListItem::hastusCode"
+                      >
+                        1KOSKS
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="align-text-top font-bold border-y border-y-light-grey p-3 pl-0"
                 />
-                <path
-                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18m-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z"
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 0 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-auto p-3 whitespace-nowrap"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 0 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background w-auto p-3 align-middle @5xl:px-8"
+                >
+                  <div
+                    class="flex flex-row whitespace-nowrap @max-3xl:flex-col"
+                    title="Voimassaolo"
+                  >
+                    <span>
+                      1.1.2000
+                    </span>
+                    <span
+                      class="mx-1 @max-3xl:hidden"
+                    >
+                      -
+                    </span>
+                    <span>
+                      13.12.2050
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 py-3 pr-1 align-middle @max-5xl:hidden"
+                >
+                  <div>
+                    <button
+                      class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+                      data-testid="LocatorButton::button"
+                      title="Näytä kartalla H1234"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="text-2xl inline text-center"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11m-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0M5 20v2h14v-2z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 pr-4 align-middle"
+                >
+                  <div
+                    class=""
+                    data-headlessui-state=""
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-haspopup="menu"
+                      aria-label="Lisää toimintoja pysäkille H1234"
+                      class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                      data-anchor="bottom end"
+                      data-headlessui-state=""
+                      data-testid="StopActionsDropdown::menu"
+                      id="headlessui-menu-button-:rb:"
+                      title="Lisää toimintoja pysäkille H1234"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-l-10 border-hsl-dark-green border-r border-r-light-grey bg-background text-dark-grey"
+                data-testid="RouteStopListItem::container"
+              >
+                <td
+                  class="p-0 border-y border-y-light-grey w-0"
+                  data-testid="StopTableRow::priority"
+                  title="Prioriteetti: Perusversio"
+                >
+                  <div
+                    class="flex h-full"
+                  >
+                    <div
+                      class="w-2"
+                    />
+                    <span
+                      class="mx-2 mt-2 self-start text-3xl text-light-grey icon-placeholder-dot"
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 align-top"
+                >
+                  <div
+                    class="flex flex-row items-center leading-none font-bold"
+                    title=""
+                  >
+                    <a
+                      class="ml-1"
+                      data-discover="true"
+                      data-testid="StopTableRow::link"
+                      href="/stop-registry/stops/H1235?observationDate=2017-02-14&priority=10"
+                      title="Näytä pysäkin H1235 tiedot"
+                    >
+                      <h2>
+                        H1235
+                      </h2>
+                    </a>
+                  </div>
+                  <div
+                    class="mt-2 flex items-center text-sm"
+                  >
+                    <div>
+                      <span
+                        class="text-grey"
+                        data-testid="RouteStopListItem::hastusCode"
+                      >
+                        1OLK
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="align-text-top font-bold border-y border-y-light-grey p-3 pl-0"
                 />
-              </svg>
-            </span>
-            <div
-              class="col-span-2 flex justify-center"
-            >
-              <div>
-                <span
-                  class="text-grey"
-                  data-testid="RouteStopListItem::hastusCode"
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
-                  1OLK
-                </span>
-              </div>
-            </div>
-             
-            <div
-              class=""
-              data-headlessui-state=""
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="Lisää toimintoja pysäkille H1235"
-                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
-                data-anchor="bottom end"
-                data-headlessui-state=""
-                data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rn:"
-                title="Lisää toimintoja pysäkille H1235"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 1 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-auto p-3 whitespace-nowrap"
                 >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
                   />
-                  <path
-                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
                   />
-                </svg>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green"
-            data-testid="RouteStopListItem::container"
-          >
-            <div
-              class="col-span-3 items-center justify-center text-center text-2xl"
-            >
-              <a
-                data-discover="true"
-                data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1236?observationDate=2017-02-14"
-                title="Näytä pysäkin H1236 tiedot"
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 1 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background w-auto p-3 align-middle @5xl:px-8"
+                >
+                  <span
+                    class="text-sm whitespace-nowrap"
+                    data-testid="RouteStopListItem::notPartOfRoute"
+                  >
+                    Ei reitin käytössä
+                  </span>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 py-3 pr-1 align-middle @max-5xl:hidden"
+                >
+                  <div>
+                    <button
+                      class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+                      data-testid="LocatorButton::button"
+                      title="Näytä kartalla H1235"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="text-2xl inline text-center"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11m-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0M5 20v2h14v-2z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 pr-4 align-middle"
+                >
+                  <div
+                    class=""
+                    data-headlessui-state=""
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-haspopup="menu"
+                      aria-label="Lisää toimintoja pysäkille H1235"
+                      class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                      data-anchor="bottom end"
+                      data-headlessui-state=""
+                      data-testid="StopActionsDropdown::menu"
+                      id="headlessui-menu-button-:rn:"
+                      title="Lisää toimintoja pysäkille H1235"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="text-hsl-dark-80 border-l-10 border-hsl-dark-green border-r border-r-light-grey"
+                data-testid="RouteStopListItem::container"
               >
-                H1236
-              </a>
-            </div>
-            <div
-              class="col-span-9 flex items-center"
-              data-testid="RouteStopListItem::name"
-            >
-              <span>
-                Pysäkkialue 2
-              </span>
-            </div>
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::validityPeriod"
-            >
-              Voimassa 1.1.2000 - 13.12.2050
-            </span>
-            <div
-              class="items-center"
-            />
-            <span
-              class="col-span-4 text-center"
-              data-testid="RouteStopListItem::lastEdited"
-            >
-              !14.2.2017 14.51
-              <svg
-                aria-hidden="true"
-                class="ml-1 inline text-xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
+                <td
+                  class="p-0 border-y border-y-light-grey w-0"
+                  data-testid="StopTableRow::priority"
+                  title="Prioriteetti: Perusversio"
+                >
+                  <div
+                    class="flex h-full"
+                  >
+                    <div
+                      class="w-2"
+                    />
+                    <span
+                      class="mx-2 mt-2 self-start text-3xl text-light-grey icon-placeholder-dot"
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 align-top"
+                >
+                  <div
+                    class="flex flex-row items-center leading-none font-bold"
+                    title=""
+                  >
+                    <a
+                      class="ml-1"
+                      data-discover="true"
+                      data-testid="StopTableRow::link"
+                      href="/stop-registry/stops/H1236?observationDate=2017-02-14&priority=10"
+                      title="Näytä pysäkin H1236 tiedot"
+                    >
+                      <h2>
+                        H1236
+                      </h2>
+                    </a>
+                  </div>
+                  <div
+                    class="mt-2 flex items-center text-sm"
+                  >
+                    <div>
+                      <span
+                        class="text-grey"
+                        data-testid="RouteStopListItem::hastusCode"
+                      >
+                        1ESIM
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="align-text-top font-bold border-y border-y-light-grey p-3 pl-0"
                 />
-                <path
-                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18m-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z"
-                />
-              </svg>
-            </span>
-            <div
-              class="col-span-2 flex justify-center"
-            >
-              <div>
-                <span
-                  class="text-grey"
-                  data-testid="RouteStopListItem::hastusCode"
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
-                  1ESIM
-                </span>
-              </div>
-            </div>
-             
-            <div
-              class=""
-              data-headlessui-state=""
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="Lisää toimintoja pysäkille H1236"
-                class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
-                data-anchor="bottom end"
-                data-headlessui-state=""
-                data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:rh:"
-                title="Lisää toimintoja pysäkille H1236"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 2 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-auto p-3 whitespace-nowrap"
                 >
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
                   />
-                  <path
-                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
                   />
-                </svg>
-              </button>
-            </div>
-          </li>
-        </ul>
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                  <i
+                    aria-hidden="true"
+                    class="icon-placeholder-dot text-light-grey text-4xl"
+                  />
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
+                >
+                  <div
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row font-bold"
+                      title=""
+                    >
+                      Pysäkkialue 2 | 
+                    </div>
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    />
+                    <div
+                      class="flex flex-row"
+                      title=""
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                      <i
+                        aria-hidden="true"
+                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey border-l border-l-background w-auto p-3 align-middle @5xl:px-8"
+                >
+                  <div
+                    class="flex flex-row whitespace-nowrap @max-3xl:flex-col"
+                    title="Voimassaolo"
+                  >
+                    <span>
+                      1.1.2000
+                    </span>
+                    <span
+                      class="mx-1 @max-3xl:hidden"
+                    >
+                      -
+                    </span>
+                    <span>
+                      13.12.2050
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 py-3 pr-1 align-middle @max-5xl:hidden"
+                >
+                  <div>
+                    <button
+                      class="text-center disabled:cursor-default h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70 hover:enabled:border-tweaked-brand enabled:hover:outline-tweaked-brand"
+                      data-testid="LocatorButton::button"
+                      title="Näytä kartalla H1236"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="text-2xl inline text-center"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11m-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0M5 20v2h14v-2z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+                <td
+                  class="border-y border-y-light-grey w-0 p-3 pr-4 align-middle"
+                >
+                  <div
+                    class=""
+                    data-headlessui-state=""
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-haspopup="menu"
+                      aria-label="Lisää toimintoja pysäkille H1236"
+                      class="flex justify-center items-center rounded-full disabled:cursor-default text-3xl text-brand"
+                      data-anchor="bottom end"
+                      data-headlessui-state=""
+                      data-testid="StopActionsDropdown::menu"
+                      id="headlessui-menu-button-:rh:"
+                      title="Lisää toimintoja pysäkille H1236"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </li>
     </ul>
   </div>
