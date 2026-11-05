@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../../router/routeDetails';
-import { getGeometryPoint } from '../../../../../../utils';
 import { IconButton } from '../../../../../common/Buttons';
 import { ConfirmationDialog } from '../../../../../common/Modals';
 import {
@@ -13,8 +12,8 @@ import {
   ShowOnMap,
   StopSearchRow,
   StopTableRow,
+  mapStopSearchRowToLocatableStop,
 } from '../../../../Components';
-import { LocatableStop } from '../../../../Types';
 import { useRemoveStopAreaFromTerminal } from './useRemoveStopAreaFromTerminal';
 
 const testIds = {
@@ -131,13 +130,7 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
 };
 
 const StopRow: FC<StopRowProps> = ({ stop, observationDate }) => {
-  const locatableStop: LocatableStop = {
-    label: stop.publicCode,
-    netexId: stop.netexId,
-    location: getGeometryPoint(stop.location),
-    priority: stop.priority,
-    transportMode: stop.transportMode,
-  };
+  const locatableStop = mapStopSearchRowToLocatableStop(stop);
 
   return (
     <StopTableRow
