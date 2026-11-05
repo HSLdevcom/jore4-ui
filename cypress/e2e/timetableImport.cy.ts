@@ -9,6 +9,7 @@ import { getClonedBaseTimetableDataInput } from '../datasets/timetables';
 import { Tag } from '../enums';
 import {
   BlockVehicleJourneysTable,
+  ConfirmTimetablesImportModal,
   ConfirmationDialog,
   ErrorModal,
   ExportToolBar,
@@ -27,7 +28,6 @@ import {
   VehicleScheduleDetailsPage,
   VehicleScheduleFrameBlocksView,
 } from '../pageObjects';
-import { ConfirmTimetablesImportModal } from '../pageObjects/timetables/import/ConfirmTimetablesImportModal';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
@@ -75,7 +75,7 @@ describe('Timetable import', rootTags, () => {
 
       const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
 
-      cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
+      cy.visit('/routes/search?query=901&priorities=10&displayedType=routes');
       // Export the route
       ExportToolBar.getToggleSelectingButton().click();
       RouteLineTableRow.getRouteLineTableRowCheckbox('901').check();

@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import { ReusableComponentsVehicleModeEnum } from '../../../../generated/graphql';
 import {
   mapObjectToQueryParameterObjects,
@@ -12,11 +13,10 @@ import {
   SearchConditions,
   SearchNavigationState,
 } from './Types';
-import { useBasePath } from './useBasePath';
 import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
 
 export function useSearch() {
-  const { basePath } = useBasePath();
+  const { pathname } = useLocation();
   const queryParameters = useSearchQueryParser();
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
 
@@ -59,7 +59,7 @@ export function useSearch() {
 
     setMultipleParametersToUrlQuery({
       parameters: mapObjectToQueryParameterObjects(combinedParameters),
-      pathname: `${basePath}/search`,
+      pathname,
     });
   };
 
@@ -73,23 +73,20 @@ export function useSearch() {
   ) => {
     setMultipleParametersToUrlQuery({
       parameters: mapObjectToQueryParameterObjects(combinedFilters),
-      pathname: `${basePath}/search`,
+      pathname,
       state,
     });
   };
 
   /**
-   * Navigates back to '/routes' but retains the query parameters.
+   * Basically resets the search, better implementation will follow
    */
   const handleClose = (state?: SearchNavigationState) => {
-    const combinedParameters = {
-      ...queryParameters.filter,
-      ...queryParameters.search,
-    };
-
     setMultipleParametersToUrlQuery({
-      parameters: mapObjectToQueryParameterObjects(combinedParameters),
-      pathname: `${basePath}`,
+      parameters: mapObjectToQueryParameterObjects({
+        observationDate: queryParameters.search.observationDate,
+      }),
+      pathname,
       state,
     });
   };

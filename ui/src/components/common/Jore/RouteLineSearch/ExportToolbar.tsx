@@ -22,20 +22,24 @@ import {
   findNotEligibleRoutesForExport,
   useExportRoutes,
 } from './useExportRoutes';
-import { useSearchResults } from './useSearchResults';
+import { UseSearchResultsResult } from './useSearchResults';
 
 const testIds = {
   toggleSelectingButton: 'ExportToolBar::toggleSelectingButton',
   exportSelectedButton: 'ExportToolBar::exportSelectedButton',
 };
 
-export const ExportToolbar: FC = () => {
+type ExportToolbarProps = {
+  readonly searchResult: UseSearchResultsResult;
+};
+
+export const ExportToolbar: FC<ExportToolbarProps> = ({
+  searchResult: { lines, resultCount, reducedRoutes, resultType, routes },
+}) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { observationDate } = useObservationDateQueryParam();
 
-  const { resultCount, resultType, routes, reducedRoutes, lines } =
-    useSearchResults();
   const { isSelectingRoutesForExport, selectedRows } =
     useAppSelector(selectExport);
   const { canExport, exportRoutesToHastus } = useExportRoutes();

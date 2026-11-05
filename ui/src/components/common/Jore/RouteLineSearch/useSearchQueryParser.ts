@@ -5,7 +5,7 @@ import {
 } from '../../../../generated/graphql';
 import { useUrlQuery } from '../../../../hooks';
 import { Priority } from '../../../../types/enums';
-import { AllOptionEnum } from '../../../../utils';
+import { AllOptionEnum, areEqual } from '../../../../utils';
 import { today } from '../../../../utils/time';
 import { DisplayedSearchResultType, SearchConditions } from './Types';
 
@@ -16,6 +16,7 @@ export type FilterConditions = {
 export type SearchParameters = {
   readonly search: SearchConditions;
   readonly filter: FilterConditions;
+  readonly hasActiveFilters: boolean;
 };
 
 export enum SearchQueryParameterNames {
@@ -87,5 +88,11 @@ export function useSearchQueryParser(): SearchParameters {
     filter: {
       displayedType,
     },
+    hasActiveFilters:
+      query !== DEFAULT_LABEL ||
+      !areEqual(priorities, DEFAULT_PRIORITIES) ||
+      !areEqual(transportMode, DEFAULT_TRANSPORT_MODE) ||
+      !areEqual(typeOfLine, DEFAULT_TYPE_OF_LINE),
+    // Observation date alone is not a valid search condition
   };
 }

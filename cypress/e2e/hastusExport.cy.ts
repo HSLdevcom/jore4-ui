@@ -16,8 +16,7 @@ import {
   Toast,
 } from '../pageObjects';
 import { UUID } from '../types';
-import { SupportedResources, insertToDbHelper } from '../utils';
-import { today } from '../utils/time';
+import { SupportedResources, insertToDbHelper, today } from '../utils';
 
 const exportDate = today().toString();
 const exportFilePath = `${Cypress.config(
@@ -78,7 +77,7 @@ describe('Hastus export', { tags: [Tag.HastusExport] }, () => {
 
     it('Should export a route', { tags: [Tag.Routes] }, () => {
       // Skip searching via UI
-      cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
+      cy.visit('/routes/search?query=901&priorities=10&displayedType=routes');
       RoutesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
       RoutesAndLinesPage.routeLineTableRow
         .getRouteLineTableRowCheckbox('901')

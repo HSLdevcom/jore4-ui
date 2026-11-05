@@ -6,7 +6,7 @@ import {
   useSearchLinesAndRoutesQuery,
 } from '../../../../generated/graphql';
 import { DisplayedSearchResultType } from './Types';
-import { useSearchQueryParser } from './useSearchQueryParser';
+import { SearchParameters } from './useSearchQueryParser';
 import { buildSearchLinesAndRoutesGqlQueryVariables } from './Utils';
 
 const GQL_SEARCH_LINES_AND_ROUTES = gql`
@@ -25,7 +25,7 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
   }
 `;
 
-type UseSearchResultsResult = {
+export type UseSearchResultsResult = {
   readonly loading: boolean;
   readonly lines: ReadonlyArray<LineTableRowFragment>;
   /** Routes reduced to only have 1 direction per label */
@@ -35,13 +35,12 @@ type UseSearchResultsResult = {
   readonly resultType: DisplayedSearchResultType;
 };
 
-export function useSearchResults(): UseSearchResultsResult {
-  const parsedSearchQueryParameters = useSearchQueryParser();
-
+export function useSearchResults(
+  parameters: SearchParameters,
+): UseSearchResultsResult {
   const { data, loading } = useSearchLinesAndRoutesQuery({
-    variables: buildSearchLinesAndRoutesGqlQueryVariables(
-      parsedSearchQueryParameters.search,
-    ),
+    variables: buildSearchLinesAndRoutesGqlQueryVariables(parameters.search),
+    skip: !parameters.hasActiveFilters,
   });
 
   const lines = data?.route_line ?? [];
@@ -79,7 +78,7 @@ export function useSearchResults(): UseSearchResultsResult {
     [DisplayedSearchResultType.Lines]: lines.length,
     [DisplayedSearchResultType.Routes]: reducedRoutes.length,
   };
-  const resultType = parsedSearchQueryParameters.filter.displayedType;
+  const resultType = parameters.filter.displayedType;
 
   return {
     loading,

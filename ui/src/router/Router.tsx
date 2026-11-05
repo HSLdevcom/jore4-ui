@@ -26,7 +26,6 @@ import { CreateNewLinePage } from '../components/LinesAndRoutes/Lines/Create/Cre
 import { LineDetailsPage } from '../components/LinesAndRoutes/Lines/Details/LineDetailsPage';
 import { LineDraftsPage } from '../components/LinesAndRoutes/Lines/Drafts/LineDraftsPage';
 import { EditLinePage } from '../components/LinesAndRoutes/Lines/Edit/EditLinePage';
-import { RoutesAndLinesMainPage } from '../components/LinesAndRoutes/MainPage/RoutesAndLinesMainPage';
 import { EditRoutePage } from '../components/LinesAndRoutes/Routes/EditRoute/EditRoutePage';
 import { RouteVersionsPage } from '../components/LinesAndRoutes/Routes/RouteVersions';
 import { MainPage } from '../components/main/MainPage';
@@ -43,7 +42,6 @@ import {
 } from '../components/StopRegistry';
 import {
   SubstituteDaySettingsPage,
-  TimetablesMainPage,
   VehicleScheduleDetailsPage,
 } from '../components/Timetables';
 import { ImportTimetablesPage } from '../components/Timetables/Import/Import/ImportTimetablesPage';
@@ -67,20 +65,11 @@ const FallbackRoute: FC = () => {
   );
 };
 
-const RedirectToStopSearch: FC = () => {
+type RedirectToRouteProps = { readonly pathname: string };
+const RedirectToRoute: FC<RedirectToRouteProps> = ({ pathname }) => {
   const { hash, search, state } = useLocation();
 
-  return (
-    <Navigate
-      replace
-      state={state}
-      to={{
-        hash,
-        pathname: Path.stopSearch,
-        search,
-      }}
-    />
-  );
+  return <Navigate replace state={state} to={{ hash, pathname, search }} />;
 };
 
 export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
@@ -187,17 +176,17 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
   {
     path: Path.routes,
     protected: true,
-    element: <RoutesAndLinesMainPage />,
+    element: <RedirectToRoute pathname={Path.routesSearch} />,
   },
   {
     path: Path.stopRegistry,
     protected: true,
-    element: <RedirectToStopSearch />,
+    element: <RedirectToRoute pathname={Path.stopSearch} />,
   },
   {
     path: Path.timetables,
     protected: true,
-    element: <TimetablesMainPage />,
+    element: <RedirectToRoute pathname={Path.timetablesSearch} />,
   },
   {
     path: Path.map,
