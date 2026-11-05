@@ -2,9 +2,11 @@ import {
   GetLineDetailsByIdQuery,
   InfraLinkAlongRouteDefaultFieldsFragment,
   RouteLine,
+  RouteStopFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
 } from '../../../generated/graphql';
 import { RouteInfraLink } from '../../../types';
+import { StopPlaceState } from '../../../types/stop-registry';
 import { illegalOptionalCast } from '../../../utils';
 
 export function mapInfrastructureLinksAlongRouteToRouteInfraLinks<
@@ -27,6 +29,14 @@ export function stopBelongsToJourneyPattern(
 ) {
   return stop.scheduled_stop_point_in_journey_patterns.some(
     (item) => item.journey_pattern?.on_route_id === routeId,
+  );
+}
+
+// Stops without a quay in the stop registry are considered to be in operation.
+export function isStopInOperation(stop: RouteStopFieldsFragment) {
+  return (
+    !stop.newest_quay?.stop_state ||
+    stop.newest_quay.stop_state === StopPlaceState.InOperation
   );
 }
 
