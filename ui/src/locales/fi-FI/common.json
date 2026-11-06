@@ -1270,6 +1270,26 @@
     "edited": "Muokattu",
     "editor": "Muokkaaja"
   },
+  "destinationModal": {
+    "destinationName": "Määränpään nimi",
+    "appliesFromStop": "Tieto asetetaan eteenpäin pysäkiltä {{stopLabel}} | {{nameFi}} - {{nameSv}}",
+    "title": "Määränpää reitille {{ label }}",
+    "name": {
+      "fi_FI": "Määränpää suomeksi",
+      "sv_FI": "Määränpää ruotsiksi"
+    },
+    "shortName": {
+      "fi_FI": "Määränpään lyhenne suomeksi",
+      "sv_FI": "Määränpään lyhenne ruotsiksi"
+    },
+    "saveSuccess": "Määränpää asetettu",
+    "removeSuccess": "Määränpää poistettu",
+    "removeTitle": "Poista määränpää",
+    "removeDescription": "Määränpääksi palautuu {{originalDestination}} pysäkiltä {{stopLabel}} eteenpäin.",
+    "loadFailed": "Määränpään tietojen lataaminen epäonnistui",
+    "stopNotFound": "Pysäkkiä ei löytynyt reitiltä",
+    "signWithVia": "{{destination}} via {{via}}"
+  },
   "viaModal": {
     "createViaPoint": "Tee pysäkistä via-piste",
     "editViaPoint": "Muuta via-tietoa",
@@ -1651,6 +1671,8 @@
     "lineSectionTitle": "Linja {{lineLabel}} {{name}}",
     "routeSectionTitle": "Reitti <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
     "viaPointDetails": "Näytä tarkat Via-tiedot",
+    "destinationPoint": "{{label}}: {{name}}",
+    "destinationPointDetails": "Näytä tarkat määränpäätiedot",
     "viaPoint": "{{label}}: {{name}}",
     "extraFields": {
       "routeNameSwe": "Reitin nimi (ruotsi)",
@@ -1659,6 +1681,7 @@
       "routeEstimatedLength": "Reitin arvioitu pituus",
       "drivingOrder": "Pysäkkien ajojärjestys",
       "viaPoints": "Via-tiedot",
+      "destinationPoints": "Määränpäätiedot",
       "usedTimingPoints": "Hastuspaikat",
       "usedRegulatedTimingPoints": "Ajantasauspysäkit",
       "loadingTimeAllowedOn": "Lastausaika sallittu pysäkeillä"

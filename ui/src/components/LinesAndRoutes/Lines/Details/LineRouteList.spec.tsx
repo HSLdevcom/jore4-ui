@@ -184,6 +184,9 @@ describe(`<${LineRouteList.name} />`, () => {
                           is_regulated_timing_point: false,
                           is_loading_time_allowed: false,
                           is_via_point: false,
+                          is_destination_point: false,
+                          destination_point_name_i18n: null,
+                          destination_point_short_name_i18n: null,
                           via_point_name_i18n: null,
                           via_point_short_name_i18n: null,
                           journey_pattern: {
@@ -204,6 +207,9 @@ describe(`<${LineRouteList.name} />`, () => {
                           is_regulated_timing_point: false,
                           is_loading_time_allowed: false,
                           is_via_point: false,
+                          is_destination_point: false,
+                          destination_point_name_i18n: null,
+                          destination_point_short_name_i18n: null,
                           via_point_name_i18n: null,
                           via_point_short_name_i18n: null,
                           journey_pattern: {
@@ -325,6 +331,9 @@ describe(`<${LineRouteList.name} />`, () => {
                           is_regulated_timing_point: false,
                           is_loading_time_allowed: false,
                           is_via_point: true,
+                          is_destination_point: false,
+                          destination_point_name_i18n: null,
+                          destination_point_short_name_i18n: null,
                           via_point_name_i18n: {
                             fi_FI: 'Paikka',
                             sv_FI: 'Plats',
@@ -450,6 +459,9 @@ describe(`<${LineRouteList.name} />`, () => {
                           is_regulated_timing_point: false,
                           is_loading_time_allowed: false,
                           is_via_point: false,
+                          is_destination_point: false,
+                          destination_point_name_i18n: null,
+                          destination_point_short_name_i18n: null,
                           via_point_name_i18n: null,
                           via_point_short_name_i18n: null,
                           journey_pattern: {
@@ -506,6 +518,9 @@ describe(`<${LineRouteList.name} />`, () => {
                     is_regulated_timing_point: false,
                     is_loading_time_allowed: false,
                     is_via_point: false,
+                    is_destination_point: false,
+                    destination_point_name_i18n: null,
+                    destination_point_short_name_i18n: null,
                     via_point_name_i18n: null,
                     via_point_short_name_i18n: null,
                     journey_pattern: {
@@ -548,6 +563,9 @@ describe(`<${LineRouteList.name} />`, () => {
                     is_regulated_timing_point: false,
                     is_loading_time_allowed: false,
                     is_via_point: false,
+                    is_destination_point: false,
+                    destination_point_name_i18n: null,
+                    destination_point_short_name_i18n: null,
                     via_point_name_i18n: null,
                     via_point_short_name_i18n: null,
                     journey_pattern: {

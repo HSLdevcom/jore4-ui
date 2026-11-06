@@ -2,11 +2,20 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type IState = {
   readonly viaModal: ViaModalState;
+  readonly destinationModal: DestinationModalState;
   readonly timingPlaceModal: TimingPlaceModalState;
   readonly timingSettingsModal: TimingSettingsModalState;
   readonly changeTimetableValidityModal: ChangeTimetableValidityModalState;
   readonly deleteTimetableModal: deleteTimetableModalState;
   readonly cutStopVersionValidityModal: CutStopVersionValidityModalState;
+};
+
+type DestinationModalState = {
+  readonly isOpen: boolean;
+  readonly journeyPatternId?: UUID;
+  readonly stopLabel?: string;
+  readonly stopNameFi?: string;
+  readonly stopNameSv?: string | null;
 };
 
 type ViaModalState = {
@@ -52,6 +61,11 @@ type CutStopVersionValidityModalState = {
 };
 
 const initialState: IState = {
+  destinationModal: {
+    isOpen: false,
+    journeyPatternId: undefined,
+    stopLabel: undefined,
+  },
   viaModal: {
     isOpen: false,
     journeyPatternId: undefined,
@@ -86,6 +100,24 @@ const slice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
+    openDestinationModal: (
+      state,
+      action: PayloadAction<{
+        journeyPatternId: UUID;
+        stopLabel: string;
+        stopNameFi: string;
+        stopNameSv: string | null;
+      }>,
+    ) => {
+      state.destinationModal.stopLabel = action.payload.stopLabel;
+      state.destinationModal.journeyPatternId = action.payload.journeyPatternId;
+      state.destinationModal.stopNameFi = action.payload.stopNameFi;
+      state.destinationModal.stopNameSv = action.payload.stopNameSv;
+      state.destinationModal.isOpen = true;
+    },
+    closeDestinationModal: (state) => {
+      state.destinationModal = initialState.destinationModal;
+    },
     openViaModal: (
       state,
       action: PayloadAction<{
@@ -187,6 +219,8 @@ const slice = createSlice({
 });
 
 export const {
+  openDestinationModal: openDestinationModalAction,
+  closeDestinationModal: closeDestinationModalAction,
   openViaModal: openViaModalAction,
   closeViaModal: closeViaModalAction,
   openTimingPlaceModal: openTimingPlaceModalAction,

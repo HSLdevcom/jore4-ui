@@ -10,9 +10,19 @@ export const selectViaModal = createSelector(
   (modals) => modals.viaModal,
 );
 
+export const selectDestinationModal = createSelector(
+  selectModals,
+  (modals) => modals.destinationModal,
+);
+
 export const selectIsViaModalOpen = createSelector(
   selectModals,
   (modals) => modals.viaModal.isOpen,
+);
+
+export const selectIsDestinationModalOpen = createSelector(
+  selectModals,
+  (modals) => modals.destinationModal.isOpen,
 );
 
 export const selectIsTimingPlaceModalOpen = createSelector(

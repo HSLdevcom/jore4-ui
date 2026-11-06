@@ -65,6 +65,9 @@ const GQL_EDIT_STOP = gql`
         is_regulated_timing_point
         is_loading_time_allowed
         is_via_point
+        is_destination_point
+        destination_point_name_i18n
+        destination_point_short_name_i18n
         via_point_name_i18n
         via_point_short_name_i18n
         journey_pattern {
