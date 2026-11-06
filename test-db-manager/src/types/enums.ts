@@ -44,7 +44,7 @@ export enum LegacyHslMunicipality {
 
 export enum JourneyType {
   Standard = 'STANDARD',
-  DryRun = 'DRY_RUN',
+  DeadRun = 'DEAD_RUN',
   ServiceJourney = 'SERVICE_JOURNEY',
 }
 
