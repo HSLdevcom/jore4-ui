@@ -11,6 +11,7 @@ import {
   optionalFmt,
 } from '../../../../common/ChangeHistory';
 import { RouteData } from '../Types';
+import { diffDestinationPoints } from './diffDestinationPoints';
 import { diffStopDrivingOrder } from './diffStopDrivingOrder';
 import { diffTimingPoints } from './diffTimingPoints';
 import { diffViaPoints } from './diffViaPoints';
@@ -161,6 +162,7 @@ export function diffRouteDetails(
 
     ...diffStopDrivingOrder(t, previous, current),
     ...diffViaPoints(t, previous, current),
+    ...diffDestinationPoints(t, previous, current),
     ...diffTimingPoints(t, previous, current),
   ]);
 }
