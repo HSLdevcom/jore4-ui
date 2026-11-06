@@ -6,12 +6,13 @@ export function mapToSqlLikeValue(str: string) {
 }
 
 /**
- * Replaces UI wildcards (*) with SQL (%) wildcards.
- * Replaces consecutive runs of wildcards with singles.
- * Normalizes whitespace (only singular spaces expected).
- * Trims whitespace.
+ * 1. Trims whitespace.
+ * 2. Normalizes whitespace (only singular spaces expected).
+ * 3. Replaces UI wildcards (*) with SQL (%) wildcards.
+ * 4. Replaces consecutive runs of wildcards with singles.
+ *
  * Assumes an empty or wildcard only query both refer
- * to "match all" case.
+ * to a "match all" case.
  *
  * Returns `null` on "match all" cases, so the where
  * condition can be completely dropped from the query.
@@ -20,14 +21,14 @@ export function mapToSqlLikeValue(str: string) {
  */
 export function queryToLike(query: string): string | null {
   const trimmed = query.trim();
-  const sqlLike = trimmed.replaceAll('*', '%');
-  const normalized = sqlLike.replaceAll(/\s+/g, ' ');
+  const normalized = trimmed.replaceAll(/\s+/g, ' ');
+  const noWildcardRuns = normalized.replaceAll(/(\\?)([%*]+)/g, '$1%');
 
-  if (normalized === '' || normalized === '%') {
+  if (noWildcardRuns === '' || noWildcardRuns === '%') {
     return null;
   }
 
-  return normalized;
+  return noWildcardRuns;
 }
 
 /** Build optional search condition filter. Returns
