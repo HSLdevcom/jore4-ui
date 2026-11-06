@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../../generated/graphql';
 import {
   Operation,
+  openDestinationModalAction,
   openTimingSettingsModalAction,
   openViaModalAction,
   selectIsJoreOperationLoading,
@@ -28,12 +29,15 @@ const testIds = {
   createViaPoint: 'StopActionsDropdown::createViaPoint',
   editViaPoint: 'StopActionsDropdown::editViaPoint',
   openTimingSettings: 'StopActionsDropdown::openTimingSettings',
+  openDestination: 'StopActionsDropdown::openDestination',
 };
 
 type StopActionsDropdownProps = {
   readonly journeyPatternId: UUID | undefined;
   readonly scheduledStopPointSequence: number | undefined;
   readonly stopLabel: string;
+  readonly stopNameFi: string;
+  readonly stopNameSv: string | null;
   readonly stopBelongsToJourneyPattern: boolean;
   readonly isViaPoint: boolean | undefined;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
@@ -48,6 +52,8 @@ export const StopActionsDropdown: FC<
   journeyPatternId,
   scheduledStopPointSequence,
   stopLabel,
+  stopNameFi,
+  stopNameSv,
   stopBelongsToJourneyPattern,
   isViaPoint,
   route,
@@ -71,6 +77,19 @@ export const StopActionsDropdown: FC<
         openViaModalAction({
           stopLabel,
           journeyPatternId,
+        }),
+      );
+    }
+  };
+
+  const showDestinationModal = () => {
+    if (journeyPatternId) {
+      dispatch(
+        openDestinationModalAction({
+          stopLabel,
+          journeyPatternId,
+          stopNameFi,
+          stopNameSv,
         }),
       );
     }
@@ -175,6 +194,12 @@ export const StopActionsDropdown: FC<
             testId={testIds.createViaPoint}
           />
         )}
+        <SimpleDropdownMenuItem
+          disabled={!stopBelongsToJourneyPattern}
+          onClick={showDestinationModal}
+          text={t(($) => $.destinationModal.destinationName)}
+          testId={testIds.openDestination}
+        />
         <SimpleDropdownMenuItem
           disabled={!stopBelongsToJourneyPattern}
           onClick={showTimingSettingsModal}

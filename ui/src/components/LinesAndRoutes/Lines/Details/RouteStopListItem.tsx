@@ -11,6 +11,7 @@ import {
   useAppDispatch,
 } from '../../../../redux';
 import { hasContinuingVersion } from '../../../../utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../utils/i18n';
 import { MAX_DATE, MIN_DATE } from '../../../../utils/time';
 import { IconButton } from '../../../common/Buttons';
 import { Visible } from '../../../common/LayoutComponents';
@@ -46,6 +47,7 @@ const testIds = {
   hastusCode: 'RouteStopListItem::hastusCode',
   openTimingSettingsButton: 'RouteStopListItem::openTimingSettingsButton',
   viaIcon: 'RouteStopListItem::viaIcon',
+  destination: 'RouteStopListItem::destination',
 };
 
 function mapRouteStopToStopSearchRow(
@@ -78,6 +80,29 @@ function mapRouteStopToStopSearchRow(
   };
 }
 
+type DestinationSignProps = {
+  readonly destinationName: string;
+  readonly viaName: string;
+};
+
+const DestinationSign: FC<DestinationSignProps> = ({
+  destinationName,
+  viaName,
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <div data-testid={testIds.destination}>
+      {viaName
+        ? t(($) => $.destinationModal.signWithVia, {
+            destination: destinationName,
+            via: viaName,
+          })
+        : destinationName}
+    </div>
+  );
+};
+
 type RouteStopListItemProps = {
   readonly className?: string;
   readonly stop: RouteStopFieldsFragment;
@@ -92,6 +117,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   observationDate,
 }) => {
   const { t } = useTranslation();
+  const getLocalizedText = useGetLocalizedTextFromDbBlob();
   const dispatch = useAppDispatch();
 
   // find the journey pattern instance that belongs to this route
@@ -128,6 +154,19 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   const stopLabel = stop.label;
   const rowStop = mapRouteStopToStopSearchRow(stop);
   const locatableStop = mapStopSearchRowToLocatableStop(rowStop);
+
+  const destinationName =
+    scheduledStopPointInJourneyPattern?.is_destination_point
+      ? getLocalizedText(
+          scheduledStopPointInJourneyPattern.destination_point_name_i18n,
+        )
+      : '';
+  const viaName = isViaPoint
+    ? getLocalizedText(scheduledStopPointInJourneyPattern?.via_point_name_i18n)
+    : '';
+  const nameDetails = destinationName ? (
+    <DestinationSign destinationName={destinationName} viaName={viaName} />
+  ) : null;
 
   const showTimingSettingsModal = () => {
     if (journeyPatternId && scheduledStopPointSequence !== undefined) {
@@ -202,13 +241,21 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
 
       <PlatformNumberTd className={cells.platformNumber} stop={rowStop} />
 
-      <NameTd className={cells.nameWide} stop={rowStop}>
+      <NameTd
+        className={cells.nameWide}
+        stop={rowStop}
+        nameDetails={nameDetails}
+      >
         {nameExtras}
       </NameTd>
 
       <IconsTd className={cells.iconsWide} stop={rowStop} />
 
-      <NameAndIconsTd className={cells.nameAndIconsNarrow} stop={rowStop}>
+      <NameAndIconsTd
+        className={cells.nameAndIconsNarrow}
+        stop={rowStop}
+        nameDetails={nameDetails}
+      >
         {nameExtras}
       </NameAndIconsTd>
 
@@ -241,6 +288,8 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
             stopLabel,
           })}
           stopLabel={stopLabel}
+          stopNameFi={rowStop.nameFin}
+          stopNameSv={rowStop.nameSwe}
           stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
           isViaPoint={isViaPoint}
           route={route}
