@@ -18289,7 +18289,7 @@
             ],
             "type": {
               "kind": "SCALAR",
-              "name": "jsonb",
+              "name": "localized_string",
               "ofType": null
             },
             "isDeprecated": false,
@@ -18314,7 +18314,7 @@
             ],
             "type": {
               "kind": "SCALAR",
-              "name": "jsonb",
+              "name": "localized_string",
               "ofType": null
             },
             "isDeprecated": false,
@@ -20009,7 +20009,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "jsonb",
+              "name": "localized_string",
               "ofType": null
             },
             "defaultValue": null,
@@ -20021,7 +20021,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "jsonb",
+              "name": "localized_string",
               "ofType": null
             },
             "defaultValue": null,
@@ -20949,7 +20949,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "jsonb",
+              "name": "localized_string",
               "ofType": null
             },
             "defaultValue": null,
@@ -20961,7 +20961,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "jsonb",
+              "name": "localized_string",
               "ofType": null
             },
             "defaultValue": null,

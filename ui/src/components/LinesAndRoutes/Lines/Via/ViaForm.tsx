@@ -80,7 +80,7 @@ export const ViaForm: FC<ViaFormProps> = ({
         ref={formRef}
         className={className}
       >
-        <Row className="mb-5 gap-10">
+        <Row className="mb-5">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -90,7 +90,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             required
           />
         </Row>
-        <Row className="mb-5 gap-10">
+        <Row className="mb-5">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -100,7 +100,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             required
           />
         </Row>
-        <Row className="mb-5 gap-10">
+        <Row className="mb-5">
           <InputField<FormState>
             className="flex-1"
             type="text"
@@ -110,7 +110,7 @@ export const ViaForm: FC<ViaFormProps> = ({
             required
           />
         </Row>
-        <Row className="mb-5 gap-10">
+        <Row className="mb-5">
           <InputField<FormState>
             className="flex-1"
             type="text"

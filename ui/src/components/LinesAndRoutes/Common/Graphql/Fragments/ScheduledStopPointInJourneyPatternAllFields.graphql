@@ -8,6 +8,9 @@ fragment ScheduledStopPointInJourneyPatternAllFields on journey_pattern_schedule
   is_via_point
   via_point_name_i18n
   via_point_short_name_i18n
+  is_destination_point
+  destination_point_name_i18n
+  destination_point_short_name_i18n
   journey_pattern {
     journey_pattern_id
     on_route_id

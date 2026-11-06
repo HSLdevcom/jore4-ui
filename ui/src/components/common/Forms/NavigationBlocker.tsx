@@ -40,6 +40,7 @@ const knownNavigationContexts = [
   'CopyStopAreaForm',
   'CopyStopForm',
   'CreateTimingPlaceForm',
+  'DestinationForm',
   'EditStopForm',
   'ExternalLinksForm',
   'DepotStopForm',
