@@ -2500,8 +2500,8 @@ export type JourneyPatternJourneyPatternUpdates = {
 /** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPattern = {
   __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-  destination_point_name_i18n?: Maybe<Scalars['jsonb']['output']>;
-  destination_point_short_name_i18n?: Maybe<Scalars['jsonb']['output']>;
+  destination_point_name_i18n?: Maybe<Scalars['localized_string']['output']>;
+  destination_point_short_name_i18n?: Maybe<Scalars['localized_string']['output']>;
   is_destination_point: Scalars['Boolean']['output'];
   is_loading_time_allowed: Scalars['Boolean']['output'];
   is_regulated_timing_point: Scalars['Boolean']['output'];
@@ -2721,8 +2721,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
-  destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  destination_point_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
+  destination_point_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   is_destination_point?: InputMaybe<Scalars['Boolean']['input']>;
   is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2873,8 +2873,8 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
-  destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
-  destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  destination_point_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
+  destination_point_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   is_destination_point?: InputMaybe<Scalars['Boolean']['input']>;
   is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;

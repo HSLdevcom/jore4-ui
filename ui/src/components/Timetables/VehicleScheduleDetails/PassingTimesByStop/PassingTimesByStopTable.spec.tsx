@@ -175,6 +175,9 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
             is_regulated_timing_point: false,
             is_used_as_timing_point: true,
             is_via_point: false,
+            is_destination_point: false,
+            destination_point_name_i18n: null,
+            destination_point_short_name_i18n: null,
             journey_pattern: {
               journey_pattern_id: '',
               on_route_id: '',
@@ -191,6 +194,9 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
             is_regulated_timing_point: false,
             is_used_as_timing_point: false,
             is_via_point: false,
+            is_destination_point: false,
+            destination_point_name_i18n: null,
+            destination_point_short_name_i18n: null,
             journey_pattern: {
               journey_pattern_id: '',
               on_route_id: '',

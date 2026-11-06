@@ -1270,6 +1270,27 @@
     "edited": "Edited",
     "editor": "Editor"
   },
+  "destinationModal": {
+    "destinationName": "Destination name",
+    "appliesToStop": "The information applies to stop {{stopLabel}} | {{nameFi}} - {{nameSv}}.",
+    "title": "Destination for route {{ label }}",
+    "name": {
+      "fi_FI": "Destination name in Finnish",
+      "sv_FI": "Destination name in Swedish"
+    },
+    "shortName": {
+      "fi_FI": "Destination short name in Finnish",
+      "sv_FI": "Destination short name in Swedish"
+    },
+    "setDestination": "Set destination",
+    "saveSuccess": "Destination set",
+    "removeSuccess": "Destination removed",
+    "removeTitle": "Remove destination",
+    "removeDescription": "The destination will revert to {{originalDestination}} from stop {{stopLabel}} onwards.",
+    "loadFailed": "Failed to load destination information",
+    "stopNotFound": "Stop not found on the route",
+    "signWithVia": "{{destination}} via {{via}}"
+  },
   "viaModal": {
     "createViaPoint": "Convert stop to a via point",
     "editViaPoint": "Edit via information",
@@ -1651,6 +1672,8 @@
     "lineSectionTitle": "Line {{lineLabel}} {{name}}",
     "routeSectionTitle": "Route <span>{{routeLabel}}</span> <Direction /> <span>{{name}}</span>",
     "viaPointDetails": "Show full Via-details",
+    "destinationPoint": "{{label}}: {{name}}",
+    "destinationPointDetails": "Show full destination details",
     "viaPoint": "{{label}}: {{name}}",
     "extraFields": {
       "routeNameSwe": "Route name (Swedish)",
@@ -1659,6 +1682,7 @@
       "routeEstimatedLength": "Estimated length of the route",
       "drivingOrder": "Driving order of stops",
       "viaPoints": "Via-details",
+      "destinationPoints": "Destination details",
       "usedTimingPoints": "Hastus-places",
       "usedRegulatedTimingPoints": "Regulated timing point stops",
       "loadingTimeAllowedOn": "Loading time allowed on stops"

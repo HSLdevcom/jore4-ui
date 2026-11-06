@@ -14,5 +14,8 @@ export const GQL_JOURNEY_PATTERN_STOP = gql`
     is_via_point
     via_point_name_i18n
     via_point_short_name_i18n
+    is_destination_point
+    destination_point_name_i18n
+    destination_point_short_name_i18n
   }
 `;

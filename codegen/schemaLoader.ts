@@ -103,16 +103,22 @@ const hasuraOverrideTypeDefs = gql`
   }
 
   type journey_pattern_scheduled_stop_point_in_journey_pattern {
+    destination_point_name_i18n: localized_string
+    destination_point_short_name_i18n: localized_string
     via_point_name_i18n: localized_string
     via_point_short_name_i18n: localized_string
   }
 
   type journey_pattern_scheduled_stop_point_in_journey_pattern_set_input {
+    destination_point_name_i18n: localized_string
+    destination_point_short_name_i18n: localized_string
     via_point_name_i18n: localized_string
     via_point_short_name_i18n: localized_string
   }
 
   type journey_pattern_scheduled_stop_point_in_journey_pattern_insert_input {
+    destination_point_name_i18n: localized_string
+    destination_point_short_name_i18n: localized_string
     via_point_name_i18n: localized_string
     via_point_short_name_i18n: localized_string
   }
