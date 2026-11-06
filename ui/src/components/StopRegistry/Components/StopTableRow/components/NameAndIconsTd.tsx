@@ -4,14 +4,18 @@ import { StopRowTdProps } from '../types';
 import { Icons } from './Icons';
 
 export const NameAndIconsTd: FC<
-  StopRowTdProps & { readonly children?: ReactNode }
-> = ({ children, className, stop }) => (
+  StopRowTdProps & {
+    readonly children?: ReactNode;
+    readonly nameDetails?: ReactNode;
+  }
+> = ({ children, nameDetails, className, stop }) => (
   <td className={className}>
     <Column>
       <Row className="font-bold">
         {stop.nameFin} | {stop.nameSwe}
         {children}
       </Row>
+      {nameDetails}
       <Row>{stop.description}</Row>
       <Row>
         <Icons stop={stop} />

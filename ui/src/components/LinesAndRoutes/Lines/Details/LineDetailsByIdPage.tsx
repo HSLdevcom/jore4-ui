@@ -4,6 +4,7 @@ import { twJoin, twMerge } from 'tailwind-merge';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
 import {
   resetMapRouteEditorStateAction,
+  selectIsDestinationModalOpen,
   selectIsTimingSettingsModalOpen,
   selectIsViaModalOpen,
   selectLastCreatedRouteLabel,
@@ -30,6 +31,7 @@ import {
   useGetRoutesDisplayedInList,
 } from '../../Common';
 import { LineLatestChanges } from '../ChangeHistory/Components/LatestChangeHistory/LineLatestChanges';
+import { DestinationModal } from '../Destination/DestinationModal';
 import { TimingSettingsModal } from '../StopTimingSettings/TimingSettingsModal';
 import { ViaModal } from '../Via/ViaModal';
 import { ActionsRow } from './ActionsRow';
@@ -83,6 +85,7 @@ export const LineDetailsByIdPage: FC = () => {
   };
 
   const isViaModalOpen = useAppSelector(selectIsViaModalOpen);
+  const isDestinationModalOpen = useAppSelector(selectIsDestinationModalOpen);
   const isTimingSettingsModalOpen = useAppSelector(
     selectIsTimingSettingsModalOpen,
   );
@@ -160,6 +163,9 @@ export const LineDetailsByIdPage: FC = () => {
       </Container>
       <Visible visible={isViaModalOpen}>
         <ViaModal />
+      </Visible>
+      <Visible visible={isDestinationModalOpen}>
+        <DestinationModal />
       </Visible>
       <Visible visible={isTimingSettingsModalOpen}>
         <TimingSettingsModal />
