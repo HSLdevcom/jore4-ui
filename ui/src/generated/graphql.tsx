@@ -2503,6 +2503,9 @@ export type JourneyPatternJourneyPatternUpdates = {
 /** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPattern = {
   readonly __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+  readonly destination_point_name_i18n?: Maybe<Scalars['jsonb']['output']>;
+  readonly destination_point_short_name_i18n?: Maybe<Scalars['jsonb']['output']>;
+  readonly is_destination_point: Scalars['Boolean']['output'];
   readonly is_loading_time_allowed: Scalars['Boolean']['output'];
   readonly is_regulated_timing_point: Scalars['Boolean']['output'];
   readonly is_used_as_timing_point: Scalars['Boolean']['output'];
@@ -2518,6 +2521,18 @@ export type JourneyPatternScheduledStopPointInJourneyPattern = {
   readonly scheduled_stop_points_aggregate: ServicePatternScheduledStopPointAggregate;
   readonly via_point_name_i18n?: Maybe<Scalars['localized_string']['output']>;
   readonly via_point_short_name_i18n?: Maybe<Scalars['localized_string']['output']>;
+};
+
+
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
+export type JourneyPatternScheduledStopPointInJourneyPatternDestinationPointNameI18nArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "journey_pattern.scheduled_stop_point_in_journey_pattern" */
+export type JourneyPatternScheduledStopPointInJourneyPatternDestinationPointShortNameI18nArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -2626,6 +2641,8 @@ export type JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type JourneyPatternScheduledStopPointInJourneyPatternAppendInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly via_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
@@ -2653,6 +2670,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
   readonly _and?: InputMaybe<ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
   readonly _not?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   readonly _or?: InputMaybe<ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>>;
+  readonly destination_point_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  readonly destination_point_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
+  readonly is_destination_point?: InputMaybe<BooleanComparisonExp>;
   readonly is_loading_time_allowed?: InputMaybe<BooleanComparisonExp>;
   readonly is_regulated_timing_point?: InputMaybe<BooleanComparisonExp>;
   readonly is_used_as_timing_point?: InputMaybe<BooleanComparisonExp>;
@@ -2675,18 +2695,24 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteAtPathInput = {
+  readonly destination_point_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
+  readonly destination_point_short_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
   readonly via_point_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
   readonly via_point_short_name_i18n?: InputMaybe<ReadonlyArray<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteElemInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['Int']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['Int']['input']>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['Int']['input']>;
   readonly via_point_short_name_i18n?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type JourneyPatternScheduledStopPointInJourneyPatternDeleteKeyInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['String']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['String']['input']>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['String']['input']>;
   readonly via_point_short_name_i18n?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2698,6 +2724,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternIncInput = {
 
 /** input type for inserting data into table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternInsertInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly is_destination_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_used_as_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2759,6 +2788,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternOnConflict = {
 
 /** Ordering options when selecting data from "journey_pattern.scheduled_stop_point_in_journey_pattern". */
 export type JourneyPatternScheduledStopPointInJourneyPatternOrderBy = {
+  readonly destination_point_name_i18n?: InputMaybe<OrderBy>;
+  readonly destination_point_short_name_i18n?: InputMaybe<OrderBy>;
+  readonly is_destination_point?: InputMaybe<OrderBy>;
   readonly is_loading_time_allowed?: InputMaybe<OrderBy>;
   readonly is_regulated_timing_point?: InputMaybe<OrderBy>;
   readonly is_used_as_timing_point?: InputMaybe<OrderBy>;
@@ -2780,12 +2812,20 @@ export type JourneyPatternScheduledStopPointInJourneyPatternPkColumnsInput = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type JourneyPatternScheduledStopPointInJourneyPatternPrependInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly via_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly via_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** select columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
+  /** column name */
+  DestinationPointNameI18n = 'destination_point_name_i18n',
+  /** column name */
+  DestinationPointShortNameI18n = 'destination_point_short_name_i18n',
+  /** column name */
+  IsDestinationPoint = 'is_destination_point',
   /** column name */
   IsLoadingTimeAllowed = 'is_loading_time_allowed',
   /** column name */
@@ -2809,6 +2849,8 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumn {
 /** select "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_bool_exp_bool_and_arguments_columns" columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolAndArgumentsColumns {
   /** column name */
+  IsDestinationPoint = 'is_destination_point',
+  /** column name */
   IsLoadingTimeAllowed = 'is_loading_time_allowed',
   /** column name */
   IsRegulatedTimingPoint = 'is_regulated_timing_point',
@@ -2821,6 +2863,8 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 /** select "journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate_bool_exp_bool_or_arguments_columns" columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExpBoolOrArgumentsColumns {
   /** column name */
+  IsDestinationPoint = 'is_destination_point',
+  /** column name */
   IsLoadingTimeAllowed = 'is_loading_time_allowed',
   /** column name */
   IsRegulatedTimingPoint = 'is_regulated_timing_point',
@@ -2832,6 +2876,9 @@ export enum JourneyPatternScheduledStopPointInJourneyPatternSelectColumnJourneyP
 
 /** input type for updating data in table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export type JourneyPatternScheduledStopPointInJourneyPatternSetInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly is_destination_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_used_as_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2886,6 +2933,9 @@ export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput = 
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternScheduledStopPointInJourneyPatternStreamCursorValueInput = {
+  readonly destination_point_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly destination_point_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  readonly is_destination_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_loading_time_allowed?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_regulated_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
   readonly is_used_as_timing_point?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2910,6 +2960,12 @@ export type JourneyPatternScheduledStopPointInJourneyPatternSumOrderBy = {
 
 /** update columns of table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternUpdateColumn {
+  /** column name */
+  DestinationPointNameI18n = 'destination_point_name_i18n',
+  /** column name */
+  DestinationPointShortNameI18n = 'destination_point_short_name_i18n',
+  /** column name */
+  IsDestinationPoint = 'is_destination_point',
   /** column name */
   IsLoadingTimeAllowed = 'is_loading_time_allowed',
   /** column name */
