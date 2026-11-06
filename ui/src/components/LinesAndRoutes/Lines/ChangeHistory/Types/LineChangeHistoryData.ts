@@ -10,6 +10,9 @@ export type RouteStopData = {
   readonly is_regulated_timing_point: boolean;
   readonly is_used_as_timing_point: boolean;
   readonly is_via_point: boolean;
+  readonly is_destination_point: boolean;
+  readonly destination_point_name_i18n: LocalizedString | null;
+  readonly destination_point_short_name_i18n?: LocalizedString | null;
   readonly journey_pattern_id: UUID;
   readonly scheduled_stop_point_sequence: number;
   readonly scheduled_stop_point_label: string;
