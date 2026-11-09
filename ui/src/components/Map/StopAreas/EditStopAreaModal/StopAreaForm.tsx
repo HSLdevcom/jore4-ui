@@ -11,8 +11,10 @@ import { useDirtyFormBlockNavigation } from '../../../common/Forms/NavigationBlo
 import { InputField } from '../../../common/Inputs';
 import { FormColumn, FormRow } from '../../../common/LayoutComponents';
 import {
+  MemberStopsValidityError,
   StopAreaFormState,
   stopAreaFormSchema,
+  useMemberStopsValidityConflict,
 } from '../../../StopRegistry/StopAreas/Common';
 import { StopAreaNames } from './StopAreaNames';
 import { TransportationModeField } from './TransportationModeFormField';
@@ -59,6 +61,7 @@ type StopAreaFormProps = {
   readonly className?: string;
   readonly defaultValues:
     StopAreaFormState | (() => Promise<StopAreaFormState>);
+  readonly editedArea?: EnrichedStopPlace;
   readonly onCancel: () => void;
   readonly onSubmit: (changes: StopAreaFormState) => void;
   readonly testIdPrefix: string;
@@ -74,6 +77,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
   {
     className,
     defaultValues,
+    editedArea,
     onCancel,
     onSubmit,
     testIdPrefix,
@@ -93,6 +97,19 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
     allowStateChange: true, // Allow state change so that location state updates do not show the navigation blocked dialog
   });
   const { handleSubmit } = methods;
+
+  const [validityStart, validityEnd, indefinite] = methods.watch([
+    'validityStart',
+    'validityEnd',
+    'indefinite',
+  ]);
+  const { hasConflict, conflictingMemberStops } =
+    useMemberStopsValidityConflict({
+      area: editedArea,
+      validityStart,
+      validityEnd,
+      indefinite,
+    });
 
   return (
     <FormProvider {...methods}>
@@ -160,6 +177,10 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
             <FormRow className="border-t border-light-grey p-4">
               <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
             </FormRow>
+            <MemberStopsValidityError
+              className="px-4"
+              conflictingMemberStops={conflictingMemberStops}
+            />
           </FormColumn>
         </div>
         <FormActionButtons
@@ -168,7 +189,8 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
           isDisabled={
             !methods.formState.isDirty ||
             methods.formState.isSubmitting ||
-            !methods.formState.isValid
+            !methods.formState.isValid ||
+            hasConflict
           }
           isSubmitting={methods.formState.isSubmitting}
           variant="modal"
