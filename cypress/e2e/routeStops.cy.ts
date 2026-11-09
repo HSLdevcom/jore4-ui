@@ -9,8 +9,10 @@ import {
 } from '../datasets/base';
 import { Tag } from '../enums';
 import { LineDetailsPage, LineRouteList, Toast } from '../pageObjects';
+import { DestinationForm } from '../pageObjects/forms/DestinationForm';
 import { TimingSettingsForm } from '../pageObjects/forms/TimingSettingsForm';
 import { ViaForm } from '../pageObjects/forms/ViaForm';
+import { ConfirmationDialog } from '../pageObjects/shared-components/ConfirmationDialog';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
@@ -294,6 +296,63 @@ describe('Line details page: stops on route', rootTags, () => {
     routeStopListItem.stopActionsDropdown
       .getCreateViaPointButton()
       .shouldBeVisible();
+  });
+
+  it('Should add destination info to a stop and then remove it', () => {
+    const { lineRouteListItem } = LineRouteList;
+    const { routeRow, routeStopListItem } = lineRouteListItem;
+
+    LineDetailsPage.visit(baseDbResources.lines[0].line_id);
+
+    LineRouteList.getNthLineRouteListItem(0).within(() => {
+      routeRow.getToggleAccordionButton().click();
+
+      lineRouteListItem.getNthRouteStopListItem(2).within(() => {
+        routeStopListItem.getDestination().should('not.exist');
+        routeStopListItem.getStopActionsDropdown().click();
+      });
+    });
+    routeStopListItem.stopActionsDropdown.getOpenDestinationButton().click();
+
+    DestinationForm.getRemoveButton().should('be.disabled');
+    DestinationForm.getFinnishNameInput().type('Kohde');
+    DestinationForm.getFinnishShortNameInput().type('Lyhyt kohde');
+    DestinationForm.getSwedishNameInput().type('Mal');
+    DestinationForm.getSwedishShortNameInput().type('Kort mal');
+    DestinationForm.getSaveButton().click();
+
+    Toast.expectSuccessToast('Määränpää asetettu');
+
+    LineRouteList.getNthLineRouteListItem(0).within(() => {
+      lineRouteListItem.getNthRouteStopListItem(2).within(() => {
+        routeStopListItem.getDestination().should('contain', 'Kohde');
+        routeStopListItem.getStopActionsDropdown().click();
+      });
+    });
+    routeStopListItem.stopActionsDropdown.getOpenDestinationButton().click();
+
+    DestinationForm.getFinnishNameInput().should('have.value', 'Kohde');
+    DestinationForm.getFinnishShortNameInput().should(
+      'have.value',
+      'Lyhyt kohde',
+    );
+    DestinationForm.getSwedishNameInput().should('have.value', 'Mal');
+    DestinationForm.getSwedishShortNameInput().should('have.value', 'Kort mal');
+
+    DestinationForm.getRemoveButton().click();
+    ConfirmationDialog.dialogWithButtons
+      .getTextContent()
+      .should('contain', 'Määränpääksi palautuu')
+      .and('contain', 'pysäkiltä E2E004 eteenpäin');
+    ConfirmationDialog.getConfirmButton().click();
+
+    Toast.expectSuccessToast('Määränpää poistettu');
+
+    LineRouteList.getNthLineRouteListItem(0).within(() => {
+      lineRouteListItem
+        .getNthRouteStopListItem(2)
+        .within(() => routeStopListItem.getDestination().should('not.exist'));
+    });
   });
 
   it('Should add timing point to a stop and have correct options enabled/disabled', () => {

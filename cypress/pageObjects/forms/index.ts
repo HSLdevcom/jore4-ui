@@ -23,4 +23,5 @@ export * from './TerminusNameInputs';
 export * from './TimingSettingsForm';
 export * from './TimetablesImportPriorityForm';
 export * from './ValidityPeriodForm';
+export * from './DestinationForm';
 export * from './ViaForm';

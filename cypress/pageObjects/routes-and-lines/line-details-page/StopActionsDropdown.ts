@@ -15,6 +15,10 @@ export class StopActionsDropdown {
     return cy.getByTestId('StopActionsDropdown::editViaPoint');
   }
 
+  static getOpenDestinationButton() {
+    return cy.getByTestId('StopActionsDropdown::openDestination');
+  }
+
   static getOpenTimingSettingsButton() {
     return cy.getByTestId('StopActionsDropdown::openTimingSettings');
   }
