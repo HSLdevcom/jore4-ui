@@ -82,6 +82,14 @@ const LineChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameFi',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameSv',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::CloseButton',
+
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPoints',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::OpenButton',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::NameFi',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::NameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::ShortNameFi',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::ShortNameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::CloseButton',
   ],
   (base) => ({
     ...BaseChangeHistoryTable,
@@ -101,6 +109,7 @@ const LineChangeHistoryTable = createSimplePageObject(
           [
             'ChangeHistory::ChangedValues::RouteDetails::RouteLink',
             'ChangeHistory::ChangedValues::RouteDetails::ViaPoint',
+            'ChangeHistory::ChangedValues::RouteDetails::DestinationPoint',
             'ChangeHistory::ChangedValues::RouteDetails::TimingPoint',
           ],
         ),
