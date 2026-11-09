@@ -310,9 +310,13 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
     });
 
     it('should set observation date after edit', () => {
-      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003, '2025-01-01');
+      // An area without member stops, so that its validity period can be moved
+      // without conflicting with member stop validity periods.
+      StopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ, '2025-01-01');
 
-      assertBasicDetails(testAreaExpectedBasicDetails);
+      StopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-1.1.2052');
 
       // Edit basic details
       StopAreaDetailsPage.details.getEditButton().click();
@@ -1024,7 +1028,9 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
 
       cy.section('Change: Validity period', () => {
         StopAreaDetailsPage.details.getEditButton().click();
-        setValidity(Temporal.PlainDate.from('2030-01-01'), null);
+        // The stop area's validity period has to keep covering the validity
+        // periods of its member stops, which start on 20.3.2020.
+        setValidity(Temporal.PlainDate.from('2010-01-01'), null);
         StopAreaDetailsPage.details.edit.getSaveButton().click();
         waitForSaveToBeFinished();
       });
@@ -1046,7 +1052,7 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
           .within(assertLatestChange('NameFin', 'Annankatu 15', 'Uusi nimi'));
 
         StopAreaDetailsPage.latestChangeHistory.getNthItem(1).within(() => {
-          assertLatestChange('ValidityStart', '1.1.2000', '1.1.2030')();
+          assertLatestChange('ValidityStart', '1.1.2000', '1.1.2010')();
           assertLatestChange('ValidityEnd', '1.1.2052', '')();
         });
 

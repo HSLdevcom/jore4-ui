@@ -236,7 +236,9 @@ function mapToQuayInput(seedStopPlace: StopPlaceQuaySeedData): QuayInput {
         getKeyValue(
           KnownValueKey.ValidityStart,
           seedStopPlace.validityStart,
-          '1990-01-01',
+          // Matches the default validity start of a stop area, so that seeded
+          // quays fit inside their stop area's validity period.
+          '2000-01-01',
         ),
         getKeyValue(KnownValueKey.ValidityEnd, seedStopPlace.validityEnd),
         getKeyValue(KnownValueKey.StopOwner, seedStopPlace.stopOwner),
@@ -459,7 +461,9 @@ export const quayH2003 = mapToQuayInput(H2003);
 export const quayV1562 = mapToQuayInput(route530Stops[0]);
 
 export const minimalQuayKeyValues: ReadonlyArray<StopRegistryKeyValuesInput> = [
-  { key: KnownValueKey.ValidityStart, values: ['1990-01-01'] },
+  // Matches the default validity start of a stop area, so that quays created
+  // with these key values fit inside their stop area's validity period.
+  { key: KnownValueKey.ValidityStart, values: ['2000-01-01'] },
   { key: KnownValueKey.Priority, values: ['10'] },
   { key: KnownValueKey.StopState, values: ['InOperation'] },
 ];

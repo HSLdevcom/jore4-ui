@@ -168,7 +168,8 @@
     "noStops": "Ei pysäkkejä.",
     "newStopArea": "Uusi pysäkkialue",
     "deleteSuccess": "Pysäkkialue poistettu",
-    "chooseTransportMode": "Valitse"
+    "chooseTransportMode": "Valitse",
+    "memberStopsValidityNotCovered": "Pysäkkialueen voimassaolo ei kata kaikkien sen pysäkkien voimassaoloa: {{stops}}. Päivitä pysäkkien tai pysäkkialueen voimassaoloa."
   },
   "stopAreaDetails": {
     "title": "Pysäkkialue",

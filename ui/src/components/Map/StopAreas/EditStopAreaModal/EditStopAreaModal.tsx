@@ -83,6 +83,7 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
       >
         <StopAreaForm
           defaultValues={useGetDefaultValues(editedArea)}
+          editedArea={editedArea}
           onSubmit={onSubmit}
           onCancel={onCancel}
           testIdPrefix={testIds.modal}
