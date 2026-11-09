@@ -27,6 +27,7 @@ export type EditedRouteMetadata = {
   readonly origin: TravelTargetNames;
   readonly destination: TravelTargetNames;
   readonly variant: number | null;
+  readonly accountingDistance: number | null;
   readonly versionComment?: string | undefined;
   readonly validityStart: string;
   readonly indefinite: boolean;

@@ -18,6 +18,8 @@
     "enterRouteData": "Enter route data",
     "finnishName": "Name of the route",
     "label": "Label",
+    "accountingDistance": "Accounting distance (m)",
+    "measuredDistance": "Measured distance (m)",
     "origin": {
       "title": "Origin",
       "name": {

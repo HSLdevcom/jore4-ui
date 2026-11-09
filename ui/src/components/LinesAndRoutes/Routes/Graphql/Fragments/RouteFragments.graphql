@@ -26,6 +26,7 @@ fragment RouteDefaultFields on route_route {
 
 fragment RouteAllFields on route_route {
   ...RouteDefaultFields
+  accounting_distance_in_metres
   route_shape
 }
 
@@ -69,6 +70,7 @@ fragment RouteWithInfrastructureLinks on route_route {
     infrastructure_link {
       infrastructure_link_id
       shape
+      estimated_length_in_metres
       direction
       external_link_id
       external_link_source

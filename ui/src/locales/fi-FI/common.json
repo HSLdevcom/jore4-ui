@@ -18,6 +18,8 @@
     "enterRouteData": "Anna reitin tiedot",
     "finnishName": "Reitin nimi",
     "label": "Tunnus",
+    "accountingDistance": "Sovittu pituus (m)",
+    "measuredDistance": "Mitattu pituus (m)",
     "origin": {
       "title": "Lähtöpaikka",
       "name": {

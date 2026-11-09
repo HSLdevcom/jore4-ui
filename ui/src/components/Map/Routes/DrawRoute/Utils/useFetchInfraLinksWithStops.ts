@@ -38,6 +38,7 @@ const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
     infrastructure_link_id
     shape
     direction
+    estimated_length_in_metres
   }
 `;
 
