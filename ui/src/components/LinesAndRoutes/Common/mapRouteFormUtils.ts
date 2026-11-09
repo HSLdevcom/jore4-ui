@@ -13,6 +13,7 @@ export function mapRouteFormToInput(state: RouteFormState) {
     variant: Number.isInteger(state.variant) ? state.variant : null,
     direction: state.direction,
     priority: state.priority,
+    accounting_distance_in_metres: state.accountingDistance,
     version_comment: state.versionComment?.trim() ?? null,
     validity_start: parseDate(state.validityStart),
     validity_end: mapDateInputToValidityEnd(
@@ -39,6 +40,7 @@ export function mapRouteToFormState(
     variant: route.variant ?? null,
     direction: route.direction as RouteDirection,
     priority: route.priority,
+    accountingDistance: route.accounting_distance_in_metres ?? null,
     validityStart: mapToISODate(route.validity_start) ?? '',
     validityEnd: mapToISODate(route.validity_end) ?? '',
     indefinite: !route.validity_end,

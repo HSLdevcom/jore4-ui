@@ -11,6 +11,7 @@ const testIds = {
 
 type EditRouteModalProps = {
   readonly defaultValues: Partial<RouteFormState>;
+  readonly measuredDistance?: number | null;
   readonly onSuccess: (data: RouteFormState) => void;
   readonly onCancel: () => void;
   readonly onClose: () => void;
@@ -18,6 +19,7 @@ type EditRouteModalProps = {
 
 export const EditRouteModal: FC<EditRouteModalProps> = ({
   defaultValues,
+  measuredDistance,
   onSuccess,
   onCancel,
   onClose,
@@ -41,6 +43,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
       >
         <RoutePropertiesForm
           defaultValues={defaultValues}
+          measuredDistance={measuredDistance}
           ref={formRef}
           onSubmit={onSuccess}
           onCancel={onCancel}
