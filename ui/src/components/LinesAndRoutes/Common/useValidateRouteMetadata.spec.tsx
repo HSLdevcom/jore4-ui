@@ -70,6 +70,7 @@ const defaultRouteParams = {
   },
   priority: 10,
   variant: 1,
+  accountingDistance: null,
 } as const satisfies Partial<RouteFormState>;
 
 describe('useValidateRouteMetadata', () => {

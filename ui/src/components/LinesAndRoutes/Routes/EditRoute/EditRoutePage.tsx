@@ -16,6 +16,7 @@ import {
 import { ConfirmationDialog } from '../../../common/Modals';
 import {
   RouteFormState,
+  getRouteMeasuredLength,
   mapRouteToFormState,
   useDeleteRoute,
 } from '../../Common';
@@ -158,6 +159,11 @@ export const EditRoutePage: FC = () => {
                 routeLabel={route.label}
                 className="p-6 pb-0"
                 defaultValues={mapRouteToFormState(route)}
+                measuredDistance={getRouteMeasuredLength(
+                  route.infrastructure_links_along_route.map(
+                    (link) => link.infrastructure_link,
+                  ),
+                )}
                 onSubmit={onPrepareSubmit}
                 onCancel={onCancel}
                 testIdPrefix="EditRoutePage"
