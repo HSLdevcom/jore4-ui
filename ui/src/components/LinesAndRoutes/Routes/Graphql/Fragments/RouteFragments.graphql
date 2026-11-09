@@ -26,6 +26,7 @@ fragment RouteDefaultFields on route_route {
 
 fragment RouteAllFields on route_route {
   ...RouteDefaultFields
+  accounting_distance_in_metres
   route_shape
 }
 

@@ -55,6 +55,7 @@ export type RoutePropertiesFormProps = {
   readonly actionButtonsClassName?: string;
   readonly variant?: 'infoContainer' | 'modal';
   readonly modalLayout?: boolean;
+  readonly measuredDistance?: number | null;
 };
 
 const testIds = {
@@ -67,6 +68,8 @@ const testIds = {
   lineValidityError: 'RoutePropertiesFormComponent::lineValidityError',
   useTemplateRouteButton:
     'RoutePropertiesFormComponent::useTemplateRouteButton',
+  accountingDistance: 'RoutePropertiesFormComponent::accountingDistance',
+  measuredDistance: 'RoutePropertiesFormComponent::measuredDistance',
 };
 
 export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
@@ -86,6 +89,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     actionButtonsClassName,
     variant,
     modalLayout,
+    measuredDistance,
   },
   ref,
 ) => {
@@ -134,6 +138,16 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     validityEnd,
     indefinite,
   });
+
+  const measuredDistanceText =
+    measuredDistance === null || measuredDistance === undefined
+      ? '-'
+      : `${new Intl.NumberFormat(
+          t(($) => $.languages.intlLangCode),
+          {
+            maximumFractionDigits: 0,
+          },
+        ).format(measuredDistance)} m`;
 
   const setTemplateRoute = (templateRoute?: RouteAllFieldsFragment) => {
     dispatch(setTemplateRouteIdAction(templateRoute?.route_id));
@@ -243,6 +257,23 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
                 className="sm:col-span-3"
                 required
               />
+              <InputField<RouteFormState>
+                className="col-span-2"
+                type="number"
+                translationPrefix="routes"
+                fieldPath="accountingDistance"
+                testId={testIds.accountingDistance}
+                min={0}
+                step={1}
+              />
+              <div className="col-span-2 mb-1.5 flex flex-col self-end text-sm">
+                <div className="font-bold">
+                  {t(($) => $.routes.measuredDistance)}
+                </div>
+                <div data-testid={testIds.measuredDistance}>
+                  {measuredDistanceText}
+                </div>
+              </div>
             </FormRow>
           </FormColumn>
           <TerminusNameInputs />

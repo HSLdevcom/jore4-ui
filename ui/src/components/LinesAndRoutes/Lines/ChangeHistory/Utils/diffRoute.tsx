@@ -153,6 +153,14 @@ export function diffRouteDetails(
     }),
 
     diffKeyedValues({
+      key: 'AccountingDistance',
+      field: t(($) => $.routes.accountingDistance),
+      oldValue: previous.accounting_distance_in_metres,
+      newValue: current.accounting_distance_in_metres,
+      mapper: mapMeters,
+    }),
+
+    diffKeyedValues({
       key: 'EstimatedLengthInMeters',
       field: t(($) => $.lineChangeHistory.extraFields.routeEstimatedLength),
       oldValue: previous.estimated_length_in_metres,

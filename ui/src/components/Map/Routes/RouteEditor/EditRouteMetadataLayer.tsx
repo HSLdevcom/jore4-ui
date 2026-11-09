@@ -25,6 +25,7 @@ import { LoadingState } from '../../../../types';
 import { stopInJourneyPatternFieldsToRemove } from '../../../../utils';
 import {
   RouteFormState,
+  getRouteMeasuredLength,
   routeFormSchema,
 } from '../../../LinesAndRoutes/Common';
 import { EditRouteModal } from './EditRouteModal';
@@ -44,6 +45,7 @@ export const EditRouteMetadataLayer: FC = () => {
     templateRouteId,
     metaData: editedRouteMetadata,
     lineInfo: editedRouteLineInfo,
+    geometry,
   } = useAppSelector(selectEditedRouteData);
 
   const onClose = () => {
@@ -127,6 +129,7 @@ export const EditRouteMetadataLayer: FC = () => {
   return (
     <EditRouteModal
       defaultValues={defaultValues}
+      measuredDistance={getRouteMeasuredLength(geometry)}
       onSuccess={onSuccess}
       onCancel={onClose}
       onClose={onClose}

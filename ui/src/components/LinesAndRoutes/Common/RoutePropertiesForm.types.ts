@@ -25,6 +25,7 @@ export const routeFormSchema = z
     origin: namesSchema.required(),
     destination: namesSchema.required(),
     variant: nullablePositiveNumber,
+    accountingDistance: nullablePositiveNumber,
     versionComment: z.string().optional(),
   })
   .merge(changeValidityFormSchema)

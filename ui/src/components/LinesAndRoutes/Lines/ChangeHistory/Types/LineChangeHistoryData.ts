@@ -40,6 +40,7 @@ export type RouteData = {
   readonly version_comment: string | null;
 
   readonly stops: ReadonlyArray<RouteStopData>;
+  readonly accounting_distance_in_metres?: number | null;
   readonly estimated_length_in_metres: number | null;
 };
 

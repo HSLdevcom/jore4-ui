@@ -1,3 +1,4 @@
+import { length } from '@turf/turf';
 import {
   GetLineDetailsByIdQuery,
   InfraLinkAlongRouteDefaultFieldsFragment,
@@ -44,4 +45,17 @@ export function mapLineDetailsResult(
   data: GetLineDetailsByIdQuery | undefined,
 ) {
   return illegalOptionalCast<RouteLine>(data?.route_line_by_pk);
+}
+
+export function getRouteMeasuredLength(
+  geometry: GeoJSON.LineString | null | undefined,
+): number | null {
+  if (!geometry) {
+    return null;
+  }
+
+  return length(
+    { type: 'Feature', properties: {}, geometry },
+    { units: 'meters' },
+  );
 }
