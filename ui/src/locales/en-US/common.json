@@ -168,7 +168,8 @@
     "noStops": "No stops.",
     "newStopArea": "New stop area",
     "deleteSuccess": "Stop area deleted",
-    "chooseTransportMode": "Choose"
+    "chooseTransportMode": "Choose",
+    "memberStopsValidityNotCovered": "The stop area's validity period does not cover the validity period of all of its stops: {{stops}}. Update the stops' or the stop area's validity period."
   },
   "stopAreaDetails": {
     "title": "Stop area",

@@ -2,6 +2,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   StopAreaInput,
   StopRegistryGeoJsonType,
+  StopRegistryTransportModeType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
   buildInfraLinksAlongRoute,
@@ -53,7 +54,24 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
     organisations: null,
   };
 
-  const stopAreaData: ReadonlyArray<StopAreaInput> = [baseTestStopAreaInput];
+  const stopAreaData: ReadonlyArray<StopAreaInput> = [
+    baseTestStopAreaInput,
+    // A stop area without member stops, so that its validity period can be
+    // edited freely without conflicting with member stop validity periods.
+    {
+      StopArea: {
+        name: { lang: 'fin', value: 'Tyhjä pysäkkialue' },
+        privateCode: { type: 'HSL/TEST', value: 'X0009' },
+        transportMode: StopRegistryTransportModeType.Bus,
+        geometry: {
+          coordinates: [24.94, 60.1663],
+          type: StopRegistryGeoJsonType.Point,
+        },
+        quays: [],
+      },
+      organisations: null,
+    },
+  ];
 
   before(() => {
     cy.task<UUID[]>(
@@ -358,12 +376,14 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
   it('should set correct observation date after editing ', () => {
     MapObservationDateControl.setObservationDate('2025-01-01');
 
-    MapPage.map.getStopAreaById('X0003').click();
+    // An area without member stops, so that its validity period can be moved
+    // without conflicting with member stop validity periods.
+    MapPage.map.getStopAreaById('X0009').click();
     MapPage.map.waitForLoadToComplete();
     MapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      .shouldHaveText('X0003 Annankatu 15');
+      .shouldHaveText('X0009 Tyhjä pysäkkialue');
 
     MapPage.stopAreaPopup.getEditButton().click();
     MapPage.stopAreaForm.getForm().shouldBeVisible();
@@ -383,7 +403,7 @@ describe('Stop areas on map', { tags: [Tag.StopAreas, Tag.Map] }, () => {
       .should('have.value', '2030-01-01');
 
     // Check that edited info was persisted.
-    MapPage.map.getStopAreaById('X0003').click();
+    MapPage.map.getStopAreaById('X0009').click();
   });
 
   it('should relocate stop area on map', () => {

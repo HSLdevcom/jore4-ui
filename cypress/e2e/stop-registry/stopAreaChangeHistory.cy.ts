@@ -448,18 +448,29 @@ describe('Stop Change History', { tags }, () => {
 
     StopAreaDetailsPage.visit('AreaA');
 
-    const start = Temporal.PlainDate.from({ year: 2026, month: 1, day: 1 });
-    const mid = Temporal.PlainDate.from({ year: 2026, month: 6, day: 15 });
-    const end = Temporal.PlainDate.from({ year: 2026, month: 10, day: 31 });
+    // Both validity periods have to keep covering the validity period of the
+    // member stop H2003 (20.3.2020 - 31.5.2050).
+    const firstStart = Temporal.PlainDate.from({
+      year: 2010,
+      month: 1,
+      day: 1,
+    });
+    const firstEnd = Temporal.PlainDate.from({ year: 2050, month: 6, day: 1 });
+    const secondStart = Temporal.PlainDate.from({
+      year: 2015,
+      month: 1,
+      day: 1,
+    });
+    const secondEnd = Temporal.PlainDate.from({ year: 2051, month: 1, day: 1 });
 
     cy.section('Make changes to validity period', () => {
       StopAreaDetailsPage.details.getEditButton().click();
-      setValidity(start, mid);
+      setValidity(firstStart, firstEnd);
       StopAreaDetailsPage.details.edit.getSaveButton().click();
       waitForSaveToBeFinished();
 
       StopAreaDetailsPage.details.getEditButton().click();
-      setValidity(mid, end);
+      setValidity(secondStart, secondEnd);
       StopAreaDetailsPage.details.edit.getSaveButton().click();
       waitForSaveToBeFinished();
     });
@@ -475,8 +486,8 @@ describe('Stop Change History', { tags }, () => {
         .should('have.attr', 'data-is-active', 'true')
         .and('have.attr', 'data-sort-direction', 'desc');
 
-      assertGroupValidityPeriod(0, mid, end);
-      assertGroupValidityPeriod(1, start, mid);
+      assertGroupValidityPeriod(0, secondStart, secondEnd);
+      assertGroupValidityPeriod(1, firstStart, firstEnd);
       assertGroupValidityPeriod(2, initialValidityStart, initialValidityEnd);
     });
 
@@ -487,8 +498,8 @@ describe('Stop Change History', { tags }, () => {
       );
 
       assertGroupValidityPeriod(0, initialValidityStart, initialValidityEnd);
-      assertGroupValidityPeriod(1, start, mid);
-      assertGroupValidityPeriod(2, mid, end);
+      assertGroupValidityPeriod(1, firstStart, firstEnd);
+      assertGroupValidityPeriod(2, secondStart, secondEnd);
     });
 
     cy.section('Check sorting by validity start - Ascending', () => {
@@ -498,8 +509,8 @@ describe('Stop Change History', { tags }, () => {
       );
 
       assertGroupValidityPeriod(0, initialValidityStart, initialValidityEnd);
-      assertGroupValidityPeriod(1, start, mid);
-      assertGroupValidityPeriod(2, mid, end);
+      assertGroupValidityPeriod(1, firstStart, firstEnd);
+      assertGroupValidityPeriod(2, secondStart, secondEnd);
     });
 
     cy.section('Check sorting by validity start - Descending', () => {
@@ -508,8 +519,8 @@ describe('Stop Change History', { tags }, () => {
         'desc',
       );
 
-      assertGroupValidityPeriod(0, mid, end);
-      assertGroupValidityPeriod(1, start, mid);
+      assertGroupValidityPeriod(0, secondStart, secondEnd);
+      assertGroupValidityPeriod(1, firstStart, firstEnd);
       assertGroupValidityPeriod(2, initialValidityStart, initialValidityEnd);
     });
 
@@ -519,8 +530,8 @@ describe('Stop Change History', { tags }, () => {
         'asc',
       );
 
-      assertGroupValidityPeriod(0, start, mid);
-      assertGroupValidityPeriod(1, mid, end);
+      assertGroupValidityPeriod(0, firstStart, firstEnd);
+      assertGroupValidityPeriod(1, secondStart, secondEnd);
       assertGroupValidityPeriod(2, initialValidityStart, initialValidityEnd);
     });
 
@@ -531,8 +542,8 @@ describe('Stop Change History', { tags }, () => {
       );
 
       assertGroupValidityPeriod(0, initialValidityStart, initialValidityEnd);
-      assertGroupValidityPeriod(1, mid, end);
-      assertGroupValidityPeriod(2, start, mid);
+      assertGroupValidityPeriod(1, secondStart, secondEnd);
+      assertGroupValidityPeriod(2, firstStart, firstEnd);
     });
   });
 });

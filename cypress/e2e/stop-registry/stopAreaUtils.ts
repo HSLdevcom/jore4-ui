@@ -4,7 +4,6 @@ import {
   Toast,
 } from '../../pageObjects';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
-import { today } from '../../utils/time';
 
 export type EditableBasicDetails = {
   readonly name: string;
@@ -78,6 +77,8 @@ export const changedBasicDetails: EditableBasicDetails = {
   abbreviationFin: 'New abbreviation swe',
   abbreviationSwe: 'New abbreviation swe',
   abbreviationEng: 'New abbreviation eng',
-  validFrom: today(),
+  // A stop area's validity period has to cover the validity periods of its
+  // member stops, which start on 20.3.2020 in the test datasets.
+  validFrom: Temporal.PlainDate.from('2010-01-01'),
   validTo: null,
 };
