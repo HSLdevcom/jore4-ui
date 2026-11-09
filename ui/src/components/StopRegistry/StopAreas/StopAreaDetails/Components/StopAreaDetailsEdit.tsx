@@ -25,8 +25,10 @@ import {
 import { AlternativeNamesEdit } from '../../../Components/AlternativeNames';
 import {
   StopAreaFormState as FormState,
+  MemberStopsValidityError,
   StopAreaFormState,
   stopAreaFormSchema,
+  useMemberStopsValidityConflict,
   useUpsertStopArea,
 } from '../../Common';
 
@@ -128,6 +130,19 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   useDirtyFormBlockNavigation(methods.formState, 'StopAreaDetailsEdit');
   const { handleSubmit } = methods;
 
+  const [validityStart, validityEnd, indefinite] = methods.watch([
+    'validityStart',
+    'validityEnd',
+    'indefinite',
+  ]);
+  const { hasConflict, conflictingMemberStops } =
+    useMemberStopsValidityConflict({
+      area,
+      validityStart,
+      validityEnd,
+      indefinite,
+    });
+
   return (
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
@@ -186,6 +201,9 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           <FormRow lgColumns={2} mdColumns={1}>
             <ValidityPeriodForm />
           </FormRow>
+          <MemberStopsValidityError
+            conflictingMemberStops={conflictingMemberStops}
+          />
         </FormColumn>
         <FormActionButtons
           onCancel={onCancel}
@@ -193,7 +211,8 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           isDisabled={
             !methods.formState.isDirty ||
             methods.formState.isSubmitting ||
-            !methods.formState.isValid
+            !methods.formState.isValid ||
+            hasConflict
           }
           isSubmitting={methods.formState.isSubmitting}
           variant="infoContainer"
