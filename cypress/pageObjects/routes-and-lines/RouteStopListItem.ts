@@ -11,6 +11,10 @@ export class RouteStopListItem {
     return cy.getByTestId('RouteStopListItem::openTimingSettingsButton');
   }
 
+  static getDestination() {
+    return cy.getByTestId('RouteStopListItem::destination');
+  }
+
   static getViaIcon() {
     return cy.getByTestId('RouteStopListItem::viaIcon');
   }

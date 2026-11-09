@@ -10,6 +10,7 @@ import {
 } from '../datasets/base';
 import { Tag } from '../enums';
 import {
+  DestinationForm,
   EditRoutePage,
   LineChangeHistory,
   LineDetailsPage,
@@ -67,6 +68,12 @@ const changed = {
     finnishShortName: 'NameShortFin',
     swedishName: 'NameSwe',
     swedishShortName: 'NameShortSwe',
+  },
+  destinationPoint: {
+    finnishName: 'DestFin',
+    finnishShortName: 'DestShortFin',
+    swedishName: 'DestSwe',
+    swedishShortName: 'DestShortSwe',
   },
 };
 
@@ -270,6 +277,82 @@ describe('Line & Route Change History', { tags }, () => {
                   .shouldHaveText(changed.viaPoint.swedishShortName);
 
                 routeDetails.viaPointDetails.getCloseButton().click();
+              });
+            });
+          });
+        });
+    });
+  });
+
+  it('Should have change history for Destination point changes', () => {
+    cy.section('Add a Destination point to the route', () => {
+      LineRouteList.getNthLineRouteListItem(0).within(() => {
+        RouteRow.getToggleAccordionButton().click();
+        LineRouteListItem.getNthRouteStopListItem(0).within(() =>
+          RouteStopListItem.getStopActionsDropdown().click(),
+        );
+      });
+      RouteStopListItem.stopActionsDropdown.getOpenDestinationButton().click();
+
+      DestinationForm.getFinnishNameInput().clearAndType(
+        changed.destinationPoint.finnishName,
+      );
+      DestinationForm.getSwedishNameInput().clearAndType(
+        changed.destinationPoint.swedishName,
+      );
+      DestinationForm.getFinnishShortNameInput().clearAndType(
+        changed.destinationPoint.finnishShortName,
+      );
+      DestinationForm.getSwedishShortNameInput().clearAndType(
+        changed.destinationPoint.swedishShortName,
+      );
+
+      DestinationForm.getSaveButton().click();
+      Toast.expectSuccessToast('Määränpää asetettu');
+    });
+
+    cy.info('Go to the change history page');
+    LineDetailsPage.getChangeHistoryLink().click();
+
+    cy.section('Verify changes are in the history', () => {
+      const { changedValues } = LineChangeHistory.changeHistoryTable;
+      const { routeDetails } = changedValues;
+      LineChangeHistory.changeHistoryTable.group
+        .getAllGroupsByRouteLabel('901')
+        .eq(0)
+        .within(() => {
+          routeDetails.getDestinationPoints().within(() => {
+            changedValues.getOldValue().within(() => {
+              routeDetails
+                .getAllDestinationPointElements()
+                .should('have.length', 0);
+            });
+            changedValues.getNewValue().within(() => {
+              routeDetails
+                .getAllDestinationPointElements()
+                .should('have.length', 1);
+              routeDetails
+                .getDestinationPoint()
+                .shouldHaveText('E2E001: DestFin');
+
+              routeDetails.destinationPointDetails.getOpenButton().click();
+
+              cy.withinHeadlessPortal(() => {
+                const details = routeDetails.destinationPointDetails;
+                details
+                  .getNameFi()
+                  .shouldHaveText(changed.destinationPoint.finnishName);
+                details
+                  .getNameSv()
+                  .shouldHaveText(changed.destinationPoint.swedishName);
+                details
+                  .getShortNameFi()
+                  .shouldHaveText(changed.destinationPoint.finnishShortName);
+                details
+                  .getShortNameSv()
+                  .shouldHaveText(changed.destinationPoint.swedishShortName);
+
+                details.getCloseButton().click();
               });
             });
           });
