@@ -1,11 +1,9 @@
 import { SelectorParam } from 'i18next';
 import { ComponentType, FC } from 'react';
 import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
-import { SortStopsBy } from '../../Types';
-import {
-  useGroupedResultSelection,
-  useStopSearchRouterState,
-} from '../../Utils';
+import { useGroupedResultSelection } from '../../../../common/Search/ResultSelection';
+import { PgIdType, SortStopsBy, StopSearchHistoryState } from '../../Types';
+import { useStopSearchRouterState } from '../../Utils';
 import { GroupedCountAndSortingRow } from './StopPlaceCountAndSortingRow';
 import { StopPlaceHeaderPublicPropsProps } from './StopPlaceHeader';
 import { StopPlaceSelector } from './StopPlaceSelector';
@@ -32,6 +30,7 @@ export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
       filters: { observationDate },
     },
     historyState: { resultSelection, selectedGroups, knownStopIds },
+    setHistoryState,
   } = useStopSearchRouterState();
 
   const {
@@ -39,7 +38,9 @@ export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
     onBatchUpdateSelection,
     onToggleSelectAll,
     onToggleSelection,
-  } = useGroupedResultSelection();
+  } = useGroupedResultSelection<StopSearchHistoryState, PgIdType>(
+    setHistoryState,
+  );
 
   return (
     <>

@@ -8,11 +8,14 @@ import {
 import { mapToShortDate } from '../../../../utils/time';
 import { LocatorButton } from '../../../common/Buttons';
 import { Row } from '../../../common/LayoutComponents';
+import {
+  BatchUpdateSelection,
+  ResultSelection,
+} from '../../../common/Search/ResultSelection';
 import { useShowRoutesOnMap } from '../../../common/Utils';
 import { StopSearchRow } from '../../Components';
 import { SelectAllCheckbox } from '../Components';
-import { ResultSelection } from '../Types';
-import { BatchUpdateSelection, areAllStopsSelected } from '../Utils';
+import { areAllStopsSelected } from '../Utils';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 
 const testIds = {

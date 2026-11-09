@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../common/Loaders';
 import { Pagination } from '../../../common/Pagination';
+import { useResultSelection } from '../../../common/Search/ResultSelection';
 import {
   LoadingStopsErrorRow,
   SelectableStopSearchResultStopsTable,
 } from '../Components';
-import { useResultSelection, useStopSearchRouterState } from '../Utils';
+import { useStopSearchRouterState } from '../Utils';
 import { CountAndSortingRow } from './CountAndSortingRow';
 import { useStopSearchByStopResults } from './useStopSearchByStopResults';
 

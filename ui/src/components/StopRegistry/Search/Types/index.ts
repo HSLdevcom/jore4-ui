@@ -1,5 +1,4 @@
 export * from './CountAndSortingRow';
-export * from './ResultSelection';
 export * from './SearchBy';
 export * from './SearchFor';
 export * from './SortingInfo';

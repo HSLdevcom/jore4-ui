@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 import {
   LocatorActionButton,
   NonSelectableStopTableRowProps,
@@ -10,7 +11,6 @@ import {
   StopTableRow,
   mapStopSearchRowToLocatableStop,
 } from '../../Components';
-import { ResultSelection } from '../Types';
 
 const testIds = {
   table: 'StopSearchByStopResultList::table',

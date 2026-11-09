@@ -7,7 +7,7 @@ export const selectionStateValues = [
 export type SelectionState = (typeof selectionStateValues)[number];
 
 /**
- * Represents the selected rows on the Stop Search page / on the map.
+ * Represents the selected rows on the+ Search page / on the map.
  *
  * ### Can be in 3(4) different states:
  * 1. `selectionState` = __ALL__: All rows are selected.
@@ -42,4 +42,27 @@ export const defaultResultSelection: ResultSelection = {
   selectionState: 'ALL_SELECTED',
   included: [],
   excluded: [],
+};
+
+export type KnownFlatIds = {
+  readonly listingMode: 'flat';
+  // We only need a single flat list of ids.
+  readonly ids: ReadonlyArray<string>;
+};
+
+export type KnownGroupedIds = {
+  readonly listingMode: 'grouped';
+
+  // Include a precalculated flat list of the ids in addition to the group
+  // mapping, needed to unregister the id's as the groups get unselected.
+  readonly ids: ReadonlyArray<string>;
+  readonly groups: Readonly<Record<string, ReadonlyArray<string>>>;
+};
+
+export type KnownIds = KnownFlatIds | KnownGroupedIds;
+
+export type ResultSelectionHistoryState = {
+  readonly selectedGroups: ReadonlyArray<string>;
+  readonly resultSelection: ResultSelection;
+  readonly knownStopIds: KnownIds;
 };

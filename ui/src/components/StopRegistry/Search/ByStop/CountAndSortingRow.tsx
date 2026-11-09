@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 import { StopSearchRow } from '../../Components';
 import {
   OpenStopResultsOnMapButton,
@@ -9,12 +10,7 @@ import {
   SelectAllCheckbox,
   SortResultsBy,
 } from '../Components';
-import {
-  ResultSelection,
-  SortStopsBy,
-  SortingInfo,
-  StopSearchFilters,
-} from '../Types';
+import { SortStopsBy, SortingInfo, StopSearchFilters } from '../Types';
 
 const supportedSortingFields: ReadonlyArray<SortStopsBy> = [
   SortStopsBy.LABEL,

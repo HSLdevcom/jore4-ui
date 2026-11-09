@@ -1,5 +1,6 @@
 import { FC, useDeferredValue } from 'react';
-import { ResultSelection, SortingInfo } from '../Types';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
+import { SortingInfo } from '../Types';
 import { RouteStopsTable } from './RouteStopsTable';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 

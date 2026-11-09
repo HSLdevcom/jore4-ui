@@ -6,8 +6,9 @@ import {
   ResolveSearchResultNetexIdsQuery,
   ResolveSearchResultNetexIdsQueryVariables,
 } from '../../../../../generated/graphql';
+import { ResultSelection } from '../../../../common/Search/ResultSelection';
 import { filtersAndResultSelectionToQueryVariables } from '../../../Search/Common';
-import { ResultSelection, StopSearchFilters } from '../../../Search/Types';
+import { StopSearchFilters } from '../../../Search/Types';
 import {
   makeFetchWriteProgressControls,
   mapToInfoSpotReportData,

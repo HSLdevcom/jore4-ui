@@ -2,7 +2,8 @@ import { RouteDirectionEnum } from '../../../../../generated/graphql';
 import { EnrichedQuay, EnrichedStopPlace } from '../../../../../types';
 import { DateLike } from '../../../../../utils/time';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
-import { ResultSelection, StopSearchFilters } from '../../../Search/Types';
+import { ResultSelection } from '../../../../common/Search/ResultSelection';
+import { StopSearchFilters } from '../../../Search/Types';
 
 export type TriggerDownloadFn = (filename: string) => void;
 

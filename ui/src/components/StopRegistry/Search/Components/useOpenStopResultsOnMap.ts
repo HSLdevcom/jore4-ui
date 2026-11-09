@@ -34,6 +34,7 @@ import {
   log,
   mapCompactOrNull,
 } from '../../../../utils';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 import { useNavigateToMap } from '../../../common/Utils';
 import {
   ViewPortParams as UrlViewPort,
@@ -41,7 +42,7 @@ import {
 } from '../../../Map/Types';
 import { StopSearchRow } from '../../Components';
 import { filtersAndResultSelectionToQueryVariables } from '../Common';
-import { ResultSelection, StopSearchFilters } from '../Types';
+import { StopSearchFilters } from '../Types';
 
 const GQL_GET_STOP_SEARCH_RESULT_LOCATIONS = gql`
   query GetStopSearchResultDetailsForMap(

@@ -12,6 +12,11 @@ import {
 } from 'react';
 import { areEqual, memoizeOne } from '../../../utils';
 import {
+  ResultSelection,
+  defaultResultSelection,
+  selectionStateValues,
+} from '../../common/Search/ResultSelection';
+import {
   UrlStateDeserializers,
   UrlStateSerializers,
   parsePriorities,
@@ -24,11 +29,8 @@ import {
   useTypedUrlState,
 } from '../../common/Utils/typedRouterState';
 import {
-  ResultSelection,
   StopSearchFilters,
   defaultFilters,
-  defaultResultSelection,
-  selectionStateValues,
 } from '../../StopRegistry/Search/Common';
 import {
   filterDeserializers,
