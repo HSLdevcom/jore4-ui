@@ -1,9 +1,10 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 import {
   GenerateReport,
   ReportDownloadMenuItem,
 } from '../../Stops/Common/Report';
-import { ResultSelection, StopSearchFilters } from '../Types';
+import { StopSearchFilters } from '../Types';
 
 type DownloadReportMenuItemProps = {
   readonly className?: string;

@@ -20,6 +20,13 @@ import {
   memoizeOne,
 } from '../../../../utils';
 import {
+  KnownIds,
+  ResultSelection,
+  SelectionState,
+  defaultResultSelection,
+  selectionStateValues,
+} from '../../../common/Search/ResultSelection';
+import {
   SEPARATOR,
   TypedRouterHistoryStateShapeError,
   UrlStateDeserializers,
@@ -33,19 +40,14 @@ import {
 import { SimpleRecord } from '../../../common/Utils/typedRouterState/types';
 import { allKnownPosterSizes } from '../../Components/InfoSpots';
 import {
-  KnownStopIds,
-  ResultSelection,
   SearchBy,
   SearchFor,
-  SelectionState,
   SortStopsBy,
   SortingInfo,
   StopSearchFilters,
   StopSearchHistoryState,
   defaultFilters,
-  defaultResultSelection,
   defaultSortingInfo,
-  selectionStateValues,
   stopSearchFiltersSchema,
 } from '../Types';
 
@@ -338,7 +340,7 @@ function assertIsAResultSelection(
 function assertIsAKnownStopIds(
   path: string,
   value: unknown,
-): asserts value is KnownStopIds {
+): asserts value is KnownIds {
   if (typeof value !== 'object' || !value) {
     throw new TypedRouterHistoryStateShapeError(
       path,

@@ -5,6 +5,7 @@ import { areEqual } from '../../../utils';
 import { CloseIconButton } from '../../common/Buttons';
 import { OpenDefaultMapButton, PageTitle } from '../../common/Jore';
 import { Container, Row } from '../../common/LayoutComponents';
+import { defaultResultSelection } from '../../common/Search/ResultSelection';
 import { StopsByLineSearchResults } from './ByLine';
 import { StopSearchByStopResults } from './ByStop';
 import { StopSearchBar } from './Components';
@@ -15,7 +16,6 @@ import {
   SearchFor,
   StopSearchFilters,
   defaultFilters,
-  defaultResultSelection,
   defaultSortingInfo,
 } from './Types';
 import {

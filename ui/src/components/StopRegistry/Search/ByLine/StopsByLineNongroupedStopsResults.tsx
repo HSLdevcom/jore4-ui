@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../common/Loaders';
 import { Pagination } from '../../../common/Pagination';
+import { useGroupedResultSelection } from '../../../common/Search/ResultSelection';
 import {
   LoadingStopsErrorRow,
   SelectableStopSearchResultStopsTable,
 } from '../Components';
-import { useGroupedResultSelection, useStopSearchRouterState } from '../Utils';
+import { PgIdType, StopSearchHistoryState } from '../Types';
+import { useStopSearchRouterState } from '../Utils';
 import { StopsByLineCountAndSortingRow } from './StopsByLineCountAndSortingRow';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 import { useGetStopSearchByLinesResult } from './useGetStopSearchByLinesResult';
@@ -30,6 +32,7 @@ export const StopsByLineNongroupedStopsResults: FC<
     setPagingInfo,
     setSortingInfo,
     historyState: { resultSelection },
+    setHistoryState,
   } = useStopSearchRouterState();
 
   const {
@@ -44,7 +47,10 @@ export const StopsByLineNongroupedStopsResults: FC<
     stopsRefetch,
   } = useGetStopSearchByLinesResult(lines, pagingInfo, sortingInfo);
 
-  const { onToggleSelectAll, onToggleSelection } = useGroupedResultSelection();
+  const { onToggleSelectAll, onToggleSelection } = useGroupedResultSelection<
+    StopSearchHistoryState,
+    PgIdType
+  >(setHistoryState);
 
   const { observationDate } = filters;
 

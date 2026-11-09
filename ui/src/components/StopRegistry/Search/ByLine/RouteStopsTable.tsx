@@ -3,11 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../common/Loaders';
 import {
+  ResultSelection,
+  useGroupedResultSelection,
+} from '../../../common/Search/ResultSelection';
+import {
   LoadingStopsErrorRow,
   SelectableStopSearchResultStopsTable,
 } from '../Components';
-import { ResultSelection, SortingInfo } from '../Types';
-import { useGroupedResultSelection } from '../Utils';
+import { PgIdType, SortingInfo, StopSearchHistoryState } from '../Types';
+import { useStopSearchRouterState } from '../Utils';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
@@ -43,8 +47,11 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
     sortingInfo.sortOrder,
   );
 
+  const { setHistoryState } = useStopSearchRouterState();
   const { onRegisterNewGroup, onBatchUpdateSelection, onToggleSelection } =
-    useGroupedResultSelection();
+    useGroupedResultSelection<StopSearchHistoryState, PgIdType>(
+      setHistoryState,
+    );
 
   useEffect(() => {
     onRegisterNewGroup(

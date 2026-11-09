@@ -5,9 +5,11 @@ import { useGetStopResultsCountQuery } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import {
   ResultSelection,
+  defaultResultSelection,
+} from '../../common/Search/ResultSelection';
+import {
   StopSearchFilters,
   defaultFilters,
-  defaultResultSelection,
   filtersAndResultSelectionToQueryVariables,
 } from '../../StopRegistry/Search/Common';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';

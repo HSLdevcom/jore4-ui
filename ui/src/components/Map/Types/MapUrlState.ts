@@ -1,9 +1,7 @@
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import {
-  ResultSelection,
-  StopSearchFilters,
-} from '../../StopRegistry/Search/Common';
+import { ResultSelection } from '../../common/Search/ResultSelection';
+import { StopSearchFilters } from '../../StopRegistry/Search/Common';
 
 export type DisplayedRouteParams = {
   readonly lineLabel: string | null;

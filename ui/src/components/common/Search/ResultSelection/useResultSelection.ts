@@ -6,13 +6,11 @@ import uniq from 'lodash/uniq';
 import without from 'lodash/without';
 import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import {
-  KnownGroupedStopIds,
-  KnownStopIds,
-  PgIdType,
+  KnownGroupedIds,
+  KnownIds,
   ResultSelection,
-  StopSearchHistoryState,
-} from '../Types';
-import { useStopSearchRouterState } from './useStopSearchRouterState';
+  ResultSelectionHistoryState,
+} from './ResultSelection';
 
 const noIds: ReadonlyArray<string> = [];
 
@@ -302,12 +300,14 @@ function optimizeSelection({
   return nextSelection;
 }
 
-type UseResultSelectionOptions = {
+type UseResultSelectionOptions<
+  HistoryState extends ResultSelectionHistoryState,
+> = {
   // Amount of rows included in the result full result set.
   readonly resultCount: number;
 
   // Setter for the history state.
-  readonly setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>;
+  readonly setHistoryState: Dispatch<SetStateAction<HistoryState>>;
 
   // Ids of the Stops on the current pagination page.
   readonly stopIds: ReadonlyArray<string>;
@@ -330,11 +330,13 @@ type UseFlatResultSelectionReturn = {
   readonly onToggleSelectAll: () => void;
 };
 
-function updateHistoryStateWithNewSelection(
-  previousState: StopSearchHistoryState,
+function updateHistoryStateWithNewSelection<
+  HistoryState extends ResultSelectionHistoryState,
+>(
+  previousState: HistoryState,
   resultCount: number,
   nextSelection: ResultSelection,
-): StopSearchHistoryState {
+): HistoryState {
   const previousSelection = previousState.resultSelection;
   const collectedStopIds = previousState.knownStopIds.ids;
 
@@ -348,10 +350,12 @@ function updateHistoryStateWithNewSelection(
   return { ...previousState, resultSelection: optimalSelection };
 }
 
-function useOnToggleSelectionForFlatSelection({
+function useOnToggleSelectionForFlatSelection<
+  HistoryState extends ResultSelectionHistoryState,
+>({
   resultCount,
   setHistoryState,
-}: UseResultSelectionOptions): (id: string) => void {
+}: UseResultSelectionOptions<HistoryState>): (id: string) => void {
   return useCallback(
     (id: string) =>
       setHistoryState((previousState) =>
@@ -365,8 +369,8 @@ function useOnToggleSelectionForFlatSelection({
   );
 }
 
-function useOnToggleSelectAll(
-  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
+function useOnToggleSelectAll<HistoryState extends ResultSelectionHistoryState>(
+  setHistoryState: Dispatch<SetStateAction<HistoryState>>,
 ): () => void {
   return useCallback(() => {
     setHistoryState((p) => ({
@@ -379,8 +383,10 @@ function useOnToggleSelectAll(
   }, [setHistoryState]);
 }
 
-export function useResultSelection(
-  params: UseResultSelectionOptions,
+export function useResultSelection<
+  HistoryState extends ResultSelectionHistoryState,
+>(
+  params: UseResultSelectionOptions<HistoryState>,
 ): UseFlatResultSelectionReturn {
   const { stopIds, resultCount, setHistoryState } = params;
 
@@ -418,8 +424,8 @@ export function useResultSelection(
 }
 
 export function assertKnownIdsListingIsGrouped(
-  knownIds: KnownStopIds,
-): asserts knownIds is KnownGroupedStopIds {
+  knownIds: KnownIds,
+): asserts knownIds is KnownGroupedIds {
   if (knownIds.listingMode !== 'grouped') {
     throw new TypeError(
       'Expected knownId listing to be grouped, but it was flat listing instead!',
@@ -427,10 +433,13 @@ export function assertKnownIdsListingIsGrouped(
   }
 }
 
-export function unregisterSelectionGroups(
-  previousState: StopSearchHistoryState,
-  ...groupIds: ReadonlyArray<PgIdType | ReadonlyArray<PgIdType>>
-): StopSearchHistoryState {
+export function unregisterSelectionGroups<
+  HistoryState extends ResultSelectionHistoryState,
+  GroupIdT,
+>(
+  previousState: HistoryState,
+  ...groupIds: ReadonlyArray<GroupIdT | ReadonlyArray<GroupIdT>>
+): HistoryState {
   assertKnownIdsListingIsGrouped(previousState.knownStopIds);
 
   const previousSelection = previousState.resultSelection;
@@ -469,10 +478,10 @@ export function unregisterSelectionGroups(
 }
 
 function makeNewIdListing(
-  previousIdListing: KnownGroupedStopIds,
+  previousIdListing: KnownGroupedIds,
   groupId: string,
   stopIds: ReadonlyArray<string>,
-): KnownGroupedStopIds {
+): KnownGroupedIds {
   const groups = { ...previousIdListing.groups, [groupId]: stopIds };
   const ids = uniq(Object.values(groups).flat());
   return { listingMode: 'grouped', ids, groups };
@@ -480,7 +489,7 @@ function makeNewIdListing(
 
 function updateResultSelectionForUpdatedGroup(
   { excluded, included }: ResultSelection,
-  previousKnownIds: KnownGroupedStopIds,
+  previousKnownIds: KnownGroupedIds,
   groupId: string,
   stopIds: ReadonlyArray<string>,
 ): ResultSelection {
@@ -509,7 +518,7 @@ function updateResultSelectionForUpdatedGroup(
 
 function updateResultSelectionForGroup(
   previousSelection: ResultSelection,
-  previousKnownIds: KnownGroupedStopIds,
+  previousKnownIds: KnownGroupedIds,
   groupId: string,
   stopIds: ReadonlyArray<string>,
 ): ResultSelection {
@@ -543,11 +552,12 @@ function updateResultSelectionForGroup(
   return previousSelection;
 }
 
-function useRegisterNewGroup(
-  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
-) {
+function useRegisterNewGroup<
+  HistoryState extends ResultSelectionHistoryState,
+  GroupIdT,
+>(setHistoryState: Dispatch<SetStateAction<HistoryState>>) {
   return useCallback(
-    (groupId: PgIdType, stopIds: ReadonlyArray<string>) => {
+    (groupId: GroupIdT, stopIds: ReadonlyArray<string>) => {
       setHistoryState((p) => {
         const {
           resultSelection: previousSelection,
@@ -587,9 +597,9 @@ function useRegisterNewGroup(
   );
 }
 
-function useOnToggleSelectionForGropedSelection(
-  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
-) {
+function useOnToggleSelectionForGropedSelection<
+  HistoryState extends ResultSelectionHistoryState,
+>(setHistoryState: Dispatch<SetStateAction<HistoryState>>) {
   return useCallback(
     (id: string) =>
       setHistoryState((p) =>
@@ -603,8 +613,10 @@ function useOnToggleSelectionForGropedSelection(
   );
 }
 
-function useOnBatchUpdateSelection(
-  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
+function useOnBatchUpdateSelection<
+  HistoryState extends ResultSelectionHistoryState,
+>(
+  setHistoryState: Dispatch<SetStateAction<HistoryState>>,
 ): BatchUpdateSelection {
   return useCallback(
     (update) =>
@@ -628,17 +640,21 @@ function useOnBatchUpdateSelection(
   );
 }
 
-type UseGroupedResultSelectionReturn = UseFlatResultSelectionReturn & {
-  readonly onRegisterNewGroup: (
-    groupId: PgIdType,
-    stopIds: ReadonlyArray<string>,
-  ) => void;
-  readonly onBatchUpdateSelection: BatchUpdateSelection;
-};
+type UseGroupedResultSelectionReturn<GroupIdT> =
+  UseFlatResultSelectionReturn & {
+    readonly onRegisterNewGroup: (
+      groupId: GroupIdT,
+      stopIds: ReadonlyArray<string>,
+    ) => void;
+    readonly onBatchUpdateSelection: BatchUpdateSelection;
+  };
 
-export function useGroupedResultSelection(): UseGroupedResultSelectionReturn {
-  const { setHistoryState } = useStopSearchRouterState();
-
+export function useGroupedResultSelection<
+  HistoryState extends ResultSelectionHistoryState,
+  GroupIdT,
+>(
+  setHistoryState: Dispatch<SetStateAction<HistoryState>>,
+): UseGroupedResultSelectionReturn<GroupIdT> {
   const onRegisterNewGroup = useRegisterNewGroup(setHistoryState);
 
   // Handler for toggling the selection status of a single row.

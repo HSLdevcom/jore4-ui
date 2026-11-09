@@ -5,9 +5,12 @@ import { twMerge } from 'tailwind-merge';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { mapDirectionToSymbol } from '../../../../utils/i18n';
 import { mapToShortDate } from '../../../../utils/time';
+import {
+  BatchUpdateSelection,
+  ResultSelection,
+} from '../../../common/Search/ResultSelection';
 import { SelectAllCheckbox } from '../Components';
-import { ResultSelection } from '../Types';
-import { BatchUpdateSelection, areAllStopsSelected } from '../Utils';
+import { areAllStopsSelected } from '../Utils';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 import { useGetLineRouteStopCounts } from './useGetLineRouteStopCounts';
 import { useGetLineRouteStopIds } from './useGetLineRouteStopIds';

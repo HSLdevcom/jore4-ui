@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { selectMapStopSelection, useAppSelector } from '../../../redux';
 import { SlimDropDownMenu } from '../../common/Dropdowns';
-import { ResultSelection } from '../../StopRegistry/Search/Common';
+import { ResultSelection } from '../../common/Search/ResultSelection';
 import {
   EquipmentReportMenuItem,
   InfoSpotReportReportMenuItem,

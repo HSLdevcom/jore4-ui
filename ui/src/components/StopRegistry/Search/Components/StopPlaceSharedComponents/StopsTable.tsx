@@ -3,8 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { Visible } from '../../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../../common/Loaders';
-import { PgIdType, ResultSelection } from '../../Types';
-import { BatchUpdateSelection } from '../../Utils';
+import {
+  BatchUpdateSelection,
+  ResultSelection,
+} from '../../../../common/Search/ResultSelection';
+import { PgIdType } from '../../Types';
 import { LoadingStopsErrorRow } from '../LoadingStopsErrorRow';
 import { SelectableStopSearchResultStopsTable } from '../StopSearchResultStopsTable';
 import { StopPlaceHeaderPublicPropsProps } from './StopPlaceHeader';
