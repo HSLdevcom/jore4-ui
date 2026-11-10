@@ -1,7 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
-import noop from 'lodash/noop';
 import { FC } from 'react';
-import { CloseIconButton } from '../../common/Buttons';
+import { useTranslation } from 'react-i18next';
 import { Visible } from '../../common/LayoutComponents';
 
 const testIds = {
@@ -19,6 +18,8 @@ export const AlertPopover: FC<AlertPopoverProps> = ({
   description,
   alertIcon,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Visible visible={!!alertIcon}>
       <Popover>
@@ -30,8 +31,11 @@ export const AlertPopover: FC<AlertPopoverProps> = ({
             <h5 className="mb-1 text-lg">{title}</h5>
             <p className="text-sm">{description}</p>
           </div>
-          <PopoverButton>
-            <CloseIconButton onClick={noop} testId={testIds.closeButton} />
+          <PopoverButton
+            aria-label={t(($) => $.close)}
+            data-testid={testIds.closeButton}
+          >
+            <i className="icon-close-large text-lg" aria-hidden="true" />
           </PopoverButton>
         </PopoverPanel>
       </Popover>

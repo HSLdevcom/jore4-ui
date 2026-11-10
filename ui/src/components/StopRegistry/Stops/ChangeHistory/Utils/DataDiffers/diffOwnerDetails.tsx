@@ -1,11 +1,9 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
-import noop from 'lodash/noop';
 import { FC } from 'react';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../../generated/graphql';
 import { mapStopOwnerToUiName } from '../../../../../../utils/i18n';
-import { CloseIconButton } from '../../../../../common/Buttons';
 import {
   ChangedValue,
   diffKeyedValues,
@@ -60,8 +58,11 @@ const OwnerDetails: FC<OwnerDetailsProps> = ({ owner, t }) => {
             <li>{owner.privateContactDetails?.phone}</li>
           </ul>
         </div>
-        <PopoverButton>
-          <CloseIconButton onClick={noop} testId={testIds.closeButton} />
+        <PopoverButton
+          aria-label={t(($) => $.close)}
+          data-testid={testIds.closeButton}
+        >
+          <i className="icon-close-large text-lg" aria-hidden="true" />
         </PopoverButton>
       </PopoverPanel>
     </Popover>
