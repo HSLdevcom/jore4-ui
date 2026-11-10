@@ -1,8 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { TFunction } from 'i18next';
-import noop from 'lodash/noop';
 import { FC, ReactNode } from 'react';
-import { CloseIconButton } from '../../../../common/Buttons';
 import {
   KeyedChangedValue,
   areEqualish,
@@ -104,8 +102,11 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
                   />
                 </dl>
               </div>
-              <PopoverButton>
-                <CloseIconButton onClick={noop} testId={testIds.closeButton} />
+              <PopoverButton
+                aria-label={t(($) => $.close)}
+                data-testid={testIds.closeButton}
+              >
+                <i className="icon-close-large text-lg" aria-hidden="true" />
               </PopoverButton>
             </PopoverPanel>
           </Popover>
