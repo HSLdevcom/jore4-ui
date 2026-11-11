@@ -1,5 +1,3 @@
-import { ResultSelectionHistoryState } from '../../../common/Search/ResultSelection';
+import { SearchPageHistoryState } from '../../../common/Search/SearchPageRouterState';
 
-export type StopSearchHistoryState = ResultSelectionHistoryState & {
-  readonly searchIsExpanded: boolean;
-};
+export type StopSearchHistoryState = SearchPageHistoryState;
