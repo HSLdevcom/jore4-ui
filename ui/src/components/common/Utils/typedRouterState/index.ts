@@ -3,6 +3,7 @@ export type {
   UrlStateSerializers,
   UrlStateDeserializer,
   UrlStateDeserializers,
+  SimpleRecord,
   SimpleType,
   TypedRouterStateHookResponse,
 } from './types';
