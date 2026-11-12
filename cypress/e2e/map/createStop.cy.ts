@@ -416,10 +416,10 @@ describe('Stop creation tests', rootOpts, () => {
     MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
     MapItemTypeFiltersOverlay.setFilters({
       [KnownMapItemTypeFilters.Stop]: false,
-      [KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops]: false,
-      [KnownMapItemTypeFilters.ShowCurrentStops]: false,
-      [KnownMapItemTypeFilters.ShowFutureStops]: false,
-      [KnownMapItemTypeFilters.ShowPastStops]: false,
+      [KnownMapItemTypeFilters.ShowHighestPriorityCurrent]: false,
+      [KnownMapItemTypeFilters.ShowCurrent]: false,
+      [KnownMapItemTypeFilters.ShowFuture]: false,
+      [KnownMapItemTypeFilters.ShowPast]: false,
     });
     MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
 
@@ -443,7 +443,7 @@ describe('Stop creation tests', rootOpts, () => {
 
     MapObservationDateFiltersOverlay.getToggleShowFiltersButton().click();
     cy.get(`#filter-${KnownMapItemTypeFilters.Stop}`).should('be.checked');
-    cy.get(`#filter-${KnownMapItemTypeFilters.ShowCurrentStops}`).should(
+    cy.get(`#filter-${KnownMapItemTypeFilters.ShowCurrent}`).should(
       'be.checked',
     );
   });

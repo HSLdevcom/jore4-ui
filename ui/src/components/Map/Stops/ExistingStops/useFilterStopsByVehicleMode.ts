@@ -5,7 +5,7 @@ import { MapStop } from '../../Types';
 import { useVisibleRouteStops } from './useVisibleRouteStops';
 
 export function useFilterStopsByVehicleMode(showRoute: boolean) {
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
   const { visibleRouteStopLabels } = useVisibleRouteStops();
 
   return useCallback(
@@ -20,20 +20,20 @@ export function useFilterStopsByVehicleMode(showRoute: boolean) {
 
         if (
           stop.transport_modes.includes(StopRegistryTransportModeType.Bus) &&
-          stopFilters[FilterType.ShowAllBusStops]
+          timeAndPriorityFilters[FilterType.ShowAllBusStops]
         ) {
           return true;
         }
 
         if (
           stop.transport_modes.includes(StopRegistryTransportModeType.Tram) &&
-          stopFilters[FilterType.ShowAllTramStops]
+          timeAndPriorityFilters[FilterType.ShowAllTramStops]
         ) {
           return true;
         }
 
         return false;
       }),
-    [showRoute, stopFilters, visibleRouteStopLabels],
+    [showRoute, timeAndPriorityFilters, visibleRouteStopLabels],
   );
 }

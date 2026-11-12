@@ -93,26 +93,13 @@ function mapEmptyStringToNull(value: string): string | null {
   return trimmed;
 }
 
-/**
- * The deserializers are called only when the named parameter is present in the
- * url's search portion. If the value for that params is 'false' then return
- * false, else if it is anything else, or even present without a value (empty string)
- * return true. If the param is not present, then this is not called and the
- * default value is used instead.
- *
- * @param value url query param value
- */
-function ifBooleanOrPresent(value: string): boolean {
-  return value.trim().toLowerCase() !== 'false';
-}
-
 const displayedRouteParamDeserializers: UrlStateDeserializers<DisplayedRouteParams> =
   {
     lineLabel: mapEmptyStringToNull,
     routeId: mapEmptyStringToNull,
     routeLabels: splitString,
     routePriorities: parsePriorities,
-    showSelectedDaySituation: ifBooleanOrPresent,
+    showSelectedDaySituation: (value) => value.trim().toLowerCase() !== 'false',
   };
 
 const resultSelectionDeserializers: UrlStateDeserializers<ResultSelection> = {

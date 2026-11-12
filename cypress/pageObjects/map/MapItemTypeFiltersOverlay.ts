@@ -7,13 +7,13 @@ export enum KnownMapItemTypeFilters {
   InfoScreen = 'show-info-screens',
   InfoSpot = 'show-info-spots',
 
-  ShowFutureStops = 'show-future-stops',
-  ShowCurrentStops = 'show-current-stops',
-  ShowPastStops = 'show-past-stops',
-  ShowStandardStops = 'show-standard-stops',
-  ShowTemporaryStops = 'show-temporary-stops',
-  ShowDraftStops = 'show-draft-stops',
-  ShowHighestPriorityCurrentStops = 'show-highest-priority-current-stops',
+  ShowFuture = 'show-future',
+  ShowCurrent = 'show-current',
+  ShowPast = 'show-past',
+  ShowStandard = 'show-standard',
+  ShowTemporary = 'show-temporary',
+  ShowDraft = 'show-draft',
+  ShowHighestPriorityCurrent = 'show-highest-priority-current',
   ShowAllBusStops = 'show-all-bus-stops',
 }
 
@@ -22,14 +22,14 @@ type SetFilters = { readonly [key in KnownMapItemTypeFilters]?: boolean };
 export class MapItemTypeFiltersOverlay {
   static setFilters(setFilters: SetFilters) {
     Object.entries(setFilters)
-      // Handle ShowHighestPriorityCurrentStops 1st, as it controls whether
+      // Handle ShowHighestPriorityCurrent 1st, as it controls whether
       // some of the other options are enabled.
       .sort(([typeA], [typeB]) => {
-        if (typeA === KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops) {
+        if (typeA === KnownMapItemTypeFilters.ShowHighestPriorityCurrent) {
           return -1;
         }
 
-        if (typeB === KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops) {
+        if (typeB === KnownMapItemTypeFilters.ShowHighestPriorityCurrent) {
           return 1;
         }
 
