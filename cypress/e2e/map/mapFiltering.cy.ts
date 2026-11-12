@@ -145,21 +145,21 @@ describe('Filter map entities', { tags: [Tag.Map] }, () => {
     // But should come back if we disable observation date filtering
     // and enable future items.
     MapItemTypeFiltersOverlay.setFilters({
-      [KnownMapItemTypeFilters.ShowHighestPriorityCurrentStops]: false,
-      [KnownMapItemTypeFilters.ShowFutureStops]: true,
+      [KnownMapItemTypeFilters.ShowHighestPriorityCurrent]: false,
+      [KnownMapItemTypeFilters.ShowFuture]: true,
     });
     assertStopsAreVisible();
 
     // Should hide if future stops are not shown
     MapItemTypeFiltersOverlay.setFilters({
-      [KnownMapItemTypeFilters.ShowFutureStops]: false,
+      [KnownMapItemTypeFilters.ShowFuture]: false,
     });
     assertStopsAreNotOnMap();
 
     // Should hide if future stops are show but standard versions are disabled
     MapItemTypeFiltersOverlay.setFilters({
-      [KnownMapItemTypeFilters.ShowFutureStops]: true,
-      [KnownMapItemTypeFilters.ShowStandardStops]: false,
+      [KnownMapItemTypeFilters.ShowFuture]: true,
+      [KnownMapItemTypeFilters.ShowStandard]: false,
     });
     assertStopsAreNotOnMap();
   });

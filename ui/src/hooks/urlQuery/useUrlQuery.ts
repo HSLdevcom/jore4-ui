@@ -14,8 +14,6 @@ export enum QueryParameterName {
   RouteLabels = 'routeLabels',
   LineLabel = 'lineLabel',
   RouteId = 'routeId',
-  ShowSelectedDaySituation = 'showSelectedDaySituation',
-  RoutePriorities = 'routePriorities',
   TimetablesViewName = 'timetablesView',
   DayType = 'dayType',
   StartDate = 'startDate',
