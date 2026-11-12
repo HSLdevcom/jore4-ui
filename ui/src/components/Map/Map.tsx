@@ -30,6 +30,7 @@ import {
 } from '../../redux';
 import { CustomOverlay } from './CustomOverlay';
 import { ItemTypeFiltersOverlay, MapFilterPanel } from './Filters';
+import { useApplyTimeAndPriorityFilters } from './Filters/useApplyTimeAndPriorityFilters';
 import { InfraLinksVectorLayer } from './InfraLinksVectorLayer';
 import { Maplibre } from './Maplibre';
 import { useGetMapData } from './Queries';
@@ -202,10 +203,17 @@ export const MapComponent: ForwardRefRenderFunction<
   const [showRoute, setShowRoute] = useState(true);
   const {
     state: {
-      displayedRoute: { routeId: urlRouteId },
+      displayedRoute: {
+        routeId: urlRouteId,
+        lineLabel,
+        routeLabels,
+        routePriorities,
+        showSelectedDaySituation,
+      },
     },
   } = useMapUrlStateContext();
   const dispatch = useAppDispatch();
+  const applyTimeAndPriorityFilters = useApplyTimeAndPriorityFilters();
 
   const editorRefs = useEditorRefs();
   const mapViewState = useMapViewState();
@@ -215,6 +223,21 @@ export const MapComponent: ForwardRefRenderFunction<
       dispatch(setSelectedRouteIdAction(urlRouteId));
     }
   }, [dispatch, urlRouteId]);
+
+  useEffect(() => {
+    if (!urlRouteId && !lineLabel && !routeLabels.length) {
+      return;
+    }
+
+    applyTimeAndPriorityFilters(routePriorities, showSelectedDaySituation);
+  }, [
+    applyTimeAndPriorityFilters,
+    lineLabel,
+    urlRouteId,
+    routeLabels,
+    routePriorities,
+    showSelectedDaySituation,
+  ]);
 
   useRouteEditorImperativeHandle(externalRef, editorRefs.routeEditorRef);
   const onClick = useOnClickMap(editorRefs, mapViewState);
@@ -273,11 +296,7 @@ export const MapComponent: ForwardRefRenderFunction<
         showTramNetwork={showTramNetwork}
       />
 
-      <Routes
-        displayedRouteIds={displayedRouteIds}
-        showRoute={showRoute}
-        ref={editorRefs.routeEditorRef}
-      />
+      <Routes showRoute={showRoute} ref={editorRefs.routeEditorRef} />
 
       <FunctionalAreaVisualization stops={stops} />
     </Maplibre>

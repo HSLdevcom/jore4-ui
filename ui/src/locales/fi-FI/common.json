@@ -1817,6 +1817,9 @@
     "map": {
       "showFilters": "Suodata näkymää",
       "editRoute": "Muokkaa reitin {{routeName}} tietoja",
+      "editLine": "Muokkaa linjan {{lineLabel}} tietoja",
+      "showLineDetails": "Avaa linjan {{lineLabel}} tiedot",
+      "toggleRouteVisibility": "Näytä reitti {{routeLabel}} {{direction}} kartalla",
       "routeStopsOverlayRowActions": "Lisää toimintoja pysäkille {{stopLabel}}"
     }
   }

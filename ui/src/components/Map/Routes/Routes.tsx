@@ -8,8 +8,8 @@ import {
   DraftRouteGeometryLayer,
   ExistingRouteGeometryLayers,
 } from './GeometryLayers';
+import { LineRoutesOverlay } from './LineRoutesOverlay';
 import { EditRouteMetadataLayer, RouteEditor } from './RouteEditor';
-import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { ROUTE_BASE_LAYER_ID } from './Utils';
 
 /**
@@ -26,12 +26,11 @@ const RouteBaseLayer: FC = () => (
 );
 
 type RoutesProps = {
-  readonly displayedRouteIds: ReadonlyArray<string>;
   readonly showRoute: boolean;
 };
 
 const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
-  { displayedRouteIds, showRoute },
+  { showRoute },
   ref,
 ) => {
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
@@ -45,13 +44,10 @@ const RoutesImpl: ForwardRefRenderFunction<RouteEditorRef, RoutesProps> = (
     <>
       <EditRouteMetadataLayer />
 
-      <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
+      <LineRoutesOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
 
       <RouteBaseLayer />
-      <ExistingRouteGeometryLayers
-        displayedRouteIds={displayedRouteIds}
-        showRoute={showRoute}
-      />
+      <ExistingRouteGeometryLayers showRoute={showRoute} />
       <DraftRouteGeometryLayer />
 
       <RouteEditor

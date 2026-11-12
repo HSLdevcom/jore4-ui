@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
 import {
-  FilterType,
   Operation,
   resetDraftRouteGeometryAction,
   resetRouteCreatingAction,
@@ -10,7 +9,6 @@ import {
   selectMapRouteEditor,
   setLastCreatedRouteLabelAction,
   setSelectedRouteIdAction,
-  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
   useLoader,
@@ -19,11 +17,23 @@ import { Priority } from '../../../../../types/enums';
 import { showSuccessToast, showWarningToast } from '../../../../../utils';
 import { isDateInRange } from '../../../../../utils/time';
 import { RouteFormState, hasBlockers } from '../../../../LinesAndRoutes/Common';
+import { useApplyTimeAndPriorityFilters } from '../../../Filters/useApplyTimeAndPriorityFilters';
 import { useEnsureTemporalFilterActive } from '../../../Stops/utils/useEnsureTemporalFilterActive';
 import { useMapUrlStateContext } from '../../../Utils/mapUrlState';
 import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../../Utils';
 import { CreateChanges, useCreateRoute } from './useCreateRoute';
 import { useDefaultErrorHandler } from './useDefaultErrorHandler';
+
+/**
+ * The created route is shown on the map by its id, so all priorities are
+ * allowed to make sure it is visible regardless of the priority it was saved
+ * with.
+ */
+const createdRoutePriorities: ReadonlyArray<Priority> = [
+  Priority.Standard,
+  Priority.Temporary,
+  Priority.Draft,
+];
 
 export function useCreateRouteHelper() {
   const { t } = useTranslation();
@@ -53,6 +63,7 @@ export function useCreateRouteHelper() {
   } = useAppSelector(selectEditedRouteData);
 
   const { setIsLoading } = useLoader(Operation.SaveRoute);
+  const applyTimeAndPriorityFilters = useApplyTimeAndPriorityFilters();
   const ensureTemporalFilterActive = useEnsureTemporalFilterActive();
 
   const [pendingChanges, setPendingChanges] = useState<CreateChanges | null>(
@@ -84,23 +95,12 @@ export function useCreateRouteHelper() {
       routeId: newRoute.route_id,
       lineLabel: null,
       routeLabels: [],
-      routePriorities: [Priority.Draft],
+      routePriorities: createdRoutePriorities,
       showSelectedDaySituation: false,
     }));
 
     // Make sure the created route passes the shared map filters.
-    dispatch(
-      setTimeAndPriorityFilterAction({
-        filterType: FilterType.ShowHighestPriorityCurrent,
-        isActive: false,
-      }),
-    );
-    dispatch(
-      setTimeAndPriorityFilterAction({
-        filterType: FilterType.ShowDraft,
-        isActive: true,
-      }),
-    );
+    applyTimeAndPriorityFilters(createdRoutePriorities, false);
     ensureTemporalFilterActive();
 
     // // If created route is not valid at the selected observation date,
