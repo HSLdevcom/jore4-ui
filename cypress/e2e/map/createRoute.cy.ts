@@ -352,6 +352,108 @@ describe('Route creation', rootOpts, () => {
       .and('contain', versionComment);
   });
 
+  it('Should create a new tram dead run route', { tags: [Tag.Network] }, () => {
+    const tramLine = baseDbResources.lines.find(
+      (line) => line.label === '8543',
+    );
+    const depotStopLabel = 'D001';
+    const depotStopCoordinates = [24.93364, 60.20096];
+
+    MapPage.map.visit(tramMapLocation);
+    MapPage.map.waitForLoadToComplete();
+
+    MapPage.createDepotStopAtLocation({
+      depotStopFormInfo: {
+        label: depotStopLabel,
+        latitude: String(depotStopCoordinates[1]),
+        longitude: String(depotStopCoordinates[0]),
+        validityStartISODate: '2022-01-01',
+      },
+      clickRelativePoint: { xPercentage: 50, yPercentage: 50 },
+    });
+    MapPage.gqlDepotStopShouldBeCreatedSuccessfully();
+    MapPage.checkStopSubmitSuccessToast();
+    MapPage.map.waitForLoadToComplete();
+
+    MapFooter.createRoute(ReusableComponentsVehicleModeEnum.Tram);
+
+    MapPage.routePropertiesForm.fillRouteProperties({
+      finnishName: 'Test tram dead run',
+      label: '1113Y',
+      line: '8543',
+      direction: RouteDirectionEnum.Outbound,
+      origin: {
+        finnishName: 'Test dead run origin FIN',
+        finnishShortName: 'Test dead run origin FIN shortName',
+        swedishName: 'Test dead run origin SWE',
+        swedishShortName: 'Test dead run origin SWE shortName',
+      },
+      destination: {
+        finnishName: 'Test dead run destination FIN',
+        finnishShortName: 'Test dead run destination FIN shortName',
+        swedishName: 'Test dead run destination SWE',
+        swedishShortName: 'Test dead run destination SWE shortName',
+      },
+      priority: Priority.Standard,
+      versionComment: 'E2E create tram dead run reason',
+      validityStartISODate: '2025-01-01',
+      validityEndISODate: '2030-12-01',
+    });
+
+    MapPage.routePropertiesForm
+      .getIsDeadRunSwitch()
+      .should('have.attr', 'aria-checked', 'false')
+      .click()
+      .should('have.attr', 'aria-checked', 'true');
+
+    MapPage.editRouteModal.save();
+
+    MapPage.routePropertiesForm.getForm().should('not.exists');
+    RouteStopsOverlay.getHeader().shouldBeVisible();
+    MapPage.map.waitForLoadToComplete();
+
+    MapPage.map.clickAtCoordinates(24.94330578, 60.19672378);
+    MapPage.map.clickAtCoordinates(
+      stopCoordinatesByLabel.E2ER003[0],
+      stopCoordinatesByLabel.E2ER003[1],
+    );
+    MapPage.map.clickAtCoordinates(
+      stopCoordinatesByLabel.E2ER002[0],
+      stopCoordinatesByLabel.E2ER002[1],
+    );
+    MapPage.map.clickAtCoordinates(
+      depotStopCoordinates[0],
+      depotStopCoordinates[1],
+    );
+    MapPage.map.clickAtCoordinates(
+      depotStopCoordinates[0],
+      depotStopCoordinates[1],
+    );
+
+    MapFooter.save();
+
+    MapPage.map.getLoader().should('exist');
+    MapPage.map.getLoader().should('not.exist');
+
+    Toast.expectSuccessToast('Reitti tallennettu');
+
+    RouteStopsOverlay.getHeader()
+      .should('contain', '1113Y')
+      .and('contain', 'Test tram dead run');
+    RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 3);
+    RouteStopsOverlay.getRouteStopsOverlayRows()
+      .first()
+      .shouldHaveText('E2ER003 E2ER003');
+    RouteStopsOverlay.getRouteStopsOverlayRows()
+      .last()
+      .should('contain', depotStopLabel);
+
+    LineDetailsPage.visit(tramLine?.line_id);
+    RouteRow.getDeadRunIcon('1113Y', RouteDirectionEnum.Outbound)
+      .should('be.visible')
+      .and('have.attr', 'title', 'Siirtoajo');
+  });
+
   it(
     'should warn and block saving when route validity exceeds line validity',
     { tags: [Tag.Network] },
