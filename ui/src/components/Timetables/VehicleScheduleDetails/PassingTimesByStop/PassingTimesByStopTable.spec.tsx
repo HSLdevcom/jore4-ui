@@ -155,6 +155,7 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
   ];
 
   const route: RouteWithJourneyPatternStopsFragment = {
+    is_dead_run: false,
     name_i18n: {},
     origin_name_i18n: {},
     origin_short_name_i18n: {},

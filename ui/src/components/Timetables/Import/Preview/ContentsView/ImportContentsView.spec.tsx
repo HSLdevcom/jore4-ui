@@ -24,6 +24,7 @@ const route35JourneyPatternRef: VehicleJourneyWithRouteInfoFragment['journey_pat
     journey_pattern_instance: {
       journey_pattern_id: '75dc1d71-6508-408d-abbc-95723747b28a',
       journey_pattern_route: {
+        is_dead_run: false,
         route_id: '8bb0200f-cf1a-4c23-ab9c-5a376c30704f',
         direction: RouteDirectionEnum.Outbound,
         label: '35',
@@ -48,6 +49,7 @@ const route35ReturnJourneyPatternRef: VehicleJourneyWithRouteInfoFragment['journ
     journey_pattern_instance: {
       journey_pattern_id: '05195ceb-614f-4d62-960e-65a47931d362',
       journey_pattern_route: {
+        is_dead_run: false,
         route_id: '20762e4f-5bb6-4635-a041-bd11c85bad3b',
         direction: RouteDirectionEnum.Inbound,
         label: '35',

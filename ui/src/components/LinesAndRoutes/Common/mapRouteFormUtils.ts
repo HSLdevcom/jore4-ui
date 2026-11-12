@@ -44,6 +44,7 @@ export function mapRouteToFormState(
     validityStart: mapToISODate(route.validity_start) ?? '',
     validityEnd: mapToISODate(route.validity_end) ?? '',
     indefinite: !route.validity_end,
+    isDeadRun: route.is_dead_run,
     origin: {
       name: defaultLocalizedString(route.origin_name_i18n),
       shortName: defaultLocalizedString(route.origin_short_name_i18n),

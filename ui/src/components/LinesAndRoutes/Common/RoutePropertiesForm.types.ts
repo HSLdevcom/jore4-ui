@@ -27,6 +27,7 @@ export const routeFormSchema = z
     variant: nullablePositiveNumber,
     accountingDistance: nullablePositiveNumber,
     versionComment: z.string().optional(),
+    isDeadRun: z.boolean().optional(),
   })
   .merge(changeValidityFormSchema)
   .superRefine(refineValidityPeriodSchema);
