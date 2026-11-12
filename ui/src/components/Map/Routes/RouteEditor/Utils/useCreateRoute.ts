@@ -57,9 +57,12 @@ function mapRouteDetailsToInsertMutationVariables({
   includedStopLabels,
   journeyPatternStops,
 }: CreateParams): InsertRouteOneMutationVariables {
+  const isDeadRun = form.isDeadRun ?? false;
+
   return {
     object: {
       ...mapRouteFormToInput(form),
+      is_dead_run: isDeadRun,
       // route_shape cannot be added here, it is gathered dynamically by the route view from the route's infrastructure_links_along_route
       infrastructure_links_along_route: {
         data: mapInfraLinksAlongRouteToGraphQL(infraLinksAlongRoute),
@@ -67,6 +70,7 @@ function mapRouteDetailsToInsertMutationVariables({
       route_journey_patterns: {
         data: [
           {
+            is_dead_run: isDeadRun,
             scheduled_stop_point_in_journey_patterns: {
               data: buildJourneyPatternStopSequence({
                 stopsEligibleForJourneyPattern,

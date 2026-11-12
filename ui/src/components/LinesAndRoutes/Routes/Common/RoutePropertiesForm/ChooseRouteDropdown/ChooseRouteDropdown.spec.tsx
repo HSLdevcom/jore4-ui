@@ -42,6 +42,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
             {
               ...buildRoute({ label: '123' }),
               __typename: 'route_route',
+              is_dead_run: false,
               route_id: 'route1',
               validity_start: Temporal.PlainDate.from('2022-03-21'),
               validity_end: Temporal.PlainDate.from('2022-03-29'),
@@ -54,6 +55,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
             {
               ...buildRoute({ label: '456' }),
               __typename: 'route_route',
+              is_dead_run: false,
               route_id: 'route2',
               validity_start: Temporal.PlainDate.from('2021-01-02'),
               validity_end: Temporal.PlainDate.from('2022-12-31'),
@@ -82,6 +84,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
               ...buildRoute({ label: '123' }),
               label: '123',
               __typename: 'route_route',
+              is_dead_run: false,
               route_id: 'route1',
               validity_start: Temporal.PlainDate.from('2022-03-21'),
               validity_end: Temporal.PlainDate.from('2022-03-29'),

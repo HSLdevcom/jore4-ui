@@ -48,6 +48,7 @@ describe(`<${LineRouteList.name} />`, () => {
             validity_end: Temporal.PlainDate.from('2050-12-13'),
             priority: 10,
             __typename: 'route_route',
+            is_dead_run: false,
             label: '65x',
             direction: RouteDirectionEnum.Outbound,
             variant: null,
