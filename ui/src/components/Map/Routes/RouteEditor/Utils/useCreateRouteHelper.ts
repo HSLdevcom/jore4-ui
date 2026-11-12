@@ -14,7 +14,7 @@ import {
   useAppSelector,
   useLoader,
 } from '../../../../../redux';
-import { Priority } from '../../../../../types/enums';
+import { knownPriorityValues } from '../../../../../types/enums';
 import { showSuccessToast, showWarningToast } from '../../../../../utils';
 import { isDateInRange } from '../../../../../utils/time';
 import { RouteFormState, hasBlockers } from '../../../../LinesAndRoutes/Common';
@@ -23,6 +23,13 @@ import { useMapUrlStateContext } from '../../../Utils/mapUrlState';
 import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../../Utils';
 import { CreateChanges, useCreateRoute } from './useCreateRoute';
 import { useDefaultErrorHandler } from './useDefaultErrorHandler';
+
+/**
+ * The created route is shown on the map by its id, so all priorities are
+ * allowed to make sure it is visible regardless of the priority it was saved
+ * with.
+ */
+const createdRoutePriorities = knownPriorityValues;
 
 export function useCreateRouteHelper() {
   const { t } = useTranslation();
@@ -83,14 +90,14 @@ export function useCreateRouteHelper() {
       routeId: newRoute.route_id,
       lineLabel: null,
       routeLabels: [],
-      routePriorities: [Priority.Draft],
+      routePriorities: createdRoutePriorities,
       showSelectedDaySituation: false,
     }));
 
     // Make sure the created route passes the shared map filters.
     dispatch(
       applyTimeAndPriorityFiltersAction({
-        priorities: [Priority.Draft],
+        priorities: createdRoutePriorities,
         showSelectedDaySituation: false,
       }),
     );

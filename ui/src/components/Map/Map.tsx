@@ -14,6 +14,7 @@ import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import {
   MapEntityEditorViewState,
   MapEntityType,
+  applyTimeAndPriorityFiltersAction,
   isPlacingOrMoving,
   selectDrawingMode,
   selectHasDraftLocation,
@@ -202,7 +203,13 @@ export const MapComponent: ForwardRefRenderFunction<
   const [showRoute, setShowRoute] = useState(true);
   const {
     state: {
-      displayedRoute: { routeId: urlRouteId },
+      displayedRoute: {
+        routeId: urlRouteId,
+        lineLabel,
+        routeLabels,
+        routePriorities,
+        showSelectedDaySituation,
+      },
     },
   } = useMapUrlStateContext();
   const dispatch = useAppDispatch();
@@ -215,6 +222,26 @@ export const MapComponent: ForwardRefRenderFunction<
       dispatch(setSelectedRouteIdAction(urlRouteId));
     }
   }, [dispatch, urlRouteId]);
+
+  useEffect(() => {
+    if (!urlRouteId && !lineLabel && !routeLabels.length) {
+      return;
+    }
+
+    dispatch(
+      applyTimeAndPriorityFiltersAction({
+        priorities: routePriorities,
+        showSelectedDaySituation,
+      }),
+    );
+  }, [
+    dispatch,
+    lineLabel,
+    urlRouteId,
+    routeLabels,
+    routePriorities,
+    showSelectedDaySituation,
+  ]);
 
   useRouteEditorImperativeHandle(externalRef, editorRefs.routeEditorRef);
   const onClick = useOnClickMap(editorRefs, mapViewState);
@@ -273,11 +300,7 @@ export const MapComponent: ForwardRefRenderFunction<
         showTramNetwork={showTramNetwork}
       />
 
-      <Routes
-        displayedRouteIds={displayedRouteIds}
-        showRoute={showRoute}
-        ref={editorRefs.routeEditorRef}
-      />
+      <Routes showRoute={showRoute} ref={editorRefs.routeEditorRef} />
 
       <FunctionalAreaVisualization stops={stops} />
     </Maplibre>

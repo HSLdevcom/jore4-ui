@@ -72501,14 +72501,14 @@ export type GetStopsAlongInfrastructureLinksQuery = {
   }>
 };
 
-export type GetRouteRenderInfoByIdQueryVariables = Exact<{
-  routeId: Scalars['uuid']['input'];
+export type GetRouteRenderInfoByIdsQueryVariables = Exact<{
+  routeIds: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
 }>;
 
 
-export type GetRouteRenderInfoByIdQuery = {
+export type GetRouteRenderInfoByIdsQuery = {
   readonly __typename?: 'query_root',
-  readonly route_route_by_pk?: {
+  readonly route_route: ReadonlyArray<{
     readonly __typename?: 'route_route',
     readonly route_id: UUID,
     readonly route_shape?: GeoJSON.LineString | null,
@@ -72518,7 +72518,7 @@ export type GetRouteRenderInfoByIdQuery = {
       readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       readonly type_of_line: RouteTypeOfLineEnum
     }
-  } | null
+  }>
 };
 
 export type InfrastructureLinkAllFieldsFragment = {
@@ -86964,43 +86964,43 @@ export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<typeof 
 export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksLazyQuery>;
 export type GetStopsAlongInfrastructureLinksSuspenseQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksSuspenseQuery>;
 export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>;
-export const GetRouteRenderInfoByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteRenderInfoById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetRouteRenderInfoByIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteRenderInfoByIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"route_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
- * __useGetRouteRenderInfoByIdQuery__
+ * __useGetRouteRenderInfoByIdsQuery__
  *
- * To run a query within a React component, call `useGetRouteRenderInfoByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteRenderInfoByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRouteRenderInfoByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteRenderInfoByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRouteRenderInfoByIdQuery({
+ * const { data, loading, error } = useGetRouteRenderInfoByIdsQuery({
  *   variables: {
- *      routeId: // value for 'routeId'
+ *      routeIds: // value for 'routeIds'
  *   },
  * });
  */
-export function useGetRouteRenderInfoByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables> & ({ variables: GetRouteRenderInfoByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetRouteRenderInfoByIdsQuery(baseOptions: Apollo.QueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables> & ({ variables: GetRouteRenderInfoByIdsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+        return Apollo.useQuery<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>(GetRouteRenderInfoByIdsDocument, options);
       }
-export function useGetRouteRenderInfoByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
+export function useGetRouteRenderInfoByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+          return Apollo.useLazyQuery<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>(GetRouteRenderInfoByIdsDocument, options);
         }
 // @ts-ignore
-export function useGetRouteRenderInfoByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>;
-export function useGetRouteRenderInfoByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdQuery | undefined, GetRouteRenderInfoByIdQueryVariables>;
-export function useGetRouteRenderInfoByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
+export function useGetRouteRenderInfoByIdsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>;
+export function useGetRouteRenderInfoByIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdsQuery | undefined, GetRouteRenderInfoByIdsQueryVariables>;
+export function useGetRouteRenderInfoByIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+          return Apollo.useSuspenseQuery<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>(GetRouteRenderInfoByIdsDocument, options);
         }
-export type GetRouteRenderInfoByIdQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdQuery>;
-export type GetRouteRenderInfoByIdLazyQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdLazyQuery>;
-export type GetRouteRenderInfoByIdSuspenseQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdSuspenseQuery>;
-export type GetRouteRenderInfoByIdQueryResult = Apollo.QueryResult<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>;
+export type GetRouteRenderInfoByIdsQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdsQuery>;
+export type GetRouteRenderInfoByIdsLazyQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdsLazyQuery>;
+export type GetRouteRenderInfoByIdsSuspenseQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdsSuspenseQuery>;
+export type GetRouteRenderInfoByIdsQueryResult = Apollo.QueryResult<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>;
 export const InsertRouteOneDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertRouteOne"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"object"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_route_route_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"object"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"accounting_distance_in_metres"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
 export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 
