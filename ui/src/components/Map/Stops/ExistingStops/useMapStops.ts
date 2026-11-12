@@ -11,6 +11,7 @@ import {
   selectMapRouteEditor,
   selectSelectedStopAreaId,
   selectSelectedStopId,
+  selectVisibleOrSelectedRouteIds,
   useAppSelector,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
@@ -39,11 +40,12 @@ function extractHighestPriorityStopsFromRoute<
   );
 }
 
-export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
+export function useMapStops() {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const isRedrawingExistingRoute = useAppSelector(
     selectIsRedrawingExistingRoute,
   );
+  const visibleRouteIds = useAppSelector(selectVisibleOrSelectedRouteIds);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const observationDate = useMapObservationDate();
   const selectedStopId = useAppSelector(selectSelectedStopId);
@@ -52,7 +54,7 @@ export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
   );
 
   const displayedRoutesResult = useGetRoutesWithStopsQuery({
-    variables: { routeFilters: { route_id: { _in: displayedRouteIds } } },
+    variables: { routeFilters: { route_id: { _in: visibleRouteIds } } },
   });
 
   const displayedRoutes = useMemo(
