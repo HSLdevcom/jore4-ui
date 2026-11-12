@@ -32,6 +32,7 @@ export type EditedRouteMetadata = {
   readonly validityStart: string;
   readonly indefinite: boolean;
   readonly validityEnd?: string | undefined;
+  readonly isDeadRun?: boolean | undefined;
 };
 
 export type EditedRouteData = {

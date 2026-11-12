@@ -22,6 +22,7 @@ fragment RouteDefaultFields on route_route {
   destination_name_i18n
   destination_short_name_i18n
   on_line_id
+  is_dead_run
 }
 
 fragment RouteAllFields on route_route {
