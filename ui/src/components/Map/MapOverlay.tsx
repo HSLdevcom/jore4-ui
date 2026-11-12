@@ -4,14 +4,19 @@ import { Column, Row } from '../common/LayoutComponents';
 
 type MapOverlayProps = {
   readonly className?: string;
+  readonly testId?: string;
 };
 
 export const MapOverlay: FC<PropsWithChildren<MapOverlayProps>> = ({
   className,
   children,
+  testId,
 }) => {
   return (
-    <Column className={twJoin('w-72 rounded-sm bg-white shadow-md', className)}>
+    <Column
+      className={twJoin('w-72 rounded-sm bg-white shadow-md', className)}
+      testId={testId}
+    >
       {children}
     </Column>
   );
@@ -30,7 +35,7 @@ export const MapOverlayHeader: FC<PropsWithChildren<MapOverlayHeaderProps>> = ({
   return (
     <Row
       className={twJoin(
-        'flex items-center justify-between gap-1 border-b border-gray-200 bg-background p-3',
+        'flex items-start justify-between gap-1 border-b border-gray-200 bg-background p-3',
         className,
       )}
       testId={testId}
