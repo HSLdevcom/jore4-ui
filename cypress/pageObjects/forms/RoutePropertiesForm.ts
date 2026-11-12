@@ -57,6 +57,10 @@ export class RoutePropertiesForm {
     );
   }
 
+  static getIsDeadRunSwitch() {
+    return cy.getByTestId('RoutePropertiesFormComponent::isDeadRunSwitch');
+  }
+
   static getVersionCommentInput() {
     return cy.getByTestId('RoutePropertiesFormComponent::versionComment');
   }

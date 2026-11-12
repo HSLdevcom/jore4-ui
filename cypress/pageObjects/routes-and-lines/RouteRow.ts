@@ -25,6 +25,12 @@ export class RouteRow {
     );
   }
 
+  static getDeadRunIcon(routeLabel: string, direction: RouteDirectionEnum) {
+    return RouteRow.getRouteHeaderRow(routeLabel, direction).findByTestId(
+      'RouteRow::deadRunIcon',
+    );
+  }
+
   static getEditRouteButton = (
     routeLabel: string,
     direction: RouteDirectionEnum,
