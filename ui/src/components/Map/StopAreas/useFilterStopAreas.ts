@@ -7,7 +7,7 @@ import { MapStopArea } from '../Types';
 export function useFilterStopAreas(
   areas: ReadonlyArray<MapStopArea>,
 ): ReadonlyArray<MapStopArea> {
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   return useMemo(
     () =>
@@ -15,13 +15,13 @@ export function useFilterStopAreas(
         const mode = parseStopRegistryTransportMode(area.transport_mode);
         switch (mode) {
           case StopRegistryTransportModeType.Bus:
-            return stopFilters[FilterType.ShowAllBusStops];
+            return timeAndPriorityFilters[FilterType.ShowAllBusStops];
           case StopRegistryTransportModeType.Tram:
-            return stopFilters[FilterType.ShowAllTramStops];
+            return timeAndPriorityFilters[FilterType.ShowAllTramStops];
           default:
             return true;
         }
       }),
-    [areas, stopFilters],
+    [areas, timeAndPriorityFilters],
   );
 }

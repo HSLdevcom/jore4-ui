@@ -24,6 +24,7 @@ import {
 } from '../../StopRegistry/Search/Common';
 import { DisplayedRouteParams } from '../Types';
 import { useMapUrlStateContext } from '../Utils/mapUrlState';
+import { useRouteGqlFilters } from '../Utils/useRouteGqlFilters';
 
 const GQL_STOP_SELECTION_INFO_FRAGMENT = gql`
   fragment StopSelectionInfo on stops_database_quay_newest_version {
@@ -77,8 +78,8 @@ const GQL_GET_STOP_SELECTION_INFO_ROWS_BY_IDS = gql`
 `;
 
 function whereStopOnRoute(
-  { routeId, routeLabels, routePriorities }: DisplayedRouteParams,
-  { observationDate }: StopSearchFilters,
+  { routeId, routeLabels }: DisplayedRouteParams,
+  routeFilters: RouteRouteBoolExp,
 ): RouteRouteBoolExp | null {
   if (routeId) {
     return { route_id: { _eq: routeId } };
@@ -87,12 +88,7 @@ function whereStopOnRoute(
   if (routeLabels.length) {
     return {
       label: { _in: routeLabels },
-      priority: { _in: routePriorities },
-      validity_start: { _lte: observationDate },
-      _or: [
-        { validity_end: { _is_null: true } },
-        { validity_end: { _gte: observationDate } },
-      ],
+      ...routeFilters,
     };
   }
 
@@ -110,8 +106,9 @@ function getResolveStopSelectionWhereConditions(
   displayedRoute: DisplayedRouteParams,
   filters: StopSearchFilters,
   resultSelection: ResultSelection,
+  routeFilters: RouteRouteBoolExp,
 ): GetStopSelectionInfoQueryVariables {
-  const whereRoute = whereStopOnRoute(displayedRoute, filters);
+  const whereRoute = whereStopOnRoute(displayedRoute, routeFilters);
   if (whereRoute) {
     return { whereQuay: whereNoQuay, whereRoute };
   }
@@ -143,6 +140,8 @@ function useEnsureStopsHaveBeenResolved(byResultSelection: boolean) {
     state: { displayedRoute, filters, resultSelection },
   } = useMapUrlStateContext();
 
+  const { routeFilters } = useRouteGqlFilters();
+
   // Trigger resolving of actual result selection if not known
   const selectionByInclusion = resultSelection.included.length > 0;
   const { data, error, refetch } = useGetStopSelectionInfoQuery({
@@ -153,6 +152,7 @@ function useEnsureStopsHaveBeenResolved(byResultSelection: boolean) {
       displayedRoute,
       filters,
       resultSelection,
+      routeFilters,
     ),
   });
 

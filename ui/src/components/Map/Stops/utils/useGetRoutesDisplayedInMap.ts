@@ -2,15 +2,14 @@ import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
-  RouteRouteBoolExp,
   useGetLineRoutesByLabelQuery,
   useGetRouteByFiltersQuery,
 } from '../../../../generated/graphql';
 import { Operation } from '../../../../redux';
-import { buildActiveDateGqlFilter } from '../../../../utils';
 import { filterRoutesByHighestPriority } from '../../../LinesAndRoutes/Common';
 import { useMapUrlStateContext } from '../../Utils/mapUrlState';
 import { useMapDataLayerLoader } from '../../Utils/useMapDataLayerLoader';
+import { useRouteGqlFilters } from '../../Utils/useRouteGqlFilters';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
   query GetLineRoutesByLabel(
@@ -39,10 +38,18 @@ const GQL_DISPLAYED_ROUTE = gql`
     route_id
     label
     variant
+    name_i18n
     validity_start
     validity_end
     priority
     direction
+    route_line {
+      line_id
+      label
+      name_i18n
+      primary_vehicle_mode
+      type_of_line
+    }
     route_journey_patterns {
       journey_pattern_id
       scheduled_stop_point_in_journey_patterns {
@@ -57,21 +64,11 @@ const GQL_DISPLAYED_ROUTE = gql`
 export function useGetRoutesDisplayedInMap() {
   const {
     state: {
-      displayedRoute: {
-        routeLabels,
-        lineLabel,
-        routeId,
-        showSelectedDaySituation,
-        routePriorities,
-      },
-      filters: { observationDate },
+      displayedRoute: { routeLabels, lineLabel, routeId },
     },
   } = useMapUrlStateContext();
 
-  const routeFilters: RouteRouteBoolExp = {
-    ...buildActiveDateGqlFilter(observationDate),
-    priority: { _in: routePriorities },
-  };
+  const { routeFilters, showHighestPriorityCurrent } = useRouteGqlFilters();
 
   const skipRoutesByRouteInfoResult = !routeLabels.length && !routeId;
   // Get routes by ROUTE LABEL OR ID
@@ -114,8 +111,10 @@ export function useGetRoutesDisplayedInMap() {
   // do not filter routes
   const displayedRoutes = useMemo(
     () =>
-      showSelectedDaySituation ? filterRoutesByHighestPriority(routes) : routes,
-    [routes, showSelectedDaySituation],
+      showHighestPriorityCurrent
+        ? filterRoutesByHighestPriority(routes)
+        : routes,
+    [routes, showHighestPriorityCurrent],
   );
 
   const displayedRouteIds = useMemo(
