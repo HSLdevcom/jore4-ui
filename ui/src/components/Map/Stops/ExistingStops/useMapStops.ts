@@ -28,9 +28,11 @@ function extractHighestPriorityStopsFromRoute<
   TRoute extends RouteWithJourneyPatternStopsFragment,
 >(route: TRoute, observationDate: Temporal.PlainDate) {
   const routeStopPoints =
-    route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.flatMap(
-      (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
-    ) ?? [];
+    route.route_journey_patterns
+      .at(0)
+      ?.ordered_scheduled_stop_point_in_journey_patterns.flatMap(
+        (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
+      ) ?? [];
 
   return filterHighestPriorityCurrentStops(
     routeStopPoints,
