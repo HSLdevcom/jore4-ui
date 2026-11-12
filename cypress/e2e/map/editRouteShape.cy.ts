@@ -11,6 +11,7 @@ import {
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
+  LineRoutesOverlay,
   Map,
   MapFooter,
   MapPage,
@@ -67,7 +68,7 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
       RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
       SearchResultsPage.getRoutesResultsButton().click();
       SearchResultsPage.getShowRouteOnMapButton().click();
-      RouteStopsOverlay.getRouteStopListHeader(
+      LineRoutesOverlay.getRouteRow(
         '901',
         RouteDirectionEnum.Outbound,
       ).shouldBeVisible();
@@ -89,7 +90,7 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
       'Should go back to the route on the map, on back navigation',
       () => {
         cy.go(-1);
-        RouteStopsOverlay.getRouteStopListHeader(
+        LineRoutesOverlay.getRouteRow(
           '901',
           RouteDirectionEnum.Outbound,
         ).shouldBeVisible();
@@ -136,7 +137,7 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
 
       Map.zoomIn(3);
 
-      RouteStopsOverlay.getRouteStopListHeader(
+      LineRoutesOverlay.getRouteRow(
         '901',
         RouteDirectionEnum.Outbound,
       ).shouldBeVisible();
@@ -179,7 +180,7 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
 
       RouteEditor.checkRouteSubmitSuccessToast();
 
-      RouteStopsOverlay.getRouteStopListHeader(
+      LineRoutesOverlay.getRouteRow(
         '901',
         RouteDirectionEnum.Outbound,
       ).shouldBeVisible();
@@ -281,7 +282,7 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
 
       RouteEditor.checkRouteSubmitSuccessToast();
 
-      RouteStopsOverlay.getRouteStopListHeader(
+      LineRoutesOverlay.getRouteRow(
         '902',
         RouteDirectionEnum.Outbound,
       ).shouldBeVisible();

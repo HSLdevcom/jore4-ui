@@ -29,6 +29,10 @@ export class SearchResultsPage {
     return cy.getByTestId('RouteTableRow::showRoute');
   }
 
+  static getShowLineOnMapButton() {
+    return cy.getByTestId('LineTableRow::showLineRoutes');
+  }
+
   static getSelectionCheckbox(label: string) {
     return cy.getByTestId(`SearchResultsPage::selectionCheckbox::${label}`);
   }
