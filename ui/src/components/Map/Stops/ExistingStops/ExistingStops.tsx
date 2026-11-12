@@ -62,7 +62,6 @@ function useFilteredStops(
 
 type ExistingStopsProps = {
   readonly areas: ReadonlyArray<MapStopArea>;
-  readonly displayedRouteIds: ReadonlyArray<string>;
   readonly showRoute: boolean;
   readonly stops: ReadonlyArray<MapStop>;
   readonly terminals: ReadonlyArray<MapTerminal>;
@@ -70,7 +69,6 @@ type ExistingStopsProps = {
 
 export const ExistingStops: FC<ExistingStopsProps> = ({
   areas,
-  displayedRouteIds,
   showRoute,
   stops,
   terminals,
@@ -90,8 +88,7 @@ export const ExistingStops: FC<ExistingStopsProps> = ({
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
 
-  const { getStopHighlighted, getStopShouldBeGray } =
-    useMapStops(displayedRouteIds);
+  const { getStopHighlighted, getStopShouldBeGray } = useMapStops();
   const filterStopsByVehicleMode = useFilterStopsByVehicleMode(showRoute);
 
   const resolveStopHoverTitle = useResolveStopHoverTitle(areas);
