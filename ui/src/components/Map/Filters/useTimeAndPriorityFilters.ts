@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   FilterType,
   selectMapFilter,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../redux';
@@ -15,36 +15,36 @@ type FilterTypeAndLabel = {
 };
 
 const highestPriorityCurrentFilter: FilterTypeAndLabel = {
-  type: FilterType.ShowHighestPriorityCurrentStops,
+  type: FilterType.ShowHighestPriorityCurrent,
   label: (t) => t(($) => $.filters.highestPriorityCurrent),
 };
 
 const timeBasedFilters: ReadonlyArray<FilterTypeAndLabel> = [
   {
-    type: FilterType.ShowFutureStops,
+    type: FilterType.ShowFuture,
     label: (t) => t(($) => $.filters.future),
   },
   {
-    type: FilterType.ShowCurrentStops,
+    type: FilterType.ShowCurrent,
     label: (t) => t(($) => $.filters.current),
   },
   {
-    type: FilterType.ShowPastStops,
+    type: FilterType.ShowPast,
     label: (t) => t(($) => $.filters.past),
   },
 ];
 
 const priorityBasedFilters: ReadonlyArray<FilterTypeAndLabel> = [
   {
-    type: FilterType.ShowStandardStops,
+    type: FilterType.ShowStandard,
     label: (t) => t(($) => $.filters.standard),
   },
   {
-    type: FilterType.ShowTemporaryStops,
+    type: FilterType.ShowTemporary,
     label: (t) => t(($) => $.filters.temporary),
   },
   {
-    type: FilterType.ShowDraftStops,
+    type: FilterType.ShowDraft,
     label: (t) => t(($) => $.filters.draft),
   },
 ];
@@ -59,23 +59,25 @@ function useMapFilterToFilterItem() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   return (filter: FilterTypeAndLabel): FilterItem => {
     const { type, label } = filter;
 
     return {
       id: `filter-${type}`,
-      isActive: stopFilters[type],
+      isActive: timeAndPriorityFilters[type],
       label: label(t),
       toggleFunction: (isActive: boolean) => {
-        dispatch(setStopFilterAction({ filterType: type, isActive }));
+        dispatch(
+          setTimeAndPriorityFilterAction({ filterType: type, isActive }),
+        );
       },
       // If "Show situation on the selected date" -filter is active
       // all other filters are disabled
       disabled:
-        type !== FilterType.ShowHighestPriorityCurrentStops &&
-        stopFilters[FilterType.ShowHighestPriorityCurrentStops],
+        type !== FilterType.ShowHighestPriorityCurrent &&
+        timeAndPriorityFilters[FilterType.ShowHighestPriorityCurrent],
     };
   };
 }

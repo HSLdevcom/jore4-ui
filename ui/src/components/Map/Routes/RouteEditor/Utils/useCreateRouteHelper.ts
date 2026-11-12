@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
 import {
+  FilterType,
   Operation,
   resetDraftRouteGeometryAction,
   resetRouteCreatingAction,
@@ -9,6 +10,7 @@ import {
   selectMapRouteEditor,
   setLastCreatedRouteLabelAction,
   setSelectedRouteIdAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
   useLoader,
@@ -17,6 +19,7 @@ import { Priority } from '../../../../../types/enums';
 import { showSuccessToast, showWarningToast } from '../../../../../utils';
 import { isDateInRange } from '../../../../../utils/time';
 import { RouteFormState, hasBlockers } from '../../../../LinesAndRoutes/Common';
+import { useEnsureTemporalFilterActive } from '../../../Stops/utils/useEnsureTemporalFilterActive';
 import { useMapUrlStateContext } from '../../../Utils/mapUrlState';
 import { SNAPPING_LINE_LAYER_ID, removeRoute } from '../../Utils';
 import { CreateChanges, useCreateRoute } from './useCreateRoute';
@@ -50,6 +53,7 @@ export function useCreateRouteHelper() {
   } = useAppSelector(selectEditedRouteData);
 
   const { setIsLoading } = useLoader(Operation.SaveRoute);
+  const ensureTemporalFilterActive = useEnsureTemporalFilterActive();
 
   const [pendingChanges, setPendingChanges] = useState<CreateChanges | null>(
     null,
@@ -80,9 +84,24 @@ export function useCreateRouteHelper() {
       routeId: newRoute.route_id,
       lineLabel: null,
       routeLabels: [],
-      routePriorities: [Priority.Standard, Priority.Temporary, Priority.Draft],
+      routePriorities: [Priority.Draft],
       showSelectedDaySituation: false,
     }));
+
+    // Make sure the created route passes the shared map filters.
+    dispatch(
+      setTimeAndPriorityFilterAction({
+        filterType: FilterType.ShowHighestPriorityCurrent,
+        isActive: false,
+      }),
+    );
+    dispatch(
+      setTimeAndPriorityFilterAction({
+        filterType: FilterType.ShowDraft,
+        isActive: true,
+      }),
+    );
+    ensureTemporalFilterActive();
 
     // // If created route is not valid at the selected observation date,
     // // change observation date to created route's validity start date
