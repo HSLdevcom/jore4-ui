@@ -1817,6 +1817,9 @@
     "map": {
       "showFilters": "Show filters",
       "editRoute": "Edit route {{routeName}}'s data",
+      "editLine": "Edit line {{lineLabel}}'s data",
+      "showLineDetails": "Open line {{lineLabel}}'s details",
+      "toggleRouteVisibility": "Show route {{routeLabel}} {{direction}} on the map",
       "routeStopsOverlayRowActions": "More actions for stop {{stopLabel}}"
     }
   }

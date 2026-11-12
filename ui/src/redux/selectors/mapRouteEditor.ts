@@ -34,6 +34,24 @@ export const selectSelectedRouteId = createSelector(
   (mapRouteEditor) => mapRouteEditor.selectedRouteId,
 );
 
+export const selectVisibleRouteIds = createSelector(
+  selectMapRouteEditor,
+  (mapRouteEditor) => mapRouteEditor.visibleRouteIds,
+);
+
+/**
+ * Routes whose stops are shown on the map: the ones toggled visible in the
+ * line overlay plus the route whose row is currently opened.
+ */
+export const selectVisibleOrSelectedRouteIds = createSelector(
+  selectVisibleRouteIds,
+  selectSelectedRouteId,
+  (visibleRouteIds, selectedRouteId): ReadonlyArray<UUID> =>
+    selectedRouteId && !visibleRouteIds.includes(selectedRouteId)
+      ? [...visibleRouteIds, selectedRouteId]
+      : visibleRouteIds,
+);
+
 export const selectLastCreatedRouteLabel = createSelector(
   selectMapRouteEditor,
   (mapRouteEditor) => mapRouteEditor.lastCreatedRouteLabel,

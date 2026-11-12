@@ -273,11 +273,7 @@ export const MapComponent: ForwardRefRenderFunction<
         showTramNetwork={showTramNetwork}
       />
 
-      <Routes
-        displayedRouteIds={displayedRouteIds}
-        showRoute={showRoute}
-        ref={editorRefs.routeEditorRef}
-      />
+      <Routes showRoute={showRoute} ref={editorRefs.routeEditorRef} />
 
       <FunctionalAreaVisualization stops={stops} />
     </Maplibre>
