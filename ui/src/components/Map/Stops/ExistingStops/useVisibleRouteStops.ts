@@ -3,15 +3,18 @@ import {
   selectEditedRouteData,
   selectHasChangesInProgress,
   selectIsRedrawingExistingRoute,
+  selectVisibleOrSelectedRouteIds,
   useAppSelector,
 } from '../../../../redux';
 import { useGetRoutesDisplayedInMap } from '../utils';
 
 /**
- * Hook for getting stop labels that belong to any displayed route or edited / created route
+ * Hook for getting stop labels that belong to any route shown on the map or
+ * edited / created route
  */
 export function useVisibleRouteStops() {
   const { displayedRoutes } = useGetRoutesDisplayedInMap();
+  const visibleRouteIds = useAppSelector(selectVisibleOrSelectedRouteIds);
 
   const { id: editedRouteId, includedStopLabels: editedRouteStopLabels } =
     useAppSelector(selectEditedRouteData);
@@ -23,6 +26,7 @@ export function useVisibleRouteStops() {
   const displayedRouteStopLabels = useMemo(
     () =>
       displayedRoutes
+        .filter((route) => visibleRouteIds.includes(route.route_id))
         // Exclude the hidden route before flattening to preserve shared stops on other routes.
         .filter(
           (route) =>
@@ -34,7 +38,7 @@ export function useVisibleRouteStops() {
             journeyPattern.scheduled_stop_point_in_journey_patterns,
         )
         .map((stop) => stop.scheduled_stop_point_label),
-    [displayedRoutes, editedRouteId, isRedrawingExistingRoute],
+    [displayedRoutes, visibleRouteIds, editedRouteId, isRedrawingExistingRoute],
   );
 
   const visibleRouteStopLabels: ReadonlyArray<string> = useMemo(
