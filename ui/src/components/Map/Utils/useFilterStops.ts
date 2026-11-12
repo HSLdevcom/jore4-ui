@@ -1,7 +1,7 @@
 import partial from 'lodash/partial';
 import { useCallback } from 'react';
 import {
-  ActiveStopFilters,
+  ActiveTimeAndPriorityFilters,
   FilterType,
   selectMapFilter,
   useAppSelector,
@@ -28,22 +28,22 @@ type TypeAndFilterFn = {
 
 function getActiveTimeFilters(
   observationDate: Temporal.PlainDate,
-  stopFilters: ActiveStopFilters,
+  filters: ActiveTimeAndPriorityFilters,
 ): ReadonlyArray<TypeAndFilterFn> {
   return [
     {
-      type: FilterType.ShowFutureStops,
+      type: FilterType.ShowFuture,
       filterFunction: partial(isFutureEntity, observationDate),
     },
     {
-      type: FilterType.ShowCurrentStops,
+      type: FilterType.ShowCurrent,
       filterFunction: partial(isCurrentEntity, observationDate),
     },
     {
-      type: FilterType.ShowPastStops,
+      type: FilterType.ShowPast,
       filterFunction: partial(isPastEntity, observationDate),
     },
-  ].filter(({ type }) => stopFilters[type]);
+  ].filter(({ type }) => filters[type]);
 }
 
 function hasPriority(
@@ -54,31 +54,31 @@ function hasPriority(
 }
 
 function getActivePriorityFilters(
-  stopFilters: ActiveStopFilters,
+  filters: ActiveTimeAndPriorityFilters,
 ): ReadonlyArray<TypeAndFilterFn> {
   return [
     {
-      type: FilterType.ShowStandardStops,
+      type: FilterType.ShowStandard,
       filterFunction: partial(hasPriority, Priority.Standard),
     },
     {
-      type: FilterType.ShowTemporaryStops,
+      type: FilterType.ShowTemporary,
       filterFunction: partial(hasPriority, Priority.Temporary),
     },
     {
-      type: FilterType.ShowDraftStops,
+      type: FilterType.ShowDraft,
       filterFunction: partial(hasPriority, Priority.Draft),
     },
-  ].filter(({ type }) => stopFilters[type]);
+  ].filter(({ type }) => filters[type]);
 }
 
 function filterStopsByAnyTimeAndPriority<TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,
   observationDate: Temporal.PlainDate,
-  stopFilters: ActiveStopFilters,
+  filters: ActiveTimeAndPriorityFilters,
 ): Array<TStop> {
-  const activeTimeFilters = getActiveTimeFilters(observationDate, stopFilters);
-  const activePriorityFilters = getActivePriorityFilters(stopFilters);
+  const activeTimeFilters = getActiveTimeFilters(observationDate, filters);
+  const activePriorityFilters = getActivePriorityFilters(filters);
 
   return stops.filter(
     (stop) =>
@@ -90,19 +90,19 @@ function filterStopsByAnyTimeAndPriority<TStop extends FilterableStopInfo>(
 function filterStopsByTimeAndPriority<TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,
   observationDate: Temporal.PlainDate,
-  stopFilters: ActiveStopFilters,
+  filters: ActiveTimeAndPriorityFilters,
 ): Array<TStop> {
   // If "Show situation on the selected date" filter is selected,
   // ignore other filters
-  if (stopFilters[FilterType.ShowHighestPriorityCurrentStops]) {
+  if (filters[FilterType.ShowHighestPriorityCurrent]) {
     return filterHighestPriorityCurrentStops(stops, observationDate);
   }
 
-  return filterStopsByAnyTimeAndPriority(stops, observationDate, stopFilters);
+  return filterStopsByAnyTimeAndPriority(stops, observationDate, filters);
 }
 
 export function useFilterStops(): FilterStopsFn {
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
   const observationDate = useMapObservationDate();
 
   const isInSearchResultMode = useIsInSearchResultMode();
@@ -113,8 +113,12 @@ export function useFilterStops(): FilterStopsFn {
         return stops;
       }
 
-      return filterStopsByTimeAndPriority(stops, observationDate, stopFilters);
+      return filterStopsByTimeAndPriority(
+        stops,
+        observationDate,
+        timeAndPriorityFilters,
+      );
     },
-    [observationDate, stopFilters, isInSearchResultMode],
+    [observationDate, timeAndPriorityFilters, isInSearchResultMode],
   );
 }

@@ -30,8 +30,8 @@ export const defaultDisplayedRouteParams: DisplayedRouteParams = {
   lineLabel: null,
   routeId: null,
   routeLabels: [],
-  routePriorities: [],
-  showSelectedDaySituation: false,
+  routePriorities: [Priority.Standard, Priority.Temporary],
+  showSelectedDaySituation: true,
 };
 
 export const defaultViewPortParams: ViewPortParams = {

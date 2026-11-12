@@ -1244,7 +1244,7 @@
     "highestPriorityCurrent": "Show situation on the selected date",
     "observationDate": "Observation date",
     "observationDateAdjusted": "Observation date adjusted",
-    "stopFiltersAdjusted": "Stop filters adjusted",
+    "filtersAdjusted": "Filters adjusted",
     "temporalFiltersAdjusted": "Temporal filters adjusted",
     "visibilityFiltersAdjusted": "Visibility filters adjusted",
     "mapEntityType": {

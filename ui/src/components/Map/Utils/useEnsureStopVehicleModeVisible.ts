@@ -3,7 +3,7 @@ import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import {
   FilterType,
   selectMapFilter,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../redux';
@@ -26,7 +26,7 @@ const vehicleModeToFilterType: Partial<
 export function useEnsureStopVehicleModeVisible() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   return (transportMode: string | null | undefined) => {
     const vehicleMode = parseVehicleMode(transportMode);
@@ -39,8 +39,8 @@ export function useEnsureStopVehicleModeVisible() {
       return;
     }
 
-    if (!stopFilters[filterType]) {
-      dispatch(setStopFilterAction({ filterType, isActive: true }));
+    if (!timeAndPriorityFilters[filterType]) {
+      dispatch(setTimeAndPriorityFilterAction({ filterType, isActive: true }));
       showWarningToast(t(($) => $.filters.visibilityFiltersAdjusted));
     }
   };
