@@ -2,14 +2,14 @@ import { useTranslation } from 'react-i18next';
 import {
   FilterType,
   selectMapFilter,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../../redux';
 import { showWarningToast } from '../../../../utils';
 
 /**
- * Ensures the 'ShowCurrentStops' temporal filter is active.
+ * Ensures the 'ShowCurrent' temporal filter is active.
  * If it is not, it will be enabled and a warning toast is shown.
  *
  * This is used after creating stops so that the user can immediately see the result on the map.
@@ -18,13 +18,13 @@ export function useEnsureTemporalFilterActive() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   return () => {
-    if (!stopFilters[FilterType.ShowCurrentStops]) {
+    if (!timeAndPriorityFilters[FilterType.ShowCurrent]) {
       dispatch(
-        setStopFilterAction({
-          filterType: FilterType.ShowCurrentStops,
+        setTimeAndPriorityFilterAction({
+          filterType: FilterType.ShowCurrent,
           isActive: true,
         }),
       );

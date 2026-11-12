@@ -1247,7 +1247,7 @@
     "highestPriorityCurrent": "Näytä tilanne valittuna päivänä",
     "observationDate": "Tarkasteluhetki",
     "observationDateAdjusted": "Tarkasteluhetkeä muutettu",
-    "stopFiltersAdjusted": "Pysäkkien suodattimia muutettu",
+    "filtersAdjusted": "Suodattimia muutettu",
     "temporalFiltersAdjusted": "Ajankohdan suodattimia muutettu",
     "visibilityFiltersAdjusted": "Näkyvyyden suodattimia muutettu",
     "mapEntityType": {

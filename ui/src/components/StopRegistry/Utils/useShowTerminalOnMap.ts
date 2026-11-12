@@ -5,7 +5,7 @@ import {
   resetMapState,
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
 } from '../../../redux';
 import { Point } from '../../../types';
@@ -25,7 +25,7 @@ export function useShowTerminalOnMap() {
       dispatch(setSelectedTerminalIdAction(id));
       dispatch(setMapTerminalViewStateAction(MapEntityEditorViewState.POPUP));
       dispatch(
-        setStopFilterAction({
+        setTimeAndPriorityFilterAction({
           filterType: FilterType.ShowAllBusStops,
           isActive: true,
         }),

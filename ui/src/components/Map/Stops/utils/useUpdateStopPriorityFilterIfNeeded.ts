@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import {
   FilterType,
   selectMapFilter,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../../redux';
@@ -12,12 +12,12 @@ import { showWarningToast } from '../../../../utils';
 function mapPriorityToFilterType(priority: Priority): FilterType {
   switch (priority) {
     case Priority.Standard:
-      return FilterType.ShowStandardStops;
+      return FilterType.ShowStandard;
     case Priority.Temporary:
-      return FilterType.ShowTemporaryStops;
+      return FilterType.ShowTemporary;
     case Priority.Draft:
     default:
-      return FilterType.ShowDraftStops;
+      return FilterType.ShowDraft;
   }
 }
 
@@ -25,31 +25,31 @@ export function useUpdateStopPriorityFilterIfNeeded() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   /**
    * If the given priority stops are currently being filtered out from the view
    * -> adjust the priority filters so that the given priority stops are shown and
-   * also deactivate the 'showHighestPriorityCurrentStops' filter.
+   * also deactivate the 'ShowHighestPriorityCurrent' filter.
    * -> Show the user toast message about the adjustment.
    */
   return (priority: Priority) => {
     const filterType = mapPriorityToFilterType(priority);
 
-    if (!stopFilters[filterType]) {
+    if (!timeAndPriorityFilters[filterType]) {
       dispatch(
-        setStopFilterAction({
+        setTimeAndPriorityFilterAction({
           filterType,
           isActive: true,
         }),
       );
       dispatch(
-        setStopFilterAction({
-          filterType: FilterType.ShowHighestPriorityCurrentStops,
+        setTimeAndPriorityFilterAction({
+          filterType: FilterType.ShowHighestPriorityCurrent,
           isActive: false,
         }),
       );
-      showWarningToast(t(($) => $.filters.stopFiltersAdjusted));
+      showWarningToast(t(($) => $.filters.filtersAdjusted));
     }
   };
 }

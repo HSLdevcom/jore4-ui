@@ -7,8 +7,10 @@ import {
 } from '../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../hooks';
 import {
+  FilterType,
   resetMapState,
   setSelectedRouteIdAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
@@ -72,6 +74,8 @@ type ShowRoutesOnMapParams = {
   readonly displayedRoute: Partial<DisplayedRouteParams>;
   readonly validityStart: Temporal.PlainDate;
   readonly validityEnd: Temporal.PlainDate | null | undefined;
+  readonly priorities?: ReadonlyArray<Priority>;
+  readonly showSelectedDaySituation?: boolean;
 };
 
 export function useShowRoutesOnMap() {
@@ -81,11 +85,32 @@ export function useShowRoutesOnMap() {
   const { observationDate: listViewObservationDate } =
     useObservationDateQueryParam({ initialize: false });
 
+  const setFilters = (
+    priorities: ReadonlyArray<Priority>,
+    showSelectedDaySituation: boolean,
+  ) => {
+    const filters: ReadonlyArray<[FilterType, boolean]> = [
+      [FilterType.ShowHighestPriorityCurrent, showSelectedDaySituation],
+      [FilterType.ShowCurrent, true],
+      [FilterType.ShowFuture, false],
+      [FilterType.ShowPast, false],
+      [FilterType.ShowStandard, priorities.includes(Priority.Standard)],
+      [FilterType.ShowTemporary, priorities.includes(Priority.Temporary)],
+      [FilterType.ShowDraft, priorities.includes(Priority.Draft)],
+    ];
+
+    filters.forEach(([filterType, isActive]) => {
+      dispatch(setTimeAndPriorityFilterAction({ filterType, isActive }));
+    });
+  };
+
   const showRoutesOnMap = ({
     viewPort,
     displayedRoute,
     validityStart,
     validityEnd,
+    priorities = [Priority.Standard, Priority.Temporary],
+    showSelectedDaySituation = true,
   }: ShowRoutesOnMapParams) => {
     // Use observation date from list view by default. If observation date
     // is outside validity, make observation validity start date, so map is not empty.
@@ -99,13 +124,10 @@ export function useShowRoutesOnMap() {
       : validityStart;
 
     dispatch(resetMapState());
+    setFilters(priorities, showSelectedDaySituation);
     navigateToMap({
       viewPort,
-      displayedRoute: merge({}, defaultDisplayedRouteParams, {
-        showSelectedDaySituation: true,
-        routePriorities: [Priority.Standard, Priority.Temporary],
-        ...displayedRoute,
-      }),
+      displayedRoute: merge({}, defaultDisplayedRouteParams, displayedRoute),
       filters: {
         observationDate: newObservationDate,
       },
@@ -134,12 +156,18 @@ export function useShowRoutesOnMap() {
       line.line_routes.at(0),
     );
 
+    // Draft routes are filtered out by the "show situation on the selected
+    // date" mode, so it has to be turned off for draft lines.
+    const isDraft = line.priority === Priority.Draft;
+
     showRoutesOnMap({
       displayedRoute: {
         lineLabel: line.label,
-        routePriorities:
-          line.priority === Priority.Draft ? [Priority.Draft] : undefined,
       },
+      priorities: isDraft
+        ? [Priority.Draft]
+        : [Priority.Standard, Priority.Temporary],
+      showSelectedDaySituation: !isDraft,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: line.validity_start!,
       validityEnd: line.validity_end,
@@ -153,13 +181,9 @@ export function useShowRoutesOnMap() {
     showRoutesOnMap({
       displayedRoute: {
         routeId: route.route_id,
-        showSelectedDaySituation: false,
-        routePriorities: [
-          Priority.Standard,
-          Priority.Temporary,
-          Priority.Draft,
-        ],
       },
+      priorities: [Priority.Standard, Priority.Temporary, Priority.Draft],
+      showSelectedDaySituation: false,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: route.validity_start!,
       validityEnd: route.validity_end,

@@ -26,11 +26,11 @@ export const ExistingDepotStops: FC<ExistingDepotStopsProps> = ({
   depotStops,
 }) => {
   const [mapViewState, setMapViewState] = useMapViewState();
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
   const selectedDepotStopId = useAppSelector(selectSelectedDepotStopId);
   const setSelectedDepotStopId = useAppAction(setSelectedDepotStopIdAction);
 
-  if (!stopFilters[FilterType.ShowAllTramStops]) {
+  if (!timeAndPriorityFilters[FilterType.ShowAllTramStops]) {
     return null;
   }
 
