@@ -41,7 +41,6 @@ import {
 
 type StopsProps = {
   readonly areas: ReadonlyArray<MapStopArea>;
-  readonly displayedRouteIds: ReadonlyArray<string>;
   readonly showRoute: boolean;
   readonly stops: ReadonlyArray<MapStop>;
   readonly terminals: ReadonlyArray<MapTerminal>;
@@ -49,7 +48,7 @@ type StopsProps = {
 };
 
 export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
-  { areas, displayedRouteIds, showRoute, stops, terminals, depotStops },
+  { areas, showRoute, stops, terminals, depotStops },
   ref,
 ) => {
   const [mapViewState, setMapViewState] = useMapViewState();
@@ -168,7 +167,6 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     <>
       <ExistingStops
         areas={areas}
-        displayedRouteIds={displayedRouteIds}
         showRoute={showRoute}
         stops={stops}
         terminals={terminals}
