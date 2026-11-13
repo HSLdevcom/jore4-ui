@@ -1,3 +1,4 @@
+import sum from 'lodash/sum';
 import {
   GetLineDetailsByIdQuery,
   InfraLinkAlongRouteDefaultFieldsFragment,
@@ -44,4 +45,19 @@ export function mapLineDetailsResult(
   data: GetLineDetailsByIdQuery | undefined,
 ) {
   return illegalOptionalCast<RouteLine>(data?.route_line_by_pk);
+}
+
+export function getRouteMeasuredLength(
+  infraLinks:
+    | ReadonlyArray<{
+        readonly estimated_length_in_metres?: number | null;
+      }>
+    | null
+    | undefined,
+): number | null {
+  if (!infraLinks) {
+    return null;
+  }
+
+  return sum(infraLinks.map((link) => link.estimated_length_in_metres));
 }
