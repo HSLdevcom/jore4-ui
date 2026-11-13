@@ -13,6 +13,7 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   ConfirmationDialog,
+  LineRoutesOverlay,
   Map,
   MapFooter,
   MapPage,
@@ -67,6 +68,9 @@ describe(
 
     function openExistingRoute(expectedStops = originalStops) {
       cy.visit('/routes');
+      // The observation date is initialized to the url on page load. Searching
+      // before that would lose the search query in the initialization.
+      cy.location('search').should('include', 'observationDate=');
       RoutesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
       // Switching result types must not overwrite the pending search query.
       cy.location('search').should('include', 'query=901');
@@ -74,7 +78,7 @@ describe(
       SearchResultsPage.getShowRouteOnMapButton()
         .should('have.length', 1)
         .click();
-      RouteStopsOverlay.getRouteStopListHeader(
+      LineRoutesOverlay.getRouteRow(
         '901',
         RouteDirectionEnum.Outbound,
       ).shouldBeVisible();
@@ -128,7 +132,8 @@ describe(
     }
 
     function assertSavedReplacement(label: string) {
-      RouteStopsOverlay.getRouteStopListHeader(
+      // Saving ends the editing mode, so the line overlay is shown again.
+      LineRoutesOverlay.getRouteRow(
         label,
         RouteDirectionEnum.Outbound,
       ).shouldBeVisible();
@@ -266,10 +271,10 @@ describe(
 
         cy.reload();
         assertSavedReplacement('902');
-        RouteStopsOverlay.getHeader().should(
-          'contain',
-          'Geometry deletion test',
-        );
+        LineRoutesOverlay.getRouteRow(
+          '902',
+          RouteDirectionEnum.Outbound,
+        ).should('contain', 'Geometry deletion test');
 
         // Clearing template geometry must not modify the template itself.
         openExistingRoute();
@@ -285,10 +290,14 @@ describe(
         .should('contain', 'Reitti poistetaan sille kuuluvalta linjalta.');
       ConfirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlDeleteRoute');
-      RouteStopsOverlay.getHeader().should('not.exist');
+      LineRoutesOverlay.getRouteRow('901', RouteDirectionEnum.Outbound).should(
+        'not.exist',
+      );
 
       cy.reload();
-      RouteStopsOverlay.getHeader().should('not.exist');
+      LineRoutesOverlay.getRouteRow('901', RouteDirectionEnum.Outbound).should(
+        'not.exist',
+      );
     });
   },
 );
