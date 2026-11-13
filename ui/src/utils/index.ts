@@ -25,6 +25,7 @@ export * from './stops';
 export * from './toastService';
 export * from './useCallbackOnKeyEscape';
 export * from './useDebouncedString';
+export * from './useNumberFormat';
 export * from './useRequiredParams';
 export * from './useSafeBackNavigation';
 export * from './useViewState';
