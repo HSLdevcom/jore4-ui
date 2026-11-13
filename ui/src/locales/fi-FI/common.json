@@ -47,6 +47,7 @@
     "changingRoutes": "Muuttuvat reitit",
     "showUnusedStops": "Näytä reittiin kuulumattomat pysäkit",
     "useTemplateRoute": "Käytä pohjareittiä",
+    "isDeadRun": "Siirtoajo",
     "searchTemplate": "Hae pohjareitti",
     "chooseRoute": "Valitse reitti",
     "direction": "Suunta",

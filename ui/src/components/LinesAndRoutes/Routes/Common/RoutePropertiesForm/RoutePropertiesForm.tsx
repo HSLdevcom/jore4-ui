@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import {
   LineForComboboxFragment,
+  ReusableComponentsVehicleModeEnum,
   RouteAllFieldsFragment,
 } from '../../../../../generated/graphql';
 import {
@@ -70,6 +71,7 @@ const testIds = {
     'RoutePropertiesFormComponent::useTemplateRouteButton',
   accountingDistance: 'RoutePropertiesFormComponent::accountingDistance',
   measuredDistance: 'RoutePropertiesFormComponent::measuredDistance',
+  isDeadRunSwitch: 'RoutePropertiesFormComponent::isDeadRunSwitch',
 };
 
 export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
@@ -102,7 +104,9 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   const dispatch = useAppDispatch();
 
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
-  const { templateRouteId } = useAppSelector(selectEditedRouteData);
+  const { templateRouteId, vehicleMode } = useAppSelector(
+    selectEditedRouteData,
+  );
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
 
   const methods = useForm<RouteFormState>({
@@ -149,6 +153,9 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
       ? '-'
       : numberFormat.format(measuredDistance);
 
+  const isDeadRunAvailable =
+    creatingNewRoute && vehicleMode === ReusableComponentsVehicleModeEnum.Tram;
+
   const setTemplateRoute = (templateRoute?: RouteAllFieldsFragment) => {
     dispatch(setTemplateRouteIdAction(templateRoute?.route_id));
 
@@ -178,23 +185,41 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
           <FormColumn className={twMerge('p-4', className)}>
             {creatingNewRoute && (
               <>
-                <Field as={Row} className="flex-auto items-center">
-                  <SwitchLabel className="my-1 mr-2">
-                    {t(($) => $.routes.useTemplateRoute)}
-                  </SwitchLabel>
-                  <Switch
-                    checked={showTemplateRouteSelector}
-                    disabled={hasDraftRouteGeometry}
-                    testId={testIds.useTemplateRouteButton}
-                    onChange={(enabled: boolean) => {
-                      setShowTemplateRouteSelector(enabled);
+                <Row className="flex-wrap gap-x-8">
+                  <Field as={Row} className="items-center">
+                    <SwitchLabel className="my-1 mr-2">
+                      {t(($) => $.routes.useTemplateRoute)}
+                    </SwitchLabel>
+                    <Switch
+                      checked={showTemplateRouteSelector}
+                      disabled={hasDraftRouteGeometry}
+                      testId={testIds.useTemplateRouteButton}
+                      onChange={(enabled: boolean) => {
+                        setShowTemplateRouteSelector(enabled);
 
-                      if (!enabled) {
-                        setTemplateRoute(undefined);
-                      }
-                    }}
-                  />
-                </Field>
+                        if (!enabled) {
+                          setTemplateRoute(undefined);
+                        }
+                      }}
+                    />
+                  </Field>
+                  {isDeadRunAvailable && (
+                    <Field as={Row} className="items-center">
+                      <SwitchLabel className="my-1 mr-2">
+                        {t(($) => $.routes.isDeadRun)}
+                      </SwitchLabel>
+                      <Switch
+                        checked={methods.watch('isDeadRun') ?? false}
+                        testId={testIds.isDeadRunSwitch}
+                        onChange={(enabled: boolean) =>
+                          methods.setValue('isDeadRun', enabled, {
+                            shouldDirty: true,
+                          })
+                        }
+                      />
+                    </Field>
+                  )}
+                </Row>
                 {showTemplateRouteSelector && (
                   <TemplateRouteSelector
                     value={templateRouteId}
