@@ -20,7 +20,10 @@ type RouteGeometryLayerProps = {
   readonly geometry: GeoJSON.LineString;
   readonly defaultColor?: string;
   readonly isHighlighted: boolean;
+  readonly isDeadRun?: boolean;
 };
+
+const DEAD_RUN_DASH_ARRAY = [1, 0.5];
 
 // This layer renders route on map
 export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
@@ -28,6 +31,7 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
   geometry,
   defaultColor = colors.routes.bus,
   isHighlighted,
+  isDeadRun = false,
 }) => {
   const { current: map } = useMap();
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
@@ -46,6 +50,7 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
     'line-color': color,
     'line-width': isHighlighted ? 9 : 8,
     'line-offset': lineOffset,
+    ...(isDeadRun && { 'line-dasharray': DEAD_RUN_DASH_ARRAY }),
   };
 
   const arrowLayout: Partial<ArrowLayout> = {
@@ -99,6 +104,7 @@ export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
         layerId={lineRenderLayerId}
         geometry={geometry}
         paint={linePaint}
+        layout={isDeadRun ? { 'line-cap': 'square' } : undefined}
         beforeId={beforeId}
         metadata={routeInteractiveMetadata}
       />
