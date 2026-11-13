@@ -47,6 +47,7 @@ const GQL_LINE_FOR_COMBOBOX = gql`
     label
     validity_start
     validity_end
+    primary_vehicle_mode
   }
 `;
 

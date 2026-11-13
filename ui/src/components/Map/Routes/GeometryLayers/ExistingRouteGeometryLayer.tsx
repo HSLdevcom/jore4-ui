@@ -9,6 +9,7 @@ const GQL_GET_ROUTE_RENDER_INFO_BY_ID = gql`
     route_route_by_pk(route_id: $routeId) {
       route_id
       route_shape
+      is_dead_run
       route_line {
         line_id
         primary_vehicle_mode
@@ -40,6 +41,7 @@ export const ExistingRouteGeometryLayer: FC<
   const routeColor = mapVehicleModeToRouteColor(
     routeRenderInfo.route_line.primary_vehicle_mode,
     routeRenderInfo.route_line.type_of_line,
+    routeRenderInfo.is_dead_run,
   );
 
   return (
@@ -48,6 +50,7 @@ export const ExistingRouteGeometryLayer: FC<
       geometry={routeRenderInfo.route_shape}
       defaultColor={routeColor}
       isHighlighted={isSelected}
+      isDeadRun={routeRenderInfo.is_dead_run}
     />
   );
 };

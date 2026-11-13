@@ -47,7 +47,12 @@ export function mapTransportModeToColor(
 export function mapVehicleModeToRouteColor(
   key: ReusableComponentsVehicleModeEnum,
   typeOfLine?: RouteTypeOfLineEnum,
+  isDeadRun = false,
 ): string {
+  if (isDeadRun) {
+    return colors.hslTramDarkGreen;
+  }
+
   if (typeOfLine === RouteTypeOfLineEnum.ExpressBusService) {
     return colors.hslTrunkLineOrange;
   }

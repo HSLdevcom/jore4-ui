@@ -47,6 +47,7 @@
     "changingRoutes": "Changing routes",
     "showUnusedStops": "Show unused stops",
     "useTemplateRoute": "Use template route",
+    "isDeadRun": "Dead run",
     "searchTemplate": "Search for template route",
     "chooseRoute": "Choose route",
     "direction": "Direction",

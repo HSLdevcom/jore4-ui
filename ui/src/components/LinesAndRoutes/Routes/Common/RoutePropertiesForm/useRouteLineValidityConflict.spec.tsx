@@ -1,6 +1,9 @@
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import { renderHook } from '@testing-library/react';
-import { LineForComboboxFragment } from '../../../../../generated/graphql';
+import {
+  LineForComboboxFragment,
+  ReusableComponentsVehicleModeEnum,
+} from '../../../../../generated/graphql';
 import { useRouteLineValidityConflict } from './useRouteLineValidityConflict';
 
 // Line 1 is valid 2020-01-01 - 2030-01-01.
@@ -11,6 +14,7 @@ const line: LineForComboboxFragment = {
   name_i18n: buildLocalizedString('Line1 name'),
   validity_start: Temporal.PlainDate.from('2020-01-01'),
   validity_end: Temporal.PlainDate.from('2030-01-01'),
+  primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
 };
 
 // Line 2 is valid indefinitely from the start until 2030-01-01.

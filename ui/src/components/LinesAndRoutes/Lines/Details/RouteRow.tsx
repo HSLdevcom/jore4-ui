@@ -43,6 +43,7 @@ const testIds = {
   toggleAccordion: 'RouteRow::toggleAccordion',
   editRouteButton: 'RouteRow::editRouteButton',
   versionsButton: 'RouteRow::versionsButton',
+  deadRunIcon: 'RouteRow::deadRunIcon',
 };
 
 type RouteRowProps = {
@@ -121,6 +122,18 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
       </div>
       <span className="text-l col-span-8" data-testid={testIds.name}>
         {getLocalizedTextFromDbBlob(route.name_i18n)}
+        {route.is_dead_run && (
+          <i
+            className={twMerge(
+              'icon-tram-shelter',
+              'ml-2 align-middle text-2xl text-hsl-tram-green',
+            )}
+            title={t(($) => $.routes.isDeadRun)}
+            aria-label={t(($) => $.routes.isDeadRun)}
+            role="img"
+            data-testid={testIds.deadRunIcon}
+          />
+        )}
       </span>
       <Link
         to={routeDetails[Path.lineChangeHistory].getLink(label)}
