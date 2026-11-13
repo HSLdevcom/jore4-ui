@@ -7796,6 +7796,7 @@ export type RouteLineVarianceOrderBy = {
 /** columns and relationships of "route.route" */
 export type RouteRoute = {
   readonly __typename?: 'route_route';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   /** An array relationship */
   readonly change_history: ReadonlyArray<RouteLineChangeHistory>;
   /** An aggregate relationship */
@@ -7937,7 +7938,34 @@ export type RouteRouteAggregate = {
 };
 
 export type RouteRouteAggregateBoolExp = {
+  readonly avg?: InputMaybe<RouteRouteAggregateBoolExpAvg>;
+  readonly corr?: InputMaybe<RouteRouteAggregateBoolExpCorr>;
   readonly count?: InputMaybe<RouteRouteAggregateBoolExpCount>;
+  readonly covar_samp?: InputMaybe<RouteRouteAggregateBoolExpCovarSamp>;
+  readonly max?: InputMaybe<RouteRouteAggregateBoolExpMax>;
+  readonly min?: InputMaybe<RouteRouteAggregateBoolExpMin>;
+  readonly stddev_samp?: InputMaybe<RouteRouteAggregateBoolExpStddevSamp>;
+  readonly sum?: InputMaybe<RouteRouteAggregateBoolExpSum>;
+  readonly var_samp?: InputMaybe<RouteRouteAggregateBoolExpVarSamp>;
+};
+
+export type RouteRouteAggregateBoolExpAvg = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpAvgArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCorr = {
+  readonly arguments: RouteRouteAggregateBoolExpCorrArguments;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCorrArguments = {
+  readonly X: RouteRouteSelectColumnRouteRouteAggregateBoolExpCorrArgumentsColumns;
+  readonly Y: RouteRouteSelectColumnRouteRouteAggregateBoolExpCorrArgumentsColumns;
 };
 
 export type RouteRouteAggregateBoolExpCount = {
@@ -7945,6 +7973,53 @@ export type RouteRouteAggregateBoolExpCount = {
   readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
   readonly filter?: InputMaybe<RouteRouteBoolExp>;
   readonly predicate: IntComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCovarSamp = {
+  readonly arguments: RouteRouteAggregateBoolExpCovarSampArguments;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCovarSampArguments = {
+  readonly X: RouteRouteSelectColumnRouteRouteAggregateBoolExpCovarSampArgumentsColumns;
+  readonly Y: RouteRouteSelectColumnRouteRouteAggregateBoolExpCovarSampArgumentsColumns;
+};
+
+export type RouteRouteAggregateBoolExpMax = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpMaxArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpMin = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpMinArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpStddevSamp = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpStddevSampArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpSum = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpSumArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpVarSamp = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpVarSampArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: Float8ComparisonExp;
 };
 
 /** aggregate fields of "route.route" */
@@ -8005,12 +8080,14 @@ export type RouteRouteArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteRouteAvgFields = {
   readonly __typename?: 'route_route_avg_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "route.route" */
 export type RouteRouteAvgOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -8020,6 +8097,7 @@ export type RouteRouteBoolExp = {
   readonly _and?: InputMaybe<ReadonlyArray<RouteRouteBoolExp>>;
   readonly _not?: InputMaybe<RouteRouteBoolExp>;
   readonly _or?: InputMaybe<ReadonlyArray<RouteRouteBoolExp>>;
+  readonly accounting_distance_in_metres?: InputMaybe<Float8ComparisonExp>;
   readonly change_history?: InputMaybe<RouteLineChangeHistoryBoolExp>;
   readonly change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateBoolExp>;
   readonly description_i18n?: InputMaybe<JsonbComparisonExp>;
@@ -8086,12 +8164,14 @@ export type RouteRouteDeleteKeyInput = {
 
 /** input type for incrementing numeric columns in table "route.route" */
 export type RouteRouteIncInput = {
+  readonly accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly priority?: InputMaybe<Scalars['Int']['input']>;
   readonly variant?: InputMaybe<Scalars['smallint']['input']>;
 };
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
+  readonly accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly change_history?: InputMaybe<RouteLineChangeHistoryArrRelInsertInput>;
   readonly description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_name_i18n: Scalars['localized_string']['input'];
@@ -8118,6 +8198,7 @@ export type RouteRouteInsertInput = {
 /** aggregate max on columns */
 export type RouteRouteMaxFields = {
   readonly __typename?: 'route_route_max_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   readonly label?: Maybe<Scalars['String']['output']>;
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
   readonly on_line_id?: Maybe<Scalars['uuid']['output']>;
@@ -8132,6 +8213,7 @@ export type RouteRouteMaxFields = {
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly label?: InputMaybe<OrderBy>;
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   readonly on_line_id?: InputMaybe<OrderBy>;
@@ -8147,6 +8229,7 @@ export type RouteRouteMaxOrderBy = {
 /** aggregate min on columns */
 export type RouteRouteMinFields = {
   readonly __typename?: 'route_route_min_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   readonly label?: Maybe<Scalars['String']['output']>;
   readonly legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
   readonly on_line_id?: Maybe<Scalars['uuid']['output']>;
@@ -8161,6 +8244,7 @@ export type RouteRouteMinFields = {
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly label?: InputMaybe<OrderBy>;
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   readonly on_line_id?: InputMaybe<OrderBy>;
@@ -8198,6 +8282,7 @@ export type RouteRouteOnConflict = {
 
 /** Ordering options when selecting data from "route.route". */
 export type RouteRouteOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateOrderBy>;
   readonly description_i18n?: InputMaybe<OrderBy>;
   readonly destination_name_i18n?: InputMaybe<OrderBy>;
@@ -8241,6 +8326,8 @@ export type RouteRoutePrependInput = {
 /** select columns of table "route.route" */
 export enum RouteRouteSelectColumn {
   /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres',
+  /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
   DestinationNameI18n = 'destination_name_i18n',
@@ -8276,8 +8363,57 @@ export enum RouteRouteSelectColumn {
   VersionComment = 'version_comment'
 }
 
+/** select "route_route_aggregate_bool_exp_avg_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpAvgArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_corr_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpCorrArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_covar_samp_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpCovarSampArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_max_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpMaxArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_min_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpMinArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_stddev_samp_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpStddevSampArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_sum_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpSumArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_var_samp_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpVarSampArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
 /** input type for updating data in table "route.route" */
 export type RouteRouteSetInput = {
+  readonly accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
@@ -8299,12 +8435,14 @@ export type RouteRouteSetInput = {
 /** aggregate stddev on columns */
 export type RouteRouteStddevFields = {
   readonly __typename?: 'route_route_stddev_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "route.route" */
 export type RouteRouteStddevOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -8312,12 +8450,14 @@ export type RouteRouteStddevOrderBy = {
 /** aggregate stddev_pop on columns */
 export type RouteRouteStddevPopFields = {
   readonly __typename?: 'route_route_stddev_pop_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "route.route" */
 export type RouteRouteStddevPopOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -8325,12 +8465,14 @@ export type RouteRouteStddevPopOrderBy = {
 /** aggregate stddev_samp on columns */
 export type RouteRouteStddevSampFields = {
   readonly __typename?: 'route_route_stddev_samp_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "route.route" */
 export type RouteRouteStddevSampOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -8345,6 +8487,7 @@ export type RouteRouteStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteRouteStreamCursorValueInput = {
+  readonly accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   readonly description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -8367,18 +8510,22 @@ export type RouteRouteStreamCursorValueInput = {
 /** aggregate sum on columns */
 export type RouteRouteSumFields = {
   readonly __typename?: 'route_route_sum_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   readonly priority?: Maybe<Scalars['Int']['output']>;
   readonly variant?: Maybe<Scalars['smallint']['output']>;
 };
 
 /** order by sum() on columns of table "route.route" */
 export type RouteRouteSumOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "route.route" */
 export enum RouteRouteUpdateColumn {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres',
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
@@ -8435,12 +8582,14 @@ export type RouteRouteUpdates = {
 /** aggregate var_pop on columns */
 export type RouteRouteVarPopFields = {
   readonly __typename?: 'route_route_var_pop_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "route.route" */
 export type RouteRouteVarPopOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -8448,12 +8597,14 @@ export type RouteRouteVarPopOrderBy = {
 /** aggregate var_samp on columns */
 export type RouteRouteVarSampFields = {
   readonly __typename?: 'route_route_var_samp_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "route.route" */
 export type RouteRouteVarSampOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -8461,12 +8612,14 @@ export type RouteRouteVarSampOrderBy = {
 /** aggregate variance on columns */
 export type RouteRouteVarianceFields = {
   readonly __typename?: 'route_route_variance_fields';
+  readonly accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   readonly priority?: Maybe<Scalars['Float']['output']>;
   readonly variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "route.route" */
 export type RouteRouteVarianceOrderBy = {
+  readonly accounting_distance_in_metres?: InputMaybe<OrderBy>;
   readonly priority?: InputMaybe<OrderBy>;
   readonly variant?: InputMaybe<OrderBy>;
 };
@@ -72364,14 +72517,14 @@ export type GetStopsAlongInfrastructureLinksQuery = {
   }>
 };
 
-export type GetRouteRenderInfoByIdQueryVariables = Exact<{
-  routeId: Scalars['uuid']['input'];
+export type GetRouteRenderInfoByIdsQueryVariables = Exact<{
+  routeIds: ReadonlyArray<Scalars['uuid']['input']> | Scalars['uuid']['input'];
 }>;
 
 
-export type GetRouteRenderInfoByIdQuery = {
+export type GetRouteRenderInfoByIdsQuery = {
   readonly __typename?: 'query_root',
-  readonly route_route_by_pk?: {
+  readonly route_route: ReadonlyArray<{
     readonly __typename?: 'route_route',
     readonly route_id: UUID,
     readonly route_shape?: GeoJSON.LineString | null,
@@ -72381,7 +72534,7 @@ export type GetRouteRenderInfoByIdQuery = {
       readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
       readonly type_of_line: RouteTypeOfLineEnum
     }
-  } | null
+  }>
 };
 
 export type InfrastructureLinkAllFieldsFragment = {
@@ -73728,10 +73881,19 @@ export type GetLineRoutesByLabelQuery = {
       readonly route_id: UUID,
       readonly label: string,
       readonly variant?: number | null,
+      readonly name_i18n: LocalizedString,
       readonly validity_start?: Temporal.PlainDate | null,
       readonly validity_end?: Temporal.PlainDate | null,
       readonly priority: number,
       readonly direction: RouteDirectionEnum,
+      readonly route_line: {
+        readonly __typename?: 'route_line',
+        readonly line_id: UUID,
+        readonly label: string,
+        readonly name_i18n: LocalizedString,
+        readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+        readonly type_of_line: RouteTypeOfLineEnum
+      },
       readonly route_journey_patterns: ReadonlyArray<{
         readonly __typename?: 'journey_pattern_journey_pattern',
         readonly journey_pattern_id: UUID,
@@ -73758,10 +73920,19 @@ export type GetRouteByFiltersQuery = {
     readonly route_id: UUID,
     readonly label: string,
     readonly variant?: number | null,
+    readonly name_i18n: LocalizedString,
     readonly validity_start?: Temporal.PlainDate | null,
     readonly validity_end?: Temporal.PlainDate | null,
     readonly priority: number,
     readonly direction: RouteDirectionEnum,
+    readonly route_line: {
+      readonly __typename?: 'route_line',
+      readonly line_id: UUID,
+      readonly label: string,
+      readonly name_i18n: LocalizedString,
+      readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+      readonly type_of_line: RouteTypeOfLineEnum
+    },
     readonly route_journey_patterns: ReadonlyArray<{
       readonly __typename?: 'journey_pattern_journey_pattern',
       readonly journey_pattern_id: UUID,
@@ -73780,10 +73951,19 @@ export type DisplayedRouteFragment = {
   readonly route_id: UUID,
   readonly label: string,
   readonly variant?: number | null,
+  readonly name_i18n: LocalizedString,
   readonly validity_start?: Temporal.PlainDate | null,
   readonly validity_end?: Temporal.PlainDate | null,
   readonly priority: number,
   readonly direction: RouteDirectionEnum,
+  readonly route_line: {
+    readonly __typename?: 'route_line',
+    readonly line_id: UUID,
+    readonly label: string,
+    readonly name_i18n: LocalizedString,
+    readonly primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
+    readonly type_of_line: RouteTypeOfLineEnum
+  },
   readonly route_journey_patterns: ReadonlyArray<{
     readonly __typename?: 'journey_pattern_journey_pattern',
     readonly journey_pattern_id: UUID,
@@ -85056,7 +85236,7 @@ export const MapStopMinimalDetailsFragmentDoc = {"kind":"Document","definitions"
 export const MapMinimalTerminalDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MapMinimalTerminalDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"private_code_value"}},{"kind":"Field","name":{"kind":"Name","value":"centroid"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children_id"}},{"kind":"Field","name":{"kind":"Name","value":"stop_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"child"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"netexId"},"name":{"kind":"Name","value":"netex_id"}}]}}]}}]}}]} as unknown as DocumentNode;
 export const RouteMetadataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}}]}}]} as unknown as DocumentNode;
 export const StopSelectionInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopSelectionInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_quay_newest_version"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netex_id"}},{"kind":"Field","name":{"kind":"Name","value":"public_code"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"street_address"}},{"kind":"Field","alias":{"kind":"Name","value":"stop_place"},"name":{"kind":"Name","value":"stop_place_newest_version"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name_value"}}]}}]}}]} as unknown as DocumentNode;
-export const DisplayedRouteFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const DisplayedRouteFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
 export const StopInfoTimingPlaceInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopInfoTimingPlaceInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"timing_pattern_timing_place"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"id"},"name":{"kind":"Name","value":"timing_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]} as unknown as DocumentNode;
 export const StopPlaceChangeHistoryItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceChangeHistoryItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StopPlaceChangeHistoryItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"netexId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"changed"}},{"kind":"Field","name":{"kind":"Name","value":"changedBy"}},{"kind":"Field","name":{"kind":"Name","value":"versionComment"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeType"}},{"kind":"Field","name":{"kind":"Name","value":"privateCodeValue"}},{"kind":"Field","name":{"kind":"Name","value":"validityStart"}},{"kind":"Field","name":{"kind":"Name","value":"validityEnd"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"parentStopPlace"}}]}}]} as unknown as DocumentNode;
 export const StopPlaceAlternativeNamesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StopPlaceAlternativeNames"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"stops_database_stop_place_alternative_names"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stop_place_id"}},{"kind":"Field","name":{"kind":"Name","value":"alternative_names_id"}},{"kind":"Field","alias":{"kind":"Name","value":"alternativeName"},"name":{"kind":"Name","value":"alternative_name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name_value"}},{"kind":"Field","name":{"kind":"Name","value":"name_lang"}},{"kind":"Field","name":{"kind":"Name","value":"name_type"}}]}}]}}]} as unknown as DocumentNode;
@@ -86864,43 +87044,43 @@ export type GetStopsAlongInfrastructureLinksQueryHookResult = ReturnType<typeof 
 export type GetStopsAlongInfrastructureLinksLazyQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksLazyQuery>;
 export type GetStopsAlongInfrastructureLinksSuspenseQueryHookResult = ReturnType<typeof useGetStopsAlongInfrastructureLinksSuspenseQuery>;
 export type GetStopsAlongInfrastructureLinksQueryResult = Apollo.QueryResult<GetStopsAlongInfrastructureLinksQuery, GetStopsAlongInfrastructureLinksQueryVariables>;
-export const GetRouteRenderInfoByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteRenderInfoById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"route_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetRouteRenderInfoByIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteRenderInfoByIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"route_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
- * __useGetRouteRenderInfoByIdQuery__
+ * __useGetRouteRenderInfoByIdsQuery__
  *
- * To run a query within a React component, call `useGetRouteRenderInfoByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRouteRenderInfoByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRouteRenderInfoByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRouteRenderInfoByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRouteRenderInfoByIdQuery({
+ * const { data, loading, error } = useGetRouteRenderInfoByIdsQuery({
  *   variables: {
- *      routeId: // value for 'routeId'
+ *      routeIds: // value for 'routeIds'
  *   },
  * });
  */
-export function useGetRouteRenderInfoByIdQuery(baseOptions: Apollo.QueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables> & ({ variables: GetRouteRenderInfoByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetRouteRenderInfoByIdsQuery(baseOptions: Apollo.QueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables> & ({ variables: GetRouteRenderInfoByIdsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+        return Apollo.useQuery<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>(GetRouteRenderInfoByIdsDocument, options);
       }
-export function useGetRouteRenderInfoByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
+export function useGetRouteRenderInfoByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+          return Apollo.useLazyQuery<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>(GetRouteRenderInfoByIdsDocument, options);
         }
 // @ts-ignore
-export function useGetRouteRenderInfoByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>;
-export function useGetRouteRenderInfoByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdQuery | undefined, GetRouteRenderInfoByIdQueryVariables>;
-export function useGetRouteRenderInfoByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>) {
+export function useGetRouteRenderInfoByIdsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>;
+export function useGetRouteRenderInfoByIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>): Apollo.UseSuspenseQueryResult<GetRouteRenderInfoByIdsQuery | undefined, GetRouteRenderInfoByIdsQueryVariables>;
+export function useGetRouteRenderInfoByIdsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>(GetRouteRenderInfoByIdDocument, options);
+          return Apollo.useSuspenseQuery<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>(GetRouteRenderInfoByIdsDocument, options);
         }
-export type GetRouteRenderInfoByIdQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdQuery>;
-export type GetRouteRenderInfoByIdLazyQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdLazyQuery>;
-export type GetRouteRenderInfoByIdSuspenseQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdSuspenseQuery>;
-export type GetRouteRenderInfoByIdQueryResult = Apollo.QueryResult<GetRouteRenderInfoByIdQuery, GetRouteRenderInfoByIdQueryVariables>;
+export type GetRouteRenderInfoByIdsQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdsQuery>;
+export type GetRouteRenderInfoByIdsLazyQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdsLazyQuery>;
+export type GetRouteRenderInfoByIdsSuspenseQueryHookResult = ReturnType<typeof useGetRouteRenderInfoByIdsSuspenseQuery>;
+export type GetRouteRenderInfoByIdsQueryResult = Apollo.QueryResult<GetRouteRenderInfoByIdsQuery, GetRouteRenderInfoByIdsQueryVariables>;
 export const InsertRouteOneDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertRouteOne"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"object"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_route_route_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"object"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteAllFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteValidity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteUniqueFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteValidity"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"route_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteDefaultFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteUniqueFields"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"description_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"version_comment"}},{"kind":"Field","name":{"kind":"Name","value":"origin_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"origin_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"destination_short_name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"on_line_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteAllFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteDefaultFields"}},{"kind":"Field","name":{"kind":"Name","value":"route_shape"}}]}}]} as unknown as DocumentNode;
 export type InsertRouteOneMutationFn = Apollo.MutationFunction<InsertRouteOneMutation, InsertRouteOneMutationVariables>;
 
@@ -87327,7 +87507,7 @@ export type GetRoutesBrokenByStopChangeQueryHookResult = ReturnType<typeof useGe
 export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeLazyQuery>;
 export type GetRoutesBrokenByStopChangeSuspenseQueryHookResult = ReturnType<typeof useGetRoutesBrokenByStopChangeSuspenseQuery>;
 export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<GetRoutesBrokenByStopChangeQuery, GetRoutesBrokenByStopChangeQueryVariables>;
-export const GetLineRoutesByLabelDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineRoutesByLabel"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DisplayedRoute"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetLineRoutesByLabelDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLineRoutesByLabel"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_line_bool_exp"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_line"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"line_routes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lineRouteFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DisplayedRoute"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetLineRoutesByLabelQuery__
@@ -87365,7 +87545,7 @@ export type GetLineRoutesByLabelQueryHookResult = ReturnType<typeof useGetLineRo
 export type GetLineRoutesByLabelLazyQueryHookResult = ReturnType<typeof useGetLineRoutesByLabelLazyQuery>;
 export type GetLineRoutesByLabelSuspenseQueryHookResult = ReturnType<typeof useGetLineRoutesByLabelSuspenseQuery>;
 export type GetLineRoutesByLabelQueryResult = Apollo.QueryResult<GetLineRoutesByLabelQuery, GetLineRoutesByLabelQueryVariables>;
-export const GetRouteByFiltersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteByFilters"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DisplayedRoute"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
+export const GetRouteByFiltersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRouteByFilters"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"route_route_bool_exp"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"routeFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DisplayedRoute"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DisplayedRoute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"route_route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"validity_start"}},{"kind":"Field","name":{"kind":"Name","value":"validity_end"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"route_line"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line_id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"name_i18n"}},{"kind":"Field","name":{"kind":"Name","value":"primary_vehicle_mode"}},{"kind":"Field","name":{"kind":"Name","value":"type_of_line"}}]}},{"kind":"Field","name":{"kind":"Name","value":"route_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_in_journey_patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"journey_pattern_id"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_label"}},{"kind":"Field","name":{"kind":"Name","value":"scheduled_stop_point_sequence"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useGetRouteByFiltersQuery__

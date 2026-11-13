@@ -22,6 +22,7 @@ import {
   ConfirmationDialog,
   LineChangeHistory,
   LineDetailsPage,
+  LineRoutesOverlay,
   MapFooter,
   MapPage,
   RouteRow,
@@ -233,14 +234,11 @@ describe('Route creation', rootOpts, () => {
 
       Toast.expectSuccessToast('Reitti tallennettu');
 
-      // Check from routeStopsOverlay that everything is correct
-      RouteStopsOverlay.getHeader()
+      // Check from the line routes overlay that everything is correct
+      LineRoutesOverlay.getHeader().should('contain', '901');
+      LineRoutesOverlay.getRouteRow('901Y', RouteDirectionEnum.Outbound)
         .should('contain', '901Y 56')
         .and('contain', 'Test route');
-      RouteStopsOverlay.getRouteStopListHeader(
-        '901Y',
-        RouteDirectionEnum.Outbound,
-      ).shouldBeVisible();
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
       RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
         'E2E001 E2E001',
@@ -329,13 +327,10 @@ describe('Route creation', rootOpts, () => {
 
     Toast.expectSuccessToast('Reitti tallennettu');
 
-    RouteStopsOverlay.getHeader()
+    LineRoutesOverlay.getHeader().should('contain', '8543');
+    LineRoutesOverlay.getRouteRow('1112Y', RouteDirectionEnum.Outbound)
       .should('contain', '1112Y 56')
       .and('contain', 'Test tram route');
-    RouteStopsOverlay.getRouteStopListHeader(
-      '1112Y',
-      RouteDirectionEnum.Outbound,
-    ).shouldBeVisible();
     RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
     RouteStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText(
       'E2ER002 E2ER002',
@@ -555,7 +550,7 @@ describe('Route creation', rootOpts, () => {
 
       Toast.expectSuccessToast('Reitti tallennettu');
 
-      RouteStopsOverlay.getHeader()
+      LineRoutesOverlay.getRouteRow('901X', RouteDirectionEnum.Outbound)
         .should('contain', '901X')
         .and('contain', 'Test route');
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 3);
@@ -739,7 +734,7 @@ describe('Route creation', rootOpts, () => {
       MapPage.map.getLoader().should('exist');
       MapPage.map.getLoader().should('not.exist');
 
-      RouteStopsOverlay.getHeader()
+      LineRoutesOverlay.getRouteRow('901T', RouteDirectionEnum.Outbound)
         .should('contain', '901T')
         .and('contain', 'Based on template test route');
       RouteStopsOverlay.getRouteStopsOverlayRows().should('have.length', 5);

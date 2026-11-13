@@ -8,6 +8,7 @@ type SwitchProps = {
   readonly onChange: (enabled: boolean) => void;
   readonly disabled?: boolean;
   readonly testId?: string;
+  readonly ariaLabel?: string;
 };
 
 // a pre-styled version of the Headless UI Switch component
@@ -17,12 +18,14 @@ export const Switch: FC<SwitchProps> = ({
   checked,
   onChange,
   disabled = false,
+  ariaLabel,
 }) => {
   return (
     <HuiSwitch
       checked={checked}
       onChange={onChange}
       disabled={disabled}
+      aria-label={ariaLabel}
       className={twMerge(
         'relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring-3',
         checked ? 'border-brand bg-brand' : 'border-grey',

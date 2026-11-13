@@ -23,8 +23,8 @@ import {
   resetMapState,
   setShowMapEntityTypeFilterOverlayAction,
   setShowMapEntityTypesAction,
-  setStopFiltersAction,
   setStopSelectionAction,
+  setTimeAndPriorityFiltersAction,
   setViewPortAction,
   useAppDispatch,
 } from '../../../../redux';
@@ -69,14 +69,14 @@ function useSetupMapReduxStore() {
       dispatch(setShowMapEntityTypeFilterOverlayAction(false));
 
       dispatch(
-        setStopFiltersAction({
-          [FilterType.ShowFutureStops]: true,
-          [FilterType.ShowCurrentStops]: true,
-          [FilterType.ShowPastStops]: true,
-          [FilterType.ShowStandardStops]: true,
-          [FilterType.ShowTemporaryStops]: true,
-          [FilterType.ShowDraftStops]: true,
-          [FilterType.ShowHighestPriorityCurrentStops]: false,
+        setTimeAndPriorityFiltersAction({
+          [FilterType.ShowFuture]: true,
+          [FilterType.ShowCurrent]: true,
+          [FilterType.ShowPast]: true,
+          [FilterType.ShowStandard]: true,
+          [FilterType.ShowTemporary]: true,
+          [FilterType.ShowDraft]: true,
+          [FilterType.ShowHighestPriorityCurrent]: false,
           [FilterType.ShowAllBusStops]: true,
           [FilterType.ShowAllTramStops]: true,
         }),

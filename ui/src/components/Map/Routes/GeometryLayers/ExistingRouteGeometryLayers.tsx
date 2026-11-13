@@ -7,19 +7,22 @@ import {
   selectIsRedrawingExistingRoute,
   selectMapRouteEditor,
   selectSelectedRouteId,
+  selectVisibleRouteIds,
   useAppSelector,
 } from '../../../../redux';
-import { ExistingRouteGeometryLayer } from './ExistingRouteGeometryLayer';
+import { mapVehicleModeToRouteColor } from '../../../../utils/colors';
+import { RouteGeometryLayer } from './RouteGeometryLayer';
+import { useGetRouteRenderInfos } from './useGetRouteRenderInfos';
 
 type ExistingRouteGeometryLayersProps = {
-  readonly displayedRouteIds: ReadonlyArray<string>;
   readonly showRoute: boolean;
 };
 
 export const ExistingRouteGeometryLayers: FC<
   ExistingRouteGeometryLayersProps
-> = ({ displayedRouteIds, showRoute }) => {
+> = ({ showRoute }) => {
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
+  const visibleRouteIds = useAppSelector(selectVisibleRouteIds);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { drawingMode, creatingNewRoute } =
     useAppSelector(selectMapRouteEditor);
@@ -29,28 +32,38 @@ export const ExistingRouteGeometryLayers: FC<
   const { id: editedRouteId } = useAppSelector(selectEditedRouteData);
   const isEditingExistingRoute = drawingMode === Mode.Edit && !creatingNewRoute;
 
-  if (!showRoute) {
-    return null;
-  }
-
   const renderedRouteIds = uniq([
-    ...displayedRouteIds,
-    ...(selectedRouteId ? [selectedRouteId] : []),
+    ...(showRoute ? visibleRouteIds : []),
     ...(isEditingExistingRoute && editedRouteId ? [editedRouteId] : []),
   ]).filter(
     (routeId) => !(isRedrawingExistingRoute && editedRouteId === routeId),
   );
 
-  return renderedRouteIds.map((item) => (
-    <ExistingRouteGeometryLayer
-      key={item}
-      routeId={item}
-      isSelected={
-        (isEditingExistingRoute && editedRouteId === item) ||
-        (!isEditingExistingRoute &&
-          selectedRouteId === item &&
-          !hasDraftRouteGeometry)
-      }
-    />
-  ));
+  const renderInfos = useGetRouteRenderInfos(renderedRouteIds);
+
+  return renderInfos.map((renderInfo) => {
+    const routeId = renderInfo.route_id;
+
+    if (!renderInfo.route_shape) {
+      return null;
+    }
+
+    return (
+      <RouteGeometryLayer
+        key={routeId}
+        routeId={routeId}
+        geometry={renderInfo.route_shape}
+        defaultColor={mapVehicleModeToRouteColor(
+          renderInfo.route_line.primary_vehicle_mode,
+          renderInfo.route_line.type_of_line,
+        )}
+        isHighlighted={
+          (isEditingExistingRoute && editedRouteId === routeId) ||
+          (!isEditingExistingRoute &&
+            selectedRouteId === routeId &&
+            !hasDraftRouteGeometry)
+        }
+      />
+    );
+  });
 };

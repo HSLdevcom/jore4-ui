@@ -1,4 +1,5 @@
 export * from './FilterPanel';
+export * from './LineRoutesOverlay';
 export * from './Map';
 export * from './MapFooter';
 export * from './MapItemTypeFiltersOverlay';

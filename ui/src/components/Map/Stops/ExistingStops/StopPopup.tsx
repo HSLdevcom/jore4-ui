@@ -25,15 +25,15 @@ const testIds = {
 };
 
 function useLinkToDetailsPage(publicCode: string, priority: Priority): string {
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   const observationDate = useMapObservationDate();
 
-  const showHighestPriorityCurrentStops =
-    stopFilters[FilterType.ShowHighestPriorityCurrentStops];
+  const showHighestPriorityCurrent =
+    timeAndPriorityFilters[FilterType.ShowHighestPriorityCurrent];
 
   // AKA default map mode. → Standard/Temp prio, on selected day.
-  if (showHighestPriorityCurrentStops) {
+  if (showHighestPriorityCurrent) {
     return routeDetails[Path.stopDetails].getLink(publicCode, {
       observationDate,
     });

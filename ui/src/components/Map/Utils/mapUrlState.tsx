@@ -14,7 +14,6 @@ import { areEqual, memoizeOne } from '../../../utils';
 import {
   UrlStateDeserializers,
   UrlStateSerializers,
-  parsePriorities,
   parseQuayNetexIdList,
   serializeArray,
   serializeQuayNetexIdList,
@@ -60,8 +59,6 @@ const displayedRouteParamSerializers: UrlStateSerializers<DisplayedRouteParams> 
     lineLabel: (it) => it ?? '',
     routeId: (it) => it ?? '',
     routeLabels: serializeArray,
-    routePriorities: serializeArray,
-    showSelectedDaySituation: (show) => (show ? '' : String(false)),
   };
 
 const resultSelectionSerializers: UrlStateSerializers<ResultSelection> = {
@@ -93,26 +90,11 @@ function mapEmptyStringToNull(value: string): string | null {
   return trimmed;
 }
 
-/**
- * The deserializers are called only when the named parameter is present in the
- * url's search portion. If the value for that params is 'false' then return
- * false, else if it is anything else, or even present without a value (empty string)
- * return true. If the param is not present, then this is not called and the
- * default value is used instead.
- *
- * @param value url query param value
- */
-function ifBooleanOrPresent(value: string): boolean {
-  return value.trim().toLowerCase() !== 'false';
-}
-
 const displayedRouteParamDeserializers: UrlStateDeserializers<DisplayedRouteParams> =
   {
     lineLabel: mapEmptyStringToNull,
     routeId: mapEmptyStringToNull,
     routeLabels: splitString,
-    routePriorities: parsePriorities,
-    showSelectedDaySituation: ifBooleanOrPresent,
   };
 
 const resultSelectionDeserializers: UrlStateDeserializers<ResultSelection> = {
@@ -134,13 +116,7 @@ const deserializers: UrlStateDeserializers<MapUrlFlatState> = {
   ...viewPortParamDeserializers,
 };
 
-const displayedRouteFields = [
-  'lineLabel',
-  'routeId',
-  'routeLabels',
-  'routePriorities',
-  'showSelectedDaySituation',
-] as const;
+const displayedRouteFields = ['lineLabel', 'routeId', 'routeLabels'] as const;
 
 const viewPortFields = ['latitude', 'longitude', 'zoom'] as const;
 

@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import {
   FilterType,
   selectMapFilter,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
   useAppSelector,
 } from '../../../redux';
@@ -22,7 +22,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
   className,
 }) => {
   const dispatch = useAppDispatch();
-  const { stopFilters } = useAppSelector(selectMapFilter);
+  const { timeAndPriorityFilters } = useAppSelector(selectMapFilter);
 
   return (
     <FilterPanel
@@ -33,10 +33,10 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
       stops={[
         {
           iconClassName: 'icon-bus',
-          active: stopFilters[FilterType.ShowAllBusStops],
+          active: timeAndPriorityFilters[FilterType.ShowAllBusStops],
           onToggle: (isActive: boolean) =>
             dispatch(
-              setStopFilterAction({
+              setTimeAndPriorityFilterAction({
                 filterType: FilterType.ShowAllBusStops,
                 isActive,
               }),
@@ -52,10 +52,10 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
           iconClassName: 'icon-tram',
           activeColorClassName: 'bg-hsl-tram-dark-green text-white',
           inactiveColorClassName: 'bg-white text-hsl-tram-dark-green',
-          active: stopFilters[FilterType.ShowAllTramStops],
+          active: timeAndPriorityFilters[FilterType.ShowAllTramStops],
           onToggle: (isActive: boolean) =>
             dispatch(
-              setStopFilterAction({
+              setTimeAndPriorityFilterAction({
                 filterType: FilterType.ShowAllTramStops,
                 isActive,
               }),

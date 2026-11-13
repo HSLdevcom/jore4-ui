@@ -258,7 +258,7 @@ describe('Stop editing tests', { tags: [Tag.Stops, Tag.Map] }, () => {
 
     Toast.expectMultipleToasts([
       { type: ToastType.SUCCESS, message: 'Pysäkki muokattu' },
-      { type: ToastType.WARNING, message: 'Pysäkkien suodattimia muutettu' },
+      { type: ToastType.WARNING, message: 'Suodattimia muutettu' },
     ]);
     Map.stopPopUp.getCloseButton().click();
 

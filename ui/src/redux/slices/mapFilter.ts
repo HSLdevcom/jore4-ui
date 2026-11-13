@@ -11,13 +11,13 @@ export enum MapEntityType {
 }
 
 export enum FilterType {
-  ShowFutureStops = 'show-future-stops',
-  ShowCurrentStops = 'show-current-stops',
-  ShowPastStops = 'show-past-stops',
-  ShowStandardStops = 'show-standard-stops',
-  ShowTemporaryStops = 'show-temporary-stops',
-  ShowDraftStops = 'show-draft-stops',
-  ShowHighestPriorityCurrentStops = 'show-highest-priority-current-stops',
+  ShowFuture = 'show-future',
+  ShowCurrent = 'show-current',
+  ShowPast = 'show-past',
+  ShowStandard = 'show-standard',
+  ShowTemporary = 'show-temporary',
+  ShowDraft = 'show-draft',
+  ShowHighestPriorityCurrent = 'show-highest-priority-current',
   ShowAllBusStops = 'show-all-bus-stops',
   ShowAllTramStops = 'show-all-tram-stops',
 }
@@ -26,26 +26,26 @@ export type ShownMapEntityTypes = {
   [key in MapEntityType]: boolean;
 };
 
-export type ActiveStopFilters = {
+export type ActiveTimeAndPriorityFilters = {
   [key in FilterType]: boolean;
 };
 
 export type IState = {
   readonly showMapEntityTypeFilterOverlay: boolean;
-  readonly stopFilters: ActiveStopFilters;
+  readonly timeAndPriorityFilters: ActiveTimeAndPriorityFilters;
   readonly showMapEntityType: ShownMapEntityTypes;
 };
 
 const initialState: IState = {
   showMapEntityTypeFilterOverlay: false,
-  stopFilters: {
-    [FilterType.ShowFutureStops]: false,
-    [FilterType.ShowCurrentStops]: true,
-    [FilterType.ShowPastStops]: false,
-    [FilterType.ShowStandardStops]: true,
-    [FilterType.ShowTemporaryStops]: true,
-    [FilterType.ShowDraftStops]: false,
-    [FilterType.ShowHighestPriorityCurrentStops]: true,
+  timeAndPriorityFilters: {
+    [FilterType.ShowFuture]: false,
+    [FilterType.ShowCurrent]: true,
+    [FilterType.ShowPast]: false,
+    [FilterType.ShowStandard]: true,
+    [FilterType.ShowTemporary]: true,
+    [FilterType.ShowDraft]: false,
+    [FilterType.ShowHighestPriorityCurrent]: true,
     [FilterType.ShowAllBusStops]: false,
     [FilterType.ShowAllTramStops]: false,
   },
@@ -70,15 +70,18 @@ const slice = createSlice({
     ) => {
       state.showMapEntityTypeFilterOverlay = action.payload;
     },
-    setStopFilters: (state, action: PayloadAction<ActiveStopFilters>) => {
-      state.stopFilters = action.payload;
+    setTimeAndPriorityFilters: (
+      state,
+      action: PayloadAction<ActiveTimeAndPriorityFilters>,
+    ) => {
+      state.timeAndPriorityFilters = action.payload;
     },
-    setStopFilter: (
+    setTimeAndPriorityFilter: (
       state,
       action: PayloadAction<{ filterType: FilterType; isActive: boolean }>,
     ) => {
       const { filterType, isActive } = action.payload;
-      state.stopFilters[filterType] = isActive;
+      state.timeAndPriorityFilters[filterType] = isActive;
     },
     setShowMapEntityTypes: (
       state,
@@ -103,8 +106,8 @@ const slice = createSlice({
 
 export const {
   setShowMapEntityTypeFilterOverlay: setShowMapEntityTypeFilterOverlayAction,
-  setStopFilters: setStopFiltersAction,
-  setStopFilter: setStopFilterAction,
+  setTimeAndPriorityFilters: setTimeAndPriorityFiltersAction,
+  setTimeAndPriorityFilter: setTimeAndPriorityFilterAction,
   setShowMapEntityType: setShowMapEntityTypeAction,
   setShowMapEntityTypes: setShowMapEntityTypesAction,
 } = slice.actions;

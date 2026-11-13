@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import {
   FilterType,
   resetMapState,
-  setStopFilterAction,
+  setTimeAndPriorityFilterAction,
   useAppDispatch,
 } from '../../../redux';
 import { SimpleButton } from '../Buttons';
@@ -28,7 +28,7 @@ export const OpenDefaultMapButton = ({
      * Now that no routes are shown on map, show all stops by default.
      */
     dispatch(
-      setStopFilterAction({
+      setTimeAndPriorityFilterAction({
         filterType: FilterType.ShowAllBusStops,
         isActive: true,
       }),

@@ -101,6 +101,11 @@ export type MapRouteEditorState = {
    */
   readonly selectedRouteId?: UUID;
   /**
+   * Ids of the routes whose geometry is drawn on the map. Toggled per route
+   * variant from the line overlay.
+   */
+  readonly visibleRouteIds: ReadonlyArray<UUID>;
+  /**
    * Label of the most recently created route. Consumed once by the line view
    * on return from the map to add the route to the displayed-routes selection.
    */
@@ -133,6 +138,7 @@ const initialState: IState = {
   },
   isRouteMetadataFormOpen: false,
   selectedRouteId: undefined,
+  visibleRouteIds: [],
   lastCreatedRouteLabel: undefined,
   geometryClearedForRedraw: false,
 };
@@ -389,6 +395,22 @@ const slice = createSlice({
       state.selectedRouteId = action.payload;
     },
     /**
+     * Replace the set of routes drawn on the map.
+     */
+    setVisibleRouteIds: (state, action: PayloadAction<ReadonlyArray<UUID>>) => {
+      state.visibleRouteIds = action.payload.slice();
+    },
+    /**
+     * Show or hide a single route's geometry on the map.
+     */
+    toggleRouteVisibility: (state, action: PayloadAction<UUID>) => {
+      const routeId = action.payload;
+
+      state.visibleRouteIds = state.visibleRouteIds.includes(routeId)
+        ? state.visibleRouteIds.filter((it) => it !== routeId)
+        : [...state.visibleRouteIds, routeId];
+    },
+    /**
      * Set the label of the most recently created route.
      */
     setLastCreatedRouteLabel: (
@@ -427,6 +449,8 @@ export const {
   setDraftRouteGeometry: setDraftRouteGeometryAction,
   resetDraftRouteGeometry: resetDraftRouteGeometryAction,
   setSelectedRouteId: setSelectedRouteIdAction,
+  setVisibleRouteIds: setVisibleRouteIdsAction,
+  toggleRouteVisibility: toggleRouteVisibilityAction,
   setLastCreatedRouteLabel: setLastCreatedRouteLabelAction,
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
   setDraftRouteJourneyPattern: setDraftRouteJourneyPatternAction,

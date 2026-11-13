@@ -11,6 +11,7 @@ import {
   selectMapRouteEditor,
   selectSelectedStopAreaId,
   selectSelectedStopId,
+  selectVisibleOrSelectedRouteIds,
   useAppSelector,
 } from '../../../../redux';
 import { Priority } from '../../../../types/enums';
@@ -27,9 +28,11 @@ function extractHighestPriorityStopsFromRoute<
   TRoute extends RouteWithJourneyPatternStopsFragment,
 >(route: TRoute, observationDate: Temporal.PlainDate) {
   const routeStopPoints =
-    route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.flatMap(
-      (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
-    ) ?? [];
+    route.route_journey_patterns
+      .at(0)
+      ?.ordered_scheduled_stop_point_in_journey_patterns.flatMap(
+        (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
+      ) ?? [];
 
   return filterHighestPriorityCurrentStops(
     routeStopPoints,
@@ -39,11 +42,12 @@ function extractHighestPriorityStopsFromRoute<
   );
 }
 
-export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
+export function useMapStops() {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const isRedrawingExistingRoute = useAppSelector(
     selectIsRedrawingExistingRoute,
   );
+  const visibleRouteIds = useAppSelector(selectVisibleOrSelectedRouteIds);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const observationDate = useMapObservationDate();
   const selectedStopId = useAppSelector(selectSelectedStopId);
@@ -52,7 +56,7 @@ export function useMapStops(displayedRouteIds: ReadonlyArray<string>) {
   );
 
   const displayedRoutesResult = useGetRoutesWithStopsQuery({
-    variables: { routeFilters: { route_id: { _in: displayedRouteIds } } },
+    variables: { routeFilters: { route_id: { _in: visibleRouteIds } } },
   });
 
   const displayedRoutes = useMemo(

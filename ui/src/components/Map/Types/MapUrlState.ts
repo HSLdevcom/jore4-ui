@@ -1,5 +1,4 @@
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../../redux';
-import { Priority } from '../../../types/enums';
 import {
   ResultSelection,
   StopSearchFilters,
@@ -9,8 +8,6 @@ export type DisplayedRouteParams = {
   readonly lineLabel: string | null;
   readonly routeId: UUID | null;
   readonly routeLabels: ReadonlyArray<string>;
-  readonly routePriorities: ReadonlyArray<Priority>;
-  readonly showSelectedDaySituation: boolean;
 };
 
 export type ViewPortParams = {
@@ -30,8 +27,6 @@ export const defaultDisplayedRouteParams: DisplayedRouteParams = {
   lineLabel: null,
   routeId: null,
   routeLabels: [],
-  routePriorities: [],
-  showSelectedDaySituation: false,
 };
 
 export const defaultViewPortParams: ViewPortParams = {
