@@ -7793,6 +7793,7 @@ export type RouteLineVarianceOrderBy = {
 /** columns and relationships of "route.route" */
 export type RouteRoute = {
   __typename?: 'route_route';
+  accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   /** An array relationship */
   change_history: Array<RouteLineChangeHistory>;
   /** An aggregate relationship */
@@ -7934,7 +7935,34 @@ export type RouteRouteAggregate = {
 };
 
 export type RouteRouteAggregateBoolExp = {
+  avg?: InputMaybe<RouteRouteAggregateBoolExpAvg>;
+  corr?: InputMaybe<RouteRouteAggregateBoolExpCorr>;
   count?: InputMaybe<RouteRouteAggregateBoolExpCount>;
+  covar_samp?: InputMaybe<RouteRouteAggregateBoolExpCovarSamp>;
+  max?: InputMaybe<RouteRouteAggregateBoolExpMax>;
+  min?: InputMaybe<RouteRouteAggregateBoolExpMin>;
+  stddev_samp?: InputMaybe<RouteRouteAggregateBoolExpStddevSamp>;
+  sum?: InputMaybe<RouteRouteAggregateBoolExpSum>;
+  var_samp?: InputMaybe<RouteRouteAggregateBoolExpVarSamp>;
+};
+
+export type RouteRouteAggregateBoolExpAvg = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpAvgArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCorr = {
+  arguments: RouteRouteAggregateBoolExpCorrArguments;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCorrArguments = {
+  X: RouteRouteSelectColumnRouteRouteAggregateBoolExpCorrArgumentsColumns;
+  Y: RouteRouteSelectColumnRouteRouteAggregateBoolExpCorrArgumentsColumns;
 };
 
 export type RouteRouteAggregateBoolExpCount = {
@@ -7942,6 +7970,53 @@ export type RouteRouteAggregateBoolExpCount = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
   filter?: InputMaybe<RouteRouteBoolExp>;
   predicate: IntComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCovarSamp = {
+  arguments: RouteRouteAggregateBoolExpCovarSampArguments;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpCovarSampArguments = {
+  X: RouteRouteSelectColumnRouteRouteAggregateBoolExpCovarSampArgumentsColumns;
+  Y: RouteRouteSelectColumnRouteRouteAggregateBoolExpCovarSampArgumentsColumns;
+};
+
+export type RouteRouteAggregateBoolExpMax = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpMaxArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpMin = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpMinArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpStddevSamp = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpStddevSampArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpSum = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpSumArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpVarSamp = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpVarSampArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: Float8ComparisonExp;
 };
 
 /** aggregate fields of "route.route" */
@@ -8002,12 +8077,14 @@ export type RouteRouteArrRelInsertInput = {
 /** aggregate avg on columns */
 export type RouteRouteAvgFields = {
   __typename?: 'route_route_avg_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "route.route" */
 export type RouteRouteAvgOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
@@ -8017,6 +8094,7 @@ export type RouteRouteBoolExp = {
   _and?: InputMaybe<Array<RouteRouteBoolExp>>;
   _not?: InputMaybe<RouteRouteBoolExp>;
   _or?: InputMaybe<Array<RouteRouteBoolExp>>;
+  accounting_distance_in_metres?: InputMaybe<Float8ComparisonExp>;
   change_history?: InputMaybe<RouteLineChangeHistoryBoolExp>;
   change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateBoolExp>;
   description_i18n?: InputMaybe<JsonbComparisonExp>;
@@ -8083,12 +8161,14 @@ export type RouteRouteDeleteKeyInput = {
 
 /** input type for incrementing numeric columns in table "route.route" */
 export type RouteRouteIncInput = {
+  accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   priority?: InputMaybe<Scalars['Int']['input']>;
   variant?: InputMaybe<Scalars['smallint']['input']>;
 };
 
 /** input type for inserting data into table "route.route" */
 export type RouteRouteInsertInput = {
+  accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   change_history?: InputMaybe<RouteLineChangeHistoryArrRelInsertInput>;
   description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   destination_name_i18n: Scalars['localized_string']['input'];
@@ -8115,6 +8195,7 @@ export type RouteRouteInsertInput = {
 /** aggregate max on columns */
 export type RouteRouteMaxFields = {
   __typename?: 'route_route_max_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
   on_line_id?: Maybe<Scalars['uuid']['output']>;
@@ -8129,6 +8210,7 @@ export type RouteRouteMaxFields = {
 
 /** order by max() on columns of table "route.route" */
 export type RouteRouteMaxOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   on_line_id?: InputMaybe<OrderBy>;
@@ -8144,6 +8226,7 @@ export type RouteRouteMaxOrderBy = {
 /** aggregate min on columns */
 export type RouteRouteMinFields = {
   __typename?: 'route_route_min_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   legacy_hsl_municipality_code?: Maybe<Scalars['String']['output']>;
   on_line_id?: Maybe<Scalars['uuid']['output']>;
@@ -8158,6 +8241,7 @@ export type RouteRouteMinFields = {
 
 /** order by min() on columns of table "route.route" */
 export type RouteRouteMinOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
   on_line_id?: InputMaybe<OrderBy>;
@@ -8195,6 +8279,7 @@ export type RouteRouteOnConflict = {
 
 /** Ordering options when selecting data from "route.route". */
 export type RouteRouteOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   change_history_aggregate?: InputMaybe<RouteLineChangeHistoryAggregateOrderBy>;
   description_i18n?: InputMaybe<OrderBy>;
   destination_name_i18n?: InputMaybe<OrderBy>;
@@ -8238,6 +8323,8 @@ export type RouteRoutePrependInput = {
 /** select columns of table "route.route" */
 export enum RouteRouteSelectColumn {
   /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres',
+  /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
   DestinationNameI18n = 'destination_name_i18n',
@@ -8273,8 +8360,57 @@ export enum RouteRouteSelectColumn {
   VersionComment = 'version_comment'
 }
 
+/** select "route_route_aggregate_bool_exp_avg_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpAvgArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_corr_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpCorrArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_covar_samp_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpCovarSampArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_max_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpMaxArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_min_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpMinArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_stddev_samp_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpStddevSampArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_sum_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpSumArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_var_samp_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpVarSampArgumentsColumns {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
 /** input type for updating data in table "route.route" */
 export type RouteRouteSetInput = {
+  accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   description_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   destination_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   destination_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
@@ -8296,12 +8432,14 @@ export type RouteRouteSetInput = {
 /** aggregate stddev on columns */
 export type RouteRouteStddevFields = {
   __typename?: 'route_route_stddev_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "route.route" */
 export type RouteRouteStddevOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
@@ -8309,12 +8447,14 @@ export type RouteRouteStddevOrderBy = {
 /** aggregate stddev_pop on columns */
 export type RouteRouteStddevPopFields = {
   __typename?: 'route_route_stddev_pop_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "route.route" */
 export type RouteRouteStddevPopOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
@@ -8322,12 +8462,14 @@ export type RouteRouteStddevPopOrderBy = {
 /** aggregate stddev_samp on columns */
 export type RouteRouteStddevSampFields = {
   __typename?: 'route_route_stddev_samp_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "route.route" */
 export type RouteRouteStddevSampOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
@@ -8342,6 +8484,7 @@ export type RouteRouteStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteRouteStreamCursorValueInput = {
+  accounting_distance_in_metres?: InputMaybe<Scalars['float8']['input']>;
   description_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -8364,18 +8507,22 @@ export type RouteRouteStreamCursorValueInput = {
 /** aggregate sum on columns */
 export type RouteRouteSumFields = {
   __typename?: 'route_route_sum_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['float8']['output']>;
   priority?: Maybe<Scalars['Int']['output']>;
   variant?: Maybe<Scalars['smallint']['output']>;
 };
 
 /** order by sum() on columns of table "route.route" */
 export type RouteRouteSumOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "route.route" */
 export enum RouteRouteUpdateColumn {
+  /** column name */
+  AccountingDistanceInMetres = 'accounting_distance_in_metres',
   /** column name */
   DescriptionI18n = 'description_i18n',
   /** column name */
@@ -8432,12 +8579,14 @@ export type RouteRouteUpdates = {
 /** aggregate var_pop on columns */
 export type RouteRouteVarPopFields = {
   __typename?: 'route_route_var_pop_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "route.route" */
 export type RouteRouteVarPopOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
@@ -8445,12 +8594,14 @@ export type RouteRouteVarPopOrderBy = {
 /** aggregate var_samp on columns */
 export type RouteRouteVarSampFields = {
   __typename?: 'route_route_var_samp_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "route.route" */
 export type RouteRouteVarSampOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
@@ -8458,12 +8609,14 @@ export type RouteRouteVarSampOrderBy = {
 /** aggregate variance on columns */
 export type RouteRouteVarianceFields = {
   __typename?: 'route_route_variance_fields';
+  accounting_distance_in_metres?: Maybe<Scalars['Float']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   variant?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "route.route" */
 export type RouteRouteVarianceOrderBy = {
+  accounting_distance_in_metres?: InputMaybe<OrderBy>;
   priority?: InputMaybe<OrderBy>;
   variant?: InputMaybe<OrderBy>;
 };
