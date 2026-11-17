@@ -1293,7 +1293,7 @@
     "saveSuccess": "Destination set",
     "removeSuccess": "Destination removed",
     "removeTitle": "Remove destination",
-    "removeDescription": "The destination will revert to {{originalDestination}} from stop {{stopLabel}} onwards.",
+    "removeDescription": "The destination will revert to {{originalDestination}} to stop {{stopLabel}}.",
     "loadFailed": "Failed to load destination information",
     "stopNotFound": "Stop not found on the route",
     "signWithVia": "{{destination}} via {{via}}"

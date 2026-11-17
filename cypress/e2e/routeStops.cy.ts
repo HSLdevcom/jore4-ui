@@ -343,7 +343,7 @@ describe('Line details page: stops on route', rootTags, () => {
     ConfirmationDialog.dialogWithButtons
       .getTextContent()
       .should('contain', 'Määränpääksi palautuu')
-      .and('contain', 'pysäkiltä E2E004 eteenpäin');
+      .and('contain', 'pysäkille E2E004 asti');
     ConfirmationDialog.getConfirmButton().click();
 
     Toast.expectSuccessToast('Määränpää poistettu');
