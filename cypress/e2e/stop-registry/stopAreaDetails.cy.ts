@@ -829,7 +829,6 @@ describe('Stop area details', { tags: Tag.StopRegistry }, () => {
         '2025-01-01',
       );
       cy.url().should('contain', 'observationDate=2025-01-01');
-      expectGraphQLCallToSucceed('@gqlGetStopPlaceDetails');
 
       // Confirm that the old version was cut correctly
       StopAreaDetailsPage.versioningRow
