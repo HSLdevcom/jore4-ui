@@ -6,10 +6,11 @@ import { DateInputField } from '../../Inputs';
 import { Row, Visible } from '../../LayoutComponents';
 import { ExpandedSearchButtons } from '../../Search';
 import {
+  ExtraFiltersToggle,
   PriorityFilter,
+  SearchQueryFilter,
   TransportationModeFilter,
-} from '../../Search/ExtraFilters';
-import { ExtraFiltersToggle, SearchQueryFilter } from '../../Search/SearchBar';
+} from '../../Search/SearchBar';
 import { useToggle } from '../../Utils/useToggle';
 import { LineTypeFilter } from './Filters/LineTypeFilter';
 import { routesAndLinesTestIds } from './routesAndLinesTestIds';

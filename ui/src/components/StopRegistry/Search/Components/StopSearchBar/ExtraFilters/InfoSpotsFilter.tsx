@@ -12,6 +12,12 @@ import {
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
 import {
+  AugmentedOnChangeHandlerMetaData,
+  MenuGroup,
+  MultiselectDropdownFilter,
+  useAugmentOnChangeHandlerWithMetaOptions,
+} from '../../../../../common/Search/SearchBar';
+import {
   PosterSize,
   formatPosterSizeOption,
   standardPosterSizes,
@@ -20,14 +26,6 @@ import {
 import { StopSearchFilters } from '../../../Types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';
-import {
-  MenuGroup,
-  MultiselectDropdownFilter,
-} from './MultiselectDropdownFilter';
-import {
-  AugmentedOnChangeHandlerMetaData,
-  useAugmentOnChangeHandlerWithMetaOptions,
-} from './useAugmentOnChangeHandlerWithMetaOptions';
 
 type InfoSpotFilterMenuOption =
   AllOptionEnum.All | NullOptionEnum.Null | PosterSize;

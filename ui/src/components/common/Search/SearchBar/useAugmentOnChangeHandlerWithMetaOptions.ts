@@ -1,6 +1,6 @@
 import without from 'lodash/without';
 import { useCallback } from 'react';
-import { AllOptionEnum, NullOptionEnum } from '../../../../../../utils';
+import { AllOptionEnum, NullOptionEnum } from '../../../../utils';
 
 type OnChangeHandler<OptionT> = (value: ReadonlyArray<OptionT>) => void;
 
