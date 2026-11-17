@@ -28,8 +28,7 @@ const GQL_GET_ROUTE_CONTINUATION_CANDIDATES = gql`
   }
 `;
 
-type RouteVersion = RouteVersionKey &
-  VersionedEntity & { readonly validity_end?: Temporal.PlainDate | null };
+type RouteVersion = RouteVersionKey & VersionedEntity;
 
 function buildRouteContinuationFilter(route: RouteVersion): RouteRouteBoolExp {
   return {
@@ -44,18 +43,28 @@ function buildRouteContinuationFilter(route: RouteVersion): RouteRouteBoolExp {
         : { _eq: route.variant },
     priority: { _neq: Priority.Draft },
     _or: [
-      { validity_end: { _gt: route.validity_end } },
+      {
+        validity_end: {
+          _gt: (route.validity_end ?? route.validityEnd)?.toString(),
+        },
+      },
       { validity_end: { _is_null: true } },
     ],
   };
 }
 
+type HasContinuingVersion = (route: RouteVersion) => boolean;
+
 /**
  * Returns a function telling whether the given route, ending soon, has another
  * version taking over when it ends.
  */
-export function useRouteContinuations(routes: ReadonlyArray<RouteVersion>) {
-  const endingSoon = routes.filter((route) => isEndingSoon(route.validity_end));
+export function useRouteContinuations(
+  routes: ReadonlyArray<RouteVersion>,
+): HasContinuingVersion {
+  const endingSoon = routes.filter((route) =>
+    isEndingSoon(route.validity_end ?? route.validityEnd),
+  );
 
   const { data } = useGetRouteContinuationCandidatesQuery({
     variables: { where: { _or: endingSoon.map(buildRouteContinuationFilter) } },

@@ -119,8 +119,12 @@ export function isEndingSoon(validityEnd: DateLike | null | undefined) {
 
 export type VersionedEntity = {
   readonly priority: number;
+
   readonly validity_start?: DateLike | null;
+  readonly validityStart?: DateLike | null;
+
   readonly validity_end?: DateLike | null;
+  readonly validityEnd?: DateLike | null;
 };
 
 export type RouteVersionKey = {
@@ -153,7 +157,7 @@ export function hasContinuingVersion(
   version: VersionedEntity,
   versions: ReadonlyArray<VersionedEntity>,
 ) {
-  const validityEnd = parseDate(version.validity_end);
+  const validityEnd = parseDate(version.validity_end ?? version.validityEnd);
 
   // Validity never ends, so there is nothing to continue.
   if (!validityEnd) {
@@ -166,13 +170,13 @@ export function hasContinuingVersion(
     }
 
     // The other version has to be valid for longer than this one.
-    const otherEnd = parseDate(other.validity_end);
+    const otherEnd = parseDate(other.validity_end ?? other.validityEnd);
     if (otherEnd && Temporal.PlainDate.compare(otherEnd, validityEnd) <= 0) {
       return false;
     }
 
     // ...and it has to start at latest on the day after this one ends.
-    const otherStart = parseDate(other.validity_start);
+    const otherStart = parseDate(other.validity_start ?? other.validityStart);
     return (
       !otherStart ||
       Temporal.PlainDate.compare(otherStart, validityEnd.add({ days: 1 })) <= 0
