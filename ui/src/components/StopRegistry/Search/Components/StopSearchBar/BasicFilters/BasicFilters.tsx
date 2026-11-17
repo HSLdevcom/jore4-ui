@@ -3,11 +3,11 @@ import { twMerge } from 'tailwind-merge';
 import { Column, Row } from '../../../../../common/LayoutComponents';
 import {
   ExtraFiltersToggle,
+  ObservationDateFilter,
   SearchQueryFilter,
 } from '../../../../../common/Search/SearchBar';
 import { StopSearchFilters } from '../../../Types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
-import { ObservationDateFilter } from './ObservationDateFilter';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
 import { SearchForDropdown } from './SearchForDropdown';
 
@@ -32,7 +32,10 @@ export const BasicFilters: FC<BasicFilterProps> = ({
       )}
     >
       <Row className="justify-center gap-x-4">
-        <ObservationDateFilter className="min-w-40" />
+        <ObservationDateFilter
+          className="min-w-40"
+          testId={stopSearchBarTestIds.observationDateInput}
+        />
         <SearchForDropdown className="min-w-40 xl:w-1/6" />
         <SearchQueryFilter<StopSearchFilters>
           testIdPrefix={stopSearchBarTestIds.prefix}
