@@ -1293,7 +1293,7 @@
     "saveSuccess": "Määränpää asetettu",
     "removeSuccess": "Määränpää poistettu",
     "removeTitle": "Poista määränpää",
-    "removeDescription": "Määränpääksi palautuu {{originalDestination}} pysäkiltä {{stopLabel}} eteenpäin.",
+    "removeDescription": "Määränpääksi palautuu {{originalDestination}} pysäkille {{stopLabel}} asti.",
     "loadFailed": "Määränpään tietojen lataaminen epäonnistui",
     "stopNotFound": "Pysäkkiä ei löytynyt reitiltä",
     "signWithVia": "{{destination}} via {{via}}"
