@@ -12,9 +12,15 @@ import { Priority } from '../../types/enums';
 import { StoreType, mapToStoreType } from '../mappers/storeType';
 import { JourneyPattern } from '../types';
 
+// English names are optional
+type RequiredFinnishAndSwedish = Required<
+  Pick<LocalizedString, 'fi_FI' | 'sv_FI'>
+> &
+  Pick<LocalizedString, 'en_US'>;
+
 type TravelTargetNames = {
-  readonly name: Required<LocalizedString>;
-  readonly shortName: Required<LocalizedString>;
+  readonly name: RequiredFinnishAndSwedish;
+  readonly shortName: RequiredFinnishAndSwedish;
 };
 
 // Keep in sync with: routeFormSchema in ui/src/components/forms/route/RoutePropertiesForm.types.ts

@@ -24,22 +24,26 @@
       "title": "Lähtöpaikka",
       "name": {
         "fi_FI": "Lähtöpaikan nimi",
-        "sv_FI": "Lähtöpaikan nimi (ruotsi)"
+        "sv_FI": "Lähtöpaikan nimi (ruotsi)",
+        "en_US": "Lähtöpaikan nimi (englanti)"
       },
       "shortName": {
         "fi_FI": "Lähtöpaikan nimen lyhenne",
-        "sv_FI": "Lähtöpaikan nimen lyhenne (ruotsi)"
+        "sv_FI": "Lähtöpaikan nimen lyhenne (ruotsi)",
+        "en_US": "Lähtöpaikan nimen lyhenne (englanti)"
       }
     },
     "destination": {
       "title": "Määränpää",
       "name": {
         "fi_FI": "Määränpään nimi",
-        "sv_FI": "Määränpään nimi (ruotsi)"
+        "sv_FI": "Määränpään nimi (ruotsi)",
+        "en_US": "Määränpään nimi (englanti)"
       },
       "shortName": {
         "fi_FI": "Määränpään nimen lyhenne",
-        "sv_FI": "Määränpään nimen lyhenne (ruotsi)"
+        "sv_FI": "Määränpään nimen lyhenne (ruotsi)",
+        "en_US": "Määränpään nimen lyhenne (englanti)"
       }
     },
     "addToLine": "Yhdistä linjaan",
@@ -71,11 +75,13 @@
     "description": "Linjateksti",
     "name": {
       "fi_FI": "Linjan nimi (suomi)",
-      "sv_FI": "Linjan nimi (ruotsi)"
+      "sv_FI": "Linjan nimi (ruotsi)",
+      "en_US": "Linjan nimi (englanti)"
     },
     "shortName": {
       "fi_FI": "Linjan lyhenne (suomi)",
-      "sv_FI": "Linjan lyhenne (ruotsi)"
+      "sv_FI": "Linjan lyhenne (ruotsi)",
+      "en_US": "Linjan lyhenne (englanti)"
     },
     "transportMode": "Kulkumuoto",
     "priorities": "Prioriteetti",
@@ -1280,11 +1286,13 @@
     "title": "Määränpää reitille {{ label }}",
     "name": {
       "fi_FI": "Määränpää suomeksi",
-      "sv_FI": "Määränpää ruotsiksi"
+      "sv_FI": "Määränpää ruotsiksi",
+      "en_US": "Määränpää englanniksi"
     },
     "shortName": {
       "fi_FI": "Määränpään lyhenne suomeksi",
-      "sv_FI": "Määränpään lyhenne ruotsiksi"
+      "sv_FI": "Määränpään lyhenne ruotsiksi",
+      "en_US": "Määränpään lyhenne englanniksi"
     },
     "setDestination": "Aseta määränpää",
     "saveSuccess": "Määränpää asetettu",
@@ -1300,11 +1308,13 @@
     "editViaPoint": "Muuta via-tietoa",
     "viaPointName": {
       "fi_FI": "Via-tieto suomeksi",
-      "sv_FI": "Via-tieto ruotsiksi"
+      "sv_FI": "Via-tieto ruotsiksi",
+      "en_US": "Via-tieto englanniksi"
     },
     "viaPointShortName": {
       "fi_FI": "Via-tiedon lyhenne suomeksi",
-      "sv_FI": "Via-tiedon lyhenne ruotsiksi"
+      "sv_FI": "Via-tiedon lyhenne ruotsiksi",
+      "en_US": "Via-tiedon lyhenne englanniksi"
     },
     "viaModalTitle": "Via-tieto reitille {{ label }}",
     "removeViaInfo": "Poista via-tieto",
@@ -1681,6 +1691,7 @@
     "viaPoint": "{{label}}: {{name}}",
     "extraFields": {
       "routeNameSwe": "Reitin nimi (ruotsi)",
+      "routeNameEng": "Reitin nimi (englanti)",
       "routeDescription": "Reitin kuvaus (suomi)",
       "routeDescriptionSwe": "Reitin kuvaus (ruotsi)",
       "routeEstimatedLength": "Reitin arvioitu pituus",

@@ -33,8 +33,10 @@ type ViaFormProps = {
 const testIds = {
   finnishName: 'ViaForm::finnishName',
   swedishName: 'ViaForm::swedishName',
+  englishName: 'ViaForm::englishName',
   finnishShortName: 'ViaForm::finnishShortName',
   swedishShortName: 'ViaForm::swedishShortName',
+  englishShortName: 'ViaForm::englishShortName',
   saveButton: 'ViaForm::saveButton',
   removeButton: 'ViaForm::removeButton',
 };
@@ -95,8 +97,8 @@ export const ViaForm: FC<ViaFormProps> = ({
             className="flex-1"
             type="text"
             translationPrefix="viaModal"
-            fieldPath="viaPointName.sv_FI"
-            testId={testIds.swedishName}
+            fieldPath="viaPointShortName.fi_FI"
+            testId={testIds.finnishShortName}
             required
           />
         </Row>
@@ -105,8 +107,8 @@ export const ViaForm: FC<ViaFormProps> = ({
             className="flex-1"
             type="text"
             translationPrefix="viaModal"
-            fieldPath="viaPointShortName.fi_FI"
-            testId={testIds.finnishShortName}
+            fieldPath="viaPointName.sv_FI"
+            testId={testIds.swedishName}
             required
           />
         </Row>
@@ -118,6 +120,24 @@ export const ViaForm: FC<ViaFormProps> = ({
             fieldPath="viaPointShortName.sv_FI"
             testId={testIds.swedishShortName}
             required
+          />
+        </Row>
+        <Row className="mb-5">
+          <InputField<FormState>
+            className="flex-1"
+            type="text"
+            translationPrefix="viaModal"
+            fieldPath="viaPointName.en_US"
+            testId={testIds.englishName}
+          />
+        </Row>
+        <Row className="mb-5">
+          <InputField<FormState>
+            className="flex-1"
+            type="text"
+            translationPrefix="viaModal"
+            fieldPath="viaPointShortName.en_US"
+            testId={testIds.englishShortName}
           />
         </Row>
         <Row className="gap-4">

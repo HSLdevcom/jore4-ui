@@ -20,6 +20,7 @@ export function buildLocalizedString(str: string): LocalizedString {
   return {
     fi_FI: str,
     sv_FI: `${str} SV`,
+    en_US: `${str} EN`,
   };
 }
 

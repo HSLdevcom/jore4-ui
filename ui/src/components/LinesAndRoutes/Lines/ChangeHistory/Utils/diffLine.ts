@@ -38,6 +38,12 @@ export function diffLine(
       oldValue: previous.name_i18n.sv_FI,
       newValue: current.name_i18n.sv_FI,
     }),
+    diffKeyedValues({
+      key: 'NameEn',
+      field: t(($) => $.lines.name.en_US),
+      oldValue: previous.name_i18n.en_US,
+      newValue: current.name_i18n.en_US,
+    }),
 
     diffKeyedValues({
       key: 'ShortNameFi',
@@ -50,6 +56,12 @@ export function diffLine(
       field: t(($) => $.lines.shortName.sv_FI),
       oldValue: previous.short_name_i18n.sv_FI,
       newValue: current.short_name_i18n.sv_FI,
+    }),
+    diffKeyedValues({
+      key: 'ShortNameEn',
+      field: t(($) => $.lines.shortName.en_US),
+      oldValue: previous.short_name_i18n.en_US,
+      newValue: current.short_name_i18n.en_US,
     }),
 
     diffKeyedValues({
