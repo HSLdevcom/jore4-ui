@@ -78,12 +78,16 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
           finnishShortName: 'Edited origin FIN shortName',
           swedishName: 'Edited origin SWE',
           swedishShortName: 'Edited origin SWE shortName',
+          englishName: 'Edited origin ENG',
+          englishShortName: 'Edited origin ENG shortName',
         },
         destination: {
           finnishName: 'Edited destination FIN',
           finnishShortName: 'Edited destination FIN shortName',
           swedishName: 'Edited destination SWE',
           swedishShortName: 'Edited destination SWE shortName',
+          englishName: 'Edited destination ENG',
+          englishShortName: 'Edited destination ENG shortName',
         },
       });
       EditRoutePage.priorityForm.setAsTemporary();
@@ -126,6 +130,8 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
         finnishShortName: 'Edited origin FIN shortName',
         swedishName: 'Edited origin SWE',
         swedishShortName: 'Edited origin SWE shortName',
+        englishName: 'Edited origin ENG',
+        englishShortName: 'Edited origin ENG shortName',
       });
 
       TerminusNameInputs.verifyDestinationValues({
@@ -133,6 +139,8 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
         finnishShortName: 'Edited destination FIN shortName',
         swedishName: 'Edited destination SWE',
         swedishShortName: 'Edited destination SWE shortName',
+        englishName: 'Edited destination ENG',
+        englishShortName: 'Edited destination ENG shortName',
       });
     });
 
@@ -202,12 +210,16 @@ describe('Route editing', { tags: [Tag.Routes] }, () => {
           finnishShortName: 'Edited origin FIN shortName',
           swedishName: 'Edited origin SWE',
           swedishShortName: 'Edited origin SWE shortName',
+          englishName: 'Edited origin ENG',
+          englishShortName: 'Edited origin ENG shortName',
         },
         destination: {
           finnishName: 'Edited destination FIN',
           finnishShortName: 'Edited destination FIN shortName',
           swedishName: 'Edited destination SWE',
           swedishShortName: 'Edited destination SWE shortName',
+          englishName: 'Edited destination ENG',
+          englishShortName: 'Edited destination ENG shortName',
         },
       });
     }

@@ -25,12 +25,20 @@ export class LineForm {
     return cy.getByTestId('LinePropertiesForm::swedishName');
   }
 
+  static getEnglishNameInput() {
+    return cy.getByTestId('LinePropertiesForm::englishName');
+  }
+
   static getFinnishShortNameInput() {
     return cy.getByTestId('LinePropertiesForm::finnishShortName');
   }
 
   static getSwedishShortNameInput() {
     return cy.getByTestId('LinePropertiesForm::swedishShortName');
+  }
+
+  static getEnglishShortNameInput() {
+    return cy.getByTestId('LinePropertiesForm::englishShortName');
   }
 
   static selectTransportTarget(target: string) {

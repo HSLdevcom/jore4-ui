@@ -36,8 +36,10 @@ const testIds = {
   showNameVersionsButton: 'LinePropertiesForm::showNameVersionsButton',
   finnishName: 'LinePropertiesForm::finnishName',
   swedishName: 'LinePropertiesForm::swedishName',
+  englishName: 'LinePropertiesForm::englishName',
   finnishShortName: 'LinePropertiesForm::finnishShortName',
   swedishShortName: 'LinePropertiesForm::swedishShortName',
+  englishShortName: 'LinePropertiesForm::englishShortName',
   transportTargetDropdown: 'LinePropertiesForm::transportTargetInput',
   vehicleModeDropdown: 'LinePropertiesForm::primaryVehicleModeInput',
   lineTypeDropdown: 'LinePropertiesForm::typeOfLineInput',
@@ -55,13 +57,14 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
   const { t } = useTranslation();
   const { getValues, watch } = useFormContext<FormState>();
 
-  // if either own of {Swedish name, Finnish short name, Swedish short name} are not defined, open
-  // the "name versions" section by default
+  // Open the "name versions" section by default when any non-primary name is missing.
   const [showNameVersions, setShowNameVersions] = useState<boolean>(
     () =>
       !getValues('name.sv_FI') ||
+      !getValues('name.en_US') ||
       !getValues('shortName.fi_FI') ||
-      !getValues('shortName.sv_FI'),
+      !getValues('shortName.sv_FI') ||
+      !getValues('shortName.en_US'),
   );
 
   return (
@@ -125,6 +128,15 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 type="text"
                 className="col-span-2"
                 translationPrefix="lines"
+                fieldPath="name.en_US"
+                testId={testIds.englishName}
+              />
+            </FormRow>
+            <FormRow mdColumns={3}>
+              <InputField<FormState>
+                type="text"
+                className="col-span-2"
+                translationPrefix="lines"
                 fieldPath="shortName.fi_FI"
                 testId={testIds.finnishShortName}
                 required
@@ -138,6 +150,15 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
                 fieldPath="shortName.sv_FI"
                 testId={testIds.swedishShortName}
                 required
+              />
+            </FormRow>
+            <FormRow mdColumns={3}>
+              <InputField<FormState>
+                type="text"
+                className="col-span-2"
+                translationPrefix="lines"
+                fieldPath="shortName.en_US"
+                testId={testIds.englishShortName}
               />
             </FormRow>
           </FormColumn>

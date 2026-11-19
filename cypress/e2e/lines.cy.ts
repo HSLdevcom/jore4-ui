@@ -52,8 +52,10 @@ describe('Lines', { tags: [Tag.Lines] }, () => {
       LineForm.getLabelInput().type('7327');
       LineForm.getFinnishNameInput().type('Testilinja FI');
       LineForm.getSwedishNameInput().type('Testilinja SV');
+      LineForm.getEnglishNameInput().type('Test Line EN');
       LineForm.getFinnishShortNameInput().type('Testilinja lyhyt FI');
       LineForm.getSwedishShortNameInput().type('Testilinja lyhyt SV');
+      LineForm.getEnglishShortNameInput().type('Test Line Short EN');
       LineForm.selectTransportTarget('Helsingin sisäinen liikenne');
       LineForm.selectVehicleType('Bussi');
       LineForm.selectLineType('Peruslinja');

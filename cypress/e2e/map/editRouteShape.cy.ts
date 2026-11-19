@@ -221,12 +221,16 @@ describe('Edit route geometry', { tags: [Tag.Routes, Tag.Map] }, () => {
           finnishShortName: 'Template origin FIN shortName',
           swedishName: 'Template origin SWE',
           swedishShortName: 'Template origin SWE shortName',
+          englishName: 'Template origin ENG',
+          englishShortName: 'Template origin ENG shortName',
         },
         destination: {
           finnishName: 'Template destination FIN',
           finnishShortName: 'Template destination FIN shortName',
           swedishName: 'Template destination SWE',
           swedishShortName: 'Template destination SWE shortName',
+          englishName: 'Template destination ENG',
+          englishShortName: 'Template destination ENG shortName',
         },
       });
 

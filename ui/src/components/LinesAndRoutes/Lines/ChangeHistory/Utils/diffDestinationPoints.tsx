@@ -14,8 +14,10 @@ const testIds = {
   openButton: `${prefix}::DestinationPointDetails::OpenButton`,
   nameFi: `${prefix}::DestinationPointDetails::NameFi`,
   nameSv: `${prefix}::DestinationPointDetails::NameSv`,
+  nameEn: `${prefix}::DestinationPointDetails::NameEn`,
   shortNameFi: `${prefix}::DestinationPointDetails::ShortNameFi`,
   shortNameSv: `${prefix}::DestinationPointDetails::ShortNameSv`,
+  shortNameEn: `${prefix}::DestinationPointDetails::ShortNameEn`,
   closeButton: `${prefix}::DestinationPointDetails::CloseButton`,
 };
 
@@ -24,8 +26,10 @@ type DestinationItem = {
   readonly sequence: number;
   readonly nameFi: string;
   readonly nameSv: string;
+  readonly nameEn: string;
   readonly shortNameFi: string;
   readonly shortNameSv: string;
+  readonly shortNameEn: string;
 };
 
 type DefinitionProps = {
@@ -86,6 +90,11 @@ const DestinationPointList: FC<DestinationPointListProps> = ({
                   dd={getFinalValueForDisplay(destination.nameSv)}
                 />
                 <Definition
+                  testId={testIds.nameEn}
+                  dt={t(($) => $.destinationModal.name.en_US)}
+                  dd={getFinalValueForDisplay(destination.nameEn)}
+                />
+                <Definition
                   testId={testIds.shortNameFi}
                   dt={t(($) => $.destinationModal.shortName.fi_FI)}
                   dd={getFinalValueForDisplay(destination.shortNameFi)}
@@ -94,6 +103,11 @@ const DestinationPointList: FC<DestinationPointListProps> = ({
                   testId={testIds.shortNameSv}
                   dt={t(($) => $.destinationModal.shortName.sv_FI)}
                   dd={getFinalValueForDisplay(destination.shortNameSv)}
+                />
+                <Definition
+                  testId={testIds.shortNameEn}
+                  dt={t(($) => $.destinationModal.shortName.en_US)}
+                  dd={getFinalValueForDisplay(destination.shortNameEn)}
                 />
               </dl>
             </div>
@@ -120,8 +134,10 @@ function getDestinations(
       sequence: stop.scheduled_stop_point_sequence,
       nameFi: stop.destination_point_name_i18n?.fi_FI ?? '',
       nameSv: stop.destination_point_name_i18n?.sv_FI ?? '',
+      nameEn: stop.destination_point_name_i18n?.en_US ?? '',
       shortNameFi: stop.destination_point_short_name_i18n?.fi_FI ?? '',
       shortNameSv: stop.destination_point_short_name_i18n?.sv_FI ?? '',
+      shortNameEn: stop.destination_point_short_name_i18n?.en_US ?? '',
     }));
 }
 

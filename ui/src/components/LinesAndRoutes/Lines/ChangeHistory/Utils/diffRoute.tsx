@@ -64,6 +64,12 @@ export function diffRouteDetails(
       oldValue: previous.name_i18n.sv_FI,
       newValue: current.name_i18n.sv_FI,
     }),
+    diffKeyedValues({
+      key: 'NameEn',
+      field: t(($) => $.lineChangeHistory.extraFields.routeNameEng),
+      oldValue: previous.name_i18n.en_US,
+      newValue: current.name_i18n.en_US,
+    }),
 
     diffKeyedValues({
       key: 'DescriptionFi',
@@ -90,6 +96,12 @@ export function diffRouteDetails(
       oldValue: previous.origin_name_i18n?.sv_FI,
       newValue: current.origin_name_i18n?.sv_FI,
     }),
+    diffKeyedValues({
+      key: 'OriginNameEn',
+      field: t(($) => $.routes.origin.name.en_US),
+      oldValue: previous.origin_name_i18n?.en_US,
+      newValue: current.origin_name_i18n?.en_US,
+    }),
 
     diffKeyedValues({
       key: 'OriginNameShortFi',
@@ -102,6 +114,12 @@ export function diffRouteDetails(
       field: t(($) => $.routes.origin.shortName.sv_FI),
       oldValue: previous.origin_short_name_i18n?.sv_FI,
       newValue: current.origin_short_name_i18n?.sv_FI,
+    }),
+    diffKeyedValues({
+      key: 'OriginNameShortEn',
+      field: t(($) => $.routes.origin.shortName.en_US),
+      oldValue: previous.origin_short_name_i18n?.en_US,
+      newValue: current.origin_short_name_i18n?.en_US,
     }),
 
     diffKeyedValues({
@@ -116,6 +134,12 @@ export function diffRouteDetails(
       oldValue: previous.destination_name_i18n?.sv_FI,
       newValue: current.destination_name_i18n?.sv_FI,
     }),
+    diffKeyedValues({
+      key: 'DestinationNameEn',
+      field: t(($) => $.routes.destination.name.en_US),
+      oldValue: previous.destination_name_i18n?.en_US,
+      newValue: current.destination_name_i18n?.en_US,
+    }),
 
     diffKeyedValues({
       key: 'DestinationNameShortFi',
@@ -128,6 +152,12 @@ export function diffRouteDetails(
       field: t(($) => $.routes.destination.shortName.sv_FI),
       oldValue: previous.destination_short_name_i18n?.sv_FI,
       newValue: current.destination_short_name_i18n?.sv_FI,
+    }),
+    diffKeyedValues({
+      key: 'DestinationNameShortEn',
+      field: t(($) => $.routes.destination.shortName.en_US),
+      oldValue: previous.destination_short_name_i18n?.en_US,
+      newValue: current.destination_short_name_i18n?.en_US,
     }),
 
     diffKeyedValues({

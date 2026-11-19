@@ -264,8 +264,10 @@ describe('Line details page: stops on route', rootTags, () => {
     // Input via info to form
     ViaForm.getViaFinnishNameInput().type('Via-piste');
     ViaForm.getViaSwedishNameInput().type('Via punkt');
+    ViaForm.getViaEnglishNameInput().type('Via point');
     ViaForm.getViaFinnishShortNameInput().type('Lyhyt nimi');
     ViaForm.getViaSwedishShortNameInput().type('Kort namn');
+    ViaForm.getViaEnglishShortNameInput().type('Short name');
 
     ViaForm.getSaveButton().click();
 
@@ -282,8 +284,10 @@ describe('Line details page: stops on route', rootTags, () => {
 
     ViaForm.getViaFinnishNameInput().should('have.value', 'Via-piste');
     ViaForm.getViaSwedishNameInput().should('have.value', 'Via punkt');
+    ViaForm.getViaEnglishNameInput().should('have.value', 'Via point');
     ViaForm.getViaFinnishShortNameInput().should('have.value', 'Lyhyt nimi');
     ViaForm.getViaSwedishShortNameInput().should('have.value', 'Kort namn');
+    ViaForm.getViaEnglishShortNameInput().should('have.value', 'Short name');
 
     ViaForm.getRemoveButton().click();
     Toast.expectSuccessToast('Via-tieto poistettu');
@@ -319,6 +323,8 @@ describe('Line details page: stops on route', rootTags, () => {
     DestinationForm.getFinnishShortNameInput().type('Lyhyt kohde');
     DestinationForm.getSwedishNameInput().type('Mal');
     DestinationForm.getSwedishShortNameInput().type('Kort mal');
+    DestinationForm.getEnglishNameInput().type('Destination');
+    DestinationForm.getEnglishShortNameInput().type('Short destination');
     DestinationForm.getSaveButton().click();
 
     Toast.expectSuccessToast('Määränpää asetettu');
@@ -338,6 +344,11 @@ describe('Line details page: stops on route', rootTags, () => {
     );
     DestinationForm.getSwedishNameInput().should('have.value', 'Mal');
     DestinationForm.getSwedishShortNameInput().should('have.value', 'Kort mal');
+    DestinationForm.getEnglishNameInput().should('have.value', 'Destination');
+    DestinationForm.getEnglishShortNameInput().should(
+      'have.value',
+      'Short destination',
+    );
 
     DestinationForm.getRemoveButton().click();
     ConfirmationDialog.dialogWithButtons

@@ -102,6 +102,8 @@ export class RoutePropertiesForm {
       swedishName: 'Ursprung',
       finnishShortName: 'LP',
       swedishShortName: 'UP',
+      englishName: 'Origin',
+      englishShortName: 'OR',
     };
 
     const defaultTerminusDestinationInput = {
@@ -109,6 +111,8 @@ export class RoutePropertiesForm {
       swedishName: 'Ändstation',
       finnishShortName: 'MP',
       swedishShortName: 'ÄS',
+      englishName: 'Destination',
+      englishShortName: 'DST',
     };
 
     if (values.templateRoute) {
