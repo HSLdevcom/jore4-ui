@@ -58,15 +58,15 @@ jest.mock('../../../generated/graphql', () => ({
 
 const defaultRouteParams = {
   destination: {
-    name: { fi_FI: '', sv_FI: '' },
-    shortName: { fi_FI: '', sv_FI: '' },
+    name: { fi_FI: '', sv_FI: '', en_US: '' },
+    shortName: { fi_FI: '', sv_FI: '', en_US: '' },
   },
   direction: RouteDirectionEnum.Anticlockwise,
   finnishName: '',
   label: '',
   origin: {
-    name: { fi_FI: '', sv_FI: '' },
-    shortName: { fi_FI: '', sv_FI: '' },
+    name: { fi_FI: '', sv_FI: '', en_US: '' },
+    shortName: { fi_FI: '', sv_FI: '', en_US: '' },
   },
   priority: 10,
   variant: 1,

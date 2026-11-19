@@ -24,22 +24,26 @@
       "title": "Origin",
       "name": {
         "fi_FI": "Origin name (Finnish)",
-        "sv_FI": "Origin name (Swedish)"
+        "sv_FI": "Origin name (Swedish)",
+        "en_US": "Origin name (English)"
       },
       "shortName": {
         "fi_FI": "Origin short name (Finnish)",
-        "sv_FI": "Origin short name (Swedish)"
+        "sv_FI": "Origin short name (Swedish)",
+        "en_US": "Origin short name (English)"
       }
     },
     "destination": {
       "title": "Destination",
       "name": {
         "fi_FI": "Destination name (Finnish)",
-        "sv_FI": "Destination name (Swedish)"
+        "sv_FI": "Destination name (Swedish)",
+        "en_US": "Destination name (English)"
       },
       "shortName": {
         "fi_FI": "Destination short name (Finnish)",
-        "sv_FI": "Destination short name (Swedish)"
+        "sv_FI": "Destination short name (Swedish)",
+        "en_US": "Destination short name (English)"
       }
     },
     "addToLine": "Add to line",
@@ -71,11 +75,13 @@
     "description": "Line text",
     "name": {
       "fi_FI": "Line name (finnish)",
-      "sv_FI": "Line name (swedish)"
+      "sv_FI": "Line name (swedish)",
+      "en_US": "Line name (English)"
     },
     "shortName": {
       "fi_FI": "Line short name (finnish)",
-      "sv_FI": "Line short name (swedish)"
+      "sv_FI": "Line short name (swedish)",
+      "en_US": "Line short name (English)"
     },
     "transportMode": "Transport mode",
     "priorities": "Priority",
@@ -1280,11 +1286,13 @@
     "title": "Destination for route {{ label }}",
     "name": {
       "fi_FI": "Destination name in Finnish",
-      "sv_FI": "Destination name in Swedish"
+      "sv_FI": "Destination name in Swedish",
+      "en_US": "Destination name in English"
     },
     "shortName": {
       "fi_FI": "Destination short name in Finnish",
-      "sv_FI": "Destination short name in Swedish"
+      "sv_FI": "Destination short name in Swedish",
+      "en_US": "Destination short name in English"
     },
     "setDestination": "Set destination",
     "saveSuccess": "Destination set",
@@ -1300,11 +1308,13 @@
     "editViaPoint": "Edit via information",
     "viaPointName": {
       "fi_FI": "Via information (Finnish)",
-      "sv_FI": "Via information (Swedish)"
+      "sv_FI": "Via information (Swedish)",
+      "en_US": "Via information (English)"
     },
     "viaPointShortName": {
       "fi_FI": "Via information short (Finnish)",
-      "sv_FI": "Via information short (Swedish)"
+      "sv_FI": "Via information short (Swedish)",
+      "en_US": "Via information short (English)"
     },
     "viaModalTitle": "Via information for route {{ label }}",
     "removeViaInfo": "Remove via information",
@@ -1681,6 +1691,7 @@
     "viaPoint": "{{label}}: {{name}}",
     "extraFields": {
       "routeNameSwe": "Route name (Swedish)",
+      "routeNameEng": "Route name (English)",
       "routeDescription": "Route description (Finnish)",
       "routeDescriptionSwe": "Route description (Swedish)",
       "routeEstimatedLength": "Estimated length of the route",

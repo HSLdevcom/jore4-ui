@@ -16,10 +16,13 @@ const testIds = {
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::OpenButton',
   nameFi: 'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::NameFi',
   nameSv: 'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::NameSv',
+  nameEn: 'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::NameEn',
   shortNameFi:
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameFi',
   shortNameSv:
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameSv',
+  shortNameEn:
+    'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameEn',
   closeButton:
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::CloseButton',
 };
@@ -85,6 +88,13 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
                       viaPoint.via_point_name_i18n?.sv_FI,
                     )}
                   />
+                  <Definition
+                    testId={testIds.nameEn}
+                    dt={t(($) => $.viaModal.viaPointName.en_US)}
+                    dd={getFinalValueForDisplay(
+                      viaPoint.via_point_name_i18n?.en_US,
+                    )}
+                  />
 
                   <Definition
                     testId={testIds.shortNameFi}
@@ -98,6 +108,13 @@ const ViaPointList: FC<ViaPointListProps> = ({ t, viaPoints }) => {
                     dt={t(($) => $.viaModal.viaPointShortName.sv_FI)}
                     dd={getFinalValueForDisplay(
                       viaPoint.via_point_short_name_i18n?.sv_FI,
+                    )}
+                  />
+                  <Definition
+                    testId={testIds.shortNameEn}
+                    dt={t(($) => $.viaModal.viaPointShortName.en_US)}
+                    dd={getFinalValueForDisplay(
+                      viaPoint.via_point_short_name_i18n?.en_US,
                     )}
                   />
                 </dl>
@@ -131,6 +148,7 @@ function areViaPointDetailsEqual(
     const equal =
       areEqualish(a.via_point_name_i18n?.fi_FI, b.via_point_name_i18n?.fi_FI) &&
       areEqualish(a.via_point_name_i18n?.sv_FI, b.via_point_name_i18n?.sv_FI) &&
+      areEqualish(a.via_point_name_i18n?.en_US, b.via_point_name_i18n?.en_US) &&
       areEqualish(
         a.via_point_short_name_i18n?.fi_FI,
         b.via_point_short_name_i18n?.fi_FI,
@@ -138,6 +156,10 @@ function areViaPointDetailsEqual(
       areEqualish(
         a.via_point_short_name_i18n?.sv_FI,
         b.via_point_short_name_i18n?.sv_FI,
+      ) &&
+      areEqualish(
+        a.via_point_short_name_i18n?.en_US,
+        b.via_point_short_name_i18n?.en_US,
       );
 
     if (!equal) {

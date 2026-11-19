@@ -17,8 +17,10 @@ import { Row } from '../../../common/LayoutComponents';
 const testIds = {
   finnishName: 'DestinationForm::finnishName',
   swedishName: 'DestinationForm::swedishName',
+  englishName: 'DestinationForm::englishName',
   finnishShortName: 'DestinationForm::finnishShortName',
   swedishShortName: 'DestinationForm::swedishShortName',
+  englishShortName: 'DestinationForm::englishShortName',
   removeButton: 'DestinationForm::removeButton',
   saveButton: 'DestinationForm::saveButton',
 };
@@ -114,6 +116,26 @@ export const DestinationForm: FC<DestinationFormProps> = ({
               translationPrefix="destinationModal"
               fieldPath="shortName.sv_FI"
               testId={testIds.swedishShortName}
+              required
+            />
+          </Row>
+          <Row className="mb-5">
+            <InputField<DestinationFormState>
+              className="flex-1"
+              type="text"
+              translationPrefix="destinationModal"
+              fieldPath="name.en_US"
+              testId={testIds.englishName}
+              required
+            />
+          </Row>
+          <Row className="mb-5">
+            <InputField<DestinationFormState>
+              className="flex-1"
+              type="text"
+              translationPrefix="destinationModal"
+              fieldPath="shortName.en_US"
+              testId={testIds.englishShortName}
               required
             />
           </Row>

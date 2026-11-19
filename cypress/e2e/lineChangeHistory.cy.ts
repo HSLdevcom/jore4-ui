@@ -33,8 +33,10 @@ const changed = {
   line: {
     name: 'Muokattu nimi Testilinja FI',
     nameSwedish: 'Muokattu nimi Testilinja SV',
+    nameEnglish: 'Edited Test Line EN',
     nameFinnishShort: 'Muokattu lyh.nimi Testilinja FI',
     nameSwedishShort: 'Muokattu lyh.nimi Testilinja SV',
+    nameEnglishShort: 'Edited Test Line Short EN',
     transportTarget: 'Alueiden välinen',
     vehicleType: 'Metro',
     lineType: 'Metro',
@@ -52,12 +54,16 @@ const changed = {
       finnishShortName: 'Edited origin FIN shortName',
       swedishName: 'Edited origin SWE',
       swedishShortName: 'Edited origin SWE shortName',
+      englishName: 'Edited origin ENG',
+      englishShortName: 'Edited origin ENG shortName',
     },
     destination: {
       finnishName: 'Edited destination FIN',
       finnishShortName: 'Edited destination FIN shortName',
       swedishName: 'Edited destination SWE',
       swedishShortName: 'Edited destination SWE shortName',
+      englishName: 'Edited destination ENG',
+      englishShortName: 'Edited destination ENG shortName',
     },
     priority: Priority.Temporary,
     validityStart: '2022-01-01',
@@ -68,12 +74,16 @@ const changed = {
     finnishShortName: 'NameShortFin',
     swedishName: 'NameSwe',
     swedishShortName: 'NameShortSwe',
+    englishName: 'NameEng',
+    englishShortName: 'NameShortEng',
   },
   destinationPoint: {
     finnishName: 'DestFin',
     finnishShortName: 'DestShortFin',
     swedishName: 'DestSwe',
     swedishShortName: 'DestShortSwe',
+    englishName: 'DestEng',
+    englishShortName: 'DestShortEng',
   },
 };
 
@@ -126,11 +136,15 @@ describe('Line & Route Change History', { tags }, () => {
       LineForm.getFinnishNameInput().clearAndType(changed.line.name);
       LineForm.getShowNameVersionButton().click();
       LineForm.getSwedishNameInput().clearAndType(changed.line.nameSwedish);
+      LineForm.getEnglishNameInput().clearAndType(changed.line.nameEnglish);
       LineForm.getFinnishShortNameInput().clearAndType(
         changed.line.nameFinnishShort,
       );
       LineForm.getSwedishShortNameInput().clearAndType(
         changed.line.nameSwedishShort,
+      );
+      LineForm.getEnglishShortNameInput().clearAndType(
+        changed.line.nameEnglishShort,
       );
       LineForm.selectTransportTarget(changed.line.transportTarget);
       LineForm.selectVehicleType(changed.line.vehicleType);
@@ -168,6 +182,11 @@ describe('Line & Route Change History', { tags }, () => {
             .within(
               assertValueChanged(['line 901 SV', changed.line.nameSwedish]),
             );
+          LineChangeHistory.changeHistoryTable.changedValues.lineDetails
+            .getNameEn()
+            .within(
+              assertValueChanged(['line 901 EN', changed.line.nameEnglish]),
+            );
 
           LineChangeHistory.changeHistoryTable.changedValues.lineDetails
             .getShortNameFi()
@@ -183,6 +202,14 @@ describe('Line & Route Change History', { tags }, () => {
               assertValueChanged([
                 'line short 901 SV',
                 changed.line.nameSwedishShort,
+              ]),
+            );
+          LineChangeHistory.changeHistoryTable.changedValues.lineDetails
+            .getShortNameEn()
+            .within(
+              assertValueChanged([
+                'line short 901 EN',
+                changed.line.nameEnglishShort,
               ]),
             );
 
@@ -231,11 +258,17 @@ describe('Line & Route Change History', { tags }, () => {
       ViaForm.getViaSwedishNameInput().clearAndType(
         changed.viaPoint.swedishName,
       );
+      ViaForm.getViaEnglishNameInput().clearAndType(
+        changed.viaPoint.englishName,
+      );
       ViaForm.getViaFinnishShortNameInput().clearAndType(
         changed.viaPoint.finnishShortName,
       );
       ViaForm.getViaSwedishShortNameInput().clearAndType(
         changed.viaPoint.swedishShortName,
+      );
+      ViaForm.getViaEnglishShortNameInput().clearAndType(
+        changed.viaPoint.englishShortName,
       );
 
       ViaForm.getSaveButton().click();
@@ -270,11 +303,17 @@ describe('Line & Route Change History', { tags }, () => {
                   .getNameSv()
                   .shouldHaveText(changed.viaPoint.swedishName);
                 routeDetails.viaPointDetails
+                  .getNameEn()
+                  .shouldHaveText(changed.viaPoint.englishName);
+                routeDetails.viaPointDetails
                   .getShortNameFi()
                   .shouldHaveText(changed.viaPoint.finnishShortName);
                 routeDetails.viaPointDetails
                   .getShortNameSv()
                   .shouldHaveText(changed.viaPoint.swedishShortName);
+                routeDetails.viaPointDetails
+                  .getShortNameEn()
+                  .shouldHaveText(changed.viaPoint.englishShortName);
 
                 routeDetails.viaPointDetails.getCloseButton().click();
               });
@@ -300,11 +339,17 @@ describe('Line & Route Change History', { tags }, () => {
       DestinationForm.getSwedishNameInput().clearAndType(
         changed.destinationPoint.swedishName,
       );
+      DestinationForm.getEnglishNameInput().clearAndType(
+        changed.destinationPoint.englishName,
+      );
       DestinationForm.getFinnishShortNameInput().clearAndType(
         changed.destinationPoint.finnishShortName,
       );
       DestinationForm.getSwedishShortNameInput().clearAndType(
         changed.destinationPoint.swedishShortName,
+      );
+      DestinationForm.getEnglishShortNameInput().clearAndType(
+        changed.destinationPoint.englishShortName,
       );
 
       DestinationForm.getSaveButton().click();
@@ -346,11 +391,17 @@ describe('Line & Route Change History', { tags }, () => {
                   .getNameSv()
                   .shouldHaveText(changed.destinationPoint.swedishName);
                 details
+                  .getNameEn()
+                  .shouldHaveText(changed.destinationPoint.englishName);
+                details
                   .getShortNameFi()
                   .shouldHaveText(changed.destinationPoint.finnishShortName);
                 details
                   .getShortNameSv()
                   .shouldHaveText(changed.destinationPoint.swedishShortName);
+                details
+                  .getShortNameEn()
+                  .shouldHaveText(changed.destinationPoint.englishShortName);
 
                 details.getCloseButton().click();
               });
@@ -497,6 +548,13 @@ describe('Line & Route Change History', { tags }, () => {
                 changed.route.origin.swedishName,
               ]),
             );
+          LineChangeHistory.changeHistoryTable.changedValues.routeDetails
+            .getOriginNameEn()
+            .within(() =>
+              LineChangeHistory.changeHistoryTable.changedValues
+                .getNewValue()
+                .shouldHaveText(changed.route.origin.englishName),
+            );
 
           LineChangeHistory.changeHistoryTable.changedValues.routeDetails
             .getOriginNameShortFi()
@@ -513,6 +571,13 @@ describe('Line & Route Change History', { tags }, () => {
                 'origin short 901 SV',
                 changed.route.origin.swedishShortName,
               ]),
+            );
+          LineChangeHistory.changeHistoryTable.changedValues.routeDetails
+            .getOriginNameShortEn()
+            .within(() =>
+              LineChangeHistory.changeHistoryTable.changedValues
+                .getNewValue()
+                .shouldHaveText(changed.route.origin.englishShortName),
             );
 
           LineChangeHistory.changeHistoryTable.changedValues.routeDetails
@@ -531,6 +596,13 @@ describe('Line & Route Change History', { tags }, () => {
                 changed.route.destination.swedishName,
               ]),
             );
+          LineChangeHistory.changeHistoryTable.changedValues.routeDetails
+            .getDestinationNameEn()
+            .within(() =>
+              LineChangeHistory.changeHistoryTable.changedValues
+                .getNewValue()
+                .shouldHaveText(changed.route.destination.englishName),
+            );
 
           LineChangeHistory.changeHistoryTable.changedValues.routeDetails
             .getDestinationNameShortFi()
@@ -547,6 +619,13 @@ describe('Line & Route Change History', { tags }, () => {
                 'destination short 901 SV',
                 changed.route.destination.swedishShortName,
               ]),
+            );
+          LineChangeHistory.changeHistoryTable.changedValues.routeDetails
+            .getDestinationNameShortEn()
+            .within(() =>
+              LineChangeHistory.changeHistoryTable.changedValues
+                .getNewValue()
+                .shouldHaveText(changed.route.destination.englishShortName),
             );
 
           LineChangeHistory.changeHistoryTable.changedValues.routeDetails

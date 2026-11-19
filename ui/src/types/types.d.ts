@@ -6,6 +6,7 @@ type UUID = string;
 type LocalizedString = {
   fi_FI?: string;
   sv_FI?: string;
+  en_US?: string;
 };
 
 // decrement numeric type value (used for recursion limit)

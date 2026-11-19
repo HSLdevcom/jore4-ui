@@ -31,8 +31,10 @@ const LineChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::ChangedValues::LineDetails::Label',
     'ChangeHistory::ChangedValues::LineDetails::NameFi',
     'ChangeHistory::ChangedValues::LineDetails::NameSv',
+    'ChangeHistory::ChangedValues::LineDetails::NameEn',
     'ChangeHistory::ChangedValues::LineDetails::ShortNameFi',
     'ChangeHistory::ChangedValues::LineDetails::ShortNameSv',
+    'ChangeHistory::ChangedValues::LineDetails::ShortNameEn',
     'ChangeHistory::ChangedValues::LineDetails::ValidityStart',
     'ChangeHistory::ChangedValues::LineDetails::ValidityEnd',
     'ChangeHistory::ChangedValues::LineDetails::Priority',
@@ -49,21 +51,26 @@ const LineChangeHistoryTable = createSimplePageObject(
 
     'ChangeHistory::ChangedValues::RouteDetails::NameFi',
     'ChangeHistory::ChangedValues::RouteDetails::NameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::NameEn',
 
     'ChangeHistory::ChangedValues::RouteDetails::DescriptionFi',
     'ChangeHistory::ChangedValues::RouteDetails::DescriptionSv',
 
     'ChangeHistory::ChangedValues::RouteDetails::OriginNameFi',
     'ChangeHistory::ChangedValues::RouteDetails::OriginNameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::OriginNameEn',
 
     'ChangeHistory::ChangedValues::RouteDetails::OriginNameShortFi',
     'ChangeHistory::ChangedValues::RouteDetails::OriginNameShortSv',
+    'ChangeHistory::ChangedValues::RouteDetails::OriginNameShortEn',
 
     'ChangeHistory::ChangedValues::RouteDetails::DestinationNameFi',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationNameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationNameEn',
 
     'ChangeHistory::ChangedValues::RouteDetails::DestinationNameShortFi',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationNameShortSv',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationNameShortEn',
 
     'ChangeHistory::ChangedValues::RouteDetails::ValidityStart',
     'ChangeHistory::ChangedValues::RouteDetails::ValidityEnd',
@@ -79,16 +86,20 @@ const LineChangeHistoryTable = createSimplePageObject(
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::OpenButton',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::NameFi',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::NameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::NameEn',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameFi',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::ShortNameEn',
     'ChangeHistory::ChangedValues::RouteDetails::ViaPointDetails::CloseButton',
 
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPoints',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::OpenButton',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::NameFi',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::NameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::NameEn',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::ShortNameFi',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::ShortNameSv',
+    'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::ShortNameEn',
     'ChangeHistory::ChangedValues::RouteDetails::DestinationPointDetails::CloseButton',
   ],
   (base) => ({

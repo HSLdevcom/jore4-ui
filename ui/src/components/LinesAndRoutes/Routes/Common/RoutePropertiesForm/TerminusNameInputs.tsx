@@ -12,6 +12,9 @@ const testIds = {
   originSwedishNameInput: 'TerminusNameInputs::origin::swedishNameInput',
   originSwedishShortNameInput:
     'TerminusNameInputs::origin::swedishShortNameInput',
+  originEnglishNameInput: 'TerminusNameInputs::origin::englishNameInput',
+  originEnglishShortNameInput:
+    'TerminusNameInputs::origin::englishShortNameInput',
   destinationFinnishNameInput:
     'TerminusNameInputs::destination::finnishNameInput',
   destinationFinnishShortNameInput:
@@ -20,6 +23,10 @@ const testIds = {
     'TerminusNameInputs::destination::swedishNameInput',
   destinationSwedishShortNameInput:
     'TerminusNameInputs::destination::swedishShortNameInput',
+  destinationEnglishNameInput:
+    'TerminusNameInputs::destination::englishNameInput',
+  destinationEnglishShortNameInput:
+    'TerminusNameInputs::destination::englishShortNameInput',
 };
 
 type TerminusNameInputsProps = {
@@ -66,6 +73,20 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
             testId={testIds.originSwedishShortNameInput}
             required
           />
+          <InputField<RouteFormState>
+            type="text"
+            translationPrefix="routes"
+            fieldPath="origin.name.en_US"
+            testId={testIds.originEnglishNameInput}
+            required
+          />
+          <InputField<RouteFormState>
+            type="text"
+            translationPrefix="routes"
+            fieldPath="origin.shortName.en_US"
+            testId={testIds.originEnglishShortNameInput}
+            required
+          />
         </FormRow>
       </FormColumn>
       <h3 className="my-4 w-full pt-1">
@@ -102,6 +123,20 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
             translationPrefix="routes"
             fieldPath="destination.shortName.sv_FI"
             testId={testIds.destinationSwedishShortNameInput}
+            required
+          />
+          <InputField<RouteFormState>
+            type="text"
+            translationPrefix="routes"
+            fieldPath="destination.name.en_US"
+            testId={testIds.destinationEnglishNameInput}
+            required
+          />
+          <InputField<RouteFormState>
+            type="text"
+            translationPrefix="routes"
+            fieldPath="destination.shortName.en_US"
+            testId={testIds.destinationEnglishShortNameInput}
             required
           />
         </FormRow>

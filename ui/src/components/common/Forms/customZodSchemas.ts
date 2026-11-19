@@ -24,11 +24,13 @@ export const requiredUuid = requiredString.uuid();
 export const localizedStringRequired = z.object({
   fi_FI: requiredString,
   sv_FI: requiredString,
+  en_US: requiredString,
 });
 
 export const localizedStringOptional = z.object({
   fi_FI: z.string().optional(),
   sv_FI: z.string().optional(),
+  en_US: z.string().optional(),
 });
 
 // Workaround for numbers
