@@ -2243,6 +2243,7 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = 
 /** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPattern = {
   __typename?: 'journey_pattern_journey_pattern';
+  is_dead_run: Scalars['Boolean']['output'];
   journey_pattern_id: Scalars['uuid']['output'];
   journey_pattern_refs: Array<TimetablesJourneyPatternJourneyPatternRef>;
   journey_pattern_refs_aggregate: TimetablesJourneyPatternJourneyPatternRefAggregate;
@@ -2325,7 +2326,23 @@ export type JourneyPatternJourneyPatternAggregate = {
 };
 
 export type JourneyPatternJourneyPatternAggregateBoolExp = {
+  bool_and?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpBoolOr>;
   count?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpCount>;
+};
+
+export type JourneyPatternJourneyPatternAggregateBoolExpBoolAnd = {
+  arguments: JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolAndArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type JourneyPatternJourneyPatternAggregateBoolExpBoolOr = {
+  arguments: JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolOrArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
 export type JourneyPatternJourneyPatternAggregateBoolExpCount = {
@@ -2369,6 +2386,7 @@ export type JourneyPatternJourneyPatternBoolExp = {
   _and?: InputMaybe<Array<JourneyPatternJourneyPatternBoolExp>>;
   _not?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   _or?: InputMaybe<Array<JourneyPatternJourneyPatternBoolExp>>;
+  is_dead_run?: InputMaybe<BooleanComparisonExp>;
   journey_pattern_id?: InputMaybe<UuidComparisonExp>;
   journey_pattern_route?: InputMaybe<RouteRouteBoolExp>;
   on_route_id?: InputMaybe<UuidComparisonExp>;
@@ -2386,6 +2404,7 @@ export enum JourneyPatternJourneyPatternConstraint {
 
 /** input type for inserting data into table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternInsertInput = {
+  is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   journey_pattern_route?: InputMaybe<RouteRouteObjRelInsertInput>;
   on_route_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -2443,6 +2462,7 @@ export type JourneyPatternJourneyPatternOnConflict = {
 
 /** Ordering options when selecting data from "journey_pattern.journey_pattern". */
 export type JourneyPatternJourneyPatternOrderBy = {
+  is_dead_run?: InputMaybe<OrderBy>;
   journey_pattern_id?: InputMaybe<OrderBy>;
   journey_pattern_route?: InputMaybe<RouteRouteOrderBy>;
   on_route_id?: InputMaybe<OrderBy>;
@@ -2457,13 +2477,28 @@ export type JourneyPatternJourneyPatternPkColumnsInput = {
 /** select columns of table "journey_pattern.journey_pattern" */
 export enum JourneyPatternJourneyPatternSelectColumn {
   /** column name */
+  IsDeadRun = 'is_dead_run',
+  /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
   OnRouteId = 'on_route_id'
 }
 
+/** select "journey_pattern_journey_pattern_aggregate_bool_exp_bool_and_arguments_columns" columns of table "journey_pattern.journey_pattern" */
+export enum JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolAndArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
+}
+
+/** select "journey_pattern_journey_pattern_aggregate_bool_exp_bool_or_arguments_columns" columns of table "journey_pattern.journey_pattern" */
+export enum JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolOrArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
+}
+
 /** input type for updating data in table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternSetInput = {
+  is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   on_route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -2478,12 +2513,15 @@ export type JourneyPatternJourneyPatternStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternJourneyPatternStreamCursorValueInput = {
+  is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   on_route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "journey_pattern.journey_pattern" */
 export enum JourneyPatternJourneyPatternUpdateColumn {
+  /** column name */
+  IsDeadRun = 'is_dead_run',
   /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
@@ -7806,6 +7844,7 @@ export type RouteRoute = {
   infrastructure_links_along_route: Array<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
+  is_dead_run: Scalars['Boolean']['output'];
   label: Scalars['String']['output'];
   /** An object relationship */
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: Maybe<HslRouteLegacyHslMunicipalityCode>;
@@ -7936,6 +7975,8 @@ export type RouteRouteAggregate = {
 
 export type RouteRouteAggregateBoolExp = {
   avg?: InputMaybe<RouteRouteAggregateBoolExpAvg>;
+  bool_and?: InputMaybe<RouteRouteAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<RouteRouteAggregateBoolExpBoolOr>;
   corr?: InputMaybe<RouteRouteAggregateBoolExpCorr>;
   count?: InputMaybe<RouteRouteAggregateBoolExpCount>;
   covar_samp?: InputMaybe<RouteRouteAggregateBoolExpCovarSamp>;
@@ -7951,6 +7992,20 @@ export type RouteRouteAggregateBoolExpAvg = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
   filter?: InputMaybe<RouteRouteBoolExp>;
   predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpBoolAnd = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolAndArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpBoolOr = {
+  arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolOrArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<RouteRouteBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
 export type RouteRouteAggregateBoolExpCorr = {
@@ -8103,6 +8158,7 @@ export type RouteRouteBoolExp = {
   direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
   infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
+  is_dead_run?: InputMaybe<BooleanComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
   legacy_hsl_municipality_code?: InputMaybe<StringComparisonExp>;
@@ -8175,6 +8231,7 @@ export type RouteRouteInsertInput = {
   destination_short_name_i18n: Scalars['localized_string']['input'];
   direction?: InputMaybe<RouteDirectionEnum>;
   infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
+  is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   label: Scalars['String']['input'];
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
   legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
@@ -8286,6 +8343,7 @@ export type RouteRouteOrderBy = {
   destination_short_name_i18n?: InputMaybe<OrderBy>;
   direction?: InputMaybe<OrderBy>;
   infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
+  is_dead_run?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOrderBy>;
   legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
@@ -8333,6 +8391,8 @@ export enum RouteRouteSelectColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
+  IsDeadRun = 'is_dead_run',
+  /** column name */
   Label = 'label',
   /** column name */
   LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
@@ -8364,6 +8424,18 @@ export enum RouteRouteSelectColumn {
 export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpAvgArgumentsColumns {
   /** column name */
   AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_bool_and_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolAndArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
+}
+
+/** select "route_route_aggregate_bool_exp_bool_or_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolOrArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
 }
 
 /** select "route_route_aggregate_bool_exp_corr_arguments_columns" columns of table "route.route" */
@@ -8415,6 +8487,7 @@ export type RouteRouteSetInput = {
   destination_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   destination_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   direction?: InputMaybe<RouteDirectionEnum>;
+  is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
@@ -8489,6 +8562,7 @@ export type RouteRouteStreamCursorValueInput = {
   destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   direction?: InputMaybe<RouteDirectionEnum>;
+  is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -8531,6 +8605,8 @@ export enum RouteRouteUpdateColumn {
   DestinationShortNameI18n = 'destination_short_name_i18n',
   /** column name */
   Direction = 'direction',
+  /** column name */
+  IsDeadRun = 'is_dead_run',
   /** column name */
   Label = 'label',
   /** column name */
