@@ -45,7 +45,7 @@ RUN rm /app/ui/out/config.json && \
 
 
 # Setup the final nginx image to serve the UI from.
-FROM nginxinc/nginx-unprivileged:1.31-alpine
+FROM nginx/nginx-unprivileged:1.31-alpine
 
 EXPOSE 8080
 
