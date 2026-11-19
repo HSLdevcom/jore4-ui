@@ -15,11 +15,6 @@ import { RoutesTable } from './RoutesTable';
 import { RouteTableRow } from './RouteTableRow';
 import { RouteLineTableRowVariant } from './Types';
 
-jest.mock(
-  '../../Search/ExtraFilters/TransportationModeFilter.module.css',
-  () => ({ '.noIconMargins': '.noIconMargins' }),
-);
-
 describe(`<${RoutesTable.name} />`, () => {
   const testId = 'routesTable1';
   const route1Id = '03d55414-e5cf-4cce-9faf-d86ccb7e5f98';
