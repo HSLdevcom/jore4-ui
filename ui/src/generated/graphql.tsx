@@ -2246,6 +2246,7 @@ export type JourneyPatternCheckInfraLinkStopRefsWithNewScheduledStopPointArgs = 
 /** columns and relationships of "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPattern = {
   readonly __typename?: 'journey_pattern_journey_pattern';
+  readonly is_dead_run: Scalars['Boolean']['output'];
   readonly journey_pattern_id: Scalars['uuid']['output'];
   readonly journey_pattern_refs: ReadonlyArray<TimetablesJourneyPatternJourneyPatternRef>;
   readonly journey_pattern_refs_aggregate: TimetablesJourneyPatternJourneyPatternRefAggregate;
@@ -2328,7 +2329,23 @@ export type JourneyPatternJourneyPatternAggregate = {
 };
 
 export type JourneyPatternJourneyPatternAggregateBoolExp = {
+  readonly bool_and?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpBoolAnd>;
+  readonly bool_or?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpBoolOr>;
   readonly count?: InputMaybe<JourneyPatternJourneyPatternAggregateBoolExpCount>;
+};
+
+export type JourneyPatternJourneyPatternAggregateBoolExpBoolAnd = {
+  readonly arguments: JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolAndArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  readonly predicate: BooleanComparisonExp;
+};
+
+export type JourneyPatternJourneyPatternAggregateBoolExpBoolOr = {
+  readonly arguments: JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolOrArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
+  readonly predicate: BooleanComparisonExp;
 };
 
 export type JourneyPatternJourneyPatternAggregateBoolExpCount = {
@@ -2372,6 +2389,7 @@ export type JourneyPatternJourneyPatternBoolExp = {
   readonly _and?: InputMaybe<ReadonlyArray<JourneyPatternJourneyPatternBoolExp>>;
   readonly _not?: InputMaybe<JourneyPatternJourneyPatternBoolExp>;
   readonly _or?: InputMaybe<ReadonlyArray<JourneyPatternJourneyPatternBoolExp>>;
+  readonly is_dead_run?: InputMaybe<BooleanComparisonExp>;
   readonly journey_pattern_id?: InputMaybe<UuidComparisonExp>;
   readonly journey_pattern_route?: InputMaybe<RouteRouteBoolExp>;
   readonly on_route_id?: InputMaybe<UuidComparisonExp>;
@@ -2389,6 +2407,7 @@ export enum JourneyPatternJourneyPatternConstraint {
 
 /** input type for inserting data into table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternInsertInput = {
+  readonly is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly journey_pattern_route?: InputMaybe<RouteRouteObjRelInsertInput>;
   readonly on_route_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -2446,6 +2465,7 @@ export type JourneyPatternJourneyPatternOnConflict = {
 
 /** Ordering options when selecting data from "journey_pattern.journey_pattern". */
 export type JourneyPatternJourneyPatternOrderBy = {
+  readonly is_dead_run?: InputMaybe<OrderBy>;
   readonly journey_pattern_id?: InputMaybe<OrderBy>;
   readonly journey_pattern_route?: InputMaybe<RouteRouteOrderBy>;
   readonly on_route_id?: InputMaybe<OrderBy>;
@@ -2460,13 +2480,28 @@ export type JourneyPatternJourneyPatternPkColumnsInput = {
 /** select columns of table "journey_pattern.journey_pattern" */
 export enum JourneyPatternJourneyPatternSelectColumn {
   /** column name */
+  IsDeadRun = 'is_dead_run',
+  /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
   OnRouteId = 'on_route_id'
 }
 
+/** select "journey_pattern_journey_pattern_aggregate_bool_exp_bool_and_arguments_columns" columns of table "journey_pattern.journey_pattern" */
+export enum JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolAndArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
+}
+
+/** select "journey_pattern_journey_pattern_aggregate_bool_exp_bool_or_arguments_columns" columns of table "journey_pattern.journey_pattern" */
+export enum JourneyPatternJourneyPatternSelectColumnJourneyPatternJourneyPatternAggregateBoolExpBoolOrArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
+}
+
 /** input type for updating data in table "journey_pattern.journey_pattern" */
 export type JourneyPatternJourneyPatternSetInput = {
+  readonly is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly on_route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -2481,12 +2516,15 @@ export type JourneyPatternJourneyPatternStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type JourneyPatternJourneyPatternStreamCursorValueInput = {
+  readonly is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   readonly journey_pattern_id?: InputMaybe<Scalars['uuid']['input']>;
   readonly on_route_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "journey_pattern.journey_pattern" */
 export enum JourneyPatternJourneyPatternUpdateColumn {
+  /** column name */
+  IsDeadRun = 'is_dead_run',
   /** column name */
   JourneyPatternId = 'journey_pattern_id',
   /** column name */
@@ -7809,6 +7847,7 @@ export type RouteRoute = {
   readonly infrastructure_links_along_route: ReadonlyArray<RouteInfrastructureLinkAlongRoute>;
   /** An aggregate relationship */
   readonly infrastructure_links_along_route_aggregate: RouteInfrastructureLinkAlongRouteAggregate;
+  readonly is_dead_run: Scalars['Boolean']['output'];
   readonly label: Scalars['String']['output'];
   /** An object relationship */
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: Maybe<HslRouteLegacyHslMunicipalityCode>;
@@ -7939,6 +7978,8 @@ export type RouteRouteAggregate = {
 
 export type RouteRouteAggregateBoolExp = {
   readonly avg?: InputMaybe<RouteRouteAggregateBoolExpAvg>;
+  readonly bool_and?: InputMaybe<RouteRouteAggregateBoolExpBoolAnd>;
+  readonly bool_or?: InputMaybe<RouteRouteAggregateBoolExpBoolOr>;
   readonly corr?: InputMaybe<RouteRouteAggregateBoolExpCorr>;
   readonly count?: InputMaybe<RouteRouteAggregateBoolExpCount>;
   readonly covar_samp?: InputMaybe<RouteRouteAggregateBoolExpCovarSamp>;
@@ -7954,6 +7995,20 @@ export type RouteRouteAggregateBoolExpAvg = {
   readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
   readonly filter?: InputMaybe<RouteRouteBoolExp>;
   readonly predicate: Float8ComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpBoolAnd = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolAndArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: BooleanComparisonExp;
+};
+
+export type RouteRouteAggregateBoolExpBoolOr = {
+  readonly arguments: RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolOrArgumentsColumns;
+  readonly distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  readonly filter?: InputMaybe<RouteRouteBoolExp>;
+  readonly predicate: BooleanComparisonExp;
 };
 
 export type RouteRouteAggregateBoolExpCorr = {
@@ -8106,6 +8161,7 @@ export type RouteRouteBoolExp = {
   readonly direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
   readonly infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   readonly infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
+  readonly is_dead_run?: InputMaybe<BooleanComparisonExp>;
   readonly label?: InputMaybe<StringComparisonExp>;
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
   readonly legacy_hsl_municipality_code?: InputMaybe<StringComparisonExp>;
@@ -8178,6 +8234,7 @@ export type RouteRouteInsertInput = {
   readonly destination_short_name_i18n: Scalars['localized_string']['input'];
   readonly direction?: InputMaybe<RouteDirectionEnum>;
   readonly infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteArrRelInsertInput>;
+  readonly is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   readonly label: Scalars['String']['input'];
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
@@ -8289,6 +8346,7 @@ export type RouteRouteOrderBy = {
   readonly destination_short_name_i18n?: InputMaybe<OrderBy>;
   readonly direction?: InputMaybe<OrderBy>;
   readonly infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateOrderBy>;
+  readonly is_dead_run?: InputMaybe<OrderBy>;
   readonly label?: InputMaybe<OrderBy>;
   readonly legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOrderBy>;
   readonly legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
@@ -8336,6 +8394,8 @@ export enum RouteRouteSelectColumn {
   /** column name */
   Direction = 'direction',
   /** column name */
+  IsDeadRun = 'is_dead_run',
+  /** column name */
   Label = 'label',
   /** column name */
   LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
@@ -8367,6 +8427,18 @@ export enum RouteRouteSelectColumn {
 export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpAvgArgumentsColumns {
   /** column name */
   AccountingDistanceInMetres = 'accounting_distance_in_metres'
+}
+
+/** select "route_route_aggregate_bool_exp_bool_and_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolAndArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
+}
+
+/** select "route_route_aggregate_bool_exp_bool_or_arguments_columns" columns of table "route.route" */
+export enum RouteRouteSelectColumnRouteRouteAggregateBoolExpBoolOrArgumentsColumns {
+  /** column name */
+  IsDeadRun = 'is_dead_run'
 }
 
 /** select "route_route_aggregate_bool_exp_corr_arguments_columns" columns of table "route.route" */
@@ -8418,6 +8490,7 @@ export type RouteRouteSetInput = {
   readonly destination_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
   readonly direction?: InputMaybe<RouteDirectionEnum>;
+  readonly is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   readonly label?: InputMaybe<Scalars['String']['input']>;
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   readonly name_i18n?: InputMaybe<Scalars['localized_string']['input']>;
@@ -8492,6 +8565,7 @@ export type RouteRouteStreamCursorValueInput = {
   readonly destination_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly destination_short_name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
   readonly direction?: InputMaybe<RouteDirectionEnum>;
+  readonly is_dead_run?: InputMaybe<Scalars['Boolean']['input']>;
   readonly label?: InputMaybe<Scalars['String']['input']>;
   readonly legacy_hsl_municipality_code?: InputMaybe<Scalars['String']['input']>;
   readonly name_i18n?: InputMaybe<Scalars['jsonb']['input']>;
@@ -8534,6 +8608,8 @@ export enum RouteRouteUpdateColumn {
   DestinationShortNameI18n = 'destination_short_name_i18n',
   /** column name */
   Direction = 'direction',
+  /** column name */
+  IsDeadRun = 'is_dead_run',
   /** column name */
   Label = 'label',
   /** column name */
