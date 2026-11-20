@@ -1,3 +1,4 @@
+export * from './ClassNameProps';
 export * from './EnrichedStopRegistryTypes';
 export * from './DateRange';
 export * from './FilterableStopInfo';

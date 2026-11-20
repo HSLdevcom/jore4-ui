@@ -5,10 +5,10 @@ import { AllOptionEnum } from '../../../../../../utils';
 import { mapStopOwnerToUiName } from '../../../../../../utils/i18n';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
+import { EnumFilter } from '../../../../../common/Search/SearchBar';
 import { StopSearchFilters } from '../../../Types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';
-import { EnumFilter } from './EnumFilter';
 
 const options: ReadonlyArray<StopOwner | AllOptionEnum> = [
   AllOptionEnum.All,

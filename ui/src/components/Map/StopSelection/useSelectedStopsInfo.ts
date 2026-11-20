@@ -17,8 +17,8 @@ import {
   useAppAction,
   useAppSelector,
 } from '../../../redux';
+import { ResultSelection } from '../../common/Search/ResultSelection';
 import {
-  ResultSelection,
   StopSearchFilters,
   filtersAndResultSelectionToQueryVariables,
 } from '../../StopRegistry/Search/Common';

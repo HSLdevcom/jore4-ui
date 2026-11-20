@@ -21,8 +21,8 @@ import { Visible } from '../../../../common/LayoutComponents';
 import {
   assertKnownIdsListingIsGrouped,
   unregisterSelectionGroups,
-  useStopSearchRouterState,
-} from '../../Utils';
+} from '../../../../common/Search/ResultSelection';
+import { useStopSearchRouterState } from '../../Utils';
 import { StopGroupOption } from './StopGroupOption';
 import { StopGroupSelectorItem } from './StopGroupSelectorItem';
 import { VisibilityMap, useVisibilityMap } from './useVisibilityMap';

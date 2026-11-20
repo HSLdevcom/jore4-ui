@@ -1,11 +1,12 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate, mapToShortTime, now } from '../../../../utils/time';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 import {
   useGenerateEquipmentReport,
   useGenerateInfoSpotReport,
 } from '../../Stops/Common/Report';
-import { ResultSelection, StopSearchFilters } from '../Types';
+import { StopSearchFilters } from '../Types';
 import { DownloadReportMenuItem } from './DownloadReportMenuItem';
 
 const testIds = {

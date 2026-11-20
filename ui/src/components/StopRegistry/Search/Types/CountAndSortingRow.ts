@@ -1,4 +1,4 @@
-import { ResultSelection } from './ResultSelection';
+import { ResultSelection } from '../../../common/Search/ResultSelection/ResultSelection';
 import { SortStopsBy } from './SortStopsBy';
 
 export type CountAndSortingRowProps = {

@@ -4,8 +4,11 @@ import { twMerge } from 'tailwind-merge';
 import { FindStopPlaceInfoFragment } from '../../../../../generated/graphql';
 import { PathValue, routeDetails } from '../../../../../router/routeDetails';
 import { LocatorButton } from '../../../../common/Buttons';
-import { ResultSelection } from '../../Types';
-import { BatchUpdateSelection, areAllStopsSelected } from '../../Utils';
+import {
+  BatchUpdateSelection,
+  ResultSelection,
+} from '../../../../common/Search/ResultSelection';
+import { areAllStopsSelected } from '../../Utils';
 import { SelectAllCheckbox } from '../SelectAllCheckbox';
 import { ActionMenu } from './ActionMenu/ActionMenu';
 import { OpenDetails } from './ActionMenu/OpenDetailsPage';

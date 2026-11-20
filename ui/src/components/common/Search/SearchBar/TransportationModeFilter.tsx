@@ -7,7 +7,6 @@ import { JoreStopRegistryTransportModeType } from '../../../../types/stop-regist
 import { AllOptionEnum } from '../../../../utils';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../utils/i18n';
 import { Row } from '../../LayoutComponents';
-import s from './TransportationModeFilter.module.css';
 
 const testIds = {
   transportationModeButton: (
@@ -125,7 +124,7 @@ export const TransportationModeFilter = <FormState extends FieldValues>({
   return (
     <fieldset className={twMerge('flex flex-col', className)} onBlur={onBlur}>
       <label>{label}</label>
-      <Row className={twJoin('gap-1', s.noIconMargins)}>
+      <Row className="gap-1">
         {options.map((mode) => (
           <TransportationModeButton
             key={mode}

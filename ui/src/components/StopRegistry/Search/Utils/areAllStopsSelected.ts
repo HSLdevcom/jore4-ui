@@ -1,5 +1,5 @@
 import { none } from '../../../../utils';
-import { ResultSelection } from '../Types';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 
 export function areAllStopsSelected(
   selection: ResultSelection,

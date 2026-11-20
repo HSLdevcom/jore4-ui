@@ -5,7 +5,7 @@ import { Row } from '../../../../../common/LayoutComponents';
 import {
   PriorityFilter,
   TransportationModeFilter,
-} from '../../../../../common/Search/ExtraFilters';
+} from '../../../../../common/Search/SearchBar';
 import { StopSearchFilters } from '../../../Types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { ElectricityFilter } from './ElectricityFilter';

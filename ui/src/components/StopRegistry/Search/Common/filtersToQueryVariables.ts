@@ -7,13 +7,9 @@ import {
   buildOptionalSearchConditionGqlFilter,
   queryToLike,
 } from '../../../../utils';
+import { ResultSelection } from '../../../common/Search/ResultSelection';
 import { buildSearchStopByLabelOrNameFilter } from '../../Utils/buildSearchStopByLabelOrNameFilter';
-import {
-  InfoSpotSize,
-  ResultSelection,
-  SearchBy,
-  StopSearchFilters,
-} from '../Types';
+import { InfoSpotSize, SearchBy, StopSearchFilters } from '../Types';
 
 function toTiamatDBEnumCase(str: string) {
   return str.toUpperCase();

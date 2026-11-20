@@ -4,6 +4,7 @@ import { useController } from 'react-hook-form';
 import { AllOptionEnum } from '../../../../../../utils';
 import { InputLabel, ValidationErrorList } from '../../../../../common/Inputs';
 import { Column } from '../../../../../common/LayoutComponents';
+import { EnumFilter } from '../../../../../common/Search/SearchBar';
 import {
   StopSearchFilters,
   StringMunicipality,
@@ -11,7 +12,6 @@ import {
 } from '../../../Types';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';
-import { EnumFilter } from './EnumFilter';
 
 type Option = StringMunicipality | AllOptionEnum.All;
 

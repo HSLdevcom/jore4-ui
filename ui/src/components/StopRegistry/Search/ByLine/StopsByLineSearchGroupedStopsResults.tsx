@@ -1,5 +1,7 @@
 import { FC, Fragment } from 'react';
-import { useGroupedResultSelection, useStopSearchRouterState } from '../Utils';
+import { useGroupedResultSelection } from '../../../common/Search/ResultSelection';
+import { PgIdType, StopSearchHistoryState } from '../Types';
+import { useStopSearchRouterState } from '../Utils';
 import { ActiveLineHeader } from './ActiveLineHeader';
 import { LineRoutesListing } from './LineRoutesListing';
 import { LineSelector } from './LineSelector';
@@ -19,10 +21,13 @@ export const StopsByLineSearchGroupedStopsResults: FC<
     historyState: { selectedGroups, resultSelection },
     setPagingInfo,
     setSortingInfo,
+    setHistoryState,
   } = useStopSearchRouterState();
 
   const { onBatchUpdateSelection, onToggleSelectAll } =
-    useGroupedResultSelection();
+    useGroupedResultSelection<StopSearchHistoryState, PgIdType>(
+      setHistoryState,
+    );
 
   const { quayIds } = useResolveQuayIdsByLines(lines);
 

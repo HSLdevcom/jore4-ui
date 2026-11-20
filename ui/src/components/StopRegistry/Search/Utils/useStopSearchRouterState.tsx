@@ -1,61 +1,40 @@
 import identity from 'lodash/identity';
-import omit from 'lodash/omit';
-import pick from 'lodash/pick';
-import {
-  Dispatch,
-  FC,
-  PropsWithChildren,
-  SetStateAction,
-  createContext,
-  useCallback,
-  useContext,
-  useRef,
-} from 'react';
+import { FC, PropsWithChildren, createContext, useContext } from 'react';
 import { ZodArray, ZodTypeAny, z } from 'zod';
-import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
+import { AllOptionEnum, NullOptionEnum } from '../../../../utils';
 import {
-  AllOptionEnum,
-  NullOptionEnum,
-  areEqual,
-  memoizeOne,
-} from '../../../../utils';
+  SearchPageUrlFlatState,
+  makeDefaultValues,
+  makeDeserializers,
+  makeSerializers,
+  useSearchPageRouterState,
+} from '../../../common/Search/SearchPageRouterState';
 import {
   SEPARATOR,
-  TypedRouterHistoryStateShapeError,
   UrlStateDeserializers,
   UrlStateSerializers,
   parsePriorities,
+  parseZodEnumArray,
+  parseZodEnumArrayWithAllOption,
   serializeArray,
   splitString,
   toEnum,
-  useTypedRouterState,
 } from '../../../common/Utils/typedRouterState';
-import { SimpleRecord } from '../../../common/Utils/typedRouterState/types';
 import { allKnownPosterSizes } from '../../Components/InfoSpots';
 import {
-  KnownStopIds,
-  ResultSelection,
   SearchBy,
   SearchFor,
-  SelectionState,
   SortStopsBy,
-  SortingInfo,
   StopSearchFilters,
-  StopSearchHistoryState,
   defaultFilters,
-  defaultResultSelection,
   defaultSortingInfo,
-  selectionStateValues,
   stopSearchFiltersSchema,
 } from '../Types';
 
-type StopSearchUrlFlatState = StopSearchFilters & PagingInfo & SortingInfo;
-
-type StopSearchSearchState = {
-  readonly filters: StopSearchFilters;
-  readonly pagingInfo: PagingInfo;
-  readonly sortingInfo: SortingInfo;
-};
+type StopSearchUrlFlatState = SearchPageUrlFlatState<
+  StopSearchFilters,
+  SortStopsBy
+>;
 
 const SIZE_SEPARATOR = '|';
 
@@ -101,35 +80,8 @@ export const filterSerializers: UrlStateSerializers<StopSearchFilters> = {
   quayIds: serializeArray,
 };
 
-const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
-  // Filters
-  ...filterSerializers,
-
-  // Paging
-  page: String,
-  pageSize: String,
-
-  // Sorting
-  sortBy: identity,
-  sortOrder: identity,
-};
-
-/**
- * If All is included -> [All]
- * If empty -> [All]
- * Else -> [input list]
- *
- * @param values
- */
-function cleanupEnumArrayWithAllOption<Enum>(
-  values: Array<Enum | AllOptionEnum>,
-): Array<Enum | AllOptionEnum> {
-  if (values.length && !values.includes(AllOptionEnum.All)) {
-    return values;
-  }
-
-  return [AllOptionEnum.All];
-}
+const serializers: UrlStateSerializers<StopSearchUrlFlatState> =
+  makeSerializers(filterSerializers);
 
 /**
  * If All is included -> [All]
@@ -152,51 +104,34 @@ function cleanupEnumArrayWithAllAndNullOptions<Enum>(
   return values;
 }
 
-function parseEnumArray<
-  EnumT extends ZodTypeAny,
-  Parser extends ZodArray<EnumT>,
->(
-  parser: Parser,
-  cleanerFn: (dirty: z.output<Parser>) => z.output<Parser>,
-): (value: string) => z.output<Parser> {
-  return (value) => {
-    const splut = splitString(value);
-    const parsed = parser.parse(splut);
-    return cleanerFn(parsed);
-  };
-}
-
-function parseEnumArrayWithAllOption<
+function parseZodEnumArrayWithAllAndNullOptions<
   EnumT extends ZodTypeAny,
   Parser extends ZodArray<EnumT>,
 >(parser: Parser): (value: string) => z.output<Parser> {
-  return parseEnumArray(parser, cleanupEnumArrayWithAllOption);
+  return parseZodEnumArray(parser, cleanupEnumArrayWithAllAndNullOptions);
 }
 
-function parseEnumArrayWithAllAndNullOptions<
-  EnumT extends ZodTypeAny,
-  Parser extends ZodArray<EnumT>,
->(parser: Parser): (value: string) => z.output<Parser> {
-  return parseEnumArray(parser, cleanupEnumArrayWithAllAndNullOptions);
-}
-
-const parseMunicipalities = parseEnumArrayWithAllOption(
+const parseMunicipalities = parseZodEnumArrayWithAllOption(
   stopSearchFiltersSchema.shape.municipalities,
 );
 
-const parseTransportationMode = parseEnumArrayWithAllOption(
+const parseTransportationMode = parseZodEnumArrayWithAllOption(
   stopSearchFiltersSchema.shape.transportationMode,
 );
-const parseStopState = parseEnumArrayWithAllOption(
+
+const parseStopState = parseZodEnumArrayWithAllOption(
   stopSearchFiltersSchema.shape.stopState,
 );
-const parseShelter = parseEnumArrayWithAllAndNullOptions(
+
+const parseShelter = parseZodEnumArrayWithAllAndNullOptions(
   stopSearchFiltersSchema.shape.shelter,
 );
-const parseElectricity = parseEnumArrayWithAllAndNullOptions(
+
+const parseElectricity = parseZodEnumArrayWithAllAndNullOptions(
   stopSearchFiltersSchema.shape.electricity,
 );
-const parseStopOwner = parseEnumArrayWithAllOption(
+
+const parseStopOwner = parseZodEnumArrayWithAllOption(
   stopSearchFiltersSchema.shape.stopOwner,
 );
 
@@ -248,239 +183,20 @@ export const filterDeserializers: UrlStateDeserializers<StopSearchFilters> = {
   quayIds: splitString,
 };
 
-const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
-  // Filters
-  ...filterDeserializers,
+const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> =
+  makeDeserializers(filterDeserializers, Object.values(SortStopsBy));
 
-  // Paging
-  page: Number,
-  pageSize: Number,
-
-  // Sorting
-  sortBy: toEnum(Object.values(SortStopsBy)),
-  sortOrder: toEnum(Object.values(SortOrder)),
-};
-
-const defaultValues: StopSearchUrlFlatState = {
-  // Filters
-  ...defaultFilters,
-
-  // Paging
-  ...defaultPagingInfo,
-
-  // Sorting
-  ...defaultSortingInfo,
-};
-
-const defaultHistoryValues: StopSearchHistoryState = {
-  searchIsExpanded: false,
-  selectedGroups: [],
-  resultSelection: defaultResultSelection,
-  knownStopIds: {
-    listingMode: 'flat',
-    ids: [],
-  },
-};
-
-function assertIsAnArrayOfStrings(
-  path: string,
-  value: unknown,
-): asserts value is Array<string> {
-  if (!Array.isArray(value)) {
-    throw new TypedRouterHistoryStateShapeError(
-      path,
-      value,
-      `Expected an array of strings for useStopSearchRouterState's history state's ${path} field, but value was (${String(value)})!`,
-    );
-  }
-
-  for (let i = 0; i < value.length; i += 1) {
-    const item = value[i];
-    if (typeof item !== 'string') {
-      throw new TypedRouterHistoryStateShapeError(
-        `${path}[${i}]`,
-        item,
-        `Expected an array strings for useStopSearchRouterState's history state's ${path} field, but the array contained item (${String(item)})!`,
-      );
-    }
-  }
-}
-
-function assertIsAResultSelection(
-  path: string,
-  value: unknown,
-): asserts value is ResultSelection {
-  if (typeof value !== 'object' || value === null) {
-    throw new TypedRouterHistoryStateShapeError(
-      path,
-      value,
-      `Expected ResultSelection for useStopSearchRouterState's history state's ${path} field, but value was (${String(value)})!`,
-    );
-  }
-
-  const { selectionState, included, excluded } = value as Record<
-    string,
-    unknown
-  >;
-
-  if (!selectionStateValues.includes(selectionState as SelectionState)) {
-    throw new TypedRouterHistoryStateShapeError(
-      `${path}.selectionState`,
-      selectionState,
-      `Expected ResultSelection for useStopSearchRouterState's history state's ${path} field, but it's selectionState is (${String(selectionState)})!`,
-    );
-  }
-
-  assertIsAnArrayOfStrings(`${path}.included`, included);
-  assertIsAnArrayOfStrings(`${path}.excluded`, excluded);
-}
-
-function assertIsAKnownStopIds(
-  path: string,
-  value: unknown,
-): asserts value is KnownStopIds {
-  if (typeof value !== 'object' || !value) {
-    throw new TypedRouterHistoryStateShapeError(
-      path,
-      value,
-      `Expected simple object value for useStopSearchRouterState's history state's knownStopIds field, but value was (${String(value)})!`,
-    );
-  }
-
-  const record = value as Record<string, unknown>;
-  assertIsAnArrayOfStrings(`${path}.ids`, record.ids);
-
-  if (record.listingMode === 'flat') {
-    return;
-  }
-
-  if (record.listingMode !== 'grouped') {
-    throw new TypedRouterHistoryStateShapeError(
-      `${path}.listingMode`,
-      record.listingMode,
-      `Expected 'listingMode' field of KnownStopIds to be either 'flat' or 'grouped', but value was (${String(record.listingMode)})!`,
-    );
-  }
-
-  if (typeof record.groups !== 'object' || !record.groups) {
-    throw new TypedRouterHistoryStateShapeError(
-      `${path}.groups`,
-      record.groups,
-      `Expected 'groups' field of KnownStopIds to be a simple object, but value was (${String(record.groups)})!`,
-    );
-  }
-
-  const groups = Object.entries(record.groups);
-  for (let i = 0; i < groups.length; i += 1) {
-    const [key, group] = groups[i];
-    assertIsAnArrayOfStrings(`${path}.groups.${key}`, group);
-  }
-}
-
-function assertHistoryStateShape(
-  state: SimpleRecord,
-): asserts state is StopSearchHistoryState {
-  if (typeof state.searchIsExpanded !== 'boolean') {
-    throw new TypedRouterHistoryStateShapeError(
-      'searchIsExpanded',
-      state.searchIsExpanded,
-      `Expected boolean value for useStopSearchRouterState's history state's searchIsExpanded field, but value was (${String(state.searchIsExpanded)})!`,
-    );
-  }
-
-  assertIsAKnownStopIds('knownStopIds', state.knownStopIds);
-
-  assertIsAnArrayOfStrings('selectedGroups', state.selectedGroups);
-
-  assertIsAResultSelection('resultSelection', state.resultSelection);
-}
-
-function pickFilters(flatState: StopSearchUrlFlatState) {
-  return omit(flatState, ['page', 'pageSize', 'sortBy', 'sortOrder']);
-}
-
-function pickPagingInfo(flatState: StopSearchUrlFlatState) {
-  return pick(flatState, ['page', 'pageSize']);
-}
-
-function pickSortingInfo(flatState: StopSearchUrlFlatState) {
-  return pick(flatState, ['sortBy', 'sortOrder']);
-}
-
-type MemoizedPickers = {
-  readonly pickFilters: typeof pickFilters;
-  readonly pickPagingInfo: typeof pickPagingInfo;
-  readonly pickSortingInfo: typeof pickSortingInfo;
-};
-
-function useReconstitutedState(
-  flatState: StopSearchUrlFlatState,
-): StopSearchSearchState {
-  const memoizedPickersRef = useRef<null | MemoizedPickers>(null);
-
-  memoizedPickersRef.current ??= {
-    pickFilters: memoizeOne(pickFilters, areEqual),
-    pickPagingInfo: memoizeOne(pickPagingInfo),
-    pickSortingInfo: memoizeOne(pickSortingInfo),
-  };
-
-  const memoizedPickers = memoizedPickersRef.current;
-
-  return {
-    filters: memoizedPickers.pickFilters(flatState),
-    pagingInfo: memoizedPickers.pickPagingInfo(flatState),
-    sortingInfo: memoizedPickers.pickSortingInfo(flatState),
-  };
-}
-
-function useSetter<T extends Readonly<Record<string, unknown>>>(
-  setFlatState: Dispatch<SetStateAction<StopSearchUrlFlatState>>,
-  pickFields: (flatState: StopSearchUrlFlatState) => T,
-): Dispatch<SetStateAction<T>> {
-  return useCallback(
-    (nextState) => {
-      if (typeof nextState === 'function') {
-        setFlatState((p) => ({ ...p, ...nextState(pickFields(p)) }));
-      } else {
-        setFlatState((p) => ({ ...p, ...nextState }));
-      }
-    },
-    [setFlatState, pickFields],
-  );
-}
+const defaultValues: StopSearchUrlFlatState = makeDefaultValues(
+  defaultFilters,
+  defaultSortingInfo.sortBy,
+);
 
 function useStopSearchRouterStateImpl() {
-  const {
-    state: { search, history },
-    setSearchState,
-    setHistoryState,
-  } = useTypedRouterState<StopSearchUrlFlatState, StopSearchHistoryState>({
-    search: {
-      serializers,
-      deserializers,
-      defaultValues,
-    },
-    history: {
-      defaultValues: defaultHistoryValues,
-      assertShape: assertHistoryStateShape,
-    },
-  });
-
-  const state: StopSearchSearchState = useReconstitutedState(search);
-
-  const setFilters = useSetter(setSearchState, pickFilters);
-  const setPagingInfo = useSetter(setSearchState, pickPagingInfo);
-  const setSortingInfo = useSetter(setSearchState, pickSortingInfo);
-
-  return {
-    state,
-    historyState: history,
-    setFilters,
-    setPagingInfo,
-    setSortingInfo,
-    setSearchState,
-    setHistoryState,
-  };
+  return useSearchPageRouterState<StopSearchFilters, SortStopsBy>(
+    serializers,
+    deserializers,
+    defaultValues,
+  );
 }
 
 const stopSearchRouterStateContext = createContext<ReturnType<

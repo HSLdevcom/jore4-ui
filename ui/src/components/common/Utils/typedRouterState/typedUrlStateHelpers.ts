@@ -1,4 +1,6 @@
+import { ZodArray, ZodTypeAny, z } from 'zod';
 import { knownPriorityValues } from '../../../../types/enums';
+import { AllOptionEnum } from '../../../../utils';
 
 const quayNetexPrefix = 'HSL:Quay:';
 export const SEPARATOR = ',';
@@ -29,9 +31,9 @@ export function splitString(
  *
  * @param knownValues Object.values(MyEnum)
  */
-export function toEnum<T extends string | number>(
+export function toEnum<T extends string>(
   knownValues: ReadonlyArray<T>,
-): (value: T extends string ? string : number) => T {
+): (value: string) => T {
   return (value) => {
     if (knownValues.includes(value as ExplicitAny)) {
       return value as unknown as T;
@@ -43,10 +45,30 @@ export function toEnum<T extends string | number>(
   };
 }
 
-const toPriority = toEnum(knownPriorityValues);
+/**
+ * Create a deserializer for Integer enum `enum My { A = 1, B = 2 }`
+ *
+ * @param knownValues Object.values(MyEnum)
+ */
+export function toIntEnum<T extends number>(
+  knownValues: ReadonlyArray<T>,
+): (value: string) => T {
+  return (value) => {
+    const parsed = Number(value);
+    if (knownValues.includes(parsed as ExplicitAny)) {
+      return parsed as unknown as T;
+    }
+
+    throw new TypeError(
+      `Value (${value}) is not a valid enum value! Known values are: ${knownValues}`,
+    );
+  };
+}
+
+const toPriority = toIntEnum(knownPriorityValues);
 
 export function parsePriorities(value: string) {
-  return splitString(value).map(Number).map(toPriority);
+  return splitString(value).map(toPriority);
 }
 
 /**
@@ -65,4 +87,42 @@ export function serializeQuayNetexIdList(value: ReadonlyArray<string>) {
  */
 export function parseQuayNetexIdList(value: string): ReadonlyArray<string> {
   return splitString(value).map((id) => `${quayNetexPrefix}${id}`);
+}
+
+/**
+ * If All is included -> [All]
+ * If empty -> [All]
+ * Else -> [input list]
+ *
+ * @param values
+ */
+function cleanupEnumArrayWithAllOption<Enum>(
+  values: Array<Enum | AllOptionEnum>,
+): Array<Enum | AllOptionEnum> {
+  if (values.length && !values.includes(AllOptionEnum.All)) {
+    return values;
+  }
+
+  return [AllOptionEnum.All];
+}
+
+export function parseZodEnumArray<
+  EnumT extends ZodTypeAny,
+  Parser extends ZodArray<EnumT>,
+>(
+  parser: Parser,
+  cleanerFn: (dirty: z.output<Parser>) => z.output<Parser>,
+): (value: string) => z.output<Parser> {
+  return (value) => {
+    const splut = splitString(value);
+    const parsed = parser.parse(splut);
+    return cleanerFn(parsed);
+  };
+}
+
+export function parseZodEnumArrayWithAllOption<
+  EnumT extends ZodTypeAny,
+  Parser extends ZodArray<EnumT>,
+>(parser: Parser): (value: string) => z.output<Parser> {
+  return parseZodEnumArray(parser, cleanupEnumArrayWithAllOption);
 }
