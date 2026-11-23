@@ -76,6 +76,7 @@ describe(`<${LineRouteList.name} />`, () => {
             },
             version_comment: null,
             on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
+            accounting_distance_in_metres: null,
             route_shape: {
               type: 'LineString',
               coordinates: [
@@ -123,6 +124,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       [24.929195905850854, 60.16425075458953, 8.62099999999919],
                     ],
                   },
+                  estimated_length_in_metres: null,
                   direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
                   external_link_source:
@@ -268,6 +270,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       [24.932010800782077, 60.16523749159016, 10.900999999998],
                     ],
                   },
+                  estimated_length_in_metres: null,
                   direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
                   external_link_source:
@@ -398,6 +401,7 @@ describe(`<${LineRouteList.name} />`, () => {
                       [24.934523101958195, 60.16611826776014, 15.5639999999985],
                     ],
                   },
+                  estimated_length_in_metres: null,
                   direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
                   external_link_source:
