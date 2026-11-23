@@ -14,9 +14,9 @@ export const HastusCode: FC<HastusCodeProps> = ({
 }) => {
   if (isUsedAsTimingPoint) {
     return (
-      <div className="relative">
+      <div className="flex items-center">
         <span data-testid={testId}>{hastusCode}</span>
-        <span className="absolute my-1 text-green-700">
+        <span className="ml-1 text-green-700">
           <GoDotFill />
         </span>
       </div>

@@ -1327,6 +1327,7 @@
     "timingSettingsModalTitle": "{{ label }} | Aika-asetukset",
     "isUsedAsTimingPoint": "Käytä Hastus-paikkaa",
     "isRegulatedTimingPoint": "Käytä ajantasauspysäkkinä",
+    "regulatedTimingPointTitle": "Ajantasauspysäkki",
     "isLoadingTimeAllowed": "Lastausaika sallittu",
     "saveSuccess": "Aika-asetusten tallennus onnistui"
   },

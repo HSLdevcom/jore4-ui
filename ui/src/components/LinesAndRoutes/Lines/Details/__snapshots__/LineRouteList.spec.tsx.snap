@@ -534,18 +534,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 0 | 
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 0 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      />
                     </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
                   </div>
                 </td>
                 <td
@@ -572,38 +577,43 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 0 | 
-                    </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    >
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 0 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
                       />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      >
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -759,18 +769,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 2 | 
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 2 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      />
                     </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
                   </div>
                 </td>
                 <td
@@ -797,38 +812,43 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 2 | 
-                    </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    >
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 2 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
                       />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      >
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -1234,18 +1254,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 0 | 
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 0 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      />
                     </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
                   </div>
                 </td>
                 <td
@@ -1272,38 +1297,43 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 0 | 
-                    </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    >
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 0 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
                       />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      >
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -1459,18 +1489,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 1 | 
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 1 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      />
                     </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
                   </div>
                 </td>
                 <td
@@ -1497,38 +1532,43 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 1 | 
-                    </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    >
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 1 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
                       />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      >
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -1674,18 +1714,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   class="border-y border-y-light-grey border-l border-l-background @max-5xl:hidden w-full p-3 align-top text-sm @5xl:px-8"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 2 | 
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 2 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      />
                     </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
                   </div>
                 </td>
                 <td
@@ -1712,38 +1757,43 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   class="border-y border-y-light-grey border-l border-l-background @5xl:hidden w-full p-3 align-top whitespace-nowrap"
                 >
                   <div
-                    class="flex flex-col"
+                    class="flex flex-row h-full"
+                    title=""
                   >
                     <div
-                      class="flex flex-row font-bold"
-                      title=""
+                      class="flex flex-col"
                     >
-                      Pysäkkialue 2 | 
-                    </div>
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    />
-                    <div
-                      class="flex flex-row"
-                      title=""
-                    >
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
+                      <div
+                        class="flex flex-row font-bold"
+                        title=""
+                      >
+                        Pysäkkialue 2 | 
+                      </div>
+                      <div
+                        class="flex flex-row"
+                        title=""
                       />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
-                      <i
-                        aria-hidden="true"
-                        class="icon-placeholder-dot text-light-grey text-4xl"
-                      />
+                      <div
+                        class="flex flex-row"
+                        title=""
+                      >
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                        <i
+                          aria-hidden="true"
+                          class="icon-placeholder-dot text-light-grey text-4xl"
+                        />
+                      </div>
                     </div>
                   </div>
                 </td>
