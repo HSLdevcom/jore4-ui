@@ -12,7 +12,10 @@ import { FormRow, Row } from '../../../../common/LayoutComponents';
 import { AffectedRouteLabels } from '../../../../Timetables/Common/AffectedRouteLabels';
 import { ExistingStopValidityRange } from './Types';
 import { LinesByStop } from './Types/LinesByStopResult';
-import { ValidityRangeIsValidVirtualField } from './ValidityRangeIsValidVirtualField';
+import {
+  StopAreaValidity,
+  ValidityRangeIsValidVirtualField,
+} from './ValidityRangeIsValidVirtualField';
 
 const testIds = {
   form: 'StopVersionForm::form',
@@ -24,6 +27,7 @@ type StopVersionFormProps = {
   readonly className?: string;
   readonly existingValidityRanges?: ReadonlyArray<ExistingStopValidityRange>;
   readonly isEditing?: boolean;
+  readonly stopAreaValidity?: StopAreaValidity | null;
   readonly affectedLines?: ReadonlyArray<LinesByStop>;
   readonly onCancel: () => void;
   readonly onSubmit: FormEventHandler<HTMLFormElement>;
@@ -33,6 +37,7 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
   className,
   existingValidityRanges,
   isEditing,
+  stopAreaValidity,
   affectedLines,
   onCancel,
   onSubmit,
@@ -59,6 +64,7 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
         <ValidityRangeIsValidVirtualField
           existingValidityRanges={existingValidityRanges}
           isEditing={isEditing}
+          stopAreaValidity={stopAreaValidity}
         />
       )}
       {affectedLines && (
