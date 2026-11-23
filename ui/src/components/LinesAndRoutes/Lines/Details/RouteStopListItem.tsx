@@ -135,6 +135,9 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   const isUsedAsTimingPoint =
     scheduledStopPointInJourneyPattern?.is_used_as_timing_point;
 
+  const isRegulatedTimingPoint =
+    scheduledStopPointInJourneyPattern?.is_regulated_timing_point;
+
   const alertStatus = getAlertStatus(t, {
     ...stop,
     hasContinuingVersion: hasContinuingVersion(
@@ -181,19 +184,20 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   };
 
   const nameExtras = (
-    <>
-      <AlertPopover
-        title={alertStatus.title}
-        description={alertStatus.description}
-        alertIcon={alertStyle.icon}
+    <AlertPopover
+      title={alertStatus.title}
+      description={alertStatus.description}
+      alertIcon={alertStyle.icon}
+    />
+  );
+
+  const viaIcon = (
+    <Visible visible={isViaPoint}>
+      <i
+        data-testid={testIds.viaIcon}
+        className="icon-via mx-2 self-center text-4xl text-hsl-dark-green"
       />
-      <Visible visible={isViaPoint}>
-        <i
-          data-testid={testIds.viaIcon}
-          className="icon-via mx-2 text-4xl text-hsl-dark-green"
-        />
-      </Visible>
-    </>
+    </Visible>
   );
 
   return (
@@ -210,7 +214,11 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
       <PriorityTd className={cells.priority} stop={rowStop} />
 
       <td className={cells.label}>
-        <StopLabelLink observationDate={observationDate} stop={rowStop} />
+        <StopLabelLink
+          observationDate={observationDate}
+          stop={rowStop}
+          isRegulatedTimingPoint={isRegulatedTimingPoint}
+        />
         <div className="mt-2 flex items-center text-sm">
           {hastusCode ? (
             <HastusCode
@@ -232,7 +240,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
                 stopLabel,
               })}`}
               onClick={showTimingSettingsModal}
-              className="ml-2 rounded-full leading-none"
+              className="rounded-full leading-none"
               disabled={!stopBelongsToJourneyPattern}
             />
           )}
@@ -245,6 +253,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         className={cells.nameWide}
         stop={rowStop}
         nameDetails={nameDetails}
+        sideContent={viaIcon}
       >
         {nameExtras}
       </NameTd>
@@ -255,6 +264,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
         className={cells.nameAndIconsNarrow}
         stop={rowStop}
         nameDetails={nameDetails}
+        sideContent={viaIcon}
       >
         {nameExtras}
       </NameAndIconsTd>

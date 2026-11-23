@@ -9,6 +9,7 @@ import { StopSearchRow } from '../types';
 type StopLabelLinkProps = {
   readonly observationDate: Temporal.PlainDate;
   readonly stop: StopSearchRow;
+  readonly isRegulatedTimingPoint?: boolean;
 };
 
 const testIds = {
@@ -18,6 +19,7 @@ const testIds = {
 export const StopLabelLink: FC<StopLabelLinkProps> = ({
   observationDate,
   stop,
+  isRegulatedTimingPoint,
 }) => {
   const { t } = useTranslation();
 
@@ -26,7 +28,7 @@ export const StopLabelLink: FC<StopLabelLinkProps> = ({
       {stop.transportModes.map((mode) => (
         <StopTransportModeIcon
           key={mode}
-          className="mx-2 text-xl not-last-of-type:-mr-1"
+          className="mr-1 text-xl"
           mode={mode}
           active={stop.activeTransportModes.includes(mode)}
           trunkLine={stop.trunkLineStop}
@@ -47,6 +49,13 @@ export const StopLabelLink: FC<StopLabelLinkProps> = ({
       >
         <h2>{stop.publicCode}</h2>
       </Link>
+
+      {isRegulatedTimingPoint && (
+        <i
+          className="icon-time ml-1 text-xl text-gray-600"
+          title={t(($) => $.timingSettingsModal.regulatedTimingPointTitle)}
+        />
+      )}
     </Row>
   );
 };

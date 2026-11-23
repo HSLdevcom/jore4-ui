@@ -1327,6 +1327,7 @@
     "timingSettingsModalTitle": "{{ label }} | Timing settings",
     "isUsedAsTimingPoint": "Use Hastus place",
     "isRegulatedTimingPoint": "Is regulated timing point",
+    "regulatedTimingPointTitle": "Regulated timing point",
     "isLoadingTimeAllowed": "Is loading time allowed",
     "saveSuccess": "Time settings saved"
   },

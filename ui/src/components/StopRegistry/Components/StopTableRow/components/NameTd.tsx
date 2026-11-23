@@ -6,16 +6,20 @@ export const NameTd: FC<
   StopRowTdProps & {
     readonly children?: ReactNode;
     readonly nameDetails?: ReactNode;
+    readonly sideContent?: ReactNode;
   }
-> = ({ children, nameDetails, className, stop }) => (
+> = ({ children, nameDetails, sideContent, className, stop }) => (
   <td className={className}>
-    <Column>
-      <Row className="font-bold">
-        {stop.nameFin} | {stop.nameSwe}
-        {children}
-      </Row>
-      {nameDetails}
-      <Row>{stop.description}</Row>
-    </Column>
+    <Row className="h-full">
+      <Column>
+        <Row className="font-bold">
+          {stop.nameFin} | {stop.nameSwe}
+          {children}
+        </Row>
+        {nameDetails}
+        <Row>{stop.description}</Row>
+      </Column>
+      {sideContent}
+    </Row>
   </td>
 );
