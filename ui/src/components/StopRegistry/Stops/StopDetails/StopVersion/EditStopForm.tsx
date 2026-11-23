@@ -34,6 +34,7 @@ export const EditStopForm: FC<EditStopFormProps> = ({
         className={className}
         existingValidityRanges={existingValidityRanges}
         isEditing
+        stopAreaValidity={originalStop.stop_place}
         affectedLines={affectedLines}
         onCancel={onCancel}
         onSubmit={methods.handleSubmit(onFormSubmit)}

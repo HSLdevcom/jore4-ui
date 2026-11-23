@@ -3,7 +3,15 @@ import { FC, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Priority } from '../../../../../types/enums';
-import { today as getToday, mapToShortDate } from '../../../../../utils/time';
+import {
+  getValidityContainmentViolation,
+  mapToValidityPeriod,
+} from '../../../../../utils';
+import {
+  today as getToday,
+  mapToShortDate,
+  parseDate,
+} from '../../../../../utils/time';
 import { ValidationErrorList } from '../../../../common/Inputs';
 import { ExistingStopValidityRange, StopVersionFormState } from './Types';
 
@@ -31,6 +39,11 @@ type FormInfo = {
   readonly priority: Priority;
 };
 
+export type StopAreaValidity = {
+  readonly validityStart?: string | null;
+  readonly validityEnd?: string | null;
+};
+
 function getOverlappingValidityRange(
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
   formInfo: FormInfo,
@@ -53,7 +66,7 @@ function getOverlappingValidityRange(
   );
 }
 
-function resolveErrorMessage(
+export function resolveErrorMessage(
   t: TFunction,
   priority: Priority,
   validityStart: string,
@@ -62,6 +75,7 @@ function resolveErrorMessage(
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
   validityEndTouched: boolean,
   isEditing?: boolean,
+  stopAreaValidity?: StopAreaValidity | null,
 ): string | null {
   // If end is before start
   if (validityStart && !indefinite && validityEnd) {
@@ -81,6 +95,28 @@ function resolveErrorMessage(
     return validityEndTouched
       ? t(($) => $.formValidation.stopValidityEndNotDefined)
       : null;
+  }
+
+  if (
+    stopAreaValidity?.validityStart &&
+    getValidityContainmentViolation(
+      {
+        validity_start: parseDate(validityStart),
+        validity_end: indefinite ? null : parseDate(validityEnd),
+      },
+      {
+        validity_start: parseDate(stopAreaValidity.validityStart),
+        validity_end: parseDate(stopAreaValidity.validityEnd),
+      },
+    )
+  ) {
+    return t(($) => $.stops.stopAreaValidityNotEnough, {
+      validity: mapToValidityPeriod(
+        t,
+        parseDate(stopAreaValidity.validityStart),
+        parseDate(stopAreaValidity.validityEnd),
+      ),
+    });
   }
 
   const overlappingRange = getOverlappingValidityRange(existingValidityRanges, {
@@ -106,6 +142,7 @@ function resolveErrorMessage(
 function useValidateValidityPeriod(
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
   isEditing?: boolean,
+  stopAreaValidity?: StopAreaValidity | null,
 ) {
   const { t } = useTranslation();
 
@@ -136,6 +173,7 @@ function useValidateValidityPeriod(
         existingValidityRanges,
         validityEndTouched,
         isEditing,
+        stopAreaValidity,
       ),
     [
       t,
@@ -146,6 +184,7 @@ function useValidateValidityPeriod(
       existingValidityRanges,
       validityEndTouched,
       isEditing,
+      stopAreaValidity,
     ],
   );
 
@@ -164,12 +203,17 @@ function useValidateValidityPeriod(
 type ValidityRangeIsValidVirtualFieldProps = {
   readonly existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>;
   readonly isEditing?: boolean;
+  readonly stopAreaValidity?: StopAreaValidity | null;
 };
 
 export const ValidityRangeIsValidVirtualField: FC<
   ValidityRangeIsValidVirtualFieldProps
-> = ({ existingValidityRanges, isEditing }) => {
-  useValidateValidityPeriod(existingValidityRanges, isEditing);
+> = ({ existingValidityRanges, isEditing, stopAreaValidity }) => {
+  useValidateValidityPeriod(
+    existingValidityRanges,
+    isEditing,
+    stopAreaValidity,
+  );
 
   return (
     <ValidationErrorList<StopVersionFormState>
