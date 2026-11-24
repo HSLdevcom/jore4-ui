@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { Column, Row } from '../../../../common/LayoutComponents';
 import { StopRowTdProps } from '../types';
 
@@ -9,8 +10,8 @@ export const NameTd: FC<
     readonly sideContent?: ReactNode;
   }
 > = ({ children, nameDetails, sideContent, className, stop }) => (
-  <td className={className}>
-    <Row className="h-full">
+  <>
+    <td className={className}>
       <Column>
         <Row className="font-bold">
           {stop.nameFin} | {stop.nameSwe}
@@ -19,7 +20,9 @@ export const NameTd: FC<
         {nameDetails}
         <Row>{stop.description}</Row>
       </Column>
+    </td>
+    <td className={twMerge(className, 'border-l-0 align-middle')}>
       {sideContent}
-    </Row>
-  </td>
+    </td>
+  </>
 );
