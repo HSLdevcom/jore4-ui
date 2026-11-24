@@ -32,7 +32,10 @@ function vehicleJourney(vehicleTypeName: string) {
   };
 }
 
-function createScheduleStopPointInstance(timingPlaceLabel: string) {
+function createScheduleStopPointInstance(
+  timingPlaceLabel: string,
+  stopName?: string,
+) {
   return {
     direction: InfrastructureNetworkDirectionEnum.Forward,
     label: '',
@@ -43,6 +46,11 @@ function createScheduleStopPointInstance(timingPlaceLabel: string) {
     timing_place: {
       label: timingPlaceLabel,
       timing_place_id: '',
+    },
+    newest_quay: {
+      stop_place: {
+        name_value: stopName,
+      },
     },
     validity_end: Temporal.PlainDate.from('2051-01-01'),
     validity_start: Temporal.PlainDate.from('1990-01-01'),
@@ -82,12 +90,14 @@ function createTimetabledPassingTime({
 function createTimetabledPassingTimeWithStopPoint({
   label,
   timingPlaceLabel,
+  stopName,
   passingTime,
   arrivalTime,
   departureTime,
 }: {
   label: string;
   timingPlaceLabel: string;
+  stopName?: string;
   passingTime: Temporal.Duration;
   arrivalTime?: Temporal.Duration;
   departureTime?: Temporal.Duration;
@@ -99,8 +109,10 @@ function createTimetabledPassingTimeWithStopPoint({
     departureTime,
   });
 
-  const scheduledStopPointInstance =
-    createScheduleStopPointInstance(timingPlaceLabel);
+  const scheduledStopPointInstance = createScheduleStopPointInstance(
+    timingPlaceLabel,
+    stopName,
+  );
 
   return {
     ...timetabledPassingTime,
@@ -119,12 +131,14 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
         createTimetabledPassingTimeWithStopPoint({
           label: 'H2210',
           timingPlaceLabel: '1ELIEL',
+          stopName: 'Rautatientori',
           passingTime: Temporal.Duration.from('PT9H37M'),
           arrivalTime: Temporal.Duration.from('PT9H37M'),
         }),
         createTimetabledPassingTimeWithStopPoint({
           label: 'H2210',
           timingPlaceLabel: '1ELIEL',
+          stopName: 'Rautatientori',
           passingTime: Temporal.Duration.from('PT9H42M'),
           arrivalTime: Temporal.Duration.from('PT9H42M'),
         }),
@@ -269,7 +283,7 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
     );
 
     const rowH2210 = getByTestId('PassingTimesByStopTableRow::H2210');
-    shouldHaveCorrectLabelTexts(rowH2210, ['H2210', '1ELIEL']);
+    shouldHaveCorrectLabelTexts(rowH2210, ['H2210', 'Rautatientori', '1ELIEL']);
 
     const timeContainerH2210 = getAssertedElement(
       rowH2210.querySelector(selectors.timeContainer),

@@ -32,6 +32,11 @@ const GQL_PASSING_TIME = gql`
           label
           timing_place_id
         }
+        newest_quay {
+          stop_place: stop_place_newest_version {
+            name_value
+          }
+        }
       }
     }
     vehicle_journey {
@@ -100,7 +105,9 @@ export const PassingTimesByStopTableRow: FC<
       <td className="border border-brand p-3">
         <Column>
           <h5>{label}</h5>
-          <p className="text-sm">!Pysäkin nimi</p>
+          <p className="text-sm">
+            {stopMetadata?.newest_quay?.stop_place?.name_value}
+          </p>
           <p className="mt-3 text-sm">
             {isUsedAsTimingPoint
               ? stopMetadata?.timing_place?.label
