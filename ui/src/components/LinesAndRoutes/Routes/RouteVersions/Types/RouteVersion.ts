@@ -1,4 +1,4 @@
-import { LineString } from 'geojson';
+import type { LineString } from 'geojson';
 import { RouteDirectionEnum } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 import { VersionStatus } from '../../../../common/Versions';

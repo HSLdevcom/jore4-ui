@@ -1,6 +1,5 @@
 // null values are valid for patches, so here checking for undefined values only
 export function defaultTo<V, D>(value: V, defaultValue: D) {
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   return value === undefined ? defaultValue : value;
 }
 

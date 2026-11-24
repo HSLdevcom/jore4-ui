@@ -1,4 +1,9 @@
-import { Feature, Point as GeoJSONPoint, Geometry, Position } from 'geojson';
+import type {
+  Feature,
+  Point as GeoJSONPoint,
+  Geometry,
+  Position,
+} from 'geojson';
 import flow from 'lodash/flow';
 import {
   StopRegistryGeoJson,
