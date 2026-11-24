@@ -11,19 +11,17 @@ export const NameAndIconsTd: FC<
   }
 > = ({ children, nameDetails, sideContent, className, stop }) => (
   <td className={className}>
-    <Row className="h-full">
-      <Column>
-        <Row className="font-bold">
-          {stop.nameFin} | {stop.nameSwe}
-          {children}
-        </Row>
-        {nameDetails}
-        <Row>{stop.description}</Row>
-        <Row>
-          <Icons stop={stop} />
-        </Row>
-      </Column>
-      {sideContent}
-    </Row>
+    <Column>
+      <Row className="font-bold">
+        {stop.nameFin} | {stop.nameSwe}
+        {children}
+      </Row>
+      {nameDetails}
+      <Row>{stop.description}</Row>
+      <Row>
+        <Icons stop={stop} />
+      </Row>
+      {sideContent && <Row>{sideContent}</Row>}
+    </Column>
   </td>
 );
