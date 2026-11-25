@@ -28,7 +28,7 @@ DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
 DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2e" "jore4-testdb-e2e")
 
-ROUTES_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
+JORE4_MAIN_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4main
 
 INCLUDE_E2E=true
 USE_VOLUMES=false
@@ -86,7 +86,7 @@ wait_for_database() {
   SUCCESS=false
   while ! $SUCCESS; do
     echo "$1: Checking if SQL query is true: $2"
-    if [[ $(docker exec "$1" psql $ROUTES_DB_CONNECTION_STRING -AXqtc "$2" 2> /dev/null) = "t" ]]; then
+    if [[ $(docker exec "$1" psql $JORE4_MAIN_DB_CONNECTION_STRING -AXqtc "$2" 2> /dev/null) = "t" ]]; then
         SUCCESS=true
     fi
     sleep 2
@@ -118,7 +118,7 @@ seed_infra_links() {
   wait_for_database_table "$1" infrastructure_network infrastructure_link
 
   echo "$1: infraLinks.sql..."
-  docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
+  docker exec -i "$1" psql $JORE4_MAIN_DB_CONNECTION_STRING < "infraLinks.sql";
 
   echo "$1: Done seeding infrastructure links."
 }

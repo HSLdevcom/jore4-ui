@@ -14,7 +14,7 @@ services:
     #image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-11-19-75e2b9396dad8c114433d4fc0025b5116a04709a"
     container_name: "tiamat-e2e"
     environment:
-      - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
+      - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/jore4main?currentSchema=stopregistry&stringtype=unspecified
       - TIAMAT_HAZELCAST_CLUSTER=tiamatE2E
     ports:
       - "127.0.0.1:3110:1888"

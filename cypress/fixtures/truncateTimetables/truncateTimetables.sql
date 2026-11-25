@@ -1,12 +1,13 @@
 TRUNCATE
-journey_pattern.journey_pattern_ref,
+timetables.journey_pattern_ref,
 return_value.timetable_version,
-service_calendar.substitute_operating_day_by_line_type,
-service_calendar.substitute_operating_period,
-service_pattern.scheduled_stop_point_in_journey_pattern_ref,
-vehicle_schedule.vehicle_schedule_frame,
-vehicle_journey.vehicle_journey,
-vehicle_service.vehicle_service,passing_times.timetabled_passing_time,
-vehicle_service.block,
-vehicle_service.journey_patterns_in_vehicle_service
+timetables.substitute_operating_day_by_line_type,
+timetables.substitute_operating_period,
+timetables.scheduled_stop_point_in_journey_pattern_ref,
+timetables.vehicle_schedule_frame,
+timetables.vehicle_journey,
+timetables.vehicle_service,
+timetables.timetabled_passing_time,
+timetables.block,
+timetables.journey_patterns_in_vehicle_service
 RESTART IDENTITY;

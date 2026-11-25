@@ -10,7 +10,6 @@ services:
       HASURA_API_URL: http://jore4-hasura:8080/v1/graphql
       POSTGRES_HOST: jore4-testdb
       POSTGRES_PORT: 5432
-      POSTGRES_DB: jore4e2e
       POSTGRES_USER: dbadmin
       POSTGRES_PASSWORD: adminpassword
     networks:

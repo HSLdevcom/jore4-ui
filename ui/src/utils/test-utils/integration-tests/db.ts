@@ -7,10 +7,10 @@ import {
   StopInJourneyPatternInsertInput,
   StopInsertInput,
   VehicleSubmodeOnInfraLinkInsertInput,
-  e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
   insertVehicleSubmodeOnInfraLink,
+  jore4MainDatabaseConfig,
   mapToCreateInfraLinkAlongRouteMutation,
   mapToCreateInfraLinksMutation,
   mapToCreateJourneyPatternsMutation,
@@ -63,7 +63,7 @@ export async function insertToDbHelper({
     );
   }
   if (vehicleSubmodeOnInfrastructureLink) {
-    const db = getDbConnection(e2eDatabaseConfig);
+    const db = getDbConnection(jore4MainDatabaseConfig);
     await insertVehicleSubmodeOnInfraLink(
       db,
       vehicleSubmodeOnInfrastructureLink,
@@ -138,7 +138,7 @@ export async function removeFromDbHelper({
     await hasuraApi(mutation).then((res) => logOnError('Removing stops', res));
   }
   if (vehicleSubmodeOnInfrastructureLink) {
-    const db = getDbConnection(e2eDatabaseConfig);
+    const db = getDbConnection(jore4MainDatabaseConfig);
     await removeVehicleSubmodeOnInfraLink(
       db,
       vehicleSubmodeOnInfrastructureLink,
