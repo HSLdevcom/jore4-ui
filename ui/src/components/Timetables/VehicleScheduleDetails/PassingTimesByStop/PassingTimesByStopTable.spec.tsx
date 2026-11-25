@@ -48,7 +48,9 @@ function createScheduleStopPointInstance(
       timing_place_id: '',
     },
     newest_quay: {
+      netex_id: '',
       stop_place: {
+        id: '',
         name_value: stopName,
       },
     },

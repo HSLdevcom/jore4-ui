@@ -33,7 +33,9 @@ const GQL_PASSING_TIME = gql`
           timing_place_id
         }
         newest_quay {
-          stop_place: stop_place_newest_version {
+          netex_id
+          stop_place {
+            id
             name_value
           }
         }
