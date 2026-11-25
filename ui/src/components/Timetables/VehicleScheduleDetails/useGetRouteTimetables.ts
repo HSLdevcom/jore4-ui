@@ -254,6 +254,7 @@ export function useGetRouteTimetables(journeyPatternId?: UUID) {
               journey_pattern_id: journeyPatternId,
               observation_date: observationDate,
             },
+            fetchPolicy: 'no-cache',
           }
         : { skip: true },
     );
