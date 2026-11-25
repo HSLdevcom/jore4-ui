@@ -78,6 +78,10 @@ export const PassingTimesByStopTable: FC<PassingTimesByStopTableProps> = ({
           const stopLabel = stopInJourneyPattern.scheduled_stop_point_label;
           const stopPassingTimes = passingTimesByStop[stopLabel];
 
+          if (!stopPassingTimes) {
+            return null;
+          }
+
           return (
             <PassingTimesByStopTableRow
               key={stopLabel}
