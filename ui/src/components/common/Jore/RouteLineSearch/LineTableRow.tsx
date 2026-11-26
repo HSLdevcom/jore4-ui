@@ -32,7 +32,11 @@ const GQL_LINE_TABLE_ROW = gql`
     type_of_line
     ...LineMapParams
     line_routes {
-      ...RouteMapParams
+      route_id
+      label
+      validity_start
+      validity_end
+      priority
       ...LineRouteSearchRouteWithJourneyPatternDetails
       unique_label
       direction

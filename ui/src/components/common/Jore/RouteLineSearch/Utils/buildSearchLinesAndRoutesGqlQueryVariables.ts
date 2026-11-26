@@ -12,7 +12,7 @@ import {
   AllOptionEnum,
   buildActiveDateGqlFilter,
   buildOptionalSearchConditionGqlFilter,
-  mapToSqlLikeValue,
+  queryToLike,
 } from '../../../../../utils';
 import { SearchConditions } from '../Types';
 
@@ -85,7 +85,7 @@ function buildSearchConditionGqlFilters({
   return {
     // Build all the generic filters.
     ...buildOptionalSearchConditionGqlFilter<string>(
-      mapToSqlLikeValue(searchConditions.query),
+      queryToLike(searchConditions.query),
       buildLabelLikeGqlFilter,
     ),
     priority: { _in: searchConditions.priorities },

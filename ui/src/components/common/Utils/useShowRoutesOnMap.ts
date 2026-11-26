@@ -4,6 +4,7 @@ import merge from 'lodash/merge';
 import {
   LineTableRowFragment,
   RouteMapParamsFragment,
+  useGetLineRouteShapeForMapLazyQuery,
 } from '../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../hooks';
 import {
@@ -38,9 +39,15 @@ const GQL_LINE_MAP_PARAMS = gql`
     label
     validity_start
     validity_end
-    line_routes {
-      route_id
-      route_shape
+  }
+`;
+
+const GQL_GET_LINE_ROUTE_SHAPE_FOR_MAP = gql`
+  query GetLineRouteShapeForMap($lineId: uuid!) {
+    route_line_by_pk(line_id: $lineId) {
+      line_routes(limit: 1, where: { route_shape: { _is_null: false } }) {
+        route_shape
+      }
     }
   }
 `;
@@ -57,7 +64,7 @@ function getFirstCoordinatesFromLineString(routeShape: LineString) {
  * After react-map-gl v7 we should have a trivial way of centering the map
  */
 function getRouteShapeFirstCoordinates(
-  route: RouteMapParamsFragment | undefined | null,
+  route: Pick<RouteMapParamsFragment, 'route_shape'> | undefined | null,
 ) {
   const routeShape = route?.route_shape;
 
@@ -80,6 +87,7 @@ type ShowRoutesOnMapParams = {
 export function useShowRoutesOnMap() {
   const dispatch = useAppDispatch();
   const navigateToMap = useNavigateToMap();
+  const [getLineRouteShapeForMap] = useGetLineRouteShapeForMapLazyQuery();
 
   const { observationDate: listViewObservationDate } =
     useObservationDateQueryParam({ initialize: false });
@@ -139,9 +147,12 @@ export function useShowRoutesOnMap() {
     dispatch(setSelectedRouteIdAction(route.route_id));
   };
 
-  const showRoutesOnMapByLineLabel = (line: LineTableRowFragment) => {
+  const showRoutesOnMapByLineLabel = async (line: LineTableRowFragment) => {
+    const { data } = await getLineRouteShapeForMap({
+      variables: { lineId: line.line_id },
+    });
     const { latitude, longitude } = getRouteShapeFirstCoordinates(
-      line.line_routes.at(0),
+      data?.route_line_by_pk?.line_routes.at(0),
     );
 
     // Draft routes are filtered out by the "show situation on the selected
