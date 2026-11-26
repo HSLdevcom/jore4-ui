@@ -228,6 +228,12 @@ start_docker_containers() {
   $DOCKER_COMPOSE_CMD up -d "$@"
 }
 
+stop_docker_containers() {
+  echo "Running Docker Compose command: $DOCKER_COMPOSE_CMD stop $*"
+
+  $DOCKER_COMPOSE_CMD stop "$@"
+}
+
 stop_dependencies() {
   docker compose --project-name "$COMPOSE_PROJECT_NAME" down --volumes
 }
@@ -379,17 +385,21 @@ setup_environment() {
 
   download_docker_compose_bundle
 
+  local additional_images=()
+  if [ "$INCLUDE_E2E" = true ]; then
+    additional_images+=("${DOCKER_E2E_IMAGES[@]}")
+  fi
+
+  # Restart services after restoring the dumps so that their startup migrations
+  # are applied even when setup is run against an existing environment.
+  stop_docker_containers "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
+
   start_docker_containers $DOCKER_TESTDB_IMAGE
 
   wait_for_database_table testdb public spatial_ref_sys
   import_dump $DUMP_ROUTES_FILENAME jore4e2e
   import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
   import_dump $DUMP_STOPS_FILENAME stopdb
-
-  local additional_images=()
-  if [ "$INCLUDE_E2E" = true ]; then
-    additional_images+=("${DOCKER_E2E_IMAGES[@]}")
-  fi
 
   start_docker_containers "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
 
