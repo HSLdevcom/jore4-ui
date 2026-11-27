@@ -12,7 +12,7 @@ import {
   setSelectedRouteIdAction,
   useAppDispatch,
 } from '../../../redux';
-import { Priority } from '../../../types/enums';
+import { Priority, temporaryPriorities } from '../../../types/enums';
 import { isDateInRange } from '../../../utils/time';
 import {
   DisplayedRouteParams,
@@ -89,7 +89,7 @@ export function useShowRoutesOnMap() {
     displayedRoute,
     validityStart,
     validityEnd,
-    priorities = [Priority.Standard, Priority.Temporary],
+    priorities = [Priority.Standard, ...temporaryPriorities],
     showSelectedDaySituation = true,
   }: ShowRoutesOnMapParams) => {
     // Use observation date from list view by default. If observation date
@@ -154,7 +154,7 @@ export function useShowRoutesOnMap() {
       },
       priorities: isDraft
         ? [Priority.Draft]
-        : [Priority.Standard, Priority.Temporary],
+        : [Priority.Standard, ...temporaryPriorities],
       showSelectedDaySituation: !isDraft,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: line.validity_start!,
@@ -170,7 +170,7 @@ export function useShowRoutesOnMap() {
       displayedRoute: {
         routeId: route.route_id,
       },
-      priorities: [Priority.Standard, Priority.Temporary, Priority.Draft],
+      priorities: [Priority.Standard, ...temporaryPriorities, Priority.Draft],
       showSelectedDaySituation: false,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: route.validity_start!,

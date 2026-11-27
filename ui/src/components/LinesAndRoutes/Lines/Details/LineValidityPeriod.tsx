@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../../generated/graphql';
-import { Priority } from '../../../../types/enums';
+import { Priority, isTemporaryPriority } from '../../../../types/enums';
 import { mapPriorityToUiName } from '../../../../utils/i18n';
 import { mapToShortDate } from '../../../../utils/time';
 import { Row } from '../../../common/LayoutComponents';
+import { PrioritySymbol } from '../../../common/PrioritySymbol';
 
 const testIds = {
   validityPeriod: 'LineValidityPeriod::validityPeriod',
@@ -33,8 +34,8 @@ export const LineValidityPeriod: FC<LineValidityPeriodProps> = ({
 
   return (
     <Row className={className}>
-      {line.priority === Priority.Temporary && (
-        <i className="icon-temporary text-xl text-city-bicycle-yellow" />
+      {isTemporaryPriority(line.priority) && (
+        <PrioritySymbol priority={line.priority} />
       )}
       {line.priority !== Priority.Standard && (
         <>

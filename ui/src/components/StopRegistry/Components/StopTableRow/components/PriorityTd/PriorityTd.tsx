@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { mapPriorityToUiName } from '../../../../../../utils/i18n';
 import { today } from '../../../../../../utils/time';
 import { StopRowTdProps, StopSearchRow } from '../../types';
 import { PriorityIcon } from './PriorityIcon';
@@ -53,7 +54,7 @@ function getAboutToEndTitle(
 
 function useTitle(
   type: PriorityVisualizationType,
-  { validityEnd }: StopSearchRow,
+  { priority, validityEnd }: StopSearchRow,
 ): string | undefined {
   const { t } = useTranslation();
 
@@ -68,7 +69,7 @@ function useTitle(
 
     case PriorityVisualizationType.TEMPORARY:
       return t(($) => $.priority.labelAndPriority, {
-        priority: t(($) => $.priority.temporary),
+        priority: mapPriorityToUiName(t, priority),
       });
 
     case PriorityVisualizationType.DRAFT:
@@ -93,7 +94,7 @@ export const PriorityTd: FC<StopRowTdProps> = ({ className, stop }) => {
     >
       <div className="flex h-full">
         <SideBar type={visualizationType} />
-        <PriorityIcon type={visualizationType} />
+        <PriorityIcon type={visualizationType} priority={stop.priority} />
       </div>
     </td>
   );

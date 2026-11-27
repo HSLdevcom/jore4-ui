@@ -9,60 +9,23 @@ function getPriorityButton(testId: string) {
   return cy.getByTestId(testId).should('be.visible').and('be.enabled');
 }
 
+const priorityButtonTestId = (priority: Priority) =>
+  `PriorityForm::${Priority[priority].toLowerCase()}PriorityButton`;
+
 export class PriorityForm {
-  static setAsStandard() {
-    return getPriorityButton(
-      'PriorityForm::standardPriorityButton',
-    ).scrollIntoViewAndClick();
-  }
+  static setPriority = (priority: Priority) =>
+    getPriorityButton(priorityButtonTestId(priority)).scrollIntoViewAndClick();
 
-  static setAsDraft() {
-    return getPriorityButton(
-      'PriorityForm::draftPriorityButton',
-    ).scrollIntoViewAndClick();
-  }
+  static setAsStandard = () => PriorityForm.setPriority(Priority.Standard);
 
-  static setAsTemporary() {
-    return getPriorityButton(
-      'PriorityForm::temporaryPriorityButton',
-    ).scrollIntoViewAndClick();
-  }
+  static setAsTemporary = () => PriorityForm.setPriority(Priority.Temporary);
 
-  static setPriority = (priority: Priority) => {
-    switch (priority) {
-      case Priority.Draft:
-        PriorityForm.setAsDraft();
-        break;
-      case Priority.Temporary:
-        PriorityForm.setAsTemporary();
-        break;
-      case Priority.Standard:
-        PriorityForm.setAsStandard();
-        break;
-      default:
-        throw new Error(`Unknown priority "${priority}"`);
-    }
-  };
+  static setAsDraft = () => PriorityForm.setPriority(Priority.Draft);
 
   static assertSelectedPriority(priority: Priority | undefined) {
-    switch (priority) {
-      case Priority.Draft:
-        cy.getByTestId('PriorityForm::draftPriorityButton').should(
-          'be.checked',
-        );
-        break;
-      case Priority.Temporary:
-        cy.getByTestId('PriorityForm::temporaryPriorityButton').should(
-          'be.checked',
-        );
-        break;
-      case Priority.Standard:
-        cy.getByTestId('PriorityForm::standardPriorityButton').should(
-          'be.checked',
-        );
-        break;
-      default:
-        throw new Error(`Unknown priority "${priority}"`);
+    if (priority === undefined) {
+      throw new Error('Priority must be given');
     }
+    cy.getByTestId(priorityButtonTestId(priority)).should('be.checked');
   }
 }

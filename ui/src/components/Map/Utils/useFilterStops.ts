@@ -3,11 +3,12 @@ import { useCallback } from 'react';
 import {
   ActiveTimeAndPriorityFilters,
   FilterType,
+  priorityFilterTypes,
+  priorityFilters,
   selectMapFilter,
   useAppSelector,
 } from '../../../redux';
 import { FilterableStopInfo } from '../../../types';
-import { Priority } from '../../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
   isCurrentEntity,
@@ -46,30 +47,15 @@ function getActiveTimeFilters(
   ].filter(({ type }) => filters[type]);
 }
 
-function hasPriority(
-  priority: Priority,
-  stop: { readonly priority: Priority },
-) {
-  return stop.priority === priority;
-}
-
 function getActivePriorityFilters(
   filters: ActiveTimeAndPriorityFilters,
 ): ReadonlyArray<TypeAndFilterFn> {
-  return [
-    {
-      type: FilterType.ShowStandard,
-      filterFunction: partial(hasPriority, Priority.Standard),
-    },
-    {
-      type: FilterType.ShowTemporary,
-      filterFunction: partial(hasPriority, Priority.Temporary),
-    },
-    {
-      type: FilterType.ShowDraft,
-      filterFunction: partial(hasPriority, Priority.Draft),
-    },
-  ].filter(({ type }) => filters[type]);
+  return priorityFilterTypes
+    .filter((type) => filters[type])
+    .map((type) => ({
+      type,
+      filterFunction: (stop) => priorityFilters[type].includes(stop.priority),
+    }));
 }
 
 function filterStopsByAnyTimeAndPriority<TStop extends FilterableStopInfo>(

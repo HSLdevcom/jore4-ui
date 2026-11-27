@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { Priority } from '../../../types/enums';
+import { Priority, isTemporaryPriority } from '../../../types/enums';
 import { isEndingSoon } from '../../../utils';
 import { DateLike } from '../../../utils/time';
 
@@ -68,7 +68,7 @@ export function getAlertStatus(
   }
 
   // if priority is temporary, it's "Warning"
-  if (input.priority === Priority.Temporary) {
+  if (isTemporaryPriority(input.priority)) {
     return {
       alertLevel: AlertLevel.Warning,
       title: t(($) => $.alert.warning.topic),

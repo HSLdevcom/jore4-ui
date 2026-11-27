@@ -1,30 +1,26 @@
 import { FC } from 'react';
-import { twJoin } from 'tailwind-merge';
+import { Priority } from '../../../../../../types/enums';
+import { PrioritySymbol } from '../../../../../common/PrioritySymbol';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
-import { SubComponentProps } from './SubComponentProps';
 
-const baseClasses = 'text-3xl';
+type PriorityIconProps = {
+  readonly type: PriorityVisualizationType;
+  readonly priority: Priority;
+};
 
-function getColorAndIconClassNames(
-  type: PriorityVisualizationType,
-): string | null {
-  switch (type) {
-    case PriorityVisualizationType.ABOUT_TO_END:
-      return `${baseClasses} text-hsl-red icon-alert`;
+const className = 'mx-2 mt-2 self-start';
 
-    case PriorityVisualizationType.TEMPORARY:
-      return `${baseClasses} text-city-bicycle-yellow icon-temporary-alt`;
-
-    case PriorityVisualizationType.DRAFT:
-      return `${baseClasses} text-light-grey icon-draft`;
-
-    default:
-      return `${baseClasses} text-light-grey icon-placeholder-dot`;
-  }
-}
-
-export const PriorityIcon: FC<SubComponentProps> = ({ type }) => (
-  <span
-    className={twJoin('mx-2 mt-2 self-start', getColorAndIconClassNames(type))}
-  />
-);
+export const PriorityIcon: FC<PriorityIconProps> = ({ type, priority }) =>
+  type === PriorityVisualizationType.ABOUT_TO_END ? (
+    <span className={`${className} icon-alert text-3xl text-hsl-red`} />
+  ) : (
+    <PrioritySymbol
+      className={className}
+      priority={
+        type === PriorityVisualizationType.UNKNOWN
+          ? Priority.Standard
+          : priority
+      }
+      variant="large"
+    />
+  );

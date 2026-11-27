@@ -4,10 +4,12 @@ import { RouteRouteBoolExp } from '../../../generated/graphql';
 import {
   ActiveTimeAndPriorityFilters,
   FilterType,
+  priorityFilterTypes,
+  priorityFilters,
   selectMapFilter,
   useAppSelector,
 } from '../../../redux';
-import { Priority } from '../../../types/enums';
+import { Priority, temporaryPriorities } from '../../../types/enums';
 import { buildActiveDateGqlFilter } from '../../../utils';
 import { useMapObservationDate } from './mapUrlState';
 
@@ -17,7 +19,7 @@ import { useMapObservationDate } from './mapUrlState';
  */
 const highestPriorityCurrentPriorities = [
   Priority.Standard,
-  Priority.Temporary,
+  ...temporaryPriorities,
 ];
 
 function buildTimeGqlFilter(
@@ -76,13 +78,9 @@ export function buildRouteGqlFilters(
     FilterType.ShowPast,
   ].filter((filterType) => timeAndPriorityFilters[filterType]);
 
-  const activePriorities = compact([
-    timeAndPriorityFilters[FilterType.ShowStandard] ? Priority.Standard : null,
-    timeAndPriorityFilters[FilterType.ShowTemporary]
-      ? Priority.Temporary
-      : null,
-    timeAndPriorityFilters[FilterType.ShowDraft] ? Priority.Draft : null,
-  ]);
+  const activePriorities = priorityFilterTypes
+    .filter((type) => timeAndPriorityFilters[type])
+    .flatMap((type) => priorityFilters[type]);
 
   return {
     routeFilters: {

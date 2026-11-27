@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { StopSelectionInfoFragment as StopSelectionInfo } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
 import { CloseIconButton } from '../../common/Buttons';
+import { PrioritySymbol } from '../../common/PrioritySymbol';
 
 const testIds = {
   stop: (
@@ -11,23 +12,6 @@ const testIds = {
     `Map::StopSelection::Stop::${publicCode ?? ''}${priority ? `-${priority}` : ''}`,
   removeButton: 'Map::StopSelection::RemoveSelection',
 };
-
-const baseIconClasses =
-  'text-3xl min-w-[48px] flex justify-center items-center';
-
-const knownPriorityIconsClasses: Readonly<Record<string, string>> = {
-  [Priority.Temporary]: `${baseIconClasses} text-city-bicycle-yellow icon-temporary-alt`,
-  [Priority.Draft]: `${baseIconClasses} text-light-grey icon-draft`,
-  [Priority.Standard]: `${baseIconClasses} text-light-grey icon-placeholder-dot`,
-};
-
-function getPriorityIconClasses(rawPriority?: Priority | null): string {
-  if (rawPriority) {
-    return knownPriorityIconsClasses[rawPriority] ?? baseIconClasses;
-  }
-
-  return baseIconClasses;
-}
 
 type SelectedStop = {
   readonly linkToDetailsPage: string;
@@ -48,7 +32,9 @@ export const SelectedStop: FC<SelectedStop> = ({
     className="flex p-2"
     data-testid={testIds.stop(stop.public_code, stop.priority)}
   >
-    <div className={getPriorityIconClasses(stop.priority)} />
+    <div className="flex min-w-[48px] items-center justify-center">
+      <PrioritySymbol priority={stop.priority} variant="large" />
+    </div>
     <div className="ml-2 flex grow flex-col">
       <a
         className="font-bold"

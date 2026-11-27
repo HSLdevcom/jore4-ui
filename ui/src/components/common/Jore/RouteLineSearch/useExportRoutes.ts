@@ -121,6 +121,8 @@ export function useExportRoutes() {
   // TODO: this will be reworked to not be dependant on search criteria
   const canExport = priorities?.length === 1;
 
+  // TODO: check that the Hastus export supports the new temporary priority
+  // levels (Temporary1, Temporary2) and how they should be exported.
   const exportRoutesToHastus = async (routeLabels: ReadonlyArray<string>) => {
     try {
       setIsLoading(true);

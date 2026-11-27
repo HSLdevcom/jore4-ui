@@ -1,7 +1,11 @@
 import { gql, skipToken } from '@apollo/client';
 import { useMemo } from 'react';
 import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../../generated/graphql';
-import { Priority } from '../../../../../../types/enums';
+import {
+  Priority,
+  isTemporaryPriority,
+  temporaryPriorities,
+} from '../../../../../../types/enums';
 import { today as getToday } from '../../../../../../utils/time';
 import { StopSearchRow } from '../../types';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
@@ -37,7 +41,7 @@ const GQL_DOES_STOP_HAVE_NEXT_VALID_ALTERNATIVE = gql`
   }
 `;
 
-const validPriorities = [Priority.Standard, Priority.Temporary];
+const validPriorities = [Priority.Standard, ...temporaryPriorities];
 
 export function useStopPriorityVisualizationType({
   publicCode,
@@ -63,15 +67,16 @@ export function useStopPriorityVisualizationType({
     return PriorityVisualizationType.ABOUT_TO_END;
   }
 
+  if (isTemporaryPriority(priority)) {
+    return PriorityVisualizationType.TEMPORARY;
+  }
+
   switch (priority) {
     case Priority.Standard:
       return PriorityVisualizationType.STANDARD;
 
     case Priority.Draft:
       return PriorityVisualizationType.DRAFT;
-
-    case Priority.Temporary:
-      return PriorityVisualizationType.TEMPORARY;
 
     default:
       return PriorityVisualizationType.UNKNOWN;

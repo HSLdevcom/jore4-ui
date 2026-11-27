@@ -1053,6 +1053,8 @@
     "labelAndPriority": "Priority: {{priority}}",
     "standard": "Standard",
     "temporary": "Temporary",
+    "temporary1": "Exception 1",
+    "temporary2": "Exception 2",
     "draft": "Draft",
     "substitute": "Substitute",
     "special": "Special",

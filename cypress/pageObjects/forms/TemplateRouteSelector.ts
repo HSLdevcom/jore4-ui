@@ -7,23 +7,10 @@ export interface TemplateRouteSelectorInfo {
 }
 
 export class TemplateRouteSelector {
-  static setPriority = (priority: Priority) => {
-    cy.getByTestId('TemplateRouteSelector::container').within(() => {
-      switch (priority) {
-        case Priority.Draft:
-          PriorityForm.setAsDraft();
-          break;
-        case Priority.Temporary:
-          PriorityForm.setAsTemporary();
-          break;
-        case Priority.Standard:
-          PriorityForm.setAsStandard();
-          break;
-        default:
-          throw new Error(`Unknown priority "${priority}"`);
-      }
-    });
-  };
+  static setPriority = (priority: Priority) =>
+    cy
+      .getByTestId('TemplateRouteSelector::container')
+      .within(() => PriorityForm.setPriority(priority));
 
   static getChooseRouteDropdown() {
     return cy.getByTestId('TemplateRouteSelector::chooseRouteDropdown');

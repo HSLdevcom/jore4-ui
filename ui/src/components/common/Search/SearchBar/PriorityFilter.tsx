@@ -1,17 +1,24 @@
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import without from 'lodash/without';
 import { ReactElement } from 'react';
 import { FieldValues, Path, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import { TranslationKey } from '../../../../i18n';
-import { Priority, knownPriorityValues } from '../../../../types/enums';
+import { Priority, temporaryPriorities } from '../../../../types/enums';
 import { mapPriorityToUiName } from '../../../../utils/i18n';
+import { splitDropdownStyles } from '../../Dropdowns';
 import { InputLabel, LabeledCheckbox } from '../../Inputs';
 import { Column, Row } from '../../LayoutComponents';
+import { temporaryLevelBadges } from '../../PrioritySymbol';
 
 const testIds = {
   priorityCheckbox: (prefix: string, priority: Priority) =>
     `${prefix}::priority::${Priority[priority]}`,
+  temporaryDropdown: (prefix: string) => `${prefix}::temporaryPriorityDropdown`,
 };
+
+const temporaryLevels = without(temporaryPriorities, Priority.Temporary);
 
 type PriorityFilterProps<FormState extends FieldValues> = {
   readonly fieldPath: Path<FormState>;
@@ -44,6 +51,25 @@ export const PriorityFilter = <FormState extends FieldValues>({
     }
   };
 
+  const isDisabled = !!controllerDisabled || disabled;
+  const selectedLevelCount = temporaryLevels.filter((priority) =>
+    value.includes(priority),
+  ).length;
+
+  const renderCheckbox = (priority: Priority, checkboxClassName: string) => (
+    <LabeledCheckbox
+      key={priority}
+      className={checkboxClassName}
+      label={mapPriorityToUiName(t, priority)}
+      onBlur={onBlur}
+      onClick={togglePriority(priority)}
+      disabled={isDisabled}
+      selected={value.includes(priority)}
+      testId={testIds.priorityCheckbox(testIdPrefix, priority)}
+      ref={priority === Priority.Standard ? ref : undefined}
+    />
+  );
+
   return (
     <Column className={className}>
       <InputLabel
@@ -51,19 +77,34 @@ export const PriorityFilter = <FormState extends FieldValues>({
         translationPrefix={translationPrefix}
       />
       <Row className="gap-2">
-        {knownPriorityValues.map((priority) => (
-          <LabeledCheckbox
-            key={priority}
-            className="h-(--input-height)"
-            label={mapPriorityToUiName(t, priority)}
-            onBlur={onBlur}
-            onClick={togglePriority(priority)}
-            disabled={!!controllerDisabled || disabled}
-            selected={value.includes(priority)}
-            testId={testIds.priorityCheckbox(testIdPrefix, priority)}
-            ref={ref}
-          />
-        ))}
+        {renderCheckbox(Priority.Standard, 'h-(--input-height)')}
+        <Popover className="relative flex">
+          {renderCheckbox(
+            Priority.Temporary,
+            'h-(--input-height) rounded-r-none border-r-0',
+          )}
+          <PopoverButton
+            disabled={isDisabled}
+            className={splitDropdownStyles.button(selectedLevelCount > 0)}
+            data-testid={`${testIds.temporaryDropdown(testIdPrefix)}::button`}
+            aria-label={mapPriorityToUiName(t, Priority.Temporary)}
+          >
+            {selectedLevelCount > 0 && <span>{selectedLevelCount}</span>}
+            <i aria-hidden className="icon-arrow text-[10px]" />
+          </PopoverButton>
+          <PopoverPanel
+            className={splitDropdownStyles.options}
+            data-testid={`${testIds.temporaryDropdown(testIdPrefix)}::options`}
+          >
+            {temporaryLevels.map((level) =>
+              renderCheckbox(
+                level,
+                twJoin('text-tweaked-brand', temporaryLevelBadges[level]?.bg),
+              ),
+            )}
+          </PopoverPanel>
+        </Popover>
+        {renderCheckbox(Priority.Draft, 'h-(--input-height)')}
       </Row>
     </Column>
   );

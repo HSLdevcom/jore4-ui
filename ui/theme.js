@@ -22,6 +22,8 @@ const theme = {
       hslTramGreen: '#BFE5D7',
       hslWarningSurface: '#FFF8E8',
       hslButtonSelected: '#003456',
+      temporary1: '#FDD2C6',
+      temporary2: '#F1E8F2',
     },
     border: {
       hslBlue: '#B1D6EE',

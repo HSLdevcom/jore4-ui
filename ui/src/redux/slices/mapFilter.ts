@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Priority } from '../../types/enums';
+import { Priority, temporaryPriorities } from '../../types/enums';
 
 export enum MapEntityType {
   Stop = 'show-stops',
@@ -22,6 +22,21 @@ export enum FilterType {
   ShowAllBusStops = 'show-all-bus-stops',
   ShowAllTramStops = 'show-all-tram-stops',
 }
+
+export type PriorityFilterType =
+  FilterType.ShowStandard | FilterType.ShowTemporary | FilterType.ShowDraft;
+
+export const priorityFilters: Readonly<
+  Record<PriorityFilterType, ReadonlyArray<Priority>>
+> = {
+  [FilterType.ShowStandard]: [Priority.Standard],
+  [FilterType.ShowTemporary]: temporaryPriorities,
+  [FilterType.ShowDraft]: [Priority.Draft],
+};
+
+export const priorityFilterTypes = Object.keys(
+  priorityFilters,
+) as ReadonlyArray<PriorityFilterType>;
 
 export type ShownMapEntityTypes = {
   [key in MapEntityType]: boolean;
@@ -91,9 +106,12 @@ const slice = createSlice({
         [FilterType.ShowCurrent]: true,
         [FilterType.ShowFuture]: false,
         [FilterType.ShowPast]: false,
-        [FilterType.ShowStandard]: priorities.includes(Priority.Standard),
-        [FilterType.ShowTemporary]: priorities.includes(Priority.Temporary),
-        [FilterType.ShowDraft]: priorities.includes(Priority.Draft),
+        ...Object.fromEntries(
+          priorityFilterTypes.map((type) => [
+            type,
+            priorityFilters[type].some((p) => priorities.includes(p)),
+          ]),
+        ),
       });
     },
     setTimeAndPriorityFilter: (

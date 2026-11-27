@@ -116,6 +116,8 @@ function genTranslationMapper<
 export const mapPriorityToUiName = genTranslationMapper<Priority>({
   [Priority.Standard]: (t) => t(($) => $.priority.standard),
   [Priority.Temporary]: (t) => t(($) => $.priority.temporary),
+  [Priority.Temporary1]: (t) => t(($) => $.priority.temporary1),
+  [Priority.Temporary2]: (t) => t(($) => $.priority.temporary2),
   [Priority.Draft]: (t) => t(($) => $.priority.draft),
 });
 

@@ -4,7 +4,7 @@ import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
 } from '../../../../generated/graphql';
-import { Priority } from '../../../../types/enums';
+import { Priority, temporaryPriorities } from '../../../../types/enums';
 import {
   JoreStopRegistryTransportModeType,
   StopOwner,
@@ -71,7 +71,7 @@ export const defaultFilters: StopSearchFilters = {
   observationDate: today(),
   elyNumber: '',
   municipalities: [AllOptionEnum.All],
-  priorities: [Priority.Standard, Priority.Temporary],
+  priorities: [Priority.Standard, ...temporaryPriorities],
   transportationMode: [AllOptionEnum.All],
   stopState: [AllOptionEnum.All],
   shelter: [AllOptionEnum.All],

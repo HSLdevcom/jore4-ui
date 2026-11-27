@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { Priority } from '../../../../types/enums';
+import { Priority, isTemporaryPriority } from '../../../../types/enums';
 import {
   makeBackNavigationIsSafeState,
   useRequiredParams,
 } from '../../../../utils';
+import { mapPriorityToUiName } from '../../../../utils/i18n';
 import {
   mapToShortDate,
   mapToShortDateTime,
@@ -16,6 +17,7 @@ import {
 import { navigationBlockerContext } from '../../../common/Forms/NavigationBlocker';
 import { Container, Visible } from '../../../common/LayoutComponents';
 import { LoadingWrapper } from '../../../common/Loaders';
+import { PrioritySymbol } from '../../../common/PrioritySymbol';
 import {
   HistoricalStopDataProvider,
   LatestStopChangeHistoryTable,
@@ -88,10 +90,11 @@ export const StopDetailsPage: FC = () => {
             data-testid={testIds.validityPeriod}
             className="flex items-center"
           >
-            {stopDetails?.priority === Priority.Temporary && (
-              <i
-                className="icon-temporary mr-1 text-xl text-city-bicycle-yellow"
-                title={t(($) => $.priority.temporary)}
+            {stopDetails && isTemporaryPriority(stopDetails.priority) && (
+              <PrioritySymbol
+                priority={stopDetails.priority}
+                className="mr-1"
+                title={mapPriorityToUiName(t, stopDetails.priority)}
               />
             )}
             {isDraft && (

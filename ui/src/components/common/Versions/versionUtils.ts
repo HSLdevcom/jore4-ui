@@ -1,4 +1,4 @@
-import { Priority } from '../../../types/enums';
+import { Priority, isTemporaryPriority } from '../../../types/enums';
 import { numberEnumValues } from '../../../utils';
 import { VersionStatus } from './VersionStatus';
 
@@ -14,12 +14,10 @@ export function parsePriority(
 }
 
 export function mapPriorityToVersionStatus(priority: Priority): VersionStatus {
-  switch (priority) {
-    case Priority.Draft:
-      return VersionStatus.DRAFT;
-    case Priority.Temporary:
-      return VersionStatus.TEMPORARY;
-    default:
-      return VersionStatus.STANDARD;
+  if (priority === Priority.Draft) {
+    return VersionStatus.DRAFT;
   }
+  return isTemporaryPriority(priority)
+    ? VersionStatus.TEMPORARY
+    : VersionStatus.STANDARD;
 }

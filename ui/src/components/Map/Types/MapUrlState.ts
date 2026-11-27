@@ -1,5 +1,5 @@
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../../redux';
-import { Priority } from '../../../types/enums';
+import { Priority, temporaryPriorities } from '../../../types/enums';
 import { ResultSelection } from '../../common/Search/ResultSelection';
 import { StopSearchFilters } from '../../StopRegistry/Search/Common';
 
@@ -28,7 +28,7 @@ export const defaultDisplayedRouteParams: DisplayedRouteParams = {
   lineLabel: null,
   routeId: null,
   routeLabels: [],
-  routePriorities: [Priority.Standard, Priority.Temporary],
+  routePriorities: [Priority.Standard, ...temporaryPriorities],
   showSelectedDaySituation: true,
 };
 

@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RiDraftLine } from 'react-icons/ri';
 import { Maybe } from '../../generated/graphql';
 import { Priority } from '../../types/enums';
 import { mapToValidityPeriod } from '../../utils';
 import { mapPriorityToUiName } from '../../utils/i18n';
+import { PrioritySymbol } from '../common/PrioritySymbol';
 
 type PriorityBadgeProps = {
   readonly priority: Priority;
@@ -25,19 +25,5 @@ export const PriorityBadge: FC<PriorityBadgeProps> = ({
     validityEnd,
   )}`;
 
-  switch (priority) {
-    case Priority.Temporary:
-      return (
-        <i
-          className="icon-temporary text-lg text-city-bicycle-yellow"
-          title={title}
-        />
-      );
-    case Priority.Draft:
-      return (
-        <RiDraftLine className="inline text-xl text-dark-grey" title={title} />
-      );
-    default:
-      return null;
-  }
+  return <PrioritySymbol priority={priority} title={title} />;
 };

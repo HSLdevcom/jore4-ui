@@ -65,6 +65,23 @@ export const listboxStyles = {
   options: dropdownSelectionOptionsStyles,
 } as const;
 
+/** Arrow button and panel attached to the right side of an input. */
+export const splitDropdownStyles = {
+  button: (hasSelection: boolean, ...classLists: ClassLists) =>
+    listboxButtonStyles(
+      'w-9 shrink-0 justify-center gap-1 rounded-l-none border-l-0 px-2 py-0',
+      // Override the rounding transitions of listboxButtonStyles
+      'ui-open:rounded-l-none ui-not-open:rounded-l-none',
+      hasSelection
+        ? 'border-tweaked-brand bg-tweaked-brand text-white'
+        : 'text-tweaked-brand',
+      ...classLists,
+    ),
+  options: dropdownSelectionOptionsStyles(
+    'absolute top-full left-0 min-w-full gap-1 rounded-b-md shadow-md',
+  ),
+} as const;
+
 function multiselectListboxOptionStyles(...classLists: ClassLists) {
   return dropdownSelectionOptionStyles(
     'ui-active:[&_svg]:border-white ui-not-selected:[&_svg]:text-transparent',

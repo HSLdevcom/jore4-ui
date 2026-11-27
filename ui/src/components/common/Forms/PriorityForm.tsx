@@ -1,41 +1,17 @@
-import { SelectorParam } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { Priority } from '../../../types/enums';
+import { mapPriorityToUiName } from '../../../utils/i18n';
 import { LabeledRadioButton, ValidationErrorList } from '../Inputs';
 import { Column, Row } from '../LayoutComponents';
 import { PriorityFormState } from './PriorityForm.schema';
 
 const testIds = {
-  priorityButton: (testIdPrefix: string) =>
-    `PriorityForm::${testIdPrefix}PriorityButton`,
+  priorityButton: (priority: Priority) =>
+    `PriorityForm::${Priority[priority].toLowerCase()}PriorityButton`,
 };
-
-type PriorityButtonProps = {
-  readonly priority: Priority;
-  readonly testIdPrefix: string;
-  readonly translationKey: SelectorParam;
-};
-
-const defaultPriorities: ReadonlyArray<PriorityButtonProps> = [
-  {
-    priority: Priority.Standard,
-    testIdPrefix: 'standard',
-    translationKey: ($) => $.priority.standard,
-  },
-  {
-    priority: Priority.Temporary,
-    testIdPrefix: 'temporary',
-    translationKey: ($) => $.priority.temporary,
-  },
-  {
-    priority: Priority.Draft,
-    testIdPrefix: 'draft',
-    translationKey: ($) => $.priority.draft,
-  },
-];
 
 type PriorityFormProps = {
   readonly hiddenPriorities?: ReadonlyArray<Priority>;
@@ -47,7 +23,7 @@ type PriorityFormProps = {
  * Can be merged with other forms.
  */
 export const PriorityForm: FC<PriorityFormProps> = ({
-  hiddenPriorities,
+  hiddenPriorities = [],
   priorityButtonClassName,
 }) => {
   const { t } = useTranslation();
@@ -66,9 +42,23 @@ export const PriorityForm: FC<PriorityFormProps> = ({
       shouldTouch: true, // Set field touched bit: true
     });
 
-  const displayedPriorities = defaultPriorities.filter(
-    (priority) => !hiddenPriorities?.includes(priority.priority),
-  );
+  const renderRadios = (priorities: ReadonlyArray<Priority>) =>
+    priorities.map((priority) => (
+      <LabeledRadioButton
+        key={priority}
+        className={twJoin('grow', priorityButtonClassName)}
+        id={`priority.${Priority[priority].toLowerCase()}`}
+        fieldPath="priority"
+        value={priority}
+        label={mapPriorityToUiName(t, priority)}
+        onClick={() => setPriority(priority)}
+        selected={selectedPriority === priority}
+        hasError={!!errors.priority}
+        testId={testIds.priorityButton(priority)}
+      />
+    ));
+
+  const showTemporary = !hiddenPriorities.includes(Priority.Temporary);
 
   return (
     <Column>
@@ -78,23 +68,17 @@ export const PriorityForm: FC<PriorityFormProps> = ({
           <span className="ml-1 text-dark-grey">*</span>
         </legend>
         <Row className="flex-wrap gap-2">
-          {displayedPriorities.map(
-            ({ priority, testIdPrefix, translationKey }) => (
-              <LabeledRadioButton
-                className={twJoin('grow', priorityButtonClassName)}
-                id={`priority.${testIdPrefix}`}
-                fieldPath="priority"
-                value={priority}
-                key={testIdPrefix}
-                label={t(translationKey)}
-                onClick={() => setPriority(priority)}
-                selected={selectedPriority === priority}
-                hasError={!!errors.priority}
-                testId={testIds.priorityButton(testIdPrefix)}
-              />
+          {renderRadios(
+            [Priority.Standard, Priority.Temporary, Priority.Draft].filter(
+              (priority) => !hiddenPriorities.includes(priority),
             ),
           )}
         </Row>
+        {showTemporary && (
+          <Row className="mt-2 flex-wrap gap-2">
+            {renderRadios([Priority.Temporary1, Priority.Temporary2])}
+          </Row>
+        )}
         <ValidationErrorList fieldPath="priority" />
       </fieldset>
     </Column>

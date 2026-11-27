@@ -70,6 +70,8 @@ function usePriorityMap(): Partial<Readonly<Record<Priority, string>>> {
     () => ({
       [Priority.Draft]: t(($) => $.priority.draft),
       [Priority.Temporary]: t(($) => $.priority.temporary),
+      [Priority.Temporary1]: t(($) => $.priority.temporary1),
+      [Priority.Temporary2]: t(($) => $.priority.temporary2),
     }),
     [t],
   );

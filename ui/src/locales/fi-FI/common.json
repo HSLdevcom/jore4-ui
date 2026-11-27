@@ -1053,6 +1053,8 @@
     "labelAndPriority": "Prioriteetti: {{priority}}",
     "standard": "Perusversio",
     "temporary": "Väliaikainen",
+    "temporary1": "Poikkeus 1",
+    "temporary2": "Poikkeus 2",
     "draft": "Luonnos",
     "substitute": "Korvauspäivä",
     "special": "Erityispäivä",

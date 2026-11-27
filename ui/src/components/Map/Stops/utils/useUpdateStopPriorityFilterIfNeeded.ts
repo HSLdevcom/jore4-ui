@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import {
   FilterType,
+  priorityFilterTypes,
+  priorityFilters,
   selectMapFilter,
   setTimeAndPriorityFilterAction,
   useAppDispatch,
@@ -10,15 +12,11 @@ import { Priority } from '../../../../types/enums';
 import { showWarningToast } from '../../../../utils';
 
 function mapPriorityToFilterType(priority: Priority): FilterType {
-  switch (priority) {
-    case Priority.Standard:
-      return FilterType.ShowStandard;
-    case Priority.Temporary:
-      return FilterType.ShowTemporary;
-    case Priority.Draft:
-    default:
-      return FilterType.ShowDraft;
-  }
+  return (
+    priorityFilterTypes.find((type) =>
+      priorityFilters[type].includes(priority),
+    ) ?? FilterType.ShowDraft
+  );
 }
 
 export function useUpdateStopPriorityFilterIfNeeded() {
