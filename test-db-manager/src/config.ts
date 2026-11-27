@@ -34,26 +34,14 @@ function getTestDbHost() {
   return testDbHost.local;
 }
 
-export const e2eDatabaseConfig: DatabaseConnectionInfo = {
+// Hasura and Tiamat use the jore4main database for the network, timetables
+// and stop registry data (schemas network, timetables and stopregistry).
+// POSTGRES_DB is ignored, because the docker compose bundle's Cypress service
+// still sets it to the legacy jore4e2e database.
+export const jore4MainDatabaseConfig: DatabaseConnectionInfo = {
   host: getTestDbHost(),
   port: getTestDbPort(),
   user: process.env.POSTGRES_USER ?? 'dbadmin',
   password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
-  database: process.env.POSTGRES_DB ?? 'jore4e2e',
-};
-
-export const timetablesDatabaseConfig: DatabaseConnectionInfo = {
-  host: getTestDbHost(),
-  port: getTestDbPort(),
-  user: process.env.POSTGRES_USER ?? 'dbadmin',
-  password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
-  database: 'timetablesdb',
-};
-
-export const stopsDatabaseConfig: DatabaseConnectionInfo = {
-  host: getTestDbHost(),
-  port: getTestDbPort(),
-  user: process.env.POSTGRES_USER ?? 'dbadmin',
-  password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
-  database: 'stopdb',
+  database: 'jore4main',
 };

@@ -76,10 +76,12 @@ jobs:
     needs:
       - publish_ui_docker_image_to_acr
       - publish_cypress_docker_image_to_acr
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-run-e2e.yml@main
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-run-e2e.yml@use-main-db
     with:
       ui_version: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
       cypress_version: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
+      tiamat_version: 'crjore4prod001.azurecr.io/jore4-tiamat:use-main-database-2026-11-27-c117686a63aff7c1b65b38fa594cf510bae611de'
+      hasura_version: 'crjore4prod001.azurecr.io/jore4-hsl-hasura:main-metadata-2026-11-27-05906388de3392944b0682b0eb322433dab20280'
       update_e2e_test_durations: ${{ github.ref == 'refs/heads/main' }}
       test-tags: ''
     secrets:

@@ -16,16 +16,16 @@ export async function resetRoutesAndLinesDb(db: Knex) {
 
   // list of tables has to be manually updated if schema changes
   const tableNames = [
-    '"journey_pattern"."journey_pattern"',
-    '"journey_pattern"."scheduled_stop_point_in_journey_pattern"',
-    '"service_pattern"."vehicle_mode_on_scheduled_stop_point"',
-    '"route"."infrastructure_link_along_route"',
-    '"route"."line"',
-    '"route"."line_change_history"',
-    '"route"."route"',
-    '"service_pattern"."scheduled_stop_point"',
-    '"service_pattern"."scheduled_stop_point_invariant"',
-    '"timing_pattern"."timing_place"',
+    '"network"."journey_pattern"',
+    '"network"."scheduled_stop_point_in_journey_pattern"',
+    '"network"."vehicle_mode_on_scheduled_stop_point"',
+    '"network"."infrastructure_link_along_route"',
+    '"network"."line"',
+    '"network"."line_change_history"',
+    '"network"."route"',
+    '"network"."scheduled_stop_point"',
+    '"network"."scheduled_stop_point_invariant"',
+    '"network"."timing_place"',
   ];
 
   try {

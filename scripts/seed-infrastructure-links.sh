@@ -15,7 +15,7 @@ if [ ! -f infraLinks.sql ]; then
   fi
 fi
 
-DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
+DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4main
 
 echo "$1: Seeding infrastructure links..."
 

@@ -13,13 +13,13 @@ import {
   TerminalInput,
   buildTerminalCreateInput,
   buildTerminalUpdateInput,
-  e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
   insertInfoSpots as insertStopRegistryInfoSpots,
   insertOrganisations as insertStopRegistryOrganisations,
   insertStopPlaces as insertStopRegistryStopPlaces,
   insertTerminals,
+  jore4MainDatabaseConfig,
   mapTerminalOwnersToOrganisations,
   mapToGetAllOrganisationIds,
   mapToGetAllStopAreaIds,
@@ -29,8 +29,6 @@ import {
   setInfoSpotRelations,
   setQuayOrganisations,
   setStopPlaceOrganisations,
-  stopsDatabaseConfig,
-  timetablesDatabaseConfig,
 } from '@hsl/jore4-test-db-manager';
 import {
   HslTimetablesDatasetInput,
@@ -42,9 +40,7 @@ import { ReadDownloadedCSVOptions } from './types';
 
 export { insertQuaysWithRealIds } from './insertQuaysWithRealIds';
 
-const jore4db = getDbConnection(e2eDatabaseConfig);
-const timetablesDb = getDbConnection(timetablesDatabaseConfig);
-const stopsDb = getDbConnection(stopsDatabaseConfig);
+const jore4db = getDbConnection(jore4MainDatabaseConfig);
 
 export function checkDbConnection() {
   // Example about direct access to db
@@ -213,7 +209,7 @@ export function truncateTimetablesDatabase() {
     'fixtures/truncateTimetables/truncateTimetables.sql',
     'utf8',
   );
-  return timetablesDb.raw(truncateQuery);
+  return jore4db.raw(truncateQuery);
 }
 
 export function getAllStopPlaceIds() {
@@ -233,7 +229,7 @@ function truncateStopRegistryTables() {
     'fixtures/truncateStopRegistryTables.sql',
     'utf8',
   );
-  return stopsDb.raw(truncateQuery);
+  return jore4db.raw(truncateQuery);
 }
 
 export function resetStopRegistryDb() {
@@ -258,7 +254,7 @@ export function deleteFile(filePath: string) {
 export function insertHslTimetablesDatasetToDb(
   input: HslTimetablesDatasetInput,
 ) {
-  return insertHslDataset(input, timetablesDatabaseConfig);
+  return insertHslDataset(input, jore4MainDatabaseConfig);
 }
 
 export function emptyDownloadsFolder() {
